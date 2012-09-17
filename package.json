@@ -1,0 +1,27 @@
+{
+	"name": "webpack-dev-server",
+	"version": "0.6.0",
+	"author": "Tobias Koppers @sokra",
+	"description": "Serves a webpack app. Updates the browser on changes.",
+	"dependencies": {
+		"webpack-dev-middleware": "0.6.x",
+		"webpack": "0.6.x",
+		"express": "3.0.x",
+		"socket.io": "0.9.x",
+		"optimist": "0.3.x",
+		"stream-cache": "0.0.x"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"homepage": "http://github.com/webpack/webpack-dev-server",
+	"main": "lib/Server.js",
+	"bin": "bin/webpack-dev-server.js",
+	"scripts": {
+		"postinstall": "node node_modules/webpack/bin/webpack client/live.js client/live.bundle.js --colors"
+	},
+	"license": "MIT"
+}

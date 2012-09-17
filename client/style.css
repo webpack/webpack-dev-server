@@ -1,0 +1,41 @@
+body, html {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	background: darkblue;
+}
+
+.header {
+	width: 100%;
+	height: 20px;
+	font-size: 12px;
+	font-family: monospace;
+	color: white;
+	font-weight: bold;
+	padding: 0px;
+	overflow: hidden;
+}
+
+#iframe {
+	width: 100%;
+	height: -webkit-calc(100% - 30px);
+	height: -moz-calc(100% - 30px);
+	height: -ms-calc(100% - 30px);
+	height: -o-calc(100% - 30px);
+	height: calc(100% - 30px);
+	border: 0px;
+	background: white;
+}
+
+#errors {
+	width: 100%;
+	background: #A00;
+	color: white;
+	font-weight: bold;
+	font-family: monospace;
+}
+
+#okness {
+	background: yellow;
+	color: black;
+}
