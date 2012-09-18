@@ -23,7 +23,9 @@ webpack-dev-server <webpack entry point>
 
 Options:
   --content-page  A html page to load  [string]
+  --content-url   A url to load        [string]
   --options       webpack options      [string]
+  --port          The port             [number]
 ```
 
 ## Usage (javascript)
@@ -32,6 +34,7 @@ Options:
 var Server = require("webpack-dev-server");
 var options = {
 	content: absoluteFilenameToContentHtmlPage, // it will default to a simple page
+	contentUrl: "http://...", // it will default to undefined
 	webpack: {
 		// webpack options
 		// ...
