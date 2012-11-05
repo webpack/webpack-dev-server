@@ -9,7 +9,7 @@ webpack-dev-server app.js
 The app should display "It's working" with a dotted background.
 
 ``` text
-webpack-dev-server app.js --content-page example\index.html
+webpack-dev-server app.js --content-page index.html
 ```
 
 The app should display "It's working" with a green background.
