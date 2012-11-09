@@ -33,8 +33,18 @@ Options:
 ``` javascript
 var Server = require("webpack-dev-server");
 var options = {
-	content: absoluteFilenameToContentHtmlPage, // it will default to a simple page
-	contentUrl: "http://...", // it will default to undefined
+	content: absoluteFilenameToContentHtmlPage,
+	// Content page to display
+	// it will default to a simple page
+
+	contentUrl: "http://...",
+	// if set it will load this URL as content page
+	// it will default to undefined
+
+	middleware: {
+		// webpack-dev-middleware options
+	},
+
 	webpack: {
 		// webpack options
 		// ...

@@ -23,13 +23,13 @@ $(function() {
 
 	io.on("ok", function() {
 		okness.text("");
-		$errors.hide(); iframe.show();
+		$errors.hide();
 		reloadApp();
 	});
 
 	io.on("warnings", function(warnings) {
 		okness.text("Warnings while compiling.");
-		$errors.hide(); iframe.show();
+		$errors.hide();
 		reloadApp();
 	});
 
@@ -41,15 +41,30 @@ $(function() {
 		$errors.show(); iframe.hide();
 	});
 
+	io.on("disconnect", function() {
+		status.text("");
+		okness.text("Disconnected.");
+		$errors.text("\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n");
+		body.css({background: ""});
+		$errors.show(); iframe.hide();
+	});
+
 	iframe.load(function() {
 		status.text("App ready.");
 		body.css({background: ""});
+		iframe.show();
 	});
 
 	function reloadApp() {
 		status.text("App updated. Reloading app...");
 		body.css({background: "red"});
-		iframe.attr("src", "/content.html");
+		try {
+			var old = $("#iframe")[0].contentWindow.location + "";
+			if(old.indexOf("about") == 0) old = null;
+			iframe.attr("src", old || "/content.html");
+		} catch(e) {
+			iframe.attr("src", "/content.html");
+		}
 	}
 
 });
