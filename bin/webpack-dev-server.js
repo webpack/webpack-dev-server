@@ -35,4 +35,6 @@ if(argv["content-url"])
 if(argv.options)
 	options.webpack = require(path.resolve(argv.options));
 
-new Server(path.resolve(argv._[0]), options).listen(argv.port);
+var arg = argv._[0].split("!");
+arg.push(path.resolve(arg.pop()));
+new Server(arg.join("!"), options).listen(argv.port);
