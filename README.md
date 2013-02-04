@@ -10,7 +10,7 @@ It's a little server using [webpack-dev-middleware](/webpack/webpack-dev-middlew
 
 It also uses socket.io to update the browser if the bundle has changed (and to display compilation errors).
 
-You need to pass a web app entry point, and you can also pass a html page to display and webpack options.
+You need to pass webpack's options, and you can also pass a html page to display and webpack options.
 
 ## Inspiration
 
@@ -18,15 +18,7 @@ This project is heavily inspirated by [peerigon/nof5](/peerigon/nof5).
 
 ## Usage (command line)
 
-``` text
-webpack-dev-server <webpack entry point>
-
-Options:
-  --content-page  A html page to load  [string]
-  --content-url   A url to load        [string]
-  --options       webpack options      [string]
-  --port          The port             [number]
-```
+Like webpack, but you omit the output filename.
 
 ## Usage (javascript)
 
@@ -41,34 +33,28 @@ var options = {
 	// if set it will load this URL as content page
 	// it will default to undefined
 
-	middleware: {
-		// webpack-dev-middleware options
-	},
+	// webpack-dev-middleware options
+	// you can use all options of the middleware
 
 	webpack: {
 		// webpack options
 		// ...
-		watch: true // recommended
 
-		/* defaults:
-		output: "bundle.js",
-		debug: true,
-		filenames: true,
-		watch: true
-		*/
+		output: {
+			filename: "bundle.js"
+			// use "bundle.js" as filename if you don't provide a own content page
+		}
 	}
 };
-new Server(entryPoint, options).listen(port[, host]);
+new Server(webpack(/*...*/), options).listen(port[, host]);
 ```
-
-entryPoint should be an absolute path. It may be prefixed with loaders.
 
 ## Contributing
 
-The client scripts are build with `npm run-script postinstall`.
+The client scripts are build with `npm run-script prepublish`.
 
 ## Lisence
 
-Copyright 2012 Tobias Koppers
+Copyright 2012-2013 Tobias Koppers
 
 [MIT](http://www.opensource.org/licenses/mit-license.php)
