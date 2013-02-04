@@ -6,6 +6,9 @@
 	"dependencies": {
 		"webpack-dev-middleware": "0.9.x",
 		"webpack": "0.9.x",
+		"css-loader": "0.5.x",
+		"style-loader": "0.5.x",
+		"jade-loader": "0.5.x",
 		"express": "3.1.x",
 		"socket.io": "0.9.x",
 		"optimist": "0.3.x",
@@ -21,6 +24,6 @@
 	"main": "lib/Server.js",
 	"bin": "bin/webpack-dev-server.js",
 	"scripts": {
-		"prepublish": "webpack ./client/live.js client/live.bundle.js --colors"
+		"prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js"
 	}
 }
