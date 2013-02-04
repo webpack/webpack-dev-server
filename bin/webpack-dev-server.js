@@ -2,29 +2,36 @@
 
 var path = require("path");
 var Server = require("../lib/Server");
+var webpack = require("webpack");
 
-var argv = require("optimist")
+var optimist = require("optimist")
 
 	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-			"webpack-dev-server <webpack entry point>")
+			"Usage: https://github.com/webpack/docs/wiki/webpack-detailed-usage")
 
-	.string("content-page")
-	.describe("content-page", "A html page to load")
+	.boolean("colors").alias("colors", "c").describe("colors")
 
-	.string("content-url")
-	.describe("content-url", "A url to load")
+	.boolean("info").describe("info").default("info", true)
 
-	.string("options")
-	.describe("options", "webpack options")
+	.boolean("quiet").describe("quiet")
 
-	.describe("port", "The port")
-	.default("port", 8080)
+	.string("content-page").describe("content-page", "A html page to load")
 
-	.demand(1)
+	.string("content-url").describe("content-url", "A url to load")
 
-	.argv;
+	.describe("port", "The port").default("port", 8080);
+
+require("webpack/bin/config-optimist")(optimist);
+
+var argv = optimist.argv;
 
 var options = {};
+
+var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
+
+options.publicPath = wpOpt.output.publicPath;
+options.path = wpOpt.output.path;
+options.filename = wpOpt.output.filename;
 
 if(argv["content-page"])
 	options.content = path.resolve(argv["content-page"]);
@@ -32,9 +39,13 @@ if(argv["content-page"])
 if(argv["content-url"])
 	options.contentUrl = argv["content-url"];
 
-if(argv.options)
-	options.webpack = require(path.resolve(argv.options));
+if(argv["colors"])
+	options.stats = { colors: true };
 
-var arg = argv._[0].split("!");
-arg.push(path.resolve(arg.pop()));
-new Server(arg.join("!"), options).listen(argv.port);
+if(!argv["info"])
+	options.noInfo = true;
+
+if(argv["quiet"])
+	options.quiet = true;
+
+new Server(webpack(wpOpt), options).listen(argv.port);
