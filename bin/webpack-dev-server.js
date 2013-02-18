@@ -30,8 +30,10 @@ var options = {};
 var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
 
 options.publicPath = wpOpt.output.publicPath;
-options.path = wpOpt.output.path;
+options.outputPath = wpOpt.output.path = "/";
 options.filename = wpOpt.output.filename;
+if(options.publicPath[0] != "/")
+	options.publicPath = "/" + options.publicPath;
 
 if(argv["content-page"])
 	options.content = path.resolve(argv["content-page"]);
