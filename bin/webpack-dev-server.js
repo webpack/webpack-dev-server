@@ -29,7 +29,7 @@ var options = {};
 
 var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
 
-options.publicPath = wpOpt.output.publicPath;
+options.publicPath = wpOpt.output.publicPath || "";
 options.outputPath = wpOpt.output.path = "/";
 options.filename = wpOpt.output.filename;
 if(options.publicPath[0] != "/")
