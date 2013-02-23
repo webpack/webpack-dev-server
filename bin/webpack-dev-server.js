@@ -50,4 +50,7 @@ if(!argv["info"])
 if(argv["quiet"])
 	options.quiet = true;
 
-new Server(webpack(wpOpt), options).listen(argv.port);
+new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
+	if(err) throw err;
+	console.log("http://localhost:" + argv.port);
+});
