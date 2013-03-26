@@ -28,6 +28,6 @@
 	"main": "lib/Server.js",
 	"bin": "bin/webpack-dev-server.js",
 	"scripts": {
-		"prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js"
+		"prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p"
 	}
 }
