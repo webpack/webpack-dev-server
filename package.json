@@ -1,19 +1,22 @@
 {
 	"name": "webpack-dev-server",
-	"version": "0.9.4",
+	"version": "0.10.0",
 	"author": "Tobias Koppers @sokra",
 	"description": "Serves a webpack app. Updates the browser on changes.",
 	"dependencies": {
-		"webpack-dev-middleware": "0.9.x",
-		"webpack": "0.9.x",
-		"css-loader": "0.5.x",
-		"style-loader": "0.5.x",
-		"file-loader": "0.5.x",
-		"url-loader": "0.5.x",
+		"webpack-dev-middleware": "0.10.x",
 		"express": "3.1.x",
 		"socket.io": "0.9.x",
 		"optimist": "0.3.x",
 		"stream-cache": "0.0.x"
+	},
+	"devDependencies": {
+		"css-loader": "0.6.x",
+		"style-loader": "0.5.x",
+		"file-loader": "0.5.x",
+		"jade-loader": "0.5.x",
+		"url-loader": "0.5.x",
+		"webpack": "0.10.x"
 	},
 	"licenses": [
 		{
