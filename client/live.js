@@ -24,7 +24,7 @@ $(function() {
 		okness.text("");
 		status.text("App updated. Recompiling...");
 		body.css({background: "#088"});
-		$errors.hide(); iframe.hide();
+		$errors.hide(); if(!hot) iframe.hide();
 	});
 
 	io.on("ok", function() {
