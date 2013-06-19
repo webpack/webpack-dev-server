@@ -8,11 +8,17 @@ $(function() {
 	var okness = $("#okness");
 	var $errors = $("#errors");
 	var iframe = $("#iframe");
+	var hot = false;
 
 	status.text("Connecting to socket.io server...");
 	$errors.hide(); iframe.hide();
 	body.css({background: "#066"});
 	io = io.connect();
+
+	io.on("hot", function() {
+		hot = true;
+		iframe.attr("src", "/content.html");
+	});
 
 	io.on("invalid", function() {
 		okness.text("");
@@ -56,14 +62,25 @@ $(function() {
 	});
 
 	function reloadApp() {
-		status.text("App updated. Reloading app...");
-		body.css({background: "red"});
-		try {
-			var old = $("#iframe")[0].contentWindow.location + "";
-			if(old.indexOf("about") == 0) old = null;
-			iframe.attr("src", old || "/content.html");
-		} catch(e) {
-			iframe.attr("src", "/content.html");
+		if(hot) {
+			status.text("App hot update.");
+			body.css({background: ""});
+			try {
+				iframe[0].contentWindow.postMessage("webpackHotUpdate", "*");
+			} catch(e) {
+				console.warn(e);
+			}
+			iframe.show();
+		} else {
+			status.text("App updated. Reloading app...");
+			body.css({background: "red"});
+			try {
+				var old = iframe[0].contentWindow.location + "";
+				if(old.indexOf("about") == 0) old = null;
+				iframe.attr("src", old || "/content.html");
+			} catch(e) {
+				iframe.attr("src", "/content.html");
+			}
 		}
 	}
 
