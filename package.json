@@ -1,16 +1,16 @@
 {
 	"name": "webpack-dev-server",
-	"version": "0.11.1",
+	"version": "1.0.0",
 	"author": "Tobias Koppers @sokra",
 	"description": "Serves a webpack app. Updates the browser on changes.",
 	"peerDependencies": {
-		"webpack": ">=0.11"
+		"webpack": "1.x"
 	},
 	"dependencies": {
-		"webpack-dev-middleware": "0.11.x",
-		"express": "3.2.x",
+		"webpack-dev-middleware": "1.x",
+		"express": "3.4.x",
 		"socket.io": "0.9.x",
-		"optimist": "0.5.x",
+		"optimist": "0.6.x",
 		"stream-cache": "0.0.x"
 	},
 	"devDependencies": {
