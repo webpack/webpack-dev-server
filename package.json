@@ -1,6 +1,6 @@
 {
 	"name": "webpack-dev-server",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "Tobias Koppers @sokra",
 	"description": "Serves a webpack app. Updates the browser on changes.",
 	"peerDependencies": {
@@ -19,7 +19,7 @@
 		"file-loader": "0.5.x",
 		"jade-loader": "0.5.x",
 		"url-loader": "0.5.x",
-		"webpack": "0.11.x"
+		"webpack": "1.x"
 	},
 	"licenses": [
 		{
