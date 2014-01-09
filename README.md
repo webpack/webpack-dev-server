@@ -35,16 +35,6 @@ var options = {
 
 	// webpack-dev-middleware options
 	// you can use all options of the middleware
-
-	webpack: {
-		// webpack options
-		// ...
-
-		output: {
-			filename: "bundle.js"
-			// use "bundle.js" as filename if you don't provide a own content page
-		}
-	}
 };
 new Server(webpack(/*...*/), options).listen(port[, host]);
 ```
