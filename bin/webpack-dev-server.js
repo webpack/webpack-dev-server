@@ -15,9 +15,7 @@ var optimist = require("optimist")
 
 	.boolean("quiet").describe("quiet")
 
-	.string("content-page").describe("content-page", "A html page to load")
-
-	.string("content-url").describe("content-url", "A url to load")
+	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
 	.describe("port", "The port").default("port", 8080);
 
@@ -34,14 +32,16 @@ options.outputPath = wpOpt.output.path = "/";
 options.filename = wpOpt.output.filename;
 options.hot = wpOpt.hot;
 
-if(options.publicPath[0] != "/")
+if(options.publicPath[0] !== "/")
 	options.publicPath = "/" + options.publicPath;
 
-if(argv["content-page"])
-	options.content = path.resolve(argv["content-page"]);
-
-if(argv["content-url"])
-	options.contentUrl = argv["content-url"];
+if(argv["content-base"]) {
+	options.contentBase = argv["content-base"];
+	if(!/^(https?:)?\/\//.test(options.contentBase))
+		options.contentBase = path.resolve(options.contentBase);
+} else {
+	options.contentBase = process.cwd();
+}
 
 if(argv["colors"])
 	options.stats = { colors: true };
@@ -54,5 +54,7 @@ if(argv["quiet"])
 
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	if(err) throw err;
-	console.log("http://localhost:" + argv.port);
+	console.log("http://localhost:" + argv.port + "/");
+	console.log("webpack result is served from " + options.publicPath);
+	console.log("content is served from " + options.contentBase);
 });

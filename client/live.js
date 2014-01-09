@@ -10,6 +10,8 @@ $(function() {
 	var iframe = $("#iframe");
 	var hot = false;
 
+	var contentPage = (window.location.pathname) + "__webpack_dev_server" + window.location.search;
+
 	status.text("Connecting to socket.io server...");
 	$errors.hide(); iframe.hide();
 	body.css({background: "#066"});
@@ -17,7 +19,7 @@ $(function() {
 
 	io.on("hot", function() {
 		hot = true;
-		iframe.attr("src", "/content.html");
+		iframe.attr("src", contentPage + window.location.hash);
 	});
 
 	io.on("invalid", function() {
@@ -77,9 +79,9 @@ $(function() {
 			try {
 				var old = iframe[0].contentWindow.location + "";
 				if(old.indexOf("about") == 0) old = null;
-				iframe.attr("src", old || "/content.html");
+				iframe.attr("src", old || (contentPage + window.location.hash));
 			} catch(e) {
-				iframe.attr("src", "/content.html");
+				iframe.attr("src", contentPage + window.location.hash);
 			}
 		}
 	}

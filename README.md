@@ -20,23 +20,34 @@ This project is heavily inspirated by [peerigon/nof5](/peerigon/nof5).
 
 Like webpack, but you omit the output filename.
 
+Additional options:
+
+`--port <number>` Change the port (default: 8080)
+
+`--content-base` Serve HTML content from this directory or URL (default: current directory)
+
+`--noinfo` Less console output
+
+`--quiet` No console output
+
 ## Usage (javascript)
 
 ``` javascript
 var Server = require("webpack-dev-server");
 var options = {
-	content: absoluteFilenameToContentHtmlPage,
-	// Content page to display
-	// it will default to a simple page
+	contentBase: __dirname + "/directory",
+	// A directory, file or URL
+	// It will be served as content
 
-	contentUrl: "http://...",
-	// if set it will load this URL as content page
-	// it will default to undefined
+	hot: true,
+	// Enable special support for Hot Module Replacement
+	// Page is no longer updated, but a "webpackHotUpdate" message is send to the content
 
+	// ...
 	// webpack-dev-middleware options
 	// you can use all options of the middleware
 };
-new Server(webpack(/*...*/), options).listen(port[, host]);
+new Server(webpack(/*... webpack options ...*/), options).listen(port[, host]);
 ```
 
 ## Contributing
