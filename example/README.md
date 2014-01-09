@@ -2,7 +2,7 @@
 
 ``` text
 webpack-dev-server --colors
-http://localhost:8080/bundle
+http://localhost:8080/webpack-dev-server/bundle
 ```
 
 The app should display "It's working" with a dotted background.
@@ -11,7 +11,7 @@ There is no file named `bundle` in this directory. The dev server creates a simp
 
 ``` text
 webpack-dev-server --colors
-http://localhost:8080/index.html
+http://localhost:8080/webpack-dev-server/index.html
 ```
 
 The app should display "It's working" with a green background.
@@ -21,8 +21,8 @@ There is a file named `index.html` in this directory. This file is served as con
 
 ``` text
 webpack-dev-server --colors --config alternative.config.js
-http://localhost:8080/bundle
-http://localhost:8080/index.html
+http://localhost:8080/webpack-dev-server/bundle
+http://localhost:8080/webpack-dev-server/index.html
 ```
 
 The app should be minimized and the image is included with a Data Url.

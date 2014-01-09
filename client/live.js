@@ -10,7 +10,7 @@ $(function() {
 	var iframe = $("#iframe");
 	var hot = false;
 
-	var contentPage = (window.location.pathname) + "__webpack_dev_server" + window.location.search;
+	var contentPage = window.location.pathname.substr("/webpack-dev-server".length) + window.location.search;
 
 	status.text("Connecting to socket.io server...");
 	$errors.hide(); iframe.hide();

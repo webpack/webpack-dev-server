@@ -54,7 +54,7 @@ if(argv["quiet"])
 
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	if(err) throw err;
-	console.log("http://localhost:" + argv.port + "/");
+	console.log("http://localhost:" + argv.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
 	console.log("content is served from " + options.contentBase);
 });
