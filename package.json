@@ -15,6 +15,7 @@
 	},
 	"devDependencies": {
 		"css-loader": "0.6.x",
+		"less-loader": "0.6.x",
 		"style-loader": "0.6.x",
 		"file-loader": "0.5.x",
 		"jade-loader": "0.5.x",
