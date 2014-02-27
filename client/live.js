@@ -8,13 +8,14 @@ $(function() {
 	var okness = $("#okness");
 	var $errors = $("#errors");
 	var iframe = $("#iframe");
+	var header = $(".header");
 	var hot = false;
 
 	var contentPage = window.location.pathname.substr("/webpack-dev-server".length) + window.location.search;
 
 	status.text("Connecting to socket.io server...");
 	$errors.hide(); iframe.hide();
-	body.css({background: "#066"});
+	header.css({borderColor: "#96b5b4"});
 	io = io.connect();
 
 	io.on("hot", function() {
@@ -25,7 +26,7 @@ $(function() {
 	io.on("invalid", function() {
 		okness.text("");
 		status.text("App updated. Recompiling...");
-		body.css({background: "#088"});
+		header.css({borderColor: "#96b5b4"});
 		$errors.hide(); if(!hot) iframe.hide();
 	});
 
@@ -45,7 +46,7 @@ $(function() {
 		status.text("App updated with errors. No reload!");
 		okness.text("Errors while compiling.");
 		$errors.text("\n" + errors.join("\n\n\n") + "\n\n");
-		body.css({background: ""});
+		header.css({borderColor: "#ebcb8b"});
 		$errors.show(); iframe.hide();
 	});
 
@@ -53,20 +54,19 @@ $(function() {
 		status.text("");
 		okness.text("Disconnected.");
 		$errors.text("\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n");
-		body.css({background: ""});
+		header.css({borderColor: "#ebcb8b"});
 		$errors.show(); iframe.hide();
 	});
 
 	iframe.load(function() {
 		status.text("App ready.");
-		body.css({background: ""});
+		header.css({borderColor: ""});
 		iframe.show();
 	});
 
 	function reloadApp() {
 		if(hot) {
 			status.text("App hot update.");
-			body.css({background: ""});
 			try {
 				iframe[0].contentWindow.postMessage("webpackHotUpdate", "*");
 			} catch(e) {
@@ -75,7 +75,7 @@ $(function() {
 			iframe.show();
 		} else {
 			status.text("App updated. Reloading app...");
-			body.css({background: "red"});
+			header.css({borderColor: "#96b5b4"});
 			try {
 				var old = iframe[0].contentWindow.location + "";
 				if(old.indexOf("about") == 0) old = null;
