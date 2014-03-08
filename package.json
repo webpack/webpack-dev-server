@@ -11,7 +11,8 @@
 		"express": "3.4.x",
 		"socket.io": "0.9.x",
 		"optimist": "0.6.x",
-		"stream-cache": "0.0.x"
+		"stream-cache": "0.0.x",
+		"mime": "1.x"
 	},
 	"devDependencies": {
 		"css-loader": "0.6.x",
