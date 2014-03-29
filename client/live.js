@@ -80,6 +80,7 @@ $(function() {
 				var old = iframe[0].contentWindow.location + "";
 				if(old.indexOf("about") == 0) old = null;
 				iframe.attr("src", old || (contentPage + window.location.hash));
+				old && iframe[0].contentWindow.location.reload();
 			} catch(e) {
 				iframe.attr("src", contentPage + window.location.hash);
 			}
