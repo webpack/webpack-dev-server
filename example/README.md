@@ -27,6 +27,29 @@ http://localhost:8080/webpack-dev-server/index.html
 
 The app should be minimized and the image is included with a Data Url.
 
+## Inlined mode
+
+``` text
+webpack-dev-server --colors --config inlined.config.js
+http://localhost:8080/index.html
+```
+
+The app without a webpack-dev-server frame. Console displays status messages.
+
+The webpack-dev-server client is added to the entry point.
+
+
+``` text
+webpack-dev-server --colors
+http://localhost:8080/inlined.html
+```
+
+The app without a webpack-dev-server frame. Console displays status messages.
+
+The webpack-dev-server client is added as script tag to the html page.
+
+
+
 
 ## Reloading
 

@@ -3,7 +3,7 @@ require("./style.less");
 document.write("It's working.");
 
 // This results in a warning:
-// var r = require;
+// if(!window) require.abc();
 
 // This results in an error:
-// require("test");
+// if(!window) require("test");
