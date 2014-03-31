@@ -29,6 +29,10 @@
 			"url": "http://www.opensource.org/licenses/mit-license.php"
 		}
 	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/webpack/webpack-dev-server.git"
+	},
 	"homepage": "http://github.com/webpack/webpack-dev-server",
 	"main": "lib/Server.js",
 	"bin": "bin/webpack-dev-server.js",
