@@ -1,6 +1,6 @@
 var io = require("socket.io");
 var scriptElements = document.getElementsByTagName("script");
-io = io.connect(typeof __resourceQuery === "string" ?
+io = io.connect(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery :
 	scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "")
 );
