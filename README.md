@@ -30,6 +30,13 @@ Additional options:
 
 `--quiet` No console output
 
+**Reverse Proxy:**
+If you want to use the reverse proxy, please provide both parameters `--proxy-from` and `--proxy-target`
+
+`--proxy-from relativePath` From where the content should be forwarded. Ex. /api/
+
+`--proxy-to target` Full URL for the target of the proxy. Ex. http://localhost:3000
+
 ## Usage (javascript)
 
 ``` javascript
