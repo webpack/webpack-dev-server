@@ -70,5 +70,7 @@ new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	console.log("content is served from " + options.contentBase);
 	if (options.reverseProxy) {
 		console.log("reverse proxy forwards content from " + options.reverseProxy.from + " to " + options.reverseProxy.target);
+	} else if (argv["proxy-from"] || argv["proxy-target"]) {
+		console.log("WARNING: please provide both \"proxy-from\" and \"proxy-target\"");
 	}
 });
