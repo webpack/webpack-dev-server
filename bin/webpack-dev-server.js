@@ -17,6 +17,10 @@ var optimist = require("optimist")
 
 	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
+	.string("proxy-from").describe("proxy-from", "A relative path from where you want to use the reverse proxy. Ex. /api/. You need also to provide proxy-to.")
+
+	.string("proxy-to").describe("proxy-to", "The full path of the proxy target. Ex. http://localhost:3000. You need also to provide proxy-from")
+
 	.describe("port", "The port").default("port", 8080);
 
 require("webpack/bin/config-optimist")(optimist);
@@ -43,6 +47,13 @@ if(argv["content-base"]) {
 	options.contentBase = process.cwd();
 }
 
+if(argv["proxy-from"] && argv["proxy-to"]) {
+	options.reverseProxy = {
+		from: argv["proxy-from"],
+		to: argv["proxy-to"]
+	};
+}
+
 if(argv["colors"])
 	options.stats = { colors: true };
 
@@ -57,4 +68,7 @@ new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	console.log("http://localhost:" + argv.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
 	console.log("content is served from " + options.contentBase);
+	if (options.reverseProxy) {
+		console.log("reverse proxy forwards content from " + options.reverseProxy.from + " to " + options.reverseProxy.to);
+	}
 });
