@@ -9,6 +9,7 @@ var hot = false;
 var initial = true;
 
 io.on("hot", function() {
+	hot = true;
 	console.log("webpack-dev-server: Hot Module Replacement enabled.");
 });
 
