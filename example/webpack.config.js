@@ -4,7 +4,7 @@ module.exports = {
 	module: {
 		loaders: [
 			{ test: /\.less$/, loader: "style!css!less" },
-			{ test: /\.png$/, loader: "file" }
+			{ test: /\.png$/, loader: "file?prefix=img/" }
 		]
 	}
 }

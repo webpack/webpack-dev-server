@@ -7,21 +7,21 @@
 		"webpack": "1.x"
 	},
 	"dependencies": {
-		"webpack-dev-middleware": "1.x",
-		"express": "3.4.x",
-		"socket.io": "0.9.x",
-		"optimist": "0.6.x",
-		"stream-cache": "0.0.x",
-		"mime": "1.x"
+		"webpack-dev-middleware": "^1.0.6",
+		"express": "^4.3.2",
+		"socket.io": "^0.9.17",
+		"optimist": "~0.6.0",
+		"stream-cache": "~0.0.1",
+		"serve-index": "^1.0.3"
 	},
 	"devDependencies": {
-		"css-loader": "0.6.x",
-		"less-loader": "0.6.x",
-		"style-loader": "0.6.x",
-		"file-loader": "0.5.x",
-		"jade-loader": "0.5.x",
-		"url-loader": "0.5.x",
-		"webpack": "1.x"
+		"css-loader": "~0.6.12",
+		"less-loader": "~0.7.5",
+		"style-loader": "~0.6.3",
+		"file-loader": "~0.5.1",
+		"jade-loader": "~0.6.1",
+		"url-loader": "~0.5.5",
+		"webpack": "^1.1.0"
 	},
 	"licenses": [
 		{
