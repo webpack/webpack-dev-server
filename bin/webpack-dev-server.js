@@ -38,7 +38,7 @@ var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename
 options.publicPath = wpOpt.output.publicPath || "";
 options.outputPath = wpOpt.output.path = "/";
 options.filename = wpOpt.output.filename;
-options.hot = wpOpt.hot;
+options.hot = argv["hot"];
 
 if(options.publicPath[0] !== "/")
 	options.publicPath = "/" + options.publicPath;
