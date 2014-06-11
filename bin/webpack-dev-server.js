@@ -35,9 +35,16 @@ var options = {};
 
 var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
 
-options.publicPath = wpOpt.output.publicPath || "";
-options.outputPath = wpOpt.output.path = "/";
-options.filename = wpOpt.output.filename;
+options.publicPath = wpOpt.output && wpOpt.output.publicPath || "";
+options.outputPath = "/";
+options.filename = wpOpt.output && wpOpt.output.filename;
+if(Array.isArray(wpOpt)) {
+	wpOpt.forEach(function(wpOpt) {
+		wpOpt.output.path = "/";
+	});
+} else {
+	wpOpt.output.path = "/";
+}
 options.hot = argv["hot"];
 
 if(options.publicPath[0] !== "/")
