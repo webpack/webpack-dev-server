@@ -25,6 +25,8 @@ var optimist = require("optimist")
 
 	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
+	.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
+
 	.describe("port", "The port").default("port", 8080);
 
 require("webpack/bin/config-optimist")(optimist);
@@ -54,6 +56,8 @@ if(argv["content-base"]) {
 	options.contentBase = argv["content-base"];
 	if(!/^(https?:)?\/\//.test(options.contentBase))
 		options.contentBase = path.resolve(options.contentBase);
+} else if(argv["content-base-target"]) {
+	options.contentBase = { target: argv["content-base-target"] };
 } else {
 	options.contentBase = process.cwd();
 }
