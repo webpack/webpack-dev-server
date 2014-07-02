@@ -19,6 +19,8 @@ var optimist = require("optimist")
 
 	.boolean("colors").alias("colors", "c").describe("colors")
 
+	.boolean("lazy").describe("lazy")
+
 	.boolean("info").describe("info").default("info", true)
 
 	.boolean("quiet").describe("quiet")
@@ -64,6 +66,9 @@ if(argv["content-base"]) {
 
 if(argv["colors"])
 	options.stats = { colors: true };
+
+if(argv["lazy"])
+	options.lazy = true;
 
 if(!argv["info"])
 	options.noInfo = true;
