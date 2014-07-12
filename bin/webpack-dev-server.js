@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+var path = require("path");
+
 // Local version replaces global one
 try {
 	var localWebpackDevServer = require.resolve(path.join(process.cwd(), "node_modules", "webpack-dev-server", "bin", "webpack-dev-server.js"));
@@ -8,7 +10,6 @@ try {
 	}
 } catch(e) {}
 
-var path = require("path");
 var Server = require("../lib/Server");
 var webpack = require("webpack");
 
