@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var path = require("path");
+var url = require("url");
 
 // Local version replaces global one
 try {
@@ -52,7 +53,8 @@ if(Array.isArray(wpOpt)) {
 }
 options.hot = argv["hot"];
 
-if(options.publicPath[0] !== "/")
+var publicPathIsUrl = url.parse(options.publicPath).protocol !== null;
+if (!publicPathIsUrl && options.publicPath[0] !== "/")
 	options.publicPath = "/" + options.publicPath;
 
 if(argv["content-base"]) {
