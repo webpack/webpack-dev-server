@@ -64,9 +64,10 @@ if(argv["content-base"]) {
 } else {
 	options.contentBase = process.cwd();
 }
+options.stats = { cached: false };
 
 if(argv["colors"])
-	options.stats = { colors: true };
+	options.stats.colors = true;
 
 if(argv["lazy"])
 	options.lazy = true;
