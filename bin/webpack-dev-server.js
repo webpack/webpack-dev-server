@@ -55,27 +55,35 @@ options.hot = argv["hot"];
 if(options.publicPath[0] !== "/")
 	options.publicPath = "/" + options.publicPath;
 
+if(!wpOpt.devServer) wpOpt.devServer = {};
+
 if(argv["content-base"]) {
 	options.contentBase = argv["content-base"];
 	if(!/^(https?:)?\/\//.test(options.contentBase))
 		options.contentBase = path.resolve(options.contentBase);
 } else if(argv["content-base-target"]) {
 	options.contentBase = { target: argv["content-base-target"] };
+} else if (wpOpt.devServer.contentBase){
+	if(typeof wpOpt.devServer.contentBase === "object") {
+		options.contentBase = wpOpt.devServer.contentBase;
+	} else {
+		options.contentBase = path.resolve(wpOpt.devServer.contentBase);
+	}
 } else {
 	options.contentBase = process.cwd();
 }
 options.stats = { cached: false };
 
-if(argv["colors"])
+if(argv["colors"] || wpOpt.devServer.colors === true)
 	options.stats.colors = true;
 
-if(argv["lazy"])
+if(argv["lazy"] || wpOpt.devServer.lazy === true)
 	options.lazy = true;
 
-if(!argv["info"])
+if(!argv["info"] || wpOpt.devServer.info === true)
 	options.noInfo = true;
 
-if(argv["quiet"])
+if(argv["quiet"] || wpOpt.devServer.quiet === true)
 	options.quiet = true;
 
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
