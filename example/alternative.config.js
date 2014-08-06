@@ -1,3 +1,4 @@
+var webpack = require("webpack");
 module.exports = {
 	entry: "./app.js",
 	module: {
@@ -6,7 +7,7 @@ module.exports = {
 			{ test: /\.png$/, loader: "url?limit=100000" }
 		]
 	},
-	optimize: {
-		minimize: true
-	}
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin()
+	]
 }

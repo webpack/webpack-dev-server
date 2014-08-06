@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var path = require("path");
+var url = require("url");
 
 // Local version replaces global one
 try {
@@ -25,6 +26,8 @@ var optimist = require("optimist")
 	.boolean("info").describe("info").default("info", true)
 
 	.boolean("quiet").describe("quiet")
+	
+	.boolean("inline").describe("inline", "Inlines the webpack-dev-server logic into the bundle.")
 
 	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
@@ -36,35 +39,39 @@ require("webpack/bin/config-optimist")(optimist);
 
 var argv = optimist.argv;
 
-var options = {};
-
 var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
 
-options.publicPath = wpOpt.output && wpOpt.output.publicPath || "";
-options.outputPath = "/";
-options.filename = wpOpt.output && wpOpt.output.filename;
-if(Array.isArray(wpOpt)) {
-	wpOpt.forEach(function(wpOpt) {
-		wpOpt.output.path = "/";
-	});
-} else {
-	wpOpt.output.path = "/";
-}
-options.hot = argv["hot"];
+var options = wpOpt.devServer || {};
 
-if(options.publicPath[0] !== "/")
-	options.publicPath = "/" + options.publicPath;
+if(!options.publicPath) {
+	options.publicPath = wpOpt.output && wpOpt.output.publicPath || "";
+	if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
+		options.publicPath = "/" + options.publicPath;
+}
+
+if(!options.outputPath)
+	options.outputPath = "/";
+if(!options.filename)
+	options.filename = wpOpt.output && wpOpt.output.filename;
+[].concat(wpOpt).forEach(function(wpOpt) {
+	wpOpt.output.path = "/";
+});
+if(!options.hot)
+	options.hot = argv["hot"];
 
 if(argv["content-base"]) {
 	options.contentBase = argv["content-base"];
-	if(!/^(https?:)?\/\//.test(options.contentBase))
+	if(/^[0-9]$/.test(options.contentBase))
+		options.contentBase = +options.contentBase;
+	else if(!/^(https?:)?\/\//.test(options.contentBase))
 		options.contentBase = path.resolve(options.contentBase);
 } else if(argv["content-base-target"]) {
 	options.contentBase = { target: argv["content-base-target"] };
-} else {
+} else if(!options.contentBase) {
 	options.contentBase = process.cwd();
 }
-options.stats = { cached: false };
+if(!options.stats)
+	options.stats = { cached: false };
 
 if(argv["colors"])
 	options.stats.colors = true;
@@ -77,10 +84,28 @@ if(!argv["info"])
 
 if(argv["quiet"])
 	options.quiet = true;
+	
+if(argv["inline"]) {
+	var devClient = [require.resolve("../client/") + "?http://localhost:" + argv.port];
+	if(options.hot)
+		devClient.push("webpack/hot/dev-server");
+	[].concat(wpOpt).forEach(function(wpOpt) {
+		if(typeof wpOpt.entry === "object") {
+			Object.keys(wpOpt.entry).forEach(function(key) {
+				wpOpt.entry[key] = devClient.concat(wpOpt.entry);
+			});
+		} else {
+			wpOpt.entry = devClient.concat(wpOpt.entry);
+		}
+	});
+}
 
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	if(err) throw err;
-	console.log("http://localhost:" + argv.port + "/webpack-dev-server/");
+	if(argv["inline"])
+		console.log("http://localhost:" + argv.port + "/");
+	else
+		console.log("http://localhost:" + argv.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);

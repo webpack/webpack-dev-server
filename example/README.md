@@ -30,7 +30,7 @@ The app should be minimized and the image is included with a Data Url.
 ## Inlined mode
 
 ``` text
-webpack-dev-server --colors --config inlined.config.js
+webpack-dev-server --colors --inline
 http://localhost:8080/index.html
 ```
 
