@@ -92,7 +92,7 @@ if(argv["inline"]) {
 	[].concat(wpOpt).forEach(function(wpOpt) {
 		if(typeof wpOpt.entry === "object") {
 			Object.keys(wpOpt.entry).forEach(function(key) {
-				wpOpt.entry[key] = devClient.concat(wpOpt.entry);
+				wpOpt.entry[key] = devClient.concat(wpOpt.entry[key]);
 			});
 		} else {
 			wpOpt.entry = devClient.concat(wpOpt.entry);
