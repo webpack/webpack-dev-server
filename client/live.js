@@ -55,6 +55,14 @@ $(function() {
 		$errors.show(); iframe.hide();
 	});
 
+	io.on("proxy-error", function(errors) {
+		status.text("Could not proxy to content base target!");
+		okness.text("Proxy error.");
+		$errors.text("\n" + errors.join("\n\n\n") + "\n\n");
+		header.css({borderColor: "#ebcb8b"});
+		$errors.show(); iframe.hide();
+	});
+
 	io.on("disconnect", function() {
 		status.text("");
 		okness.text("Disconnected.");

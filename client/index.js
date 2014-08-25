@@ -43,6 +43,14 @@ io.on("errors", function(errors) {
 	reloadApp();
 });
 
+io.on("proxy-error", function(errors) {
+	console.log("[WDS] Proxy error.");
+	for(var i = 0; i < errors.length; i++)
+		console.error(errors[i]);
+	if(initial) return initial = false;
+	reloadApp();
+});
+
 io.on("disconnect", function() {
 	console.error("[WDS] Disconnected!");
 });
