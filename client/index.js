@@ -7,14 +7,19 @@ io = io.connect(typeof __resourceQuery === "string" && __resourceQuery ?
 
 var hot = false;
 var initial = true;
+var currentHash = "";
 
 io.on("hot", function() {
 	hot = true;
-	console.log("webpack-dev-server: Hot Module Replacement enabled.");
+	console.log("[WDS] Hot Module Replacement enabled.");
 });
 
 io.on("invalid", function() {
-	console.log("webpack-dev-server: App updated. Recompiling...");
+	console.log("[WDS] App updated. Recompiling...");
+});
+
+io.on("hash", function(hash) {
+	currentHash = hash;
 });
 
 io.on("ok", function() {
@@ -23,7 +28,7 @@ io.on("ok", function() {
 });
 
 io.on("warnings", function(warnings) {
-	console.log("webpack-dev-server: Warnings while compiling.");
+	console.log("[WDS] Warnings while compiling.");
 	for(var i = 0; i < warnings.length; i++)
 		console.warn(warnings[i]);
 	if(initial) return initial = false;
@@ -31,7 +36,7 @@ io.on("warnings", function(warnings) {
 });
 
 io.on("errors", function(errors) {
-	console.log("webpack-dev-server: Errors while compiling.");
+	console.log("[WDS] Errors while compiling.");
 	for(var i = 0; i < errors.length; i++)
 		console.error(errors[i]);
 	if(initial) return initial = false;
@@ -39,15 +44,15 @@ io.on("errors", function(errors) {
 });
 
 io.on("disconnect", function() {
-	console.error("webpack-dev-server: Disconnected!");
+	console.error("[WDS] Disconnected!");
 });
 
 function reloadApp() {
 	if(hot) {
-		console.log("webpack-dev-server: App hot update...");
-		window.postMessage("webpackHotUpdate", "*");
+		console.log("[WDS] App hot update...");
+		window.postMessage("webpackHotUpdate" + currentHash, "*");
 	} else {
-		console.log("webpack-dev-server: App updated. Reloading...");
+		console.log("[WDS] App updated. Reloading...");
 		window.location.reload();
 	}
 }

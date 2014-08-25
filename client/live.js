@@ -10,6 +10,7 @@ $(function() {
 	var iframe = $("#iframe");
 	var header = $(".header");
 	var hot = false;
+	var currentHash = "";
 
 	var contentPage = window.location.pathname.substr("/webpack-dev-server".length) + window.location.search;
 
@@ -28,6 +29,10 @@ $(function() {
 		status.text("App updated. Recompiling...");
 		header.css({borderColor: "#96b5b4"});
 		$errors.hide(); if(!hot) iframe.hide();
+	});
+
+	io.on("hash", function(hash) {
+		currentHash = hash;
 	});
 
 	io.on("ok", function() {
@@ -68,7 +73,7 @@ $(function() {
 		if(hot) {
 			status.text("App hot update.");
 			try {
-				iframe[0].contentWindow.postMessage("webpackHotUpdate", "*");
+				iframe[0].contentWindow.postMessage("webpackHotUpdate" + currentHash, "*");
 			} catch(e) {
 				console.warn(e);
 			}
