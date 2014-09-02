@@ -70,8 +70,12 @@ if(argv["content-base"]) {
 } else if(!options.contentBase) {
 	options.contentBase = process.cwd();
 }
-if(!options.stats)
-	options.stats = { cached: false };
+if(!options.stats) {
+	options.stats = {
+		cached: false,
+		cachedAssets: false
+	};
+}
 
 if(argv["colors"])
 	options.stats.colors = true;
