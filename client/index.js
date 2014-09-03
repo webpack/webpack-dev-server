@@ -40,7 +40,6 @@ io.on("errors", function(errors) {
 	for(var i = 0; i < errors.length; i++)
 		console.error(errors[i]);
 	if(initial) return initial = false;
-	reloadApp();
 });
 
 io.on("proxy-error", function(errors) {
