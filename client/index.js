@@ -23,7 +23,7 @@ io.on("hash", function(hash) {
 });
 
 io.on("ok", function() {
-	if(initial) return initial = false;
+	initial = false;
 	reloadApp();
 });
 
