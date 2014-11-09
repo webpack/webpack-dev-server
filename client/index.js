@@ -1,4 +1,7 @@
 var io = require("socket.io");
+if ("undefined" === typeof document) {
+	return;// might be in a WebWorker context
+}
 var scriptElements = document.getElementsByTagName("script");
 io = io.connect(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery.substr(1) :
