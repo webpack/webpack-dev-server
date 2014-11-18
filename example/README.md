@@ -48,9 +48,6 @@ The app without a webpack-dev-server frame. Console displays status messages.
 
 The webpack-dev-server client is added as script tag to the html page.
 
-
-
-
 ## Reloading
 
 Try to update app.js, by uncommenting some lines.
@@ -58,3 +55,12 @@ Try to update app.js, by uncommenting some lines.
 The browser should reflect your changes.
 
 You may also update the css file or any other file used by the app.
+
+## History API Fallback
+
+``` text
+webpack-dev-server --colors --history-api-fallback
+http://localhost:8080/some/url/from/spa
+```
+
+The contents of /index.html is served.
