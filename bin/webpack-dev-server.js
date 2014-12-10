@@ -26,8 +26,10 @@ var optimist = require("optimist")
 	.boolean("info").describe("info").default("info", true)
 
 	.boolean("quiet").describe("quiet")
-	
+
 	.boolean("inline").describe("inline", "Inlines the webpack-dev-server logic into the bundle.")
+
+	.boolean("https").describe("https")
 
 	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
@@ -90,7 +92,10 @@ if(!argv["info"])
 
 if(argv["quiet"])
 	options.quiet = true;
-	
+
+if(argv["https"])
+	options.https = true;
+
 if(argv["inline"]) {
 	var devClient = [require.resolve("../client/") + "?http://localhost:" + argv.port];
 	if(options.hot)
@@ -111,10 +116,11 @@ if(argv["history-api-fallback"])
 
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	if(err) throw err;
+	var protocol = options.https ? "https" : "http";
 	if(argv["inline"])
-		console.log("http://localhost:" + argv.port + "/");
+		console.log(protocol + "://localhost:" + argv.port + "/");
 	else
-		console.log("http://localhost:" + argv.port + "/webpack-dev-server/");
+		console.log(protocol + "://localhost:" + argv.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
