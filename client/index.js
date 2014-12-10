@@ -1,4 +1,4 @@
-var io = require("socket.io");
+var io = require("./web_modules/socket.io");
 var scriptElements = document.getElementsByTagName("script");
 io = io.connect(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery.substr(1) :

@@ -1,6 +1,6 @@
 {
 	"name": "webpack-dev-server",
-	"version": "1.6.5",
+	"version": "1.6.6",
 	"author": "Tobias Koppers @sokra",
 	"description": "Serves a webpack app. Updates the browser on changes.",
 	"peerDependencies": {
@@ -13,7 +13,8 @@
 		"optimist": "~0.6.0",
 		"stream-cache": "~0.0.1",
 		"http-proxy": "^1.1.4",
-		"serve-index": "^1.2.0"
+		"serve-index": "^1.2.0",
+		"connect-history-api-fallback": "0.0.5"
 	},
 	"devDependencies": {
 		"css-loader": "~0.7.1",

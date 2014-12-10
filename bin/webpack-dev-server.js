@@ -33,6 +33,8 @@ var optimist = require("optimist")
 
 	.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
 
+	.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
+
 	.describe("port", "The port").default("port", 8080);
 
 require("webpack/bin/config-optimist")(optimist);
@@ -104,6 +106,9 @@ if(argv["inline"]) {
 	});
 }
 
+if(argv["history-api-fallback"])
+	options.historyApiFallback = true;
+
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	if(err) throw err;
 	if(argv["inline"])
@@ -115,4 +120,6 @@ new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 		console.log("requests are proxied to " + options.contentBase.target);
 	else
 		console.log("content is served from " + options.contentBase);
+	if(options.historyApiFallback)
+		console.log("404s will fallback to /index.html");
 });
