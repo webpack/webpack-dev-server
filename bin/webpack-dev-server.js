@@ -26,8 +26,10 @@ var optimist = require("optimist")
 	.boolean("info").describe("info").default("info", true)
 
 	.boolean("quiet").describe("quiet")
-	
+
 	.boolean("inline").describe("inline", "Inlines the webpack-dev-server logic into the bundle.")
+
+	.boolean("https").describe("https")
 
 	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
@@ -35,7 +37,9 @@ var optimist = require("optimist")
 
 	.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
 
-	.describe("port", "The port").default("port", 8080);
+	.describe("port", "The port").default("port", 8080)
+
+	.describe("host", "The hostname/ip addresse the server will bind to").default("host", "localhost");
 
 require("webpack/bin/config-optimist")(optimist);
 
@@ -90,9 +94,12 @@ if(!argv["info"])
 
 if(argv["quiet"])
 	options.quiet = true;
-	
+
+if(argv["https"])
+	options.https = true;
+
 if(argv["inline"]) {
-	var devClient = [require.resolve("../client/") + "?http://localhost:" + argv.port];
+	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + argv.host + ":" + argv.port];
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
 	[].concat(wpOpt).forEach(function(wpOpt) {
@@ -111,10 +118,11 @@ if(argv["history-api-fallback"])
 
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	if(err) throw err;
+	var protocol = options.https ? "https" : "http";
 	if(argv["inline"])
-		console.log("http://localhost:" + argv.port + "/");
+		console.log(protocol + "://" + argv.host + ":" + argv.port + "/");
 	else
-		console.log("http://localhost:" + argv.port + "/webpack-dev-server/");
+		console.log(protocol + "://" + argv.host + ":" + argv.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
