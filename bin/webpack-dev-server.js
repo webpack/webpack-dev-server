@@ -98,6 +98,8 @@ if(argv["quiet"])
 if(argv["https"])
 	options.https = true;
 
+var protocol = options.https ? "https" : "http";
+
 if(argv["inline"]) {
 	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + argv.host + ":" + argv.port];
 	if(options.hot)
@@ -118,7 +120,6 @@ if(argv["history-api-fallback"])
 
 new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
 	if(err) throw err;
-	var protocol = options.https ? "https" : "http";
 	if(argv["inline"])
 		console.log(protocol + "://" + argv.host + ":" + argv.port + "/");
 	else
