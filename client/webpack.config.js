@@ -4,5 +4,8 @@ module.exports = {
 			{ test: /\.css$/, loader: "style!css" },
 			{ test: /\.jade$/, loader: "jade?self" }
 		]
+	},
+	node: {
+		fs: "empty"
 	}
 }
