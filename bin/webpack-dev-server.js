@@ -17,7 +17,7 @@ var webpack = require("webpack");
 var optimist = require("optimist")
 
 	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-			"Usage: https://github.com/webpack/docs/wiki/webpack-detailed-usage")
+			"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
 
 	.boolean("colors").alias("colors", "c").describe("colors")
 
