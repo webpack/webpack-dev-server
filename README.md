@@ -1,6 +1,6 @@
 # webpack-dev-server
 
-**THIS SERVER SHOULD ONLY USED FOR DEVELOPMENT!**
+**THIS SERVER SHOULD BE USED FOR DEVELOPMENT ONLY!**
 
 **DO NOT USE IT IN PRODUCTION!**
 
@@ -10,13 +10,13 @@ It's a live reloading server for [webpack](http://webpack.github.io).
 
 ## Inspiration
 
-This project is heavily inspirated by [peerigon/nof5](/peerigon/nof5).
+This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/nof5).
 
 ## Contributing
 
-The client scripts are build with `npm run-script prepublish`.
+The client scripts are built with `npm run-script prepublish`.
 
-## Lisence
+## License
 
 Copyright 2012-2014 Tobias Koppers
 
