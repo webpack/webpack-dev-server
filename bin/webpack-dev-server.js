@@ -50,15 +50,15 @@ var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename
 var options = wpOpt.devServer || {};
 
 if(!options.publicPath) {
-	options.publicPath = wpOpt.output && wpOpt.output.publicPath || "";
+	options.publicPath = argv["output-public-path"] || wpOpt.output && wpOpt.output.publicPath || "";
 	if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
 		options.publicPath = "/" + options.publicPath;
 }
 
 if(!options.outputPath)
-	options.outputPath = "/";
+	options.outputPath = argv["output-path"] || "/";
 if(!options.filename)
-	options.filename = wpOpt.output && wpOpt.output.filename;
+	options.filename = argv["output-filename"] || wpOpt.output && wpOpt.output.filename;
 [].concat(wpOpt).forEach(function(wpOpt) {
 	wpOpt.output.path = "/";
 });
