@@ -118,7 +118,7 @@ if(argv["inline"]) {
 if(argv["history-api-fallback"])
 	options.historyApiFallback = true;
 
-new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
+new Server(webpack(wpOpt), options).listen(argv.port, argv.host, function(err) {
 	if(err) throw err;
 	if(argv["inline"])
 		console.log(protocol + "://" + argv.host + ":" + argv.port + "/");
