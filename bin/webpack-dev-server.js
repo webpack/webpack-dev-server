@@ -105,7 +105,7 @@ if(argv["inline"]) {
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
 	[].concat(wpOpt).forEach(function(wpOpt) {
-		if(typeof wpOpt.entry === "object") {
+		if(typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
 			Object.keys(wpOpt.entry).forEach(function(key) {
 				wpOpt.entry[key] = devClient.concat(wpOpt.entry[key]);
 			});
