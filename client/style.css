@@ -45,7 +45,7 @@ html {
 	width: 100%;
 	margin: 0;
 	padding: 10px;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: monospace;
 	font-size: 14px;
 	line-height: 1.4;
 	color: #eff1f5;
