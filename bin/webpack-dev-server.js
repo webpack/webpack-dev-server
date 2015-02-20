@@ -65,6 +65,9 @@ if(!options.filename)
 if(!options.hot)
 	options.hot = argv["hot"];
 
+if(!options.inline)
+	options.inline = argv["inline"];
+
 if(argv["content-base"]) {
 	options.contentBase = argv["content-base"];
 	if(/^[0-9]$/.test(options.contentBase))
@@ -100,7 +103,7 @@ if(argv["https"])
 
 var protocol = options.https ? "https" : "http";
 
-if(argv["inline"]) {
+if(options.inline) {
 	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + argv.host + ":" + argv.port];
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
@@ -120,7 +123,7 @@ if(argv["history-api-fallback"])
 
 new Server(webpack(wpOpt), options).listen(argv.port, argv.host, function(err) {
 	if(err) throw err;
-	if(argv["inline"])
+	if(options.inline)
 		console.log(protocol + "://" + argv.host + ":" + argv.port + "/");
 	else
 		console.log(protocol + "://" + argv.host + ":" + argv.port + "/webpack-dev-server/");
