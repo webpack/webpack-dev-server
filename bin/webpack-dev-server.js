@@ -49,6 +49,12 @@ var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename
 
 var options = wpOpt.devServer || {};
 
+if(argv.host !== "localhost" || !options.host)
+	options.host = argv.host;
+
+if(argv.port !== 8080 || !options.port)
+	options.port = argv.port;
+
 if(!options.publicPath) {
 	options.publicPath = wpOpt.output && wpOpt.output.publicPath || "";
 	if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
@@ -101,7 +107,7 @@ if(argv["https"])
 var protocol = options.https ? "https" : "http";
 
 if(argv["inline"]) {
-	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + argv.host + ":" + argv.port];
+	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + options.host + ":" + options.port];
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
 	[].concat(wpOpt).forEach(function(wpOpt) {
@@ -118,12 +124,12 @@ if(argv["inline"]) {
 if(argv["history-api-fallback"])
 	options.historyApiFallback = true;
 
-new Server(webpack(wpOpt), options).listen(argv.port, argv.host, function(err) {
+new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
 	if(err) throw err;
 	if(argv["inline"])
-		console.log(protocol + "://" + argv.host + ":" + argv.port + "/");
+		console.log(protocol + "://" + options.host + ":" + options.port + "/");
 	else
-		console.log(protocol + "://" + argv.host + ":" + argv.port + "/webpack-dev-server/");
+		console.log(protocol + "://" + options.host + ":" + options.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
