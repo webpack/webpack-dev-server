@@ -27,7 +27,7 @@ var optimist = require("optimist")
 
 	.boolean("quiet").describe("quiet")
 
-	.boolean("inline").describe("inline", "Inlines the webpack-dev-server logic into the bundle.")
+	.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
 
 	.boolean("https").describe("https")
 
@@ -39,7 +39,7 @@ var optimist = require("optimist")
 
 	.describe("port", "The port").default("port", 8080)
 
-	.describe("host", "The hostname/ip addresse the server will bind to").default("host", "localhost");
+	.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
 
 require("webpack/bin/config-optimist")(optimist);
 
