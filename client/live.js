@@ -1,5 +1,5 @@
 var $ = require("jquery");
-var io = require("socket.io");
+var io = require("socket.io-client");
 require("./style.css");
 
 $(function() {
