@@ -1,4 +1,5 @@
 var io = require("socket.io-client");
+var stripAnsi = require('strip-ansi');
 var scriptElements = document.getElementsByTagName("script");
 io = io.connect(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery.substr(1) :
@@ -38,7 +39,7 @@ io.on("warnings", function(warnings) {
 io.on("errors", function(errors) {
 	console.log("[WDS] Errors while compiling.");
 	for(var i = 0; i < errors.length; i++)
-		console.error(errors[i]);
+		console.error(stripAnsi(errors[i]));
 	if(initial) return initial = false;
 	reloadApp();
 });
@@ -46,7 +47,7 @@ io.on("errors", function(errors) {
 io.on("proxy-error", function(errors) {
 	console.log("[WDS] Proxy error.");
 	for(var i = 0; i < errors.length; i++)
-		console.error(errors[i]);
+		console.error(stripAnsi(errors[i]));
 	if(initial) return initial = false;
 	reloadApp();
 });
