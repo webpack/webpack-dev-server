@@ -1,5 +1,6 @@
 var $ = require("jquery");
 var io = require("socket.io-client");
+var stripAnsi = require('strip-ansi');
 require("./style.css");
 
 $(function() {
@@ -50,7 +51,7 @@ $(function() {
 	io.on("errors", function(errors) {
 		status.text("App updated with errors. No reload!");
 		okness.text("Errors while compiling.");
-		$errors.text("\n" + errors.join("\n\n\n") + "\n\n");
+		$errors.text("\n" + stripAnsi(errors.join("\n\n\n")) + "\n\n");
 		header.css({borderColor: "#ebcb8b"});
 		$errors.show(); iframe.hide();
 	});
@@ -58,7 +59,7 @@ $(function() {
 	io.on("proxy-error", function(errors) {
 		status.text("Could not proxy to content base target!");
 		okness.text("Proxy error.");
-		$errors.text("\n" + errors.join("\n\n\n") + "\n\n");
+		$errors.text("\n" + stripAnsi(errors.join("\n\n\n")) + "\n\n");
 		header.css({borderColor: "#ebcb8b"});
 		$errors.show(); iframe.hide();
 	});
