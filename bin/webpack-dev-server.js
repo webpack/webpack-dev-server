@@ -19,8 +19,6 @@ var optimist = require("optimist")
 	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
 			"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
 
-	.boolean("colors").alias("colors", "c").describe("colors")
-
 	.boolean("lazy").describe("lazy")
 
 	.boolean("info").describe("info").default("info", true)
@@ -89,8 +87,7 @@ if(!options.stats) {
 	};
 }
 
-if(argv["colors"])
-	options.stats.colors = true;
+options.stats.colors = require("supports-color");
 
 if(argv["lazy"])
 	options.lazy = true;
