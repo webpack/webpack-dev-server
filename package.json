@@ -16,7 +16,7 @@
 		"http-proxy": "^1.1.4",
 		"serve-index": "^1.2.0",
 		"connect-history-api-fallback": "0.0.5",
-		"strip-ansi": "^2.0.1",
+		"strip-ansi": "^2.0.1"
 	},
 	"devDependencies": {
 		"css-loader": "~0.7.1",
