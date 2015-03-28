@@ -36,6 +36,13 @@ $(function() {
 		currentHash = hash;
 	});
 
+	io.on("still-ok", function() {
+		okness.text("");
+		status.text("App ready.");
+		header.css({borderColor: ""});
+		$errors.hide(); if(!hot) iframe.show();
+	});
+
 	io.on("ok", function() {
 		okness.text("");
 		$errors.hide();

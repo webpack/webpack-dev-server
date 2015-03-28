@@ -23,6 +23,10 @@ io.on("hash", function(hash) {
 	currentHash = hash;
 });
 
+io.on("still-ok", function() {
+	console.log("[WDS] Nothing changed.")
+});
+
 io.on("ok", function() {
 	if(initial) return initial = false;
 	reloadApp();
