@@ -35,7 +35,7 @@ io.on("ok", function() {
 io.on("warnings", function(warnings) {
 	console.log("[WDS] Warnings while compiling.");
 	for(var i = 0; i < warnings.length; i++)
-		console.warn(warnings[i]);
+		console.warn(stripAnsi(warnings[i]));
 	if(initial) return initial = false;
 	reloadApp();
 });
