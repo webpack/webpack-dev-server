@@ -103,8 +103,9 @@ if(argv["https"])
 
 var protocol = options.https ? "https" : "http";
 
-if(argv["inline"]) {
+if(argv["inline"] || options.inline) {
 	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + options.host + ":" + options.port];
+	
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
 	[].concat(wpOpt).forEach(function(wpOpt) {
