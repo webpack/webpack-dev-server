@@ -44,8 +44,9 @@ require("webpack/bin/config-optimist")(optimist);
 var argv = optimist.argv;
 
 var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
+var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
-var options = wpOpt.devServer || {};
+var options = wpOpt.devServer || firstWpOpt.devServer || {};
 
 if(argv.host !== "localhost" || !options.host)
 	options.host = argv.host;
@@ -54,7 +55,7 @@ if(argv.port !== 8080 || !options.port)
 	options.port = argv.port;
 
 if(!options.publicPath) {
-	options.publicPath = wpOpt.output && wpOpt.output.publicPath || "";
+	options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || "";
 	if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
 		options.publicPath = "/" + options.publicPath;
 }
@@ -62,7 +63,7 @@ if(!options.publicPath) {
 if(!options.outputPath)
 	options.outputPath = "/";
 if(!options.filename)
-	options.filename = wpOpt.output && wpOpt.output.filename;
+	options.filename = firstWpOpt.output && firstWpOpt.output.filename;
 [].concat(wpOpt).forEach(function(wpOpt) {
 	wpOpt.output.path = "/";
 });
