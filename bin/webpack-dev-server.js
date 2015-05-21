@@ -136,17 +136,14 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 	if(options.historyApiFallback)
 		console.log("404s will fallback to /index.html");
 
-	if (options.proxy) {
-		var paths = Object.keys(options.proxy);
-		paths.forEach(function (path) {
-			var target;
-			if (typeof options.proxy[path] === 'string') {
-				target = options.proxy[path];
-			} else {
-				target = options.proxy[path].target;
-			}
-			console.log('proxying '+path+' to '+target);
+	if (options.proxy && !Array.isArray(options.proxy)) {
+		options.proxy = Object.keys(options.proxy).map(function (path) {
+			return ({
+				path: path,
+				target: typeof options.proxy[path] === "string" ? options.proxy[path] : options.proxy[path].target
+			});
 		});
 	}
-
+	if(options.proxy)
+		console.log("proxying config", options.proxy);
 });
