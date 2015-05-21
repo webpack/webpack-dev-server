@@ -28,12 +28,7 @@
     "url-loader": "~0.5.5",
     "webpack": "^1.3.0"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
-    }
-  ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/webpack/webpack-dev-server.git"
