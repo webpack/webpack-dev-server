@@ -36,6 +36,12 @@
   "homepage": "http://github.com/webpack/webpack-dev-server",
   "main": "lib/Server.js",
   "bin": "bin/webpack-dev-server.js",
+  "files": [
+    "lib/",
+    "bin",
+    "client/",
+    "ssl/"
+  ],
   "scripts": {
     "prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --colors --config client/webpack.config.js -p"
   }
