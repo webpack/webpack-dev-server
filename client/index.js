@@ -27,8 +27,19 @@ io.on("still-ok", function() {
 	console.log("[WDS] Nothing changed.")
 });
 
-io.on("ok", function() {
-	if(initial) return initial = false;
+io.on("ok", function(assets) {
+	if (!initial && !assets) return;
+	if (initial) return initial = false;
+
+	if (assets) {
+		if (!window.PRELOADED_HOT_ASSETS)
+			window.PRELOADED_HOT_ASSETS = {};
+
+		for (var url in assets) {
+			window.PRELOADED_HOT_ASSETS[url] = assets[url];
+		}
+	}
+
 	reloadApp();
 });
 
