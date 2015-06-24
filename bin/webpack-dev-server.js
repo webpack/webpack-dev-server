@@ -139,18 +139,4 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 		console.log("content is served from " + options.contentBase);
 	if(options.historyApiFallback)
 		console.log("404s will fallback to /index.html");
-
-	if (options.proxy) {
-		var paths = Object.keys(options.proxy);
-		paths.forEach(function (path) {
-			var target;
-			if (typeof options.proxy[path] === 'string') {
-				target = options.proxy[path];
-			} else {
-				target = options.proxy[path].target;
-			}
-			console.log('proxying '+path+' to '+target);
-		});
-	}
-
 });
