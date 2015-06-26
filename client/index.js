@@ -69,3 +69,5 @@ function reloadApp() {
 		window.location.reload();
 	}
 }
+
+module.exports = io;
