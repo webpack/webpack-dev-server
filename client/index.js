@@ -60,6 +60,11 @@ io.on("disconnect", function() {
 	console.error("[WDS] Disconnected!");
 });
 
+io.on("reload", function() {
+	console.log("[WDS] Manual reload invoked.");
+	window.location.reload();
+});
+
 function reloadApp() {
 	if(hot) {
 		console.log("[WDS] App hot update...");
