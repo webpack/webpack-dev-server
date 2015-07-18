@@ -17,9 +17,7 @@ var webpack = require("webpack");
 var optimist = require("optimist")
 
 	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-			"Usage: https://github.com/webpack/docs/wiki/webpack-detailed-usage")
-
-	.boolean("colors").alias("colors", "c").describe("colors")
+			"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
 
 	.boolean("lazy").describe("lazy")
 
@@ -27,7 +25,7 @@ var optimist = require("optimist")
 
 	.boolean("quiet").describe("quiet")
 
-	.boolean("inline").describe("inline", "Inlines the webpack-dev-server logic into the bundle.")
+	.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
 
 	.boolean("https").describe("https")
 
@@ -39,18 +37,25 @@ var optimist = require("optimist")
 
 	.describe("port", "The port").default("port", 8080)
 
-	.describe("host", "The hostname/ip addresse the server will bind to").default("host", "localhost");
+	.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
 
 require("webpack/bin/config-optimist")(optimist);
 
 var argv = optimist.argv;
 
 var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
+var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
-var options = wpOpt.devServer || {};
+var options = wpOpt.devServer || firstWpOpt.devServer || {};
+
+if(argv.host !== "localhost" || !options.host)
+	options.host = argv.host;
+
+if(argv.port !== 8080 || !options.port)
+	options.port = argv.port;
 
 if(!options.publicPath) {
-	options.publicPath = wpOpt.output && wpOpt.output.publicPath || "";
+	options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || "";
 	if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
 		options.publicPath = "/" + options.publicPath;
 }
@@ -58,10 +63,14 @@ if(!options.publicPath) {
 if(!options.outputPath)
 	options.outputPath = "/";
 if(!options.filename)
-	options.filename = wpOpt.output && wpOpt.output.filename;
+	options.filename = firstWpOpt.output && firstWpOpt.output.filename;
 [].concat(wpOpt).forEach(function(wpOpt) {
 	wpOpt.output.path = "/";
 });
+if(!options.watchOptions)
+	options.watchOptions = firstWpOpt.watchOptions;
+if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
+	options.watchDelay = firstWpOpt.watchDelay;
 if(!options.hot)
 	options.hot = argv["hot"];
 
@@ -83,8 +92,7 @@ if(!options.stats) {
 	};
 }
 
-if(argv["colors"])
-	options.stats.colors = true;
+options.stats.colors = require("supports-color");
 
 if(argv["lazy"])
 	options.lazy = true;
@@ -98,12 +106,21 @@ if(argv["quiet"])
 if(argv["https"])
 	options.https = true;
 
-if(argv["inline"]) {
-	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + argv.host + ":" + argv.port];
+if(argv["inline"])
+	options.inline = true;
+
+if(argv["history-api-fallback"])
+	options.historyApiFallback = true;
+
+var protocol = options.https ? "https" : "http";
+
+if(options.inline) {
+	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + options.host + ":" + options.port];
+
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
 	[].concat(wpOpt).forEach(function(wpOpt) {
-		if(typeof wpOpt.entry === "object") {
+		if(typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
 			Object.keys(wpOpt.entry).forEach(function(key) {
 				wpOpt.entry[key] = devClient.concat(wpOpt.entry[key]);
 			});
@@ -113,16 +130,12 @@ if(argv["inline"]) {
 	});
 }
 
-if(argv["history-api-fallback"])
-	options.historyApiFallback = true;
-
-new Server(webpack(wpOpt), options).listen(argv.port, function(err) {
+new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
 	if(err) throw err;
-	var protocol = options.https ? "https" : "http";
-	if(argv["inline"])
-		console.log(protocol + "://" + argv.host + ":" + argv.port + "/");
+	if(options.inline)
+		console.log(protocol + "://" + options.host + ":" + options.port + "/");
 	else
-		console.log(protocol + "://" + argv.host + ":" + argv.port + "/webpack-dev-server/");
+		console.log(protocol + "://" + options.host + ":" + options.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
