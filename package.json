@@ -4,7 +4,7 @@
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
-    "webpack": "^1.3.0"
+    "webpack": "^1.9.11"
   },
   "dependencies": {
     "connect-history-api-fallback": "1.1.0",
