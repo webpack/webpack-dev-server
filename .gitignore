@@ -1,3 +1,4 @@
 node_modules
+.idea
 /client/live.bundle.js
 /client/index.bundle.js
