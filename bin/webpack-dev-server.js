@@ -29,6 +29,8 @@ var optimist = require("optimist")
 
 	.boolean("https").describe("https")
 
+	.boolean("compression").describe("compression", "Enable gzip compression")
+
 	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
 	.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
