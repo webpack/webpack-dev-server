@@ -83,6 +83,9 @@ $(function() {
 		status.text("App ready.");
 		header.css({borderColor: ""});
 		iframe.show();
+		iframe[0].contentWindow.on('hashchange', function() {
+			window.location.hash = iframe[0].contentWindow.location.hash;		
+		});
 	});
 
 	function reloadApp() {
