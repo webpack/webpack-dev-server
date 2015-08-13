@@ -1,9 +1,21 @@
+var url = require('url');
 var io = require("socket.io-client");
 var stripAnsi = require('strip-ansi');
 var scriptElements = document.getElementsByTagName("script");
-io = io.connect(typeof __resourceQuery === "string" && __resourceQuery ?
+
+var urlParts = url.parse(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery.substr(1) :
 	scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "")
+);
+
+io = io.connect(
+	url.format({
+		protocol: urlParts.protocol,
+		auth: urlParts.auth,
+		host: urlParts.host
+	}), {
+		path: urlParts.path === '/' ? null : urlParts.path
+	}
 );
 
 var hot = false;
