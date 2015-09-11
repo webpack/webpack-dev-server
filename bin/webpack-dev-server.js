@@ -2,6 +2,7 @@
 
 var path = require("path");
 var url = require("url");
+var fs = require("fs");
 
 // Local version replaces global one
 try {
@@ -28,6 +29,12 @@ var optimist = require("optimist")
 	.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
 
 	.boolean("https").describe("https")
+
+	.string("key").describe("key", "Path to a SSL key.")
+
+	.string("cert").describe("cert", "Path to a SSL certificate.")
+
+	.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
 
 	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
@@ -105,6 +112,15 @@ if(argv["quiet"])
 
 if(argv["https"])
 	options.https = true;
+
+if(argv["cert"])
+	options.cert = fs.readFileSync(path.resolve(argv["cert"]));
+
+if(argv["key"])
+	options.key = fs.readFileSync(path.resolve(argv["key"]));
+
+if(argv["cacert"])
+	options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
 
 if(argv["inline"])
 	options.inline = true;
