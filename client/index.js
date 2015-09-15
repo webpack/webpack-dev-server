@@ -12,7 +12,8 @@ io = io.connect(
 	url.format({
 		protocol: urlParts.protocol,
 		auth: urlParts.auth,
-		host: urlParts.host
+		hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
+		port: urlParts.port
 	}), {
 		path: urlParts.path === '/' ? null : urlParts.path
 	}
