@@ -158,5 +158,5 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 	else
 		console.log("content is served from " + options.contentBase);
 	if(options.historyApiFallback)
-		console.log("404s will fallback to /index.html");
+		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
 });
