@@ -153,6 +153,14 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 	else
 		console.log(protocol + "://" + options.host + ":" + options.port + "/webpack-dev-server/");
 	console.log("webpack result is served from " + options.publicPath);
+	if(options.staticRoutes) {
+		// Must be array
+		if (Array.isArray(options.staticRoutes)) {
+			options.staticRoutes.forEach(function (staticRoute) {
+				console.log("static route " + staticRoute.route + " is served from " + staticRoute.dir);
+			});
+		}
+	}
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
 	else
