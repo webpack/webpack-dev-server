@@ -14,7 +14,7 @@ webpack-dev-server
 http://localhost:8080/webpack-dev-server/index.html
 ```
 
-The app should display "It's working" with a green background.
+The app should display "It's working" with a dotted background and a SVG image.
 
 There is a file named `index.html` in this directory. This file is served as content
 
@@ -59,7 +59,7 @@ You may also update the css file or any other file used by the app.
 ## History API Fallback
 
 ``` text
-webpack-dev-server --inline --history-api-fallback
+webpack-dev-server --inline --history-api-fallback --output-public-path /
 http://localhost:8080/some/url/from/spa
 ```
 

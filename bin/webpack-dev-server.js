@@ -74,10 +74,12 @@ if(!options.filename)
 [].concat(wpOpt).forEach(function(wpOpt) {
 	wpOpt.output.path = "/";
 });
+
 if(!options.watchOptions)
 	options.watchOptions = firstWpOpt.watchOptions;
 if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
 	options.watchDelay = firstWpOpt.watchDelay;
+
 if(!options.hot)
 	options.hot = argv["hot"];
 
@@ -92,6 +94,7 @@ if(argv["content-base"]) {
 } else if(!options.contentBase) {
 	options.contentBase = process.cwd();
 }
+
 if(!options.stats) {
 	options.stats = {
 		cached: false,
@@ -99,7 +102,8 @@ if(!options.stats) {
 	};
 }
 
-options.stats.colors = require("supports-color");
+if(typeof options.stats === "object" && typeof options.stats.colors === "undefined")
+	options.stats.colors = require("supports-color");
 
 if(argv["lazy"])
 	options.lazy = true;
