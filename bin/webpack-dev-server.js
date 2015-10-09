@@ -128,7 +128,7 @@ if(argv["key"])
 if(argv["cacert"])
 	options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
 
-if(argv["inline"])
+if (argv["inline"])
 	options.inline = true;
 
 if(argv["history-api-fallback"])
@@ -140,7 +140,14 @@ if(argv["compress"])
 var protocol = options.https ? "https" : "http";
 
 if(options.inline) {
-	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + options.host + ":" + options.port];
+	var client = protocol + "://" + options.host + ":" + options.port;
+
+	if (options.inlineClient) {
+		client = options.inlineClient;
+		delete options.inlineClient;
+	}
+
+	var devClient = [require.resolve("../client/") + "?" + client];
 
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
