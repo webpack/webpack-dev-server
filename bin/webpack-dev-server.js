@@ -128,7 +128,7 @@ if(argv["key"])
 if(argv["cacert"])
 	options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
 
-if (argv["inline"])
+if(argv["inline"])
 	options.inline = true;
 
 if(argv["history-api-fallback"])
