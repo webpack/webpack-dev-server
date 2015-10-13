@@ -140,7 +140,14 @@ if(argv["compress"])
 var protocol = options.https ? "https" : "http";
 
 if(options.inline) {
-	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + options.host + ":" + options.port];
+	var client = protocol + "://" + options.host + ":" + options.port;
+
+	if (options.inlineClient) {
+		client = options.inlineClient;
+		delete options.inlineClient;
+	}
+
+	var devClient = [require.resolve("../client/") + "?" + client];
 
 	if(options.hot)
 		devClient.push("webpack/hot/dev-server");
