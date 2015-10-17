@@ -78,7 +78,19 @@ io.on("disconnect", function() {
 function reloadApp() {
 	if(hot) {
 		console.log("[WDS] App hot update...");
-		window.postMessage("webpackHotUpdate" + currentHash, "*");
+		try {
+			var hotEmitter = require("webpack/hot/emitter");
+			hotEmitter.emit("webpackHotUpdate", currentHash);
+		} catch (err) {
+			console.warn(
+				"Failed to load \"webpack/hot/emitter.js\". Is your webpack dependency up to date?\n",
+				err
+			);
+		}
+		if (typeof WorkerGlobalScope === "undefined" || !(self instanceof WorkerGlobalScope)) {
+			// Not in a web worker; broadcast update to window
+			window.postMessage("webpackHotUpdate" + currentHash, "*");
+		}
 	} else {
 		console.log("[WDS] App updated. Reloading...");
 		window.location.reload();
