@@ -8,8 +8,10 @@ var urlParts = url.parse(typeof __resourceQuery === "string" && __resourceQuery 
 	scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "")
 );
 
-var recInterval = null;
 var sock = null;
+var hot = false;
+var initial = true;
+var currentHash = "";
 
 var newConnection = function() {
 	sock = new SockJS(url.format({
@@ -20,14 +22,12 @@ var newConnection = function() {
 		pathname: urlParts.path === '/' ? "/sockjs-node" : urlParts.path
 	}));
 
-	clearInterval(recInterval);
-
 	sock.onclose = function() {
 		console.error("[WDS] Disconnected!");
 
 		// Try to reconnect.
 		sock = null;
-		recInterval = setInterval(function () {
+		setTimeout(function () {
 			newConnection();
 		}, 2000);
 	};
@@ -40,10 +40,6 @@ var newConnection = function() {
 };
 
 newConnection();
-
-var hot = false;
-var initial = true;
-var currentHash = "";
 
 function reloadApp() {
 	if(hot) {

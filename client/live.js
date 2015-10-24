@@ -3,7 +3,6 @@ var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
 require("./style.css");
 
-var recInterval = null;
 var sock = null;
 var hot = false;
 var currentHash = "";
@@ -11,14 +10,12 @@ var currentHash = "";
 var newConnection = function(handlers) {
 	sock = new SockJS('/sockjs-node');
 
-	clearInterval(recInterval);
-
 	sock.onclose = function() {
 		handlers.close();
 
 		// Try to reconnect.
 		sock = null;
-		recInterval = setInterval(function () {
+		setTimeout(function () {
 			newConnection(handlers);
 		}, 2000);
 	};
