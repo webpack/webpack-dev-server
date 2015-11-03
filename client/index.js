@@ -1,7 +1,7 @@
 var url = require('url');
 var io = require("socket.io-client");
 var stripAnsi = require('strip-ansi');
-var scriptElements = document.getElementsByTagName("script");
+var scriptElements = (typeof document !== 'undefined') ? document.getElementsByTagName('script') : [];
 
 var urlParts = url.parse(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery.substr(1) :
