@@ -20,11 +20,6 @@ var newConnection = function(handlers) {
 		}, 2000);
 	};
 
-	sock.onopen = function() {
-		// This callback also fires on a reconnect.
-		handlers.ok();
-	};
-
 	sock.onmessage = function(e) {
 		// This assumes that all data sent via the websocket is JSON.
 		var msg = JSON.parse(e.data);
