@@ -21,13 +21,13 @@
     "webpack-dev-middleware": "^1.2.0"
   },
   "devDependencies": {
-    "css-loader": "~0.18.0",
+    "css-loader": "~0.23.0",
     "file-loader": "~0.8.4",
     "jade": "^1.11.0",
-    "jade-loader": "~0.7.1",
+    "jade-loader": "~0.8.0",
     "less": "^2.5.1",
     "less-loader": "~2.2.0",
-    "style-loader": "~0.12.3",
+    "style-loader": "~0.13.0",
     "url-loader": "~0.5.6",
     "webpack": "^1.12.1"
   },
