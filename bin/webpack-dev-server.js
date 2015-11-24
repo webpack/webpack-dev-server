@@ -20,6 +20,8 @@ var optimist = require("optimist")
 	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
 			"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
 
+  .boolean("stdin").describe("close when stdin ends")
+
 	.boolean("lazy").describe("lazy")
 
 	.boolean("info").describe("info").default("info", true)
@@ -79,6 +81,14 @@ if(!options.filename)
 
 if(!options.watchOptions)
 	options.watchOptions = firstWpOpt.watchOptions;
+
+if(argv["stdin"]) {
+  process.stdin.on('end', function() {
+    process.exit(0)
+  });
+  process.stdin.resume();
+}
+
 if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
 	options.watchDelay = firstWpOpt.watchDelay;
 
