@@ -12,6 +12,7 @@
     "express": "^4.13.3",
     "http-proxy": "^1.11.2",
     "optimist": "~0.6.0",
+    "open": "0.0.5",
     "serve-index": "^1.7.2",
     "sockjs": "^0.3.15",
     "sockjs-client": "^1.0.3",
