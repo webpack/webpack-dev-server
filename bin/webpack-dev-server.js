@@ -164,12 +164,11 @@ if(options.inline) {
 
 new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
 	var uri = protocol + "://" + options.host + ":" + options.port + "/";
+	if(!options.inline)
+		uri += "webpack-dev-server/";
 
 	if(err) throw err;
-	if(options.inline)
-		console.log(uri);
-	else
-		console.log(uri + "webpack-dev-server/");
+	console.log(uri);
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
