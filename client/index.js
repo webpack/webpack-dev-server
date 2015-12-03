@@ -2,10 +2,13 @@ var url = require('url');
 var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
 var scriptElements = document.getElementsByTagName("script");
+var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "");
 
+// If this bundle is inlined, use the resource query to get the correct url.
+// Else, get the url from the <script> this file was called with.
 var urlParts = url.parse(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery.substr(1) :
-	scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "")
+	(scriptHost ? scriptHost : "/")
 );
 
 var sock = null;
