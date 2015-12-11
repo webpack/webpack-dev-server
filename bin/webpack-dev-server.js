@@ -137,12 +137,17 @@ if(argv["history-api-fallback"])
 if(argv["compress"])
 	options.compress = true;
 
+if(argv["manual-reload-on-fail"])
+	options.manualReloadOnFail = true;
+
 var protocol = options.https ? "https" : "http";
 
 if(options.inline) {
 	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + options.host + ":" + options.port];
 
-	if(options.hot)
+	if(options.manualReloadOnFail)
+		devClient.push("webpack/hot/only-dev-server");
+	else if(options.hot)
 		devClient.push("webpack/hot/dev-server");
 	[].concat(wpOpt).forEach(function(wpOpt) {
 		if(typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
