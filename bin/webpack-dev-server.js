@@ -22,6 +22,8 @@ var optimist = require("optimist")
 
 	.boolean("lazy").describe("lazy")
 
+	.boolean("stdin").describe("stdin", "close when stdin ends")
+
 	.boolean("info").describe("info").default("info", true)
 
 	.boolean("quiet").describe("quiet")
@@ -79,6 +81,14 @@ if(!options.filename)
 
 if(!options.watchOptions)
 	options.watchOptions = firstWpOpt.watchOptions;
+
+if(argv["stdin"]) {
+	process.stdin.on('end', function() {
+		process.exit(0);
+	});
+	process.stdin.resume();
+}
+
 if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
 	options.watchDelay = firstWpOpt.watchDelay;
 
