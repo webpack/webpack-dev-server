@@ -22,10 +22,14 @@
     "http-proxy-middleware": "~0.9.0"
   },
   "devDependencies": {
+    "beautify-lint": "^1.0.4",
     "css-loader": "~0.23.0",
+    "eslint": "^1.10.3",
+    "eslint-plugin-nodeca": "^1.0.3",
     "file-loader": "~0.8.4",
     "jade": "^1.11.0",
     "jade-loader": "~0.8.0",
+    "jsbeautify": "^0.3.6",
     "less": "^2.5.1",
     "less-loader": "~2.2.0",
     "style-loader": "~0.13.0",
@@ -47,6 +51,10 @@
     "ssl/"
   ],
   "scripts": {
-    "prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --colors --config client/webpack.config.js -p"
+    "prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --colors --config client/webpack.config.js -p",
+    "lint": "eslint lib test",
+    "beautify-lint": "beautify-lint lib/**.js bin/**.js",
+    "beautify": "beautify-rewrite lib/**.js bin/**.js",
+    "travis": "npm run lint && npm run beautify-lint && node lib/Server.js"
   }
 }

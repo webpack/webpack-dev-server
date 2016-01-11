@@ -18,47 +18,48 @@ var webpack = require("webpack");
 
 var optimist = require("optimist")
 
-	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-			"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
+.usage("webpack-dev-server " + require("../package.json").version + "\n" +
+	"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
 
-	.boolean("lazy").describe("lazy")
+.boolean("lazy").describe("lazy")
 
-	.boolean("stdin").describe("stdin", "close when stdin ends")
+.boolean("stdin").describe("stdin", "close when stdin ends")
 
-	.boolean("info").describe("info").default("info", true)
+.boolean("info").describe("info").default("info", true)
 
-	.boolean("quiet").describe("quiet")
+.boolean("quiet").describe("quiet")
 
-	.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
+.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
 
-	.boolean("https").describe("https")
+.boolean("https").describe("https")
 
-	.string("key").describe("key", "Path to a SSL key.")
+.string("key").describe("key", "Path to a SSL key.")
 
-	.string("cert").describe("cert", "Path to a SSL certificate.")
+.string("cert").describe("cert", "Path to a SSL certificate.")
 
-	.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
+.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
 
-	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
+.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
-	.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
+.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
 
-	.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
+.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
 
-	.boolean("compress").describe("compress", "enable gzip compression")
+.boolean("compress").describe("compress", "enable gzip compression")
 
-	.boolean("open").describe("open", "Open default browser")
+.boolean("open").describe("open", "Open default browser")
 
-	.describe("port", "The port").default("port", 8080)
+.describe("port", "The port").default("port", 8080)
 
-
-	.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
+.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
 
 require("webpack/bin/config-optimist")(optimist);
 
 var argv = optimist.argv;
 
-var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
+var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, {
+	outputFilename: "/bundle.js"
+});
 var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
 var options = wpOpt.devServer || firstWpOpt.devServer || {};
@@ -106,7 +107,9 @@ if(argv["content-base"]) {
 	else if(!/^(https?:)?\/\//.test(options.contentBase))
 		options.contentBase = path.resolve(options.contentBase);
 } else if(argv["content-base-target"]) {
-	options.contentBase = { target: argv["content-base-target"] };
+	options.contentBase = {
+		target: argv["content-base-target"]
+	};
 } else if(!options.contentBase) {
 	options.contentBase = process.cwd();
 }
@@ -186,6 +189,6 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 		console.log("content is served from " + options.contentBase);
 	if(options.historyApiFallback)
 		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
-	if (options.open)
+	if(options.open)
 		open(uri);
 });
