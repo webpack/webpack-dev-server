@@ -8,7 +8,7 @@ var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src").rep
 // Else, get the url from the <script> this file was called with.
 var urlParts = url.parse(typeof __resourceQuery === "string" && __resourceQuery ?
 	__resourceQuery.substr(1) :
-	(scriptHost ? scriptHost : "/")
+	(scriptHost ? scriptHost : "/"), false, true
 );
 
 var sock = null;
@@ -63,7 +63,7 @@ var newConnection = function() {
 		auth: urlParts.auth,
 		hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
 		port: urlParts.port,
-		pathname: urlParts.path === '/' ? "/sockjs-node" : urlParts.path
+		pathname: urlParts.path == null || urlParts.path === '/' ? "/sockjs-node" : urlParts.path
 	}));
 
 	sock.onclose = function() {
