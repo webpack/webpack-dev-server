@@ -2,6 +2,7 @@
 
 var path = require("path");
 var url = require("url");
+var open = require("open");
 var fs = require("fs");
 
 // Local version replaces global one
@@ -46,7 +47,10 @@ var optimist = require("optimist")
 
 	.boolean("compress").describe("compress", "enable gzip compression")
 
+	.boolean("open").describe("open", "Open default browser")
+
 	.describe("port", "The port").default("port", 8080)
+
 
 	.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
 
@@ -147,6 +151,9 @@ if(argv["history-api-fallback"])
 if(argv["compress"])
 	options.compress = true;
 
+if(argv["open"])
+	options.open = true;
+
 var protocol = options.https ? "https" : "http";
 
 if(options.inline) {
@@ -166,11 +173,12 @@ if(options.inline) {
 }
 
 new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
+	var uri = protocol + "://" + options.host + ":" + options.port + "/";
+	if(!options.inline)
+		uri += "webpack-dev-server/";
+
 	if(err) throw err;
-	if(options.inline)
-		console.log(protocol + "://" + options.host + ":" + options.port + "/");
-	else
-		console.log(protocol + "://" + options.host + ":" + options.port + "/webpack-dev-server/");
+	console.log(uri);
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
@@ -178,4 +186,6 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 		console.log("content is served from " + options.contentBase);
 	if(options.historyApiFallback)
 		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
+	if (options.open)
+		open(uri);
 });
