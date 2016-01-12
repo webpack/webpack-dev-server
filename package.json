@@ -1,33 +1,38 @@
 {
   "name": "webpack-dev-server",
-  "version": "1.12.0",
+  "version": "1.14.1",
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
-    "webpack": "^1.3.0"
+    "webpack": ">=1.3.0 <3"
   },
   "dependencies": {
     "compression": "^1.5.2",
     "connect-history-api-fallback": "1.1.0",
     "express": "^4.13.3",
-    "http-proxy": "^1.11.2",
     "optimist": "~0.6.0",
+    "open": "0.0.5",
     "serve-index": "^1.7.2",
-    "socket.io": "^1.3.6",
-    "socket.io-client": "^1.3.6",
+    "sockjs": "^0.3.15",
+    "sockjs-client": "^1.0.3",
     "stream-cache": "~0.0.1",
     "strip-ansi": "^3.0.0",
     "supports-color": "^3.1.1",
-    "webpack-dev-middleware": "^1.2.0"
+    "webpack-dev-middleware": "^1.4.0",
+    "http-proxy-middleware": "~0.9.0"
   },
   "devDependencies": {
-    "css-loader": "~0.18.0",
+    "beautify-lint": "^1.0.4",
+    "css-loader": "~0.23.0",
+    "eslint": "^1.10.3",
+    "eslint-plugin-nodeca": "^1.0.3",
     "file-loader": "~0.8.4",
     "jade": "^1.11.0",
-    "jade-loader": "~0.7.1",
+    "jade-loader": "~0.8.0",
+    "jsbeautify": "^0.3.6",
     "less": "^2.5.1",
     "less-loader": "~2.2.0",
-    "style-loader": "~0.12.3",
+    "style-loader": "~0.13.0",
     "url-loader": "~0.5.6",
     "webpack": "^1.12.1"
   },
@@ -46,6 +51,10 @@
     "ssl/"
   ],
   "scripts": {
-    "prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --colors --config client/webpack.config.js -p"
+    "prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --colors --config client/webpack.config.js -p",
+    "lint": "eslint lib test",
+    "beautify-lint": "beautify-lint lib/**.js bin/**.js",
+    "beautify": "beautify-rewrite lib/**.js bin/**.js",
+    "travis": "npm run lint && npm run beautify-lint && node lib/Server.js"
   }
 }

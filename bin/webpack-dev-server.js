@@ -2,6 +2,7 @@
 
 var path = require("path");
 var url = require("url");
+var open = require("open");
 var fs = require("fs");
 
 // Local version replaces global one
@@ -17,44 +18,50 @@ var webpack = require("webpack");
 
 var optimist = require("optimist")
 
-	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-			"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
+.usage("webpack-dev-server " + require("../package.json").version + "\n" +
+	"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
 
-	.boolean("lazy").describe("lazy")
+.boolean("lazy").describe("lazy")
 
-	.boolean("info").describe("info").default("info", true)
+.boolean("stdin").describe("stdin", "close when stdin ends")
 
-	.boolean("quiet").describe("quiet")
+.boolean("info").describe("info").default("info", true)
 
-	.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
+.boolean("quiet").describe("quiet")
 
-	.boolean("https").describe("https")
+.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
 
-	.string("key").describe("key", "Path to a SSL key.")
+.boolean("https").describe("https")
 
-	.string("cert").describe("cert", "Path to a SSL certificate.")
+.string("key").describe("key", "Path to a SSL key.")
 
-	.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
+.string("cert").describe("cert", "Path to a SSL certificate.")
 
-	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
+.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
 
-	.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
+.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
-	.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
+.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
 
-	.boolean("compress").describe("compress", "enable gzip compression")
+.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
 
-	.describe("port", "The port").default("port", 8080)
+.boolean("compress").describe("compress", "enable gzip compression")
 
-	.describe("public", "The public hostname/ip address of the server")
+.boolean("open").describe("open", "Open default browser")
 
-	.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
+.describe("port", "The port").default("port", 8080)
+
+.describe("public", "The public hostname/ip address of the server")
+
+.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
 
 require("webpack/bin/config-optimist")(optimist);
 
 var argv = optimist.argv;
 
-var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
+var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, {
+	outputFilename: "/bundle.js"
+});
 var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
 var options = wpOpt.devServer || firstWpOpt.devServer || {};
@@ -84,6 +91,14 @@ if(!options.filename)
 
 if(!options.watchOptions)
 	options.watchOptions = firstWpOpt.watchOptions;
+
+if(argv["stdin"]) {
+	process.stdin.on('end', function() {
+		process.exit(0);
+	});
+	process.stdin.resume();
+}
+
 if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
 	options.watchDelay = firstWpOpt.watchDelay;
 
@@ -97,7 +112,9 @@ if(argv["content-base"]) {
 	else if(!/^(https?:)?\/\//.test(options.contentBase))
 		options.contentBase = path.resolve(options.contentBase);
 } else if(argv["content-base-target"]) {
-	options.contentBase = { target: argv["content-base-target"] };
+	options.contentBase = {
+		target: argv["content-base-target"]
+	};
 } else if(!options.contentBase) {
 	options.contentBase = process.cwd();
 }
@@ -142,6 +159,9 @@ if(argv["history-api-fallback"])
 if(argv["compress"])
 	options.compress = true;
 
+if(argv["open"])
+	options.open = true;
+
 var protocol = options.https ? "https" : "http";
 
 if(options.inline) {
@@ -161,11 +181,12 @@ if(options.inline) {
 }
 
 new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
+	var uri = protocol + "://" + options.host + ":" + options.port + "/";
+	if(!options.inline)
+		uri += "webpack-dev-server/";
+
 	if(err) throw err;
-	if(options.inline)
-		console.log(protocol + "://" + options.host + ":" + options.port + "/");
-	else
-		console.log(protocol + "://" + options.host + ":" + options.port + "/webpack-dev-server/");
+	console.log(uri);
 	console.log("webpack result is served from " + options.publicPath);
 	if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
@@ -173,4 +194,6 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 		console.log("content is served from " + options.contentBase);
 	if(options.historyApiFallback)
 		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
+	if(options.open)
+		open(uri);
 });
