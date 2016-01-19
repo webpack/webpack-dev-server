@@ -19,7 +19,7 @@
     "strip-ansi": "^3.0.0",
     "supports-color": "^3.1.1",
     "webpack-dev-middleware": "^1.4.0",
-    "http-proxy-middleware": "~0.9.0"
+    "http-proxy-middleware": "~0.9.1"
   },
   "devDependencies": {
     "beautify-lint": "^1.0.4",
