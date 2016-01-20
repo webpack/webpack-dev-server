@@ -16,50 +16,91 @@ try {
 var Server = require("../lib/Server");
 var webpack = require("webpack");
 
-var optimist = require("optimist")
+var yargs = require("yargs")
+	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
+		"Usage: http://webpack.github.io/docs/webpack-dev-server.html");
 
-.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-	"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
+require("webpack/bin/config-yargs")(yargs);
 
-.boolean("lazy").describe("lazy")
+var DISPLAY_GROUP = "Stats options:";
+var SSL_GROUP = "SSL options:";
+var CONNECTION_GROUP = "Connection options:";
+var RESPONSE_GROUP = "Response options:";
 
-.boolean("stdin").describe("stdin", "close when stdin ends")
+yargs.options({
+	"lazy": {
+		type: "boolean"
+	},
+	"stdin": {
+		type: "boolean",
+		describe: "close when stdin ends"
+	},
+	"open": {
+		type: "boolean",
+		describe: "Open default browser"
+	},
+	"info": {
+		type: "boolean",
+		group: DISPLAY_GROUP
+	},
+	"quiet": {
+		type: "boolean",
+		group: DISPLAY_GROUP
+	},
+	"https": {
+		type: "boolean",
+		group: SSL_GROUP
+	},
+	"key": {
+		type: "string",
+		describe: "Path to a SSL key.",
+		group: SSL_GROUP
+	},
+	"cert": {
+		type: "string",
+		describe: "Path to a SSL certificate.",
+		group: SSL_GROUP
+	},
+	"cacert": {
+		type: "string",
+		describe: "Path to a SSL CA certificate.",
+		group: SSL_GROUP
+	},
+	"content-base": {
+		type: "string",
+		describe: "A directory or URL to serve HTML content from.",
+		group: RESPONSE_GROUP
+	},
+	"history-api-fallback": {
+		type: "boolean",
+		describe: "Fallback to /index.html for Single Page Applications.",
+		group: RESPONSE_GROUP
+	},
+	"compress": {
+		type: "boolean",
+		describe: "Enable gzip compression",
+		group: RESPONSE_GROUP
+	},
+	"port": {
+		describe: "The port",
+		group: CONNECTION_GROUP
+	},
+	"public": {
+		type: "string",
+		describe: "The public hostname/ip address of the server",
+		group: CONNECTION_GROUP
+	},
+	"host": {
+		type: "string",
+		default: "localhost",
+		describe: "The hostname/ip address the server will bind to",
+		group: CONNECTION_GROUP
+	}
+});
 
-.boolean("info").describe("info").default("info", true)
+var argv = yargs.argv;
 
-.boolean("quiet").describe("quiet")
-
-.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
-
-.boolean("https").describe("https")
-
-.string("key").describe("key", "Path to a SSL key.")
-
-.string("cert").describe("cert", "Path to a SSL certificate.")
-
-.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
-
-.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
-
-.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
-
-.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
-
-.boolean("compress").describe("compress", "enable gzip compression")
-
-.boolean("open").describe("open", "Open default browser")
-
-.describe("port", "The port").default("port", 8080)
-
-.describe("public", "The public hostname/ip address of the server")
-
-.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
-
-require("webpack/bin/config-optimist")(optimist);
-
-var argv = optimist.argv;
-
-var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, {
+var wpOpt = require("webpack/bin/convert-argv")(yargs, argv, {
 	outputFilename: "/bundle.js"
 });
 var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
