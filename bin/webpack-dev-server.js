@@ -18,6 +18,7 @@ var webpack = require("webpack");
 
 var yargs = require("yargs")
 	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
+		"webpack " + require("webpack/package.json").version + "\n" +
 		"Usage: http://webpack.github.io/docs/webpack-dev-server.html");
 
 require("webpack/bin/config-yargs")(yargs);
@@ -29,7 +30,8 @@ var RESPONSE_GROUP = "Response options:";
 
 yargs.options({
 	"lazy": {
-		type: "boolean"
+		type: "boolean",
+		describe: "Lazy"
 	},
 	"stdin": {
 		type: "boolean",
@@ -41,15 +43,18 @@ yargs.options({
 	},
 	"info": {
 		type: "boolean",
-		group: DISPLAY_GROUP
+		group: DISPLAY_GROUP,
+		describe: "Info"
 	},
 	"quiet": {
 		type: "boolean",
-		group: DISPLAY_GROUP
+		group: DISPLAY_GROUP,
+		describe: "Quiet"
 	},
 	"https": {
 		type: "boolean",
-		group: SSL_GROUP
+		group: SSL_GROUP,
+		describe: "HTTPS"
 	},
 	"key": {
 		type: "string",
@@ -83,6 +88,7 @@ yargs.options({
 	},
 	"port": {
 		describe: "The port",
+		default: 8080,
 		group: CONNECTION_GROUP
 	},
 	"public": {
@@ -229,7 +235,9 @@ new Server(webpack(wpOpt), options).listen(options.port, options.host, function(
 	if(err) throw err;
 	console.log(uri);
 	console.log("webpack result is served from " + options.publicPath);
-	if(typeof options.contentBase === "object")
+	if(Array.isArray(options.contentBase))
+		console.log("content is served from " + options.contentBase.join(", "));
+	else if(typeof options.contentBase === "object")
 		console.log("requests are proxied to " + options.contentBase.target);
 	else
 		console.log("content is served from " + options.contentBase);
