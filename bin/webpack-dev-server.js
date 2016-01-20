@@ -69,7 +69,7 @@ var options = wpOpt.devServer || firstWpOpt.devServer || {};
 if(argv.host !== "localhost" || !options.host)
 	options.host = argv.host;
 
-if(!options.public)
+if(argv.public)
 	options.public = argv.public;
 
 if(argv.port !== 8080 || !options.port)
