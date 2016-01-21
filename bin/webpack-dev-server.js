@@ -33,6 +33,11 @@ yargs.options({
 		type: "boolean",
 		describe: "Lazy"
 	},
+	"inline": {
+		type: "boolean",
+		default: true,
+		describe: "Inline mode"
+	},
 	"stdin": {
 		type: "boolean",
 		describe: "close when stdin ends"
@@ -44,6 +49,7 @@ yargs.options({
 	"info": {
 		type: "boolean",
 		group: DISPLAY_GROUP,
+		default: true,
 		describe: "Info"
 	},
 	"quiet": {
@@ -197,8 +203,8 @@ if(argv["key"])
 if(argv["cacert"])
 	options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
 
-if(argv["inline"])
-	options.inline = true;
+if(argv["inline"] === false)
+	options.inline = false;
 
 if(argv["history-api-fallback"])
 	options.historyApiFallback = true;
@@ -211,7 +217,7 @@ if(argv["open"])
 
 var protocol = options.https ? "https" : "http";
 
-if(options.inline) {
+if(options.inline !== false) {
 	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + (options.public || (options.host + ":" + options.port))];
 
 	if(options.hot)
@@ -228,12 +234,13 @@ if(options.inline) {
 }
 
 new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
-	var uri = protocol + "://" + options.host + ":" + options.port + "/";
-	if(!options.inline)
-		uri += "webpack-dev-server/";
-
 	if(err) throw err;
+
+	var uri = protocol + "://" + options.host + ":" + options.port + "/";
+	if(options.inline === false)
+		uri += "webpack-dev-server/";
 	console.log(uri);
+
 	console.log("webpack result is served from " + options.publicPath);
 	if(Array.isArray(options.contentBase))
 		console.log("content is served from " + options.contentBase.join(", "));
