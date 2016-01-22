@@ -4,7 +4,7 @@
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
-    "webpack": ">=2.0.3-beta <3"
+    "webpack": ">=2.0.4-beta <3"
   },
   "dependencies": {
     "compression": "^1.5.2",
