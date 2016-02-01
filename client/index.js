@@ -8,7 +8,8 @@ if (typeof __resourceQuery === "string" && __resourceQuery) {
 } else {
 	// Else, get the url from the <script> this file was called with.
 	var scriptElements = document.getElementsByTagName("script");
-	var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "");
+	var scriptHostSrc = scriptElements[scriptElements.length-1].getAttribute("src");
+	var scriptHost = scriptHostSrc ? scriptHostSrc.replace(/\/[^\/]+$/, "") : '';
 	urlParts = url.parse((scriptHost ? scriptHost : "/"), false, true);
 }
 
