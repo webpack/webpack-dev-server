@@ -18,6 +18,7 @@
     "stream-cache": "~0.0.1",
     "strip-ansi": "^3.0.0",
     "supports-color": "^3.1.1",
+    "webpack": ">=2.0.3-beta <3",
     "webpack-dev-middleware": "^1.4.0",
     "yargs": "^3.32.0"
   },
@@ -29,12 +30,12 @@
     "file-loader": "~0.8.4",
     "jade": "^1.11.0",
     "jade-loader": "~0.8.0",
+    "jquery": "^2.2.0",
     "jsbeautify": "^0.3.6",
     "less": "^2.5.1",
     "less-loader": "~2.2.0",
     "style-loader": "~0.13.0",
-    "url-loader": "~0.5.6",
-    "webpack": "^1.12.1"
+    "url-loader": "~0.5.6"
   },
   "license": "MIT",
   "repository": {
@@ -51,7 +52,7 @@
     "ssl/"
   ],
   "scripts": {
-    "prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --colors --config client/webpack.config.js -p",
+    "prepublish": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js -p",
     "lint": "eslint lib test",
     "beautify-lint": "beautify-lint lib/**.js bin/**.js",
     "beautify": "beautify-rewrite lib/**.js bin/**.js",
