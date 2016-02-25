@@ -4,7 +4,7 @@
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
-    "webpack": ">=2.0.3-beta <3"
+    "webpack": ">=2.0.3-beta < 3 || ^2.1.0-beta"
   },
   "dependencies": {
     "compression": "^1.5.2",
@@ -18,7 +18,7 @@
     "stream-cache": "~0.0.1",
     "strip-ansi": "^3.0.0",
     "supports-color": "^3.1.1",
-    "webpack-dev-middleware": "^1.4.0",
+    "webpack-dev-middleware": "johanneslumpe/webpack-dev-middleware",
     "yargs": "^3.32.0"
   },
   "devDependencies": {
