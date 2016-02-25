@@ -18,7 +18,7 @@
     "stream-cache": "~0.0.1",
     "strip-ansi": "^3.0.0",
     "supports-color": "^3.1.1",
-    "webpack-dev-middleware": "^1.4.0",
+    "webpack-dev-middleware": "johanneslumpe/webpack-dev-middleware",
     "yargs": "^3.32.0"
   },
   "devDependencies": {
