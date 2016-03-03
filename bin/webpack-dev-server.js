@@ -115,141 +115,155 @@ var argv = yargs.argv;
 var wpOpt = require("webpack/bin/convert-argv")(yargs, argv, {
 	outputFilename: "/bundle.js"
 });
-var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
-var options = wpOpt.devServer || firstWpOpt.devServer || {};
+function processOptions(wpOpt) {
+	//process Promise
+	if (typeof wpOpt.then === "function") {
+		wpOpt.then(processOptions).catch(function (err) {
+			console.error(err.stack || err);
+			process.exit(); // eslint-disable-line
+		});
+		return;
+	}
 
-if(argv.host !== "localhost" || !options.host)
-	options.host = argv.host;
+	var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
-if(argv.public)
-	options.public = argv.public;
+	var options = wpOpt.devServer || firstWpOpt.devServer || {};
 
-if(argv.port !== 8080 || !options.port)
-	options.port = argv.port;
+	if (argv.host !== "localhost" || !options.host)
+		options.host = argv.host;
 
-if(!options.publicPath) {
-	options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || "";
-	if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
-		options.publicPath = "/" + options.publicPath;
-}
+	if (argv.public)
+		options.public = argv.public;
 
-if(!options.outputPath)
-	options.outputPath = "/";
-if(!options.filename)
-	options.filename = firstWpOpt.output && firstWpOpt.output.filename;
-[].concat(wpOpt).forEach(function(wpOpt) {
-	wpOpt.output.path = "/";
-});
+	if (argv.port !== 8080 || !options.port)
+		options.port = argv.port;
 
-if(!options.watchOptions)
-	options.watchOptions = firstWpOpt.watchOptions;
+	if (!options.publicPath) {
+		options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || "";
+		if (!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
+			options.publicPath = "/" + options.publicPath;
+	}
 
-if(argv["stdin"]) {
-	process.stdin.on('end', function() {
-		process.exit(0);
+	if (!options.outputPath)
+		options.outputPath = "/";
+	if (!options.filename)
+		options.filename = firstWpOpt.output && firstWpOpt.output.filename;
+	[].concat(wpOpt).forEach(function (wpOpt) {
+		wpOpt.output.path = "/";
 	});
-	process.stdin.resume();
-}
 
-if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
-	options.watchDelay = firstWpOpt.watchDelay;
+	if (!options.watchOptions)
+		options.watchOptions = firstWpOpt.watchOptions;
 
-if(!options.hot)
-	options.hot = argv["hot"];
+	if (argv["stdin"]) {
+		process.stdin.on('end', function () {
+			process.exit(0);
+		});
+		process.stdin.resume();
+	}
 
-if(argv["content-base"]) {
-	options.contentBase = argv["content-base"];
-	if(/^[0-9]$/.test(options.contentBase))
-		options.contentBase = +options.contentBase;
-	else if(!/^(https?:)?\/\//.test(options.contentBase))
-		options.contentBase = path.resolve(options.contentBase);
-} else if(argv["content-base-target"]) {
-	options.contentBase = {
-		target: argv["content-base-target"]
-	};
-} else if(!options.contentBase) {
-	options.contentBase = process.cwd();
-}
+	if (!options.watchDelay && !options.watchOptions) // TODO remove in next major version
+		options.watchDelay = firstWpOpt.watchDelay;
 
-if(!options.stats) {
-	options.stats = {
-		cached: false,
-		cachedAssets: false
-	};
-}
+	if (!options.hot)
+		options.hot = argv["hot"];
 
-if(typeof options.stats === "object" && typeof options.stats.colors === "undefined")
-	options.stats.colors = require("supports-color");
+	if (argv["content-base"]) {
+		options.contentBase = argv["content-base"];
+		if (/^[0-9]$/.test(options.contentBase))
+			options.contentBase = +options.contentBase;
+		else if (!/^(https?:)?\/\//.test(options.contentBase))
+			options.contentBase = path.resolve(options.contentBase);
+	} else if (argv["content-base-target"]) {
+		options.contentBase = {
+			target: argv["content-base-target"]
+		};
+	} else if (!options.contentBase) {
+		options.contentBase = process.cwd();
+	}
 
-if(argv["lazy"])
-	options.lazy = true;
+	if (!options.stats) {
+		options.stats = {
+			cached: false,
+			cachedAssets: false
+		};
+	}
 
-if(!argv["info"])
-	options.noInfo = true;
+	if (typeof options.stats === "object" && typeof options.stats.colors === "undefined")
+		options.stats.colors = require("supports-color");
 
-if(argv["quiet"])
-	options.quiet = true;
+	if (argv["lazy"])
+		options.lazy = true;
 
-if(argv["https"])
-	options.https = true;
+	if (!argv["info"])
+		options.noInfo = true;
 
-if(argv["cert"])
-	options.cert = fs.readFileSync(path.resolve(argv["cert"]));
+	if (argv["quiet"])
+		options.quiet = true;
 
-if(argv["key"])
-	options.key = fs.readFileSync(path.resolve(argv["key"]));
+	if (argv["https"])
+		options.https = true;
 
-if(argv["cacert"])
-	options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
+	if (argv["cert"])
+		options.cert = fs.readFileSync(path.resolve(argv["cert"]));
 
-if(argv["inline"] === false)
-	options.inline = false;
+	if (argv["key"])
+		options.key = fs.readFileSync(path.resolve(argv["key"]));
 
-if(argv["history-api-fallback"])
-	options.historyApiFallback = true;
+	if (argv["cacert"])
+		options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
 
-if(argv["compress"])
-	options.compress = true;
+	if (argv["inline"] === false)
+		options.inline = false;
 
-if(argv["open"])
-	options.open = true;
+	if (argv["history-api-fallback"])
+		options.historyApiFallback = true;
 
-var protocol = options.https ? "https" : "http";
+	if (argv["compress"])
+		options.compress = true;
 
-if(options.inline !== false) {
-	var devClient = [require.resolve("../client/") + "?" + protocol + "://" + (options.public || (options.host + ":" + options.port))];
+	if (argv["open"])
+		options.open = true;
 
-	if(options.hot)
-		devClient.push("webpack/hot/dev-server");
-	[].concat(wpOpt).forEach(function(wpOpt) {
-		if(typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
-			Object.keys(wpOpt.entry).forEach(function(key) {
-				wpOpt.entry[key] = devClient.concat(wpOpt.entry[key]);
-			});
-		} else {
-			wpOpt.entry = devClient.concat(wpOpt.entry);
-		}
+	var protocol = options.https ? "https" : "http";
+
+	if (options.inline !== false) {
+		var devClient = [require.resolve("../client/") + "?" + protocol + "://" + (options.public || (options.host + ":" + options.port))];
+
+		if (options.hot)
+			devClient.push("webpack/hot/dev-server");
+		[].concat(wpOpt).forEach(function (wpOpt) {
+			if (typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
+				Object.keys(wpOpt.entry).forEach(function (key) {
+					wpOpt.entry[key] = devClient.concat(wpOpt.entry[key]);
+				});
+			} else {
+				wpOpt.entry = devClient.concat(wpOpt.entry);
+			}
+		});
+	}
+
+	new Server(webpack(wpOpt), options).listen(options.port, options.host, function (err) {
+		if (err) throw err;
+
+		var uri = protocol + "://" + options.host + ":" + options.port + "/";
+		if (options.inline === false)
+			uri += "webpack-dev-server/";
+		console.log(uri);
+
+		console.log("webpack result is served from " + options.publicPath);
+		if (Array.isArray(options.contentBase))
+			console.log("content is served from " + options.contentBase.join(", "));
+		else if (typeof options.contentBase === "object")
+			console.log("requests are proxied to " + options.contentBase.target);
+		else
+			console.log("content is served from " + options.contentBase);
+		if (options.historyApiFallback)
+			console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
+		if (options.open)
+			open(uri);
 	});
 }
 
-new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
-	if(err) throw err;
-
-	var uri = protocol + "://" + options.host + ":" + options.port + "/";
-	if(options.inline === false)
-		uri += "webpack-dev-server/";
-	console.log(uri);
-
-	console.log("webpack result is served from " + options.publicPath);
-	if(Array.isArray(options.contentBase))
-		console.log("content is served from " + options.contentBase.join(", "));
-	else if(typeof options.contentBase === "object")
-		console.log("requests are proxied to " + options.contentBase.target);
-	else
-		console.log("content is served from " + options.contentBase);
-	if(options.historyApiFallback)
-		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
-	if(options.open)
-		open(uri);
-});
+processOptions(wpOpt);
