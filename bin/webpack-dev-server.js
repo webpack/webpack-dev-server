@@ -118,8 +118,8 @@ var wpOpt = require("webpack/bin/convert-argv")(yargs, argv, {
 
 function processOptions(wpOpt) {
 	//process Promise
-	if (typeof wpOpt.then === "function") {
-		wpOpt.then(processOptions).catch(function (err) {
+	if(typeof wpOpt.then === "function") {
+		wpOpt.then(processOptions).catch(function(err) {
 			console.error(err.stack || err);
 			process.exit(); // eslint-disable-line
 		});
@@ -130,112 +130,112 @@ function processOptions(wpOpt) {
 
 	var options = wpOpt.devServer || firstWpOpt.devServer || {};
 
-	if (argv.host !== "localhost" || !options.host)
+	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
 
-	if (argv.public)
+	if(argv.public)
 		options.public = argv.public;
 
-	if (argv.port !== 8080 || !options.port)
+	if(argv.port !== 8080 || !options.port)
 		options.port = argv.port;
 
-	if (!options.publicPath) {
+	if(!options.publicPath) {
 		options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || "";
-		if (!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
+		if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
 			options.publicPath = "/" + options.publicPath;
 	}
 
-	if (!options.outputPath)
+	if(!options.outputPath)
 		options.outputPath = "/";
-	if (!options.filename)
+	if(!options.filename)
 		options.filename = firstWpOpt.output && firstWpOpt.output.filename;
-	[].concat(wpOpt).forEach(function (wpOpt) {
+	[].concat(wpOpt).forEach(function(wpOpt) {
 		wpOpt.output.path = "/";
 	});
 
-	if (!options.watchOptions)
+	if(!options.watchOptions)
 		options.watchOptions = firstWpOpt.watchOptions;
 
-	if (argv["stdin"]) {
-		process.stdin.on('end', function () {
+	if(argv["stdin"]) {
+		process.stdin.on('end', function() {
 			process.exit(0);
 		});
 		process.stdin.resume();
 	}
 
-	if (!options.watchDelay && !options.watchOptions) // TODO remove in next major version
+	if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
 		options.watchDelay = firstWpOpt.watchDelay;
 
-	if (!options.hot)
+	if(!options.hot)
 		options.hot = argv["hot"];
 
-	if (argv["content-base"]) {
+	if(argv["content-base"]) {
 		options.contentBase = argv["content-base"];
-		if (/^[0-9]$/.test(options.contentBase))
+		if(/^[0-9]$/.test(options.contentBase))
 			options.contentBase = +options.contentBase;
-		else if (!/^(https?:)?\/\//.test(options.contentBase))
+		else if(!/^(https?:)?\/\//.test(options.contentBase))
 			options.contentBase = path.resolve(options.contentBase);
-	} else if (argv["content-base-target"]) {
+	} else if(argv["content-base-target"]) {
 		options.contentBase = {
 			target: argv["content-base-target"]
 		};
-	} else if (!options.contentBase) {
+	} else if(!options.contentBase) {
 		options.contentBase = process.cwd();
 	}
 
-	if (!options.stats) {
+	if(!options.stats) {
 		options.stats = {
 			cached: false,
 			cachedAssets: false
 		};
 	}
 
-	if (typeof options.stats === "object" && typeof options.stats.colors === "undefined")
+	if(typeof options.stats === "object" && typeof options.stats.colors === "undefined")
 		options.stats.colors = require("supports-color");
 
-	if (argv["lazy"])
+	if(argv["lazy"])
 		options.lazy = true;
 
-	if (!argv["info"])
+	if(!argv["info"])
 		options.noInfo = true;
 
-	if (argv["quiet"])
+	if(argv["quiet"])
 		options.quiet = true;
 
-	if (argv["https"])
+	if(argv["https"])
 		options.https = true;
 
-	if (argv["cert"])
+	if(argv["cert"])
 		options.cert = fs.readFileSync(path.resolve(argv["cert"]));
 
-	if (argv["key"])
+	if(argv["key"])
 		options.key = fs.readFileSync(path.resolve(argv["key"]));
 
-	if (argv["cacert"])
+	if(argv["cacert"])
 		options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
 
-	if (argv["inline"] === false)
+	if(argv["inline"] === false)
 		options.inline = false;
 
-	if (argv["history-api-fallback"])
+	if(argv["history-api-fallback"])
 		options.historyApiFallback = true;
 
-	if (argv["compress"])
+	if(argv["compress"])
 		options.compress = true;
 
-	if (argv["open"])
+	if(argv["open"])
 		options.open = true;
 
 	var protocol = options.https ? "https" : "http";
 
-	if (options.inline !== false) {
+	if(options.inline !== false) {
 		var devClient = [require.resolve("../client/") + "?" + protocol + "://" + (options.public || (options.host + ":" + options.port))];
 
-		if (options.hot)
+		if(options.hot)
 			devClient.push("webpack/hot/dev-server");
-		[].concat(wpOpt).forEach(function (wpOpt) {
-			if (typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
-				Object.keys(wpOpt.entry).forEach(function (key) {
+		[].concat(wpOpt).forEach(function(wpOpt) {
+			if(typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
+				Object.keys(wpOpt.entry).forEach(function(key) {
 					wpOpt.entry[key] = devClient.concat(wpOpt.entry[key]);
 				});
 			} else {
@@ -244,24 +244,24 @@ function processOptions(wpOpt) {
 		});
 	}
 
-	new Server(webpack(wpOpt), options).listen(options.port, options.host, function (err) {
-		if (err) throw err;
+	new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
+		if(err) throw err;
 
 		var uri = protocol + "://" + options.host + ":" + options.port + "/";
-		if (options.inline === false)
+		if(options.inline === false)
 			uri += "webpack-dev-server/";
 		console.log(uri);
 
 		console.log("webpack result is served from " + options.publicPath);
-		if (Array.isArray(options.contentBase))
+		if(Array.isArray(options.contentBase))
 			console.log("content is served from " + options.contentBase.join(", "));
-		else if (typeof options.contentBase === "object")
+		else if(typeof options.contentBase === "object")
 			console.log("requests are proxied to " + options.contentBase.target);
 		else
 			console.log("content is served from " + options.contentBase);
-		if (options.historyApiFallback)
+		if(options.historyApiFallback)
 			console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
-		if (options.open)
+		if(options.open)
 			open(uri);
 	});
 }
