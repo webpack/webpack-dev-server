@@ -168,7 +168,7 @@ if(argv["content-base"]) {
 	options.contentBase = {
 		target: argv["content-base-target"]
 	};
-} else if(!options.contentBase) {
+} else if(options.contentBase !== false) {
 	options.contentBase = process.cwd();
 }
 
