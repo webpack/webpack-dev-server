@@ -59,7 +59,7 @@ var onSocketMsg = {
 
 var newConnection = function() {
 	sock = new SockJS(url.format({
-		protocol: urlParts.protocol,
+		protocol: (window.location.protocol == "https:") ? "https:" : urlParts.protocol,
 		auth: urlParts.auth,
 		hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
 		port: (urlParts.port == '0') ? window.location.port : urlParts.port,
