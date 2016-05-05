@@ -49,8 +49,11 @@
     "ssl/"
   ],
   "scripts": {
-    "prepublish": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js -p",
-    "lint": "eslint bin lib test examples client/{index,live,socket,webpack.config}.js",
+    "prepublish": "npm run -s client-live && npm run -s client-index && npm run -s client-sockjs",
+    "client-live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js -p",
+    "client-index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js -p",
+    "client-sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js -p",
+    "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,webpack.config}.js",
     "beautify": "npm run lint -- --fix",
     "travis": "npm run lint && node lib/Server.js"
   }
