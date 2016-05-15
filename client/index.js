@@ -55,7 +55,6 @@ var onSocketMsg = {
 		for(var i = 0; i < errors.length; i++)
 			console.error(stripAnsi(errors[i]));
 		if(initial) return initial = false;
-		reloadApp();
 	}
 };
 
