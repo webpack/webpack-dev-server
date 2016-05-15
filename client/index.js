@@ -58,10 +58,10 @@ var onSocketMsg = {
 
 var newConnection = function() {
 	sock = new SockJS(url.format({
-		protocol: (window.location.protocol == "https:") ? "https:" : urlParts.protocol,
+		protocol: (window.location.protocol === "https:" || urlParts.hostname === '0.0.0.0') ? window.location.protocol : urlParts.protocol,
 		auth: urlParts.auth,
 		hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
-		port: (urlParts.port == '0') ? window.location.port : urlParts.port,
+		port: (urlParts.port === '0') ? window.location.port : urlParts.port,
 		pathname: urlParts.path == null || urlParts.path === '/' ? "/sockjs-node" : urlParts.path
 	}));
 
