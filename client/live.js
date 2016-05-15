@@ -99,7 +99,10 @@ $(function() {
 	iframe.load(function() {
 		status.text("App ready.");
 		header.css({borderColor: ""});
-		iframe.show();
+		
+		if ($errors.is(':hidden')) {
+			iframe.show();
+		}
 	});
 
 	function reloadApp() {
