@@ -23,6 +23,7 @@ var yargs = require("yargs")
 
 require("webpack/bin/config-yargs")(yargs);
 
+var ADVANCED_GROUP = "Advanced options:";
 var DISPLAY_GROUP = "Stats options:";
 var SSL_GROUP = "SSL options:";
 var CONNECTION_GROUP = "Connection options:";
@@ -37,6 +38,11 @@ yargs.options({
 		type: "boolean",
 		default: true,
 		describe: "Inline mode"
+	},
+	"hot-only": {
+		type: "boolean",
+		describe: "Do not refresh page if HMR fails",
+		group: ADVANCED_GROUP
 	},
 	"stdin": {
 		type: "boolean",
@@ -169,6 +175,9 @@ function processOptions(wpOpt) {
 	if(!options.hot)
 		options.hot = argv["hot"];
 
+	if(!options.hotOnly)
+		options.hotOnly = argv["hot-only"];
+
 	if(argv["content-base"]) {
 		options.contentBase = argv["content-base"];
 		if(/^[0-9]$/.test(options.contentBase))
@@ -231,8 +240,11 @@ function processOptions(wpOpt) {
 	if(options.inline !== false) {
 		var devClient = [require.resolve("../client/") + "?" + protocol + "://" + (options.public || (options.host + ":" + options.port))];
 
-		if(options.hot)
+		if(options.hotOnly)
+			devClient.push("webpack/hot/only-dev-server");
+		else if(options.hot)
 			devClient.push("webpack/hot/dev-server");
+
 		[].concat(wpOpt).forEach(function(wpOpt) {
 			if(typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
 				Object.keys(wpOpt.entry).forEach(function(key) {
