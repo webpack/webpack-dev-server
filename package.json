@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "compression": "^1.5.2",
-    "connect-history-api-fallback": "1.1.0",
+    "connect-history-api-fallback": "^1.2.0",
     "express": "^4.13.3",
-    "http-proxy-middleware": "~0.9.1",
+    "http-proxy-middleware": "~0.15.0",
     "open": "0.0.5",
     "serve-index": "^1.7.2",
     "sockjs": "^0.3.15",
@@ -19,12 +19,12 @@
     "strip-ansi": "^3.0.0",
     "supports-color": "^3.1.1",
     "webpack-dev-middleware": "^1.4.0",
-    "yargs": "^3.32.0"
+    "yargs": "^4.7.1"
   },
   "devDependencies": {
     "beautify-lint": "^1.0.4",
     "css-loader": "~0.23.0",
-    "eslint": "^1.10.3",
+    "eslint": "^2.10.1",
     "eslint-plugin-nodeca": "^1.0.3",
     "file-loader": "~0.8.4",
     "jade": "^1.11.0",
@@ -35,7 +35,7 @@
     "less-loader": "~2.2.0",
     "style-loader": "~0.13.0",
     "url-loader": "~0.5.6",
-    "webpack": "^2.1.0-beta"
+    "webpack": "^2.1.0-beta.1"
   },
   "license": "MIT",
   "repository": {
