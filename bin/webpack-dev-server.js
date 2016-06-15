@@ -278,4 +278,8 @@ function processOptions(wpOpt) {
 	});
 }
 
-processOptions(wpOpt);
+if (Array.isArray(wpOpt)) {
+	wpOpt.forEach(processOptions);
+} else {
+	processOptions(wpOpt);
+}
