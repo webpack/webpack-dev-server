@@ -76,7 +76,7 @@ var newConnection = function() {
 
 		// Try to reconnect.
 		sock = null;
-		setTimeout(function () {
+		setTimeout(function() {
 			newConnection();
 		}, 2000);
 	};
