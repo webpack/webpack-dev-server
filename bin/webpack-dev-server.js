@@ -183,7 +183,7 @@ function processOptions(wpOpt) {
 	if(!options.hotOnly)
 		options.hotOnly = argv["hot-only"];
 
-	if (!options.skipErrors)
+	if(!options.skipErrors)
 		options.skipErrors = argv["skip-errors"];
 
 	if(argv["content-base"]) {
