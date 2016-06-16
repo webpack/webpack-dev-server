@@ -44,6 +44,11 @@ yargs.options({
 		describe: "Do not refresh page if HMR fails",
 		group: ADVANCED_GROUP
 	},
+	"skip-errors": {
+		type: "boolean",
+		describe: "Do not reload if there are compilation errors",
+		group: ADVANCED_GROUP
+	},
 	"stdin": {
 		type: "boolean",
 		describe: "close when stdin ends"
@@ -177,6 +182,9 @@ function processOptions(wpOpt) {
 
 	if(!options.hotOnly)
 		options.hotOnly = argv["hot-only"];
+
+	if (!options.skipErrors)
+		options.skipErrors = argv["skip-errors"];
 
 	if(argv["content-base"]) {
 		options.contentBase = argv["content-base"];
