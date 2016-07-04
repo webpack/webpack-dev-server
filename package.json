@@ -7,6 +7,7 @@
     "webpack": "^2.1.0-beta"
   },
   "dependencies": {
+    "basic-auth-connect": "^1.0.0",
     "compression": "^1.5.2",
     "connect-history-api-fallback": "^1.2.0",
     "express": "^4.13.3",
