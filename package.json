@@ -7,6 +7,7 @@
     "webpack": ">=1.3.0 <3"
   },
   "dependencies": {
+    "basic-auth-connect": "^1.0.0",
     "compression": "^1.5.2",
     "connect-history-api-fallback": "1.1.0",
     "express": "^4.13.3",

@@ -30,6 +30,8 @@ var optimist = require("optimist")
 
 	.boolean("https").describe("https")
 
+	.string("basic-auth").describe("basic-auth", "Using Basic Authentication with ID and password.")
+
 	.string("key").describe("key", "Path to a SSL key.")
 
 	.string("cert").describe("cert", "Path to a SSL certificate.")
@@ -95,6 +97,12 @@ if(argv["content-base"]) {
 	options.contentBase = { target: argv["content-base-target"] };
 } else if(!options.contentBase) {
 	options.contentBase = process.cwd();
+}
+
+if(options.basicAuth) {
+	if(!(options.basicAuth.id && options.basicAuth.passwd)) {
+		options.basicAuth = undefined;
+	}
 }
 
 if(!options.stats) {
