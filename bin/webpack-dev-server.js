@@ -221,7 +221,7 @@ function processOptions(wpOpt) {
 		options.key = fs.readFileSync(path.resolve(argv["key"]));
 
 	if(argv["cacert"])
-		options.cacert = fs.readFileSync(path.resolve(argv["cacert"]));
+		options.ca = fs.readFileSync(path.resolve(argv["cacert"]));
 
 	if(argv["inline"] === false)
 		options.inline = false;
