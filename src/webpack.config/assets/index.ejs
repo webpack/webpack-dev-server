@@ -3,12 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>{%= o.htmlWebpackPlugin.options.title %}</title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- app.css -->
-  <link rel="stylesheet" type="text/css" href="/app.css">
+  <%= !htmlWebpackPlugin.options.chunks.some(i => i.indexOf('.css') > 0) ? "" :
+  `<!-- app.css -->
+  <link rel="stylesheet" type="text/css" href="/app.css">`
+  %>
+
+  <%= !htmlWebpackPlugin.options.offline ? "" :
+  `<!-- manifest.json -->
+  <link rel="manifest" href="manifest.json">
   <!-- server-worker.js -->
-  <!-- manifest.json -->
   <script type="text/javascript">
   (function(){
     if ('serviceWorker' in navigator) {
@@ -21,16 +26,17 @@
       });
     }
   }())
-  </script>
-  <link rel="manifest" href="manifest.json">
+  </script>`
+   %>
+
 
   <!-- app & lib bootstrapping -->
-  {%# o.htmlWebpackPlugin.options.polyfills.map(name =>
-        `<script defer="${name}"></script>`) %}
-  {%# o.htmlWebpackPlugin.options.chunks.map(name =>
-        o.htmlWebpackPlugin.files.chunks[name])
+  <%= htmlWebpackPlugin.options.polyfills.map(name =>
+        `<script defer="${name}"></script>`) %>
+  <%= htmlWebpackPlugin.options.chunks.map(name =>
+        htmlWebpackPlugin.files.chunks[name])
       .reduce((a, o) =>
-        a.concat([`<script defer src="/${o.entry}"></script>`]), []).reverse().join("\n") %}
+        a.concat([`<script defer src="${o.entry}"></script>`]), []).reverse().join("\n") %>
 </head>
 <body>
   <!--[if lt IE 8]>

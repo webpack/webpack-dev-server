@@ -12,11 +12,13 @@ module.exports = ({
   config.plugins.push(new HtmlWebpackPlugin({
     title: name,
     filename: 'index.html',
-    inject:true,
+    template: path.resolve(__dirname, 'assets','index.ejs'),
+
     // template: (html ? html : path.resolve(__dirname, 'assets','index.tpl')),
-    // polyfills: polyfills,
-    // 'sw.js': (offline ? path.resolve('./assets/service-worker.js') : ''),
-    // chunks: Object.keys(config.entry)
+    name: name,
+    polyfills: polyfills,
+    'sw.js': (offline ? path.resolve('./assets/service-worker.js') : ''),
+    chunks: Object.keys(config.entry)
   }))
 
   return config
