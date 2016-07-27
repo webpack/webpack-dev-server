@@ -1,0 +1,24 @@
+### App specific ###
+node_modules/
+npm-debug.log
+
+
+
+### SublimeText ###
+*.sublime-workspace
+.fseventsd/*
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+$RECYCLE.BIN/
+Icon
+
+### Windows ###
+Thumbs.db
+ehthumbs.db
+._*
+Desktop.ini

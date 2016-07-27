@@ -1,0 +1,55 @@
+{
+  "license": "MIT",
+  "name": "auto-magical",
+  "version": "1.0.0",
+  "description": "one-click project setup",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npm run watch",
+    "watch": "NODE_ENV=development BABEL_ENV=development webpack-dev-server -d --watch --progress --colors --port 4000 --inline --content-base dist/ "
+  },
+  "author": "Puppybits <twitter:@Puppybits>",
+  "dependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015-webpack": "^6.4.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "compression-webpack-plugin": "^0.3.1",
+    "express": "^4.14.0",
+    "html-webpack-plugin": "^2.22.0",
+    "http-proxy-middleware": "^0.17.0",
+    "isomorphic-fetch": "^2.2.1",
+    "json-loader": "^0.5.4",
+    "npm-install-webpack-plugin": "^4.0.4",
+    "offline-plugin": "^3.4.2",
+    "react-hot-loader": "^1.3.0",
+    "start-server-webpack-plugin": "^2.0.1",
+    "stats-webpack-plugin": "^0.4.0",
+    "update-notifier": "^1.0.2",
+    "webpack": "^2.1.0-beta.20",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-preset": "^0.2.0",
+    "webpack-preset-babel": "^0.2.0",
+    "webpack-preset-babel-es2015": "^0.2.0"
+  },
+  "keywords": [
+    "react",
+    "webpack",
+    "hmr",
+    "api",
+    "cli",
+    "boilerplate",
+    "starter"
+  ],
+  "homepage": "https://github.com/puppybits/auto-magical",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/puppybits/auto-magical.git"
+  },
+  "bugs": {
+    "url": "https://github.com/puppybits/auto-magical/issues"
+  }
+}
