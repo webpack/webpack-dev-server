@@ -1,15 +1,28 @@
 # Automagical
 
-### One-click setup for any project
+### The one-click experience for JavaScript development
 
-Uses webpack to host files, enable hot module reloading and
-package files for fast file serving.
+Browser HMR (hot module reloading), static file server and node
+reloading all-in-one.
 
 [GIF showing starting a project][datauri://]
 
-## install
+*  Special thanks to Webpack, Nodemon, Webpack-Dev-Server projects
+
+## Quick start
 ```
 npm install auto-magical -g
+```
+
+Create a barebones, new project (or if you like you're
+existing project you can keep your existing project).
+```
+auto new react
+```
+
+Start a HMR server in your working directory
+```
+auto
 ```
 
 ## New Project
