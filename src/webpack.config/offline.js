@@ -8,15 +8,15 @@ module.exports = ({
   packagejson={version:'0'}
 }) => (function updateOffline(config) {
   let {version} = packagejson
-  if (offline){
 
+  if (offline){
     config.plugins.push(new OfflinePlugin({
       caches: {main:['index.html',":rest:"]},
       scope: '/',
       updateStrategy: 'all', /* change to 'hash' */
-      version: (deploy ? version : () => +new Date()),
+      version: (deploy ? version : () => +new Date()), /* all dev builds will be timestamped so it never caches */
       ServiceWorker: {
-        output: path.resolve('./assets/service-worker.tpl'),
+        output: path.resolve('.','assets','service-worker.tpl'),
         /* entry: null, add an entry for custom actions */
       },
       AppCache: false,

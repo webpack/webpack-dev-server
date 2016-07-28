@@ -39,7 +39,7 @@ module.exports = ({
     packagejson: packagejson,
     cwd:cwd,
   }
-  console.log(path.resolve(cwd, 'dist'))
+  
   const baseConfig = {
     entry: {
       app: [path.resolve(cwd, 'src', 'index.js')], // app.js will be for server-side-
@@ -83,9 +83,9 @@ module.exports = ({
         loader: 'style!css'
       }, {
         /* convert sass */
-      //   test: /\.sass/,
-      //   loader: 'style!css!sass?indentedSyntax=sass&includePaths[]=' + (__dirname, "./src")
-      // }, {
+        test: /\.sass/,
+        loader: 'style!css!sass?indentedSyntax=sass&includePaths[]=' + (__dirname, "./src")
+      }, {
         /* Embed Fonts */
         test: /\.(eot|woff|ttf)$/,
         loader: 'file?name=[name].[ext]&context=/'
@@ -102,39 +102,39 @@ module.exports = ({
 
     target: "web",
 
-    // resolveLoader: {
-    //   root: [path.resolve(cwd, "node_modules"), path.resolve(cwd, 'src'), path.resolve(cwd, 'vendor')],
-    // },
-    //
-    // resolve: {
-    //   root: "app",
-    //   extensions: ["", ".js", ".jsx"],
-    //   /* allow for friendlier names to pull = require(preminimized files */
-    //   alias: {
-    //   },
-    //   /* allow for root relative names in require */
-    //   modulesDirectories: [path.resolve(cwd, 'bower_components'), path.resolve(cwd, "node_modules"), path.resolve(cwd, "src")]
-    // },
+    resolveLoader: {
+      root: [path.resolve(cwd, "node_modules"), path.resolve(cwd, 'src'), path.resolve(cwd, 'vendor')],
+    },
+
+    resolve: {
+      root: "app",
+      extensions: ["", ".js", ".jsx"],
+      /* allow for friendlier names to pull = require(preminimized files */
+      alias: {
+      },
+      /* allow for root relative names in require */
+      modulesDirectories: [path.resolve(cwd, 'bower_components'), path.resolve(cwd, "node_modules"), path.resolve(cwd, "src")]
+    },
 
     externals: [],
     plugins: [],
-    // plugins: [
-    //   /* "Compiler" switches and embeding versioning. Dead code stripping will remove. */
-    //   new NpmInstallPlugin(),
-    //   new webpack.DefinePlugin({
-    //     __VERSION__: package.version,
-    //     __DEV__: JSON.stringify(JSON.parse(process.env.NODE_ENV!=='production' || 'false'))
-    //   }),
-    // ],
-    //
+    plugins: [
+      /* "Compiler" switches and embeding versioning. Dead code stripping will remove. */
+      new NpmInstallPlugin(),
+      new webpack.DefinePlugin({
+        __VERSION__: packagejson.version,
+        __DEV__: JSON.stringify(JSON.parse(process.env.NODE_ENV!=='production' || 'false'))
+      }),
+    ],
+
     devServer: {
-    //   contentBase: 'dist/',
-    //   proxy: null,
-    //   historyApiFallback: true,
-    //   stats: {
-    //     cached: false,
-    //     exclude: [/node_modules/,/bower_components/]
-    //   }
+      contentBase: 'dist/',
+      proxy: null,
+      historyApiFallback: true,
+      stats: {
+        cached: false,
+        exclude: [/node_modules/,/bower_components/]
+      }
     },
 
     /* settings for jshint */

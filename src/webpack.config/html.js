@@ -9,17 +9,15 @@ module.exports = ({
   cwd
 }) => (function(config) {
   let {name} = packagejson
-  config.plugins.push(new HtmlWebpackPlugin({
+  config.plugins.push(new HtmlWebpackPlugin(Object.assign({
     title: name,
     filename: 'index.html',
-    template: path.resolve(__dirname, 'assets','index.ejs'),
-
-    // template: (html ? html : path.resolve(__dirname, 'assets','index.tpl')),
+    template: (html ? html : path.resolve(__dirname, 'assets','index.ejs')),
     name: name,
     polyfills: polyfills,
-    'sw.js': (offline ? path.resolve('./assets/service-worker.js') : ''),
     chunks: Object.keys(config.entry)
-  }))
+  },
+  (offline ? {'sw.js': path.resolve(__dirname,'assets','service-worker.js')} : {}))))
 
   return config
 })

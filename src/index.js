@@ -13,5 +13,5 @@ module.exports = (() => {
 
   debug(webpackconfig)
 
-  server(webpackconfig, settings.port || 8081)
+  server(webpackconfig, settings.port || 8080)
 })()

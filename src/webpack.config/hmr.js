@@ -11,7 +11,7 @@ module.exports = ({
   debug
 }) => (function (config) {
   if (devServer) {
-    config.output.publicPath = 'http'+(https ? 's':'')+'://localhost:'+port+'/'
+    config.output.publicPath = `http${https ? 's':''}://localhost:${port}/`
     config.output.chunkFilename = "[name]-[id].js"
     config.devServer.https = https || false
   }
@@ -22,7 +22,6 @@ module.exports = ({
 
   if (hotComponents) {
     let react_hot = path.resolve(__dirname, "..", "..", "node_modules", "react-hot-loader")
-    console.log("eact-hot", react_hot)
     config.module.loaders.some(function(loader) {
       if(loader.loader.indexOf('jsx') === 0){
         loader.loader = `${react_hot}!${loader.loader}`

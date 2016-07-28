@@ -1,10 +1,6 @@
 const path = require('path')
 const {ResolverPlugin, DefinePlugin} = require('webpack')
 
-var polyfills = [
-  '//cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.min.js',
-];
-
 module.exports = ({
     hotComponents,
     https,

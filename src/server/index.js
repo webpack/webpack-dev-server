@@ -72,13 +72,12 @@ var RESPONSE_GROUP = "Response options:";
 var argv = {watch:true, progress:true, colors:true, port:'4000', https:false, inline:true, 'content-base':'dist/', compress:true, host:'localhost' }
 
 var wpOpt = config
-console.log("config", config)
 
 function processOptions(wpOpt) {
 	//process Promise
 	if(typeof wpOpt.then === "function") {
 		wpOpt.then(processOptions).catch(function(err) {
-			console.error(err.stack || err);
+			if (err) console.error("wtf" + err.stack || err);
 			process.exit(); // eslint-disable-line
 		});
 		return;
@@ -196,7 +195,6 @@ function processOptions(wpOpt) {
 			devClient.push("webpack/hot/only-dev-server");
 		else if(options.hot)
 			devClient.push("webpack/hot/dev-server");
-
 
 	}
 
