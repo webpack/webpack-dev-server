@@ -262,7 +262,7 @@ function processOptions(wpOpt) {
 		var uri = protocol + "://" + options.host + ":" + options.port + "/";
 		if(options.inline === false)
 			uri += "webpack-dev-server/";
-		console.log(" " + uri);
+		console.log("\nserver is started on: " + uri);
 
 		console.log("webpack result is served from " + options.publicPath);
 		if(Array.isArray(options.contentBase))
