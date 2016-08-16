@@ -72,9 +72,12 @@ var newConnection = function() {
 
 		// Try to reconnect.
 		sock = null;
-		setTimeout(function () {
-			newConnection();
-		}, 2000);
+
+		if (!window.__WEBPACK_DEV_SERVER_NO_RECONNECT) {
+			setTimeout(function () {
+				newConnection();
+			}, 2000);
+		}
 	};
 
 	sock.onmessage = function(e) {
