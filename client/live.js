@@ -15,7 +15,7 @@ var newConnection = function(handlers) {
 
 		// Try to reconnect.
 		sock = null;
-		setTimeout(function () {
+		setTimeout(function() {
 			newConnection(handlers);
 		}, 2000);
 	};
