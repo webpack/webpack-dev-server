@@ -94,7 +94,7 @@ if(!options.watchOptions)
 
 if(argv["stdin"]) {
 	process.stdin.on('end', function() {
-		process.exit(0);
+		process.exit(0); // eslint-disable-line no-process-exit
 	});
 	process.stdin.resume();
 }
