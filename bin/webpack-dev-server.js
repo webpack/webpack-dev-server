@@ -98,6 +98,11 @@ yargs.options({
 		describe: "Enable gzip compression",
 		group: RESPONSE_GROUP
 	},
+	"basic-auth": {
+		type: "string",
+		describe: "Using Basic Authentication with ID and password.",
+		group: CONNECTION_GROUP
+	},
 	"port": {
 		describe: "The port",
 		default: 8080,
@@ -190,6 +195,12 @@ function processOptions(wpOpt) {
 		};
 	} else if(!options.contentBase) {
 		options.contentBase = process.cwd();
+	}
+	
+	if(options.basicAuth) {
+		if(!(options.basicAuth.id && options.basicAuth.passwd)) {
+			options.basicAuth = undefined;
+		}
 	}
 
 	if(!options.stats) {
