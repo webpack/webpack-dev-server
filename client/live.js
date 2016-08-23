@@ -28,7 +28,7 @@ var newConnection = function(handlers) {
 };
 
 $(function() {
-	var body = $("body").html(require("./page.jade")());
+	var body = $("body").html(require("./page.pug")());
 	var status = $("#status");
 	var okness = $("#okness");
 	var $errors = $("#errors");
