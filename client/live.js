@@ -38,8 +38,11 @@ $(function() {
 	var contentPage = window.location.pathname.substr("/webpack-dev-server".length) + window.location.search;
 
 	status.text("Connecting to sockjs server...");
-	$errors.hide(); iframe.hide();
-	header.css({borderColor: "#96b5b4"});
+	$errors.hide();
+	iframe.hide();
+	header.css({
+		borderColor: "#96b5b4"
+	});
 
 	var onSocketMsg = {
 		hot: function() {
@@ -49,8 +52,11 @@ $(function() {
 		invalid: function() {
 			okness.text("");
 			status.text("App updated. Recompiling...");
-			header.css({borderColor: "#96b5b4"});
-			$errors.hide(); if(!hot) iframe.hide();
+			header.css({
+				borderColor: "#96b5b4"
+			});
+			$errors.hide();
+			if(!hot) iframe.hide();
 		},
 		hash: function(hash) {
 			currentHash = hash;
@@ -58,8 +64,11 @@ $(function() {
 		"still-ok": function() {
 			okness.text("");
 			status.text("App ready.");
-			header.css({borderColor: ""});
-			$errors.hide(); if(!hot) iframe.show();
+			header.css({
+				borderColor: ""
+			});
+			$errors.hide();
+			if(!hot) iframe.show();
 		},
 		ok: function() {
 			okness.text("");
@@ -75,22 +84,31 @@ $(function() {
 			status.text("App updated with errors. No reload!");
 			okness.text("Errors while compiling.");
 			$errors.text("\n" + stripAnsi(errors.join("\n\n\n")) + "\n\n");
-			header.css({borderColor: "#ebcb8b"});
-			$errors.show(); iframe.hide();
+			header.css({
+				borderColor: "#ebcb8b"
+			});
+			$errors.show();
+			iframe.hide();
 		},
 		"proxy-error": function(errors) {
 			status.text("Could not proxy to content base target!");
 			okness.text("Proxy error.");
 			$errors.text("\n" + stripAnsi(errors.join("\n\n\n")) + "\n\n");
-			header.css({borderColor: "#ebcb8b"});
-			$errors.show(); iframe.hide();
+			header.css({
+				borderColor: "#ebcb8b"
+			});
+			$errors.show();
+			iframe.hide();
 		},
 		close: function() {
 			status.text("");
 			okness.text("Disconnected.");
 			$errors.text("\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n");
-			header.css({borderColor: "#ebcb8b"});
-			$errors.show(); iframe.hide();
+			header.css({
+				borderColor: "#ebcb8b"
+			});
+			$errors.show();
+			iframe.hide();
 		}
 	};
 
@@ -98,7 +116,9 @@ $(function() {
 
 	iframe.load(function() {
 		status.text("App ready.");
-		header.css({borderColor: ""});
+		header.css({
+			borderColor: ""
+		});
 		iframe.show();
 	});
 
@@ -113,7 +133,9 @@ $(function() {
 			iframe.show();
 		} else {
 			status.text("App updated. Reloading app...");
-			header.css({borderColor: "#96b5b4"});
+			header.css({
+				borderColor: "#96b5b4"
+			});
 			try {
 				var old = iframe[0].contentWindow.location + "";
 				if(old.indexOf("about") == 0) old = null;

@@ -10,14 +10,14 @@ function getCurrentScriptSource() {
 	// Fall back to getting all scripts in the document.
 	var scriptElements = document.scripts || [];
 	var currentScript = scriptElements[scriptElements.length - 1];
-	if (currentScript)
+	if(currentScript)
 		return currentScript.getAttribute("src");
 	// Fail as there was no script to use.
 	throw new Error("[WDS] Failed to get current script source");
 }
 
 var urlParts;
-if (typeof __resourceQuery === "string" && __resourceQuery) {
+if(typeof __resourceQuery === "string" && __resourceQuery) {
 	// If this bundle is inlined, use the resource query to get the correct url.
 	urlParts = url.parse(__resourceQuery.substr(1));
 } else {
