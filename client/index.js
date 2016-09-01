@@ -1,15 +1,30 @@
 var url = require('url');
 var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
+
+function getCurrentScriptSource() {
+	// try to get the current script
+	if (document.currentScript) {
+		return document.currentScript.getAttribute("src");
+	}
+	// fall back to getting all scripts in the document
+	var scriptElements = document.scripts || [],
+		currentScript = scriptElements[scriptElements.length - 1];
+	if (currentScript) {
+		return currentScript.getAttribute("src");
+	}
+	// fail as there was no script to use
+	throw new Error("Failed to get current script source");
+}
+
 var urlParts;
 if (typeof __resourceQuery === "string" && __resourceQuery) {
 	// If this bundle is inlined, use the resource query to get the correct url.
 	urlParts = url.parse(__resourceQuery.substr(1));
 } else {
 	// Else, get the url from the <script> this file was called with.
-	var scriptElements = document.getElementsByTagName("script");
-	var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src");
-	scriptHost = scriptHost && scriptHost.replace(/\/[^\/]+$/, "");
+	var scriptHost = getCurrentScriptSource();
+	scriptHost = scriptHost.replace(/\/[^\/]+$/, "");
 	urlParts = url.parse((scriptHost ? scriptHost : "/"), false, true);
 }
 
