@@ -267,8 +267,6 @@ function processOptions(wpOpt) {
 		console.log("webpack result is served from " + options.publicPath);
 		if(Array.isArray(options.contentBase))
 			console.log("content is served from " + options.contentBase.join(", "));
-		else if(typeof options.contentBase === "object")
-			console.log("requests are proxied to " + options.contentBase.target);
 		else
 			console.log("content is served from " + options.contentBase);
 		if(options.historyApiFallback)
