@@ -266,7 +266,7 @@ function processOptions(wpOpt) {
 		console.log("webpack result is served from " + options.publicPath);
 		if(Array.isArray(options.contentBase))
 			console.log("content is served from " + options.contentBase.join(", "));
-		else if (options.contentBase)
+		else if(options.contentBase)
 			console.log("content is served from " + options.contentBase);
 		if(options.historyApiFallback)
 			console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
