@@ -85,6 +85,7 @@ yargs.options({
 	},
 	"content-base": {
 		type: "string",
+		default: process.cwd(),
 		describe: "A directory or URL to serve HTML content from.",
 		group: RESPONSE_GROUP
 	},
@@ -188,8 +189,6 @@ function processOptions(wpOpt) {
 		options.contentBase = {
 			target: argv["content-base-target"]
 		};
-	} else if(!options.contentBase) {
-		options.contentBase = process.cwd();
 	}
 
 	if(!options.stats) {
@@ -267,7 +266,7 @@ function processOptions(wpOpt) {
 		console.log("webpack result is served from " + options.publicPath);
 		if(Array.isArray(options.contentBase))
 			console.log("content is served from " + options.contentBase.join(", "));
-		else
+		else if (options.contentBase)
 			console.log("content is served from " + options.contentBase);
 		if(options.historyApiFallback)
 			console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
