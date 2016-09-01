@@ -1,4 +1,11 @@
-# 1.15.0 (unreleased)
+# 1.15.1 (2016-08-31)
+
+- Fix the `bypass` config option for proxies (#563).
+- Reverted a change that prevented clicks from registering in the iframe.
+- Fix using `*` as a proxy wildcard.
+- Avoid accessing `document` when using inline modus (#577).
+
+# 1.15.0 (2016-08-23)
 
 - Use http-proxy-middleware instead of http-proxy. This fixes compatibility with native web sockets (#359).
 - Properly close the server, which fixes issues with the port not freeing up (#357).
