@@ -31,6 +31,7 @@ var sock = null;
 var hot = false;
 var initial = true;
 var currentHash = "";
+var skipErrors = false;
 
 var onSocketMsg = {
 	hot: function() {
@@ -57,12 +58,15 @@ var onSocketMsg = {
 		if(initial) return initial = false;
 		reloadApp();
 	},
+	"skip-errors": function() {
+		skipErrors = true;
+	},
 	errors: function(errors) {
 		console.log("[WDS] Errors while compiling.");
 		for(var i = 0; i < errors.length; i++)
 			console.error(stripAnsi(errors[i]));
 		if(initial) return initial = false;
-		reloadApp();
+		if(!skipErrors) reloadApp();
 	},
 	"proxy-error": function(errors) {
 		console.log("[WDS] Proxy error.");
