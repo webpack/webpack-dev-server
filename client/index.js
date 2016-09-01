@@ -3,18 +3,17 @@ var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
 
 function getCurrentScriptSource() {
-	// try to get the current script
-	if (document.currentScript) {
+	// `document.currentScript` is the most accurate way to find the current script,
+	// but is not supported in all browsers.
+	if(document.currentScript)
 		return document.currentScript.getAttribute("src");
-	}
-	// fall back to getting all scripts in the document
-	var scriptElements = document.scripts || [],
-		currentScript = scriptElements[scriptElements.length - 1];
-	if (currentScript) {
+	// Fall back to getting all scripts in the document.
+	var scriptElements = document.scripts || [];
+	var currentScript = scriptElements[scriptElements.length - 1];
+	if (currentScript)
 		return currentScript.getAttribute("src");
-	}
-	// fail as there was no script to use
-	throw new Error("Failed to get current script source");
+	// Fail as there was no script to use.
+	throw new Error("[WDS] Failed to get current script source");
 }
 
 var urlParts;
