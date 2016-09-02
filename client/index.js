@@ -17,16 +17,14 @@ var sock = null;
 var hot = false;
 var initial = true;
 var currentHash = "";
-var quiet = false;
-var noInfo = true;
-var logLevel = 3; // 3 = all, 2 = warnings and errors, 1 = only errors, 0 = quiet
+var logLevel = "info";
 
 function log(level, msg) {
-	if(logLevel >= 3 && level === "info")
+	if(logLevel === "info" && level === "info")
 		return console.log(msg);
-	if(logLevel >= 2 && level === "warning")
+	if(["info", "warning"].indexOf(logLevel) >= 0 && level === "warning")
 		return console.warn(msg);
-	if(logLevel >= 1 && level === "error")
+	if(["info", "warning", "error"].indexOf(logLevel) >= 0 && level === "error")
 		return console.error(msg);
 }
 
@@ -54,14 +52,14 @@ var onSocketMsg = {
 	warnings: function(warnings) {
 		log("info", "[WDS] Warnings while compiling.");
 		for(var i = 0; i < warnings.length; i++)
-			log("warn", stripAnsi(warnings[i]));
+			console.warn(stripAnsi(warnings[i]));
 		if(initial) return initial = false;
 		reloadApp();
 	},
 	errors: function(errors) {
 		log("info", "[WDS] Errors while compiling.");
 		for(var i = 0; i < errors.length; i++)
-			log("error", stripAnsi(errors[i]));
+			console.error(stripAnsi(errors[i]));
 		if(initial) return initial = false;
 		reloadApp();
 	},
