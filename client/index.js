@@ -16,6 +16,7 @@ if (typeof __resourceQuery === "string" && __resourceQuery) {
 var sock = null;
 var hot = false;
 var initial = true;
+var connected = false;
 var currentHash = "";
 var logLevel = "info";
 
@@ -81,7 +82,10 @@ var newConnection = function() {
 	}));
 
 	sock.onclose = function() {
-		log("error", "[WDS] Disconnected!");
+		if(connected)
+			log("error", "[WDS] Disconnected!");
+
+		connected = false;
 
 		// Try to reconnect.
 		sock = null;
@@ -91,6 +95,7 @@ var newConnection = function() {
 	};
 
 	sock.onmessage = function(e) {
+		connected = true;
 		// This assumes that all data sent via the websocket is JSON.
 		var msg = JSON.parse(e.data);
 		onSocketMsg[msg.type](msg.data);
