@@ -4,7 +4,7 @@
 node ../../bin/webpack-dev-server.js --open --lazy
 ```
 
-With the `lazy` modus, webpack-dev-server does *not* watch the files, automatically recompiles them and refresh the browser. Instead, it only compiles after you manually refresh the page.
+With the `lazy` modus, webpack-dev-server does **not** watch the files, automatically recompile them or refresh the browser. Instead, it only compiles after you manually refresh the page.
 
 ## What should happen
 
