@@ -30,44 +30,58 @@ if(typeof __resourceQuery === "string" && __resourceQuery) {
 var sock = null;
 var hot = false;
 var initial = true;
+var connected = false;
 var currentHash = "";
+var logLevel = "info";
+
+function log(level, msg) {
+	if(logLevel === "info" && level === "info")
+		return console.log(msg);
+	if(["info", "warning"].indexOf(logLevel) >= 0 && level === "warning")
+		return console.warn(msg);
+	if(["info", "warning", "error"].indexOf(logLevel) >= 0 && level === "error")
+		return console.error(msg);
+}
 
 var onSocketMsg = {
 	hot: function() {
 		hot = true;
-		console.log("[WDS] Hot Module Replacement enabled.");
+		log("info", "[WDS] Hot Module Replacement enabled.");
 	},
 	invalid: function() {
-		console.log("[WDS] App updated. Recompiling...");
+		log("info", "[WDS] App updated. Recompiling...");
 	},
 	hash: function(hash) {
 		currentHash = hash;
 	},
 	"still-ok": function() {
-		console.log("[WDS] Nothing changed.")
+		log("info", "[WDS] Nothing changed.")
+	},
+	"log-level": function(level) {
+		logLevel = level;
 	},
 	ok: function() {
 		if(initial) return initial = false;
 		reloadApp();
 	},
 	warnings: function(warnings) {
-		console.log("[WDS] Warnings while compiling.");
+		log("info", "[WDS] Warnings while compiling.");
 		for(var i = 0; i < warnings.length; i++)
 			console.warn(stripAnsi(warnings[i]));
 		if(initial) return initial = false;
 		reloadApp();
 	},
 	errors: function(errors) {
-		console.log("[WDS] Errors while compiling.");
+		log("info", "[WDS] Errors while compiling.");
 		for(var i = 0; i < errors.length; i++)
 			console.error(stripAnsi(errors[i]));
 		if(initial) return initial = false;
 		reloadApp();
 	},
 	"proxy-error": function(errors) {
-		console.log("[WDS] Proxy error.");
+		log("info", "[WDS] Proxy error.");
 		for(var i = 0; i < errors.length; i++)
-			console.error(stripAnsi(errors[i]));
+			log("error", stripAnsi(errors[i]));
 		if(initial) return initial = false;
 	}
 };
@@ -82,7 +96,10 @@ var newConnection = function() {
 	}));
 
 	sock.onclose = function() {
-		console.error("[WDS] Disconnected!");
+		if(connected)
+			log("error", "[WDS] Disconnected!");
+
+		connected = false;
 
 		// Try to reconnect.
 		sock = null;
@@ -92,6 +109,7 @@ var newConnection = function() {
 	};
 
 	sock.onmessage = function(e) {
+		connected = true;
 		// This assumes that all data sent via the websocket is JSON.
 		var msg = JSON.parse(e.data);
 		onSocketMsg[msg.type](msg.data);
@@ -102,7 +120,7 @@ newConnection();
 
 function reloadApp() {
 	if(hot) {
-		console.log("[WDS] App hot update...");
+		log("info", "[WDS] App hot update...");
 		var hotEmitter = require("webpack/hot/emitter");
 		hotEmitter.emit("webpackHotUpdate", currentHash);
 		if(typeof window !== "undefined") {
@@ -110,7 +128,7 @@ function reloadApp() {
 			window.postMessage("webpackHotUpdate" + currentHash, "*");
 		}
 	} else {
-		console.log("[WDS] App updated. Reloading...");
+		log("info", "[WDS] App updated. Reloading...");
 		window.location.reload();
 	}
 }

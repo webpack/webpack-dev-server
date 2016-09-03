@@ -63,6 +63,12 @@ yargs.options({
 		group: DISPLAY_GROUP,
 		describe: "Quiet"
 	},
+	"client-log-level": {
+		type: "string",
+		group: DISPLAY_GROUP,
+		default: "info",
+		describe: "Log level in the browser (info, warning, error or none)"
+	},
 	"https": {
 		type: "boolean",
 		group: SSL_GROUP,
@@ -178,6 +184,9 @@ function processOptions(wpOpt) {
 
 	if(!options.hotOnly)
 		options.hotOnly = argv["hot-only"];
+
+	if(!options.clientLogLevel)
+		options.clientLogLevel = argv["client-log-level"];
 
 	if(argv["content-base"]) {
 		options.contentBase = argv["content-base"];
