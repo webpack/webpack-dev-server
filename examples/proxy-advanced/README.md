@@ -1,4 +1,4 @@
-# Proxy: simple
+# Proxy: advanced
 
 ```shell
 node ../../bin/webpack-dev-server.js --open

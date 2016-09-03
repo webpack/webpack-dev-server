@@ -1,4 +1,4 @@
-# https
+# host and port
 
 ```shell
 node ../../bin/webpack-dev-server.js --open --port 5000 --host 0.0.0.0

@@ -1,4 +1,4 @@
-# https
+# CLI - public
 
 NOTE: replace `<insert local ip>` with your local ip.
 

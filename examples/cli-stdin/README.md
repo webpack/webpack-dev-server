@@ -1,4 +1,4 @@
-# https
+# CLI - stdin
 
 ```shell
 node ../../bin/webpack-dev-server.js --stdin
