@@ -16,6 +16,8 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 
 The client scripts are built with `npm run-script prepublish`.
 
+Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/master/examples) to see if all functionality still works.
+
 When making a PR, keep these goals in mind:
 
 - The communication library (Sock.js) should not be exposed to the user.
