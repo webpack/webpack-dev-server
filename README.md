@@ -16,7 +16,7 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 
 The client scripts are built with `npm run-script prepublish`.
 
-Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/master/examples) to see if all functionality still works.
+Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/master/examples) to see if all functionality still works. When introducing new functionality, also add an example. This helps the maintainers to understand it and check if it still works.
 
 When making a PR, keep these goals in mind:
 
