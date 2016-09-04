@@ -1,6 +1,6 @@
 var url = require('url');
-var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
+var socket = require('./socket');
 
 function getCurrentScriptSource() {
 	// `document.currentScript` is the most accurate way to find the current script,
@@ -27,10 +27,8 @@ if(typeof __resourceQuery === "string" && __resourceQuery) {
 	urlParts = url.parse((scriptHost ? scriptHost : "/"), false, true);
 }
 
-var sock = null;
 var hot = false;
 var initial = true;
-var connected = false;
 var currentHash = "";
 var logLevel = "info";
 
@@ -83,40 +81,21 @@ var onSocketMsg = {
 		for(var i = 0; i < errors.length; i++)
 			log("error", stripAnsi(errors[i]));
 		if(initial) return initial = false;
+	},
+	close: function() {
+		log("error", "[WDS] Disconnected!");
 	}
 };
 
-var newConnection = function() {
-	sock = new SockJS(url.format({
-		protocol: (window.location.protocol === "https:" || urlParts.hostname === '0.0.0.0') ? window.location.protocol : urlParts.protocol,
-		auth: urlParts.auth,
-		hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
-		port: (urlParts.port === '0') ? window.location.port : urlParts.port,
-		pathname: urlParts.path == null || urlParts.path === '/' ? "/sockjs-node" : urlParts.path
-	}));
+var socketUrl = url.format({
+	protocol: (window.location.protocol === "https:" || urlParts.hostname === '0.0.0.0') ? window.location.protocol : urlParts.protocol,
+	auth: urlParts.auth,
+	hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
+	port: (urlParts.port === '0') ? window.location.port : urlParts.port,
+	pathname: urlParts.path == null || urlParts.path === '/' ? "/sockjs-node" : urlParts.path
+});
 
-	sock.onclose = function() {
-		if(connected)
-			log("error", "[WDS] Disconnected!");
-
-		connected = false;
-
-		// Try to reconnect.
-		sock = null;
-		setTimeout(function() {
-			newConnection();
-		}, 2000);
-	};
-
-	sock.onmessage = function(e) {
-		connected = true;
-		// This assumes that all data sent via the websocket is JSON.
-		var msg = JSON.parse(e.data);
-		onSocketMsg[msg.type](msg.data);
-	};
-};
-
-newConnection();
+socket(socketUrl, onSocketMsg);
 
 function reloadApp() {
 	if(hot) {

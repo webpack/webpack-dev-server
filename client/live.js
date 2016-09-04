@@ -1,31 +1,10 @@
 var $ = require("jquery");
-var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
+var socket = require('./socket');
 require("./style.css");
 
-var sock = null;
 var hot = false;
 var currentHash = "";
-
-var newConnection = function(handlers) {
-	sock = new SockJS('/sockjs-node');
-
-	sock.onclose = function() {
-		handlers.close();
-
-		// Try to reconnect.
-		sock = null;
-		setTimeout(function() {
-			newConnection(handlers);
-		}, 2000);
-	};
-
-	sock.onmessage = function(e) {
-		// This assumes that all data sent via the websocket is JSON.
-		var msg = JSON.parse(e.data);
-		handlers[msg.type](msg.data);
-	};
-};
 
 $(function() {
 	var body = $("body").html(require("./page.pug")());
@@ -112,7 +91,7 @@ $(function() {
 		}
 	};
 
-	newConnection(onSocketMsg);
+	socket("/sockjs-node", onSocketMsg);
 
 	iframe.load(function() {
 		status.text("App ready.");
