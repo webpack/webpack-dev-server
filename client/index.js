@@ -1,3 +1,4 @@
+/* global __resourceQuery */
 var url = require('url');
 var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');

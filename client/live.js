@@ -28,7 +28,7 @@ var newConnection = function(handlers) {
 };
 
 $(function() {
-	var body = $("body").html(require("./page.pug")());
+	$("body").html(require("./page.pug")());
 	var status = $("#status");
 	var okness = $("#okness");
 	var $errors = $("#errors");
@@ -75,7 +75,7 @@ $(function() {
 			$errors.hide();
 			reloadApp();
 		},
-		warnings: function(warnings) {
+		warnings: function() {
 			okness.text("Warnings while compiling.");
 			$errors.hide();
 			reloadApp();

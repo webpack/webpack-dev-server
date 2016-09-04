@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var path = require("path");
-var url = require("url");
 var open = require("open");
 var fs = require("fs");
 
@@ -130,7 +129,7 @@ var wpOpt = require("webpack/bin/convert-argv")(yargs, argv, {
 });
 
 function processOptions(wpOpt) {
-	//process Promise
+	// process Promise
 	if(typeof wpOpt.then === "function") {
 		wpOpt.then(processOptions).catch(function(err) {
 			console.error(err.stack || err);

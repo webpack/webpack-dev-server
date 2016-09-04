@@ -1,5 +1,3 @@
-var path = require('path');
-
 module.exports = {
 	context: __dirname,
 	entry: ["./app.js", "../../client/index.js?http://localhost:8080/"],
