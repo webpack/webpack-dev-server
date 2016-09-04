@@ -1,8 +1,8 @@
 require("./example");
 
-if (module.hot) {
+if(module.hot) {
 	module.hot.accept(function(err) {
-		if (err) {
+		if(err) {
 			console.error("Cannot apply hot update", err);
 		}
 	});

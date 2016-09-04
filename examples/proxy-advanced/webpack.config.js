@@ -10,7 +10,7 @@ module.exports = {
 					'^/api': ''
 				},
 				bypass: function(req) {
-					if (req.url === '/api/nope') {
+					if(req.url === '/api/nope') {
 						return '/bypass.html';
 					}
 				}
