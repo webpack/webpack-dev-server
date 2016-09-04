@@ -36,6 +36,6 @@ function socket(url, handlers) {
 		if(handlers[msg.type])
 			handlers[msg.type](msg.data);
 	};
-};
+}
 
 module.exports = socket;

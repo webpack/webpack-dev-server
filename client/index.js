@@ -1,3 +1,4 @@
+/* global __resourceQuery */
 var url = require('url');
 var stripAnsi = require('strip-ansi');
 var socket = require('./socket');
