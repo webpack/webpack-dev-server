@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var path = require("path");
-var open = require("open");
+var open = require("opn");
 var fs = require("fs");
 
 // Local version replaces global one
