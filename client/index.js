@@ -88,10 +88,21 @@ var onSocketMsg = {
 	}
 };
 
+var hostname = urlParts.hostname;
+
+if (urlParts.hostname === '0.0.0.0') {
+	// why do we need this checking?
+	// hostname n/a for file protocol (example, when using electron, ionic)
+	// see: https://github.com/webpack/webpack-dev-server/pull/384
+	if (window.location.hostname && !!~window.location.protocol.indexOf('http')) {
+		hostname = window.location.hostname;
+	}
+}
+
 var socketUrl = url.format({
 	protocol: (window.location.protocol === "https:" || urlParts.hostname === '0.0.0.0') ? window.location.protocol : urlParts.protocol,
 	auth: urlParts.auth,
-	hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
+	hostname: hostname,
 	port: (urlParts.port === '0') ? window.location.port : urlParts.port,
 	pathname: urlParts.path == null || urlParts.path === '/' ? "/sockjs-node" : urlParts.path
 });
