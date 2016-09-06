@@ -89,6 +89,7 @@ var onSocketMsg = {
 };
 
 var hostname = urlParts.hostname;
+var protocol = urlParts.protocol;
 
 if(urlParts.hostname === '0.0.0.0') {
 	// why do we need this check?
@@ -99,8 +100,16 @@ if(urlParts.hostname === '0.0.0.0') {
 	}
 }
 
+// `hostname` can be empty when the script path is relative. In that case, specifying
+// a protocol would result in an invalid URL.
+// When https is used in the app, secure websockets are always necessary
+// because the browser doesn't accept non-secure websockets.
+if(hostname && (window.location.protocol === "https:" || urlParts.hostname === '0.0.0.0')) {
+	protocol = window.location.protocol;
+}
+
 var socketUrl = url.format({
-	protocol: (window.location.protocol === "https:" || urlParts.hostname === '0.0.0.0') ? window.location.protocol : urlParts.protocol,
+	protocol: protocol,
 	auth: urlParts.auth,
 	hostname: hostname,
 	port: (urlParts.port === '0') ? window.location.port : urlParts.port,
