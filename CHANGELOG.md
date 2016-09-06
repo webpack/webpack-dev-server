@@ -7,17 +7,17 @@
 - **Breaking change:** removed `contentBase` as a proxy feature (deprecated since 1.x).
 - Limit websocket retries when the server can't be reached ([#589](https://github.com/webpack/webpack-dev-server/issues/589)).
 - Improve detection for getting the server URL in the client ([#496](https://github.com/webpack/webpack-dev-server/issues/496)).
-- Add `clientLogLevel` (`--clientLogLevel` for CI) option. It controls the log messages shown in the browser. Available levels are `error`, `warning`, `info` or `none` ([#579](https://github.com/webpack/webpack-dev-server/issues/579)).
+- Add `clientLogLevel` (`--clientLogLevel` for CLI) option. It controls the log messages shown in the browser. Available levels are `error`, `warning`, `info` or `none` ([#579](https://github.com/webpack/webpack-dev-server/issues/579)).
 - Allow using no content base with the `--no-content-base` flag (previously it always defaulted to the working directory).
 - Use stronger certs for the `https` modus, to prevent browsers from complaining about it ([#572](https://github.com/webpack/webpack-dev-server/issues/572)).
 
-## Before 2.1.0-beta.3
+## 2.0 to 2.1.0-beta.2
 
-- Only compatible with webpack v2.
-- Add compatibility for web workers (#298).
+- **Breaking change**: Only compatible with webpack v2.
+- Add compatibility for web workers ([#298](https://github.com/webpack/webpack-dev-server/issues/298)).
 - `--inline` is enabled by default now.
 - Convert to `yargs` to handle commandline options.
-- Allow a `Promise` instead of a config object in the CLI (#419).
-- Add `--hot-only` flag, a shortcut that adds `webpack/hot/only-dev-server` in `entry` in the webpack config (#439).
+- Allow a `Promise` instead of a config object in the CLI ([#419](https://github.com/webpack/webpack-dev-server/issues/419)).
+- Add `--hot-only` flag, a shortcut that adds `webpack/hot/only-dev-server` in `entry` in the webpack config ([#439](https://github.com/webpack/webpack-dev-server/issues/439)).
 
 For the 1.x changelog, see the [webpack-1 branch](https://github.com/webpack/webpack-dev-server/blob/webpack-1/CHANGELOG.md).
