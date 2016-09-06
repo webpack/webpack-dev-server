@@ -90,7 +90,7 @@ var onSocketMsg = {
 
 var hostname = urlParts.hostname;
 
-if (urlParts.hostname === '0.0.0.0') {
+if(urlParts.hostname === '0.0.0.0') {
 	// why do we need this checking?
 	// hostname n/a for file protocol (example, when using electron, ionic)
 	// see: https://github.com/webpack/webpack-dev-server/pull/384
