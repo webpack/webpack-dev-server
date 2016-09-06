@@ -94,7 +94,7 @@ if(urlParts.hostname === '0.0.0.0') {
 	// why do we need this checking?
 	// hostname n/a for file protocol (example, when using electron, ionic)
 	// see: https://github.com/webpack/webpack-dev-server/pull/384
-	if (window.location.hostname && !!~window.location.protocol.indexOf('http')) {
+	if(window.location.hostname && !!~window.location.protocol.indexOf('http')) {
 		hostname = window.location.hostname;
 	}
 }
