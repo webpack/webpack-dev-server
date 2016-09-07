@@ -90,7 +90,6 @@ yargs.options({
 	},
 	"content-base": {
 		type: "string",
-		default: process.cwd(),
 		describe: "A directory or URL to serve HTML content from.",
 		group: RESPONSE_GROUP
 	},
@@ -184,16 +183,21 @@ function processOptions(wpOpt) {
 	if(!options.clientLogLevel)
 		options.clientLogLevel = argv["client-log-level"];
 
-	if(!options.contentBase && argv["content-base"]) {
-		options.contentBase = argv["content-base"];
-		if(/^[0-9]$/.test(options.contentBase))
-			options.contentBase = +options.contentBase;
-		else if(!/^(https?:)?\/\//.test(options.contentBase))
-			options.contentBase = path.resolve(options.contentBase);
-	} else if(argv["content-base-target"]) {
-		options.contentBase = {
-			target: argv["content-base-target"]
-		};
+	if(!options.contentBase) {
+		if(argv["content-base"]) {
+			options.contentBase = argv["content-base"];
+			if(/^[0-9]$/.test(options.contentBase))
+				options.contentBase = +options.contentBase;
+			else if(!/^(https?:)?\/\//.test(options.contentBase))
+				options.contentBase = path.resolve(options.contentBase);
+		} else if(argv["content-base-target"]) {
+			options.contentBase = {
+				target: argv["content-base-target"]
+			};
+		// It is possible to disable the contentBase by using `--no-content-base`, which results in arg["content-base"] = false
+		} else if(argv["content-base"] !== false) {
+			options.contentBase = process.cwd();
+		}
 	}
 
 	if(!options.stats) {
