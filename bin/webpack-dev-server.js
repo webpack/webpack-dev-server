@@ -190,10 +190,6 @@ function processOptions(wpOpt) {
 				options.contentBase = +options.contentBase;
 			else if(!/^(https?:)?\/\//.test(options.contentBase))
 				options.contentBase = path.resolve(options.contentBase);
-		} else if(argv["content-base-target"]) {
-			options.contentBase = {
-				target: argv["content-base-target"]
-			};
 		// It is possible to disable the contentBase by using `--no-content-base`, which results in arg["content-base"] = false
 		} else if(argv["content-base"] !== false) {
 			options.contentBase = process.cwd();
