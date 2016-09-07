@@ -3,7 +3,7 @@
 
 ## 2.1.0-beta.3
 
-- **Breaking change:** removed overriding `output.path` to `"/"` in the webpack config when using the CLI ([#337](https://github.com/webpack/webpack-dev-server/issues/337)).
+- **Breaking change:** removed overriding `output.path` to `"/"` in the webpack config when using the CLI ([#337](https://github.com/webpack/webpack-dev-server/issues/337)). Note that `output.path` needs to be an absolute path!
 - **Breaking change:** removed `contentBase` as a proxy feature (deprecated since 1.x).
 - Limit websocket retries when the server can't be reached ([#589](https://github.com/webpack/webpack-dev-server/issues/589)).
 - Improve detection for getting the server URL in the client ([#496](https://github.com/webpack/webpack-dev-server/issues/496)).
