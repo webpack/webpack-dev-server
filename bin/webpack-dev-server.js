@@ -184,7 +184,7 @@ function processOptions(wpOpt) {
 	if(!options.clientLogLevel)
 		options.clientLogLevel = argv["client-log-level"];
 
-	if(argv["content-base"]) {
+	if(!options.contentBase && argv["content-base"]) {
 		options.contentBase = argv["content-base"];
 		if(/^[0-9]$/.test(options.contentBase))
 			options.contentBase = +options.contentBase;
