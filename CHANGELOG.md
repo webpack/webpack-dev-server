@@ -1,6 +1,14 @@
 
 # 2.x (unreleased)
 
+## 2.1.0-beta.4
+
+- Fix `contentBase` option in webpack config being ignored when using the CLI ([#597](https://github.com/webpack/webpack-dev-server/issues/597), [#599](https://github.com/webpack/webpack-dev-server/pull/599)).
+- Fix SockJS providing an old SocKJS-client file, causing compatibility error ([#474](https://github.com/webpack/webpack-dev-server/issues/474)).
+- Fix websocket connection issues when using https with a relative script path ([#592](https://github.com/webpack/webpack-dev-server/issues/592)).
+- Fix hostname resolving issues ([#594](https://github.com/webpack/webpack-dev-server/pull/594)).
+- Improve reliability of `--open` parameter ([#593](https://github.com/webpack/webpack-dev-server/issues/593)).
+
 ## 2.1.0-beta.3
 
 - **Breaking change:** removed overriding `output.path` to `"/"` in the webpack config when using the CLI ([#337](https://github.com/webpack/webpack-dev-server/issues/337)). Note that `output.path` needs to be an absolute path!
