@@ -36,7 +36,7 @@ yargs.options({
 	"inline": {
 		type: "boolean",
 		default: true,
-		describe: "Inline mode"
+		describe: "Inline mode (set to false to disable including client scripts like livereload)"
 	},
 	"hot-only": {
 		type: "boolean",
