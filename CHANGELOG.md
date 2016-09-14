@@ -1,3 +1,10 @@
+# 1.15.2 (2016-09-14)
+
+- Backport a few fixes from v2 ([#604](https://github.com/webpack/webpack-dev-server/pull/604)):
+    - Using https and manually including the client script resulted in a wrong url for the websocket.
+    - Manually including the client script didn't work resulted in a wrong url for the websocket in some cases.
+    - Compatibility with platforms that don't use a hostname (Electron / Ionic).
+
 # 1.15.1 (2016-08-31)
 
 - Fix the `bypass` config option for proxies (#563).
