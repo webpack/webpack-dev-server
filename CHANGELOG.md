@@ -1,3 +1,9 @@
+# 1.16.0 (2016-09-17)
+
+- Backport a few more fixes from v2:
+    - Add `clientLogLevel` (`--client-log-level` for CLI) option. It controls the log messages shown in the browser. Available levels are `error`, `warning`, `info` or `none` ([#579](https://github.com/webpack/webpack-dev-server/issues/579)).
+    - Limit websocket retries when the server can't be reached ([#589](https://github.com/webpack/webpack-dev-server/issues/589)).
+
 # 1.15.2 (2016-09-14)
 
 - Backport a few fixes from v2 ([#604](https://github.com/webpack/webpack-dev-server/pull/604)):
