@@ -45,6 +45,8 @@ var optimist = require("optimist")
 
 .boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
 
+.string("client-log-level").describe("client-log-level", "Log level in the browser (info, warning, error or none)").default("client-log-level", "info")
+
 .boolean("compress").describe("compress", "enable gzip compression")
 
 .boolean("open").describe("open", "Open default browser")
@@ -155,6 +157,9 @@ if(argv["inline"])
 
 if(argv["history-api-fallback"])
 	options.historyApiFallback = true;
+
+if(argv["client-log-level"])
+	options.clientLogLevel = argv["client-log-level"];
 
 if(argv["compress"])
 	options.compress = true;

@@ -52,7 +52,7 @@
   ],
   "scripts": {
     "prepublish": "webpack ./client/live.js client/live.bundle.js --colors --config client/webpack.config.js -p && webpack ./client/index.js client/index.bundle.js --colors --config client/webpack.config.js -p",
-    "lint": "eslint bin lib test client/{index,live,webpack.config}.js",
+    "lint": "eslint bin lib test client/{index,live,socket,webpack.config}.js",
     "beautify-lint": "beautify-lint lib/**.js bin/**.js",
     "beautify": "beautify-rewrite lib/**.js bin/**.js",
     "travis": "npm run lint && npm run beautify-lint && node lib/Server.js"
