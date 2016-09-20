@@ -1,5 +1,16 @@
 root = true
 
-[*.{js,html,less}]
-indent_style=tab
-trim_trailing_whitespace=true
+[*]
+indent_style = tab
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 233
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
