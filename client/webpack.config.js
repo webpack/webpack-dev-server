@@ -7,8 +7,5 @@ module.exports = {
 			test: /\.pug$/,
 			loader: "pug?self"
 		}]
-	},
-	node: {
-		fs: "empty"
 	}
 }
