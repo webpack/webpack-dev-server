@@ -260,7 +260,15 @@ function processOptions(wpOpt) {
 		});
 	}
 
-	new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
+	var compiler = webpack(wpOpt);
+
+	if(argv["progress"]) {
+		compiler.apply(new webpack.ProgressPlugin({
+			profile: argv["profile"]
+		}));
+	}
+
+	new Server(compiler, options).listen(options.port, options.host, function(err) {
 		if(err) throw err;
 
 		var uri = protocol + "://" + options.host + ":" + options.port + "/";
