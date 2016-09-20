@@ -165,7 +165,7 @@ function processOptions(wpOpt) {
 		options.watchOptions = firstWpOpt.watchOptions;
 
 	if(argv["stdin"]) {
-		process.stdin.on('end', function() {
+		process.stdin.on("end", function() {
 			process.exit(0); // eslint-disable-line no-process-exit
 		});
 		process.stdin.resume();

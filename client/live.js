@@ -1,6 +1,6 @@
 var $ = require("jquery");
-var stripAnsi = require('strip-ansi');
-var socket = require('./socket');
+var stripAnsi = require("strip-ansi");
+var socket = require("./socket");
 require("./style.css");
 
 var hot = false;

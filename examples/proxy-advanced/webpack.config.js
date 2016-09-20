@@ -3,15 +3,15 @@ module.exports = {
 	entry: "./app.js",
 	devServer: {
 		proxy: {
-			'/api': {
-				target: 'http://jsonplaceholder.typicode.com/',
+			"/api": {
+				target: "http://jsonplaceholder.typicode.com/",
 				changeOrigin: true,
 				pathRewrite: {
-					'^/api': ''
+					"^/api": ""
 				},
 				bypass: function(req) {
-					if(req.url === '/api/nope') {
-						return '/bypass.html';
+					if(req.url === "/api/nope") {
+						return "/bypass.html";
 					}
 				}
 			}

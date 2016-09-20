@@ -1,7 +1,7 @@
 /* global __resourceQuery */
-var url = require('url');
-var stripAnsi = require('strip-ansi');
-var socket = require('./socket');
+var url = require("url");
+var stripAnsi = require("strip-ansi");
+var socket = require("./socket");
 
 function getCurrentScriptSource() {
 	// `document.currentScript` is the most accurate way to find the current script,
@@ -91,11 +91,11 @@ var onSocketMsg = {
 var hostname = urlParts.hostname;
 var protocol = urlParts.protocol;
 
-if(urlParts.hostname === '0.0.0.0') {
+if(urlParts.hostname === "0.0.0.0") {
 	// why do we need this check?
 	// hostname n/a for file protocol (example, when using electron, ionic)
 	// see: https://github.com/webpack/webpack-dev-server/pull/384
-	if(window.location.hostname && !!~window.location.protocol.indexOf('http')) {
+	if(window.location.hostname && !!~window.location.protocol.indexOf("http")) {
 		hostname = window.location.hostname;
 	}
 }
@@ -104,7 +104,7 @@ if(urlParts.hostname === '0.0.0.0') {
 // a protocol would result in an invalid URL.
 // When https is used in the app, secure websockets are always necessary
 // because the browser doesn't accept non-secure websockets.
-if(hostname && (window.location.protocol === "https:" || urlParts.hostname === '0.0.0.0')) {
+if(hostname && (window.location.protocol === "https:" || urlParts.hostname === "0.0.0.0")) {
 	protocol = window.location.protocol;
 }
 
@@ -112,8 +112,8 @@ var socketUrl = url.format({
 	protocol: protocol,
 	auth: urlParts.auth,
 	hostname: hostname,
-	port: (urlParts.port === '0') ? window.location.port : urlParts.port,
-	pathname: urlParts.path == null || urlParts.path === '/' ? "/sockjs-node" : urlParts.path
+	port: (urlParts.port === "0") ? window.location.port : urlParts.port,
+	pathname: urlParts.path == null || urlParts.path === "/" ? "/sockjs-node" : urlParts.path
 });
 
 socket(socketUrl, onSocketMsg);

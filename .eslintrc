@@ -6,6 +6,7 @@
 	"rules": {
 		"indent": [2, "tab", { "SwitchCase": 1 }],
 		"brace-style": ["error", "1tbs"],
+		"quotes": ["error", "double"],
 		"no-eval": "error",
 		"eol-last": "error",
 		"no-redeclare": "error",
@@ -22,6 +23,8 @@
 		"no-unused-vars": "error",
 		"no-dupe-keys": "error",
 		"valid-typeof": "error",
+		"object-curly-spacing": ["error", "always"],
+		"key-spacing": "error",
 		"space-infix-ops": "error",
 		"no-negated-in-lhs": "error",
 		"no-octal": "error",
@@ -38,6 +41,7 @@
 			"overrides": {
 				"try": {"after": true},
 				"else": {"after": true},
+				"throw": {"after": true},
 				"case": {"after": true},
 				"return": {"after": true},
 				"finally": {"after": true},

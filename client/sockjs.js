@@ -1,1 +1,1 @@
-module.exports = require('sockjs-client');
+module.exports = require("sockjs-client");
