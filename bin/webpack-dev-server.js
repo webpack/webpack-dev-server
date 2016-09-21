@@ -27,6 +27,7 @@ var DISPLAY_GROUP = "Stats options:";
 var SSL_GROUP = "SSL options:";
 var CONNECTION_GROUP = "Connection options:";
 var RESPONSE_GROUP = "Response options:";
+var BASIC_GROUP = "Basic options:";
 
 yargs.options({
 	"lazy": {
@@ -37,6 +38,11 @@ yargs.options({
 		type: "boolean",
 		default: true,
 		describe: "Inline mode (set to false to disable including client scripts like livereload)"
+	},
+	"progress": {
+		type: "boolean",
+		describe: "Print compilation progress in percentage",
+		group: BASIC_GROUP
 	},
 	"hot-only": {
 		type: "boolean",
