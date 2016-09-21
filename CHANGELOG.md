@@ -1,6 +1,14 @@
 
 # 2.x (unreleased)
 
+## 2.1.0-beta.5
+
+- Add proxy config hot reloading - needs some additional configuration ([#605](https://github.com/webpack/webpack-dev-server/pull/605)).
+- Fix `--progress` not working ([#609](https://github.com/webpack/webpack-dev-server/issues/609)).
+- Fix `[WDS] Hot Module Replacement enabled` appearing even if the `clientLogLevel` was set to a non-`info` value ([#607](https://github.com/webpack/webpack-dev-server/pull/607)).
+- Don't rely on a CDN for providing the SockJS script in iframe modus ([#493](https://github.com/webpack/webpack-dev-server/pull/493)).
+- Explain what `--inline` does in help section for the CLI ([#596](https://github.com/webpack/webpack-dev-server/pull/596)).
+
 ## 2.1.0-beta.4
 
 - Fix `contentBase` option in webpack config being ignored when using the CLI ([#597](https://github.com/webpack/webpack-dev-server/issues/597), [#599](https://github.com/webpack/webpack-dev-server/pull/599)).
