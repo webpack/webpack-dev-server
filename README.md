@@ -1,12 +1,28 @@
 # webpack-dev-server
 
-**THIS SERVER SHOULD BE USED FOR DEVELOPMENT ONLY!**
+Use [webpack](http://webpack.github.io) with a development server that provides live reloading. This should be used for **development only**.
 
-**DO NOT USE IT IN PRODUCTION!**
+It uses [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) under the hood, which provides fast in-memory access to the webpack assets.
 
-It's a live reloading server for [webpack](http://webpack.github.io).
+## Installation
 
-# [Documentation](http://webpack.github.io/docs/webpack-dev-server.html)
+```
+npm install webpack-dev-server --save-dev
+```
+
+## Getting started
+
+The easiest way to use it is with the CLI. In the directory where your `webpack.config.js` is, run:
+
+```
+node_modules/.bin/webpack-dev-server
+```
+
+This will start a server, listening on connections from `localhost` on port `8080`.
+
+Now, when you change something in your assets, it should live-reload the files.
+
+See [**the documentation**](http://webpack.github.io/docs/webpack-dev-server.html) for more use cases and options.
 
 ## Inspiration
 
@@ -20,7 +36,7 @@ Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/m
 
 When making a PR, keep these goals in mind:
 
-- The communication library (Sock.js) should not be exposed to the user.
+- The communication library (`SockJS`) should not be exposed to the user.
 - A user should not try to implement stuff that accesses the webpack filesystem, because this lead to bugs (the middleware does it while blocking requests until the compilation has finished, the blocking is important).
 - It should be a development only tool (compiling in production is bad, one should precompile and deliver the compiled assets).
 - There are hooks to add your own features, so we should not add less-common features.
