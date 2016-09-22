@@ -4,8 +4,8 @@ document.write("It's working from path <b>" + path + "</b>");
 document.addEventListener("DOMContentLoaded", function() {
 	var tests = [
 		{ url: "/", name: "index", re: /^<!DOCTYPE html>/ },
-		{ url: "/test", name: "unexisted path", re: /^<!DOCTYPE html>/ },
-		{ url: "/file", name: "existed path", re: /^file/ },
+		{ url: "/test", name: "unexisting path", re: /^<!DOCTYPE html>/ },
+		{ url: "/file.txt", name: "existing path", re: /^file/ },
 	];
 
 	var table = document.createElement("table");
