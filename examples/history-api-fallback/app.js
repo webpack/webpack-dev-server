@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	tests.forEach(function(test) {
 		var tr = document.createElement("tr");
-		table.appendChild(tr);
+		tbody.appendChild(tr);
 		check(test.url, test.re, function(res) {
 			tr.innerHTML = "<td>" + test.name + "</td>";
 			tr.innerHTML += "<td><a href=\"" + test.url + "\">" + test.url + "</a></td>";
