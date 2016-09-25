@@ -1,3 +1,3 @@
 require("./index.html");
-require("./foo.html");
+require("./bar.html");
 console.log("Hey.");
