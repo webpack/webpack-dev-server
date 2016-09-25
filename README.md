@@ -1,5 +1,9 @@
 # webpack-dev-server
 
+[![npm][npm]][npm-url]
+[![deps][deps]][deps-url]
+[![test][test]][test-url]
+
 Use [webpack](http://webpack.github.io) with a development server that provides live reloading. This should be used for **development only**.
 
 It uses [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) under the hood, which provides fast in-memory access to the webpack assets.
@@ -48,3 +52,12 @@ When making a PR, keep these goals in mind:
 Copyright 2012-2016 Tobias Koppers
 
 [MIT](http://www.opensource.org/licenses/mit-license.php)
+
+[npm]: https://img.shields.io/npm/v/webpack-dev-server.svg
+[npm-url]: https://npmjs.com/package/webpack-dev-server
+
+[deps]: https://david-dm.org/webpack/webpack-dev-server.svg
+[deps-url]: https://david-dm.org/webpack/webpack-dev-server
+
+[test]: http://img.shields.io/travis/webpack/webpack-dev-server.svg
+[test-url]: https://travis-ci.org/webpack/webpack-dev-server
