@@ -5,6 +5,9 @@ var server;
 
 module.exports = {
 	start: function(config, options, done) {
+		if(options.quiet === undefined) {
+			options.quiet = true;
+		}
 		var compiler = webpack(config);
 		server = new Server(compiler, options);
 

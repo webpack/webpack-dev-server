@@ -8,7 +8,6 @@ describe("Compress", function() {
 
 	before(function(done) {
 		server = helper.start(config, {
-			quiet: true,
 			compress: true
 		}, done);
 		req = request(server.app);

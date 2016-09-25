@@ -13,7 +13,6 @@ describe("Routes", function() {
 
 	before(function(done) {
 		server = helper.start(config, {
-			quiet: true,
 			headers: { "X-Foo": "1" }
 		}, done);
 		req = request(server.app);

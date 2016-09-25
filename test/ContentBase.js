@@ -14,7 +14,6 @@ describe("ContentBase", function() {
 	describe("to directory", function() {
 		before(function(done) {
 			server = helper.start(config, {
-				quiet: true,
 				contentBase: contentBasePublic,
 			}, done);
 			req = request(server.app);
@@ -34,7 +33,6 @@ describe("ContentBase", function() {
 	describe("to directories", function() {
 		before(function(done) {
 			server = helper.start(config, {
-				quiet: true,
 				contentBase: [contentBasePublic, contentBaseOther],
 			}, done);
 			req = request(server.app);
@@ -54,7 +52,6 @@ describe("ContentBase", function() {
 	describe("to port", function() {
 		before(function(done) {
 			server = helper.start(config, {
-				quiet: true,
 				contentBase: 9099999,
 			}, done);
 			req = request(server.app);
@@ -70,7 +67,6 @@ describe("ContentBase", function() {
 	describe("to external url", function() {
 		before(function(done) {
 			server = helper.start(config, {
-				quiet: true,
 				contentBase: "http://example.com/",
 			}, done);
 			req = request(server.app);
