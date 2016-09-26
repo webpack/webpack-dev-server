@@ -1,5 +1,12 @@
-
 # 2.x (unreleased)
+
+## 2.1.0-beta.6
+
+- Start with tests! There's still a lot more to test, but at least there are _some_ tests now ([#623](https://github.com/webpack/webpack-dev-server/issues/623)).
+- Add optional callback for the `close` API ([`1cf6549`](https://github.com/webpack/webpack-dev-server/commit/1cf6549415b078c80e027edbf6279a183fbcb631)).
+- Fix `historyApiFallback` to fallback correctly to `contentBase` ([#617](https://github.com/webpack/webpack-dev-server/pull/617)).
+- When using the `bypass` feature in a proxy, it was not possible to use in-memory webpack assets ([#613](https://github.com/webpack/webpack-dev-server/pull/613)).
+- Simplify code for delivering assets ([#618](https://github.com/webpack/webpack-dev-server/issues/618)).
 
 ## 2.1.0-beta.5
 
