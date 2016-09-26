@@ -45,6 +45,9 @@
   "homepage": "http://github.com/webpack/webpack-dev-server",
   "main": "lib/Server.js",
   "bin": "bin/webpack-dev-server.js",
+  "engines": {
+    "node": ">=0.10"
+  },
   "files": [
     "lib/",
     "bin",
