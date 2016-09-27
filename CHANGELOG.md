@@ -1,5 +1,9 @@
 # 2.x (unreleased)
 
+# 2.1.0-beta.7
+
+- Add support for http/2 when using the `https` option. Falls back on http/1.1.
+
 ## 2.1.0-beta.6
 
 - Start with tests! There's still a lot more to test, but at least there are _some_ tests now ([#623](https://github.com/webpack/webpack-dev-server/issues/623)).
