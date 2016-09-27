@@ -47,7 +47,8 @@ describe("HistoryApiFallback", function() {
 			server = helper.start(config2, {
 				contentBase: path.join(__dirname, "fixtures/historyapifallback-2-config"),
 				historyApiFallback: {
-					index: "/bar.html"
+					index: "/bar.html",
+					disableDotRule: true
 				}
 			}, done);
 			req = request(server.app);
@@ -57,6 +58,18 @@ describe("HistoryApiFallback", function() {
 			req.get("/")
 			.accept("html")
 			.expect(200, /Foobar/, done);
+		});
+
+		it("request to directory", function(done) {
+			req.get("/foo")
+			.accept("html")
+			.expect(200, /Foobar/, done);
+		});
+
+		it("contentBase file should take preference above historyApiFallback", function(done) {
+			req.get("/other.html")
+			.accept("html")
+			.expect(200, /Other file/, done);
 		});
 	});
 });
