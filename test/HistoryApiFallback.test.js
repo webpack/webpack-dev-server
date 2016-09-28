@@ -71,4 +71,43 @@ describe("HistoryApiFallback", function() {
 			.expect(200, /Other file/, done);
 		});
 	});
+
+	describe("as object with contentBase and rewrites", function() {
+		before(function(done) {
+			server = helper.start(config2, {
+				contentBase: path.join(__dirname, "fixtures/historyapifallback-2-config"),
+				historyApiFallback: {
+					rewrites: [
+						{
+							from: /other/,
+							to: "/other.html"
+						},
+						{
+							from: /.*/,
+							to: "/bar.html"
+						}
+					]
+				}
+			}, done);
+			req = request(server.app);
+		});
+
+		it("historyApiFallback respect rewrites for index", function(done) {
+			req.get("/")
+			.accept("html")
+			.expect(200, /Foobar/, done);
+		});
+
+		it("historyApiFallback respect rewrites and shows index for unknown urls", function(done) {
+			req.get("/acme")
+			.accept("html")
+			.expect(200, /Foobar/, done);
+		});
+
+		it("historyApiFallback respect any other specified rewrites", function(done) {
+			req.get("/other")
+			.accept("html")
+			.expect(200, /Other file/, done);
+		});
+	});
 });
