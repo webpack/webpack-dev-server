@@ -53,7 +53,7 @@ describe("HistoryApiFallback", function() {
 			req = request(server.app);
 		});
 
-		it("historyApiFallback should take preference above magicHtml", function(done) {
+		it("historyApiFallback should take preference above directory index", function(done) {
 			req.get("/")
 			.accept("html")
 			.expect(200, /Foobar/, done);
@@ -66,9 +66,9 @@ describe("HistoryApiFallback", function() {
 		});
 
 		it("contentBase file should take preference above historyApiFallback", function(done) {
-			req.get("/other.html")
+			req.get("/random-file")
 			.accept("html")
-			.expect(200, /Other file/, done);
+			.expect(200, /Random file/, done);
 		});
 	});
 
