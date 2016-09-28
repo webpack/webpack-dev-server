@@ -47,8 +47,7 @@ describe("HistoryApiFallback", function() {
 			server = helper.start(config2, {
 				contentBase: path.join(__dirname, "fixtures/historyapifallback-2-config"),
 				historyApiFallback: {
-					index: "/bar.html",
-					disableDotRule: true
+					index: "/bar.html"
 				}
 			}, done);
 			req = request(server.app);
