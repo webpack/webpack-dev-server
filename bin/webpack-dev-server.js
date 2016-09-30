@@ -39,6 +39,10 @@ var optimist = require("optimist")
 
 .string("cacert").describe("cacert", "Path to a SSL CA certificate.")
 
+.string("pfx").describe("pfx", "Path to a SSL pfx file.")
+
+.string("pfx-passphrase").describe("pfx-passphrase", "Passphrase for pfx file.")
+
 .string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
 .string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
@@ -151,6 +155,12 @@ if(argv["key"])
 
 if(argv["cacert"])
 	options.ca = fs.readFileSync(path.resolve(argv["cacert"]));
+
+if(argv["pfx"])
+	options.pfx = fs.readFileSync(path.resolve(argv["pfx"]));
+
+if(argv["pfx-passphrase"])
+	options.pfxPassphrase = argv["pfx-passphrase"];
 
 if(argv["inline"])
 	options.inline = true;
