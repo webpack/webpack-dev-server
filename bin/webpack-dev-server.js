@@ -94,6 +94,16 @@ yargs.options({
 		describe: "Path to a SSL CA certificate.",
 		group: SSL_GROUP
 	},
+	"pfx": {
+		type: "string",
+		describe: "Path to a SSL pfx file.",
+		group: SSL_GROUP
+	},
+	"pfx-passphrase": {
+		type: "string",
+		describe: "Passphrase for pfx file.",
+		group: SSL_GROUP
+	},
 	"content-base": {
 		type: "string",
 		describe: "A directory or URL to serve HTML content from.",
@@ -232,6 +242,12 @@ function processOptions(wpOpt) {
 
 	if(argv["cacert"])
 		options.ca = fs.readFileSync(path.resolve(argv["cacert"]));
+
+	if(argv["pfx"])
+		options.pfx = fs.readFileSync(path.resolve(argv["pfx"]));
+
+	if(argv["pfx-passphrase"])
+		options.pfxPassphrase = argv["pfx-passphrase"];
 
 	if(argv["inline"] === false)
 		options.inline = false;
