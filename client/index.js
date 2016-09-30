@@ -95,8 +95,8 @@ if(urlParts.hostname === "0.0.0.0") {
 	// why do we need this check?
 	// hostname n/a for file protocol (example, when using electron, ionic)
 	// see: https://github.com/webpack/webpack-dev-server/pull/384
-	if(window.location.hostname && !!~window.location.protocol.indexOf("http")) {
-		hostname = window.location.hostname;
+	if(self.location.hostname && !!~self.location.protocol.indexOf("http")) {
+		hostname = self.location.hostname;
 	}
 }
 
@@ -104,15 +104,15 @@ if(urlParts.hostname === "0.0.0.0") {
 // a protocol would result in an invalid URL.
 // When https is used in the app, secure websockets are always necessary
 // because the browser doesn't accept non-secure websockets.
-if(hostname && (window.location.protocol === "https:" || urlParts.hostname === "0.0.0.0")) {
-	protocol = window.location.protocol;
+if(hostname && (self.location.protocol === "https:" || urlParts.hostname === "0.0.0.0")) {
+	protocol = self.location.protocol;
 }
 
 var socketUrl = url.format({
 	protocol: protocol,
 	auth: urlParts.auth,
 	hostname: hostname,
-	port: (urlParts.port === "0") ? window.location.port : urlParts.port,
+	port: (urlParts.port === "0") ? self.location.port : urlParts.port,
 	pathname: urlParts.path == null || urlParts.path === "/" ? "/sockjs-node" : urlParts.path
 });
 
@@ -123,12 +123,12 @@ function reloadApp() {
 		log("info", "[WDS] App hot update...");
 		var hotEmitter = require("webpack/hot/emitter");
 		hotEmitter.emit("webpackHotUpdate", currentHash);
-		if(typeof window !== "undefined") {
+		if(typeof self !== "undefined") {
 			// broadcast update to window
-			window.postMessage("webpackHotUpdate" + currentHash, "*");
+			self.postMessage("webpackHotUpdate" + currentHash, "*");
 		}
 	} else {
 		log("info", "[WDS] App updated. Reloading...");
-		window.location.reload();
+		self.location.reload();
 	}
 }
