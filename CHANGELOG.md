@@ -1,5 +1,11 @@
 # 2.x (unreleased)
 
+# 2.1.0-beta.8
+
+- Add full Web Worker support ([#632](https://github.com/webpack/webpack-dev-server/pull/632)).
+- Fix `historyApiFallback` not working when specifying an index that is not `index.html` ([#627](https://github.com/webpack/webpack-dev-server/pull/627), [cb1b32f](https://github.com/webpack/webpack-dev-server/commit/cb1b32fa6c57ec3ae9d16be129279df9448cb29f)).
+- Add support for new SSL parameters: `pfx` and `pfxPassphrase`. Use with `--pfx` and `--pfx-passphrase` in the CLI ([#631](https://github.com/webpack/webpack-dev-server/pull/631)).
+
 # 2.1.0-beta.7
 
 - Add support for http/2 when using the `https` option. Falls back on http/1.1.
