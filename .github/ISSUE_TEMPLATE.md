@@ -13,12 +13,13 @@ submit them to [StackOverflow](http://stackoverflow.com/questions/tagged/webpack
 
 **webpack and webpack-dev-server version:**
 webpack: 1.10.x/2.x 
-webpack-dev-server: 1.15.x/2.x
+webpack-dev-server: 1.x/2.x
 
 
 **Please tell us about your environment:**
 OSX 10.x / Linux / Windows 10
 Docker / Vagrant
+Running server via CLI / Node.js API
 
 
 **Current behavior:**
