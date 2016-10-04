@@ -1,7 +1,7 @@
 # Modus: lazy
 
 ```shell
-node ../../bin/webpack-dev-server.js --open --lazy
+node ../../bin/webpack-dev-server.js --open --lazy --no-inline
 ```
 
 With the `lazy` modus, webpack-dev-server does **not** watch the files, automatically recompile them or refresh the browser. Instead, it only compiles after you manually refresh the page.
