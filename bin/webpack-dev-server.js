@@ -199,7 +199,7 @@ function processOptions(wpOpt) {
 	if(!options.clientLogLevel)
 		options.clientLogLevel = argv["client-log-level"];
 
-	if(!options.contentBase) {
+	if(options.contentBase === undefined) {
 		if(argv["content-base"]) {
 			options.contentBase = argv["content-base"];
 			if(/^[0-9]$/.test(options.contentBase))
@@ -207,8 +207,8 @@ function processOptions(wpOpt) {
 			else if(!/^(https?:)?\/\//.test(options.contentBase))
 				options.contentBase = path.resolve(options.contentBase);
 		// It is possible to disable the contentBase by using `--no-content-base`, which results in arg["content-base"] = false
-		} else if(argv["content-base"] !== false) {
-			options.contentBase = process.cwd();
+		} else if(argv["content-base"] === false) {
+			options.contentBase = false;
 		}
 	}
 

@@ -2,6 +2,7 @@ var request = require("supertest");
 var path = require("path");
 var helper = require("./helper");
 var config = require("./fixtures/contentbase-config/webpack.config");
+require("mocha-sinon");
 
 var contentBasePublic = path.join(__dirname, "fixtures/contentbase-config/public");
 var contentBaseOther = path.join(__dirname, "fixtures/contentbase-config/other");
@@ -84,6 +85,38 @@ describe("ContentBase", function() {
 			// TODO: hmm, two slashes seems to be a bug?
 			.expect("Location", "http://example.com//foo.html?space=ship")
 			.expect(302, done);
+		});
+	});
+
+	describe("default to PWD", function() {
+		before(function(done) {
+			this.sinon.stub(process, "cwd");
+			process.cwd.returns(contentBasePublic);
+			server = helper.start(config, {}, done);
+			req = request(server.app);
+		});
+
+		it("Request to page", function(done) {
+			req.get("/other.html")
+			.expect(200, done);
+		});
+	});
+
+	describe("disable", function() {
+		before(function(done) {
+			// This is a somewhat weird test, but it is important that we mock
+			// the PWD here, and test if /other.html in our "fake" PWD really is not requested.
+			this.sinon.stub(process, "cwd");
+			process.cwd.returns(contentBasePublic);
+			server = helper.start(config, {
+				contentBase: false
+			}, done);
+			req = request(server.app);
+		});
+
+		it("Request to page", function(done) {
+			req.get("/other.html")
+			.expect(404, done);
 		});
 	});
 });
