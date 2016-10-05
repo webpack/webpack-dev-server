@@ -110,4 +110,20 @@ describe("HistoryApiFallback", function() {
 			.expect(200, /Other file/, done);
 		});
 	});
+
+	describe("in-memory files", function() {
+		before(function(done) {
+			server = helper.start(config2, {
+				contentBase: path.join(__dirname, "fixtures/historyapifallback-3-config"),
+				historyApiFallback: true
+			}, done);
+			req = request(server.app);
+		});
+
+		it("should take precedence over contentBase files", function(done) {
+			req.get("/foo")
+			.accept("html")
+			.expect(200, /In-memory file/, done);
+		});
+	});
 });
