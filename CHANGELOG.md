@@ -1,3 +1,10 @@
+# 1.16.2 (2016-10-06)
+
+- Backport a few fixes from v2:
+    - Support for PFX files as SSL connection options ([#630](https://github.com/webpack/webpack-dev-server/pull/630)).
+    - Fix edge case where quickly refreshing the browser could result in the server crashing ([#637](https://github.com/webpack/webpack-dev-server/pull/637)).
+    - Webpack bundle assets were not loaded after using the proxy `bypass` feature ([#614](https://github.com/webpack/webpack-dev-server/pull/614)). 
+
 # 1.16.0 (2016-09-17)
 
 - Backport a few more fixes from v2:
