@@ -296,9 +296,9 @@ function processOptions(wpOpt) {
 
 		var uri = url.format({
 			protocol: protocol,
-			hostName: options.host,
+			hostname: options.host,
 			port: options.port.toString(),
-			pathName: options.inline !== false ? "/" : "webpack-dev-server/"
+			pathname: options.inline !== false ? "/" : "webpack-dev-server/"
 		});
 		console.log(" " + uri);
 
