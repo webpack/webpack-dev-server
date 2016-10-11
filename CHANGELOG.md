@@ -1,5 +1,12 @@
 # 2.x (unreleased)
 
+# 2.1.0-beta.9
+
+- Add support for watching files provided by the `contentBase` option. Enable with `watchContentBase: true` or `--watch-content-base` in the CLI ([#649](https://github.com/webpack/webpack-dev-server/pull/649)).
+- Support IPv6 addresses as `host` option ([#644](https://github.com/webpack/webpack-dev-server/pull/644)).
+- Fix `historyApiFallback` taking preference of `contentBase` files instead of the in-memory files; this caused issues with html-webpack-plugin ([#640](https://github.com/webpack/webpack-dev-server/issues/640)).
+- Fix edge case where rapidly refreshing the page caused the server to crash ([#637](https://github.com/webpack/webpack-dev-server/pull/637)).
+
 # 2.1.0-beta.8
 
 - Add full Web Worker support ([#632](https://github.com/webpack/webpack-dev-server/pull/632)).
