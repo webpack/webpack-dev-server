@@ -110,6 +110,11 @@ yargs.options({
 		describe: "A directory or URL to serve HTML content from.",
 		group: RESPONSE_GROUP
 	},
+	"watch-content-base": {
+		type: "boolean",
+		describe: "Enable live-reloading of the content-base.",
+		group: RESPONSE_GROUP
+	},
 	"history-api-fallback": {
 		type: "boolean",
 		describe: "Fallback to /index.html for Single Page Applications.",
@@ -212,6 +217,9 @@ function processOptions(wpOpt) {
 			options.contentBase = false;
 		}
 	}
+
+	if(argv["watch-content-base"])
+		options.watchContentBase = true;
 
 	if(!options.stats) {
 		options.stats = {
