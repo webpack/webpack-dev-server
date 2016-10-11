@@ -3,6 +3,7 @@ var request = require("supertest");
 var helper = require("./helper");
 var config = require("./fixtures/historyapifallback-config/webpack.config");
 var config2 = require("./fixtures/historyapifallback-2-config/webpack.config");
+var config3 = require("./fixtures/historyapifallback-3-config/webpack.config");
 
 describe("HistoryApiFallback", function() {
 	var server;
@@ -113,7 +114,7 @@ describe("HistoryApiFallback", function() {
 
 	describe("in-memory files", function() {
 		before(function(done) {
-			server = helper.start(config2, {
+			server = helper.start(config3, {
 				contentBase: path.join(__dirname, "fixtures/historyapifallback-3-config"),
 				historyApiFallback: true
 			}, done);
