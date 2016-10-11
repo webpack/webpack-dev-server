@@ -3,6 +3,7 @@
 var path = require("path");
 var open = require("opn");
 var fs = require("fs");
+var url = require("url");
 
 // Local version replaces global one
 try {
@@ -293,9 +294,12 @@ function processOptions(wpOpt) {
 	new Server(compiler, options).listen(options.port, options.host, function(err) {
 		if(err) throw err;
 
-		var uri = protocol + "://" + options.host + ":" + options.port + "/";
-		if(options.inline === false)
-			uri += "webpack-dev-server/";
+		var uri = url.format({
+			protocol: protocol,
+			hostname: options.host,
+			port: options.port.toString(),
+			pathname: options.inline !== false ? "/" : "webpack-dev-server/"
+		});
 		console.log(" " + uri);
 
 		console.log("webpack result is served from " + options.publicPath);
