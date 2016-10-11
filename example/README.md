@@ -64,3 +64,14 @@ http://localhost:8080/some/url/from/spa
 ```
 
 The contents of /index.html is served.
+
+## Watching `devServer.contentBase`
+
+``` text
+webpack-dev-server --inline --content-base assets --watch-content-base
+http://localhost:8080/
+```
+
+Try to update `assets/index.html`.
+
+The browser should reflect your changes.
