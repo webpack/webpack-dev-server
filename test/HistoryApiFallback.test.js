@@ -3,6 +3,7 @@ var request = require("supertest");
 var helper = require("./helper");
 var config = require("./fixtures/historyapifallback-config/webpack.config");
 var config2 = require("./fixtures/historyapifallback-2-config/webpack.config");
+var config3 = require("./fixtures/historyapifallback-3-config/webpack.config");
 
 describe("HistoryApiFallback", function() {
 	var server;
@@ -108,6 +109,22 @@ describe("HistoryApiFallback", function() {
 			req.get("/other")
 			.accept("html")
 			.expect(200, /Other file/, done);
+		});
+	});
+
+	describe("in-memory files", function() {
+		before(function(done) {
+			server = helper.start(config3, {
+				contentBase: path.join(__dirname, "fixtures/historyapifallback-3-config"),
+				historyApiFallback: true
+			}, done);
+			req = request(server.app);
+		});
+
+		it("should take precedence over contentBase files", function(done) {
+			req.get("/foo")
+			.accept("html")
+			.expect(200, /In-memory file/, done);
 		});
 	});
 });
