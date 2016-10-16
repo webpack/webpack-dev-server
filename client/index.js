@@ -81,12 +81,6 @@ var onSocketMsg = {
 		if(initial) return initial = false;
 		reloadApp();
 	},
-	"proxy-error": function(errors) {
-		log("info", "[WDS] Proxy error.");
-		for(var i = 0; i < errors.length; i++)
-			log("error", stripAnsi(errors[i]));
-		if(initial) return initial = false;
-	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");
 	}
