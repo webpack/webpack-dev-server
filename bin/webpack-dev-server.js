@@ -3,6 +3,7 @@
 var path = require("path");
 var open = require("opn");
 var fs = require("fs");
+var net = require("net");
 var url = require("url");
 
 // Local version replaces global one
@@ -130,6 +131,11 @@ yargs.options({
 		default: 8080,
 		group: CONNECTION_GROUP
 	},
+	"socket": {
+		type: "String",
+		describe: "Socket to listen",
+		group: CONNECTION_GROUP
+	},
 	"public": {
 		type: "string",
 		describe: "The public hostname/ip address of the server",
@@ -171,6 +177,9 @@ function processOptions(wpOpt) {
 
 	if(argv.port !== 8080 || !options.port)
 		options.port = argv.port;
+
+	if(argv.socket)
+		options.socket = argv.socket;
 
 	if(!options.publicPath) {
 		options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || "";
@@ -299,27 +308,65 @@ function processOptions(wpOpt) {
 		}));
 	}
 
-	new Server(compiler, options).listen(options.port, options.host, function(err) {
-		if(err) throw err;
-
-		var uri = url.format({
-			protocol: protocol,
-			hostname: options.host,
-			port: options.port.toString(),
-			pathname: options.inline !== false ? "/" : "webpack-dev-server/"
-		});
-		console.log(" " + uri);
-
-		console.log("webpack result is served from " + options.publicPath);
-		if(Array.isArray(options.contentBase))
-			console.log("content is served from " + options.contentBase.join(", "));
-		else if(options.contentBase)
-			console.log("content is served from " + options.contentBase);
-		if(options.historyApiFallback)
-			console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
-		if(options.open)
-			open(uri);
+	var uri = url.format({
+		protocol: protocol,
+		hostname: options.host,
+		pathname: options.inline !== false ? "/" : "webpack-dev-server/",
+		port: options.socket ? 0 : options.port.toString()
 	});
+
+	var server = new Server(compiler, options);
+
+	if(options.socket) {
+		server.listeningApp.on("error", function(e) {
+			if(e.code === "EADDRINUSE") {
+				var clientSocket = new net.Socket();
+				clientSocket.on("error", function(e) {
+					if(e.code === "ECONNREFUSED") {
+						// No other server listening on this socket so it can be safely removed
+						fs.unlinkSync(options.socket);
+						server.listen(options.socket, options.host, function(err) {
+							if(err) throw err;
+						});
+					}
+				});
+				clientSocket.connect({ path: options.socket }, function() {
+					throw new Error("This socket is already used");
+				});
+			}
+		});
+		server.listen(options.socket, options.host, function(err) {
+			if(err) throw err;
+			var READ_WRITE = 438; // chmod 666 (rw rw rw)
+			fs.chmod(options.socket, READ_WRITE, function(err) {
+				if(err) throw err;
+				reportReadiness(uri, options);
+			});
+		});
+	} else {
+		server.listen(options.port, options.host, function(err) {
+			if(err) throw err;
+			reportReadiness(uri, options);
+		});
+	}
+}
+
+function reportReadiness(uri, options) {
+	if(options.socket) {
+		console.log("Listening to socket", options.socket);
+	} else {
+		console.log(" " + uri);
+	}
+
+	console.log("webpack result is served from " + options.publicPath);
+	if(Array.isArray(options.contentBase))
+		console.log("content is served from " + options.contentBase.join(", "));
+	else if(options.contentBase)
+		console.log("content is served from " + options.contentBase);
+	if(options.historyApiFallback)
+		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
+	if(options.open)
+		open(uri);
 }
 
 processOptions(wpOpt);
