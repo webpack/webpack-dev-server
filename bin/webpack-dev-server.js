@@ -19,7 +19,7 @@ var webpack = require("webpack");
 var yargs = require("yargs")
 	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
 		"webpack " + require("webpack/package.json").version + "\n" +
-		"Usage: http://webpack.github.io/docs/webpack-dev-server.html");
+		"Usage: http://webpack.js.org/docs/webpack-dev-server.html");
 
 require("webpack/bin/config-yargs")(yargs);
 
