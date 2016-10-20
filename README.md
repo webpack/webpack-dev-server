@@ -47,12 +47,6 @@ When making a PR, keep these goals in mind:
 - Processing options and stats display is delegated to webpack, so webpack-dev-server/middleware should not do much with it. This also helps us to keep up-to-date with webpack updates.
 - The workflow should be to start webpack-dev-server as a separate process, next to the "normal" server and to request the script from this server or to proxy from dev-server to "normal" server (because webpack blocks the event queue too much while compiling which can affect "normal" server).
 
-## License
-
-Copyright 2012-2016 Tobias Koppers
-
-[MIT](http://www.opensource.org/licenses/mit-license.php)
-
 [npm]: https://img.shields.io/npm/v/webpack-dev-server.svg
 [npm-url]: https://npmjs.com/package/webpack-dev-server
 
