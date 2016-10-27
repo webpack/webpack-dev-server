@@ -272,8 +272,21 @@ function processOptions(wpOpt) {
 
 	var protocol = options.https ? "https" : "http";
 
+	/**
+	 * the formated uri of the webpack server
+	 */
+	var uri = url.format({
+		protocol: protocol,
+		hostname: options.host,
+		port: options.port.toString()
+	});
+
 	if(options.inline !== false) {
-		var devClient = [require.resolve("../client/") + "?" + protocol + "://" + (options.public || (options.host + ":" + options.port))];
+		/**
+		 * client query url public or formated uri
+		 */
+		var query = options.public ? (protocol + "://" + options.public) : uri;
+		var devClient = [require.resolve("../client/") + "?" + query];
 
 		if(options.hotOnly)
 			devClient.push("webpack/hot/only-dev-server");
@@ -302,12 +315,8 @@ function processOptions(wpOpt) {
 	new Server(compiler, options).listen(options.port, options.host, function(err) {
 		if(err) throw err;
 
-		var uri = url.format({
-			protocol: protocol,
-			hostname: options.host,
-			port: options.port.toString(),
-			pathname: options.inline !== false ? "/" : "webpack-dev-server/"
-		});
+		//add the pathname of uri
+		uri += options.inline !== false ? "/" : "webpack-dev-server/"
 		console.log(" " + uri);
 
 		console.log("webpack result is served from " + options.publicPath);
