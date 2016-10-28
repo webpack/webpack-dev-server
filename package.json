@@ -50,7 +50,7 @@
   "main": "lib/Server.js",
   "bin": "bin/webpack-dev-server.js",
   "engines": {
-    "node": ">=0.10"
+    "node": ">=0.12"
   },
   "files": [
     "lib/",
