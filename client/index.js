@@ -89,7 +89,9 @@ var onSocketMsg = {
 var hostname = urlParts.hostname;
 var protocol = urlParts.protocol;
 
-if(urlParts.hostname === "0.0.0.0") {
+
+//check ipv4 and ipv6 `all hostname`
+if(hostname === "0.0.0.0" || hostname === "::") {
 	// why do we need this check?
 	// hostname n/a for file protocol (example, when using electron, ionic)
 	// see: https://github.com/webpack/webpack-dev-server/pull/384

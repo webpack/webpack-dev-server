@@ -281,8 +281,15 @@ function processOptions(wpOpt) {
 
 	var protocol = options.https ? "https" : "http";
 
+	// the formated domain (url without path) of the webpack server
+	var domain = url.format({
+		protocol: protocol,
+		hostname: options.host,
+		port: options.socket ? 0 : options.port.toString()
+	});
+
 	if(options.inline !== false) {
-		var devClient = [require.resolve("../client/") + "?" + protocol + "://" + (options.public || (options.host + ":" + options.port))];
+		var devClient = [require.resolve("../client/") + "?" + (options.public ? protocol + "://" + options.public : domain)];
 
 		if(options.hotOnly)
 			devClient.push("webpack/hot/only-dev-server");
@@ -308,12 +315,7 @@ function processOptions(wpOpt) {
 		}));
 	}
 
-	var uri = url.format({
-		protocol: protocol,
-		hostname: options.host,
-		pathname: options.inline !== false ? "/" : "webpack-dev-server/",
-		port: options.socket ? 0 : options.port.toString()
-	});
+	var uri = domain + (options.inline !== false ? "/" : "webpack-dev-server/");
 
 	var server = new Server(compiler, options);
 
