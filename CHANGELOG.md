@@ -1,5 +1,13 @@
 # 2.x (unreleased)
 
+# 2.1.0-beta.10
+
+- **Breaking change**: only support Node.js `0.12` and higher.
+- Update SSL certificate in https mode to fix issues with Windows ([#648](https://github.com/webpack/webpack-dev-server/issues/648)).
+- Add option to listen on unix socket instead of a port with the `--socket` flag ([#661](https://github.com/webpack/webpack-dev-server/pull/661)).
+- Add deprecation warnings for using `contentBase` with a URL or port, since the `proxy` option does about the same and is more powerful ([`61b46ba`](https://github.com/webpack/webpack-dev-server/commit/61b46bac419fc496852cb1b94e0b49451631a0e6)).
+- Fix more issues with IPv6 ([#676](https://github.com/webpack/webpack-dev-server/pull/676)).
+
 # 2.1.0-beta.9
 
 - Add support for watching files provided by the `contentBase` option. Enable with `watchContentBase: true` or `--watch-content-base` in the CLI ([#649](https://github.com/webpack/webpack-dev-server/pull/649)).
