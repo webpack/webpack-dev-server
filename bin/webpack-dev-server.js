@@ -315,7 +315,7 @@ function processOptions(wpOpt) {
 		}));
 	}
 
-	var uri = domain + (options.inline !== false ? "/" : "webpack-dev-server/");
+	var uri = domain + (options.inline !== false ? "/" : "/webpack-dev-server/");
 
 	var server = new Server(compiler, options);
 
