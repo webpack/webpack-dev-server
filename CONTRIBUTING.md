@@ -39,11 +39,11 @@ Pull requests often need some real-world testing.
 
 1. In your `package.json`, change the line with `webpack-dev-server` to:
 
-```json
-"webpack-dev-server": "webpack/webpack-dev-server#<ID>/head"
-```
+  ```json
+  "webpack-dev-server": "webpack/webpack-dev-server#<ID>/head"
+  ```
 
-`<ID>` is the ID of the pull request.
+  `<ID>` is the ID of the pull request.
 
 2. Then run `npm install`.
 
