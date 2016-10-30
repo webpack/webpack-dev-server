@@ -17,12 +17,20 @@ try {
 var Server = require("../lib/Server");
 var webpack = require("webpack");
 
+function versionInfo() {
+	return "webpack-dev-server " + require("../package.json").version + "\n" +
+		"webpack " + require("webpack/package.json").version;
+}
+
 var yargs = require("yargs")
-	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-		"webpack " + require("webpack/package.json").version + "\n" +
-		"Usage: http://webpack.github.io/docs/webpack-dev-server.html");
+	.usage(versionInfo() +
+		"\nUsage: http://webpack.github.io/docs/webpack-dev-server.html");
 
 require("webpack/bin/config-yargs")(yargs);
+
+// It is important that this is done after the webpack yargs config,
+// so it overrides webpack's version info.
+yargs.version(versionInfo);
 
 var ADVANCED_GROUP = "Advanced options:";
 var DISPLAY_GROUP = "Stats options:";
@@ -281,7 +289,7 @@ function processOptions(wpOpt) {
 
 	var protocol = options.https ? "https" : "http";
 
-	// the formated domain (url without path) of the webpack server
+	// the formatted domain (url without path) of the webpack server
 	var domain = url.format({
 		protocol: protocol,
 		hostname: options.host,
