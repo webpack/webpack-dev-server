@@ -45,9 +45,9 @@ Pull requests often need some real-world testing.
 
   `<ID>` is the ID of the pull request.
 
-2. Then run `npm install`.
+2. Run `npm install`.
 
-3. Now go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-sever`), and run `npm run prepublish`.
+3. Go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-server`), and run `npm run prepublish`.
 
 The pull request is now ready to be tested.
 
