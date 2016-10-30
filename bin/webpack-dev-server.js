@@ -354,17 +354,16 @@ function processOptions(wpOpt) {
 }
 
 function reportReadiness(uri, options) {
+	var startSentence = "Project is running at " + uri;
 	if(options.socket) {
-		console.log("Listening to socket", options.socket);
-	} else {
-		console.log(" " + uri);
+		startSentence = "Listening to socket at " + options.socket;
 	}
+	console.log((argv["progress"] ? "\n" : "") + startSentence);
 
-	console.log("webpack result is served from " + options.publicPath);
-	if(Array.isArray(options.contentBase))
-		console.log("content is served from " + options.contentBase.join(", "));
-	else if(options.contentBase)
-		console.log("content is served from " + options.contentBase);
+	console.log("webpack output is served from " + options.publicPath);
+	var contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
+	if(contentBase)
+		console.log("Content not from webpack is served from " + contentBase);
 	if(options.historyApiFallback)
 		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
 	if(options.open)
