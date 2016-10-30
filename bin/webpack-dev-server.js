@@ -307,7 +307,20 @@ function processOptions(wpOpt) {
 		});
 	}
 
-	var compiler = webpack(wpOpt);
+	var compiler;
+	try {
+		compiler = webpack(wpOpt);
+	} catch(e) {
+		var WebpackOptionsValidationError = require("webpack/lib/WebpackOptionsValidationError");
+		if(e instanceof WebpackOptionsValidationError) {
+			if(options.stats.colors)
+				console.error("\u001b[1m\u001b[31m" + e.message + "\u001b[39m\u001b[22m");
+			else
+				console.error(e.message);
+			process.exit(1); // eslint-disable-line
+		}
+		throw e;
+	}
 
 	if(argv["progress"]) {
 		compiler.apply(new webpack.ProgressPlugin({
