@@ -4,7 +4,7 @@
 [![deps][deps]][deps-url]
 [![test][test]][test-url]
 
-Use [webpack](http://webpack.github.io) with a development server that provides live reloading. This should be used for **development only**.
+Use [webpack](http://webpack.js.org) with a development server that provides live reloading. This should be used for **development only**.
 
 It uses [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) under the hood, which provides fast in-memory access to the webpack assets.
 
@@ -26,7 +26,7 @@ This will start a server, listening on connections from `localhost` on port `808
 
 Now, when you change something in your assets, it should live-reload the files.
 
-See [**the documentation**](http://webpack.github.io/docs/webpack-dev-server.html) for more use cases and options.
+See [**the documentation**](http://webpack.js.org/docs/webpack-dev-server.html) for more use cases and options.
 
 ## Contributing
 
