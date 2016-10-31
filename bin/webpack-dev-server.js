@@ -22,6 +22,13 @@ function versionInfo() {
 		"webpack " + require("webpack/package.json").version;
 }
 
+function colorize(useColor, msg) {
+	if(useColor)
+		// Make text blue and bold, so it *pops*
+		return "\u001b[1m\u001b[34m" + msg + "\u001b[39m\u001b[22m";
+	return msg;
+}
+
 var yargs = require("yargs")
 	.usage(versionInfo() +
 		"\nUsage: http://webpack.github.io/docs/webpack-dev-server.html");
@@ -375,18 +382,19 @@ function processOptions(wpOpt) {
 }
 
 function reportReadiness(uri, options) {
-	var startSentence = "Project is running at " + uri;
+	var useColor = options.stats.colors;
+	var startSentence = "Project is running at " + colorize(useColor, uri)
 	if(options.socket) {
-		startSentence = "Listening to socket at " + options.socket;
+		startSentence = "Listening to socket at " + colorize(useColor, options.socket);
 	}
 	console.log((argv["progress"] ? "\n" : "") + startSentence);
 
-	console.log("webpack output is served from " + options.publicPath);
+	console.log("webpack output is served from " + colorize(useColor, options.publicPath));
 	var contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
 	if(contentBase)
-		console.log("Content not from webpack is served from " + contentBase);
+		console.log("Content not from webpack is served from " + colorize(useColor, contentBase));
 	if(options.historyApiFallback)
-		console.log("404s will fallback to %s", options.historyApiFallback.index || "/index.html");
+		console.log("404s will fallback to " + colorize(useColor, options.historyApiFallback.index || "/index.html"));
 	if(options.open)
 		open(uri);
 }
