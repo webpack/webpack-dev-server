@@ -71,15 +71,11 @@ var onSocketMsg = {
 		log("info", "[WDS] Warnings while compiling.");
 		for(var i = 0; i < warnings.length; i++)
 			console.warn(stripAnsi(warnings[i]));
-		if(initial) return initial = false;
-		reloadApp();
 	},
 	errors: function(errors) {
 		log("info", "[WDS] Errors while compiling.");
 		for(var i = 0; i < errors.length; i++)
 			console.error(stripAnsi(errors[i]));
-		if(initial) return initial = false;
-		reloadApp();
 	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");
