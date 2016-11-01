@@ -68,12 +68,12 @@ var onSocketMsg = {
 		self.location.reload();
 	},
 	warnings: function(warnings) {
-		log("info", "[WDS] Warnings while compiling.");
+		log("info", "[WDS] Warnings while compiling. Reload prevented.");
 		for(var i = 0; i < warnings.length; i++)
 			console.warn(stripAnsi(warnings[i]));
 	},
 	errors: function(errors) {
-		log("info", "[WDS] Errors while compiling.");
+		log("info", "[WDS] Errors while compiling. Reload prevented.");
 		for(var i = 0; i < errors.length; i++)
 			console.error(stripAnsi(errors[i]));
 	},
