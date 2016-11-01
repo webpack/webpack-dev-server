@@ -32,6 +32,10 @@ See [**the documentation**](http://webpack.github.io/docs/webpack-dev-server.htm
 
 We appreciate all help! Check out [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to help.
 
+## Maintainer
+
+This project is maintained by [**Kees Kluskens**](https://github.com/spacek33z/).
+
 ## Inspiration
 
 This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/nof5).
