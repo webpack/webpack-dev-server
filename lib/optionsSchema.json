@@ -202,6 +202,34 @@
           ]
         }
       ]
+    },
+    "reporter": {
+      "description": "Customize what the console displays when compiling.",
+      "instanceof": "Function"
+    },
+    "noInfo": {
+      "description": "Hide all info messages on console.",
+      "type": "boolean"
+    },
+    "quiet": {
+      "description": "Hide all messages on console.",
+      "type": "boolean"
+    },
+    "serverSideRender": {
+      "description": "Expose stats for server side rendering (experimental).",
+      "type": "boolean"
+    },
+    "index": {
+      "description": "The filename that is considered the index file.",
+      "type": "string"
+    },
+    "log": {
+      "description": "Customize info logs for webpack-dev-middleware.",
+      "instanceof": "Function"
+    },
+    "warn": {
+      "description": "Customize warn logs for webpack-dev-middleware.",
+      "instanceof": "Function"
     }
   },
   "type": "object"
