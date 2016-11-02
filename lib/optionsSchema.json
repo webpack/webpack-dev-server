@@ -105,11 +105,11 @@
       "type": "string"
     },
     "inline": {
-      "description": "TODO.",
+      "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
       "type": "boolean"
     },
     "public": {
-      "description": "TODO.",
+      "description": "The public hostname/ip address of the server.",
       "type": "string"
     },
     "https": {
@@ -146,7 +146,7 @@
       "type": "boolean"
     },
     "features": {
-      "description": "TODO.",
+      "description": "The order of which the features will be triggered.",
       "type": "array"
     },
     "compress": {
@@ -154,7 +154,7 @@
       "type": "boolean"
     },
     "proxy": {
-      "description": "TODO.",
+      "description": "Proxy requests to another server.",
       "anyOf": [
         {
           "type": "string"
@@ -168,7 +168,7 @@
       ]
     },
     "historyApiFallback": {
-      "description": "TODO.",
+      "description": "404 fallback to a specified file.",
       "anyOf": [
         {
           "type": "boolean"
