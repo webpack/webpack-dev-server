@@ -325,12 +325,10 @@ function processOptions(wpOpt) {
 	}
 
 	var compiler;
-	// TODO: This is only temporarily, we'll probably make our own ValidationError for WDS errors.
-	var WebpackOptionsValidationError = require("webpack/lib/WebpackOptionsValidationError");
 	try {
 		compiler = webpack(wpOpt);
 	} catch(e) {
-		if(e instanceof WebpackOptionsValidationError) {
+		if(e instanceof webpack.WebpackOptionsValidationError) {
 			console.error(colorError(options.stats.colors, e.message));
 			process.exit(1); // eslint-disable-line
 		}
@@ -349,7 +347,8 @@ function processOptions(wpOpt) {
 	try {
 		server = new Server(compiler, options);
 	} catch(e) {
-		if(e instanceof WebpackOptionsValidationError) {
+		var OptionsValidationError = require("../lib/OptionsValidationError");
+		if(e instanceof OptionsValidationError) {
 			console.error(colorError(options.stats.colors, e.message));
 			process.exit(1); // eslint-disable-line
 		}

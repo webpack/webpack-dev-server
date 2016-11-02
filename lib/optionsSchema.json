@@ -29,7 +29,7 @@
       ]
     },
     "publicPath": {
-      "description": "TODO.",
+      "description": "URL path where the webpack files are served from.",
       "type": "string"
     },
     "port": {
