@@ -10,15 +10,15 @@
       "type": "boolean"
     },
     "lazy": {
-      "description": "TODO.",
+      "description": "Disables watch mode and recompiles bundle only on a request.",
       "type": "boolean"
     },
     "host": {
-      "description": "TODO.",
+      "description": "The host the server listens to.",
       "type": "string"
     },
     "filename": {
-      "description": "TODO.",
+      "description": "The filename that needs to be requested in order to trigger a recompile (only in lazy mode).",
       "type": "string"
     },
     "outputPath": {
@@ -30,23 +30,23 @@
       "type": "string"
     },
     "port": {
-      "description": "TODO.",
+      "description": "The port the server listens to.",
       "type": "number"
     },
     "socket": {
-      "description": "TODO.",
+      "description": "The Unix socket to listen to (instead of on a host).",
       "type": "string"
     },
     "watchOptions": {
-      "description": "TODO.",
+      "description": "Options for changing the watch behavior.",
       "type": "object"
     },
     "headers": {
-      "description": "TODO.",
+      "description": "Response headers that are added to each response.",
       "type": "object"
     },
     "clientLogLevel": {
-      "description": "TODO.",
+      "description": "Controls the log messages shown in the browser.",
       "enum": [
         "info",
         "warning",
@@ -54,7 +54,7 @@
       ]
     },
     "key": {
-      "description": "TODO.",
+      "description": "The contents of a SSL key.",
       "anyOf": [
         {
           "type": "string"
@@ -65,7 +65,7 @@
       ]
     },
     "cert": {
-      "description": "TODO.",
+      "description": "The contents of a SSL certificate.",
       "anyOf": [
         {
           "type": "string"
@@ -76,7 +76,7 @@
       ]
     },
     "ca": {
-      "description": "TODO.",
+      "description": "The contents of a SSL CA certificate.",
       "anyOf": [
         {
           "type": "string"
@@ -87,7 +87,7 @@
       ]
     },
     "pfx": {
-      "description": "TODO.",
+      "description": "The contents of a SSL pfx file.",
       "anyOf": [
         {
           "type": "string"
@@ -98,7 +98,7 @@
       ]
     },
     "pfxPassphrase": {
-      "description": "TODO.",
+      "description": "The passphrase to a (SSL) PFX file.",
       "type": "string"
     },
     "inline": {
@@ -110,7 +110,7 @@
       "type": "string"
     },
     "https": {
-      "description": "TODO.",
+      "description": "Enable HTTPS for server.",
       "anyOf": [
         {
           "type": "object"
@@ -121,7 +121,7 @@
       ]
     },
     "contentBase": {
-      "description": "TODO.",
+      "description": "A directory to serve files non-webpack files from.",
       "anyOf": [
         {
           "type": "array"
@@ -135,11 +135,11 @@
       ]
     },
     "watchContentBase": {
-      "description": "TODO.",
+      "description": "Watches the contentBase directory for changes.",
       "type": "boolean"
     },
     "open": {
-      "description": "TODO.",
+      "description": "Let the CLI open your browser with the URL.",
       "type": "boolean"
     },
     "features": {
@@ -147,7 +147,7 @@
       "type": "array"
     },
     "compress": {
-      "description": "TODO.",
+      "description": "Gzip compression for all requests.",
       "type": "boolean"
     },
     "proxy": {
@@ -176,15 +176,15 @@
       ]
     },
     "staticOptions": {
-      "description": "TODO.",
+      "description": "Options for static files served with contentBase.",
       "type": "object"
     },
     "setup": {
-      "description": "TODO.",
+      "description": "Exposes the Express server to add custom middleware or routes.",
       "instanceof": "Function"
     },
     "stats": {
-      "description": "Used by the webpack CLI program to pass stats options.",
+      "description": "Decides what bundle information is displayed.",
       "anyOf": [
         {
           "type": "object"
