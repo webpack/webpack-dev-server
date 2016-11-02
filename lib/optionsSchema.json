@@ -1,0 +1,208 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "hot": {
+      "description": "TODO.",
+      "type": "boolean"
+    },
+    "hotOnly": {
+      "description": "TODO.",
+      "type": "boolean"
+    },
+    "lazy": {
+      "description": "TODO.",
+      "type": "boolean"
+    },
+    "host": {
+      "description": "TODO.",
+      "type": "string"
+    },
+    "filename": {
+      "description": "TODO.",
+      "type": "string"
+    },
+    "outputPath": {
+      "description": "TODO.",
+      "type": "string"
+    },
+    "publicPath": {
+      "description": "TODO.",
+      "type": "string"
+    },
+    "port": {
+      "description": "TODO.",
+      "type": "number"
+    },
+    "socket": {
+      "description": "TODO.",
+      "type": "string"
+    },
+    "watchOptions": {
+      "description": "TODO.",
+      "type": "object"
+    },
+    "headers": {
+      "description": "TODO.",
+      "type": "object"
+    },
+    "clientLogLevel": {
+      "description": "TODO.",
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ]
+    },
+    "key": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ]
+    },
+    "cert": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ]
+    },
+    "ca": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ]
+    },
+    "pfx": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ]
+    },
+    "pfxPassphrase": {
+      "description": "TODO.",
+      "type": "string"
+    },
+    "inline": {
+      "description": "TODO.",
+      "type": "boolean"
+    },
+    "public": {
+      "description": "TODO.",
+      "type": "string"
+    },
+    "https": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "contentBase": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "array"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "watchContentBase": {
+      "description": "TODO.",
+      "type": "boolean"
+    },
+    "open": {
+      "description": "TODO.",
+      "type": "boolean"
+    },
+    "features": {
+      "description": "TODO.",
+      "type": "array"
+    },
+    "compress": {
+      "description": "TODO.",
+      "type": "boolean"
+    },
+    "proxy": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "historyApiFallback": {
+      "description": "TODO.",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "staticOptions": {
+      "description": "TODO.",
+      "type": "object"
+    },
+    "setup": {
+      "description": "TODO.",
+      "instanceof": "Function"
+    },
+    "stats": {
+      "description": "Used by the webpack CLI program to pass stats options.",
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": [
+            "none",
+            "errors-only",
+            "minimal",
+            "normal",
+            "verbose"
+          ]
+        }
+      ]
+    }
+  },
+  "type": "object"
+}
