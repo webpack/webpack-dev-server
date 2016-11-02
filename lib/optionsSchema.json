@@ -2,11 +2,11 @@
   "additionalProperties": false,
   "properties": {
     "hot": {
-      "description": "TODO.",
+      "description": "Enables Hot Module Replacement.",
       "type": "boolean"
     },
     "hotOnly": {
-      "description": "TODO.",
+      "description": "Enables Hot Module Replacement without page refresh as fallback.",
       "type": "boolean"
     },
     "lazy": {
@@ -27,10 +27,6 @@
           "type": "string"
         }
       ]
-    },
-    "outputPath": {
-      "description": "TODO.",
-      "type": "string"
     },
     "publicPath": {
       "description": "TODO.",

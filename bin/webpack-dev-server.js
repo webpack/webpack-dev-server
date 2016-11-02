@@ -209,8 +209,6 @@ function processOptions(wpOpt) {
 			options.publicPath = "/" + options.publicPath;
 	}
 
-	if(!options.outputPath)
-		options.outputPath = "/";
 	if(!options.filename)
 		options.filename = firstWpOpt.output && firstWpOpt.output.filename;
 
