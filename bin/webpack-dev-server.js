@@ -217,9 +217,6 @@ function processOptions(wpOpt) {
 		process.stdin.resume();
 	}
 
-	if(!options.watchDelay && !options.watchOptions) // TODO remove in next major version
-		options.watchDelay = firstWpOpt.watchDelay;
-
 	if(!options.hot)
 		options.hot = argv["hot"];
 
