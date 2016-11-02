@@ -19,7 +19,14 @@
     },
     "filename": {
       "description": "The filename that needs to be requested in order to trigger a recompile (only in lazy mode).",
-      "type": "string"
+      "anyOf": [
+        {
+          "instanceof": "RegExp"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "outputPath": {
       "description": "TODO.",
