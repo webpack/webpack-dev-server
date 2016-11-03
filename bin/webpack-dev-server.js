@@ -5,6 +5,7 @@ var open = require("opn");
 var fs = require("fs");
 var net = require("net");
 var url = require("url");
+var portfinder = require("portfinder");
 
 // Local version replaces global one
 try {
@@ -52,6 +53,11 @@ var SSL_GROUP = "SSL options:";
 var CONNECTION_GROUP = "Connection options:";
 var RESPONSE_GROUP = "Response options:";
 var BASIC_GROUP = "Basic options:";
+
+// Taken out of yargs because we must know if
+// it wasn't given by the user, in which case
+// we should use portfinder.
+var DEFAULT_PORT = 8080;
 
 yargs.options({
 	"lazy": {
@@ -150,7 +156,6 @@ yargs.options({
 	},
 	"port": {
 		describe: "The port",
-		default: 8080,
 		group: CONNECTION_GROUP
 	},
 	"socket": {
@@ -196,9 +201,6 @@ function processOptions(wpOpt) {
 
 	if(argv.public)
 		options.public = argv.public;
-
-	if(argv.port !== 8080 || !options.port)
-		options.port = argv.port;
 
 	if(argv.socket)
 		options.socket = argv.socket;
@@ -296,6 +298,25 @@ function processOptions(wpOpt) {
 	if(argv["open"])
 		options.open = true;
 
+	// Kind of weird, but ensures prior behavior isn't broken in cases
+	// that wouldn't throw errors. E.g. both argv.port and options.port
+	// were specified, but since argv.port is 8080, options.port will be
+	// tried first instead.
+	options.port = argv.port === DEFAULT_PORT ? (options.port || argv.port) : (argv.port || options.port);
+	if(options.port) {
+		startDevServer(wpOpt, options);
+		return;
+	}
+
+	portfinder.basePort = DEFAULT_PORT;
+	portfinder.getPort(function(err, port) {
+		if(err) throw err;
+		options.port = port;
+		startDevServer(wpOpt, options);
+	});
+}
+
+function startDevServer(wpOpt, options) {
 	var protocol = options.https ? "https" : "http";
 
 	// the formatted domain (url without path) of the webpack server

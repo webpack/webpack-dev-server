@@ -4,9 +4,20 @@ module.exports = [
 		context: __dirname,
 		entry: "./app.js",
 		module: {
-			loaders: [
-				{ test: /\.less$/, loader: "style!css!less" },
-				{ test: /\.png$/, loader: "file?prefix=img/" }
+			rules: [
+				{
+					test: /\.less$/,
+					use: [
+						{ loader: "style-loader" },
+						{ loader: "css-loader" },
+						{ loader: "less-loader" }
+					]
+				},
+				{
+					test: /\.png$/,
+					loader: "file-loader",
+					options: { prefix: "img/" }
+				}
 			]
 		}
 	},
@@ -17,9 +28,20 @@ module.exports = [
 			filename: "bundle2.js"
 		},
 		module: {
-			loaders: [
-				{ test: /\.less$/, loader: "style!css!less" },
-				{ test: /\.png$/, loader: "url?limit=100000" }
+			rules: [
+				{
+					test: /\.less$/,
+					use: [
+						{ loader: "style-loader" },
+						{ loader: "css-loader" },
+						{ loader: "less-loader" }
+					]
+				},
+				{
+					test: /\.png$/,
+					loader: "url-loader",
+					options: { limit: 100000 }
+				}
 			]
 		},
 		plugins: [

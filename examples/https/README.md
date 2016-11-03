@@ -8,7 +8,7 @@ A fake certificate is used to enable https.
 
 You can provide the following SSL options to override the fake certificate:
 
-* Certificate options e.g. `node ../../bin/webpack-dev-server.js --open --https --cacert=../../ssl/ca.pem --cert=../../ssl/server.crt --key=../../ssl/server.key`
+* Certificate options e.g. `node ../../bin/webpack-dev-server.js --open --https --cert=../../ssl/server.pem --key=../../ssl/server.pem`
 * PFX and Passphrase e.g. `node ../../bin/webpack-dev-server.js --open --https --pfx=./test_cert.pfx --pfx-passphrase=sample`
 
 ## What should happen

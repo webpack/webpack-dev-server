@@ -13,6 +13,7 @@
     "express": "^4.13.3",
     "http-proxy-middleware": "~0.17.1",
     "opn": "4.0.2",
+    "portfinder": "^1.0.9",
     "serve-index": "^1.7.2",
     "sockjs": "0.3.18",
     "sockjs-client": "1.1.1",
