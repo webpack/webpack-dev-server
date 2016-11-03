@@ -297,10 +297,10 @@ function processOptions(wpOpt) {
 		options.open = true;
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
-	// that wouldn't throw errors. E.g. both argv port and options port
-	// were specified, but since argv port is 8080, options port will be
-	// used instead.
-	options.port = argv.port === DEFAULT_PORT ? options.port || argv.port : argv.port;
+	// that wouldn't throw errors. E.g. both argv.port and options.port
+	// were specified, but since argv.port is 8080, options.port will be
+	// tried first instead.
+	options.port = argv.port === DEFAULT_PORT ? (options.port || argv.port) : (argv.port || options.port);
 	if(options.port) {
 		startDevServer(wpOpt, options);
 		return;
