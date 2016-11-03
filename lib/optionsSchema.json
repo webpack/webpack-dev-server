@@ -157,9 +157,6 @@
       "description": "Proxy requests to another server.",
       "anyOf": [
         {
-          "type": "string"
-        },
-        {
           "type": "array"
         },
         {
