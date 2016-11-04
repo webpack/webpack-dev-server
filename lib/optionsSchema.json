@@ -157,6 +157,17 @@
       "description": "Proxy requests to another server.",
       "anyOf": [
         {
+          "items": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "instanceof": "Function"
+              }
+            ]
+          },
+          "minItems": 1,
           "type": "array"
         },
         {
