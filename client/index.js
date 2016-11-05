@@ -42,6 +42,16 @@ function log(level, msg) {
 		return console.error(msg);
 }
 
+// Send messages to the outside, so plugins can consume it.
+function sendMsg(type, data) {
+	if(typeof self !== "undefined") {
+		self.postMessage({
+			type: "webpack" + type,
+			data: data
+		}, "*");
+	}
+}
+
 var onSocketMsg = {
 	hot: function() {
 		hot = true;
@@ -49,17 +59,20 @@ var onSocketMsg = {
 	},
 	invalid: function() {
 		log("info", "[WDS] App updated. Recompiling...");
+		sendMsg("Invalid");
 	},
 	hash: function(hash) {
 		currentHash = hash;
 	},
 	"still-ok": function() {
 		log("info", "[WDS] Nothing changed.")
+		sendMsg("StillOk");
 	},
 	"log-level": function(level) {
 		logLevel = level;
 	},
 	ok: function() {
+		sendMsg("Ok");
 		if(initial) return initial = false;
 		reloadApp();
 	},
@@ -69,16 +82,19 @@ var onSocketMsg = {
 	},
 	warnings: function(warnings) {
 		log("info", "[WDS] Warnings while compiling. Reload prevented.");
+		sendMsg("Warnings", warnings);
 		for(var i = 0; i < warnings.length; i++)
 			console.warn(stripAnsi(warnings[i]));
 	},
 	errors: function(errors) {
 		log("info", "[WDS] Errors while compiling. Reload prevented.");
+		sendMsg("Errors", errors);
 		for(var i = 0; i < errors.length; i++)
 			console.error(stripAnsi(errors[i]));
 	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");
+		sendMsg("Close");
 	}
 };
 
