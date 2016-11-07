@@ -82,15 +82,21 @@ var onSocketMsg = {
 	},
 	warnings: function(warnings) {
 		log("info", "[WDS] Warnings while compiling. Reload prevented.");
-		sendMsg("Warnings", warnings);
-		for(var i = 0; i < warnings.length; i++)
-			console.warn(stripAnsi(warnings[i]));
+		var strippedWarnings = warnings.map(function(warning) {
+			return stripAnsi(warning);
+		});
+		sendMsg("Warnings", strippedWarnings);
+		for(var i = 0; i < strippedWarnings.length; i++)
+			console.warn(strippedWarnings[i]);
 	},
 	errors: function(errors) {
 		log("info", "[WDS] Errors while compiling. Reload prevented.");
-		sendMsg("Errors", errors);
-		for(var i = 0; i < errors.length; i++)
-			console.error(stripAnsi(errors[i]));
+		var strippedErrors = errors.map(function(error) {
+			return stripAnsi(error);
+		});
+		sendMsg("Errors", strippedErrors);
+		for(var i = 0; i < strippedErrors.length; i++)
+			console.error(strippedErrors[i]);
 	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");
