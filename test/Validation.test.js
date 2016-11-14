@@ -21,6 +21,15 @@ describe("Validation", function() {
 			" - configuration.public should be a string."
 		]
 	}, {
+		name: "invalid `contentBase` configuration",
+		config: { contentBase: [0] },
+		message: [
+			" - configuration.contentBase[0] should be a string.",
+			" - configuration.contentBase should be one of these:",
+			"   [string] | boolean | number | string",
+			"   A directory to serve files non-webpack files from."
+		]
+	}, {
 		name: "non-existing key configuration",
 		config: { asdf: true },
 		message: [
