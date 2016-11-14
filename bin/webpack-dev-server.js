@@ -23,10 +23,17 @@ function versionInfo() {
 		"webpack " + require("webpack/package.json").version;
 }
 
-function colorize(useColor, msg) {
+function colorInfo(useColor, msg) {
 	if(useColor)
 		// Make text blue and bold, so it *pops*
 		return "\u001b[1m\u001b[34m" + msg + "\u001b[39m\u001b[22m";
+	return msg;
+}
+
+function colorError(useColor, msg) {
+	if(useColor)
+		// Make text red and bold, so it *pops*
+		return "\u001b[1m\u001b[31m" + msg + "\u001b[39m\u001b[22m";
 	return msg;
 }
 
@@ -204,8 +211,6 @@ function processOptions(wpOpt) {
 			options.publicPath = "/" + options.publicPath;
 	}
 
-	if(!options.outputPath)
-		options.outputPath = "/";
 	if(!options.filename)
 		options.filename = firstWpOpt.output && firstWpOpt.output.filename;
 
@@ -344,12 +349,8 @@ function startDevServer(wpOpt, options) {
 	try {
 		compiler = webpack(wpOpt);
 	} catch(e) {
-		var WebpackOptionsValidationError = require("webpack/lib/WebpackOptionsValidationError");
-		if(e instanceof WebpackOptionsValidationError) {
-			if(options.stats.colors)
-				console.error("\u001b[1m\u001b[31m" + e.message + "\u001b[39m\u001b[22m");
-			else
-				console.error(e.message);
+		if(e instanceof webpack.WebpackOptionsValidationError) {
+			console.error(colorError(options.stats.colors, e.message));
 			process.exit(1); // eslint-disable-line
 		}
 		throw e;
@@ -363,7 +364,17 @@ function startDevServer(wpOpt, options) {
 
 	var uri = domain + (options.inline !== false ? "/" : "/webpack-dev-server/");
 
-	var server = new Server(compiler, options);
+	var server;
+	try {
+		server = new Server(compiler, options);
+	} catch(e) {
+		var OptionsValidationError = require("../lib/OptionsValidationError");
+		if(e instanceof OptionsValidationError) {
+			console.error(colorError(options.stats.colors, e.message));
+			process.exit(1); // eslint-disable-line
+		}
+		throw e;
+	}
 
 	if(options.socket) {
 		server.listeningApp.on("error", function(e) {
@@ -401,18 +412,18 @@ function startDevServer(wpOpt, options) {
 
 function reportReadiness(uri, options) {
 	var useColor = options.stats.colors;
-	var startSentence = "Project is running at " + colorize(useColor, uri)
+	var startSentence = "Project is running at " + colorInfo(useColor, uri)
 	if(options.socket) {
-		startSentence = "Listening to socket at " + colorize(useColor, options.socket);
+		startSentence = "Listening to socket at " + colorInfo(useColor, options.socket);
 	}
 	console.log((argv["progress"] ? "\n" : "") + startSentence);
 
-	console.log("webpack output is served from " + colorize(useColor, options.publicPath));
+	console.log("webpack output is served from " + colorInfo(useColor, options.publicPath));
 	var contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
 	if(contentBase)
-		console.log("Content not from webpack is served from " + colorize(useColor, contentBase));
+		console.log("Content not from webpack is served from " + colorInfo(useColor, contentBase));
 	if(options.historyApiFallback)
-		console.log("404s will fallback to " + colorize(useColor, options.historyApiFallback.index || "/index.html"));
+		console.log("404s will fallback to " + colorInfo(useColor, options.historyApiFallback.index || "/index.html"));
 	if(options.open)
 		open(uri);
 }
