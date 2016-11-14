@@ -127,7 +127,14 @@
       "description": "A directory to serve files non-webpack files from.",
       "anyOf": [
         {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
           "type": "array"
+        },
+        {
+          "type": "boolean"
         },
         {
           "type": "number"
@@ -147,6 +154,9 @@
     },
     "features": {
       "description": "The order of which the features will be triggered.",
+      "items": {
+        "type": "string"
+      },
       "type": "array"
     },
     "compress": {
