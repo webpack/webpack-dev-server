@@ -54,6 +54,7 @@
     "clientLogLevel": {
       "description": "Controls the log messages shown in the browser.",
       "enum": [
+        "none",
         "info",
         "warning",
         "error"
