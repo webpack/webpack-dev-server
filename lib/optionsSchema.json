@@ -46,6 +46,9 @@
     },
     "headers": {
       "description": "Response headers that are added to each response.",
+      "additionalProperties": {
+        "type": "string"
+      },
       "type": "object"
     },
     "clientLogLevel": {
