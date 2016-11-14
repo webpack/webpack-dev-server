@@ -362,7 +362,7 @@ function startDevServer(wpOpt, options) {
 		}));
 	}
 
-	var uri = domain + (options.inline !== false ? "/" : "/webpack-dev-server/");
+	var uri = domain + (options.inline !== false || options.lazy === true ? "/" : "/webpack-dev-server/");
 
 	var server;
 	try {
