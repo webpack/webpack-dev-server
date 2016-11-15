@@ -138,7 +138,9 @@
           "type": "array"
         },
         {
-          "type": "boolean"
+          "enum": [
+            false
+          ]
         },
         {
           "type": "number"
