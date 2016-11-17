@@ -1,34 +1,15 @@
-**Please check if the PR fulfills these requirements**
-- [ ] An example has been added or updated in `examples/` (for features)
-- [ ] Docs have been added / updated (for bug fixes / features)
-
+<!-- Thanks for submitting a pull request! Please provide enough information so that others can review your pull request. -->
 
 **What kind of change does this PR introduce?**
-- [ ] Bugfix
-- [ ] Feature
-- [ ] Code style update (formatting, local variables)
-- [ ] Refactoring (no functional changes, no api changes)
-- [ ] Build related changes
-- [ ] CI related changes
-- [ ] Other... Please describe:
+<!-- E.g. a bugfix, feature, refactoring, build related change, etc… -->
 
-**What is the current behavior?** (You can also link to an open issue here)
+**Did you add or update the `examples/`?**
 
-
-
-**What is the new behavior?**
-
-
+**Summary**
+<!-- Explain the **motivation** for making this change. What existing problem does the pull request solve? -->
+<!-- Try to link to an open issue for more information. -->
 
 **Does this PR introduce a breaking change?**
-- [ ] Yes
-- [ ] No
+<!-- If this PR introduces a breaking change, please describe the impact and a migration path for existing applications. -->
 
-If this PR contains a breaking change, please describe the following... 
-
-* Impact:
-* Migration path for existing applications: 
-* Github Issue(s) this is regarding:
-
-
-**Other information**:
+**Other information**
