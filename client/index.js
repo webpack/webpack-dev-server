@@ -81,13 +81,15 @@ var onSocketMsg = {
 		self.location.reload();
 	},
 	warnings: function(warnings) {
-		log("info", "[WDS] Warnings while compiling. Reload prevented.");
+		log("info", "[WDS] Warnings while compiling.");
 		var strippedWarnings = warnings.map(function(warning) {
 			return stripAnsi(warning);
 		});
 		sendMsg("Warnings", strippedWarnings);
 		for(var i = 0; i < strippedWarnings.length; i++)
 			console.warn(strippedWarnings[i]);
+		if(initial) return initial = false;
+		reloadApp();
 	},
 	errors: function(errors) {
 		log("info", "[WDS] Errors while compiling. Reload prevented.");
