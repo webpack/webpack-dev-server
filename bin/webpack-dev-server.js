@@ -87,6 +87,15 @@ yargs.options({
 		type: "boolean",
 		describe: "Open default browser"
 	},
+	"color": {
+		type: "boolean",
+		alias: "colors",
+		default: function supportsColor() {
+			return require("supports-color");
+		},
+		group: DISPLAY_GROUP,
+		describe: "Enables/Disables colors on the console"
+	},
 	"info": {
 		type: "boolean",
 		group: DISPLAY_GROUP,
@@ -257,7 +266,7 @@ function processOptions(wpOpt) {
 	}
 
 	if(typeof options.stats === "object" && typeof options.stats.colors === "undefined")
-		options.stats.colors = require("supports-color");
+		options.stats.colors = argv.color;
 
 	if(argv["lazy"])
 		options.lazy = true;
@@ -411,7 +420,7 @@ function startDevServer(wpOpt, options) {
 }
 
 function reportReadiness(uri, options) {
-	var useColor = options.stats.colors;
+	var useColor = argv.color;
 	var startSentence = "Project is running at " + colorInfo(useColor, uri)
 	if(options.socket) {
 		startSentence = "Listening to socket at " + colorInfo(useColor, options.socket);
