@@ -45,6 +45,8 @@ var optimist = require("optimist")
 
 .string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
+.boolean("watch-content-base").describe("watch-content-base", "Enable live-reloading of the content-base.")
+
 .string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
 
 .boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
@@ -124,6 +126,9 @@ if(argv["content-base"]) {
 } else if(!options.contentBase) {
 	options.contentBase = process.cwd();
 }
+
+if(argv["watch-content-base"])
+	options.watchContentBase = true
 
 if(!options.stats) {
 	options.stats = {

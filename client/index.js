@@ -62,6 +62,10 @@ var onSocketMsg = {
 		if(initial) return initial = false;
 		reloadApp();
 	},
+	"content-changed": function() {
+		log("info", "[WDS] Content base changed. Reloading...")
+		self.location.reload();
+	},
 	warnings: function(warnings) {
 		log("info", "[WDS] Warnings while compiling.");
 		for(var i = 0; i < warnings.length; i++)
