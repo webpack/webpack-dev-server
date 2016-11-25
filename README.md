@@ -8,6 +8,8 @@ Use [webpack](http://webpack.github.io) with a development server that provides 
 
 It uses [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) under the hood, which provides fast in-memory access to the webpack assets.
 
+**Note: There are known issues with Node.js v7 and webpack / webpack-dev-server. Please use Node.js v6 for the moment.**
+
 ## Installation
 
 ```
