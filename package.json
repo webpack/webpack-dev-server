@@ -4,7 +4,7 @@
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
-    "webpack": "^2.1.0-beta.26"
+    "webpack": "^2.1.0-beta.26 || ^2.2.0-rc.0"
   },
   "dependencies": {
     "chokidar": "^1.6.0",
