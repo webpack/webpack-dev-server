@@ -434,7 +434,7 @@ function reportReadiness(uri, options) {
 	if(options.historyApiFallback)
 		console.log("404s will fallback to " + colorInfo(useColor, options.historyApiFallback.index || "/index.html"));
 	if(options.open)
-		open(uri);
+		open(uri.replace(/0\.0\.0\.0/, 'localhost'));
 }
 
 processOptions(wpOpt);
