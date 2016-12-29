@@ -1,14 +1,16 @@
-var config = require("./fixtures/simple-config/webpack.config");
-var OptionsValidationError = require("../lib/OptionsValidationError");
-var Server = require("../lib/Server");
-var webpack = require("webpack");
+"use strict";
+
+const config = require("./fixtures/simple-config/webpack.config");
+const OptionsValidationError = require("../lib/OptionsValidationError");
+const Server = require("../lib/Server");
+const webpack = require("webpack");
 
 describe("Validation", function() {
-	var compiler;
+	let compiler;
 	before(function() {
 		compiler = webpack(config);
 	});
-	var testCases = [{
+	const testCases = [{
 		name: "invalid `hot` configuration",
 		config: { hot: "asdf" },
 		message: [
@@ -42,7 +44,7 @@ describe("Validation", function() {
 		]
 	}];
 	testCases.forEach(function(testCase) {
-		it("should fail validation for " + testCase.name, function() {
+		it(`should fail validation for ${testCase.name}`, function() {
 			try {
 				new Server(compiler, testCase.config);
 			} catch(e) {

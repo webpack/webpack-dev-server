@@ -22,8 +22,7 @@
 		"no-process-exit": "warn",
 		"space-in-parens": "error",
 		"no-trailing-spaces": "error",
-		"no-use-before-define": "off",
-		"no-unused-vars": "off",
+		"no-unused-vars": "error",
 		"key-spacing": "error",
 		"space-infix-ops": "error",
 		"no-unsafe-negation": "error",
@@ -44,6 +43,8 @@
 			}
 		}],
 		"no-console": "off",
-		"valid-jsdoc": "error"
+		"valid-jsdoc": "error",
+		"no-useless-computed-key": "error",
+		"prefer-const": "error"
 	}
 }

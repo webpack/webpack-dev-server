@@ -1,6 +1,8 @@
-var should = require("should");
-var helper = require("./helper");
-var config = require("./fixtures/simple-config/webpack.config");
+"use strict";
+
+const should = require("should");
+const helper = require("./helper");
+const config = require("./fixtures/simple-config/webpack.config");
 
 describe("Lazy", function() {
 	afterEach(helper.close);

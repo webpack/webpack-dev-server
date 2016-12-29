@@ -1,15 +1,17 @@
-var Webpack = require("webpack");
-var WebpackDevServer = require("../../lib/Server");
-var webpackConfig = require("./webpack.config");
+"use strict";
 
-var compiler = Webpack(webpackConfig);
-var server = new WebpackDevServer(compiler, {
+const Webpack = require("webpack");
+const WebpackDevServer = require("../../lib/Server");
+const webpackConfig = require("./webpack.config");
+
+const compiler = Webpack(webpackConfig);
+const server = new WebpackDevServer(compiler, {
 	stats: {
 		colors: true
 	},
 	setup: function(app) {
 		app.use(function(req, res, next) {
-			console.log("Using middleware for " + req.url);
+			console.log(`Using middleware for ${req.url}`);
 			next();
 		});
 	}

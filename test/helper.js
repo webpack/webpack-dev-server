@@ -1,14 +1,16 @@
-var Server = require("../lib/Server");
-var webpack = require("webpack");
+"use strict";
 
-var server;
+const Server = require("../lib/Server");
+const webpack = require("webpack");
+
+let server;
 
 module.exports = {
 	start: function(config, options, done) {
 		if(options.quiet === undefined) {
 			options.quiet = true;
 		}
-		var compiler = webpack(config);
+		const compiler = webpack(config);
 		server = new Server(compiler, options);
 
 		server.listen(8080, "localhost", function(err) {

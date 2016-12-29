@@ -1,10 +1,12 @@
-var request = require("supertest");
-var helper = require("./helper");
-var config = require("./fixtures/simple-config/webpack.config");
+"use strict";
+
+const request = require("supertest");
+const helper = require("./helper");
+const config = require("./fixtures/simple-config/webpack.config");
 
 describe("Compress", function() {
-	var server;
-	var req;
+	let server;
+	let req;
 
 	before(function(done) {
 		server = helper.start(config, {
