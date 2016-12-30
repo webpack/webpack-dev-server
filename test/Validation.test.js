@@ -26,7 +26,6 @@ describe("Validation", function() {
 		name: "invalid `contentBase` configuration",
 		config: { contentBase: [0] },
 		message: [
-			" - configuration.contentBase[0] should be a string.",
 			" - configuration.contentBase should be one of these:",
 			"   [string] | false | number | string",
 			"   A directory to serve files non-webpack files from."
