@@ -1,13 +1,15 @@
-var path = require("path");
-var request = require("supertest");
-var helper = require("./helper");
-var config = require("./fixtures/historyapifallback-config/webpack.config");
-var config2 = require("./fixtures/historyapifallback-2-config/webpack.config");
-var config3 = require("./fixtures/historyapifallback-3-config/webpack.config");
+"use strict";
+
+const path = require("path");
+const request = require("supertest");
+const helper = require("./helper");
+const config = require("./fixtures/historyapifallback-config/webpack.config");
+const config2 = require("./fixtures/historyapifallback-2-config/webpack.config");
+const config3 = require("./fixtures/historyapifallback-3-config/webpack.config");
 
 describe("HistoryApiFallback", function() {
-	var server;
-	var req;
+	let server;
+	let req;
 
 	afterEach(helper.close);
 

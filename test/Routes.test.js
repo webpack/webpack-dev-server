@@ -1,15 +1,17 @@
-var request = require("supertest");
-var fs = require("fs");
-var path = require("path");
-var helper = require("./helper");
-var config = require("./fixtures/simple-config/webpack.config");
+"use strict";
 
-var directoryIndex = fs.readFileSync(path.join(__dirname, "fixtures/directory-index.txt"), "utf-8");
-var magicHtml = fs.readFileSync(path.join(__dirname, "fixtures/magic-html.txt"), "utf-8");
+const request = require("supertest");
+const fs = require("fs");
+const path = require("path");
+const helper = require("./helper");
+const config = require("./fixtures/simple-config/webpack.config");
+
+const directoryIndex = fs.readFileSync(path.join(__dirname, "fixtures/directory-index.txt"), "utf-8");
+const magicHtml = fs.readFileSync(path.join(__dirname, "fixtures/magic-html.txt"), "utf-8");
 
 describe("Routes", function() {
-	var server;
-	var req;
+	let server;
+	let req;
 
 	before(function(done) {
 		server = helper.start(config, {

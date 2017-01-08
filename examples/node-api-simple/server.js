@@ -1,9 +1,11 @@
-var Webpack = require("webpack");
-var WebpackDevServer = require("../../lib/Server");
-var webpackConfig = require("./webpack.config");
+"use strict";
 
-var compiler = Webpack(webpackConfig);
-var server = new WebpackDevServer(compiler, {
+const Webpack = require("webpack");
+const WebpackDevServer = require("../../lib/Server");
+const webpackConfig = require("./webpack.config");
+
+const compiler = Webpack(webpackConfig);
+const server = new WebpackDevServer(compiler, {
 	stats: {
 		colors: true
 	}

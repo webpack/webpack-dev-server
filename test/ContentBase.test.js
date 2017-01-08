@@ -1,15 +1,17 @@
-var request = require("supertest");
-var path = require("path");
-var helper = require("./helper");
-var config = require("./fixtures/contentbase-config/webpack.config");
+"use strict";
+
+const request = require("supertest");
+const path = require("path");
+const helper = require("./helper");
+const config = require("./fixtures/contentbase-config/webpack.config");
 require("mocha-sinon");
 
-var contentBasePublic = path.join(__dirname, "fixtures/contentbase-config/public");
-var contentBaseOther = path.join(__dirname, "fixtures/contentbase-config/other");
+const contentBasePublic = path.join(__dirname, "fixtures/contentbase-config/public");
+const contentBaseOther = path.join(__dirname, "fixtures/contentbase-config/other");
 
 describe("ContentBase", function() {
-	var server;
-	var req;
+	let server;
+	let req;
 	afterEach(helper.close);
 
 	describe("to directory", function() {
