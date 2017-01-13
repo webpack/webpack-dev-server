@@ -8,8 +8,6 @@ const net = require("net");
 const url = require("url");
 const portfinder = require("portfinder");
 
-const _ = require("lodash");
-
 // Local version replaces global one
 try {
 	const localWebpackDevServer = require.resolve(path.join(process.cwd(), "node_modules", "webpack-dev-server", "bin", "webpack-dev-server.js"));
@@ -386,7 +384,7 @@ function startDevServer(wpOpt, options) {
 function liftDevServer(compiler, options, uri) {
 	let server;
 	try {
-		server = new Server(compiler, _.cloneDeep(options));
+		server = new Server(compiler, Object.assign({}, options));
 	} catch(e) {
 		const OptionsValidationError = require("../lib/OptionsValidationError");
 		if(e instanceof OptionsValidationError) {
@@ -477,7 +475,7 @@ function stopDevServer() {
 (function attachRSEventlistener() {
 	process.stdin.setEncoding("utf8");
 	process.stdin.on("data", function(data) {
- 		data = (data + "").trim().toLowerCase();
+		data = (data + "").trim().toLowerCase();
 		if(data === "rs") return reStartDevServer();
 	});
 })();
