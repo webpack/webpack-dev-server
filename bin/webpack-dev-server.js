@@ -453,6 +453,7 @@ processOptions(wpOpt);
 
 /**
  * Stop and start the devServer using the first passed args
+ * @returns {void}
  */
 function reStartDevServer() {
 	stopDevServer();
@@ -462,9 +463,10 @@ function reStartDevServer() {
 /**
  * Stop the devServer, mainly express server by calling
  * close() on http server
+ * @returns {void}
  */
 function stopDevServer() {
-	console.log('\n\t\u27F3 Restarting devServer..\n\t------------------------');
+	console.log("\n\t\u27F3 Restarting devServer..\n\t------------------------");
 	httpServerWrapper.close();
 }
 
@@ -473,9 +475,9 @@ function stopDevServer() {
  * and restart the devServer if so
  */
 (function attachRSEventlistener() {
-	process.stdin.setEncoding('utf8');
-	process.stdin.on('data', function (data) {
-    	data = (data + '').trim().toLowerCase();
-    	if (data === 'rs') return reStartDevServer();
-  	});
+	process.stdin.setEncoding("utf8");
+	process.stdin.on("data", function(data) {
+ 		data = (data + "").trim().toLowerCase();
+		if(data === "rs") return reStartDevServer();
+	});
 })();
