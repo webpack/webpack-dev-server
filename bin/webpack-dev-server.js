@@ -18,48 +18,48 @@ var webpack = require("webpack");
 
 var optimist = require("optimist")
 
-.usage("webpack-dev-server " + require("../package.json").version + "\n" +
-	"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
+	.usage("webpack-dev-server " + require("../package.json").version + "\n" +
+		"Usage: http://webpack.github.io/docs/webpack-dev-server.html")
 
-.boolean("lazy").describe("lazy")
+	.boolean("lazy").describe("lazy")
 
-.boolean("stdin").describe("stdin", "close when stdin ends")
+	.boolean("stdin").describe("stdin", "close when stdin ends")
 
-.boolean("info").describe("info").default("info", true)
+	.boolean("info").describe("info").default("info", true)
 
-.boolean("quiet").describe("quiet")
+	.boolean("quiet").describe("quiet")
 
-.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
+	.boolean("inline").describe("inline", "Inline the webpack-dev-server logic into the bundle.")
 
-.boolean("https").describe("https")
+	.boolean("https").describe("https")
 
-.string("key").describe("key", "Path to a SSL key.")
+	.string("key").describe("key", "Path to a SSL key.")
 
-.string("cert").describe("cert", "Path to a SSL certificate.")
+	.string("cert").describe("cert", "Path to a SSL certificate.")
 
-.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
+	.string("cacert").describe("cacert", "Path to a SSL CA certificate.")
 
-.string("pfx").describe("pfx", "Path to a SSL pfx file.")
+	.string("pfx").describe("pfx", "Path to a SSL pfx file.")
 
-.string("pfx-passphrase").describe("pfx-passphrase", "Passphrase for pfx file.")
+	.string("pfx-passphrase").describe("pfx-passphrase", "Passphrase for pfx file.")
 
-.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
+	.string("content-base").describe("content-base", "A directory or URL to serve HTML content from.")
 
-.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
+	.string("content-base-target").describe("content-base-target", "Proxy requests to this target.")
 
-.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
+	.boolean("history-api-fallback").describe("history-api-fallback", "Fallback to /index.html for Single Page Applications.")
 
-.string("client-log-level").describe("client-log-level", "Log level in the browser (info, warning, error or none)").default("client-log-level", "info")
+	.string("client-log-level").describe("client-log-level", "Log level in the browser (info, warning, error or none)").default("client-log-level", "info")
 
-.boolean("compress").describe("compress", "enable gzip compression")
+	.boolean("compress").describe("compress", "enable gzip compression")
 
-.boolean("open").describe("open", "Open default browser")
+	.boolean("open").describe("open", "Open default browser")
 
-.describe("port", "The port").default("port", 8080)
+	.describe("port", "The port").default("port", 8080)
 
-.describe("public", "The public hostname/ip address of the server")
+	.describe("public", "The public hostname/ip address of the server")
 
-.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
+	.describe("host", "The hostname/ip address the server will bind to").default("host", "localhost");
 
 require("webpack/bin/config-optimist")(optimist);
 
@@ -196,7 +196,7 @@ if(options.inline) {
 }
 
 new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
-	var uri = protocol + "://" + options.host + ":" + options.port + "/";
+	var uri = protocol + "://" + (options.public || (options.host + ":" + options.port)) + "/";
 	if(!options.inline)
 		uri += "webpack-dev-server/";
 
