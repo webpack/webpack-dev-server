@@ -195,7 +195,9 @@ if(options.inline) {
 	});
 }
 
-new Server(webpack(wpOpt), options).listen(options.port, options.host, function(err) {
+var server = new Server(webpack(wpOpt), options);
+module.exports = server;
+server.listen(options.port, options.host, function(err) {
 	var uri = protocol + "://" + options.host + ":" + options.port + "/";
 	if(!options.inline)
 		uri += "webpack-dev-server/";
