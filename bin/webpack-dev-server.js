@@ -39,6 +39,8 @@ function colorError(useColor, msg) {
 	return msg;
 }
 
+const defaultTo = (v, def) => v == null ? def : v;
+
 const yargs = require("yargs")
 	.usage(`${versionInfo()
 		}\nUsage: https://webpack.js.org/configuration/dev-server/`);
@@ -317,8 +319,8 @@ function processOptions(wpOpt) {
 	// that wouldn't throw errors. E.g. both argv.port and options.port
 	// were specified, but since argv.port is 8080, options.port will be
 	// tried first instead.
-	options.port = argv.port === DEFAULT_PORT ? (options.port || argv.port) : (argv.port || options.port);
-	if(options.port) {
+	options.port = argv.port === DEFAULT_PORT ? defaultTo(options.port, argv.port) : defaultTo(argv.port, options.port);
+	if(options.port != null) {
 		startDevServer(wpOpt, options);
 		return;
 	}
