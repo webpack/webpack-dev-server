@@ -4,14 +4,14 @@ module.exports = {
 			{
 				test: /\.pug$/,
 				use: [
-					"pug",
+					"pug-loader?self",
 				]
 			},
 			{
 				test: /\.css$/,
 				use: [
-					"style",
-					"css"
+					"style-loader",
+					"css-loader"
 				],
 			}
 		]

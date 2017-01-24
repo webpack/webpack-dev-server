@@ -10,14 +10,14 @@ module.exports = [
 				{
 					test: /\.less$/,
 					use: [
-						"style",
-						"css",
-						"less"
+						"style-loader",
+						"css-loader",
+						"less-loader"
 					]
 				},
 				{
 					test: /\.png$/,
-					loader: "file",
+					loader: "file-loader",
 					options: { prefix: "img/" }
 				}
 			]
@@ -34,14 +34,14 @@ module.exports = [
 				{
 					test: /\.less$/,
 					use: [
-						"style",
-						"css",
-						"less"
+						"style-loader",
+						"css-loader",
+						"less-loader"
 					]
 				},
 				{
 					test: /\.png$/,
-					loader: "url",
+					loader: "url-loader",
 					options: { limit: 100000 }
 				}
 			]
