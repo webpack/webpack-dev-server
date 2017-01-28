@@ -6,14 +6,14 @@ module.exports = {
 			{
 				test: /\.less$/,
 				use: [
-					{ loader: "style-loader" },
-					{ loader: "css-loader" },
-					{ loader: "less-loader" }
+					"style-loader",
+					"css-loader",
+					"less-loader"
 				]
 			},
 			{
 				test: /\.png$/,
-				loader: "file-loader",
+				use: "file-loader",
 				options: { prefix: "img/" }
 			}
 		]
