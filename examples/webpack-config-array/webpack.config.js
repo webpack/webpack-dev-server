@@ -10,9 +10,9 @@ module.exports = [
 				{
 					test: /\.less$/,
 					use: [
-						{ loader: "style-loader" },
-						{ loader: "css-loader" },
-						{ loader: "less-loader" }
+						"style-loader",
+						"css-loader",
+						"less-loader"
 					]
 				},
 				{
@@ -34,9 +34,9 @@ module.exports = [
 				{
 					test: /\.less$/,
 					use: [
-						{ loader: "style-loader" },
-						{ loader: "css-loader" },
-						{ loader: "less-loader" }
+						"style-loader",
+						"css-loader",
+						"less-loader"
 					]
 				},
 				{

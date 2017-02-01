@@ -39,7 +39,7 @@ This will start a server, listening on connections from `localhost` on port `808
 
 Now, when you change something in your assets, it should live-reload the files.
 
-See [**the documentation**](http://webpack.github.io/docs/webpack-dev-server.html) for more use cases and options.
+See [**the documentation**](https://webpack.js.org/configuration/dev-server/#devserver) for more use cases and options.
 
 <h2 align="center">Contributing</h2>
 

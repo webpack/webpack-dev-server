@@ -40,7 +40,7 @@ function colorError(useColor, msg) {
 
 const yargs = require("yargs")
 	.usage(`${versionInfo()
-		}\nUsage: http://webpack.github.io/docs/webpack-dev-server.html`);
+		}\nUsage: https://webpack.js.org/configuration/dev-server/`);
 
 require("webpack/bin/config-yargs")(yargs);
 
