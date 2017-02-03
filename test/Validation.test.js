@@ -36,7 +36,7 @@ describe("Validation", function() {
 		message: [
 			" - configuration has an unknown property 'asdf'. These properties are valid:",
 			"   object { hot?, hotOnly?, lazy?, host?, filename?, publicPath?, port?, socket?, " +
-			"watchOptions?, headers?, clientLogLevel?, key?, cert?, ca?, pfx?, pfxPassphrase?, " +
+			"watchOptions?, headers?, clientLogLevel?, overlay?, key?, cert?, ca?, pfx?, pfxPassphrase?, " +
 			"inline?, public?, https?, contentBase?, watchContentBase?, open?, features?, " +
 			"compress?, proxy?, historyApiFallback?, staticOptions?, setup?, stats?, reporter?, " +
 			"noInfo?, quiet?, serverSideRender?, index?, log?, warn? }"

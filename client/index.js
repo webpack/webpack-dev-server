@@ -2,6 +2,7 @@
 var url = require("url");
 var stripAnsi = require("strip-ansi");
 var socket = require("./socket");
+var overlay = require("./overlay");
 
 function getCurrentScriptSource() {
 	// `document.currentScript` is the most accurate way to find the current script,
@@ -32,6 +33,7 @@ var hot = false;
 var initial = true;
 var currentHash = "";
 var logLevel = "info";
+var useOverlay = false;
 
 function log(level, msg) {
 	if(logLevel === "info" && level === "info")
@@ -71,8 +73,14 @@ var onSocketMsg = {
 	"log-level": function(level) {
 		logLevel = level;
 	},
+	"overlay": function(overlay) {
+		if(typeof document !== "undefined") {
+			useOverlay = overlay;
+		}
+	},
 	ok: function() {
 		sendMsg("Ok");
+		if(useOverlay) overlay.clear();
 		if(initial) return initial = false;
 		reloadApp();
 	},
@@ -99,6 +107,7 @@ var onSocketMsg = {
 		sendMsg("Errors", strippedErrors);
 		for(var i = 0; i < strippedErrors.length; i++)
 			console.error(strippedErrors[i]);
+		if(useOverlay) overlay.showErrors(errors);
 	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");

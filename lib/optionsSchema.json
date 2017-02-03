@@ -67,6 +67,10 @@
         "error"
       ]
     },
+    "overlay": {
+      "description": "Shows an error overlay in browser.",
+      "type": "boolean"
+    },
     "key": {
       "description": "The contents of a SSL key.",
       "anyOf": [
