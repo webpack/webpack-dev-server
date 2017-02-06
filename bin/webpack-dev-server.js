@@ -434,8 +434,11 @@ function reportReadiness(uri, options) {
 		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
-	if(options.open)
-		open(uri);
+	if(options.open) {
+		open(uri).catch(function() {
+			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
+		});
+	}
 }
 
 processOptions(wpOpt);
