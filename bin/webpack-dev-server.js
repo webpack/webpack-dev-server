@@ -386,6 +386,14 @@ function startDevServer(wpOpt, options) {
 		throw e;
 	}
 
+	["SIGINT", "SIGTERM"].forEach(function(sig) {
+		process.on(sig, function() {
+			console.log(`Gracefully shutting down server after ${sig}...`);
+			server.close();
+			process.exit();  // eslint-disable-line no-process-exit
+		});
+	});
+
 	if(options.socket) {
 		server.listeningApp.on("error", function(e) {
 			if(e.code === "EADDRINUSE") {
