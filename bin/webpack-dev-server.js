@@ -192,6 +192,11 @@ const wpOpt = require("webpack/bin/convert-argv")(yargs, argv, {
 	outputFilename: "/bundle.js"
 });
 
+let options;
+let uri;
+let httpServerWrapper;
+let compiler;
+
 function processOptions(wpOpt) {
 	// process Promise
 	if(typeof wpOpt.then === "function") {
@@ -204,7 +209,7 @@ function processOptions(wpOpt) {
 
 	const firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
-	const options = wpOpt.devServer || firstWpOpt.devServer || {};
+	options = wpOpt.devServer || firstWpOpt.devServer || {};
 
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
@@ -355,7 +360,6 @@ function startDevServer(wpOpt, options) {
 		});
 	}
 
-	let compiler;
 	try {
 		compiler = webpack(wpOpt);
 	} catch(e) {
@@ -372,11 +376,15 @@ function startDevServer(wpOpt, options) {
 		}));
 	}
 
-	const uri = domain + (options.inline !== false || options.lazy === true ? "/" : "/webpack-dev-server/");
+	uri = domain + (options.inline !== false || options.lazy === true ? "/" : "/webpack-dev-server/");
 
+	liftDevServer(compiler, options, uri);
+}
+
+function liftDevServer(compiler, options, uri) {
 	let server;
 	try {
-		server = new Server(compiler, options);
+		server = new Server(compiler, Object.assign({}, options));
 	} catch(e) {
 		const OptionsValidationError = require("../lib/OptionsValidationError");
 		if(e instanceof OptionsValidationError) {
@@ -387,7 +395,7 @@ function startDevServer(wpOpt, options) {
 	}
 
 	if(options.socket) {
-		server.listeningApp.on("error", function(e) {
+		httpServerWrapper = server.listeningApp.on("error", function(e) {
 			if(e.code === "EADDRINUSE") {
 				const clientSocket = new net.Socket();
 				clientSocket.on("error", function(e) {
@@ -404,7 +412,7 @@ function startDevServer(wpOpt, options) {
 				});
 			}
 		});
-		server.listen(options.socket, options.host, function(err) {
+		httpServerWrapper = server.listen(options.socket, options.host, function(err) {
 			if(err) throw err;
 			const READ_WRITE = 438; // chmod 666 (rw rw rw)
 			fs.chmod(options.socket, READ_WRITE, function(err) {
@@ -413,7 +421,7 @@ function startDevServer(wpOpt, options) {
 			});
 		});
 	} else {
-		server.listen(options.port, options.host, function(err) {
+		httpServerWrapper = server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
 			reportReadiness(uri, options);
 		});
@@ -442,3 +450,35 @@ function reportReadiness(uri, options) {
 }
 
 processOptions(wpOpt);
+
+
+/**
+ * Stop and start the devServer using the first passed args
+ * @returns {void}
+ */
+function reStartDevServer() {
+	stopDevServer();
+	liftDevServer(compiler, options, uri);
+}
+
+/**
+ * Stop the devServer, mainly express server by calling
+ * close() on http server
+ * @returns {void}
+ */
+function stopDevServer() {
+	console.log("\n\t\u27F3 Restarting devServer..\n\t------------------------");
+	httpServerWrapper.close();
+}
+
+/**
+ * Attach event listener on typing 'rs' string in the STDIN
+ * and restart the devServer if so
+ */
+(function attachRSEventlistener() {
+	process.stdin.setEncoding("utf8");
+	process.stdin.on("data", function(data) {
+		data = (data + "").trim().toLowerCase();
+		if(data === "rs") return reStartDevServer();
+	});
+})();
