@@ -147,6 +147,11 @@ var socketUrl = url.format({
 
 socket(socketUrl, onSocketMsg);
 
+io.on("reload", function() {
+	console.log("[WDS] Manual reload invoked.");
+	window.location.reload();
+});
+
 function reloadApp() {
 	if(hot) {
 		log("info", "[WDS] App hot update...");
