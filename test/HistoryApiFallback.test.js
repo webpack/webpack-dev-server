@@ -75,6 +75,24 @@ describe("HistoryApiFallback", function() {
 		});
 	});
 
+	describe("as object with contentBase set to false", function() {
+		before(function(done) {
+			server = helper.start(config3, {
+				contentBase: false,
+				historyApiFallback: {
+					index: "/bar.html"
+				}
+			}, done);
+			req = request(server.app);
+		});
+
+		it("historyApiFallback should work and ignore static content", function(done) {
+			req.get("/index.html")
+			.accept("html")
+			.expect(200, /In-memory file/, done);
+		});
+	});
+
 	describe("as object with contentBase and rewrites", function() {
 		before(function(done) {
 			server = helper.start(config2, {
