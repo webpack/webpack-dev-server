@@ -1,2 +1,2 @@
-console.log('case sensitive');
+console.log("case sensitive");
 
