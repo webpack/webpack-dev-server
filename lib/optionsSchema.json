@@ -69,7 +69,22 @@
     },
     "overlay": {
       "description": "Shows an error overlay in browser.",
-      "type": "boolean"
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "boolean"
+            },
+            "warnings": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
     },
     "key": {
       "description": "The contents of a SSL key.",
