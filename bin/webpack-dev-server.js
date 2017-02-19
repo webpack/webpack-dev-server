@@ -5,8 +5,9 @@ const path = require("path");
 const open = require("opn");
 const fs = require("fs");
 const net = require("net");
-const url = require("url");
 const portfinder = require("portfinder");
+const addDevServerEntrypoints = require("../lib/util/addDevServerEntrypoints");
+const createDomain = require("../lib/util/createDomain");
 
 // Local version replaces global one
 try {
@@ -40,7 +41,7 @@ function colorError(useColor, msg) {
 
 const yargs = require("yargs")
 	.usage(`${versionInfo()
-		}\nUsage: http://webpack.github.io/docs/webpack-dev-server.html`);
+		}\nUsage: https://webpack.js.org/configuration/dev-server/`);
 
 require("webpack/bin/config-yargs")(yargs);
 
@@ -327,33 +328,7 @@ function processOptions(wpOpt) {
 }
 
 function startDevServer(wpOpt, options) {
-	const protocol = options.https ? "https" : "http";
-
-	// the formatted domain (url without path) of the webpack server
-	const domain = url.format({
-		protocol: protocol,
-		hostname: options.host,
-		port: options.socket ? 0 : options.port.toString()
-	});
-
-	if(options.inline !== false) {
-		const devClient = [`${require.resolve("../client/")}?${options.public ? `${protocol}://${options.public}` : domain}`];
-
-		if(options.hotOnly)
-			devClient.push("webpack/hot/only-dev-server");
-		else if(options.hot)
-			devClient.push("webpack/hot/dev-server");
-
-		[].concat(wpOpt).forEach(function(wpOpt) {
-			if(typeof wpOpt.entry === "object" && !Array.isArray(wpOpt.entry)) {
-				Object.keys(wpOpt.entry).forEach(function(key) {
-					wpOpt.entry[key] = devClient.concat(wpOpt.entry[key]);
-				});
-			} else {
-				wpOpt.entry = devClient.concat(wpOpt.entry);
-			}
-		});
-	}
+	addDevServerEntrypoints(wpOpt, options);
 
 	let compiler;
 	try {
@@ -372,7 +347,7 @@ function startDevServer(wpOpt, options) {
 		}));
 	}
 
-	const uri = domain + (options.inline !== false || options.lazy === true ? "/" : "/webpack-dev-server/");
+	const uri = createDomain(options) + (options.inline !== false || options.lazy === true ? "/" : "/webpack-dev-server/");
 
 	let server;
 	try {
@@ -434,8 +409,11 @@ function reportReadiness(uri, options) {
 		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
-	if(options.open)
-		open(uri);
+	if(options.open) {
+		open(uri).catch(function() {
+			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
+		});
+	}
 }
 
 processOptions(wpOpt);

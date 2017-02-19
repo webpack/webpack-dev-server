@@ -28,7 +28,12 @@ describe("Validation", function() {
 		message: [
 			" - configuration.contentBase should be one of these:",
 			"   [string] | false | number | string",
-			"   A directory to serve files non-webpack files from."
+			"   A directory to serve files non-webpack files from.",
+			"   Details:",
+			"    * configuration.contentBase[0] should be a string.",
+			"    * configuration.contentBase should be false",
+			"    * configuration.contentBase should be a number.",
+			"    * configuration.contentBase should be a string."
 		]
 	}, {
 		name: "non-existing key configuration",
@@ -36,7 +41,7 @@ describe("Validation", function() {
 		message: [
 			" - configuration has an unknown property 'asdf'. These properties are valid:",
 			"   object { hot?, hotOnly?, lazy?, host?, filename?, publicPath?, port?, socket?, " +
-			"watchOptions?, headers?, clientLogLevel?, key?, cert?, ca?, pfx?, pfxPassphrase?, " +
+			"watchOptions?, headers?, clientLogLevel?, overlay?, key?, cert?, ca?, pfx?, pfxPassphrase?, " +
 			"inline?, public?, https?, contentBase?, watchContentBase?, open?, features?, " +
 			"compress?, proxy?, historyApiFallback?, staticOptions?, setup?, stats?, reporter?, " +
 			"noInfo?, quiet?, serverSideRender?, index?, log?, warn? }"

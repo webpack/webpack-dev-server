@@ -34,7 +34,14 @@
     },
     "port": {
       "description": "The port the server listens to.",
-      "type": "number"
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "socket": {
       "description": "The Unix socket to listen to (instead of on a host).",
@@ -58,6 +65,25 @@
         "info",
         "warning",
         "error"
+      ]
+    },
+    "overlay": {
+      "description": "Shows an error overlay in browser.",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "errors": {
+              "type": "boolean"
+            },
+            "warnings": {
+              "type": "boolean"
+            }
+          }
+        }
       ]
     },
     "key": {
