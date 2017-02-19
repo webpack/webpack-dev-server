@@ -69,6 +69,7 @@ var onSocketMsg = {
 	},
 	"still-ok": function() {
 		log("info", "[WDS] Nothing changed.")
+		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		sendMsg("StillOk");
 	},
 	"log-level": function(level) {
