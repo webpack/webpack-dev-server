@@ -47,7 +47,7 @@ function log(level, msg) {
 
 // Send messages to the outside, so plugins can consume it.
 function sendMsg(type, data) {
-	if(typeof self !== "undefined") {
+	if(typeof self !== "undefined" && typeof self.postMessage === "function") {
 		self.postMessage({
 			type: "webpack" + type,
 			data: data
@@ -162,7 +162,7 @@ function reloadApp() {
 		log("info", "[WDS] App hot update...");
 		var hotEmitter = require("webpack/hot/emitter");
 		hotEmitter.emit("webpackHotUpdate", currentHash);
-		if(typeof self !== "undefined") {
+		if(typeof self !== "undefined" && typeof self.postMessage === "function") {
 			// broadcast update to window
 			self.postMessage("webpackHotUpdate" + currentHash, "*");
 		}
