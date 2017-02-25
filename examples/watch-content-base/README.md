@@ -3,7 +3,7 @@
 ## Watching a single directory
 
 ```shell
-node ../../bin/webpack-dev-server.js --content-base assets --watch-content-base
+node ../../bin/webpack-dev-server.js --content-base assets --watch-content-base --open
 ```
 
 ### What should happen
@@ -29,7 +29,7 @@ module.exports = {
 ```
 
 ```shell
-node ../../bin/webpack-dev-server.js --watch-content-base
+node ../../bin/webpack-dev-server.js --watch-content-base --open
 ```
 
 ### What should happen
@@ -38,4 +38,4 @@ The script should open `http://localhost:8080/`. In the app you should see "Does
 
 In your editor, edit `assets/index.html`, and save your changes. The app should reload.
 
-In your editor, edit `css/styles.csss`, and save your changes. The app should reload.
+In your editor, edit `css/styles.css`, and save your changes. The app should reload.
