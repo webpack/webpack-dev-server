@@ -307,7 +307,7 @@ function processOptions(wpOpt) {
 		options.compress = true;
 
 	if(argv["open"])
-		options.open = true;
+	  options.open = (argv["open"] === '') ? true : argv["open"];
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
 	// that wouldn't throw errors. E.g. both argv.port and options.port
@@ -410,9 +410,14 @@ function reportReadiness(uri, options) {
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
 	if(options.open) {
-		open(uri).catch(function() {
-			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
-		});
+	  var params = [uri];
+
+    if (typeof options.open === 'string')
+      params.push({ app: options.open });
+
+    open(...params).catch(function() {
+      console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
+    });
 	}
 }
 
