@@ -412,7 +412,7 @@ function reportReadiness(uri, options) {
 	if(options.open) {
 		var params = [uri];
 
-		if (typeof options.open === "string")
+		if(typeof options.open === "string")
 			params.push({ app: options.open });
 
 		open(...params).catch(function() {
