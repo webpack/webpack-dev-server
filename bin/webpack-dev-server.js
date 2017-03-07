@@ -251,8 +251,7 @@ function processOptions(wpOpt) {
 				options.contentBase = options.contentBase.map(function(val) {
 					return path.resolve(val);
 				});
-			}
-			else if(/^[0-9]$/.test(options.contentBase))
+			} else if(/^[0-9]$/.test(options.contentBase))
 				options.contentBase = +options.contentBase;
 			else if(!/^(https?:)?\/\//.test(options.contentBase))
 				options.contentBase = path.resolve(options.contentBase);
