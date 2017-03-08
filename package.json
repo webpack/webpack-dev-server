@@ -26,6 +26,7 @@
     "yargs": "^6.0.0"
   },
   "devDependencies": {
+    "codecov.io": "^0.1.6",
     "css-loader": "~0.26.1",
     "eslint": "^3.4.0",
     "file-loader": "~0.10.0",
