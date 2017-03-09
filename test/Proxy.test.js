@@ -144,4 +144,44 @@ describe("Proxy", function() {
 			.expect(200, "from proxy2", done);
 		});
 	});
+
+	context("sharing a proxy option", function() {
+		let server;
+		let req;
+		let listener;
+		const proxyTarget = {
+			target: "http://localhost:9000"
+		};
+
+		before(function(done) {
+			const proxy = express();
+			proxy.get("*", function(req, res) {
+				res.send("from proxy");
+			});
+			listener = proxy.listen(9000);
+			server = helper.start(config, {
+				contentBase,
+				proxy: {
+					"/proxy1": proxyTarget,
+					"/proxy2": proxyTarget,
+				}
+			}, done);
+			req = request(server.app);
+		});
+
+		after(function(done) {
+			helper.close(function() {
+				listener.close();
+				done();
+			});
+		});
+
+		it("respects proxy1 option", function(done) {
+			req.get("/proxy1").expect(200, "from proxy", done);
+		});
+
+		it("respects proxy2 option", function(done) {
+			req.get("/proxy2").expect(200, "from proxy", done);
+		});
+	});
 });
