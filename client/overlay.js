@@ -91,7 +91,7 @@ function ensureOverlayDivExists(onOverlayDivReady) {
 	document.body.appendChild(overlayIframe);
 }
 
-function showErrorOverlay(message) {
+function showMessageOverlay(message) {
 	ensureOverlayDivExists(function onOverlayDivReady(overlayDiv) {
 		// Make it look similar to our terminal.
 		overlayDiv.innerHTML =
@@ -121,6 +121,6 @@ exports.clear = function handleSuccess() {
 }
 
 // Compilation with errors (e.g. syntax error or missing modules).
-exports.showErrors = function handleErrors(errors) {
-	showErrorOverlay(errors[0]);
+exports.showMessage = function handleMessage(messages) {
+	showMessageOverlay(messages[0]);
 }

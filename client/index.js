@@ -33,7 +33,8 @@ var hot = false;
 var initial = true;
 var currentHash = "";
 var logLevel = "info";
-var useOverlay = false;
+var useWarningOverlay = false;
+var useErrorOverlay = false;
 
 function log(level, msg) {
 	if(logLevel === "info" && level === "info")
@@ -46,7 +47,7 @@ function log(level, msg) {
 
 // Send messages to the outside, so plugins can consume it.
 function sendMsg(type, data) {
-	if(typeof self !== "undefined") {
+	if(typeof self !== "undefined" && self.window) {
 		self.postMessage({
 			type: "webpack" + type,
 			data: data
@@ -68,6 +69,7 @@ var onSocketMsg = {
 	},
 	"still-ok": function() {
 		log("info", "[WDS] Nothing changed.")
+		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		sendMsg("StillOk");
 	},
 	"log-level": function(level) {
@@ -75,12 +77,18 @@ var onSocketMsg = {
 	},
 	"overlay": function(overlay) {
 		if(typeof document !== "undefined") {
-			useOverlay = overlay;
+			if(typeof(overlay) === "boolean") {
+				useWarningOverlay = overlay;
+				useErrorOverlay = overlay;
+			} else if(overlay) {
+				useWarningOverlay = overlay.warnings;
+				useErrorOverlay = overlay.errors;
+			}
 		}
 	},
 	ok: function() {
 		sendMsg("Ok");
-		if(useOverlay) overlay.clear();
+		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		if(initial) return initial = false;
 		reloadApp();
 	},
@@ -96,6 +104,8 @@ var onSocketMsg = {
 		sendMsg("Warnings", strippedWarnings);
 		for(var i = 0; i < strippedWarnings.length; i++)
 			console.warn(strippedWarnings[i]);
+		if(useWarningOverlay) overlay.showMessage(warnings);
+
 		if(initial) return initial = false;
 		reloadApp();
 	},
@@ -107,7 +117,7 @@ var onSocketMsg = {
 		sendMsg("Errors", strippedErrors);
 		for(var i = 0; i < strippedErrors.length; i++)
 			console.error(strippedErrors[i]);
-		if(useOverlay) overlay.showErrors(errors);
+		if(useErrorOverlay) overlay.showMessage(errors);
 	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");
@@ -152,7 +162,7 @@ function reloadApp() {
 		log("info", "[WDS] App hot update...");
 		var hotEmitter = require("webpack/hot/emitter");
 		hotEmitter.emit("webpackHotUpdate", currentHash);
-		if(typeof self !== "undefined") {
+		if(typeof self !== "undefined" && self.window) {
 			// broadcast update to window
 			self.postMessage("webpackHotUpdate" + currentHash, "*");
 		}
