@@ -363,9 +363,8 @@ function startDevServer(wpOpt, options) {
 
 	["SIGINT", "SIGTERM"].forEach(function(sig) {
 		process.on(sig, function() {
-			console.log(`Gracefully shutting down server after ${sig}...`);
 			server.close();
-			process.exit();  // eslint-disable-line no-process-exit
+			process.exit(); // eslint-disable-line no-process-exit
 		});
 	});
 
