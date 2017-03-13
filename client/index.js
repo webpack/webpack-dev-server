@@ -157,7 +157,15 @@ var socketUrl = url.format({
 
 socket(socketUrl, onSocketMsg);
 
+var isUnloading = false;
+self.addEventListener("beforeunload", function() {
+	isUnloading = true;
+});
+
 function reloadApp() {
+	if(isUnloading) {
+		return;
+	}
 	if(hot) {
 		log("info", "[WDS] App hot update...");
 		var hotEmitter = require("webpack/hot/emitter");
