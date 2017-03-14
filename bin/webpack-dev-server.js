@@ -247,7 +247,11 @@ function processOptions(wpOpt) {
 	if(options.contentBase === undefined) {
 		if(argv["content-base"]) {
 			options.contentBase = argv["content-base"];
-			if(/^[0-9]$/.test(options.contentBase))
+			if(Array.isArray(options.contentBase)) {
+				options.contentBase = options.contentBase.map(function(val) {
+					return path.resolve(val);
+				});
+			} else if(/^[0-9]$/.test(options.contentBase))
 				options.contentBase = +options.contentBase;
 			else if(!/^(https?:)?\/\//.test(options.contentBase))
 				options.contentBase = path.resolve(options.contentBase);
@@ -363,9 +367,8 @@ function startDevServer(wpOpt, options) {
 
 	["SIGINT", "SIGTERM"].forEach(function(sig) {
 		process.on(sig, function() {
-			console.log(`Gracefully shutting down server after ${sig}...`);
 			server.close();
-			process.exit();  // eslint-disable-line no-process-exit
+			process.exit(); // eslint-disable-line no-process-exit
 		});
 	});
 
