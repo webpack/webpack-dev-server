@@ -86,7 +86,7 @@ yargs.options({
 		describe: "close when stdin ends"
 	},
 	"open": {
-		type: "boolean",
+		type: "string",
 		describe: "Open default browser"
 	},
 	"color": {
@@ -418,12 +418,12 @@ function reportReadiness(uri, options) {
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
 	if(options.open) {
-		var params = [uri];
-
-		if(typeof options.open === "string")
-			params.push({ app: options.open });
-
-		open(...params).catch(function() {
+		open(uri, { app: options.open }).catch(function() {
+			console.log(`Unable to open browser '${options.open}'. If you are running in a headless environment, please do not use the open flag.`);
+		});
+	}
+	if(argv["open"] === "") {
+		open(uri).catch(function() {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}
