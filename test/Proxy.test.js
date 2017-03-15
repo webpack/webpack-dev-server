@@ -3,9 +3,12 @@
 const request = require("supertest");
 const path = require("path");
 const express = require("express");
+const WebSocket = require("ws");
 const helper = require("./helper");
+const should = require("should");
 const config = require("./fixtures/proxy-config/webpack.config");
 
+const WebSocketServer = WebSocket.Server;
 const contentBase = path.join(__dirname, "fixtures/proxy-config");
 
 const proxyOption = {
@@ -182,6 +185,50 @@ describe("Proxy", function() {
 
 		it("respects proxy2 option", function(done) {
 			req.get("/proxy2").expect(200, "from proxy", done);
+		});
+	});
+
+	context("External websocket upgrade", function() {
+		let ws;
+		let wsServer;
+		let responseMessage;
+
+		before(function(done) {
+			helper.start(config, {
+				contentBase,
+				proxy: [{
+					context: "/",
+					target: "http://localhost:9003",
+					ws: true
+				}]
+			}, done);
+
+			wsServer = new WebSocketServer({ port: 9003 });
+			wsServer.on("connection", function connection(ws) {
+				ws.on("message", function incoming(message) {
+					ws.send(message);
+				});
+			});
+		});
+
+		beforeEach(function(done) {
+			ws = new WebSocket("ws://localhost:8080/proxy3/socket");
+			ws.on("message", function(message) {
+				responseMessage = message;
+				done()
+			});
+			ws.on("open", function open() {
+				ws.send("foo");
+			});
+		})
+
+		it("Should receive response", function() {
+			should(responseMessage).equal("foo");
+		});
+
+		after(function(done) {
+			wsServer.close();
+			helper.close(done);
 		});
 	});
 });

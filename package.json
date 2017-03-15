@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
@@ -43,7 +43,8 @@
     "style-loader": "~0.13.0",
     "supertest": "^2.0.1",
     "url-loader": "~0.5.6",
-    "webpack": "^2.2.0"
+    "webpack": "^2.2.0",
+    "ws": "^1.1.1"
   },
   "license": "MIT",
   "repository": {
