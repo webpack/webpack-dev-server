@@ -5,7 +5,7 @@ openssl req \
     -newkey rsa:2048 \
     -keyout server.pem \
     -out server.pem \
-    -days 365 \
+    -days 3650 \
     -sha256 \
     -config <(cat <<EOF
 [ req ]
