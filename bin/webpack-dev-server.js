@@ -59,7 +59,7 @@ const BASIC_GROUP = "Basic options:";
 // Taken out of yargs because we must know if
 // it wasn't given by the user, in which case
 // we should use portfinder.
-const DEFAULT_PORT = 8080;
+const DEFAULT_PORT = process.env.PORT || 8080;
 
 yargs.options({
 	"lazy": {
