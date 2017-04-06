@@ -82,6 +82,9 @@ var onSocketMsg = {
 			log("error", stripAnsi(errors[i]));
 		if(initial) return initial = false;
 	},
+	error: function(error) {
+		console.error(error);
+	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");
 	}
