@@ -119,6 +119,9 @@ var onSocketMsg = {
 			console.error(strippedErrors[i]);
 		if(useErrorOverlay) overlay.showMessage(errors);
 	},
+	error: function(error) {
+		console.error(error);
+	},
 	close: function() {
 		log("error", "[WDS] Disconnected!");
 		sendMsg("Close");
