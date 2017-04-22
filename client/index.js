@@ -78,7 +78,7 @@ var onSocketMsg = {
 	"overlay": function(overlay) {
 		if(typeof document !== "undefined") {
 			if(typeof(overlay) === "boolean") {
-				useWarningOverlay = overlay;
+				useWarningOverlay = false;
 				useErrorOverlay = overlay;
 			} else if(overlay) {
 				useWarningOverlay = overlay.warnings;
