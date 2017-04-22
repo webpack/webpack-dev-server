@@ -18,7 +18,7 @@
     "stream-cache": "~0.0.1",
     "strip-ansi": "^3.0.0",
     "supports-color": "^3.1.1",
-    "webpack-dev-middleware": "^1.4.0",
+    "webpack-dev-middleware": "^1.10.2",
     "http-proxy-middleware": "~0.17.1"
   },
   "devDependencies": {
