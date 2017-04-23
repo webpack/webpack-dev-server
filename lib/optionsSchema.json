@@ -138,6 +138,10 @@
       "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
       "type": "boolean"
     },
+    "disableHostCheck": {
+      "description": "Disable the Host header check (Security).",
+      "type": "boolean"
+    },
     "public": {
       "description": "The public hostname/ip address of the server.",
       "type": "string"
