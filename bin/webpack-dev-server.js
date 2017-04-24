@@ -91,7 +91,7 @@ function processOptions(wpOpt) {
 
 	if(argv.port !== 8080 || !options.port)
 		options.port = argv.port;
-	
+
 	if(argv.disableHostCheck)
 		options.disableHostCheck = true;
 
