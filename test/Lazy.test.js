@@ -10,7 +10,8 @@ describe("Lazy", function() {
 	it("without filename option it should throw an error", function() {
 		should.throws(function() {
 			helper.start(config, {
-				lazy: true
+				lazy: true,
+				disableHostCheck: false,
 			});
 		}, /'filename' option must be set/);
 	});
@@ -18,7 +19,8 @@ describe("Lazy", function() {
 	it("with filename option should not throw an error", function(done) {
 		helper.start(config, {
 			lazy: true,
-			filename: "bundle.js"
+			filename: "bundle.js",
+			disableHostCheck: false,
 		}, done);
 	});
 });

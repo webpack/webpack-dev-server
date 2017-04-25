@@ -73,6 +73,7 @@ describe("Proxy", function() {
 			server = helper.start(config, {
 				contentBase,
 				proxy: proxyOption,
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -126,6 +127,7 @@ describe("Proxy", function() {
 			server = helper.start(config, {
 				contentBase,
 				proxy: proxyOptionOfArray,
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -167,7 +169,8 @@ describe("Proxy", function() {
 				proxy: {
 					"/proxy1": proxyTarget,
 					"/proxy2": proxyTarget,
-				}
+				},
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -200,7 +203,8 @@ describe("Proxy", function() {
 					context: "/",
 					target: "http://localhost:9003",
 					ws: true
-				}]
+				}],
+				disableHostCheck: false,
 			}, done);
 
 			wsServer = new WebSocketServer({ port: 9003 });

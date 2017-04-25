@@ -10,7 +10,8 @@ describe("Compress", function() {
 
 	before(function(done) {
 		server = helper.start(config, {
-			compress: true
+			compress: true,
+			disableHostCheck: false,
 		}, done);
 		req = request(server.app);
 	});

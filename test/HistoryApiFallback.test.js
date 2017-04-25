@@ -16,7 +16,8 @@ describe("HistoryApiFallback", function() {
 	describe("as boolean", function() {
 		before(function(done) {
 			server = helper.start(config, {
-				historyApiFallback: true
+				historyApiFallback: true,
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -33,7 +34,8 @@ describe("HistoryApiFallback", function() {
 			server = helper.start(config, {
 				historyApiFallback: {
 					index: "/bar.html"
-				}
+				},
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -51,7 +53,8 @@ describe("HistoryApiFallback", function() {
 				contentBase: path.join(__dirname, "fixtures/historyapifallback-2-config"),
 				historyApiFallback: {
 					index: "/bar.html"
-				}
+				},
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -81,7 +84,8 @@ describe("HistoryApiFallback", function() {
 				contentBase: false,
 				historyApiFallback: {
 					index: "/bar.html"
-				}
+				},
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -108,7 +112,8 @@ describe("HistoryApiFallback", function() {
 							to: "/bar.html"
 						}
 					]
-				}
+				},
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -136,7 +141,8 @@ describe("HistoryApiFallback", function() {
 		before(function(done) {
 			server = helper.start(config3, {
 				contentBase: path.join(__dirname, "fixtures/historyapifallback-3-config"),
-				historyApiFallback: true
+				historyApiFallback: true,
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
