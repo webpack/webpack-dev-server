@@ -92,6 +92,9 @@ function processOptions(wpOpt) {
 	if(argv.port !== 8080 || !options.port)
 		options.port = argv.port;
 
+	if(argv.disableHostCheck)
+		options.disableHostCheck = true;
+
 	if(!options.publicPath) {
 		options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || "";
 		if(!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== "/")
