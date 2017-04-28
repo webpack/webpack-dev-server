@@ -144,7 +144,14 @@
     },
     "public": {
       "description": "The public hostname/ip address of the server.",
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "https": {
       "description": "Enable HTTPS for server.",
