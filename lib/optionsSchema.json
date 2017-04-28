@@ -146,6 +146,10 @@
       "description": "The public hostname/ip address of the server.",
       "anyOf": [
         {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
           "type": "array"
         },
         {

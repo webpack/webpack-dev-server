@@ -20,7 +20,13 @@ describe("Validation", function() {
 		name: "invalid `public` configuration",
 		config: { public: 1 },
 		message: [
-			" - configuration.public should be a string."
+			" - configuration.public should be one of these:",
+			"   [string] | string",
+			"   The public hostname/ip address of the server.",
+			"   Details:",
+			"    * configuration.public should be an array:",
+			"      [string]",
+			"    * configuration.public should be a string."
 		]
 	}, {
 		name: "invalid `contentBase` configuration",
