@@ -115,5 +115,13 @@ $(function() {
 			}
 		}
 	}
-
+	var path = '';
+	setInterval(function(){
+		if (path !== iframe[0].contentWindow.location.pathname) {
+			path = iframe[0].contentWindow.location.pathname;
+			if (path !== 'blank' && path !== 'javascript:;') {
+				history.pushState({}, null, '/webpack-dev-server' + path);
+			}
+		}
+	}, 200);
 });
