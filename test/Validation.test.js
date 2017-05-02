@@ -123,5 +123,43 @@ describe("Validation", function() {
 				throw new Error("Validation didn't fail");
 			}
 		});
+
+		describe("allowedHosts", function() {
+			it("should allow hosts in allowedHosts", function() {
+				const testHosts = [
+					"test.host",
+					"test2.host",
+					"test3.host"
+				];
+				const options = { allowedHosts: testHosts };
+				const server = new Server(compiler, options);
+
+				testHosts.forEach(function(testHost) {
+					const headers = { host: testHost };
+					if(!server.checkHost(headers)) {
+						throw new Error("Validation didn't fail");
+					}
+				});
+			});
+			it("should allow hosts that pass a wildcard in allowedHosts", function() {
+				const options = { allowedHosts: [".example.com"] };
+				const server = new Server(compiler, options);
+				const testHosts = [
+					"www.example.com",
+					"subdomain.example.com",
+					"example.com",
+					"subsubcomain.subdomain.example.com",
+					"example.com:80",
+					"subdomain.example.com:80"
+				];
+
+				testHosts.forEach(function(testHost) {
+					const headers = { host: testHost };
+					if(!server.checkHost(headers)) {
+						throw new Error("Validation didn't fail");
+					}
+				});
+			});
+		});
 	})
 });
