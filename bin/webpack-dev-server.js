@@ -89,6 +89,10 @@ yargs.options({
 		type: "boolean",
 		describe: "Open default browser"
 	},
+	"lan": {
+		type: "boolean",
+		describe: "Open default browser with local IP"
+	},
 	"color": {
 		type: "boolean",
 		alias: "colors",
@@ -312,6 +316,9 @@ function processOptions(wpOpt) {
 
 	if(argv["open"])
 		options.open = true;
+
+	if(argv["lan"])
+		options.lan = true;
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
 	// that wouldn't throw errors. E.g. both argv.port and options.port
