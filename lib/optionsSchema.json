@@ -188,6 +188,10 @@
       "description": "Let the CLI open your browser with the URL.",
       "type": "boolean"
     },
+    "lan": {
+      "description": "Let the browser open with your local IP.",
+      "type": "boolean"
+    },
     "features": {
       "description": "The order of which the features will be triggered.",
       "items": {
