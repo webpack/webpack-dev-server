@@ -150,6 +150,12 @@ if(hostname && (self.location.protocol === "https:" || urlParts.hostname === "0.
 	protocol = self.location.protocol;
 }
 
+var rootPathName = url.parse(__webpack_public_path__).pathname || ""; // eslint-disable-line no-undef
+
+if(rootPathName.length > 1) {
+	rootPathName = rootPathName.replace(/\/+$/, "");
+}
+
 var socketUrl = url.format({
 	protocol: protocol,
 	auth: urlParts.auth,
