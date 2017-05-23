@@ -186,7 +186,7 @@
     },
     "open": {
       "description": "Let the CLI open your browser with the URL.",
-      "type": "boolean"
+      "type": "string"
     },
     "features": {
       "description": "The order of which the features will be triggered.",
