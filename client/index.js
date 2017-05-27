@@ -182,3 +182,5 @@ function reloadApp() {
 		self.location.reload();
 	}
 }
+
+module.exports = io;
