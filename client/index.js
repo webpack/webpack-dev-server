@@ -3,6 +3,7 @@ var url = require("url");
 var stripAnsi = require("strip-ansi");
 var socket = require("./socket");
 var overlay = require("./overlay");
+var log = require("./log");
 
 function getCurrentScriptSource() {
 	// `document.currentScript` is the most accurate way to find the current script,
@@ -32,18 +33,8 @@ if(typeof __resourceQuery === "string" && __resourceQuery) {
 var hot = false;
 var initial = true;
 var currentHash = "";
-var logLevel = "info";
 var useWarningOverlay = false;
 var useErrorOverlay = false;
-
-function log(level, msg) {
-	if(logLevel === "info" && level === "info")
-		return console.log(msg);
-	if(["info", "warning"].indexOf(logLevel) >= 0 && level === "warning")
-		return console.warn(msg);
-	if(["info", "warning", "error"].indexOf(logLevel) >= 0 && level === "error")
-		return console.error(msg);
-}
 
 // Send messages to the outside, so plugins can consume it.
 function sendMsg(type, data) {
@@ -73,7 +64,7 @@ var onSocketMsg = {
 		sendMsg("StillOk");
 	},
 	"log-level": function(level) {
-		logLevel = level;
+		log.setLogLevel(level);
 	},
 	"overlay": function(overlay) {
 		if(typeof document !== "undefined") {
