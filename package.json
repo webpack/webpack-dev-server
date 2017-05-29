@@ -68,7 +68,7 @@
     "client-live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js -p",
     "client-index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js -p",
     "client-sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js -p",
-    "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config}.js",
+    "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config,log}.js",
     "beautify": "npm run lint -- --fix",
     "test": "mocha --full-trace --check-leaks",
     "posttest": "npm run -s lint",
