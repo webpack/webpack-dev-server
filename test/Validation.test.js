@@ -61,4 +61,59 @@ describe("Validation", function() {
 			throw new Error("Validation didn't fail");
 		})
 	});
+
+	describe("checkHost", function() {
+		it("should always allow any host if options.disableHostCheck is set", function() {
+			const options = {
+				public: "test.host:80",
+				disableHostCheck: true
+			};
+			const headers = {
+				host: "bad.host"
+			};
+			const server = new Server(compiler, options);
+			if(!server.checkHost(headers)) {
+				throw new Error("Validation didn't fail");
+			}
+		});
+
+		it("should allow any valid options.public when host is localhost", function() {
+			const options = {
+				public: "test.host:80"
+			};
+			const headers = {
+				host: "localhost"
+			};
+			const server = new Server(compiler, options);
+			if(!server.checkHost(headers)) {
+				throw new Error("Validation didn't fail");
+			}
+		});
+
+		it("should allow any valid options.public when host is 127.0.0.1", function() {
+			const options = {
+				public: "test.host:80"
+			};
+			const headers = {
+				host: "127.0.0.1"
+			};
+			const server = new Server(compiler, options);
+			if(!server.checkHost(headers)) {
+				throw new Error("Validation didn't fail");
+			}
+		});
+
+		it("should not allow hostnames that don't match options.public", function() {
+			const options = {
+				public: "test.host:80",
+			};
+			const headers = {
+				host: "test.hostname:80"
+			};
+			const server = new Server(compiler, options);
+			if(server.checkHost(headers)) {
+				throw new Error("Validation didn't fail");
+			}
+		});
+	})
 });
