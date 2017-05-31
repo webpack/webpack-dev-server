@@ -18,6 +18,7 @@ describe("ContentBase", function() {
 		before(function(done) {
 			server = helper.start(config, {
 				contentBase: contentBasePublic,
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -37,6 +38,7 @@ describe("ContentBase", function() {
 		before(function(done) {
 			server = helper.start(config, {
 				contentBase: [contentBasePublic, contentBaseOther],
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -56,6 +58,7 @@ describe("ContentBase", function() {
 		before(function(done) {
 			server = helper.start(config, {
 				contentBase: 9099999,
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -71,6 +74,7 @@ describe("ContentBase", function() {
 		before(function(done) {
 			server = helper.start(config, {
 				contentBase: "http://example.com/",
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});
@@ -111,7 +115,8 @@ describe("ContentBase", function() {
 			this.sinon.stub(process, "cwd");
 			process.cwd.returns(contentBasePublic);
 			server = helper.start(config, {
-				contentBase: false
+				contentBase: false,
+				disableHostCheck: false,
 			}, done);
 			req = request(server.app);
 		});

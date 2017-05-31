@@ -15,7 +15,8 @@ describe("Routes", function() {
 
 	before(function(done) {
 		server = helper.start(config, {
-			headers: { "X-Foo": "1" }
+			headers: { "X-Foo": "1" },
+			disableHostCheck: false,
 		}, done);
 		req = request(server.app);
 	});
