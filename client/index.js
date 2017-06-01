@@ -74,6 +74,7 @@ var onSocketMsg = {
 	},
 	"log-level": function(level) {
 		logLevel = level;
+		require("webpack/hot/log").setLogLevel(logLevel);
 	},
 	"overlay": function(overlay) {
 		if(typeof document !== "undefined") {
