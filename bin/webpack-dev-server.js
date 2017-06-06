@@ -212,9 +212,8 @@ function processOptions(wpOpt) {
 
 	const options = wpOpt.devServer || firstWpOpt.devServer || {};
 
-	if (argv.bonjour) {
+	if(argv.bonjour)
 		options.bonjour = true;
-	}
 
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
@@ -411,9 +410,7 @@ function startDevServer(wpOpt, options) {
 		console.log("shits");
 		server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
-			if (options.bonjour) {
-				broadcastZeroconf(options);
-			}
+			if(options.bonjour) broadcastZeroconf(options);
 			reportReadiness(uri, options);
 		});
 	}
@@ -438,19 +435,18 @@ function reportReadiness(uri, options) {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}
-	if (options.bonjour) {
-		console.log(`Broadcasting "http" with subtype of "webpack" via ZeroConf DNS (Bonjour)`)
-	}
+	if(options.bonjour)
+		console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
 }
 
 function broadcastZeroconf(options) {
-	var service = bonjour.publish({
+	bonjour.publish({
 		name: "Webpack Dev Server",
 		port: options.port,
 		type: "http",
 		subtypes: ["webpack"]
 	});
-	process.on('exit', function() {
+	process.on("exit", function() {
 		bonjour.unpublishAll(function() {
 			bonjour.destroy();
 		});
