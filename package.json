@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ansi-html": "0.0.7",
+    "bonjour": "^3.5.0",
     "chokidar": "^1.6.0",
     "compression": "^1.5.2",
     "connect-history-api-fallback": "^1.3.0",
