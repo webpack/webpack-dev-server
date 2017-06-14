@@ -409,7 +409,6 @@ function startDevServer(wpOpt, options) {
 			});
 		});
 	} else {
-		console.log("shits");
 		server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
 			if(options.bonjour) broadcastZeroconf(options);
