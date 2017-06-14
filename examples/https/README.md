@@ -1,16 +1,36 @@
 # https
 
+By default webpack-dev-server will generate a self-signed, 2048 bit, sha256 SSL
+Certificate, which is used to enable https. The certificate will be located in the
+`ssl` directory afte the server is started for the first time. The generated
+certificate is only good for 30 days, at which point it'll be regenerated.
+
+We highly recommend creating and managing your own certificates. Please see the
+following resources for doing so:
+
+* (MacOS) https://certsimple.com/blog/localhost-ssl-fix
+* (Windows) https://technet.microsoft.com/itpro/powershell/windows/pkiclient/new-selfsignedcertificate
+
+## Getting Started
+
 ```shell
 node ../../bin/webpack-dev-server.js --open --https
 ```
 
-A fake certificate is used to enable https.
+## Using Your Certificate
 
-You can provide the following SSL options to override the fake certificate:
+Options are available for using your own SSL Certificate in your preferred or
+OS-required format.
 
-* Certificate options e.g. `node ../../bin/webpack-dev-server.js --open --https --cert=../../ssl/server.pem --key=../../ssl/server.pem`
-* PFX and Passphrase e.g. `node ../../bin/webpack-dev-server.js --open --https --pfx=./test_cert.pfx --pfx-passphrase=sample`
+Given the base command `node ../../bin/webpack-dev-server.js --open --https`, append
+one of the following:
 
-## What should happen
+* (PEM Files)  `--cert=../../ssl/server.pem --key=../../ssl/server.pem`
+* (PFX and Passphrase) `--pfx=./test_cert.pfx --pfx-passphrase=sample`
 
-The script should open `https://localhost:8080/`. Your browser will probably give you a warning about using an invalid certificate. After ignoring this warning, you should see "It's working."
+## What To Expect
+
+The script should open `https://localhost:8080/`in your default browser. If your
+browser displays a warning about a non-trusted certificate, follow the procedure
+for your browser of choice to continue. After doing so you should see "It's Working"
+displayed on the page.

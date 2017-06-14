@@ -3,3 +3,4 @@ node_modules
 /client/index.bundle.js
 /client/sockjs.bundle.js
 /coverage
+*.pem
