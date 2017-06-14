@@ -21,6 +21,13 @@
       "description": "The host the server listens to.",
       "type": "string"
     },
+    "allowedHosts": {
+      "description": "Specifies which hosts are allowed to access the dev server.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
     "filename": {
       "description": "The filename that needs to be requested in order to trigger a recompile (only in lazy mode).",
       "anyOf": [
