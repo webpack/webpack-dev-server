@@ -39,7 +39,7 @@ function colorError(useColor, msg) {
 	return msg;
 }
 
-const defaultTo = (v, def) => v == null ? def : v;
+const defaultTo = (value, def) => value == null ? def : value;
 
 const yargs = require("yargs")
 	.usage(`${versionInfo()
