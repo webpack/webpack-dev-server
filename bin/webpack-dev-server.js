@@ -93,7 +93,8 @@ yargs.options({
 	},
 	"open-page": {
 		type: "string",
-		describe: "Open default browser with the specified page"
+		describe: "Open default browser with the specified page",
+		requiresArg: true,
 	},
 	"color": {
 		type: "boolean",
@@ -316,14 +317,9 @@ function processOptions(wpOpt) {
 	if(argv["compress"])
 		options.compress = true;
 
-	if(argv["open"]) {
+	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
-		options.openPage = "";
-	}
-
-	if(argv["open-page"] || argv["open-page"] === "") {
-		options.open = true;
-		options.openPage = argv["open-page"];
+		options.openPage = argv["open-page"] || "";
 	}
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
