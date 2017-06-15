@@ -195,7 +195,7 @@
       "description": "Let the CLI open your browser with the URL.",
       "type": "boolean"
     },
-    "lan": {
+    "useLocalIp": {
       "description": "Let the browser open with your local IP.",
       "type": "boolean"
     },
