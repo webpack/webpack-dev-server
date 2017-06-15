@@ -86,6 +86,10 @@ yargs.options({
 		describe: "close when stdin ends"
 	},
 	"open": {
+		type: "boolean",
+		describe: "Open default browser"
+	},
+	"open-page": {
 		type: "string",
 		describe: "Open default browser with the specified page"
 	},
@@ -310,8 +314,15 @@ function processOptions(wpOpt) {
 	if(argv["compress"])
 		options.compress = true;
 
-	if(argv["open"] || argv["open"] === "")
-		options.open = argv["open"];
+	if(argv["open"]) {
+		options.open = true;
+		options.openPage = "";
+	}
+
+	if(argv["open-page"] || argv["open-page"] === "") {
+		options.open = true;
+		options.openPage = argv["open-page"];
+	}
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
 	// that wouldn't throw errors. E.g. both argv.port and options.port
@@ -420,8 +431,8 @@ function reportReadiness(uri, options) {
 		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
-	if(options.open || options.open === "") {
-		open(uri + options.open).catch(function() {
+	if(options.open) {
+		open(uri + options.openPage).catch(function() {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}

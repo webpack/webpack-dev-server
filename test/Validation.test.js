@@ -42,7 +42,7 @@ describe("Validation", function() {
 			" - configuration has an unknown property 'asdf'. These properties are valid:",
 			"   object { hot?, hotOnly?, lazy?, host?, filename?, publicPath?, port?, socket?, " +
 			"watchOptions?, headers?, clientLogLevel?, overlay?, key?, cert?, ca?, pfx?, pfxPassphrase?, " +
-			"inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, features?, " +
+			"inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, openPage?, features?, " +
 			"compress?, proxy?, historyApiFallback?, staticOptions?, setup?, stats?, reporter?, " +
 			"noInfo?, quiet?, serverSideRender?, index?, log?, warn? }"
 		]
