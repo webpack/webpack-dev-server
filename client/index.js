@@ -1,4 +1,4 @@
-/* global __resourceQuery */
+/* global __resourceQuery WorkerGlobalScope */
 var url = require("url");
 var stripAnsi = require("strip-ansi");
 var socket = require("./socket");
@@ -47,7 +47,11 @@ function log(level, msg) {
 
 // Send messages to the outside, so plugins can consume it.
 function sendMsg(type, data) {
-	if(typeof self !== "undefined" && self.window) {
+	if(
+		typeof self !== "undefined" &&
+		(typeof WorkerGlobalScope === "undefined" ||
+		!(self instanceof WorkerGlobalScope))
+	) {
 		self.postMessage({
 			type: "webpack" + type,
 			data: data
