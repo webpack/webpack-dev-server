@@ -107,7 +107,7 @@ var onSocketMsg = {
 		});
 		sendMsg("Warnings", strippedWarnings);
 		for(var i = 0; i < strippedWarnings.length; i++)
-			console.warn(strippedWarnings[i]);
+			log("warning", strippedWarnings[i]);
 		if(useWarningOverlay) overlay.showMessage(warnings);
 
 		if(initial) return initial = false;
@@ -120,7 +120,7 @@ var onSocketMsg = {
 		});
 		sendMsg("Errors", strippedErrors);
 		for(var i = 0; i < strippedErrors.length; i++)
-			console.error(strippedErrors[i]);
+			log("error", strippedErrors[i]);
 		if(useErrorOverlay) overlay.showMessage(errors);
 	},
 	error: function(error) {
