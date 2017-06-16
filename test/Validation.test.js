@@ -105,11 +105,22 @@ describe("Validation", function() {
 			}
 		});
 
+		it("should allow any a hostname matching public", function() {
+			const options = {
+				public: "test.host:80"
+			};
+			const hostname = "test.host";
+			const server = new Server(compiler, options);
+			if(!server.checkHost(hostname)) {
+				throw new Error("Validation shouldn't fail");
+			}
+		});
+
 		it("should not allow hostnames that don't match options.public", function() {
 			const options = {
 				public: "test.host:80",
 			};
-			const hostname = "test.hostname:80";
+			const hostname = "test.hostname";
 			const server = new Server(compiler, options);
 			if(server.checkHost(hostname)) {
 				throw new Error("Validation didn't fail");
@@ -135,7 +146,7 @@ describe("Validation", function() {
 			it("should allow hosts that pass a wildcard in allowedHosts", function() {
 				const options = { allowedHosts: [".example.com"] };
 				const server = new Server(compiler, options);
-				const testHostNames = [
+				const testHostnames = [
 					"www.example.com",
 					"subdomain.example.com",
 					"example.com",
@@ -144,7 +155,7 @@ describe("Validation", function() {
 					"subdomain.example.com"
 				];
 
-				testHostNames.forEach(function(testHostName) {
+				testHostnames.forEach(function(testHostName) {
 					if(!server.checkHost(testHostName)) {
 						throw new Error("Validation didn't fail");
 					}
