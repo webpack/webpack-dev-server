@@ -105,7 +105,7 @@ describe("Validation", function() {
 			}
 		});
 
-		it("should allow any a hostname matching public", function() {
+		it("should allow a hostname matching public", function() {
 			const options = {
 				public: "test.host:80"
 			};
