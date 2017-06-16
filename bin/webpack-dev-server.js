@@ -8,6 +8,7 @@ const net = require("net");
 const portfinder = require("portfinder");
 const addDevServerEntrypoints = require("../lib/util/addDevServerEntrypoints");
 const createDomain = require("../lib/util/createDomain");
+const bonjour = require("bonjour")();
 
 // Local version replaces global one
 try {
@@ -64,6 +65,10 @@ const BASIC_GROUP = "Basic options:";
 const DEFAULT_PORT = 8080;
 
 yargs.options({
+	"bonjour": {
+		type: "boolean",
+		describe: "Broadcasts the server via ZeroConf networking on start"
+	},
 	"lazy": {
 		type: "boolean",
 		describe: "Lazy"
@@ -213,6 +218,9 @@ function processOptions(wpOpt) {
 	const firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
 	const options = wpOpt.devServer || firstWpOpt.devServer || {};
+
+	if(argv.bonjour)
+		options.bonjour = true;
 
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
@@ -410,6 +418,7 @@ function startDevServer(wpOpt, options) {
 	} else {
 		server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
+			if(options.bonjour) broadcastZeroconf(options);
 			reportReadiness(uri, options);
 		});
 	}
@@ -434,6 +443,22 @@ function reportReadiness(uri, options) {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}
+	if(options.bonjour)
+		console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
+}
+
+function broadcastZeroconf(options) {
+	bonjour.publish({
+		name: "Webpack Dev Server",
+		port: options.port,
+		type: "http",
+		subtypes: ["webpack"]
+	});
+	process.on("exit", function() {
+		bonjour.unpublishAll(function() {
+			bonjour.destroy();
+		});
+	});
 }
 
 processOptions(wpOpt);
