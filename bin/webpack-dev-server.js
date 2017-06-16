@@ -91,6 +91,11 @@ yargs.options({
 		type: "boolean",
 		describe: "Open default browser"
 	},
+	"open-page": {
+		type: "string",
+		describe: "Open default browser with the specified page",
+		requiresArg: true,
+	},
 	"color": {
 		type: "boolean",
 		alias: "colors",
@@ -312,8 +317,10 @@ function processOptions(wpOpt) {
 	if(argv["compress"])
 		options.compress = true;
 
-	if(argv["open"])
+	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
+		options.openPage = argv["open-page"] || "";
+	}
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
 	// that wouldn't throw errors. E.g. both argv.port and options.port
@@ -423,7 +430,7 @@ function reportReadiness(uri, options) {
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
 	if(options.open) {
-		open(uri).catch(function() {
+		open(uri + options.openPage).catch(function() {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}

@@ -192,8 +192,12 @@
       "type": "boolean"
     },
     "open": {
-      "description": "Let the CLI open your browser with the URL.",
+      "description": "Let the CLI open your browser.",
       "type": "boolean"
+    },
+    "openPage": {
+      "description": "Let the CLI open your browser to a specific page on the site.",
+      "type": "string"
     },
     "features": {
       "description": "The order of which the features will be triggered.",
