@@ -6,6 +6,6 @@ module.exports = {
 		path: "/"
 	},
 	devServer: {
-		publicPath: ["public-1", "public-2"]
+		publicPath: ["/public-1/", "/public-2/"]
 	}
 };
