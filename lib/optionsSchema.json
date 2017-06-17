@@ -41,7 +41,17 @@
     },
     "publicPath": {
       "description": "URL path where the webpack files are served from.",
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      ]
     },
     "port": {
       "description": "The port the server listens to.",

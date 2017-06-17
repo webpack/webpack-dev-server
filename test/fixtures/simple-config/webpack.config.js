@@ -4,5 +4,8 @@ module.exports = {
 	output: {
 		filename: "bundle.js",
 		path: "/"
+	},
+	devServer: {
+		publicPath: ["public-1", "public-2"]
 	}
 };

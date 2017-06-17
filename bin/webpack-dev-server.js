@@ -432,7 +432,16 @@ function reportReadiness(uri, options) {
 	}
 	console.log((argv["progress"] ? "\n" : "") + startSentence);
 
-	console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
+	let publicPaths;
+	if(Array.isArray(options.publicPath)) {
+		publicPaths = options.publicPath;
+	} else {
+		publicPaths = [options.publicPath];
+	}
+	publicPaths.forEach(function(publicPath) {
+		console.log(`webpack output is served from ${colorInfo(useColor, publicPath)}`);
+	});
+
 	const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
 	if(contentBase)
 		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
