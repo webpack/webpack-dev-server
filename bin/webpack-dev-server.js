@@ -99,7 +99,7 @@ yargs.options({
 	"useLocalIp": {
 		type: "boolean",
 		describe: "Open default browser with local IP"
-  },
+	},
 	"open-page": {
 		type: "string",
 		describe: "Open default browser with the specified page",
