@@ -13,6 +13,10 @@
       "description": "Disables watch mode and recompiles bundle only on a request.",
       "type": "boolean"
     },
+    "bonjour": {
+      "description": "Publishes the ZeroConf DNS service",
+      "type": "boolean"
+    },
     "host": {
       "description": "The host the server listens to.",
       "type": "string"
@@ -192,12 +196,16 @@
       "type": "boolean"
     },
     "open": {
-      "description": "Let the CLI open your browser with the URL.",
+      "description": "Let the CLI open your browser.",
       "type": "boolean"
     },
     "useLocalIp": {
       "description": "Let the browser open with your local IP.",
       "type": "boolean"
+    },
+    "openPage": {
+      "description": "Let the CLI open your browser to a specific page on the site.",
+      "type": "string"
     },
     "features": {
       "description": "The order of which the features will be triggered.",

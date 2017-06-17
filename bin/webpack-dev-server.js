@@ -8,6 +8,7 @@ const net = require("net");
 const portfinder = require("portfinder");
 const addDevServerEntrypoints = require("../lib/util/addDevServerEntrypoints");
 const createDomain = require("../lib/util/createDomain");
+const bonjour = require("bonjour")();
 
 // Local version replaces global one
 try {
@@ -64,6 +65,10 @@ const BASIC_GROUP = "Basic options:";
 const DEFAULT_PORT = 8080;
 
 yargs.options({
+	"bonjour": {
+		type: "boolean",
+		describe: "Broadcasts the server via ZeroConf networking on start"
+	},
 	"lazy": {
 		type: "boolean",
 		describe: "Lazy"
@@ -94,6 +99,11 @@ yargs.options({
 	"useLocalIp": {
 		type: "boolean",
 		describe: "Open default browser with local IP"
+  },
+	"open-page": {
+		type: "string",
+		describe: "Open default browser with the specified page",
+		requiresArg: true,
 	},
 	"color": {
 		type: "boolean",
@@ -213,6 +223,9 @@ function processOptions(wpOpt) {
 
 	const options = wpOpt.devServer || firstWpOpt.devServer || {};
 
+	if(argv.bonjour)
+		options.bonjour = true;
+
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
 
@@ -316,8 +329,10 @@ function processOptions(wpOpt) {
 	if(argv["compress"])
 		options.compress = true;
 
-	if(argv["open"])
+	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
+		options.openPage = argv["open-page"] || "";
+	}
 
 	if(argv["useLocalIp"])
 		options.useLocalIp = true;
@@ -410,6 +425,7 @@ function startDevServer(wpOpt, options) {
 	} else {
 		server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
+			if(options.bonjour) broadcastZeroconf(options);
 			reportReadiness(uri, options);
 		});
 	}
@@ -430,10 +446,26 @@ function reportReadiness(uri, options) {
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
 	if(options.open) {
-		open(uri).catch(function() {
+		open(uri + options.openPage).catch(function() {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}
+	if(options.bonjour)
+		console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
+}
+
+function broadcastZeroconf(options) {
+	bonjour.publish({
+		name: "Webpack Dev Server",
+		port: options.port,
+		type: "http",
+		subtypes: ["webpack"]
+	});
+	process.on("exit", function() {
+		bonjour.unpublishAll(function() {
+			bonjour.destroy();
+		});
+	});
 }
 
 processOptions(wpOpt);
