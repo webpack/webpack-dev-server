@@ -96,6 +96,10 @@ yargs.options({
 		type: "boolean",
 		describe: "Open default browser"
 	},
+	"useLocalIp": {
+		type: "boolean",
+		describe: "Open default browser with local IP"
+	},
 	"open-page": {
 		type: "string",
 		describe: "Open default browser with the specified page",
@@ -329,6 +333,9 @@ function processOptions(wpOpt) {
 		options.open = true;
 		options.openPage = argv["open-page"] || "";
 	}
+
+	if(argv["useLocalIp"])
+		options.useLocalIp = true;
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
 	// that wouldn't throw errors. E.g. both argv.port and options.port
