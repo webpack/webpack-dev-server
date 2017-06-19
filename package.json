@@ -4,7 +4,7 @@
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
-    "webpack": "^2.2.0"
+    "webpack": "^2.0.0 || ^3.0.0"
   },
   "dependencies": {
     "ansi-html": "0.0.7",
