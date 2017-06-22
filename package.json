@@ -4,7 +4,7 @@
   "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "peerDependencies": {
-    "webpack": "^2.2.0"
+    "webpack": "^3.0.0"
   },
   "dependencies": {
     "ansi-html": "0.0.7",
@@ -47,7 +47,7 @@
     "style-loader": "~0.13.0",
     "supertest": "^2.0.1",
     "url-loader": "~0.5.6",
-    "webpack": "^2.2.0",
+    "webpack": "^3.0.0",
     "ws": "^1.1.1"
   },
   "license": "MIT",
