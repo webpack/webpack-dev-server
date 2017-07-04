@@ -433,13 +433,15 @@ function startDevServer(wpOpt, options) {
 
 function reportReadiness(uri, options) {
 	const useColor = argv.color;
-	let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
-	if(options.socket) {
+	if ( ! options.noInfo) {
+	  let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
+	  if(options.socket) {
 		startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
-	}
-	console.log((argv["progress"] ? "\n" : "") + startSentence);
+	  }
+	  console.log((argv["progress"] ? "\n" : "") + startSentence);
 
-	console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
+	  console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
+	}
 	const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
 	if(contentBase)
 		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
