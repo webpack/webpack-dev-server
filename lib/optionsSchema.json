@@ -308,5 +308,13 @@
       "instanceof": "Function"
     }
   },
+  "status": {
+      "description": "Shows a compilation status in browser.",
+      "anyOf": [
+        {
+          "type": "boolean"
+        }
+      ]
+    },
   "type": "object"
 }

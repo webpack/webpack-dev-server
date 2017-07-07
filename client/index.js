@@ -3,6 +3,7 @@ var url = require("url");
 var stripAnsi = require("strip-ansi");
 var socket = require("./socket");
 var overlay = require("./overlay");
+var status = require("./status");
 
 function getCurrentScriptSource() {
 	// `document.currentScript` is the most accurate way to find the current script,
@@ -35,6 +36,7 @@ var currentHash = "";
 var logLevel = "info";
 var useWarningOverlay = false;
 var useErrorOverlay = false;
+var useStatus = false;
 
 function log(level, msg) {
 	if(logLevel === "info" && level === "info")
@@ -50,7 +52,7 @@ function sendMsg(type, data) {
 	if(
 		typeof self !== "undefined" &&
 		(typeof WorkerGlobalScope === "undefined" ||
-		!(self instanceof WorkerGlobalScope))
+			!(self instanceof WorkerGlobalScope))
 	) {
 		self.postMessage({
 			type: "webpack" + type,
@@ -65,14 +67,21 @@ var onSocketMsg = {
 		log("info", "[WDS] Hot Module Replacement enabled.");
 	},
 	invalid: function() {
-		log("info", "[WDS] App updated. Recompiling...");
+		var text = "[WDS] App updated. Recompiling...";
+		log("info", text);
+		status.showStatus(text);
 		sendMsg("Invalid");
 	},
 	hash: function(hash) {
 		currentHash = hash;
 	},
 	"still-ok": function() {
-		log("info", "[WDS] Nothing changed.")
+		var text = "[WDS] Nothing changed.";
+		log("info", text);
+		status.showStatus(text);
+		setTimeout(function() {
+			status.clear()
+		}, 500);
 		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		sendMsg("StillOk");
 	},
@@ -81,7 +90,7 @@ var onSocketMsg = {
 	},
 	"overlay": function(overlay) {
 		if(typeof document !== "undefined") {
-			if(typeof(overlay) === "boolean") {
+			if(typeof (overlay) === "boolean") {
 				useWarningOverlay = overlay;
 				useErrorOverlay = overlay;
 			} else if(overlay) {
@@ -90,15 +99,23 @@ var onSocketMsg = {
 			}
 		}
 	},
+	status: function(status) {
+		if(typeof document !== "undefined") {
+			useStatus = status;
+		}
+	},
 	ok: function() {
 		sendMsg("Ok");
 		if(useWarningOverlay || useErrorOverlay) overlay.clear();
+		if(useStatus) status.clear();
 		if(initial) return initial = false;
 		reloadApp();
 	},
 	"content-changed": function() {
-		log("info", "[WDS] Content base changed. Reloading...")
-		self.location.reload();
+		var text = "[WDS] Content base changed. Reloading...";
+		log("info", text);
+		status.showStatus(text);
+		setTimeout(self.location.reload(), 500);
 	},
 	warnings: function(warnings) {
 		log("info", "[WDS] Warnings while compiling.");

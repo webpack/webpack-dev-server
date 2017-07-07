@@ -1,24 +1,11 @@
+//the code was copied from overlay.js and modified for status display
 var ansiHTML = require("ansi-html");
 var Entities = require("html-entities").AllHtmlEntities;
 var entities = new Entities();
 
-var colors = {
-	reset: ["transparent", "transparent"],
-	black: "181818",
-	red: "E36049",
-	green: "B3CB74",
-	yellow: "FFD080",
-	blue: "7CAFC2",
-	magenta: "7FACCA",
-	cyan: "C3C2EF",
-	lightgrey: "EBE7E3",
-	darkgrey: "6D7891"
-};
-ansiHTML.setColors(colors);
-
-function createOverlayIframe(onIframeLoad) {
+function createStatusIframe(onIframeLoad) {
 	var iframe = document.createElement("iframe");
-	iframe.id = "webpack-dev-server-client-overlay";
+	iframe.id = "webpack-dev-server-client-status";
 	iframe.src = "about:blank";
 	iframe.style.position = "fixed";
 	iframe.style.left = 0;
@@ -33,19 +20,19 @@ function createOverlayIframe(onIframeLoad) {
 	return iframe;
 }
 
-function addOverlayDivTo(iframe) {
+function addStatusDivTo(iframe) {
 	var div = iframe.contentDocument.createElement("div");
-	div.id = "webpack-dev-server-client-overlay-div";
+	div.id = "webpack-dev-server-client-status-div";
 	div.style.position = "fixed";
 	div.style.boxSizing = "border-box";
-	div.style.left = 0;
-	div.style.top = 0;
-	div.style.right = 0;
-	div.style.bottom = 0;
-	div.style.width = "100vw";
-	div.style.height = "100vh";
-	div.style.backgroundColor = "black";
-	div.style.color = "#E8E8E8";
+	div.style.left = "33%";
+	div.style.top = "33%";
+	div.style.right = "33%";
+	div.style.bottom = "33%";
+	div.style.backgroundColor = "white";
+	div.style.color = "black";
+	div.style.border = "1px solid black";
+	div.style.borderRadius = "10px";
 	div.style.fontFamily = "Menlo, Consolas, monospace";
 	div.style.fontSize = "large";
 	div.style.padding = "2rem";
@@ -56,69 +43,64 @@ function addOverlayDivTo(iframe) {
 	return div;
 }
 
-var overlayIframe = null;
-var overlayDiv = null;
-var lastOnOverlayDivReady = null;
+var statusIframe = null;
+var statusDiv = null;
+var lastOnStatusDivReady = null;
 
-function ensureOverlayDivExists(onOverlayDivReady) {
-	if(overlayDiv) {
-	// Everything is ready, call the callback right away.
-		onOverlayDivReady(overlayDiv);
+function ensureStatusDivExists(onStatusDivReady) {
+	if (statusDiv) {
+		// Everything is ready, call the callback right away.
+		onStatusDivReady(statusDiv);
 		return;
 	}
 
 	// Creating an iframe may be asynchronous so we'll schedule the callback.
 	// In case of multiple calls, last callback wins.
-	lastOnOverlayDivReady = onOverlayDivReady;
+	lastOnStatusDivReady = onStatusDivReady;
 
-	if(overlayIframe) {
+	if (statusIframe) {
 		// We're already creating it.
 		return;
 	}
 
 	// Create iframe and, when it is ready, a div inside it.
-	overlayIframe = createOverlayIframe(function onIframeLoad() {
-		overlayDiv = addOverlayDivTo(overlayIframe);
+	statusIframe = createStatusIframe(function onIframeLoad() {
+		statusDiv = addStatusDivTo(statusIframe);
 		// Now we can talk!
-		lastOnOverlayDivReady(overlayDiv);
+		lastOnStatusDivReady(statusDiv);
 	});
 
 	// Zalgo alert: onIframeLoad() will be called either synchronously
 	// or asynchronously depending on the browser.
-	// We delay adding it so `overlayIframe` is set when `onIframeLoad` fires.
-	document.body.appendChild(overlayIframe);
+	// We delay adding it so `statusIframe` is set when `onIframeLoad` fires.
+	document.body.appendChild(statusIframe);
 }
 
-function showMessageOverlay(message) {
-	ensureOverlayDivExists(function onOverlayDivReady(overlayDiv) {
-		// Make it look similar to our terminal.
-		overlayDiv.innerHTML =
-			"<span style=\"color: #" +
-			colors.red +
-			"\">Failed to compile.</span><br><br>" +
-			ansiHTML(entities.encode(message));
+function showStatus(status) {
+	ensureStatusDivExists(function onStatusDivReady(statusDiv) {
+		statusDiv.innerHTML = "Status: " + ansiHTML(entities.encode(status));
 	});
 }
 
-function destroyErrorOverlay() {
-	if(!overlayDiv) {
+function destroyStatus() {
+	if (!statusDiv) {
 		// It is not there in the first place.
 		return;
 	}
 
 	// Clean up and reset internal state.
-	document.body.removeChild(overlayIframe);
-	overlayDiv = null;
-	overlayIframe = null;
-	lastOnOverlayDivReady = null;
+	document.body.removeChild(statusIframe);
+	statusDiv = null;
+	statusIframe = null;
+	lastOnStatusDivReady = null;
 }
 
 // Successful compilation.
 exports.clear = function handleSuccess() {
-	destroyErrorOverlay();
+	destroyStatus();
 }
 
 // Compilation with errors (e.g. syntax error or missing modules).
-exports.showMessage = function handleMessage(messages) {
-	showMessageOverlay(messages[0]);
+exports.showStatus = function handleStatus(status) {
+	showStatus(status);
 }
