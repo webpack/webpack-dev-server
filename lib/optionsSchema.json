@@ -309,7 +309,7 @@
     }
   },
   "status": {
-      "description": "Shows a compilation status in browser.",
+      "description": "Shows compilation status in browser.",
       "anyOf": [
         {
           "type": "boolean"
