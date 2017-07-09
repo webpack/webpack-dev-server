@@ -185,6 +185,11 @@ yargs.options({
 		describe: "The port",
 		group: CONNECTION_GROUP
 	},
+	"disable-host-check": {
+		type: "boolean",
+		describe: "Will not check the host",
+		group: CONNECTION_GROUP
+	},
 	"socket": {
 		type: "String",
 		describe: "Socket to listen",
@@ -328,6 +333,9 @@ function processOptions(wpOpt) {
 
 	if(argv["compress"])
 		options.compress = true;
+
+	if(argv["disable-host-check"])
+		options.disableHostCheck = true;
 
 	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
