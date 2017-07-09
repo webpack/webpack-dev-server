@@ -3,6 +3,8 @@ var ansiHTML = require("ansi-html");
 var Entities = require("html-entities").AllHtmlEntities;
 var entities = new Entities();
 
+var title = "";
+
 function createStatusIframe(onIframeLoad) {
 	var iframe = document.createElement("iframe");
 	iframe.id = "webpack-dev-server-client-status";
@@ -77,6 +79,8 @@ function ensureStatusDivExists(onStatusDivReady) {
 }
 
 function showStatus(status) {
+	if(!statusDiv) title = document.title;
+	document.title = status;
 	ensureStatusDivExists(function onStatusDivReady(statusDiv) {
 		statusDiv.innerHTML = "Status: " + ansiHTML(entities.encode(status));
 	});
@@ -89,6 +93,7 @@ function destroyStatus() {
 	}
 
 	// Clean up and reset internal state.
+	document.title = title;
 	document.body.removeChild(statusIframe);
 	statusDiv = null;
 	statusIframe = null;
