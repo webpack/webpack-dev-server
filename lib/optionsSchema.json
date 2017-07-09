@@ -97,6 +97,14 @@
         }
       ]
     },
+    "status": {
+      "description": "Shows compilation status in browser.",
+      "anyOf": [
+        {
+          "type": "boolean"
+        }
+      ]
+    },
     "key": {
       "description": "The contents of a SSL key.",
       "anyOf": [
@@ -308,13 +316,5 @@
       "instanceof": "Function"
     }
   },
-  "status": {
-      "description": "Shows compilation status in browser.",
-      "anyOf": [
-        {
-          "type": "boolean"
-        }
-      ]
-    },
   "type": "object"
 }
