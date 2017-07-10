@@ -38,6 +38,7 @@
     "jquery": "^2.2.0",
     "less": "^2.5.1",
     "less-loader": "~2.2.0",
+    "loglevel": "^1.4.1",
     "mocha": "^3.0.2",
     "mocha-sinon": "^1.1.6",
     "pug": "^2.0.0-beta5",
