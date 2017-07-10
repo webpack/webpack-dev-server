@@ -64,6 +64,10 @@ const BASIC_GROUP = "Basic options:";
 const DEFAULT_PORT = 8080;
 
 yargs.options({
+	"bonjour": {
+		type: "boolean",
+		describe: "Broadcasts the server via ZeroConf networking on start"
+	},
 	"lazy": {
 		type: "boolean",
 		describe: "Lazy"
@@ -90,6 +94,10 @@ yargs.options({
 	"open": {
 		type: "boolean",
 		describe: "Open default browser"
+	},
+	"useLocalIp": {
+		type: "boolean",
+		describe: "Open default browser with local IP"
 	},
 	"open-page": {
 		type: "string",
@@ -214,6 +222,9 @@ function processOptions(wpOpt) {
 
 	const options = wpOpt.devServer || firstWpOpt.devServer || {};
 
+	if(argv.bonjour)
+		options.bonjour = true;
+
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
 
@@ -322,6 +333,9 @@ function processOptions(wpOpt) {
 		options.openPage = argv["open-page"] || "";
 	}
 
+	if(argv["useLocalIp"])
+		options.useLocalIp = true;
+
 	// Kind of weird, but ensures prior behavior isn't broken in cases
 	// that wouldn't throw errors. E.g. both argv.port and options.port
 	// were specified, but since argv.port is 8080, options.port will be
@@ -410,6 +424,7 @@ function startDevServer(wpOpt, options) {
 	} else {
 		server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
+			if(options.bonjour) broadcastZeroconf(options);
 			reportReadiness(uri, options);
 		});
 	}
@@ -434,6 +449,23 @@ function reportReadiness(uri, options) {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}
+	if(options.bonjour)
+		console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
+}
+
+function broadcastZeroconf(options) {
+	const bonjour = require("bonjour")();
+	bonjour.publish({
+		name: "Webpack Dev Server",
+		port: options.port,
+		type: "http",
+		subtypes: ["webpack"]
+	});
+	process.on("exit", function() {
+		bonjour.unpublishAll(function() {
+			bonjour.destroy();
+		});
+	});
 }
 
 processOptions(wpOpt);
