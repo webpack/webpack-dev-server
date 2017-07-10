@@ -76,6 +76,10 @@ var onSocketMsg = {
 		sendMsg("StillOk");
 	},
 	"log-level": function(level) {
+		var hotCtx = require.context("webpack/hot", false, /^\.\/log$/);
+		if(hotCtx.keys().length > 0) {
+			hotCtx("./log").setLogLevel(level);
+		}
 		switch(level) {
 			case INFO:
 			case ERROR:

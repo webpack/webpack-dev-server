@@ -184,6 +184,11 @@ yargs.options({
 		describe: "The port",
 		group: CONNECTION_GROUP
 	},
+	"disable-host-check": {
+		type: "boolean",
+		describe: "Will not check the host",
+		group: CONNECTION_GROUP
+	},
 	"socket": {
 		type: "String",
 		describe: "Socket to listen",
@@ -328,6 +333,9 @@ function processOptions(wpOpt) {
 	if(argv["compress"])
 		options.compress = true;
 
+	if(argv["disable-host-check"])
+		options.disableHostCheck = true;
+
 	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
 		options.openPage = argv["open-page"] || "";
@@ -432,11 +440,12 @@ function startDevServer(wpOpt, options) {
 
 function reportReadiness(uri, options) {
 	const useColor = argv.color;
-	let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
-	if(options.socket) {
-		startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
-	}
-	console.log((argv["progress"] ? "\n" : "") + startSentence);
+	if(!options.quiet) {
+		let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
+		if(options.socket) {
+			startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
+		}
+		console.log((argv["progress"] ? "\n" : "") + startSentence);
 
 	let publicPaths;
 	if(Array.isArray(options.publicPath)) {
@@ -447,7 +456,7 @@ function reportReadiness(uri, options) {
 	publicPaths.forEach(function(publicPath) {
 		console.log(`webpack output is served from ${colorInfo(useColor, publicPath)}`);
 	});
-
+    
 	const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
 	if(contentBase)
 		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
