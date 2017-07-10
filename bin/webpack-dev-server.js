@@ -433,7 +433,7 @@ function startDevServer(wpOpt, options) {
 
 function reportReadiness(uri, options) {
 	const useColor = argv.color;
-	if(!options.noInfo) {
+	if(!options.quiet) {
 		let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
 		if(options.socket) {
 			startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
