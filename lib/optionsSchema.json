@@ -13,9 +13,20 @@
       "description": "Disables watch mode and recompiles bundle only on a request.",
       "type": "boolean"
     },
+    "bonjour": {
+      "description": "Publishes the ZeroConf DNS service",
+      "type": "boolean"
+    },
     "host": {
       "description": "The host the server listens to.",
       "type": "string"
+    },
+    "allowedHosts": {
+      "description": "Specifies which hosts are allowed to access the dev server.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
     "filename": {
       "description": "The filename that needs to be requested in order to trigger a recompile (only in lazy mode).",
@@ -138,6 +149,10 @@
       "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
       "type": "boolean"
     },
+    "disableHostCheck": {
+      "description": "Disable the Host header check (Security).",
+      "type": "boolean"
+    },
     "public": {
       "description": "The public hostname/ip address of the server.",
       "type": "string"
@@ -181,8 +196,16 @@
       "type": "boolean"
     },
     "open": {
-      "description": "Let the CLI open your browser with the URL.",
+      "description": "Let the CLI open your browser.",
       "type": "boolean"
+    },
+    "useLocalIp": {
+      "description": "Let the browser open with your local IP.",
+      "type": "boolean"
+    },
+    "openPage": {
+      "description": "Let the CLI open your browser to a specific page on the site.",
+      "type": "string"
     },
     "features": {
       "description": "The order of which the features will be triggered.",
