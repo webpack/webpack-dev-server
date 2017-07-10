@@ -199,6 +199,10 @@
       "description": "Let the CLI open your browser.",
       "type": "boolean"
     },
+    "useLocalIp": {
+      "description": "Let the browser open with your local IP.",
+      "type": "boolean"
+    },
     "openPage": {
       "description": "Let the CLI open your browser to a specific page on the site.",
       "type": "string"
