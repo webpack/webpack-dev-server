@@ -2,7 +2,7 @@
 
 By default webpack-dev-server will generate a self-signed, 2048 bit, sha256 SSL
 Certificate, which is used to enable https. The certificate will be located in the
-`ssl` directory afte the server is started for the first time. The generated
+`ssl` directory after the server is started for the first time. The generated
 certificate is only good for 30 days, at which point it'll be regenerated.
 
 We highly recommend creating and managing your own certificates. Please see the
