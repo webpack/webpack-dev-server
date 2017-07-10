@@ -8,7 +8,6 @@ const net = require("net");
 const portfinder = require("portfinder");
 const addDevServerEntrypoints = require("../lib/util/addDevServerEntrypoints");
 const createDomain = require("../lib/util/createDomain");
-const bonjour = require("bonjour")();
 
 // Local version replaces global one
 try {
@@ -185,6 +184,11 @@ yargs.options({
 		describe: "The port",
 		group: CONNECTION_GROUP
 	},
+	"disable-host-check": {
+		type: "boolean",
+		describe: "Will not check the host",
+		group: CONNECTION_GROUP
+	},
 	"socket": {
 		type: "String",
 		describe: "Socket to listen",
@@ -329,6 +333,9 @@ function processOptions(wpOpt) {
 	if(argv["compress"])
 		options.compress = true;
 
+	if(argv["disable-host-check"])
+		options.disableHostCheck = true;
+
 	if(argv["open"] || argv["open-page"]) {
 		if(argv["open"] && argv["open"] !== "") {
       options.open = argv["open"];
@@ -437,13 +444,15 @@ function startDevServer(wpOpt, options) {
 
 function reportReadiness(uri, options) {
 	const useColor = argv.color;
-	let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
-	if(options.socket) {
-		startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
-	}
-	console.log((argv["progress"] ? "\n" : "") + startSentence);
+	if(!options.quiet) {
+		let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
+		if(options.socket) {
+			startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
+		}
+		console.log((argv["progress"] ? "\n" : "") + startSentence);
 
-	console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
+		console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
+	}
 	const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
 	if(contentBase)
 		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
@@ -465,6 +474,7 @@ function reportReadiness(uri, options) {
 }
 
 function broadcastZeroconf(options) {
+	const bonjour = require("bonjour")();
 	bonjour.publish({
 		name: "Webpack Dev Server",
 		port: options.port,
