@@ -8,7 +8,6 @@ const net = require("net");
 const portfinder = require("portfinder");
 const addDevServerEntrypoints = require("../lib/util/addDevServerEntrypoints");
 const createDomain = require("../lib/util/createDomain");
-const bonjour = require("bonjour")();
 
 // Local version replaces global one
 try {
@@ -464,6 +463,7 @@ function reportReadiness(uri, options) {
 }
 
 function broadcastZeroconf(options) {
+	const bonjour = require("bonjour")();
 	bonjour.publish({
 		name: "Webpack Dev Server",
 		port: options.port,
