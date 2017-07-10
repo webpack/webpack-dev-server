@@ -338,7 +338,7 @@ function processOptions(wpOpt) {
 
 	if(argv["open"] || argv["open-page"]) {
 		if(argv["open"] && argv["open"] !== "") {
-      options.open = argv["open"];
+			options.open = argv["open"];
 		} else {
 			options.open = true;
 		}
