@@ -343,7 +343,7 @@ function processOptions(wpOpt) {
 			options.open = true;
 		}
 		options.openPage = argv["open-page"] || "";
-  }
+	}
 
 	if(argv["useLocalIp"])
 		options.useLocalIp = true;
@@ -464,7 +464,7 @@ function reportReadiness(uri, options) {
 				console.log(`Unable to open browser '${options.open}'. If you are running in a headless environment, please do not use the open flag.`);
 			});
 		} else {
-			open(uri + options.openPage).catch(function () {
+			open(uri + options.openPage).catch(function() {
 				console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 			});
 		}
