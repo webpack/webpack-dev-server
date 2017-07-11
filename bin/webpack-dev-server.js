@@ -336,13 +336,13 @@ function processOptions(wpOpt) {
 	if(argv["disable-host-check"])
 		options.disableHostCheck = true;
 
-	if(argv["open"] || argv["open-page"]) {
-		if(argv["open"] && argv["open"] !== "") {
-			options.open = argv["open"];
-		} else {
-			options.open = true;
-		}
-		options.openPage = argv["open-page"] || "";
+	if(argv["open-page"]) {
+		options.open = true;
+		options.openPage = argv["open-page"];
+	}
+
+	if(typeof argv["open"] !== "undefined") {
+		options.open = argv["open"] !== "" ? argv["open"] : true;
 	}
 
 	if(argv["useLocalIp"])
@@ -459,15 +459,17 @@ function reportReadiness(uri, options) {
 	if(options.historyApiFallback)
 		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
 	if(options.open) {
-		if(argv["open"] && argv["open"] !== "") {
-			open(uri + options.openPage, { app: options.open }).catch(function() {
-				console.log(`Unable to open browser '${options.open}'. If you are running in a headless environment, please do not use the open flag.`);
-			});
-		} else {
-			open(uri + options.openPage).catch(function() {
-				console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
-			});
+		let openOptions = {};
+		let openMessage = "Unable to open browser";
+
+		if(typeof options.open === "string") {
+			openOptions = { app: options.open };
+			openMessage += `: ${options.open}`;
 		}
+
+		open(uri + (options.openPage || ""), openOptions).catch(function() {
+			console.log(`${openMessage}. If you are running in a headless environment, please do not use the open flag.`);
+		});
 	}
 	if(options.bonjour)
 		console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
