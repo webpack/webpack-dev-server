@@ -111,6 +111,17 @@ describe("Validation", function() {
 			}
 		});
 
+		it("should allow access for every requests using an IP", function() {
+			const options = {};
+			const headers = {
+				host: "192.168.1.123"
+			};
+			const server = new Server(compiler, options);
+			if(!server.checkHost(headers)) {
+				throw new Error("Validation didn't fail");
+			}
+		});
+
 		it("should not allow hostnames that don't match options.public", function() {
 			const options = {
 				public: "test.host:80",
