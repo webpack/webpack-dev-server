@@ -39,6 +39,8 @@ function colorError(useColor, msg) {
 	return msg;
 }
 
+const defaultTo = (value, def) => value == null ? def : value;
+
 const yargs = require("yargs")
 	.usage(`${versionInfo()
 		}\nUsage: https://webpack.js.org/configuration/dev-server/`);
@@ -62,6 +64,10 @@ const BASIC_GROUP = "Basic options:";
 const DEFAULT_PORT = 8080;
 
 yargs.options({
+	"bonjour": {
+		type: "boolean",
+		describe: "Broadcasts the server via ZeroConf networking on start"
+	},
 	"lazy": {
 		type: "boolean",
 		describe: "Lazy"
@@ -88,6 +94,15 @@ yargs.options({
 	"open": {
 		type: "boolean",
 		describe: "Open default browser"
+	},
+	"useLocalIp": {
+		type: "boolean",
+		describe: "Open default browser with local IP"
+	},
+	"open-page": {
+		type: "string",
+		describe: "Open default browser with the specified page",
+		requiresArg: true,
 	},
 	"color": {
 		type: "boolean",
@@ -169,6 +184,11 @@ yargs.options({
 		describe: "The port",
 		group: CONNECTION_GROUP
 	},
+	"disable-host-check": {
+		type: "boolean",
+		describe: "Will not check the host",
+		group: CONNECTION_GROUP
+	},
 	"socket": {
 		type: "String",
 		describe: "Socket to listen",
@@ -206,6 +226,9 @@ function processOptions(wpOpt) {
 	const firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
 	const options = wpOpt.devServer || firstWpOpt.devServer || {};
+
+	if(argv.bonjour)
+		options.bonjour = true;
 
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
@@ -310,15 +333,26 @@ function processOptions(wpOpt) {
 	if(argv["compress"])
 		options.compress = true;
 
-	if(argv["open"])
+	if(argv["disable-host-check"])
+		options.disableHostCheck = true;
+
+	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
+		options.openPage = argv["open-page"];
+	}
+
+	if(options.open && !options.openPage)
+		options.openPage = "";
+
+	if(argv["useLocalIp"])
+		options.useLocalIp = true;
 
 	// Kind of weird, but ensures prior behavior isn't broken in cases
 	// that wouldn't throw errors. E.g. both argv.port and options.port
 	// were specified, but since argv.port is 8080, options.port will be
 	// tried first instead.
-	options.port = argv.port === DEFAULT_PORT ? (options.port || argv.port) : (argv.port || options.port);
-	if(options.port) {
+	options.port = argv.port === DEFAULT_PORT ? defaultTo(options.port, argv.port) : defaultTo(argv.port, options.port);
+	if(options.port != null) {
 		startDevServer(wpOpt, options);
 		return;
 	}
@@ -401,6 +435,7 @@ function startDevServer(wpOpt, options) {
 	} else {
 		server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
+			if(options.bonjour) broadcastZeroconf(options);
 			reportReadiness(uri, options);
 		});
 	}
@@ -408,23 +443,46 @@ function startDevServer(wpOpt, options) {
 
 function reportReadiness(uri, options) {
 	const useColor = argv.color;
-	let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
-	if(options.socket) {
-		startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
-	}
-	console.log((argv["progress"] ? "\n" : "") + startSentence);
-
-	console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
 	const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
-	if(contentBase)
-		console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
-	if(options.historyApiFallback)
-		console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
+
+	if(!options.quiet) {
+		let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
+		if(options.socket) {
+			startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
+		}
+		console.log((argv["progress"] ? "\n" : "") + startSentence);
+
+		console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
+
+		if(contentBase)
+			console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
+
+		if(options.historyApiFallback)
+			console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
+
+		if(options.bonjour)
+			console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
+	}
 	if(options.open) {
-		open(uri).catch(function() {
+		open(uri + options.openPage).catch(function() {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}
+}
+
+function broadcastZeroconf(options) {
+	const bonjour = require("bonjour")();
+	bonjour.publish({
+		name: "Webpack Dev Server",
+		port: options.port,
+		type: "http",
+		subtypes: ["webpack"]
+	});
+	process.on("exit", function() {
+		bonjour.unpublishAll(function() {
+			bonjour.destroy();
+		});
+	});
 }
 
 processOptions(wpOpt);
