@@ -338,8 +338,11 @@ function processOptions(wpOpt) {
 
 	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
-		options.openPage = argv["open-page"] || "";
+		options.openPage = argv["open-page"];
 	}
+
+	if(options.open && !options.openPage)
+		options.openPage = "";
 
 	if(argv["useLocalIp"])
 		options.useLocalIp = true;
