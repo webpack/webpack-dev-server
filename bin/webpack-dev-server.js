@@ -204,6 +204,11 @@ yargs.options({
 		default: "localhost",
 		describe: "The hostname/ip address the server will bind to",
 		group: CONNECTION_GROUP
+	},
+	"allowed-hosts": {
+		type: "string",
+		describe: "A comma-delimited string of hosts that are allowed to access the dev server",
+		group: CONNECTION_GROUP
 	}
 });
 
@@ -232,6 +237,9 @@ function processOptions(wpOpt) {
 
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
+
+	if(argv["allowed-hosts"])
+		options.allowedHosts = argv["allowed-hosts"].split(",");
 
 	if(argv.public)
 		options.public = argv.public;
