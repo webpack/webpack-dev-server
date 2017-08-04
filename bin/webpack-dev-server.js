@@ -467,14 +467,15 @@ function reportReadiness(uri, options) {
 			console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
 		if(options.historyApiFallback)
 			console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || "/index.html")}`);
+
+		if(options.bonjour)
+			console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
 	}
 	if(options.open) {
 		open(uri + options.openPage).catch(function() {
 			console.log("Unable to open browser. If you are running in a headless environment, please do not use the open flag.");
 		});
 	}
-	if(options.bonjour)
-		console.log("Broadcasting \"http\" with subtype of \"webpack\" via ZeroConf DNS (Bonjour)");
 }
 
 function broadcastZeroconf(options) {
