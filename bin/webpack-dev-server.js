@@ -204,6 +204,11 @@ yargs.options({
 		default: "localhost",
 		describe: "The hostname/ip address the server will bind to",
 		group: CONNECTION_GROUP
+	},
+	"allowed-hosts": {
+		type: "string",
+		describe: "A comma-delimited string of hosts that are allowed to access the dev server",
+		group: CONNECTION_GROUP
 	}
 });
 
@@ -232,6 +237,9 @@ function processOptions(wpOpt) {
 
 	if(argv.host !== "localhost" || !options.host)
 		options.host = argv.host;
+
+	if(argv["allowed-hosts"])
+		options.allowedHosts = argv["allowed-hosts"].split(",");
 
 	if(argv.public)
 		options.public = argv.public;
@@ -338,8 +346,11 @@ function processOptions(wpOpt) {
 
 	if(argv["open"] || argv["open-page"]) {
 		options.open = true;
-		options.openPage = argv["open-page"] || "";
+		options.openPage = argv["open-page"];
 	}
+
+	if(options.open && !options.openPage)
+		options.openPage = "";
 
 	if(argv["useLocalIp"])
 		options.useLocalIp = true;
@@ -440,24 +451,18 @@ function startDevServer(wpOpt, options) {
 
 function reportReadiness(uri, options) {
 	const useColor = argv.color;
+	const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
+	const publicPaths = Array.isArray(options.publicPath) ? options.publicPath : [options.publicPath];
 	if(!options.quiet) {
 		let startSentence = `Project is running at ${colorInfo(useColor, uri)}`
 		if(options.socket) {
 			startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
 		}
 		console.log((argv["progress"] ? "\n" : "") + startSentence);
-
-		let publicPaths;
-		if(Array.isArray(options.publicPath)) {
-			publicPaths = options.publicPath;
-		} else {
-			publicPaths = [options.publicPath];
-		}
 		publicPaths.forEach(function(publicPath) {
 			console.log(`webpack output is served from ${colorInfo(useColor, publicPath)}`);
 		});
 
-		const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(", ") : options.contentBase;
 		if(contentBase)
 			console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`);
 		if(options.historyApiFallback)
