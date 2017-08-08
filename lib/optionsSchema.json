@@ -54,10 +54,6 @@
         }
       ]
     },
-    "sockjsPrefix": {
-      "description": "Optional prefix for the sockjs handler to be mounted to.",
-      "type": "string"
-    },
     "socket": {
       "description": "The Unix socket to listen to (instead of on a host).",
       "type": "string"
