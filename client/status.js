@@ -30,7 +30,8 @@ function addStatusDivTo(iframe) {
     div.style.right = "33.3%";
     div.style.bottom = "37.5%";
     div.style.left = "33.3%";
-    div.style.backgroundColor = "white";
+    //div.style.backgroundColor = "rgba(141, 214, 249, 0.5)"; //this would be the second webpack default color, doesn't look that great thou
+	div.style.backgroundColor = "white";
     div.style.color = "black";
     div.style.border = "1px solid black";
     div.style.borderRadius = "0.25em";
