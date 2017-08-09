@@ -104,6 +104,9 @@ var onSocketMsg = {
 			useStatus = status;
 		}
 	},
+	"status-update": function(data) {
+        if(useStatus) status.updateStatus(data);
+    },
 	ok: function() {
 		var text = "[WDS] App recompiled. Reloading...";
         sendMsg("Ok");
