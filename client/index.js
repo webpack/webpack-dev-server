@@ -105,31 +105,31 @@ var onSocketMsg = {
 		}
 	},
 	"status-update": function(data) {
-        if(useStatus) status.updateStatus(data);
-    },
+		if(useStatus) status.updateStatus(data);
+	},
 	ok: function() {
 		var text = "[WDS] App recompiled. Reloading...";
 		log("info", text);
-        sendMsg("Ok");
-        if(initial) return initial = false;
-        if(useStatus) status.showStatus("Compilation complete. Reloading...");
-        setTimeout(function() {
-            if(useStatus) status.clear();
+		sendMsg("Ok");
+		if(initial) return initial = false;
+		if(useStatus) status.showStatus("Compilation complete. Reloading...");
+		setTimeout(function() {
+			if(useStatus) status.clear();
 			if(useWarningOverlay || useErrorOverlay) overlay.clear();
-            reloadApp();
-        }, 750);
+			reloadApp();
+		}, 750);
 	},
 	"content-changed": function() {
 		var text = "[WDS] Content base changed. Reloading...";
-        log("info", text);
-        if(useStatus) status.showStatus("Content base changed. Reloading...");
-        setTimeout(function() {
-            if(useStatus) status.clear();
-            self.location.reload();
-        }, 750);
+		log("info", text);
+		if(useStatus) status.showStatus("Content base changed. Reloading...");
+		setTimeout(function() {
+			if(useStatus) status.clear();
+			self.location.reload();
+		}, 750);
 	},
 	warnings: function(warnings) {
-		if (useStatus) status.clear();
+		if(useStatus) status.clear();
 		log("info", "[WDS] Warnings while compiling.");
 		var strippedWarnings = warnings.map(function(warning) {
 			return stripAnsi(warning);
@@ -143,7 +143,7 @@ var onSocketMsg = {
 		reloadApp();
 	},
 	errors: function(errors) {
-		if (useStatus) status.clear();
+		if(useStatus) status.clear();
 		log("info", "[WDS] Errors while compiling. Reload prevented.");
 		var strippedErrors = errors.map(function(error) {
 			return stripAnsi(error);
