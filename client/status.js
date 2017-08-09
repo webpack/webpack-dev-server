@@ -61,8 +61,7 @@ function addProgressDivTo(statusDiv, iframe) {
     div.style.top = "60%";
     div.style.bottom = "30%";
     div.style.backgroundColor = "transparent";
-    div.style.borderLeft = "1px solid black";
-    div.style.borderRight = "1px solid black";
+    div.style.border = "2px solid black";
     div.style.display = "inline-block";
 
     progress.id = "webpack-dev-server-client-progress-div-progress";
@@ -71,7 +70,7 @@ function addProgressDivTo(statusDiv, iframe) {
     progress.style.bottom = "0";
     progress.style.width = "0%";
     progress.style.height = "100%";
-    progress.style.backgroundColor = "red";
+    progress.style.backgroundColor = "#1D78C1";
 
     progressText.id = "webpack-dev-server-client-progress-div-text";
     progressText.style.position = "absolute";
