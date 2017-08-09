@@ -69,7 +69,7 @@ var onSocketMsg = {
 	invalid: function() {
 		var text = "[WDS] App updated. Recompiling...";
 		log("info", text);
-		if(useStatus) status.showStatus(text);
+		if(useStatus) status.showStatus("App updated. Recompiling...");
 		sendMsg("Invalid");
 	},
 	hash: function(hash) {
@@ -79,7 +79,7 @@ var onSocketMsg = {
 		var text = "[WDS] Nothing changed.";
 		log("info", text);
 		if(useWarningOverlay || useErrorOverlay) overlay.clear();
-		if(useStatus) status.showStatus(text);
+		if(useStatus) status.showStatus("Nothing changed.");
 		setTimeout(function() {
 			if(useStatus) status.clear()
 		}, 750);
@@ -109,9 +109,10 @@ var onSocketMsg = {
     },
 	ok: function() {
 		var text = "[WDS] App recompiled. Reloading...";
+		log("info", text);
         sendMsg("Ok");
         if(initial) return initial = false;
-        if(useStatus) status.showStatus(text);
+        if(useStatus) status.showStatus("Compilation complete. Reloading...");
         setTimeout(function() {
             if(useStatus) status.clear();
 			if(useWarningOverlay || useErrorOverlay) overlay.clear();
@@ -121,7 +122,7 @@ var onSocketMsg = {
 	"content-changed": function() {
 		var text = "[WDS] Content base changed. Reloading...";
         log("info", text);
-        if(useStatus) status.showStatus(text);
+        if(useStatus) status.showStatus("Content base changed. Reloading...");
         setTimeout(function() {
             if(useStatus) status.clear();
             self.location.reload();
