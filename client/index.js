@@ -105,17 +105,24 @@ var onSocketMsg = {
 		}
 	},
 	ok: function() {
-		sendMsg("Ok");
-		if(useWarningOverlay || useErrorOverlay) overlay.clear();
-		if(useStatus) status.clear();
-		if(initial) return initial = false;
-		reloadApp();
+		var text = "[WDS] App recompiled. Reloading...";
+        sendMsg("Ok");
+        if(useWarningOverlay || useErrorOverlay) overlay.clear();
+        if(initial) return initial = false;
+        if(useStatus) status.showStatus(text);
+        setTimeout(function() {
+            if(useStatus) status.clear()
+            reloadApp();
+        }, 750);
 	},
 	"content-changed": function() {
 		var text = "[WDS] Content base changed. Reloading...";
-		log("info", text);
-		if(useStatus) status.showStatus(text);
-		setTimeout(self.location.reload(), 500);
+        log("info", text);
+        if(useStatus) status.showStatus(text);
+        setTimeout(function() {
+            if(useStatus) status.clear()
+            self.location.reload()
+        }, 750);
 	},
 	warnings: function(warnings) {
 		log("info", "[WDS] Warnings while compiling.");
