@@ -78,11 +78,11 @@ var onSocketMsg = {
 	"still-ok": function() {
 		var text = "[WDS] Nothing changed.";
 		log("info", text);
+		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		if(useStatus) status.showStatus(text);
 		setTimeout(function() {
 			if(useStatus) status.clear()
-		}, 500);
-		if(useWarningOverlay || useErrorOverlay) overlay.clear();
+		}, 750);
 		sendMsg("StillOk");
 	},
 	"log-level": function(level) {
@@ -104,20 +104,31 @@ var onSocketMsg = {
 			useStatus = status;
 		}
 	},
+	"status-update": function(data) {
+        if(useStatus) status.updateStatus(data);
+    },
 	ok: function() {
-		sendMsg("Ok");
-		if(useWarningOverlay || useErrorOverlay) overlay.clear();
-		if(useStatus) status.clear();
-		if(initial) return initial = false;
-		reloadApp();
+		var text = "[WDS] App recompiled. Reloading...";
+        sendMsg("Ok");
+        if(initial) return initial = false;
+        if(useStatus) status.showStatus(text);
+        setTimeout(function() {
+            if(useStatus) status.clear();
+			if(useWarningOverlay || useErrorOverlay) overlay.clear();
+            reloadApp();
+        }, 750);
 	},
 	"content-changed": function() {
 		var text = "[WDS] Content base changed. Reloading...";
-		log("info", text);
-		if(useStatus) status.showStatus(text);
-		setTimeout(self.location.reload(), 500);
+        log("info", text);
+        if(useStatus) status.showStatus(text);
+        setTimeout(function() {
+            if(useStatus) status.clear();
+            self.location.reload();
+        }, 750);
 	},
 	warnings: function(warnings) {
+		if (useStatus) status.clear();
 		log("info", "[WDS] Warnings while compiling.");
 		var strippedWarnings = warnings.map(function(warning) {
 			return stripAnsi(warning);
@@ -131,6 +142,7 @@ var onSocketMsg = {
 		reloadApp();
 	},
 	errors: function(errors) {
+		if (useStatus) status.clear();
 		log("info", "[WDS] Errors while compiling. Reload prevented.");
 		var strippedErrors = errors.map(function(error) {
 			return stripAnsi(error);
