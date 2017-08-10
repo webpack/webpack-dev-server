@@ -97,7 +97,7 @@ var progressDiv = null;
 var title = null;
 
 function ensureStatusDivExists(onStatusDivReady) {
-	if (statusDiv){
+	if(statusDiv) {
 		// Everything is ready, call the callback right away.
 		onStatusDivReady(statusDiv);
 		return;
@@ -107,7 +107,7 @@ function ensureStatusDivExists(onStatusDivReady) {
 	// In case of multiple calls, last callback wins.
 	lastOnStatusDivReady = onStatusDivReady;
 
-	if (statusIframe){
+	if(statusIframe) {
 		// We're already creating it.
 		return;
 	}
@@ -143,7 +143,7 @@ function updateProgress(percent) {
 		progressDiv.style.display = "inline-block";
 		progressDiv.progress.style.width = percent + "%";
 		progressDiv.progressText.innerHTML = percent + "% completed";
-		if (title === null || !document.title.startsWith("Compiling")){
+		if(title === null || !document.title.startsWith("Compiling")) {
 			title = document.title;
 		}
 		document.title = "Compiling: " + percent + "% completed";
@@ -151,7 +151,7 @@ function updateProgress(percent) {
 }
 
 function destroyStatus() {
-	if (!statusDiv){
+	if(!statusDiv) {
 		// It is not there in the first place.
 		return;
 	}
@@ -178,7 +178,7 @@ exports.showStatus = function handleStatus(status) {
 }
 
 exports.updateStatus = function handleUpdate(data) {
-	if (data.msg){
+	if(data.msg) {
 		showStatus(data.msg);
 		updateProgress(data.percent);
 	}
