@@ -123,8 +123,7 @@ var onSocketMsg = {
 		if(useStatus) status.updateStatus(data);
 	},
 	ok: function() {
-		var text = "[WDS] App recompiled. Reloading...";
-		log("info", text);
+		log.info("[WDS] App recompiled. Reloading...");
 		sendMsg("Ok");
 		if(initial) return initial = false;
 		if(useStatus) status.showStatus("Compilation complete. Reloading...");
