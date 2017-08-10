@@ -1,6 +1,7 @@
 /* global __resourceQuery WorkerGlobalScope */
 var url = require("url");
 var stripAnsi = require("strip-ansi");
+var log = require("loglevel")
 var socket = require("./socket");
 var overlay = require("./overlay");
 var status = require("./status");
@@ -33,19 +34,17 @@ if(typeof __resourceQuery === "string" && __resourceQuery) {
 var hot = false;
 var initial = true;
 var currentHash = "";
-var logLevel = "info";
 var useWarningOverlay = false;
 var useErrorOverlay = false;
 var useStatus = false;
 
-function log(level, msg) {
-	if(logLevel === "info" && level === "info")
-		return console.log(msg);
-	if(["info", "warning"].indexOf(logLevel) >= 0 && level === "warning")
-		return console.warn(msg);
-	if(["info", "warning", "error"].indexOf(logLevel) >= 0 && level === "error")
-		return console.error(msg);
-}
+var INFO = "info";
+var WARNING = "warning";
+var ERROR = "error";
+var NONE = "none";
+
+// Set the default log level
+log.setDefaultLevel(INFO);
 
 // Send messages to the outside, so plugins can consume it.
 function sendMsg(type, data) {
@@ -64,20 +63,19 @@ function sendMsg(type, data) {
 var onSocketMsg = {
 	hot: function() {
 		hot = true;
-		log("info", "[WDS] Hot Module Replacement enabled.");
+		log.info("[WDS] Hot Module Replacement enabled.");
 	},
 	invalid: function() {
-		var text = "[WDS] App updated. Recompiling...";
-		log("info", text);
+		log.info("[WDS] App updated. Recompiling...");
 		if(useStatus) status.showStatus("App updated. Recompiling...");
+		log.info("[WDS] App updated. Recompiling...");
 		sendMsg("Invalid");
 	},
 	hash: function(hash) {
 		currentHash = hash;
 	},
 	"still-ok": function() {
-		var text = "[WDS] Nothing changed.";
-		log("info", text);
+		log.info("[WDS] Nothing changed.")
 		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		if(useStatus) status.showStatus("Nothing changed.");
 		setTimeout(function() {
@@ -86,12 +84,29 @@ var onSocketMsg = {
 		sendMsg("StillOk");
 	},
 	"log-level": function(level) {
-		logLevel = level;
+		var hotCtx = require.context("webpack/hot", false, /^\.\/log$/);
+		if(hotCtx.keys().length > 0) {
+			hotCtx("./log").setLogLevel(level);
+		}
+		switch(level) {
+			case INFO:
+			case ERROR:
+				log.setLevel(level);
+				break;
+			case WARNING:
+				log.setLevel("warn"); // loglevel's warning name is different from webpack's
+				break;
+			case NONE:
+				log.disableAll();
+				break;
+			default:
+				log.error("[WDS] Unknown clientLogLevel '" + level + "'");
+		}
 	},
 	"overlay": function(overlay) {
 		if(typeof document !== "undefined") {
-			if(typeof (overlay) === "boolean") {
-				useWarningOverlay = overlay;
+			if(typeof(overlay) === "boolean") {
+				useWarningOverlay = false;
 				useErrorOverlay = overlay;
 			} else if(overlay) {
 				useWarningOverlay = overlay.warnings;
@@ -120,8 +135,7 @@ var onSocketMsg = {
 		}, 750);
 	},
 	"content-changed": function() {
-		var text = "[WDS] Content base changed. Reloading...";
-		log("info", text);
+		log.info("[WDS] Content base changed. Reloading...");
 		if(useStatus) status.showStatus("Content base changed. Reloading...");
 		setTimeout(function() {
 			if(useStatus) status.clear();
@@ -130,13 +144,13 @@ var onSocketMsg = {
 	},
 	warnings: function(warnings) {
 		if(useStatus) status.clear();
-		log("info", "[WDS] Warnings while compiling.");
+		log.warn("[WDS] Warnings while compiling.");
 		var strippedWarnings = warnings.map(function(warning) {
 			return stripAnsi(warning);
 		});
 		sendMsg("Warnings", strippedWarnings);
 		for(var i = 0; i < strippedWarnings.length; i++)
-			log("warning", strippedWarnings[i]);
+			log.warn(strippedWarnings[i]);
 		if(useWarningOverlay) overlay.showMessage(warnings);
 
 		if(initial) return initial = false;
@@ -144,20 +158,20 @@ var onSocketMsg = {
 	},
 	errors: function(errors) {
 		if(useStatus) status.clear();
-		log("info", "[WDS] Errors while compiling. Reload prevented.");
+		log.error("[WDS] Errors while compiling. Reload prevented.");
 		var strippedErrors = errors.map(function(error) {
 			return stripAnsi(error);
 		});
 		sendMsg("Errors", strippedErrors);
 		for(var i = 0; i < strippedErrors.length; i++)
-			log("error", strippedErrors[i]);
+			log.error(strippedErrors[i]);
 		if(useErrorOverlay) overlay.showMessage(errors);
 	},
 	error: function(error) {
-		console.error(error);
+		log.error(error);
 	},
 	close: function() {
-		log("error", "[WDS] Disconnected!");
+		log.error("[WDS] Disconnected!");
 		sendMsg("Close");
 	}
 };
@@ -204,7 +218,7 @@ function reloadApp() {
 		return;
 	}
 	if(hot) {
-		log("info", "[WDS] App hot update...");
+		log.info("[WDS] App hot update...");
 		var hotEmitter = require("webpack/hot/emitter");
 		hotEmitter.emit("webpackHotUpdate", currentHash);
 		if(typeof self !== "undefined" && self.window) {
@@ -212,7 +226,7 @@ function reloadApp() {
 			self.postMessage("webpackHotUpdate" + currentHash, "*");
 		}
 	} else {
-		log("info", "[WDS] App updated. Reloading...");
+		log.info("[WDS] App updated. Reloading...");
 		self.location.reload();
 	}
 }
