@@ -261,8 +261,13 @@ function processOptions(wpOpt) {
 	if(!options.hot)
 		options.hot = argv["hot"];
 
-	if(!options.hotOnly)
+	if(!options.hotOnly) {
 		options.hotOnly = argv["hot-only"];
+		// if hotOnly is true, explicitly set `hot` true.
+		if(options.hotOnly) {
+			options.hot = true;
+		}
+	}
 
 	if(!options.clientLogLevel)
 		options.clientLogLevel = argv["client-log-level"];
