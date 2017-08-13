@@ -113,13 +113,22 @@ describe("Validation", function() {
 
 		it("should allow access for every requests using an IP", function() {
 			const options = {};
-			const headers = {
-				host: "192.168.1.123"
-			};
+			const testHosts = [
+				"192.168.1.123",
+				"192.168.1.2:8080",
+				"[::1]",
+				"[::1]:8080",
+				"[ad42::1de2:54c2:c2fa:1234]",
+				"[ad42::1de2:54c2:c2fa:1234]:8080"
+			];
+
 			const server = new Server(compiler, options);
-			if(!server.checkHost(headers)) {
-				throw new Error("Validation didn't fail");
-			}
+			testHosts.forEach(function(testHost) {
+				const headers = { host: testHost };
+				if(!server.checkHost(headers)) {
+					throw new Error("Validation didn't pass");
+				}
+			});
 		});
 
 		it("should not allow hostnames that don't match options.public", function() {
