@@ -68,7 +68,8 @@ var onSocketMsg = {
 	invalid: function() {
 		log.info("[WDS] App updated. Recompiling...");
 		if(useStatus) status.showStatus("App updated. Recompiling...");
-		log.info("[WDS] App updated. Recompiling...");
+		// fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
+		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		sendMsg("Invalid");
 	},
 	hash: function(hash) {
