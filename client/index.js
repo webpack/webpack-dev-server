@@ -65,6 +65,8 @@ var onSocketMsg = {
 	},
 	invalid: function() {
 		log.info("[WDS] App updated. Recompiling...");
+		// fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
+		if(useWarningOverlay || useErrorOverlay) overlay.clear();
 		sendMsg("Invalid");
 	},
 	hash: function(hash) {
@@ -77,7 +79,8 @@ var onSocketMsg = {
 	},
 	"log-level": function(level) {
 		var hotCtx = require.context("webpack/hot", false, /^\.\/log$/);
-		if(hotCtx.keys().length > 0) {
+		var contextKeys = hotCtx.keys();
+		if(contextKeys.length && contextKeys["./log"]) {
 			hotCtx("./log").setLogLevel(level);
 		}
 		switch(level) {
