@@ -1,3 +1,3 @@
-var myText = document.getElementById("mytext");
+const myText = document.getElementById('mytext');
 
-myText.textContent = "Does it work? yes";
+myText.textContent = 'Does it work? yes';

@@ -1,9 +1,9 @@
 /**/
 module.exports = {
-	target: "http://jsonplaceholder.typicode.com/",
-	pathRewrite: {
-		"^/api": ""
-	}
+  target: 'http://jsonplaceholder.typicode.com/',
+  pathRewrite: {
+    '^/api': '',
+  },
 };
 /**/
 

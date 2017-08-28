@@ -1,25 +1,25 @@
-"use strict";
 
-const request = require("supertest");
-const helper = require("./helper");
-const config = require("./fixtures/simple-config/webpack.config");
 
-describe("Compress", function() {
-	let server;
-	let req;
+const request = require('supertest');
+const helper = require('./helper');
+const config = require('./fixtures/simple-config/webpack.config');
 
-	before(function(done) {
-		server = helper.start(config, {
-			compress: true
-		}, done);
-		req = request(server.app);
-	});
+describe('Compress', () => {
+  let server;
+  let req;
 
-	after(helper.close);
+  before((done) => {
+    server = helper.start(config, {
+      compress: true,
+    }, done);
+    req = request(server.app);
+  });
 
-	it("request to bundle file", function(done) {
-		req.get("/bundle.js")
-		.expect("Content-Encoding", "gzip")
-		.expect(200, done);
-	});
+  after(helper.close);
+
+  it('request to bundle file', (done) => {
+    req.get('/bundle.js')
+      .expect('Content-Encoding', 'gzip')
+      .expect(200, done);
+  });
 });

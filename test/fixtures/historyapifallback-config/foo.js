@@ -1,3 +1,4 @@
-require("./index.html");
-require("./bar.html");
-console.log("Hey.");
+require('./index.html');
+require('./bar.html');
+
+console.log("Hey."); // eslint-disable-line

@@ -1,4 +1,4 @@
-require("./style.less");
+require('./style.less');
 
 document.write("It's working.");
 

@@ -1,1 +1,1 @@
-require("./hmr");
+require('./hmr');

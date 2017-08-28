@@ -1,6 +1,6 @@
 module.exports = {
-	output: {
-		library: "SockJS",
-		libraryTarget: "umd"
-	}
-}
+  output: {
+    library: 'SockJS',
+    libraryTarget: 'umd',
+  },
+};

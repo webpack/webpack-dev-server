@@ -1,3 +1,13 @@
 {
-  "extends": "webpack"
+  "extends": "webpack",
+  "globals": {
+    "document": true,
+    "window": true
+  },
+  "rules": {
+    "consistent-return": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "prefer-rest-params": "off"
+  }
 }

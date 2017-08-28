@@ -1,3 +1,3 @@
-require("./index.html");
+require('./index.html');
 
-console.log("Hey.");
+console.log('Hey.');

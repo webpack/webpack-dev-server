@@ -1,2 +1,2 @@
-var myText = document.getElementById("mytext");
-myText.textContent = "Does it work? yes";
+const myText = document.getElementById('mytext');
+myText.textContent = 'Does it work? yes';
