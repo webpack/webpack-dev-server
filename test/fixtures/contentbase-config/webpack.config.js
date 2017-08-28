@@ -3,6 +3,6 @@ module.exports = {
   entry: './foo.js',
   output: {
     filename: 'bundle.js',
-    publicPath: '/',
-  },
+    publicPath: '/'
+  }
 };

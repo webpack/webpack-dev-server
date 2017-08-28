@@ -10,7 +10,7 @@ describe('Compress', () => {
 
   before((done) => {
     server = helper.start(config, {
-      compress: true,
+      compress: true
     }, done);
     req = request(server.app);
   });

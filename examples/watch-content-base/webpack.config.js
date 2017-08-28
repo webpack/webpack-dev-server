@@ -4,7 +4,7 @@ module.exports = {
   devServer: {
     contentBase: [
       'assets',
-      'css',
-    ],
-  },
+      'css'
+    ]
+  }
 };

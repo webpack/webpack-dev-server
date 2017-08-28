@@ -7,7 +7,7 @@ let proxyOptions = {
   context: '/api',
   target: proxyConfig.target,
   pathRewrite: proxyConfig.pathRewrite,
-  changeOrigin: true,
+  changeOrigin: true
 };
 
 fs.watch('./proxy-config.js', () => {
@@ -20,7 +20,7 @@ fs.watch('./proxy-config.js', () => {
         context: '/api',
         target: newProxyConfig.target,
         pathRewrite: newProxyConfig.pathRewrite,
-        changeOrigin: true,
+        changeOrigin: true
       };
     }
   } catch (e) {
@@ -35,7 +35,7 @@ module.exports = {
     proxy: [
       function () {
         return proxyOptions;
-      },
-    ],
-  },
+      }
+    ]
+  }
 };

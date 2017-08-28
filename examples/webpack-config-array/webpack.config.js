@@ -13,22 +13,22 @@ module.exports = [
           use: [
             'style-loader',
             'css-loader',
-            'less-loader',
-          ],
+            'less-loader'
+          ]
         },
         {
           test: /\.png$/,
           loader: 'file-loader',
-          options: { prefix: 'img/' },
-        },
-      ],
-    },
+          options: { prefix: 'img/' }
+        }
+      ]
+    }
   },
   {
     context: __dirname,
     entry: './app.js',
     output: {
-      filename: 'bundle2.js',
+      filename: 'bundle2.js'
     },
     module: {
       rules: [
@@ -37,18 +37,18 @@ module.exports = [
           use: [
             'style-loader',
             'css-loader',
-            'less-loader',
-          ],
+            'less-loader'
+          ]
         },
         {
           test: /\.png$/,
           loader: 'url-loader',
-          options: { limit: 100000 },
-        },
-      ],
+          options: { limit: 100000 }
+        }
+      ]
     },
     plugins: [
-      new webpack.optimize.UglifyJsPlugin(),
-    ],
-  },
+      new webpack.optimize.UglifyJsPlugin()
+    ]
+  }
 ];

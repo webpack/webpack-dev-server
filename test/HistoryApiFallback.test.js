@@ -16,7 +16,7 @@ describe('HistoryApiFallback', () => {
   describe('as boolean', () => {
     before((done) => {
       server = helper.start(config, {
-        historyApiFallback: true,
+        historyApiFallback: true
       }, done);
       req = request(server.app);
     });
@@ -32,8 +32,8 @@ describe('HistoryApiFallback', () => {
     before((done) => {
       server = helper.start(config, {
         historyApiFallback: {
-          index: '/bar.html',
-        },
+          index: '/bar.html'
+        }
       }, done);
       req = request(server.app);
     });
@@ -50,8 +50,8 @@ describe('HistoryApiFallback', () => {
       server = helper.start(config2, {
         contentBase: path.join(__dirname, 'fixtures/historyapifallback-2-config'),
         historyApiFallback: {
-          index: '/bar.html',
-        },
+          index: '/bar.html'
+        }
       }, done);
       req = request(server.app);
     });
@@ -86,8 +86,8 @@ describe('HistoryApiFallback', () => {
       server = helper.start(config3, {
         contentBase: false,
         historyApiFallback: {
-          index: '/bar.html',
-        },
+          index: '/bar.html'
+        }
       }, done);
       req = request(server.app);
     });
@@ -107,14 +107,14 @@ describe('HistoryApiFallback', () => {
           rewrites: [
             {
               from: /other/,
-              to: '/other.html',
+              to: '/other.html'
             },
             {
               from: /.*/,
-              to: '/bar.html',
-            },
-          ],
-        },
+              to: '/bar.html'
+            }
+          ]
+        }
       }, done);
       req = request(server.app);
     });
@@ -142,7 +142,7 @@ describe('HistoryApiFallback', () => {
     before((done) => {
       server = helper.start(config3, {
         contentBase: path.join(__dirname, 'fixtures/historyapifallback-3-config'),
-        historyApiFallback: true,
+        historyApiFallback: true
       }, done);
       req = request(server.app);
     });

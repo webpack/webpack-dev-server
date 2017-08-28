@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tests = [
     { url: '/', name: 'index', re: /^<!DOCTYPE html>/ },
     { url: '/test', name: 'unexisting path', re: /^<!DOCTYPE html>/ },
-    { url: '/file.txt', name: 'existing path', re: /^file/ },
+    { url: '/file.txt', name: 'existing path', re: /^file/ }
   ];
 
   const table = document.createElement('table');

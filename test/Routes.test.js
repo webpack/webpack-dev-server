@@ -14,7 +14,7 @@ describe('Routes', () => {
 
   before((done) => {
     server = helper.start(config, {
-      headers: { 'X-Foo': '1' },
+      headers: { 'X-Foo': '1' }
     }, done);
     req = request(server.app);
   });

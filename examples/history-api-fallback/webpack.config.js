@@ -3,7 +3,7 @@ module.exports = {
   entry: './app.js',
   devServer: {
     historyApiFallback: {
-      disableDotRule: true,
-    },
-  },
+      disableDotRule: true
+    }
+  }
 };

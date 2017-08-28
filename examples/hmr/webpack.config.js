@@ -6,6 +6,6 @@ module.exports = {
   context: __dirname,
   entry: './app.js',
   plugins: [
-    new webpack.NamedModulesPlugin(),
-  ],
+    new webpack.NamedModulesPlugin()
+  ]
 };

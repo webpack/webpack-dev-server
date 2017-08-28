@@ -9,7 +9,7 @@ describe('Lazy', () => {
   it('without filename option it should throw an error', () => {
     should.throws(() => {
       helper.start(config, {
-        lazy: true,
+        lazy: true
       });
     }, /'filename' option must be set/);
   });
@@ -17,7 +17,7 @@ describe('Lazy', () => {
   it('with filename option should not throw an error', (done) => {
     helper.start(config, {
       lazy: true,
-      filename: 'bundle.js',
+      filename: 'bundle.js'
     }, done);
   });
 });

@@ -3,15 +3,15 @@ module.exports = {
   entry: './foo.js',
   output: {
     filename: 'bundle.js',
-    path: '/',
+    path: '/'
   },
   module: {
     loaders: [
       {
         test: /\.html$/,
         loader: 'file-loader',
-        query: { name: '[name].[ext]' },
-      },
-    ],
-  },
+        query: { name: '[name].[ext]' }
+      }
+    ]
+  }
 };

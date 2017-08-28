@@ -71,43 +71,43 @@ const DEFAULT_PORT = 8080;
 yargs.options({
   bonjour: {
     type: 'boolean',
-    describe: 'Broadcasts the server via ZeroConf networking on start',
+    describe: 'Broadcasts the server via ZeroConf networking on start'
   },
   lazy: {
     type: 'boolean',
-    describe: 'Lazy',
+    describe: 'Lazy'
   },
   inline: {
     type: 'boolean',
     default: true,
-    describe: 'Inline mode (set to false to disable including client scripts like livereload)',
+    describe: 'Inline mode (set to false to disable including client scripts like livereload)'
   },
   progress: {
     type: 'boolean',
     describe: 'Print compilation progress in percentage',
-    group: BASIC_GROUP,
+    group: BASIC_GROUP
   },
   'hot-only': {
     type: 'boolean',
     describe: 'Do not refresh page if HMR fails',
-    group: ADVANCED_GROUP,
+    group: ADVANCED_GROUP
   },
   stdin: {
     type: 'boolean',
-    describe: 'close when stdin ends',
+    describe: 'close when stdin ends'
   },
   open: {
     type: 'boolean',
-    describe: 'Open default browser',
+    describe: 'Open default browser'
   },
   useLocalIp: {
     type: 'boolean',
-    describe: 'Open default browser with local IP',
+    describe: 'Open default browser with local IP'
   },
   'open-page': {
     type: 'string',
     describe: 'Open default browser with the specified page',
-    requiresArg: true,
+    requiresArg: true
   },
   color: {
     type: 'boolean',
@@ -116,111 +116,111 @@ yargs.options({
       return require('supports-color');
     },
     group: DISPLAY_GROUP,
-    describe: 'Enables/Disables colors on the console',
+    describe: 'Enables/Disables colors on the console'
   },
   info: {
     type: 'boolean',
     group: DISPLAY_GROUP,
     default: true,
-    describe: 'Info',
+    describe: 'Info'
   },
   quiet: {
     type: 'boolean',
     group: DISPLAY_GROUP,
-    describe: 'Quiet',
+    describe: 'Quiet'
   },
   'client-log-level': {
     type: 'string',
     group: DISPLAY_GROUP,
     default: 'info',
-    describe: 'Log level in the browser (info, warning, error or none)',
+    describe: 'Log level in the browser (info, warning, error or none)'
   },
   https: {
     type: 'boolean',
     group: SSL_GROUP,
-    describe: 'HTTPS',
+    describe: 'HTTPS'
   },
   key: {
     type: 'string',
     describe: 'Path to a SSL key.',
-    group: SSL_GROUP,
+    group: SSL_GROUP
   },
   cert: {
     type: 'string',
     describe: 'Path to a SSL certificate.',
-    group: SSL_GROUP,
+    group: SSL_GROUP
   },
   cacert: {
     type: 'string',
     describe: 'Path to a SSL CA certificate.',
-    group: SSL_GROUP,
+    group: SSL_GROUP
   },
   pfx: {
     type: 'string',
     describe: 'Path to a SSL pfx file.',
-    group: SSL_GROUP,
+    group: SSL_GROUP
   },
   'pfx-passphrase': {
     type: 'string',
     describe: 'Passphrase for pfx file.',
-    group: SSL_GROUP,
+    group: SSL_GROUP
   },
   'content-base': {
     type: 'string',
     describe: 'A directory or URL to serve HTML content from.',
-    group: RESPONSE_GROUP,
+    group: RESPONSE_GROUP
   },
   'watch-content-base': {
     type: 'boolean',
     describe: 'Enable live-reloading of the content-base.',
-    group: RESPONSE_GROUP,
+    group: RESPONSE_GROUP
   },
   'history-api-fallback': {
     type: 'boolean',
     describe: 'Fallback to /index.html for Single Page Applications.',
-    group: RESPONSE_GROUP,
+    group: RESPONSE_GROUP
   },
   compress: {
     type: 'boolean',
     describe: 'Enable gzip compression',
-    group: RESPONSE_GROUP,
+    group: RESPONSE_GROUP
   },
   port: {
     describe: 'The port',
-    group: CONNECTION_GROUP,
+    group: CONNECTION_GROUP
   },
   'disable-host-check': {
     type: 'boolean',
     describe: 'Will not check the host',
-    group: CONNECTION_GROUP,
+    group: CONNECTION_GROUP
   },
   socket: {
     type: 'String',
     describe: 'Socket to listen',
-    group: CONNECTION_GROUP,
+    group: CONNECTION_GROUP
   },
   public: {
     type: 'string',
     describe: 'The public hostname/ip address of the server',
-    group: CONNECTION_GROUP,
+    group: CONNECTION_GROUP
   },
   host: {
     type: 'string',
     default: 'localhost',
     describe: 'The hostname/ip address the server will bind to',
-    group: CONNECTION_GROUP,
+    group: CONNECTION_GROUP
   },
   'allowed-hosts': {
     type: 'string',
     describe: 'A comma-delimited string of hosts that are allowed to access the dev server',
-    group: CONNECTION_GROUP,
-  },
+    group: CONNECTION_GROUP
+  }
 });
 
 const { argv } = yargs;
 
 const wpOpt = require('webpack/bin/convert-argv')(yargs, argv, {
-  outputFilename: '/bundle.js',
+  outputFilename: '/bundle.js'
 });
 
 function processOptions(wpOpt) {
@@ -290,7 +290,7 @@ function processOptions(wpOpt) {
   if (!options.stats) {
     options.stats = {
       cached: false,
-      cachedAssets: false,
+      cachedAssets: false
     };
   }
 
@@ -365,7 +365,7 @@ function startDevServer(wpOpt, options) {
 
   if (argv.progress) {
     compiler.apply(new webpack.ProgressPlugin({
-      profile: argv.profile,
+      profile: argv.profile
     }));
   }
 
@@ -458,7 +458,7 @@ function broadcastZeroconf(options) {
     name: 'Webpack Dev Server',
     port: options.port,
     type: 'http',
-    subtypes: ['webpack'],
+    subtypes: ['webpack']
   });
   process.on('exit', () => {
     bonjour.unpublishAll(() => {

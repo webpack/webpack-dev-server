@@ -5,6 +5,7 @@
     "window": true
   },
   "rules": {
+    "comma-dangle": ["error", "never"],
     "consistent-return": "off",
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",

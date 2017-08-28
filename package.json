@@ -26,9 +26,9 @@
     "mocha": "mocha --full-trace --check-leaks",
     "prepublish": "npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
     "test": "npm run lint && npm run mocha",
-    "build:live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js -p",
-    "build:index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js -p",
-    "build:sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js -p"
+    "build:live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js",
+    "build:index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js",
+    "build:sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js"
   },
   "files": [
     "lib/",
@@ -83,6 +83,7 @@
     "sinon": "^3.2.1",
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "url-loader": "~0.5.6",
     "webpack": "^3.0.0",
     "ws": "^3.1.0"

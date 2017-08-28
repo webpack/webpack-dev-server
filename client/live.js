@@ -22,7 +22,7 @@ $(() => {
   $errors.hide();
   iframe.hide();
   header.css({
-    borderColor: '#96b5b4',
+    borderColor: '#96b5b4'
   });
 
   const onSocketMsg = {
@@ -34,7 +34,7 @@ $(() => {
       okness.text('');
       status.text('App updated. Recompiling...');
       header.css({
-        borderColor: '#96b5b4',
+        borderColor: '#96b5b4'
       });
       $errors.hide();
       if (!hot) iframe.hide();
@@ -46,7 +46,7 @@ $(() => {
       okness.text('');
       status.text('App ready.');
       header.css({
-        borderColor: '',
+        borderColor: ''
       });
       $errors.hide();
       if (!hot) iframe.show();
@@ -66,7 +66,7 @@ $(() => {
       okness.text('Errors while compiling.');
       $errors.text(`\n${stripAnsi(errors.join('\n\n\n'))}\n\n`);
       header.css({
-        borderColor: '#ebcb8b',
+        borderColor: '#ebcb8b'
       });
       $errors.show();
       iframe.hide();
@@ -76,11 +76,11 @@ $(() => {
       okness.text('Disconnected.');
       $errors.text('\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n');
       header.css({
-        borderColor: '#ebcb8b',
+        borderColor: '#ebcb8b'
       });
       $errors.show();
       iframe.hide();
-    },
+    }
   };
 
   socket('/sockjs-node', onSocketMsg);
@@ -88,7 +88,7 @@ $(() => {
   iframe.load(() => {
     status.text('App ready.');
     header.css({
-      borderColor: '',
+      borderColor: ''
     });
     iframe.show();
   });
@@ -105,7 +105,7 @@ $(() => {
     } else {
       status.text('App updated. Reloading app...');
       header.css({
-        borderColor: '#96b5b4',
+        borderColor: '#96b5b4'
       });
       try {
         let old = `${iframe[0].contentWindow.location}`;

@@ -7,8 +7,8 @@ module.exports = [
     entry: './web.js',
     output: {
       filename: 'web.bundle.js',
-      path: __dirname,
-    },
+      path: __dirname
+    }
   },
   {
     devtool: 'source-map',
@@ -16,7 +16,7 @@ module.exports = [
     entry: './worker.js',
     output: {
       filename: 'worker.bundle.js',
-      path: __dirname,
-    },
-  },
+      path: __dirname
+    }
+  }
 ];

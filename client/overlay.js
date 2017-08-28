@@ -15,7 +15,7 @@ const colors = {
   magenta: '7FACCA',
   cyan: 'C3C2EF',
   lightgrey: 'EBE7E3',
-  darkgrey: '6D7891',
+  darkgrey: '6D7891'
 };
 ansiHTML.setColors(colors);
 
@@ -93,9 +93,9 @@ function ensureOverlayDivExists(onOverlayDivReady) {
 }
 
 function showMessageOverlay(message) {
-  ensureOverlayDivExists((overlayDiv) => {
+  ensureOverlayDivExists((div) => {
     // Make it look similar to our terminal.
-    overlayDiv.innerHTML =
+    div.innerHTML =
    `<span style="color: #${
      colors.red
    }">Failed to compile.</span><br><br>${

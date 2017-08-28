@@ -12,19 +12,19 @@ const contentBase = path.join(__dirname, 'fixtures/proxy-config');
 
 const proxyOption = {
   '/proxy1': {
-    target: 'http://localhost:9000',
+    target: 'http://localhost:9000'
   },
   '/api/proxy2': {
     target: 'http://localhost:9001',
-    pathRewrite: { '^/api': '' },
+    pathRewrite: { '^/api': '' }
   },
   '/foo': {
     bypass(req) {
       if (/\.html$/.test(req.path)) {
         return '/index.html';
       }
-    },
-  },
+    }
+  }
 };
 
 const proxyOptionOfArray = [
@@ -33,9 +33,9 @@ const proxyOptionOfArray = [
     return {
       context: '/api/proxy2',
       target: 'http://localhost:9001',
-      pathRewrite: { '^/api': '' },
+      pathRewrite: { '^/api': '' }
     };
-  },
+  }
 ];
 
 function startProxyServers() {
@@ -71,7 +71,7 @@ describe('Proxy', () => {
       closeProxyServers = startProxyServers();
       server = helper.start(config, {
         contentBase,
-        proxy: proxyOption,
+        proxy: proxyOption
       }, done);
       req = request(server.app);
     });
@@ -124,7 +124,7 @@ describe('Proxy', () => {
       closeProxyServers = startProxyServers();
       server = helper.start(config, {
         contentBase,
-        proxy: proxyOptionOfArray,
+        proxy: proxyOptionOfArray
       }, done);
       req = request(server.app);
     });
@@ -152,7 +152,7 @@ describe('Proxy', () => {
     let req;
     let listener;
     const proxyTarget = {
-      target: 'http://localhost:9000',
+      target: 'http://localhost:9000'
     };
 
     before((done) => {
@@ -165,8 +165,8 @@ describe('Proxy', () => {
         contentBase,
         proxy: {
           '/proxy1': proxyTarget,
-          '/proxy2': proxyTarget,
-        },
+          '/proxy2': proxyTarget
+        }
       }, done);
       req = request(server.app);
     });
@@ -198,8 +198,8 @@ describe('Proxy', () => {
         proxy: [{
           context: '/',
           target: 'http://localhost:9003',
-          ws: true,
-        }],
+          ws: true
+        }]
       }, done);
 
       wsServer = new WebSocketServer({ port: 9003 });

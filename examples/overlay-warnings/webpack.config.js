@@ -4,7 +4,7 @@ module.exports = {
   devServer: {
     overlay: {
       errors: true,
-      warnings: true,
-    },
-  },
+      warnings: true
+    }
+  }
 };

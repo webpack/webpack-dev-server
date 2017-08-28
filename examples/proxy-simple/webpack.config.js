@@ -3,7 +3,7 @@ module.exports = {
   entry: './app.js',
   devServer: {
     proxy: {
-      '/api': 'http://127.0.0.1:50545',
-    },
-  },
+      '/api': 'http://127.0.0.1:50545'
+    }
+  }
 };

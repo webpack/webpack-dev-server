@@ -16,7 +16,7 @@ describe('ContentBase', () => {
   describe('to directory', () => {
     before((done) => {
       server = helper.start(config, {
-        contentBase: contentBasePublic,
+        contentBase: contentBasePublic
       }, done);
       req = request(server.app);
     });
@@ -35,7 +35,7 @@ describe('ContentBase', () => {
   describe('to directories', () => {
     before((done) => {
       server = helper.start(config, {
-        contentBase: [contentBasePublic, contentBaseOther],
+        contentBase: [contentBasePublic, contentBaseOther]
       }, done);
       req = request(server.app);
     });
@@ -54,7 +54,7 @@ describe('ContentBase', () => {
   describe('to port', () => {
     before((done) => {
       server = helper.start(config, {
-        contentBase: 9099999,
+        contentBase: 9099999
       }, done);
       req = request(server.app);
     });
@@ -69,7 +69,7 @@ describe('ContentBase', () => {
   describe('to external url', () => {
     before((done) => {
       server = helper.start(config, {
-        contentBase: 'http://example.com/',
+        contentBase: 'http://example.com/'
       }, done);
       req = request(server.app);
     });
@@ -110,7 +110,7 @@ describe('ContentBase', () => {
       this.sinon.stub(process, 'cwd');
       process.cwd.returns(contentBasePublic);
       server = helper.start(config, {
-        contentBase: false,
+        contentBase: false
       }, done);
       req = request(server.app);
     });

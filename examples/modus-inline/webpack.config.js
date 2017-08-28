@@ -8,14 +8,14 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
-          'less-loader',
-        ],
+          'less-loader'
+        ]
       },
       {
         test: /\.png$/,
         loader: 'file-loader',
-        options: { prefix: 'img/' },
-      },
-    ],
-  },
+        options: { prefix: 'img/' }
+      }
+    ]
+  }
 };
