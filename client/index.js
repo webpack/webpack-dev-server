@@ -79,7 +79,8 @@ var onSocketMsg = {
 	},
 	"log-level": function(level) {
 		var hotCtx = require.context("webpack/hot", false, /^\.\/log$/);
-		if(hotCtx.keys().length > 0) {
+		var contextKeys = hotCtx.keys();
+		if(contextKeys.length && contextKeys["./log"]) {
 			hotCtx("./log").setLogLevel(level);
 		}
 		switch(level) {
