@@ -1,8 +1,43 @@
 {
   "name": "webpack-dev-server",
   "version": "2.7.1",
-  "author": "Tobias Koppers @sokra",
   "description": "Serves a webpack app. Updates the browser on changes.",
+  "license": "MIT",
+  "repository": "webpack/webpack-dev-server",
+  "author": "Tobias Koppers @sokra",
+  "homepage": "http://github.com/webpack/webpack-dev-server",
+  "maintainers": [
+    {
+      "name": "Andrew Powell",
+      "email": "andrew@shellscape.org",
+      "url": "shellscape.org"
+    }
+  ],
+  "main": "lib/Server.js",
+  "bin": "bin/webpack-dev-server.js",
+  "engines": {
+    "node": ">=4.7"
+  },
+  "scripts": {
+    "beautify": "npm run lint -- --fix",
+    "ci": "npm run cover -- --report lcovonly && npm run test",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha",
+    "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config}.js",
+    "mocha": "mocha --full-trace --check-leaks",
+    "posttest": "npm run -s lint",
+    "prepublish": "npm run -s client-live && npm run -s client-index && npm run -s client-sockjs",
+    "test": "npm run lint && npm run mocha",
+
+    "client-live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js -p",
+    "client-index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js -p",
+    "client-sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js -p"
+  },
+  "files": [
+    "lib/",
+    "bin",
+    "client/",
+    "ssl/"
+  ],
   "peerDependencies": {
     "webpack": "^2.2.0 || ^3.0.0"
   },
@@ -35,6 +70,8 @@
     "codecov.io": "^0.1.6",
     "css-loader": "~0.26.1",
     "eslint": "^3.4.0",
+    "eslint-config-webpack": "^1.2.5",
+    "eslint-plugin-import": "^2.7.0",
     "file-loader": "~0.10.0",
     "istanbul": "^0.4.5",
     "jquery": "^2.2.0",
@@ -51,34 +88,5 @@
     "url-loader": "~0.5.6",
     "webpack": "^3.0.0",
     "ws": "^1.1.1"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/webpack/webpack-dev-server.git"
-  },
-  "homepage": "http://github.com/webpack/webpack-dev-server",
-  "main": "lib/Server.js",
-  "bin": "bin/webpack-dev-server.js",
-  "engines": {
-    "node": ">=4.7"
-  },
-  "files": [
-    "lib/",
-    "bin",
-    "client/",
-    "ssl/"
-  ],
-  "scripts": {
-    "prepublish": "npm run -s client-live && npm run -s client-index && npm run -s client-sockjs",
-    "client-live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js -p",
-    "client-index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js -p",
-    "client-sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js -p",
-    "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config}.js",
-    "beautify": "npm run lint -- --fix",
-    "test": "mocha --full-trace --check-leaks",
-    "posttest": "npm run -s lint",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha",
-    "travis": "npm run cover -- --report lcovonly && npm run lint"
   }
 }
