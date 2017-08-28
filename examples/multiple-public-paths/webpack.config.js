@@ -1,11 +1,7 @@
 module.exports = {
 	context: __dirname,
-	entry: "./foo.js",
-	output: {
-		filename: "bundle.js",
-		path: "/"
-	},
+	entry: "./app.js",
 	devServer: {
 		publicPath: ["/public-1/", "/public-2/"]
 	}
-};
+}
