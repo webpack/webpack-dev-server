@@ -13,6 +13,6 @@ module.exports = {
 
 /** /
 module.exports = {
-	target: 'http://reqres.in/'
+  target: 'http://reqres.in/'
 };
 /**/

@@ -1,7 +1,6 @@
-
+/* eslint global-require: off */
 
 const fs = require('fs');
-
 const proxyConfig = require('./proxy-config');
 
 let proxyOptions = {
@@ -24,7 +23,9 @@ fs.watch('./proxy-config.js', () => {
         changeOrigin: true,
       };
     }
-  } catch (e) {}
+  } catch (e) {
+    // eslint-disable-line
+  }
 });
 
 module.exports = {
