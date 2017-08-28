@@ -360,6 +360,7 @@ function processOptions(wpOpt) {
 	// were specified, but since argv.port is 8080, options.port will be
 	// tried first instead.
 	options.port = argv.port === DEFAULT_PORT ? defaultTo(options.port, argv.port) : defaultTo(argv.port, options.port);
+
 	if(options.port != null) {
 		startDevServer(wpOpt, options);
 		return;
@@ -393,7 +394,7 @@ function startDevServer(wpOpt, options) {
 		}));
 	}
 
-	const uri = createDomain(options) + (options.inline !== false || options.lazy === true ? "/" : "/webpack-dev-server/");
+	const suffix = (options.inline !== false || options.lazy === true ? "/" : "/webpack-dev-server/");
 
 	let server;
 	try {
@@ -437,6 +438,8 @@ function startDevServer(wpOpt, options) {
 			const READ_WRITE = 438; // chmod 666 (rw rw rw)
 			fs.chmod(options.socket, READ_WRITE, function(err) {
 				if(err) throw err;
+
+				const uri = createDomain(options, server.listeningApp) + suffix;
 				reportReadiness(uri, options);
 			});
 		});
@@ -444,6 +447,8 @@ function startDevServer(wpOpt, options) {
 		server.listen(options.port, options.host, function(err) {
 			if(err) throw err;
 			if(options.bonjour) broadcastZeroconf(options);
+
+			const uri = createDomain(options, server.listeningApp) + suffix;
 			reportReadiness(uri, options);
 		});
 	}
