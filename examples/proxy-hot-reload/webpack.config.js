@@ -33,7 +33,7 @@ module.exports = {
   entry: './app.js',
   devServer: {
     proxy: [
-      function () {
+      function proxy() {
         return proxyOptions;
       }
     ]

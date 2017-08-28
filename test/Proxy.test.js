@@ -29,7 +29,7 @@ const proxyOption = {
 
 const proxyOptionOfArray = [
   { context: '/proxy1', target: proxyOption['/proxy1'].target },
-  function () {
+  function proxy() {
     return {
       context: '/api/proxy2',
       target: 'http://localhost:9001',
@@ -54,7 +54,7 @@ function startProxyServers() {
   listeners.push(proxy1.listen(9000));
   listeners.push(proxy2.listen(9001));
   // return a function to shutdown proxy servers
-  return function () {
+  return function proxy() {
     listeners.forEach((listener) => {
       listener.close();
     });
@@ -157,7 +157,7 @@ describe('Proxy', () => {
 
     before((done) => {
       const proxy = express();
-      proxy.get('*', (req, res) => {
+      proxy.get('*', (proxyReq, res) => {
         res.send('from proxy');
       });
       listener = proxy.listen(9000);
@@ -203,9 +203,9 @@ describe('Proxy', () => {
       }, done);
 
       wsServer = new WebSocketServer({ port: 9003 });
-      wsServer.on('connection', (ws) => {
-        ws.on('message', (message) => {
-          ws.send(message);
+      wsServer.on('connection', (server) => {
+        server.on('message', (message) => {
+          server.send(message);
         });
       });
     });

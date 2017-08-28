@@ -73,12 +73,12 @@ const onSocketMsg = {
   hash(hash) {
     currentHash = hash;
   },
-  'still-ok': function () {
+  'still-ok': function stillOk() {
     log.info('[WDS] Nothing changed.');
     if (useWarningOverlay || useErrorOverlay) overlay.clear();
     sendMsg('StillOk');
   },
-  'log-level': function (level) {
+  'log-level': function logLevel(level) {
     const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
     const contextKeys = hotCtx.keys();
     if (contextKeys.length && contextKeys['./log']) {
@@ -100,14 +100,14 @@ const onSocketMsg = {
         log.error(`[WDS] Unknown clientLogLevel '${level}'`);
     }
   },
-  overlay(overlay) {
+  overlay(value) {
     if (typeof document !== 'undefined') {
-      if (typeof (overlay) === 'boolean') {
+      if (typeof (value) === 'boolean') {
         useWarningOverlay = false;
-        useErrorOverlay = overlay;
-      } else if (overlay) {
-        useWarningOverlay = overlay.warnings;
-        useErrorOverlay = overlay.errors;
+        useErrorOverlay = value;
+      } else if (value) {
+        useWarningOverlay = value.warnings;
+        useErrorOverlay = value.errors;
       }
     }
   },
@@ -117,7 +117,7 @@ const onSocketMsg = {
     if (initial) return initial = false; // eslint-disable-line no-return-assign
     reloadApp();
   },
-  'content-changed': function () {
+  'content-changed': function contentChanged() {
     log.info('[WDS] Content base changed. Reloading...');
     self.location.reload();
   },

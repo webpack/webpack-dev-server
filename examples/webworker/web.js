@@ -2,7 +2,7 @@
 
 
 const worker = new Worker('worker.bundle.js');
-worker.onmessage = function (e) {
+worker.onmessage = function onMessage(e) {
   console.log('[MAIN]', e);
 };
 worker.postMessage({

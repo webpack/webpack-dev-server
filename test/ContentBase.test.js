@@ -90,7 +90,7 @@ describe('ContentBase', () => {
   });
 
   describe('default to PWD', () => {
-    before(function (done) {
+    before(function before(done) {
       this.sinon.stub(process, 'cwd');
       process.cwd.returns(contentBasePublic);
       server = helper.start(config, {}, done);
@@ -104,7 +104,7 @@ describe('ContentBase', () => {
   });
 
   describe('disable', () => {
-    before(function (done) {
+    before(function before(done) {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
       this.sinon.stub(process, 'cwd');

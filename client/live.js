@@ -42,7 +42,7 @@ $(() => {
     hash(hash) {
       currentHash = hash;
     },
-    'still-ok': function () {
+    'still-ok': function stillOk() {
       okness.text('');
       status.text('App ready.');
       header.css({
@@ -99,7 +99,7 @@ $(() => {
       try {
         iframe[0].contentWindow.postMessage(`webpackHotUpdate${currentHash}`, '*');
       } catch (e) {
-        console.warn(e);
+        console.warn(e); // eslint-disable-line
       }
       iframe.show();
     } else {

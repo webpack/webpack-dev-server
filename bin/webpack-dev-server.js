@@ -223,19 +223,19 @@ const wpOpt = require('webpack/bin/convert-argv')(yargs, argv, {
   outputFilename: '/bundle.js'
 });
 
-function processOptions(wpOpt) {
+function processOptions(webpackOptions) {
   // process Promise
-  if (typeof wpOpt.then === 'function') {
-    wpOpt.then(processOptions).catch((err) => {
+  if (typeof webpackOptions.then === 'function') {
+    webpackOptions.then(processOptions).catch((err) => {
       console.error(err.stack || err);
       process.exit(); // eslint-disable-line
     });
     return;
   }
 
-  const firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
+  const firstWpOpt = Array.isArray(webpackOptions) ? webpackOptions[0] : webpackOptions;
 
-  const options = wpOpt.devServer || firstWpOpt.devServer || {};
+  const options = webpackOptions.devServer || firstWpOpt.devServer || {};
 
   if (argv.bonjour) { options.bonjour = true; }
 
@@ -349,16 +349,16 @@ function processOptions(wpOpt) {
   });
 }
 
-function startDevServer(wpOpt, options) {
-  addDevServerEntrypoints(wpOpt, options);
+function startDevServer(webpackOptions, options) {
+  addDevServerEntrypoints(webpackOptions, options);
 
   let compiler;
   try {
-    compiler = webpack(wpOpt);
+    compiler = webpack(webpackOptions);
   } catch (e) {
     if (e instanceof webpack.WebpackOptionsValidationError) {
       console.error(colorError(options.stats.colors, e.message));
-          process.exit(1); // eslint-disable-line
+      process.exit(1); // eslint-disable-line
     }
     throw e;
   }
@@ -394,8 +394,8 @@ function startDevServer(wpOpt, options) {
     server.listeningApp.on('error', (e) => {
       if (e.code === 'EADDRINUSE') {
         const clientSocket = new net.Socket();
-        clientSocket.on('error', (e) => {
-          if (e.code === 'ECONNREFUSED') {
+        clientSocket.on('error', (clientError) => {
+          if (clientError.code === 'ECONNREFUSED') {
             // No other server listening on this socket so it can be safely removed
             fs.unlinkSync(options.socket);
             server.listen(options.socket, options.host, (err) => {
@@ -412,8 +412,8 @@ function startDevServer(wpOpt, options) {
       if (err) throw err;
       // chmod 666 (rw rw rw)
       const READ_WRITE = 438;
-      fs.chmod(options.socket, READ_WRITE, (err) => {
-        if (err) throw err;
+      fs.chmod(options.socket, READ_WRITE, (fsError) => {
+        if (fsError) throw fsError;
         reportReadiness(uri, options);
       });
     });

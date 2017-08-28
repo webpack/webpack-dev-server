@@ -6,11 +6,11 @@ let sock = null;
 function socket(url, handlers) {
   sock = new SockJS(url);
 
-  sock.onopen = function () {
+  sock.onopen = function onopen() {
     retries = 0;
   };
 
-  sock.onclose = function () {
+  sock.onclose = function onclose() {
     if (retries === 0) { handlers.close(); }
 
     // Try to reconnect.
@@ -30,7 +30,7 @@ function socket(url, handlers) {
     }
   };
 
-  sock.onmessage = function (e) {
+  sock.onmessage = function onmessage(e) {
     // This assumes that all data sent via the websocket is JSON.
     const msg = JSON.parse(e.data);
     if (handlers[msg.type]) { handlers[msg.type](msg.data); }
