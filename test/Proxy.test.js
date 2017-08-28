@@ -1,11 +1,10 @@
 
-
-const request = require('supertest');
 const path = require('path');
+const request = require('supertest');
 const express = require('express');
 const WebSocket = require('ws');
-const helper = require('./helper');
 const should = require('should');
+const helper = require('./helper');
 const config = require('./fixtures/proxy-config/webpack.config');
 
 const WebSocketServer = WebSocket.Server;

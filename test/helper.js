@@ -1,12 +1,12 @@
 
-
-const Server = require('../lib/Server');
 const webpack = require('webpack');
+const Server = require('../lib/Server');
 
 let server;
 
 module.exports = {
   start(config, options, done) {
+    // eslint-disable-next-line no-undefined
     if (options.quiet === undefined) {
       options.quiet = true;
     }

@@ -1,9 +1,8 @@
 
-
-const config = require('./fixtures/simple-config/webpack.config');
+const webpack = require('webpack');
 const OptionsValidationError = require('../lib/OptionsValidationError');
 const Server = require('../lib/Server');
-const webpack = require('webpack');
+const config = require('./fixtures/simple-config/webpack.config');
 
 describe('Validation', () => {
   let compiler;
@@ -58,6 +57,7 @@ describe('Validation', () => {
   testCases.forEach((testCase) => {
     it(`should fail validation for ${testCase.name}`, () => {
       try {
+        // eslint-disable-next-line no-new
         new Server(compiler, testCase.config);
       } catch (e) {
         if (!(e instanceof OptionsValidationError)) { throw e; }

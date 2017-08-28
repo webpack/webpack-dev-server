@@ -1,3 +1,3 @@
-require('./index.html');
+require('./index.html'); // eslint-disable-line
 
 console.log('Hey.');

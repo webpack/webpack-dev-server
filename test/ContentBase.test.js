@@ -1,7 +1,6 @@
 
-
-const request = require('supertest');
 const path = require('path');
+const request = require('supertest');
 const helper = require('./helper');
 const config = require('./fixtures/contentbase-config/webpack.config');
 require('mocha-sinon');

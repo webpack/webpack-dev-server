@@ -1,5 +1,4 @@
 
-
 const should = require('should');
 const helper = require('./helper');
 const config = require('./fixtures/simple-config/webpack.config');

@@ -1,8 +1,7 @@
 
-
-const request = require('supertest');
 const fs = require('fs');
 const path = require('path');
+const request = require('supertest');
 const helper = require('./helper');
 const config = require('./fixtures/simple-config/webpack.config');
 
