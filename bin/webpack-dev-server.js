@@ -3,6 +3,7 @@
 'use strict';
 
 /* eslint global-require: off, import/order: off, no-console: off */
+require('../lib/polyfills');
 
 const fs = require('fs');
 const net = require('net');
