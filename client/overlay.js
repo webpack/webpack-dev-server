@@ -1,5 +1,8 @@
+'use strict';
+
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
+
 const ansiHTML = require('ansi-html');
 const Entities = require('html-entities').AllHtmlEntities;
 

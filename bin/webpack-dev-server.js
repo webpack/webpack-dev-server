@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 /* eslint global-require: off, import/order: off, no-console: off */
 
 const fs = require('fs');
@@ -217,8 +219,7 @@ yargs.options({
   }
 });
 
-const { argv } = yargs;
-
+const argv = yargs.argv;
 const wpOpt = require('webpack/bin/convert-argv')(yargs, argv, {
   outputFilename: '/bundle.js'
 });

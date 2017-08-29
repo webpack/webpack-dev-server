@@ -1,5 +1,6 @@
-/* eslint-env worker */
+'use strict';
 
+/* eslint-env worker */
 
 self.onmessage = function onMessage(e) {
   console.log('[WORKER]', e);

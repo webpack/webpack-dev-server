@@ -1,5 +1,6 @@
-/* eslint-env browser */
+'use strict';
 
+/* eslint-env browser */
 
 const worker = new Worker('worker.bundle.js');
 worker.onmessage = function onMessage(e) {

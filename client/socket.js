@@ -1,3 +1,5 @@
+'use strict';
+
 const SockJS = require('sockjs-client');
 
 let retries = 0;

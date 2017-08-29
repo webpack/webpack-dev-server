@@ -1,3 +1,5 @@
+'use strict';
+
 /* eslint global-require: off */
 
 const fs = require('fs');

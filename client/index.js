@@ -1,3 +1,5 @@
+'use strict';
+
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
 

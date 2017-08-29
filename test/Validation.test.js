@@ -1,3 +1,4 @@
+'use strict';
 
 const webpack = require('webpack');
 const OptionsValidationError = require('../lib/OptionsValidationError');

@@ -1,4 +1,4 @@
-
+'use strict';
 
 const Webpack = require('webpack');
 const WebpackDevServer = require('../../lib/Server');

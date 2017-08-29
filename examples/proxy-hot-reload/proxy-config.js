@@ -1,3 +1,5 @@
+'use strict';
+
 /**/
 module.exports = {
   target: 'http://jsonplaceholder.typicode.com/',

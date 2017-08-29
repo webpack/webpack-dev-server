@@ -1,3 +1,5 @@
+'use strict';
+
 require('./index.html');
 require('./bar.html');
 
