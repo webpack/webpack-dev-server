@@ -1,10 +1,12 @@
+'use strict';
+
 module.exports = {
-	context: __dirname,
-	entry: "./app.js",
-	devServer: {
-		overlay: {
-			errors: true,
-			warnings: true
-		}
-	}
-}
+  context: __dirname,
+  entry: './app.js',
+  devServer: {
+    overlay: {
+      errors: true,
+      warnings: true
+    }
+  }
+};
