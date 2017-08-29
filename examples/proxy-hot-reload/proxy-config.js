@@ -1,9 +1,11 @@
+'use strict';
+
 /**/
 module.exports = {
-	target: "http://jsonplaceholder.typicode.com/",
-	pathRewrite: {
-		"^/api": ""
-	}
+  target: 'http://jsonplaceholder.typicode.com/',
+  pathRewrite: {
+    '^/api': ''
+  }
 };
 /**/
 
@@ -13,6 +15,6 @@ module.exports = {
 
 /** /
 module.exports = {
-	target: 'http://reqres.in/'
+  target: 'http://reqres.in/'
 };
 /**/

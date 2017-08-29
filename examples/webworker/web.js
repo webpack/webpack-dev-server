@@ -1,10 +1,11 @@
-/* eslint-env browser */
-"use strict";
+'use strict';
 
-const worker = new Worker("worker.bundle.js");
-worker.onmessage = function(e) {
-	console.log("[MAIN]", e);
+/* eslint-env browser */
+
+const worker = new Worker('worker.bundle.js');
+worker.onmessage = function onMessage(e) {
+  console.log('[MAIN]', e);
 };
 worker.postMessage({
-	hello: 111
+  hello: 111
 });

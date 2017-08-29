@@ -1,119 +1,124 @@
-var $ = require("jquery");
-var stripAnsi = require("strip-ansi");
-var socket = require("./socket");
-require("./style.css");
+'use strict';
 
-var hot = false;
-var currentHash = "";
+/* eslint import/no-extraneous-dependencies: off, global-require: off */
 
-$(function() {
-	$("body").html(require("./page.pug")());
-	var status = $("#status");
-	var okness = $("#okness");
-	var $errors = $("#errors");
-	var iframe = $("#iframe");
-	var header = $(".header");
+const $ = require('jquery');
+const stripAnsi = require('strip-ansi');
+const socket = require('./socket');
+require('./style.css');
 
-	var contentPage = window.location.pathname.substr("/webpack-dev-server".length) + window.location.search;
+let hot = false;
+let currentHash = '';
 
-	status.text("Connecting to sockjs server...");
-	$errors.hide();
-	iframe.hide();
-	header.css({
-		borderColor: "#96b5b4"
-	});
+$(() => {
+  $('body').html(require('./page.pug')());
+  const status = $('#status');
+  const okness = $('#okness');
+  const $errors = $('#errors');
+  const iframe = $('#iframe');
+  const header = $('.header');
 
-	var onSocketMsg = {
-		hot: function() {
-			hot = true;
-			iframe.attr("src", contentPage + window.location.hash);
-		},
-		invalid: function() {
-			okness.text("");
-			status.text("App updated. Recompiling...");
-			header.css({
-				borderColor: "#96b5b4"
-			});
-			$errors.hide();
-			if(!hot) iframe.hide();
-		},
-		hash: function(hash) {
-			currentHash = hash;
-		},
-		"still-ok": function() {
-			okness.text("");
-			status.text("App ready.");
-			header.css({
-				borderColor: ""
-			});
-			$errors.hide();
-			if(!hot) iframe.show();
-		},
-		ok: function() {
-			okness.text("");
-			$errors.hide();
-			reloadApp();
-		},
-		warnings: function() {
-			okness.text("Warnings while compiling.");
-			$errors.hide();
-			reloadApp();
-		},
-		errors: function(errors) {
-			status.text("App updated with errors. No reload!");
-			okness.text("Errors while compiling.");
-			$errors.text("\n" + stripAnsi(errors.join("\n\n\n")) + "\n\n");
-			header.css({
-				borderColor: "#ebcb8b"
-			});
-			$errors.show();
-			iframe.hide();
-		},
-		close: function() {
-			status.text("");
-			okness.text("Disconnected.");
-			$errors.text("\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n");
-			header.css({
-				borderColor: "#ebcb8b"
-			});
-			$errors.show();
-			iframe.hide();
-		}
-	};
+  const contentPage = window.location.pathname.substr('/webpack-dev-server'.length) + window.location.search;
 
-	socket("/sockjs-node", onSocketMsg);
+  status.text('Connecting to sockjs server...');
+  $errors.hide();
+  iframe.hide();
+  header.css({
+    borderColor: '#96b5b4'
+  });
 
-	iframe.load(function() {
-		status.text("App ready.");
-		header.css({
-			borderColor: ""
-		});
-		iframe.show();
-	});
+  const onSocketMsg = {
+    hot() {
+      hot = true;
+      iframe.attr('src', contentPage + window.location.hash);
+    },
+    invalid() {
+      okness.text('');
+      status.text('App updated. Recompiling...');
+      header.css({
+        borderColor: '#96b5b4'
+      });
+      $errors.hide();
+      if (!hot) iframe.hide();
+    },
+    hash(hash) {
+      currentHash = hash;
+    },
+    'still-ok': function stillOk() {
+      okness.text('');
+      status.text('App ready.');
+      header.css({
+        borderColor: ''
+      });
+      $errors.hide();
+      if (!hot) iframe.show();
+    },
+    ok() {
+      okness.text('');
+      $errors.hide();
+      reloadApp();
+    },
+    warnings() {
+      okness.text('Warnings while compiling.');
+      $errors.hide();
+      reloadApp();
+    },
+    errors(errors) {
+      status.text('App updated with errors. No reload!');
+      okness.text('Errors while compiling.');
+      $errors.text(`\n${stripAnsi(errors.join('\n\n\n'))}\n\n`);
+      header.css({
+        borderColor: '#ebcb8b'
+      });
+      $errors.show();
+      iframe.hide();
+    },
+    close() {
+      status.text('');
+      okness.text('Disconnected.');
+      $errors.text('\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n');
+      header.css({
+        borderColor: '#ebcb8b'
+      });
+      $errors.show();
+      iframe.hide();
+    }
+  };
 
-	function reloadApp() {
-		if(hot) {
-			status.text("App hot update.");
-			try {
-				iframe[0].contentWindow.postMessage("webpackHotUpdate" + currentHash, "*");
-			} catch(e) {
-				console.warn(e);
-			}
-			iframe.show();
-		} else {
-			status.text("App updated. Reloading app...");
-			header.css({
-				borderColor: "#96b5b4"
-			});
-			try {
-				var old = iframe[0].contentWindow.location + "";
-				if(old.indexOf("about") == 0) old = null;
-				iframe.attr("src", old || (contentPage + window.location.hash));
-				old && iframe[0].contentWindow.location.reload();
-			} catch(e) {
-				iframe.attr("src", contentPage + window.location.hash);
-			}
-		}
-	}
+  socket('/sockjs-node', onSocketMsg);
 
+  iframe.load(() => {
+    status.text('App ready.');
+    header.css({
+      borderColor: ''
+    });
+    iframe.show();
+  });
+
+  function reloadApp() {
+    if (hot) {
+      status.text('App hot update.');
+      try {
+        iframe[0].contentWindow.postMessage(`webpackHotUpdate${currentHash}`, '*');
+      } catch (e) {
+        console.warn(e); // eslint-disable-line
+      }
+      iframe.show();
+    } else {
+      status.text('App updated. Reloading app...');
+      header.css({
+        borderColor: '#96b5b4'
+      });
+      try {
+        let old = `${iframe[0].contentWindow.location}`;
+        if (old.indexOf('about') === 0) old = null;
+        iframe.attr('src', old || (contentPage + window.location.hash));
+        if (old) {
+          iframe[0].contentWindow.location.reload();
+        }
+      } catch (e) {
+        iframe.attr('src', contentPage + window.location.hash);
+      }
+    }
+  }
 });

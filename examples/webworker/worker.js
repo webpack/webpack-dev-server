@@ -1,9 +1,10 @@
-/* eslint-env worker */
-"use strict";
+'use strict';
 
-self.onmessage = function(e) {
-	console.log("[WORKER]", e);
-	self.postMessage({
-		hello: 222
-	});
+/* eslint-env worker */
+
+self.onmessage = function onMessage(e) {
+  console.log('[WORKER]', e);
+  self.postMessage({
+    hello: 222
+  });
 };
