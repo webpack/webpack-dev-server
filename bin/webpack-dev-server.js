@@ -101,7 +101,7 @@ yargs.options({
   },
   open: {
     type: 'string',
-    describe: 'Open default browser'
+    describe: 'Open the default browser, or optionally specify a browser name'
   },
   useLocalIp: {
     type: 'boolean',
