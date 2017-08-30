@@ -33,6 +33,10 @@ if (typeof __resourceQuery === 'string' && __resourceQuery) {
   urlParts = url.parse((scriptHost || '/'), false, true);
 }
 
+if (!urlParts.port || urlParts.port === '0') {
+  urlParts.port = self.location.port;
+}
+
 let hot = false;
 let initial = true;
 let currentHash = '';
@@ -176,7 +180,7 @@ const socketUrl = url.format({
   protocol,
   auth: urlParts.auth,
   hostname,
-  port: (urlParts.port === '0') ? self.location.port : urlParts.port,
+  port: urlParts.port,
   pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
 });
 
