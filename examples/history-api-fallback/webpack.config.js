@@ -1,9 +1,11 @@
+'use strict';
+
 module.exports = {
-	context: __dirname,
-	entry: "./app.js",
-	devServer: {
-		historyApiFallback: {
-			disableDotRule: true
-		}
-	}
-}
+  context: __dirname,
+  entry: './app.js',
+  devServer: {
+    historyApiFallback: {
+      disableDotRule: true
+    }
+  }
+};
