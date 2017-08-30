@@ -200,8 +200,15 @@
       "type": "boolean"
     },
     "open": {
-      "description": "Let the CLI open your browser.",
-      "type": "boolean"
+      "description": "Let the CLI open your browser with the URL.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     },
     "useLocalIp": {
       "description": "Let the browser open with your local IP.",

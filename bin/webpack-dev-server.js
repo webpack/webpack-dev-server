@@ -100,8 +100,8 @@ yargs.options({
     describe: 'close when stdin ends'
   },
   open: {
-    type: 'boolean',
-    describe: 'Open default browser'
+    type: 'string',
+    describe: 'Open the default browser, or optionally specify a browser name'
   },
   useLocalIp: {
     type: 'boolean',
@@ -324,9 +324,13 @@ function processOptions(webpackOptions) {
 
   if (argv['disable-host-check']) { options.disableHostCheck = true; }
 
-  if (argv.open || argv['open-page']) {
+  if (argv['open-page']) {
     options.open = true;
     options.openPage = argv['open-page'];
+  }
+
+  if (typeof argv.open !== 'undefined') {
+    options.open = argv.open !== '' ? argv.open : true;
   }
 
   if (options.open && !options.openPage) { options.openPage = ''; }
@@ -452,9 +456,18 @@ function reportReadiness(uri, options) {
 
     if (options.bonjour) { console.log('Broadcasting "http" with subtype of "webpack" via ZeroConf DNS (Bonjour)'); }
   }
+
   if (options.open) {
-    open(uri + options.openPage).catch(() => {
-      console.log('Unable to open browser. If you are running in a headless environment, please do not use the open flag.');
+    let openOptions = {};
+    let openMessage = 'Unable to open browser';
+
+    if (typeof options.open === 'string') {
+      openOptions = { app: options.open };
+      openMessage += `: ${options.open}`;
+    }
+
+    open(uri + (options.openPage || ''), openOptions).catch(() => {
+      console.log(`${openMessage}. If you are running in a headless environment, please do not use the open flag.`);
     });
   }
 }
