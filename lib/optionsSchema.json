@@ -145,6 +145,10 @@
       "description": "The passphrase to a (SSL) PFX file.",
       "type": "string"
     },
+    "requestCert": {
+      "description": "Enables request for client certificate.",
+      "type": "boolean"
+    },
     "inline": {
       "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
       "type": "boolean"
