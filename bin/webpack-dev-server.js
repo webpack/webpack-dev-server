@@ -328,7 +328,7 @@ function processOptions(webpackOptions) {
     options.open = true;
     options.openPage = argv['open-page'];
   }
-  
+
   if (typeof argv.open !== 'undefined') {
     options.open = argv.open !== '' ? argv.open : true;
   }
