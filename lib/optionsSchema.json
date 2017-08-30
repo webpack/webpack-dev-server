@@ -146,7 +146,7 @@
       "type": "string"
     },
     "requestCert": {
-      "description": "Enables request for client certificate.",
+      "description": "Enables request for client certificate. This is passed directly to the https server.",
       "type": "boolean"
     },
     "inline": {
