@@ -1,6 +1,9 @@
+npm-debug.log
 node_modules
 /client/live.bundle.js
 /client/index.bundle.js
 /client/sockjs.bundle.js
 /coverage
 *.pem
+.idea/
+/package-lock.json

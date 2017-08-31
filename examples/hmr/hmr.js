@@ -1,9 +1,11 @@
-require("./example");
+'use strict';
 
-if(module.hot) {
-	module.hot.accept(function(err) {
-		if(err) {
-			console.error("Cannot apply hot update", err);
-		}
-	});
+require('./example');
+
+if (module.hot) {
+  module.hot.accept((err) => {
+    if (err) {
+      console.error('Cannot apply hot update', err);
+    }
+  });
 }

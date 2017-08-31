@@ -153,6 +153,10 @@
       "description": "The passphrase to a (SSL) PFX file.",
       "type": "string"
     },
+    "requestCert": {
+      "description": "Enables request for client certificate. This is passed directly to the https server.",
+      "type": "boolean"
+    },
     "inline": {
       "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
       "type": "boolean"
@@ -204,8 +208,15 @@
       "type": "boolean"
     },
     "open": {
-      "description": "Let the CLI open your browser.",
-      "type": "boolean"
+      "description": "Let the CLI open your browser with the URL.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     },
     "useLocalIp": {
       "description": "Let the browser open with your local IP.",
