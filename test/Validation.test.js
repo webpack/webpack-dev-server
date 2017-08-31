@@ -49,7 +49,7 @@ describe("Validation", function() {
 		message: [
 			" - configuration has an unknown property 'asdf'. These properties are valid:",
 			"   object { hot?, hotOnly?, lazy?, bonjour?, host?, allowedHosts?, filename?, publicPath?, port?, socket?, " +
-			"watchOptions?, headers?, clientLogLevel?, overlay?, key?, cert?, ca?, pfx?, pfxPassphrase?, " +
+			"watchOptions?, headers?, clientLogLevel?, overlay?, progress?, key?, cert?, ca?, pfx?, pfxPassphrase?, " +
 			"inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, useLocalIp?, openPage?, features?, " +
 			"compress?, proxy?, historyApiFallback?, staticOptions?, setup?, stats?, reporter?, " +
 			"noInfo?, quiet?, serverSideRender?, index?, log?, warn? }"
@@ -109,6 +109,26 @@ describe("Validation", function() {
 			if(!server.checkHost(headers)) {
 				throw new Error("Validation didn't fail");
 			}
+		});
+
+		it("should allow access for every requests using an IP", function() {
+			const options = {};
+			const testHosts = [
+				"192.168.1.123",
+				"192.168.1.2:8080",
+				"[::1]",
+				"[::1]:8080",
+				"[ad42::1de2:54c2:c2fa:1234]",
+				"[ad42::1de2:54c2:c2fa:1234]:8080"
+			];
+
+			const server = new Server(compiler, options);
+			testHosts.forEach(function(testHost) {
+				const headers = { host: testHost };
+				if(!server.checkHost(headers)) {
+					throw new Error("Validation didn't pass");
+				}
+			});
 		});
 
 		it("should not allow hostnames that don't match options.public", function() {
