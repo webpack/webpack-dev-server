@@ -97,8 +97,8 @@
         }
       ]
     },
-    "status": {
-      "description": "Shows compilation status in browser.",
+    "progress": {
+      "description": "Shows compilation progress in browser console.",
       "anyOf": [
         {
           "type": "boolean"
