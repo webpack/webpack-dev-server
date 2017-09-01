@@ -49,7 +49,7 @@ describe('Validation', () => {
     message: [
       " - configuration has an unknown property 'asdf'. These properties are valid:",
       '   object { hot?, hotOnly?, lazy?, bonjour?, host?, allowedHosts?, filename?, publicPath?, port?, socket?, ' +
-      'watchOptions?, headers?, clientLogLevel?, overlay?, key?, cert?, ca?, pfx?, pfxPassphrase?, requestCert?, ' +
+      'watchOptions?, headers?, mimeTypes?, clientLogLevel?, overlay?, key?, cert?, ca?, pfx?, pfxPassphrase?, requestCert?, ' +
       'inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, useLocalIp?, openPage?, features?, ' +
       'compress?, proxy?, historyApiFallback?, staticOptions?, setup?, stats?, reporter?, ' +
       'noInfo?, quiet?, serverSideRender?, index?, log?, warn? }'
