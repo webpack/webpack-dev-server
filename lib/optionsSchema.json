@@ -69,6 +69,10 @@
       },
       "type": "object"
     },
+    "mimeTypes": {
+      "description": "Add custom mime/extension mappings",
+      "type": "object"
+    },
     "clientLogLevel": {
       "description": "Controls the log messages shown in the browser.",
       "enum": [
