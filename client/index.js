@@ -118,13 +118,13 @@ const onSocketMsg = {
       }
     }
   },
-  progress: function(progress){
-    if(typeof document !== "undefined"){
-        useProgress = progress;
+  progress(progress) {
+    if (typeof document !== 'undefined') {
+      useProgress = progress;
     }
   },
-  "progress-update": function(data){
-    if(useProgress) log.info("[WDS] " + data.percent + "% - " + data.msg + ".");
+  'progress-update': function progressUpdate(data) {
+    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
   },
   ok() {
     sendMsg('Ok');
