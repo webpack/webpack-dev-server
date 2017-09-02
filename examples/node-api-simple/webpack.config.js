@@ -2,7 +2,7 @@
 
 module.exports = {
   context: __dirname,
-  entry: ['./app.js', '../../client/index.js?http://localhost:8080/'],
+  entry: ['../../client/index.js?http://localhost:8080/', './app.js', ],
   output: {
     filename: 'bundle.js'
   }
