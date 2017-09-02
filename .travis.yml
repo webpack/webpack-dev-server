@@ -2,11 +2,18 @@ sudo: false
 branches:
   only:
     - master
-language: node_js
+
+language:
+  node_js
+
 node_js:
-  - "6"
-  - "4"
-script: npm run travis
+  - '8'
+  - '6'
+  - '4'
+
+script:
+  npm run ci
+
 after_success:
   - cat ./coverage/coverage.json | node_modules/codecov.io/bin/codecov.io.js
   - rm -rf ./coverage
