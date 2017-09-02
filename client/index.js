@@ -124,7 +124,7 @@ const onSocketMsg = {
     }
   },
   "progress-update": function(data){
-    if(useProgress) log.info("[WDS] " + data.percent + "% - " + data.msg + ".");  
+    if(useProgress) log.info("[WDS] " + data.percent + "% - " + data.msg + ".");
   },
   ok() {
     sendMsg('Ok');
