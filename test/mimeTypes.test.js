@@ -26,10 +26,4 @@ describe('mimeTypes', () => {
       .expect('Content-Type', 'text/html; charset=UTF-8')
       .expect(200, done);
   });
-
-  it('request to phtml file', (done) => {
-    req.get('/test.phtml')
-      .expect('Content-Type', 'text/html; charset=UTF-8')
-      .expect(200, done);
-  });
 });
