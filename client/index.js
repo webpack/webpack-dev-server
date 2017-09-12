@@ -5,7 +5,7 @@
 
 const url = require('url');
 const stripAnsi = require('strip-ansi');
-const log = require('loglevel');
+const log = require('loglevel').getLogger('webpack-dev-server');
 const socket = require('./socket');
 const overlay = require('./overlay');
 
