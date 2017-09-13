@@ -22,6 +22,11 @@ function getCurrentScriptSource() {
 }
 
 let urlParts;
+let hotReload = true;
+if (typeof window !== 'undefined') {
+  const qs = window.location.search.toLowerCase();
+  hotReload = qs.indexOf('hotreload=false') === -1;
+}
 if (typeof __resourceQuery === 'string' && __resourceQuery) {
   // If this bundle is inlined, use the resource query to get the correct url.
   urlParts = url.parse(__resourceQuery.substr(1));
@@ -201,7 +206,7 @@ self.addEventListener('beforeunload', () => {
 });
 
 function reloadApp() {
-  if (isUnloading) {
+  if (isUnloading || !hotReload) {
     return;
   }
   if (hot) {
