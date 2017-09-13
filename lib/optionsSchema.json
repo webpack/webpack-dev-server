@@ -99,11 +99,7 @@
     },
     "progress": {
       "description": "Shows compilation progress in browser console.",
-      "anyOf": [
-        {
-          "type": "boolean"
-        }
-      ]
+      "type": "boolean"
     },
     "key": {
       "description": "The contents of a SSL key.",
