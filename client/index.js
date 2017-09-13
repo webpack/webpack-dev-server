@@ -18,7 +18,7 @@ function getCurrentScriptSource() {
   const currentScript = scriptElements[scriptElements.length - 1];
   if (currentScript) { return currentScript.getAttribute('src'); }
   // Fail as there was no script to use.
-  throw new Error('[WDS] Failed to get current script source');
+  throw new Error('[WDS] Failed to get current script source.');
 }
 
 let urlParts;
@@ -47,6 +47,7 @@ let initial = true;
 let currentHash = '';
 let useWarningOverlay = false;
 let useErrorOverlay = false;
+let useProgress = false;
 
 const INFO = 'info';
 const WARNING = 'warning';
@@ -121,6 +122,14 @@ const onSocketMsg = {
         useErrorOverlay = value.errors;
       }
     }
+  },
+  progress(progress) {
+    if (typeof document !== 'undefined') {
+      useProgress = progress;
+    }
+  },
+  'progress-update': function progressUpdate(data) {
+    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
   },
   ok() {
     sendMsg('Ok');
