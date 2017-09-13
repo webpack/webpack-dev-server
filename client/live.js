@@ -87,7 +87,7 @@ $(() => {
 
   socket('/sockjs-node', onSocketMsg);
 
-  iframe.load(() => {
+  iframe.on('load', () => {
     status.text('App ready.');
     header.css({
       borderColor: ''
