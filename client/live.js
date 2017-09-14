@@ -10,7 +10,7 @@ require('./style.css');
 let hot = false;
 let currentHash = '';
 
-$(() => {
+$(function ready() {
   $('body').html(require('./page.pug')());
   const status = $('#status');
   const okness = $('#okness');
@@ -28,11 +28,11 @@ $(() => {
   });
 
   const onSocketMsg = {
-    hot() {
+    hot: function msgHot() {
       hot = true;
       iframe.attr('src', contentPage + window.location.hash);
     },
-    invalid() {
+    invalid: function msgInvalid() {
       okness.text('');
       status.text('App updated. Recompiling...');
       header.css({
@@ -41,7 +41,7 @@ $(() => {
       $errors.hide();
       if (!hot) iframe.hide();
     },
-    hash(hash) {
+    hash: function msgHash(hash) {
       currentHash = hash;
     },
     'still-ok': function stillOk() {
@@ -53,17 +53,17 @@ $(() => {
       $errors.hide();
       if (!hot) iframe.show();
     },
-    ok() {
+    ok: function msgOk() {
       okness.text('');
       $errors.hide();
       reloadApp();
     },
-    warnings() {
+    warnings: function msgWarnings() {
       okness.text('Warnings while compiling.');
       $errors.hide();
       reloadApp();
     },
-    errors(errors) {
+    errors: function msgErrors(errors) {
       status.text('App updated with errors. No reload!');
       okness.text('Errors while compiling.');
       $errors.text('\n' + stripAnsi(errors.join('\n\n\n')) + '\n\n');
@@ -73,7 +73,7 @@ $(() => {
       $errors.show();
       iframe.hide();
     },
-    close() {
+    close: function msgClose() {
       status.text('');
       okness.text('Disconnected.');
       $errors.text('\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n');
@@ -87,7 +87,7 @@ $(() => {
 
   socket('/sockjs-node', onSocketMsg);
 
-  iframe.on('load', () => {
+  iframe.on('load', function load() {
     status.text('App ready.');
     header.css({
       borderColor: ''

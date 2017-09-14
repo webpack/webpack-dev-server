@@ -60,7 +60,7 @@
     "sockjs": "0.3.18",
     "sockjs-client": "1.1.4",
     "spdy": "^3.4.1",
-    "strip-ansi": "^4.0.0",
+    "strip-ansi": "^3.0.1",
     "supports-color": "^4.2.1",
     "webpack-dev-middleware": "^1.11.0",
     "yargs": "^8.0.2"

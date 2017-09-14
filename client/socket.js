@@ -26,7 +26,7 @@ function socket(url, handlers) {
       const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
       retries += 1;
 
-      setTimeout(() => {
+      setTimeout(function cb() {
         socket(url, handlers);
       }, retryInMs);
     }
