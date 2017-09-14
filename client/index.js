@@ -65,24 +65,24 @@ function sendMsg(type, data) {
   !(self instanceof WorkerGlobalScope))
   ) {
     self.postMessage({
-      type: `webpack${type}`,
-      data
+      type: 'webpack' + type,
+      data: data
     }, '*');
   }
 }
 
 const onSocketMsg = {
-  hot() {
+  hot: function msgHot() {
     hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
   },
-  invalid() {
+  invalid: function msgInvalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (useWarningOverlay || useErrorOverlay) overlay.clear();
     sendMsg('Invalid');
   },
-  hash(hash) {
+  hash: function msgHash(hash) {
     currentHash = hash;
   },
   'still-ok': function stillOk() {
@@ -109,10 +109,10 @@ const onSocketMsg = {
         log.disableAll();
         break;
       default:
-        log.error(`[WDS] Unknown clientLogLevel '${level}'`);
+        log.error('[WDS] Unknown clientLogLevel \'' + level + '\'');
     }
   },
-  overlay(value) {
+  overlay: function msgOverlay(value) {
     if (typeof document !== 'undefined') {
       if (typeof (value) === 'boolean') {
         useWarningOverlay = false;
@@ -123,15 +123,15 @@ const onSocketMsg = {
       }
     }
   },
-  progress(progress) {
+  progress: function msgProgress(progress) {
     if (typeof document !== 'undefined') {
       useProgress = progress;
     }
   },
   'progress-update': function progressUpdate(data) {
-    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    if (useProgress) log.info('[WDS] ' + data.percent + '% - ' + data.msg + '.');
   },
-  ok() {
+  ok: function msgOk() {
     sendMsg('Ok');
     if (useWarningOverlay || useErrorOverlay) overlay.clear();
     if (initial) return initial = false; // eslint-disable-line no-return-assign
@@ -141,9 +141,9 @@ const onSocketMsg = {
     log.info('[WDS] Content base changed. Reloading...');
     self.location.reload();
   },
-  warnings(warnings) {
+  warnings: function msgWarnings(warnings) {
     log.warn('[WDS] Warnings while compiling.');
-    const strippedWarnings = warnings.map(warning => stripAnsi(warning));
+    const strippedWarnings = warnings.map(function map(warning) { return stripAnsi(warning); });
     sendMsg('Warnings', strippedWarnings);
     for (let i = 0; i < strippedWarnings.length; i++) { log.warn(strippedWarnings[i]); }
     if (useWarningOverlay) overlay.showMessage(warnings);
@@ -151,17 +151,17 @@ const onSocketMsg = {
     if (initial) return initial = false; // eslint-disable-line no-return-assign
     reloadApp();
   },
-  errors(errors) {
+  errors: function msgErrors(errors) {
     log.error('[WDS] Errors while compiling. Reload prevented.');
-    const strippedErrors = errors.map(error => stripAnsi(error));
+    const strippedErrors = errors.map(function map(error) { return stripAnsi(error); });
     sendMsg('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
     if (useErrorOverlay) overlay.showMessage(errors);
   },
-  error(error) {
+  error: function msgError(error) {
     log.error(error);
   },
-  close() {
+  close: function msgClose() {
     log.error('[WDS] Disconnected!');
     sendMsg('Close');
   }
@@ -191,9 +191,9 @@ if (hostname && (self.location.protocol === 'https:' || urlParts.hostname === '0
 }
 
 const socketUrl = url.format({
-  protocol,
+  protocol: protocol,
   auth: urlParts.auth,
-  hostname,
+  hostname: hostname,
   port: urlParts.port,
   pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
 });
@@ -201,7 +201,7 @@ const socketUrl = url.format({
 socket(socketUrl, onSocketMsg);
 
 let isUnloading = false;
-self.addEventListener('beforeunload', () => {
+self.addEventListener('beforeunload', function beforeUnload() {
   isUnloading = true;
 });
 
@@ -216,7 +216,7 @@ function reloadApp() {
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {
       // broadcast update to window
-      self.postMessage(`webpackHotUpdate${currentHash}`, '*');
+      self.postMessage('webpackHotUpdate' + currentHash, '*');
     }
   } else {
     log.info('[WDS] App updated. Reloading...');
