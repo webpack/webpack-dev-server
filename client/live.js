@@ -66,7 +66,7 @@ $(() => {
     errors(errors) {
       status.text('App updated with errors. No reload!');
       okness.text('Errors while compiling.');
-      $errors.text(`\n${stripAnsi(errors.join('\n\n\n'))}\n\n`);
+      $errors.text('\n' + stripAnsi(errors.join('\n\n\n')) + '\n\n');
       header.css({
         borderColor: '#ebcb8b'
       });
@@ -99,7 +99,7 @@ $(() => {
     if (hot) {
       status.text('App hot update.');
       try {
-        iframe[0].contentWindow.postMessage(`webpackHotUpdate${currentHash}`, '*');
+        iframe[0].contentWindow.postMessage('webpackHotUpdate' + currentHash, '*');
       } catch (e) {
         console.warn(e); // eslint-disable-line
       }
@@ -110,7 +110,7 @@ $(() => {
         borderColor: '#96b5b4'
       });
       try {
-        let old = `${iframe[0].contentWindow.location}`;
+        let old = iframe[0].contentWindow.location + '';
         if (old.indexOf('about') === 0) old = null;
         iframe.attr('src', old || (contentPage + window.location.hash));
         if (old) {

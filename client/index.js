@@ -65,7 +65,7 @@ function sendMsg(type, data) {
   !(self instanceof WorkerGlobalScope))
   ) {
     self.postMessage({
-      type: `webpack${type}`,
+      type: 'webpack' + type,
       data
     }, '*');
   }
@@ -109,7 +109,7 @@ const onSocketMsg = {
         log.disableAll();
         break;
       default:
-        log.error(`[WDS] Unknown clientLogLevel '${level}'`);
+        log.error('[WDS] Unknown clientLogLevel \'' + level + '\'');
     }
   },
   overlay(value) {
@@ -129,7 +129,7 @@ const onSocketMsg = {
     }
   },
   'progress-update': function progressUpdate(data) {
-    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    if (useProgress) log.info('[WDS] ' + data.percent + '% - ' + data.msg + '.');
   },
   ok() {
     sendMsg('Ok');
@@ -216,7 +216,7 @@ function reloadApp() {
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {
       // broadcast update to window
-      self.postMessage(`webpackHotUpdate${currentHash}`, '*');
+      self.postMessage('webpackHotUpdate' + currentHash, '*');
     }
   } else {
     log.info('[WDS] App updated. Reloading...');

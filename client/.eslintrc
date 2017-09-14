@@ -1,0 +1,5 @@
+{
+  "rules": {
+    "prefer-template": ["off"]
+  }
+}

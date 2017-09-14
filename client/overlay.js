@@ -98,11 +98,9 @@ function ensureOverlayDivExists(onOverlayDivReady) {
 function showMessageOverlay(message) {
   ensureOverlayDivExists((div) => {
     // Make it look similar to our terminal.
-    div.innerHTML =
-   `<span style="color: #${
-     colors.red
-   }">Failed to compile.</span><br><br>${
-     ansiHTML(entities.encode(message))}`;
+    div.innerHTML = '<span style="color: #' + colors.red +
+                    '">Failed to compile.</span><br><br>' +
+                    ansiHTML(entities.encode(message));
   });
 }
 
