@@ -3,7 +3,7 @@
 'use strict';
 
 require('./lib/polyfills');
-
+require('loud-rejection/register');
 
 const convertArgv = require('webpack/bin/convert-argv');
 const debug = require('debug')('xo');
@@ -30,6 +30,6 @@ const webpackOptions = convertArgv(yargs, argv, {
   outputFilename: '/bundle.js'
 });
 
-options(webpackOptions).then((devServerOptions) => {
+options(argv, webpackOptions).then((devServerOptions) => {
   start(argv, devServerOptions, webpackOptions);
 });
