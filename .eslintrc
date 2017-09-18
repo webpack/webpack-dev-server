@@ -1,9 +1,5 @@
 {
   "extends": "webpack",
-  "globals": {
-    "document": true,
-    "window": true
-  },
   "parserOptions": {
     "sourceType": "script"
   },
