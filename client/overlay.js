@@ -50,7 +50,7 @@ function addOverlayDivTo(iframe) {
   div.style.bottom = 0;
   div.style.width = '100vw';
   div.style.height = '100vh';
-  div.style.backgroundColor = 'black';
+  div.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
   div.style.color = '#E8E8E8';
   div.style.fontFamily = 'Menlo, Consolas, monospace';
   div.style.fontSize = 'large';
