@@ -9,7 +9,7 @@ const server = new WebpackDevServer(compiler, {
   stats: {
     colors: true
   },
-  setup(app) {
+  before(app) {
     app.use((req, res, next) => {
       console.log(`Using middleware for ${req.url}`);
       next();
