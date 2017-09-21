@@ -50,7 +50,7 @@
     "express": "^4.13.3",
     "html-entities": "^1.2.0",
     "http-proxy-middleware": "~0.17.4",
-    "internal-ip": "^2.0.2",
+    "internal-ip": "1.2.0",
     "ip": "^1.1.5",
     "loglevel": "^1.4.1",
     "opn": "^5.1.0",
