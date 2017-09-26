@@ -1,4 +1,8 @@
 {
+  "globals": {
+    "document": true,
+    "window": true
+  },
   "rules": {
     "object-shorthand": ["error", "never"],
     "prefer-arrow-callback": ["off"],
