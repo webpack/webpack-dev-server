@@ -13,8 +13,9 @@ questions, and support requests will be closed._
 
 <!-- Please place an x, no spaces, in all [ ] that apply -->
 
-- [ ] This is a **feature** request
 - [ ] This is a **bug**
+- [ ] This is a **feature** request
+- [ ] This is a **modification** request
 
 ### Code
 
