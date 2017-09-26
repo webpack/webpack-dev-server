@@ -274,6 +274,14 @@
       "description": "Exposes the Express server to add custom middleware or routes.",
       "instanceof": "Function"
     },
+    "before": {
+      "description": "Exposes the Express server to add custom middleware or routes before webpack-dev-middleware will be added.",
+      "instanceof": "Function"
+    },
+    "after": {
+      "description": "Exposes the Express server to add custom middleware or routes after webpack-dev-middleware got added.",
+      "instanceof": "Function"
+    },
     "stats": {
       "description": "Decides what bundle information is displayed.",
       "anyOf": [
