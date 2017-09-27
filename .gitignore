@@ -5,3 +5,4 @@ node_modules
 /client/sockjs.bundle.js
 /coverage
 *.pem
+.idea/

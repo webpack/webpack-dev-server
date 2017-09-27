@@ -5,7 +5,7 @@
 
 const url = require('url');
 const stripAnsi = require('strip-ansi');
-const log = require('loglevel');
+const log = require('loglevel').getLogger('webpack-dev-server');
 const socket = require('./socket');
 const overlay = require('./overlay');
 
@@ -18,10 +18,15 @@ function getCurrentScriptSource() {
   const currentScript = scriptElements[scriptElements.length - 1];
   if (currentScript) { return currentScript.getAttribute('src'); }
   // Fail as there was no script to use.
-  throw new Error('[WDS] Failed to get current script source');
+  throw new Error('[WDS] Failed to get current script source.');
 }
 
 let urlParts;
+let hotReload = true;
+if (typeof window !== 'undefined') {
+  const qs = window.location.search.toLowerCase();
+  hotReload = qs.indexOf('hotreload=false') === -1;
+}
 if (typeof __resourceQuery === 'string' && __resourceQuery) {
   // If this bundle is inlined, use the resource query to get the correct url.
   urlParts = url.parse(__resourceQuery.substr(1));
@@ -33,11 +38,16 @@ if (typeof __resourceQuery === 'string' && __resourceQuery) {
   urlParts = url.parse((scriptHost || '/'), false, true);
 }
 
+if (!urlParts.port || urlParts.port === '0') {
+  urlParts.port = self.location.port;
+}
+
 let hot = false;
 let initial = true;
 let currentHash = '';
 let useWarningOverlay = false;
 let useErrorOverlay = false;
+let useProgress = false;
 
 const INFO = 'info';
 const WARNING = 'warning';
@@ -55,24 +65,24 @@ function sendMsg(type, data) {
   !(self instanceof WorkerGlobalScope))
   ) {
     self.postMessage({
-      type: `webpack${type}`,
-      data
+      type: 'webpack' + type,
+      data: data
     }, '*');
   }
 }
 
 const onSocketMsg = {
-  hot() {
+  hot: function msgHot() {
     hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
   },
-  invalid() {
+  invalid: function msgInvalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (useWarningOverlay || useErrorOverlay) overlay.clear();
     sendMsg('Invalid');
   },
-  hash(hash) {
+  hash: function msgHash(hash) {
     currentHash = hash;
   },
   'still-ok': function stillOk() {
@@ -82,8 +92,7 @@ const onSocketMsg = {
   },
   'log-level': function logLevel(level) {
     const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
-    const contextKeys = hotCtx.keys();
-    if (contextKeys.length && contextKeys['./log']) {
+    if (hotCtx.keys().indexOf('./log') !== -1) {
       hotCtx('./log').setLogLevel(level);
     }
     switch (level) {
@@ -99,10 +108,10 @@ const onSocketMsg = {
         log.disableAll();
         break;
       default:
-        log.error(`[WDS] Unknown clientLogLevel '${level}'`);
+        log.error('[WDS] Unknown clientLogLevel \'' + level + '\'');
     }
   },
-  overlay(value) {
+  overlay: function msgOverlay(value) {
     if (typeof document !== 'undefined') {
       if (typeof (value) === 'boolean') {
         useWarningOverlay = false;
@@ -113,7 +122,15 @@ const onSocketMsg = {
       }
     }
   },
-  ok() {
+  progress: function msgProgress(progress) {
+    if (typeof document !== 'undefined') {
+      useProgress = progress;
+    }
+  },
+  'progress-update': function progressUpdate(data) {
+    if (useProgress) log.info('[WDS] ' + data.percent + '% - ' + data.msg + '.');
+  },
+  ok: function msgOk() {
     sendMsg('Ok');
     if (useWarningOverlay || useErrorOverlay) overlay.clear();
     if (initial) return initial = false; // eslint-disable-line no-return-assign
@@ -123,9 +140,9 @@ const onSocketMsg = {
     log.info('[WDS] Content base changed. Reloading...');
     self.location.reload();
   },
-  warnings(warnings) {
+  warnings: function msgWarnings(warnings) {
     log.warn('[WDS] Warnings while compiling.');
-    const strippedWarnings = warnings.map(warning => stripAnsi(warning));
+    const strippedWarnings = warnings.map(function map(warning) { return stripAnsi(warning); });
     sendMsg('Warnings', strippedWarnings);
     for (let i = 0; i < strippedWarnings.length; i++) { log.warn(strippedWarnings[i]); }
     if (useWarningOverlay) overlay.showMessage(warnings);
@@ -133,17 +150,17 @@ const onSocketMsg = {
     if (initial) return initial = false; // eslint-disable-line no-return-assign
     reloadApp();
   },
-  errors(errors) {
+  errors: function msgErrors(errors) {
     log.error('[WDS] Errors while compiling. Reload prevented.');
-    const strippedErrors = errors.map(error => stripAnsi(error));
+    const strippedErrors = errors.map(function map(error) { return stripAnsi(error); });
     sendMsg('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
     if (useErrorOverlay) overlay.showMessage(errors);
   },
-  error(error) {
+  error: function msgError(error) {
     log.error(error);
   },
-  close() {
+  close: function msgClose() {
     log.error('[WDS] Disconnected!');
     sendMsg('Close');
   }
@@ -173,22 +190,22 @@ if (hostname && (self.location.protocol === 'https:' || urlParts.hostname === '0
 }
 
 const socketUrl = url.format({
-  protocol,
+  protocol: protocol,
   auth: urlParts.auth,
-  hostname,
-  port: (urlParts.port === '0') ? self.location.port : urlParts.port,
+  hostname: hostname,
+  port: urlParts.port,
   pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
 });
 
 socket(socketUrl, onSocketMsg);
 
 let isUnloading = false;
-self.addEventListener('beforeunload', () => {
+self.addEventListener('beforeunload', function beforeUnload() {
   isUnloading = true;
 });
 
 function reloadApp() {
-  if (isUnloading) {
+  if (isUnloading || !hotReload) {
     return;
   }
   if (hot) {
@@ -198,7 +215,7 @@ function reloadApp() {
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {
       // broadcast update to window
-      self.postMessage(`webpackHotUpdate${currentHash}`, '*');
+      self.postMessage('webpackHotUpdate' + currentHash, '*');
     }
   } else {
     log.info('[WDS] App updated. Reloading...');

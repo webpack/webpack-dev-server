@@ -50,7 +50,7 @@ function addOverlayDivTo(iframe) {
   div.style.bottom = 0;
   div.style.width = '100vw';
   div.style.height = '100vh';
-  div.style.backgroundColor = 'black';
+  div.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
   div.style.color = '#E8E8E8';
   div.style.fontFamily = 'Menlo, Consolas, monospace';
   div.style.fontSize = 'large';
@@ -83,7 +83,7 @@ function ensureOverlayDivExists(onOverlayDivReady) {
   }
 
   // Create iframe and, when it is ready, a div inside it.
-  overlayIframe = createOverlayIframe(() => {
+  overlayIframe = createOverlayIframe(function cb() {
     overlayDiv = addOverlayDivTo(overlayIframe);
     // Now we can talk!
     lastOnOverlayDivReady(overlayDiv);
@@ -96,13 +96,11 @@ function ensureOverlayDivExists(onOverlayDivReady) {
 }
 
 function showMessageOverlay(message) {
-  ensureOverlayDivExists((div) => {
+  ensureOverlayDivExists(function cb(div) {
     // Make it look similar to our terminal.
-    div.innerHTML =
-   `<span style="color: #${
-     colors.red
-   }">Failed to compile.</span><br><br>${
-     ansiHTML(entities.encode(message))}`;
+    div.innerHTML = '<span style="color: #' + colors.red +
+                    '">Failed to compile.</span><br><br>' +
+                    ansiHTML(entities.encode(message));
   });
 }
 
