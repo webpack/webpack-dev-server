@@ -4,12 +4,27 @@
   "type": "object",
 
   "properties": {
+    "after": {
+      "description": "Exposes the Express server to add custom middleware or routes after webpack-dev-middleware got added.",
+      "instanceof": "Function"
+    },
+
     "allowedHosts": {
       "description": "Specifies which hosts are allowed to access the dev server.",
       "items": {
         "type": "string"
       },
       "type": "array"
+    },
+
+    "before": {
+      "description": "Exposes the Express server to add custom middleware or routes before webpack-dev-middleware will be added.",
+      "instanceof": "Function"
+    },
+
+    "bonjour": {
+      "description": "Publishes the ZeroConf DNS service",
+      "type": "boolean"
     },
 
     "ca": {
@@ -185,8 +200,15 @@
     },
 
     "open": {
-      "description": "Let the CLI open your browser.",
-      "type": "boolean"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "description": "Let the CLI open your browser."
     },
 
     "openPage": {
@@ -243,6 +265,11 @@
       "description": "The port the server listens to."
     },
 
+    "progress": {
+      "description": "Shows compilation progress in browser console.",
+      "type": "boolean"
+    },
+
     "proxy": {
       "anyOf": [
         {
@@ -278,6 +305,11 @@
 
     "quiet": {
       "description": "Hide all messages on console.",
+      "type": "boolean"
+    },
+
+    "requestCert": {
+      "description": "Enables request for client certificate. This is passed directly to the https server.",
       "type": "boolean"
     },
 
