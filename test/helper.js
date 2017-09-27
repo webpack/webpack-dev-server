@@ -11,6 +11,9 @@ module.exports = {
     if (options.quiet === undefined) {
       options.quiet = true;
     }
+
+    options.publicPath = options.publicPath || '/';
+
     const compiler = webpack(config);
     server = new Server(compiler, options);
 

@@ -1,0 +1,382 @@
+{
+  "additionalProperties": false,
+  "required": [ "publicPath" ],
+  "type": "object",
+
+  "properties": {
+    "after": {
+      "description": "Exposes the Express server to add custom middleware or routes after webpack-dev-middleware got added.",
+      "instanceof": "Function"
+    },
+
+    "allowedHosts": {
+      "description": "Specifies which hosts are allowed to access the dev server.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+
+    "before": {
+      "description": "Exposes the Express server to add custom middleware or routes before webpack-dev-middleware will be added.",
+      "instanceof": "Function"
+    },
+
+    "bonjour": {
+      "description": "Publishes the ZeroConf DNS service",
+      "type": "boolean"
+    },
+
+    "ca": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ],
+      "description": "The contents of a SSL CA certificate."
+    },
+
+    "cert": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ],
+      "description": "The contents of a SSL certificate."
+    },
+
+    "clientLogLevel": {
+      "description": "Controls the log messages shown in the browser.",
+      "enum": [
+        "error",
+        "info",
+        "none",
+        "warning"
+      ]
+    },
+
+    "compress": {
+      "description": "Gzip compression for all requests.",
+      "type": "boolean"
+    },
+
+    "contentBase": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        {
+          "enum": [
+            false
+          ]
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "A directory to serve files non-webpack files from."
+    },
+
+    "disableHostCheck": {
+      "description": "Disable the Host header check (Security).",
+      "type": "boolean"
+    },
+
+    "features": {
+      "description": "The order of which the features will be triggered.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+
+    "filename": {
+      "anyOf": [
+        {
+          "instanceof": "RegExp"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "The filename that needs to be requested in order to trigger a recompile (only in lazy mode)."
+    },
+
+    "headers": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Response headers that are added to each response.",
+      "type": "object"
+    },
+
+    "historyApiFallback": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object"
+        }
+      ],
+      "description": "404 fallback to a specified file."
+    },
+
+    "host": {
+      "description": "The host the server listens to.",
+      "type": "string"
+    },
+
+    "hot": {
+      "description": "Enables Hot Module Replacement.",
+      "type": "boolean"
+    },
+
+    "hotOnly": {
+      "description": "Enables Hot Module Replacement without page refresh as fallback.",
+      "type": "boolean"
+    },
+
+    "https": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "description": "Enable HTTPS for server."
+    },
+
+    "index": {
+      "description": "The filename that is considered the index file.",
+      "type": "string"
+    },
+
+    "inline": {
+      "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
+      "type": "boolean"
+    },
+
+    "key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ],
+      "description": "The contents of a SSL key."
+    },
+
+    "lazy": {
+      "description": "Disables watch mode and recompiles bundle only on a request.",
+      "type": "boolean"
+    },
+
+    "log": {
+      "description": "Customize info logs for webpack-dev-middleware.",
+      "instanceof": "Function"
+    },
+
+    "noInfo": {
+      "description": "Hide all info messages on console.",
+      "type": "boolean"
+    },
+
+    "open": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "description": "Let the CLI open your browser."
+    },
+
+    "openPage": {
+      "description": "Let the CLI open your browser to a specific page on the site.",
+      "type": "string"
+    },
+
+    "overlay": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "properties": {
+            "errors": {
+              "type": "boolean"
+            },
+            "warnings": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      "description": "Shows an error overlay in browser."
+    },
+
+    "pfx": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Buffer"
+        }
+      ],
+      "description": "The contents of a SSL pfx file."
+    },
+
+    "pfxPassphrase": {
+      "description": "The passphrase to a (SSL) PFX file.",
+      "type": "string"
+    },
+
+    "port": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "The port the server listens to."
+    },
+
+    "progress": {
+      "description": "Shows compilation progress in browser console.",
+      "type": "boolean"
+    },
+
+    "proxy": {
+      "anyOf": [
+        {
+          "items": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "instanceof": "Function"
+              }
+            ]
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        {
+          "type": "object"
+        }
+      ],
+      "description": "Proxy requests to another server."
+    },
+
+    "public": {
+      "description": "The public hostname/ip address of the server.",
+      "type": "string"
+    },
+
+    "publicPath": {
+      "description": "URL path where the webpack files are served from.",
+      "type": "string"
+    },
+
+    "quiet": {
+      "description": "Hide all messages on console.",
+      "type": "boolean"
+    },
+
+    "requestCert": {
+      "description": "Enables request for client certificate. This is passed directly to the https server.",
+      "type": "boolean"
+    },
+
+    "reporter": {
+      "description": "Customize what the console displays when compiling.",
+      "instanceof": "Function"
+    },
+
+    "serverSideRender": {
+      "description": "Expose stats for server side rendering (experimental).",
+      "type": "boolean"
+    },
+
+    "setup": {
+      "description": "Exposes the Express server to add custom middleware or routes.",
+      "instanceof": "Function"
+    },
+
+    "socket": {
+      "description": "The Unix socket to listen to (instead of on a host).",
+      "type": "string"
+    },
+
+    "staticOptions": {
+      "description": "Options for static files served with contentBase.",
+      "type": "object"
+    },
+
+    "stats": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": [
+            "errors-only",
+            "minimal",
+            "none",
+            "normal",
+            "verbose"
+          ]
+        }
+      ],
+      "description": "Decides what bundle information is displayed."
+    },
+
+    "useLocalIp": {
+      "description": "Let the browser open with your local IP.",
+      "type": "boolean"
+    },
+
+    "warn": {
+      "description": "Customize warn logs for webpack-dev-middleware.",
+      "instanceof": "Function"
+    },
+
+    "watchContentBase": {
+      "description": "Watches the contentBase directory for changes.",
+      "type": "boolean"
+    },
+
+    "watchOptions": {
+      "description": "Options for changing the watch behavior.",
+      "type": "object"
+    }
+  }
+}

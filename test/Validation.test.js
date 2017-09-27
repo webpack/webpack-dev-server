@@ -3,36 +3,51 @@
 const webpack = require('webpack');
 const OptionsValidationError = require('../lib/OptionsValidationError');
 const Server = require('../lib/Server');
+const optionsSchema = require('../lib/schemas/options.json');
 const config = require('./fixtures/simple-config/webpack.config');
+
+const optionNames = Object.keys(optionsSchema.properties).map((name) => {
+  if (optionsSchema.required.includes(name)) {
+    return name;
+  }
+
+  return `${name}?`;
+});
+const publicPath = '/';
 
 describe('Validation', () => {
   let compiler;
+
   before(() => {
     compiler = webpack(config);
   });
+
   const testCases = [{
     name: 'invalid `hot` configuration',
-    config: { hot: 'asdf' },
+    config: { hot: 'asdf', publicPath },
     message: [
       ' - configuration.hot should be a boolean.'
     ]
-  }, {
+  },
+  {
     name: 'invalid `public` configuration',
-    config: { public: 1 },
+    config: { public: 1, publicPath },
     message: [
       ' - configuration.public should be a string.'
     ]
-  }, {
+  },
+  {
     name: 'invalid `allowedHosts` configuration',
-    config: { allowedHosts: 1 },
+    config: { allowedHosts: 1, publicPath },
     message: [
       ' - configuration.allowedHosts should be an array:',
       '   [string]',
       '   Specifies which hosts are allowed to access the dev server.'
     ]
-  }, {
+  },
+  {
     name: 'invalid `contentBase` configuration',
-    config: { contentBase: [0] },
+    config: { contentBase: [0], publicPath },
     message: [
       ' - configuration.contentBase should be one of these:',
       '   [string] | false | number | string',
@@ -43,18 +58,17 @@ describe('Validation', () => {
       '    * configuration.contentBase should be a number.',
       '    * configuration.contentBase should be a string.'
     ]
-  }, {
+  },
+  {
     name: 'non-existing key configuration',
-    config: { asdf: true },
+    config: { asdf: true, publicPath },
     message: [
-      " - configuration has an unknown property 'asdf'. These properties are valid:",
-      '   object { hot?, hotOnly?, lazy?, bonjour?, host?, allowedHosts?, filename?, publicPath?, port?, socket?, ' +
-      'watchOptions?, headers?, clientLogLevel?, overlay?, progress?, key?, cert?, ca?, pfx?, pfxPassphrase?, requestCert?, ' +
-      'inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, useLocalIp?, openPage?, features?, ' +
-      'compress?, proxy?, historyApiFallback?, staticOptions?, setup?, before?, after?, stats?, reporter?, ' +
-      'noInfo?, quiet?, serverSideRender?, index?, log?, warn? }'
+      // eslint-disable-next-line quotes
+      ` - configuration has an unknown property 'asdf'. These properties are valid:`,
+      `   object { ${optionNames.join(', ')} }`
     ]
   }];
+
   testCases.forEach((testCase) => {
     it(`should fail validation for ${testCase.name}`, () => {
       try {
@@ -74,7 +88,8 @@ describe('Validation', () => {
     it('should always allow any host if options.disableHostCheck is set', () => {
       const options = {
         public: 'test.host:80',
-        disableHostCheck: true
+        disableHostCheck: true,
+        publicPath
       };
       const headers = {
         host: 'bad.host'
@@ -87,7 +102,8 @@ describe('Validation', () => {
 
     it('should allow any valid options.public when host is localhost', () => {
       const options = {
-        public: 'test.host:80'
+        public: 'test.host:80',
+        publicPath
       };
       const headers = {
         host: 'localhost'
@@ -100,7 +116,8 @@ describe('Validation', () => {
 
     it('should allow any valid options.public when host is 127.0.0.1', () => {
       const options = {
-        public: 'test.host:80'
+        public: 'test.host:80',
+        publicPath
       };
       const headers = {
         host: '127.0.0.1'
@@ -112,7 +129,7 @@ describe('Validation', () => {
     });
 
     it('should allow access for every requests using an IP', () => {
-      const options = {};
+      const options = { publicPath };
       const testHosts = [
         '192.168.1.123',
         '192.168.1.2:8080',
@@ -133,7 +150,8 @@ describe('Validation', () => {
 
     it("should not allow hostnames that don't match options.public", () => {
       const options = {
-        public: 'test.host:80'
+        public: 'test.host:80',
+        publicPath
       };
       const headers = {
         host: 'test.hostname:80'
@@ -151,7 +169,7 @@ describe('Validation', () => {
           'test2.host',
           'test3.host'
         ];
-        const options = { allowedHosts: testHosts };
+        const options = { allowedHosts: testHosts, publicPath };
         const server = new Server(compiler, options);
 
         testHosts.forEach((testHost) => {
@@ -162,7 +180,7 @@ describe('Validation', () => {
         });
       });
       it('should allow hosts that pass a wildcard in allowedHosts', () => {
-        const options = { allowedHosts: ['.example.com'] };
+        const options = { allowedHosts: ['.example.com'], publicPath };
         const server = new Server(compiler, options);
         const testHosts = [
           'www.example.com',
