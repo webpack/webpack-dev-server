@@ -26,7 +26,8 @@ describe('check utility funcitons', () => {
       port: 8080,
       https: true
     },
-    expected: 'https://localhost:8080'
+    expected: 'https://localhost:8080',
+    timeout: 10000
   }, {
     name: 'override with public',
     options: {
@@ -69,7 +70,7 @@ describe('check utility funcitons', () => {
   }];
 
   tests.forEach((t) => {
-    it(`test createDomain '${t.name}'`, (done) => {
+    const itInstance = it(`test createDomain '${t.name}'`, (done) => {
       const options = t.options;
       const server = new Server(compiler, options);
       const expected = t.expected;
@@ -86,5 +87,8 @@ describe('check utility funcitons', () => {
         server.close();
       });
     });
+    if (t.timeout) {
+      itInstance.timeout(t.timeout);
+    }
   });
 });
