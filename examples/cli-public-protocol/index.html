@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<iframe id="testframe" src="about:blank"></iframe>
+
+		<script>
+			var testframe = document.getElementById('testframe');
+			var scriptEl = document.createElement('script');
+			scriptEl.setAttribute('src', 'https://localhost/bundle.js');
+			testframe.contentDocument.head.appendChild(scriptEl);
+		</script>
+	</body>
+</html>

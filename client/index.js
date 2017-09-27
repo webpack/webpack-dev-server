@@ -219,6 +219,15 @@ function reloadApp() {
     }
   } else {
     log.info('[WDS] App updated. Reloading...');
-    self.location.reload();
+    let rootWindow = self;
+    // use parent window for reload (in case we're in an iframe with no valid src)
+    do {
+      if (rootWindow.location.protocol !== 'about:') {
+        break;
+      }
+      rootWindow = self.parent;
+    } while (rootWindow.parent !== self.parent);
+
+    rootWindow.location.reload();
   }
 }
