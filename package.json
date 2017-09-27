@@ -6,6 +6,9 @@
   "repository": "webpack/webpack-dev-server",
   "author": "Tobias Koppers @sokra",
   "homepage": "http://github.com/webpack/webpack-dev-server",
+  "publishConfig": {
+    "tag": "beta"
+  },
   "maintainers": [
     {
       "name": "Andrew Powell",
