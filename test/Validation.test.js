@@ -3,8 +3,16 @@
 const webpack = require('webpack');
 const OptionsValidationError = require('../lib/OptionsValidationError');
 const Server = require('../lib/Server');
+const optionsSchema = require('../lib/schemas/options.json');
 const config = require('./fixtures/simple-config/webpack.config');
 
+const optionNames = Object.keys(optionsSchema.properties).map((name) => {
+  if (optionsSchema.required.includes(name)) {
+    return name;
+  }
+
+  return `${name}?`;
+});
 const publicPath = '/';
 
 describe('Validation', () => {
@@ -55,8 +63,9 @@ describe('Validation', () => {
     name: 'non-existing key configuration',
     config: { asdf: true, publicPath },
     message: [
-      ' - configuration has an unknown property \'asdf\'. These properties are valid:',
-      '   object { allowedHosts?, ca?, cert?, clientLogLevel?, compress?, contentBase?, disableHostCheck?, features?, filename?, headers?, historyApiFallback?, host?, hot?, hotOnly?, https?, index?, inline?, key?, lazy?, log?, noInfo?, open?, openPage?, overlay?, pfx?, pfxPassphrase?, port?, proxy?, public?, publicPath, quiet?, reporter?, serverSideRender?, setup?, socket?, staticOptions?, stats?, useLocalIp?, warn?, watchContentBase?, watchOptions? }'
+      // eslint-disable-next-line quotes
+      ` - configuration has an unknown property 'asdf'. These properties are valid:`,
+      `   object { ${optionNames.join(', ')} }`
     ]
   }];
 
