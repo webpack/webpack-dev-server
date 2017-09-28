@@ -218,7 +218,6 @@ function reloadApp() {
       self.postMessage('webpackHotUpdate' + currentHash, '*');
     }
   } else {
-    log.info('[WDS] App updated. Reloading...');
     let rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
     do {
@@ -228,6 +227,7 @@ function reloadApp() {
       rootWindow = self.parent;
     } while (rootWindow.parent !== self.parent);
 
+    log.info('[WDS] App updated. Reloading...');
     rootWindow.location.reload();
   }
 }
