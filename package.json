@@ -25,13 +25,17 @@
     "beautify": "npm run lint -- --fix",
     "ci": "npm run cover -- --report lcovonly && npm run test",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
-    "lint": "eslint index.js cli.js bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config}.js",
+    "lint": "eslint index.js cli.js bin lib test examples",
     "mocha": "mocha --full-trace --check-leaks",
-    "prepublish": "npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
+    "prepublish": "npm run build",
     "test": "npm run lint && npm run mocha",
-    "build:live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js",
-    "build:index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js",
-    "build:sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js"
+    "build": "npm run build:clean && npm run -s build:bundles && npm run -s build:copy",
+    "build:bundles": "npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
+    "build:clean": "rm -rf public",
+    "build:copy": "cp lib/client/{live.html,page.pug} public && cp lib/client/css/style.css public && cp -r lib/client/web_modules public",
+    "build:index": "webpack lib/client/js/index.js --config lib/client/config/webpack.config.js",
+    "build:live": "webpack lib/client/js/live.js --config lib/client/config/webpack.config.live.js",
+    "build:sockjs": "webpack lib/client/js/sockjs.js --config lib/client/config/webpack.config.sockjs.js"
   },
   "files": [
     "lib/",

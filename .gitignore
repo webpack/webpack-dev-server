@@ -1,8 +1,6 @@
 npm-debug.log
 node_modules
-/client/live.bundle.js
-/client/index.bundle.js
-/client/sockjs.bundle.js
+/public
 /coverage
 *.pem
 .idea/
