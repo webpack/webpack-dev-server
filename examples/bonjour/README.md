@@ -2,7 +2,7 @@
 
 For basic usage
 ```shell
-node ../../bin/webpack-dev-server.js --bonjour
+node ../../cli.js --bonjour
 ```
 
 ## What should happen
