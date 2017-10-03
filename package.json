@@ -66,6 +66,7 @@
     "loud-rejection": "^1.6.0",
     "opn": "^5.1.0",
     "portfinder": "^1.0.9",
+    "raw-loader": "^0.5.1",
     "resolve-cwd": "^2.0.0",
     "selfsigned": "^1.9.1",
     "serve-index": "^1.7.2",

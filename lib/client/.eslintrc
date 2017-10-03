@@ -4,6 +4,9 @@
     "window": true
   },
   "rules": {
+    "import/no-extraneous-dependencies": ["off"],
+    "import/no-webpack-loader-syntax": ["off"],
+    "import/no-unresolved": ["off"],
     "object-shorthand": ["error", "never"],
     "prefer-arrow-callback": ["off"],
     "prefer-template": ["off"]
