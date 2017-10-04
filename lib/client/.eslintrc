@@ -9,6 +9,7 @@
     "import/no-unresolved": ["off"],
     "object-shorthand": ["error", "never"],
     "prefer-arrow-callback": ["off"],
+    "prefer-spread": ["off"],
     "prefer-template": ["off"]
   }
 }

@@ -63,6 +63,7 @@
     "ip": "^1.1.5",
     "log-symbols": "^2.0.0",
     "loglevel": "^1.4.1",
+    "loglevel-plugin-prefix": "^0.5.3",
     "loud-rejection": "^1.6.0",
     "opn": "^5.1.0",
     "portfinder": "^1.0.9",
