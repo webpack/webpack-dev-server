@@ -27,7 +27,7 @@ describe('check utility funcitons', () => {
       https: true
     },
     expected: 'https://localhost:8080',
-    timeout: 10000
+    timeout: 60000
   }, {
     name: 'override with public',
     options: {
