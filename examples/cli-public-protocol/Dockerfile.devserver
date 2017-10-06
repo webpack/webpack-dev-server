@@ -1,6 +1,0 @@
-FROM node:6
-
-EXPOSE 80
-
-VOLUME /devserver
-WORKDIR /devserver/examples/cli-public-protocol

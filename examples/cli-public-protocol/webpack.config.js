@@ -5,8 +5,7 @@ module.exports = {
   entry: './app.js',
   devServer: {
     host: '0.0.0.0',
-    port: 80,
-    public: 'https://localhost',
+    public: 'https://localhost:8080',
     disableHostCheck: true
   }
 };

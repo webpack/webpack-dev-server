@@ -220,13 +220,22 @@ function reloadApp() {
   } else {
     let rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
-    do {
+    const intervalId = self.setInterval(function findRootWindow() {
       if (rootWindow.location.protocol !== 'about:') {
-        break;
+        // reload immediately if protocol is valid
+        applyReload(rootWindow, intervalId);
+      } else {
+        rootWindow = rootWindow.parent;
+        if (rootWindow.parent === rootWindow) {
+          // if parent equals current window we've reached the root which would continue forever, so trigger a reload anyways
+          applyReload(rootWindow, intervalId);
+        }
       }
-      rootWindow = self.parent;
-    } while (rootWindow.parent !== self.parent);
+    });
+  }
 
+  function applyReload(rootWindow, intervalId) {
+    clearInterval(intervalId);
     log.info('[WDS] App updated. Reloading...');
     rootWindow.location.reload();
   }
