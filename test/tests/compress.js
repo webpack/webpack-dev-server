@@ -1,8 +1,10 @@
 'use strict';
 
+/* eslint import/no-extraneous-dependencies: off */
+
 const request = require('supertest');
-const helper = require('./helper');
-const config = require('./fixtures/simple-config/webpack.config');
+const helper = require('../helper');
+const config = require('../fixtures/simple-config/webpack.config');
 
 describe('Compress', () => {
   let server;
@@ -15,7 +17,9 @@ describe('Compress', () => {
     req = request(server.app);
   });
 
-  after(helper.close);
+  after((done) => {
+    helper.close(server, done);
+  });
 
   it('request to bundle file', (done) => {
     req.get('/bundle.js')

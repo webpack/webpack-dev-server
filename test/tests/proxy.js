@@ -1,23 +1,27 @@
 'use strict';
 
+/* eslint import/no-extraneous-dependencies: off */
+
 const path = require('path');
 const request = require('supertest');
 const express = require('express');
 const WebSocket = require('ws');
 const should = require('should');
-const helper = require('./helper');
-const config = require('./fixtures/proxy-config/webpack.config');
+const helper = require('../helper');
+const config = require('../fixtures/proxy-config/webpack.config');
 
 const WebSocketServer = WebSocket.Server;
-const contentBase = path.join(__dirname, 'fixtures/proxy-config');
+const contentBase = path.join(__dirname, '../fixtures/proxy-config');
 
 const proxyOption = {
   '/proxy1': {
-    target: 'http://localhost:9000'
+    target: 'http://localhost:9000',
+    logLevel: 'silent'
   },
   '/api/proxy2': {
     target: 'http://localhost:9001',
-    pathRewrite: { '^/api': '' }
+    pathRewrite: { '^/api': '' },
+    logLevel: 'silent'
   },
   '/foo': {
     bypass(req) {
@@ -28,13 +32,14 @@ const proxyOption = {
   }
 };
 
-const proxyOptionOfArray = [
+const proxyOptionsArray = [
   { context: '/proxy1', target: proxyOption['/proxy1'].target },
   function proxy() {
     return {
       context: '/api/proxy2',
       target: 'http://localhost:9001',
-      pathRewrite: { '^/api': '' }
+      pathRewrite: { '^/api': '' },
+      logLevel: 'silent'
     };
   }
 ];
@@ -78,7 +83,7 @@ describe('Proxy', () => {
     });
 
     after((done) => {
-      helper.close(() => {
+      helper.close(server, () => {
         closeProxyServers();
         done();
       });
@@ -125,13 +130,13 @@ describe('Proxy', () => {
       closeProxyServers = startProxyServers();
       server = helper.start(config, {
         contentBase,
-        proxy: proxyOptionOfArray
+        proxy: proxyOptionsArray
       }, done);
       req = request(server.app);
     });
 
     after((done) => {
-      helper.close(() => {
+      helper.close(server, () => {
         closeProxyServers();
         done();
       });
@@ -148,6 +153,8 @@ describe('Proxy', () => {
     });
   });
 
+  // this block of tests are causing node to fail with the following on Node 8.5.0+:
+  // Assertion failed: (0), function uv_close, file ../deps/uv/src/unix/core.c, line 176.
   context('sharing a proxy option', () => {
     let server;
     let req;
@@ -166,14 +173,15 @@ describe('Proxy', () => {
         contentBase,
         proxy: {
           '/proxy1': proxyTarget,
-          '/proxy2': proxyTarget
+          '/proxy2': proxyTarget,
+          logLevel: 'silent'
         }
       }, done);
       req = request(server.app);
     });
 
     after((done) => {
-      helper.close(() => {
+      helper.close(server, () => {
         listener.close();
         done();
       });
@@ -192,21 +200,23 @@ describe('Proxy', () => {
     let ws;
     let wsServer;
     let responseMessage;
+    let server;
 
     before((done) => {
-      helper.start(config, {
+      server = helper.start(config, {
         contentBase,
         proxy: [{
           context: '/',
           target: 'http://localhost:9003',
-          ws: true
+          ws: true,
+          logLevel: 'silent'
         }]
       }, done);
 
       wsServer = new WebSocketServer({ port: 9003 });
-      wsServer.on('connection', (server) => {
-        server.on('message', (message) => {
-          server.send(message);
+      wsServer.on('connection', (srvr) => {
+        srvr.on('message', (message) => {
+          srvr.send(message);
         });
       });
     });
@@ -228,7 +238,7 @@ describe('Proxy', () => {
 
     after((done) => {
       wsServer.close();
-      helper.close(done);
+      helper.close(server, done);
     });
   });
 });

@@ -1,18 +1,22 @@
 'use strict';
 
+/* eslint import/no-extraneous-dependencies: off */
+
 const assert = require('assert');
 const path = require('path');
 const request = require('supertest');
-const helper = require('./helper');
-const config = require('./fixtures/historyapifallback-config/webpack.config');
-const config2 = require('./fixtures/historyapifallback-2-config/webpack.config');
-const config3 = require('./fixtures/historyapifallback-3-config/webpack.config');
+const helper = require('../helper');
+const config = require('../fixtures/historyapifallback-config/webpack.config');
+const config2 = require('../fixtures/historyapifallback-2-config/webpack.config');
+const config3 = require('../fixtures/historyapifallback-3-config/webpack.config');
 
 describe('HistoryApiFallback', () => {
   let server;
   let req;
 
-  afterEach(helper.close);
+  afterEach((done) => {
+    helper.close(server, done);
+  });
 
   describe('as boolean', () => {
     before((done) => {
@@ -49,7 +53,7 @@ describe('HistoryApiFallback', () => {
   describe('as object with contentBase', () => {
     before((done) => {
       server = helper.start(config2, {
-        contentBase: path.join(__dirname, 'fixtures/historyapifallback-2-config'),
+        contentBase: path.join(__dirname, '../fixtures/historyapifallback-2-config'),
         historyApiFallback: {
           index: '/bar.html'
         }
@@ -103,7 +107,7 @@ describe('HistoryApiFallback', () => {
   describe('as object with contentBase and rewrites', () => {
     before((done) => {
       server = helper.start(config2, {
-        contentBase: path.join(__dirname, 'fixtures/historyapifallback-2-config'),
+        contentBase: path.join(__dirname, '../fixtures/historyapifallback-2-config'),
         historyApiFallback: {
           rewrites: [
             {
@@ -142,7 +146,7 @@ describe('HistoryApiFallback', () => {
   describe('in-memory files', () => {
     before((done) => {
       server = helper.start(config3, {
-        contentBase: path.join(__dirname, 'fixtures/historyapifallback-3-config'),
+        contentBase: path.join(__dirname, '../fixtures/historyapifallback-3-config'),
         historyApiFallback: true
       }, done);
       req = request(server.app);

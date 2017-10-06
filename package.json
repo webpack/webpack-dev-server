@@ -78,6 +78,7 @@
     "supports-color": "^4.2.1",
     "update-notifier": "^2.2.0",
     "webpack-dev-middleware": "^1.11.0",
+    "why-is-node-running": "^1.2.2",
     "yargs": "^9.0.1"
   },
   "devDependencies": {

@@ -1,13 +1,15 @@
 'use strict';
 
+/* eslint import/no-extraneous-dependencies: off */
+
 const fs = require('fs');
 const path = require('path');
 const request = require('supertest');
-const helper = require('./helper');
-const config = require('./fixtures/simple-config/webpack.config');
+const helper = require('../helper');
+const config = require('../fixtures/simple-config/webpack.config');
 
-const directoryIndex = fs.readFileSync(path.join(__dirname, 'fixtures/directory-index.txt'), 'utf-8');
-const magicHtml = fs.readFileSync(path.join(__dirname, 'fixtures/magic-html.txt'), 'utf-8');
+const directoryIndex = fs.readFileSync(path.join(__dirname, '../fixtures/directory-index.txt'), 'utf-8');
+const magicHtml = fs.readFileSync(path.join(__dirname, '../fixtures/magic-html.txt'), 'utf-8');
 
 describe('Routes', () => {
   let server;
@@ -20,7 +22,9 @@ describe('Routes', () => {
     req = request(server.app);
   });
 
-  after(helper.close);
+  after((done) => {
+    helper.close(server, done);
+  });
 
   it('GET request to inline bundle', (done) => {
     req.get('/webpack-dev-server.js')
