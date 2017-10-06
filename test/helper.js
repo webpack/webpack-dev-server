@@ -3,8 +3,6 @@
 const webpack = require('webpack');
 const Server = require('../lib/Server');
 
-let server;
-
 module.exports = {
   start(config, options, done) {
     // eslint-disable-next-line no-undefined
@@ -15,7 +13,7 @@ module.exports = {
     options.publicPath = options.publicPath || '/';
 
     const compiler = webpack(config);
-    server = new Server(compiler, options);
+    const server = new Server(compiler, options);
 
     server.listen(8080, 'localhost', (err) => {
       if (err) return done(err);
@@ -24,7 +22,7 @@ module.exports = {
 
     return server;
   },
-  close(done) {
+  close(server, done) {
     if (server) {
       server.close(() => {
         server = null;

@@ -1,20 +1,25 @@
 'use strict';
 
+/* eslint import/no-extraneous-dependencies: off */
+
 const path = require('path');
 const request = require('supertest');
-const helper = require('./helper');
-const config = require('./fixtures/contentbase-config/webpack.config');
+const helper = require('../helper');
+const config = require('../fixtures/contentbase-config/webpack.config');
 require('mocha-sinon');
 
-const contentBasePublic = path.join(__dirname, 'fixtures/contentbase-config/public');
-const contentBaseOther = path.join(__dirname, 'fixtures/contentbase-config/other');
+const contentBasePublic = path.join(__dirname, '../fixtures/contentbase-config/public');
+const contentBaseOther = path.join(__dirname, '../fixtures/contentbase-config/other');
 
 describe('ContentBase', () => {
   let server;
   let req;
-  afterEach(helper.close);
 
-  describe('to directory', () => {
+  afterEach((done) => {
+    helper.close(server, done);
+  });
+
+  describe('directory', () => {
     before((done) => {
       server = helper.start(config, {
         contentBase: contentBasePublic
@@ -22,18 +27,18 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
+    it('request index', (done) => {
       req.get('/')
         .expect(200, /Heyo/, done);
     });
 
-    it('Request to other file', (done) => {
+    it('request to other file', (done) => {
       req.get('/other.html')
         .expect(200, /Other html/, done);
     });
   });
 
-  describe('to directories', () => {
+  describe('directories', () => {
     before((done) => {
       server = helper.start(config, {
         contentBase: [contentBasePublic, contentBaseOther]
@@ -52,7 +57,7 @@ describe('ContentBase', () => {
     });
   });
 
-  describe('to port', () => {
+  describe('port', () => {
     before((done) => {
       server = helper.start(config, {
         contentBase: 9099999
@@ -67,7 +72,7 @@ describe('ContentBase', () => {
     });
   });
 
-  describe('to external url', () => {
+  describe('external url', () => {
     before((done) => {
       server = helper.start(config, {
         contentBase: 'http://example.com/'

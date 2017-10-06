@@ -26,7 +26,7 @@
     "ci": "npm run cover -- --report lcovonly && npm run test",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "lint": "eslint index.js cli.js bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config}.js",
-    "mocha": "mocha --full-trace --check-leaks --exit",
+    "mocha": "mocha --full-trace --check-leaks",
     "prepublish": "npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
     "test": "npm run lint && npm run mocha",
     "build:live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js",
@@ -72,6 +72,7 @@
     "supports-color": "^4.2.1",
     "update-notifier": "^2.2.0",
     "webpack-dev-middleware": "^1.11.0",
+    "why-is-node-running": "^1.2.2",
     "yargs": "^9.0.1"
   },
   "devDependencies": {
