@@ -6,4 +6,5 @@ require('./tests/history-api-fallback');
 require('./tests/lazy');
 require('./tests/proxy');
 require('./tests/routes');
+require('./tests/util');
 require('./tests/validation');

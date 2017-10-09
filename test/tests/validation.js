@@ -128,58 +128,58 @@ describe('Validation', () => {
         throw new Error("Validation didn't fail");
       }
     });
+  });
 
-    describe('allowedHosts', () => {
-      let server;
+  describe('allowedHosts', () => {
+    let server;
 
-      afterEach(() => {
-        server.close();
+    afterEach(() => {
+      server.close();
+    });
+
+    it('should allow hosts in allowedHosts', () => {
+      const testHosts = [
+        'test.host',
+        'test2.host',
+        'test3.host'
+      ];
+      const options = {
+        allowedHosts: testHosts,
+        publicPath,
+        noInfo: true
+      };
+      server = new Server(compiler, options);
+
+      testHosts.forEach((testHost) => {
+        const headers = { host: testHost };
+        if (!server.checkHost(headers)) {
+          throw new Error("Validation didn't fail");
+        }
       });
+    });
 
-      it('should allow hosts in allowedHosts', () => {
-        const testHosts = [
-          'test.host',
-          'test2.host',
-          'test3.host'
-        ];
-        const options = {
-          allowedHosts: testHosts,
-          publicPath,
-          noInfo: true
-        };
-        server = new Server(compiler, options);
+    it('should allow hosts that pass a wildcard in allowedHosts', () => {
+      const options = {
+        allowedHosts: ['.example.com'],
+        publicPath,
+        quiet: true
+      };
+      server = new Server(compiler, options);
+      const testHosts = [
+        'www.example.com',
+        'subdomain.example.com',
+        'example.com',
+        'subsubcomain.subdomain.example.com',
+        'example.com:80',
+        'subdomain.example.com:80'
+      ];
 
-        testHosts.forEach((testHost) => {
-          const headers = { host: testHost };
-          if (!server.checkHost(headers)) {
-            throw new Error("Validation didn't fail");
-          }
-        });
-      });
-
-      it('should allow hosts that pass a wildcard in allowedHosts', () => {
-        const options = {
-          allowedHosts: ['.example.com'],
-          publicPath,
-          quiet: true
-        };
-        server = new Server(compiler, options);
-        const testHosts = [
-          'www.example.com',
-          'subdomain.example.com',
-          'example.com',
-          'subsubcomain.subdomain.example.com',
-          'example.com:80',
-          'subdomain.example.com:80'
-        ];
-
-        testHosts.forEach((testHost) => {
-          const headers = { host: testHost };
-          const res = server.checkHost(headers);
-          if (!res) {
-            throw new Error("Validation didn't fail");
-          }
-        });
+      testHosts.forEach((testHost) => {
+        const headers = { host: testHost };
+        const res = server.checkHost(headers);
+        if (!res) {
+          throw new Error("Validation didn't fail");
+        }
       });
     });
   });
