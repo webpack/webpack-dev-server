@@ -17,10 +17,12 @@ describe('check utility funcitons', () => {
   });
 
   tests.forEach((t) => {
-    it(`test createDomain '${t.name}'`, (done) => {
+    // can't use an arrow function or else this.timeout won't work
+    it(`test createDomain '${t.name}'`, function testIt(done) {
       if (t.timeout) {
         this.timeout = t.timeout;
       }
+
       const options = t.options;
 
       options.publicPath = '/';
