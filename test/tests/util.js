@@ -16,11 +16,11 @@ describe('check utility funcitons', () => {
     compiler = webpack(config);
   });
 
-  tests.forEach((t) => {
+  for (const t of tests) {
     // can't use an arrow function or else this.timeout won't work
-    it(`test createDomain '${t.name}'`, function testIt(done) {
+    it(`test createDomain '${t.name}'`, function i(done) { // eslint-disable-line
       if (t.timeout) {
-        this.timeout = t.timeout;
+        this.timeout(t.timeout);
       }
 
       const options = t.options;
@@ -40,5 +40,5 @@ describe('check utility funcitons', () => {
         done();
       });
     });
-  });
+  }
 });
