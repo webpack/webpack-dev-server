@@ -116,9 +116,6 @@
     },
 
     "headers": {
-      "additionalProperties": {
-        "type": "string"
-      },
       "description": "Response headers that are added to each response.",
       "type": "object"
     },

@@ -218,7 +218,25 @@ function reloadApp() {
       self.postMessage('webpackHotUpdate' + currentHash, '*');
     }
   } else {
+    let rootWindow = self;
+    // use parent window for reload (in case we're in an iframe with no valid src)
+    const intervalId = self.setInterval(function findRootWindow() {
+      if (rootWindow.location.protocol !== 'about:') {
+        // reload immediately if protocol is valid
+        applyReload(rootWindow, intervalId);
+      } else {
+        rootWindow = rootWindow.parent;
+        if (rootWindow.parent === rootWindow) {
+          // if parent equals current window we've reached the root which would continue forever, so trigger a reload anyways
+          applyReload(rootWindow, intervalId);
+        }
+      }
+    });
+  }
+
+  function applyReload(rootWindow, intervalId) {
+    clearInterval(intervalId);
     log.info('[WDS] App updated. Reloading...');
-    self.location.reload();
+    rootWindow.location.reload();
   }
 }
