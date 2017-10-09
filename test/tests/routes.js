@@ -17,7 +17,9 @@ describe('Routes', () => {
 
   describe('without headers', () => {
     before((done) => {
-      server = helper.start(config, {}, done);
+      server = helper.start(config, {
+        headers: { 'X-Foo': '1' }
+      }, done);
       req = request(server.app);
     });
 
@@ -69,7 +71,9 @@ describe('Routes', () => {
       req = request(server.app);
     });
 
-    after(helper.close);
+    after((done) => {
+      helper.close(server, done);
+    });
 
     it('GET request with headers', (done) => {
       req.get('/bundle')
@@ -86,7 +90,9 @@ describe('Routes', () => {
       req = request(server.app);
     });
 
-    after(helper.close);
+    after((done) => {
+      helper.close(server, done);
+    });
 
     it('GET request with headers as an array', (done) => {
       req.get('/bundle')
