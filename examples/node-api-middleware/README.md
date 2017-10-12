@@ -4,7 +4,8 @@
 node server.js
 ```
 
-Starts a webpack-dev-server setup via the Node API. Open `http://localhost:8080/` to go the app.
+Starts a webpack-dev-server setup via the Node API. Open `http://localhost:8080/`
+to go the app.
 
 ## What should happen
 

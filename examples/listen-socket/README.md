@@ -3,7 +3,7 @@
 Start dev server in socket mode:
 
 ```shell
-node ../../bin/webpack-dev-server.js --socket ./webpack.sock
+node ../../cli.js --socket ./webpack.sock
 ```
 
 And then start node server that will use that socket:
@@ -18,8 +18,10 @@ You should see this responses to this command:
 Successfully connected to socket, exiting
 ```
 
-Common use-case for this feature is configuring upstream in nginx that points to webpack socket.
-Listening to socket instead of port is much more convenient because if you have many applications you don't have to resolve port conflicts since each of them has own unique socket.
+Common use-case for this feature is configuring upstream in nginx that points to
+webpack socket. Listening to socket instead of port is much more convenient
+because if you have many applications you don't have to resolve port conflicts
+since each of them has own unique socket.
 
 Example of configuring upstream with Websockets support in nginx:
 
@@ -40,4 +42,5 @@ location /sockjs-node/ {
 }
 ```
 
-Replace `/webpack/` with your `publicPath` param value and path in `proxy_pass` to your actual proxy location.
+Replace `/webpack/` with your `publicPath` param value and path in `proxy_pass`
+to your actual proxy location.

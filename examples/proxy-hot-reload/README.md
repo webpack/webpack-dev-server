@@ -1,11 +1,12 @@
 # Proxy: hot reload
 
 ```shell
-node ../../bin/webpack-dev-server.js --open
+node ../../cli.js --open
 ```
 
 Enables hot reloading for proxy config. If function is provided instead of
-object, dev server calls it on each request to get proxy config and replaces proxy middleware if config was changed.
+object, dev server calls it on each request to get proxy config and replaces
+proxy middleware if config was changed.
 
 ## What should happen
 
@@ -29,4 +30,5 @@ module.exports = {
 };
 ```
 
-Now `http://localhost:8080/api/users` should return a response from `http://reqres.in/`.
+Now `http://localhost:8080/api/users` should return a response from
+`http://reqres.in/`.

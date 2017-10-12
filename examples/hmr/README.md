@@ -1,14 +1,16 @@
 # Hot Module Reloading
 
 ```shell
-node ../../bin/webpack-dev-server.js --open --hot
+node ../../cli.js --open --hot
 ```
 
-With Hot Module Reloading we want to apply updates to the page without fully refreshing it.
+With Hot Module Reloading we want to apply updates to the page without fully
+refreshing it.
 
 ## What should happen
 
-The script should open `http://localhost:8080/`. In the app you should see "Does it work?"
+The script should open `http://localhost:8080/`. In the app you should see "Does
+ it work?"
 
 In your editor, go to `example.js`, and change "Does it work?" to "It works!"
 

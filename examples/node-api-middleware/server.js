@@ -6,6 +6,7 @@ const webpackConfig = require('./webpack.config');
 
 const compiler = Webpack(webpackConfig);
 const server = new WebpackDevServer(compiler, {
+  publicPath: '/',
   stats: {
     colors: true
   },
