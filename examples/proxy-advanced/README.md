@@ -1,10 +1,13 @@
 # Proxy: advanced
 
 ```shell
-node ../../bin/webpack-dev-server.js --open
+node ../../cli.js --open
 ```
 
-We want to proxy all urls that start with `/api` to `http://jsonplaceholder.typicode.com/`, but remove `/api` from the url. So `http://localhost:8080/api/users` should do a request to `http://jsonplaceholder.typicode.com/users`.
+We want to proxy all urls that start with `/api` to
+`http://jsonplaceholder.typicode.com/`, but remove `/api` from the url. So
+`http://localhost:8080/api/users` should do a request to
+`http://jsonplaceholder.typicode.com/users`.
 
 ## What should happen
 

@@ -14,7 +14,7 @@ html {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.header {
+header {
 	width: 100%;
 	height: 30px;
 	padding: 0 10px;
@@ -24,6 +24,18 @@ html {
 	color: #eff1f5;
 	background: #343d46;
 	overflow: hidden;
+}
+
+header.active {
+  border-color: #96b5b4;
+}
+
+header.warning {
+  border-color: #ebcb8b;
+}
+
+header.error {
+  border-color: #eb9b8b;
 }
 
 #iframe {

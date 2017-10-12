@@ -1,9 +1,4 @@
 sudo: false
-branches:
-  only:
-    - master
-    - beta
-
 language:
   node_js
 

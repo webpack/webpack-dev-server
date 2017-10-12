@@ -1,0 +1,38 @@
+
+dialog#webpack-dev-server-client-overlay {
+  background-color: rgba(0, 0, 0, 0.85);
+  border: none;
+  bottom: 0;
+  display: block;
+  font-family: Menlo, Consolas, monospace;
+  font-size: large;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  z-index: 9999999999;
+}
+
+dialog#webpack-dev-server-client-overlay div {
+  box-sizing: border-box;
+  color: #E8E8E8;
+  height: 100%;
+  line-height: 1.2;
+  overflow: auto;
+  padding: 2rem;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+dialog#webpack-dev-server-client-overlay div h1 {
+  color: #E36049;
+  font-family: Menlo, Consolas, monospace;
+  font-size: large;
+  margin: 0;
+}
+
+dialog#webpack-dev-server-client-overlay div pre {
+  margin: 0;
+}
