@@ -6,7 +6,7 @@ require('should');
 
 const webpack = require('webpack');
 const OptionsValidationError = require('../../lib/OptionsValidationError');
-const Server = require('../../lib/Server');
+const Server = require('../../lib/DevServer');
 const optionsSchema = require('../../lib/schemas/options.json');
 const config = require('../fixtures/simple-config/webpack.config'); // eslint-disable-line
 

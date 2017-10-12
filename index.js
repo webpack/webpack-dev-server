@@ -1,5 +1,5 @@
 'use strict';
 
-const Server = require('./lib/Server');
+const DevServer = require('./lib/DevServer');
 
-module.exports = Server;
+module.exports = DevServer;

@@ -4,8 +4,8 @@
 
 const webpack = require('webpack');
 const should = require('should');
-const Server = require('../../lib/Server');
-const createDomain = require('../../lib/util/createDomain');
+const Server = require('../../lib/DevServer');
+const { createDomain } = require('../../lib/util');
 const config = require('../fixtures/simple-config/webpack.config');
 const tests = require('../fixtures/create-domain');
 

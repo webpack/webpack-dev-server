@@ -30,12 +30,11 @@
     "prepublish": "npm run build",
     "test": "npm run lint && npm run mocha",
     "build": "npm run build:clean && npm run -s build:bundles && npm run -s build:copy",
-    "build:bundles": "npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
+    "build:bundles": "npm run -s build:live && npm run -s build:index",
     "build:clean": "rm -rf public",
     "build:copy": "cp lib/client/*.html public && cp lib/client/css/*.css public",
     "build:index": "webpack lib/client/js/index.js --config lib/client/config/webpack.config.js",
-    "build:live": "webpack lib/client/js/live.js --config lib/client/config/webpack.config.live.js",
-    "build:sockjs": "webpack lib/client/js/sockjs.js --config lib/client/config/webpack.config.sockjs.js"
+    "build:live": "webpack lib/client/js/live.js --config lib/client/config/webpack.config.live.js"
   },
   "files": [
     "lib/",
@@ -71,7 +70,6 @@
     "resolve-cwd": "^2.0.0",
     "selfsigned": "^1.9.1",
     "serve-index": "^1.7.2",
-    "sockjs-client": "1.1.4",
     "spdy": "^3.4.1",
     "strip-ansi": "^4.0.0",
     "supports-color": "^4.2.1",
