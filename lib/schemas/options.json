@@ -81,10 +81,8 @@
           ]
         },
         {
-          "type": "number"
-        },
-        {
-          "type": "string"
+          "type": "string",
+          "pattern": "^((?!(https?:)).)*$"
         }
       ],
       "description": "A directory to serve files non-webpack files from."
@@ -191,7 +189,8 @@
       "instanceof": "Function"
     },
 
-    "noInfo": {
+    "info": {
+      "default": true,
       "description": "Hide all info messages on console.",
       "type": "boolean"
     },

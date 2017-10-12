@@ -1,7 +1,7 @@
 # Hot Module Reloading
 
 ```shell
-node ../../bin/webpack-dev-server.js --open --hot
+node ../../cli.js --open --hot
 ```
 
 With Hot Module Reloading we want to apply updates to the page without fully refreshing it.

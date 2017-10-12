@@ -1,0 +1,6 @@
+- `Server` renamed to `DevServer`
+- `publicPath` is now a required option
+- `contentBase` cannot be a number, nor a URI
+- `setup` has been removed in favor of `before`
+- `noInfo` option has been changed to `info`, with a default value of `true`
+- `DevServer.listen` signature changed

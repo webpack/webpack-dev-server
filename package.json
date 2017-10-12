@@ -57,22 +57,22 @@
     "http-proxy-middleware": "~0.17.4",
     "internal-ip": "^3.0.0",
     "ip": "^1.1.5",
-    "log-symbols": "^2.0.0",
+    "log-symbols": "^2.1.0",
     "loglevel": "^1.4.1",
+    "loglevel-plugin-prefix": "^0.5.3",
     "loud-rejection": "^1.6.0",
     "opn": "^5.1.0",
     "portfinder": "^1.0.9",
     "resolve-cwd": "^2.0.0",
     "selfsigned": "^1.9.1",
     "serve-index": "^1.7.2",
-    "sockjs": "0.3.18",
     "sockjs-client": "1.1.4",
     "spdy": "^3.4.1",
     "strip-ansi": "^4.0.0",
     "supports-color": "^4.2.1",
     "update-notifier": "^2.2.0",
     "webpack-dev-middleware": "^1.11.0",
-    "why-is-node-running": "^1.2.2",
+    "ws": "^3.2.0",
     "yargs": "^9.0.1"
   },
   "devDependencies": {
@@ -96,7 +96,6 @@
     "supertest": "^3.0.0",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "url-loader": "^0.6.2",
-    "webpack": "^3.0.0",
-    "ws": "^3.1.0"
+    "webpack": "^3.0.0"
   }
 }
