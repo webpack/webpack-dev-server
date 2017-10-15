@@ -9,6 +9,7 @@
 must be passed through the `options` in the constructor.
 - Browsers that don't support ES6 `const, let` aren't supported (as of v2.8.0)
 - Browsers which don't support native `WebSocket` aren't supported
+- `hotReload` query string option renamed to `hmr`
 
 ## Possible Breakages
 
@@ -16,3 +17,12 @@ must be passed through the `options` in the constructor.
 - Upstream Sockets (listen-socket example)
 - WebSockets use the configured hostname and port from CLI/API options, rather
 than parsed hostname and port from the document.
+
+## Broken Examples
+modus-manual-script
+progress
+
+## Untested Examples
+listen-socket
+modus-iframe
+modus-inline

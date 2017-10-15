@@ -162,6 +162,12 @@
       "type": "string"
     },
 
+    "info": {
+      "default": true,
+      "description": "Hide all info messages on console.",
+      "type": "boolean"
+    },
+
     "inline": {
       "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
       "type": "boolean"
@@ -189,10 +195,9 @@
       "instanceof": "Function"
     },
 
-    "info": {
-      "default": true,
-      "description": "Hide all info messages on console.",
-      "type": "boolean"
+    "logLevel": {
+      "description": "Log level in the terminal/console (trace, debug, info, warning, error or none)",
+      "type": "string"
     },
 
     "open": {

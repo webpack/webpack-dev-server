@@ -3,7 +3,7 @@
 NOTE: replace `<insert local ip>` with your local ip.
 
 ```shell
-node ../../bin/webpack-dev-server.js
+node ../../cli.js
 ```
 
 You're now able to explicitly define the protocol used with the `public` option (have a look to the config provided in `webpack.config.js`).

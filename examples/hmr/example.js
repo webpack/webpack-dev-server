@@ -1,5 +1,5 @@
 'use strict';
 
-const myText = document.getElementById('mytext');
+const article = document.querySelector('article');
 
-myText.textContent = 'Does it work? yessss';
+article.textContent = 'Does it work?';
