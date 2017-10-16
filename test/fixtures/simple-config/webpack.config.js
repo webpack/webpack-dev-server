@@ -6,5 +6,6 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: '/'
-  }
+  },
+  node: false
 };
