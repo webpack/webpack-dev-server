@@ -11,6 +11,9 @@ module.exports = [
     }
   },
   {
+    devServer: {
+      inline: false
+    },
     devtool: 'source-map',
     target: 'webworker',
     entry: './worker.js',

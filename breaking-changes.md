@@ -21,7 +21,6 @@ than parsed hostname and port from the document.
 ## Broken Examples
 modus-manual-script
 progress
-webworker (DEV_SERVER_OPTIONS)
 
 ## Untested Examples
 listen-socket
