@@ -20,9 +20,6 @@ than parsed hostname and port from the document.
 
 ## Broken Examples
 progress
-watch-content-base
 
 ## Untested Examples
 listen-socket
-modus-iframe
-modus-inline
