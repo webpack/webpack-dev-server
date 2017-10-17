@@ -19,8 +19,8 @@ must be passed through the `options` in the constructor.
 than parsed hostname and port from the document.
 
 ## Broken Examples
-modus-manual-script
 progress
+watch-content-base
 
 ## Untested Examples
 listen-socket
