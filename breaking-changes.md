@@ -2,8 +2,8 @@
 
 - `Server` renamed to `DevServer`
 - `publicPath` is now a required option
-- `contentBase` cannot be a number, nor a URI
-- `setup` has been removed in favor of `before`
+- `contentBase` cannot be a number, nor a URI. Previously deprecated.
+- `setup` has been removed in favor of `before`. Previously deprecated.
 - `noInfo` option has been changed to `info`, with a default value of `true`
 - `DevServer.listen` signature changed; only accepts a callback. `host` and `port`
 must be passed through the `options` in the constructor.
@@ -19,7 +19,6 @@ must be passed through the `options` in the constructor.
 than parsed hostname and port from the document.
 
 ## Broken Examples
-progress
 
 ## Untested Examples
 listen-socket
