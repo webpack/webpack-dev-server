@@ -14,5 +14,7 @@ must be passed through the `options` in the constructor.
 options which are injected into the scripts, rather than parsed hostname and port
 from the document.
 
-## Possible Breakages
-- Proxies
+## Regression Breakages
+
+- `WebSocket` Proxies are broken due to a `WebSocket` server running on the same
+port and address as the server.

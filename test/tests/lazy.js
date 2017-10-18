@@ -18,7 +18,7 @@ describe('Lazy', () => {
       server = helper.start(config, {
         lazy: true
       });
-    }, /'filename' option must be set/);
+    }, / `filename` option must be set in lazy mode/);
   });
 
   it('with filename option should not throw an error', (done) => {
