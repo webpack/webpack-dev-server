@@ -1,3 +1,10 @@
+## Node Version Support
+
+webpack-dev-server version 3 and higher will only support Node 6.x and higher. Active
+LTS for Node 4.x ends October 31st, 2017 and enters maintenance on that date.
+Likewise, the version 2.x branch of webpack-dev-server will enter maintenance on
+that date.
+
 ## Breaking Changes
 
 - `Server` renamed to `DevServer`
