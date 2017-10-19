@@ -42,5 +42,6 @@ module.exports = {
       warnings: false,
       publicPath: false
     }
-  }
+  },
+  node: false
 };
