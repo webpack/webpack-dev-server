@@ -5,22 +5,20 @@
 /* eslint global-require: off, import/order: off, no-console: off */
 require('../lib/polyfills');
 
+const debug = require('debug')('webpack-dev-server');
 const fs = require('fs');
 const net = require('net');
 const path = require('path');
+const importLocal = require('import-local');
 const open = require('opn');
 const portfinder = require('portfinder');
 const addDevServerEntrypoints = require('../lib/util/addDevServerEntrypoints');
 const createDomain = require('../lib/util/createDomain'); // eslint-disable-line
 
-// Local version replaces global one
-try {
-  const localWebpackDevServer = require.resolve(path.join(process.cwd(), 'node_modules', 'webpack-dev-server', 'bin', 'webpack-dev-server.js'));
-  if (__filename !== localWebpackDevServer) {
-    require(localWebpackDevServer); // eslint-disable-line
-  }
-} catch (e) {
-  // eslint-disable-line
+// Prefer the local installation of webpack-dev-server
+if (importLocal(__filename)) {
+  debug('Using local install of webpack-dev-server');
+  return;
 }
 
 const Server = require('../lib/Server');
