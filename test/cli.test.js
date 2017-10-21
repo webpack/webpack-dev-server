@@ -24,5 +24,5 @@ describe('SIGINT', () => {
     proc.on('exit', () => {
       done();
     });
-  });
+  }).timeout(4000);
 });
