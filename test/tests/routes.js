@@ -39,12 +39,6 @@ describe('Routes', () => {
         .expect(200, done);
     });
 
-    it('GET request to sockjs bundle', (done) => {
-      req.get('/__webpack_dev_server__/sockjs.bundle.js')
-        .expect('Content-Type', 'application/javascript')
-        .expect(200, done);
-    });
-
     it('GET request to live html', (done) => {
       req.get('/webpack-dev-server/')
         .expect('Content-Type', 'text/html')

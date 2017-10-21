@@ -13,7 +13,6 @@ Following these guidelines helps to communicate that you respect the time of the
 - A user should not try to implement stuff that accesses the webpack filesystem. This lead to bugs (the middleware does it while blocking requests until the compilation has finished, the blocking is important).
 - It should be a development only tool. Compiling in production is bad, one should precompile and deliver the compiled assets.
 - Processing options and stats display is delegated to webpack, so webpack-dev-server/middleware should not do much with it. This also helps us to keep up-to-date with webpack updates.
-- The communication library (`SockJS`) should not be exposed to the user.
 
 ## Submitting a Pull Request
 

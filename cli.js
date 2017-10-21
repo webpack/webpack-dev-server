@@ -6,7 +6,7 @@ require('./lib/polyfills');
 require('loud-rejection/register');
 
 const convertArgv = require('webpack/bin/convert-argv');
-const debug = require('debug')('wds');
+const debug = require('debug')('webpack-dev-server');
 const importLocal = require('import-local');
 const updateNotifier = require('update-notifier');
 const { argv, yargs } = require('./lib/cli/flags');
@@ -22,10 +22,11 @@ if (importLocal(__filename)) {
 
 updateNotifier({ pkg }).notify();
 
-const webpackOptions = convertArgv(yargs, argv, {
+const webpackOpts = convertArgv(yargs, argv, {
   outputFilename: '/bundle.js'
 });
 
-options(argv, webpackOptions).then((devServerOptions) => {
+options(argv, webpackOpts).then((result) => {
+  const { devServerOptions, webpackOptions } = result;
   start(argv, devServerOptions, webpackOptions);
 });

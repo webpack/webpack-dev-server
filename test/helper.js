@@ -1,7 +1,7 @@
 'use strict';
 
 const webpack = require('webpack');
-const Server = require('../lib/Server');
+const DevServer = require('../lib/DevServer');
 
 module.exports = {
   start(config, options, done) {
@@ -13,10 +13,13 @@ module.exports = {
     options.publicPath = options.publicPath || '/';
 
     const compiler = webpack(config);
-    const server = new Server(compiler, options);
+    const server = new DevServer(compiler, options);
 
-    server.listen(8080, 'localhost', (err) => {
-      if (err) return done(err);
+    server.listen((err) => {
+      if (err) {
+        console.log(err);
+        return done(err);
+      }
       done();
     });
 

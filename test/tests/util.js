@@ -4,8 +4,8 @@
 
 const webpack = require('webpack');
 const should = require('should');
-const Server = require('../../lib/Server');
-const createDomain = require('../../lib/util/createDomain');
+const DevServer = require('../../lib/DevServer');
+const { createDomain } = require('../../lib/util');
 const config = require('../fixtures/simple-config/webpack.config');
 const tests = require('../fixtures/create-domain');
 
@@ -27,15 +27,19 @@ describe('check utility funcitons', () => {
 
       options.publicPath = '/';
 
-      const server = new Server(compiler, options);
+      const devServer = new DevServer(compiler, options);
       const expected = t.expected;
 
-      server.listen(options.port, options.host, (err) => {
+      devServer.listen((err) => {
         if (err) {
+          devServer.close();
           done(err);
         }
-        const generatedDomain = createDomain(options, server.listeningApp);
-        server.close();
+
+        const generatedDomain = createDomain(options, devServer.server);
+
+        devServer.close();
+
         should(generatedDomain).equal(expected);
         done();
       });

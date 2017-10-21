@@ -37,12 +37,11 @@ module.exports = function options(publicPath, schema) {
     config: { contentBase: [0], publicPath },
     message: [
       ' - configuration.contentBase should be one of these:',
-      '   [string] | false | number | string',
+      '   [string] | false | string',
       '   A directory to serve files non-webpack files from.',
       '   Details:',
       '    * configuration.contentBase[0] should be a string.',
       '    * configuration.contentBase should be false',
-      '    * configuration.contentBase should be a number.',
       '    * configuration.contentBase should be a string.'
     ]
   },

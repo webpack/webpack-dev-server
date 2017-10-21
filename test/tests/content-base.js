@@ -2,6 +2,7 @@
 
 /* eslint import/no-extraneous-dependencies: off */
 
+const assert = require('assert');
 const path = require('path');
 const request = require('supertest');
 const helper = require('../helper');
@@ -57,55 +58,14 @@ describe('ContentBase', () => {
     });
   });
 
-  describe('port', () => {
-    before((done) => {
-      server = helper.start(config, {
-        contentBase: 9099999
-      }, done);
-      req = request(server.app);
-    });
-
-    it('Request to page', (done) => {
-      req.get('/other.html')
-        .expect('Location', '//localhost:9099999/other.html')
-        .expect(302, done);
-    });
-  });
-
-  describe('external url', () => {
-    before((done) => {
-      server = helper.start(config, {
-        contentBase: 'http://example.com/'
-      }, done);
-      req = request(server.app);
-    });
-
-    it('Request to page', (done) => {
-      req.get('/foo.html')
-      // TODO: hmm, two slashes seems to be a bug?
-        .expect('Location', 'http://example.com//foo.html')
-        .expect(302, done);
-    });
-
-    it('Request to page with search params', (done) => {
-      req.get('/foo.html?space=ship')
-      // TODO: hmm, two slashes seems to be a bug?
-        .expect('Location', 'http://example.com//foo.html?space=ship')
-        .expect(302, done);
-    });
-  });
-
   describe('default to PWD', () => {
-    before(function before(done) {
-      this.sinon.stub(process, 'cwd');
-      process.cwd.returns(contentBasePublic);
+    before((done) => {
       server = helper.start(config, {}, done);
       req = request(server.app);
     });
 
-    it('Request to page', (done) => {
-      req.get('/other.html')
-        .expect(200, done);
+    it('Request to page', () => {
+      assert(server.options.contentBase, path.resolve(__dirname, '../..'));
     });
   });
 

@@ -81,10 +81,8 @@
           ]
         },
         {
-          "type": "number"
-        },
-        {
-          "type": "string"
+          "type": "string",
+          "pattern": "^((?!(https?:)).)*$"
         }
       ],
       "description": "A directory to serve files non-webpack files from."
@@ -164,6 +162,12 @@
       "type": "string"
     },
 
+    "info": {
+      "default": true,
+      "description": "Hide all info messages on console.",
+      "type": "boolean"
+    },
+
     "inline": {
       "description": "Enable inline mode to include client scripts in bundle (CLI-only).",
       "type": "boolean"
@@ -191,9 +195,9 @@
       "instanceof": "Function"
     },
 
-    "noInfo": {
-      "description": "Hide all info messages on console.",
-      "type": "boolean"
+    "logLevel": {
+      "description": "Log level in the terminal/console (trace, debug, info, warning, error or none)",
+      "type": "string"
     },
 
     "open": {

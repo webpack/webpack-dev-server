@@ -6,7 +6,8 @@ require('should');
 
 const webpack = require('webpack');
 const OptionsValidationError = require('../../lib/OptionsValidationError');
-const Server = require('../../lib/Server');
+const DevServer = require('../../lib/DevServer');
+const { validateHost } = require('../../lib/util');
 const optionsSchema = require('../../lib/schemas/options.json');
 const config = require('../fixtures/simple-config/webpack.config'); // eslint-disable-line
 
@@ -28,7 +29,7 @@ describe('Validation', () => {
     it(`should fail validation for ${testCase.name}`, () => {
       try {
         // eslint-disable-next-line no-new
-        new Server(compiler, testCase.config);
+        new DevServer(compiler, testCase.config);
       } catch (e) {
         if (!(e instanceof OptionsValidationError)) {
           throw e;
@@ -41,7 +42,7 @@ describe('Validation', () => {
     });
   });
 
-  describe('checkHost', () => {
+  describe('validateHost', () => {
     let server;
 
     afterEach(() => {
@@ -58,8 +59,8 @@ describe('Validation', () => {
       const headers = {
         host: 'bad.host'
       };
-      server = new Server(compiler, options);
-      if (!server.checkHost(headers)) {
+      server = new DevServer(compiler, options);
+      if (!validateHost(headers, options)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -73,8 +74,8 @@ describe('Validation', () => {
       const headers = {
         host: 'localhost'
       };
-      server = new Server(compiler, options);
-      if (!server.checkHost(headers)) {
+      server = new DevServer(compiler, options);
+      if (!validateHost(headers, options)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -88,8 +89,8 @@ describe('Validation', () => {
       const headers = {
         host: '127.0.0.1'
       };
-      server = new Server(compiler, options);
-      if (!server.checkHost(headers)) {
+      server = new DevServer(compiler, options);
+      if (!validateHost(headers, options)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -105,10 +106,10 @@ describe('Validation', () => {
         '[ad42::1de2:54c2:c2fa:1234]:8080'
       ];
 
-      server = new Server(compiler, options);
+      server = new DevServer(compiler, options);
       testHosts.forEach((testHost) => {
         const headers = { host: testHost };
-        if (!server.checkHost(headers)) {
+        if (!validateHost(headers, options)) {
           throw new Error("Validation didn't pass");
         }
       });
@@ -123,8 +124,8 @@ describe('Validation', () => {
       const headers = {
         host: 'test.hostname:80'
       };
-      server = new Server(compiler, options);
-      if (server.checkHost(headers)) {
+      server = new DevServer(compiler, options);
+      if (validateHost(headers, options)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -146,13 +147,13 @@ describe('Validation', () => {
       const options = {
         allowedHosts: testHosts,
         publicPath,
-        noInfo: true
+        info: false
       };
-      server = new Server(compiler, options);
+      server = new DevServer(compiler, options);
 
       testHosts.forEach((testHost) => {
         const headers = { host: testHost };
-        if (!server.checkHost(headers)) {
+        if (!validateHost(headers, options)) {
           throw new Error("Validation didn't fail");
         }
       });
@@ -164,7 +165,7 @@ describe('Validation', () => {
         publicPath,
         quiet: true
       };
-      server = new Server(compiler, options);
+      server = new DevServer(compiler, options);
       const testHosts = [
         'www.example.com',
         'subdomain.example.com',
@@ -176,7 +177,7 @@ describe('Validation', () => {
 
       testHosts.forEach((testHost) => {
         const headers = { host: testHost };
-        const res = server.checkHost(headers);
+        const res = validateHost(headers, options);
         if (!res) {
           throw new Error("Validation didn't fail");
         }

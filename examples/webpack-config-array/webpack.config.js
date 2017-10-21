@@ -1,7 +1,5 @@
 'use strict';
 
-const webpack = require('webpack');
-
 module.exports = [
   {
     context: __dirname,
@@ -46,9 +44,6 @@ module.exports = [
           options: { limit: 100000 }
         }
       ]
-    },
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin()
-    ]
+    }
   }
 ];
