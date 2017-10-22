@@ -390,8 +390,9 @@ function startDevServer(webpackOptions, options) {
 
   ['SIGINT', 'SIGTERM'].forEach((sig) => {
     process.on(sig, () => {
-      server.close();
-      process.exit(); // eslint-disable-line no-process-exit
+      server.close(() => {
+        process.exit(); // eslint-disable-line no-process-exit
+      });
     });
   });
 
