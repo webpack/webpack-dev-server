@@ -1,5 +1,5 @@
 'use strict';
 
-const myText = document.getElementById('mytext');
+const target = document.querySelector('#target');
 
-myText.textContent = 'Does it work? yes';
+target.innerHTML = 'Modify and save <code>/examples/hmr/example.js</code> to update this element without reloading the page.';

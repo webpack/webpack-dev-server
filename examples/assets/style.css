@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'Geomanist';
+  font-style: normal;
+  font-weight: 600;
+  src: url('assets/geomanist-medium.woff2') format('woff2'),
+       url('assets/geomanist-medium.woff') format('woff');
+}
+
+html,
+body {
+  background-color: #f3f3f3;
+  color: #2B3A42;
+  font: 400 10px "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+	padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    width: 100%;
+    max-width: 102.4rem;
+    margin: 0px auto;
+    padding: 8rem 2.4rem;
+}
+
+h1 {
+  font-size: 3.4rem;
+  font-weight: 600;
+  line-height: 3.4rem;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1 img {
+  height: 3.4rem;
+  width: 3.4rem;
+  vertical-align: middle;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+
+section {
+  padding: 0 0 0 4.2rem;
+}
+
+p, div {
+  font-size: 1.6rem;
+}
+
+code {
+  background-color: rgba(70, 94, 105, 0.06);
+  border-radius: 3px;
+  font-family: "Source Code Pro", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 1.44rem;
+  margin: 0;
+  max-width: 100%;
+  line-height: initial;
+  overflow: auto;
+  padding: 2px 6px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  vertical-align: middle;
+  white-space: normal;
+}
