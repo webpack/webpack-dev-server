@@ -54,6 +54,7 @@
     "import-local": "^0.1.1",
     "internal-ip": "1.2.0",
     "ip": "^1.1.5",
+    "killable": "^1.0.0",
     "loglevel": "^1.4.1",
     "opn": "^5.1.0",
     "portfinder": "^1.0.9",
