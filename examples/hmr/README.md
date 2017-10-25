@@ -1,18 +1,21 @@
 # Hot Module Reloading
 
-```shell
+Hot Module Replacement (HMR) exchanges, adds, or removes modules while an
+application is running, without a full reload of the page.
+
+To run this example, run this command in your console or terminal:
+
+```console
 node ../../bin/webpack-dev-server.js --open --hot
 ```
 
-With Hot Module Reloading we want to apply updates to the page without fully refreshing it.
+## What Should Happen
 
-## What should happen
+1. The script should open `http://localhost:8080/` in your default browser.
+2. In your editor, open `example.js` and change any part of the `innerHTML` string.
+3. Open the console in your browser's devtools.
 
-The script should open `http://localhost:8080/`. In the app you should see "Does it work?"
-
-In your editor, go to `example.js`, and change "Does it work?" to "It works!"
-
-Open the devtools for the app, and you should see:
+In the devtools console you should see:
 
 ```
 [WDS] App updated. Recompiling...
@@ -20,8 +23,8 @@ Open the devtools for the app, and you should see:
 [HMR] Checking for updates on the server...
 [HMR] Updated modules:
 [HMR]  - ./example.js
-[HMR]  - ./hmr.js
 [HMR] App is up to date.
 ```
 
-Also verify that the text actually in the app actually changed to "It works!"
+You should also see the text on the page itself change to match your edits in
+`example.js`.

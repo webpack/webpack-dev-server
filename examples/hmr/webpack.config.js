@@ -1,20 +1,10 @@
 'use strict';
 
-const path = require('path');
-const webpack = require('webpack');
+// our setup function adds behind-the-scenes bits to the config that all of our
+// examples need
+const { setup } = require('../util');
 
-module.exports = {
+module.exports = setup({
   context: __dirname,
-  entry: './app.js',
-  plugins: [
-    new webpack.NamedModulesPlugin()
-  ],
-  devServer: {
-    before(app) {
-      app.get('/assets/*', (req, res) => {
-        const filename = path.join(__dirname, '../', req.path);
-        res.sendFile(filename);
-      });
-    }
-  }
-};
+  entry: './app.js'
+});
