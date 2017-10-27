@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "webpack/webpack-dev-server",
   "author": "Tobias Koppers @sokra",
-  "homepage": "http://github.com/webpack/webpack-dev-server",
+  "homepage": "https://github.com/webpack/webpack-dev-server",
   "maintainers": [
     {
       "name": "Andrew Powell",
