@@ -24,7 +24,7 @@
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config}.js",
     "mocha": "mocha --full-trace --check-leaks",
-    "prepublish": "npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
+    "prepublish": "rm ssl/*.pem && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
     "test": "npm run lint && npm run mocha",
     "build:live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js",
     "build:index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js",
