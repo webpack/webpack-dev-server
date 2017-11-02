@@ -4,6 +4,6 @@ node_modules
 /client/index.bundle.js
 /client/sockjs.bundle.js
 /coverage
-*.pem
+/ssl/*.pem
 .idea/
 .DS_Store
