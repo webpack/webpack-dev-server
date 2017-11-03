@@ -1,2 +1,2 @@
-require("./jquery-1.8.1");
+require("./jquery-3.2.1");
 module.exports = jQuery;
