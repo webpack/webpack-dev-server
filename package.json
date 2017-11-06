@@ -60,7 +60,7 @@
     "portfinder": "^1.0.9",
     "selfsigned": "^1.9.1",
     "serve-index": "^1.7.2",
-    "sockjs": "0.3.18",
+    "sockjs": "0.3.19",
     "sockjs-client": "1.1.4",
     "spdy": "^3.4.1",
     "strip-ansi": "^3.0.1",
