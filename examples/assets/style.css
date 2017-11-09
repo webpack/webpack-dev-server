@@ -20,7 +20,7 @@ body {
 
 main {
     width: 100%;
-    max-width: 102.4rem;
+    max-width: 94.2rem;
     margin: 0px auto;
     padding: 8rem 2.4rem;
 }
@@ -64,4 +64,31 @@ code {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
   vertical-align: middle;
   white-space: normal;
+}
+
+#target {
+  background: #DCF2FD;
+  border: 0.1rem solid #618ca0;
+  border-radius: 0.3rem;
+  color: #618ca0;
+  margin: 2rem 0;
+  padding: 2rem;
+}
+
+#target.warn {
+  background: #fcf8e3;
+  border: 0.1rem solid #8a6d3b;
+  color: #8a6d3b;
+}
+
+#target.pass {
+  background: #f2f9f4;
+  border: 0.1rem solid #4db277;
+  color: #4db277;
+}
+
+#target.fail {
+  background: #f2dede;
+  border: 0.1rem solid #a94442;
+  color: #a94442;
 }
