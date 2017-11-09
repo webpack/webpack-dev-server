@@ -6,7 +6,7 @@ to roughly 30% of its original size before the files are sent to the browser.
 To run this example, run this command in your console or terminal:
 
 ```console
-node ../../bin/webpack-dev-server.js --open --compress
+npm run webpack-dev-server -- --open --compress
 ```
 
 ## What should happen

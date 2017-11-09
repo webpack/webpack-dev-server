@@ -6,7 +6,7 @@ is started.
 To run this example, run this command in your console or terminal:
 
 ```console
-node ../../bin/webpack-dev-server.js --bonjour
+npm run webpack-dev-server -- --bonjour
 ```
 
 ## What Should Happen

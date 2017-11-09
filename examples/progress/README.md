@@ -1,7 +1,7 @@
 # Status
 
 ```shell
-node ../../bin/webpack-dev-server.js --open
+npm run webpack-dev-server -- --open
 ```
 
 ## What should happen

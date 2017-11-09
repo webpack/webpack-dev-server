@@ -3,7 +3,7 @@
 ## Watching a single directory
 
 ```shell
-node ../../bin/webpack-dev-server.js --content-base assets --watch-content-base --open
+npm run webpack-dev-server -- --content-base assets --watch-content-base --open
 ```
 
 ### What should happen
@@ -29,7 +29,7 @@ module.exports = {
 ```
 
 ```shell
-node ../../bin/webpack-dev-server.js --watch-content-base --open
+npm run webpack-dev-server -- --watch-content-base --open
 ```
 
 ### What should happen

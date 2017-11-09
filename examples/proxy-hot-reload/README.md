@@ -1,7 +1,7 @@
 # Proxy: hot reload
 
 ```shell
-node ../../bin/webpack-dev-server.js --open
+npm run webpack-dev-server -- --open
 ```
 
 Enables hot reloading for proxy config. If function is provided instead of

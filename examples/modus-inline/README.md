@@ -1,13 +1,13 @@
 # Modus: inline
 
 ```shell
-node ../../bin/webpack-dev-server.js --open
+npm run webpack-dev-server -- --open
 ```
 
 This opens the app in `inline` modus (which is the default).
 
 ```shell
-node ../../bin/webpack-dev-server.js --open --config alternative.config.js
+npm run webpack-dev-server -- --open --config alternative.config.js
 ```
 
 This also opens the app in `inline` modus, but with a custom config.

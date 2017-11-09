@@ -1,7 +1,7 @@
 # Webpack config array
 
 ```shell
-node ../../bin/webpack-dev-server.js --open
+npm run webpack-dev-server -- --open
 ```
 
 This opens the app with two webpack configs.

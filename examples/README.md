@@ -11,6 +11,14 @@ An example should be as minimal as possible and consists of at least:
 - A description of what should happen when running the example.
 - A `wepack.config.js` file containing the `webpack` configuration for the example app.
 
+## API versus CLI
+
+API examples can be found in the `api` directory. These examples demonstrate how
+to access and run `webpack-dev-server` directly in your application / script.
+
+CLI exampes can be found in the `cli` directory. These examples demonstrate how
+to run `webpack-dev-server` from the command line in your console / terminal.
+
 ## Notes
 
 - Each example's `webpack` config is wrapped with `util.setup`; a helper function

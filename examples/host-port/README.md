@@ -2,12 +2,12 @@
 
 Only For ipv4
 ```shell
-node ../../bin/webpack-dev-server.js --open --port 5000 --host 0.0.0.0
+npm run webpack-dev-server -- --open --port 5000 --host 0.0.0.0
 ```
 
 For ipv6 support. (it also works with ipv4.)
 ```shell
-node ../../bin/webpack-dev-server.js --open --port 5000 --host ::
+npm run webpack-dev-server -- --open --port 5000 --host ::
 ```
 
 We want to change the port to `5000`, and make the server publicly accessible.

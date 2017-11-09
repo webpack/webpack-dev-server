@@ -1,13 +1,13 @@
 # Modus: manual script
 
 ```shell
-node ../../bin/webpack-dev-server.js --open --no-inline
+npm run webpack-dev-server -- --open --no-inline
 ```
 
 The webpack-dev-server client is added as script tag to the html page.
 
 ```shell
-node ../../bin/webpack-dev-server.js --open --no-inline --https
+npm run webpack-dev-server -- --open --no-inline --https
 ```
 
 This will do the same, but connect over https.

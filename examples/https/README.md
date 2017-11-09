@@ -14,7 +14,7 @@ following resources for doing so:
 ## Getting Started
 
 ```shell
-node ../../bin/webpack-dev-server.js --open --https
+npm run webpack-dev-server -- --open --https
 ```
 
 ## Using Your Certificate
@@ -22,7 +22,7 @@ node ../../bin/webpack-dev-server.js --open --https
 Options are available for using your own SSL Certificate in your preferred or
 OS-required format.
 
-Given the base command `node ../../bin/webpack-dev-server.js --open --https`, append
+Given the base command `npm run webpack-dev-server -- --open --https`, append
 one of the following:
 
 * (PEM Files)  `--cert=../../ssl/server.pem --key=../../ssl/server.pem`

@@ -14,7 +14,7 @@ override this.
 ## What Should Happen
 
 1. The script should open `http://0.0.0.0:8080/` in your default browser.
-2. You should  see the text on the page itself change to read `Success!`.
+2. You should see the text on the page itself change to read `Success!`.
 3. Open the console in your browser's devtools.
 4. Select the 'Network' tab.
 5. Select the 'WS' or 'WebSockets' sub-tab.

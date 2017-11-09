@@ -1,7 +1,7 @@
 # Modus: iframe
 
 ```shell
-node ../../bin/webpack-dev-server.js --no-inline --open
+npm run webpack-dev-server -- --no-inline --open
 ```
 
 The app is started in an iframe. The page contains the client script to connect to webpack-dev-server.

@@ -4,7 +4,7 @@
 ## How to run
 
 ```shell
-node ../../bin/webpack-dev-server.js
+npm run webpack-dev-server
 ```
 
 
@@ -16,4 +16,3 @@ node ../../bin/webpack-dev-server.js
 4. The main thread posts the message in the console.
 
 No error, warning or other log traces should be in the console.
-

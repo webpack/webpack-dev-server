@@ -18,6 +18,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  color: #2086d7;
+  text-decoration: none;
+  transition: color 250ms;
+}
+
+a:hover {
+  color: #1a6aab;
+}
+
 main {
     width: 100%;
     max-width: 94.2rem;
@@ -47,7 +57,7 @@ section {
   padding: 0 0 0 4.2rem;
 }
 
-p, div {
+div, p, table {
   font-size: 1.6rem;
 }
 

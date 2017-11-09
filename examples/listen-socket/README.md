@@ -3,7 +3,7 @@
 Start dev server in socket mode:
 
 ```shell
-node ../../bin/webpack-dev-server.js --socket ./webpack.sock
+npm run webpack-dev-server -- --socket ./webpack.sock
 ```
 
 And then start node server that will use that socket:
