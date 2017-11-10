@@ -9,7 +9,9 @@ object, dev server calls it on each request to get proxy config and replaces pro
 
 ## What should happen
 
-The script should open `http://localhost:8080/`. It should show "It's working."
+1. The script should open `http://localhost:8080/` in your default browser.
+2. You should see the text on the page itself change to read `Success!`.
+
 
 Go to `http://localhost:8080/api/users`. It should show a couple of JSON objects.
 
