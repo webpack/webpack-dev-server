@@ -13,7 +13,7 @@ module.exports = {
     const defaults = { plugins: [], devServer: {} };
     const result = Object.assign(defaults, config);
     const before = function before(app) {
-      app.get('/assets/*', (req, res) => {
+      app.get('/.assets/*', (req, res) => {
         const filename = path.join(__dirname, '/', req.path);
         res.sendFile(filename);
       });
@@ -55,7 +55,7 @@ module.exports = {
     result.plugins.push(new webpack.NamedModulesPlugin());
     result.plugins.push(new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.join(__dirname, 'assets/layout.html'),
+      template: path.join(__dirname, '.assets/layout.html'),
       title: exampleTitle
     }));
 
