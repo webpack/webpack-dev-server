@@ -1,8 +1,10 @@
 'use strict';
 
 /* eslint global-require: off */
-
 const fs = require('fs');
+// our setup function adds behind-the-scenes bits to the config that all of our
+// examples need
+const { setup } = require('../../util');
 const proxyConfig = require('./proxy-config');
 
 let proxyOptions = {
@@ -29,10 +31,6 @@ fs.watch('./proxy-config.js', () => {
     // eslint-disable-line
   }
 });
-
-// our setup function adds behind-the-scenes bits to the config that all of our
-// examples need
-const { setup } = require('../../util');
 
 module.exports = setup({
   context: __dirname,
