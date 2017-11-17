@@ -9,7 +9,7 @@ An example should be as minimal as possible and consists of at least:
 - An `app.js` file - the entry point for an example app.
 - A `README.md` file containing information about, and how to run the example app.
 - A description of what should happen when running the example.
-- A `wepack.config.js` file containing the `webpack` configuration for the example app.
+- A `webpack.config.js` file containing the `webpack` configuration for the example app.
 
 ## API versus CLI
 
