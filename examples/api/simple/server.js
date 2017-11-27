@@ -1,7 +1,7 @@
 'use strict';
 
 const Webpack = require('webpack');
-const WebpackDevServer = require('../../../lib/Server');
+const WebpackDevServer = require('../../../lib/DevServer');
 const webpackConfig = require('./webpack.config');
 
 const compiler = Webpack(webpackConfig);
