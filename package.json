@@ -35,7 +35,7 @@
     "build:copy": "cp lib/client/*.html public && cp lib/client/css/*.css public",
     "build:index": "webpack lib/client/js/index.js --config lib/client/config/webpack.config.js",
     "build:live": "webpack lib/client/js/live.js --config lib/client/config/webpack.config.live.js",
-    "webpack-dev-server": "cd $INIT_CWD && node ../../../bin/webpack-dev-server.js"
+    "webpack-dev-server": "cd $INIT_CWD && node ../../../cli.js"
   },
   "files": [
     "lib/",
@@ -97,6 +97,7 @@
     "marked": "^0.3.6",
     "mocha": "^4.0.0",
     "mocha-sinon": "^2.0.0",
+    "node-fetch": "^1.7.3",
     "should": "^13.1.2",
     "sinon": "^4.0.1",
     "style-loader": "^0.19.0",

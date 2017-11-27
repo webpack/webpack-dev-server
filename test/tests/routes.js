@@ -94,4 +94,26 @@ describe('Routes', () => {
         .expect(200, done);
     });
   });
+
+  describe('`before` option', () => {
+    before((done) => {
+      server = helper.start(config, {
+        before: function before(app) {
+          app.get('/fixture', (req, res) => { // eslint-disable-line no-shadow
+            const filename = path.join(__dirname, '../fixtures/before.html');
+            res.sendFile(filename);
+          });
+        }
+      }, done);
+      req = request(server.app);
+    });
+
+    after((done) => {
+      helper.close(server, done);
+    });
+
+    it('GET a file defined within `before`', (done) => {
+      req.get('/fixture').expect(200, done);
+    });
+  });
 });
