@@ -79,7 +79,7 @@
     "update-notifier": "^2.2.0",
     "webpack-dev-middleware": "^1.11.0",
     "ws": "^3.2.0",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "codecov.io": "^0.1.6",
