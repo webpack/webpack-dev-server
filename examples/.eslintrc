@@ -1,8 +1,4 @@
 {
-  "globals": {
-    "document": true,
-    "window": true
-  },
   "rules": {
     "no-console": "off"
   }
