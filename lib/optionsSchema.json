@@ -303,6 +303,10 @@
       "description": "Customize what the console displays when compiling.",
       "instanceof": "Function"
     },
+    "reportTime": {
+      "description": "Report time before and after compiling in console displays.",
+      "type": "boolean"
+    },
     "noInfo": {
       "description": "Hide all info messages on console.",
       "type": "boolean"
