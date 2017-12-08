@@ -19,7 +19,7 @@ module.exports = {
       });
     };
     const renderer = new marked.Renderer();
-    const heading = renderer.heading;
+    const { heading } = renderer;
     const markedOptions = {
       gfm: true,
       tables: true,

@@ -23,12 +23,12 @@ describe('check utility funcitons', () => {
         this.timeout(t.timeout);
       }
 
-      const options = t.options;
+      const { options } = t;
+      const { expected } = t;
 
       options.publicPath = '/';
 
       const devServer = new DevServer(compiler, options);
-      const expected = t.expected;
 
       devServer.listen((err) => {
         if (err) {

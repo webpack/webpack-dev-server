@@ -11,6 +11,8 @@
     "import/no-unresolved": ["off"],
     "object-shorthand": ["error", "never"],
     "prefer-arrow-callback": ["off"],
+    "prefer-destructuring": ["error", {"object": false, "array": false}],
+    "prefer-rest-params": "off",
     "prefer-spread": ["off"],
     "prefer-template": ["off"]
   }
