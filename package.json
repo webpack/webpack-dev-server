@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "3.0.0-alpha1",
+  "version": "3.0.0-alpha2",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "license": "MIT",
   "repository": "webpack/webpack-dev-server",
@@ -40,7 +40,8 @@
   "files": [
     "lib/",
     "public/",
-    "ssl/"
+    "ssl/",
+    "cli.js"
   ],
   "peerDependencies": {
     "webpack": "^2.2.0 || ^3.0.0"
