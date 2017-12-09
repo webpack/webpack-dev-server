@@ -51,7 +51,7 @@ const defaultTo = (value, def) => value == null ? def : value;
 const yargs = require('yargs')
   .usage(`${versionInfo()}\nUsage: https://webpack.js.org/configuration/dev-server/`);
 
-require('webpack/bin/config-yargs')(yargs);
+require('webpack-cli/bin/config-yargs')(yargs);
 
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
@@ -219,7 +219,7 @@ yargs.options({
 });
 
 const argv = yargs.argv;
-const wpOpt = require('webpack/bin/convert-argv')(yargs, argv, {
+const wpOpt = require('webpack-cli/bin/convert-argv')(yargs, argv, {
   outputFilename: '/bundle.js'
 });
 
