@@ -80,6 +80,7 @@
     "style-loader": "^0.19.0",
     "supports-color": "^5.0.0",
     "update-notifier": "^2.2.0",
+    "webpack-cli": "^1.5.2",
     "webpack-dev-middleware": "^1.11.0",
     "ws": "^3.2.0",
     "yargs": "^10.0.3"
