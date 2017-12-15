@@ -5,7 +5,7 @@
 require('./lib/polyfills');
 require('loud-rejection/register');
 
-const convertArgv = require('webpack/bin/convert-argv');
+const convertArgv = require('webpack-cli/bin/convert-argv');
 const debug = require('debug')('webpack-dev-server');
 const importLocal = require('import-local');
 const updateNotifier = require('update-notifier');
