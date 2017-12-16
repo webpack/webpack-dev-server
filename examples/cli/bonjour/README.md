@@ -1,6 +1,6 @@
-# Bounjour (ZeroConf)
+# Bonjour (ZeroConf)
 
-The Bounjour capability broadcasts server information via ZeroConf when the Server
+The Bonjour capability broadcasts server information via ZeroConf when the Server
 is started.
 
 To run this example, run this command in your console or terminal:
