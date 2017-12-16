@@ -16,7 +16,7 @@ An example should be as minimal as possible and consists of at least:
 API examples can be found in the `api` directory. These examples demonstrate how
 to access and run `webpack-dev-server` directly in your application / script.
 
-CLI exampes can be found in the `cli` directory. These examples demonstrate how
+CLI examples can be found in the `cli` directory. These examples demonstrate how
 to run `webpack-dev-server` from the command line in your console / terminal.
 
 ## Notes
