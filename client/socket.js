@@ -5,7 +5,7 @@ const SockJS = require('sockjs-client/dist/sockjs');
 let retries = 0;
 let sock = null;
 
-function socket(url, handlers) {
+const socket = function(url, handlers) {
   sock = new SockJS(url);
 
   sock.onopen = function onopen() {
