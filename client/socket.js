@@ -5,7 +5,7 @@ const SockJS = require('sockjs-client/dist/sockjs');
 let retries = 0;
 let sock = null;
 
-const socket = function(url, handlers) {
+const socket = function initSocket(url, handlers) {
   sock = new SockJS(url);
 
   sock.onopen = function onopen() {
@@ -37,6 +37,6 @@ const socket = function(url, handlers) {
     const msg = JSON.parse(e.data);
     if (handlers[msg.type]) { handlers[msg.type](msg.data); }
   };
-}
+};
 
 module.exports = socket;
