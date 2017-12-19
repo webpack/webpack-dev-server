@@ -170,7 +170,7 @@ describe('CLI', () => {
   describe('SIGINT', () => {
     it('should exit the process when SIGINT is detected', (done) => {
       const cliPath = path.resolve(__dirname, '../cli.js');
-      const examplePath = path.resolve(__dirname, '../examples/cli/public');
+      const examplePath = path.resolve(__dirname, '../examples/cli/default');
       const nodePath = execa.shellSync('which node').stdout;
 
       const proc = execa(nodePath, [cliPath], { cwd: examplePath });
@@ -178,7 +178,7 @@ describe('CLI', () => {
       proc.stdout.on('data', (data) => {
         const bits = data.toString();
 
-        if (/webpack: Compiled successfully/.test(bits)) {
+        if (/Compiled successfully/.test(bits)) {
           assert(proc.pid !== 0);
           proc.kill('SIGINT');
         }

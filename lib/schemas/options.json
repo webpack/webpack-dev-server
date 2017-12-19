@@ -196,8 +196,13 @@
     },
 
     "logLevel": {
-      "description": "Log level in the terminal/console (trace, debug, info, warning, error or none)",
+      "description": "Log level in the terminal/console (trace, debug, info, warn, error or none)",
       "type": "string"
+    },
+
+    "logTime": {
+      "description": "If true, displays a timestamp that prefixes all log output",
+      "type": "boolean"
     },
 
     "open": {

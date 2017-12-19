@@ -27,6 +27,6 @@ const webpackOpts = convertArgv(yargs, argv, {
 });
 
 options(argv, webpackOpts).then((result) => {
-  const { devServerOptions, webpackOptions } = result;
-  start(argv, devServerOptions, webpackOptions);
+  const { devServerOptions, log, webpackOptions } = result;
+  start(argv, devServerOptions, log, webpackOptions);
 });
