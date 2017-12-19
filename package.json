@@ -78,7 +78,7 @@
     "supports-color": "^5.0.0",
     "update-notifier": "^2.2.0",
     "webpack-dev-middleware": "^2.0.1",
-    "webpack-log": "^1.0.1",
+    "webpack-log": "^1.0.2",
     "ws": "^3.2.0",
     "yargs": "^10.0.3"
   },
