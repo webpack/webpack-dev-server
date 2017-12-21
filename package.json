@@ -22,7 +22,7 @@
     "beautify": "npm run lint -- --fix",
     "ci": "npm run cover -- --report lcovonly && npm run test",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
-    "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,overlay,webpack.config}.js",
+    "lint": "eslint bin lib test examples client/{index,live,socket,sockjs,overlay}.js",
     "mocha": "mocha --full-trace --check-leaks",
     "prepublish": "(rm ssl/*.pem || true) && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
     "test": "npm run lint && npm run mocha",

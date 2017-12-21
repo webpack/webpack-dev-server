@@ -1,9 +1,9 @@
 'use strict';
 
-const SockJS = require('sockjs-client/dist/sockjs');
+var SockJS = require('sockjs-client/dist/sockjs');
 
-let retries = 0;
-let sock = null;
+var retries = 0;
+var sock = null;
 
 function socket(url, handlers) {
   sock = new SockJS(url);
@@ -23,7 +23,7 @@ function socket(url, handlers) {
       // Exponentially increase timeout to reconnect.
       // Respectfully copied from the package `got`.
       // eslint-disable-next-line no-mixed-operators, no-restricted-properties
-      const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
+      var retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
       retries += 1;
 
       setTimeout(function cb() {
@@ -34,7 +34,7 @@ function socket(url, handlers) {
 
   sock.onmessage = function onmessage(e) {
     // This assumes that all data sent via the websocket is JSON.
-    const msg = JSON.parse(e.data);
+    var msg = JSON.parse(e.data);
     if (handlers[msg.type]) { handlers[msg.type](msg.data); }
   };
 }
