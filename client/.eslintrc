@@ -1,5 +1,10 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 5
+  },
   "rules": {
+    "no-var": ["off"],
+    "vars-on-top": ["off"],
     "object-shorthand": ["error", "never"],
     "prefer-arrow-callback": ["off"],
     "prefer-template": ["off"]

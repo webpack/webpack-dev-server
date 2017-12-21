@@ -2,23 +2,23 @@
 
 /* eslint import/no-extraneous-dependencies: off, global-require: off */
 
-const $ = require('jquery');
-const stripAnsi = require('strip-ansi');
-const socket = require('./socket');
+var $ = require('jquery');
+var stripAnsi = require('strip-ansi');
+var socket = require('./socket');
 require('./style.css');
 
-let hot = false;
-let currentHash = '';
+var hot = false;
+var currentHash = '';
 
 $(function ready() {
   $('body').html(require('./page.pug')());
-  const status = $('#status');
-  const okness = $('#okness');
-  const $errors = $('#errors');
-  const iframe = $('#iframe');
-  const header = $('.header');
+  var status = $('#status');
+  var okness = $('#okness');
+  var $errors = $('#errors');
+  var iframe = $('#iframe');
+  var header = $('.header');
 
-  const contentPage = window.location.pathname.substr('/webpack-dev-server'.length) + window.location.search;
+  var contentPage = window.location.pathname.substr('/webpack-dev-server'.length) + window.location.search;
 
   status.text('Connecting to sockjs server...');
   $errors.hide();
@@ -27,7 +27,7 @@ $(function ready() {
     borderColor: '#96b5b4'
   });
 
-  const onSocketMsg = {
+  var onSocketMsg = {
     hot: function msgHot() {
       hot = true;
       iframe.attr('src', contentPage + window.location.hash);
@@ -110,7 +110,7 @@ $(function ready() {
         borderColor: '#96b5b4'
       });
       try {
-        let old = iframe[0].contentWindow.location + '';
+        var old = iframe[0].contentWindow.location + '';
         if (old.indexOf('about') === 0) old = null;
         iframe.attr('src', old || (contentPage + window.location.hash));
         if (old) {

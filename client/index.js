@@ -3,28 +3,28 @@
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
 
-const url = require('url');
-const stripAnsi = require('strip-ansi');
-const log = require('loglevel').getLogger('webpack-dev-server');
-const socket = require('./socket');
-const overlay = require('./overlay');
+var url = require('url');
+var stripAnsi = require('strip-ansi');
+var log = require('loglevel').getLogger('webpack-dev-server');
+var socket = require('./socket');
+var overlay = require('./overlay');
 
 function getCurrentScriptSource() {
   // `document.currentScript` is the most accurate way to find the current script,
   // but is not supported in all browsers.
   if (document.currentScript) { return document.currentScript.getAttribute('src'); }
   // Fall back to getting all scripts in the document.
-  const scriptElements = document.scripts || [];
-  const currentScript = scriptElements[scriptElements.length - 1];
+  var scriptElements = document.scripts || [];
+  var currentScript = scriptElements[scriptElements.length - 1];
   if (currentScript) { return currentScript.getAttribute('src'); }
   // Fail as there was no script to use.
   throw new Error('[WDS] Failed to get current script source.');
 }
 
-let urlParts;
-let hotReload = true;
+var urlParts;
+var hotReload = true;
 if (typeof window !== 'undefined') {
-  const qs = window.location.search.toLowerCase();
+  var qs = window.location.search.toLowerCase();
   hotReload = qs.indexOf('hotreload=false') === -1;
 }
 if (typeof __resourceQuery === 'string' && __resourceQuery) {
@@ -32,7 +32,7 @@ if (typeof __resourceQuery === 'string' && __resourceQuery) {
   urlParts = url.parse(__resourceQuery.substr(1));
 } else {
   // Else, get the url from the <script> this file was called with.
-  let scriptHost = getCurrentScriptSource();
+  var scriptHost = getCurrentScriptSource();
   // eslint-disable-next-line no-useless-escape
   scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
   urlParts = url.parse((scriptHost || '/'), false, true);
@@ -42,17 +42,17 @@ if (!urlParts.port || urlParts.port === '0') {
   urlParts.port = self.location.port;
 }
 
-let hot = false;
-let initial = true;
-let currentHash = '';
-let useWarningOverlay = false;
-let useErrorOverlay = false;
-let useProgress = false;
+var hot = false;
+var initial = true;
+var currentHash = '';
+var useWarningOverlay = false;
+var useErrorOverlay = false;
+var useProgress = false;
 
-const INFO = 'info';
-const WARNING = 'warning';
-const ERROR = 'error';
-const NONE = 'none';
+var INFO = 'info';
+var WARNING = 'warning';
+var ERROR = 'error';
+var NONE = 'none';
 
 // Set the default log level
 log.setDefaultLevel(INFO);
@@ -71,7 +71,7 @@ function sendMsg(type, data) {
   }
 }
 
-const onSocketMsg = {
+var onSocketMsg = {
   hot: function msgHot() {
     hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
@@ -91,7 +91,7 @@ const onSocketMsg = {
     sendMsg('StillOk');
   },
   'log-level': function logLevel(level) {
-    const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
+    var hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
     if (hotCtx.keys().indexOf('./log') !== -1) {
       hotCtx('./log').setLogLevel(level);
     }
@@ -142,9 +142,9 @@ const onSocketMsg = {
   },
   warnings: function msgWarnings(warnings) {
     log.warn('[WDS] Warnings while compiling.');
-    const strippedWarnings = warnings.map(function map(warning) { return stripAnsi(warning); });
+    var strippedWarnings = warnings.map(function map(warning) { return stripAnsi(warning); });
     sendMsg('Warnings', strippedWarnings);
-    for (let i = 0; i < strippedWarnings.length; i++) { log.warn(strippedWarnings[i]); }
+    for (var i = 0; i < strippedWarnings.length; i++) { log.warn(strippedWarnings[i]); }
     if (useWarningOverlay) overlay.showMessage(warnings);
 
     if (initial) return initial = false; // eslint-disable-line no-return-assign
@@ -152,9 +152,9 @@ const onSocketMsg = {
   },
   errors: function msgErrors(errors) {
     log.error('[WDS] Errors while compiling. Reload prevented.');
-    const strippedErrors = errors.map(function map(error) { return stripAnsi(error); });
+    var strippedErrors = errors.map(function map(error) { return stripAnsi(error); });
     sendMsg('Errors', strippedErrors);
-    for (let i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
+    for (var i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
     if (useErrorOverlay) overlay.showMessage(errors);
   },
   error: function msgError(error) {
@@ -166,8 +166,8 @@ const onSocketMsg = {
   }
 };
 
-let hostname = urlParts.hostname;
-let protocol = urlParts.protocol;
+var hostname = urlParts.hostname;
+var protocol = urlParts.protocol;
 
 
 // check ipv4 and ipv6 `all hostname`
@@ -189,7 +189,7 @@ if (hostname && (self.location.protocol === 'https:' || urlParts.hostname === '0
   protocol = self.location.protocol;
 }
 
-const socketUrl = url.format({
+var socketUrl = url.format({
   protocol: protocol,
   auth: urlParts.auth,
   hostname: hostname,
@@ -199,7 +199,7 @@ const socketUrl = url.format({
 
 socket(socketUrl, onSocketMsg);
 
-let isUnloading = false;
+var isUnloading = false;
 self.addEventListener('beforeunload', function beforeUnload() {
   isUnloading = true;
 });
@@ -211,16 +211,16 @@ function reloadApp() {
   if (hot) {
     log.info('[WDS] App hot update...');
     // eslint-disable-next-line global-require
-    const hotEmitter = require('webpack/hot/emitter');
+    var hotEmitter = require('webpack/hot/emitter');
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {
       // broadcast update to window
       self.postMessage('webpackHotUpdate' + currentHash, '*');
     }
   } else {
-    let rootWindow = self;
+    var rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
-    const intervalId = self.setInterval(function findRootWindow() {
+    var intervalId = self.setInterval(function findRootWindow() {
       if (rootWindow.location.protocol !== 'about:') {
         // reload immediately if protocol is valid
         applyReload(rootWindow, intervalId);
@@ -234,9 +234,9 @@ function reloadApp() {
     });
   }
 
-  function applyReload(rootWindow, intervalId) {
-    clearInterval(intervalId);
+  function applyReload(window, id) {
+    clearInterval(id);
     log.info('[WDS] App updated. Reloading...');
-    rootWindow.location.reload();
+    window.location.reload();
   }
 }
