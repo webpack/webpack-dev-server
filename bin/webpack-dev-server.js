@@ -296,7 +296,9 @@ function processOptions(webpackOptions) {
     };
   }
 
-  if (typeof options.stats === 'object' && typeof options.stats.colors === 'undefined') { options.stats.colors = argv.color; }
+  if (typeof options.stats === 'object' && typeof options.stats.colors === 'undefined') {
+    options.stats = Object.assign({}, options.stats, { colors: argv.color });
+  }
 
   if (argv.lazy) { options.lazy = true; }
 
