@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "2.9.4",
+  "version": "2.9.7",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "license": "MIT",
   "repository": "webpack/webpack-dev-server",
@@ -28,7 +28,8 @@
     "test": "npm run lint && npm run mocha",
     "build:live": "webpack ./client/live.js client/live.bundle.js --color --config client/webpack.config.js",
     "build:index": "webpack ./client/index.js client/index.bundle.js --color --config client/webpack.config.js",
-    "build:sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js"
+    "build:sockjs": "webpack ./client/sockjs.js client/sockjs.bundle.js --color --config client/webpack.sockjs.config.js",
+    "webpack-dev-server": "cd $INIT_CWD && node ../../../bin/webpack-dev-server.js"
   },
   "files": [
     "lib/",
@@ -48,7 +49,7 @@
     "connect-history-api-fallback": "^1.3.0",
     "debug": "^3.1.0",
     "del": "^3.0.0",
-    "express": "^4.13.3",
+    "express": "^4.16.2",
     "html-entities": "^1.2.0",
     "http-proxy-middleware": "~0.17.4",
     "import-local": "^0.1.1",
@@ -76,10 +77,12 @@
     "eslint-plugin-import": "^2.7.0",
     "execa": "^0.8.0",
     "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.30.1",
     "istanbul": "^0.4.5",
     "jquery": "^3.2.1",
     "less": "^2.5.1",
     "less-loader": "^4.0.5",
+    "marked": "^0.3.6",
     "mocha": "^3.0.2",
     "mocha-sinon": "^2.0.0",
     "pug": "^2.0.0-beta5",
