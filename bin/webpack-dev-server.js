@@ -247,6 +247,8 @@ function processOptions(webpackOptions) {
 
   if (argv.socket) { options.socket = argv.socket; }
 
+  if (argv.progress) { options.progress = argv.progress; }
+
   if (!options.publicPath) {
     // eslint-disable-next-line
     options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || '';
@@ -370,7 +372,7 @@ function startDevServer(webpackOptions, options) {
     throw e;
   }
 
-  if (argv.progress) {
+  if (options.progress) {
     compiler.apply(new webpack.ProgressPlugin({
       profile: argv.profile
     }));
@@ -447,7 +449,8 @@ function reportReadiness(uri, options) {
     if (options.socket) {
       startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
     }
-    console.log((argv.progress ? '\n' : '') + startSentence);
+
+    console.log((options.progress ? '\n' : '') + startSentence);
 
     console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
 
