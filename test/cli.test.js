@@ -17,7 +17,7 @@ describe('SIGINT', () => {
     proc.stdout.on('data', (data) => {
       const bits = data.toString();
 
-      if (/webpack: Compiled successfully/.test(bits)) {
+      if (/Compiled successfully/.test(bits)) {
         assert(proc.pid !== 0);
         proc.kill('SIGINT');
       }
@@ -26,7 +26,7 @@ describe('SIGINT', () => {
     proc.on('exit', () => {
       done();
     });
-  }).timeout(4000);
+  }).timeout(6000);
 });
 
 describe('CLI', () => {
@@ -38,5 +38,5 @@ describe('CLI', () => {
         done();
       })
       .catch(done);
-  }).timeout(4000);
+  }).timeout(6000);
 });
