@@ -6,6 +6,18 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        exclude: /node_modules|web_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env']
+            }
+          }
+        ]
+      },
+      {
         test: /\.pug$/,
         use: [
           'pug-loader?self'

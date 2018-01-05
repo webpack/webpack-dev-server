@@ -65,24 +65,24 @@ function sendMsg(type, data) {
   !(self instanceof WorkerGlobalScope))
   ) {
     self.postMessage({
-      type: 'webpack' + type,
-      data: data
+      type: `webpack${type}`,
+      data
     }, '*');
   }
 }
 
 const onSocketMsg = {
-  hot: function msgHot() {
+  hot() {
     hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
   },
-  invalid: function msgInvalid() {
+  invalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (useWarningOverlay || useErrorOverlay) overlay.clear();
     sendMsg('Invalid');
   },
-  hash: function msgHash(hash) {
+  hash(hash) {
     currentHash = hash;
   },
   'still-ok': function stillOk() {
@@ -108,10 +108,10 @@ const onSocketMsg = {
         log.disableAll();
         break;
       default:
-        log.error('[WDS] Unknown clientLogLevel \'' + level + '\'');
+        log.error(`[WDS] Unknown clientLogLevel '${level}'`);
     }
   },
-  overlay: function msgOverlay(value) {
+  overlay(value) {
     if (typeof document !== 'undefined') {
       if (typeof (value) === 'boolean') {
         useWarningOverlay = false;
@@ -122,15 +122,15 @@ const onSocketMsg = {
       }
     }
   },
-  progress: function msgProgress(progress) {
+  progress(progress) {
     if (typeof document !== 'undefined') {
       useProgress = progress;
     }
   },
   'progress-update': function progressUpdate(data) {
-    if (useProgress) log.info('[WDS] ' + data.percent + '% - ' + data.msg + '.');
+    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
   },
-  ok: function msgOk() {
+  ok() {
     sendMsg('Ok');
     if (useWarningOverlay || useErrorOverlay) overlay.clear();
     if (initial) return initial = false; // eslint-disable-line no-return-assign
@@ -140,9 +140,9 @@ const onSocketMsg = {
     log.info('[WDS] Content base changed. Reloading...');
     self.location.reload();
   },
-  warnings: function msgWarnings(warnings) {
+  warnings(warnings) {
     log.warn('[WDS] Warnings while compiling.');
-    const strippedWarnings = warnings.map(function map(warning) { return stripAnsi(warning); });
+    const strippedWarnings = warnings.map(warning => stripAnsi(warning));
     sendMsg('Warnings', strippedWarnings);
     for (let i = 0; i < strippedWarnings.length; i++) { log.warn(strippedWarnings[i]); }
     if (useWarningOverlay) overlay.showMessage(warnings);
@@ -150,17 +150,17 @@ const onSocketMsg = {
     if (initial) return initial = false; // eslint-disable-line no-return-assign
     reloadApp();
   },
-  errors: function msgErrors(errors) {
+  errors(errors) {
     log.error('[WDS] Errors while compiling. Reload prevented.');
-    const strippedErrors = errors.map(function map(error) { return stripAnsi(error); });
+    const strippedErrors = errors.map(error => stripAnsi(error));
     sendMsg('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
     if (useErrorOverlay) overlay.showMessage(errors);
   },
-  error: function msgError(error) {
+  error(error) {
     log.error(error);
   },
-  close: function msgClose() {
+  close() {
     log.error('[WDS] Disconnected!');
     sendMsg('Close');
   }
@@ -190,9 +190,9 @@ if (hostname && (self.location.protocol === 'https:' || urlParts.hostname === '0
 }
 
 const socketUrl = url.format({
-  protocol: protocol,
+  protocol,
   auth: urlParts.auth,
-  hostname: hostname,
+  hostname,
   port: urlParts.port,
   pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
 });
@@ -200,7 +200,7 @@ const socketUrl = url.format({
 socket(socketUrl, onSocketMsg);
 
 let isUnloading = false;
-self.addEventListener('beforeunload', function beforeUnload() {
+self.addEventListener('beforeunload', () => {
   isUnloading = true;
 });
 
@@ -215,12 +215,12 @@ function reloadApp() {
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {
       // broadcast update to window
-      self.postMessage('webpackHotUpdate' + currentHash, '*');
+      self.postMessage(`webpackHotUpdate${currentHash}`, '*');
     }
   } else {
     let rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
-    const intervalId = self.setInterval(function findRootWindow() {
+    const intervalId = self.setInterval(() => {
       if (rootWindow.location.protocol !== 'about:') {
         // reload immediately if protocol is valid
         applyReload(rootWindow, intervalId);

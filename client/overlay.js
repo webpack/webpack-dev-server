@@ -83,7 +83,7 @@ function ensureOverlayDivExists(onOverlayDivReady) {
   }
 
   // Create iframe and, when it is ready, a div inside it.
-  overlayIframe = createOverlayIframe(function cb() {
+  overlayIframe = createOverlayIframe(() => {
     overlayDiv = addOverlayDivTo(overlayIframe);
     // Now we can talk!
     lastOnOverlayDivReady(overlayDiv);
@@ -96,11 +96,12 @@ function ensureOverlayDivExists(onOverlayDivReady) {
 }
 
 function showMessageOverlay(message) {
-  ensureOverlayDivExists(function cb(div) {
+  ensureOverlayDivExists((div) => {
     // Make it look similar to our terminal.
-    div.innerHTML = '<span style="color: #' + colors.red +
-                    '">Failed to compile.</span><br><br>' +
-                    ansiHTML(entities.encode(message));
+    div.innerHTML = `<span style="color: #${
+      colors.red
+    }">Failed to compile.</span><br><br>${
+      ansiHTML(entities.encode(message))}`;
   });
 }
 
