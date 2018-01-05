@@ -55,7 +55,7 @@ require('webpack/bin/config-yargs')(yargs);
 
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
-yargs.version(versionInfo);
+yargs.version(versionInfo());
 
 const ADVANCED_GROUP = 'Advanced options:';
 const DISPLAY_GROUP = 'Stats options:';
@@ -247,6 +247,8 @@ function processOptions(webpackOptions) {
 
   if (argv.socket) { options.socket = argv.socket; }
 
+  if (argv.progress) { options.progress = argv.progress; }
+
   if (!options.publicPath) {
     // eslint-disable-next-line
     options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || '';
@@ -294,7 +296,9 @@ function processOptions(webpackOptions) {
     };
   }
 
-  if (typeof options.stats === 'object' && typeof options.stats.colors === 'undefined') { options.stats.colors = argv.color; }
+  if (typeof options.stats === 'object' && typeof options.stats.colors === 'undefined') {
+    options.stats = Object.assign({}, options.stats, { colors: argv.color });
+  }
 
   if (argv.lazy) { options.lazy = true; }
 
@@ -368,7 +372,7 @@ function startDevServer(webpackOptions, options) {
     throw e;
   }
 
-  if (argv.progress) {
+  if (options.progress) {
     compiler.apply(new webpack.ProgressPlugin({
       profile: argv.profile
     }));
@@ -445,7 +449,8 @@ function reportReadiness(uri, options) {
     if (options.socket) {
       startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
     }
-    console.log((argv.progress ? '\n' : '') + startSentence);
+
+    console.log((options.progress ? '\n' : '') + startSentence);
 
     console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
 
