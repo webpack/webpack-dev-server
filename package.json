@@ -70,6 +70,9 @@
     "yargs": "^6.6.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "codecov.io": "^0.1.6",
     "css-loader": "^0.28.5",
     "eslint": "^4.5.0",

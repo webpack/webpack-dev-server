@@ -10,7 +10,7 @@ require('./style.css');
 let hot = false;
 let currentHash = '';
 
-$(function ready() {
+$(() => {
   $('body').html(require('./page.pug')());
   const status = $('#status');
   const okness = $('#okness');
@@ -28,11 +28,11 @@ $(function ready() {
   });
 
   const onSocketMsg = {
-    hot: function msgHot() {
+    hot() {
       hot = true;
       iframe.attr('src', contentPage + window.location.hash);
     },
-    invalid: function msgInvalid() {
+    invalid() {
       okness.text('');
       status.text('App updated. Recompiling...');
       header.css({
@@ -41,7 +41,7 @@ $(function ready() {
       $errors.hide();
       if (!hot) iframe.hide();
     },
-    hash: function msgHash(hash) {
+    hash(hash) {
       currentHash = hash;
     },
     'still-ok': function stillOk() {
@@ -53,12 +53,12 @@ $(function ready() {
       $errors.hide();
       if (!hot) iframe.show();
     },
-    ok: function msgOk() {
+    ok() {
       okness.text('');
       $errors.hide();
       reloadApp();
     },
-    warnings: function msgWarnings() {
+    warnings() {
       okness.text('Warnings while compiling.');
       $errors.hide();
       reloadApp();
@@ -66,14 +66,14 @@ $(function ready() {
     errors: function msgErrors(errors) {
       status.text('App updated with errors. No reload!');
       okness.text('Errors while compiling.');
-      $errors.text('\n' + stripAnsi(errors.join('\n\n\n')) + '\n\n');
+      $errors.text(`\n${stripAnsi(errors.join('\n\n\n'))}\n\n`);
       header.css({
         borderColor: '#ebcb8b'
       });
       $errors.show();
       iframe.hide();
     },
-    close: function msgClose() {
+    close() {
       status.text('');
       okness.text('Disconnected.');
       $errors.text('\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n');
@@ -87,7 +87,7 @@ $(function ready() {
 
   socket('/sockjs-node', onSocketMsg);
 
-  iframe.on('load', function load() {
+  iframe.on('load', () => {
     status.text('App ready.');
     header.css({
       borderColor: ''
@@ -99,7 +99,7 @@ $(function ready() {
     if (hot) {
       status.text('App hot update.');
       try {
-        iframe[0].contentWindow.postMessage('webpackHotUpdate' + currentHash, '*');
+        iframe[0].contentWindow.postMessage(`webpackHotUpdate${currentHash}`, '*');
       } catch (e) {
         console.warn(e); // eslint-disable-line
       }
@@ -110,7 +110,7 @@ $(function ready() {
         borderColor: '#96b5b4'
       });
       try {
-        let old = iframe[0].contentWindow.location + '';
+        let old = `${iframe[0].contentWindow.location}`;
         if (old.indexOf('about') === 0) old = null;
         iframe.attr('src', old || (contentPage + window.location.hash));
         if (old) {
