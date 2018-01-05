@@ -82,7 +82,7 @@
     "jquery": "^3.2.1",
     "less": "^2.5.1",
     "less-loader": "^4.0.5",
-    "marked": "^0.3.6",
+    "marked": "^0.3.9",
     "mocha": "^3.0.2",
     "mocha-sinon": "^2.0.0",
     "pug": "^2.0.0-beta5",
