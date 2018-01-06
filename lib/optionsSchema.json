@@ -320,8 +320,15 @@
       "type": "boolean"
     },
     "index": {
-      "description": "The filename that is considered the index file.",
-      "type": "string"
+      "description": "The filename that is considered the index file, or `false` to proxy the root path",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     },
     "log": {
       "description": "Customize info logs for webpack-dev-middleware.",
