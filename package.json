@@ -38,7 +38,8 @@
     "ssl/"
   ],
   "peerDependencies": {
-    "webpack": "^2.2.0 || ^3.0.0"
+    "webpack": "^4.0.0",
+    "webpack-cli": "^2.0.0"
   },
   "dependencies": {
     "ansi-html": "0.0.7",
