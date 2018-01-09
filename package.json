@@ -67,7 +67,7 @@
     "strip-ansi": "^4.0.0",
     "supports-color": "^5.1.0",
     "webpack-dev-middleware": "1.12.2",
-    "yargs": "^10.0.3"
+    "yargs": "6.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
