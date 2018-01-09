@@ -55,7 +55,8 @@ require('webpack/bin/config-yargs')(yargs);
 
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
-yargs.version(versionInfo());
+yargs
+  .version(versionInfo());
 
 const ADVANCED_GROUP = 'Advanced options:';
 const DISPLAY_GROUP = 'Stats options:';
