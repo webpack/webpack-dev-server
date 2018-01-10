@@ -24,7 +24,7 @@
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "lint": "eslint bin lib test examples client-src",
     "mocha": "mocha --full-trace --check-leaks",
-    "prepare": "(rm ssl/*.pem || true) && npm run -s transpile:index && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
+    "prepublish": "(rm ssl/*.pem || true) && npm run -s transpile:index && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
     "test": "npm run lint && npm run mocha",
     "transpile:index": "babel client-src/default --out-dir client --ignore *.config.js",
     "build:index": "webpack ./client-src/default/index.js client/index.bundle.js --color --config client-src/default/webpack.config.js",
