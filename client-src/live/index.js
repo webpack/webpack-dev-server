@@ -4,7 +4,7 @@
 
 const $ = require('jquery');
 const stripAnsi = require('strip-ansi');
-const socket = require('./socket');
+const socket = require('../default/socket');
 require('./style.css');
 
 let hot = false;
