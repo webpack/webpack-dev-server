@@ -1,6 +1,8 @@
 'use strict';
 
+const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   module: {
@@ -10,10 +12,7 @@ module.exports = {
         exclude: /node_modules|web_modules/,
         use: [
           {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env']
-            }
+            loader: 'babel-loader'
           }
         ]
       },
@@ -33,6 +32,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new UglifyJSPlugin()
+    new UglifyJSPlugin(),
+    new CopyPlugin([{
+      from: path.resolve(__dirname, 'live.html'),
+      to: path.resolve(__dirname, '../../client/live.html')
+    }])
   ]
 };
