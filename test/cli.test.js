@@ -3,11 +3,32 @@
 const assert = require('assert');
 const path = require('path');
 const execa = require('execa');
+const semver = require('semver');
+const pkg = require('../package.json');
+const runDevServer = require('./helpers/run-webpack-dev-server');
 
-describe('SIGINT', () => {
+describe('CLI Dependencies', () => {
+  it('should lock down certain dependencies', () => {
+    const yargs = pkg.dependencies.yargs;
+    // yargs needs to be locked down to 6.6.0
+    semver.satisfies(yargs, '6.6.0');
+  });
+});
+
+describe('CLI', () => {
+  it('--progress', (done) => {
+    runDevServer('--progress')
+      .then((output) => {
+        assert(output.code === 0);
+        assert(output.stderr.indexOf('0% compiling') >= 0);
+        done();
+      })
+      .catch(done);
+  }).timeout(6000);
+
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
-    const examplePath = path.resolve(__dirname, '../examples/cli-public');
+    const examplePath = path.resolve(__dirname, '../examples/cli/public');
     const nodePath = execa.shellSync('which node').stdout;
 
     const proc = execa(nodePath, [cliPath], { cwd: examplePath });
@@ -15,7 +36,7 @@ describe('SIGINT', () => {
     proc.stdout.on('data', (data) => {
       const bits = data.toString();
 
-      if (/webpack: Compiled successfully/.test(bits)) {
+      if (/Compiled successfully/.test(bits)) {
         assert(proc.pid !== 0);
         proc.kill('SIGINT');
       }
@@ -24,5 +45,5 @@ describe('SIGINT', () => {
     proc.on('exit', () => {
       done();
     });
-  }).timeout(4000);
+  }).timeout(6000);
 });

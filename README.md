@@ -19,6 +19,15 @@ live reloading. This should be used for **development only**.
 It uses [webpack-dev-middleware][middleware-url] under the hood, which provides
 fast in-memory access to the webpack assets.
 
+## Project in Maintenance
+
+**Please note that `webpack-dev-server` is presently in a maintenance-only mode**
+and will not be accepting any additional features in the near term. Most new feature
+requests can be accomplished with Express middleware; please look into using
+the [`before`](https://webpack.js.org/configuration/dev-server/#devserver-before)
+and [`after`](https://webpack.js.org/configuration/dev-server/#devserver-after)
+hooks in the documentation.
+
 ## Getting Started
 
 First thing's first, install the module:
@@ -75,18 +84,15 @@ you edit your assets while the server is running.
 
 See [**the documentation**][docs-url] for more use cases and options.
 
-## Caveats
+## Browser Support
 
-Version 2.8.0 introduced a change which included ES6 keywords `const` and `let`
-within the scripts being served to the browser. This effects environments which
-support _no ES6 whatsoever_, including older versions of UglifyJS and Internet
-Explorer. This was not considered a breaking change at the time due to official
-support for oldIE ending in 2016, rather this was seen as a maintenance update.
-Those wishing to support oldIE should stick with version 2.7.1.
+While `webpack-dev-server` transpiles the client (browser) scripts to an ES5
+state, the project only officially supports the _last two versions of major
+browsers_. We simply don't have the resources to support every whacky
+browser out there.
 
-For version 2.8.0+ those using UglifyJS in their webpack configs should use the
-beta version of [uglifyjs-webpack-plugin][uglify-url] independently, and _not_
-the built-in plugin. This will change once the new version is out of beta.
+If you find an bug with an obscure / old browser, we would actively welcome a
+Pull Request to resolve the bug.
 
 ## Support
 
