@@ -43,6 +43,7 @@ if (!urlParts.port || urlParts.port === '0') {
 }
 
 let hot = false;
+let hotOnly = false;
 let initial = true;
 let currentHash = '';
 let useWarningOverlay = false;
@@ -72,8 +73,9 @@ function sendMsg(type, data) {
 }
 
 const onSocketMsg = {
-  hot() {
+  hot(isHotOnly) {
     hot = true;
+    hotOnly = isHotOnly;
     log.info('[WDS] Hot Module Replacement enabled.');
   },
   invalid() {
@@ -217,21 +219,23 @@ function reloadApp() {
       // broadcast update to window
       self.postMessage(`webpackHotUpdate${currentHash}`, '*');
     }
-  } else {
-    let rootWindow = self;
-    // use parent window for reload (in case we're in an iframe with no valid src)
-    const intervalId = self.setInterval(() => {
-      if (rootWindow.location.protocol !== 'about:') {
-        // reload immediately if protocol is valid
-        applyReload(rootWindow, intervalId);
-      } else {
-        rootWindow = rootWindow.parent;
-        if (rootWindow.parent === rootWindow) {
-          // if parent equals current window we've reached the root which would continue forever, so trigger a reload anyways
+
+    if (!hotOnly) {
+      let rootWindow = self;
+      // use parent window for reload (in case we're in an iframe with no valid src)
+      const intervalId = self.setInterval(() => {
+        if (rootWindow.location.protocol !== 'about:') {
+          // reload immediately if protocol is valid
           applyReload(rootWindow, intervalId);
+        } else {
+          rootWindow = rootWindow.parent;
+          if (rootWindow.parent === rootWindow) {
+            // if parent equals current window we've reached the root which would continue forever, so trigger a reload anyways
+            applyReload(rootWindow, intervalId);
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   function applyReload(rootWindow, intervalId) {
