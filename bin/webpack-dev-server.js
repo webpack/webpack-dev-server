@@ -478,7 +478,7 @@ function reportReadiness(uri, options) {
 
     if (typeof options.open === 'string') {
       openOptions = {
-        app: options.openArgs ? [options.open, ...(options.openArgs.split('|'))] : options.open,
+        app: options.openArgs ? [options.open].concat(options.openArgs.split('|')) : options.open,
         wait: false
       };
       openMessage += `: ${options.open}`;
