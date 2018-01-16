@@ -219,6 +219,10 @@
       "description": "Let the CLI open your browser to a specific page on the site.",
       "type": "string"
     },
+    "openArgs": {
+      "description": "Let the CLI open your browser with specific args.",
+      "type": "string"
+    },
     "features": {
       "description": "The order of which the features will be triggered.",
       "items": {
