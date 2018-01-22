@@ -2,7 +2,7 @@
 
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
-
+const qs = require('querystring');
 const url = require('url');
 const stripAnsi = require('strip-ansi');
 const log = require('loglevel').getLogger('webpack-dev-server');
@@ -194,7 +194,7 @@ const socketUrl = url.format({
   auth: urlParts.auth,
   hostname,
   port: urlParts.port,
-  pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
+  pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : (qs.parse(urlParts.path).sockPath || urlParts.path)
 });
 
 socket(socketUrl, onSocketMsg);
