@@ -58,6 +58,10 @@
       "description": "The Unix socket to listen to (instead of on a host).",
       "type": "string"
     },
+    "sockPath": {
+      "description": "URL path where the sockjs-node is served from (default is sockjs-node).",
+      "type": "string"
+    },
     "watchOptions": {
       "description": "Options for changing the watch behavior.",
       "type": "object"
