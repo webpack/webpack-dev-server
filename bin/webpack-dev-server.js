@@ -111,6 +111,11 @@ yargs.options({
     describe: 'Open default browser with the specified page',
     requiresArg: true
   },
+  'open-args': {
+    type: 'string',
+    describe: 'Open default browser with the specified command line arguments',
+    requiresArg: true
+  },
   color: {
     type: 'boolean',
     alias: 'colors',
@@ -332,6 +337,11 @@ function processOptions(webpackOptions) {
     options.openPage = argv['open-page'];
   }
 
+  if (argv['open-args']) {
+    options.open = true;
+    options.openArgs = argv['open-args'];
+  }
+
   if (typeof argv.open !== 'undefined') {
     options.open = argv.open !== '' ? argv.open : true;
   }
@@ -467,7 +477,10 @@ function reportReadiness(uri, options) {
     let openMessage = 'Unable to open browser';
 
     if (typeof options.open === 'string') {
-      openOptions = { app: options.open };
+      openOptions = {
+        app: options.openArgs ? [options.open].concat(options.openArgs.split('|')) : options.open,
+        wait: false
+      };
       openMessage += `: ${options.open}`;
     }
 
