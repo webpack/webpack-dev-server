@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "license": "MIT",
   "repository": "webpack/webpack-dev-server",
@@ -65,7 +65,7 @@
     "sockjs": "0.3.19",
     "sockjs-client": "1.1.4",
     "spdy": "^3.4.1",
-    "strip-ansi": "^4.0.0",
+    "strip-ansi": "^3.0.0",
     "supports-color": "^5.1.0",
     "webpack-dev-middleware": "1.12.2",
     "yargs": "6.6.0"
