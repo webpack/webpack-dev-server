@@ -8,11 +8,11 @@ module.exports = {
     path: '/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.html$/,
         loader: 'file-loader',
-        query: { name: '[name].[ext]' }
+        options: { name: '[name].[ext]' }
       }
     ]
   }
