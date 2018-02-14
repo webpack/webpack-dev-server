@@ -28,6 +28,8 @@ the [`before`](https://webpack.js.org/configuration/dev-server/#devserver-before
 and [`after`](https://webpack.js.org/configuration/dev-server/#devserver-after)
 hooks in the documentation.
 
+Use [webpack-serve](https://github.com/webpack-contrib/webpack-serve) for a fast alternative. Use webpack-dev-server if you need to test on old browsers.
+
 ## Getting Started
 
 First thing's first, install the module:
