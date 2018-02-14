@@ -24,8 +24,15 @@ if (importLocal(__filename)) {
 const Server = require('../lib/Server');
 const webpack = require('webpack'); // eslint-disable-line
 
-// webpack has a nice message when webpack-cli is not installed, by requiring it we can also show that
-require('webpack/bin/webpack');
+try {
+  require.resolve('webpack-cli');
+} catch (e) {
+  console.error('The CLI moved into a separate package: webpack-cli.');
+  console.error("Please install 'webpack-cli' in addition to webpack itself to use the CLI.");
+  console.error('-> When using npm: npm install webpack-cli -D');
+  console.error('-> When using yarn: yarn add webpack-cli -D');
+  process.exitCode = 1;
+}
 
 function versionInfo() {
   return `webpack-dev-server ${require('../package.json').version}\n` +
