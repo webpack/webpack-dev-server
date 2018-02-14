@@ -11,7 +11,7 @@ let hot = false;
 let currentHash = '';
 
 $(() => {
-  $('body').html(require('./page.pug')());
+  $('body').html(require('./page.html')());
   const status = $('#status');
   const okness = $('#okness');
   const $errors = $('#errors');

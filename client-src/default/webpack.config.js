@@ -3,6 +3,7 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   module: {
     rules: [
       {
@@ -16,7 +17,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new UglifyJSPlugin()
-  ]
+  plugins: [new UglifyJSPlugin()]
 };

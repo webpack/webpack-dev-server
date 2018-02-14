@@ -5,6 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   module: {
     rules: [
       {
@@ -17,10 +18,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.pug$/,
-        use: [
-          'pug-loader?self'
-        ]
+        test: /\.html$/,
+        use: ['html-loader'],
       },
       {
         test: /\.css$/,

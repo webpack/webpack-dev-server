@@ -10,7 +10,7 @@ const webpack = require('webpack');
 
 module.exports = {
   setup(config) {
-    const defaults = { plugins: [], devServer: {} };
+    const defaults = { mode: 'development', plugins: [], devServer: {} };
     const result = Object.assign(defaults, config);
     const before = function before(app) {
       app.get('/.assets/*', (req, res) => {

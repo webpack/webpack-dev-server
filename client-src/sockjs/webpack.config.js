@@ -4,6 +4,7 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   output: {
     library: 'SockJS',
     libraryTarget: 'umd'
