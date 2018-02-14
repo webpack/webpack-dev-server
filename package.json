@@ -16,7 +16,7 @@
   "main": "lib/Server.js",
   "bin": "bin/webpack-dev-server.js",
   "engines": {
-    "node": ">=4.7"
+    "node": ">=6.11.5"
   },
   "scripts": {
     "beautify": "npm run lint -- --fix",
