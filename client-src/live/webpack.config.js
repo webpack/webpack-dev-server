@@ -1,11 +1,10 @@
 'use strict';
 
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -31,7 +30,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new UglifyJSPlugin(),
     new CopyPlugin([{
       from: path.resolve(__dirname, 'live.html'),
       to: path.resolve(__dirname, '../../client/live.html')
