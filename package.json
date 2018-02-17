@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0-beta.2",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "license": "MIT",
   "repository": "webpack/webpack-dev-server",
