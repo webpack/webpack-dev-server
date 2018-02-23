@@ -156,6 +156,7 @@ const onSocketMsg = {
     sendMsg('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
     if (useErrorOverlay) overlay.showMessage(errors);
+    initial = false;
   },
   error(error) {
     log.error(error);
