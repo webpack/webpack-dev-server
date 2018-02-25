@@ -16,7 +16,7 @@ describe('CLI Dependencies', () => {
 });
 
 describe('CLI', () => {
-  it.only('--progress', (done) => {
+  it('--progress', (done) => {
     runDevServer('--progress')
       .then((output) => {
         assert(output.code === 0);
