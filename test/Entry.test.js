@@ -4,15 +4,13 @@ const assert = require('assert');
 const addDevServerEntrypoints = require('../lib/util/addDevServerEntrypoints');
 
 describe('Entry', () => {
-  it('default to src if no entry point is given', (done) => {
+  it('defaults to src if no entry point is given', () => {
     const webpackOptions = {};
     const devServerOptions = {};
 
     addDevServerEntrypoints(webpackOptions, devServerOptions);
 
-    assert(webpackOptions.entry.length, 2);
-    assert(webpackOptions.entry[1], './src');
-
-    done();
+    assert.equal(webpackOptions.entry.length, 2);
+    assert.equal(webpackOptions.entry[1], './src');
   });
 });
