@@ -81,6 +81,10 @@ execute the file or command.
 Either method will start a server instance and begin listening for connections
 from `localhost` on port `8080`.
 
+By default the entry file will be `src/index.js` and it will be served at
+`/dist/main.js` when the `--mode` flag is used. These can be customized in
+`webpack.config.js` if needed.
+
 webpack-dev-server is configured by default to support live-reload of files as
 you edit your assets while the server is running.
 
