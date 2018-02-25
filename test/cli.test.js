@@ -24,7 +24,7 @@ describe('CLI', () => {
         done();
       })
       .catch(done);
-  }).timeout(6000);
+  }).timeout(8000);
 
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
