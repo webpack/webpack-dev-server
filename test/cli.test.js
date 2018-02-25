@@ -16,7 +16,7 @@ describe('CLI Dependencies', () => {
 });
 
 describe('CLI', () => {
-  it('--progress', (done) => {
+  it.only('--progress', (done) => {
     runDevServer('--progress')
       .then((output) => {
         assert(output.code === 0);
@@ -24,7 +24,7 @@ describe('CLI', () => {
         done();
       })
       .catch(done);
-  }).timeout(8000);
+  }).timeout(18000);
 
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
