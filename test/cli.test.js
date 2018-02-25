@@ -10,8 +10,8 @@ const runDevServer = require('./helpers/run-webpack-dev-server');
 describe('CLI Dependencies', () => {
   it('should lock down certain dependencies', () => {
     const yargs = pkg.dependencies.yargs;
-    // yargs needs to be locked down to 6.6.0
-    semver.satisfies(yargs, '6.6.0');
+    // yargs needs to be locked down to 9.0.1, since that is what webpack-cli is also doing
+    assert(semver.satisfies(yargs, '9.0.1'));
   });
 });
 
