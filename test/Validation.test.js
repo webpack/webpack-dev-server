@@ -51,7 +51,7 @@ describe('Validation', () => {
       '   object { hot?, hotOnly?, lazy?, bonjour?, host?, allowedHosts?, filename?, publicPath?, port?, socket?, ' +
       'watchOptions?, headers?, clientLogLevel?, overlay?, progress?, key?, cert?, ca?, pfx?, pfxPassphrase?, requestCert?, ' +
       'inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, useLocalIp?, openPage?, features?, ' +
-      'compress?, proxy?, historyApiFallback?, staticOptions?, setup?, before?, after?, stats?, reporter?, reportTime?, ' +
+      'compress?, proxy?, historyApiFallback?, staticOptions?, setup?, before?, after?, stats?, reporter?, logTime?, ' +
       'noInfo?, quiet?, serverSideRender?, index?, log?, warn? }'
     ]
   }];

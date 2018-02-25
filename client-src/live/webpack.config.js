@@ -1,10 +1,10 @@
 'use strict';
 
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   module: {
     rules: [
       {
@@ -17,10 +17,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.pug$/,
-        use: [
-          'pug-loader?self'
-        ]
+        test: /\.html$/,
+        use: ['html-loader']
       },
       {
         test: /\.css$/,
@@ -32,7 +30,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new UglifyJSPlugin(),
     new CopyPlugin([{
       from: path.resolve(__dirname, 'live.html'),
       to: path.resolve(__dirname, '../../client/live.html')

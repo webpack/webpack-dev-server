@@ -1,8 +1,7 @@
 'use strict';
 
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
 module.exports = {
+  mode: 'production',
   module: {
     rules: [
       {
@@ -15,8 +14,5 @@ module.exports = {
         ]
       }
     ]
-  },
-  plugins: [
-    new UglifyJSPlugin()
-  ]
+  }
 };

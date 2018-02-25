@@ -2,7 +2,7 @@
 
 'use strict';
 
-/* eslint global-require: off, import/order: off, no-console: off */
+/* eslint global-require: off, import/order: off, no-console: off, import/no-extraneous-dependencies: off */
 require('../lib/polyfills');
 
 const debug = require('debug')('webpack-dev-server');
@@ -23,6 +23,16 @@ if (importLocal(__filename)) {
 
 const Server = require('../lib/Server');
 const webpack = require('webpack'); // eslint-disable-line
+
+try {
+  require.resolve('webpack-cli');
+} catch (e) {
+  console.error('The CLI moved into a separate package: webpack-cli.');
+  console.error("Please install 'webpack-cli' in addition to webpack itself to use the CLI.");
+  console.error('-> When using npm: npm install webpack-cli -D');
+  console.error('-> When using yarn: yarn add webpack-cli -D');
+  process.exitCode = 1;
+}
 
 function versionInfo() {
   return `webpack-dev-server ${require('../package.json').version}\n` +
@@ -51,7 +61,7 @@ const defaultTo = (value, def) => value == null ? def : value;
 const yargs = require('yargs')
   .usage(`${versionInfo()}\nUsage: https://webpack.js.org/configuration/dev-server/`);
 
-require('webpack/bin/config-yargs')(yargs);
+require('webpack-cli/bin/config-yargs')(yargs);
 
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
@@ -220,7 +230,7 @@ yargs.options({
 });
 
 const argv = yargs.argv;
-const wpOpt = require('webpack/bin/convert-argv')(yargs, argv, {
+const wpOpt = require('webpack-cli/bin/convert-argv')(yargs, argv, {
   outputFilename: '/bundle.js'
 });
 

@@ -303,7 +303,7 @@
       "description": "Customize what the console displays when compiling.",
       "instanceof": "Function"
     },
-    "reportTime": {
+    "logTime": {
       "description": "Report time before and after compiling in console displays.",
       "type": "boolean"
     },
