@@ -264,7 +264,12 @@ function processOptions(webpackOptions) {
     // eslint-disable-next-line
     options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || '';
     if (!/^(https?:)?\/\//.test(options.publicPath) && options.publicPath[0] !== '/') {
-      options.publicPath = `/${options.publicPath}`;
+      if (webpackOptions.mode) {
+        // Enable Webpack 4 like default path when the --mode flag is set
+        options.publicPath = `/dist/${options.publicPath}`;
+      } else {
+        options.publicPath = `/${options.publicPath}`;
+      }
     }
   }
 
