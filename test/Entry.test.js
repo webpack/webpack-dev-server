@@ -56,4 +56,58 @@ describe('Entry', () => {
     assert.equal(webpackOptions.entry.length, 2);
     assert.equal(webpackOptions.entry[1], './src');
   });
+
+  it('preserves dynamic entry points', (done) => {
+    let i = 0;
+    const webpackOptions = {
+      // simulate dynamic entry
+      entry: () => {
+        i += 1;
+        return `./src-${i}.js`;
+      }
+    };
+    const devServerOptions = {};
+
+    addDevServerEntrypoints(webpackOptions, devServerOptions);
+
+    assert(typeof webpackOptions.entry, 'function');
+
+    webpackOptions.entry().then(entryFirstRun => (
+      webpackOptions.entry().then((entrySecondRun) => {
+        assert.equal(entryFirstRun.length, 2);
+        assert.equal(entryFirstRun[1], './src-1.js');
+
+        assert.equal(entrySecondRun.length, 2);
+        assert.equal(entrySecondRun[1], './src-2.js');
+        done();
+      })
+    )).catch(done);
+  });
+
+  it('preserves asynchronous dynamic entry points', (done) => {
+    let i = 0;
+    const webpackOptions = {
+      // simulate async dynamic entry
+      entry: () => new Promise((resolve) => {
+        i += 1;
+        resolve(`./src-${i}.js`);
+      })
+    };
+    const devServerOptions = {};
+
+    addDevServerEntrypoints(webpackOptions, devServerOptions);
+
+    assert(typeof webpackOptions.entry, 'function');
+
+    webpackOptions.entry().then(entryFirstRun => (
+      webpackOptions.entry().then((entrySecondRun) => {
+        assert.equal(entryFirstRun.length, 2);
+        assert.equal(entryFirstRun[1], './src-1.js');
+
+        assert.equal(entrySecondRun.length, 2);
+        assert.equal(entrySecondRun[1], './src-2.js');
+        done();
+      })
+    )).catch(done);
+  });
 });
