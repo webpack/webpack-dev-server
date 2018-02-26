@@ -52,7 +52,7 @@ describe('Routes', () => {
     });
 
     it('GET request to magic html', (done) => {
-      req.get('/bundle')
+      req.get('/main')
         .expect(200, magicHtml.trim(), done);
     });
   });
@@ -68,7 +68,7 @@ describe('Routes', () => {
     after(helper.close);
 
     it('GET request with headers', (done) => {
-      req.get('/bundle')
+      req.get('/main')
         .expect('X-Foo', '1')
         .expect(200, done);
     });
@@ -85,7 +85,7 @@ describe('Routes', () => {
     after(helper.close);
 
     it('GET request with headers as an array', (done) => {
-      req.get('/bundle')
+      req.get('/main')
         .expect('X-Bar', 'key1=value1, key2=value2')
         .expect(200, done);
     });

@@ -1,14 +1,12 @@
 'use strict';
 
 module.exports = {
+  mode: 'development',
   context: __dirname,
   entry: './foo.js',
-  output: {
-    filename: 'bundle.js'
-  },
   plugins: [{
     apply(compiler) {
-      compiler.plugin('done', (stats) => {
+      compiler.hooks.done.tap('webpack-dev-server', (stats) => {
         let exitCode = 0;
         if (stats.hasErrors()) {
           exitCode = 1;
