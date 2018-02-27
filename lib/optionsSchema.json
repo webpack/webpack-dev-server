@@ -66,6 +66,17 @@
       "description": "Response headers that are added to each response.",
       "type": "object"
     },
+    "logLevel": {
+      "description": "Log level in the terminal/console (trace, debug, info, warn, error or none)",
+      "enum": [
+        "trace",
+        "debug",
+        "info",
+        "warn",
+        "error",
+        "none"
+      ]
+    },
     "clientLogLevel": {
       "description": "Controls the log messages shown in the browser.",
       "enum": [

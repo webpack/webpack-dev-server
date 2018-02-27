@@ -14,6 +14,7 @@ const open = require('opn');
 const portfinder = require('portfinder');
 const addDevServerEntrypoints = require('../lib/util/addDevServerEntrypoints');
 const createDomain = require('../lib/util/createDomain'); // eslint-disable-line
+const createLog = require('../lib/createLog');
 
 // Prefer the local installation of webpack-dev-server
 if (importLocal(__filename)) {
@@ -370,6 +371,7 @@ function processOptions(webpackOptions) {
 }
 
 function startDevServer(webpackOptions, options) {
+  const log = createLog(options);
   addDevServerEntrypoints(webpackOptions, options);
 
   let compiler;
@@ -377,7 +379,7 @@ function startDevServer(webpackOptions, options) {
     compiler = webpack(webpackOptions);
   } catch (e) {
     if (e instanceof webpack.WebpackOptionsValidationError) {
-      console.error(colorError(options.stats.colors, e.message));
+      log.error(colorError(options.stats.colors, e.message));
       process.exit(1); // eslint-disable-line
     }
     throw e;
@@ -393,11 +395,11 @@ function startDevServer(webpackOptions, options) {
 
   let server;
   try {
-    server = new Server(compiler, options);
+    server = new Server(compiler, options, log);
   } catch (e) {
     const OptionsValidationError = require('../lib/OptionsValidationError');
     if (e instanceof OptionsValidationError) {
-      console.error(colorError(options.stats.colors, e.message));
+      log.error(colorError(options.stats.colors, e.message));
           process.exit(1); // eslint-disable-line
     }
     throw e;
@@ -437,7 +439,7 @@ function startDevServer(webpackOptions, options) {
         if (fsError) throw fsError;
 
         const uri = createDomain(options, server.listeningApp) + suffix;
-        reportReadiness(uri, options);
+        reportReadiness(uri, options, log);
       });
     });
   } else {
@@ -446,31 +448,28 @@ function startDevServer(webpackOptions, options) {
       if (options.bonjour) broadcastZeroconf(options);
 
       const uri = createDomain(options, server.listeningApp) + suffix;
-      reportReadiness(uri, options);
+      reportReadiness(uri, options, log);
     });
   }
 }
 
-function reportReadiness(uri, options) {
+function reportReadiness(uri, options, log) {
   const useColor = argv.color;
   const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(', ') : options.contentBase;
 
-  if (!options.quiet) {
-    let startSentence = `Project is running at ${colorInfo(useColor, uri)}`;
-    if (options.socket) {
-      startSentence = `Listening to socket at ${colorInfo(useColor, options.socket)}`;
-    }
-
-    console.log((options.progress ? '\n' : '') + startSentence);
-
-    console.log(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
-
-    if (contentBase) { console.log(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`); }
-
-    if (options.historyApiFallback) { console.log(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || '/index.html')}`); }
-
-    if (options.bonjour) { console.log('Broadcasting "http" with subtype of "webpack" via ZeroConf DNS (Bonjour)'); }
+  if (options.socket) {
+    log.info(`Listening to socket at ${colorInfo(useColor, options.socket)}`);
+  } else {
+    log.info(`Project is running at ${colorInfo(useColor, uri)}`);
   }
+
+  log.info(`webpack output is served from ${colorInfo(useColor, options.publicPath)}`);
+
+  if (contentBase) { log.info(`Content not from webpack is served from ${colorInfo(useColor, contentBase)}`); }
+
+  if (options.historyApiFallback) { log.info(`404s will fallback to ${colorInfo(useColor, options.historyApiFallback.index || '/index.html')}`); }
+
+  if (options.bonjour) { log.info('Broadcasting "http" with subtype of "webpack" via ZeroConf DNS (Bonjour)'); }
 
   if (options.open) {
     let openOptions = {};
@@ -482,7 +481,7 @@ function reportReadiness(uri, options) {
     }
 
     open(uri + (options.openPage || ''), openOptions).catch(() => {
-      console.log(`${openMessage}. If you are running in a headless environment, please do not use the open flag.`);
+      log.warn(`${openMessage}. If you are running in a headless environment, please do not use the open flag.`);
     });
   }
 }
