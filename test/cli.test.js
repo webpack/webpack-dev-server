@@ -45,5 +45,5 @@ describe('CLI', () => {
     proc.on('exit', () => {
       done();
     });
-  }).timeout(6000);
+  }).timeout(18000);
 });
