@@ -386,9 +386,9 @@ function startDevServer(webpackOptions, options) {
   }
 
   if (options.progress) {
-    compiler.apply(new webpack.ProgressPlugin({
+    new webpack.ProgressPlugin({
       profile: argv.profile
-    }));
+    }).apply(compiler);
   }
 
   const suffix = (options.inline !== false || options.lazy === true ? '/' : '/webpack-dev-server/');
