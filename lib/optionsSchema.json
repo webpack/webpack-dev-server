@@ -341,6 +341,10 @@
     "warn": {
       "description": "Customize warn logs for webpack-dev-middleware.",
       "instanceof": "Function"
+    },
+    "sockjsUrl": {
+      "description": "Customize url at which the sockjs server listens, defaults to /sockjs-node",
+      "type": "string"
     }
   },
   "type": "object"
