@@ -174,4 +174,19 @@ describe('Entry', () => {
     );
     assert.equal(hotClientScript, require.resolve(hotClientScript));
   });
+
+  it('add node target', () => {
+    const webpackOptions = Object.assign({}, config, {
+      entry: {
+        foo: './foo.js'
+      },
+      node: true,
+      target: 'node'
+    });
+    const devServerOptions = {};
+
+    addEntries(webpackOptions, devServerOptions);
+
+    assert.equal(webpackOptions.entry.foo[0].indexOf('client/?'), -1);
+  });
 });
