@@ -52,7 +52,7 @@
     "del": "^3.0.0",
     "express": "^4.16.2",
     "html-entities": "^1.2.0",
-    "http-proxy-middleware": "~0.17.4",
+    "http-proxy-middleware": "~0.18.0",
     "import-local": "^1.0.0",
     "internal-ip": "1.2.0",
     "ip": "^1.1.5",
