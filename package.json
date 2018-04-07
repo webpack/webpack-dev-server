@@ -52,7 +52,7 @@
     "del": "^3.0.0",
     "express": "^4.16.2",
     "html-entities": "^1.2.0",
-    "http-proxy-middleware": "~0.17.4",
+    "http-proxy-middleware": "~0.18.0",
     "import-local": "^1.0.0",
     "internal-ip": "1.2.0",
     "ip": "^1.1.5",
@@ -67,9 +67,9 @@
     "spdy": "^3.4.1",
     "strip-ansi": "^3.0.0",
     "supports-color": "^5.1.0",
-    "webpack-dev-middleware": "3.0.1",
+    "webpack-dev-middleware": "3.1.2",
     "webpack-log": "^1.1.2",
-    "yargs": "9.0.1"
+    "yargs": "11.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -100,7 +100,7 @@
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.10",
+    "webpack-cli": "^2.0.14",
     "ws": "^4.1.0"
   }
 }
