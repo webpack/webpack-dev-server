@@ -67,14 +67,14 @@
       "type": "object"
     },
     "logLevel": {
-      "description": "Log level in the terminal/console (trace, debug, info, warn, error or none)",
+      "description": "Log level in the terminal/console (trace, debug, info, warn, error or silent)",
       "enum": [
         "trace",
         "debug",
         "info",
         "warn",
         "error",
-        "none"
+        "silent"
       ]
     },
     "clientLogLevel": {
