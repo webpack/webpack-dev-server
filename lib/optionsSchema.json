@@ -341,6 +341,14 @@
     "warn": {
       "description": "Customize warn logs for webpack-dev-middleware.",
       "instanceof": "Function"
+    },
+    "profile": {
+      "description": "Profile the compilation and include information in stats.",
+      "type": "boolean"
+    },
+    "color": {
+      "description": "Enables/Disables colors on the console.",
+      "type": "boolean"
     }
   },
   "type": "object"

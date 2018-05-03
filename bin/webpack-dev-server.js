@@ -351,6 +351,10 @@ function processOptions(webpackOptions) {
 
   if (argv.useLocalIp) { options.useLocalIp = true; }
 
+  if (argv.profile) { options.profile = true; }
+
+  if (argv.color) { options.color = true; }
+
   // Kind of weird, but ensures prior behavior isn't broken in cases
   // that wouldn't throw errors. E.g. both argv.port and options.port
   // were specified, but since argv.port is 8080, options.port will be
@@ -387,7 +391,7 @@ function startDevServer(webpackOptions, options) {
 
   if (options.progress) {
     new webpack.ProgressPlugin({
-      profile: argv.profile
+      profile: options.profile
     }).apply(compiler);
   }
 
@@ -454,7 +458,7 @@ function startDevServer(webpackOptions, options) {
 }
 
 function reportReadiness(uri, options, log) {
-  const useColor = argv.color;
+  const useColor = options.color;
   const contentBase = Array.isArray(options.contentBase) ? options.contentBase.join(', ') : options.contentBase;
 
   if (options.socket) {
