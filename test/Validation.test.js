@@ -52,7 +52,7 @@ describe('Validation', () => {
       'watchOptions?, headers?, logLevel?, clientLogLevel?, overlay?, progress?, key?, cert?, ca?, pfx?, pfxPassphrase?, requestCert?, ' +
       'inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, useLocalIp?, openPage?, features?, ' +
       'compress?, proxy?, historyApiFallback?, staticOptions?, setup?, before?, after?, stats?, reporter?, logTime?, ' +
-      'noInfo?, quiet?, serverSideRender?, index?, log?, warn? }'
+      'noInfo?, quiet?, serverSideRender?, index?, log?, warn?, profile?, color? }'
     ]
   }];
   testCases.forEach((testCase) => {
