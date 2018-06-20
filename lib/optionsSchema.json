@@ -64,10 +64,18 @@
     },
     "headers": {
       "description": "Response headers that are added to each response.",
-      "additionalProperties": {
-        "type": "string"
-      },
       "type": "object"
+    },
+    "logLevel": {
+      "description": "Log level in the terminal/console (trace, debug, info, warn, error or silent)",
+      "enum": [
+        "trace",
+        "debug",
+        "info",
+        "warn",
+        "error",
+        "silent"
+      ]
     },
     "clientLogLevel": {
       "description": "Controls the log messages shown in the browser.",
@@ -274,6 +282,14 @@
       "description": "Exposes the Express server to add custom middleware or routes.",
       "instanceof": "Function"
     },
+    "before": {
+      "description": "Exposes the Express server to add custom middleware or routes before webpack-dev-middleware will be added.",
+      "instanceof": "Function"
+    },
+    "after": {
+      "description": "Exposes the Express server to add custom middleware or routes after webpack-dev-middleware got added.",
+      "instanceof": "Function"
+    },
     "stats": {
       "description": "Decides what bundle information is displayed.",
       "anyOf": [
@@ -297,6 +313,10 @@
     "reporter": {
       "description": "Customize what the console displays when compiling.",
       "instanceof": "Function"
+    },
+    "logTime": {
+      "description": "Report time before and after compiling in console displays.",
+      "type": "boolean"
     },
     "noInfo": {
       "description": "Hide all info messages on console.",

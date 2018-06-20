@@ -1,8 +1,7 @@
 npm-debug.log
 node_modules
-/client/live.bundle.js
-/client/index.bundle.js
-/client/sockjs.bundle.js
+/client
 /coverage
-*.pem
+/ssl/*.pem
 .idea/
+.DS_Store

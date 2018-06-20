@@ -1,9 +1,10 @@
-> **Please note that this template is not optional.** If you proceed with this form,
-please fill out _all_ fields, or your issue may be closed as "invalid."
-Please do not delete this template. Please ask questions on StackOverflow or the
-webpack Gitter (https://gitter.im/webpack/webpack). _General questions, how-to
-questions, and support requests will be closed._
-**Please do remove this header to acknowledge this message.**
+<!--
+  Please note that this template is not optional.
+  Please fill out _ALL_ fields, or your issue may be closed as "invalid."
+  Please do not delete this template.
+  Please ask questions on StackOverflow or Gitter (https://gitter.im/webpack/webpack).
+  General questions, how-to questions, and support requests will be closed.
+-->
 
 * Operating System:
 * Node Version:
@@ -11,10 +12,13 @@ questions, and support requests will be closed._
 * webpack Version:
 * webpack-dev-server Version:
 
-<!-- Please place an x, no spaces, in all [ ] that apply -->
+<!--
+  Please place an x, no spaces, in all [ ] that apply
+  Please note that we are NOT accepting FEATURE requests at this time.
+-->
 
-- [ ] This is a **feature** request
 - [ ] This is a **bug**
+- [ ] This is a **modification** request
 
 ### Code
 
@@ -47,4 +51,3 @@ questions, and support requests will be closed._
 ### For Bugs; How can we reproduce the behavior?
 
 ### For Features; What is the motivation and/or use-case for the feature?
-

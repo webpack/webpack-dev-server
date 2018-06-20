@@ -1,18 +1,18 @@
 'use strict';
 
 module.exports = {
+  mode: 'development',
   context: __dirname,
   entry: './foo.js',
   output: {
-    filename: 'bundle.js',
     path: '/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.html$/,
         loader: 'file-loader',
-        query: { name: 'index.html' }
+        options: { name: 'index.html' }
       }
     ]
   }
