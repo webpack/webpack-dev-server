@@ -53,6 +53,7 @@
     "internal-ip": "^2.0.2",
     "ip": "^1.1.5",
     "loglevel": "^1.4.1",
+    "nsfw": "^1.0.16",
     "opn": "^5.1.0",
     "portfinder": "^1.0.9",
     "selfsigned": "^1.9.1",
