@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "ansi-html": "0.0.7",
-    "array-includes": "^3.0.3",
     "bonjour": "^3.5.0",
     "chokidar": "^2.0.0",
     "compression": "^1.5.2",

@@ -3,7 +3,6 @@
 'use strict';
 
 /* eslint global-require: off, import/order: off, no-console: off, import/no-extraneous-dependencies: off */
-require('../lib/polyfills');
 
 const debug = require('debug')('webpack-dev-server');
 const fs = require('fs');
