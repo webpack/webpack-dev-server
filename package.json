@@ -88,7 +88,7 @@
     "html-webpack-plugin": "^3.0.6",
     "istanbul": "^0.4.5",
     "jquery": "^3.2.1",
-    "less": "^3.0.1",
+    "less": "^3.7.1",
     "less-loader": "^4.1.0",
     "marked": "^0.3.17",
     "mocha": "^3.5.3",
@@ -99,7 +99,7 @@
     "style-loader": "^0.20.3",
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
-    "webpack": "^4.1.1",
+    "webpack": "^4.16.1",
     "webpack-cli": "^2.0.14",
     "ws": "^4.1.0"
   }
