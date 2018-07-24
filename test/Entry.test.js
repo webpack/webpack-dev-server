@@ -110,4 +110,38 @@ describe('Entry', () => {
       })
     )).catch(done);
   });
+
+  it('prepends webpack\'s hot reload client script', () => {
+    const webpackOptions = Object.assign({}, config, {
+      entry: {
+        app: './app.js'
+      }
+    });
+    const devServerOptions = {
+      hot: true
+    };
+
+    addDevServerEntrypoints(webpackOptions, devServerOptions);
+
+    const hotClientScript = webpackOptions.entry.app[1];
+    assert.equal(hotClientScript.includes('webpack/hot/dev-server'), true);
+    assert.equal(hotClientScript, require.resolve(hotClientScript));
+  });
+
+  it('prepends webpack\'s hot-only client script', () => {
+    const webpackOptions = Object.assign({}, config, {
+      entry: {
+        app: './app.js'
+      }
+    });
+    const devServerOptions = {
+      hotOnly: true
+    };
+
+    addDevServerEntrypoints(webpackOptions, devServerOptions);
+
+    const hotClientScript = webpackOptions.entry.app[1];
+    assert.equal(hotClientScript.includes('webpack/hot/only-dev-server'), true);
+    assert.equal(hotClientScript, require.resolve(hotClientScript));
+  });
 });
