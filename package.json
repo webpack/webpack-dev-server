@@ -58,6 +58,7 @@
     "ip": "^1.1.5",
     "killable": "^1.0.0",
     "loglevel": "^1.4.1",
+    "nsfw": "^1.0.16",
     "opn": "^5.1.0",
     "portfinder": "^1.0.9",
     "selfsigned": "^1.9.1",
