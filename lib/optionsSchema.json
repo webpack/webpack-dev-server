@@ -222,6 +222,13 @@
         }
       ]
     },
+    "openOptions": {
+      "description": "Optional options or flags for your browser open command.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
     "useLocalIp": {
       "description": "Let the browser open with your local IP.",
       "type": "boolean"

@@ -473,11 +473,23 @@ function reportReadiness(uri, options, log) {
 
   if (options.open) {
     let openOptions = {};
-    let openMessage = 'Unable to open browser';
+    let openMessage = 'Unable to open ';
 
     if (typeof options.open === 'string') {
-      openOptions = { app: options.open };
-      openMessage += `: ${options.open}`;
+      openMessage += `${options.open}`;
+
+      if (options.openOptions) {
+        openOptions = { app: [options.open, ...options.openOptions] };
+        openMessage += ` with options: ${options.openOptions}`;
+      } else {
+        openOptions = { app: options.open };
+      }
+    } else {
+      openMessage += 'default browser';
+
+      if (options.openOptions) {
+        log.warn('To use openOptions you must specify browser name first. Options will be ignored.');
+      }
     }
 
     open(uri + (options.openPage || ''), openOptions).catch(() => {
