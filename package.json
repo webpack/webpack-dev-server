@@ -2,21 +2,16 @@
   "name": "webpack-dev-server",
   "version": "3.1.5",
   "description": "Serves a webpack app. Updates the browser on changes.",
-  "license": "MIT",
-  "repository": "webpack/webpack-dev-server",
-  "author": "Tobias Koppers @sokra",
-  "homepage": "https://github.com/webpack/webpack-dev-server",
-  "maintainers": [
-    {
-      "name": "Andrew Powell",
-      "email": "andrew@shellscape.org",
-      "url": "shellscape.org"
-    }
-  ],
-  "main": "lib/Server.js",
   "bin": "bin/webpack-dev-server.js",
+  "main": "lib/Server.js",
+  "files": [
+    "bin",
+    "lib",
+    "ssl",
+    "client"
+  ],
   "engines": {
-    "node": ">=6.11.5"
+    "node": ">= 6.11.5"
   },
   "scripts": {
     "beautify": "npm run lint -- --fix",
@@ -24,22 +19,14 @@
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
     "lint": "eslint bin lib test examples client-src",
     "mocha": "mocha --full-trace --check-leaks",
-    "prepublish": "(rm ssl/*.pem || true) && npm run -s transpile:index && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
+    "prepare": "(rm ssl/*.pem || true) && npm run -s transpile:index && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
     "test": "npm run lint && npm run mocha",
     "transpile:index": "babel client-src/default --out-dir client --ignore *.config.js",
     "build:index": "webpack ./client-src/default/index.js -o client/index.bundle.js --color --config client-src/default/webpack.config.js",
     "build:live": "webpack ./client-src/live/index.js -o client/live.bundle.js --color --config client-src/live/webpack.config.js",
     "build:sockjs": "webpack ./client-src/sockjs/index.js -o client/sockjs.bundle.js --color --config client-src/sockjs/webpack.config.js",
-    "webpack-dev-server": "cd $INIT_CWD && node ../../../bin/webpack-dev-server.js"
-  },
-  "files": [
-    "lib/",
-    "bin",
-    "client/",
-    "ssl/"
-  ],
-  "peerDependencies": {
-    "webpack": "^4.0.0-beta.1"
+    "webpack-dev-server": "cd $INIT_CWD && node ../../../bin/webpack-dev-server.js",
+    "release": "standard-version"
   },
   "dependencies": {
     "ansi-html": "0.0.7",
@@ -94,11 +81,20 @@
     "semver": "^5.4.1",
     "should": "^13.2.0",
     "sinon": "^4.4.2",
+    "standard-version": "^4.4.0",
     "style-loader": "^0.20.3",
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^2.0.14",
     "ws": "^4.1.0"
-  }
+  },
+  "peerDependencies": {
+    "webpack": "^4.0.0"
+  },
+  "author": "Tobias Koppers @sokra",
+  "bugs": "https://github.com/webpack/webpack-dev-server/issues",
+  "homepage": "https://github.com/webpack/webpack-dev-server#readme",
+  "repository": "https://github.com/webpack/webpack-dev-server.git",
+  "license": "MIT"
 }
