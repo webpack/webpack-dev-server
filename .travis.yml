@@ -14,5 +14,6 @@ script:
   npm run ci
 
 after_success:
-  - cat ./coverage/coverage.json | node_modules/codecov.io/bin/codecov.io.js
+  - npm i -g codecov
+  - cat ./coverage/coverage.json | codecov
   - rm -rf ./coverage
