@@ -8,8 +8,20 @@ certificate is only good for 30 days, at which point it'll be regenerated.
 We highly recommend creating and managing your own certificates. Please see the
 following resources for doing so:
 
-* (MacOS) https://certsimple.com/blog/localhost-ssl-fix
-* (Windows) https://technet.microsoft.com/itpro/powershell/windows/pkiclient/new-selfsignedcertificate
+### MacOS
+https://certsimple.com/blog/localhost-ssl-fix
+
+### Windows 10
+https://technet.microsoft.com/itpro/powershell/windows/pkiclient/new-selfsignedcertificate
+
+### Windows 7
+https://msdn.microsoft.com/en-us/library/aa386968.aspx
+
+Example (the .pfx file generated the following way can be used without `--pfx-passphrase`):
+```
+makecert -r -pe -sky exchange -sv makecert.pvk makecert.cer
+pvk2pfx -pvk makecert.pvk -spc makecert.cer -pfx makecert.pfx
+```
 
 ## Getting Started
 
