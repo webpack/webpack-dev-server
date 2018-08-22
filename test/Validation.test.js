@@ -70,6 +70,18 @@ describe('Validation', () => {
     });
   });
 
+  describe('filename', () => {
+    it('should allow filename to be a function', () => {
+      try {
+        // eslint-disable-next-line no-new
+        new Server(compiler, { filename: () => {} });
+      } catch (e) {
+        if (!(e instanceof OptionsValidationError)) { throw e; }
+        throw new Error("Validation failed and it shouldn't");
+      }
+    });
+  });
+
   describe('checkHost', () => {
     it('should always allow any host if options.disableHostCheck is set', () => {
       const options = {
