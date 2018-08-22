@@ -19,17 +19,6 @@ live reloading. This should be used for **development only**.
 It uses [webpack-dev-middleware][middleware-url] under the hood, which provides
 fast in-memory access to the webpack assets.
 
-## Project in Maintenance
-
-**Please note that `webpack-dev-server` is presently in a maintenance-only mode**
-and will not be accepting any additional features in the near term. Most new feature
-requests can be accomplished with Express middleware; please look into using
-the [`before`](https://webpack.js.org/configuration/dev-server/#devserver-before)
-and [`after`](https://webpack.js.org/configuration/dev-server/#devserver-after)
-hooks in the documentation.
-
-Use [webpack-serve](https://github.com/webpack-contrib/webpack-serve) for a fast alternative. Use webpack-dev-server if you need to test on old browsers.
-
 ## Getting Started
 
 First thing's first, install the module:
