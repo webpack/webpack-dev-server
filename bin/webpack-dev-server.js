@@ -15,6 +15,20 @@ const addDevServerEntrypoints = require('../lib/util/addDevServerEntrypoints');
 const createDomain = require('../lib/util/createDomain'); // eslint-disable-line
 const createLog = require('../lib/createLog');
 
+let server;
+
+['SIGINT', 'SIGTERM'].forEach((sig) => {
+  process.on(sig, () => {
+    if (server) {
+      server.close(() => {
+        process.exit(); // eslint-disable-line no-process-exit
+      });
+    } else {
+      process.exit(); // eslint-disable-line no-process-exit
+    }
+  });
+});
+
 // Prefer the local installation of webpack-dev-server
 if (importLocal(__filename)) {
   debug('Using local install of webpack-dev-server');
@@ -392,7 +406,6 @@ function startDevServer(webpackOptions, options) {
 
   const suffix = (options.inline !== false || options.lazy === true ? '/' : '/webpack-dev-server/');
 
-  let server;
   try {
     server = new Server(compiler, options, log);
   } catch (e) {
@@ -403,14 +416,6 @@ function startDevServer(webpackOptions, options) {
     }
     throw e;
   }
-
-  ['SIGINT', 'SIGTERM'].forEach((sig) => {
-    process.on(sig, () => {
-      server.close(() => {
-        process.exit(); // eslint-disable-line no-process-exit
-      });
-    });
-  });
 
   if (options.socket) {
     server.listeningApp.on('error', (e) => {
