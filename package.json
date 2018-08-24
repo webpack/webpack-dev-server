@@ -42,6 +42,7 @@
     "loglevel": "^1.4.1",
     "opn": "^5.1.0",
     "portfinder": "^1.0.9",
+    "schema-utils": "^1.0.0",
     "selfsigned": "^1.9.1",
     "serve-index": "^1.7.2",
     "sockjs": "0.3.19",
