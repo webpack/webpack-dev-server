@@ -11,9 +11,9 @@ const path = require('path');
 const importLocal = require('import-local');
 const open = require('opn');
 const portfinder = require('portfinder');
-const addDevServerEntrypoints = require('../lib/util/addDevServerEntrypoints');
-const createDomain = require('../lib/util/createDomain'); // eslint-disable-line
-const createLog = require('../lib/createLog');
+const addEntries = require('../lib/utils/addEntries');
+const createDomain = require('../lib/utils/createDomain');
+const createLogger = require('../lib/utils/createLogger');
 
 let server;
 
@@ -384,8 +384,9 @@ function processOptions(webpackOptions) {
 }
 
 function startDevServer(webpackOptions, options) {
-  const log = createLog(options);
-  addDevServerEntrypoints(webpackOptions, options);
+  const log = createLogger(options);
+
+  addEntries(webpackOptions, options);
 
   let compiler;
   try {

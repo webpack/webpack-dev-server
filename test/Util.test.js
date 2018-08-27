@@ -3,7 +3,7 @@
 const webpack = require('webpack');
 const internalIp = require('internal-ip');
 const Server = require('../lib/Server');
-const createDomain = require('../lib/util/createDomain');
+const createDomain = require('../lib/utils/createDomain');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('check utility funcitons', () => {
