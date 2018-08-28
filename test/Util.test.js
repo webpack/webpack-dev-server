@@ -70,7 +70,7 @@ describe('check utility functions', () => {
         useLocalIp: true,
         port: 8080
       },
-      expected: `http://${internalIp.v4()}:8080`
+      expected: `http://${internalIp.v4.sync() || 'localhost'}:8080`
     }
   ];
 
