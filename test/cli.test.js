@@ -1,5 +1,8 @@
 'use strict';
 
+/* eslint-disable
+  array-bracket-spacing,
+*/
 const assert = require('assert');
 const path = require('path');
 const execa = require('execa');
@@ -19,20 +22,19 @@ describe('CLI', () => {
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
     const examplePath = path.resolve(__dirname, '../examples/cli/public');
-    const nodePath = execa.shellSync('which node').stdout;
 
-    const proc = execa(nodePath, [cliPath], { cwd: examplePath });
+    const cp = execa('node', [ cliPath ], { cwd: examplePath });
 
-    proc.stdout.on('data', (data) => {
+    cp.stdout.on('data', (data) => {
       const bits = data.toString();
 
       if (/Compiled successfully/.test(bits)) {
-        assert(proc.pid !== 0);
-        proc.kill('SIGINT');
+        assert(cp.pid !== 0);
+        cp.kill('SIGINT');
       }
     });
 
-    proc.on('exit', () => {
+    cp.on('exit', () => {
       done();
     });
   }).timeout(18000);
@@ -40,20 +42,20 @@ describe('CLI', () => {
   it('should exit the process when SIGINT is detected, even before the compilation is done', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
     const examplePath = path.resolve(__dirname, '../examples/cli/public');
-    const nodePath = execa.shellSync('which node').stdout;
 
-    const proc = execa(nodePath, [cliPath], { cwd: examplePath });
+    const cp = execa('node', [ cliPath ], { cwd: examplePath });
 
     let killed = false;
-    proc.stdout.on('data', () => {
+
+    cp.stdout.on('data', () => {
       if (!killed) {
-        assert(proc.pid !== 0);
-        proc.kill('SIGINT');
+        assert(cp.pid !== 0);
+        cp.kill('SIGINT');
       }
       killed = true;
     });
 
-    proc.on('exit', () => {
+    cp.on('exit', () => {
       done();
     });
   }).timeout(18000);
