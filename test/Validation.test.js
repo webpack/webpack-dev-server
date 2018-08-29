@@ -1,71 +1,66 @@
 'use strict';
 
+/* eslint-disable
+  no-shadow,
+  array-bracket-spacing
+*/
 const webpack = require('webpack');
-const OptionsValidationError = require('../lib/OptionsValidationError');
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('Validation', () => {
   let compiler;
+
   before(() => {
     compiler = webpack(config);
   });
-  const testCases = [{
-    name: 'invalid `hot` configuration',
-    config: { hot: 'asdf' },
-    message: [
-      ' - configuration.hot should be a boolean.'
-    ]
-  }, {
-    name: 'invalid `public` configuration',
-    config: { public: 1 },
-    message: [
-      ' - configuration.public should be a string.'
-    ]
-  }, {
-    name: 'invalid `allowedHosts` configuration',
-    config: { allowedHosts: 1 },
-    message: [
-      ' - configuration.allowedHosts should be an array:',
-      '   [string]',
-      '   Specifies which hosts are allowed to access the dev server.'
-    ]
-  }, {
-    name: 'invalid `contentBase` configuration',
-    config: { contentBase: [0] },
-    message: [
-      ' - configuration.contentBase should be one of these:',
-      '   [string] | false | number | string',
-      '   A directory to serve files non-webpack files from.',
-      '   Details:',
-      '    * configuration.contentBase[0] should be a string.',
-      '    * configuration.contentBase should be false',
-      '    * configuration.contentBase should be a number.',
-      '    * configuration.contentBase should be a string.'
-    ]
-  }, {
-    name: 'non-existing key configuration',
-    config: { asdf: true },
-    message: [
-      " - configuration has an unknown property 'asdf'. These properties are valid:",
-      '   object { hot?, hotOnly?, lazy?, bonjour?, host?, allowedHosts?, filename?, publicPath?, port?, socket?, ' +
-      'watchOptions?, headers?, logLevel?, clientLogLevel?, overlay?, progress?, key?, cert?, ca?, pfx?, pfxPassphrase?, requestCert?, ' +
-      'inline?, disableHostCheck?, public?, https?, contentBase?, watchContentBase?, open?, useLocalIp?, openPage?, features?, ' +
-      'compress?, proxy?, historyApiFallback?, staticOptions?, setup?, before?, after?, stats?, reporter?, logTime?, ' +
-      'noInfo?, quiet?, serverSideRender?, index?, log?, warn? }'
-    ]
-  }];
-  testCases.forEach((testCase) => {
-    it(`should fail validation for ${testCase.name}`, () => {
+
+  const tests = [
+    {
+      name: 'invalid `hot` configuration',
+      config: { hot: 'false' },
+      message: 'options.hot should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)\n'
+    },
+    {
+      name: 'invalid `logLevel` configuration',
+      config: { logLevel: 1 },
+      message: 'options.logLevel should be {String} and equal to one of the allowed values'
+    },
+    {
+      name: 'invalid `overlay` configuration',
+      config: { overlay: { errors: 1 } },
+      message: 'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n'
+    },
+    {
+      name: 'invalid `contentBase` configuration',
+      config: { contentBase: [0] },
+      message: 'options.contentBase should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)\n'
+    },
+    {
+      name: 'no additional properties',
+      config: { additional: true },
+      message: 'options should NOT have additional properties\n'
+    }
+  ];
+
+  tests.forEach((test) => {
+    it(`should fail validation for ${test.name}`, () => {
       try {
         // eslint-disable-next-line no-new
-        new Server(compiler, testCase.config);
-      } catch (e) {
-        if (!(e instanceof OptionsValidationError)) { throw e; }
-        e.message.should.startWith('Invalid configuration object.');
-        e.message.split('\n').slice(1).should.be.eql(testCase.message);
+        new Server(compiler, test.config);
+      } catch (err) {
+        if (err.name !== 'ValidationError') {
+          throw err;
+        }
+
+        const [ title, message ] = err.message.split('\n\n');
+
+        title.should.be.eql('webpack Dev Server Invalid Options');
+        message.should.be.eql(test.message);
+
         return;
       }
+
       throw new Error("Validation didn't fail");
     });
   });
@@ -75,8 +70,11 @@ describe('Validation', () => {
       try {
         // eslint-disable-next-line no-new
         new Server(compiler, { filename: () => {} });
-      } catch (e) {
-        if (!(e instanceof OptionsValidationError)) { throw e; }
+      } catch (err) {
+        if (err === 'ValidationError') {
+          throw err;
+        }
+
         throw new Error("Validation failed and it shouldn't");
       }
     });
@@ -88,10 +86,13 @@ describe('Validation', () => {
         public: 'test.host:80',
         disableHostCheck: true
       };
+
       const headers = {
         host: 'bad.host'
       };
+
       const server = new Server(compiler, options);
+
       if (!server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
       }
@@ -114,10 +115,13 @@ describe('Validation', () => {
       const options = {
         public: 'test.host:80'
       };
+
       const headers = {
         host: '127.0.0.1'
       };
+
       const server = new Server(compiler, options);
+
       if (!server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
       }
@@ -125,7 +129,8 @@ describe('Validation', () => {
 
     it('should allow access for every requests using an IP', () => {
       const options = {};
-      const testHosts = [
+
+      const tests = [
         '192.168.1.123',
         '192.168.1.2:8080',
         '[::1]',
@@ -135,8 +140,10 @@ describe('Validation', () => {
       ];
 
       const server = new Server(compiler, options);
-      testHosts.forEach((testHost) => {
-        const headers = { host: testHost };
+
+      tests.forEach((test) => {
+        const headers = { host: test };
+
         if (!server.checkHost(headers)) {
           throw new Error("Validation didn't pass");
         }
@@ -147,10 +154,13 @@ describe('Validation', () => {
       const options = {
         public: 'test.host:80'
       };
+
       const headers = {
         host: 'test.hostname:80'
       };
+
       const server = new Server(compiler, options);
+
       if (server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
       }
@@ -158,25 +168,29 @@ describe('Validation', () => {
 
     describe('allowedHosts', () => {
       it('should allow hosts in allowedHosts', () => {
-        const testHosts = [
+        const tests = [
           'test.host',
           'test2.host',
           'test3.host'
         ];
-        const options = { allowedHosts: testHosts };
+
+        const options = { allowedHosts: tests };
         const server = new Server(compiler, options);
 
-        testHosts.forEach((testHost) => {
-          const headers = { host: testHost };
+        tests.forEach((test) => {
+          const headers = { host: test };
+
           if (!server.checkHost(headers)) {
             throw new Error("Validation didn't fail");
           }
         });
       });
+
       it('should allow hosts that pass a wildcard in allowedHosts', () => {
         const options = { allowedHosts: ['.example.com'] };
         const server = new Server(compiler, options);
-        const testHosts = [
+
+        const tests = [
           'www.example.com',
           'subdomain.example.com',
           'example.com',
@@ -185,8 +199,9 @@ describe('Validation', () => {
           'subdomain.example.com:80'
         ];
 
-        testHosts.forEach((testHost) => {
-          const headers = { host: testHost };
+        tests.forEach((test) => {
+          const headers = { host: test };
+
           if (!server.checkHost(headers)) {
             throw new Error("Validation didn't fail");
           }

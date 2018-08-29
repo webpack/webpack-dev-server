@@ -354,9 +354,7 @@ function startDevServer(config, options) {
   try {
     server = new Server(compiler, options, log);
   } catch (err) {
-    const OptionsValidationError = require('../lib/OptionsValidationError');
-
-    if (err instanceof OptionsValidationError) {
+    if (err.name === 'ValidationError') {
       log.error(colors.error(options.stats.colors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
