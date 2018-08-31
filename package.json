@@ -35,7 +35,7 @@
     "express": "^4.16.2",
     "html-entities": "^1.2.0",
     "http-proxy-middleware": "~0.18.0",
-    "import-local": "^1.0.0",
+    "import-local": "^2.0.0",
     "internal-ip": "^3.0.1",
     "ip": "^1.1.5",
     "killable": "^1.0.0",
