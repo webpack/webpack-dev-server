@@ -86,7 +86,8 @@
     "ws": "^6.0.0"
   },
   "peerDependencies": {
-    "webpack": "^4.0.0"
+    "webpack": "^4.0.0",
+    "webpack-cli": "^3.1.0"
   },
   "author": "Tobias Koppers @sokra",
   "bugs": "https://github.com/webpack/webpack-dev-server/issues",
