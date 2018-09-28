@@ -150,7 +150,7 @@ const options = {
   },
   host: {
     type: 'string',
-    default: 'localhost',
+    default: '127.0.0.1',
     describe: 'The hostname/ip address the server will bind to',
     group: CONNECTION_GROUP
   },
