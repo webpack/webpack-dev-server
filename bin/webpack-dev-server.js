@@ -331,6 +331,8 @@ function startDevServer(config, options) {
 
   let compiler;
 
+  config.output = Object.assign({}, config.output, { publicPath: createDomain(options) + options.publicPath });
+
   try {
     compiler = webpack(config);
   } catch (err) {
