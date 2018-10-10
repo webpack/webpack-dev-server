@@ -27,6 +27,11 @@ describe('Validation', () => {
       message: 'options.logLevel should be {String} and equal to one of the allowed values'
     },
     {
+      name: 'invalid `writeToDisk` configuration',
+      config: { writeToDisk: 1 },
+      message: 'options.writeToDisk should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)\n'
+    },
+    {
       name: 'invalid `overlay` configuration',
       config: { overlay: { errors: 1 } },
       message: 'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n'
