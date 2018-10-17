@@ -38,6 +38,7 @@ const {
 const Server = require('../lib/Server');
 
 const addEntries = require('../lib/utils/addEntries');
+const patchPublicPath = require('../lib/utils/patchPublicPath');
 const createDomain = require('../lib/utils/createDomain');
 const createLogger = require('../lib/utils/createLogger');
 
@@ -328,11 +329,9 @@ function startDevServer(config, options) {
   const log = createLogger(options);
 
   addEntries(config, options);
+  patchPublicPath(config, options);
 
   let compiler;
-
-  const publicPath = options.publicPath || config.output.PublicPath
-  config.output = Object.assign({}, config.output, { publicPath: createDomain(options) + publicPath });
 
   try {
     compiler = webpack(config);
