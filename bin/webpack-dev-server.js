@@ -16,7 +16,6 @@
 const debug = require('debug')('webpack-dev-server');
 
 const fs = require('fs');
-const net = require('net');
 const path = require('path');
 
 const portfinder = require('portfinder');
@@ -27,19 +26,13 @@ const webpack = require('webpack');
 
 const options = require('./options');
 
-const {
-  colors,
-  status,
-  version,
-  bonjour,
-  defaultTo
-} = require('./utils');
+const { version, defaultTo } = require('./utils');
 
 const Server = require('../lib/Server');
 
 const addEntries = require('../lib/utils/addEntries');
-const createDomain = require('../lib/utils/createDomain');
 const createLogger = require('../lib/utils/createLogger');
+const colors = require('../lib/utils/colors');
 
 let server;
 
@@ -349,8 +342,6 @@ function startDevServer(config, options) {
     }).apply(compiler);
   }
 
-  const suffix = (options.inline !== false || options.lazy === true ? '/' : '/webpack-dev-server/');
-
   try {
     server = new Server(compiler, options, log);
   } catch (err) {
@@ -361,63 +352,6 @@ function startDevServer(config, options) {
     }
 
     throw err;
-  }
-
-  if (options.socket) {
-    server.listeningApp.on('error', (e) => {
-      if (e.code === 'EADDRINUSE') {
-        const clientSocket = new net.Socket();
-
-        clientSocket.on('error', (err) => {
-          if (err.code === 'ECONNREFUSED') {
-            // No other server listening on this socket so it can be safely removed
-            fs.unlinkSync(options.socket);
-
-            server.listen(options.socket, options.host, (error) => {
-              if (error) {
-                throw error;
-              }
-            });
-          }
-        });
-
-        clientSocket.connect({ path: options.socket }, () => {
-          throw new Error('This socket is already used');
-        });
-      }
-    });
-
-    server.listen(options.socket, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-      // chmod 666 (rw rw rw)
-      const READ_WRITE = 438;
-
-      fs.chmod(options.socket, READ_WRITE, (err) => {
-        if (err) {
-          throw err;
-        }
-
-        const uri = createDomain(options, server.listeningApp) + suffix;
-
-        status(uri, options, log, argv.color);
-      });
-    });
-  } else {
-    server.listen(options.port, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-
-      if (options.bonjour) {
-        bonjour(options);
-      }
-
-      const uri = createDomain(options, server.listeningApp) + suffix;
-
-      status(uri, options, log, argv.color);
-    });
   }
 }
 
