@@ -10,9 +10,6 @@
     "lazy": {
       "type": "boolean"
     },
-    "bonjour": {
-      "type": "boolean"
-    },
     "host": {
       "type": "string"
     },
@@ -313,7 +310,6 @@
       "hot": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)",
       "hotOnly": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hotonly)",
       "lazy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-lazy-)",
-      "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-bonjour)",
       "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-publicpath-)",
       "host": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-host)",
       "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)",
