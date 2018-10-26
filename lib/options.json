@@ -152,9 +152,6 @@
     "requestCert": {
       "type": "boolean"
     },
-    "inline": {
-      "type": "boolean"
-    },
     "disableHostCheck": {
       "type": "boolean"
     },
@@ -333,7 +330,6 @@
       "pfx": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserver-pfx)",
       "pfxPassphrase": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-pfxpassphrase)",
       "requestCert": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-requestcert)",
-      "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-inline)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-disablehostcheck)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-public)",
       "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-https)",
