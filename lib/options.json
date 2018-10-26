@@ -295,9 +295,6 @@
     "quiet": {
       "type": "boolean"
     },
-    "serverSideRender": {
-      "type": "boolean"
-    },
     "index": {
       "type": "string"
     },
@@ -355,7 +352,6 @@
       "logTime": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-logtime)",
       "noInfo": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-noinfo-)",
       "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-quiet-)",
-      "serverSideRender": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-serversiderender)",
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-index)",
       "log": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-log)",
       "warn": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-warn)"
