@@ -57,7 +57,7 @@ const options = {
     type: 'boolean',
     alias: 'colors',
     default: function supportsColor() {
-      return require('supports-color');
+      return require('supports-color').stdout;
     },
     group: DISPLAY_GROUP,
     describe: 'Enables/Disables colors on the console'
