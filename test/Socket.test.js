@@ -1,23 +1,21 @@
 'use strict';
 
 const assert = require('assert');
-const path = require('path');
 const request = require('request');
 const config = require('./fixtures/simple-config/webpack.config');
 const helper = require('./helper');
 
-const requestSucceeds = (done) => (err, res, body) => {
+const requestSucceeds = done => (err, res) => {
   if (err) {
     done(err);
   }
 
   assert.equal(res.statusCode, 200);
   done();
-}
+};
 
 describe('socket options', () => {
   let server;
-  let req;
 
   afterEach(helper.close);
   describe('default behavior', () => {
@@ -30,7 +28,7 @@ describe('socket options', () => {
     });
 
     it('responds with a 200', (done) => {
-      request(`http://localhost:8080/sockjs-node`, requestSucceeds(done));
+      request('http://localhost:8080/sockjs-node', requestSucceeds(done));
     });
   });
 
@@ -48,6 +46,6 @@ describe('socket options', () => {
 
     it('responds with a 200 second', (done) => {
       request(`http://localhost:8080${path}`, requestSucceeds(done));
-    })
+    });
   });
 });
