@@ -113,6 +113,9 @@ function processOptions (config) {
     ? config[0]
     : config;
 
+  // This updates both config and firstWpOpt
+  firstWpOpt.mode = defaultTo(firstWpOpt.mode, 'development');
+
   const options = config.devServer || firstWpOpt.devServer || {};
 
   if (argv.bonjour) {
