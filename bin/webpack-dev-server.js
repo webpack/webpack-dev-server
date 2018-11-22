@@ -93,7 +93,12 @@ const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
 // we should use portfinder.
 const DEFAULT_PORT = 8080;
 
-function processOptions(config) {
+// Try to find unused port and listen on it for 10 times,
+// if port is not specified in options.
+const DEFAULT_PORT_RETRY = 10;
+let portRetries = 0;
+
+function processOptions (config) {
   // processOptions {Promise}
   if (typeof config.then === 'function') {
     config.then(processOptions).catch((err) => {
@@ -108,22 +113,8 @@ function processOptions(config) {
   const options = createConfig(config, argv, { port: DEFAULT_PORT });
 
   portfinder.basePort = DEFAULT_PORT;
-
-  if (options.port != null) {
-    startDevServer(config, options);
-
-    return;
-  }
-
-  portfinder.getPort((err, port) => {
-    if (err) {
-      throw err;
-    }
-
-    options.port = port;
-
-    startDevServer(config, options);
-  });
+  
+  startDevServer(config, options);
 }
 
 function startDevServer(config, options) {
@@ -209,7 +200,7 @@ function startDevServer(config, options) {
         status(uri, options, log, argv.color);
       });
     });
-  } else {
+  } else if (options.port) {
     server.listen(options.port, options.host, (err) => {
       if (err) {
         throw err;
@@ -223,7 +214,42 @@ function startDevServer(config, options) {
 
       status(uri, options, log, argv.color);
     });
+  } else {
+    // only run port finder if no port as been specified
+    portRetries = 0;
+    portfinder.basePort = DEFAULT_PORT;
+    server.listeningApp.on('error', (err) => {
+      if (err.code === 'EADDRINUSE' && portRetries < DEFAULT_PORT_RETRY) {
+        tryStartListening(options, suffix, log);
+        return;
+      }
+      throw err;
+    });
+    tryStartListening(options, suffix, log);
   }
+}
+
+function tryStartListening(options, suffix, log) {
+  portRetries += 1;
+  portfinder.getPort((err, port) => {
+    if (err) {
+      throw err;
+    }
+    options.port = port;
+    server.listen(options.port, options.host, (err) => {
+      if (err) {
+        throw err;
+      }
+
+      if (options.bonjour) {
+        bonjour(options);
+      }
+
+      const uri = createDomain(options, server.listeningApp) + suffix;
+
+      status(uri, options, log, argv.color);
+    });
+  });
 }
 
 processOptions(config);
