@@ -8,6 +8,7 @@
   space-before-function-paren
 */
 const open = require('opn');
+const portfinder = require('portfinder');
 
 const colors = {
   info (useColor, msg) {
@@ -105,10 +106,47 @@ function bonjour (options) {
   });
 }
 
+function tryParseInt(input) {
+  try {
+    return parseInt(input, 10);
+  } catch (e) {
+    return null;
+  }
+}
+
+function findPort(server, defaultPort, defaultPortRetry, fn) {
+  console.log('check', defaultPort, defaultPortRetry);
+  let tryCount = 0;
+  server.listeningApp.on('error', (err) => {
+    if (err.code === 'EADDRINUSE' && tryCount < defaultPortRetry) {
+      portfinder.basePort = defaultPort;
+      tryCount += 1;
+      portfinder.getPort((err, port) => {
+        if (err) {
+          throw err;
+        }
+        fn(port);
+      });
+      return;
+    }
+    throw err;
+  });
+  portfinder.basePort = defaultPort;
+  tryCount += 1;
+  portfinder.getPort((err, port) => {
+    if (err) {
+      throw err;
+    }
+    fn(port);
+  });
+}
+
 module.exports = {
   status,
   colors,
   version,
   bonjour,
-  defaultTo
+  defaultTo,
+  tryParseInt,
+  findPort
 };

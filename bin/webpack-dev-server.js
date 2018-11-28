@@ -19,7 +19,6 @@ const fs = require('fs');
 const net = require('net');
 const path = require('path');
 
-const portfinder = require('portfinder');
 const importLocal = require('import-local');
 
 const yargs = require('yargs');
@@ -32,7 +31,9 @@ const {
   status,
   version,
   bonjour,
-  defaultTo
+  defaultTo,
+  tryParseInt,
+  findPort
 } = require('./utils');
 
 const Server = require('../lib/Server');
@@ -99,8 +100,7 @@ const DEFAULT_PORT = 8080;
 
 // Try to find unused port and listen on it for 10 times,
 // if port is not specified in options.
-const DEFAULT_PORT_RETRY = 10;
-let portRetries = 0;
+const defaultPortRetry = defaultTo(tryParseInt(process.env.DEFAULT_PORT_RETRY), 3);
 
 function processOptions (config) {
   // processOptions {Promise}
@@ -409,40 +409,23 @@ function startDevServer(config, options) {
     });
   } else {
     // only run port finder if no port as been specified
-    portRetries = 0;
-    portfinder.basePort = DEFAULT_PORT;
-    server.listeningApp.on('error', (err) => {
-      if (err.code === 'EADDRINUSE' && portRetries < DEFAULT_PORT_RETRY) {
-        tryStartListening(options, suffix, log);
-        return;
-      }
-      throw err;
+    findPort(server, DEFAULT_PORT, defaultPortRetry, (port) => {
+      options.port = port;
+      server.listen(options.port, options.host, (err) => {
+        if (err) {
+          throw err;
+        }
+
+        if (options.bonjour) {
+          bonjour(options);
+        }
+
+        const uri = createDomain(options, server.listeningApp) + suffix;
+
+        status(uri, options, log, argv.color);
+      });
     });
-    tryStartListening(options, suffix, log);
   }
-}
-
-function tryStartListening(options, suffix, log) {
-  portRetries += 1;
-  portfinder.getPort((err, port) => {
-    if (err) {
-      throw err;
-    }
-    options.port = port;
-    server.listen(options.port, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-
-      if (options.bonjour) {
-        bonjour(options);
-      }
-
-      const uri = createDomain(options, server.listeningApp) + suffix;
-
-      status(uri, options, log, argv.color);
-    });
-  });
 }
 
 processOptions(config);
