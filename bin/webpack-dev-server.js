@@ -224,7 +224,10 @@ function startDevServer(config, options) {
     });
   } else {
     // only run port finder if no port as been specified
-    findPort(server, DEFAULT_PORT, defaultPortRetry, (port) => {
+    findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
+      if (err) {
+        throw err;
+      }
       options.port = port;
       server.listen(options.port, options.host, (err) => {
         if (err) {

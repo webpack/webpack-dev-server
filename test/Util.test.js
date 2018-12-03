@@ -1,9 +1,12 @@
 'use strict';
 
+const EventEmitter = require('events');
+const assert = require('assert');
 const webpack = require('webpack');
 const internalIp = require('internal-ip');
 const Server = require('../lib/Server');
 const createDomain = require('../lib/utils/createDomain');
+const findPort = require('../bin/utils').findPort;
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('check utility functions', () => {
@@ -104,6 +107,41 @@ describe('check utility functions', () => {
           done();
         }
       });
+    });
+  });
+});
+
+describe('findPort cli utility function', () => {
+  let mockServer = null;
+  beforeEach(() => {
+    mockServer = {
+      listeningApp: new EventEmitter()
+    };
+  });
+  afterEach(() => {
+    mockServer.listeningApp.removeAllListeners('error');
+    mockServer = null;
+  });
+  it('should find empty port starting from defaultPort', (done) => {
+    findPort(mockServer, 8180, 3, (err, port) => {
+      assert(err == null);
+      assert(port === 8180);
+      done();
+    });
+  });
+  it('should retry finding port for up to defaultPortRetry times', (done) => {
+    let count = 0;
+    const defaultPortRetry = 5;
+    findPort(mockServer, 8180, defaultPortRetry, (err) => {
+      if (err == null) {
+        count += 1;
+        const mockError = new Error('EADDRINUSE');
+        mockError.code = 'EADDRINUSE';
+        mockServer.listeningApp.emit('error', mockError);
+        return;
+      }
+      assert(count === defaultPortRetry);
+      done();
     });
   });
 });

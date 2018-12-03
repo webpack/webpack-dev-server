@@ -107,37 +107,34 @@ function bonjour (options) {
 }
 
 function tryParseInt(input) {
-  try {
-    return parseInt(input, 10);
-  } catch (e) {
+  const output = parseInt(input, 10);
+  if (Number.isNaN(output)) {
     return null;
   }
+  return output;
 }
 
 function findPort(server, defaultPort, defaultPortRetry, fn) {
-  console.log('check', defaultPort, defaultPortRetry);
   let tryCount = 0;
   server.listeningApp.on('error', (err) => {
-    if (err.code === 'EADDRINUSE' && tryCount < defaultPortRetry) {
-      portfinder.basePort = defaultPort;
-      tryCount += 1;
-      portfinder.getPort((err, port) => {
-        if (err) {
-          throw err;
-        }
-        fn(port);
-      });
-      return;
+    if (err.code === 'EADDRINUSE') {
+      if (tryCount < defaultPortRetry) {
+        portfinder.basePort = defaultPort;
+        tryCount += 1;
+        portfinder.getPort((err, port) => {
+          fn(err, port);
+        });
+      } else {
+        fn(err);
+      }
+    } else {
+      throw err;
     }
-    throw err;
   });
   portfinder.basePort = defaultPort;
   tryCount += 1;
   portfinder.getPort((err, port) => {
-    if (err) {
-      throw err;
-    }
-    fn(port);
+    fn(err, port);
   });
 }
 
