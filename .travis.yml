@@ -12,7 +12,6 @@ jobs:
       node_js: 'lts/*'
 
 install:
-  - apt-get install -y gdb  # install gdb
   - npm i -g npm@latest
   - npm i
 
