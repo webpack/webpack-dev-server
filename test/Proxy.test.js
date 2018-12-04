@@ -44,19 +44,24 @@ function startProxyServers() {
   const proxy1 = express();
   const proxy2 = express();
   proxy1.get('/proxy1', (req, res) => {
+      console.log('proxy1');
     res.send('from proxy1');
   });
   proxy1.get('/api', (req, res) => {
+      console.log('api-resp proxy2');
     res.send('api response from proxy1');
   });
   proxy2.get('/proxy2', (req, res) => {
+      console.log('proxy2');
     res.send('from proxy2');
   });
   listeners.push(proxy1.listen(9000));
   listeners.push(proxy2.listen(9001));
   // return a function to shutdown proxy servers
   return function proxy() {
+      console.log('shutting down proxies');
     listeners.forEach((listener) => {
+      console.log('closing listener');
       listener.close();
     });
   };
@@ -157,8 +162,10 @@ describe('Proxy', () => {
     };
 
     before((done) => {
+        console.log('before sharing a proxy option: STARTING');
       const proxy = express();
       proxy.get('*', (proxyReq, res) => {
+          console.log('from proxy');
         res.send('from proxy');
       });
       listener = proxy.listen(9000);
@@ -168,22 +175,28 @@ describe('Proxy', () => {
           '/proxy1': proxyTarget,
           '/proxy2': proxyTarget
         }
-      }, done);
+      }, () => { console.log('helper started, done BEFORE done'); done() });
       req = request(server.app);
+        console.log('before sharing a proxy option: ENDING (but not done yet)');
     });
 
     after((done) => {
+        console.log('after sharing a proxy option');
       helper.close(() => {
+          console.log('closing litener');
         listener.close();
         done();
       });
     });
 
     it('respects proxy1 option', (done) => {
-      req.get('/proxy1').expect(200, 'from proxy', done);
+        console.log('before running proxy1 option');
+      req.get('/proxy1').expect(200, 'from proxy', () => { console.log('proxy1 done'); done() });
+        console.log('after running proxy1 option');
     });
 
     it('respects proxy2 option', (done) => {
+        console.log('before running proxy2 option');
       req.get('/proxy2').expect(200, 'from proxy', done);
     });
   });
