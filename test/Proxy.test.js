@@ -200,48 +200,4 @@ describe('Proxy', () => {
       req.get('/proxy2').expect(200, 'from proxy', done);
     });
   });
-
-  context('External websocket upgrade', () => {
-    let ws;
-    let wsServer;
-    let responseMessage;
-
-    before((done) => {
-      helper.start(config, {
-        contentBase,
-        proxy: [{
-          context: '/',
-          target: 'http://localhost:9003',
-          ws: true
-        }]
-      }, done);
-
-      wsServer = new WebSocketServer({ port: 9003 });
-      wsServer.on('connection', (server) => {
-        server.on('message', (message) => {
-          server.send(message);
-        });
-      });
-    });
-
-    beforeEach((done) => {
-      ws = new WebSocket('ws://localhost:8080/proxy3/socket');
-      ws.on('message', (message) => {
-        responseMessage = message;
-        done();
-      });
-      ws.on('open', () => {
-        ws.send('foo');
-      });
-    });
-
-    it('Should receive response', () => {
-      should(responseMessage).equal('foo');
-    });
-
-    after((done) => {
-      wsServer.close();
-      helper.close(done);
-    });
-  });
 });
