@@ -3,17 +3,6 @@ language: node_js
 jobs:
   fast_finish: true
   include:
-    - stage: Lint
-      env: SCRIPT=lint
-      node_js: 'stable'
-    - &linux
-      stage: Test (Linux)
-      env: SCRIPT=test
-      node_js: 'stable'
-    - <<: *linux
-      node_js: 'lts/*'
-    - <<: *linux
-      node_js: 6
     - &osx
       stage: Test (MacOS)
       os: 'osx'
@@ -21,8 +10,6 @@ jobs:
       node_js: 'stable'
     - <<: *osx
       node_js: 'lts/*'
-    - <<: *osx
-      node_js: 6
 
 install:
   - npm i -g npm@latest
