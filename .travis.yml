@@ -18,7 +18,9 @@ jobs:
       stage: Test (MacOS)
       os: 'osx'
       env: SCRIPT=test
-      node_js: 'stable'
+      # Node 10 instead of 'stable' since Node 11 segfaults
+      # https://github.com/webpack/webpack-dev-server/pull/1588
+      node_js: 10
     - <<: *osx
       node_js: 'lts/*'
     - <<: *osx
