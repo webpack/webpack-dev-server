@@ -12,14 +12,21 @@ jobs:
       node_js: 'lts/*'
 
 install:
+  - apt-get install -y gdb  # install gdb
   - npm i -g npm@latest
   - npm i
+
+before_script:
+  - ulimit -c unlimited -S       # enable core dumps
 
 script: npm run $SCRIPT
 
 after_success:
   - npm i codecov
   - $(npm bin)/codecov
+
+after_failure:
+- lldb -c `ls -t /cores/* | head -n1` --batch -o 'thread backtrace all' -o 'quit' && exit 1
 
 notifications:
   email: false
