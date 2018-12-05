@@ -121,4 +121,18 @@ describe('ContentBase', () => {
         .expect(404, done);
     });
   });
+
+  describe('Content type', () => {
+    before((done) => {
+      server = helper.start(config, {
+        contentBase: [contentBasePublic]
+      }, done);
+      req = request(server.app);
+    });
+
+    it('Request foo.wasm', (done) => {
+      req.get('/foo.wasm')
+        .expect('Content-Type', 'application/wasm', done);
+    });
+  });
 });
