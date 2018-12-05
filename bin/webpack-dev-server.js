@@ -98,7 +98,7 @@ const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
 // we should use portfinder.
 const DEFAULT_PORT = 8080;
 
-// Try to find unused port and listen on it for 10 times,
+// Try to find unused port and listen on it for 3 times,
 // if port is not specified in options.
 const defaultPortRetry = defaultTo(tryParseInt(process.env.DEFAULT_PORT_RETRY), 3);
 
