@@ -74,13 +74,18 @@ function status (uri, options, log, useColor) {
   if (options.open) {
     let openOptions = {};
     let openMessage = 'Unable to open browser';
+    let openPage = uri + (options.openPage || '');
 
     if (typeof options.open === 'string') {
       openOptions = { app: options.open };
       openMessage += `: ${options.open}`;
     }
 
-    open(uri + (options.openPage || ''), openOptions).catch(() => {
+    if (/^(https?:)?\/\//.test(options.openPage)) {
+      openPage = options.openPage;
+    }
+
+    open(openPage, openOptions).catch(() => {
       log.warn(
         `${openMessage}. If you are running in a headless environment, please do not use the --open flag`
       );
