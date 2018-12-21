@@ -1,31 +1,46 @@
 'use strict';
 
+/* eslint-disable
+  import/order,
+  arrow-parens,
+  array-bracket-spacing
+*/
+const path = require('path');
 const assert = require('assert');
-const addDevServerEntrypoints = require('../lib/util/addDevServerEntrypoints');
+
+const addEntries = require('../lib/utils/addEntries');
 const config = require('./fixtures/simple-config/webpack.config');
+
+const normalize = (entry) => entry.split(path.sep).join('/');
 
 describe('Entry', () => {
   it('adds devServer entry points to a single entry point', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = {};
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     assert.equal(webpackOptions.entry.length, 2);
-    assert(webpackOptions.entry[0].indexOf('client/index.js?') !== -1);
-    assert.equal(webpackOptions.entry[1], './foo.js');
+
+    assert(
+      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+    );
+    assert.equal(normalize(webpackOptions.entry[1]), './foo.js');
   });
 
   it('adds devServer entry points to a multi-module entry point', () => {
     const webpackOptions = Object.assign({}, config, {
-      entry: ['./foo.js', './bar.js']
+      entry: [ './foo.js', './bar.js' ]
     });
+
     const devServerOptions = {};
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     assert.equal(webpackOptions.entry.length, 3);
-    assert(webpackOptions.entry[0].indexOf('client/index.js?') !== -1);
+    assert(
+      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+    );
     assert.equal(webpackOptions.entry[1], './foo.js');
     assert.equal(webpackOptions.entry[2], './bar.js');
   });
@@ -37,12 +52,16 @@ describe('Entry', () => {
         bar: './bar.js'
       }
     });
+
     const devServerOptions = {};
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     assert.equal(webpackOptions.entry.foo.length, 2);
-    assert(webpackOptions.entry.foo[0].indexOf('client/index.js?') !== -1);
+
+    assert(
+      normalize(webpackOptions.entry.foo[0]).indexOf('client/index.js?') !== -1
+    );
     assert.equal(webpackOptions.entry.foo[1], './foo.js');
     assert.equal(webpackOptions.entry.bar[1], './bar.js');
   });
@@ -51,7 +70,7 @@ describe('Entry', () => {
     const webpackOptions = {};
     const devServerOptions = {};
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     assert.equal(webpackOptions.entry.length, 2);
     assert.equal(webpackOptions.entry[1], './src');
@@ -68,7 +87,7 @@ describe('Entry', () => {
     };
     const devServerOptions = {};
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     assert(typeof webpackOptions.entry, 'function');
 
@@ -93,9 +112,10 @@ describe('Entry', () => {
         resolve(`./src-${i}.js`);
       })
     };
+
     const devServerOptions = {};
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     assert(typeof webpackOptions.entry, 'function');
 
@@ -117,14 +137,19 @@ describe('Entry', () => {
         app: './app.js'
       }
     });
+
     const devServerOptions = {
       hot: true
     };
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     const hotClientScript = webpackOptions.entry.app[1];
-    assert.equal(hotClientScript.includes('webpack/hot/dev-server'), true);
+
+    assert.equal(
+      normalize(hotClientScript).includes('webpack/hot/dev-server'),
+      true
+    );
     assert.equal(hotClientScript, require.resolve(hotClientScript));
   });
 
@@ -134,14 +159,19 @@ describe('Entry', () => {
         app: './app.js'
       }
     });
+
     const devServerOptions = {
       hotOnly: true
     };
 
-    addDevServerEntrypoints(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
 
     const hotClientScript = webpackOptions.entry.app[1];
-    assert.equal(hotClientScript.includes('webpack/hot/only-dev-server'), true);
+
+    assert.equal(
+      normalize(hotClientScript).includes('webpack/hot/only-dev-server'),
+      true
+    );
     assert.equal(hotClientScript, require.resolve(hotClientScript));
   });
 });
