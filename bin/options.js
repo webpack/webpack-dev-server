@@ -57,7 +57,9 @@ const options = {
     type: 'boolean',
     alias: 'colors',
     default: function supportsColor() {
-      return require('supports-color');
+      // Use `require('supports-color').stdout` for supports-color >= 5.0.0.
+      // See https://github.com/webpack/webpack-dev-server/pull/1555.
+      return require('supports-color').stdout;
     },
     group: DISPLAY_GROUP,
     describe: 'Enables/Disables colors on the console'

@@ -27,6 +27,11 @@ describe('Validation', () => {
       message: 'options.logLevel should be {String} and equal to one of the allowed values'
     },
     {
+      name: 'invalid `writeToDisk` configuration',
+      config: { writeToDisk: 1 },
+      message: 'options.writeToDisk should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)\n'
+    },
+    {
       name: 'invalid `overlay` configuration',
       config: { overlay: { errors: 1 } },
       message: 'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n'
@@ -162,6 +167,19 @@ describe('Validation', () => {
       const server = new Server(compiler, options);
 
       if (server.checkHost(headers)) {
+        throw new Error("Validation didn't fail");
+      }
+    });
+
+    it('should allow urls with scheme for checking origin', () => {
+      const options = {
+        public: 'test.host:80'
+      };
+      const headers = {
+        origin: 'https://test.host'
+      };
+      const server = new Server(compiler, options);
+      if (!server.checkHost(headers, 'origin')) {
         throw new Error("Validation didn't fail");
       }
     });

@@ -54,6 +54,16 @@
     "watchOptions": {
       "type": "object"
     },
+    "writeToDisk": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
     "headers": {
       "type": "object"
     },
@@ -312,6 +322,7 @@
       "port": "should be {String|Number} (https://webpack.js.org/configuration/dev-server/#devserver-port)",
       "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-socket)",
       "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-watchoptions)",
+      "writeToDisk": "should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-headers-)",
       "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'trace', 'debug', 'info', 'warn', 'error', 'silent' ]\n\n(https://webpack.js.org/configuration/dev-server/#devserver-clientloglevel)",
       "overlay": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)",
