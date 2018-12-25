@@ -8,6 +8,9 @@ module.exports = [
   setup({
     context: __dirname,
     entry: './app.js',
+    optimization: {
+      minimize: true
+    },
     module: {
       rules: [
         {
@@ -38,7 +41,10 @@ module.exports = [
     context: __dirname,
     entry: './app.js',
     output: {
-      filename: 'bundle2.js'
+      filename: 'bundle.js'
+    },
+    optimization: {
+      minimize: true
     },
     module: {
       rules: [
