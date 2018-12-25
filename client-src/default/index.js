@@ -201,13 +201,8 @@ const socketUrl = url.format({
 
 socket(socketUrl, onSocketMsg);
 
-let isUnloading = false;
-self.addEventListener('beforeunload', () => {
-  isUnloading = true;
-});
-
 function reloadApp() {
-  if (isUnloading || !hotReload) {
+  if (!hotReload) {
     return;
   }
   if (hot) {
