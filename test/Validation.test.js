@@ -132,10 +132,17 @@ describe('Validation', () => {
       }
     });
 
-    it('should allow access for every requests using an IP', () => {
-      const options = {};
+    it('should not allow access for IPs or hostnames that are not in options.public or allowedHosts and viceversa', () => {
+      const options = {
+        public: 'pointerpointer.com',
+        allowedHosts: ['realdevdomain.dev']
+      };
 
       const tests = [
+        'realdevdomain.dev',
+        'test.hostname:80',
+        'google.com',
+        'pointerpointer.com',
         '192.168.1.123',
         '192.168.1.2:8080',
         '[::1]',
@@ -149,26 +156,16 @@ describe('Validation', () => {
       tests.forEach((test) => {
         const headers = { host: test };
 
-        if (!server.checkHost(headers)) {
-          throw new Error("Validation didn't pass");
+        const isPublicHostname = test === options.public;
+        const isInAllowedHosts = options.allowedHosts.includes(test);
+        if (server.checkHost(headers)) {
+          if (!isPublicHostname && !isInAllowedHosts)
+            throw new Error("Validation didn't fail. It should");
+        } else {
+          if (isPublicHostname || isInAllowedHosts)
+            throw new Error("Validation failed and it shouldn't");
         }
       });
-    });
-
-    it("should not allow hostnames that don't match options.public", () => {
-      const options = {
-        public: 'test.host:80'
-      };
-
-      const headers = {
-        host: 'test.hostname:80'
-      };
-
-      const server = new Server(compiler, options);
-
-      if (server.checkHost(headers)) {
-        throw new Error("Validation didn't fail");
-      }
     });
 
     it('should allow urls with scheme for checking origin', () => {
