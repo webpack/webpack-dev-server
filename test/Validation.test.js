@@ -159,11 +159,14 @@ describe('Validation', () => {
         const isPublicHostname = test === options.public;
         const isInAllowedHosts = options.allowedHosts.includes(test);
         if (server.checkHost(headers)) {
-          if (!isPublicHostname && !isInAllowedHosts)
+          if (!isPublicHostname && !isInAllowedHosts) {
             throw new Error("Validation didn't fail. It should");
+          }
         } else {
-          if (isPublicHostname || isInAllowedHosts)
+          // eslint-disable-next-line no-lonely-if
+          if (isPublicHostname || isInAllowedHosts) {
             throw new Error("Validation failed and it shouldn't");
+          }
         }
       });
     });
