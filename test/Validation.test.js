@@ -179,7 +179,7 @@ describe('Validation', () => {
         origin: 'https://test.host'
       };
       const server = new Server(compiler, options);
-      if (!server.checkHost(headers, 'origin')) {
+      if (!server.checkOrigin(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
