@@ -7,7 +7,6 @@
   array-bracket-spacing,
   space-before-function-paren
 */
-const open = require('opn');
 
 const colors = {
   info (useColor, msg) {
@@ -69,22 +68,6 @@ function status (uri, options, log, useColor) {
     log.info(
       'Broadcasting "http" with subtype of "webpack" via ZeroConf DNS (Bonjour)'
     );
-  }
-
-  if (options.open) {
-    let openOptions = {};
-    let openMessage = 'Unable to open browser';
-
-    if (typeof options.open === 'string') {
-      openOptions = { app: options.open };
-      openMessage += `: ${options.open}`;
-    }
-
-    open(uri + (options.openPage || ''), openOptions).catch(() => {
-      log.warn(
-        `${openMessage}. If you are running in a headless environment, please do not use the --open flag`
-      );
-    });
   }
 }
 

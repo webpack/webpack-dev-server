@@ -8,7 +8,8 @@ const compiler = Webpack(webpackConfig);
 const devServerOptions = Object.assign({}, webpackConfig.devServer, {
   stats: {
     colors: true
-  }
+  },
+  open: true
 });
 const server = new WebpackDevServer(compiler, devServerOptions);
 
