@@ -393,42 +393,35 @@ function startDevServer(config, options) {
         status(uri, options, log, argv.color);
       });
     });
-  } else if (options.port) {
+    return;
+  }
+
+  const startServer = () => {
     server.listen(options.port, options.host, (err) => {
       if (err) {
         throw err;
       }
-
       if (options.bonjour) {
         bonjour(options);
       }
-
       const uri = createDomain(options, server.listeningApp) + suffix;
-
       status(uri, options, log, argv.color);
     });
-  } else {
-    // only run port finder if no port as been specified
-    findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
-      if (err) {
-        throw err;
-      }
-      options.port = port;
-      server.listen(options.port, options.host, (err) => {
-        if (err) {
-          throw err;
-        }
+  };
 
-        if (options.bonjour) {
-          bonjour(options);
-        }
-
-        const uri = createDomain(options, server.listeningApp) + suffix;
-
-        status(uri, options, log, argv.color);
-      });
-    });
+  if (options.port) {
+    startServer();
+    return;
   }
+
+  // only run port finder if no port as been specified
+  findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
+    if (err) {
+      throw err;
+    }
+    options.port = port;
+    startServer();
+  });
 }
 
 processOptions(config);
