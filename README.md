@@ -27,7 +27,7 @@ First things first, install the module:
 npm install webpack-dev-server --save-dev
 ```
 
-_Note: While you can install and run webpack-dev-server globally, we recommend
+_**Note**: While you can install and run webpack-dev-server globally, we recommend
 installing it locally. webpack-dev-server will always use a local installation
 over a global one._
 
@@ -64,6 +64,8 @@ npm run start:dev
 
 NPM will automagically reference the binary in `node_modules` for you, and
 execute the file or command.
+
+_**Note**: Though both of the methods are recommended to use this module. However, we need atleast an `index.html` file or a html template to serve the bundle. Also, note that webpack-dev-server doesn't inject script references into the html file, so make sure to add them manually ._
 
 ### The Result
 
