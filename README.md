@@ -43,7 +43,7 @@ The easiest way to use it is with the CLI. In the directory where your
 ```console
 node_modules/.bin/webpack-dev-server
 ```
-_**Note**: Many CLI options are available with `webpack-dev-server`. Refer this [link](https://github.com/webpack/webpack-dev-server/blob/master/lib/options.json)._
+_**Note**: Many CLI options are available with `webpack-dev-server`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
 
 ### With NPM Scripts
 
