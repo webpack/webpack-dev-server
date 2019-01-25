@@ -171,6 +171,19 @@ describe('Validation', () => {
       }
     });
 
+    it('should allow urls with scheme for checking origin', () => {
+      const options = {
+        public: 'test.host:80'
+      };
+      const headers = {
+        origin: 'https://test.host'
+      };
+      const server = new Server(compiler, options);
+      if (!server.checkOrigin(headers)) {
+        throw new Error("Validation didn't fail");
+      }
+    });
+
     describe('allowedHosts', () => {
       it('should allow hosts in allowedHosts', () => {
         const tests = [
