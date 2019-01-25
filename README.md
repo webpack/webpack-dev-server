@@ -18,6 +18,15 @@ live reloading. This should be used for **development only**.
 
 It uses [webpack-dev-middleware][middleware-url] under the hood, which provides
 fast in-memory access to the webpack assets.
+## Table of Contents
+1. [Getting Started](#getting-started)
+2. [Usage](#usage)
+3. [Browser Support](#browser-support)
+4. [Support](#support)
+5. [Contributing](#contributing)
+6. [Maintainers](#maintainers)
+7. [Attribution](#attribution)
+8. [License](#license)
 
 ## Getting Started
 
