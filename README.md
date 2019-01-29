@@ -19,6 +19,17 @@ live reloading. This should be used for **development only**.
 It uses [webpack-dev-middleware][middleware-url] under the hood, which provides
 fast in-memory access to the webpack assets.
 
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+2. [Usage](#usage)
+3. [Browser Support](#browser-support)
+4. [Support](#support)
+5. [Contributing](#contributing)
+6. [Maintainers](#maintainers)
+7. [Attribution](#attribution)
+8. [License](#license)
+
 ## Getting Started
 
 First things first, install the module:
@@ -43,6 +54,7 @@ The easiest way to use it is with the CLI. In the directory where your
 ```console
 node_modules/.bin/webpack-dev-server
 ```
+_**Note**: Many CLI options are available with `webpack-dev-server`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
 
 ### With NPM Scripts
 
