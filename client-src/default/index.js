@@ -2,7 +2,7 @@
 
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
-
+const querystring = require('querystring');
 const url = require('url');
 const stripAnsi = require('strip-ansi');
 const log = require('loglevel').getLogger('webpack-dev-server');
@@ -196,7 +196,10 @@ const socketUrl = url.format({
   auth: urlParts.auth,
   hostname,
   port: urlParts.port,
-  pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
+  // If sockPath is provided it'll be passed in via the __resourceQuery as a
+  // query param so it has to be parsed out of the querystring in order for the
+  // client to open the socket to the correct location.
+  pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : (querystring.parse(urlParts.path).sockPath || urlParts.path)
 });
 
 socket(socketUrl, onSocketMsg);
