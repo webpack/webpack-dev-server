@@ -51,6 +51,9 @@
     "socket": {
       "type": "string"
     },
+    "sockPath": {
+      "type": "string"
+    },
     "watchOptions": {
       "type": "object"
     },
@@ -321,6 +324,7 @@
       "filename": "should be {String|RegExp|Function} (https://webpack.js.org/configuration/dev-server/#devserver-filename-)",
       "port": "should be {String|Number} (https://webpack.js.org/configuration/dev-server/#devserver-port)",
       "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-socket)",
+      "sockPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-sockPath)",
       "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-watchoptions)",
       "writeToDisk": "should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-headers-)",

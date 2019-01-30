@@ -8,6 +8,8 @@
 const path = require('path');
 const assert = require('assert');
 
+const webpack = require('webpack');
+
 const addEntries = require('../lib/utils/addEntries');
 const config = require('./fixtures/simple-config/webpack.config');
 
@@ -173,5 +175,76 @@ describe('Entry', () => {
       true
     );
     assert.equal(hotClientScript, require.resolve(hotClientScript));
+  });
+
+  it('doesn\'t add the HMR plugin if not hot and no plugins', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = { };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    assert.equal('plugins' in webpackOptions, false);
+  });
+  it('doesn\'t add the HMR plugin if not hot and empty plugins', () => {
+    const webpackOptions = Object.assign({}, config, { plugins: [] });
+    const devServerOptions = { };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    assert.deepStrictEqual(webpackOptions.plugins, []);
+  });
+  it('doesn\'t add the HMR plugin if not hot and some plugins', () => {
+    const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
+    const existingPlugin2 = new webpack.DefinePlugin({ foo: 'bar' });
+    const webpackOptions = Object.assign({}, config, {
+      plugins: [existingPlugin1, existingPlugin2]
+    });
+    const devServerOptions = { };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    assert.deepStrictEqual(
+      webpackOptions.plugins,
+      [existingPlugin1, existingPlugin2]
+    );
+  });
+  it('adds the HMR plugin if hot', () => {
+    const existingPlugin = new webpack.BannerPlugin('bruce');
+    const webpackOptions = Object.assign({}, config, {
+      plugins: [existingPlugin]
+    });
+    const devServerOptions = { hot: true };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    assert.deepStrictEqual(
+      webpackOptions.plugins,
+      [existingPlugin, new webpack.HotModuleReplacementPlugin()]
+    );
+  });
+  it('adds the HMR plugin if hot-only', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = { hotOnly: true };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    assert.deepStrictEqual(
+      webpackOptions.plugins,
+      [new webpack.HotModuleReplacementPlugin()]
+    );
+  });
+  it('doesn\'t add the HMR plugin again if it\'s already there', () => {
+    const existingPlugin = new webpack.BannerPlugin('bruce');
+    const webpackOptions = Object.assign({}, config, {
+      plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin]
+    });
+    const devServerOptions = { hot: true };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    assert.deepStrictEqual(
+      webpackOptions.plugins,
+      [new webpack.HotModuleReplacementPlugin(), existingPlugin]
+    );
   });
 });
