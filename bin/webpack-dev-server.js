@@ -230,30 +230,6 @@ function processOptions (config) {
     options.https = true;
   }
 
-  if (argv.cert) {
-    options.cert = fs.readFileSync(
-      path.resolve(argv.cert)
-    );
-  }
-
-  if (argv.key) {
-    options.key = fs.readFileSync(
-      path.resolve(argv.key)
-    );
-  }
-
-  if (argv.cacert) {
-    options.ca = fs.readFileSync(
-      path.resolve(argv.cacert)
-    );
-  }
-
-  if (argv.pfx) {
-    options.pfx = fs.readFileSync(
-      path.resolve(argv.pfx)
-    );
-  }
-
   if (argv['pfx-passphrase']) {
     options.pfxPassphrase = argv['pfx-passphrase'];
   }
