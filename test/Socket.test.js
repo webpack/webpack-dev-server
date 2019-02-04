@@ -35,7 +35,7 @@ describe('socket options', () => {
       server = helper.start(
         config,
         {
-          sockPath: '/foo/test/bar/'
+          sockPath: '/foo/test/bar/',
         },
         done
       );

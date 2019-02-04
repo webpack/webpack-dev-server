@@ -25,7 +25,7 @@ const colors = {
     }
 
     return msg;
-  }
+  },
 };
 
 // eslint-disable-next-line
@@ -103,7 +103,7 @@ function bonjour(options) {
     name: 'Webpack Dev Server',
     port: options.port,
     type: 'http',
-    subtypes: ['webpack']
+    subtypes: ['webpack'],
   });
 
   process.on('exit', () => {
@@ -118,5 +118,5 @@ module.exports = {
   colors,
   version,
   bonjour,
-  defaultTo
+  defaultTo,
 };

@@ -34,7 +34,7 @@ module.exports = {
       smartypants: false,
       headerPrefix: '',
       renderer,
-      xhtml: false
+      xhtml: false,
     };
     const readme = fs.readFileSync('README.md', 'utf-8');
 
@@ -57,7 +57,7 @@ module.exports = {
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: path.join(__dirname, '.assets/layout.html'),
-        title: exampleTitle
+        title: exampleTitle,
       })
     );
 
@@ -74,5 +74,5 @@ module.exports = {
     result.output = { path: path.dirname(module.parent.filename) };
 
     return result;
-  }
+  },
 };

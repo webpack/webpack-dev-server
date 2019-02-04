@@ -86,7 +86,7 @@ yargs.options(options);
 const argv = yargs.argv;
 
 const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
-  outputFilename: '/bundle.js'
+  outputFilename: '/bundle.js',
 });
 // Taken out of yargs because we must know if
 // it wasn't given by the user, in which case
@@ -201,7 +201,7 @@ function processOptions(config) {
   if (!options.stats) {
     options.stats = {
       cached: false,
-      cachedAssets: false
+      cachedAssets: false,
     };
   }
 
@@ -313,7 +313,7 @@ function startDevServer(config, options) {
 
   if (options.progress) {
     new webpack.ProgressPlugin({
-      profile: argv.profile
+      profile: argv.profile,
     }).apply(compiler);
   }
 

@@ -30,7 +30,7 @@ describe('HTTPS', function testHttps() {
         config,
         {
           contentBase: contentBasePublic,
-          https: true
+          https: true,
         },
         done
       );
@@ -59,8 +59,8 @@ describe('HTTPS', function testHttps() {
             cert: fs.readFileSync(
               path.join(httpsCertificateDirectory, 'server.crt')
             ),
-            passphrase: 'webpack-dev-server'
-          }
+            passphrase: 'webpack-dev-server',
+          },
         },
         done
       );
@@ -83,8 +83,8 @@ describe('HTTPS', function testHttps() {
             pfx: path.join(httpsCertificateDirectory, 'server.pfx'),
             key: path.join(httpsCertificateDirectory, 'server.key'),
             cert: path.join(httpsCertificateDirectory, 'server.crt'),
-            passphrase: 'webpack-dev-server'
-          }
+            passphrase: 'webpack-dev-server',
+          },
         },
         done
       );

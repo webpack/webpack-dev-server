@@ -13,14 +13,14 @@ module.exports = setup({
         target: 'http://jsonplaceholder.typicode.com/',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/api': '',
         },
         bypass(req) {
           if (req.url === '/api/nope') {
             return '/bypass.html';
           }
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 });

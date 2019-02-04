@@ -12,7 +12,7 @@ module.exports = setup({
     new HtmlWebpackPlugin({
       filename: 'example.html',
       template: '../../.assets/layout.html',
-      title: 'Open Page / Example'
-    })
-  ]
+      title: 'Open Page / Example',
+    }),
+  ],
 });

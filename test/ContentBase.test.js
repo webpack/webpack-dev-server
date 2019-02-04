@@ -25,7 +25,7 @@ describe('ContentBase', () => {
       server = helper.start(
         config,
         {
-          contentBase: contentBasePublic
+          contentBase: contentBasePublic,
         },
         done
       );
@@ -46,7 +46,7 @@ describe('ContentBase', () => {
       server = helper.start(
         config,
         {
-          contentBase: [contentBasePublic, contentBaseOther]
+          contentBase: [contentBasePublic, contentBaseOther],
         },
         done
       );
@@ -67,7 +67,7 @@ describe('ContentBase', () => {
       server = helper.start(
         config,
         {
-          contentBase: 9099999
+          contentBase: 9099999,
         },
         done
       );
@@ -87,7 +87,7 @@ describe('ContentBase', () => {
       server = helper.start(
         config,
         {
-          contentBase: 'http://example.com/'
+          contentBase: 'http://example.com/',
         },
         done
       );
@@ -133,7 +133,7 @@ describe('ContentBase', () => {
       server = helper.start(
         config,
         {
-          contentBase: false
+          contentBase: false,
         },
         done
       );
@@ -150,7 +150,7 @@ describe('ContentBase', () => {
       server = helper.start(
         config,
         {
-          contentBase: [contentBasePublic]
+          contentBase: [contentBasePublic],
         },
         done
       );

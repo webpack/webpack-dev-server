@@ -71,7 +71,7 @@ function sendMsg(type, data) {
     self.postMessage(
       {
         type: `webpack${type}`,
-        data
+        data,
       },
       '*'
     );
@@ -176,7 +176,7 @@ const onSocketMsg = {
   close() {
     log.error('[WDS] Disconnected!');
     sendMsg('Close');
-  }
+  },
 };
 
 let hostname = urlParts.hostname;
@@ -215,7 +215,7 @@ const socketUrl = url.format({
   pathname:
     urlParts.path == null || urlParts.path === '/'
       ? '/sockjs-node'
-      : querystring.parse(urlParts.path).sockPath || urlParts.path
+      : querystring.parse(urlParts.path).sockPath || urlParts.path,
 });
 
 socket(socketUrl, onSocketMsg);

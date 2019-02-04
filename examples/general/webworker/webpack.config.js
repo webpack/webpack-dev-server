@@ -8,7 +8,7 @@ module.exports = [
   setup({
     devtool: 'source-map',
     target: 'web',
-    entry: './web.js'
+    entry: './web.js',
   }),
   {
     devtool: 'source-map',
@@ -16,7 +16,7 @@ module.exports = [
     entry: './worker.js',
     output: {
       filename: 'worker.bundle.js',
-      path: __dirname
-    }
-  }
+      path: __dirname,
+    },
+  },
 ];

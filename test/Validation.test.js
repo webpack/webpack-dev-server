@@ -20,37 +20,37 @@ describe('Validation', () => {
       name: 'invalid `hot` configuration',
       config: { hot: 'false' },
       message:
-        'options.hot should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)\n'
+        'options.hot should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)\n',
     },
     {
       name: 'invalid `logLevel` configuration',
       config: { logLevel: 1 },
       message:
-        'options.logLevel should be {String} and equal to one of the allowed values'
+        'options.logLevel should be {String} and equal to one of the allowed values',
     },
     {
       name: 'invalid `writeToDisk` configuration',
       config: { writeToDisk: 1 },
       message:
-        'options.writeToDisk should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)\n'
+        'options.writeToDisk should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)\n',
     },
     {
       name: 'invalid `overlay` configuration',
       config: { overlay: { errors: 1 } },
       message:
-        'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n'
+        'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n',
     },
     {
       name: 'invalid `contentBase` configuration',
       config: { contentBase: [0] },
       message:
-        'options.contentBase should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)\n'
+        'options.contentBase should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)\n',
     },
     {
       name: 'no additional properties',
       config: { additional: true },
-      message: 'options should NOT have additional properties\n'
-    }
+      message: 'options should NOT have additional properties\n',
+    },
   ];
 
   tests.forEach((test) => {
@@ -94,11 +94,11 @@ describe('Validation', () => {
     it('should always allow any host if options.disableHostCheck is set', () => {
       const options = {
         public: 'test.host:80',
-        disableHostCheck: true
+        disableHostCheck: true,
       };
 
       const headers = {
-        host: 'bad.host'
+        host: 'bad.host',
       };
 
       const server = new Server(compiler, options);
@@ -110,10 +110,10 @@ describe('Validation', () => {
 
     it('should allow any valid options.public when host is localhost', () => {
       const options = {
-        public: 'test.host:80'
+        public: 'test.host:80',
       };
       const headers = {
-        host: 'localhost'
+        host: 'localhost',
       };
       const server = new Server(compiler, options);
       if (!server.checkHost(headers)) {
@@ -123,11 +123,11 @@ describe('Validation', () => {
 
     it('should allow any valid options.public when host is 127.0.0.1', () => {
       const options = {
-        public: 'test.host:80'
+        public: 'test.host:80',
       };
 
       const headers = {
-        host: '127.0.0.1'
+        host: '127.0.0.1',
       };
 
       const server = new Server(compiler, options);
@@ -146,7 +146,7 @@ describe('Validation', () => {
         '[::1]',
         '[::1]:8080',
         '[ad42::1de2:54c2:c2fa:1234]',
-        '[ad42::1de2:54c2:c2fa:1234]:8080'
+        '[ad42::1de2:54c2:c2fa:1234]:8080',
       ];
 
       const server = new Server(compiler, options);
@@ -162,11 +162,11 @@ describe('Validation', () => {
 
     it("should not allow hostnames that don't match options.public", () => {
       const options = {
-        public: 'test.host:80'
+        public: 'test.host:80',
       };
 
       const headers = {
-        host: 'test.hostname:80'
+        host: 'test.hostname:80',
       };
 
       const server = new Server(compiler, options);
@@ -178,10 +178,10 @@ describe('Validation', () => {
 
     it('should allow urls with scheme for checking origin', () => {
       const options = {
-        public: 'test.host:80'
+        public: 'test.host:80',
       };
       const headers = {
-        origin: 'https://test.host'
+        origin: 'https://test.host',
       };
       const server = new Server(compiler, options);
       if (!server.checkOrigin(headers)) {
@@ -215,7 +215,7 @@ describe('Validation', () => {
           'example.com',
           'subsubcomain.subdomain.example.com',
           'example.com:80',
-          'subdomain.example.com:80'
+          'subdomain.example.com:80',
         ];
 
         tests.forEach((test) => {

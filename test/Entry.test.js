@@ -32,7 +32,7 @@ describe('Entry', () => {
 
   it('adds devServer entry points to a multi-module entry point', () => {
     const webpackOptions = Object.assign({}, config, {
-      entry: ['./foo.js', './bar.js']
+      entry: ['./foo.js', './bar.js'],
     });
 
     const devServerOptions = {};
@@ -51,8 +51,8 @@ describe('Entry', () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         foo: './foo.js',
-        bar: './bar.js'
-      }
+        bar: './bar.js',
+      },
     });
 
     const devServerOptions = {};
@@ -85,7 +85,7 @@ describe('Entry', () => {
       entry: () => {
         i += 1;
         return `./src-${i}.js`;
-      }
+      },
     };
     const devServerOptions = {};
 
@@ -116,7 +116,7 @@ describe('Entry', () => {
         new Promise((resolve) => {
           i += 1;
           resolve(`./src-${i}.js`);
-        })
+        }),
     };
 
     const devServerOptions = {};
@@ -143,12 +143,12 @@ describe('Entry', () => {
   it("prepends webpack's hot reload client script", () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
-        app: './app.js'
-      }
+        app: './app.js',
+      },
     });
 
     const devServerOptions = {
-      hot: true
+      hot: true,
     };
 
     addEntries(webpackOptions, devServerOptions);
@@ -165,12 +165,12 @@ describe('Entry', () => {
   it("prepends webpack's hot-only client script", () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
-        app: './app.js'
-      }
+        app: './app.js',
+      },
     });
 
     const devServerOptions = {
-      hotOnly: true
+      hotOnly: true,
     };
 
     addEntries(webpackOptions, devServerOptions);
@@ -204,7 +204,7 @@ describe('Entry', () => {
     const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
     const existingPlugin2 = new webpack.DefinePlugin({ foo: 'bar' });
     const webpackOptions = Object.assign({}, config, {
-      plugins: [existingPlugin1, existingPlugin2]
+      plugins: [existingPlugin1, existingPlugin2],
     });
     const devServerOptions = {};
 
@@ -212,13 +212,13 @@ describe('Entry', () => {
 
     assert.deepStrictEqual(webpackOptions.plugins, [
       existingPlugin1,
-      existingPlugin2
+      existingPlugin2,
     ]);
   });
   it('adds the HMR plugin if hot', () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
     const webpackOptions = Object.assign({}, config, {
-      plugins: [existingPlugin]
+      plugins: [existingPlugin],
     });
     const devServerOptions = { hot: true };
 
@@ -226,7 +226,7 @@ describe('Entry', () => {
 
     assert.deepStrictEqual(webpackOptions.plugins, [
       existingPlugin,
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
     ]);
   });
   it('adds the HMR plugin if hot-only', () => {
@@ -236,13 +236,13 @@ describe('Entry', () => {
     addEntries(webpackOptions, devServerOptions);
 
     assert.deepStrictEqual(webpackOptions.plugins, [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
     ]);
   });
   it("doesn't add the HMR plugin again if it's already there", () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
     const webpackOptions = Object.assign({}, config, {
-      plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin]
+      plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin],
     });
     const devServerOptions = { hot: true };
 
@@ -250,7 +250,7 @@ describe('Entry', () => {
 
     assert.deepStrictEqual(webpackOptions.plugins, [
       new webpack.HotModuleReplacementPlugin(),
-      existingPlugin
+      existingPlugin,
     ]);
   });
 });

@@ -7,6 +7,6 @@ const { setup } = require('../../util');
 module.exports = [
   setup({
     context: __dirname,
-    entry: './app.js'
-  })
+    entry: './app.js',
+  }),
 ];
