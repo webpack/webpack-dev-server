@@ -40,7 +40,8 @@ describe('check utility functions', () => {
         public: 'myhost.test'
       },
       expected: 'http://myhost.test'
-    }, {
+    },
+    {
       name: 'override with public (port)',
       options: {
         host: 'localhost',
@@ -48,7 +49,8 @@ describe('check utility functions', () => {
         public: 'myhost.test:9090'
       },
       expected: 'http://myhost.test:9090'
-    }, {
+    },
+    {
       name: 'override with public (protocol)',
       options: {
         host: 'localhost',
@@ -56,7 +58,8 @@ describe('check utility functions', () => {
         public: 'https://myhost.test'
       },
       expected: 'https://myhost.test'
-    }, {
+    },
+    {
       name: 'override with public (protocol + port)',
       options: {
         host: 'localhost',
@@ -64,7 +67,8 @@ describe('check utility functions', () => {
         public: 'https://myhost.test:9090'
       },
       expected: 'https://myhost.test:9090'
-    }, {
+    },
+    {
       name: 'localIp',
       options: {
         useLocalIp: true,
@@ -88,9 +92,7 @@ describe('check utility functions', () => {
         const domain = createDomain(options, server.listeningApp);
 
         if (domain !== expected) {
-          done(
-            `generated domain ${domain} doesn't match expected ${expected}`
-          );
+          done(`generated domain ${domain} doesn't match expected ${expected}`);
         } else {
           done();
         }

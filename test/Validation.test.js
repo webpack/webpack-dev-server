@@ -19,27 +19,32 @@ describe('Validation', () => {
     {
       name: 'invalid `hot` configuration',
       config: { hot: 'false' },
-      message: 'options.hot should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)\n'
+      message:
+        'options.hot should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)\n'
     },
     {
       name: 'invalid `logLevel` configuration',
       config: { logLevel: 1 },
-      message: 'options.logLevel should be {String} and equal to one of the allowed values'
+      message:
+        'options.logLevel should be {String} and equal to one of the allowed values'
     },
     {
       name: 'invalid `writeToDisk` configuration',
       config: { writeToDisk: 1 },
-      message: 'options.writeToDisk should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)\n'
+      message:
+        'options.writeToDisk should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)\n'
     },
     {
       name: 'invalid `overlay` configuration',
       config: { overlay: { errors: 1 } },
-      message: 'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n'
+      message:
+        'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n'
     },
     {
       name: 'invalid `contentBase` configuration',
       config: { contentBase: [0] },
-      message: 'options.contentBase should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)\n'
+      message:
+        'options.contentBase should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)\n'
     },
     {
       name: 'no additional properties',
@@ -58,7 +63,7 @@ describe('Validation', () => {
           throw err;
         }
 
-        const [ title, message ] = err.message.split('\n\n');
+        const [title, message] = err.message.split('\n\n');
 
         title.should.be.eql('webpack Dev Server Invalid Options');
         message.should.be.eql(test.message);
@@ -186,11 +191,7 @@ describe('Validation', () => {
 
     describe('allowedHosts', () => {
       it('should allow hosts in allowedHosts', () => {
-        const tests = [
-          'test.host',
-          'test2.host',
-          'test3.host'
-        ];
+        const tests = ['test.host', 'test2.host', 'test3.host'];
 
         const options = { allowedHosts: tests };
         const server = new Server(compiler, options);

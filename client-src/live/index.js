@@ -18,7 +18,9 @@ $(() => {
   const iframe = $('#iframe');
   const header = $('.header');
 
-  const contentPage = window.location.pathname.substr('/webpack-dev-server'.length) + window.location.search;
+  const contentPage =
+    window.location.pathname.substr('/webpack-dev-server'.length) +
+    window.location.search;
 
   status.text('Connecting to sockjs server...');
   $errors.hide();
@@ -76,7 +78,9 @@ $(() => {
     close() {
       status.text('');
       okness.text('Disconnected.');
-      $errors.text('\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n');
+      $errors.text(
+        '\n\n\n  Lost connection to webpack-dev-server.\n  Please restart the server to reestablish connection...\n\n\n\n'
+      );
       header.css({
         borderColor: '#ebcb8b'
       });
@@ -99,7 +103,10 @@ $(() => {
     if (hot) {
       status.text('App hot update.');
       try {
-        iframe[0].contentWindow.postMessage(`webpackHotUpdate${currentHash}`, '*');
+        iframe[0].contentWindow.postMessage(
+          `webpackHotUpdate${currentHash}`,
+          '*'
+        );
       } catch (e) {
         console.warn(e); // eslint-disable-line
       }
@@ -112,7 +119,7 @@ $(() => {
       try {
         let old = `${iframe[0].contentWindow.location}`;
         if (old.indexOf('about') === 0) old = null;
-        iframe.attr('src', old || (contentPage + window.location.hash));
+        iframe.attr('src', old || contentPage + window.location.hash);
         if (old) {
           iframe[0].contentWindow.location.reload();
         }

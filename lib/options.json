@@ -71,22 +71,10 @@
       "type": "object"
     },
     "logLevel": {
-      "enum": [
-        "info",
-        "warn",
-        "error",
-        "debug",
-        "trace",
-        "silent"
-      ]
+      "enum": ["info", "warn", "error", "debug", "trace", "silent"]
     },
     "clientLogLevel": {
-      "enum": [
-        "none",
-        "info",
-        "error",
-        "warning"
-      ]
+      "enum": ["none", "info", "error", "warning"]
     },
     "overlay": {
       "anyOf": [
@@ -177,9 +165,7 @@
     "contentBase": {
       "anyOf": [
         {
-          "enum": [
-            false
-          ]
+          "enum": [false]
         },
         {
           "type": "number"
@@ -276,13 +262,7 @@
           "type": "boolean"
         },
         {
-          "enum": [
-            "none",
-            "errors-only",
-            "minimal",
-            "normal",
-            "verbose"
-          ]
+          "enum": ["none", "errors-only", "minimal", "normal", "verbose"]
         }
       ]
     },

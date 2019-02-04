@@ -13,11 +13,7 @@ module.exports = [
       rules: [
         {
           test: /\.less$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'less-loader'
-          ]
+          use: ['style-loader', 'css-loader', 'less-loader']
         },
         {
           test: /\.png$/,
@@ -37,11 +33,7 @@ module.exports = [
       rules: [
         {
           test: /\.less$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'less-loader'
-          ]
+          use: ['style-loader', 'css-loader', 'less-loader']
         },
         {
           test: /\.png$/,
@@ -50,8 +42,6 @@ module.exports = [
         }
       ]
     },
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin()
-    ]
+    plugins: [new webpack.optimize.UglifyJsPlugin()]
   })
 ];

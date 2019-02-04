@@ -12,4 +12,4 @@ npm run webpack-dev-server -- --open
 2. You should see the text on the page itself change to read `Success!`.
 3. In `app.js` write code containing a syntax error and save the file.
 4. The page should now refresh and show a full screen error overlay, displaying
-the syntax error.
+   the syntax error.
