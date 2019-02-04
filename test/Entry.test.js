@@ -32,7 +32,7 @@ describe('Entry', () => {
 
   it('adds devServer entry points to a multi-module entry point', () => {
     const webpackOptions = Object.assign({}, config, {
-      entry: [ './foo.js', './bar.js' ]
+      entry: ['./foo.js', './bar.js']
     });
 
     const devServerOptions = {};
@@ -93,26 +93,30 @@ describe('Entry', () => {
 
     assert(typeof webpackOptions.entry, 'function');
 
-    webpackOptions.entry().then(entryFirstRun => (
-      webpackOptions.entry().then((entrySecondRun) => {
-        assert.equal(entryFirstRun.length, 2);
-        assert.equal(entryFirstRun[1], './src-1.js');
+    webpackOptions
+      .entry()
+      .then((entryFirstRun) =>
+        webpackOptions.entry().then((entrySecondRun) => {
+          assert.equal(entryFirstRun.length, 2);
+          assert.equal(entryFirstRun[1], './src-1.js');
 
-        assert.equal(entrySecondRun.length, 2);
-        assert.equal(entrySecondRun[1], './src-2.js');
-        done();
-      })
-    )).catch(done);
+          assert.equal(entrySecondRun.length, 2);
+          assert.equal(entrySecondRun[1], './src-2.js');
+          done();
+        })
+      )
+      .catch(done);
   });
 
   it('preserves asynchronous dynamic entry points', (done) => {
     let i = 0;
     const webpackOptions = {
       // simulate async dynamic entry
-      entry: () => new Promise((resolve) => {
-        i += 1;
-        resolve(`./src-${i}.js`);
-      })
+      entry: () =>
+        new Promise((resolve) => {
+          i += 1;
+          resolve(`./src-${i}.js`);
+        })
     };
 
     const devServerOptions = {};
@@ -121,19 +125,22 @@ describe('Entry', () => {
 
     assert(typeof webpackOptions.entry, 'function');
 
-    webpackOptions.entry().then(entryFirstRun => (
-      webpackOptions.entry().then((entrySecondRun) => {
-        assert.equal(entryFirstRun.length, 2);
-        assert.equal(entryFirstRun[1], './src-1.js');
+    webpackOptions
+      .entry()
+      .then((entryFirstRun) =>
+        webpackOptions.entry().then((entrySecondRun) => {
+          assert.equal(entryFirstRun.length, 2);
+          assert.equal(entryFirstRun[1], './src-1.js');
 
-        assert.equal(entrySecondRun.length, 2);
-        assert.equal(entrySecondRun[1], './src-2.js');
-        done();
-      })
-    )).catch(done);
+          assert.equal(entrySecondRun.length, 2);
+          assert.equal(entrySecondRun[1], './src-2.js');
+          done();
+        })
+      )
+      .catch(done);
   });
 
-  it('prepends webpack\'s hot reload client script', () => {
+  it("prepends webpack's hot reload client script", () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         app: './app.js'
@@ -155,7 +162,7 @@ describe('Entry', () => {
     assert.equal(hotClientScript, require.resolve(hotClientScript));
   });
 
-  it('prepends webpack\'s hot-only client script', () => {
+  it("prepends webpack's hot-only client script", () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         app: './app.js'
@@ -177,36 +184,36 @@ describe('Entry', () => {
     assert.equal(hotClientScript, require.resolve(hotClientScript));
   });
 
-  it('doesn\'t add the HMR plugin if not hot and no plugins', () => {
+  it("doesn't add the HMR plugin if not hot and no plugins", () => {
     const webpackOptions = Object.assign({}, config);
-    const devServerOptions = { };
+    const devServerOptions = {};
 
     addEntries(webpackOptions, devServerOptions);
 
     assert.equal('plugins' in webpackOptions, false);
   });
-  it('doesn\'t add the HMR plugin if not hot and empty plugins', () => {
+  it("doesn't add the HMR plugin if not hot and empty plugins", () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
-    const devServerOptions = { };
+    const devServerOptions = {};
 
     addEntries(webpackOptions, devServerOptions);
 
     assert.deepStrictEqual(webpackOptions.plugins, []);
   });
-  it('doesn\'t add the HMR plugin if not hot and some plugins', () => {
+  it("doesn't add the HMR plugin if not hot and some plugins", () => {
     const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
     const existingPlugin2 = new webpack.DefinePlugin({ foo: 'bar' });
     const webpackOptions = Object.assign({}, config, {
       plugins: [existingPlugin1, existingPlugin2]
     });
-    const devServerOptions = { };
+    const devServerOptions = {};
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(
-      webpackOptions.plugins,
-      [existingPlugin1, existingPlugin2]
-    );
+    assert.deepStrictEqual(webpackOptions.plugins, [
+      existingPlugin1,
+      existingPlugin2
+    ]);
   });
   it('adds the HMR plugin if hot', () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
@@ -217,10 +224,10 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(
-      webpackOptions.plugins,
-      [existingPlugin, new webpack.HotModuleReplacementPlugin()]
-    );
+    assert.deepStrictEqual(webpackOptions.plugins, [
+      existingPlugin,
+      new webpack.HotModuleReplacementPlugin()
+    ]);
   });
   it('adds the HMR plugin if hot-only', () => {
     const webpackOptions = Object.assign({}, config);
@@ -228,12 +235,11 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(
-      webpackOptions.plugins,
-      [new webpack.HotModuleReplacementPlugin()]
-    );
+    assert.deepStrictEqual(webpackOptions.plugins, [
+      new webpack.HotModuleReplacementPlugin()
+    ]);
   });
-  it('doesn\'t add the HMR plugin again if it\'s already there', () => {
+  it("doesn't add the HMR plugin again if it's already there", () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
     const webpackOptions = Object.assign({}, config, {
       plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin]
@@ -242,9 +248,9 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(
-      webpackOptions.plugins,
-      [new webpack.HotModuleReplacementPlugin(), existingPlugin]
-    );
+    assert.deepStrictEqual(webpackOptions.plugins, [
+      new webpack.HotModuleReplacementPlugin(),
+      existingPlugin
+    ]);
   });
 });

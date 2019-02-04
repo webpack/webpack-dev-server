@@ -24,7 +24,8 @@ const options = {
   inline: {
     type: 'boolean',
     default: true,
-    describe: 'Inline mode (set to false to disable including client scripts like livereload)'
+    describe:
+      'Inline mode (set to false to disable including client scripts like livereload)'
   },
   progress: {
     type: 'boolean',
@@ -158,7 +159,8 @@ const options = {
   },
   'allowed-hosts': {
     type: 'string',
-    describe: 'A comma-delimited string of hosts that are allowed to access the dev server',
+    describe:
+      'A comma-delimited string of hosts that are allowed to access the dev server',
     group: CONNECTION_GROUP
   }
 };

@@ -16,9 +16,13 @@ describe('Lazy', () => {
   });
 
   it('with filename option should not throw an error', (done) => {
-    helper.start(config, {
-      lazy: true,
-      filename: 'bundle.js'
-    }, done);
+    helper.start(
+      config,
+      {
+        lazy: true,
+        filename: 'bundle.js'
+      },
+      done
+    );
   });
 });

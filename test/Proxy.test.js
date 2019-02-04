@@ -70,10 +70,14 @@ describe('Proxy', () => {
 
     before((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(config, {
-        contentBase,
-        proxy: proxyOption
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOption
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -86,32 +90,27 @@ describe('Proxy', () => {
 
     describe('target', () => {
       it('respects a proxy option when a request path is matched', (done) => {
-        req.get('/proxy1')
-          .expect(200, 'from proxy1', done);
+        req.get('/proxy1').expect(200, 'from proxy1', done);
       });
     });
 
     describe('pathRewrite', () => {
       it('respects a pathRewrite option', (done) => {
-        req.get('/api/proxy2')
-          .expect(200, 'from proxy2', done);
+        req.get('/api/proxy2').expect(200, 'from proxy2', done);
       });
     });
 
     describe('bypass', () => {
       it('can rewrite a request path', (done) => {
-        req.get('/foo/bar.html')
-          .expect(200, /Hello/, done);
+        req.get('/foo/bar.html').expect(200, /Hello/, done);
       });
 
       it('can rewrite a request path regardless of the target defined a bypass option', (done) => {
-        req.get('/baz/hoge.html')
-          .expect(200, /Hello/, done);
+        req.get('/baz/hoge.html').expect(200, /Hello/, done);
       });
 
       it('should pass through a proxy when a bypass function returns null', (done) => {
-        req.get('/foo.js')
-          .expect(200, /Hey/, done);
+        req.get('/foo.js').expect(200, /Hey/, done);
       });
     });
   });
@@ -123,10 +122,14 @@ describe('Proxy', () => {
 
     before((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(config, {
-        contentBase,
-        proxy: proxyOptionOfArray
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOptionOfArray
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -138,13 +141,11 @@ describe('Proxy', () => {
     });
 
     it('respects a proxy option', (done) => {
-      req.get('/proxy1')
-        .expect(200, 'from proxy1', done);
+      req.get('/proxy1').expect(200, 'from proxy1', done);
     });
 
     it('respects a proxy option of function', (done) => {
-      req.get('/api/proxy2')
-        .expect(200, 'from proxy2', done);
+      req.get('/api/proxy2').expect(200, 'from proxy2', done);
     });
   });
 
@@ -162,13 +163,17 @@ describe('Proxy', () => {
         res.send('from proxy');
       });
       listener = proxy.listen(9000);
-      server = helper.start(config, {
-        contentBase,
-        proxy: {
-          '/proxy1': proxyTarget,
-          '/proxy2': proxyTarget
-        }
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: {
+            '/proxy1': proxyTarget,
+            '/proxy2': proxyTarget
+          }
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -194,14 +199,20 @@ describe('Proxy', () => {
     let responseMessage;
 
     before((done) => {
-      helper.start(config, {
-        contentBase,
-        proxy: [{
-          context: '/',
-          target: 'http://localhost:9003',
-          ws: true
-        }]
-      }, done);
+      helper.start(
+        config,
+        {
+          contentBase,
+          proxy: [
+            {
+              context: '/',
+              target: 'http://localhost:9003',
+              ws: true
+            }
+          ]
+        },
+        done
+      );
 
       wsServer = new WebSocketServer({ port: 9003 });
       wsServer.on('connection', (server) => {

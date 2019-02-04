@@ -32,9 +32,13 @@ describe('socket options', () => {
   describe('socksPath option', () => {
     const path = '/foo/test/bar';
     beforeEach((done) => {
-      server = helper.start(config, {
-        sockPath: '/foo/test/bar/'
-      }, done);
+      server = helper.start(
+        config,
+        {
+          sockPath: '/foo/test/bar/'
+        },
+        done
+      );
       req = request('http://localhost:8080');
     });
 

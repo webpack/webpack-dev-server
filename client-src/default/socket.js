@@ -13,7 +13,9 @@ const socket = function initSocket(url, handlers) {
   };
 
   sock.onclose = function onclose() {
-    if (retries === 0) { handlers.close(); }
+    if (retries === 0) {
+      handlers.close();
+    }
 
     // Try to reconnect.
     sock = null;
@@ -35,7 +37,9 @@ const socket = function initSocket(url, handlers) {
   sock.onmessage = function onmessage(e) {
     // This assumes that all data sent via the websocket is JSON.
     const msg = JSON.parse(e.data);
-    if (handlers[msg.type]) { handlers[msg.type](msg.data); }
+    if (handlers[msg.type]) {
+      handlers[msg.type](msg.data);
+    }
   };
 };
 

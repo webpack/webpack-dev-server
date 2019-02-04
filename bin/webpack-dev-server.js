@@ -27,13 +27,7 @@ const webpack = require('webpack');
 
 const options = require('./options');
 
-const {
-  colors,
-  status,
-  version,
-  bonjour,
-  defaultTo
-} = require('./utils');
+const { colors, status, version, bonjour, defaultTo } = require('./utils');
 
 const Server = require('../lib/Server');
 
@@ -43,7 +37,7 @@ const createLogger = require('../lib/utils/createLogger');
 
 let server;
 
-const signals = [ 'SIGINT', 'SIGTERM' ];
+const signals = ['SIGINT', 'SIGTERM'];
 
 signals.forEach((signal) => {
   process.on(signal, () => {
@@ -70,7 +64,9 @@ try {
   require.resolve('webpack-cli');
 } catch (err) {
   console.error('The CLI moved into a separate package: webpack-cli');
-  console.error('Please install \'webpack-cli\' in addition to webpack itself to use the CLI');
+  console.error(
+    "Please install 'webpack-cli' in addition to webpack itself to use the CLI"
+  );
   console.error('-> When using npm: npm i -D webpack-cli');
   console.error('-> When using yarn: yarn add -D webpack-cli');
 
@@ -97,7 +93,7 @@ const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
 // we should use portfinder.
 const DEFAULT_PORT = 8080;
 
-function processOptions (config) {
+function processOptions(config) {
   // processOptions {Promise}
   if (typeof config.then === 'function') {
     config.then(processOptions).catch((err) => {
@@ -109,9 +105,7 @@ function processOptions (config) {
     return;
   }
 
-  const firstWpOpt = Array.isArray(config)
-    ? config[0]
-    : config;
+  const firstWpOpt = Array.isArray(config) ? config[0] : config;
 
   const options = config.devServer || firstWpOpt.devServer || {};
 
@@ -141,7 +135,8 @@ function processOptions (config) {
 
   if (!options.publicPath) {
     // eslint-disable-next-line
-    options.publicPath = firstWpOpt.output && firstWpOpt.output.publicPath || '';
+    options.publicPath =
+      (firstWpOpt.output && firstWpOpt.output.publicPath) || '';
 
     if (
       !/^(https?:)?\/\//.test(options.publicPath) &&
@@ -214,11 +209,7 @@ function processOptions (config) {
     typeof options.stats === 'object' &&
     typeof options.stats.colors === 'undefined'
   ) {
-    options.stats = Object.assign(
-      {},
-      options.stats,
-      { colors: argv.color }
-    );
+    options.stats = Object.assign({}, options.stats, { colors: argv.color });
   }
 
   if (argv.lazy) {
@@ -277,9 +268,10 @@ function processOptions (config) {
   // that wouldn't throw errors. E.g. both argv.port and options.port
   // were specified, but since argv.port is 8080, options.port will be
   // tried first instead.
-  options.port = argv.port === DEFAULT_PORT
-    ? defaultTo(options.port, argv.port)
-    : defaultTo(argv.port, options.port);
+  options.port =
+    argv.port === DEFAULT_PORT
+      ? defaultTo(options.port, argv.port)
+      : defaultTo(argv.port, options.port);
 
   if (options.port != null) {
     startDevServer(config, options);
@@ -325,7 +317,10 @@ function startDevServer(config, options) {
     }).apply(compiler);
   }
 
-  const suffix = (options.inline !== false || options.lazy === true ? '/' : '/webpack-dev-server/');
+  const suffix =
+    options.inline !== false || options.lazy === true
+      ? '/'
+      : '/webpack-dev-server/';
 
   try {
     server = new Server(compiler, options, log);

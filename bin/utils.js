@@ -10,7 +10,7 @@
 const open = require('opn');
 
 const colors = {
-  info (useColor, msg) {
+  info(useColor, msg) {
     if (useColor) {
       // Make text blue and bold, so it *pops*
       return `\u001b[1m\u001b[34m${msg}\u001b[39m\u001b[22m`;
@@ -18,7 +18,7 @@ const colors = {
 
     return msg;
   },
-  error (useColor, msg) {
+  error(useColor, msg) {
     if (useColor) {
       // Make text red and bold, so it *pops*
       return `\u001b[1m\u001b[31m${msg}\u001b[39m\u001b[22m`;
@@ -33,12 +33,14 @@ const defaultTo = (value, def) => {
   return value == null ? def : value;
 };
 
-function version () {
-  return `webpack-dev-server ${require('../package.json').version}\n` +
-  `webpack ${require('webpack/package.json').version}`;
+function version() {
+  return (
+    `webpack-dev-server ${require('../package.json').version}\n` +
+    `webpack ${require('webpack/package.json').version}`
+  );
 }
 
-function status (uri, options, log, useColor) {
+function status(uri, options, log, useColor) {
   const contentBase = Array.isArray(options.contentBase)
     ? options.contentBase.join(', ')
     : options.contentBase;
@@ -55,13 +57,19 @@ function status (uri, options, log, useColor) {
 
   if (contentBase) {
     log.info(
-      `Content not from webpack is served from ${colors.info(useColor, contentBase)}`
+      `Content not from webpack is served from ${colors.info(
+        useColor,
+        contentBase
+      )}`
     );
   }
 
   if (options.historyApiFallback) {
     log.info(
-      `404s will fallback to ${colors.info(useColor, options.historyApiFallback.index || '/index.html')}`
+      `404s will fallback to ${colors.info(
+        useColor,
+        options.historyApiFallback.index || '/index.html'
+      )}`
     );
   }
 
@@ -88,14 +96,14 @@ function status (uri, options, log, useColor) {
   }
 }
 
-function bonjour (options) {
+function bonjour(options) {
   const bonjour = require('bonjour')();
 
   bonjour.publish({
     name: 'Webpack Dev Server',
     port: options.port,
     type: 'http',
-    subtypes: [ 'webpack' ]
+    subtypes: ['webpack']
   });
 
   process.on('exit', () => {

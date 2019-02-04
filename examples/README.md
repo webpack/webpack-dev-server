@@ -22,8 +22,8 @@ to run `webpack-dev-server` from the command line in your console / terminal.
 ## Notes
 
 - Each example's `webpack` config is wrapped with `util.setup`; a helper function
-that adds plugins and configuration needed by each example to render in a consistent
-and visually pleasing way.
+  that adds plugins and configuration needed by each example to render in a consistent
+  and visually pleasing way.
 - Examples' `bundle.js` and `index.html` files are compiled and served from memory.
-You won't actually see these files written to disk, but if you examine the `webpack`
-output, you should see their file indicators.
+  You won't actually see these files written to disk, but if you examine the `webpack`
+  output, you should see their file indicators.
