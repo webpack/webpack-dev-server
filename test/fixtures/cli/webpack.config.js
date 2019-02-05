@@ -14,7 +14,7 @@ module.exports = {
           }
           setTimeout(() => process.exit(exitCode));
         });
-      }
-    }
-  ]
+      },
+    },
+  ],
 };

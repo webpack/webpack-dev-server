@@ -11,13 +11,13 @@ module.exports = setup({
     rules: [
       {
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
+        use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
         test: /\.png$/,
         loader: 'file-loader',
-        options: { prefix: 'img/' }
-      }
-    ]
-  }
+        options: { prefix: 'img/' },
+      },
+    ],
+  },
 });

@@ -18,7 +18,7 @@ const colors = {
   magenta: '7FACCA',
   cyan: 'C3C2EF',
   lightgrey: 'EBE7E3',
-  darkgrey: '6D7891'
+  darkgrey: '6D7891',
 };
 ansiHTML.setColors(colors);
 

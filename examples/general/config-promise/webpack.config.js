@@ -9,7 +9,7 @@ module.exports = new Promise((resolve) => {
     setup({
       context: __dirname,
       entry: './app.js',
-      devServer: {}
+      devServer: {},
     })
   );
 });

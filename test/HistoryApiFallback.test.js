@@ -19,7 +19,7 @@ describe('HistoryApiFallback', () => {
       server = helper.start(
         config,
         {
-          historyApiFallback: true
+          historyApiFallback: true,
         },
         done
       );
@@ -40,8 +40,8 @@ describe('HistoryApiFallback', () => {
         config,
         {
           historyApiFallback: {
-            index: '/bar.html'
-          }
+            index: '/bar.html',
+          },
         },
         done
       );
@@ -66,8 +66,8 @@ describe('HistoryApiFallback', () => {
             'fixtures/historyapifallback-2-config'
           ),
           historyApiFallback: {
-            index: '/bar.html'
-          }
+            index: '/bar.html',
+          },
         },
         done
       );
@@ -110,8 +110,8 @@ describe('HistoryApiFallback', () => {
         {
           contentBase: false,
           historyApiFallback: {
-            index: '/bar.html'
-          }
+            index: '/bar.html',
+          },
         },
         done
       );
@@ -139,14 +139,14 @@ describe('HistoryApiFallback', () => {
             rewrites: [
               {
                 from: /other/,
-                to: '/other.html'
+                to: '/other.html',
               },
               {
                 from: /.*/,
-                to: '/bar.html'
-              }
-            ]
-          }
+                to: '/bar.html',
+              },
+            ],
+          },
         },
         done
       );
@@ -184,7 +184,7 @@ describe('HistoryApiFallback', () => {
             __dirname,
             'fixtures/historyapifallback-3-config'
           ),
-          historyApiFallback: true
+          historyApiFallback: true,
         },
         done
       );

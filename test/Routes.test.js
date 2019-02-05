@@ -72,7 +72,7 @@ describe('Routes', () => {
       server = helper.start(
         config,
         {
-          headers: { 'X-Foo': '1' }
+          headers: { 'X-Foo': '1' },
         },
         done
       );
@@ -94,7 +94,7 @@ describe('Routes', () => {
       server = helper.start(
         config,
         {
-          headers: { 'X-Bar': ['key1=value1', 'key2=value2'] }
+          headers: { 'X-Bar': ['key1=value1', 'key2=value2'] },
         },
         done
       );

@@ -7,5 +7,5 @@ worker.onmessage = function onMessage(e) {
   console.log('[MAIN]', e);
 };
 worker.postMessage({
-  hello: 111
+  hello: 111,
 });

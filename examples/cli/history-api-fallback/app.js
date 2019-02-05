@@ -47,7 +47,7 @@ document.addEventListener(
     const tests = [
       { url: '/', name: 'index', re: /^<!doctype html>/i },
       { url: '/test', name: 'non-existent path', re: /^<!doctype html>/i },
-      { url: '/file.txt', name: 'existing path', re: /^file/ }
+      { url: '/file.txt', name: 'existing path', re: /^file/ },
     ];
     const table = document.createElement('table');
     const tbody = document.createElement('tbody');

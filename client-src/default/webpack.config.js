@@ -9,10 +9,10 @@ module.exports = {
         exclude: /node_modules|web_modules/,
         use: [
           {
-            loader: 'babel-loader'
-          }
-        ]
-      }
-    ]
-  }
+            loader: 'babel-loader',
+          },
+        ],
+      },
+    ],
+  },
 };
