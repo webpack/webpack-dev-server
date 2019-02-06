@@ -1,5 +1,9 @@
 language: node_js
 
+cache:
+  directories:
+    - node_modules
+
 jobs:
   fast_finish: true
   include:
@@ -11,18 +15,22 @@ jobs:
       env: SCRIPT=test
       node_js: 'stable'
     - <<: *linux
-      node_js: 'lts/*'
+      node_js: 11
+    - <<: *linux
+      node_js: 10
+    - <<: *linux
+      node_js: 8
     - <<: *linux
       node_js: 6
     - &osx
       stage: Test (MacOS)
       os: 'osx'
       env: SCRIPT=test
-      # Node 10 instead of 'stable' since Node 11 segfaults
-      # https://github.com/webpack/webpack-dev-server/pull/1588
+      node_js: 11
+    - <<: *osx
       node_js: 10
     - <<: *osx
-      node_js: 'lts/*'
+      node_js: 8
     - <<: *osx
       node_js: 6
 
