@@ -10,9 +10,16 @@ const config = require('./fixtures/simple-config/webpack.config');
 
 describe('Validation', () => {
   let compiler;
+  let server;
 
-  before(() => {
+  beforeAll(() => {
     compiler = webpack(config);
+  });
+
+  afterAll((done) => {
+    server.close(() => {
+      done();
+    });
   });
 
   const tests = [
@@ -57,7 +64,7 @@ describe('Validation', () => {
     it(`should fail validation for ${test.name}`, () => {
       try {
         // eslint-disable-next-line no-new
-        new Server(compiler, test.config);
+        server = new Server(compiler, test.config);
       } catch (err) {
         if (err.name !== 'ValidationError') {
           throw err;
@@ -65,8 +72,8 @@ describe('Validation', () => {
 
         const [title, message] = err.message.split('\n\n');
 
-        title.should.be.eql('webpack Dev Server Invalid Options');
-        message.should.be.eql(test.message);
+        expect(title).toEqual('webpack Dev Server Invalid Options');
+        expect(message).toEqual(test.message);
 
         return;
       }
@@ -79,7 +86,7 @@ describe('Validation', () => {
     it('should allow filename to be a function', () => {
       try {
         // eslint-disable-next-line no-new
-        new Server(compiler, { filename: () => {} });
+        server = new Server(compiler, { filename: () => {} });
       } catch (err) {
         if (err === 'ValidationError') {
           throw err;
@@ -192,23 +199,18 @@ describe('Validation', () => {
     describe('allowedHosts', () => {
       it('should allow hosts in allowedHosts', () => {
         const tests = ['test.host', 'test2.host', 'test3.host'];
-
         const options = { allowedHosts: tests };
         const server = new Server(compiler, options);
-
         tests.forEach((test) => {
           const headers = { host: test };
-
           if (!server.checkHost(headers)) {
             throw new Error("Validation didn't fail");
           }
         });
       });
-
       it('should allow hosts that pass a wildcard in allowedHosts', () => {
         const options = { allowedHosts: ['.example.com'] };
         const server = new Server(compiler, options);
-
         const tests = [
           'www.example.com',
           'subdomain.example.com',
@@ -217,10 +219,8 @@ describe('Validation', () => {
           'example.com:80',
           'subdomain.example.com:80',
         ];
-
         tests.forEach((test) => {
           const headers = { host: test };
-
           if (!server.checkHost(headers)) {
             throw new Error("Validation didn't fail");
           }

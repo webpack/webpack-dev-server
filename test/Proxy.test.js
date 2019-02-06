@@ -4,7 +4,6 @@ const path = require('path');
 const request = require('supertest');
 const express = require('express');
 const WebSocket = require('ws');
-const should = require('should');
 const helper = require('./helper');
 const config = require('./fixtures/proxy-config/webpack.config');
 
@@ -63,12 +62,12 @@ function startProxyServers() {
 }
 
 describe('Proxy', () => {
-  context('proxy options is a object', () => {
+  describe('proxy options is a object', () => {
     let server;
     let req;
     let closeProxyServers;
 
-    before((done) => {
+    beforeAll((done) => {
       closeProxyServers = startProxyServers();
       server = helper.start(
         config,
@@ -81,7 +80,7 @@ describe('Proxy', () => {
       req = request(server.app);
     });
 
-    after((done) => {
+    afterAll((done) => {
       helper.close(() => {
         closeProxyServers();
         done();
@@ -115,12 +114,12 @@ describe('Proxy', () => {
     });
   });
 
-  context('proxy option is an array', () => {
+  describe('proxy option is an array', () => {
     let server;
     let req;
     let closeProxyServers;
 
-    before((done) => {
+    beforeAll((done) => {
       closeProxyServers = startProxyServers();
       server = helper.start(
         config,
@@ -133,7 +132,7 @@ describe('Proxy', () => {
       req = request(server.app);
     });
 
-    after((done) => {
+    afterAll((done) => {
       helper.close(() => {
         closeProxyServers();
         done();
@@ -149,7 +148,7 @@ describe('Proxy', () => {
     });
   });
 
-  context('sharing a proxy option', () => {
+  describe('sharing a proxy option', () => {
     let server;
     let req;
     let listener;
@@ -157,7 +156,7 @@ describe('Proxy', () => {
       target: 'http://localhost:9000',
     };
 
-    before((done) => {
+    beforeAll((done) => {
       const proxy = express();
       proxy.get('*', (proxyReq, res) => {
         res.send('from proxy');
@@ -177,7 +176,7 @@ describe('Proxy', () => {
       req = request(server.app);
     });
 
-    after((done) => {
+    afterAll((done) => {
       helper.close(() => {
         listener.close();
         done();
@@ -193,12 +192,12 @@ describe('Proxy', () => {
     });
   });
 
-  context('External websocket upgrade', () => {
+  describe('External websocket upgrade', () => {
     let ws;
     let wsServer;
     let responseMessage;
 
-    before((done) => {
+    beforeAll((done) => {
       helper.start(
         config,
         {
@@ -234,10 +233,10 @@ describe('Proxy', () => {
     });
 
     it('Should receive response', () => {
-      should(responseMessage).equal('foo');
+      expect(responseMessage).toEqual('foo');
     });
 
-    after((done) => {
+    afterAll((done) => {
       wsServer.close();
       helper.close(done);
     });

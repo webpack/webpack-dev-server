@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const spawn = require('child_process').spawn;
+const execa = require('execa');
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -31,7 +31,7 @@ function runWebackDevServer(testArgs, configPath) {
   const args = [webpackDevServerPath, '--config', configPath].concat(testArgs);
 
   return new Promise((resolve, reject) => {
-    const child = spawn('node', args, { cwd, env });
+    const child = execa('node', args, { cwd, env });
 
     child.on('error', (error) => reject(error));
 

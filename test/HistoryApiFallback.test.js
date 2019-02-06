@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const path = require('path');
 const request = require('supertest');
 const helper = require('./helper');
@@ -15,7 +14,7 @@ describe('HistoryApiFallback', () => {
   afterEach(helper.close);
 
   describe('as boolean', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -35,7 +34,7 @@ describe('HistoryApiFallback', () => {
   });
 
   describe('as object', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -57,7 +56,7 @@ describe('HistoryApiFallback', () => {
   });
 
   describe('as object with contentBase', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config2,
         {
@@ -97,14 +96,14 @@ describe('HistoryApiFallback', () => {
           if (err) {
             done(err);
           }
-          assert(res.body.toString(), 'Random file');
+          expect(res.body.toString().trim()).toEqual('Random file');
           done();
         });
     });
   });
 
   describe('as object with contentBase set to false', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config3,
         {
@@ -127,7 +126,7 @@ describe('HistoryApiFallback', () => {
   });
 
   describe('as object with contentBase and rewrites', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config2,
         {
@@ -176,7 +175,7 @@ describe('HistoryApiFallback', () => {
   });
 
   describe('in-memory files', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config3,
         {
