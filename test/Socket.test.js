@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const request = require('supertest');
 const config = require('./fixtures/simple-config/webpack.config');
 const helper = require('./helper');
@@ -21,7 +20,7 @@ describe('socket options', () => {
     });
 
     it('defaults to a path', () => {
-      assert.ok(server.sockPath.match(/\/[a-z0-9\-/]+[^/]$/));
+      expect(!!server.sockPath.match(/\/[a-z0-9\-/]+[^/]$/)).toBeTruthy();
     });
 
     it('responds with a 200', (done) => {
@@ -43,7 +42,7 @@ describe('socket options', () => {
     });
 
     it('sets the sock path correctly and strips leading and trailing /s', () => {
-      assert.equal(server.sockPath, path);
+      expect(server.sockPath).toEqual(path);
     });
 
     it('responds with a 200 second', (done) => {

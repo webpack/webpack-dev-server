@@ -4,7 +4,6 @@ const path = require('path');
 const request = require('supertest');
 const helper = require('./helper');
 const config = require('./fixtures/contentbase-config/webpack.config');
-require('mocha-sinon');
 
 const contentBasePublic = path.join(
   __dirname,
@@ -21,7 +20,7 @@ describe('ContentBase', () => {
   afterEach(helper.close);
 
   describe('to directory', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -42,7 +41,7 @@ describe('ContentBase', () => {
   });
 
   describe('to directories', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -63,7 +62,7 @@ describe('ContentBase', () => {
   });
 
   describe('to port', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -83,7 +82,7 @@ describe('ContentBase', () => {
   });
 
   describe('to external url', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -112,9 +111,8 @@ describe('ContentBase', () => {
   });
 
   describe('default to PWD', () => {
-    before(function before(done) {
-      this.sinon.stub(process, 'cwd');
-      process.cwd.returns(contentBasePublic);
+    beforeAll((done) => {
+      jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
       server = helper.start(config, {}, done);
       req = request(server.app);
     });
@@ -125,11 +123,10 @@ describe('ContentBase', () => {
   });
 
   describe('disable', () => {
-    before(function before(done) {
+    beforeAll((done) => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
-      this.sinon.stub(process, 'cwd');
-      process.cwd.returns(contentBasePublic);
+      jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
       server = helper.start(
         config,
         {
@@ -146,7 +143,7 @@ describe('ContentBase', () => {
   });
 
   describe('Content type', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {

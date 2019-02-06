@@ -5,7 +5,6 @@ const fs = require('fs');
 const request = require('supertest');
 const helper = require('./helper');
 const config = require('./fixtures/contentbase-config/webpack.config');
-require('mocha-sinon');
 
 const httpsCertificateDirectory = path.join(
   __dirname,
@@ -16,16 +15,13 @@ const contentBasePublic = path.join(
   'fixtures/contentbase-config/public'
 );
 
-describe('HTTPS', function testHttps() {
+describe('HTTPS', () => {
   let server;
   let req;
   afterEach(helper.close);
 
-  // Increase the timeout to 20 seconds to allow time for key generation.
-  this.timeout(20000);
-
   describe('to directory', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -43,7 +39,7 @@ describe('HTTPS', function testHttps() {
   });
 
   describe('ca, pfx, key and cert are buffer', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -73,7 +69,7 @@ describe('HTTPS', function testHttps() {
   });
 
   describe('ca, pfx, key and cert are string', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {

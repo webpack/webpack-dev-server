@@ -9,7 +9,7 @@ const config = require('./fixtures/simple-config/webpack.config');
 describe('check utility functions', () => {
   let compiler;
 
-  before(() => {
+  beforeAll(() => {
     compiler = webpack(config);
   });
 
@@ -79,7 +79,7 @@ describe('check utility functions', () => {
   ];
 
   tests.forEach((test) => {
-    const instance = it(`test createDomain '${test.name}'`, (done) => {
+    it(`test createDomain '${test.name}'`, (done) => {
       const { options, expected } = test;
 
       const server = new Server(compiler, options);
@@ -100,9 +100,5 @@ describe('check utility functions', () => {
         server.close();
       });
     });
-
-    if (test.timeout) {
-      instance.timeout(test.timeout);
-    }
   });
 });

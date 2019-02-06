@@ -20,12 +20,12 @@ describe('Routes', () => {
   let req;
 
   describe('without headers', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(config, {}, done);
       req = request(server.app);
     });
 
-    after(helper.close);
+    afterAll(helper.close);
 
     it('GET request to inline bundle', (done) => {
       req
@@ -68,7 +68,7 @@ describe('Routes', () => {
   });
 
   describe('headers as a string', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -79,7 +79,7 @@ describe('Routes', () => {
       req = request(server.app);
     });
 
-    after(helper.close);
+    afterAll(helper.close);
 
     it('GET request with headers', (done) => {
       req
@@ -90,7 +90,7 @@ describe('Routes', () => {
   });
 
   describe('headers as an array', () => {
-    before((done) => {
+    beforeAll((done) => {
       server = helper.start(
         config,
         {
@@ -101,7 +101,7 @@ describe('Routes', () => {
       req = request(server.app);
     });
 
-    after(helper.close);
+    afterAll(helper.close);
 
     it('GET request with headers as an array', (done) => {
       req

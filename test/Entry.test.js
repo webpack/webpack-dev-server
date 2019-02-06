@@ -6,7 +6,6 @@
   array-bracket-spacing
 */
 const path = require('path');
-const assert = require('assert');
 
 const webpack = require('webpack');
 
@@ -22,12 +21,11 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.equal(webpackOptions.entry.length, 2);
-
-    assert(
+    expect(webpackOptions.entry.length).toEqual(2);
+    expect(
       normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
-    );
-    assert.equal(normalize(webpackOptions.entry[1]), './foo.js');
+    ).toBeTruthy();
+    expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
   });
 
   it('adds devServer entry points to a multi-module entry point', () => {
@@ -39,12 +37,12 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.equal(webpackOptions.entry.length, 3);
-    assert(
+    expect(webpackOptions.entry.length).toEqual(3);
+    expect(
       normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
-    );
-    assert.equal(webpackOptions.entry[1], './foo.js');
-    assert.equal(webpackOptions.entry[2], './bar.js');
+    ).toBeTruthy();
+    expect(webpackOptions.entry[1]).toEqual('./foo.js');
+    expect(webpackOptions.entry[2]).toEqual('./bar.js');
   });
 
   it('adds devServer entry points to a multi entry point object', () => {
@@ -59,13 +57,13 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.equal(webpackOptions.entry.foo.length, 2);
+    expect(webpackOptions.entry.foo.length).toEqual(2);
 
-    assert(
+    expect(
       normalize(webpackOptions.entry.foo[0]).indexOf('client/index.js?') !== -1
-    );
-    assert.equal(webpackOptions.entry.foo[1], './foo.js');
-    assert.equal(webpackOptions.entry.bar[1], './bar.js');
+    ).toBeTruthy();
+    expect(webpackOptions.entry.foo[1]).toEqual('./foo.js');
+    expect(webpackOptions.entry.bar[1]).toEqual('./bar.js');
   });
 
   it('defaults to src if no entry point is given', () => {
@@ -74,8 +72,8 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.equal(webpackOptions.entry.length, 2);
-    assert.equal(webpackOptions.entry[1], './src');
+    expect(webpackOptions.entry.length).toEqual(2);
+    expect(webpackOptions.entry[1]).toEqual('./src');
   });
 
   it('preserves dynamic entry points', (done) => {
@@ -91,17 +89,17 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert(typeof webpackOptions.entry, 'function');
+    expect(typeof webpackOptions.entry).toEqual('function');
 
     webpackOptions
       .entry()
       .then((entryFirstRun) =>
         webpackOptions.entry().then((entrySecondRun) => {
-          assert.equal(entryFirstRun.length, 2);
-          assert.equal(entryFirstRun[1], './src-1.js');
+          expect(entryFirstRun.length).toEqual(2);
+          expect(entryFirstRun[1]).toEqual('./src-1.js');
 
-          assert.equal(entrySecondRun.length, 2);
-          assert.equal(entrySecondRun[1], './src-2.js');
+          expect(entrySecondRun.length).toEqual(2);
+          expect(entrySecondRun[1]).toEqual('./src-2.js');
           done();
         })
       )
@@ -123,17 +121,17 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert(typeof webpackOptions.entry, 'function');
+    expect(typeof webpackOptions.entry).toEqual('function');
 
     webpackOptions
       .entry()
       .then((entryFirstRun) =>
         webpackOptions.entry().then((entrySecondRun) => {
-          assert.equal(entryFirstRun.length, 2);
-          assert.equal(entryFirstRun[1], './src-1.js');
+          expect(entryFirstRun.length).toEqual(2);
+          expect(entryFirstRun[1]).toEqual('./src-1.js');
 
-          assert.equal(entrySecondRun.length, 2);
-          assert.equal(entrySecondRun[1], './src-2.js');
+          expect(entrySecondRun.length).toEqual(2);
+          expect(entrySecondRun[1]).toEqual('./src-2.js');
           done();
         })
       )
@@ -155,11 +153,10 @@ describe('Entry', () => {
 
     const hotClientScript = webpackOptions.entry.app[1];
 
-    assert.equal(
-      normalize(hotClientScript).includes('webpack/hot/dev-server'),
-      true
-    );
-    assert.equal(hotClientScript, require.resolve(hotClientScript));
+    expect(
+      normalize(hotClientScript).includes('webpack/hot/dev-server')
+    ).toBeTruthy();
+    expect(hotClientScript).toEqual(require.resolve(hotClientScript));
   });
 
   it("prepends webpack's hot-only client script", () => {
@@ -177,11 +174,10 @@ describe('Entry', () => {
 
     const hotClientScript = webpackOptions.entry.app[1];
 
-    assert.equal(
-      normalize(hotClientScript).includes('webpack/hot/only-dev-server'),
-      true
-    );
-    assert.equal(hotClientScript, require.resolve(hotClientScript));
+    expect(
+      normalize(hotClientScript).includes('webpack/hot/only-dev-server')
+    ).toBeTruthy();
+    expect(hotClientScript).toEqual(require.resolve(hotClientScript));
   });
 
   it("doesn't add the HMR plugin if not hot and no plugins", () => {
@@ -190,7 +186,7 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.equal('plugins' in webpackOptions, false);
+    expect('plugins' in webpackOptions).toBeFalsy();
   });
   it("doesn't add the HMR plugin if not hot and empty plugins", () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
@@ -198,7 +194,7 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(webpackOptions.plugins, []);
+    expect(webpackOptions.plugins).toEqual([]);
   });
   it("doesn't add the HMR plugin if not hot and some plugins", () => {
     const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
@@ -210,10 +206,7 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(webpackOptions.plugins, [
-      existingPlugin1,
-      existingPlugin2,
-    ]);
+    expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
   });
   it('adds the HMR plugin if hot', () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
@@ -224,7 +217,7 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(webpackOptions.plugins, [
+    expect(webpackOptions.plugins).toEqual([
       existingPlugin,
       new webpack.HotModuleReplacementPlugin(),
     ]);
@@ -235,7 +228,7 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(webpackOptions.plugins, [
+    expect(webpackOptions.plugins).toEqual([
       new webpack.HotModuleReplacementPlugin(),
     ]);
   });
@@ -248,7 +241,7 @@ describe('Entry', () => {
 
     addEntries(webpackOptions, devServerOptions);
 
-    assert.deepStrictEqual(webpackOptions.plugins, [
+    expect(webpackOptions.plugins).toEqual([
       new webpack.HotModuleReplacementPlugin(),
       existingPlugin,
     ]);
