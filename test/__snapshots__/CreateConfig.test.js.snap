@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createSchema simple 1`] = `
+exports[`createConfig simple 1`] = `
 Object {
   "clientLogLevel": "_clientLogLevel",
   "compress": true,
@@ -35,7 +35,7 @@ Object {
 }
 `;
 
-exports[`createSchema simple 2`] = `
+exports[`createConfig simple 2`] = `
 Object {
   "devServer": Object {
     "clientLogLevel": "_clientLogLevel",

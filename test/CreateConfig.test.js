@@ -1,6 +1,6 @@
 'use strict';
 
-const createSchema = require('../lib/utils/createSchema');
+const createConfig = require('../lib/utils/createConfig');
 const webpackConfig = require('./fixtures/schema/webpack.config.simple');
 
 const argv = {
@@ -35,9 +35,9 @@ const argv = {
   port: 'port',
 };
 
-describe('createSchema', () => {
+describe('createConfig', () => {
   it('simple', () => {
-    expect(createSchema(webpackConfig, argv, { port: 8080 })).toMatchSnapshot();
+    expect(createConfig(webpackConfig, argv, { port: 8080 })).toMatchSnapshot();
     expect(webpackConfig).toMatchSnapshot();
   });
 });

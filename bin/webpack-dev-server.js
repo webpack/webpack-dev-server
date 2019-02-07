@@ -33,7 +33,7 @@ const Server = require('../lib/Server');
 const addEntries = require('../lib/utils/addEntries');
 const createDomain = require('../lib/utils/createDomain');
 const createLogger = require('../lib/utils/createLogger');
-const createSchema = require('../lib/utils/createSchema');
+const createConfig = require('../lib/utils/createConfig');
 
 let server;
 
@@ -106,7 +106,7 @@ function processOptions(config) {
     return;
   }
 
-  const options = createSchema(config, argv, { port: DEFAULT_PORT });
+  const options = createConfig(config, argv, { port: DEFAULT_PORT });
 
   portfinder.basePort = DEFAULT_PORT;
 
