@@ -70,5 +70,6 @@ Object {
     "watchOptions": undefined,
   },
   "entry": "./app.js",
+  "mode": "development",
 }
 `;
