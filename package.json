@@ -92,7 +92,8 @@
     "ws": "^6.0.0"
   },
   "peerDependencies": {
-    "webpack": "^4.0.0"
+    "webpack": "^4.0.0",
+    "webpack-cli": "^3.2.1"
   },
   "husky": {
     "hooks": {
