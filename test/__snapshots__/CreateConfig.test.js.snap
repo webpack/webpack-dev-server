@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createConfig simple 1`] = `
+Object {
+  "clientLogLevel": "_clientLogLevel",
+  "compress": true,
+  "contentBase": "_contentBase",
+  "disableHostCheck": "_disableHostCheck",
+  "filename": "_filename",
+  "historyApiFallback": "_historyApiFallback",
+  "host": "foo",
+  "hot": "_hot",
+  "hotOnly": "_hotOnly",
+  "https": true,
+  "inline": "_inline",
+  "lazy": true,
+  "noInfo": true,
+  "open": "open",
+  "openPage": "_openPage",
+  "pfxPassphrase": "_pfxPassphrase",
+  "port": "port",
+  "progress": "progress",
+  "public": "public",
+  "publicPath": "_publicPath",
+  "quiet": true,
+  "socket": "socket",
+  "stats": Object {
+    "cached": "_cached",
+    "cachedAssets": "_cachedAssets",
+    "colors": "_colors",
+  },
+  "useLocalIp": true,
+  "watchContentBase": "_watchContentBase",
+  "watchOptions": undefined,
+}
+`;
+
+exports[`createConfig simple 2`] = `
+Object {
+  "devServer": Object {
+    "clientLogLevel": "_clientLogLevel",
+    "compress": true,
+    "contentBase": "_contentBase",
+    "disableHostCheck": "_disableHostCheck",
+    "filename": "_filename",
+    "historyApiFallback": "_historyApiFallback",
+    "host": "foo",
+    "hot": "_hot",
+    "hotOnly": "_hotOnly",
+    "https": true,
+    "inline": "_inline",
+    "lazy": true,
+    "noInfo": true,
+    "open": "open",
+    "openPage": "_openPage",
+    "pfxPassphrase": "_pfxPassphrase",
+    "port": "port",
+    "progress": "progress",
+    "public": "public",
+    "publicPath": "_publicPath",
+    "quiet": true,
+    "socket": "socket",
+    "stats": Object {
+      "cached": "_cached",
+      "cachedAssets": "_cachedAssets",
+      "colors": "_colors",
+    },
+    "useLocalIp": true,
+    "watchContentBase": "_watchContentBase",
+    "watchOptions": undefined,
+  },
+  "entry": "./app.js",
+  "mode": "development",
+}
+`;
