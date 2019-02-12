@@ -177,6 +177,9 @@ const onSocketMsg = {
     log.error('[WDS] Disconnected!');
     sendMsg('Close');
   },
+  custom(data) {
+    sendMsg('custom', data);
+  },
 };
 
 let hostname = urlParts.hostname;
@@ -218,7 +221,13 @@ const socketUrl = url.format({
       : querystring.parse(urlParts.path).sockPath || urlParts.path,
 });
 
-socket(socketUrl, onSocketMsg);
+const connection = socket(socketUrl, onSocketMsg);
+
+self.addEventListener('message', (message) => {
+  if (message.data.type === 'sendWebpackDevServer') {
+    connection.send(message.data.data);
+  }
+});
 
 let isUnloading = false;
 self.addEventListener('beforeunload', () => {

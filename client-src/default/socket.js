@@ -41,6 +41,8 @@ const socket = function initSocket(url, handlers) {
       handlers[msg.type](msg.data);
     }
   };
+
+  return sock;
 };
 
 module.exports = socket;
