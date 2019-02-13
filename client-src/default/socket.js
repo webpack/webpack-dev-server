@@ -4,11 +4,21 @@ const SockJS = require('sockjs-client/dist/sockjs');
 
 let retries = 0;
 let sock = null;
+let messageQueue = [];
 
-const socket = function initSocket(url, handlers) {
+function send(message) {
+  if (sock.readyState === SockJS.OPEN) return sock.send(message);
+  messageQueue.push(message);
+}
+
+const socket = function initSocket(url, handlers, messages) {
   sock = new SockJS(url);
 
   sock.onopen = function onopen() {
+    messageQueue.forEach(function dequeue(message) {
+      sock.send(message);
+    });
+    messageQueue = [];
     retries = 0;
   };
 
@@ -29,7 +39,7 @@ const socket = function initSocket(url, handlers) {
       retries += 1;
 
       setTimeout(() => {
-        socket(url, handlers);
+        socket(url, handlers, messages);
       }, retryInMs);
     }
   };
@@ -42,7 +52,7 @@ const socket = function initSocket(url, handlers) {
     }
   };
 
-  return sock;
+  return send;
 };
 
 module.exports = socket;

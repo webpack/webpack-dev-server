@@ -221,11 +221,11 @@ const socketUrl = url.format({
       : querystring.parse(urlParts.path).sockPath || urlParts.path,
 });
 
-const connection = socket(socketUrl, onSocketMsg);
+const send = socket(socketUrl, onSocketMsg);
 
 self.addEventListener('message', (message) => {
   if (message.data.type === 'sendWebpackDevServer') {
-    connection.send(message.data.data);
+    send(message.data.data);
   }
 });
 

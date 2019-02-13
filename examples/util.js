@@ -63,9 +63,9 @@ module.exports = {
 
     if (result.devServer.before) {
       const proxy = result.devServer.before;
-      result.devServer.before = function replace(app) {
-        before(app);
-        proxy(app);
+      result.devServer.before = function replace(app, server) {
+        before(app, server);
+        proxy(app, server);
       };
     } else {
       result.devServer.before = before;

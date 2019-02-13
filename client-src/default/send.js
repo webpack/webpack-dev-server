@@ -8,10 +8,13 @@ function sendWebpackDevServer(data) {
     (typeof WorkerGlobalScope === 'undefined' ||
       !(self instanceof WorkerGlobalScope))
   ) {
-    self.postMessage({
-      type: 'sendWebpackDevServer',
-      data,
-    });
+    self.postMessage(
+      {
+        type: 'sendWebpackDevServer',
+        data: JSON.stringify(data),
+      },
+      '*'
+    );
   }
 }
 
