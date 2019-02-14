@@ -30,7 +30,7 @@ const proxyOptionPathsAsProperties = {
 
 const proxyOption = {
   context: () => true,
-  target: 'http://localhost:9000'
+  target: 'http://localhost:9000',
 };
 
 const proxyOptionOfArray = [
@@ -80,10 +80,14 @@ describe('Proxy', () => {
 
     beforeAll((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(config, {
-        contentBase,
-        proxy: proxyOptionPathsAsProperties
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOptionPathsAsProperties,
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -121,21 +125,25 @@ describe('Proxy', () => {
     });
   });
 
-  context('proxy option is an object', () => {
+  describe('proxy option is an object', () => {
     let server;
     let req;
     let closeProxyServers;
 
-    before((done) => {
+    beforeAll((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(config, {
-        contentBase,
-        proxy: proxyOption
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOption,
+        },
+        done
+      );
       req = request(server.app);
     });
 
-    after((done) => {
+    afterAll((done) => {
       helper.close(() => {
         closeProxyServers();
         done();
@@ -143,12 +151,11 @@ describe('Proxy', () => {
     });
 
     it('respects a proxy option', (done) => {
-      req.get('/proxy1')
-        .expect(200, 'from proxy1', done);
+      req.get('/proxy1').expect(200, 'from proxy1', done);
     });
   });
 
-  context('proxy option is an array', () => {
+  describe('proxy option is an array', () => {
     let server;
     let req;
     let closeProxyServers;
