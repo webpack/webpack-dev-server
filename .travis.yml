@@ -1,20 +1,27 @@
+sudo: false
+
+git:
+  depth: 10
+
+branches:
+  only:
+    - master
+    - next
+    -
 language: node_js
 
 cache:
   directories:
     - node_modules
+    - $HOME/.npm
 
-jobs:
+matrix:
   fast_finish: true
   include:
-    - stage: Lint
-      env: SCRIPT=lint
-      node_js: 'stable'
+    - env: JOB_PART=lint
+      node_js: 11
     - &linux
-      stage: Test (Linux)
-      env: SCRIPT=test
-      node_js: 'stable'
-    - <<: *linux
+      env: JOB_PART=test
       node_js: 11
     - <<: *linux
       node_js: 10
@@ -23,9 +30,8 @@ jobs:
     - <<: *linux
       node_js: 6
     - &osx
-      stage: Test (MacOS)
       os: 'osx'
-      env: SCRIPT=test
+      env: JOB_PART=test
       node_js: 11
     - <<: *osx
       node_js: 10
@@ -34,15 +40,19 @@ jobs:
     - <<: *osx
       node_js: 6
 
-install:
+before_install:
   - npm i -g npm@latest
-  - npm i
 
-script: npm run $SCRIPT
+install:
+  - npm ci
+
+before_script:
+  - node --version
+  - npm --version
+
+script:
+  - npm run $SCRIPT
 
 after_success:
   - npm i codecov
   - $(npm bin)/codecov
-
-notifications:
-  email: false
