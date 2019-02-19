@@ -7,7 +7,7 @@ branches:
   only:
     - master
     - next
-    -
+
 language: node_js
 
 cache:
@@ -51,7 +51,7 @@ before_script:
   - npm --version
 
 script:
-  - npm run $SCRIPT
+  - npm run $JOB_PART
 
 after_success:
   - npm i codecov
