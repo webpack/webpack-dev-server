@@ -6,7 +6,6 @@ const express = require('express');
 const WebSocket = require('ws');
 const helper = require('./helper');
 const config = require('./fixtures/proxy-config/webpack.config');
-const shouldSkipTestSuite = require('./shouldSkipTestSuite');
 
 const WebSocketServer = WebSocket.Server;
 const contentBase = path.join(__dirname, 'fixtures/proxy-config');
@@ -68,11 +67,6 @@ function startProxyServers() {
 }
 
 describe('Proxy', () => {
-  // issue: https://github.com/webpack/webpack-dev-server/pull/1633#issuecomment-463938675
-  if (shouldSkipTestSuite()) {
-    return;
-  }
-
   describe('proxy options is an object of paths as properties', () => {
     let server;
     let req;
