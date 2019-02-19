@@ -40,12 +40,12 @@ module.exports = {
 
     let exampleTitle = '';
 
-    renderer.heading = function headingProxy(text, level, raw) {
+    renderer.heading = function headingProxy(text, level, raw, slugger) {
       if (level === 1 && !exampleTitle) {
         exampleTitle = text;
       }
 
-      return heading.call(this, text, level, raw);
+      return heading.call(this, text, level, raw, slugger);
     };
 
     marked.setOptions(markedOptions);
