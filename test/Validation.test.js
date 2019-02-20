@@ -8,6 +8,10 @@ const webpack = require('webpack');
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
 
+const baseOptions = {
+  quiet: true,
+};
+
 describe('Validation', () => {
   let compiler;
   let server;
@@ -63,8 +67,10 @@ describe('Validation', () => {
   tests.forEach((test) => {
     it(`should fail validation for ${test.name}`, () => {
       try {
+        const options = { ...baseOptions, ...test.config };
+
         // eslint-disable-next-line no-new
-        server = new Server(compiler, test.config);
+        server = new Server(compiler, options);
       } catch (err) {
         if (err.name !== 'ValidationError') {
           throw err;
@@ -85,8 +91,13 @@ describe('Validation', () => {
   describe('filename', () => {
     it('should allow filename to be a function', () => {
       try {
+        const options = {
+          ...baseOptions,
+          filename: () => {},
+        };
+
         // eslint-disable-next-line no-new
-        server = new Server(compiler, { filename: () => {} });
+        server = new Server(compiler, options);
       } catch (err) {
         if (err === 'ValidationError') {
           throw err;
@@ -100,6 +111,7 @@ describe('Validation', () => {
   describe('checkHost', () => {
     it('should always allow any host if options.disableHostCheck is set', () => {
       const options = {
+        ...baseOptions,
         public: 'test.host:80',
         disableHostCheck: true,
       };
@@ -117,6 +129,7 @@ describe('Validation', () => {
 
     it('should allow any valid options.public when host is localhost', () => {
       const options = {
+        ...baseOptions,
         public: 'test.host:80',
       };
       const headers = {
@@ -130,6 +143,7 @@ describe('Validation', () => {
 
     it('should allow any valid options.public when host is 127.0.0.1', () => {
       const options = {
+        ...baseOptions,
         public: 'test.host:80',
       };
 
@@ -145,7 +159,9 @@ describe('Validation', () => {
     });
 
     it('should allow access for every requests using an IP', () => {
-      const options = {};
+      const options = {
+        ...baseOptions,
+      };
 
       const tests = [
         '192.168.1.123',
@@ -169,6 +185,7 @@ describe('Validation', () => {
 
     it("should not allow hostnames that don't match options.public", () => {
       const options = {
+        ...baseOptions,
         public: 'test.host:80',
       };
 
@@ -185,6 +202,7 @@ describe('Validation', () => {
 
     it('should allow urls with scheme for checking origin', () => {
       const options = {
+        ...baseOptions,
         public: 'test.host:80',
       };
       const headers = {
@@ -199,7 +217,10 @@ describe('Validation', () => {
     describe('allowedHosts', () => {
       it('should allow hosts in allowedHosts', () => {
         const tests = ['test.host', 'test2.host', 'test3.host'];
-        const options = { allowedHosts: tests };
+        const options = {
+          ...baseOptions,
+          allowedHosts: tests,
+        };
         const server = new Server(compiler, options);
         tests.forEach((test) => {
           const headers = { host: test };
@@ -209,7 +230,10 @@ describe('Validation', () => {
         });
       });
       it('should allow hosts that pass a wildcard in allowedHosts', () => {
-        const options = { allowedHosts: ['.example.com'] };
+        const options = {
+          ...baseOptions,
+          allowedHosts: ['.example.com'],
+        };
         const server = new Server(compiler, options);
         const tests = [
           'www.example.com',

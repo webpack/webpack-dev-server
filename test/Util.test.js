@@ -6,6 +6,10 @@ const Server = require('../lib/Server');
 const createDomain = require('../lib/utils/createDomain');
 const config = require('./fixtures/simple-config/webpack.config');
 
+const baseOptions = {
+  quiet: true,
+};
+
 describe('check utility functions', () => {
   let compiler;
 
@@ -82,7 +86,7 @@ describe('check utility functions', () => {
     it(`test createDomain '${test.name}'`, (done) => {
       const { options, expected } = test;
 
-      const server = new Server(compiler, options);
+      const server = new Server(compiler, { ...baseOptions, ...options });
 
       server.listen(options.port, options.host, (err) => {
         if (err) {
