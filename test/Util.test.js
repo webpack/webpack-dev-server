@@ -8,9 +8,16 @@ const config = require('./fixtures/simple-config/webpack.config');
 
 describe('check utility functions', () => {
   let compiler;
+  let server;
 
   beforeAll(() => {
     compiler = webpack(config);
+  });
+
+  afterEach((done) => {
+    server.close(() => {
+      done();
+    });
   });
 
   const tests = [
@@ -82,7 +89,7 @@ describe('check utility functions', () => {
     it(`test createDomain '${test.name}'`, (done) => {
       const { options, expected } = test;
 
-      const server = new Server(compiler, options);
+      server = new Server(compiler, options);
 
       server.listen(options.port, options.host, (err) => {
         if (err) {
@@ -96,8 +103,6 @@ describe('check utility functions', () => {
         } else {
           done();
         }
-
-        server.close();
       });
     });
   });
