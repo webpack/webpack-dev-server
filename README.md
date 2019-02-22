@@ -95,7 +95,7 @@ state, the project only officially supports the _last two versions of major
 browsers_. We simply don't have the resources to support every whacky
 browser out there.
 
-If you find an bug with an obscure / old browser, we would actively welcome a
+If you find a bug with an obscure / old browser, we would actively welcome a
 Pull Request to resolve the bug.
 
 ## Support
@@ -127,25 +127,6 @@ out completely._
 ## Contributing
 
 We welcome your contributions! Please have a read of [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get involved.
-
-## Maintainers
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <img src="https://avatars.githubusercontent.com/SpaceK33z?v=4&s=150">
-        <br />
-        <a href="https://github.com/SpaceK33z">Kees Kluskens</a>
-      </td>
-      <td align="center">
-        <img src="https://i.imgur.com/4v6pgxh.png">
-        <br />
-        <a href="https://github.com/shellscape">Andrew Powell</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 ## Attribution
 
