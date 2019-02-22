@@ -4,14 +4,8 @@
 
 /* eslint-disable
   import/order,
-  import/no-extraneous-dependencies,
-  global-require,
   no-shadow,
-  no-console,
-  multiline-ternary,
-  arrow-parens,
-  array-bracket-spacing,
-  space-before-function-paren
+  no-console
 */
 const debug = require('debug')('webpack-dev-server');
 
@@ -26,14 +20,16 @@ const webpack = require('webpack');
 
 const options = require('./options');
 
-const { colors, status, version, bonjour } = require('./utils');
-
 const Server = require('../lib/Server');
 
 const addEntries = require('../lib/utils/addEntries');
+const colors = require('../lib/utils/colors');
+const createConfig = require('../lib/utils/createConfig');
 const createDomain = require('../lib/utils/createDomain');
 const createLogger = require('../lib/utils/createLogger');
-const createConfig = require('../lib/utils/createConfig');
+const getVersions = require('../lib/utils/getVersions');
+const runBonjour = require('../lib/utils/runBonjour');
+const status = require('../lib/utils/status');
 
 let server;
 
@@ -74,17 +70,20 @@ try {
 }
 
 yargs.usage(
-  `${version()}\nUsage:  https://webpack.js.org/configuration/dev-server/`
+  `${getVersions()}\nUsage:  https://webpack.js.org/configuration/dev-server/`
 );
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 require('webpack-cli/bin/config-yargs')(yargs);
+
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
-yargs.version(version());
+yargs.version(getVersions());
 yargs.options(options);
 
 const argv = yargs.argv;
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
   outputFilename: '/bundle.js',
 });
@@ -217,7 +216,7 @@ function startDevServer(config, options) {
       }
 
       if (options.bonjour) {
-        bonjour(options);
+        runBonjour(options);
       }
 
       const uri = createDomain(options, server.listeningApp) + suffix;
