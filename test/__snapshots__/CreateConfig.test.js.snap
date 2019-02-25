@@ -66,6 +66,70 @@ Object {
 }
 `;
 
+exports[`createConfig cacert option (in devServer config) 1`] = `
+Object {
+  "ca": "/path/to/ca.pem",
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig cacert option 1`] = `
+Object {
+  "ca": "/path/to/ca.pem",
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig cert option (in devServer config) 1`] = `
+Object {
+  "cert": "/path/to/server.crt",
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig cert option 1`] = `
+Object {
+  "cert": "/path/to/server.crt",
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig clientLogLevel option (in devServer config) 1`] = `
 Object {
   "clientLogLevel": "none",
@@ -513,6 +577,38 @@ Object {
 }
 `;
 
+exports[`createConfig key option (in devServer config) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "key": "/path/to/server.key",
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig key option 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "key": "/path/to/server.key",
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig lazy option (in devServer config) 1`] = `
 Object {
   "hot": true,
@@ -614,6 +710,38 @@ Object {
   "noInfo": true,
   "open": true,
   "openPage": "/different/page",
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig pfx option (in devServer config) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "noInfo": true,
+  "pfx": "/path/to/file.pfx",
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig pfx option 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "https": true,
+  "noInfo": true,
+  "pfx": "/path/to/file.pfx",
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
