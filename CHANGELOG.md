@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.2.0](https://github.com/webpack/webpack-dev-server/compare/v3.1.14...v3.2.0) (2019-02-20)
+
+
+### Bug Fixes
+
+* allow single object proxy config ([#1633](https://github.com/webpack/webpack-dev-server/issues/1633)) ([252ea4f](https://github.com/webpack/webpack-dev-server/commit/252ea4f))
+* SPDY fails in node >= 11.1.0 ([#1660](https://github.com/webpack/webpack-dev-server/issues/1660)) ([b92e5fd](https://github.com/webpack/webpack-dev-server/commit/b92e5fd))
+
+
+### Features
+
+* add `sockPath` option (`options.sockPath`) ([#1553](https://github.com/webpack/webpack-dev-server/issues/1553)) ([4bf1f76](https://github.com/webpack/webpack-dev-server/commit/4bf1f76))
+* allow to use `ca`, `pfx`, `key` and `cert` as string ([#1542](https://github.com/webpack/webpack-dev-server/issues/1542)) ([0b89fd9](https://github.com/webpack/webpack-dev-server/commit/0b89fd9))
+* automatically add the HMR plugin when hot or hotOnly is enabled ([#1612](https://github.com/webpack/webpack-dev-server/issues/1612)) ([178e6cc](https://github.com/webpack/webpack-dev-server/commit/178e6cc))
+* set `development` mode by default when unspecified ([#1653](https://github.com/webpack/webpack-dev-server/issues/1653)) ([5ea376b](https://github.com/webpack/webpack-dev-server/commit/5ea376b))
+
+
+
 <a name="3.1.14"></a>
 ## [3.1.14](https://github.com/webpack/webpack-dev-server/compare/v3.1.13...v3.1.14) (2018-12-24)
 

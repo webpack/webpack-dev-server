@@ -10,7 +10,7 @@ const config = require('./fixtures/proxy-config/webpack.config');
 const WebSocketServer = WebSocket.Server;
 const contentBase = path.join(__dirname, 'fixtures/proxy-config');
 
-const proxyOption = {
+const proxyOptionPathsAsProperties = {
   '/proxy1': {
     target: 'http://localhost:9000',
   },
@@ -27,8 +27,13 @@ const proxyOption = {
   },
 };
 
+const proxyOption = {
+  context: () => true,
+  target: 'http://localhost:9000',
+};
+
 const proxyOptionOfArray = [
-  { context: '/proxy1', target: proxyOption['/proxy1'].target },
+  { context: '/proxy1', target: proxyOption.target },
   function proxy() {
     return {
       context: '/api/proxy2',
@@ -62,7 +67,7 @@ function startProxyServers() {
 }
 
 describe('Proxy', () => {
-  describe('proxy options is a object', () => {
+  describe('proxy options is an object of paths as properties', () => {
     let server;
     let req;
     let closeProxyServers;
@@ -73,7 +78,7 @@ describe('Proxy', () => {
         config,
         {
           contentBase,
-          proxy: proxyOption,
+          proxy: proxyOptionPathsAsProperties,
         },
         done
       );
@@ -111,6 +116,36 @@ describe('Proxy', () => {
       it('should pass through a proxy when a bypass function returns null', (done) => {
         req.get('/foo.js').expect(200, /Hey/, done);
       });
+    });
+  });
+
+  describe('proxy option is an object', () => {
+    let server;
+    let req;
+    let closeProxyServers;
+
+    beforeAll((done) => {
+      closeProxyServers = startProxyServers();
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOption,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        closeProxyServers();
+        done();
+      });
+    });
+
+    it('respects a proxy option', (done) => {
+      req.get('/proxy1').expect(200, 'from proxy1', done);
     });
   });
 
