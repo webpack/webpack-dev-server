@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const internalIp = require('internal-ip');
 const Server = require('../lib/Server');
 const createDomain = require('../lib/utils/createDomain');
-const findPort = require('../bin/utils').findPort;
+const findPort = require('../lib/utils/findPort');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('check utility functions', () => {
@@ -115,7 +115,7 @@ describe('findPort cli utility function', () => {
   let mockServer = null;
   beforeEach(() => {
     mockServer = {
-      listeningApp: new EventEmitter()
+      listeningApp: new EventEmitter(),
     };
   });
   afterEach(() => {

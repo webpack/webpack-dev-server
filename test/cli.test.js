@@ -94,45 +94,49 @@ describe('CLI', () => {
     cp.on('exit', () => {
       done();
     });
-  }).timeout(18000);
+  });
 
   it('should use different random port when multiple instances are started on different processes', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
     const examplePath = path.resolve(__dirname, '../examples/cli/public');
 
-    const cp = execa('node', [ cliPath ], { cwd: examplePath });
-    const cp2 = execa('node', [ cliPath ], { cwd: examplePath });
+    const cp = execa('node', [cliPath], { cwd: examplePath });
+    const cp2 = execa('node', [cliPath], { cwd: examplePath });
 
     const runtime = {
       cp: {
         port: null,
-        done: false
+        done: false,
       },
       cp2: {
         port: null,
-        done: false
-      }
+        done: false,
+      },
     };
 
     cp.stdout.on('data', (data) => {
       const bits = data.toString();
-      const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(bits);
+      const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
+        bits
+      );
       if (portMatch) {
         runtime.cp.port = portMatch[1];
       }
       if (/Compiled successfully/.test(bits)) {
-        assert(cp.pid !== 0);
+        expect(cp.pid !== 0).toBe(true);
         cp.kill('SIGINT');
       }
     });
     cp2.stdout.on('data', (data) => {
       const bits = data.toString();
-      const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(bits);
+      const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
+        bits
+      );
       if (portMatch) {
         runtime.cp2.port = portMatch[1];
       }
       if (/Compiled successfully/.test(bits)) {
-        assert(cp.pid !== 0);
+        expect(cp.pid !== 0).toBe(true);
         cp2.kill('SIGINT');
       }
     });
@@ -140,16 +144,16 @@ describe('CLI', () => {
     cp.on('exit', () => {
       runtime.cp.done = true;
       if (runtime.cp2.done) {
-        assert(runtime.cp.port !== runtime.cp2.port);
+        expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
         done();
       }
     });
     cp2.on('exit', () => {
       runtime.cp2.done = true;
       if (runtime.cp.done) {
-        assert(runtime.cp.port !== runtime.cp2.port);
+        expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
         done();
       }
     });
-  }).timeout(18000);
+  });
 });

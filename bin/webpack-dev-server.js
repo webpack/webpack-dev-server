@@ -18,17 +18,6 @@ const yargs = require('yargs');
 const webpack = require('webpack');
 
 const options = require('./options');
-
-const {
-  colors,
-  status,
-  version,
-  bonjour,
-  defaultTo,
-  tryParseInt,
-  findPort
-} = require('./utils');
-
 const Server = require('../lib/Server');
 
 const addEntries = require('../lib/utils/addEntries');
@@ -36,9 +25,12 @@ const colors = require('../lib/utils/colors');
 const createConfig = require('../lib/utils/createConfig');
 const createDomain = require('../lib/utils/createDomain');
 const createLogger = require('../lib/utils/createLogger');
+const defaultTo = require('../lib/utils/defaultTo');
+const findPort = require('../lib/utils/findPort');
 const getVersions = require('../lib/utils/getVersions');
 const runBonjour = require('../lib/utils/runBonjour');
 const status = require('../lib/utils/status');
+const tryParseInt = require('../lib/utils/tryParseInt');
 
 let server;
 
@@ -106,9 +98,12 @@ const DEFAULT_PORT = 8080;
 // if port is not specified in options.
 // Because NaN == null is false, defaultTo fails if parseInt returns NaN
 // so the tryParseInt function is introduced to handle NaN
-const defaultPortRetry = defaultTo(tryParseInt(process.env.DEFAULT_PORT_RETRY), 3);
+const defaultPortRetry = defaultTo(
+  tryParseInt(process.env.DEFAULT_PORT_RETRY),
+  3
+);
 
-function processOptions (config) {
+function processOptions(config) {
   // processOptions {Promise}
   if (typeof config.then === 'function') {
     config.then(processOptions).catch((err) => {
@@ -121,9 +116,6 @@ function processOptions (config) {
   }
 
   const options = createConfig(config, argv, { port: DEFAULT_PORT });
-
-  portfinder.basePort = DEFAULT_PORT;
-  
   startDevServer(config, options);
 }
 
