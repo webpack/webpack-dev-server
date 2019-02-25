@@ -114,28 +114,31 @@ function tryParseInt(input) {
   return output;
 }
 
-function findPort(server, defaultPort, defaultPortRetry, fn) {
-  let tryCount = 0;
-  server.listeningApp.on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-      if (tryCount < defaultPortRetry) {
-        portfinder.basePort = defaultPort;
-        tryCount += 1;
-        portfinder.getPort((err, port) => {
-          fn(err, port);
-        });
-      } else {
-        fn(err);
-      }
-    } else {
-      throw err;
-    }
-  });
+function runPortFinder(tryCount, defaultPort, cb) {
   portfinder.basePort = defaultPort;
   tryCount += 1;
   portfinder.getPort((err, port) => {
-    fn(err, port);
+    cb(err, port);
   });
+}
+
+function findPort(server, defaultPort, defaultPortRetry, fn) {
+  let tryCount = 0;
+
+  server.listeningApp.on('error', (err) => {
+    if (err && err.code !== 'EADDRINUSE') {
+      throw err;
+    }
+
+    if (tryCount >= defaultPortRetry) {
+      fn(err);
+      return;
+    }
+
+    runPortFinder(tryCount, defaultPort, fn);
+  });
+
+  runPortFinder(tryCount, defaultPort, fn);
 }
 
 module.exports = {
