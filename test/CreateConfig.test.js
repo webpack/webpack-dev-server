@@ -559,6 +559,95 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
+  it('key option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { https: true, key: '/path/to/server.key' }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('key option (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { https: true, key: '/path/to/server.key' },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('cert option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { https: true, cert: '/path/to/server.crt' }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('cert option (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { https: true, cert: '/path/to/server.crt' },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('cacert option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { https: true, cacert: '/path/to/ca.pem' }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('cacert option (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        // TODO rename `ca` to `cacert` for `v4` to avoid difference between CLI and configuration
+        devServer: { https: true, ca: '/path/to/ca.pem' },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('pfx option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { https: true, pfx: '/path/to/file.pfx' }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('pfx option (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { https: true, pfx: '/path/to/file.pfx' },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
   it('pfxPassphrase option', () => {
     const config = createConfig(
       webpackConfig,
