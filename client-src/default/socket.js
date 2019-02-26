@@ -2,15 +2,16 @@
 
 const SockJS = require('sockjs-client/dist/sockjs');
 
+// retries variable must increment after each failed reconnection.
+// reconnect time depends on it
+// See https://github.com/webpack/webpack-dev-server/pull/1617
 let retries = 0;
 let sock = null;
 
 const socket = function initSocket(url, handlers) {
   sock = new SockJS(url);
 
-  sock.onopen = function onopen() {
-    retries = 0;
-  };
+  sock.onopen = function onopen() {};
 
   sock.onclose = function onclose() {
     if (retries === 0) {
