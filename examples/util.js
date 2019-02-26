@@ -11,6 +11,19 @@ const webpack = require('webpack');
 module.exports = {
   setup(config) {
     const defaults = { mode: 'development', plugins: [], devServer: {} };
+
+    if (config.entry) {
+      if (typeof config.entry === 'string') {
+        config.entry = path.resolve(config.entry);
+      } else if (Array.isArray(config.entry)) {
+        config.entry = config.entry.map((entry) => path.resolve(entry));
+      } else if (typeof config.entry === 'object') {
+        Object.entries(config.entry).forEach(([key, value]) => {
+          config.entry[key] = path.resolve(value);
+        });
+      }
+    }
+
     const result = Object.assign(defaults, config);
     const before = function before(app) {
       app.get('/.assets/*', (req, res) => {
