@@ -4,36 +4,33 @@
 
 /* eslint-disable
   import/order,
-  import/no-extraneous-dependencies,
-  global-require,
   no-shadow,
-  no-console,
-  multiline-ternary,
-  arrow-parens,
-  array-bracket-spacing,
-  space-before-function-paren
+  no-console
 */
 const debug = require('debug')('webpack-dev-server');
 
 const fs = require('fs');
 const net = require('net');
 
-const portfinder = require('portfinder');
 const importLocal = require('import-local');
 
 const yargs = require('yargs');
 const webpack = require('webpack');
 
 const options = require('./options');
-
-const { colors, status, version, bonjour } = require('./utils');
-
 const Server = require('../lib/Server');
 
 const addEntries = require('../lib/utils/addEntries');
+const colors = require('../lib/utils/colors');
+const createConfig = require('../lib/utils/createConfig');
 const createDomain = require('../lib/utils/createDomain');
 const createLogger = require('../lib/utils/createLogger');
-const createConfig = require('../lib/utils/createConfig');
+const defaultTo = require('../lib/utils/defaultTo');
+const findPort = require('../lib/utils/findPort');
+const getVersions = require('../lib/utils/getVersions');
+const runBonjour = require('../lib/utils/runBonjour');
+const status = require('../lib/utils/status');
+const tryParseInt = require('../lib/utils/tryParseInt');
 
 let server;
 
@@ -74,17 +71,20 @@ try {
 }
 
 yargs.usage(
-  `${version()}\nUsage:  https://webpack.js.org/configuration/dev-server/`
+  `${getVersions()}\nUsage:  https://webpack.js.org/configuration/dev-server/`
 );
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 require('webpack-cli/bin/config-yargs')(yargs);
+
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
-yargs.version(version());
+yargs.version(getVersions());
 yargs.options(options);
 
 const argv = yargs.argv;
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
   outputFilename: '/bundle.js',
 });
@@ -93,6 +93,15 @@ const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
 // it wasn't given by the user, in which case
 // we should use portfinder.
 const DEFAULT_PORT = 8080;
+
+// Try to find unused port and listen on it for 3 times,
+// if port is not specified in options.
+// Because NaN == null is false, defaultTo fails if parseInt returns NaN
+// so the tryParseInt function is introduced to handle NaN
+const defaultPortRetry = defaultTo(
+  tryParseInt(process.env.DEFAULT_PORT_RETRY),
+  3
+);
 
 function processOptions(config) {
   // processOptions {Promise}
@@ -107,24 +116,7 @@ function processOptions(config) {
   }
 
   const options = createConfig(config, argv, { port: DEFAULT_PORT });
-
-  portfinder.basePort = DEFAULT_PORT;
-
-  if (options.port != null) {
-    startDevServer(config, options);
-
-    return;
-  }
-
-  portfinder.getPort((err, port) => {
-    if (err) {
-      throw err;
-    }
-
-    options.port = port;
-
-    startDevServer(config, options);
-  });
+  startDevServer(config, options);
 }
 
 function startDevServer(config, options) {
@@ -210,21 +202,35 @@ function startDevServer(config, options) {
         status(uri, options, log, argv.color);
       });
     });
-  } else {
+    return;
+  }
+
+  const startServer = () => {
     server.listen(options.port, options.host, (err) => {
       if (err) {
         throw err;
       }
-
       if (options.bonjour) {
-        bonjour(options);
+        runBonjour(options);
       }
-
       const uri = createDomain(options, server.listeningApp) + suffix;
-
       status(uri, options, log, argv.color);
     });
+  };
+
+  if (options.port) {
+    startServer();
+    return;
   }
+
+  // only run port finder if no port as been specified
+  findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
+    if (err) {
+      throw err;
+    }
+    options.port = port;
+    startServer();
+  });
 }
 
 processOptions(config);
