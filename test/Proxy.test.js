@@ -21,7 +21,7 @@ const proxyOptionPathsAsProperties = {
   '/foo': {
     bypass(req) {
       if (/\.html$/.test(req.path)) {
-        return 'index.html';
+        return '/index.html';
       }
     },
   },
