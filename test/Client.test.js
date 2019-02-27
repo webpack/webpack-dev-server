@@ -29,6 +29,9 @@ describe('Client code', () => {
       host: '0.0.0.0',
       disableHostCheck: true,
       hot: true,
+      watchOptions: {
+        poll: true,
+      },
     };
     addEntries(config, options);
     helper.start(config, options, done);
