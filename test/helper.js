@@ -14,7 +14,9 @@ module.exports = {
     const compiler = webpack(config);
     server = new Server(compiler, options);
 
-    server.listen(8080, 'localhost', (err) => {
+    const port = options.port || 8080;
+    const host = options.host || 'localhost';
+    server.listen(port, host, (err) => {
       if (err) return done(err);
       done();
     });
