@@ -23,11 +23,15 @@ const proxyOptionPathsAsProperties = {
       if (/\.html$/.test(req.path)) {
         return '/index.html';
       }
+
+      return null;
     },
   },
   '/proxyfalse': {
-    bypass() {
-      return false;
+    bypass(req) {
+      if (/\/proxyfalse$/.test(req.path)) {
+        return false;
+      }
     },
   },
 };
