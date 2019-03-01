@@ -10,7 +10,9 @@ const path = require('path');
 const webpack = require('webpack');
 
 const addEntries = require('../lib/utils/addEntries');
+
 const config = require('./fixtures/simple-config/webpack.config');
+const configEntryAsFunction = require('./fixtures/entry-as-function/webpack.config');
 
 const normalize = (entry) => entry.split(path.sep).join('/');
 
@@ -188,6 +190,7 @@ describe('Entry', () => {
 
     expect('plugins' in webpackOptions).toBeFalsy();
   });
+
   it("doesn't add the HMR plugin if not hot and empty plugins", () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
     const devServerOptions = {};
@@ -196,6 +199,7 @@ describe('Entry', () => {
 
     expect(webpackOptions.plugins).toEqual([]);
   });
+
   it("doesn't add the HMR plugin if not hot and some plugins", () => {
     const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
     const existingPlugin2 = new webpack.DefinePlugin({ foo: 'bar' });
@@ -208,6 +212,7 @@ describe('Entry', () => {
 
     expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
   });
+
   it('adds the HMR plugin if hot', () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
     const webpackOptions = Object.assign({}, config, {
@@ -222,6 +227,7 @@ describe('Entry', () => {
       new webpack.HotModuleReplacementPlugin(),
     ]);
   });
+
   it('adds the HMR plugin if hot-only', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = { hotOnly: true };
@@ -232,6 +238,7 @@ describe('Entry', () => {
       new webpack.HotModuleReplacementPlugin(),
     ]);
   });
+
   it("doesn't add the HMR plugin again if it's already there", () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
     const webpackOptions = Object.assign({}, config, {
@@ -245,5 +252,14 @@ describe('Entry', () => {
       new webpack.HotModuleReplacementPlugin(),
       existingPlugin,
     ]);
+  });
+
+  it('supports entry as Function', () => {
+    const webpackOptions = Object.assign({}, configEntryAsFunction);
+    const devServerOptions = {};
+
+    addEntries(webpackOptions, devServerOptions);
+
+    expect(typeof webpackOptions.entry === 'function').toBe(true);
   });
 });
