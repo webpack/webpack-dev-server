@@ -42,10 +42,10 @@ describe('Client code', () => {
   describe('behind a proxy', () => {
     let proxy;
 
-    jest.setTimeout(20000);
+    jest.setTimeout(30000);
 
     beforeAll(() => {
-      proxy = startProxy(9000);
+      proxy = startProxy(9050);
     });
 
     afterAll(() => {
@@ -53,7 +53,7 @@ describe('Client code', () => {
     });
 
     it('responds with a 200', (done) => {
-      const req = request('http://localhost:9000');
+      const req = request('http://localhost:9050');
       req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
     });
 
@@ -63,12 +63,12 @@ describe('Client code', () => {
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
             expect(requestObj.url()).toMatch(
-              /^http:\/\/localhost:9000\/sockjs-node/
+              /^http:\/\/localhost:9050\/sockjs-node/
             );
             browser.close();
             done();
           });
-        page.goto('http://localhost:9000/main');
+        page.goto('http://localhost:9050/main');
       });
     });
   });
