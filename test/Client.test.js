@@ -13,7 +13,7 @@ function startProxy(port) {
   proxy.use(
     '/',
     httpProxy({
-      target: 'http://0.0.0.0:8080',
+      target: 'http://localhost:8080',
       ws: true,
       changeOrigin: true,
     })
@@ -45,7 +45,7 @@ describe('Client code', () => {
     jest.setTimeout(30000);
 
     beforeAll(() => {
-      proxy = startProxy(9050);
+      proxy = startProxy(9000);
     });
 
     afterAll(() => {
@@ -53,7 +53,7 @@ describe('Client code', () => {
     });
 
     it('responds with a 200', (done) => {
-      const req = request('http://localhost:9050');
+      const req = request('http://localhost:9000');
       req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
     });
 
@@ -63,12 +63,12 @@ describe('Client code', () => {
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
             expect(requestObj.url()).toMatch(
-              /^http:\/\/localhost:9050\/sockjs-node/
+              /^http:\/\/localhost:9000\/sockjs-node/
             );
             browser.close();
             done();
           });
-        page.goto('http://localhost:9050/main');
+        page.goto('http://localhost:9000/main');
       });
     });
   });
