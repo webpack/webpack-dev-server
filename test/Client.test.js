@@ -13,7 +13,7 @@ function startProxy(port) {
   proxy.use(
     '/',
     httpProxy({
-      target: 'http://localhost:8080',
+      target: 'http://localhost:9001',
       ws: true,
       changeOrigin: true,
     })
@@ -25,7 +25,7 @@ describe('Client code', () => {
   beforeAll((done) => {
     const options = {
       compress: true,
-      port: 8080,
+      port: 9001,
       host: '0.0.0.0',
       disableHostCheck: true,
       hot: true,
