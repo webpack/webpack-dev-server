@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const request = require('supertest');
 const helper = require('./helper');
 const config = require('./fixtures/contentbase-config/webpack.config');
@@ -37,6 +38,17 @@ describe('ContentBase', () => {
 
     it('Request to other file', (done) => {
       req.get('/other.html').expect(200, /Other html/, done);
+    });
+
+    it('Watches recursively', (done) => {
+      const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
+
+      fs.truncateSync(nestedFile);
+      fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+
+      // TODO check if the browser has refreshed
+
+      done();
     });
   });
 
