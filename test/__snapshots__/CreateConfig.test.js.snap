@@ -1037,6 +1037,77 @@ Object {
 }
 `;
 
+exports[`createConfig use webpack stats 1`] = `
+Object {
+  "clientLogLevel": "_clientLogLevel",
+  "compress": "_compress",
+  "contentBase": "_contentBase",
+  "disableHostCheck": "_disableHostCheck",
+  "filename": "_filename",
+  "historyApiFallback": "_historyApiFallback",
+  "host": "_foo",
+  "hot": "_hot",
+  "hotOnly": "_hotOnly",
+  "https": "_https",
+  "inline": "_inline",
+  "lazy": "_lazy",
+  "noInfo": true,
+  "open": "_open",
+  "openPage": "_openPage",
+  "pfxPassphrase": "_pfxPassphrase",
+  "port": "_port",
+  "progress": "_progress",
+  "public": "_public",
+  "publicPath": "_publicPath",
+  "quiet": "_quiet",
+  "socket": "_socket",
+  "stats": Object {
+    "assetsSort": "size",
+  },
+  "useLocalIp": "_useLocalIp",
+  "watchContentBase": "_watchContentBase",
+}
+`;
+
+exports[`createConfig use webpack stats 2`] = `
+Object {
+  "devServer": Object {
+    "clientLogLevel": "_clientLogLevel",
+    "compress": "_compress",
+    "contentBase": "_contentBase",
+    "disableHostCheck": "_disableHostCheck",
+    "filename": "_filename",
+    "historyApiFallback": "_historyApiFallback",
+    "host": "_foo",
+    "hot": "_hot",
+    "hotOnly": "_hotOnly",
+    "https": "_https",
+    "inline": "_inline",
+    "lazy": "_lazy",
+    "noInfo": true,
+    "open": "_open",
+    "openPage": "_openPage",
+    "pfxPassphrase": "_pfxPassphrase",
+    "port": "_port",
+    "progress": "_progress",
+    "public": "_public",
+    "publicPath": "_publicPath",
+    "quiet": "_quiet",
+    "socket": "_socket",
+    "stats": Object {
+      "assetsSort": "size",
+    },
+    "useLocalIp": "_useLocalIp",
+    "watchContentBase": "_watchContentBase",
+  },
+  "entry": "./app.js",
+  "mode": "development",
+  "stats": Object {
+    "assetsSort": "size",
+  },
+}
+`;
+
 exports[`createConfig useLocalIp option (in devServer config) 1`] = `
 Object {
   "hot": true,
@@ -1127,81 +1198,6 @@ Object {
   },
   "watchOptions": Object {
     "poll": true,
-  },
-}
-`;
-
-exports[`createConfig use webpack stats 1`] = `
-Object {
-  "clientLogLevel": "_clientLogLevel",
-  "compress": true,
-  "contentBase": "_contentBase",
-  "disableHostCheck": "_disableHostCheck",
-  "filename": "_filename",
-  "historyApiFallback": "_historyApiFallback",
-  "host": "foo",
-  "hot": "_hot",
-  "hotOnly": "_hotOnly",
-  "https": true,
-  "inline": "_inline",
-  "lazy": true,
-  "noInfo": true,
-  "open": "open",
-  "openPage": "_openPage",
-  "pfxPassphrase": "_pfxPassphrase",
-  "port": "port",
-  "progress": "progress",
-  "public": "public",
-  "publicPath": "_publicPath",
-  "quiet": true,
-  "socket": "socket",
-  "stats": Object {
-    "assetsSort": "size",
-    "colors": undefined,
-  },
-  "useLocalIp": true,
-  "watchContentBase": "_watchContentBase",
-  "watchOptions": undefined,
-}
-`;
-
-exports[`createConfig use webpack stats 2`] = `
-Object {
-  "devServer": Object {
-    "clientLogLevel": "_clientLogLevel",
-    "compress": true,
-    "contentBase": "_contentBase",
-    "disableHostCheck": "_disableHostCheck",
-    "filename": "_filename",
-    "historyApiFallback": "_historyApiFallback",
-    "host": "foo",
-    "hot": "_hot",
-    "hotOnly": "_hotOnly",
-    "https": true,
-    "inline": "_inline",
-    "lazy": true,
-    "noInfo": true,
-    "open": "open",
-    "openPage": "_openPage",
-    "pfxPassphrase": "_pfxPassphrase",
-    "port": "port",
-    "progress": "progress",
-    "public": "public",
-    "publicPath": "_publicPath",
-    "quiet": true,
-    "socket": "socket",
-    "stats": Object {
-      "assetsSort": "size",
-      "colors": undefined,
-    },
-    "useLocalIp": true,
-    "watchContentBase": "_watchContentBase",
-    "watchOptions": undefined,
-  },
-  "entry": "./app.js",
-  "mode": "development",
-  "stats": Object {
-    "assetsSort": "size",
   },
 }
 `;
