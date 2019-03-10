@@ -515,6 +515,32 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
+  it('mimeTypes option', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { mimeTypes: { 'text/html': ['phtml'] } },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('mimeTypes option - with force', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: {
+          mimeTypes: { typeMap: { 'text/html': ['phtml'] }, force: true },
+        },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
   it('quiet option', () => {
     const config = createConfig(
       webpackConfig,
