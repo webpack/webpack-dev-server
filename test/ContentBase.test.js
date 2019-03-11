@@ -3,8 +3,10 @@
 const path = require('path');
 const fs = require('fs');
 const request = require('supertest');
+const addEntries = require('../lib/utils/addEntries');
 const helper = require('./helper');
 const config = require('./fixtures/contentbase-config/webpack.config');
+const runBrowser = require('./helpers/run-browser');
 
 const contentBasePublic = path.join(
   __dirname,
@@ -22,10 +24,17 @@ describe('ContentBase', () => {
 
   describe('to directory', () => {
     beforeAll((done) => {
+      const options = {
+        port: 9001,
+        host: '0.0.0.0',
+        disableHostCheck: true,
+      };
+      addEntries(config, options);
       server = helper.start(
         config,
         {
           contentBase: contentBasePublic,
+          watchContentBase: true,
         },
         done
       );
@@ -43,12 +52,21 @@ describe('ContentBase', () => {
     it('Watches recursively', (done) => {
       const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
 
-      fs.truncateSync(nestedFile);
-      fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+      runBrowser().then(({ page, browser }) => {
+        // wait for first load
+        page.goto('http://localhost:9001').then(() => {
+          // page reloaded after the first load,
+          // meaning it watched the file correctly
+          page.on('load', () => {
+            browser.close();
+            done();
+          });
 
-      // TODO check if the browser has refreshed
-
-      done();
+          // trigger chokidar's file change event
+          fs.truncateSync(nestedFile);
+          fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+        });
+      });
     });
   });
 
