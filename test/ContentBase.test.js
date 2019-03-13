@@ -20,6 +20,10 @@ describe('ContentBase', () => {
   let req;
 
   describe('to directory', () => {
+    const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
+
+    jest.setTimeout(30000);
+
     beforeAll((done) => {
       server = helper.start(
         config,
@@ -36,6 +40,7 @@ describe('ContentBase', () => {
       helper.close(() => {
         done();
       });
+      fs.truncateSync(nestedFile);
     });
 
     it('Request to index', (done) => {
@@ -47,8 +52,6 @@ describe('ContentBase', () => {
     });
 
     it('Watches folder recursively', (done) => {
-      const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
-
       // chokidar emitted a change,
       // meaning it watched the file correctly
       server.contentBaseWatchers[0].on('change', () => {
@@ -56,8 +59,9 @@ describe('ContentBase', () => {
       });
 
       // change a file manually
-      fs.truncateSync(nestedFile);
-      fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+      setTimeout(() => {
+        fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+      }, 1000);
     });
   });
 
