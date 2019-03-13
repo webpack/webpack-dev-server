@@ -56,6 +56,7 @@ describe('ContentBase', () => {
       });
 
       // change a file manually
+      fs.truncateSync(nestedFile);
       fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
     });
   });
