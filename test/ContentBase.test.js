@@ -3,10 +3,8 @@
 const path = require('path');
 const fs = require('fs');
 const request = require('supertest');
-const addEntries = require('../lib/utils/addEntries');
 const helper = require('./helper');
 const config = require('./fixtures/contentbase-config/webpack.config');
-const runBrowser = require('./helpers/run-browser');
 
 const contentBasePublic = path.join(
   __dirname,
@@ -20,16 +18,9 @@ const contentBaseOther = path.join(
 describe('ContentBase', () => {
   let server;
   let req;
-  afterEach(helper.close);
 
   describe('to directory', () => {
     beforeAll((done) => {
-      const options = {
-        port: 9001,
-        host: '0.0.0.0',
-        disableHostCheck: true,
-      };
-      addEntries(config, options);
       server = helper.start(
         config,
         {
@@ -41,6 +32,12 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
     it('Request to index', (done) => {
       req.get('/').expect(200, /Heyo/, done);
     });
@@ -49,24 +46,17 @@ describe('ContentBase', () => {
       req.get('/other.html').expect(200, /Other html/, done);
     });
 
-    it('Watches recursively', (done) => {
+    it('Watches folder recursively', (done) => {
       const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
 
-      runBrowser().then(({ page, browser }) => {
-        // wait for first load
-        page.goto('http://localhost:9001').then(() => {
-          // page reloaded after the first load,
-          // meaning it watched the file correctly
-          page.on('load', () => {
-            browser.close();
-            done();
-          });
-
-          // trigger chokidar's file change event
-          fs.truncateSync(nestedFile);
-          fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
-        });
+      // chokidar emitted a change,
+      // meaning it watched the file correctly
+      server.contentBaseWatchers[0].on('change', () => {
+        done();
       });
+
+      // change a file manually
+      fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
     });
   });
 
@@ -80,6 +70,12 @@ describe('ContentBase', () => {
         done
       );
       req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
     });
 
     it('Request to first directory', (done) => {
@@ -103,6 +99,12 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
     it('Request to page', (done) => {
       req
         .get('/other.html')
@@ -121,6 +123,12 @@ describe('ContentBase', () => {
         done
       );
       req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
     });
 
     it('Request to page', (done) => {
@@ -147,6 +155,12 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
     it('Request to page', (done) => {
       req.get('/other.html').expect(200, done);
     });
@@ -167,6 +181,12 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
     it('Request to page', (done) => {
       req.get('/other.html').expect(404, done);
     });
@@ -182,6 +202,12 @@ describe('ContentBase', () => {
         done
       );
       req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
     });
 
     it('Request foo.wasm', (done) => {
