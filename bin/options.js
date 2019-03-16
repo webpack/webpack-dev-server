@@ -87,6 +87,12 @@ const options = {
     group: SSL_GROUP,
     describe: 'HTTPS',
   },
+  spdy: {
+    type: 'boolean',
+    alias: 'http2',
+    group: SSL_GROUP,
+    describe: 'HTTP/2 using spdy',
+  },
   key: {
     type: 'string',
     describe: 'Path to a SSL key.',
