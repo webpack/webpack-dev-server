@@ -82,5 +82,32 @@ describe('SPDY', () => {
     });
   });
 
+  describe('custom spdy protocol options', () => {
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          https: {
+            spdy: {
+              protocols: ['http/1.1'],
+            },
+          },
+          spdy: true,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    it('Request to index', (done) => {
+      req.get('/').expect(200, /Heyo/, done);
+    });
+
+    afterAll(() => {
+      helper.close();
+    });
+  });
+
   afterEach(helper.close);
 });
