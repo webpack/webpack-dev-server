@@ -494,6 +494,7 @@ exports[`createConfig http2 option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "http2": true,
   "https": true,
   "noInfo": true,
   "port": 8080,
@@ -1036,38 +1037,6 @@ Object {
   "port": 8080,
   "publicPath": "/",
   "socket": "socket",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig spdy option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "hotOnly": false,
-  "https": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "spdy": true,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig spdy option 1`] = `
-Object {
-  "hot": true,
-  "hotOnly": false,
-  "https": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "spdy": true,
   "stats": Object {
     "cached": false,
     "cachedAssets": false,

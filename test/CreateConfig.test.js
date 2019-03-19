@@ -559,28 +559,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('spdy option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, spdy: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('spdy option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { https: true, spdy: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('http2 option', () => {
     const config = createConfig(
       webpackConfig,

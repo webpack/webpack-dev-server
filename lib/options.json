@@ -162,9 +162,6 @@
         }
       ]
     },
-    "spdy": {
-      "type": "boolean"
-    },
     "http2": {
       "type": "boolean"
     },
@@ -327,8 +324,7 @@
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-disablehostcheck)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-public)",
       "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-https)",
-      "spdy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-spdy)",
-      "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-spdy)",
+      "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-http2)",
       "contentBase": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)",
       "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-watchcontentbase)",
       "open": "should be {String|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-open)",

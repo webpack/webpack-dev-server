@@ -87,11 +87,10 @@ const options = {
     group: SSL_GROUP,
     describe: 'HTTPS',
   },
-  spdy: {
+  http2: {
     type: 'boolean',
-    alias: 'http2',
     group: SSL_GROUP,
-    describe: 'HTTP/2 using spdy',
+    describe: 'HTTP/2, must be used with HTTPS',
   },
   key: {
     type: 'string',
