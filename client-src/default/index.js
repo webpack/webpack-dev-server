@@ -16,7 +16,14 @@ function getCurrentScriptSource() {
     return document.currentScript.getAttribute('src');
   }
   // Fall back to getting all scripts in the document.
-  const scriptElements = document.scripts || [];
+  const scriptElements;
+  if(document.scripts) {
+    scriptElements=document.scripts;
+  }
+  else {
+    scriptElements=[];
+  }
+
   const currentScript = scriptElements[scriptElements.length - 1];
   if (currentScript) {
     return currentScript.getAttribute('src');
@@ -86,8 +93,12 @@ const onSocketMsg = {
   invalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
-    sendMsg('Invalid');
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
+    else {
+      sendMsg('Invalid');
+    }
   },
   hash(hash) {
     currentHash = hash;
@@ -167,8 +178,12 @@ const onSocketMsg = {
     for (let i = 0; i < strippedErrors.length; i++) {
       log.error(strippedErrors[i]);
     }
-    if (useErrorOverlay) overlay.showMessage(errors);
-    initial = false;
+    if (useErrorOverlay) {
+      overlay.showMessage(errors);
+    }
+    else {
+      initial = false;
+    }
   },
   error(error) {
     log.error(error);
