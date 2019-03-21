@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "eslint bin lib test examples client-src",
     "pretty": "prettier --loglevel warn --write \"**/*.{js,css,md,json,yml}\"",
-    "test": "jest --config jest.config.json --runInBand",
+    "test": "jest --runInBand",
     "prepare": "rimraf ./ssl/*.pem && npm run -s transpile:index && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
     "transpile:index": "babel client-src/default --out-dir client --ignore *.config.js",
     "build:index": "webpack ./client-src/default/index.js -o client/index.bundle.js --color --config client-src/default/webpack.config.js",
