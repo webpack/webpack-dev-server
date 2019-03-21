@@ -16,6 +16,29 @@ const allStats = [
 ];
 
 describe('Server', () => {
+  it('should cascade warningsFilter', () => {
+    const stats = { warningsFilter: 'test' };
+    return new Promise((res) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, { stats });
+
+      compiler.hooks.done.tap('webpack-dev-server', (s) => {
+        s.compilation.warnings = ['test', 'another warning'];
+
+        const output = server.getStats(s);
+        expect(output.warnings.length).toBe(1);
+        expect(output.warnings[0]).toBe('another warning');
+
+        server.close(() => {
+          res();
+        });
+      });
+
+      compiler.run(() => {});
+      server.listen(8080, 'localhost');
+    });
+  });
+
   it(`should cascade stats options`, () => {
     return new Promise((resolve, reject) => {
       (function iterate(stats, i) {
