@@ -3,6 +3,7 @@
 const path = require('path');
 const createConfig = require('../lib/utils/createConfig');
 const webpackConfig = require('./fixtures/schema/webpack.config.simple');
+const webpackConfigNoStats = require('./fixtures/schema/webpack.config.no-dev-stats');
 
 const argv = {
   port: 8080,
@@ -852,5 +853,12 @@ describe('createConfig', () => {
     );
 
     expect(config).toMatchSnapshot();
+  });
+
+  it('use webpack stats', () => {
+    expect(
+      createConfig(webpackConfigNoStats, argv, { port: 8080 })
+    ).toMatchSnapshot();
+    expect(webpackConfigNoStats).toMatchSnapshot();
   });
 });
