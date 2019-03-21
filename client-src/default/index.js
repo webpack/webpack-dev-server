@@ -16,13 +16,7 @@ function getCurrentScriptSource() {
     return document.currentScript.getAttribute('src');
   }
   // Fall back to getting all scripts in the document.
-  const scriptElements;
-  if(document.scripts) {
-    scriptElements=document.scripts;
-  }
-  else {
-    scriptElements=[];
-  }
+  const scriptElements = document.scripts ? document.scripts : [];
 
   const currentScript = scriptElements[scriptElements.length - 1];
   if (currentScript) {
@@ -137,6 +131,10 @@ const onSocketMsg = {
       } else if (value) {
         useWarningOverlay = value.warnings;
         useErrorOverlay = value.errors;
+      }
+      else {
+        useWarningOverlay = false;
+        useErrorOverlay = [];
       }
     }
   },
