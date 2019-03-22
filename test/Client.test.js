@@ -3,7 +3,6 @@
 const express = require('express');
 const httpProxy = require('http-proxy-middleware');
 const request = require('supertest');
-const addEntries = require('../lib/utils/addEntries');
 const helper = require('./helper');
 const config = require('./fixtures/client-config/webpack.config');
 const runBrowser = require('./helpers/run-browser');
@@ -33,7 +32,6 @@ describe('Client code', () => {
         poll: true,
       },
     };
-    addEntries(config, options);
     helper.start(config, options, done);
   });
 

@@ -254,6 +254,21 @@ describe('Entry', () => {
     ]);
   });
 
+  it('can prevent duplicate entries from successive calls', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = { hot: true };
+
+    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions);
+
+    expect(webpackOptions.entry.length).toEqual(3);
+
+    const result = webpackOptions.entry.filter((entry) =>
+      normalize(entry).includes('webpack/hot/dev-server')
+    );
+    expect(result.length).toEqual(1);
+  });
+
   it('supports entry as Function', () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
     const devServerOptions = {};
