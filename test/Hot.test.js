@@ -15,7 +15,7 @@ describe('Hot Module Replacement', () => {
         host: '0.0.0.0',
         hot: true,
       };
-      helper.start(config, options, done);
+      helper.startAwaitingCompilation(config, options, done);
     });
 
     afterAll(helper.close);
@@ -25,8 +25,7 @@ describe('Hot Module Replacement', () => {
         page.once('console', (msg) => {
           expect(msg.args().length).toEqual(1);
           expect(msg.text()).toMatch(/\[HMR\]/);
-          browser.close();
-          done();
+          browser.close().then(done);
         });
         page.goto('http://localhost:9000/main');
       });
@@ -42,7 +41,7 @@ describe('Hot Module Replacement', () => {
         host: '0.0.0.0',
         hot: true,
       };
-      helper.start(multiCompilerConfig, options, done);
+      helper.startAwaitingCompilation(multiCompilerConfig, options, done);
     });
 
     afterAll(helper.close);
@@ -52,8 +51,7 @@ describe('Hot Module Replacement', () => {
         page.once('console', (msg) => {
           expect(msg.args().length).toEqual(1);
           expect(msg.text()).toMatch(/\[HMR\]/);
-          browser.close();
-          done();
+          browser.close().then(done);
         });
         page.goto('http://localhost:9000/main');
       });
@@ -69,7 +67,7 @@ describe('Hot Module Replacement', () => {
         host: '0.0.0.0',
         hot: false,
       };
-      helper.start(config, options, done);
+      helper.startAwaitingCompilation(config, options, done);
     });
 
     afterAll(helper.close);
@@ -79,8 +77,7 @@ describe('Hot Module Replacement', () => {
         page.once('console', (msg) => {
           expect(msg.args().length).toEqual(1);
           expect(msg.text()).toMatch(/Hey\./);
-          browser.close();
-          done();
+          browser.close().then(done);
         });
         page.goto('http://localhost:9000/main');
       });

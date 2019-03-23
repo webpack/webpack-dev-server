@@ -32,7 +32,7 @@ describe('Client code', () => {
         poll: true,
       },
     };
-    helper.start(config, options, done);
+    helper.startAwaitingCompilation(config, options, done);
   });
 
   afterAll(helper.close);
@@ -63,8 +63,7 @@ describe('Client code', () => {
             expect(requestObj.url()).toMatch(
               /^http:\/\/localhost:9000\/sockjs-node/
             );
-            browser.close();
-            done();
+            browser.close().then(done);
           });
         page.goto('http://localhost:9000/main');
       });
