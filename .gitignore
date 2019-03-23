@@ -5,3 +5,4 @@ node_modules
 /ssl/*.pem
 .idea/
 .DS_Store
+.nyc_output

@@ -1,20 +1,59 @@
 sudo: false
+
+git:
+  depth: 10
+
 branches:
   only:
     - master
+    - next
+    - v2
 
-language:
-  node_js
+language: node_js
 
-node_js:
-  - '10'
-  - '8'
-  - '6'
-  - '4'
+cache:
+  directories:
+    - node_modules
+    - $HOME/.npm
+
+matrix:
+  fast_finish: true
+  include:
+    - env: JOB_PART=lint
+      node_js: 11
+    - &linux
+      env: JOB_PART=test
+      node_js: 11
+    - <<: *linux
+      node_js: 10
+    - <<: *linux
+      node_js: 8
+    - <<: *linux
+      node_js: 6
+    - &osx
+      os: 'osx'
+      env: JOB_PART=test
+      node_js: 11
+    - <<: *osx
+      node_js: 10
+    - <<: *osx
+      node_js: 8
+    - <<: *osx
+      node_js: 6
+
+before_install:
+  - npm i -g npm@latest
+
+install:
+  - npm ci
+
+before_script:
+  - node --version
+  - npm --version
 
 script:
-  npm run ci
+  - npm run $JOB_PART
 
 after_success:
-  - cat ./coverage/coverage.json | node_modules/codecov.io/bin/codecov.io.js
-  - rm -rf ./coverage
+  - npm i codecov
+  - $(npm bin)/codecov

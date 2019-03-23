@@ -1,0 +1,38 @@
+build: 'off'
+
+branches:
+  only:
+    - master
+    - next
+    - v2
+
+init:
+  - git config --global core.autocrlf input
+
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+
+environment:
+  matrix:
+    - nodejs_version: '11'
+      webpack_version: latest
+    - nodejs_version: '10'
+      webpack_version: latest
+    - nodejs_version: '8'
+      webpack_version: latest
+    - nodejs_version: '6'
+      webpack_version: latest
+
+matrix:
+  fast_finish: true
+
+install:
+  - ps: Install-Product node $env:nodejs_version x64
+  - npm i -g npm@latest
+  - npm ci
+
+test_script:
+  - node --version
+  - npm --version
+  - cmd: npm test
