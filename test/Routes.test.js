@@ -21,7 +21,7 @@ describe('Routes', () => {
 
   describe('without headers', () => {
     beforeAll((done) => {
-      server = helper.start(config, {}, done);
+      server = helper.startAwaitingCompilation(config, {}, done);
       req = request(server.app);
     });
 
