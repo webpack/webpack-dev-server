@@ -28,7 +28,7 @@ module.exports = {
       compiler,
     };
   },
-  startAwaitingCompilation(config, options, done) {
+  startAwaitingCompilationFullSetup(config, options, done) {
     let readyCount = 0;
     const ready = () => {
       readyCount += 1;
@@ -41,7 +41,10 @@ module.exports = {
     // wait for compilation, since dev server can start before this
     // https://github.com/webpack/webpack-dev-server/issues/847
     fullSetup.compiler.hooks.done.tap('done', ready);
-    return fullSetup.server;
+    return fullSetup;
+  },
+  startAwaitingCompilation(config, options, done) {
+    return this.startAwaitingCompilationFullSetup(config, options, done).server;
   },
   start(config, options, done) {
     return this.startFullSetup(config, options, done).server;
