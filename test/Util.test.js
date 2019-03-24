@@ -92,7 +92,14 @@ describe('check utility functions', () => {
     it(`test createDomain '${test.name}'`, (done) => {
       const { options, expected } = test;
 
-      server = new Server(compiler, options);
+      const nonInlineOptions = Object.assign(
+        {
+          inline: false,
+        },
+        options
+      );
+
+      server = new Server(compiler, nonInlineOptions);
 
       server.listen(options.port, options.host, (err) => {
         if (err) {
