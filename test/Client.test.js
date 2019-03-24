@@ -48,8 +48,11 @@ describe('Client code', () => {
       proxy = startProxy(9000);
     });
 
-    afterAll(() => {
+    afterAll((done) => {
       proxy.close();
+      setTimeout(() => {
+        done();
+      });
     });
 
     it('responds with a 200', (done) => {
