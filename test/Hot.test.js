@@ -13,8 +13,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hot: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       server = helper.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -31,8 +33,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hotOnly: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       server = helper.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -51,8 +55,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hot: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       server = helper.startAwaitingCompilation(
         multiCompilerConfig,
@@ -73,8 +79,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hot: false,
+        watchOptions: {
+          poll: true,
+        },
       };
       server = helper.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -101,8 +109,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hot: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       const fullSetup = helper.startAwaitingCompilationFullSetup(
         config,
@@ -132,8 +142,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hotOnly: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       const fullSetup = helper.startAwaitingCompilationFullSetup(
         config,
@@ -163,8 +175,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hot: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       const fullSetup = helper.startAwaitingCompilationFullSetup(
         multiCompilerConfig,
@@ -194,8 +208,10 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
-        host: '0.0.0.0',
         hot: false,
+        watchOptions: {
+          poll: true,
+        },
       };
       const fullSetup = helper.startAwaitingCompilationFullSetup(
         config,

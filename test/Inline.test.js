@@ -15,6 +15,9 @@ describe('inline', () => {
         port: 9000,
         host: '0.0.0.0',
         inline: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       server = helper.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -35,6 +38,9 @@ describe('inline', () => {
         port: 9000,
         host: '0.0.0.0',
         inline: true,
+        watchOptions: {
+          poll: true,
+        },
       };
       server = helper.startAwaitingCompilation(
         multiCompilerConfig,
@@ -59,6 +65,9 @@ describe('inline', () => {
         port: 9000,
         host: '0.0.0.0',
         inline: false,
+        watchOptions: {
+          poll: true,
+        },
       };
       server = helper.startAwaitingCompilation(config, options, done);
       req = request(server.app);
