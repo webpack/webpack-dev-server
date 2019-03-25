@@ -26,6 +26,7 @@ describe('HTTPS', () => {
         {
           contentBase: contentBasePublic,
           https: true,
+          inline: false,
         },
         done
       );
@@ -56,6 +57,7 @@ describe('HTTPS', () => {
             ),
             passphrase: 'webpack-dev-server',
           },
+          inline: false,
         },
         done
       );
@@ -80,6 +82,7 @@ describe('HTTPS', () => {
             cert: path.join(httpsCertificateDirectory, 'server.crt'),
             passphrase: 'webpack-dev-server',
           },
+          inline: false,
         },
         done
       );
@@ -113,6 +116,7 @@ describe('HTTPS', () => {
               .toString(),
             passphrase: 'webpack-dev-server',
           },
+          inline: false,
         },
         done
       );
