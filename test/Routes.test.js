@@ -69,7 +69,7 @@ describe('Routes', () => {
 
   describe('headers as a string', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = helper.startAwaitingCompilation(
         config,
         {
           headers: { 'X-Foo': '1' },
@@ -91,7 +91,7 @@ describe('Routes', () => {
 
   describe('headers as an array', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = helper.startAwaitingCompilation(
         config,
         {
           headers: { 'X-Bar': ['key1=value1', 'key2=value2'] },
