@@ -13,6 +13,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
+        inline: true,
         hot: true,
         watchOptions: {
           poll: true,
@@ -33,6 +34,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
+        inline: true,
         hotOnly: true,
         watchOptions: {
           poll: true,
@@ -55,6 +57,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
+        inline: true,
         hot: true,
         watchOptions: {
           poll: true,
@@ -79,6 +82,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
     beforeAll((done) => {
       const options = {
         port: 9000,
+        inline: true,
         hot: false,
         watchOptions: {
           poll: true,
@@ -109,6 +113,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
+        inline: true,
         hot: true,
         watchOptions: {
           poll: true,
@@ -142,6 +147,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
+        inline: true,
         hotOnly: true,
         watchOptions: {
           poll: true,
@@ -175,6 +181,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
+        inline: true,
         hot: true,
         watchOptions: {
           poll: true,
@@ -208,6 +215,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       let pluginFound = false;
       const options = {
         port: 9000,
+        inline: true,
         hot: false,
         watchOptions: {
           poll: true,

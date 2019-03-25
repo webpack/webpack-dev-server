@@ -27,6 +27,7 @@ describe('Client code', () => {
       port: 9001,
       host: '0.0.0.0',
       disableHostCheck: true,
+      inline: true,
       hot: true,
       watchOptions: {
         poll: true,
