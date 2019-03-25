@@ -21,12 +21,14 @@ describe('HTTPS', () => {
 
   describe('is boolean', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = helper.startAwaitingCompilation(
         config,
         {
           contentBase: contentBasePublic,
           https: true,
-          inline: false,
+          watchOptions: {
+            poll: true,
+          },
         },
         done
       );
@@ -40,7 +42,7 @@ describe('HTTPS', () => {
 
   describe('ca, pfx, key and cert are buffer', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = helper.startAwaitingCompilation(
         config,
         {
           contentBase: contentBasePublic,
@@ -57,7 +59,9 @@ describe('HTTPS', () => {
             ),
             passphrase: 'webpack-dev-server',
           },
-          inline: false,
+          watchOptions: {
+            poll: true,
+          },
         },
         done
       );
@@ -71,7 +75,7 @@ describe('HTTPS', () => {
 
   describe('ca, pfx, key and cert are paths', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = helper.startAwaitingCompilation(
         config,
         {
           contentBase: contentBasePublic,
@@ -82,7 +86,9 @@ describe('HTTPS', () => {
             cert: path.join(httpsCertificateDirectory, 'server.crt'),
             passphrase: 'webpack-dev-server',
           },
-          inline: false,
+          watchOptions: {
+            poll: true,
+          },
         },
         done
       );
@@ -96,7 +102,7 @@ describe('HTTPS', () => {
 
   describe('ca, pfx, key and cert are raw strings', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = helper.startAwaitingCompilation(
         config,
         {
           contentBase: contentBasePublic,
@@ -116,7 +122,9 @@ describe('HTTPS', () => {
               .toString(),
             passphrase: 'webpack-dev-server',
           },
-          inline: false,
+          watchOptions: {
+            poll: true,
+          },
         },
         done
       );
