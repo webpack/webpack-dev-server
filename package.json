@@ -82,7 +82,7 @@
     "marked": "^0.6.1",
     "nyc": "^13.3.0",
     "prettier": "^1.16.3",
-    "puppeteer": "^1.13.0",
+    "puppeteer": "^1.12.2",
     "rimraf": "^2.6.2",
     "standard-version": "^5.0.0",
     "style-loader": "^0.23.1",

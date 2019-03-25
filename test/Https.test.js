@@ -21,14 +21,11 @@ describe('HTTPS', () => {
 
   describe('is boolean', () => {
     beforeAll((done) => {
-      server = helper.startAwaitingCompilation(
+      server = helper.start(
         config,
         {
           contentBase: contentBasePublic,
           https: true,
-          watchOptions: {
-            poll: true,
-          },
         },
         done
       );
@@ -38,11 +35,15 @@ describe('HTTPS', () => {
     it('Request to index', (done) => {
       req.get('/').expect(200, /Heyo/, done);
     });
+
+    afterAll(() => {
+      helper.close();
+    });
   });
 
   describe('ca, pfx, key and cert are buffer', () => {
     beforeAll((done) => {
-      server = helper.startAwaitingCompilation(
+      server = helper.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -59,9 +60,6 @@ describe('HTTPS', () => {
             ),
             passphrase: 'webpack-dev-server',
           },
-          watchOptions: {
-            poll: true,
-          },
         },
         done
       );
@@ -75,7 +73,7 @@ describe('HTTPS', () => {
 
   describe('ca, pfx, key and cert are paths', () => {
     beforeAll((done) => {
-      server = helper.startAwaitingCompilation(
+      server = helper.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -85,9 +83,6 @@ describe('HTTPS', () => {
             key: path.join(httpsCertificateDirectory, 'server.key'),
             cert: path.join(httpsCertificateDirectory, 'server.crt'),
             passphrase: 'webpack-dev-server',
-          },
-          watchOptions: {
-            poll: true,
           },
         },
         done
@@ -102,7 +97,7 @@ describe('HTTPS', () => {
 
   describe('ca, pfx, key and cert are raw strings', () => {
     beforeAll((done) => {
-      server = helper.startAwaitingCompilation(
+      server = helper.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -121,9 +116,6 @@ describe('HTTPS', () => {
               .readFileSync(path.join(httpsCertificateDirectory, 'server.crt'))
               .toString(),
             passphrase: 'webpack-dev-server',
-          },
-          watchOptions: {
-            poll: true,
           },
         },
         done

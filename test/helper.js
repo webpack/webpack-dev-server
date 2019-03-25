@@ -16,7 +16,7 @@ module.exports = {
       options.quiet = true;
     }
     // originally, inline was not working by default for tests with the API
-    // if you need to test inline, I think it should be set explicitly,
+    // if you need to test inline, it should be set explicitly,
     // rather than expecting it to be defaulted to
     // (the only test that relied on inline before this point was Client.test.js)
     if (
@@ -69,7 +69,9 @@ module.exports = {
     // I suspect that almost all tests need to wait for compilation to
     // finish, because not doing so leaves open handles for jest,
     // in the case where a compilation didn't finish before destroying
-    // the server and moving on
+    // the server and moving on. Thus, the default "start" should wait
+    // for compilation, and only special cases where you don't expect
+    // a compilation happen should use startBeforeCompilation
     return this.startAwaitingCompilation(config, options, done);
   },
   startBeforeCompilation(config, options, done) {

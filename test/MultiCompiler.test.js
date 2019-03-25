@@ -8,7 +8,7 @@ describe('MultiCompiler', () => {
   let server;
   let req;
   beforeAll((done) => {
-    server = helper.startAwaitingCompilation(config, {}, done);
+    server = helper.start(config, {}, done);
     req = request(server.app);
   });
 
