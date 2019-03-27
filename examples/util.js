@@ -84,7 +84,15 @@ module.exports = {
       result.devServer.before = before;
     }
 
-    result.output = { path: path.dirname(module.parent.filename) };
+    const output = {
+      path: path.dirname(module.parent.filename),
+    };
+
+    if (result.output) {
+      Object.assign(result.output, output);
+    } else {
+      result.output = output;
+    }
 
     return result;
   },
