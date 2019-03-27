@@ -15,7 +15,7 @@ describe('Lazy', () => {
   });
 
   it('with filename option should not throw an error', (done) => {
-    helper.start(
+    helper.startBeforeCompilation(
       config,
       {
         lazy: true,
