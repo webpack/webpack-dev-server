@@ -98,6 +98,7 @@ describe('http2', () => {
         {
           contentBase: contentBasePublic,
           https: true,
+          http2: false,
         },
         done
       );
