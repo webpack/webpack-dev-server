@@ -2,7 +2,6 @@
 
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
-const querystring = require('querystring');
 const url = require('url');
 const stripAnsi = require('strip-ansi');
 const log = require('loglevel').getLogger('webpack-dev-server');
@@ -179,48 +178,7 @@ const onSocketMsg = {
   },
 };
 
-let hostname = urlParts.hostname;
-let protocol = urlParts.protocol;
-let port = urlParts.port;
-
-// check ipv4 and ipv6 `all hostname`
-if (hostname === '0.0.0.0' || hostname === '::') {
-  // why do we need this check?
-  // hostname n/a for file protocol (example, when using electron, ionic)
-  // see: https://github.com/webpack/webpack-dev-server/pull/384
-  // eslint-disable-next-line no-bitwise
-  if (self.location.hostname && !!~self.location.protocol.indexOf('http')) {
-    hostname = self.location.hostname;
-    port = self.location.port;
-  }
-}
-
-// `hostname` can be empty when the script path is relative. In that case, specifying
-// a protocol would result in an invalid URL.
-// When https is used in the app, secure websockets are always necessary
-// because the browser doesn't accept non-secure websockets.
-if (
-  hostname &&
-  (self.location.protocol === 'https:' || urlParts.hostname === '0.0.0.0')
-) {
-  protocol = self.location.protocol;
-}
-
-const socketUrl = url.format({
-  protocol,
-  auth: urlParts.auth,
-  hostname,
-  port,
-  // If sockPath is provided it'll be passed in via the __resourceQuery as a
-  // query param so it has to be parsed out of the querystring in order for the
-  // client to open the socket to the correct location.
-  pathname:
-    urlParts.path == null || urlParts.path === '/'
-      ? '/sockjs-node'
-      : querystring.parse(urlParts.path).sockPath || urlParts.path,
-});
-
-socket(socketUrl, onSocketMsg);
+socket('/sockjs-node', onSocketMsg);
 
 let isUnloading = false;
 self.addEventListener('beforeunload', () => {
