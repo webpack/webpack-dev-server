@@ -23,6 +23,15 @@ const proxyOptionPathsAsProperties = {
       if (/\.html$/.test(req.path)) {
         return '/index.html';
       }
+
+      return null;
+    },
+  },
+  '/proxyfalse': {
+    bypass(req) {
+      if (/\/proxyfalse$/.test(req.path)) {
+        return false;
+      }
     },
   },
 };
@@ -115,6 +124,10 @@ describe('Proxy', () => {
 
       it('should pass through a proxy when a bypass function returns null', (done) => {
         req.get('/foo.js').expect(200, /Hey/, done);
+      });
+
+      it('should not pass through a proxy when a bypass function returns false', (done) => {
+        req.get('/proxyfalse').expect(404, done);
       });
     });
   });

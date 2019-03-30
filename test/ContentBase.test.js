@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const request = require('supertest');
 const helper = require('./helper');
 const config = require('./fixtures/contentbase-config/webpack.config');
@@ -17,18 +18,29 @@ const contentBaseOther = path.join(
 describe('ContentBase', () => {
   let server;
   let req;
-  afterEach(helper.close);
 
   describe('to directory', () => {
+    const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
+
+    jest.setTimeout(30000);
+
     beforeAll((done) => {
       server = helper.start(
         config,
         {
           contentBase: contentBasePublic,
+          watchContentBase: true,
         },
         done
       );
       req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+      fs.truncateSync(nestedFile);
     });
 
     it('Request to index', (done) => {
@@ -37,6 +49,19 @@ describe('ContentBase', () => {
 
     it('Request to other file', (done) => {
       req.get('/other.html').expect(200, /Other html/, done);
+    });
+
+    it('Watches folder recursively', (done) => {
+      // chokidar emitted a change,
+      // meaning it watched the file correctly
+      server.contentBaseWatchers[0].on('change', () => {
+        done();
+      });
+
+      // change a file manually
+      setTimeout(() => {
+        fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+      }, 1000);
     });
   });
 
@@ -50,6 +75,12 @@ describe('ContentBase', () => {
         done
       );
       req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
     });
 
     it('Request to first directory', (done) => {
@@ -73,6 +104,12 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
     it('Request to page', (done) => {
       req
         .get('/other.html')
@@ -91,6 +128,12 @@ describe('ContentBase', () => {
         done
       );
       req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
     });
 
     it('Request to page', (done) => {
@@ -117,6 +160,12 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
     it('Request to page', (done) => {
       req.get('/other.html').expect(200, done);
     });
@@ -137,6 +186,12 @@ describe('ContentBase', () => {
       req = request(server.app);
     });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
     it('Request to page', (done) => {
       req.get('/other.html').expect(404, done);
     });
@@ -152,6 +207,12 @@ describe('ContentBase', () => {
         done
       );
       req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
     });
 
     it('Request foo.wasm', (done) => {

@@ -3,7 +3,6 @@
 const express = require('express');
 const httpProxy = require('http-proxy-middleware');
 const request = require('supertest');
-const addEntries = require('../lib/utils/addEntries');
 const helper = require('./helper');
 const config = require('./fixtures/client-config/webpack.config');
 const runBrowser = require('./helpers/run-browser');
@@ -28,13 +27,13 @@ describe('Client code', () => {
       port: 9001,
       host: '0.0.0.0',
       disableHostCheck: true,
+      inline: true,
       hot: true,
       watchOptions: {
         poll: true,
       },
     };
-    addEntries(config, options);
-    helper.start(config, options, done);
+    helper.startAwaitingCompilation(config, options, done);
   });
 
   afterAll(helper.close);
@@ -65,8 +64,7 @@ describe('Client code', () => {
             expect(requestObj.url()).toMatch(
               /^http:\/\/localhost:9000\/sockjs-node/
             );
-            browser.close();
-            done();
+            browser.close().then(done);
           });
         page.goto('http://localhost:9000/main');
       });

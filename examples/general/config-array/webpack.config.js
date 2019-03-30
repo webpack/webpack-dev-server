@@ -1,6 +1,5 @@
 'use strict';
 
-const webpack = require('webpack');
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
 const { setup } = require('../../util');
@@ -42,6 +41,8 @@ module.exports = [
         },
       ],
     },
-    plugins: [new webpack.optimize.UglifyJsPlugin()],
+    optimization: {
+      minimize: true,
+    },
   }),
 ];
