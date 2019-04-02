@@ -10,7 +10,4 @@ module.exports = setup({
   output: {
     filename: 'bundle.js',
   },
-  devServer: {
-    serveIndex: false,
-  },
 });
