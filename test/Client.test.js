@@ -71,3 +71,41 @@ describe('Client code', () => {
     });
   });
 });
+
+describe('Client complex inline script path', () => {
+  beforeAll((done) => {
+    const options = {
+      port: 9000,
+      host: '0.0.0.0',
+      inline: true,
+      watchOptions: {
+        poll: true,
+      },
+      public: 'myhost.test',
+      sockPath: '/foo/test/bar/',
+    };
+    helper.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(helper.close);
+
+  describe('browser client', () => {
+    jest.setTimeout(30000);
+
+    it('uses the correct public hostname and sockPath', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) =>
+            requestObj.url().match(/foo\/test\/bar/)
+          )
+          .then((requestObj) => {
+            expect(requestObj.url()).toMatch(
+              /^http:\/\/myhost\.test:9000\/foo\/test\/bar/
+            );
+            browser.close().then(done);
+          });
+        page.goto('http://localhost:9000/main');
+      });
+    });
+  });
+});
