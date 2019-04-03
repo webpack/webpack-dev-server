@@ -75,7 +75,7 @@ yargs.usage(
 );
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-require('webpack-cli/bin/config-yargs')(yargs);
+require('webpack-cli/bin/config/config-yargs')(yargs);
 
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
@@ -85,7 +85,7 @@ yargs.options(options);
 const argv = yargs.argv;
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
+const config = require('webpack-cli/bin/utils/convert-argv')(yargs, argv, {
   outputFilename: '/bundle.js',
 });
 
