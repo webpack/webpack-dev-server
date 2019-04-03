@@ -87,6 +87,10 @@ describe('ContentBase', () => {
     it("shouldn't list the files inside the assets folder (404)", (done) => {
       req.get('/assets/').expect(404, done);
     });
+
+    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
+      req.get('/bar/').expect(200, /Heyo/, done);
+    });
   });
   describe('test listing files in folders without index.html using the option serveIndex:true', () => {
     beforeAll((done) => {
