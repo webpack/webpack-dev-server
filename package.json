@@ -89,7 +89,7 @@
     "supertest": "^3.0.0",
     "url-loader": "^1.1.1",
     "webpack": "^4.29.6",
-    "webpack-cli": "github:webpack/webpack-cli#master",
+    "webpack-cli": "^3.3.0",
     "ws": "^6.0.0"
   },
   "peerDependencies": {
