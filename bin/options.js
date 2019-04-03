@@ -21,6 +21,11 @@ const options = {
     type: 'boolean',
     describe: 'Lazy',
   },
+  serveIndex: {
+    type: 'boolean',
+    describe: 'Enables/Disables serveIndex middleware',
+    default: true,
+  },
   inline: {
     type: 'boolean',
     default: true,
