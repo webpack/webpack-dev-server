@@ -41,7 +41,9 @@ $(() => {
         borderColor: '#96b5b4',
       });
       $errors.hide();
-      if (!hot) iframe.hide();
+      if (!hot) {
+        iframe.hide();
+      }
     },
     hash(hash) {
       currentHash = hash;
@@ -53,7 +55,9 @@ $(() => {
         borderColor: '',
       });
       $errors.hide();
-      if (!hot) iframe.show();
+      if (!hot) {
+        iframe.show();
+      }
     },
     ok() {
       okness.text('');
@@ -118,7 +122,9 @@ $(() => {
       });
       try {
         let old = `${iframe[0].contentWindow.location}`;
-        if (old.indexOf('about') === 0) old = null;
+        if (old.indexOf('about') === 0) {
+          old = null;
+        }
         iframe.attr('src', old || contentPage + window.location.hash);
         if (old) {
           iframe[0].contentWindow.location.reload();
