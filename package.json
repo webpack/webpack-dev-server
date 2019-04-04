@@ -86,7 +86,7 @@
     "rimraf": "2.6.3",
     "standard-version": "5.0.2",
     "style-loader": "0.23.1",
-    "supertest": "3.4.2",
+    "supertest": "4.0.2",
     "url-loader": "1.1.2",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0",
