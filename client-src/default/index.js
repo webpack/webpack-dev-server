@@ -86,7 +86,9 @@ const onSocketMsg = {
   invalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
     sendMsg('Invalid');
   },
   hash(hash) {
@@ -94,7 +96,9 @@ const onSocketMsg = {
   },
   'still-ok': function stillOk() {
     log.info('[WDS] Nothing changed.');
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
     sendMsg('StillOk');
   },
   'log-level': function logLevel(level) {
@@ -135,13 +139,19 @@ const onSocketMsg = {
     }
   },
   'progress-update': function progressUpdate(data) {
-    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    if (useProgress) {
+      log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    }
     sendMsg('Progress', data);
   },
   ok() {
     sendMsg('Ok');
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
-    if (initial) return (initial = false); // eslint-disable-line no-return-assign
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
+    if (initial) {
+      return (initial = false);
+    } // eslint-disable-line no-return-assign
     reloadApp();
   },
   'content-changed': function contentChanged() {
@@ -155,9 +165,13 @@ const onSocketMsg = {
     for (let i = 0; i < strippedWarnings.length; i++) {
       log.warn(strippedWarnings[i]);
     }
-    if (useWarningOverlay) overlay.showMessage(warnings);
+    if (useWarningOverlay) {
+      overlay.showMessage(warnings);
+    }
 
-    if (initial) return (initial = false); // eslint-disable-line no-return-assign
+    if (initial) {
+      return (initial = false);
+    } // eslint-disable-line no-return-assign
     reloadApp();
   },
   errors(errors) {
@@ -167,7 +181,9 @@ const onSocketMsg = {
     for (let i = 0; i < strippedErrors.length; i++) {
       log.error(strippedErrors[i]);
     }
-    if (useErrorOverlay) overlay.showMessage(errors);
+    if (useErrorOverlay) {
+      overlay.showMessage(errors);
+    }
     initial = false;
   },
   error(error) {

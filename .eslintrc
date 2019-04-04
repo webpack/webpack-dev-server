@@ -8,6 +8,7 @@
     "sourceType": "script"
   },
   "rules": {
+    "curly": "error",
     "consistent-return": "off",
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",
