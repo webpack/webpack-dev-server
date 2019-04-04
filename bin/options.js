@@ -92,6 +92,11 @@ const options = {
     group: SSL_GROUP,
     describe: 'HTTPS',
   },
+  http2: {
+    type: 'boolean',
+    group: SSL_GROUP,
+    describe: 'HTTP/2, must be used with HTTPS',
+  },
   key: {
     type: 'string',
     describe: 'Path to a SSL key.',
