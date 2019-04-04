@@ -474,6 +474,38 @@ Object {
 }
 `;
 
+exports[`createConfig http2 option (in devServer config) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "http2": true,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig http2 option 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "http2": true,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig https option (in devServer config) 1`] = `
 Object {
   "hot": true,
@@ -1075,6 +1107,77 @@ Object {
   "port": 8080,
   "publicPath": "/",
   "stats": "errors-only",
+}
+`;
+
+exports[`createConfig use webpack stats 1`] = `
+Object {
+  "clientLogLevel": "_clientLogLevel",
+  "compress": "_compress",
+  "contentBase": "_contentBase",
+  "disableHostCheck": "_disableHostCheck",
+  "filename": "_filename",
+  "historyApiFallback": "_historyApiFallback",
+  "host": "_foo",
+  "hot": "_hot",
+  "hotOnly": "_hotOnly",
+  "https": "_https",
+  "inline": "_inline",
+  "lazy": "_lazy",
+  "noInfo": true,
+  "open": "_open",
+  "openPage": "_openPage",
+  "pfxPassphrase": "_pfxPassphrase",
+  "port": "_port",
+  "progress": "_progress",
+  "public": "_public",
+  "publicPath": "_publicPath",
+  "quiet": "_quiet",
+  "socket": "_socket",
+  "stats": Object {
+    "assetsSort": "size",
+  },
+  "useLocalIp": "_useLocalIp",
+  "watchContentBase": "_watchContentBase",
+}
+`;
+
+exports[`createConfig use webpack stats 2`] = `
+Object {
+  "devServer": Object {
+    "clientLogLevel": "_clientLogLevel",
+    "compress": "_compress",
+    "contentBase": "_contentBase",
+    "disableHostCheck": "_disableHostCheck",
+    "filename": "_filename",
+    "historyApiFallback": "_historyApiFallback",
+    "host": "_foo",
+    "hot": "_hot",
+    "hotOnly": "_hotOnly",
+    "https": "_https",
+    "inline": "_inline",
+    "lazy": "_lazy",
+    "noInfo": true,
+    "open": "_open",
+    "openPage": "_openPage",
+    "pfxPassphrase": "_pfxPassphrase",
+    "port": "_port",
+    "progress": "_progress",
+    "public": "_public",
+    "publicPath": "_publicPath",
+    "quiet": "_quiet",
+    "socket": "_socket",
+    "stats": Object {
+      "assetsSort": "size",
+    },
+    "useLocalIp": "_useLocalIp",
+    "watchContentBase": "_watchContentBase",
+  },
+  "entry": "./app.js",
+  "mode": "development",
+  "stats": Object {
+    "assetsSort": "size",
+  },
 }
 `;
 

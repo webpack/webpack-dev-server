@@ -3,7 +3,6 @@
 const express = require('express');
 const httpProxy = require('http-proxy-middleware');
 const request = require('supertest');
-const addEntries = require('../lib/utils/addEntries');
 const helper = require('./helper');
 const config = require('./fixtures/client-config/webpack.config');
 const runBrowser = require('./helpers/run-browser');
@@ -28,13 +27,13 @@ describe('Client code', () => {
       port: 9001,
       host: '0.0.0.0',
       disableHostCheck: true,
+      inline: true,
       hot: true,
       watchOptions: {
         poll: true,
       },
     };
-    addEntries(config, options);
-    helper.start(config, options, done);
+    helper.startAwaitingCompilation(config, options, done);
   });
 
   afterAll(helper.close);
@@ -65,8 +64,45 @@ describe('Client code', () => {
             expect(requestObj.url()).toMatch(
               /^http:\/\/localhost:9000\/sockjs-node/
             );
-            browser.close();
-            done();
+            browser.close().then(done);
+          });
+        page.goto('http://localhost:9000/main');
+      });
+    });
+  });
+});
+
+describe('Client complex inline script path', () => {
+  beforeAll((done) => {
+    const options = {
+      port: 9000,
+      host: '0.0.0.0',
+      inline: true,
+      watchOptions: {
+        poll: true,
+      },
+      public: 'myhost.test',
+      sockPath: '/foo/test/bar/',
+    };
+    helper.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(helper.close);
+
+  describe('browser client', () => {
+    jest.setTimeout(30000);
+
+    it('uses the correct public hostname and sockPath', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) =>
+            requestObj.url().match(/foo\/test\/bar/)
+          )
+          .then((requestObj) => {
+            expect(requestObj.url()).toMatch(
+              /^http:\/\/myhost\.test:9000\/foo\/test\/bar/
+            );
+            browser.close().then(done);
           });
         page.goto('http://localhost:9000/main');
       });

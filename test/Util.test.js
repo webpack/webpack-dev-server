@@ -33,6 +33,13 @@ describe('check utility functions', () => {
       expected: 'http://localhost:8080',
     },
     {
+      name: 'no host option',
+      options: {
+        port: 8080,
+      },
+      expected: 'http://localhost:8080',
+    },
+    {
       name: 'https',
       options: {
         host: 'localhost',

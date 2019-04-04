@@ -9,12 +9,6 @@ const devServerOptions = Object.assign({}, webpackConfig.devServer, {
   stats: {
     colors: true,
   },
-  before(app) {
-    app.use((req, res, next) => {
-      console.log(`Using middleware for ${req.url}`);
-      next();
-    });
-  },
 });
 const server = new WebpackDevServer(compiler, devServerOptions);
 

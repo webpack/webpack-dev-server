@@ -2,4 +2,7 @@
 
 // Change the following line and save to see the compilation status
 
-document.write('It works!');
+const target = document.querySelector('#target');
+
+target.classList.add('pass');
+target.innerHTML = 'Success!';

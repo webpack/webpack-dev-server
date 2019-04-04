@@ -74,8 +74,17 @@ yargs.usage(
   `${getVersions()}\nUsage:  https://webpack.js.org/configuration/dev-server/`
 );
 
+// webpack-cli@3.3 path : 'webpack-cli/bin/config/config-yargs'
+let configYargsPath;
+try {
+  require.resolve('webpack-cli/bin/config/config-yargs');
+  configYargsPath = 'webpack-cli/bin/config/config-yargs';
+} catch (e) {
+  configYargsPath = 'webpack-cli/bin/config-yargs';
+}
 // eslint-disable-next-line import/no-extraneous-dependencies
-require('webpack-cli/bin/config-yargs')(yargs);
+// eslint-disable-next-line import/no-dynamic-require
+require(configYargsPath)(yargs);
 
 // It is important that this is done after the webpack yargs config,
 // so it overrides webpack's version info.
@@ -84,8 +93,17 @@ yargs.options(options);
 
 const argv = yargs.argv;
 
+// webpack-cli@3.3 path : 'webpack-cli/bin/utils/convert-argv'
+let convertArgvPath;
+try {
+  require.resolve('webpack-cli/bin/utils/convert-argv');
+  convertArgvPath = 'webpack-cli/bin/utils/convert-argv';
+} catch (e) {
+  convertArgvPath = 'webpack-cli/bin/convert-argv';
+}
 // eslint-disable-next-line import/no-extraneous-dependencies
-const config = require('webpack-cli/bin/convert-argv')(yargs, argv, {
+// eslint-disable-next-line import/no-dynamic-require
+const config = require(convertArgvPath)(yargs, argv, {
   outputFilename: '/bundle.js',
 });
 
