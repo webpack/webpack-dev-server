@@ -15,6 +15,7 @@ module.exports = {
     if (options.quiet === undefined) {
       options.quiet = true;
     }
+
     // originally, inline was not working by default for tests with the API
     // if you need to test inline, it should be set explicitly,
     // rather than expecting it to be defaulted to
@@ -26,19 +27,26 @@ module.exports = {
     ) {
       options.inline = false;
     }
+
     // defaulting to this will hopefully help with problems on OSX in tests
     if (options.watchOptions === undefined) {
       options.watchOptions = {
         poll: true,
       };
     }
+
     const compiler = webpack(config);
+
     server = new Server(compiler, options);
 
     const port = options.port || 8080;
     const host = options.host || 'localhost';
+
     server.listen(port, host, (err) => {
-      if (err) return done(err);
+      if (err) {
+        return done(err);
+      }
+
       done();
     });
 
@@ -57,9 +65,11 @@ module.exports = {
     };
 
     const fullSetup = this.startFullSetup(config, options, ready);
+
     // wait for compilation, since dev server can start before this
     // https://github.com/webpack/webpack-dev-server/issues/847
     fullSetup.compiler.hooks.done.tap('done', ready);
+
     return fullSetup;
   },
   startAwaitingCompilation(config, options, done) {
