@@ -671,6 +671,47 @@ Object {
 }
 `;
 
+exports[`createConfig mimeTypes option - with force 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "mimeTypes": Object {
+    "force": true,
+    "typeMap": Object {
+      "text/html": Array [
+        "phtml",
+      ],
+    },
+  },
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig mimeTypes option 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "mimeTypes": Object {
+    "text/html": Array [
+      "phtml",
+    ],
+  },
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig open option (boolean) (in devServer config) 1`] = `
 Object {
   "hot": true,
