@@ -64,7 +64,89 @@ describe('ContentBase', () => {
       }, 1000);
     });
   });
+  describe('test listing files in folders without index.html using the option serveIndex:false', () => {
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          watchContentBase: true,
+          serveIndex: false,
+        },
+        done
+      );
+      req = request(server.app);
+    });
 
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
+    it("shouldn't list the files inside the assets folder (404)", (done) => {
+      req.get('/assets/').expect(404, done);
+    });
+
+    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
+      req.get('/bar/').expect(200, /Heyo/, done);
+    });
+  });
+  describe('test listing files in folders without index.html using the option serveIndex:true', () => {
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          watchContentBase: true,
+          serveIndex: true,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
+    it('should list the files inside the assets folder (200)', (done) => {
+      req.get('/assets/').expect(200, done);
+    });
+
+    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
+      req.get('/bar/').expect(200, /Heyo/, done);
+    });
+  });
+  describe('test listing files in folders without index.html using the option serveIndex default (true)', () => {
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          watchContentBase: true,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
+    it('should list the files inside the assets folder (200)', (done) => {
+      req.get('/assets/').expect(200, done);
+    });
+
+    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
+      req.get('/bar/').expect(200, /Heyo/, done);
+    });
+  });
   describe('to directories', () => {
     beforeAll((done) => {
       server = helper.start(
