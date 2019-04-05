@@ -474,6 +474,38 @@ Object {
 }
 `;
 
+exports[`createConfig http2 option (in devServer config) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "http2": true,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig http2 option 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "http2": true,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig https option (in devServer config) 1`] = `
 Object {
   "hot": true,
