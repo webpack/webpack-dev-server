@@ -115,6 +115,10 @@ describe('ContentBase', () => {
     it('should list the files inside the assets folder (200)', (done) => {
       req.get('/assets/').expect(200, done);
     });
+
+    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
+      req.get('/bar/').expect(200, /Heyo/, done);
+    });
   });
   describe('test listing files in folders without index.html using the option serveIndex default (true)', () => {
     beforeAll((done) => {
@@ -137,6 +141,10 @@ describe('ContentBase', () => {
 
     it('should list the files inside the assets folder (200)', (done) => {
       req.get('/assets/').expect(200, done);
+    });
+
+    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
+      req.get('/bar/').expect(200, /Heyo/, done);
     });
   });
   describe('to directories', () => {
