@@ -7,29 +7,77 @@
 
 const request = require('supertest');
 const helper = require('./helper');
-const config = require('./fixtures/simple-config/webpack.config');
+const config = require('./fixtures/simple-config-other/webpack.config');
 
 describe('Compress', () => {
   let server;
   let req;
 
-  beforeAll((done) => {
-    server = helper.start(
-      config,
-      {
-        compress: true,
-      },
-      done
-    );
-    req = request(server.app);
+  describe('undefined', () => {
+    beforeAll((done) => {
+      server = helper.start(config, {}, done);
+      req = request(server.app);
+    });
+
+    afterAll(helper.close);
+
+    it('request to bundle file', (done) => {
+      req
+        .get('/main.js')
+        .expect((res) => {
+          if (res.header['content-encoding']) {
+            throw new Error('Expected `content-encoding` header is undefined.');
+          }
+        })
+        .expect(200, done);
+    });
   });
 
-  afterAll(helper.close);
+  describe('true', () => {
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          compress: true,
+        },
+        done
+      );
+      req = request(server.app);
+    });
 
-  it.skip('request to bundle file', (done) => {
-    req
-      .get('/bundle.js')
-      .expect('Content-Encoding', 'gzip')
-      .expect(200, done);
+    afterAll(helper.close);
+
+    it('request to bundle file', (done) => {
+      req
+        .get('/main.js')
+        .expect('Content-Encoding', 'gzip')
+        .expect(200, done);
+    });
+  });
+
+  describe('false', () => {
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          compress: false,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll(helper.close);
+
+    it('request to bundle file', (done) => {
+      req
+        .get('/main.js')
+        .expect((res) => {
+          if (res.header['content-encoding']) {
+            throw new Error('Expected `content-encoding` header is undefined.');
+          }
+        })
+        .expect(200, done);
+    });
   });
 });
