@@ -113,6 +113,9 @@
     "hot": {
       "type": "boolean"
     },
+    "stdin": {
+      "type": "boolean"
+    },
     "hotOnly": {
       "type": "boolean"
     },
