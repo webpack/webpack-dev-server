@@ -120,15 +120,18 @@ describe('check utility functions', () => {
 
 describe('findPort cli utility function', () => {
   let mockServer = null;
+
   beforeEach(() => {
     mockServer = {
       listeningApp: new EventEmitter(),
     };
   });
+
   afterEach(() => {
     mockServer.listeningApp.removeAllListeners('error');
     mockServer = null;
   });
+
   it('should find empty port starting from defaultPort', (done) => {
     findPort(mockServer, 8180, 3, (err, port) => {
       assert(err == null);
@@ -136,6 +139,7 @@ describe('findPort cli utility function', () => {
       done();
     });
   });
+
   it('should retry finding port for up to defaultPortRetry times', (done) => {
     let count = 0;
     const defaultPortRetry = 5;
