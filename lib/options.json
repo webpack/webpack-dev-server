@@ -76,6 +76,12 @@
     "logLevel": {
       "enum": ["info", "warn", "error", "debug", "trace", "silent"]
     },
+    "methods": {
+      "type": "array",
+      "items": {
+        "enum": ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+      }
+    },
     "clientLogLevel": {
       "enum": ["none", "info", "error", "warning"]
     },
