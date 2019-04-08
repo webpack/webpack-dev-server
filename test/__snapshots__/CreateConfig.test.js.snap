@@ -803,6 +803,22 @@ Object {
 }
 `;
 
+exports[`createConfig open true 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "open": true,
+  "openPage": "",
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig openPage option (in devServer config) 1`] = `
 Object {
   "hot": true,

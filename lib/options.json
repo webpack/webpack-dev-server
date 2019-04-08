@@ -205,6 +205,9 @@
         },
         {
           "type": "boolean"
+        },
+        {
+          "type": "object"
         }
       ]
     },
