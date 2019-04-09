@@ -7,13 +7,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **deps:** update dependency yargs to v12.0.5 ([#1707](https://github.com/webpack/webpack-dev-server/issues/1707)) ([fa17131](https://github.com/webpack/webpack-dev-server/commit/fa17131))
-* **example/util:** use path.resolve ([#1678](https://github.com/webpack/webpack-dev-server/issues/1678)) ([5d1476e](https://github.com/webpack/webpack-dev-server/commit/5d1476e)), closes [#1428](https://github.com/webpack/webpack-dev-server/issues/1428)
 * compatibility with webpack-cli@3.3 ([#1754](https://github.com/webpack/webpack-dev-server/issues/1754)) ([fd7cb0d](https://github.com/webpack/webpack-dev-server/commit/fd7cb0d))
 * ignore proxy when bypass return false ([#1696](https://github.com/webpack/webpack-dev-server/issues/1696)) ([aa7de77](https://github.com/webpack/webpack-dev-server/commit/aa7de77))
 * respect stats option from webpack config ([#1665](https://github.com/webpack/webpack-dev-server/issues/1665)) ([efaa740](https://github.com/webpack/webpack-dev-server/commit/efaa740))
 * use location.port when location.hostname is used to infer HMR socket URL ([#1664](https://github.com/webpack/webpack-dev-server/issues/1664)) ([2f7f052](https://github.com/webpack/webpack-dev-server/commit/2f7f052))
-* **Server:** validate express.static.mime.types ([#1765](https://github.com/webpack/webpack-dev-server/issues/1765)) ([919ff77](https://github.com/webpack/webpack-dev-server/commit/919ff77))
+* don't crash with express.static.mime.types ([#1765](https://github.com/webpack/webpack-dev-server/issues/1765)) ([919ff77](https://github.com/webpack/webpack-dev-server/commit/919ff77))
 
 
 ### Features
