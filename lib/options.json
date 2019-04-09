@@ -172,6 +172,26 @@
     "inline": {
       "type": "boolean"
     },
+    "injectClient": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
+    "injectHot": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
     "disableHostCheck": {
       "type": "boolean"
     },

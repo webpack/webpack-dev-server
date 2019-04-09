@@ -277,4 +277,129 @@ describe('Entry', () => {
 
     expect(typeof webpackOptions.entry === 'function').toBe(true);
   });
+
+  it('only prepends devServer entry points to web targets by default', () => {
+    const webpackOptions = [
+      Object.assign({}, config),
+      Object.assign({ target: 'web' }, config),
+      Object.assign({ target: 'webworker' }, config),
+      Object.assign({ target: 'node' }, config) /* index:3 */,
+    ];
+
+    const devServerOptions = {};
+
+    addEntries(webpackOptions, devServerOptions);
+
+    // eslint-disable-next-line no-shadow
+    webpackOptions.forEach((webpackOptions, index) => {
+      const expectInline = index !== 3; /* all but the node target */
+
+      expect(webpackOptions.entry.length).toEqual(expectInline ? 2 : 1);
+
+      if (expectInline) {
+        expect(
+          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+        ).toBeTruthy();
+      }
+
+      expect(normalize(webpackOptions.entry[expectInline ? 1 : 0])).toEqual(
+        './foo.js'
+      );
+    });
+  });
+
+  it('allows selecting compilations to inline the client into', () => {
+    const webpackOptions = [
+      Object.assign({}, config),
+      Object.assign({ target: 'web' }, config),
+      Object.assign({ name: 'only-include' }, config) /* index:2 */,
+      Object.assign({ target: 'node' }, config),
+    ];
+
+    const devServerOptions = {
+      injectClient: (compilerConfig) => compilerConfig.name === 'only-include',
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    // eslint-disable-next-line no-shadow
+    webpackOptions.forEach((webpackOptions, index) => {
+      const expectInline = index === 2; /* only the "only-include" compiler */
+
+      expect(webpackOptions.entry.length).toEqual(expectInline ? 2 : 1);
+
+      if (expectInline) {
+        expect(
+          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+        ).toBeTruthy();
+      }
+
+      expect(normalize(webpackOptions.entry[expectInline ? 1 : 0])).toEqual(
+        './foo.js'
+      );
+    });
+  });
+
+  it('when hot, prepends the hot runtime to all targets by default', () => {
+    const webpackOptions = [
+      Object.assign({ target: 'web' }, config),
+      Object.assign({ target: 'node' }, config),
+    ];
+
+    const devServerOptions = {
+      // disable inlining the client so entry indexes match up
+      // and we can use the same assertions for both configs
+      injectClient: false,
+      hot: true,
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    // eslint-disable-next-line no-shadow
+    webpackOptions.forEach((webpackOptions) => {
+      expect(webpackOptions.entry.length).toEqual(2);
+
+      expect(
+        normalize(webpackOptions.entry[0]).includes('webpack/hot/dev-server')
+      ).toBeTruthy();
+
+      expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
+    });
+  });
+
+  it('allows selecting which compilations to inject the hot runtime into', () => {
+    const webpackOptions = [
+      Object.assign({ target: 'web' }, config),
+      Object.assign({ target: 'node' }, config),
+    ];
+
+    const devServerOptions = {
+      injectHot: (compilerConfig) => compilerConfig.target === 'node',
+      hot: true,
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    // node target should have the client runtime but not the hot runtime
+    const webWebpackOptions = webpackOptions[0];
+
+    expect(webWebpackOptions.entry.length).toEqual(2);
+
+    expect(
+      normalize(webWebpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+    ).toBeTruthy();
+
+    expect(normalize(webWebpackOptions.entry[1])).toEqual('./foo.js');
+
+    // node target should have the hot runtime but not the client runtime
+    const nodeWebpackOptions = webpackOptions[1];
+
+    expect(nodeWebpackOptions.entry.length).toEqual(2);
+
+    expect(
+      normalize(nodeWebpackOptions.entry[0]).includes('webpack/hot/dev-server')
+    ).toBeTruthy();
+
+    expect(normalize(nodeWebpackOptions.entry[1])).toEqual('./foo.js');
+  });
 });
