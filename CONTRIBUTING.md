@@ -56,7 +56,6 @@ Pull requests often need some real-world testing.
 
 The pull request is now ready to be tested.
 
+---
 
-------------
-
-*Many thanks to [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide*
+_Many thanks to [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_

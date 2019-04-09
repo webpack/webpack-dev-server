@@ -2,7 +2,7 @@
 
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
-
+const querystring = require('querystring');
 const url = require('url');
 const stripAnsi = require('strip-ansi');
 const log = require('loglevel').getLogger('webpack-dev-server');
@@ -12,11 +12,15 @@ const overlay = require('./overlay');
 function getCurrentScriptSource() {
   // `document.currentScript` is the most accurate way to find the current script,
   // but is not supported in all browsers.
-  if (document.currentScript) { return document.currentScript.getAttribute('src'); }
+  if (document.currentScript) {
+    return document.currentScript.getAttribute('src');
+  }
   // Fall back to getting all scripts in the document.
   const scriptElements = document.scripts || [];
   const currentScript = scriptElements[scriptElements.length - 1];
-  if (currentScript) { return currentScript.getAttribute('src'); }
+  if (currentScript) {
+    return currentScript.getAttribute('src');
+  }
   // Fail as there was no script to use.
   throw new Error('[WDS] Failed to get current script source.');
 }
@@ -35,7 +39,7 @@ if (typeof __resourceQuery === 'string' && __resourceQuery) {
   let scriptHost = getCurrentScriptSource();
   // eslint-disable-next-line no-useless-escape
   scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
-  urlParts = url.parse((scriptHost || '/'), false, true);
+  urlParts = url.parse(scriptHost || '/', false, true);
 }
 
 if (!urlParts.port || urlParts.port === '0') {
@@ -61,13 +65,16 @@ log.setDefaultLevel(INFO);
 function sendMsg(type, data) {
   if (
     typeof self !== 'undefined' &&
-  (typeof WorkerGlobalScope === 'undefined' ||
-  !(self instanceof WorkerGlobalScope))
+    (typeof WorkerGlobalScope === 'undefined' ||
+      !(self instanceof WorkerGlobalScope))
   ) {
-    self.postMessage({
-      type: `webpack${type}`,
-      data
-    }, '*');
+    self.postMessage(
+      {
+        type: `webpack${type}`,
+        data,
+      },
+      '*'
+    );
   }
 }
 
@@ -79,7 +86,9 @@ const onSocketMsg = {
   invalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
     sendMsg('Invalid');
   },
   hash(hash) {
@@ -87,7 +96,9 @@ const onSocketMsg = {
   },
   'still-ok': function stillOk() {
     log.info('[WDS] Nothing changed.');
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
     sendMsg('StillOk');
   },
   'log-level': function logLevel(level) {
@@ -113,7 +124,7 @@ const onSocketMsg = {
   },
   overlay(value) {
     if (typeof document !== 'undefined') {
-      if (typeof (value) === 'boolean') {
+      if (typeof value === 'boolean') {
         useWarningOverlay = false;
         useErrorOverlay = value;
       } else if (value) {
@@ -128,13 +139,19 @@ const onSocketMsg = {
     }
   },
   'progress-update': function progressUpdate(data) {
-    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    if (useProgress) {
+      log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    }
     sendMsg('Progress', data);
   },
   ok() {
     sendMsg('Ok');
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
-    if (initial) return initial = false; // eslint-disable-line no-return-assign
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
+    if (initial) {
+      return (initial = false);
+    } // eslint-disable-line no-return-assign
     reloadApp();
   },
   'content-changed': function contentChanged() {
@@ -143,20 +160,30 @@ const onSocketMsg = {
   },
   warnings(warnings) {
     log.warn('[WDS] Warnings while compiling.');
-    const strippedWarnings = warnings.map(warning => stripAnsi(warning));
+    const strippedWarnings = warnings.map((warning) => stripAnsi(warning));
     sendMsg('Warnings', strippedWarnings);
-    for (let i = 0; i < strippedWarnings.length; i++) { log.warn(strippedWarnings[i]); }
-    if (useWarningOverlay) overlay.showMessage(warnings);
+    for (let i = 0; i < strippedWarnings.length; i++) {
+      log.warn(strippedWarnings[i]);
+    }
+    if (useWarningOverlay) {
+      overlay.showMessage(warnings);
+    }
 
-    if (initial) return initial = false; // eslint-disable-line no-return-assign
+    if (initial) {
+      return (initial = false);
+    } // eslint-disable-line no-return-assign
     reloadApp();
   },
   errors(errors) {
     log.error('[WDS] Errors while compiling. Reload prevented.');
-    const strippedErrors = errors.map(error => stripAnsi(error));
+    const strippedErrors = errors.map((error) => stripAnsi(error));
     sendMsg('Errors', strippedErrors);
-    for (let i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
-    if (useErrorOverlay) overlay.showMessage(errors);
+    for (let i = 0; i < strippedErrors.length; i++) {
+      log.error(strippedErrors[i]);
+    }
+    if (useErrorOverlay) {
+      overlay.showMessage(errors);
+    }
     initial = false;
   },
   error(error) {
@@ -165,12 +192,12 @@ const onSocketMsg = {
   close() {
     log.error('[WDS] Disconnected!');
     sendMsg('Close');
-  }
+  },
 };
 
 let hostname = urlParts.hostname;
 let protocol = urlParts.protocol;
-
+let port = urlParts.port;
 
 // check ipv4 and ipv6 `all hostname`
 if (hostname === '0.0.0.0' || hostname === '::') {
@@ -180,6 +207,7 @@ if (hostname === '0.0.0.0' || hostname === '::') {
   // eslint-disable-next-line no-bitwise
   if (self.location.hostname && !!~self.location.protocol.indexOf('http')) {
     hostname = self.location.hostname;
+    port = self.location.port;
   }
 }
 
@@ -187,7 +215,10 @@ if (hostname === '0.0.0.0' || hostname === '::') {
 // a protocol would result in an invalid URL.
 // When https is used in the app, secure websockets are always necessary
 // because the browser doesn't accept non-secure websockets.
-if (hostname && (self.location.protocol === 'https:' || urlParts.hostname === '0.0.0.0')) {
+if (
+  hostname &&
+  (self.location.protocol === 'https:' || urlParts.hostname === '0.0.0.0')
+) {
   protocol = self.location.protocol;
 }
 
@@ -195,8 +226,14 @@ const socketUrl = url.format({
   protocol,
   auth: urlParts.auth,
   hostname,
-  port: urlParts.port,
-  pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
+  port,
+  // If sockPath is provided it'll be passed in via the __resourceQuery as a
+  // query param so it has to be parsed out of the querystring in order for the
+  // client to open the socket to the correct location.
+  pathname:
+    urlParts.path == null || urlParts.path === '/'
+      ? '/sockjs-node'
+      : querystring.parse(urlParts.path).sockPath || urlParts.path,
 });
 
 socket(socketUrl, onSocketMsg);

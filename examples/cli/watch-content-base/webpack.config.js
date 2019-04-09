@@ -8,9 +8,6 @@ module.exports = setup({
   context: __dirname,
   entry: './app.js',
   devServer: {
-    contentBase: [
-      'assets',
-      'css'
-    ]
-  }
+    contentBase: ['assets', 'css'],
+  },
 });

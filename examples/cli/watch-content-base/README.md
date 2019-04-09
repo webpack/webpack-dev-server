@@ -18,14 +18,11 @@ npm run webpack-dev-server -- --content-base assets --watch-content-base --open
 ```js
 // webpack.conf.js
 module.exports = {
-	/* ... */
-	devServer: {
-		contentBase: [
-			"assets",
-			"css",
-		]
-	}
-}
+  /* ... */
+  devServer: {
+    contentBase: ['assets', 'css'],
+  },
+};
 ```
 
 ```console

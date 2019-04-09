@@ -6,11 +6,11 @@
   General questions, how-to questions, and support requests will be closed.
 -->
 
-* Operating System:
-* Node Version:
-* NPM Version:
-* webpack Version:
-* webpack-dev-server Version:
+- Operating System:
+- Node Version:
+- NPM Version:
+- webpack Version:
+- webpack-dev-server Version:
 
 <!--
   Please place an x, no spaces, in all [ ] that apply
@@ -37,11 +37,11 @@
 -->
 
 ```js
-  // webpack.config.js
+// webpack.config.js
 ```
 
 ```js
-  // additional code, remove if not needed.
+// additional code, remove if not needed.
 ```
 
 ### Expected Behavior

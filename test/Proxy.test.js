@@ -4,39 +4,52 @@ const path = require('path');
 const request = require('supertest');
 const express = require('express');
 const WebSocket = require('ws');
-const should = require('should');
 const helper = require('./helper');
 const config = require('./fixtures/proxy-config/webpack.config');
 
 const WebSocketServer = WebSocket.Server;
 const contentBase = path.join(__dirname, 'fixtures/proxy-config');
 
-const proxyOption = {
+const proxyOptionPathsAsProperties = {
   '/proxy1': {
-    target: 'http://localhost:9000'
+    target: 'http://localhost:9000',
   },
   '/api/proxy2': {
     target: 'http://localhost:9001',
-    pathRewrite: { '^/api': '' }
+    pathRewrite: { '^/api': '' },
   },
   '/foo': {
     bypass(req) {
       if (/\.html$/.test(req.path)) {
         return '/index.html';
       }
-    }
-  }
+
+      return null;
+    },
+  },
+  '/proxyfalse': {
+    bypass(req) {
+      if (/\/proxyfalse$/.test(req.path)) {
+        return false;
+      }
+    },
+  },
+};
+
+const proxyOption = {
+  context: () => true,
+  target: 'http://localhost:9000',
 };
 
 const proxyOptionOfArray = [
-  { context: '/proxy1', target: proxyOption['/proxy1'].target },
+  { context: '/proxy1', target: proxyOption.target },
   function proxy() {
     return {
       context: '/api/proxy2',
       target: 'http://localhost:9001',
-      pathRewrite: { '^/api': '' }
+      pathRewrite: { '^/api': '' },
     };
-  }
+  },
 ];
 
 function startProxyServers() {
@@ -63,21 +76,25 @@ function startProxyServers() {
 }
 
 describe('Proxy', () => {
-  context('proxy options is a object', () => {
+  describe('proxy options is an object of paths as properties', () => {
     let server;
     let req;
     let closeProxyServers;
 
-    before((done) => {
+    beforeAll((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(config, {
-        contentBase,
-        proxy: proxyOption
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOptionPathsAsProperties,
+        },
+        done
+      );
       req = request(server.app);
     });
 
-    after((done) => {
+    afterAll((done) => {
       helper.close(() => {
         closeProxyServers();
         done();
@@ -86,51 +103,54 @@ describe('Proxy', () => {
 
     describe('target', () => {
       it('respects a proxy option when a request path is matched', (done) => {
-        req.get('/proxy1')
-          .expect(200, 'from proxy1', done);
+        req.get('/proxy1').expect(200, 'from proxy1', done);
       });
     });
 
     describe('pathRewrite', () => {
       it('respects a pathRewrite option', (done) => {
-        req.get('/api/proxy2')
-          .expect(200, 'from proxy2', done);
+        req.get('/api/proxy2').expect(200, 'from proxy2', done);
       });
     });
 
     describe('bypass', () => {
       it('can rewrite a request path', (done) => {
-        req.get('/foo/bar.html')
-          .expect(200, /Hello/, done);
+        req.get('/foo/bar.html').expect(200, /Hello/, done);
       });
 
       it('can rewrite a request path regardless of the target defined a bypass option', (done) => {
-        req.get('/baz/hoge.html')
-          .expect(200, /Hello/, done);
+        req.get('/baz/hoge.html').expect(200, /Hello/, done);
       });
 
       it('should pass through a proxy when a bypass function returns null', (done) => {
-        req.get('/foo.js')
-          .expect(200, /Hey/, done);
+        req.get('/foo.js').expect(200, /Hey/, done);
+      });
+
+      it('should not pass through a proxy when a bypass function returns false', (done) => {
+        req.get('/proxyfalse').expect(404, done);
       });
     });
   });
 
-  context('proxy option is an array', () => {
+  describe('proxy option is an object', () => {
     let server;
     let req;
     let closeProxyServers;
 
-    before((done) => {
+    beforeAll((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(config, {
-        contentBase,
-        proxy: proxyOptionOfArray
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOption,
+        },
+        done
+      );
       req = request(server.app);
     });
 
-    after((done) => {
+    afterAll((done) => {
       helper.close(() => {
         closeProxyServers();
         done();
@@ -138,41 +158,73 @@ describe('Proxy', () => {
     });
 
     it('respects a proxy option', (done) => {
-      req.get('/proxy1')
-        .expect(200, 'from proxy1', done);
-    });
-
-    it('respects a proxy option of function', (done) => {
-      req.get('/api/proxy2')
-        .expect(200, 'from proxy2', done);
+      req.get('/proxy1').expect(200, 'from proxy1', done);
     });
   });
 
-  context('sharing a proxy option', () => {
+  describe('proxy option is an array', () => {
+    let server;
+    let req;
+    let closeProxyServers;
+
+    beforeAll((done) => {
+      closeProxyServers = startProxyServers();
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: proxyOptionOfArray,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        closeProxyServers();
+        done();
+      });
+    });
+
+    it('respects a proxy option', (done) => {
+      req.get('/proxy1').expect(200, 'from proxy1', done);
+    });
+
+    it('respects a proxy option of function', (done) => {
+      req.get('/api/proxy2').expect(200, 'from proxy2', done);
+    });
+  });
+
+  describe('sharing a proxy option', () => {
     let server;
     let req;
     let listener;
     const proxyTarget = {
-      target: 'http://localhost:9000'
+      target: 'http://localhost:9000',
     };
 
-    before((done) => {
+    beforeAll((done) => {
       const proxy = express();
       proxy.get('*', (proxyReq, res) => {
         res.send('from proxy');
       });
       listener = proxy.listen(9000);
-      server = helper.start(config, {
-        contentBase,
-        proxy: {
-          '/proxy1': proxyTarget,
-          '/proxy2': proxyTarget
-        }
-      }, done);
+      server = helper.start(
+        config,
+        {
+          contentBase,
+          proxy: {
+            '/proxy1': proxyTarget,
+            '/proxy2': proxyTarget,
+          },
+        },
+        done
+      );
       req = request(server.app);
     });
 
-    after((done) => {
+    afterAll((done) => {
       helper.close(() => {
         listener.close();
         done();
@@ -188,20 +240,26 @@ describe('Proxy', () => {
     });
   });
 
-  context('External websocket upgrade', () => {
+  describe('External websocket upgrade', () => {
     let ws;
     let wsServer;
     let responseMessage;
 
-    before((done) => {
-      helper.start(config, {
-        contentBase,
-        proxy: [{
-          context: '/',
-          target: 'http://localhost:9003',
-          ws: true
-        }]
-      }, done);
+    beforeAll((done) => {
+      helper.start(
+        config,
+        {
+          contentBase,
+          proxy: [
+            {
+              context: '/',
+              target: 'http://localhost:9003',
+              ws: true,
+            },
+          ],
+        },
+        done
+      );
 
       wsServer = new WebSocketServer({ port: 9003 });
       wsServer.on('connection', (server) => {
@@ -223,10 +281,10 @@ describe('Proxy', () => {
     });
 
     it('Should receive response', () => {
-      should(responseMessage).equal('foo');
+      expect(responseMessage).toEqual('foo');
     });
 
-    after((done) => {
+    afterAll((done) => {
       wsServer.close();
       helper.close(done);
     });

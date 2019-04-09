@@ -19,6 +19,17 @@ live reloading. This should be used for **development only**.
 It uses [webpack-dev-middleware][middleware-url] under the hood, which provides
 fast in-memory access to the webpack assets.
 
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+2. [Usage](#usage)
+3. [Browser Support](#browser-support)
+4. [Support](#support)
+5. [Contributing](#contributing)
+6. [Maintainers](#maintainers)
+7. [Attribution](#attribution)
+8. [License](#license)
+
 ## Getting Started
 
 First things first, install the module:
@@ -43,6 +54,8 @@ The easiest way to use it is with the CLI. In the directory where your
 ```console
 node_modules/.bin/webpack-dev-server
 ```
+
+_**Note**: Many CLI options are available with `webpack-dev-server`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
 
 ### With NPM Scripts
 
@@ -82,7 +95,7 @@ state, the project only officially supports the _last two versions of major
 browsers_. We simply don't have the resources to support every whacky
 browser out there.
 
-If you find an bug with an obscure / old browser, we would actively welcome a
+If you find a bug with an obscure / old browser, we would actively welcome a
 Pull Request to resolve the bug.
 
 ## Support
@@ -115,25 +128,6 @@ out completely._
 
 We welcome your contributions! Please have a read of [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get involved.
 
-## Maintainers
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <img src="https://avatars.githubusercontent.com/SpaceK33z?v=4&s=150">
-        <br />
-        <a href="https://github.com/SpaceK33z">Kees Kluskens</a>
-      </td>
-      <td align="center">
-        <img src="https://i.imgur.com/4v6pgxh.png">
-        <br />
-        <a href="https://github.com/shellscape">Andrew Powell</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
 ## Attribution
 
 This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/nof5).
@@ -142,25 +136,18 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 
 #### [MIT](./LICENSE)
 
-
 [npm]: https://img.shields.io/npm/v/webpack-dev-server.svg
 [npm-url]: https://npmjs.com/package/webpack-dev-server
-
 [node]: https://img.shields.io/node/v/webpack-dev-server.svg
 [node-url]: https://nodejs.org
-
 [deps]: https://david-dm.org/webpack/webpack-dev-server.svg
 [deps-url]: https://david-dm.org/webpack/webpack-dev-server
-
 [tests]: http://img.shields.io/travis/webpack/webpack-dev-server.svg
 [tests-url]: https://travis-ci.org/webpack/webpack-dev-server
-
 [cover]: https://codecov.io/gh/webpack/webpack-dev-server/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack/webpack-dev-server
-
 [chat]: https://badges.gitter.im/webpack/webpack.svg
 [chat-url]: https://gitter.im/webpack/webpack
-
 [docs-url]: https://webpack.js.org/configuration/dev-server/#devserver
 [hash-url]: https://twitter.com/search?q=webpack
 [middleware-url]: https://github.com/webpack/webpack-dev-middleware

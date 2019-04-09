@@ -1,6 +1,9 @@
 {
   "type": "object",
   "properties": {
+    "serveIndex": {
+      "type": "boolean"
+    },
     "hot": {
       "type": "boolean"
     },
@@ -51,6 +54,9 @@
     "socket": {
       "type": "string"
     },
+    "sockPath": {
+      "type": "string"
+    },
     "watchOptions": {
       "type": "object"
     },
@@ -68,22 +74,10 @@
       "type": "object"
     },
     "logLevel": {
-      "enum": [
-        "info",
-        "warn",
-        "error",
-        "debug",
-        "trace",
-        "silent"
-      ]
+      "enum": ["info", "warn", "error", "debug", "trace", "silent"]
     },
     "clientLogLevel": {
-      "enum": [
-        "none",
-        "info",
-        "error",
-        "warning"
-      ]
+      "enum": ["none", "info", "error", "warning"]
     },
     "overlay": {
       "anyOf": [
@@ -171,12 +165,13 @@
         }
       ]
     },
+    "http2": {
+      "type": "boolean"
+    },
     "contentBase": {
       "anyOf": [
         {
-          "enum": [
-            false
-          ]
+          "enum": [false]
         },
         {
           "type": "number"
@@ -273,13 +268,7 @@
           "type": "boolean"
         },
         {
-          "enum": [
-            "none",
-            "errors-only",
-            "minimal",
-            "normal",
-            "verbose"
-          ]
+          "enum": ["none", "errors-only", "minimal", "normal", "verbose"]
         }
       ]
     },
@@ -291,6 +280,9 @@
     },
     "noInfo": {
       "type": "boolean"
+    },
+    "mimeTypes": {
+      "type": "object"
     },
     "quiet": {
       "type": "boolean"
@@ -321,6 +313,7 @@
       "filename": "should be {String|RegExp|Function} (https://webpack.js.org/configuration/dev-server/#devserver-filename-)",
       "port": "should be {String|Number} (https://webpack.js.org/configuration/dev-server/#devserver-port)",
       "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-socket)",
+      "sockPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-sockPath)",
       "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-watchoptions)",
       "writeToDisk": "should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-headers-)",
@@ -337,6 +330,7 @@
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-disablehostcheck)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-public)",
       "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-https)",
+      "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-http2)",
       "contentBase": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)",
       "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-watchcontentbase)",
       "open": "should be {String|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-open)",
@@ -354,6 +348,7 @@
       "reporter": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-reporter)",
       "logTime": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-logtime)",
       "noInfo": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-noinfo-)",
+      "mimeTypes": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devservermimetypes-)",
       "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-quiet-)",
       "serverSideRender": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-serversiderender)",
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-index)",

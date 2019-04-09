@@ -37,33 +37,37 @@ style.appendChild(document.createTextNode(css));
 document.head.appendChild(style);
 target.innerHTML = `Current Path: <code>${path}</code>`;
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (document.querySelector('#files')) {
-    return;
-  }
+document.addEventListener(
+  'DOMContentLoaded',
+  () => {
+    if (document.querySelector('#files')) {
+      return;
+    }
 
-  const tests = [
-    { url: '/', name: 'index', re: /^<!doctype html>/i },
-    { url: '/test', name: 'non-existent path', re: /^<!doctype html>/i },
-    { url: '/file.txt', name: 'existing path', re: /^file/ }
-  ];
-  const table = document.createElement('table');
-  const tbody = document.createElement('tbody');
+    const tests = [
+      { url: '/', name: 'index', re: /^<!doctype html>/i },
+      { url: '/test', name: 'non-existent path', re: /^<!doctype html>/i },
+      { url: '/file.txt', name: 'existing path', re: /^file/ },
+    ];
+    const table = document.createElement('table');
+    const tbody = document.createElement('tbody');
 
-  table.id = 'files';
-  table.appendChild(tbody);
-  target.parentNode.appendChild(table);
+    table.id = 'files';
+    table.appendChild(tbody);
+    target.parentNode.appendChild(table);
 
-  tests.forEach((test) => {
-    const tr = document.createElement('tr');
-    tbody.appendChild(tr);
-    check(test.url, test.re, (res) => {
-      tr.innerHTML = `<td>${test.name}</td>`;
-      tr.innerHTML += `<td><a href="${test.url}">${test.url}</a></td>`;
-      tr.innerHTML += `<td class="${res}">${res}</td>`;
+    tests.forEach((test) => {
+      const tr = document.createElement('tr');
+      tbody.appendChild(tr);
+      check(test.url, test.re, (res) => {
+        tr.innerHTML = `<td>${test.name}</td>`;
+        tr.innerHTML += `<td><a href="${test.url}">${test.url}</a></td>`;
+        tr.innerHTML += `<td class="${res}">${res}</td>`;
+      });
     });
-  });
-}, true);
+  },
+  true
+);
 
 function check(url, re, cb) {
   const xhr = new XMLHttpRequest();

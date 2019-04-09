@@ -1,0 +1,11 @@
+{
+  "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
+  "labels": ["renovate"],
+  "minor": {
+    "groupName": "all minor dependencies"
+  },
+  "patch": {
+    "groupName": "all patch dependencies"
+  },
+  "separateMinorPatch": true
+}

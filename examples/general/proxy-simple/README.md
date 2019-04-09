@@ -12,5 +12,5 @@ In `webpack.config.js` there is a very simple configuration for a proxy. Note th
 2. You should see the text on the page itself change to read `Success!`.
 3. Navigate to `http://localhost:8080/api/hey`.
 4. Since the proxy target does not actually exist, the console/terminal should
-display an error that reads
-`[HPM] PROXY ERROR: ECONNREFUSED. localhost -> http://127.0.0.1:50545/api/hey`.
+   display an error that reads
+   `[HPM] PROXY ERROR: ECONNREFUSED. localhost -> http://127.0.0.1:50545/api/hey`.
