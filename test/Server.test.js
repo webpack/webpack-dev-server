@@ -6,17 +6,6 @@ const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
 const helper = require('./helper');
 
-const allStats = [
-  {},
-  // eslint-disable-next-line no-undefined
-  undefined,
-  false,
-  'errors-only',
-  {
-    assets: false,
-  },
-];
-
 describe('Server', () => {
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe('express.static.mine.types', () => {
@@ -67,81 +56,79 @@ describe('Server', () => {
     });
   });
 
-  it('should cascade warningsFilter', () => {
-    const stats = { warningsFilter: 'test' };
-    return new Promise((res) => {
-      const compiler = webpack(config);
-      const server = new Server(compiler, { stats });
+  describe('stats', () => {
+    it(`should works with difference stats values (contains 'hash', 'assets', 'warnings' and 'errors')`, () => {
+      const allStats = [
+        {},
+        // eslint-disable-next-line no-undefined
+        undefined,
+        false,
+        'errors-only',
+        {
+          assets: false,
+        },
+      ];
 
-      compiler.hooks.done.tap('webpack-dev-server', (s) => {
-        s.compilation.warnings = ['test', 'another warning'];
+      return new Promise((resolve, reject) => {
+        (function iterate(stats, i) {
+          if (i === allStats.length) {
+            return resolve();
+          }
 
-        const output = server.getStats(s);
-        expect(output.warnings.length).toBe(1);
-        expect(output.warnings[0]).toBe('another warning');
+          // Iterate to cover each case.
+          Promise.resolve()
+            .then(
+              () =>
+                new Promise((res) => {
+                  const compiler = webpack(config);
+                  const server = new Server(compiler, { stats });
 
-        server.close(() => {
-          res();
-        });
-      });
+                  compiler.hooks.done.tap('webpack-dev-server', (s) => {
+                    expect(Object.keys(server.getStats(s))).toMatchSnapshot();
 
-      compiler.run(() => {});
-      server.listen(8080, 'localhost');
-    });
-  });
+                    server.close(() => {
+                      res();
+                    });
+                  });
 
-  it(`should cascade stats options`, () => {
-    return new Promise((resolve, reject) => {
-      (function iterate(stats, i) {
-        if (i === allStats.length) {
-          return resolve();
-        }
-
-        const prom = new Promise((res, rej) => {
-          const compiler = webpack(config);
-          const server = new Server(compiler, { stats });
-
-          compiler.hooks.done.tap('webpack-dev-server', (s) => {
-            const finalStats = JSON.stringify(server.getStats(s));
-            const defaultStats = JSON.stringify(
-              server._stats.toJson(Server.DEFAULT_STATS)
-            );
-
-            // If we're not over-riding stats configuration,
-            // we get the same result as the DEFAULT_STATS
-            if (!stats || !Object.keys(stats).length) {
-              try {
-                expect(finalStats).toBe(defaultStats);
-              } catch (e) {
-                rej(e);
-              }
-            } else {
-              try {
-                expect(finalStats).not.toBe(defaultStats);
-              } catch (e) {
-                rej(e);
-              }
-            }
-
-            server.close(() => {
-              res();
+                  compiler.run(() => {});
+                  server.listen(8080, 'localhost');
+                })
+            )
+            .then(() => {
+              i += 1;
+              iterate(allStats[i], i);
+            })
+            .catch((e) => {
+              reject(e);
             });
-          });
+        })(allStats[0], 0);
+      });
+    });
 
-          compiler.run(() => {});
-          server.listen(8080, 'localhost');
+    it('should respect warningsFilter', () => {
+      return new Promise((res) => {
+        const compiler = webpack(config);
+        const server = new Server(compiler, {
+          stats: { warningsFilter: 'test' },
         });
 
-        // Iterate to cover each case.
-        prom
-          .then(() => {
-            i += 1;
-            iterate(allStats[i], i);
-          })
-          .catch((e) => {
-            reject(e);
+        compiler.hooks.done.tap('webpack-dev-server', (s) => {
+          s.compilation.warnings = ['test', 'another warning'];
+
+          const output = server.getStats(s);
+
+          expect(output.warnings.length).toBe(1);
+          expect(output.warnings[0]).toBe('another warning');
+
+          server.close(() => {
+            res();
           });
-      })(allStats[0], 0);
+        });
+
+        compiler.run(() => {});
+        server.listen(8080, 'localhost');
+      });
     });
   });
 
