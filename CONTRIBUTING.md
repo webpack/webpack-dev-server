@@ -39,11 +39,16 @@ Pull requests often need some real-world testing.
 
 1. In your `package.json`, change the line with `webpack-dev-server` to:
 
-```json
-"webpack-dev-server": "github:webpack/webpack-dev-server#pull/<ID>/head"
-```
+  ```json
+  "webpack-dev-server": "<PATH>"
+  ```
 
-`<ID>` is the ID of the pull request.
+  `<PATH>`:
+
+  - `github:webpack/webpack-dev-server#pull/<ID>/head`
+  where `<ID>` is the ID of the pull request.
+
+  - `file:../path/to/local/webapck-dev-server/fork` is the path to your local repo, just make sure you hit the correct path
 
 2. Run `npm install`.
 
