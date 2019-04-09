@@ -17,7 +17,27 @@
       "type": "boolean"
     },
     "host": {
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "port": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "allowedHosts": {
       "type": "array",
@@ -40,16 +60,6 @@
     },
     "publicPath": {
       "type": "string"
-    },
-    "port": {
-      "anyOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "string"
-        }
-      ]
     },
     "socket": {
       "type": "string"

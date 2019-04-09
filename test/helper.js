@@ -39,8 +39,12 @@ module.exports = {
 
     server = new Server(compiler, options);
 
-    const port = options.port || 8080;
-    const host = options.host || 'localhost';
+    const port = Object.prototype.hasOwnProperty.call(options, 'port')
+      ? options.port
+      : 8080;
+    const host = Object.prototype.hasOwnProperty.call(options, 'host')
+      ? options.host
+      : 'localhost';
 
     server.listen(port, host, (err) => {
       if (err) {
