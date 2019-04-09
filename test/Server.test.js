@@ -1,5 +1,6 @@
 'use strict';
 
+const { relative, sep } = require('path');
 const webpack = require('webpack');
 const request = require('supertest');
 const Server = require('../lib/Server');
@@ -7,6 +8,64 @@ const config = require('./fixtures/simple-config/webpack.config');
 const helper = require('./helper');
 
 describe('Server', () => {
+  describe('addEntries', () => {
+    it('add hot option', () => {
+      return new Promise((res) => {
+        // eslint-disable-next-line
+        const Server = require('../lib/Server');
+        const compiler = webpack(config);
+        const server = new Server(compiler, {
+          hot: true,
+        });
+
+        expect(
+          server.middleware.context.compiler.options.entry.map((p) => {
+            return relative('.', p).split(sep);
+          })
+        ).toMatchSnapshot();
+        expect(
+          server.middleware.context.compiler.options.plugins
+        ).toMatchSnapshot();
+
+        compiler.hooks.done.tap('webpack-dev-server', () => {
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+      });
+    });
+
+    it('add hotOnly option', () => {
+      return new Promise((res) => {
+        // eslint-disable-next-line
+        const Server = require('../lib/Server');
+        const compiler = webpack(config);
+        const server = new Server(compiler, {
+          hotOnly: true,
+        });
+
+        expect(
+          server.middleware.context.compiler.options.entry.map((p) => {
+            return relative('.', p).split(sep);
+          })
+        ).toMatchSnapshot();
+        expect(
+          server.middleware.context.compiler.options.plugins
+        ).toMatchSnapshot();
+
+        compiler.hooks.done.tap('webpack-dev-server', () => {
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+      });
+    });
+  });
+
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe('express.static.mine.types', () => {
     beforeEach(() => {
