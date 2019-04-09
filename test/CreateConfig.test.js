@@ -68,6 +68,32 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
+  it('host option (undefined)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        // eslint-disable-next-line no-undefined
+        host: undefined,
+      }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('host option (null)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        // eslint-disable-next-line no-undefined
+        host: null,
+      }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
   it('host option (devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, { devServer: { host: 'example.dev' } }),
@@ -888,6 +914,38 @@ describe('createConfig', () => {
       webpackConfig,
       Object.assign({}, argv, { port: 9090 }),
       { port: 9090 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('port option (same) (string)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { port: '9090' }),
+      { port: '9090' }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('port option (same) (null)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { port: null }),
+      { port: null }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('port option (same) (undefined)', () => {
+    const config = createConfig(
+      webpackConfig,
+      // eslint-disable-next-line no-undefined
+      Object.assign({}, argv, { port: undefined }),
+      // eslint-disable-next-line no-undefined
+      { port: undefined }
     );
 
     expect(config).toMatchSnapshot();
