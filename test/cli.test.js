@@ -59,6 +59,18 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--color', (done) => {
+    runDevServer('--color')
+      .then((output) => {
+        // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
+        expect(
+          output.stdout.includes('\u001b[39m \u001b[90m｢wds｣\u001b[39m:')
+        ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
     const examplePath = path.resolve(__dirname, '../examples/cli/public');
