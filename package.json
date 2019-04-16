@@ -67,7 +67,7 @@
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.1.0",
     "eslint-config-webpack": "1.2.5",
-    "eslint-plugin-import": "2.17.0",
+    "eslint-plugin-import": "2.17.1",
     "eslint-plugin-prettier": "3.0.1",
     "execa": "1.0.0",
     "file-loader": "3.0.1",
