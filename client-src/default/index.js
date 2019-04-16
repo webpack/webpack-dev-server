@@ -221,12 +221,14 @@ if (
 ) {
   protocol = self.location.protocol;
 }
-
 const socketUrl = url.format({
   protocol,
   auth: urlParts.auth,
   hostname,
-  port,
+  port:
+    urlParts.path == null || urlParts.path === '/'
+      ? port
+      : querystring.parse(urlParts.path).sockPort || port,
   // If sockPath is provided it'll be passed in via the __resourceQuery as a
   // query param so it has to be parsed out of the querystring in order for the
   // client to open the socket to the correct location.

@@ -67,6 +67,19 @@
     "sockPath": {
       "type": "string"
     },
+    "sockPort": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "watchOptions": {
       "type": "object"
     },

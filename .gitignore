@@ -9,3 +9,4 @@ client
 coverage
 ssl/*.pem
 node_modules
+.vscode
