@@ -80,7 +80,7 @@
     "less-loader": "4.1.0",
     "lint-staged": "8.1.5",
     "marked": "0.6.2",
-    "nyc": "13.3.0",
+    "nyc": "14.0.0",
     "prettier": "1.17.0",
     "puppeteer": "1.14.0",
     "rimraf": "2.6.3",
