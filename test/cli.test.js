@@ -71,6 +71,17 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--sockPath', (done) => {
+    runDevServer('--sockPath /mysockPath')
+      .then((output) => {
+        expect(
+          output.stdout.includes('http://localhost&sockPath=/mysockPath')
+        ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+  
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../bin/webpack-dev-server.js');
     const examplePath = path.resolve(__dirname, '../examples/cli/public');
