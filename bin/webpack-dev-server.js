@@ -20,7 +20,6 @@ const webpack = require('webpack');
 const options = require('./options');
 const Server = require('../lib/Server');
 
-const addEntries = require('../lib/utils/addEntries');
 const colors = require('../lib/utils/colors');
 const createConfig = require('../lib/utils/createConfig');
 const createDomain = require('../lib/utils/createDomain');
@@ -139,8 +138,6 @@ function processOptions(config) {
 
 function startDevServer(config, options) {
   const log = createLogger(options);
-
-  addEntries(config, options);
 
   let compiler;
 

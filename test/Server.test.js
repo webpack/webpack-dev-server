@@ -1,21 +1,71 @@
 'use strict';
 
+const { relative, sep } = require('path');
 const webpack = require('webpack');
+const request = require('supertest');
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
-
-const allStats = [
-  {},
-  // eslint-disable-next-line no-undefined
-  undefined,
-  false,
-  'errors-only',
-  {
-    assets: false,
-  },
-];
+const helper = require('./helper');
 
 describe('Server', () => {
+  describe('addEntries', () => {
+    it('add hot option', () => {
+      return new Promise((res) => {
+        // eslint-disable-next-line
+        const Server = require('../lib/Server');
+        const compiler = webpack(config);
+        const server = new Server(compiler, {
+          hot: true,
+        });
+
+        expect(
+          server.middleware.context.compiler.options.entry.map((p) => {
+            return relative('.', p).split(sep);
+          })
+        ).toMatchSnapshot();
+        expect(
+          server.middleware.context.compiler.options.plugins
+        ).toMatchSnapshot();
+
+        compiler.hooks.done.tap('webpack-dev-server', () => {
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+      });
+    });
+
+    it('add hotOnly option', () => {
+      return new Promise((res) => {
+        // eslint-disable-next-line
+        const Server = require('../lib/Server');
+        const compiler = webpack(config);
+        const server = new Server(compiler, {
+          hotOnly: true,
+        });
+
+        expect(
+          server.middleware.context.compiler.options.entry.map((p) => {
+            return relative('.', p).split(sep);
+          })
+        ).toMatchSnapshot();
+        expect(
+          server.middleware.context.compiler.options.plugins
+        ).toMatchSnapshot();
+
+        compiler.hooks.done.tap('webpack-dev-server', () => {
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+      });
+    });
+  });
+
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe('express.static.mine.types', () => {
     beforeEach(() => {
@@ -65,81 +115,368 @@ describe('Server', () => {
     });
   });
 
-  it('should cascade warningsFilter', () => {
-    const stats = { warningsFilter: 'test' };
-    return new Promise((res) => {
-      const compiler = webpack(config);
-      const server = new Server(compiler, { stats });
+  describe('stats', () => {
+    it(`should works with difference stats values (contains 'hash', 'assets', 'warnings' and 'errors')`, () => {
+      const allStats = [
+        {},
+        // eslint-disable-next-line no-undefined
+        undefined,
+        false,
+        'errors-only',
+        {
+          assets: false,
+        },
+      ];
 
-      compiler.hooks.done.tap('webpack-dev-server', (s) => {
-        s.compilation.warnings = ['test', 'another warning'];
+      return new Promise((resolve, reject) => {
+        (function iterate(stats, i) {
+          if (i === allStats.length) {
+            return resolve();
+          }
 
-        const output = server.getStats(s);
-        expect(output.warnings.length).toBe(1);
-        expect(output.warnings[0]).toBe('another warning');
+          // Iterate to cover each case.
+          Promise.resolve()
+            .then(
+              () =>
+                new Promise((res) => {
+                  const compiler = webpack(config);
+                  const server = new Server(compiler, { stats });
 
-        server.close(() => {
-          res();
-        });
+                  compiler.hooks.done.tap('webpack-dev-server', (s) => {
+                    expect(Object.keys(server.getStats(s))).toMatchSnapshot();
+
+                    server.close(() => {
+                      res();
+                    });
+                  });
+
+                  compiler.run(() => {});
+                  server.listen(8080, 'localhost');
+                })
+            )
+            .then(() => {
+              i += 1;
+              iterate(allStats[i], i);
+            })
+            .catch((e) => {
+              reject(e);
+            });
+        })(allStats[0], 0);
       });
+    });
 
-      compiler.run(() => {});
-      server.listen(8080, 'localhost');
+    it('should respect warningsFilter', () => {
+      return new Promise((res) => {
+        const compiler = webpack(config);
+        const server = new Server(compiler, {
+          stats: { warningsFilter: 'test' },
+        });
+
+        compiler.hooks.done.tap('webpack-dev-server', (s) => {
+          s.compilation.warnings = ['test', 'another warning'];
+
+          const output = server.getStats(s);
+
+          expect(output.warnings.length).toBe(1);
+          expect(output.warnings[0]).toBe('another warning');
+
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+        server.listen(8080, 'localhost');
+      });
     });
   });
 
-  it(`should cascade stats options`, () => {
-    return new Promise((resolve, reject) => {
-      (function iterate(stats, i) {
-        if (i === allStats.length) {
-          return resolve();
-        }
+  describe('host', () => {
+    let server = null;
+    let req = null;
 
-        const prom = new Promise((res, rej) => {
-          const compiler = webpack(config);
-          const server = new Server(compiler, { stats });
+    describe('is not be specified', () => {
+      beforeAll((done) => {
+        server = helper.start(config, {}, done);
+        req = request(server.app);
+      });
 
-          compiler.hooks.done.tap('webpack-dev-server', (s) => {
-            const finalStats = JSON.stringify(server.getStats(s));
-            const defaultStats = JSON.stringify(
-              server._stats.toJson(Server.DEFAULT_STATS)
-            );
+      it('server address', () => {
+        const address = server.listeningApp.address();
 
-            // If we're not over-riding stats configuration,
-            // we get the same result as the DEFAULT_STATS
-            if (!stats || !Object.keys(stats).length) {
-              try {
-                expect(finalStats).toBe(defaultStats);
-              } catch (e) {
-                rej(e);
-              }
-            } else {
-              try {
-                expect(finalStats).not.toBe(defaultStats);
-              } catch (e) {
-                rej(e);
-              }
-            }
+        expect(address.address).toBe('127.0.0.1');
+        expect(address.port).toBe(8080);
+      });
 
-            server.close(() => {
-              res();
-            });
-          });
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
 
-          compiler.run(() => {});
-          server.listen(8080, 'localhost');
-        });
+      afterAll(helper.close);
+    });
 
-        // Iterate to cover each case.
-        prom
-          .then(() => {
-            i += 1;
-            iterate(allStats[i], i);
-          })
-          .catch((e) => {
-            reject(e);
-          });
-      })(allStats[0], 0);
+    describe('is undefined', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            // eslint-disable-next-line no-undefined
+            host: undefined,
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('::');
+        expect(address.port).toBe(8080);
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is null', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            host: null,
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('::');
+        expect(address.port).toBe(8080);
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is 127.0.0.1 (IPv4)', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            host: '127.0.0.1',
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('127.0.0.1');
+        expect(address.port).toBe(8080);
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is localhost', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            host: 'localhost',
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('127.0.0.1');
+        expect(address.port).toBe(8080);
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is 0.0.0.0', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            host: '0.0.0.0',
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('0.0.0.0');
+        expect(address.port).toBe(8080);
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+  });
+
+  describe('port', () => {
+    let server = null;
+    let req = null;
+
+    describe('is not be specified', () => {
+      beforeAll((done) => {
+        server = helper.start(config, {}, done);
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('127.0.0.1');
+        // Random port
+        expect(address.port).toBeDefined();
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is undefined', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            // eslint-disable-next-line no-undefined
+            port: undefined,
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('127.0.0.1');
+        // Random port
+        expect(address.port).toBeDefined();
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is null', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            port: null,
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('127.0.0.1');
+        // Random port
+        expect(address.port).toBeDefined();
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is "33333"', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            port: '33333',
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('127.0.0.1');
+        expect(address.port).toBe(33333);
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
+    });
+
+    describe('is 33333', () => {
+      beforeAll((done) => {
+        server = helper.start(
+          config,
+          {
+            port: '33333',
+          },
+          done
+        );
+        req = request(server.app);
+      });
+
+      it('server address', () => {
+        const address = server.listeningApp.address();
+
+        expect(address.address).toBe('127.0.0.1');
+        expect(address.port).toBe(33333);
+      });
+
+      it('Request to index', (done) => {
+        req.get('/').expect(200, done);
+      });
+
+      afterAll(helper.close);
     });
   });
 });

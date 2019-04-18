@@ -12,38 +12,38 @@ describe('Before And After options', () => {
     server = helper.start(
       config,
       {
-        before: (app, server, compiler) => {
-          if (!app) {
+        before: (appArg, serverArg, compilerArg) => {
+          if (!appArg) {
             throw new Error('app is not defined');
           }
 
-          if (!server) {
+          if (!serverArg) {
             throw new Error('server is not defined');
           }
 
-          if (!compiler) {
+          if (!compilerArg) {
             throw new Error('compiler is not defined');
           }
 
-          app.get('/before/some/path', (req, res) => {
-            res.send('before');
+          appArg.get('/before/some/path', (_, response) => {
+            response.send('before');
           });
         },
-        after: (app, server, compiler) => {
-          if (!app) {
+        after: (appArg, serverArg, compilerArg) => {
+          if (!appArg) {
             throw new Error('app is not defined');
           }
 
-          if (!server) {
+          if (!serverArg) {
             throw new Error('server is not defined');
           }
 
-          if (!compiler) {
+          if (!compilerArg) {
             throw new Error('compiler is not defined');
           }
 
-          app.get('/after/some/path', (req, res) => {
-            res.send('after');
+          appArg.get('/after/some/path', (_, response) => {
+            response.send('after');
           });
         },
       },

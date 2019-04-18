@@ -388,9 +388,37 @@ Object {
 }
 `;
 
+exports[`createConfig host option (null) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig host option (specify for CLI and devServer config) 1`] = `
 Object {
   "host": "other.dev",
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig host option (undefined) 1`] = `
+Object {
   "hot": true,
   "hotOnly": false,
   "noInfo": true,
@@ -845,6 +873,48 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 7070,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig port option (same) (null) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "port": null,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig port option (same) (string) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "port": "9090",
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig port option (same) (undefined) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "port": undefined,
   "publicPath": "/",
   "stats": Object {
     "cached": false,

@@ -17,7 +17,27 @@
       "type": "boolean"
     },
     "host": {
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "port": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "allowedHosts": {
       "type": "array",
@@ -41,21 +61,24 @@
     "publicPath": {
       "type": "string"
     },
-    "port": {
+    "socket": {
+      "type": "string"
+    },
+    "sockPath": {
+      "type": "string"
+    },
+    "sockPort": {
       "anyOf": [
         {
           "type": "number"
         },
         {
           "type": "string"
+        },
+        {
+          "type": "null"
         }
       ]
-    },
-    "socket": {
-      "type": "string"
-    },
-    "sockPath": {
-      "type": "string"
     },
     "watchOptions": {
       "type": "object"
@@ -154,6 +177,26 @@
     },
     "inline": {
       "type": "boolean"
+    },
+    "injectClient": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
+    "injectHot": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
     },
     "disableHostCheck": {
       "type": "boolean"
