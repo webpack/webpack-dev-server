@@ -95,6 +95,30 @@ describe('HTTPS', () => {
     });
   });
 
+  describe('ca, pfx, key and cert are symlinks', () => {
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          https: {
+            ca: path.join(httpsCertificateDirectory, 'ca-symlink.pem'),
+            pfx: path.join(httpsCertificateDirectory, 'server-symlink.pfx'),
+            key: path.join(httpsCertificateDirectory, 'server-symlink.key'),
+            cert: path.join(httpsCertificateDirectory, 'server-symlink.crt'),
+            passphrase: 'webpack-dev-server',
+          },
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    it('Request to index', (done) => {
+      req.get('/').expect(200, /Heyo/, done);
+    });
+  });
+
   describe('ca, pfx, key and cert are raw strings', () => {
     beforeAll((done) => {
       server = helper.start(
