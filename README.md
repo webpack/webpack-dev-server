@@ -33,7 +33,6 @@ fast in-memory access to the webpack assets.
 - [Contributing](#contributing)
 - [Attribution](#attribution)
 - [License](#license)
-    - [MIT](#mit)
 
 ## Getting Started
 
