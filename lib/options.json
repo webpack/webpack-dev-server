@@ -1,8 +1,19 @@
 {
   "type": "object",
   "properties": {
+<<<<<<< HEAD
     "after": {
       "instanceof": "Function"
+=======
+    "serveIndex": {
+      "type": "boolean"
+    },
+    "liveReload": {
+      "type": "boolean"
+    },
+    "hot": {
+      "type": "boolean"
+>>>>>>> add liveReload option to enable/disable refreshing the page
     },
     "allowedHosts": {
       "type": "array",
