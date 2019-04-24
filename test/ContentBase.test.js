@@ -19,6 +19,114 @@ describe('ContentBase', () => {
   let server;
   let req;
 
+  describe('Test disableing live reloading', () => {
+    const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
+
+    jest.setTimeout(30000);
+
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          watchContentBase: true,
+          liveReload: false,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+      fs.truncateSync(nestedFile);
+    });
+
+    it('Should Refresh on changing files', (done) => {
+      let refreshed = false;
+
+      server.contentBaseWatchers[0].on('change', () => {
+        // it means that files has chnged
+
+        // simulating server behaviour
+        if (server.liveReload !== false) {
+          Object.defineProperty(window.location, 'reload', {
+            configurable: true,
+          });
+          window.location.reload = jest.fn();
+          window.location.reload();
+          refreshed = true;
+        }
+        expect(refreshed).toBe(false);
+
+        done();
+      });
+
+      // change a file manually
+      setTimeout(() => {
+        fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+      }, 1000);
+
+      // expect(applyReload).toHaveBeenCalled();
+    });
+  });
+
+  describe('Testing live reloading', () => {
+    const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
+
+    jest.setTimeout(30000);
+
+    beforeAll((done) => {
+      server = helper.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          watchContentBase: true,
+          liveReload: true,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+      fs.truncateSync(nestedFile);
+    });
+
+    it('Should Refresh on changing files', (done) => {
+      let refreshed = false;
+
+      server.contentBaseWatchers[0].on('change', () => {
+        // it means that files has chnged
+
+        // simulating server behaviour
+        if (server.liveReload !== false) {
+          Object.defineProperty(window.location, 'reload', {
+            configurable: true,
+          });
+          window.location.reload = jest.fn();
+          window.location.reload();
+          refreshed = true;
+        }
+        expect(refreshed).toBe(true);
+
+        done();
+      });
+
+      // change a file manually
+      setTimeout(() => {
+        fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
+      }, 1000);
+
+      // expect(applyReload).toHaveBeenCalled();
+    });
+  });
+
   describe('to directory', () => {
     const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
 
