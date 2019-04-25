@@ -4,9 +4,13 @@
   no-shadow,
   array-bracket-spacing
 */
+
 const webpack = require('webpack');
 const Server = require('../lib/Server');
+const schema = require('../lib/options.json');
 const config = require('./fixtures/simple-config/webpack.config');
+
+const messages = schema.errorMessage.properties;
 
 describe('Validation', () => {
   let compiler;
@@ -32,37 +36,32 @@ describe('Validation', () => {
       {
         name: 'invalid `hot` configuration',
         config: { hot: 'false' },
-        message:
-          'options.hot should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)\n',
+        message: `options.hot ${messages.hot}`,
       },
       {
         name: 'invalid `logLevel` configuration',
         config: { logLevel: 1 },
-        message:
-          'options.logLevel should be {String} and equal to one of the allowed values',
+        message: `options.logLevel ${messages.logLevel.split('\n\n')[0]}`,
       },
       {
         name: 'invalid `writeToDisk` configuration',
         config: { writeToDisk: 1 },
-        message:
-          'options.writeToDisk should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)\n',
+        message: `options.writeToDisk ${messages.writeToDisk}`,
       },
       {
         name: 'invalid `overlay` configuration',
         config: { overlay: { errors: 1 } },
-        message:
-          'options.overlay should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)\n',
+        message: `options.overlay ${messages.overlay}`,
       },
       {
         name: 'invalid `contentBase` configuration',
         config: { contentBase: [0] },
-        message:
-          'options.contentBase should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)\n',
+        message: `options.contentBase ${messages.contentBase}`,
       },
       {
         name: 'no additional properties',
         config: { additional: true },
-        message: 'options should NOT have additional properties\n',
+        message: 'options should NOT have additional properties',
       },
     ];
 
@@ -79,7 +78,7 @@ describe('Validation', () => {
           const [title, message] = err.message.split('\n\n');
 
           expect(title).toEqual('webpack Dev Server Invalid Options');
-          expect(message).toEqual(test.message);
+          expect(message.trim()).toEqual(test.message);
 
           return;
         }

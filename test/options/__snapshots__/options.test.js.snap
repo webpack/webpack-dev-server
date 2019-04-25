@@ -18,6 +18,7 @@ Object {
   "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-disablehostcheck)",
   "features": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-features)",
   "filename": "should be {String|RegExp|Function} (https://webpack.js.org/configuration/dev-server/#devserver-filename-)",
+  "fs": "should be {Object}",
   "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-headers-)",
   "historyApiFallback": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-historyapifallback)",
   "host": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-host)",
@@ -160,6 +161,9 @@ Object {
         "instanceof": "Function",
       },
     ],
+  },
+  "fs": Object {
+    "type": "object",
   },
   "headers": Object {
     "type": "object",

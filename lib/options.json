@@ -1,6 +1,9 @@
 {
   "type": "object",
   "properties": {
+    "fs": {
+      "type": "object"
+    },
     "serveIndex": {
       "type": "boolean"
     },
@@ -400,7 +403,8 @@
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
       "sockPort": "should be {Array}",
       "injectClient": "should be {Array}",
-      "injectHot": "should be {Array}"
+      "injectHot": "should be {Array}",
+      "fs": "should be {Object}"
     }
   },
   "additionalProperties": false
