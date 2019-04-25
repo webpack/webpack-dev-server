@@ -68,8 +68,6 @@ describe('ContentBase', () => {
       setTimeout(() => {
         fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
       }, 1000);
-
-      // expect(applyReload).toHaveBeenCalled();
     });
   });
 
@@ -122,8 +120,6 @@ describe('ContentBase', () => {
       setTimeout(() => {
         fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
       }, 1000);
-
-      // expect(applyReload).toHaveBeenCalled();
     });
   });
 
