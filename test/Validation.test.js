@@ -68,7 +68,6 @@ describe('Validation', () => {
     tests.forEach((test) => {
       it(`should fail validation for ${test.name}`, () => {
         try {
-          // eslint-disable-next-line no-new
           server = new Server(compiler, test.config);
         } catch (err) {
           if (err.name !== 'ValidationError') {
@@ -97,7 +96,6 @@ describe('Validation', () => {
 
     it('should allow filename to be a function', () => {
       try {
-        // eslint-disable-next-line no-new
         server = new Server(compiler, { filename: () => {} });
       } catch (err) {
         if (err === 'ValidationError') {

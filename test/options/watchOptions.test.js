@@ -1,11 +1,9 @@
 'use strict';
 
-const path = require('path');
-const { createFsFromVolume, Volume } = require('memfs');
 const ValidationError = require('schema-utils/src/ValidationError');
 const webpack = require('webpack');
-const Server = require('../lib/Server');
-const config = require('./fixtures/simple-config/webpack.config');
+const Server = require('../../lib/Server');
+const config = require('../fixtures/simple-config/webpack.config');
 
 describe('Validation', () => {
   let compiler;
@@ -15,13 +13,8 @@ describe('Validation', () => {
     compiler = webpack(config);
   });
 
-  describe('fs', () => {
-    let memfs;
+  describe('watchOptions', () => {
     beforeEach(() => {
-      memfs = createFsFromVolume(new Volume());
-      // We need to patch memfs
-      // https://github.com/webpack/webpack-dev-middleware#fs
-      memfs.join = path.join;
       server = null;
     });
     afterEach((done) => {
@@ -34,22 +27,21 @@ describe('Validation', () => {
       }
     });
 
-    it('should allow fs to be memfs', () => {
+    it('should allow watchOptions to be an object', () => {
       let error = null;
       try {
-        // eslint-disable-next-line no-new
-        server = new Server(compiler, { fs: memfs });
+        const watchOptions = {};
+        server = new Server(compiler, { watchOptions });
       } catch (err) {
         error = err;
       }
       expect(error).toBe(null);
     });
 
-    it('should not allow fs to be the wrong type', () => {
+    it('should not allow watchOptions to be the wrong type', () => {
       let error = null;
       try {
-        // eslint-disable-next-line no-new
-        server = new Server(compiler, { fs: false });
+        server = new Server(compiler, { watchOptions: '' });
       } catch (err) {
         error = err;
       }
