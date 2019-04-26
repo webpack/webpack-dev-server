@@ -396,7 +396,11 @@
       "serverSideRender": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-serversiderender)",
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-index)",
       "log": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-log)",
-      "warn": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-warn)"
+      "warn": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-warn)",
+      "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
+      "sockPort": "should be {Array}",
+      "injectClient": "should be {Array}",
+      "injectHot": "should be {Array}"
     }
   },
   "additionalProperties": false
