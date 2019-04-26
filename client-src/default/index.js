@@ -54,9 +54,11 @@ let useErrorOverlay = false;
 let useProgress = false;
 
 const INFO = 'info';
-const WARNING = 'warning';
+const WARN = 'warn';
 const ERROR = 'error';
-const NONE = 'none';
+const DEBUG = 'debug';
+const TRACE = 'trace';
+const SILENT = 'silent';
 
 // Set the default log level
 log.setDefaultLevel(INFO);
@@ -108,14 +110,13 @@ const onSocketMsg = {
     }
     switch (level) {
       case INFO:
+      case WARN:
+      case DEBUG:
+      case TRACE:
       case ERROR:
         log.setLevel(level);
         break;
-      case WARNING:
-        // loglevel's warning name is different from webpack's
-        log.setLevel('warn');
-        break;
-      case NONE:
+      case SILENT:
         log.disableAll();
         break;
       default:

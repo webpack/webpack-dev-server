@@ -27,10 +27,10 @@ describe('Validation', () => {
       }
     });
 
-    it('should allow clientLogLevel to be a "none"', () => {
+    it('should allow clientLogLevel to be a "silent"', () => {
       let error = null;
       try {
-        const clientLogLevel = 'none';
+        const clientLogLevel = 'silent';
         server = new Server(compiler, { clientLogLevel });
       } catch (err) {
         error = err;
@@ -60,10 +60,32 @@ describe('Validation', () => {
       expect(error).toBe(null);
     });
 
-    it('should allow clientLogLevel to be a "warning"', () => {
+    it('should allow clientLogLevel to be a "warn"', () => {
       let error = null;
       try {
-        const clientLogLevel = 'warning';
+        const clientLogLevel = 'warn';
+        server = new Server(compiler, { clientLogLevel });
+      } catch (err) {
+        error = err;
+      }
+      expect(error).toBe(null);
+    });
+
+    it('should allow clientLogLevel to be a "trace"', () => {
+      let error = null;
+      try {
+        const clientLogLevel = 'trace';
+        server = new Server(compiler, { clientLogLevel });
+      } catch (err) {
+        error = err;
+      }
+      expect(error).toBe(null);
+    });
+
+    it('should allow clientLogLevel to be a "debug"', () => {
+      let error = null;
+      try {
+        const clientLogLevel = 'debug';
         server = new Server(compiler, { clientLogLevel });
       } catch (err) {
         error = err;
