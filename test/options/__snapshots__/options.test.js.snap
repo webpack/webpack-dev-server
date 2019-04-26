@@ -1,0 +1,436 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`options should return errorMessage 1`] = `
+Object {
+  "after": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-after)",
+  "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-allowedhosts)",
+  "before": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-before)",
+  "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-bonjour)",
+  "ca": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserver-ca)",
+  "cert": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserver-cert)",
+  "clientLogLevel": "should be {String} and equal to one of the allowed values
+
+ [ 'trace', 'debug', 'info', 'warn', 'error', 'silent' ]
+
+(https://webpack.js.org/configuration/dev-server/#devserver-clientloglevel)",
+  "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-compress)",
+  "contentBase": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-contentbase)",
+  "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-disablehostcheck)",
+  "features": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserver-features)",
+  "filename": "should be {String|RegExp|Function} (https://webpack.js.org/configuration/dev-server/#devserver-filename-)",
+  "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-headers-)",
+  "historyApiFallback": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-historyapifallback)",
+  "host": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-host)",
+  "hot": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)",
+  "hotOnly": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hotonly)",
+  "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-http2)",
+  "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-https)",
+  "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-index)",
+  "injectClient": "should be {Array}",
+  "injectHot": "should be {Array}",
+  "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-inline)",
+  "key": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserver-key)",
+  "lazy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-lazy-)",
+  "log": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-log)",
+  "logLevel": "should be {String} and equal to one of the allowed values
+
+ [ 'trace', 'debug', 'info', 'warn', 'error', 'silent' ]
+
+(https://webpack.js.org/configuration/dev-server/#devserver-loglevel)",
+  "logTime": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-logtime)",
+  "mimeTypes": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devservermimetypes-)",
+  "noInfo": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-noinfo-)",
+  "open": "should be {String|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-open)",
+  "openPage": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-openpage)",
+  "overlay": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-overlay)",
+  "pfx": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserver-pfx)",
+  "pfxPassphrase": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-pfxpassphrase)",
+  "port": "should be {String|Number} (https://webpack.js.org/configuration/dev-server/#devserver-port)",
+  "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-progress-cli-only)",
+  "proxy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-hot)",
+  "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-public)",
+  "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-publicpath-)",
+  "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-quiet-)",
+  "reporter": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-reporter)",
+  "requestCert": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-requestcert)",
+  "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
+  "serverSideRender": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-serversiderender)",
+  "setup": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-setup)",
+  "sockPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-sockPath)",
+  "sockPort": "should be {Array}",
+  "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserver-socket)",
+  "staticOptions": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-staticOptions)",
+  "stats": "should be {Boolean|Object|String} (https://webpack.js.org/configuration/dev-server/#devserver-stats-)",
+  "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-uselocalip)",
+  "warn": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserver-warn)",
+  "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserver-watchcontentbase)",
+  "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserver-watchoptions)",
+  "writeToDisk": "should be {Boolean|Function} (https://github.com/webpack/webpack-dev-middleware#writetodisk)",
+}
+`;
+
+exports[`options should return properties 1`] = `
+Object {
+  "after": Object {
+    "instanceof": "Function",
+  },
+  "allowedHosts": Object {
+    "items": Object {
+      "type": "string",
+    },
+    "type": "array",
+  },
+  "before": Object {
+    "instanceof": "Function",
+  },
+  "bonjour": Object {
+    "type": "boolean",
+  },
+  "ca": Object {
+    "anyOf": Array [
+      Object {
+        "type": "string",
+      },
+      Object {
+        "instanceof": "Buffer",
+      },
+    ],
+  },
+  "cert": Object {
+    "anyOf": Array [
+      Object {
+        "type": "string",
+      },
+      Object {
+        "instanceof": "Buffer",
+      },
+    ],
+  },
+  "clientLogLevel": Object {
+    "enum": Array [
+      "none",
+      "info",
+      "error",
+      "warning",
+    ],
+  },
+  "compress": Object {
+    "type": "boolean",
+  },
+  "contentBase": Object {
+    "anyOf": Array [
+      Object {
+        "enum": Array [
+          false,
+        ],
+      },
+      Object {
+        "type": "number",
+      },
+      Object {
+        "type": "string",
+      },
+      Object {
+        "items": Object {
+          "type": "string",
+        },
+        "minItems": 1,
+        "type": "array",
+      },
+    ],
+  },
+  "disableHostCheck": Object {
+    "type": "boolean",
+  },
+  "features": Object {
+    "items": Object {
+      "type": "string",
+    },
+    "type": "array",
+  },
+  "filename": Object {
+    "anyOf": Array [
+      Object {
+        "type": "string",
+      },
+      Object {
+        "instanceof": "RegExp",
+      },
+      Object {
+        "instanceof": "Function",
+      },
+    ],
+  },
+  "headers": Object {
+    "type": "object",
+  },
+  "historyApiFallback": Object {
+    "anyOf": Array [
+      Object {
+        "type": "boolean",
+      },
+      Object {
+        "type": "object",
+      },
+    ],
+  },
+  "host": Object {
+    "anyOf": Array [
+      Object {
+        "type": "string",
+      },
+      Object {
+        "type": "null",
+      },
+    ],
+  },
+  "hot": Object {
+    "type": "boolean",
+  },
+  "hotOnly": Object {
+    "type": "boolean",
+  },
+  "http2": Object {
+    "type": "boolean",
+  },
+  "https": Object {
+    "anyOf": Array [
+      Object {
+        "type": "object",
+      },
+      Object {
+        "type": "boolean",
+      },
+    ],
+  },
+  "index": Object {
+    "type": "string",
+  },
+  "injectClient": Object {
+    "anyOf": Array [
+      Object {
+        "type": "boolean",
+      },
+      Object {
+        "instanceof": "Function",
+      },
+    ],
+  },
+  "injectHot": Object {
+    "anyOf": Array [
+      Object {
+        "type": "boolean",
+      },
+      Object {
+        "instanceof": "Function",
+      },
+    ],
+  },
+  "inline": Object {
+    "type": "boolean",
+  },
+  "key": Object {
+    "anyOf": Array [
+      Object {
+        "type": "string",
+      },
+      Object {
+        "instanceof": "Buffer",
+      },
+    ],
+  },
+  "lazy": Object {
+    "type": "boolean",
+  },
+  "log": Object {
+    "instanceof": "Function",
+  },
+  "logLevel": Object {
+    "enum": Array [
+      "info",
+      "warn",
+      "error",
+      "debug",
+      "trace",
+      "silent",
+    ],
+  },
+  "logTime": Object {
+    "type": "boolean",
+  },
+  "mimeTypes": Object {
+    "type": "object",
+  },
+  "noInfo": Object {
+    "type": "boolean",
+  },
+  "open": Object {
+    "anyOf": Array [
+      Object {
+        "type": "string",
+      },
+      Object {
+        "type": "boolean",
+      },
+    ],
+  },
+  "openPage": Object {
+    "type": "string",
+  },
+  "overlay": Object {
+    "anyOf": Array [
+      Object {
+        "type": "boolean",
+      },
+      Object {
+        "properties": Object {
+          "errors": Object {
+            "type": "boolean",
+          },
+          "warnings": Object {
+            "type": "boolean",
+          },
+        },
+        "type": "object",
+      },
+    ],
+  },
+  "pfx": Object {
+    "anyOf": Array [
+      Object {
+        "type": "string",
+      },
+      Object {
+        "instanceof": "Buffer",
+      },
+    ],
+  },
+  "pfxPassphrase": Object {
+    "type": "string",
+  },
+  "port": Object {
+    "anyOf": Array [
+      Object {
+        "type": "number",
+      },
+      Object {
+        "type": "string",
+      },
+      Object {
+        "type": "null",
+      },
+    ],
+  },
+  "progress": Object {
+    "type": "boolean",
+  },
+  "proxy": Object {
+    "anyOf": Array [
+      Object {
+        "type": "object",
+      },
+      Object {
+        "items": Object {
+          "anyOf": Array [
+            Object {
+              "type": "object",
+            },
+            Object {
+              "instanceof": "Function",
+            },
+          ],
+        },
+        "minItems": 1,
+        "type": "array",
+      },
+    ],
+  },
+  "public": Object {
+    "type": "string",
+  },
+  "publicPath": Object {
+    "type": "string",
+  },
+  "quiet": Object {
+    "type": "boolean",
+  },
+  "reporter": Object {
+    "instanceof": "Function",
+  },
+  "requestCert": Object {
+    "type": "boolean",
+  },
+  "serveIndex": Object {
+    "type": "boolean",
+  },
+  "serverSideRender": Object {
+    "type": "boolean",
+  },
+  "setup": Object {
+    "instanceof": "Function",
+  },
+  "sockPath": Object {
+    "type": "string",
+  },
+  "sockPort": Object {
+    "anyOf": Array [
+      Object {
+        "type": "number",
+      },
+      Object {
+        "type": "string",
+      },
+      Object {
+        "type": "null",
+      },
+    ],
+  },
+  "socket": Object {
+    "type": "string",
+  },
+  "staticOptions": Object {
+    "type": "object",
+  },
+  "stats": Object {
+    "anyOf": Array [
+      Object {
+        "type": "object",
+      },
+      Object {
+        "type": "boolean",
+      },
+      Object {
+        "enum": Array [
+          "none",
+          "errors-only",
+          "minimal",
+          "normal",
+          "verbose",
+        ],
+      },
+    ],
+  },
+  "useLocalIp": Object {
+    "type": "boolean",
+  },
+  "warn": Object {
+    "instanceof": "Function",
+  },
+  "watchContentBase": Object {
+    "type": "boolean",
+  },
+  "watchOptions": Object {
+    "type": "object",
+  },
+  "writeToDisk": Object {
+    "anyOf": Array [
+      Object {
+        "type": "boolean",
+      },
+      Object {
+        "instanceof": "Function",
+      },
+    ],
+  },
+}
+`;
