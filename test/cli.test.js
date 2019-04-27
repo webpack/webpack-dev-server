@@ -69,7 +69,7 @@ describe('CLI', () => {
       })
       .catch(done);
   });
-  
+
   it('--color', (done) => {
     runDevServer('--color')
       .then((output) => {
