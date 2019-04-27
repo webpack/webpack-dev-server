@@ -10,7 +10,7 @@ Object {
   "cert": "should be {String|Buffer}",
   "clientLogLevel": "should be {String} and equal to one of the allowed values
 
- [ 'none', 'info', 'error', 'warning' ]
+ [ 'info', 'warn', 'error', 'debug', 'trace', 'silent' ]
 
  (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
   "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
@@ -109,10 +109,12 @@ Object {
   },
   "clientLogLevel": Object {
     "enum": Array [
-      "none",
       "info",
+      "warn",
       "error",
-      "warning",
+      "debug",
+      "trace",
+      "silent",
     ],
   },
   "compress": Object {
