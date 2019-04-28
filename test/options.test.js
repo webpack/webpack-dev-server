@@ -4,9 +4,9 @@ const { join } = require('path');
 const ValidationError = require('schema-utils/src/ValidationError');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/simple-config/webpack.config');
-const options = require('../../lib/options.json');
+const Server = require('../lib/Server');
+const options = require('../lib/options.json');
+const config = require('./fixtures/simple-config/webpack.config');
 
 describe('options', () => {
   it('should match properties and errorMessage', () => {
