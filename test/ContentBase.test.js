@@ -64,6 +64,81 @@ describe('ContentBase', () => {
       }, 1000);
     });
   });
+
+  describe('test ignoring node_modules folder by Default', () => {
+    jest.setTimeout(30000);
+
+    beforeAll((done) => {
+      server = helper.start(config, {
+        contentBase: contentBasePublic,
+        watchContentBase: true,
+      });
+      // making sure that chokidar has read all the files
+      server.contentBaseWatchers[0].on('ready', () => {
+        done();
+      });
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
+    it('Should ignore node_modules & watch bar', (done) => {
+      const watchedPaths = server.contentBaseWatchers[0].getWatched();
+      // check if node_modules folder is not in watched list
+      const folderWatched = !!watchedPaths[
+        path.join(contentBasePublic, 'node_modules')
+      ];
+      expect(folderWatched).toEqual(false);
+      // check if bar folder is in watched list
+      expect(watchedPaths[path.join(contentBasePublic, 'bar')]).toEqual([
+        'index.html',
+      ]);
+
+      done();
+    });
+  });
+
+  describe('test not ignoring node_modules folder', () => {
+    jest.setTimeout(30000);
+
+    beforeAll((done) => {
+      server = helper.start(config, {
+        contentBase: contentBasePublic,
+        watchContentBase: true,
+        watchOptions: {
+          ignored: /bar/,
+        },
+      });
+      // making sure that chokidar has read all the files
+      server.contentBaseWatchers[0].on('ready', () => {
+        done();
+      });
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      helper.close(() => {
+        done();
+      });
+    });
+
+    it('Should watch node_modules & ignore bar', (done) => {
+      const watchedPaths = server.contentBaseWatchers[0].getWatched();
+      // check if node_modules folder is in watched list
+      expect(
+        watchedPaths[path.join(contentBasePublic, 'node_modules')]
+      ).toEqual(['index.html']);
+      // check if bar folder is not in watched list
+      const folderWatched = !!watchedPaths[path.join(contentBasePublic, 'bar')];
+      expect(folderWatched).toEqual(false);
+      done();
+    });
+  });
+
   describe('test listing files in folders without index.html using the option serveIndex:false', () => {
     beforeAll((done) => {
       server = helper.start(
