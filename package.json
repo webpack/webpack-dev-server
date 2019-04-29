@@ -77,7 +77,7 @@
     "jest": "24.7.1",
     "jquery": "3.4.0",
     "less": "3.9.0",
-    "less-loader": "4.1.0",
+    "less-loader": "5.0.0",
     "lint-staged": "8.1.5",
     "marked": "0.6.2",
     "memfs": "2.15.2",
