@@ -59,6 +59,17 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--sockPath', (done) => {
+    runDevServer('--sockPath /mysockPath')
+      .then((output) => {
+        expect(
+          output.stdout.includes('http://localhost&sockPath=/mysockPath')
+        ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--color', (done) => {
     runDevServer('--color')
       .then((output) => {

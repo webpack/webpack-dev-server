@@ -10,6 +10,8 @@
 [![tests][tests]][tests-url]
 [![coverage][cover]][cover-url]
 [![chat][chat]][chat-url]
+[![downloads][downloads]][npm-url]
+[![contributors][contributors]][contributors-url]
 
 # webpack-dev-server
 
@@ -21,14 +23,16 @@ fast in-memory access to the webpack assets.
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started)
-2. [Usage](#usage)
-3. [Browser Support](#browser-support)
-4. [Support](#support)
-5. [Contributing](#contributing)
-6. [Maintainers](#maintainers)
-7. [Attribution](#attribution)
-8. [License](#license)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+  - [With the CLI](#with-the-cli)
+  - [With NPM Scripts](#with-npm-scripts)
+  - [The Result](#the-result)
+- [Browser Support](#browser-support)
+- [Support](#support)
+- [Contributing](#contributing)
+- [Attribution](#attribution)
+- [License](#license)
 
 ## Getting Started
 
@@ -154,3 +158,6 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 [stack-url]: https://stackoverflow.com/questions/tagged/webpack-dev-server
 [uglify-url]: https://github.com/webpack-contrib/uglifyjs-webpack-plugin
 [wjo-url]: https://github.com/webpack/webpack.js.org
+[downloads]: https://img.shields.io/npm/dm/webpack-dev-server.svg
+[contributors-url]: https://github.com/webpack/webpack-dev-server/graphs/contributors
+[contributors]: https://img.shields.io/github/contributors/webpack/webpack-dev-server.svg

@@ -54,9 +54,11 @@ let useErrorOverlay = false;
 let useProgress = false;
 
 const INFO = 'info';
-const WARNING = 'warning';
+const WARN = 'warn';
 const ERROR = 'error';
-const NONE = 'none';
+const DEBUG = 'debug';
+const TRACE = 'trace';
+const SILENT = 'silent';
 
 // Set the default log level
 log.setDefaultLevel(INFO);
@@ -108,14 +110,13 @@ const onSocketMsg = {
     }
     switch (level) {
       case INFO:
+      case WARN:
+      case DEBUG:
+      case TRACE:
       case ERROR:
         log.setLevel(level);
         break;
-      case WARNING:
-        // loglevel's warning name is different from webpack's
-        log.setLevel('warn');
-        break;
-      case NONE:
+      case SILENT:
         log.disableAll();
         break;
       default:
@@ -221,12 +222,14 @@ if (
 ) {
   protocol = self.location.protocol;
 }
-
 const socketUrl = url.format({
   protocol,
   auth: urlParts.auth,
   hostname,
-  port,
+  port:
+    urlParts.path == null || urlParts.path === '/'
+      ? port
+      : querystring.parse(urlParts.path).sockPort || port,
   // If sockPath is provided it'll be passed in via the __resourceQuery as a
   // query param so it has to be parsed out of the querystring in order for the
   // client to open the socket to the correct location.

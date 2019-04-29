@@ -109,3 +109,41 @@ describe('Client complex inline script path', () => {
     });
   });
 });
+
+describe('Client complex inline script path with sockPort', () => {
+  beforeAll((done) => {
+    const options = {
+      port: 9000,
+      host: '0.0.0.0',
+      inline: true,
+      watchOptions: {
+        poll: true,
+      },
+      sockPath: '/foo/test/bar/',
+      sockPort: 8080,
+    };
+    helper.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(helper.close);
+
+  describe('browser client', () => {
+    jest.setTimeout(30000);
+
+    it('uses the correct sockPort', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) =>
+            requestObj.url().match(/foo\/test\/bar/)
+          )
+          .then((requestObj) => {
+            expect(requestObj.url()).toMatch(
+              /^http:\/\/localhost:8080\/foo\/test\/bar/
+            );
+            browser.close().then(done);
+          });
+        page.goto('http://localhost:9000/main');
+      });
+    });
+  });
+});
