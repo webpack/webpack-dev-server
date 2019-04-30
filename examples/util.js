@@ -11,6 +11,19 @@ const webpack = require('webpack');
 module.exports = {
   setup(config) {
     const defaults = { mode: 'development', plugins: [], devServer: {} };
+
+    if (config.entry) {
+      if (typeof config.entry === 'string') {
+        config.entry = path.resolve(config.entry);
+      } else if (Array.isArray(config.entry)) {
+        config.entry = config.entry.map((entry) => path.resolve(entry));
+      } else if (typeof config.entry === 'object') {
+        Object.entries(config.entry).forEach(([key, value]) => {
+          config.entry[key] = path.resolve(value);
+        });
+      }
+    }
+
     const result = Object.assign(defaults, config);
     const before = function before(app) {
       app.get('/.assets/*', (req, res) => {
@@ -34,18 +47,18 @@ module.exports = {
       smartypants: false,
       headerPrefix: '',
       renderer,
-      xhtml: false
+      xhtml: false,
     };
     const readme = fs.readFileSync('README.md', 'utf-8');
 
     let exampleTitle = '';
 
-    renderer.heading = function headingProxy(text, level, raw) {
+    renderer.heading = function headingProxy(text, level, raw, slugger) {
       if (level === 1 && !exampleTitle) {
         exampleTitle = text;
       }
 
-      return heading.call(this, text, level, raw);
+      return heading.call(this, text, level, raw, slugger);
     };
 
     marked.setOptions(markedOptions);
@@ -53,11 +66,13 @@ module.exports = {
     marked(readme, { renderer });
 
     result.plugins.push(new webpack.NamedModulesPlugin());
-    result.plugins.push(new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.join(__dirname, '.assets/layout.html'),
-      title: exampleTitle
-    }));
+    result.plugins.push(
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: path.join(__dirname, '.assets/layout.html'),
+        title: exampleTitle,
+      })
+    );
 
     if (result.devServer.before) {
       const proxy = result.devServer.before;
@@ -69,8 +84,16 @@ module.exports = {
       result.devServer.before = before;
     }
 
-    result.output = { path: path.dirname(module.parent.filename) };
+    const output = {
+      path: path.dirname(module.parent.filename),
+    };
+
+    if (result.output) {
+      Object.assign(result.output, output);
+    } else {
+      result.output = output;
+    }
 
     return result;
-  }
+  },
 };

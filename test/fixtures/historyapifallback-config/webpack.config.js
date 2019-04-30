@@ -5,15 +5,15 @@ module.exports = {
   context: __dirname,
   entry: './foo.js',
   output: {
-    path: '/'
+    path: '/',
   },
   module: {
     rules: [
       {
         test: /\.html$/,
         loader: 'file-loader',
-        options: { name: '[name].[ext]' }
-      }
-    ]
-  }
+        options: { name: '[name].[ext]' },
+      },
+    ],
+  },
 };

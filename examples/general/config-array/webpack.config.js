@@ -15,11 +15,7 @@ module.exports = [
       rules: [
         {
           test: /\.less$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'less-loader'
-          ]
+          use: ['style-loader', 'css-loader', 'less-loader'],
         },
         {
           test: /\.png$/,
@@ -36,6 +32,7 @@ module.exports = [
         }
       ]
     }
+
   }),
   setup({
     context: __dirname,
@@ -50,11 +47,7 @@ module.exports = [
       rules: [
         {
           test: /\.less$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'less-loader'
-          ]
+          use: ['style-loader', 'css-loader', 'less-loader'],
         },
         {
           test: /\.png$/,
@@ -72,4 +65,5 @@ module.exports = [
       ]
     }
   })
+
 ];

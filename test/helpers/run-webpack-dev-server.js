@@ -1,11 +1,16 @@
 'use strict';
 
 const path = require('path');
-const spawn = require('child_process').spawn;
+const execa = require('execa');
 
-const webpackDevServerPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
-const basicConfigPath = path.resolve(__dirname, '../fixtures/cli/webpack.config.js');
-
+const webpackDevServerPath = path.resolve(
+  __dirname,
+  '../../bin/webpack-dev-server.js'
+);
+const basicConfigPath = path.resolve(
+  __dirname,
+  '../fixtures/cli/webpack.config.js'
+);
 
 function runWebackDevServer(testArgs, configPath) {
   const cwd = process.cwd();
@@ -26,9 +31,9 @@ function runWebackDevServer(testArgs, configPath) {
   const args = [webpackDevServerPath, '--config', configPath].concat(testArgs);
 
   return new Promise((resolve, reject) => {
-    const child = spawn('node', args, { cwd, env });
+    const child = execa('node', args, { cwd, env });
 
-    child.on('error', error => reject(error));
+    child.on('error', (error) => reject(error));
 
     child.stdout.on('data', (data) => {
       stdout += data.toString();

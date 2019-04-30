@@ -12,27 +12,26 @@ module.exports = {
         exclude: /node_modules|web_modules/,
         use: [
           {
-            loader: 'babel-loader'
-          }
-        ]
+            loader: 'babel-loader',
+          },
+        ],
       },
       {
         test: /\.html$/,
-        use: ['html-loader']
+        use: ['html-loader'],
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   plugins: [
-    new CopyPlugin([{
-      from: path.resolve(__dirname, 'live.html'),
-      to: path.resolve(__dirname, '../../client/live.html')
-    }])
-  ]
+    new CopyPlugin([
+      {
+        from: path.resolve(__dirname, 'live.html'),
+        to: path.resolve(__dirname, '../../client/live.html'),
+      },
+    ]),
+  ],
 };

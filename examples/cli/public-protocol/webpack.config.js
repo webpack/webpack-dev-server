@@ -10,6 +10,6 @@ module.exports = setup({
   devServer: {
     host: '0.0.0.0',
     public: 'https://localhost:8080',
-    disableHostCheck: true
-  }
+    disableHostCheck: true,
+  },
 });
