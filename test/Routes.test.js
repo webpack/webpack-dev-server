@@ -33,6 +33,10 @@ describe('Routes', () => {
       .expect(200, done);
   });
 
+  it('GET request to invalidate endpoint', (done) => {
+    req.get('/invalidate').expect(200, done);
+  });
+
   it('GET request to live bundle', (done) => {
     req
       .get('/__webpack_dev_server__/live.bundle.js')
