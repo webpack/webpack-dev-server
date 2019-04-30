@@ -8,6 +8,13 @@ const config = require('./fixtures/simple-config/webpack.config');
 const helper = require('./helper');
 
 describe('Server', () => {
+  it('process.env.WEBPACK_DEV_SERVER', () => {
+    const compiler = webpack(config);
+    // eslint-disable-next-line no-new
+    new Server(compiler);
+    expect(process.env.WEBPACK_DEV_SERVER).toBeTruthy();
+  });
+
   describe('addEntries', () => {
     it('add hot option', () => {
       return new Promise((res) => {

@@ -92,6 +92,8 @@ yargs.options(options);
 
 const argv = yargs.argv;
 
+process.env.WEBPACK_DEV_SERVER = true;
+
 // webpack-cli@3.3 path : 'webpack-cli/bin/utils/convert-argv'
 let convertArgvPath;
 try {

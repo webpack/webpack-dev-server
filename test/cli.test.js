@@ -17,6 +17,15 @@ const keyPath = path.join(httpsCertificateDirectory, 'server.key');
 const certPath = path.join(httpsCertificateDirectory, 'server.crt');
 
 describe('CLI', () => {
+  it('process.env.WEBPACK_DEV_SERVER', (done) => {
+    runDevServer()
+      .then(() => {
+        expect(process.env.WEBPACK_DEV_SERVER).toBeTruthy();
+        done();
+      })
+      .catch(done);
+  });
+
   it('--progress', (done) => {
     runDevServer('--progress')
       .then((output) => {
