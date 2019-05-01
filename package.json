@@ -75,7 +75,7 @@
     "html-webpack-plugin": "3.2.0",
     "husky": "2.1.0",
     "jest": "24.7.1",
-    "jquery": "3.4.0",
+    "jquery": "3.4.1",
     "less": "3.9.0",
     "less-loader": "5.0.0",
     "lint-staged": "8.1.5",
