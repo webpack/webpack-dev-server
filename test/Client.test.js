@@ -7,20 +7,20 @@ const helper = require('./helper');
 const config = require('./fixtures/client-config/webpack.config');
 const runBrowser = require('./helpers/run-browser');
 
-function startProxy(port) {
-  const proxy = express();
-  proxy.use(
-    '/',
-    httpProxy({
-      target: 'http://localhost:9001',
-      ws: true,
-      changeOrigin: true,
-    })
-  );
-  return proxy.listen(port);
-}
-
 describe('Client code', () => {
+  function startProxy(port) {
+    const proxy = express();
+    proxy.use(
+      '/',
+      httpProxy({
+        target: 'http://localhost:9001',
+        ws: true,
+        changeOrigin: true,
+      })
+    );
+    return proxy.listen(port);
+  }
+
   beforeAll((done) => {
     const options = {
       compress: true,
@@ -38,6 +38,7 @@ describe('Client code', () => {
 
   afterAll(helper.close);
 
+  // [HPM] Proxy created: /  ->  http://localhost:9001
   describe('behind a proxy', () => {
     let proxy;
 
@@ -47,13 +48,21 @@ describe('Client code', () => {
       proxy = startProxy(9000);
     });
 
-    afterAll(() => {
-      proxy.close();
+    afterAll((done) => {
+      proxy.close(() => {
+        done();
+      });
     });
 
     it('responds with a 200', (done) => {
-      const req = request('http://localhost:9000');
-      req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+      {
+        const req = request('http://localhost:9000');
+        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+      }
+      {
+        const req = request('http://localhost:9001');
+        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+      }
     });
 
     it('requests websocket through the proxy with proper port number', (done) => {
@@ -62,7 +71,7 @@ describe('Client code', () => {
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
             expect(requestObj.url()).toMatch(
-              /^http:\/\/localhost:9000\/sockjs-node/
+              /^http:\/\/localhost:9001\/sockjs-node/
             );
             browser.close().then(done);
           });

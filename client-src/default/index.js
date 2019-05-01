@@ -198,7 +198,6 @@ const onSocketMsg = {
 
 let hostname = urlParts.hostname;
 let protocol = urlParts.protocol;
-let port = urlParts.port;
 
 // check ipv4 and ipv6 `all hostname`
 if (hostname === '0.0.0.0' || hostname === '::') {
@@ -208,7 +207,6 @@ if (hostname === '0.0.0.0' || hostname === '::') {
   // eslint-disable-next-line no-bitwise
   if (self.location.hostname && !!~self.location.protocol.indexOf('http')) {
     hostname = self.location.hostname;
-    port = self.location.port;
   }
 }
 
@@ -228,8 +226,8 @@ const socketUrl = url.format({
   hostname,
   port:
     urlParts.path == null || urlParts.path === '/'
-      ? port
-      : querystring.parse(urlParts.path).sockPort || port,
+      ? urlParts.port
+      : querystring.parse(urlParts.path).sockPort || urlParts.port,
   // If sockPath is provided it'll be passed in via the __resourceQuery as a
   // query param so it has to be parsed out of the querystring in order for the
   // client to open the socket to the correct location.
