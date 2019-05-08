@@ -24,7 +24,7 @@ describe('UniversalCompiler', () => {
           return done(err);
         }
         expect(res.text).toContain('Hello from the client');
-        expect(res.text).toContain('webpack-dev-server/client');
+        expect(res.text).toContain('sockjs-client');
         done();
       });
   });
@@ -41,7 +41,7 @@ describe('UniversalCompiler', () => {
           return done(err);
         }
         expect(res.text).toContain('Hello from the server');
-        expect(res.text).not.toContain('webpack-dev-server/client');
+        expect(res.text).not.toContain('sockjs-client');
         done();
       });
   });
