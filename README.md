@@ -146,8 +146,8 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 [node-url]: https://nodejs.org
 [deps]: https://david-dm.org/webpack/webpack-dev-server.svg
 [deps-url]: https://david-dm.org/webpack/webpack-dev-server
-[tests]: http://img.shields.io/travis/webpack/webpack-dev-server.svg
-[tests-url]: https://travis-ci.org/webpack/webpack-dev-server
+[tests]: https://dev.azure.com/webpack/webpack-dev-server/_apis/build/status/webpack.webpack-dev-server?branchName=master
+[tests-url]: https://dev.azure.com/webpack/webpack-dev-server/_build/latest?definitionId=7&branchName=master
 [cover]: https://codecov.io/gh/webpack/webpack-dev-server/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack/webpack-dev-server
 [chat]: https://badges.gitter.im/webpack/webpack.svg
