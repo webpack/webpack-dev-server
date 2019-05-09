@@ -156,3 +156,76 @@ describe('Client complex inline script path with sockPort', () => {
     });
   });
 });
+
+// previously, using sockPort without sockPath had the ability
+// to alter the sockPath (based on a bug in client-src/index.js)
+// so we need to make sure sockPath is not altered in this case
+describe('Client complex inline script path with sockPort, no sockPath', () => {
+  beforeAll((done) => {
+    const options = {
+      port: 9000,
+      host: '0.0.0.0',
+      inline: true,
+      watchOptions: {
+        poll: true,
+      },
+      sockPort: 8080,
+    };
+    helper.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(helper.close);
+
+  describe('browser client', () => {
+    jest.setTimeout(30000);
+
+    it('uses the correct sockPort and sockPath', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .then((requestObj) => {
+            expect(requestObj.url()).toMatch(
+              /^http:\/\/localhost:8080\/sockjs-node/
+            );
+            browser.close().then(done);
+          });
+        page.goto('http://localhost:9000/main');
+      });
+    });
+  });
+});
+
+describe('Client complex inline script path with sockHost', () => {
+  beforeAll((done) => {
+    const options = {
+      port: 9000,
+      host: '0.0.0.0',
+      inline: true,
+      watchOptions: {
+        poll: true,
+      },
+      sockHost: 'myhost.test',
+    };
+    helper.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(helper.close);
+
+  describe('browser client', () => {
+    jest.setTimeout(30000);
+
+    it('uses the correct sockHost', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .then((requestObj) => {
+            expect(requestObj.url()).toMatch(
+              /^http:\/\/myhost\.test:9000\/sockjs-node/
+            );
+            browser.close().then(done);
+          });
+        page.goto('http://localhost:9000/main');
+      });
+    });
+  });
+});
