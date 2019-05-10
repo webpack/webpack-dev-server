@@ -225,9 +225,9 @@ if (
 let sockHost = hostname;
 let sockPath = '/sockjs-node';
 let sockPort = urlParts.port;
-// eslint-disable-next-line no-undefined
 if (
   urlParts.path !== null &&
+  // eslint-disable-next-line no-undefined
   urlParts.path !== undefined &&
   urlParts.path !== '/'
 ) {
