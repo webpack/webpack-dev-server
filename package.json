@@ -86,7 +86,7 @@
     "lint-staged": "8.1.6",
     "marked": "0.6.2",
     "memfs": "2.15.2",
-    "nyc": "14.1.0",
+    "nyc": "14.1.1",
     "prettier": "1.17.0",
     "puppeteer": "1.15.0",
     "rimraf": "2.6.3",
