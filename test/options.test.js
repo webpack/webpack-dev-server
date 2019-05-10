@@ -338,7 +338,7 @@ describe('options', () => {
         failure: [false],
       },
       sockHost: {
-        success: ['', null],
+        success: [''],
         failure: [false],
       },
       sockPath: {

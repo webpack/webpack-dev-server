@@ -289,14 +289,7 @@
       "instanceof": "Function"
     },
     "sockHost": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "type": "string"
     },
     "sockPath": {
       "type": "string"
