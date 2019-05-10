@@ -225,7 +225,12 @@ if (
 let sockHost = hostname;
 let sockPath = '/sockjs-node';
 let sockPort = urlParts.port;
-if (urlParts.path != null && urlParts.path !== '/') {
+// eslint-disable-next-line no-undefined
+if (
+  urlParts.path !== null &&
+  urlParts.path !== undefined &&
+  urlParts.path !== '/'
+) {
   const parsedQuery = querystring.parse(urlParts.path);
   // all of these sock url params are optionally passed in through
   // __resourceQuery, so we need to fall back to the default if
