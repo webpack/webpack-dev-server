@@ -1,19 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
 const request = require('supertest');
 const helper = require('./helper');
 const config = require('./fixtures/simple-config/webpack.config');
-
-const directoryIndex = fs.readFileSync(
-  path.join(__dirname, 'fixtures/directory-index.txt'),
-  'utf-8'
-);
-const magicHtml = fs.readFileSync(
-  path.join(__dirname, 'fixtures/magic-html.txt'),
-  'utf-8'
-);
 
 describe('Routes', () => {
   let server;
@@ -55,13 +44,19 @@ describe('Routes', () => {
   });
 
   it('GET request to directory index', (done) => {
-    req
-      .get('/webpack-dev-server')
-      .expect('Content-Type', 'text/html')
-      .expect(200, directoryIndex.trim(), done);
+    req.get('/webpack-dev-server').then(({ res }) => {
+      expect(res.headers['content-type']).toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
+      expect(res.text).toMatchSnapshot();
+      done();
+    });
   });
 
   it('GET request to magic html', (done) => {
-    req.get('/main').expect(200, magicHtml.trim(), done);
+    req.get('/main').then(({ res }) => {
+      expect(res.statusCode).toEqual(200);
+      expect(res.text).toMatchSnapshot();
+      done();
+    });
   });
 });
