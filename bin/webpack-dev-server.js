@@ -22,13 +22,10 @@ const Server = require('../lib/Server');
 
 const colors = require('../lib/utils/colors');
 const createConfig = require('../lib/utils/createConfig');
-const createDomain = require('../lib/utils/createDomain');
 const createLogger = require('../lib/utils/createLogger');
 const defaultTo = require('../lib/utils/defaultTo');
 const findPort = require('../lib/utils/findPort');
 const getVersions = require('../lib/utils/getVersions');
-const runBonjour = require('../lib/utils/runBonjour');
-const status = require('../lib/utils/status');
 const tryParseInt = require('../lib/utils/tryParseInt');
 
 let server;
@@ -159,11 +156,6 @@ function startDevServer(config, options) {
     }).apply(compiler);
   }
 
-  const suffix =
-    options.inline !== false || options.lazy === true
-      ? '/'
-      : '/webpack-dev-server/';
-
   try {
     server = new Server(compiler, options, log);
   } catch (err) {
@@ -200,52 +192,27 @@ function startDevServer(config, options) {
       }
     });
 
-    server.listen(options.socket, options.host, (err) => {
+    runServer();
+  } else if (options.port) {
+    runServer();
+  } else {
+    // only run port finder if no port as been specified
+    findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
       if (err) {
         throw err;
       }
-      // chmod 666 (rw rw rw)
-      const READ_WRITE = 438;
-
-      fs.chmod(options.socket, READ_WRITE, (err) => {
-        if (err) {
-          throw err;
-        }
-
-        const uri = createDomain(options, server.listeningApp) + suffix;
-
-        status(uri, options, log, argv.color);
-      });
+      options.port = port;
+      runServer();
     });
-    return;
   }
 
-  const startServer = () => {
+  function runServer() {
     server.listen(options.port, options.host, (err) => {
       if (err) {
         throw err;
       }
-      if (options.bonjour) {
-        runBonjour(options);
-      }
-      const uri = createDomain(options, server.listeningApp) + suffix;
-      status(uri, options, log, argv.color);
     });
-  };
-
-  if (options.port) {
-    startServer();
-    return;
   }
-
-  // only run port finder if no port as been specified
-  findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
-    if (err) {
-      throw err;
-    }
-    options.port = port;
-    startServer();
-  });
 }
 
 processOptions(config);
