@@ -9,6 +9,7 @@
   Please place an x, no spaces, in all [ ] that apply
 -->
 
+- [ ] This is a **chore**
 - [ ] This is a **bugfix**
 - [ ] This is a **feature**
 - [ ] This is a **code refactor**
