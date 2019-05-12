@@ -3,11 +3,11 @@
 const { relative, sep } = require('path');
 const webpack = require('webpack');
 const request = require('supertest');
-// Mock opn before loading Server
-jest.mock('opn');
+// Mock open before loading Server
+jest.mock('open');
 // eslint-disable-next-line import/newline-after-import
-const opn = require('opn');
-opn.mockImplementation(() => {
+const open = require('open');
+open.mockImplementation(() => {
   return {
     catch: jest.fn(),
   };
@@ -176,8 +176,8 @@ describe('Server', () => {
       });
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
-        expect(opn.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
-        expect(opn.mock.invocationCallOrder[0]).toEqual(1);
+        expect(open.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
+        expect(open.mock.invocationCallOrder[0]).toEqual(1);
         server.close(done);
       });
 
