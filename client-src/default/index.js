@@ -220,21 +220,35 @@ if (
 ) {
   protocol = self.location.protocol;
 }
+
+// default values of the sock url if they are not provided
+let sockHost = hostname;
+let sockPath = '/sockjs-node';
+let sockPort = urlParts.port;
+if (
+  urlParts.path !== null &&
+  // eslint-disable-next-line no-undefined
+  urlParts.path !== undefined &&
+  urlParts.path !== '/'
+) {
+  const parsedQuery = querystring.parse(urlParts.path);
+  // all of these sock url params are optionally passed in through
+  // __resourceQuery, so we need to fall back to the default if
+  // they are not provided
+  sockHost = parsedQuery.sockHost || sockHost;
+  sockPath = parsedQuery.sockPath || sockPath;
+  sockPort = parsedQuery.sockPort || sockPort;
+}
+
 const socketUrl = url.format({
   protocol,
   auth: urlParts.auth,
-  hostname,
-  port:
-    urlParts.path == null || urlParts.path === '/'
-      ? urlParts.port
-      : querystring.parse(urlParts.path).sockPort || urlParts.port,
+  hostname: sockHost,
+  port: sockPort,
   // If sockPath is provided it'll be passed in via the __resourceQuery as a
   // query param so it has to be parsed out of the querystring in order for the
   // client to open the socket to the correct location.
-  pathname:
-    urlParts.path == null || urlParts.path === '/'
-      ? '/sockjs-node'
-      : querystring.parse(urlParts.path).sockPath || urlParts.path,
+  pathname: sockPath,
 });
 
 socket(socketUrl, onSocketMsg);
