@@ -192,7 +192,19 @@ function startDevServer(config, options) {
       }
     });
 
-    runServer();
+    server.listen(options.socket, options.host, (err) => {
+      if (err) {
+        throw err;
+      }
+      // chmod 666 (rw rw rw)
+      const READ_WRITE = 438;
+
+      fs.chmod(options.socket, READ_WRITE, (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+    });
   } else if (options.port) {
     runServer();
   } else {
