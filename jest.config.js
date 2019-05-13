@@ -2,7 +2,7 @@
 
 module.exports = {
   testURL: 'http://localhost/',
-  collectCoverage: true,
+  collectCoverage: false,
   coveragePathIgnorePatterns: ['test'],
   moduleFileExtensions: ['js', 'json'],
   testMatch: ['**/test/**/*.test.js'],
