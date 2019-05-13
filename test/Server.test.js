@@ -3,6 +3,15 @@
 const { relative, sep } = require('path');
 const webpack = require('webpack');
 const request = require('supertest');
+// Mock opn before loading Server
+jest.mock('opn');
+// eslint-disable-next-line import/newline-after-import
+const opn = require('opn');
+opn.mockImplementation(() => {
+  return {
+    catch: jest.fn(),
+  };
+});
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
 const helper = require('./helper');
@@ -180,6 +189,26 @@ describe('Server', () => {
           expect(output.warnings.length).toBe(1);
           expect(output.warnings[0]).toBe('another warning');
 
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+        server.listen(8080, 'localhost');
+      });
+    });
+
+    it('should open', () => {
+      return new Promise((res) => {
+        const compiler = webpack(config);
+        const server = new Server(compiler, {
+          open: true,
+        });
+
+        compiler.hooks.done.tap('webpack-dev-server', () => {
+          expect(opn.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
+          expect(opn.mock.invocationCallOrder[0]).toEqual(1);
           server.close(() => {
             res();
           });
