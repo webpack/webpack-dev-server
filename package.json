@@ -87,7 +87,7 @@
     "marked": "0.6.2",
     "memfs": "2.15.2",
     "nyc": "14.1.1",
-    "prettier": "1.17.0",
+    "prettier": "1.17.1",
     "puppeteer": "1.15.0",
     "rimraf": "2.6.3",
     "standard-version": "6.0.1",
