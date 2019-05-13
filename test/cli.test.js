@@ -6,6 +6,7 @@
 const path = require('path');
 const execa = require('execa');
 const runDevServer = require('./helpers/run-webpack-dev-server');
+const formatWebpackOutput = require('./helpers/format-webpack-output');
 
 const httpsCertificateDirectory = path.join(
   __dirname,
@@ -21,7 +22,7 @@ describe('CLI', () => {
     runDevServer('--progress')
       .then((output) => {
         expect(output.code).toEqual(0);
-        expect(output.stderr.indexOf('0% compiling') >= 0).toBe(true);
+        expect(output.stderr).toMatchSnapshot();
         done();
       })
       .catch(done);
@@ -31,7 +32,7 @@ describe('CLI', () => {
     runDevServer('--bonjour')
       .then((output) => {
         expect(output.code).toEqual(0);
-        expect(output.stdout.indexOf('Bonjour') >= 0).toBe(true);
+        expect(formatWebpackOutput(output.stdout)).toMatchSnapshot();
         done();
       })
       .catch(done);
@@ -41,7 +42,7 @@ describe('CLI', () => {
     runDevServer('--https')
       .then((output) => {
         expect(output.code).toEqual(0);
-        expect(output.stdout.indexOf('Project is running at') >= 0).toBe(true);
+        expect(formatWebpackOutput(output.stdout)).toMatchSnapshot();
         done();
       })
       .catch(done);
@@ -53,7 +54,7 @@ describe('CLI', () => {
     )
       .then((output) => {
         expect(output.code).toEqual(0);
-        expect(output.stdout.indexOf('Project is running at') >= 0).toBe(true);
+        expect(formatWebpackOutput(output.stdout)).toMatchSnapshot();
         done();
       })
       .catch(done);
@@ -62,9 +63,8 @@ describe('CLI', () => {
   it('--sockPath', (done) => {
     runDevServer('--sockPath /mysockPath')
       .then((output) => {
-        expect(
-          output.stdout.includes('http://localhost&sockPath=/mysockPath')
-        ).toEqual(true);
+        expect(output.code).toEqual(0);
+        expect(formatWebpackOutput(output.stdout)).toMatchSnapshot();
         done();
       })
       .catch(done);
@@ -73,10 +73,8 @@ describe('CLI', () => {
   it('--color', (done) => {
     runDevServer('--color')
       .then((output) => {
-        // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
-        expect(
-          output.stdout.includes('\u001b[39m \u001b[90m｢wds｣\u001b[39m:')
-        ).toEqual(true);
+        expect(output.code).toEqual(0);
+        expect(formatWebpackOutput(output.stdout)).toMatchSnapshot();
         done();
       })
       .catch(done);

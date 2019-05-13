@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CLI --bonjour 1`] = `
+"<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: Project is running at http://localhost:8080/
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: webpack output is served from /
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: Broadcasting \\"http\\" with subtype of \\"webpack\\" via ZeroConf DNS (Bonjour)
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Hash: cdf3627ff84ed1f5ec70
+Time: Xms
+Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
+  Asset     Size  Chunks             Chunk Names
+main.js  352 KiB    main  [emitted]  main
+Entrypoint main = main.js
+[0] multi xDir/client?http://localhost ./foo.js 40 bytes {main} [built]
+[../../../client/index.js?http://localhost] xDir/client?http://localhost 8.68 KiB {main} [built]
+[../../../client/overlay.js] xDir/client/overlay.js 3.59 KiB {main} [built]
+[../../../client/socket.js] xDir/client/socket.js 1.05 KiB {main} [built]
+[../../../node_modules/ansi-html/index.js] xDir/node_modules/ansi-html/index.js 4.16 KiB {main} [built]
+[../../../node_modules/ansi-regex/index.js] xDir/node_modules/ansi-regex/index.js 135 bytes {main} [built]
+[../../../node_modules/events/events.js] xDir/node_modules/events/events.js 13.3 KiB {main} [built]
+[../../../node_modules/html-entities/index.js] xDir/node_modules/html-entities/index.js 231 bytes {main} [built]
+[../../../node_modules/loglevel/lib/loglevel.js] xDir/node_modules/loglevel/lib/loglevel.js 7.68 KiB {main} [built]
+[../../../node_modules/querystring-es3/index.js] xDir/node_modules/querystring-es3/index.js 127 bytes {main} [built]
+[../../../node_modules/strip-ansi/index.js] xDir/node_modules/strip-ansi/index.js 161 bytes {main} [built]
+[../../../node_modules/url/url.js] xDir/node_modules/url/url.js 22.8 KiB {main} [built]
+[../../../node_modules/webpack/hot sync ^\\\\.\\\\/log$] (webpack)/hot sync nonrecursive ^\\\\.\\\\/log$ 170 bytes {main} [built]
+[../../../node_modules/webpack/hot/emitter.js] (webpack)/hot/emitter.js 75 bytes {main} [built]
+[./foo.js] 41 bytes {main} [built]
+    + 11 hidden modules
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Compiled successfully.
+"
+`;
+
+exports[`CLI --color 1`] = `
+"<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: Project is running at <CLR=34,BOLD>http://localhost:8080/</CLR>
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: webpack output is served from <CLR=34,BOLD>/</CLR>
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Hash: <CLR=BOLD>cdf3627ff84ed1f5ec70</CLR>
+Time: <CLR=BOLD>X</CLR>ms
+Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
+  <CLR=BOLD>Asset</CLR>     <CLR=BOLD>Size</CLR>  <CLR=BOLD>Chunks</CLR>  <CLR=39,BOLD><CLR=22>           <CLR=39,BOLD><CLR=22><CLR=BOLD>Chunk Names</CLR>
+<CLR=32,BOLD>main.js</CLR>  352 KiB    <CLR=BOLD>main</CLR>  <CLR=32,BOLD>[emitted]</CLR>  main
+Entrypoint <CLR=BOLD>main</CLR> = <CLR=32,BOLD>main.js</CLR>
+[0] <CLR=BOLD>multi xDir/client?http://localhost ./foo.js</CLR> 40 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../client/index.js?http://localhost] <CLR=BOLD>xDir/client?http://localhost</CLR> 8.68 KiB {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../client/overlay.js] <CLR=BOLD>xDir/client/overlay.js</CLR> 3.59 KiB {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../client/socket.js] <CLR=BOLD>xDir/client/socket.js</CLR> 1.05 KiB {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/ansi-html/index.js] <CLR=BOLD>xDir/node_modules/ansi-html/index.js</CLR> 4.16 KiB {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/ansi-regex/index.js] <CLR=BOLD>xDir/node_modules/ansi-regex/index.js</CLR> 135 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/events/events.js] <CLR=BOLD>xDir/node_modules/events/events.js</CLR> 13.3 KiB {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/html-entities/index.js] <CLR=BOLD>xDir/node_modules/html-entities/index.js</CLR> 231 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/loglevel/lib/loglevel.js] <CLR=BOLD>xDir/node_modules/loglevel/lib/loglevel.js</CLR> 7.68 KiB {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/querystring-es3/index.js] <CLR=BOLD>xDir/node_modules/querystring-es3/index.js</CLR> 127 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/strip-ansi/index.js] <CLR=BOLD>xDir/node_modules/strip-ansi/index.js</CLR> 161 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/url/url.js] <CLR=BOLD>xDir/node_modules/url/url.js</CLR> 22.8 KiB {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/webpack/hot sync ^\\\\.\\\\/log$] <CLR=BOLD>(webpack)/hot sync nonrecursive ^\\\\.\\\\/log$</CLR> 170 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[../../../node_modules/webpack/hot/emitter.js] <CLR=BOLD>(webpack)/hot/emitter.js</CLR> 75 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+[<CLR=BOLD>./foo.js</CLR>] 41 bytes {<CLR=33,BOLD>main</CLR>}<CLR=32,BOLD> [built]</CLR>
+    + 11 hidden modules
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Compiled successfully.
+"
+`;
+
+exports[`CLI --https --cacert --pfx --key --cert --pfx-passphrase 1`] = `
+"<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: Project is running at https://localhost:8080/
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: webpack output is served from /
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Hash: 9104ea4e767718dae218
+Time: Xms
+Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
+  Asset     Size  Chunks             Chunk Names
+main.js  352 KiB    main  [emitted]  main
+Entrypoint main = main.js
+[0] multi xDir/client?https://localhost ./foo.js 40 bytes {main} [built]
+[../../../client/index.js?https://localhost] xDir/client?https://localhost 8.68 KiB {main} [built]
+[../../../client/overlay.js] xDir/client/overlay.js 3.59 KiB {main} [built]
+[../../../client/socket.js] xDir/client/socket.js 1.05 KiB {main} [built]
+[../../../node_modules/ansi-html/index.js] xDir/node_modules/ansi-html/index.js 4.16 KiB {main} [built]
+[../../../node_modules/ansi-regex/index.js] xDir/node_modules/ansi-regex/index.js 135 bytes {main} [built]
+[../../../node_modules/events/events.js] xDir/node_modules/events/events.js 13.3 KiB {main} [built]
+[../../../node_modules/html-entities/index.js] xDir/node_modules/html-entities/index.js 231 bytes {main} [built]
+[../../../node_modules/loglevel/lib/loglevel.js] xDir/node_modules/loglevel/lib/loglevel.js 7.68 KiB {main} [built]
+[../../../node_modules/querystring-es3/index.js] xDir/node_modules/querystring-es3/index.js 127 bytes {main} [built]
+[../../../node_modules/strip-ansi/index.js] xDir/node_modules/strip-ansi/index.js 161 bytes {main} [built]
+[../../../node_modules/url/url.js] xDir/node_modules/url/url.js 22.8 KiB {main} [built]
+[../../../node_modules/webpack/hot sync ^\\\\.\\\\/log$] (webpack)/hot sync nonrecursive ^\\\\.\\\\/log$ 170 bytes {main} [built]
+[../../../node_modules/webpack/hot/emitter.js] (webpack)/hot/emitter.js 75 bytes {main} [built]
+[./foo.js] 41 bytes {main} [built]
+    + 11 hidden modules
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Compiled successfully.
+"
+`;
+
+exports[`CLI --https 1`] = `
+"<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: Project is running at https://localhost:8080/
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: webpack output is served from /
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Hash: 9104ea4e767718dae218
+Time: Xms
+Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
+  Asset     Size  Chunks             Chunk Names
+main.js  352 KiB    main  [emitted]  main
+Entrypoint main = main.js
+[0] multi xDir/client?https://localhost ./foo.js 40 bytes {main} [built]
+[../../../client/index.js?https://localhost] xDir/client?https://localhost 8.68 KiB {main} [built]
+[../../../client/overlay.js] xDir/client/overlay.js 3.59 KiB {main} [built]
+[../../../client/socket.js] xDir/client/socket.js 1.05 KiB {main} [built]
+[../../../node_modules/ansi-html/index.js] xDir/node_modules/ansi-html/index.js 4.16 KiB {main} [built]
+[../../../node_modules/ansi-regex/index.js] xDir/node_modules/ansi-regex/index.js 135 bytes {main} [built]
+[../../../node_modules/events/events.js] xDir/node_modules/events/events.js 13.3 KiB {main} [built]
+[../../../node_modules/html-entities/index.js] xDir/node_modules/html-entities/index.js 231 bytes {main} [built]
+[../../../node_modules/loglevel/lib/loglevel.js] xDir/node_modules/loglevel/lib/loglevel.js 7.68 KiB {main} [built]
+[../../../node_modules/querystring-es3/index.js] xDir/node_modules/querystring-es3/index.js 127 bytes {main} [built]
+[../../../node_modules/strip-ansi/index.js] xDir/node_modules/strip-ansi/index.js 161 bytes {main} [built]
+[../../../node_modules/url/url.js] xDir/node_modules/url/url.js 22.8 KiB {main} [built]
+[../../../node_modules/webpack/hot sync ^\\\\.\\\\/log$] (webpack)/hot sync nonrecursive ^\\\\.\\\\/log$ 170 bytes {main} [built]
+[../../../node_modules/webpack/hot/emitter.js] (webpack)/hot/emitter.js 75 bytes {main} [built]
+[./foo.js] 41 bytes {main} [built]
+    + 11 hidden modules
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Compiled successfully.
+"
+`;
+
+exports[`CLI --progress 1`] = `"  0% compiling 10% building 0/0 modules 0 active 10% building 0/1 modules 1 active ...ient/index.js?http://localhost ./foo.js                                            10% building 1/1 modules 0 active 10% building 1/2 modules 1 active ...ack-dev-server/test/fixtures/cli/foo.js 10% building 1/3 modules 2 active ...server/client/index.js?http://localhost 10% building 2/3 modules 1 active ...server/client/index.js?http://localhost 40% building 2/3 modules 1 active ...server/client/index.js?http://localhost                                            40% building 3/3 modules 0 active 40% building 3/4 modules 1 active ...r/node_modules/querystring-es3/index.js 40% building 3/5 modules 2 active ...pack-dev-server/node_modules/url/url.js 40% building 3/6 modules 3 active ...bpack/hot sync nonrecursive /^\\\\.\\\\/log$/ 40% building 3/7 modules 4 active ...ack/webpack-dev-server/client/socket.js 40% building 3/8 modules 5 active ...ck/webpack-dev-server/client/overlay.js 40% building 4/8 modules 4 active ...ck/webpack-dev-server/client/overlay.js 40% building 5/8 modules 3 active ...ck/webpack-dev-server/client/overlay.js 40% building 6/8 modules 2 active ...ck/webpack-dev-server/client/overlay.js 40% building 7/8 modules 1 active ...ck/webpack-dev-server/client/overlay.js                                            40% building 8/8 modules 0 active 40% building 8/9 modules 1 active ...ver/node_modules/webpack/hot/emitter.js 40% building 8/10 modules 2 active ...-server/node_modules/webpack/hot/log.js 40% building 9/10 modules 1 active ...-server/node_modules/webpack/hot/log.js 40% building 9/11 modules 2 active ...owser/node_modules/punycode/punycode.js 40% building 9/12 modules 3 active .../node_modules/querystring-es3/decode.js 40% building 9/13 modules 4 active .../node_modules/querystring-es3/encode.js 40% building 9/14 modules 5 active ...ack-dev-server/node_modules/url/util.js 40% building 10/14 modules 4 active ...ack-dev-server/node_modules/url/util.js 40% building 10/15 modules 5 active ...server/node_modules/strip-ansi/index.js 40% building 11/15 modules 4 active ...server/node_modules/strip-ansi/index.js 40% building 11/16 modules 5 active ...r/node_modules/loglevel/lib/loglevel.js 40% building 12/16 modules 4 active ...r/node_modules/loglevel/lib/loglevel.js 40% building 13/16 modules 3 active ...r/node_modules/loglevel/lib/loglevel.js 40% building 14/16 modules 2 active ...r/node_modules/loglevel/lib/loglevel.js 40% building 14/17 modules 3 active ...ev-server/node_modules/events/events.js 40% building 14/18 modules 4 active ...de_modules/sockjs-client/dist/sockjs.js 40% building 15/18 modules 3 active ...de_modules/sockjs-client/dist/sockjs.js 40% building 16/18 modules 2 active ...de_modules/sockjs-client/dist/sockjs.js 40% building 16/19 modules 3 active .../node_modules/webpack/buildin/module.js 40% building 16/20 modules 4 active .../node_modules/webpack/buildin/global.js 40% building 16/21 modules 5 active ...-server/node_modules/ansi-html/index.js 40% building 17/21 modules 4 active ...-server/node_modules/ansi-html/index.js 40% building 18/21 modules 3 active ...-server/node_modules/ansi-html/index.js 40% building 19/21 modules 2 active ...-server/node_modules/ansi-html/index.js 40% building 20/21 modules 1 active ...de_modules/sockjs-client/dist/sockjs.js 40% building 20/22 modules 2 active ...ver/node_modules/html-entities/index.js 40% building 21/22 modules 1 active ...de_modules/sockjs-client/dist/sockjs.js 40% building 21/23 modules 2 active ...server/node_modules/ansi-regex/index.js 40% building 21/24 modules 3 active ...dules/html-entities/lib/xml-entities.js 40% building 21/25 modules 4 active ...les/html-entities/lib/html4-entities.js 40% building 21/26 modules 5 active ...les/html-entities/lib/html5-entities.js 40% building 22/26 modules 4 active ...les/html-entities/lib/html5-entities.js 40% building 23/26 modules 3 active ...les/html-entities/lib/html5-entities.js 40% building 24/26 modules 2 active ...les/html-entities/lib/html5-entities.js 40% building 25/26 modules 1 active ...les/html-entities/lib/html5-entities.js                                            40% building 26/26 modules 0 active 70% building 26/26 modules 0 active             70% finish module graph 70% finish module graph FlagDependencyExportsPlugin                                         70% sealing 70% sealing WarnCaseSensitiveModulesPlugin        71% basic dependencies optimization       72% dependencies optimization 72% advanced dependencies optimization    73% after dependencies optimization                     70% chunk graph 71% after chunk graph 71% after chunk graph WebAssemblyModulesPlugin                                 73% optimizing 74% basic module optimization       74% module optimization 75% advanced module optimization    75% after module optimization  76% basic chunk optimization 76% basic chunk optimization EnsureChunkConditionsPlugin   76% basic chunk optimization RemoveParentModulesPlugin   76% basic chunk optimization RemoveEmptyChunksPlugin 76% basic chunk optimization MergeDuplicateChunksPlugin                                  76% chunk optimization 77% advanced chunk optimization 77% advanced chunk optimization SplitChunksPlugin 77% advanced chunk optimization RemoveEmptyChunksPlugin                            77% after chunk optimization 78% module and chunk tree optimization 78% after module and chunk tree optimization         79% basic chunk modules optimization       79% chunk modules optimization 80% advanced chunk modules optimization    80% after chunk modules optimization                  81% module reviving 81% module reviving RecordIdsPlugin       81% module order optimization 82% advanced module order optimization                  82% before module ids 82% before module ids NamedModulesPlugin                           83% module ids 83% module id optimization 84% module id optimization         84% chunk reviving 84% chunk reviving RecordIdsPlugin       85% chunk order optimization 85% chunk order optimization OccurrenceOrderChunkIdsPlugin                                       85% before chunk ids 85% before chunk ids NamedChunksPlugin              86% chunk id optimization 86% after chunk id optimization              87% record modules 87% record modules RecordIdsPlugin                  87% record chunks 87% record chunks RecordIdsPlugin                       88% hashing 88% content hashing 88% content hashing JavascriptModulesPlugin                           89% after hashing   89% record hash 90% module assets processing  90% chunk assets processing 91% additional chunk assets processing                          91% recording 92% additional asset processing    92% chunk asset optimization 93% after chunk asset optimization             93% asset optimization 94% after asset optimization               94% after seal   95% emitting 98% after emitting                   "`;
+
+exports[`CLI --sockPath 1`] = `
+"<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: Project is running at http://localhost:8080/
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wds｣<CLR=39>: webpack output is served from /
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Hash: c6c50a6c397897d9da6b
+Time: Xms
+Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
+  Asset     Size  Chunks             Chunk Names
+main.js  353 KiB    main  [emitted]  main
+Entrypoint main = main.js
+[0] multi xDir/client?http://localhost&sockPath=/mysockPath ./foo.js 40 bytes {main} [built]
+[../../../client/index.js?http://localhost&sockPath=/mysockPath] xDir/client?http://localhost&sockPath=/mysockPath 8.68 KiB {main} [built]
+[../../../client/overlay.js] xDir/client/overlay.js 3.59 KiB {main} [built]
+[../../../client/socket.js] xDir/client/socket.js 1.05 KiB {main} [built]
+[../../../node_modules/ansi-html/index.js] xDir/node_modules/ansi-html/index.js 4.16 KiB {main} [built]
+[../../../node_modules/ansi-regex/index.js] xDir/node_modules/ansi-regex/index.js 135 bytes {main} [built]
+[../../../node_modules/events/events.js] xDir/node_modules/events/events.js 13.3 KiB {main} [built]
+[../../../node_modules/html-entities/index.js] xDir/node_modules/html-entities/index.js 231 bytes {main} [built]
+[../../../node_modules/loglevel/lib/loglevel.js] xDir/node_modules/loglevel/lib/loglevel.js 7.68 KiB {main} [built]
+[../../../node_modules/querystring-es3/index.js] xDir/node_modules/querystring-es3/index.js 127 bytes {main} [built]
+[../../../node_modules/strip-ansi/index.js] xDir/node_modules/strip-ansi/index.js 161 bytes {main} [built]
+[../../../node_modules/url/url.js] xDir/node_modules/url/url.js 22.8 KiB {main} [built]
+[../../../node_modules/webpack/hot sync ^\\\\.\\\\/log$] (webpack)/hot sync nonrecursive ^\\\\.\\\\/log$ 170 bytes {main} [built]
+[../../../node_modules/webpack/hot/emitter.js] (webpack)/hot/emitter.js 75 bytes {main} [built]
+[./foo.js] 41 bytes {main} [built]
+    + 11 hidden modules
+<CLR=34>ℹ<CLR=39> <CLR=90>｢wdm｣<CLR=39>: Compiled successfully.
+"
+`;
