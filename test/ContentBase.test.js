@@ -51,7 +51,7 @@ describe('ContentBase', () => {
         // it means that files has chnged
 
         // simulating server behaviour
-        if (server.liveReload !== false) {
+        if (server.options.liveReload !== false) {
           Object.defineProperty(window.location, 'reload', {
             configurable: true,
           });
@@ -103,7 +103,7 @@ describe('ContentBase', () => {
         // it means that files has chnged
 
         // simulating server behaviour
-        if (server.liveReload !== false) {
+        if (server.options.liveReload !== false) {
           Object.defineProperty(window.location, 'reload', {
             configurable: true,
           });
