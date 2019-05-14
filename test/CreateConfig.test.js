@@ -11,6 +11,8 @@ const argv = {
   hot: true,
   // Can be `--no-hot-only` in CLI (misleading and undocumented)
   hotOnly: false,
+  // Can be `--live-reload` in CLI (misleading and undocumented)
+  liveReload: true,
 };
 
 describe('createConfig', () => {
@@ -340,6 +342,28 @@ describe('createConfig', () => {
     const config = createConfig(
       webpackConfig,
       Object.assign({}, argv, { hot: true }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('liveReload option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { liveReload: true }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('liveReload option (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { liveReload: true },
+      }),
+      argv,
       { port: 8080 }
     );
 

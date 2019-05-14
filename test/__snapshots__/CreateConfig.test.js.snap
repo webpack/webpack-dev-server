@@ -8,6 +8,7 @@ Object {
   ],
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -26,6 +27,7 @@ Object {
   ],
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -41,6 +43,7 @@ Object {
   "bonjour": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -56,6 +59,7 @@ Object {
   "bonjour": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -72,6 +76,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -88,6 +93,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -104,6 +110,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -120,6 +127,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -135,6 +143,7 @@ Object {
   "clientLogLevel": "none",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -150,6 +159,7 @@ Object {
   "clientLogLevel": "none",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -165,6 +175,7 @@ Object {
   "compress": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -180,6 +191,7 @@ Object {
   "compress": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -198,6 +210,7 @@ Object {
   ],
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -213,6 +226,7 @@ Object {
   "contentBase": false,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -228,6 +242,7 @@ Object {
   "contentBase": "assets",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -243,6 +258,7 @@ Object {
   "contentBase": "assets",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -258,6 +274,7 @@ Object {
   "disableHostCheck": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -273,6 +290,7 @@ Object {
   "disableHostCheck": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -288,6 +306,7 @@ Object {
   "filename": "[name]-dev-server-bundle.js",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -303,6 +322,7 @@ Object {
   "filename": "[name]-output-bundle.js",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -318,6 +338,7 @@ Object {
   "filename": "[name]-bundle.js",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -333,6 +354,7 @@ Object {
   "historyApiFallback": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -348,6 +370,7 @@ Object {
   "historyApiFallback": true,
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -363,6 +386,7 @@ Object {
   "host": "example.dev",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -378,6 +402,7 @@ Object {
   "host": "localhost",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -392,6 +417,7 @@ exports[`createConfig host option (null) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -407,6 +433,7 @@ Object {
   "host": "other.dev",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -421,6 +448,7 @@ exports[`createConfig host option (undefined) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -436,6 +464,7 @@ Object {
   "host": "example.dev",
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -450,6 +479,7 @@ exports[`createConfig hot option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -464,6 +494,7 @@ exports[`createConfig hot option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -478,6 +509,7 @@ exports[`createConfig hotOnly option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -492,6 +524,7 @@ exports[`createConfig hotOnly option 1`] = `
 Object {
   "hot": true,
   "hotOnly": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -508,6 +541,7 @@ Object {
   "hotOnly": false,
   "http2": true,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -524,6 +558,7 @@ Object {
   "hotOnly": false,
   "http2": true,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -539,6 +574,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -553,6 +589,7 @@ exports[`createConfig https option (in devServer config) 2`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "pfxPassphrase": "passphrase",
   "port": 8080,
@@ -569,6 +606,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -583,6 +621,7 @@ exports[`createConfig info option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -597,6 +636,7 @@ exports[`createConfig info option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -612,6 +652,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "inline": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -627,6 +668,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "inline": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -643,6 +685,7 @@ Object {
   "hotOnly": false,
   "https": true,
   "key": "/path/to/server.key",
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -659,6 +702,7 @@ Object {
   "hotOnly": false,
   "https": true,
   "key": "/path/to/server.key",
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -674,6 +718,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "lazy": true,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -689,6 +734,37 @@ Object {
   "hot": true,
   "hotOnly": false,
   "lazy": true,
+  "liveReload": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig liveReload option (in devServer config) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "liveReload": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig liveReload option 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -703,6 +779,7 @@ exports[`createConfig mimeTypes option - with force 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "mimeTypes": Object {
     "force": true,
     "typeMap": Object {
@@ -725,6 +802,7 @@ exports[`createConfig mimeTypes option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "mimeTypes": Object {
     "text/html": Array [
       "phtml",
@@ -744,6 +822,7 @@ exports[`createConfig open option (boolean) (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "open": true,
   "openPage": "",
@@ -760,6 +839,7 @@ exports[`createConfig open option (boolean) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "open": true,
   "openPage": "",
@@ -776,6 +856,7 @@ exports[`createConfig open option (browser) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "open": "Google Chrome",
   "openPage": "",
@@ -792,6 +873,7 @@ exports[`createConfig openPage option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "open": true,
   "openPage": "/different/page",
@@ -808,6 +890,7 @@ exports[`createConfig openPage option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "open": true,
   "openPage": "/different/page",
@@ -825,6 +908,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "pfx": "/path/to/file.pfx",
   "port": 8080,
@@ -841,6 +925,7 @@ Object {
   "hot": true,
   "hotOnly": false,
   "https": true,
+  "liveReload": true,
   "noInfo": true,
   "pfx": "/path/to/file.pfx",
   "port": 8080,
@@ -856,6 +941,7 @@ exports[`createConfig pfxPassphrase option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "pfxPassphrase": "passphrase",
   "port": 8080,
@@ -871,6 +957,7 @@ exports[`createConfig port option (difference) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 7070,
   "publicPath": "/",
@@ -885,6 +972,7 @@ exports[`createConfig port option (same) (null) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": null,
   "publicPath": "/",
@@ -899,6 +987,7 @@ exports[`createConfig port option (same) (string) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": "9090",
   "publicPath": "/",
@@ -913,6 +1002,7 @@ exports[`createConfig port option (same) (undefined) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": undefined,
   "publicPath": "/",
@@ -927,6 +1017,7 @@ exports[`createConfig port option (same) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 9090,
   "publicPath": "/",
@@ -941,6 +1032,7 @@ exports[`createConfig progress option (devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "progress": true,
@@ -956,6 +1048,7 @@ exports[`createConfig progress option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "progress": true,
@@ -971,6 +1064,7 @@ exports[`createConfig public option (devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "public": true,
@@ -986,6 +1080,7 @@ exports[`createConfig public option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "public": true,
@@ -1001,6 +1096,7 @@ exports[`createConfig publicPath option (not specify) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1015,6 +1111,7 @@ exports[`createConfig publicPath option (path in devServer option) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/assets/",
@@ -1029,6 +1126,7 @@ exports[`createConfig publicPath option (path in output option) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/assets/",
@@ -1043,6 +1141,7 @@ exports[`createConfig publicPath option (path without starting slash in output o
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/assets/",
@@ -1057,6 +1156,7 @@ exports[`createConfig publicPath option (url in devServer option) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "http://localhost:8080/assets/",
@@ -1071,6 +1171,7 @@ exports[`createConfig publicPath option (url in output option) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "http://localhost:8080/assets/",
@@ -1085,6 +1186,7 @@ exports[`createConfig quiet option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1100,6 +1202,7 @@ exports[`createConfig quiet option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1115,6 +1218,7 @@ exports[`createConfig simple 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1129,6 +1233,7 @@ exports[`createConfig socket option (devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1144,6 +1249,7 @@ exports[`createConfig socket option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1159,6 +1265,7 @@ exports[`createConfig stats option (colors) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1173,6 +1280,7 @@ exports[`createConfig stats option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1194,6 +1302,7 @@ Object {
   "https": "_https",
   "inline": "_inline",
   "lazy": "_lazy",
+  "liveReload": true,
   "noInfo": true,
   "open": "_open",
   "openPage": "_openPage",
@@ -1227,6 +1336,7 @@ Object {
     "https": "_https",
     "inline": "_inline",
     "lazy": "_lazy",
+    "liveReload": true,
     "noInfo": true,
     "open": "_open",
     "openPage": "_openPage",
@@ -1255,6 +1365,7 @@ exports[`createConfig useLocalIp option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1270,6 +1381,7 @@ exports[`createConfig useLocalIp option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1285,6 +1397,7 @@ exports[`createConfig watchContentBase option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1300,6 +1413,7 @@ exports[`createConfig watchContentBase option 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1315,6 +1429,7 @@ exports[`createConfig watchOptions option (in devServer config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1332,6 +1447,7 @@ exports[`createConfig watchOptions option (in output config) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
+  "liveReload": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
