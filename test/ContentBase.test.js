@@ -19,7 +19,7 @@ describe('ContentBase', () => {
   let server;
   let req;
 
-  describe('Test disableing live reloading', () => {
+  describe('Test disabling live reloading', () => {
     const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
 
     jest.setTimeout(30000);
@@ -44,11 +44,11 @@ describe('ContentBase', () => {
       fs.truncateSync(nestedFile);
     });
 
-    it('Should Refresh on changing files', (done) => {
-      let refreshed = false;
+    it('Should not reload on changing files', (done) => {
+      let reloaded = false;
 
       server.contentBaseWatchers[0].on('change', () => {
-        // it means that files has chnged
+        // it means that file has changed
 
         // simulating server behaviour
         if (server.options.liveReload !== false) {
@@ -57,14 +57,14 @@ describe('ContentBase', () => {
           });
           window.location.reload = jest.fn();
           window.location.reload();
-          refreshed = true;
+          reloaded = true;
         }
-        expect(refreshed).toBe(false);
+        expect(reloaded).toBe(false);
 
         done();
       });
 
-      // change a file manually
+      // change file content
       setTimeout(() => {
         fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
       }, 1000);
@@ -96,11 +96,11 @@ describe('ContentBase', () => {
       fs.truncateSync(nestedFile);
     });
 
-    it('Should Refresh on changing files', (done) => {
-      let refreshed = false;
+    it('Should reload on changing files', (done) => {
+      let reloaded = false;
 
       server.contentBaseWatchers[0].on('change', () => {
-        // it means that files has chnged
+        // it means that files has changed
 
         // simulating server behaviour
         if (server.options.liveReload !== false) {
@@ -109,14 +109,14 @@ describe('ContentBase', () => {
           });
           window.location.reload = jest.fn();
           window.location.reload();
-          refreshed = true;
+          reloaded = true;
         }
-        expect(refreshed).toBe(true);
+        expect(reloaded).toBe(true);
 
         done();
       });
 
-      // change a file manually
+      // change file content
       setTimeout(() => {
         fs.writeFileSync(nestedFile, 'Heyo', 'utf8');
       }, 1000);

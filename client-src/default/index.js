@@ -88,7 +88,7 @@ const onSocketMsg = {
   },
   liveReload() {
     liveReload = true;
-    log.info('[WDS] Live Reloading is enabled.');
+    log.info('[WDS] Live Reloading enabled.');
   },
   invalid() {
     log.info('[WDS] App updated. Recompiling...');
