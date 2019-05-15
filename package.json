@@ -24,7 +24,7 @@
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
     "prepare": "rimraf ./ssl/*.pem && npm run -s transpile:index && npm run -s build:live && npm run -s build:index && npm run -s build:sockjs",
-    "transpile:index": "babel client-src/default --out-dir client --ignore *.config.js",
+    "transpile:index": "babel client-src/default --out-dir client --ignore './client-src/default/*.config.js'",
     "build:index": "webpack ./client-src/default/index.js -o client/index.bundle.js --color --config client-src/default/webpack.config.js",
     "build:live": "webpack ./client-src/live/index.js -o client/live.bundle.js --color --config client-src/live/webpack.config.js",
     "build:sockjs": "webpack ./client-src/sockjs/index.js -o client/sockjs.bundle.js --color --config client-src/sockjs/webpack.config.js",
