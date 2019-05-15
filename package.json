@@ -32,7 +32,7 @@
   "dependencies": {
     "ansi-html": "0.0.7",
     "bonjour": "^3.5.0",
-    "chokidar": "^2.1.5",
+    "chokidar": "^3.0.0",
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "debug": "^4.1.1",
