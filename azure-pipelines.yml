@@ -27,6 +27,10 @@ jobs:
         displayName: 'Install dependencies'
       - script: npm run lint
         displayName: 'Run lint'
+      - script: npm run security
+        displayName: 'Run NPM audit'
+      - script: ./node_modules/.bin/commitlint-azure-pipelines
+        displayName: 'Run lint commit message'
 
   - job: Linux
     pool:

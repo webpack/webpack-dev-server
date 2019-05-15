@@ -16,6 +16,8 @@
   "scripts": {
     "lint": "eslint bin lib test examples client-src",
     "pretty": "prettier --loglevel warn --write \"**/*.{js,css,md,json,yml}\"",
+    "commitlint": "commitlint --from=master",
+    "security": "npm audit",
     "test:only": "jest --runInBand",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
@@ -65,7 +67,10 @@
     "@babel/cli": "7.4.4",
     "@babel/core": "7.4.4",
     "@babel/preset-env": "7.4.4",
+    "@commitlint/cli": "^7.6.1",
+    "@commitlint/config-conventional": "^7.6.0",
     "babel-loader": "8.0.6",
+    "commitlint-azure-pipelines-cli": "1.0.1",
     "copy-webpack-plugin": "5.0.3",
     "css-loader": "2.1.1",
     "eslint": "5.16.0",
@@ -103,7 +108,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
