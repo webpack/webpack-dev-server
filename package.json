@@ -83,7 +83,7 @@
     "jquery": "3.4.1",
     "less": "3.9.0",
     "less-loader": "5.0.0",
-    "lint-staged": "8.1.6",
+    "lint-staged": "8.1.7",
     "marked": "0.6.2",
     "memfs": "2.15.2",
     "nyc": "14.1.1",
