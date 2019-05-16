@@ -7,5 +7,6 @@
   "patch": {
     "groupName": "all patch dependencies"
   },
-  "separateMinorPatch": true
+  "separateMinorPatch": true,
+  "rangeStrategy": "bump"
 }
