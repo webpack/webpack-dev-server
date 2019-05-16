@@ -47,6 +47,7 @@ if (!urlParts.port || urlParts.port === '0') {
 }
 
 let hot = false;
+let liveReload = false;
 let initial = true;
 let currentHash = '';
 let useWarningOverlay = false;
@@ -84,6 +85,10 @@ const onSocketMsg = {
   hot() {
     hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
+  },
+  liveReload() {
+    liveReload = true;
+    log.info('[WDS] Live Reloading enabled.');
   },
   invalid() {
     log.info('[WDS] App updated. Recompiling...');
@@ -271,7 +276,9 @@ function reloadApp() {
       // broadcast update to window
       self.postMessage(`webpackHotUpdate${currentHash}`, '*');
     }
-  } else {
+  }
+  // allow refreshing the page only if liveReload isn't disabled
+  if (liveReload) {
     let rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
     const intervalId = self.setInterval(() => {

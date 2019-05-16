@@ -21,6 +21,11 @@ const options = {
     type: 'boolean',
     describe: 'Lazy',
   },
+  liveReload: {
+    type: 'boolean',
+    describe: 'Enables/Disables live reloading on changing files',
+    default: true,
+  },
   serveIndex: {
     type: 'boolean',
     describe: 'Enables/Disables serveIndex middleware',
