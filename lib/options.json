@@ -168,6 +168,9 @@
     "lazy": {
       "type": "boolean"
     },
+    "liveReload": {
+      "type": "boolean"
+    },
     "log": {
       "instanceof": "Function"
     },
@@ -377,6 +380,7 @@
       "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverinline)",
       "key": "should be {String|Buffer}",
       "lazy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlazy-)",
+      "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
       "log": "should be {Function}",
       "logLevel": "should be {String} and equal to one of the allowed values\n\n [ 'info', 'warn', 'error', 'debug', 'trace', 'silent' ]\n\n (https://github.com/webpack/webpack-dev-middleware#loglevel)",
       "logTime": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#logtime)",
