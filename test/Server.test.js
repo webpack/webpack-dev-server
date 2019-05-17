@@ -2,6 +2,7 @@
 
 const { relative, sep } = require('path');
 const webpack = require('webpack');
+const { noop } = require('webpack-dev-middleware/lib/util');
 const request = require('supertest');
 // Mock opn before loading Server
 jest.mock('opn');
@@ -71,6 +72,51 @@ describe('Server', () => {
       });
 
       compiler.run(() => {});
+    });
+  });
+
+  describe('Testing callback functions on calling invalidate without callback', () => {
+    it('should be `noop` (the default callback function)', () => {
+      return new Promise((res) => {
+        // eslint-disable-next-line
+        const Server = require('../lib/Server');
+        const compiler = webpack(config);
+        const server = new Server(compiler);
+
+        server.invalidate();
+        expect(server.middleware.context.callbacks[0]).toBe(noop);
+
+        compiler.hooks.done.tap('webpack-dev-server', () => {
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+      });
+    });
+  });
+
+  describe('Testing callback functions on calling invalidate with callback', () => {
+    it('should be `callback` function', () => {
+      return new Promise((res) => {
+        // eslint-disable-next-line
+        const Server = require('../lib/Server');
+        const compiler = webpack(config);
+        const callback = jest.fn();
+        const server = new Server(compiler);
+        server.invalidate(callback);
+
+        expect(server.middleware.context.callbacks[0]).toBe(callback);
+
+        compiler.hooks.done.tap('webpack-dev-server', () => {
+          server.close(() => {
+            res();
+          });
+        });
+
+        compiler.run(() => {});
+      });
     });
   });
 
