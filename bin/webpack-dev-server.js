@@ -30,6 +30,11 @@ const tryParseInt = require('../lib/utils/tryParseInt');
 
 let server;
 
+// Taken out of yargs because we must know if
+// it wasn't given by the user, in which case
+// we should use portfinder.
+const DEFAULT_PORT = 8080;
+
 const signals = ['SIGINT', 'SIGTERM'];
 
 signals.forEach((signal) => {
@@ -102,20 +107,6 @@ try {
 const config = require(convertArgvPath)(yargs, argv, {
   outputFilename: '/bundle.js',
 });
-
-// Taken out of yargs because we must know if
-// it wasn't given by the user, in which case
-// we should use portfinder.
-const DEFAULT_PORT = 8080;
-
-// Try to find unused port and listen on it for 3 times,
-// if port is not specified in options.
-// Because NaN == null is false, defaultTo fails if parseInt returns NaN
-// so the tryParseInt function is introduced to handle NaN
-const defaultPortRetry = defaultTo(
-  tryParseInt(process.env.DEFAULT_PORT_RETRY),
-  3
-);
 
 function processOptions(config) {
   // processOptions {Promise}
@@ -205,26 +196,45 @@ function startDevServer(config, options) {
         }
       });
     });
-  } else if (options.port) {
-    runServer();
   } else {
-    // only run port finder if no port as been specified
-    findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
-      if (err) {
+    decidePort(server, options.port)
+      .then((port) => {
+        options.port = port;
+        server.listen(options.port, options.host, (err) => {
+          if (err) {
+            throw err;
+          }
+        });
+      })
+      .catch((err) => {
         throw err;
-      }
-      options.port = port;
-      runServer();
-    });
+      });
   }
+}
 
-  function runServer() {
-    server.listen(options.port, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-  }
+function decidePort(server, port) {
+  return new Promise((resolve, reject) => {
+    if (typeof port !== 'undefined') {
+      resolve(port);
+    } else {
+      // Try to find unused port and listen on it for 3 times,
+      // if port is not specified in options.
+      // Because NaN == null is false, defaultTo fails if parseInt returns NaN
+      // so the tryParseInt function is introduced to handle NaN
+      const defaultPortRetry = defaultTo(
+        tryParseInt(process.env.DEFAULT_PORT_RETRY),
+        3
+      );
+
+      // only run port finder if no port as been specified
+      findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(port);
+      });
+    }
+  });
 }
 
 processOptions(config);
