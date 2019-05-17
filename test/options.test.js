@@ -359,6 +359,7 @@ describe('options', () => {
           {},
           'none',
           'errors-only',
+          'errors-warnings',
           'minimal',
           'normal',
           'verbose',
