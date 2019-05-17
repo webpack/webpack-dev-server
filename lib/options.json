@@ -325,7 +325,14 @@
           "type": "boolean"
         },
         {
-          "enum": ["none", "errors-only", "minimal", "normal", "verbose"]
+          "enum": [
+            "none",
+            "errors-only",
+            "errors-warnings",
+            "minimal",
+            "normal",
+            "verbose"
+          ]
         }
       ]
     },
