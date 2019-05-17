@@ -37,7 +37,16 @@
       ]
     },
     "clientLogLevel": {
-      "enum": ["info", "warn", "error", "debug", "trace", "silent"]
+      "enum": [
+        "info",
+        "warn",
+        "error",
+        "debug",
+        "trace",
+        "silent",
+        "none",
+        "warning"
+      ]
     },
     "compress": {
       "type": "boolean"
