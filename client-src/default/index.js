@@ -291,7 +291,7 @@ function reloadApp() {
     }
   }
   // allow refreshing the page only if liveReload isn't disabled
-  if (liveReload) {
+  else if (liveReload) {
     let rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
     const intervalId = self.setInterval(() => {
