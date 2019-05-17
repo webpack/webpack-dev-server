@@ -44,7 +44,7 @@
     "html-entities": "^1.2.1",
     "http-proxy-middleware": "^0.19.1",
     "import-local": "^2.0.0",
-    "internal-ip": "^4.2.0",
+    "internal-ip": "^4.3.0",
     "ip": "^1.1.5",
     "killable": "^1.0.1",
     "loglevel": "^1.6.1",
