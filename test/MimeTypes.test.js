@@ -1,22 +1,22 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('MimeTypes configuration', () => {
-  afterEach(helper.close);
+  afterEach(testServer.close);
 
   it('remapping mime type without force should throw an error', () => {
     expect(() => {
-      helper.start(config, {
+      testServer.start(config, {
         mimeTypes: { 'application/octet-stream': ['js'] },
       });
     }).toThrow(/Attempt to change mapping for/);
   });
 
   it('remapping mime type with force should not throw an error', (done) => {
-    helper.start(
+    testServer.start(
       config,
       {
         mimeTypes: {
@@ -34,7 +34,7 @@ describe('custom mimeTypes', () => {
   let req;
 
   beforeAll((done) => {
-    server = helper.start(
+    server = testServer.start(
       config,
       {
         mimeTypes: {
@@ -47,7 +47,7 @@ describe('custom mimeTypes', () => {
     req = request(server.app);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   it('request to bundle file with modified mime type', (done) => {
     req

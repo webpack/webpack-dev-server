@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/contentbase-config/webpack.config');
 
 const contentBasePublic = path.join(
@@ -25,7 +25,7 @@ describe('ContentBase', () => {
     jest.setTimeout(30000);
 
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -37,7 +37,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
       fs.truncateSync(nestedFile);
@@ -69,7 +69,7 @@ describe('ContentBase', () => {
     jest.setTimeout(30000);
 
     beforeAll((done) => {
-      server = helper.start(config, {
+      server = testServer.start(config, {
         contentBase: contentBasePublic,
         watchContentBase: true,
       });
@@ -81,7 +81,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -106,7 +106,7 @@ describe('ContentBase', () => {
     jest.setTimeout(30000);
 
     beforeAll((done) => {
-      server = helper.start(config, {
+      server = testServer.start(config, {
         contentBase: contentBasePublic,
         watchContentBase: true,
         watchOptions: {
@@ -121,7 +121,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -141,7 +141,7 @@ describe('ContentBase', () => {
 
   describe('test listing files in folders without index.html using the option serveIndex:false', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -154,7 +154,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -169,7 +169,7 @@ describe('ContentBase', () => {
   });
   describe('test listing files in folders without index.html using the option serveIndex:true', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -182,7 +182,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -197,7 +197,7 @@ describe('ContentBase', () => {
   });
   describe('test listing files in folders without index.html using the option serveIndex default (true)', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -209,7 +209,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -224,7 +224,7 @@ describe('ContentBase', () => {
   });
   describe('to directories', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: [contentBasePublic, contentBaseOther],
@@ -235,7 +235,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -251,7 +251,7 @@ describe('ContentBase', () => {
 
   describe('to port', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: 9099999,
@@ -262,7 +262,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -277,7 +277,7 @@ describe('ContentBase', () => {
 
   describe('to external url', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: 'http://example.com/',
@@ -288,7 +288,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -313,12 +313,12 @@ describe('ContentBase', () => {
   describe('default to PWD', () => {
     beforeAll((done) => {
       jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
-      server = helper.start(config, {}, done);
+      server = testServer.start(config, {}, done);
       req = request(server.app);
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -333,7 +333,7 @@ describe('ContentBase', () => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
       jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: false,
@@ -344,7 +344,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });
@@ -356,7 +356,7 @@ describe('ContentBase', () => {
 
   describe('Content type', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: [contentBasePublic],
@@ -367,7 +367,7 @@ describe('ContentBase', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         done();
       });
     });

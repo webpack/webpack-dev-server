@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('Routes', () => {
@@ -9,11 +9,11 @@ describe('Routes', () => {
   let req;
 
   beforeAll((done) => {
-    server = helper.startAwaitingCompilation(config, {}, done);
+    server = testServer.startAwaitingCompilation(config, {}, done);
     req = request(server.app);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   it('GET request to live bundle', (done) => {
     req.get('/__webpack_dev_server__/live.bundle.js').then(({ res }) => {

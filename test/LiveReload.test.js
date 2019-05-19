@@ -2,7 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/contentbase-config/webpack.config');
 
 const contentBasePublic = path.join(
@@ -18,7 +18,7 @@ describe('liveReload', () => {
     jest.setTimeout(30000);
 
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -30,9 +30,7 @@ describe('liveReload', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
-        done();
-      });
+      testServer.close(done);
       fs.truncateSync(nestedFile);
     });
 
@@ -69,7 +67,7 @@ describe('liveReload', () => {
     jest.setTimeout(30000);
 
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -81,9 +79,7 @@ describe('liveReload', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
-        done();
-      });
+      testServer.close(done);
       fs.truncateSync(nestedFile);
     });
 

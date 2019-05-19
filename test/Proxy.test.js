@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('supertest');
 const express = require('express');
 const WebSocket = require('ws');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/proxy-config/webpack.config');
 
 const WebSocketServer = WebSocket.Server;
@@ -83,7 +83,7 @@ describe('Proxy', () => {
 
     beforeAll((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase,
@@ -95,7 +95,7 @@ describe('Proxy', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         closeProxyServers();
         done();
       });
@@ -139,7 +139,7 @@ describe('Proxy', () => {
 
     beforeAll((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase,
@@ -151,7 +151,7 @@ describe('Proxy', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         closeProxyServers();
         done();
       });
@@ -169,7 +169,7 @@ describe('Proxy', () => {
 
     beforeAll((done) => {
       closeProxyServers = startProxyServers();
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase,
@@ -181,7 +181,7 @@ describe('Proxy', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         closeProxyServers();
         done();
       });
@@ -210,7 +210,7 @@ describe('Proxy', () => {
         res.send('from proxy');
       });
       listener = proxy.listen(9000);
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase,
@@ -225,7 +225,7 @@ describe('Proxy', () => {
     });
 
     afterAll((done) => {
-      helper.close(() => {
+      testServer.close(() => {
         listener.close();
         done();
       });
@@ -246,7 +246,7 @@ describe('Proxy', () => {
     let responseMessage;
 
     beforeAll((done) => {
-      helper.start(
+      testServer.start(
         config,
         {
           contentBase,
@@ -286,7 +286,7 @@ describe('Proxy', () => {
 
     afterAll((done) => {
       wsServer.close();
-      helper.close(done);
+      testServer.close(done);
     });
   });
 });

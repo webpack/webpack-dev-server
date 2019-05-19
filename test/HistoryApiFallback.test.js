@@ -2,7 +2,7 @@
 
 const path = require('path');
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/historyapifallback-config/webpack.config');
 const config2 = require('./fixtures/historyapifallback-2-config/webpack.config');
 const config3 = require('./fixtures/historyapifallback-3-config/webpack.config');
@@ -11,11 +11,11 @@ describe('HistoryApiFallback', () => {
   let server;
   let req;
 
-  afterEach(helper.close);
+  afterEach(testServer.close);
 
   describe('as boolean', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           historyApiFallback: true,
@@ -35,7 +35,7 @@ describe('HistoryApiFallback', () => {
 
   describe('as object', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           historyApiFallback: {
@@ -57,7 +57,7 @@ describe('HistoryApiFallback', () => {
 
   describe('as object with contentBase', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config2,
         {
           contentBase: path.join(
@@ -104,7 +104,7 @@ describe('HistoryApiFallback', () => {
 
   describe('as object with contentBase set to false', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config3,
         {
           contentBase: false,
@@ -127,7 +127,7 @@ describe('HistoryApiFallback', () => {
 
   describe('as object with contentBase and rewrites', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config2,
         {
           contentBase: path.join(
@@ -176,7 +176,7 @@ describe('HistoryApiFallback', () => {
 
   describe('in-memory files', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config3,
         {
           contentBase: path.join(

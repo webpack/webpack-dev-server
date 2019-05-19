@@ -3,7 +3,7 @@
 const path = require('path');
 const request = require('supertest');
 const semver = require('semver');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/contentbase-config/webpack.config');
 
 const contentBasePublic = path.join(
@@ -31,7 +31,7 @@ describe('http2', () => {
     /* eslint-enable global-require */
     describe('http2 works with https', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             contentBase: contentBasePublic,
@@ -67,13 +67,13 @@ describe('http2', () => {
         http2Req.end();
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
   }
 
   describe('server works with http2 option, but without https option', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -88,12 +88,12 @@ describe('http2', () => {
       req.get('/').expect(200, /Heyo/, done);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
   });
 
   describe('https without http2 disables HTTP/2', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -115,6 +115,6 @@ describe('http2', () => {
         });
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
   });
 });
