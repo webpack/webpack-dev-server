@@ -66,8 +66,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "@commitlint/cli": "^7.6.1",
     "@commitlint/config-conventional": "^7.6.0",
     "babel-loader": "^8.0.6",
@@ -100,7 +100,7 @@
     "style-loader": "^0.23.1",
     "supertest": "^4.0.2",
     "url-loader": "^1.1.2",
-    "webpack": "^4.32.0",
+    "webpack": "^4.32.1",
     "webpack-cli": "^3.3.2",
     "ws": "^6.2.1"
   },
