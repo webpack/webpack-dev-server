@@ -20,5 +20,5 @@ npm run webpack-dev-server -- --open --port 5000 --host ::
 ## What Should Happen
 
 1. The script should open `http://0.0.0.0:5000/` if specifying the IPv4 option,
-or `http://[::]:5000/` for IPv6, in your default browser.
+   or `http://[::]:5000/` for IPv6, in your default browser.
 2. You should see the text on the page itself change to read `Success!`.

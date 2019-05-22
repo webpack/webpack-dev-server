@@ -2,7 +2,7 @@
 
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
-
+const querystring = require('querystring');
 const url = require('url');
 const stripAnsi = require('strip-ansi');
 const log = require('loglevel').getLogger('webpack-dev-server');
@@ -12,11 +12,15 @@ const overlay = require('./overlay');
 function getCurrentScriptSource() {
   // `document.currentScript` is the most accurate way to find the current script,
   // but is not supported in all browsers.
-  if (document.currentScript) { return document.currentScript.getAttribute('src'); }
+  if (document.currentScript) {
+    return document.currentScript.getAttribute('src');
+  }
   // Fall back to getting all scripts in the document.
   const scriptElements = document.scripts || [];
   const currentScript = scriptElements[scriptElements.length - 1];
-  if (currentScript) { return currentScript.getAttribute('src'); }
+  if (currentScript) {
+    return currentScript.getAttribute('src');
+  }
   // Fail as there was no script to use.
   throw new Error('[WDS] Failed to get current script source.');
 }
@@ -35,7 +39,7 @@ if (typeof __resourceQuery === 'string' && __resourceQuery) {
   let scriptHost = getCurrentScriptSource();
   // eslint-disable-next-line no-useless-escape
   scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
-  urlParts = url.parse((scriptHost || '/'), false, true);
+  urlParts = url.parse(scriptHost || '/', false, true);
 }
 
 if (!urlParts.port || urlParts.port === '0') {
@@ -43,6 +47,7 @@ if (!urlParts.port || urlParts.port === '0') {
 }
 
 let hot = false;
+let liveReload = false;
 let initial = true;
 let currentHash = '';
 let useWarningOverlay = false;
@@ -50,8 +55,16 @@ let useErrorOverlay = false;
 let useProgress = false;
 
 const INFO = 'info';
-const WARNING = 'warning';
+const WARN = 'warn';
 const ERROR = 'error';
+const DEBUG = 'debug';
+const TRACE = 'trace';
+const SILENT = 'silent';
+
+// deprecated
+// TODO: remove these at major released
+// https://github.com/webpack/webpack-dev-server/pull/1825
+const WARNING = 'warning';
 const NONE = 'none';
 
 // Set the default log level
@@ -61,13 +74,16 @@ log.setDefaultLevel(INFO);
 function sendMsg(type, data) {
   if (
     typeof self !== 'undefined' &&
-  (typeof WorkerGlobalScope === 'undefined' ||
-  !(self instanceof WorkerGlobalScope))
+    (typeof WorkerGlobalScope === 'undefined' ||
+      !(self instanceof WorkerGlobalScope))
   ) {
-    self.postMessage({
-      type: `webpack${type}`,
-      data
-    }, '*');
+    self.postMessage(
+      {
+        type: `webpack${type}`,
+        data,
+      },
+      '*'
+    );
   }
 }
 
@@ -76,10 +92,16 @@ const onSocketMsg = {
     hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
   },
+  liveReload() {
+    liveReload = true;
+    log.info('[WDS] Live Reloading enabled.');
+  },
   invalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
     sendMsg('Invalid');
   },
   hash(hash) {
@@ -87,7 +109,9 @@ const onSocketMsg = {
   },
   'still-ok': function stillOk() {
     log.info('[WDS] Nothing changed.');
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
     sendMsg('StillOk');
   },
   'log-level': function logLevel(level) {
@@ -97,14 +121,20 @@ const onSocketMsg = {
     }
     switch (level) {
       case INFO:
+      case WARN:
+      case DEBUG:
+      case TRACE:
       case ERROR:
         log.setLevel(level);
         break;
+      // deprecated
       case WARNING:
         // loglevel's warning name is different from webpack's
         log.setLevel('warn');
         break;
+      // deprecated
       case NONE:
+      case SILENT:
         log.disableAll();
         break;
       default:
@@ -113,7 +143,7 @@ const onSocketMsg = {
   },
   overlay(value) {
     if (typeof document !== 'undefined') {
-      if (typeof (value) === 'boolean') {
+      if (typeof value === 'boolean') {
         useWarningOverlay = false;
         useErrorOverlay = value;
       } else if (value) {
@@ -128,13 +158,19 @@ const onSocketMsg = {
     }
   },
   'progress-update': function progressUpdate(data) {
-    if (useProgress) log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    if (useProgress) {
+      log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+    }
     sendMsg('Progress', data);
   },
   ok() {
     sendMsg('Ok');
-    if (useWarningOverlay || useErrorOverlay) overlay.clear();
-    if (initial) return initial = false; // eslint-disable-line no-return-assign
+    if (useWarningOverlay || useErrorOverlay) {
+      overlay.clear();
+    }
+    if (initial) {
+      return (initial = false);
+    } // eslint-disable-line no-return-assign
     reloadApp();
   },
   'content-changed': function contentChanged() {
@@ -143,20 +179,30 @@ const onSocketMsg = {
   },
   warnings(warnings) {
     log.warn('[WDS] Warnings while compiling.');
-    const strippedWarnings = warnings.map(warning => stripAnsi(warning));
+    const strippedWarnings = warnings.map((warning) => stripAnsi(warning));
     sendMsg('Warnings', strippedWarnings);
-    for (let i = 0; i < strippedWarnings.length; i++) { log.warn(strippedWarnings[i]); }
-    if (useWarningOverlay) overlay.showMessage(warnings);
+    for (let i = 0; i < strippedWarnings.length; i++) {
+      log.warn(strippedWarnings[i]);
+    }
+    if (useWarningOverlay) {
+      overlay.showMessage(warnings);
+    }
 
-    if (initial) return initial = false; // eslint-disable-line no-return-assign
+    if (initial) {
+      return (initial = false);
+    } // eslint-disable-line no-return-assign
     reloadApp();
   },
   errors(errors) {
     log.error('[WDS] Errors while compiling. Reload prevented.');
-    const strippedErrors = errors.map(error => stripAnsi(error));
+    const strippedErrors = errors.map((error) => stripAnsi(error));
     sendMsg('Errors', strippedErrors);
-    for (let i = 0; i < strippedErrors.length; i++) { log.error(strippedErrors[i]); }
-    if (useErrorOverlay) overlay.showMessage(errors);
+    for (let i = 0; i < strippedErrors.length; i++) {
+      log.error(strippedErrors[i]);
+    }
+    if (useErrorOverlay) {
+      overlay.showMessage(errors);
+    }
     initial = false;
   },
   error(error) {
@@ -165,12 +211,11 @@ const onSocketMsg = {
   close() {
     log.error('[WDS] Disconnected!');
     sendMsg('Close');
-  }
+  },
 };
 
 let hostname = urlParts.hostname;
 let protocol = urlParts.protocol;
-
 
 // check ipv4 and ipv6 `all hostname`
 if (hostname === '0.0.0.0' || hostname === '::') {
@@ -187,16 +232,41 @@ if (hostname === '0.0.0.0' || hostname === '::') {
 // a protocol would result in an invalid URL.
 // When https is used in the app, secure websockets are always necessary
 // because the browser doesn't accept non-secure websockets.
-if (hostname && (self.location.protocol === 'https:' || urlParts.hostname === '0.0.0.0')) {
+if (
+  hostname &&
+  (self.location.protocol === 'https:' || urlParts.hostname === '0.0.0.0')
+) {
   protocol = self.location.protocol;
+}
+
+// default values of the sock url if they are not provided
+let sockHost = hostname;
+let sockPath = '/sockjs-node';
+let sockPort = urlParts.port;
+if (
+  urlParts.path !== null &&
+  // eslint-disable-next-line no-undefined
+  urlParts.path !== undefined &&
+  urlParts.path !== '/'
+) {
+  const parsedQuery = querystring.parse(urlParts.path);
+  // all of these sock url params are optionally passed in through
+  // __resourceQuery, so we need to fall back to the default if
+  // they are not provided
+  sockHost = parsedQuery.sockHost || sockHost;
+  sockPath = parsedQuery.sockPath || sockPath;
+  sockPort = parsedQuery.sockPort || sockPort;
 }
 
 const socketUrl = url.format({
   protocol,
   auth: urlParts.auth,
-  hostname,
-  port: urlParts.port,
-  pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
+  hostname: sockHost,
+  port: sockPort,
+  // If sockPath is provided it'll be passed in via the __resourceQuery as a
+  // query param so it has to be parsed out of the querystring in order for the
+  // client to open the socket to the correct location.
+  pathname: sockPath,
 });
 
 socket(socketUrl, onSocketMsg);
@@ -219,7 +289,9 @@ function reloadApp() {
       // broadcast update to window
       self.postMessage(`webpackHotUpdate${currentHash}`, '*');
     }
-  } else {
+  }
+  // allow refreshing the page only if liveReload isn't disabled
+  else if (liveReload) {
     let rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
     const intervalId = self.setInterval(() => {

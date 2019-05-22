@@ -5,6 +5,6 @@ module.exports = {
   context: __dirname,
   entry: './foo.js',
   output: {
-    path: '/'
-  }
+    path: '/',
+  },
 };

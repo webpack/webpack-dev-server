@@ -4,11 +4,12 @@
 // examples need
 const { setup } = require('../../util');
 
-module.exports = new Promise(((resolve) => {
-  resolve(setup({
-    context: __dirname,
-    entry: './app.js',
-    devServer: {
-    }
-  }));
-}));
+module.exports = new Promise((resolve) => {
+  resolve(
+    setup({
+      context: __dirname,
+      entry: './app.js',
+      devServer: {},
+    })
+  );
+});

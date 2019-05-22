@@ -39,11 +39,16 @@ Pull requests often need some real-world testing.
 
 1. In your `package.json`, change the line with `webpack-dev-server` to:
 
-  ```json
-  "webpack-dev-server": "github:webpack/webpack-dev-server#pull/<ID>/head"
-  ```
+```json
+"webpack-dev-server": "<PATH>"
+```
 
-  `<ID>` is the ID of the pull request.
+`<PATH>`:
+
+- `github:webpack/webpack-dev-server#pull/<ID>/head`
+  where `<ID>` is the ID of the pull request.
+
+- `file:../path/to/local/webapck-dev-server/fork` is the path to your local repo, just make sure you hit the correct path
 
 2. Run `npm install`.
 
@@ -51,7 +56,6 @@ Pull requests often need some real-world testing.
 
 The pull request is now ready to be tested.
 
+---
 
-------------
-
-*Many thanks to [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide*
+_Many thanks to [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_
