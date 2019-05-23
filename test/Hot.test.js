@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/client-config/webpack.config');
 const multiCompilerConfig = require('./fixtures/multi-compiler-config/webpack.config');
 
@@ -19,11 +19,11 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      server = helper.startAwaitingCompilation(config, options, done);
+      server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('should include hot script in the bundle', (done) => {
       req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/, done);
@@ -40,11 +40,11 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      server = helper.startAwaitingCompilation(config, options, done);
+      server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('should include hotOnly script in the bundle', (done) => {
       req
@@ -63,7 +63,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      server = helper.startAwaitingCompilation(
+      server = testServer.startAwaitingCompilation(
         multiCompilerConfig,
         options,
         done
@@ -71,7 +71,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('should include hot script in the bundle', (done) => {
       req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/, done);
@@ -88,11 +88,11 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      server = helper.startAwaitingCompilation(config, options, done);
+      server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('should NOT include hot script in the bundle', (done) => {
       req
@@ -119,7 +119,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      const fullSetup = helper.startAwaitingCompilationFullSetup(
+      const fullSetup = testServer.startAwaitingCompilationFullSetup(
         config,
         options,
         () => {
@@ -139,7 +139,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       });
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
   });
 
   describe('simple hotOnly config HMR plugin', () => {
@@ -153,7 +153,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      const fullSetup = helper.startAwaitingCompilationFullSetup(
+      const fullSetup = testServer.startAwaitingCompilationFullSetup(
         config,
         options,
         () => {
@@ -173,7 +173,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       });
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
   });
 
   describe('multi compiler hot config HMR plugin', () => {
@@ -187,7 +187,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      const fullSetup = helper.startAwaitingCompilationFullSetup(
+      const fullSetup = testServer.startAwaitingCompilationFullSetup(
         multiCompilerConfig,
         options,
         () => {
@@ -207,7 +207,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       });
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
   });
 
   describe('hot disabled HMR plugin', () => {
@@ -221,7 +221,7 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
           poll: true,
         },
       };
-      const fullSetup = helper.startAwaitingCompilationFullSetup(
+      const fullSetup = testServer.startAwaitingCompilationFullSetup(
         config,
         options,
         () => {
@@ -241,6 +241,6 @@ describe('Hot Module Replacement (hot/hotOnly options)', () => {
       });
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
   });
 });

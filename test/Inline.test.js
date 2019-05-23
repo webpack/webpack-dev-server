@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/client-config/webpack.config');
 const multiCompilerConfig = require('./fixtures/multi-compiler-config/webpack.config');
 
@@ -19,11 +19,11 @@ describe('inline', () => {
           poll: true,
         },
       };
-      server = helper.startAwaitingCompilation(config, options, done);
+      server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('should include inline client script in the bundle', (done) => {
       req
@@ -42,7 +42,7 @@ describe('inline', () => {
           poll: true,
         },
       };
-      server = helper.startAwaitingCompilation(
+      server = testServer.startAwaitingCompilation(
         multiCompilerConfig,
         options,
         done
@@ -50,7 +50,7 @@ describe('inline', () => {
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('should include inline client script in the bundle', (done) => {
       req
@@ -69,11 +69,11 @@ describe('inline', () => {
           poll: true,
         },
       };
-      server = helper.startAwaitingCompilation(config, options, done);
+      server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('should NOT include inline client script in the bundle', (done) => {
       req

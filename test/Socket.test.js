@@ -2,20 +2,20 @@
 
 const request = require('supertest');
 const config = require('./fixtures/simple-config/webpack.config');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 
 describe('socket options', () => {
   let server;
   let req;
 
   afterEach((done) => {
-    helper.close(done);
+    testServer.close(done);
     req = null;
     server = null;
   });
   describe('default behavior', () => {
     beforeEach((done) => {
-      server = helper.start(config, {}, done);
+      server = testServer.start(config, {}, done);
       req = request('http://localhost:8080');
     });
 
@@ -31,7 +31,7 @@ describe('socket options', () => {
   describe('socksPath option', () => {
     const path = '/foo/test/bar';
     beforeEach((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           sockPath: '/foo/test/bar/',

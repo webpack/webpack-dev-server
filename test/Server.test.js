@@ -14,7 +14,7 @@ opn.mockImplementation(() => {
 });
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 
 describe('Server', () => {
   describe('addEntries', () => {
@@ -226,7 +226,7 @@ describe('Server', () => {
 
     describe('is not be specified', () => {
       beforeAll((done) => {
-        server = helper.start(config, {}, done);
+        server = testServer.start(config, {}, done);
         req = request(server.app);
       });
 
@@ -241,12 +241,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is undefined', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             // eslint-disable-next-line no-undefined
@@ -268,12 +268,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is null', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: null,
@@ -294,12 +294,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is 127.0.0.1 (IPv4)', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: '127.0.0.1',
@@ -320,12 +320,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is localhost', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: 'localhost',
@@ -346,12 +346,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is 0.0.0.0', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: '0.0.0.0',
@@ -372,7 +372,7 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
   });
 
@@ -382,7 +382,7 @@ describe('Server', () => {
 
     describe('is not be specified', () => {
       beforeAll((done) => {
-        server = helper.start(config, {}, done);
+        server = testServer.start(config, {}, done);
         req = request(server.app);
       });
 
@@ -398,12 +398,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is undefined', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             // eslint-disable-next-line no-undefined
@@ -426,12 +426,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is null', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             port: null,
@@ -453,12 +453,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is "33333"', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             port: '33333',
@@ -479,12 +479,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is 33333', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             port: '33333',
@@ -505,7 +505,7 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
   });
 });
