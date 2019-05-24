@@ -46,11 +46,13 @@ function startFullSetup(config, options, done) {
     : 'localhost';
 
   server.listen(port, host, (err) => {
-    if (err) {
+    if (err && done) {
       return done(err);
     }
 
-    done();
+    if (done) {
+      done();
+    }
   });
 
   return {
