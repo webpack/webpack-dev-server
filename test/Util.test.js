@@ -1,7 +1,6 @@
 'use strict';
 
-const EventEmitter = require('events');
-const assert = require('assert');
+const http = require('http');
 const webpack = require('webpack');
 const internalIp = require('internal-ip');
 const Server = require('../lib/Server');
@@ -119,40 +118,65 @@ describe('check utility functions', () => {
 });
 
 describe('findPort cli utility function', () => {
-  let mockServer = null;
-
-  beforeEach(() => {
-    mockServer = {
-      listeningApp: new EventEmitter(),
-    };
-  });
+  let dummyServers = [];
 
   afterEach(() => {
-    mockServer.listeningApp.removeAllListeners('error');
-    mockServer = null;
+    delete process.env.DEFAULT_PORT_RETRY;
+
+    return dummyServers
+      .reduce((p, server) => {
+        return p.then(() => {
+          return new Promise((resolve) => {
+            server.close(resolve);
+          });
+        });
+      }, Promise.resolve())
+      .then(() => {
+        dummyServers = [];
+      });
   });
 
-  it('should find empty port starting from defaultPort', (done) => {
-    findPort(mockServer, 8180, 3, (err, port) => {
-      assert(err == null);
-      assert(port === 8180);
-      done();
+  function createDummyServers(n) {
+    return [...new Array(n)].reduce((p, _, i) => {
+      return p.then(() => {
+        return new Promise((resolve) => {
+          const server = http.createServer();
+          dummyServers.push(server);
+          server.listen(8080 + i, resolve);
+        });
+      });
+    }, Promise.resolve());
+  }
+
+  it('should return the port when the port is specified', () => {
+    process.env.DEFAULT_PORT_RETRY = 5;
+
+    return findPort(8082).then((port) => {
+      expect(port).toEqual(8082);
     });
   });
 
-  it('should retry finding port for up to defaultPortRetry times', (done) => {
-    let count = 0;
-    const defaultPortRetry = 5;
-    findPort(mockServer, 8180, defaultPortRetry, (err) => {
-      if (err == null) {
-        count += 1;
-        const mockError = new Error('EADDRINUSE');
-        mockError.code = 'EADDRINUSE';
-        mockServer.listeningApp.emit('error', mockError);
-        return;
-      }
-      assert(count === defaultPortRetry);
-      done();
-    });
+  it('should retry finding the port for up to defaultPortRetry times', () => {
+    const retryCount = 5;
+
+    process.env.DEFAULT_PORT_RETRY = retryCount;
+
+    return createDummyServers(retryCount)
+      .then(findPort)
+      .then((port) => {
+        expect(port).toEqual(8080 + retryCount);
+      });
+  });
+
+  it("should throw the error when the port isn't found", () => {
+    const retryCount = 5;
+
+    process.env.DEFAULT_PORT_RETRY = retryCount;
+
+    return createDummyServers(10)
+      .then(findPort)
+      .catch((err) => {
+        expect(err.message).toMatchSnapshot();
+      });
   });
 });

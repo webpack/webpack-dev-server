@@ -23,10 +23,8 @@ const Server = require('../lib/Server');
 const colors = require('../lib/utils/colors');
 const createConfig = require('../lib/utils/createConfig');
 const createLogger = require('../lib/utils/createLogger');
-const defaultTo = require('../lib/utils/defaultTo');
 const findPort = require('../lib/utils/findPort');
 const getVersions = require('../lib/utils/getVersions');
-const tryParseInt = require('../lib/utils/tryParseInt');
 
 let server;
 
@@ -197,7 +195,7 @@ function startDevServer(config, options) {
       });
     });
   } else {
-    decidePort(server, options.port)
+    findPort(options.port)
       .then((port) => {
         options.port = port;
         server.listen(options.port, options.host, (err) => {
@@ -210,31 +208,6 @@ function startDevServer(config, options) {
         throw err;
       });
   }
-}
-
-function decidePort(server, port) {
-  return new Promise((resolve, reject) => {
-    if (typeof port !== 'undefined') {
-      resolve(port);
-    } else {
-      // Try to find unused port and listen on it for 3 times,
-      // if port is not specified in options.
-      // Because NaN == null is false, defaultTo fails if parseInt returns NaN
-      // so the tryParseInt function is introduced to handle NaN
-      const defaultPortRetry = defaultTo(
-        tryParseInt(process.env.DEFAULT_PORT_RETRY),
-        3
-      );
-
-      // only run port finder if no port as been specified
-      findPort(server, DEFAULT_PORT, defaultPortRetry, (err, port) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(port);
-      });
-    }
-  });
 }
 
 processOptions(config);
