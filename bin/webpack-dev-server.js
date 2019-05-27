@@ -2,52 +2,26 @@
 
 'use strict';
 
-/* eslint-disable
-  import/order,
-  no-shadow,
-  no-console
-*/
-const debug = require('debug')('webpack-dev-server');
+/* eslint-disable no-shadow, no-console */
 
 const fs = require('fs');
 const net = require('net');
-
+const debug = require('debug')('webpack-dev-server');
 const importLocal = require('import-local');
-
 const yargs = require('yargs');
 const webpack = require('webpack');
-
-const options = require('./options');
 const Server = require('../lib/Server');
-
+const setupExitSignals = require('../lib/utils/setupExitSignals');
 const colors = require('../lib/utils/colors');
-const createConfig = require('../lib/utils/createConfig');
+const processOptions = require('../lib/utils/processOptions');
 const createLogger = require('../lib/utils/createLogger');
 const findPort = require('../lib/utils/findPort');
 const getVersions = require('../lib/utils/getVersions');
+const options = require('./options');
 
 let server;
 
-// Taken out of yargs because we must know if
-// it wasn't given by the user, in which case
-// we should use portfinder.
-const DEFAULT_PORT = 8080;
-
-const signals = ['SIGINT', 'SIGTERM'];
-
-signals.forEach((signal) => {
-  process.on(signal, () => {
-    if (server) {
-      server.close(() => {
-        // eslint-disable-next-line no-process-exit
-        process.exit();
-      });
-    } else {
-      // eslint-disable-next-line no-process-exit
-      process.exit();
-    }
-  });
-});
+setupExitSignals(server);
 
 // Prefer the local installation of webpack-dev-server
 if (importLocal(__filename)) {
@@ -105,22 +79,6 @@ try {
 const config = require(convertArgvPath)(yargs, argv, {
   outputFilename: '/bundle.js',
 });
-
-function processOptions(config) {
-  // processOptions {Promise}
-  if (typeof config.then === 'function') {
-    config.then(processOptions).catch((err) => {
-      console.error(err.stack || err);
-      // eslint-disable-next-line no-process-exit
-      process.exit();
-    });
-
-    return;
-  }
-
-  const options = createConfig(config, argv, { port: DEFAULT_PORT });
-  startDevServer(config, options);
-}
 
 function startDevServer(config, options) {
   const log = createLogger(options);
@@ -185,6 +143,7 @@ function startDevServer(config, options) {
       if (err) {
         throw err;
       }
+
       // chmod 666 (rw rw rw)
       const READ_WRITE = 438;
 
@@ -210,4 +169,6 @@ function startDevServer(config, options) {
   }
 }
 
-processOptions(config);
+processOptions(config, argv, (config, options) => {
+  startDevServer(config, options);
+});
