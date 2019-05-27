@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`findPort cli utility function should throw the error when the port isn't found 1`] = `"No open ports found in between 8080 and 8085"`;
