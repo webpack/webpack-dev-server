@@ -740,6 +740,21 @@ Object {
 }
 `;
 
+exports[`createConfig onListening option 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "onListening": [Function],
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig open option (boolean) (in devServer config) 1`] = `
 Object {
   "hot": true,
