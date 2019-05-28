@@ -3,6 +3,7 @@
 const path = require('path');
 const request = require('supertest');
 const express = require('express');
+const bodyParser = require('body-parser');
 const WebSocket = require('ws');
 const testServer = require('./helpers/test-server');
 const config = require('./fixtures/proxy-config/webpack.config');
@@ -287,6 +288,102 @@ describe('Proxy', () => {
     afterAll((done) => {
       wsServer.close();
       testServer.close(done);
+    });
+  });
+
+  describe('should support http methods', () => {
+    let server;
+    let req;
+    let listener;
+    const proxyTarget = {
+      target: 'http://localhost:9000',
+    };
+
+    beforeAll((done) => {
+      const proxy = express();
+
+      // Parse application/x-www-form-urlencoded
+      proxy.use(bodyParser.urlencoded({ extended: false }));
+
+      // Parse application/json
+      proxy.use(bodyParser.json());
+
+      proxy.get('/get', (proxyReq, res) => {
+        res.send('GET method from proxy');
+      });
+
+      proxy.head('/head', (proxyReq, res) => {
+        res.send('HEAD method from proxy');
+      });
+
+      proxy.post('/post-x-www-form-urlencoded', (proxyReq, res) => {
+        const id = proxyReq.body.id;
+
+        res.status(200).send(`POST method from proxy (id: ${id})`);
+      });
+
+      proxy.post('/post-application-json', (proxyReq, res) => {
+        const id = proxyReq.body.id;
+
+        res.status(200).send({ answer: `POST method from proxy (id: ${id})` });
+      });
+
+      proxy.delete('/delete', (proxyReq, res) => {
+        res.send('DELETE method from proxy');
+      });
+
+      listener = proxy.listen(9000);
+
+      server = testServer.start(
+        config,
+        {
+          contentBase,
+          proxy: {
+            '**': proxyTarget,
+          },
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        listener.close();
+        done();
+      });
+    });
+
+    it('GET method', (done) => {
+      req.get('/get').expect(200, 'GET method from proxy', done);
+    });
+
+    it('HEAD method', (done) => {
+      req.head('/head').expect(200, done);
+    });
+
+    it('POST method (application/x-www-form-urlencoded)', (done) => {
+      req
+        .post('/post-x-www-form-urlencoded')
+        .send('id=1')
+        .expect(200, 'POST method from proxy (id: 1)', done);
+    });
+
+    it('POST method (application/json)', (done) => {
+      req
+        .post('/post-application-json')
+        .send({ id: '1' })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(
+          200,
+          JSON.stringify({ answer: 'POST method from proxy (id: 1)' }),
+          done
+        );
+    });
+
+    it('DELETE method', (done) => {
+      req.delete('/delete').expect(200, 'DELETE method from proxy', done);
     });
   });
 });
