@@ -8,5 +8,11 @@
     "groupName": "all patch dependencies"
   },
   "separateMinorPatch": true,
-  "rangeStrategy": "bump"
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "depTypeList": ["peerDependencies"],
+      "enabled": false
+    }
+  ]
 }

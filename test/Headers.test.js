@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('Headers', () => {
@@ -10,7 +10,7 @@ describe('Headers', () => {
 
   describe('as a string', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           headers: { 'X-Foo': '1' },
@@ -20,7 +20,7 @@ describe('Headers', () => {
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('GET request with headers', (done) => {
       req
@@ -32,7 +32,7 @@ describe('Headers', () => {
 
   describe('as an array', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           headers: { 'X-Bar': ['key1=value1', 'key2=value2'] },
@@ -42,7 +42,7 @@ describe('Headers', () => {
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
 
     it('GET request with headers as an array', (done) => {
       // https://github.com/webpack/webpack-dev-server/pull/1650#discussion_r254217027

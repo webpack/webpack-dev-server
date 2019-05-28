@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('Before And After options', () => {
@@ -9,7 +9,7 @@ describe('Before And After options', () => {
   let req;
 
   beforeAll((done) => {
-    server = helper.start(
+    server = testServer.start(
       config,
       {
         before: (appArg, serverArg, compilerArg) => {
@@ -52,7 +52,7 @@ describe('Before And After options', () => {
     req = request(server.app);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   it('should handle before route', () => {
     return req

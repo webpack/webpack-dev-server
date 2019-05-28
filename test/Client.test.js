@@ -3,7 +3,7 @@
 const express = require('express');
 const httpProxy = require('http-proxy-middleware');
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/client-config/webpack.config');
 const runBrowser = require('./helpers/run-browser');
 
@@ -33,10 +33,10 @@ describe('Client code', () => {
         poll: true,
       },
     };
-    helper.startAwaitingCompilation(config, options, done);
+    testServer.startAwaitingCompilation(config, options, done);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   // [HPM] Proxy created: /  ->  http://localhost:9001
   describe('behind a proxy', () => {
@@ -93,10 +93,10 @@ describe('Client complex inline script path', () => {
       public: 'myhost.test',
       sockPath: '/foo/test/bar/',
     };
-    helper.startAwaitingCompilation(config, options, done);
+    testServer.startAwaitingCompilation(config, options, done);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   describe('browser client', () => {
     jest.setTimeout(30000);
@@ -131,10 +131,10 @@ describe('Client complex inline script path with sockPort', () => {
       sockPath: '/foo/test/bar/',
       sockPort: 8080,
     };
-    helper.startAwaitingCompilation(config, options, done);
+    testServer.startAwaitingCompilation(config, options, done);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   describe('browser client', () => {
     jest.setTimeout(30000);
@@ -171,10 +171,10 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
       },
       sockPort: 8080,
     };
-    helper.startAwaitingCompilation(config, options, done);
+    testServer.startAwaitingCompilation(config, options, done);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   describe('browser client', () => {
     jest.setTimeout(30000);
@@ -206,10 +206,10 @@ describe('Client complex inline script path with sockHost', () => {
       },
       sockHost: 'myhost.test',
     };
-    helper.startAwaitingCompilation(config, options, done);
+    testServer.startAwaitingCompilation(config, options, done);
   });
 
-  afterAll(helper.close);
+  afterAll(testServer.close);
 
   describe('browser client', () => {
     jest.setTimeout(30000);

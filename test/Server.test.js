@@ -12,66 +12,65 @@ opn.mockImplementation(() => {
     catch: jest.fn(),
   };
 });
+jest.mock('sockjs/lib/transport');
+// eslint-disable-next-line import/newline-after-import
+const sockjs = require('sockjs/lib/transport');
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 
 describe('Server', () => {
+  describe('sockjs', () => {
+    it('add decorateConnection', () => {
+      expect(typeof sockjs.Session.prototype.decorateConnection).toEqual(
+        'function'
+      );
+    });
+  });
+
   describe('addEntries', () => {
-    it('add hot option', () => {
-      return new Promise((res) => {
-        // eslint-disable-next-line
-        const Server = require('../lib/Server');
-        const compiler = webpack(config);
-        const server = new Server(compiler, {
-          hot: true,
-        });
-
-        expect(
-          server.middleware.context.compiler.options.entry.map((p) => {
-            return relative('.', p).split(sep);
-          })
-        ).toMatchSnapshot();
-        expect(
-          server.middleware.context.compiler.options.plugins
-        ).toMatchSnapshot();
-
-        compiler.hooks.done.tap('webpack-dev-server', () => {
-          server.close(() => {
-            res();
-          });
-        });
-
-        compiler.run(() => {});
+    it('add hot option', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, {
+        hot: true,
       });
+
+      expect(
+        server.middleware.context.compiler.options.entry.map((p) => {
+          return relative('.', p).split(sep);
+        })
+      ).toMatchSnapshot();
+      expect(
+        server.middleware.context.compiler.options.plugins
+      ).toMatchSnapshot();
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        server.close(done);
+      });
+
+      compiler.run(() => {});
     });
 
-    it('add hotOnly option', () => {
-      return new Promise((res) => {
-        // eslint-disable-next-line
-        const Server = require('../lib/Server');
-        const compiler = webpack(config);
-        const server = new Server(compiler, {
-          hotOnly: true,
-        });
-
-        expect(
-          server.middleware.context.compiler.options.entry.map((p) => {
-            return relative('.', p).split(sep);
-          })
-        ).toMatchSnapshot();
-        expect(
-          server.middleware.context.compiler.options.plugins
-        ).toMatchSnapshot();
-
-        compiler.hooks.done.tap('webpack-dev-server', () => {
-          server.close(() => {
-            res();
-          });
-        });
-
-        compiler.run(() => {});
+    it('add hotOnly option', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, {
+        hotOnly: true,
       });
+
+      expect(
+        server.middleware.context.compiler.options.entry.map((p) => {
+          return relative('.', p).split(sep);
+        })
+      ).toMatchSnapshot();
+      expect(
+        server.middleware.context.compiler.options.plugins
+      ).toMatchSnapshot();
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        server.close(done);
+      });
+
+      compiler.run(() => {});
     });
   });
 
@@ -85,10 +84,7 @@ describe('Server', () => {
       jest.unmock('express');
     });
 
-    it("should success even if mine.types doesn't exist", () => {
-      // eslint-disable-next-line
-      const Server = require('../lib/Server');
-
+    it("should success even if mine.types doesn't exist", (done) => {
       jest.mock('express', () => {
         const data = jest.requireActual('express');
         const { static: st } = data;
@@ -105,22 +101,18 @@ describe('Server', () => {
         });
       });
 
-      return new Promise((res) => {
-        const compiler = webpack(config);
-        const server = new Server(compiler);
+      const compiler = webpack(config);
+      const server = new Server(compiler);
 
-        compiler.hooks.done.tap('webpack-dev-server', (s) => {
-          const output = server.getStats(s);
-          expect(output.errors.length).toEqual(0);
+      compiler.hooks.done.tap('webpack-dev-server', (s) => {
+        const output = server.getStats(s);
+        expect(output.errors.length).toEqual(0);
 
-          server.close(() => {
-            res();
-          });
-        });
-
-        compiler.run(() => {});
-        server.listen(8080, 'localhost');
+        server.close(done);
       });
+
+      compiler.run(() => {});
+      server.listen(8080, 'localhost');
     });
   });
 
@@ -137,86 +129,60 @@ describe('Server', () => {
         },
       ];
 
-      return new Promise((resolve, reject) => {
-        (function iterate(stats, i) {
-          if (i === allStats.length) {
-            return resolve();
-          }
+      return allStats.reduce((p, stats) => {
+        return p.then(() => {
+          return new Promise((resolve) => {
+            const compiler = webpack(config);
+            const server = new Server(compiler, { stats });
 
-          // Iterate to cover each case.
-          Promise.resolve()
-            .then(
-              () =>
-                new Promise((res) => {
-                  const compiler = webpack(config);
-                  const server = new Server(compiler, { stats });
+            compiler.hooks.done.tap('webpack-dev-server', (s) => {
+              expect(Object.keys(server.getStats(s))).toMatchSnapshot();
 
-                  compiler.hooks.done.tap('webpack-dev-server', (s) => {
-                    expect(Object.keys(server.getStats(s))).toMatchSnapshot();
-
-                    server.close(() => {
-                      res();
-                    });
-                  });
-
-                  compiler.run(() => {});
-                  server.listen(8080, 'localhost');
-                })
-            )
-            .then(() => {
-              i += 1;
-              iterate(allStats[i], i);
-            })
-            .catch((e) => {
-              reject(e);
+              server.close(resolve);
             });
-        })(allStats[0], 0);
-      });
-    });
 
-    it('should respect warningsFilter', () => {
-      return new Promise((res) => {
-        const compiler = webpack(config);
-        const server = new Server(compiler, {
-          stats: { warningsFilter: 'test' },
-        });
-
-        compiler.hooks.done.tap('webpack-dev-server', (s) => {
-          s.compilation.warnings = ['test', 'another warning'];
-
-          const output = server.getStats(s);
-
-          expect(output.warnings.length).toBe(1);
-          expect(output.warnings[0]).toBe('another warning');
-
-          server.close(() => {
-            res();
+            compiler.run(() => {});
+            server.listen(8080, 'localhost');
           });
         });
-
-        compiler.run(() => {});
-        server.listen(8080, 'localhost');
-      });
+      }, Promise.resolve());
     });
 
-    it('should open', () => {
-      return new Promise((res) => {
-        const compiler = webpack(config);
-        const server = new Server(compiler, {
-          open: true,
-        });
-
-        compiler.hooks.done.tap('webpack-dev-server', () => {
-          expect(opn.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
-          expect(opn.mock.invocationCallOrder[0]).toEqual(1);
-          server.close(() => {
-            res();
-          });
-        });
-
-        compiler.run(() => {});
-        server.listen(8080, 'localhost');
+    it('should respect warningsFilter', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, {
+        stats: { warningsFilter: 'test' },
       });
+
+      compiler.hooks.done.tap('webpack-dev-server', (s) => {
+        s.compilation.warnings = ['test', 'another warning'];
+
+        const output = server.getStats(s);
+
+        expect(output.warnings.length).toBe(1);
+        expect(output.warnings[0]).toBe('another warning');
+
+        server.close(done);
+      });
+
+      compiler.run(() => {});
+      server.listen(8080, 'localhost');
+    });
+
+    it('should open', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, {
+        open: true,
+      });
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(opn.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
+        expect(opn.mock.invocationCallOrder[0]).toEqual(1);
+        server.close(done);
+      });
+
+      compiler.run(() => {});
+      server.listen(8080, 'localhost');
     });
   });
 
@@ -226,7 +192,7 @@ describe('Server', () => {
 
     describe('is not be specified', () => {
       beforeAll((done) => {
-        server = helper.start(config, {}, done);
+        server = testServer.start(config, {}, done);
         req = request(server.app);
       });
 
@@ -241,12 +207,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is undefined', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             // eslint-disable-next-line no-undefined
@@ -268,12 +234,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is null', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: null,
@@ -294,12 +260,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is 127.0.0.1 (IPv4)', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: '127.0.0.1',
@@ -320,12 +286,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is localhost', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: 'localhost',
@@ -346,12 +312,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is 0.0.0.0', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             host: '0.0.0.0',
@@ -372,7 +338,7 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
   });
 
@@ -382,7 +348,7 @@ describe('Server', () => {
 
     describe('is not be specified', () => {
       beforeAll((done) => {
-        server = helper.start(config, {}, done);
+        server = testServer.start(config, {}, done);
         req = request(server.app);
       });
 
@@ -398,12 +364,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is undefined', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             // eslint-disable-next-line no-undefined
@@ -426,12 +392,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is null', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             port: null,
@@ -453,12 +419,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is "33333"', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             port: '33333',
@@ -479,12 +445,12 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
     });
 
     describe('is 33333', () => {
       beforeAll((done) => {
-        server = helper.start(
+        server = testServer.start(
           config,
           {
             port: '33333',
@@ -505,7 +471,33 @@ describe('Server', () => {
         req.get('/').expect(200, done);
       });
 
-      afterAll(helper.close);
+      afterAll(testServer.close);
+    });
+  });
+
+  describe('WEBPACK_DEV_SERVER environment variable', () => {
+    const OLD_ENV = process.env;
+
+    beforeEach(() => {
+      // this is important - it clears the cache
+      jest.resetModules();
+
+      process.env = { ...OLD_ENV };
+
+      delete process.env.WEBPACK_DEV_SERVER;
+    });
+
+    afterEach(() => {
+      process.env = OLD_ENV;
+    });
+
+    it('should be present', () => {
+      expect(process.env.WEBPACK_DEV_SERVER).toBeUndefined();
+
+      // eslint-disable-next-line global-require
+      require('../lib/Server');
+
+      expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
     });
   });
 });

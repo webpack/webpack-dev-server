@@ -6,7 +6,7 @@
 const { unlink } = require('fs');
 const { join, resolve } = require('path');
 const execa = require('execa');
-const runDevServer = require('./helpers/run-webpack-dev-server');
+const testBin = require('./helpers/test-bin');
 
 const httpsCertificateDirectory = join(__dirname, 'fixtures/https-certificate');
 const caPath = join(httpsCertificateDirectory, 'ca.pem');
@@ -16,7 +16,7 @@ const certPath = join(httpsCertificateDirectory, 'server.crt');
 
 describe('CLI', () => {
   it('--progress', (done) => {
-    runDevServer('--progress')
+    testBin('--progress')
       .then((output) => {
         expect(output.code).toEqual(0);
         expect(output.stderr.includes('0% compiling')).toBe(true);
@@ -26,7 +26,7 @@ describe('CLI', () => {
   });
 
   it('--bonjour', (done) => {
-    runDevServer('--bonjour')
+    testBin('--bonjour')
       .then((output) => {
         expect(output.code).toEqual(0);
         expect(output.stdout.includes('Bonjour')).toBe(true);
@@ -36,7 +36,7 @@ describe('CLI', () => {
   });
 
   it('--https', (done) => {
-    runDevServer('--https')
+    testBin('--https')
       .then((output) => {
         expect(output.code).toEqual(0);
         expect(output.stdout.includes('Project is running at')).toBe(true);
@@ -46,7 +46,7 @@ describe('CLI', () => {
   });
 
   it('--https --cacert --pfx --key --cert --pfx-passphrase', (done) => {
-    runDevServer(
+    testBin(
       `--https --cacert ${caPath} --pfx ${pfxPath} --key ${keyPath} --cert ${certPath} --pfx-passphrase webpack-dev-server`
     )
       .then((output) => {
@@ -58,7 +58,7 @@ describe('CLI', () => {
   });
 
   it('--sockPath', (done) => {
-    runDevServer('--sockPath /mysockPath')
+    testBin('--sockPath /mysockPath')
       .then((output) => {
         expect(
           output.stdout.includes('http://localhost&sockPath=/mysockPath')
@@ -69,7 +69,7 @@ describe('CLI', () => {
   });
 
   it('--color', (done) => {
-    runDevServer('--color')
+    testBin('--color')
       .then((output) => {
         // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
         expect(
@@ -84,7 +84,7 @@ describe('CLI', () => {
   it('--socket', (done) => {
     const socketPath = join('.', 'webpack.sock');
 
-    runDevServer(`--socket ${socketPath}`)
+    testBin(`--socket ${socketPath}`)
       .then((output) => {
         expect(output.code).toEqual(0);
 

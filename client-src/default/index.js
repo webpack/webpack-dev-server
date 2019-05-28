@@ -61,6 +61,12 @@ const DEBUG = 'debug';
 const TRACE = 'trace';
 const SILENT = 'silent';
 
+// deprecated
+// TODO: remove these at major released
+// https://github.com/webpack/webpack-dev-server/pull/1825
+const WARNING = 'warning';
+const NONE = 'none';
+
 // Set the default log level
 log.setDefaultLevel(INFO);
 
@@ -121,6 +127,13 @@ const onSocketMsg = {
       case ERROR:
         log.setLevel(level);
         break;
+      // deprecated
+      case WARNING:
+        // loglevel's warning name is different from webpack's
+        log.setLevel('warn');
+        break;
+      // deprecated
+      case NONE:
       case SILENT:
         log.disableAll();
         break;
@@ -278,7 +291,7 @@ function reloadApp() {
     }
   }
   // allow refreshing the page only if liveReload isn't disabled
-  if (liveReload) {
+  else if (liveReload) {
     let rootWindow = self;
     // use parent window for reload (in case we're in an iframe with no valid src)
     const intervalId = self.setInterval(() => {

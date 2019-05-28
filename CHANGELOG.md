@@ -1,6 +1,39 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [3.4.1](https://github.com/webpack/webpack-dev-server/compare/v3.4.0...v3.4.1) (2019-05-17)
+
+
+### Bug Fixes
+
+* add none and warning to clientLogLevel ([#1901](https://github.com/webpack/webpack-dev-server/issues/1901)) ([0ae9be8](https://github.com/webpack/webpack-dev-server/commit/0ae9be8))
+* broken hot reload ([#1903](https://github.com/webpack/webpack-dev-server/issues/1903)) ([6a444cd](https://github.com/webpack/webpack-dev-server/commit/6a444cd))
+
+
+
+## [3.4.0](https://github.com/webpack/webpack-dev-server/compare/v3.3.1...v3.4.0) (2019-05-17)
+
+
+### Bug Fixes
+
+* don't use self.location.port ([#1838](https://github.com/webpack/webpack-dev-server/issues/1838)) ([6d31984](https://github.com/webpack/webpack-dev-server/commit/6d31984))
+* do not include config files in dist ([#1883](https://github.com/webpack/webpack-dev-server/issues/1883)) ([c535bb2](https://github.com/webpack/webpack-dev-server/commit/c535bb2))
+* only add client entry to web targets ([#1775](https://github.com/webpack/webpack-dev-server/issues/1775)) ([cf4d0d0](https://github.com/webpack/webpack-dev-server/commit/cf4d0d0))
+* update clientLogLevel to match docs and error ([#1825](https://github.com/webpack/webpack-dev-server/issues/1825)) ([7f52bbf](https://github.com/webpack/webpack-dev-server/commit/7f52bbf))
+* add errors-warnings preset ([#1895](https://github.com/webpack/webpack-dev-server/issues/1895)) ([2a81ad2](https://github.com/webpack/webpack-dev-server/commit/2a81ad2))
+
+
+### Features
+
+* added injectClient option ([#1775](https://github.com/webpack/webpack-dev-server/issues/1775)) ([cf4d0d0](https://github.com/webpack/webpack-dev-server/commit/cf4d0d0))
+* added injectHot option ([#1775](https://github.com/webpack/webpack-dev-server/issues/1775)) ([cf4d0d0](https://github.com/webpack/webpack-dev-server/commit/cf4d0d0))
+* added sockPort option ([#1792](https://github.com/webpack/webpack-dev-server/issues/1792)) ([58d1682](https://github.com/webpack/webpack-dev-server/commit/58d1682))
+* added sockHost option ([#1858](https://github.com/webpack/webpack-dev-server/issues/1858)) ([f47dff2](https://github.com/webpack/webpack-dev-server/commit/f47dff2))
+* support HEAD method ([#1875](https://github.com/webpack/webpack-dev-server/issues/1875)) ([c2360e4](https://github.com/webpack/webpack-dev-server/commit/c2360e4))
+* added liveReload option ([#1889](https://github.com/webpack/webpack-dev-server/issues/1889)) ([fc4fe32](https://github.com/webpack/webpack-dev-server/commit/fc4fe32))
+* update express to 4.17 version
+
 
 ## [3.3.1](https://github.com/webpack/webpack-dev-server/compare/v3.3.0...v3.3.1) (2019-04-09)
 

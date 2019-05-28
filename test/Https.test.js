@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const request = require('supertest');
-const helper = require('./helper');
+const testServer = require('./helpers/test-server');
 const config = require('./fixtures/contentbase-config/webpack.config');
 const skipTestOnWindows = require('./helpers/conditional-test')
   .skipTestOnWindows;
@@ -23,7 +23,7 @@ describe('HTTPS', () => {
 
   describe('is boolean', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -39,13 +39,13 @@ describe('HTTPS', () => {
     });
 
     afterAll(() => {
-      helper.close();
+      testServer.close();
     });
   });
 
   describe('ca, pfx, key and cert are buffer', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -75,7 +75,7 @@ describe('HTTPS', () => {
 
   describe('ca, pfx, key and cert are paths', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -103,7 +103,7 @@ describe('HTTPS', () => {
     }
 
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -124,12 +124,12 @@ describe('HTTPS', () => {
       req.get('/').expect(200, /Heyo/, done);
     });
 
-    afterAll(helper.close);
+    afterAll(testServer.close);
   });
 
   describe('ca, pfx, key and cert are raw strings', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = testServer.start(
         config,
         {
           contentBase: contentBasePublic,
@@ -160,5 +160,5 @@ describe('HTTPS', () => {
     });
   });
 
-  afterEach(helper.close);
+  afterEach(testServer.close);
 });
