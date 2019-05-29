@@ -283,7 +283,8 @@ describe('Entry', () => {
       Object.assign({}, config),
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'webworker' }, config),
-      Object.assign({ target: 'node' }, config) /* index:3 */,
+      Object.assign({ target: 'electron-renderer' }, config),
+      Object.assign({ target: 'node' }, config) /* index:4 */,
     ];
 
     const devServerOptions = {};
@@ -292,7 +293,7 @@ describe('Entry', () => {
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions, index) => {
-      const expectInline = index !== 3; /* all but the node target */
+      const expectInline = index !== 4; /* all but the node target */
 
       expect(webpackOptions.entry.length).toEqual(expectInline ? 2 : 1);
 
