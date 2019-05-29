@@ -229,3 +229,71 @@ describe('Client complex inline script path with sockHost', () => {
     });
   });
 });
+
+describe('Client console.log', () => {
+  jest.setTimeout(30000);
+
+  const baseOptions = {
+    port: 9000,
+    host: '0.0.0.0',
+  };
+  const cases = [
+    {
+      title: 'hot disabled',
+      options: {
+        hot: false,
+      },
+    },
+    {
+      title: 'hot enabled',
+      options: {
+        hot: true,
+      },
+    },
+    {
+      title: 'liveReload disabled',
+      options: {
+        liveReload: false,
+      },
+    },
+    {
+      title: 'liveReload enabled',
+      options: {
+        liveReload: true,
+      },
+    },
+  ];
+
+  for (const { title, options } of cases) {
+    it(title, () => {
+      const res = [];
+      const testOptions = Object.assign({}, baseOptions, options);
+
+      // TODO: use async/await when Node.js v6 support is dropped
+      return Promise.resolve()
+        .then(() => {
+          return new Promise((resolve) => {
+            testServer.startAwaitingCompilation(config, testOptions, resolve);
+          });
+        })
+        .then(runBrowser)
+        .then(({ page, browser }) => {
+          return new Promise((resolve) => {
+            page.goto('http://localhost:9000/main');
+            page.on('console', ({ _text }) => {
+              res.push(_text);
+            });
+            setTimeout(() => {
+              expect(res).toMatchSnapshot();
+              browser.close().then(resolve);
+            }, 3000);
+          });
+        })
+        .then(() => {
+          return new Promise((resolve) => {
+            testServer.close(resolve);
+          });
+        });
+    });
+  }
+});
