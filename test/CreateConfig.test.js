@@ -967,4 +967,16 @@ describe('createConfig', () => {
     ).toMatchSnapshot();
     expect(webpackConfigNoStats).toMatchSnapshot();
   });
+
+  it('onListening option', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { onListening: () => {} },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
 });
