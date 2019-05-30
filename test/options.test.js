@@ -343,12 +343,11 @@ describe('options', () => {
       },
       serverMode: {
         success: [
-          '',
           'sockjs',
           require.resolve('../lib/servers/SockJSServer'),
           SockJSServer,
         ],
-        failure: [false],
+        failure: ['', false],
       },
       serverSideRender: {
         success: [true],
