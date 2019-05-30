@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
 const options = require('../lib/options.json');
+const SockJSServer = require('../lib/servers/SockJSServer');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('options', () => {
@@ -339,6 +340,15 @@ describe('options', () => {
       serveIndex: {
         success: [true],
         failure: [''],
+      },
+      serverMode: {
+        success: [
+          '',
+          'sockjs',
+          require.resolve('../lib/servers/SockJSServer'),
+          SockJSServer,
+        ],
+        failure: [false],
       },
       serverSideRender: {
         success: [true],
