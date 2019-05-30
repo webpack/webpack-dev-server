@@ -117,20 +117,6 @@ describe('serverMode', () => {
     });
   });
 
-  describe('supplying unimplemented BaseServer', () => {
-    it('should throw an error', () => {
-      expect(() => {
-        server = testServer.start(
-          config,
-          {
-            serverMode: BaseServer,
-          },
-          () => {}
-        );
-      }).toThrow(/serverMode must be a string/);
-    });
-  });
-
   describe('supplying nonexistent path', () => {
     it('should throw an error', () => {
       expect(() => {
