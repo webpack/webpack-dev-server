@@ -474,4 +474,30 @@ describe('Server', () => {
       afterAll(testServer.close);
     });
   });
+
+  describe('WEBPACK_DEV_SERVER environment variable', () => {
+    const OLD_ENV = process.env;
+
+    beforeEach(() => {
+      // this is important - it clears the cache
+      jest.resetModules();
+
+      process.env = { ...OLD_ENV };
+
+      delete process.env.WEBPACK_DEV_SERVER;
+    });
+
+    afterEach(() => {
+      process.env = OLD_ENV;
+    });
+
+    it('should be present', () => {
+      expect(process.env.WEBPACK_DEV_SERVER).toBeUndefined();
+
+      // eslint-disable-next-line global-require
+      require('../lib/Server');
+
+      expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
+    });
+  });
 });

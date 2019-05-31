@@ -244,6 +244,10 @@ describe('options', () => {
         success: [true],
         failure: [''],
       },
+      onListening: {
+        success: [() => {}],
+        failure: [''],
+      },
       open: {
         success: [true, ''],
         failure: [{}],
