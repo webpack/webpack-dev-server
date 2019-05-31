@@ -6,6 +6,7 @@ npm-debug.log
 .nyc_output
 
 client
+!/test/client
 coverage
 ssl/*.pem
 node_modules
