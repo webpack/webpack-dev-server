@@ -13,4 +13,4 @@ node_modules
 
 .eslintcache
 
-test/temp/**
+test/temp/*.css
