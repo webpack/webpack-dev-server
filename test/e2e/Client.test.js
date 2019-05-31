@@ -5,13 +5,13 @@
 */
 const fs = require('fs');
 const path = require('path');
-const testServer = require('./helpers/test-server');
-const reloadConfig = require('./fixtures/reload-config/webpack.config');
-const runBrowser = require('./helpers/run-browser');
+const testServer = require('../helpers/test-server');
+const reloadConfig = require('../fixtures/reload-config/webpack.config');
+const runBrowser = require('../helpers/run-browser');
 
 describe('reload', () => {
   describe('hot', () => {
-    const cssFilePath = path.resolve(__dirname, 'temp/main.css');
+    const cssFilePath = path.resolve(__dirname, '../temp/main.css');
     beforeAll((done) => {
       fs.writeFileSync(
         cssFilePath,
@@ -91,7 +91,7 @@ describe('reload', () => {
   });
 
   describe('inline', () => {
-    const cssFilePath = path.resolve(__dirname, 'temp/main.css');
+    const cssFilePath = path.resolve(__dirname, '../temp/main.css');
     beforeAll((done) => {
       fs.writeFileSync(
         cssFilePath,

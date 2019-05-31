@@ -3,9 +3,9 @@
 const express = require('express');
 const httpProxy = require('http-proxy-middleware');
 const request = require('supertest');
-const testServer = require('./helpers/test-server');
-const config = require('./fixtures/client-config/webpack.config');
-const runBrowser = require('./helpers/run-browser');
+const testServer = require('../helpers/test-server');
+const config = require('../fixtures/client-config/webpack.config');
+const runBrowser = require('../helpers/run-browser');
 
 describe('Client code', () => {
   function startProxy(port) {
