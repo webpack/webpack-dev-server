@@ -52,7 +52,7 @@ describe('status)', () => {
     });
     it('should call open with app:["app_name", "option"] is open is an array ', () => {
       const options = {
-        open: ['Google Chrome', 'incognito'],
+        open: { app: ['Google Chrome', 'incognito'] },
       };
       status(uri, options, log, true);
       expect(open).toBeCalledWith(uri, { app: ['Google Chrome', 'incognito'] });

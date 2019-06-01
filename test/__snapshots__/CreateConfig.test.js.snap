@@ -787,12 +787,17 @@ Object {
 }
 `;
 
-exports[`createConfig open option (browser) 1`] = `
+exports[`createConfig open option (object) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
   "noInfo": true,
-  "open": "Google Chrome",
+  "open": Object {
+    "app": Array [
+      "Google Chrome",
+      "--incognito",
+    ],
+  },
   "openPage": "",
   "port": 8080,
   "publicPath": "/",
@@ -803,12 +808,12 @@ Object {
 }
 `;
 
-exports[`createConfig open true 1`] = `
+exports[`createConfig open option (string) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
   "noInfo": true,
-  "open": true,
+  "open": "Google Chrome",
   "openPage": "",
   "port": 8080,
   "publicPath": "/",
