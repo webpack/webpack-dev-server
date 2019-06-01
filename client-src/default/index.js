@@ -9,6 +9,7 @@ import { log, setLogLevel } from './utils/log';
 import sendMessage from './utils/sendMessage';
 import reloadApp from './utils/reloadApp';
 import createSocketUrl from './utils/createSocketUrl';
+import { array, string } from './polyfill';
 
 const status = {
   isUnloading: false,
@@ -31,7 +32,7 @@ self.addEventListener('beforeunload', () => {
 
 if (typeof window !== 'undefined') {
   const qs = window.location.search.toLowerCase();
-  options.hotReload = qs.indexOf('hotreload=false') === -1;
+  options.hotReload = !string.includes(qs, 'hotreload=false');
 }
 
 const onSocketMessage = {
@@ -63,7 +64,7 @@ const onSocketMessage = {
   },
   'log-level': function logLevel(level) {
     const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
-    if (hotCtx.keys().indexOf('./log') !== -1) {
+    if (array.includes(hotCtx.keys(), './log')) {
       hotCtx('./log').setLogLevel(level);
     }
     setLogLevel(level);
