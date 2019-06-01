@@ -8,28 +8,32 @@ const stripAnsi = require('strip-ansi');
 const log = require('loglevel').getLogger('webpack-dev-server');
 const socket = require('./socket');
 const overlay = require('./overlay');
-
-function getCurrentScriptSource() {
-  // `document.currentScript` is the most accurate way to find the current script,
-  // but is not supported in all browsers.
-  if (document.currentScript) {
-    return document.currentScript.getAttribute('src');
-  }
-  // Fall back to getting all scripts in the document.
-  const scriptElements = document.scripts || [];
-  const currentScript = scriptElements[scriptElements.length - 1];
-  if (currentScript) {
-    return currentScript.getAttribute('src');
-  }
-  // Fail as there was no script to use.
-  throw new Error('[WDS] Failed to get current script source.');
-}
+const sendMessage = require('./utils/sendMessage');
+const reloadApp = require('./utils/reloadApp');
+const getCurrentScriptSource = require('./utils/getCurrentScriptSource');
 
 let urlParts;
-let hotReload = true;
+const status = {
+  isUnloading: false,
+  currentHash: '',
+};
+const options = {
+  hot: false,
+  hotReload: true,
+  liveReload: false,
+  initial: true,
+  useWarningOverlay: false,
+  useErrorOverlay: false,
+  useProgress: false,
+};
+
+self.addEventListener('beforeunload', () => {
+  status.isUnloading = true;
+});
+
 if (typeof window !== 'undefined') {
   const qs = window.location.search.toLowerCase();
-  hotReload = qs.indexOf('hotreload=false') === -1;
+  options.hotReload = qs.indexOf('hotreload=false') === -1;
 }
 if (typeof __resourceQuery === 'string' && __resourceQuery) {
   // If this bundle is inlined, use the resource query to get the correct url.
@@ -46,21 +50,12 @@ if (!urlParts.port || urlParts.port === '0') {
   urlParts.port = self.location.port;
 }
 
-let hot = false;
-let liveReload = false;
-let initial = true;
-let currentHash = '';
-let useWarningOverlay = false;
-let useErrorOverlay = false;
-let useProgress = false;
-
 const INFO = 'info';
 const WARN = 'warn';
 const ERROR = 'error';
 const DEBUG = 'debug';
 const TRACE = 'trace';
 const SILENT = 'silent';
-
 // deprecated
 // TODO: remove these at major released
 // https://github.com/webpack/webpack-dev-server/pull/1825
@@ -70,49 +65,32 @@ const NONE = 'none';
 // Set the default log level
 log.setDefaultLevel(INFO);
 
-// Send messages to the outside, so plugins can consume it.
-function sendMsg(type, data) {
-  if (
-    typeof self !== 'undefined' &&
-    (typeof WorkerGlobalScope === 'undefined' ||
-      !(self instanceof WorkerGlobalScope))
-  ) {
-    self.postMessage(
-      {
-        type: `webpack${type}`,
-        data,
-      },
-      '*'
-    );
-  }
-}
-
 const onSocketMsg = {
   hot() {
-    hot = true;
+    options.hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
   },
   liveReload() {
-    liveReload = true;
+    options.liveReload = true;
     log.info('[WDS] Live Reloading enabled.');
   },
   invalid() {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
-    if (useWarningOverlay || useErrorOverlay) {
+    if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
-    sendMsg('Invalid');
+    sendMessage('Invalid');
   },
   hash(hash) {
-    currentHash = hash;
+    status.currentHash = hash;
   },
   'still-ok': function stillOk() {
     log.info('[WDS] Nothing changed.');
-    if (useWarningOverlay || useErrorOverlay) {
+    if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
-    sendMsg('StillOk');
+    sendMessage('StillOk');
   },
   'log-level': function logLevel(level) {
     const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
@@ -144,34 +122,34 @@ const onSocketMsg = {
   overlay(value) {
     if (typeof document !== 'undefined') {
       if (typeof value === 'boolean') {
-        useWarningOverlay = false;
-        useErrorOverlay = value;
+        options.useWarningOverlay = false;
+        options.useErrorOverlay = value;
       } else if (value) {
-        useWarningOverlay = value.warnings;
-        useErrorOverlay = value.errors;
+        options.useWarningOverlay = value.warnings;
+        options.useErrorOverlay = value.errors;
       }
     }
   },
   progress(progress) {
     if (typeof document !== 'undefined') {
-      useProgress = progress;
+      options.useProgress = progress;
     }
   },
   'progress-update': function progressUpdate(data) {
-    if (useProgress) {
+    if (options.useProgress) {
       log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
     }
-    sendMsg('Progress', data);
+    sendMessage('Progress', data);
   },
   ok() {
-    sendMsg('Ok');
-    if (useWarningOverlay || useErrorOverlay) {
+    sendMessage('Ok');
+    if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
-    if (initial) {
-      return (initial = false);
+    if (options.initial) {
+      return (options.initial = false);
     } // eslint-disable-line no-return-assign
-    reloadApp();
+    reloadApp(options, status);
   },
   'content-changed': function contentChanged() {
     log.info('[WDS] Content base changed. Reloading...');
@@ -180,42 +158,41 @@ const onSocketMsg = {
   warnings(warnings) {
     log.warn('[WDS] Warnings while compiling.');
     const strippedWarnings = warnings.map((warning) => stripAnsi(warning));
-    sendMsg('Warnings', strippedWarnings);
+    sendMessage('Warnings', strippedWarnings);
     for (let i = 0; i < strippedWarnings.length; i++) {
       log.warn(strippedWarnings[i]);
     }
-    if (useWarningOverlay) {
+    if (options.useWarningOverlay) {
       overlay.showMessage(warnings);
     }
 
-    if (initial) {
-      return (initial = false);
+    if (options.initial) {
+      return (options.initial = false);
     } // eslint-disable-line no-return-assign
-    reloadApp();
+    reloadApp(options, status);
   },
   errors(errors) {
     log.error('[WDS] Errors while compiling. Reload prevented.');
     const strippedErrors = errors.map((error) => stripAnsi(error));
-    sendMsg('Errors', strippedErrors);
+    sendMessage('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) {
       log.error(strippedErrors[i]);
     }
-    if (useErrorOverlay) {
+    if (options.useErrorOverlay) {
       overlay.showMessage(errors);
     }
-    initial = false;
+    options.initial = false;
   },
   error(error) {
     log.error(error);
   },
   close() {
     log.error('[WDS] Disconnected!');
-    sendMsg('Close');
+    sendMessage('Close');
   },
 };
 
-let hostname = urlParts.hostname;
-let protocol = urlParts.protocol;
+let { hostname, protocol } = urlParts;
 
 // check ipv4 and ipv6 `all hostname`
 if (hostname === '0.0.0.0' || hostname === '::') {
@@ -270,47 +247,3 @@ const socketUrl = url.format({
 });
 
 socket(socketUrl, onSocketMsg);
-
-let isUnloading = false;
-self.addEventListener('beforeunload', () => {
-  isUnloading = true;
-});
-
-function reloadApp() {
-  if (isUnloading || !hotReload) {
-    return;
-  }
-  if (hot) {
-    log.info('[WDS] App hot update...');
-    // eslint-disable-next-line global-require
-    const hotEmitter = require('webpack/hot/emitter');
-    hotEmitter.emit('webpackHotUpdate', currentHash);
-    if (typeof self !== 'undefined' && self.window) {
-      // broadcast update to window
-      self.postMessage(`webpackHotUpdate${currentHash}`, '*');
-    }
-  }
-  // allow refreshing the page only if liveReload isn't disabled
-  else if (liveReload) {
-    let rootWindow = self;
-    // use parent window for reload (in case we're in an iframe with no valid src)
-    const intervalId = self.setInterval(() => {
-      if (rootWindow.location.protocol !== 'about:') {
-        // reload immediately if protocol is valid
-        applyReload(rootWindow, intervalId);
-      } else {
-        rootWindow = rootWindow.parent;
-        if (rootWindow.parent === rootWindow) {
-          // if parent equals current window we've reached the root which would continue forever, so trigger a reload anyways
-          applyReload(rootWindow, intervalId);
-        }
-      }
-    });
-  }
-
-  function applyReload(rootWindow, intervalId) {
-    clearInterval(intervalId);
-    log.info('[WDS] App updated. Reloading...');
-    rootWindow.location.reload();
-  }
-}

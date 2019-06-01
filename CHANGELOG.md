@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.5.1](https://github.com/webpack/webpack-dev-server/compare/v3.5.0...v3.5.1) (2019-06-01)
+
+
+### Bug Fixes
+
+* allow passing promise function of webpack.config.js ([#1947](https://github.com/webpack/webpack-dev-server/issues/1947)) ([8cf1053](https://github.com/webpack/webpack-dev-server/commit/8cf1053))
+
+
+
+## [3.5.0](https://github.com/webpack/webpack-dev-server/compare/v3.4.1...v3.5.0) (2019-05-31)
+
+
+### Bug Fixes
+
+* add client code for `electron-renderer` target ([#1935](https://github.com/webpack/webpack-dev-server/issues/1935)) ([9297988](https://github.com/webpack/webpack-dev-server/commit/9297988))
+* add client code for `node-webkit` target ([#1942](https://github.com/webpack/webpack-dev-server/issues/1942)) ([c6b2b1f](https://github.com/webpack/webpack-dev-server/commit/c6b2b1f))
+
+
+### Features
+
+* **server:** `onListening` option ([#1930](https://github.com/webpack/webpack-dev-server/issues/1930)) ([61d0cdf](https://github.com/webpack/webpack-dev-server/commit/61d0cdf))
+* **server:** add callback support for invalidate ([#1900](https://github.com/webpack/webpack-dev-server/issues/1900)) ([cd218ef](https://github.com/webpack/webpack-dev-server/commit/cd218ef))
+* **server:** add `WEBPACK_DEV_SERVER` env variable ([#1929](https://github.com/webpack/webpack-dev-server/issues/1929)) ([856169e](https://github.com/webpack/webpack-dev-server/commit/856169e))
+
+
+
 ### [3.4.1](https://github.com/webpack/webpack-dev-server/compare/v3.4.0...v3.4.1) (2019-05-17)
 
 
