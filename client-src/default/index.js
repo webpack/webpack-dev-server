@@ -31,10 +31,9 @@ self.addEventListener('beforeunload', () => {
   status.isUnloading = true;
 });
 
-if (typeof window !== 'undefined') {
-  const qs = window.location.search.toLowerCase();
-  options.hotReload = qs.indexOf('hotreload=false') === -1;
-}
+const qs = self.location.search.toLowerCase();
+options.hotReload = qs.indexOf('hotreload=false') === -1;
+
 if (typeof __resourceQuery === 'string' && __resourceQuery) {
   // If this bundle is inlined, use the resource query to get the correct url.
   urlParts = url.parse(__resourceQuery.substr(1));
