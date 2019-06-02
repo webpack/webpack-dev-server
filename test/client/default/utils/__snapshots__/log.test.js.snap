@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`log should output exception log when the level is unknown 1`] = `"[WDS] Unknown clientLogLevel 'foo'"`;
+
+exports[`log should set log level via setLogLevel 1`] = `
+Array [
+  Array [
+    "info",
+  ],
+  Array [
+    "warn",
+  ],
+  Array [
+    "error",
+  ],
+  Array [
+    "debug",
+  ],
+  Array [
+    "trace",
+  ],
+  Array [
+    "warn",
+  ],
+]
+`;

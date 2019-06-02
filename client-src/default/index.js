@@ -5,9 +5,9 @@
 const querystring = require('querystring');
 const url = require('url');
 const stripAnsi = require('strip-ansi');
-const log = require('loglevel').getLogger('webpack-dev-server');
 const socket = require('./socket');
 const overlay = require('./overlay');
+const { log, setLogLevel } = require('./utils/log');
 const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
 const getCurrentScriptSource = require('./utils/getCurrentScriptSource');
@@ -50,21 +50,6 @@ if (!urlParts.port || urlParts.port === '0') {
   urlParts.port = self.location.port;
 }
 
-const INFO = 'info';
-const WARN = 'warn';
-const ERROR = 'error';
-const DEBUG = 'debug';
-const TRACE = 'trace';
-const SILENT = 'silent';
-// deprecated
-// TODO: remove these at major released
-// https://github.com/webpack/webpack-dev-server/pull/1825
-const WARNING = 'warning';
-const NONE = 'none';
-
-// Set the default log level
-log.setDefaultLevel(INFO);
-
 const onSocketMsg = {
   hot() {
     options.hot = true;
@@ -97,27 +82,7 @@ const onSocketMsg = {
     if (hotCtx.keys().indexOf('./log') !== -1) {
       hotCtx('./log').setLogLevel(level);
     }
-    switch (level) {
-      case INFO:
-      case WARN:
-      case DEBUG:
-      case TRACE:
-      case ERROR:
-        log.setLevel(level);
-        break;
-      // deprecated
-      case WARNING:
-        // loglevel's warning name is different from webpack's
-        log.setLevel('warn');
-        break;
-      // deprecated
-      case NONE:
-      case SILENT:
-        log.disableAll();
-        break;
-      default:
-        log.error(`[WDS] Unknown clientLogLevel '${level}'`);
-    }
+    setLogLevel(level);
   },
   overlay(value) {
     if (typeof document !== 'undefined') {
