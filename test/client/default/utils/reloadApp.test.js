@@ -18,6 +18,7 @@ describe('reloadApp', () => {
     log.getLogger.mockImplementation(() => {
       return {
         info: jest.fn(),
+        setDefaultLevel: jest.fn(),
       };
     });
 
