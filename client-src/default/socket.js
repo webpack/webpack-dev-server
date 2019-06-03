@@ -1,24 +1,28 @@
 'use strict';
 
-const SockJS = require('sockjs-client/dist/sockjs');
+/* global __webpack_dev_server_client__ */
+/* eslint-disable
+  camelcase
+*/
+const Client = __webpack_dev_server_client__;
 
 let retries = 0;
-let sock = null;
+let client = null;
 
 const socket = function initSocket(url, handlers) {
-  sock = new SockJS(url);
+  client = new Client(url);
 
-  sock.onopen = function onopen() {
+  client.onOpen(() => {
     retries = 0;
-  };
+  });
 
-  sock.onclose = function onclose() {
+  client.onClose(() => {
     if (retries === 0) {
       handlers.close();
     }
 
     // Try to reconnect.
-    sock = null;
+    client = null;
 
     // After 10 retries stop trying, to prevent logspam.
     if (retries <= 10) {
@@ -32,15 +36,14 @@ const socket = function initSocket(url, handlers) {
         socket(url, handlers);
       }, retryInMs);
     }
-  };
+  });
 
-  sock.onmessage = function onmessage(e) {
-    // This assumes that all data sent via the websocket is JSON.
-    const msg = JSON.parse(e.data);
+  client.onMessage((data) => {
+    const msg = JSON.parse(data);
     if (handlers[msg.type]) {
       handlers[msg.type](msg.data);
     }
-  };
+  });
 };
 
 module.exports = socket;
