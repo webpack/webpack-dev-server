@@ -19,7 +19,6 @@ describe('Routes', () => {
     req.get('/__webpack_dev_server__/live.bundle.js').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('application/javascript');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -28,7 +27,6 @@ describe('Routes', () => {
     req.head('/__webpack_dev_server__/live.bundle.js').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('application/javascript');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -37,7 +35,6 @@ describe('Routes', () => {
     req.get('/__webpack_dev_server__/sockjs.bundle.js').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('application/javascript');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -46,7 +43,6 @@ describe('Routes', () => {
     req.head('/__webpack_dev_server__/sockjs.bundle.js').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('application/javascript');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -55,7 +51,6 @@ describe('Routes', () => {
     req.get('/webpack-dev-server.js').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('application/javascript');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -64,7 +59,6 @@ describe('Routes', () => {
     req.head('/webpack-dev-server.js').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('application/javascript');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -73,7 +67,6 @@ describe('Routes', () => {
     req.get('/webpack-dev-server/').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('text/html');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -82,7 +75,6 @@ describe('Routes', () => {
     req.head('/webpack-dev-server/').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('text/html');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -91,7 +83,6 @@ describe('Routes', () => {
     req.get('/webpack-dev-server').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('text/html');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -100,7 +91,6 @@ describe('Routes', () => {
     req.head('/webpack-dev-server').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('text/html');
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -108,7 +98,6 @@ describe('Routes', () => {
   it('GET request to magic html', (done) => {
     req.get('/main').then(({ res }) => {
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -116,7 +105,6 @@ describe('Routes', () => {
   it('HEAD request to magic html', (done) => {
     req.head('/main').then(({ res }) => {
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -124,7 +112,6 @@ describe('Routes', () => {
   it('GET request to main chunk', (done) => {
     req.get('/main.js').then(({ res }) => {
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
@@ -132,7 +119,6 @@ describe('Routes', () => {
   it('HEAD request to main chunk', (done) => {
     req.head('/main.js').then(({ res }) => {
       expect(res.statusCode).toEqual(200);
-      expect(res.text).toMatchSnapshot();
       done();
     });
   });
