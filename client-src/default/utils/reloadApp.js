@@ -2,7 +2,7 @@
 
 /* global WorkerGlobalScope self */
 
-const log = require('loglevel').getLogger('webpack-dev-server');
+const { log } = require('./log');
 
 function reloadApp(
   { hotReload, hot, liveReload },

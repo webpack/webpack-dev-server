@@ -3,9 +3,9 @@
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
 const stripAnsi = require('strip-ansi');
-const log = require('loglevel').getLogger('webpack-dev-server');
 const socket = require('./socket');
 const overlay = require('./overlay');
+const { log, setLogLevel } = require('./utils/log');
 const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
 const createSocketUrl = require('./utils/createSocketUrl');
@@ -33,21 +33,6 @@ if (typeof window !== 'undefined') {
   const qs = window.location.search.toLowerCase();
   options.hotReload = qs.indexOf('hotreload=false') === -1;
 }
-
-const INFO = 'info';
-const WARN = 'warn';
-const ERROR = 'error';
-const DEBUG = 'debug';
-const TRACE = 'trace';
-const SILENT = 'silent';
-// deprecated
-// TODO: remove these at major released
-// https://github.com/webpack/webpack-dev-server/pull/1825
-const WARNING = 'warning';
-const NONE = 'none';
-
-// Set the default log level
-log.setDefaultLevel(INFO);
 
 const onSocketMsg = {
   hot() {
@@ -81,27 +66,7 @@ const onSocketMsg = {
     if (hotCtx.keys().indexOf('./log') !== -1) {
       hotCtx('./log').setLogLevel(level);
     }
-    switch (level) {
-      case INFO:
-      case WARN:
-      case DEBUG:
-      case TRACE:
-      case ERROR:
-        log.setLevel(level);
-        break;
-      // deprecated
-      case WARNING:
-        // loglevel's warning name is different from webpack's
-        log.setLevel('warn');
-        break;
-      // deprecated
-      case NONE:
-      case SILENT:
-        log.disableAll();
-        break;
-      default:
-        log.error(`[WDS] Unknown clientLogLevel '${level}'`);
-    }
+    setLogLevel(level);
   },
   overlay(value) {
     if (typeof document !== 'undefined') {

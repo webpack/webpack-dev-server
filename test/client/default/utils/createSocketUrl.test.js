@@ -16,7 +16,12 @@ describe('createSocketUrl', () => {
   ];
 
   samples.forEach((url) => {
-    jest.doMock('../../../../client-src/default/utils/getCurrentScriptSource.js', () => () => url);
+    jest.doMock(
+      '../../../../client-src/default/utils/getCurrentScriptSource.js',
+      () => () => url
+    );
+
+    // eslint-disable-next-line global-require
     const createSocketUrl = require('../../../../client-src/default/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {
