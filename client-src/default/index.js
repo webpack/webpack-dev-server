@@ -34,7 +34,7 @@ if (typeof window !== 'undefined') {
   options.hotReload = qs.indexOf('hotreload=false') === -1;
 }
 
-const onSocketMsg = {
+const onSocketMessage = {
   hot() {
     options.hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
@@ -141,4 +141,4 @@ const onSocketMsg = {
   },
 };
 
-socket(socketUrl, onSocketMsg);
+socket(socketUrl, onSocketMessage);
