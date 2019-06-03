@@ -2,17 +2,14 @@
 
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
-const querystring = require('querystring');
-const url = require('url');
 const stripAnsi = require('strip-ansi');
 const socket = require('./socket');
 const overlay = require('./overlay');
 const { log, setLogLevel } = require('./utils/log');
 const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
-const getCurrentScriptSource = require('./utils/getCurrentScriptSource');
+const createSocketUrl = require('./utils/createSocketUrl');
 
-let urlParts;
 const status = {
   isUnloading: false,
   currentHash: '',
@@ -26,6 +23,7 @@ const options = {
   useErrorOverlay: false,
   useProgress: false,
 };
+const socketUrl = createSocketUrl(__resourceQuery);
 
 self.addEventListener('beforeunload', () => {
   status.isUnloading = true;
@@ -34,20 +32,6 @@ self.addEventListener('beforeunload', () => {
 if (typeof window !== 'undefined') {
   const qs = window.location.search.toLowerCase();
   options.hotReload = qs.indexOf('hotreload=false') === -1;
-}
-if (typeof __resourceQuery === 'string' && __resourceQuery) {
-  // If this bundle is inlined, use the resource query to get the correct url.
-  urlParts = url.parse(__resourceQuery.substr(1));
-} else {
-  // Else, get the url from the <script> this file was called with.
-  let scriptHost = getCurrentScriptSource();
-  // eslint-disable-next-line no-useless-escape
-  scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
-  urlParts = url.parse(scriptHost || '/', false, true);
-}
-
-if (!urlParts.port || urlParts.port === '0') {
-  urlParts.port = self.location.port;
 }
 
 const onSocketMsg = {
@@ -156,59 +140,5 @@ const onSocketMsg = {
     sendMessage('Close');
   },
 };
-
-let { hostname, protocol } = urlParts;
-
-// check ipv4 and ipv6 `all hostname`
-if (hostname === '0.0.0.0' || hostname === '::') {
-  // why do we need this check?
-  // hostname n/a for file protocol (example, when using electron, ionic)
-  // see: https://github.com/webpack/webpack-dev-server/pull/384
-  // eslint-disable-next-line no-bitwise
-  if (self.location.hostname && !!~self.location.protocol.indexOf('http')) {
-    hostname = self.location.hostname;
-  }
-}
-
-// `hostname` can be empty when the script path is relative. In that case, specifying
-// a protocol would result in an invalid URL.
-// When https is used in the app, secure websockets are always necessary
-// because the browser doesn't accept non-secure websockets.
-if (
-  hostname &&
-  (self.location.protocol === 'https:' || urlParts.hostname === '0.0.0.0')
-) {
-  protocol = self.location.protocol;
-}
-
-// default values of the sock url if they are not provided
-let sockHost = hostname;
-let sockPath = '/sockjs-node';
-let sockPort = urlParts.port;
-if (
-  urlParts.path !== null &&
-  // eslint-disable-next-line no-undefined
-  urlParts.path !== undefined &&
-  urlParts.path !== '/'
-) {
-  const parsedQuery = querystring.parse(urlParts.path);
-  // all of these sock url params are optionally passed in through
-  // __resourceQuery, so we need to fall back to the default if
-  // they are not provided
-  sockHost = parsedQuery.sockHost || sockHost;
-  sockPath = parsedQuery.sockPath || sockPath;
-  sockPort = parsedQuery.sockPort || sockPort;
-}
-
-const socketUrl = url.format({
-  protocol,
-  auth: urlParts.auth,
-  hostname: sockHost,
-  port: sockPort,
-  // If sockPath is provided it'll be passed in via the __resourceQuery as a
-  // query param so it has to be parsed out of the querystring in order for the
-  // client to open the socket to the correct location.
-  pathname: sockPath,
-});
 
 socket(socketUrl, onSocketMsg);
