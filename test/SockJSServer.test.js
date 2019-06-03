@@ -59,8 +59,6 @@ describe('SockJSServer', () => {
   });
 
   afterAll((done) => {
-    listeningApp.close(() => {
-      done();
-    });
+    listeningApp.close(done);
   });
 });
