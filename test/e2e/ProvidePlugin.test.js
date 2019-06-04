@@ -21,8 +21,6 @@ describe('ProvidePlugin', () => {
     afterAll(testServer.close);
 
     describe('on browser client', () => {
-      jest.setTimeout(30000);
-
       it('should inject SockJS client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
@@ -57,8 +55,6 @@ describe('ProvidePlugin', () => {
     afterAll(testServer.close);
 
     describe('on browser client', () => {
-      jest.setTimeout(30000);
-
       it('should not inject client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
