@@ -46,7 +46,7 @@ describe('client progress', () => {
               'body { background-color: rgb(255, 0, 0); }'
             );
             page.waitFor(10000).then(() => {
-              expect(res).toMatchSnapshot();
+              expect(res.includes('[WDS] 0% - compiling.')).toBeTruthy();
               browser.close().then(done);
             });
           });
