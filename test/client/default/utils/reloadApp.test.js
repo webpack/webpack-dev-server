@@ -23,7 +23,8 @@ describe('reloadApp', () => {
     });
 
     // eslint-disable-next-line global-require
-    reloadApp = require('../../../../client-src/default/utils/reloadApp');
+    reloadApp = require('../../../../client-src/default/utils/reloadApp')
+      .default;
   });
 
   afterEach(() => {
