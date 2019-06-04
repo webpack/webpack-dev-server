@@ -36,8 +36,6 @@ describe('client progress', () => {
     });
 
     describe('on browser client', () => {
-      jest.setTimeout(30000);
-
       it('should console.log progress', (done) => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
