@@ -14,4 +14,4 @@ node_modules
 
 .eslintcache
 
-test/temp/*.css
+test/fixtures/reload-config/main.css

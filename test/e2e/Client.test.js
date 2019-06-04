@@ -4,14 +4,15 @@
   no-undef
 */
 const fs = require('fs');
-const path = require('path');
+const { resolve } = require('path');
 const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 
+const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
+
 describe('reload', () => {
   describe('hot', () => {
-    const cssFilePath = path.resolve(__dirname, '../temp/main.css');
     beforeAll((done) => {
       fs.writeFileSync(
         cssFilePath,
@@ -30,6 +31,7 @@ describe('reload', () => {
     });
 
     afterAll((done) => {
+      fs.unlinkSync(cssFilePath);
       testServer.close(done);
     });
 
@@ -91,7 +93,6 @@ describe('reload', () => {
   });
 
   describe('inline', () => {
-    const cssFilePath = path.resolve(__dirname, '../temp/main.css');
     beforeAll((done) => {
       fs.writeFileSync(
         cssFilePath,
@@ -110,6 +111,7 @@ describe('reload', () => {
     });
 
     afterAll((done) => {
+      fs.unlinkSync(cssFilePath);
       testServer.close(done);
     });
 
