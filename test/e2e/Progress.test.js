@@ -4,14 +4,15 @@
   no-undef
 */
 const fs = require('fs');
-const path = require('path');
+const { resolve } = require('path');
 const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 
+const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
+
 describe('client progress', () => {
   describe('using hot', () => {
-    const cssFilePath = path.resolve(__dirname, '../temp/main.css');
     beforeAll((done) => {
       fs.writeFileSync(
         cssFilePath,
@@ -47,6 +48,7 @@ describe('client progress', () => {
             );
             page.waitFor(10000).then(() => {
               expect(res.includes('[WDS] 0% - compiling.')).toBeTruthy();
+              fs.unlinkSync(cssFilePath);
               browser.close().then(done);
             });
           });
