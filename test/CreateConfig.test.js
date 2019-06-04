@@ -979,4 +979,16 @@ describe('createConfig', () => {
 
     expect(config).toMatchSnapshot();
   });
+
+  it('overlay', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { overlay: true },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
 });
