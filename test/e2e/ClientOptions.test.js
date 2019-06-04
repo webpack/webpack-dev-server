@@ -42,8 +42,6 @@ describe('Client code', () => {
   describe('behind a proxy', () => {
     let proxy;
 
-    jest.setTimeout(30000);
-
     beforeAll(() => {
       proxy = startProxy(9000);
     });
@@ -99,8 +97,6 @@ describe('Client complex inline script path', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    jest.setTimeout(30000);
-
     it('uses the correct public hostname and sockPath', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
@@ -137,8 +133,6 @@ describe('Client complex inline script path with sockPort', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    jest.setTimeout(30000);
-
     it('uses the correct sockPort', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
@@ -177,8 +171,6 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    jest.setTimeout(30000);
-
     it('uses the correct sockPort and sockPath', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
@@ -212,8 +204,6 @@ describe('Client complex inline script path with sockHost', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    jest.setTimeout(30000);
-
     it('uses the correct sockHost', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
@@ -231,8 +221,6 @@ describe('Client complex inline script path with sockHost', () => {
 });
 
 describe('Client console.log', () => {
-  jest.setTimeout(30000);
-
   const baseOptions = {
     port: 9000,
     host: '0.0.0.0',

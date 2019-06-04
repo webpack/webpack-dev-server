@@ -36,8 +36,6 @@ describe('reload', () => {
     });
 
     describe('on browser client', () => {
-      jest.setTimeout(30000);
-
       it('should hot reload without page refresh', (done) => {
         runBrowser().then(({ page, browser }) => {
           let refreshed = false;
@@ -116,8 +114,6 @@ describe('reload', () => {
     });
 
     describe('on browser client', () => {
-      jest.setTimeout(30000);
-
       it('should reload with page refresh', (done) => {
         runBrowser().then(({ page, browser }) => {
           let refreshed = false;

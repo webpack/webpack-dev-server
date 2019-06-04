@@ -22,8 +22,6 @@ describe('ContentBase', () => {
   describe('to directory', () => {
     const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
 
-    jest.setTimeout(30000);
-
     beforeAll((done) => {
       server = testServer.start(
         config,
@@ -66,8 +64,6 @@ describe('ContentBase', () => {
   });
 
   describe('test ignoring node_modules folder by Default', () => {
-    jest.setTimeout(30000);
-
     beforeAll((done) => {
       server = testServer.start(config, {
         contentBase: contentBasePublic,
@@ -103,8 +99,6 @@ describe('ContentBase', () => {
   });
 
   describe('test not ignoring node_modules folder', () => {
-    jest.setTimeout(30000);
-
     beforeAll((done) => {
       server = testServer.start(config, {
         contentBase: contentBasePublic,

@@ -15,8 +15,6 @@ describe('liveReload', () => {
   describe('Test disabling live reloading', () => {
     const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
 
-    jest.setTimeout(30000);
-
     beforeAll((done) => {
       server = testServer.start(
         config,
@@ -63,8 +61,6 @@ describe('liveReload', () => {
 
   describe('Testing live reloading', () => {
     const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
-
-    jest.setTimeout(30000);
 
     beforeAll((done) => {
       server = testServer.start(
