@@ -3,7 +3,6 @@
 npm-debug.log
 
 .idea
-.nyc_output
 
 client
 !/test/client
@@ -14,4 +13,4 @@ node_modules
 
 .eslintcache
 
-test/temp/*.css
+test/fixtures/reload-config/main.css

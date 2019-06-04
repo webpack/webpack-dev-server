@@ -40,11 +40,11 @@ describe('SockJSServer', () => {
 
       const client = new SockJS('http://localhost:8080/sockjs-node');
 
-      client.onmessage = function(e) {
+      client.onmessage = (e) => {
         data.push(e.data);
       };
 
-      client.onclose = function() {
+      client.onclose = () => {
         data.push('close');
       };
 

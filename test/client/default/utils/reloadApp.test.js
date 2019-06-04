@@ -8,7 +8,7 @@ describe('reloadApp', () => {
   let locationValue;
 
   beforeEach(() => {
-    locationValue = self;
+    locationValue = self.location;
     self.postMessage = jest.fn();
     self.location.reload = jest.fn();
 
@@ -27,7 +27,7 @@ describe('reloadApp', () => {
   });
 
   afterEach(() => {
-    Object.assign(self.location, locationValue);
+    Object.assign(self, locationValue);
     jest.resetAllMocks();
     jest.resetModules();
   });
