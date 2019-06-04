@@ -835,6 +835,21 @@ Object {
 }
 `;
 
+exports[`createConfig overlay 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "overlay": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig pfx option (in devServer config) 1`] = `
 Object {
   "hot": true,
