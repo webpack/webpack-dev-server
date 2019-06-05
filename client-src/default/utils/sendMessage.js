@@ -1,9 +1,5 @@
-'use strict';
-
-/* global __resourceQuery WorkerGlobalScope self */
-
 // Send messages to the outside, so plugins can consume it.
-function sendMsg(type, data) {
+function sendMessage(type, data) {
   if (
     typeof self !== 'undefined' &&
     (typeof WorkerGlobalScope === 'undefined' ||
@@ -19,4 +15,4 @@ function sendMsg(type, data) {
   }
 }
 
-module.exports = sendMsg;
+export default sendMessage;

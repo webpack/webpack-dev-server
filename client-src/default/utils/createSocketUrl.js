@@ -1,9 +1,6 @@
-'use strict';
-
-/* global self */
-
-const url = require('url');
-const getCurrentScriptSource = require('./getCurrentScriptSource');
+import url from 'url';
+import querystring from 'querystring';
+import getCurrentScriptSource from './getCurrentScriptSource';
 
 function createSocketUrl(resourceQuery, currentLocation) {
   let urlParts;
@@ -94,4 +91,4 @@ function getSocketUrl(urlParts, loc) {
   });
 }
 
-module.exports = createSocketUrl;
+export default createSocketUrl;
