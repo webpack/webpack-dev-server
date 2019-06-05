@@ -1,3 +1,3 @@
-'use strict';
+import client from 'sockjs-client';
 
-module.exports = require('sockjs-client');
+export default client;
