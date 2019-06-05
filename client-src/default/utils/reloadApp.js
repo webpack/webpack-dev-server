@@ -1,8 +1,4 @@
-'use strict';
-
-/* global WorkerGlobalScope self */
-
-const { log } = require('./log');
+import { log } from './log';
 
 function reloadApp(
   { hotReload, hot, liveReload },
@@ -45,4 +41,4 @@ function reloadApp(
   }
 }
 
-module.exports = reloadApp;
+export default reloadApp;
