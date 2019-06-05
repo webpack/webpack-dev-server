@@ -1,11 +1,9 @@
-'use strict';
-
 /* eslint import/no-extraneous-dependencies: off, global-require: off */
 
-const $ = require('jquery');
-const stripAnsi = require('strip-ansi');
-const socket = require('../default/socket');
-require('./style.css');
+import $ from 'jquery';
+import stripAnsi from 'strip-ansi';
+import socket from '../default/socket';
+import './style.css';
 
 let hot = false;
 let currentHash = '';
