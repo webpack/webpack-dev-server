@@ -6,7 +6,6 @@ import { AllHtmlEntities as Entities } from 'html-entities';
 
 const entities = new Entities();
 
-const entities = new AllHtmlEntities();
 const colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
