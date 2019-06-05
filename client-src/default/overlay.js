@@ -1,12 +1,10 @@
-'use strict';
-
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
-const ansiHTML = require('ansi-html');
-const { AllHtmlEntities } = require('html-entities');
+import ansiHTML from 'ansi-html';
+import { AllHtmlEntities as Entities } from 'html-entities';
 
-const entities = new AllHtmlEntities();
+const entities = new Entities();
 const colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
@@ -95,8 +93,8 @@ function ensureOverlayDivExists(onOverlayDivReady) {
   document.body.appendChild(overlayIframe);
 }
 
-// Successful compilation.
-function clear() {
+// successful compilation.
+export function clear() {
   if (!overlayDiv) {
     // It is not there in the first place.
     return;
@@ -110,7 +108,7 @@ function clear() {
 }
 
 // Compilation with errors (e.g. syntax error or missing modules).
-function showMessage(messages) {
+export function showMessage(messages) {
   ensureOverlayDivExists((div) => {
     // Make it look similar to our terminal.
     div.innerHTML = `<span style="color: #${
@@ -120,8 +118,3 @@ function showMessage(messages) {
     )}`;
   });
 }
-
-module.exports = {
-  clear,
-  showMessage,
-};

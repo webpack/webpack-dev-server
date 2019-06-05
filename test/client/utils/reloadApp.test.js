@@ -1,7 +1,5 @@
 'use strict';
 
-/* global self */
-
 describe('reloadApp', () => {
   let reloadApp;
   let log;
@@ -23,7 +21,8 @@ describe('reloadApp', () => {
       };
     });
 
-    reloadApp = require('../../../client-src/default/utils/reloadApp');
+    // eslint-disable-next-line global-require
+    reloadApp = require('../../../client-src/default/utils/reloadApp').default;
   });
 
   afterEach(() => {
