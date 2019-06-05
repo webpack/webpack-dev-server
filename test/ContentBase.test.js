@@ -68,13 +68,18 @@ describe('ContentBase', () => {
         'node_modules',
         'index.html'
       );
+      fs.writeFileSync(filePath, 'foo', 'utf8');
+
       // chokidar emitted a change,
       // meaning it watched the file correctly
-      server.contentBaseWatchers[0].on('change', () => done());
+      server.contentBaseWatchers[0].on('change', () => {
+        fs.unlinkSync(filePath);
+        done();
+      });
 
       // change a file manually
       setTimeout(() => {
-        fs.writeFileSync(filePath, `${Math.random()}`, 'utf8');
+        fs.writeFileSync(filePath, 'bar', 'utf8');
       }, 1000);
     });
   });

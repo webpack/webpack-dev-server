@@ -14,3 +14,4 @@ node_modules
 .eslintcache
 
 test/fixtures/reload-config/main.css
+!/test/fixtures/contentbase-config/public/node_modules
