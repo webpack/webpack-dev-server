@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Client console.log clientLogLevel is silent 1`] = `
+Array [
+  "Hey.",
+]
+`;
+
 exports[`Client console.log hot disabled 1`] = `
 Array [
   "Hey.",
