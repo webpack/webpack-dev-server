@@ -11,7 +11,7 @@
     "client"
   ],
   "engines": {
-    "node": ">= 6.11.5"
+    "node": ">= 8.9.0"
   },
   "scripts": {
     "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css}\" --list-different",
