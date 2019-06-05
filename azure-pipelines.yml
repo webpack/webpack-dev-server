@@ -47,9 +47,6 @@ jobs:
         node-8:
           node_version: ^8.9.0
           webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
-          webpack_version: latest
     steps:
       - task: NodeTool@0
         inputs:
@@ -98,9 +95,6 @@ jobs:
         node-8:
           node_version: ^8.9.0
           webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
-          webpack_version: latest
     steps:
       - task: NodeTool@0
         inputs:
@@ -148,9 +142,6 @@ jobs:
           webpack_version: latest
         node-8:
           node_version: ^8.9.0
-          webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
           webpack_version: latest
     steps:
       - script: 'git config --global core.autocrlf input'
