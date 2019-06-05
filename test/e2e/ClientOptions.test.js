@@ -250,6 +250,12 @@ describe('Client console.log', () => {
         liveReload: true,
       },
     },
+    {
+      title: 'clientLogLevel is silent',
+      options: {
+        clientLogLevel: 'silent',
+      },
+    },
   ];
 
   for (const { title, options } of cases) {
