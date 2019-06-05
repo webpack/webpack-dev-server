@@ -1,5 +1,4 @@
 import url from 'url';
-import querystring from 'querystring';
 import getCurrentScriptSource from './getCurrentScriptSource';
 
 function createSocketUrl(resourceQuery, currentLocation) {
