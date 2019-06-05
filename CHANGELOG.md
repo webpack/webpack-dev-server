@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.6.0](https://github.com/webpack/webpack-dev-server/compare/v3.5.1...v3.6.0) (2019-06-05)
+
+
+### Bug Fixes
+
+* **config:** enable `--overlay` ([#1968](https://github.com/webpack/webpack-dev-server/issues/1968)) ([dc81e23](https://github.com/webpack/webpack-dev-server/commit/dc81e23))
+* **server:** don't ignore node_modules by default ([#1970](https://github.com/webpack/webpack-dev-server/issues/1970)) ([699f8b4](https://github.com/webpack/webpack-dev-server/commit/699f8b4)), closes [#1794](https://github.com/webpack/webpack-dev-server/issues/1794)
+
+
+### Features
+
+* **server:** add serverMode option ([#1937](https://github.com/webpack/webpack-dev-server/issues/1937)) ([44a8cde](https://github.com/webpack/webpack-dev-server/commit/44a8cde))
+
+
+### Tests
+
+* change jest.setTimeout from 20000 to 30000 ([#1965](https://github.com/webpack/webpack-dev-server/issues/1965)) ([0783a4a](https://github.com/webpack/webpack-dev-server/commit/0783a4a))
+* delete temp directory ([#1958](https://github.com/webpack/webpack-dev-server/issues/1958)) ([27eb99c](https://github.com/webpack/webpack-dev-server/commit/27eb99c))
+* **client:** add e2e reload client tests ([#1940](https://github.com/webpack/webpack-dev-server/issues/1940)) ([e6d48a3](https://github.com/webpack/webpack-dev-server/commit/e6d48a3))
+* **client:** add tests for default/index.js ([#1957](https://github.com/webpack/webpack-dev-server/issues/1957)) ([79325e5](https://github.com/webpack/webpack-dev-server/commit/79325e5))
+* **routes:** stop checking for res.text ([#1952](https://github.com/webpack/webpack-dev-server/issues/1952)) ([9a1ad89](https://github.com/webpack/webpack-dev-server/commit/9a1ad89))
+* **server:** add SockJSServer test ([#1956](https://github.com/webpack/webpack-dev-server/issues/1956)) ([d346a53](https://github.com/webpack/webpack-dev-server/commit/d346a53))
+
+
+
 ### [3.5.1](https://github.com/webpack/webpack-dev-server/compare/v3.5.0...v3.5.1) (2019-06-01)
 
 
