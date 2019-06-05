@@ -3,7 +3,6 @@
 /* eslint-disable
   no-undefined
 */
-/* global self */
 
 describe('index', () => {
   let log;
