@@ -1,10 +1,8 @@
-'use strict';
-
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
-const ansiHTML = require('ansi-html');
-const Entities = require('html-entities').AllHtmlEntities;
+import ansiHTML from 'ansi-html';
+import { AllHtmlEntities as Entities } from 'html-entities';
 
 const entities = new Entities();
 
@@ -118,11 +116,11 @@ function destroyErrorOverlay() {
 }
 
 // Successful compilation.
-exports.clear = function handleSuccess() {
+export function clear() {
   destroyErrorOverlay();
-};
+}
 
 // Compilation with errors (e.g. syntax error or missing modules).
-exports.showMessage = function handleMessage(messages) {
+export function showMessage(messages) {
   showMessageOverlay(messages[0]);
-};
+}
