@@ -2,7 +2,11 @@
   "extends": ["webpack", "prettier"],
   "globals": {
     "document": true,
-    "window": true
+    "window": true,
+    "self": true,
+    "WorkerGlobalScope": true,
+    "__resourceQuery": true,
+    "__webpack_dev_server_client__": true
   },
   "parserOptions": {
     "sourceType": "script",
