@@ -1,10 +1,10 @@
-'use strict';
-
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
-const ansiHTML = require('ansi-html');
-const { AllHtmlEntities } = require('html-entities');
+import ansiHTML from 'ansi-html';
+import { AllHtmlEntities as Entities } from 'html-entities';
+
+const entities = new Entities();
 
 const entities = new AllHtmlEntities();
 const colors = {
@@ -109,19 +109,12 @@ function clear() {
   lastOnOverlayDivReady = null;
 }
 
-// Compilation with errors (e.g. syntax error or missing modules).
-function showMessage(messages) {
-  ensureOverlayDivExists((div) => {
-    // Make it look similar to our terminal.
-    div.innerHTML = `<span style="color: #${
-      colors.red
-    }">Failed to compile.</span><br><br>${ansiHTML(
-      entities.encode(messages[0])
-    )}`;
-  });
+// Successful compilation.
+export function clear() {
+  destroyErrorOverlay();
 }
 
-module.exports = {
-  clear,
-  showMessage,
-};
+// Compilation with errors (e.g. syntax error or missing modules).
+export function showMessage(messages) {
+  showMessageOverlay(messages[0]);
+}

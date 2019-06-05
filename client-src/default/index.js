@@ -1,14 +1,14 @@
-'use strict';
-
-/* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
-const stripAnsi = require('strip-ansi');
-const socket = require('./socket');
-const overlay = require('./overlay');
-const { log, setLogLevel } = require('./utils/log');
-const sendMessage = require('./utils/sendMessage');
-const reloadApp = require('./utils/reloadApp');
-const createSocketUrl = require('./utils/createSocketUrl');
+import stripAnsi from 'strip-ansi';
+import socket from './socket';
+import {
+  clear as clearOverlay,
+  showMessage as showMessageOverlay,
+} from './overlay';
+import { log, setLogLevel } from './utils/log';
+import sendMessage from './utils/sendMessage';
+import reloadApp from './utils/reloadApp';
+import createSocketUrl from './utils/createSocketUrl';
 
 const status = {
   isUnloading: false,
@@ -47,7 +47,7 @@ const onSocketMessage = {
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.useWarningOverlay || options.useErrorOverlay) {
-      overlay.clear();
+      clearOverlay();
     }
     sendMessage('Invalid');
   },
@@ -57,7 +57,7 @@ const onSocketMessage = {
   'still-ok': function stillOk() {
     log.info('[WDS] Nothing changed.');
     if (options.useWarningOverlay || options.useErrorOverlay) {
-      overlay.clear();
+      clearOverlay();
     }
     sendMessage('StillOk');
   },
@@ -93,7 +93,7 @@ const onSocketMessage = {
   ok() {
     sendMessage('Ok');
     if (options.useWarningOverlay || options.useErrorOverlay) {
-      overlay.clear();
+      clearOverlay();
     }
     if (options.initial) {
       return (options.initial = false);
@@ -112,7 +112,7 @@ const onSocketMessage = {
       log.warn(strippedWarnings[i]);
     }
     if (options.useWarningOverlay) {
-      overlay.showMessage(warnings);
+      showMessageOverlay(warnings);
     }
 
     if (options.initial) {
@@ -128,7 +128,7 @@ const onSocketMessage = {
       log.error(strippedErrors[i]);
     }
     if (options.useErrorOverlay) {
-      overlay.showMessage(errors);
+      showMessageOverlay(errors);
     }
     options.initial = false;
   },

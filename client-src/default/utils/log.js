@@ -1,6 +1,6 @@
-'use strict';
+import { getLogger } from 'loglevel';
 
-const log = require('loglevel').getLogger('webpack-dev-server');
+export const log = getLogger('webpack-dev-server');
 
 const INFO = 'info';
 const WARN = 'warn';
@@ -17,7 +17,7 @@ const NONE = 'none';
 // Set the default log level
 log.setDefaultLevel(INFO);
 
-function setLogLevel(level) {
+export function setLogLevel(level) {
   switch (level) {
     case INFO:
     case WARN:
@@ -40,8 +40,3 @@ function setLogLevel(level) {
       log.error(`[WDS] Unknown clientLogLevel '${level}'`);
   }
 }
-
-module.exports = {
-  log,
-  setLogLevel,
-};
