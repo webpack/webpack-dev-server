@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`clientMode custom client on browser client logs additional messages to console 1`] = `
+Array [
+  "Hey.",
+  "open",
+  "liveReload",
+  "[WDS] Live Reloading enabled.",
+  "hash",
+  "ok",
+]
+`;
+
+exports[`clientMode sockjs on browser client logs as usual 1`] = `
+Array [
+  "Hey.",
+  "[WDS] Live Reloading enabled.",
+]
+`;
