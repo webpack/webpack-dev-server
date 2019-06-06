@@ -49,7 +49,7 @@ describe('options', () => {
           .then(() => {
             const opts =
               Object.prototype.toString.call(value) === '[object Object]' &&
-              Object.keys(value) !== 0
+              Object.keys(value).length !== 0
                 ? value
                 : {
                     [propertyName]: value,
@@ -58,7 +58,7 @@ describe('options', () => {
             server = new Server(compiler, opts);
           })
           .then(() => {
-            if (current <= successCount) {
+            if (current < successCount) {
               expect(true).toBeTruthy();
             } else {
               expect(false).toBeTruthy();
@@ -347,7 +347,7 @@ describe('options', () => {
           require.resolve('../lib/servers/SockJSServer'),
           SockJSServer,
         ],
-        failure: ['', false],
+        failure: [false],
       },
       serverSideRender: {
         success: [true],
@@ -388,7 +388,7 @@ describe('options', () => {
           'normal',
           'verbose',
         ],
-        failure: [false, 'whoops!', null],
+        failure: ['whoops!', null],
       },
       useLocalIp: {
         success: [false],
