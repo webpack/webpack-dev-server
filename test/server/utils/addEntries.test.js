@@ -17,7 +17,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(
-      normalize(webpackOptions.entry[0]).includes('client/index.js?')
+      normalize(webpackOptions.entry[0]).includes('client/index.bundle.js?')
     ).toBeTruthy();
     expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
   });
@@ -33,7 +33,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(3);
     expect(
-      normalize(webpackOptions.entry[0]).includes('client/index.js?')
+      normalize(webpackOptions.entry[0]).includes('client/index.bundle.js?')
     ).toBeTruthy();
     expect(webpackOptions.entry[1]).toEqual('./foo.js');
     expect(webpackOptions.entry[2]).toEqual('./bar.js');
@@ -54,7 +54,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry.foo.length).toEqual(2);
 
     expect(
-      normalize(webpackOptions.entry.foo[0]).includes('client/index.js?')
+      normalize(webpackOptions.entry.foo[0]).includes('client/index.bundle.js?')
     ).toBeTruthy();
     expect(webpackOptions.entry.foo[1]).toEqual('./foo.js');
     expect(webpackOptions.entry.bar[1]).toEqual('./bar.js');
@@ -290,7 +290,7 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).includes('client/index.js?')
+          normalize(webpackOptions.entry[0]).includes('client/index.bundle.js?')
         ).toBeTruthy();
       }
 
@@ -322,7 +322,7 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).includes('client/index.js?')
+          normalize(webpackOptions.entry[0]).includes('client/index.bundle.js?')
         ).toBeTruthy();
       }
 
@@ -360,7 +360,7 @@ describe('addEntries util', () => {
   });
 
   it('should allows selecting which compilations to inject the hot runtime into', () => {
-    const webpackOptions = [
+    const options = [
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'node' }, config),
     ];
@@ -370,21 +370,21 @@ describe('addEntries util', () => {
       hot: true,
     };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(options, devServerOptions);
 
     // node target should have the client runtime but not the hot runtime
-    const webWebpackOptions = webpackOptions[0];
+    const webpackOptions = options[0];
 
-    expect(webWebpackOptions.entry.length).toEqual(2);
+    expect(webpackOptions.entry.length).toEqual(2);
 
     expect(
-      normalize(webWebpackOptions.entry[0]).includes('client/index.js?')
+      normalize(webpackOptions.entry[0]).includes('client/index.bundle.js?')
     ).toBeTruthy();
 
-    expect(normalize(webWebpackOptions.entry[1])).toEqual('./foo.js');
+    expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
 
     // node target should have the hot runtime but not the client runtime
-    const nodeWebpackOptions = webpackOptions[1];
+    const nodeWebpackOptions = options[1];
 
     expect(nodeWebpackOptions.entry.length).toEqual(2);
 
