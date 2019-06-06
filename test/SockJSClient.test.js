@@ -3,7 +3,7 @@
 const http = require('http');
 const express = require('express');
 const sockjs = require('sockjs');
-const SockJSClient = require('../lib/clients/SockJSClient');
+const SockJSClient = require('../client-src/clients/SockJSClient');
 
 describe('SockJSClient', () => {
   let socketServer;
