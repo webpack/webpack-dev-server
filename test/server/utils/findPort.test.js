@@ -3,7 +3,7 @@
 const http = require('http');
 const findPort = require('../../../lib/utils/findPort');
 
-describe('findPort cli utility function', () => {
+describe('findPort util', () => {
   let dummyServers = [];
 
   afterEach(() => {
@@ -34,7 +34,7 @@ describe('findPort cli utility function', () => {
     }, Promise.resolve());
   }
 
-  it('should return the port when the port is specified', () => {
+  it('should returns the port when the port is specified', () => {
     process.env.DEFAULT_PORT_RETRY = 5;
 
     return findPort(8082).then((port) => {
@@ -54,7 +54,7 @@ describe('findPort cli utility function', () => {
       });
   });
 
-  it("should throw the error when the port isn't found", () => {
+  it("should throws the error when the port isn't found", () => {
     process.env.DEFAULT_PORT_RETRY = 5;
 
     return createDummyServers(10)
