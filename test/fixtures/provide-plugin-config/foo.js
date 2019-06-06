@@ -1,6 +1,6 @@
 'use strict';
 
-const SockJSClient = require('../../../lib/clients/SockJSClient');
+const SockJSClient = require('../../../client-src/clients/SockJSClient');
 
 window.expectedClient = SockJSClient;
 // eslint-disable-next-line camelcase, no-undef
