@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.7.0](https://github.com/webpack/webpack-dev-server/compare/v3.5.1...v3.7.0) (2019-06-06)
+
+
+### Bug Fixes
+
+* change clientLogLevel order to be called first ([#1973](https://github.com/webpack/webpack-dev-server/issues/1973)) ([57c8c92](https://github.com/webpack/webpack-dev-server/commit/57c8c92))
+* es6 syntax in client ([#1982](https://github.com/webpack/webpack-dev-server/issues/1982)) ([802aa30](https://github.com/webpack/webpack-dev-server/commit/802aa30))
+
+
+### Features
+
+* **server:** add serverMode option ([#1937](https://github.com/webpack/webpack-dev-server/issues/1937)) ([44a8cde](https://github.com/webpack/webpack-dev-server/commit/44a8cde))
+
+
+
 ## [3.6.0](https://github.com/webpack/webpack-dev-server/compare/v3.5.1...v3.6.0) (2019-06-05)
 
 
