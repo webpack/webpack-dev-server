@@ -434,7 +434,7 @@
       "reporter": "should be {Function} (https://github.com/webpack/webpack-dev-middleware#reporter)",
       "requestCert": "should be {Boolean}",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
-      "serverMode": "should be {String|Function} (https://webpack.js.org/configuration/dev-server/#devserverservermode-)",
+      "serverMode": "should be {String|Function} (https://webpack.js.org/configuration/dev-server/#devserverservermode)",
       "serverSideRender": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#serversiderender)",
       "setup": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserversetup)",
       "sockHost": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserversockhost)",
