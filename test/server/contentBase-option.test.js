@@ -267,6 +267,44 @@ describe('contentBase option', () => {
     });
   });
 
+  describe('testing single & multiple external paths', () => {
+    afterAll((done) => {
+      testServer.close(() => {
+        done();
+      });
+    });
+    it('Should throw exception (string)', (done) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        server = testServer.start(config, {
+          port: 9004,
+          contentBase: 'https://example.com/',
+          watchContentBase: true,
+        });
+
+        expect(true).toBe(false);
+      } catch (e) {
+        expect(e.message).toBe('Watching remote files is not supported.');
+        done();
+      }
+    });
+    it('Should throw exception (array)', (done) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        server = testServer.start(config, {
+          port: 9003,
+          contentBase: [contentBasePublic, 'https://example.com/'],
+          watchContentBase: true,
+        });
+
+        expect(true).toBe(false);
+      } catch (e) {
+        expect(e.message).toBe('Watching remote files is not supported.');
+        done();
+      }
+    });
+  });
+
   describe('default to PWD', () => {
     beforeAll((done) => {
       jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
