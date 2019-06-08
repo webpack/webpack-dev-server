@@ -138,7 +138,7 @@ describe('options', () => {
         failure: ['whoops!'],
       },
       clientMode: {
-        success: ['sockjs', require.resolve('../lib/clients/SockJSClient')],
+        success: ['sockjs', require.resolve('../client/clients/SockJSClient')],
         failure: [false],
       },
       compress: {

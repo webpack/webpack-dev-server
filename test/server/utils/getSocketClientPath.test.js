@@ -1,9 +1,11 @@
 'use strict';
 
-const getSocketClientPath = require('../lib/utils/getSocketClientPath');
-
-const sockjsClientPath = require.resolve('../lib/clients/SockJSClient');
-const baseClientPath = require.resolve('../lib/clients/BaseClient');
+const getSocketClientPath = require('../../../lib/utils/getSocketClientPath');
+// 'npm run prepare' must be done for this test to pass
+const sockjsClientPath = require.resolve(
+  '../../../client/clients/SockJSClient'
+);
+const baseClientPath = require.resolve('../../../client/clients/BaseClient');
 
 describe('getSocketClientPath', () => {
   it("should work with clientMode: 'sockjs'", () => {

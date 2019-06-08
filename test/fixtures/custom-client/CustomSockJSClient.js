@@ -4,7 +4,7 @@
   no-unused-vars
 */
 const SockJS = require('sockjs-client/dist/sockjs');
-const BaseClient = require('../../../lib/clients/BaseClient');
+const BaseClient = require('../../../client/clients/BaseClient');
 
 module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
