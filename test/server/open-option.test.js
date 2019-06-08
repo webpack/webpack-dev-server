@@ -1,13 +1,13 @@
 'use strict';
 
-jest.mock('opn');
+jest.mock('open');
 
 const webpack = require('webpack');
-const opn = require('opn');
+const open = require('open');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 
-opn.mockImplementation(() => {
+open.mockImplementation(() => {
   return {
     catch: jest.fn(),
   };
@@ -21,8 +21,8 @@ describe('open option', () => {
     });
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
-      expect(opn.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
-      expect(opn.mock.invocationCallOrder[0]).toEqual(1);
+      expect(open.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
+      expect(open.mock.invocationCallOrder[0]).toEqual(1);
       server.close(done);
     });
 

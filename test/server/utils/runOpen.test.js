@@ -1,23 +1,23 @@
 'use strict';
 
-const opn = require('opn');
+const open = require('open');
 const runOpen = require('../../../lib/utils/runOpen');
 
-jest.mock('opn');
+jest.mock('open');
 
 describe('runOpen util', () => {
   afterEach(() => {
-    opn.mockClear();
+    open.mockClear();
   });
 
   describe('should open browser', () => {
     beforeEach(() => {
-      opn.mockImplementation(() => Promise.resolve());
+      open.mockImplementation(() => Promise.resolve());
     });
 
     it('on specify URL', () => {
       return runOpen('https://example.com', {}, console).then(() => {
-        expect(opn.mock.calls[0]).toEqual(['https://example.com', {}]);
+        expect(open.mock.calls[0]).toEqual(['https://example.com', {}]);
       });
     });
 
@@ -27,7 +27,7 @@ describe('runOpen util', () => {
         { openPage: '/index.html' },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toEqual([
+        expect(open.mock.calls[0]).toEqual([
           'https://example.com/index.html',
           {},
         ]);
@@ -40,7 +40,7 @@ describe('runOpen util', () => {
         { open: 'Google Chrome' },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toEqual([
+        expect(open.mock.calls[0]).toEqual([
           'https://example.com',
           { app: 'Google Chrome' },
         ]);
@@ -53,7 +53,7 @@ describe('runOpen util', () => {
         { open: 'Google Chrome', openPage: '/index.html' },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toEqual([
+        expect(open.mock.calls[0]).toEqual([
           'https://example.com/index.html',
           { app: 'Google Chrome' },
         ]);
@@ -65,7 +65,7 @@ describe('runOpen util', () => {
     const logMock = { warn: jest.fn() };
 
     beforeEach(() => {
-      opn.mockImplementation(() => Promise.reject());
+      open.mockImplementation(() => Promise.reject());
     });
 
     afterEach(() => {
@@ -77,7 +77,7 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual(['https://example.com', {}]);
+        expect(open.mock.calls[0]).toEqual(['https://example.com', {}]);
       });
     });
 
@@ -90,7 +90,7 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual([
+        expect(open.mock.calls[0]).toEqual([
           'https://example.com/index.html',
           {},
         ]);
@@ -106,7 +106,7 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual([
+        expect(open.mock.calls[0]).toEqual([
           'https://example.com',
           {
             app: 'Google Chrome',
@@ -124,7 +124,7 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual([
+        expect(open.mock.calls[0]).toEqual([
           'https://example.com/index.html',
           { app: 'Google Chrome' },
         ]);
