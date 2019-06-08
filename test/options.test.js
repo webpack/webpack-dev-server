@@ -10,6 +10,8 @@ const SockJSServer = require('../lib/servers/SockJSServer');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('options', () => {
+  jest.setTimeout(20000);
+
   it('should match properties and errorMessage', () => {
     const properties = Object.keys(options.properties);
     const messages = Object.keys(options.errorMessage.properties);
