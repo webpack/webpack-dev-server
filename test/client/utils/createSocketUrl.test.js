@@ -24,7 +24,7 @@ describe('createSocketUrl', () => {
     const {
       default: createSocketUrl,
       // eslint-disable-next-line global-require
-    } = require('../../../../client-src/default/utils/createSocketUrl');
+    } = require('../../../client-src/default/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {
       expect(createSocketUrl(url)).toMatchSnapshot();

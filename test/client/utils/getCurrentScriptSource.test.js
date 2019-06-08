@@ -2,7 +2,7 @@
 
 const {
   default: getCurrentScriptSource,
-} = require('../../../../client-src/default/utils/getCurrentScriptSource');
+} = require('../../../client-src/default/utils/getCurrentScriptSource');
 
 describe('getCurrentScriptSource', () => {
   afterEach(() => {
