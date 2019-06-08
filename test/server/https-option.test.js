@@ -34,8 +34,8 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200, /Heyo/);
     });
 
     afterAll(() => {
@@ -68,8 +68,8 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200, /Heyo/);
     });
   });
 
@@ -120,8 +120,8 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200, /Heyo/);
     });
 
     afterAll(testServer.close);
@@ -155,8 +155,8 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200, /Heyo/);
     });
   });
 

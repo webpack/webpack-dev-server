@@ -32,8 +32,8 @@ describe('serverMode option', () => {
       req = request('http://localhost:8080');
     });
 
-    it('sockjs path responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
+    it('sockjs path responds with a 200', async () => {
+      await req.get('/sockjs-node').expect(200);
     });
   });
 
@@ -49,8 +49,8 @@ describe('serverMode option', () => {
       req = request('http://localhost:8080');
     });
 
-    it('sockjs path responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
+    it('sockjs path responds with a 200', async () => {
+      await req.get('/sockjs-node').expect(200);
     });
   });
 
@@ -66,8 +66,8 @@ describe('serverMode option', () => {
       req = request('http://localhost:8080');
     });
 
-    it('sockjs path responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
+    it('sockjs path responds with a 200', async () => {
+      await req.get('/sockjs-node').expect(200);
     });
   });
 

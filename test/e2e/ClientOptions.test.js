@@ -6,6 +6,7 @@ const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
+const timer = require('../helpers/timer');
 
 describe('Client code', () => {
   function startProxy(port) {
@@ -52,29 +53,27 @@ describe('Client code', () => {
       });
     });
 
-    it('responds with a 200', (done) => {
-      {
-        const req = request('http://localhost:9000');
-        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
-      }
-      {
-        const req = request('http://localhost:9001');
-        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
-      }
+    it('responds with a 200', async () => {
+      await request('http://localhost:9000')
+        .get('/sockjs-node')
+        .expect(200, 'Welcome to SockJS!\n');
+      await request('http://localhost:9001')
+        .get('/sockjs-node')
+        .expect(200, 'Welcome to SockJS!\n');
     });
 
-    it('requests websocket through the proxy with proper port number', (done) => {
-      runBrowser().then(({ page, browser }) => {
-        page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
-          .then((requestObj) => {
-            expect(requestObj.url()).toMatch(
-              /^http:\/\/localhost:9001\/sockjs-node/
-            );
-            browser.close().then(done);
-          });
-        page.goto('http://localhost:9000/main');
-      });
+    it('requests websocket through the proxy with proper port number', async () => {
+      const { page, browser } = await runBrowser();
+
+      page.goto('http://localhost:9000/main');
+
+      const req = await page.waitForRequest((requestObj) =>
+        requestObj.url().match(/sockjs-node/)
+      );
+
+      expect(req.url()).toMatch(/^http:\/\/localhost:9001\/sockjs-node/);
+
+      await browser.close();
     });
   });
 });
@@ -97,20 +96,18 @@ describe('Client complex inline script path', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct public hostname and sockPath', (done) => {
-      runBrowser().then(({ page, browser }) => {
-        page
-          .waitForRequest((requestObj) =>
-            requestObj.url().match(/foo\/test\/bar/)
-          )
-          .then((requestObj) => {
-            expect(requestObj.url()).toMatch(
-              /^http:\/\/myhost\.test:9000\/foo\/test\/bar/
-            );
-            browser.close().then(done);
-          });
-        page.goto('http://localhost:9000/main');
-      });
+    it('uses the correct public hostname and sockPath', async () => {
+      const { page, browser } = await runBrowser();
+
+      page.goto('http://localhost:9000/main');
+
+      const req = await page.waitForRequest((requestObj) =>
+        requestObj.url().match(/foo\/test\/bar/)
+      );
+
+      expect(req.url()).toMatch(/^http:\/\/myhost\.test:9000\/foo\/test\/bar/);
+
+      await browser.close();
     });
   });
 });
@@ -133,20 +130,18 @@ describe('Client complex inline script path with sockPort', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort', (done) => {
-      runBrowser().then(({ page, browser }) => {
-        page
-          .waitForRequest((requestObj) =>
-            requestObj.url().match(/foo\/test\/bar/)
-          )
-          .then((requestObj) => {
-            expect(requestObj.url()).toMatch(
-              /^http:\/\/localhost:8080\/foo\/test\/bar/
-            );
-            browser.close().then(done);
-          });
-        page.goto('http://localhost:9000/main');
-      });
+    it('uses the correct sockPort', async () => {
+      const { page, browser } = await runBrowser();
+
+      page.goto('http://localhost:9000/main');
+
+      const req = await page.waitForRequest((requestObj) =>
+        requestObj.url().match(/foo\/test\/bar/)
+      );
+
+      expect(req.url()).toMatch(/^http:\/\/localhost:8080\/foo\/test\/bar/);
+
+      await browser.close();
     });
   });
 });
@@ -171,18 +166,18 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort and sockPath', (done) => {
-      runBrowser().then(({ page, browser }) => {
-        page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
-          .then((requestObj) => {
-            expect(requestObj.url()).toMatch(
-              /^http:\/\/localhost:8080\/sockjs-node/
-            );
-            browser.close().then(done);
-          });
-        page.goto('http://localhost:9000/main');
-      });
+    it('uses the correct sockPort and sockPath', async () => {
+      const { page, browser } = await runBrowser();
+
+      page.goto('http://localhost:9000/main');
+
+      const req = await page.waitForRequest((requestObj) =>
+        requestObj.url().match(/sockjs-node/)
+      );
+
+      expect(req.url()).toMatch(/^http:\/\/localhost:8080\/sockjs-node/);
+
+      await browser.close();
     });
   });
 });
@@ -204,18 +199,18 @@ describe('Client complex inline script path with sockHost', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockHost', (done) => {
-      runBrowser().then(({ page, browser }) => {
-        page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
-          .then((requestObj) => {
-            expect(requestObj.url()).toMatch(
-              /^http:\/\/myhost\.test:9000\/sockjs-node/
-            );
-            browser.close().then(done);
-          });
-        page.goto('http://localhost:9000/main');
-      });
+    it('uses the correct sockHost', async () => {
+      const { page, browser } = await runBrowser();
+
+      page.goto('http://localhost:9000/main');
+
+      const req = await page.waitForRequest((requestObj) =>
+        requestObj.url().match(/sockjs-node/)
+      );
+
+      expect(req.url()).toMatch(/^http:\/\/myhost\.test:9000\/sockjs-node/);
+
+      await browser.close();
     });
   });
 });
@@ -259,35 +254,31 @@ describe('Client console.log', () => {
   ];
 
   for (const { title, options } of cases) {
-    it(title, () => {
+    it(title, async () => {
       const res = [];
       const testOptions = Object.assign({}, baseOptions, options);
 
-      // TODO: use async/await when Node.js v6 support is dropped
-      return Promise.resolve()
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.startAwaitingCompilation(config, testOptions, resolve);
-          });
-        })
-        .then(runBrowser)
-        .then(({ page, browser }) => {
-          return new Promise((resolve) => {
-            page.goto('http://localhost:9000/main');
-            page.on('console', ({ _text }) => {
-              res.push(_text);
-            });
-            setTimeout(() => {
-              expect(res).toMatchSnapshot();
-              browser.close().then(resolve);
-            }, 3000);
-          });
-        })
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.close(resolve);
-          });
-        });
+      // TODO: refactor(hiroppy)
+      await new Promise((resolve) => {
+        testServer.startAwaitingCompilation(config, testOptions, resolve);
+      });
+
+      const { page, browser } = await runBrowser();
+
+      page.goto('http://localhost:9000/main');
+      page.on('console', ({ _text }) => {
+        res.push(_text);
+      });
+
+      await timer(3000);
+
+      expect(res).toMatchSnapshot();
+      await browser.close();
+
+      // TODO: refactor(hiroppy)
+      await new Promise((resolve) => {
+        testServer.close(resolve);
+      });
     });
   }
 });

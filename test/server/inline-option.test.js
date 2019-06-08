@@ -25,10 +25,10 @@ describe('inline option', () => {
 
     afterAll(testServer.close);
 
-    it('should include inline client script in the bundle', (done) => {
-      req
+    it('should include inline client script in the bundle', async () => {
+      await req
         .get('/main.js')
-        .expect(200, /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/, done);
+        .expect(200, /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/);
     });
   });
 
@@ -75,16 +75,10 @@ describe('inline option', () => {
 
     afterAll(testServer.close);
 
-    it('should NOT include inline client script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200)
-        .then(({ text }) => {
-          expect(text).not.toMatch(
-            /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/
-          );
-          done();
-        });
+    it('should NOT include inline client script in the bundle', async () => {
+      const { text } = await req.get('/main.js').expect(200);
+
+      expect(text).not.toMatch(/client\/index\.js\?http:\/\/0\.0\.0\.0:9000/);
     });
   });
 });
