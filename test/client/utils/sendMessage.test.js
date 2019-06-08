@@ -4,7 +4,7 @@
 
 const {
   default: sendMessage,
-} = require('../../../../client-src/default/utils/sendMessage');
+} = require('../../../client-src/default/utils/sendMessage');
 
 describe('sendMessage', () => {
   afterEach(() => {
