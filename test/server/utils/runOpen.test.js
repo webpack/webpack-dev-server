@@ -17,7 +17,14 @@ describe('runOpen util', () => {
 
     it('on specify URL', () => {
       return runOpen('https://example.com', {}, console).then(() => {
-        expect(opn.mock.calls[0]).toEqual(['https://example.com', {}]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
 
@@ -27,10 +34,14 @@ describe('runOpen util', () => {
         { openPage: '/index.html' },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toEqual([
-          'https://example.com/index.html',
-          {},
-        ]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
 
@@ -40,10 +51,15 @@ describe('runOpen util', () => {
         { open: 'Google Chrome' },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toEqual([
-          'https://example.com',
-          { app: 'Google Chrome' },
-        ]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com",
+            Object {
+              "app": "Google Chrome",
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
 
@@ -53,10 +69,15 @@ describe('runOpen util', () => {
         { open: 'Google Chrome', openPage: '/index.html' },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toEqual([
-          'https://example.com/index.html',
-          { app: 'Google Chrome' },
-        ]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "app": "Google Chrome",
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
   });
@@ -77,7 +98,14 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual(['https://example.com', {}]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
 
@@ -90,10 +118,14 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual([
-          'https://example.com/index.html',
-          {},
-        ]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
 
@@ -106,12 +138,15 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual([
-          'https://example.com',
-          {
-            app: 'Google Chrome',
-          },
-        ]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com",
+            Object {
+              "app": "Google Chrome",
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
 
@@ -124,10 +159,15 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
         );
-        expect(opn.mock.calls[0]).toEqual([
-          'https://example.com/index.html',
-          { app: 'Google Chrome' },
-        ]);
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "app": "Google Chrome",
+              "wait": false,
+            },
+          ]
+        `);
       });
     });
   });
