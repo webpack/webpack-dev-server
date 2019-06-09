@@ -4,6 +4,7 @@ const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const multiCompilerConfig = require('../fixtures/multi-compiler-config/webpack.config');
+const port = require('../ports-map')['inline-option'];
 
 describe('inline option', () => {
   let server;
@@ -12,7 +13,7 @@ describe('inline option', () => {
   describe('simple inline config entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         watchOptions: {
@@ -26,16 +27,16 @@ describe('inline option', () => {
     afterAll(testServer.close);
 
     it('should include inline client script in the bundle', async () => {
-      await req
-        .get('/main.js')
-        .expect(200, /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/);
+      const url = new RegExp(`client/index.js\\?http://0.0.0.0:${port}`);
+
+      await req.get('/main.js').expect(200, url);
     });
   });
 
   describe('multi compiler inline config entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         watchOptions: {
@@ -52,17 +53,17 @@ describe('inline option', () => {
 
     afterAll(testServer.close);
 
-    it('should include inline client script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200, /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/, done);
+    it('should include inline client script in the bundle', async () => {
+      const url = new RegExp(`client/index.js\\?http://0.0.0.0:${port}`);
+
+      await req.get('/main.js').expect(200, url);
     });
   });
 
   describe('inline disabled entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: false,
         watchOptions: {
@@ -78,7 +79,7 @@ describe('inline option', () => {
     it('should NOT include inline client script in the bundle', async () => {
       const { text } = await req.get('/main.js').expect(200);
 
-      expect(text).not.toMatch(/client\/index\.js\?http:\/\/0\.0\.0\.0:9000/);
+      expect(text.includes(`client/index.js?http://0.0.0.0:${port}`));
     });
   });
 });

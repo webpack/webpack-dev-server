@@ -6,6 +6,7 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/historyapifallback-config/webpack.config');
 const config2 = require('../fixtures/historyapifallback-2-config/webpack.config');
 const config3 = require('../fixtures/historyapifallback-3-config/webpack.config');
+const port = require('../ports-map')['historyApiFallback-option'];
 
 describe('historyApiFallback option', () => {
   let server;
@@ -19,6 +20,7 @@ describe('historyApiFallback option', () => {
         config,
         {
           historyApiFallback: true,
+          port,
         },
         done
       );
@@ -41,6 +43,7 @@ describe('historyApiFallback option', () => {
           historyApiFallback: {
             index: '/bar.html',
           },
+          port,
         },
         done
       );
@@ -67,6 +70,7 @@ describe('historyApiFallback option', () => {
           historyApiFallback: {
             index: '/bar.html',
           },
+          port,
         },
         done
       );
@@ -113,6 +117,7 @@ describe('historyApiFallback option', () => {
           historyApiFallback: {
             index: '/bar.html',
           },
+          port,
         },
         done
       );
@@ -148,6 +153,7 @@ describe('historyApiFallback option', () => {
               },
             ],
           },
+          port,
         },
         done
       );
@@ -186,6 +192,7 @@ describe('historyApiFallback option', () => {
             '../fixtures/historyapifallback-3-config'
           ),
           historyApiFallback: true,
+          port,
         },
         done
       );

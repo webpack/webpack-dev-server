@@ -128,8 +128,10 @@ describe('CLI', () => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
     const examplePath = resolve(__dirname, '../../examples/cli/public');
 
-    const cp = execa('node', [cliPath], { cwd: examplePath });
-    const cp2 = execa('node', [cliPath], { cwd: examplePath });
+    const cp = execa('node', [cliPath, '--colors=false'], { cwd: examplePath });
+    const cp2 = execa('node', [cliPath, '--colors=false'], {
+      cwd: examplePath,
+    });
 
     const runtime = {
       cp: {

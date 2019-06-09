@@ -5,8 +5,8 @@ const fs = require('fs');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
-const skipTestOnWindows = require('../helpers/conditional-test')
-  .skipTestOnWindows;
+const { skipTestOnWindows } = require('../helpers/conditional-test');
+const port = require('../ports-map')['https-option'];
 
 const httpsCertificateDirectory = path.resolve(
   __dirname,
@@ -28,6 +28,7 @@ describe('https option', () => {
         {
           contentBase: contentBasePublic,
           https: true,
+          port,
         },
         done
       );
@@ -62,6 +63,7 @@ describe('https option', () => {
             ),
             passphrase: 'webpack-dev-server',
           },
+          port,
         },
         done
       );
@@ -86,6 +88,7 @@ describe('https option', () => {
             cert: path.join(httpsCertificateDirectory, 'server.crt'),
             passphrase: 'webpack-dev-server',
           },
+          port,
         },
         done
       );
@@ -114,6 +117,7 @@ describe('https option', () => {
             cert: path.join(httpsCertificateDirectory, 'server-symlink.crt'),
             passphrase: 'webpack-dev-server',
           },
+          port,
         },
         done
       );
@@ -149,6 +153,7 @@ describe('https option', () => {
               .toString(),
             passphrase: 'webpack-dev-server',
           },
+          port,
         },
         done
       );

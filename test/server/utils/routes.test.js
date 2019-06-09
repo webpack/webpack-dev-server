@@ -3,13 +3,14 @@
 const request = require('supertest');
 const testServer = require('../../helpers/test-server');
 const config = require('../../fixtures/simple-config/webpack.config');
+const port = require('../../ports-map').routes;
 
 describe('routes util', () => {
   let server;
   let req;
 
   beforeAll((done) => {
-    server = testServer.startAwaitingCompilation(config, {}, done);
+    server = testServer.startAwaitingCompilation(config, { port }, done);
     req = request(server.app);
   });
 

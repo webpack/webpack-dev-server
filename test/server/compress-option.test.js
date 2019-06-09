@@ -8,6 +8,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config-other/webpack.config');
+const port = require('../ports-map')['compress-option'];
 
 describe('compress option', () => {
   let server;
@@ -15,7 +16,7 @@ describe('compress option', () => {
 
   describe('not specify', () => {
     beforeAll((done) => {
-      server = testServer.start(config, {}, done);
+      server = testServer.start(config, { port }, done);
       req = request(server.app);
     });
 
@@ -39,6 +40,7 @@ describe('compress option', () => {
         config,
         {
           compress: true,
+          port,
         },
         done
       );
@@ -61,6 +63,7 @@ describe('compress option', () => {
         config,
         {
           compress: false,
+          port,
         },
         done
       );

@@ -5,6 +5,7 @@ const express = require('express');
 const SockJS = require('sockjs-client/dist/sockjs');
 const SockJSServer = require('../../../lib/servers/SockJSServer');
 const timer = require('../../helpers/timer');
+const port = require('../../ports-map').SockJSServer;
 
 describe('SockJSServer', () => {
   let socketServer;
@@ -15,7 +16,7 @@ describe('SockJSServer', () => {
     const app = new express();
 
     listeningApp = http.createServer(app);
-    listeningApp.listen(8080, 'localhost', () => {
+    listeningApp.listen(port, 'localhost', () => {
       const server = {
         log: {
           error: () => {},
@@ -44,7 +45,7 @@ describe('SockJSServer', () => {
         socketServer.close(connection);
       });
 
-      const client = new SockJS('http://localhost:8080/sockjs-node');
+      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
 
       client.onmessage = (e) => {
         data.push(e.data);

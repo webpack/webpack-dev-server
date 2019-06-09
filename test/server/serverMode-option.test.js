@@ -9,6 +9,7 @@ const SockJSServer = require('../../lib/servers/SockJSServer');
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
 const BaseServer = require('../../lib/servers/BaseServer');
+const port = require('../ports-map')['serverMode-option'];
 
 describe('serverMode option', () => {
   let server;
@@ -26,10 +27,11 @@ describe('serverMode option', () => {
         config,
         {
           serverMode: 'sockjs',
+          port,
         },
         done
       );
-      req = request('http://localhost:8080');
+      req = request(`http://localhost:${port}`);
     });
 
     it('sockjs path responds with a 200', async () => {
@@ -43,10 +45,11 @@ describe('serverMode option', () => {
         config,
         {
           serverMode: require.resolve('../../lib/servers/SockJSServer'),
+          port,
         },
         done
       );
-      req = request('http://localhost:8080');
+      req = request(`http://localhost:${port}`);
     });
 
     it('sockjs path responds with a 200', async () => {
@@ -60,10 +63,11 @@ describe('serverMode option', () => {
         config,
         {
           serverMode: SockJSServer,
+          port,
         },
         done
       );
-      req = request('http://localhost:8080');
+      req = request(`http://localhost:${port}`);
     });
 
     it('sockjs path responds with a 200', async () => {
@@ -76,6 +80,7 @@ describe('serverMode option', () => {
       server = testServer.start(
         config,
         {
+          port,
           sockPath: '/foo/test/bar/',
           serverMode: class MySockJSServer extends BaseServer {
             constructor(serv) {

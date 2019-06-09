@@ -3,6 +3,7 @@
 const request = require('supertest');
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
+const port = require('../ports-map')['sockPath-option'];
 
 describe('sockPath options', () => {
   let server;
@@ -16,8 +17,8 @@ describe('sockPath options', () => {
 
   describe('default behavior', () => {
     beforeEach((done) => {
-      server = testServer.start(config, {}, done);
-      req = request('http://localhost:8080');
+      server = testServer.start(config, { port }, done);
+      req = request(`http://localhost:${port}`);
     });
 
     it('defaults to a path', () => {
@@ -37,10 +38,11 @@ describe('sockPath options', () => {
         config,
         {
           sockPath: '/foo/test/bar/',
+          port,
         },
         done
       );
-      req = request('http://localhost:8080');
+      req = request(`http://localhost:${port}`);
     });
 
     it('sets the sock path correctly and strips leading and trailing /s', () => {

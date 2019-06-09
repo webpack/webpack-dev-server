@@ -5,6 +5,7 @@ const request = require('supertest');
 const semver = require('semver');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
+const port = require('../ports-map')['http2-option'];
 
 const contentBasePublic = path.resolve(
   __dirname,
@@ -37,6 +38,7 @@ describe('http2 option', () => {
             contentBase: contentBasePublic,
             https: true,
             http2: true,
+            port,
           },
           done
         );
@@ -44,7 +46,7 @@ describe('http2 option', () => {
       });
 
       it('confirm http2 client can connect', (done) => {
-        const client = http2.connect('https://localhost:8080', {
+        const client = http2.connect(`https://localhost:${port}`, {
           rejectUnauthorized: false,
         });
         client.on('error', (err) => console.error(err));
@@ -78,6 +80,7 @@ describe('http2 option', () => {
         {
           contentBase: contentBasePublic,
           http2: true,
+          port,
         },
         done
       );
@@ -99,6 +102,7 @@ describe('http2 option', () => {
           contentBase: contentBasePublic,
           https: true,
           http2: false,
+          port,
         },
         done
       );

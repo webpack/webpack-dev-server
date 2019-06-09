@@ -3,6 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
+const port = require('../ports-map')['after-option'];
 
 describe('after option', () => {
   let server;
@@ -29,6 +30,7 @@ describe('after option', () => {
             response.send('after');
           });
         },
+        port,
       },
       done
     );

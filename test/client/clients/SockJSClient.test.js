@@ -5,6 +5,7 @@ const express = require('express');
 const sockjs = require('sockjs');
 const SockJSClient = require('../../../client-src/clients/SockJSClient');
 const timer = require('../../helpers/timer');
+const port = require('../../ports-map').sockJSClient;
 
 describe('SockJSClient', () => {
   let socketServer;
@@ -15,7 +16,7 @@ describe('SockJSClient', () => {
     const app = new express();
 
     listeningApp = http.createServer(app);
-    listeningApp.listen(8080, 'localhost', () => {
+    listeningApp.listen(port, 'localhost', () => {
       socketServer = sockjs.createServer();
       socketServer.installHandlers(listeningApp, {
         prefix: '/sockjs-node',
@@ -33,7 +34,7 @@ describe('SockJSClient', () => {
         connection.close();
       });
 
-      const client = new SockJSClient('http://localhost:8080/sockjs-node');
+      const client = new SockJSClient(`http://localhost:${port}/sockjs-node`);
       const data = [];
 
       client.onOpen(() => {

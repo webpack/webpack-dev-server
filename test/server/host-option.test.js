@@ -3,6 +3,7 @@
 const request = require('supertest');
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
+const port = require('../ports-map')['host-option'];
 
 describe('host option', () => {
   let server = null;
@@ -10,7 +11,7 @@ describe('host option', () => {
 
   describe('is not be specified', () => {
     beforeAll((done) => {
-      server = testServer.start(config, {}, done);
+      server = testServer.start(config, { port }, done);
       req = request(server.app);
     });
 
@@ -18,7 +19,7 @@ describe('host option', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('127.0.0.1');
-      expect(address.port).toBe(8080);
+      expect(address.port).toBe(port);
     });
 
     it('Request to index', (done) => {
@@ -35,6 +36,7 @@ describe('host option', () => {
         {
           // eslint-disable-next-line no-undefined
           host: undefined,
+          port,
         },
         done
       );
@@ -45,7 +47,7 @@ describe('host option', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('::');
-      expect(address.port).toBe(8080);
+      expect(address.port).toBe(port);
     });
 
     it('Request to index', async () => {
@@ -61,6 +63,7 @@ describe('host option', () => {
         config,
         {
           host: null,
+          port,
         },
         done
       );
@@ -71,7 +74,7 @@ describe('host option', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('::');
-      expect(address.port).toBe(8080);
+      expect(address.port).toBe(port);
     });
 
     it('Request to index', async () => {
@@ -87,6 +90,7 @@ describe('host option', () => {
         config,
         {
           host: '127.0.0.1',
+          port,
         },
         done
       );
@@ -97,7 +101,7 @@ describe('host option', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('127.0.0.1');
-      expect(address.port).toBe(8080);
+      expect(address.port).toBe(port);
     });
 
     it('Request to index', async () => {
@@ -113,6 +117,7 @@ describe('host option', () => {
         config,
         {
           host: 'localhost',
+          port,
         },
         done
       );
@@ -123,7 +128,7 @@ describe('host option', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('127.0.0.1');
-      expect(address.port).toBe(8080);
+      expect(address.port).toBe(port);
     });
 
     it('Request to index', async () => {
@@ -139,6 +144,7 @@ describe('host option', () => {
         config,
         {
           host: '0.0.0.0',
+          port,
         },
         done
       );
@@ -149,7 +155,7 @@ describe('host option', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('0.0.0.0');
-      expect(address.port).toBe(8080);
+      expect(address.port).toBe(port);
     });
 
     it('Request to index', async () => {

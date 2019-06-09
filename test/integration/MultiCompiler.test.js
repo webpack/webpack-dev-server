@@ -3,13 +3,14 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/multi-compiler-config/webpack.config');
+const port = require('../ports-map').MultiCompiler;
 
 describe('multi compiler', () => {
   let server;
   let req;
 
   beforeAll((done) => {
-    server = testServer.start(config, {}, done);
+    server = testServer.start(config, { port }, done);
     req = request(server.app);
   });
 

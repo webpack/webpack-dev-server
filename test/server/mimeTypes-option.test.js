@@ -3,6 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
+const port = require('../ports-map')['mineTypes-option'];
 
 describe('mimeTypes option', () => {
   describe('as an object', () => {
@@ -12,6 +13,7 @@ describe('mimeTypes option', () => {
       expect(() => {
         testServer.start(config, {
           mimeTypes: { 'application/octet-stream': ['js'] },
+          port,
         });
       }).toThrow(/Attempt to change mapping for/);
     });
@@ -24,6 +26,7 @@ describe('mimeTypes option', () => {
             typeMap: { 'application/octet-stream': ['js'] },
             force: true,
           },
+          port,
         },
         done
       );
@@ -42,6 +45,7 @@ describe('mimeTypes option', () => {
             typeMap: { 'application/octet-stream': ['js'] },
             force: true,
           },
+          port,
         },
         done
       );

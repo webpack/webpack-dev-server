@@ -7,6 +7,7 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const timer = require('../helpers/timer');
+const [port1, port2, port3] = require('../ports-map').ClientOptions;
 
 describe('Client code', () => {
   function startProxy(port) {
@@ -14,7 +15,7 @@ describe('Client code', () => {
     proxy.use(
       '/',
       httpProxy({
-        target: 'http://localhost:9001',
+        target: `http://localhost:${port1}`,
         ws: true,
         changeOrigin: true,
       })
@@ -25,7 +26,7 @@ describe('Client code', () => {
   beforeAll((done) => {
     const options = {
       compress: true,
-      port: 9001,
+      port: port1,
       host: '0.0.0.0',
       disableHostCheck: true,
       inline: true,
@@ -39,12 +40,12 @@ describe('Client code', () => {
 
   afterAll(testServer.close);
 
-  // [HPM] Proxy created: /  ->  http://localhost:9001
+  // [HPM] Proxy created: /  ->  http://localhost:{port1}
   describe('behind a proxy', () => {
     let proxy;
 
     beforeAll(() => {
-      proxy = startProxy(9000);
+      proxy = startProxy(port2);
     });
 
     afterAll((done) => {
@@ -54,10 +55,10 @@ describe('Client code', () => {
     });
 
     it('responds with a 200', async () => {
-      await request('http://localhost:9000')
+      await request(`http://localhost:${port2}`)
         .get('/sockjs-node')
         .expect(200, 'Welcome to SockJS!\n');
-      await request('http://localhost:9001')
+      await request(`http://localhost:${port1}`)
         .get('/sockjs-node')
         .expect(200, 'Welcome to SockJS!\n');
     });
@@ -65,13 +66,15 @@ describe('Client code', () => {
     it('requests websocket through the proxy with proper port number', async () => {
       const { page, browser } = await runBrowser();
 
-      page.goto('http://localhost:9000/main');
+      page.goto(`http://localhost:${port2}/main`);
 
       const req = await page.waitForRequest((requestObj) =>
         requestObj.url().match(/sockjs-node/)
       );
 
-      expect(req.url()).toMatch(/^http:\/\/localhost:9001\/sockjs-node/);
+      expect(
+        req.url().includes(`http://localhost:${port1}/sockjs-node`)
+      ).toBeTruthy();
 
       await browser.close();
     });
@@ -81,7 +84,7 @@ describe('Client code', () => {
 describe('Client complex inline script path', () => {
   beforeAll((done) => {
     const options = {
-      port: 9000,
+      port: port2,
       host: '0.0.0.0',
       inline: true,
       watchOptions: {
@@ -99,13 +102,15 @@ describe('Client complex inline script path', () => {
     it('uses the correct public hostname and sockPath', async () => {
       const { page, browser } = await runBrowser();
 
-      page.goto('http://localhost:9000/main');
+      page.goto(`http://localhost:${port2}/main`);
 
       const req = await page.waitForRequest((requestObj) =>
         requestObj.url().match(/foo\/test\/bar/)
       );
 
-      expect(req.url()).toMatch(/^http:\/\/myhost\.test:9000\/foo\/test\/bar/);
+      expect(
+        req.url().includes(`http://myhost.test:${port2}/foo/test/bar/`)
+      ).toBeTruthy();
 
       await browser.close();
     });
@@ -115,14 +120,14 @@ describe('Client complex inline script path', () => {
 describe('Client complex inline script path with sockPort', () => {
   beforeAll((done) => {
     const options = {
-      port: 9000,
+      port: port2,
       host: '0.0.0.0',
       inline: true,
       watchOptions: {
         poll: true,
       },
       sockPath: '/foo/test/bar/',
-      sockPort: 8080,
+      sockPort: port3,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -133,13 +138,15 @@ describe('Client complex inline script path with sockPort', () => {
     it('uses the correct sockPort', async () => {
       const { page, browser } = await runBrowser();
 
-      page.goto('http://localhost:9000/main');
+      page.goto(`http://localhost:${port2}/main`);
 
       const req = await page.waitForRequest((requestObj) =>
         requestObj.url().match(/foo\/test\/bar/)
       );
 
-      expect(req.url()).toMatch(/^http:\/\/localhost:8080\/foo\/test\/bar/);
+      expect(
+        req.url().includes(`http://localhost:${port3}/foo/test/bar`)
+      ).toBeTruthy();
 
       await browser.close();
     });
@@ -152,13 +159,13 @@ describe('Client complex inline script path with sockPort', () => {
 describe('Client complex inline script path with sockPort, no sockPath', () => {
   beforeAll((done) => {
     const options = {
-      port: 9000,
+      port: port2,
       host: '0.0.0.0',
       inline: true,
       watchOptions: {
         poll: true,
       },
-      sockPort: 8080,
+      sockPort: port3,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -169,13 +176,15 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
     it('uses the correct sockPort and sockPath', async () => {
       const { page, browser } = await runBrowser();
 
-      page.goto('http://localhost:9000/main');
+      page.goto(`http://localhost:${port2}/main`);
 
       const req = await page.waitForRequest((requestObj) =>
         requestObj.url().match(/sockjs-node/)
       );
 
-      expect(req.url()).toMatch(/^http:\/\/localhost:8080\/sockjs-node/);
+      expect(
+        req.url().includes(`http://localhost:${port3}/sockjs-node`)
+      ).toBeTruthy();
 
       await browser.close();
     });
@@ -185,7 +194,7 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
 describe('Client complex inline script path with sockHost', () => {
   beforeAll((done) => {
     const options = {
-      port: 9000,
+      port: port2,
       host: '0.0.0.0',
       inline: true,
       watchOptions: {
@@ -202,13 +211,15 @@ describe('Client complex inline script path with sockHost', () => {
     it('uses the correct sockHost', async () => {
       const { page, browser } = await runBrowser();
 
-      page.goto('http://localhost:9000/main');
+      page.goto(`http://localhost:${port2}/main`);
 
       const req = await page.waitForRequest((requestObj) =>
         requestObj.url().match(/sockjs-node/)
       );
 
-      expect(req.url()).toMatch(/^http:\/\/myhost\.test:9000\/sockjs-node/);
+      expect(
+        req.url().includes(`http://myhost.test:${port2}/sockjs-node`)
+      ).toBeTruthy();
 
       await browser.close();
     });
@@ -217,7 +228,7 @@ describe('Client complex inline script path with sockHost', () => {
 
 describe('Client console.log', () => {
   const baseOptions = {
-    port: 9000,
+    port: port2,
     host: '0.0.0.0',
   };
   const cases = [
@@ -265,12 +276,12 @@ describe('Client console.log', () => {
 
       const { page, browser } = await runBrowser();
 
-      page.goto('http://localhost:9000/main');
+      page.goto(`http://localhost:${port2}/main`);
       page.on('console', ({ _text }) => {
         res.push(_text);
       });
 
-      await timer(3000);
+      await timer(1000);
 
       expect(res).toMatchSnapshot();
       await browser.close();

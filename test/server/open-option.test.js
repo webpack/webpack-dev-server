@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const open = require('open');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
+const port = require('../ports-map')['open-option'];
 
 open.mockImplementation(() => {
   return {
@@ -18,15 +19,16 @@ describe('open option', () => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
       open: true,
+      port,
     });
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
-      expect(open.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
+      expect(open.mock.calls[0]).toEqual([`http://localhost:${port}/`, {}]);
       expect(open.mock.invocationCallOrder[0]).toEqual(1);
       server.close(done);
     });
 
     compiler.run(() => {});
-    server.listen(8080, 'localhost');
+    server.listen(port, 'localhost');
   });
 });
