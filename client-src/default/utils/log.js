@@ -2,6 +2,16 @@ import { getLogger } from 'loglevel';
 
 export const log = getLogger('webpack-dev-server');
 
+const originalFactory = log.methodFactory;
+
+log.methodFactory = (methodName, logLevel, loggerName) => {
+  const rawMethod = originalFactory(methodName, logLevel, loggerName);
+
+  return (message) => {
+    rawMethod(`[WDS] ${message}`);
+  };
+};
+
 const INFO = 'info';
 const WARN = 'warn';
 const ERROR = 'error';
@@ -37,6 +47,6 @@ export function setLogLevel(level) {
       log.disableAll();
       break;
     default:
-      log.error(`[WDS] Unknown clientLogLevel '${level}'`);
+      log.error(`Unknown clientLogLevel '${level}'`);
   }
 }

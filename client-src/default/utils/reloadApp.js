@@ -8,7 +8,7 @@ function reloadApp(
     return;
   }
   if (hot) {
-    log.info('[WDS] App hot update...');
+    log.info('App hot update...');
     // eslint-disable-next-line global-require
     const hotEmitter = require('webpack/hot/emitter');
     hotEmitter.emit('webpackHotUpdate', currentHash);
@@ -37,7 +37,7 @@ function reloadApp(
 
   function applyReload(rootWindow, intervalId) {
     clearInterval(intervalId);
-    log.info('[WDS] App updated. Reloading...');
+    log.info('App updated. Reloading...');
     rootWindow.location.reload();
   }
 }
