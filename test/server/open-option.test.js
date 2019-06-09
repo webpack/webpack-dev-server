@@ -21,9 +21,18 @@ describe('open option', () => {
     });
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
-      expect(opn.mock.calls[0]).toEqual(['http://localhost:8080/', {}]);
-      expect(opn.mock.invocationCallOrder[0]).toEqual(1);
-      server.close(done);
+      server.close(() => {
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "http://localhost:8080/",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+        expect(opn.mock.invocationCallOrder[0]).toEqual(1);
+        done();
+      });
     });
 
     compiler.run(() => {});
