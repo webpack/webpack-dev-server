@@ -1,8 +1,8 @@
 'use strict';
 
-const { unlink } = require('fs');
 const { join, resolve } = require('path');
 const execa = require('execa');
+const { unlinkAsync } = require('../helpers/fs');
 const testBin = require('../helpers/test-bin');
 const port1 = require('../ports-map').cli[0];
 
@@ -73,8 +73,8 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--https --cacert --pfx --key --cert --pfx-passphrase', (done) => {
-    testBin(
+  it('--https --cacert --pfx --key --cert --pfx-passphrase', async () => {
+    const { code, stdout } = await testBin(
       `--https --cacert ${caPath} --pfx ${pfxPath} --key ${keyPath} --cert ${certPath} --pfx-passphrase webpack-dev-server`
     )
       .then((output) => {
@@ -85,24 +85,16 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--sockPath', (done) => {
-    testBin('--sockPath /mysockPath')
-      .then((output) => {
-        expect(
-          /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(output.stdout)
-        ).toEqual(true);
-        done();
-      })
-      .catch(done);
+  it('--sockPath', async () => {
+    const { stdout } = await testBin('--sockPath /mysockPath');
+    expect(
+      /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(stdout)
+    ).toEqual(true);
   });
 
-  it('unspecified port', (done) => {
-    testBin('')
-      .then((output) => {
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
-        done();
-      })
-      .catch(done);
+  it('unspecified port', async () => {
+    const { output } = await testBin('');
+    expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
   });
 
   it('--color', (done) => {
@@ -118,8 +110,13 @@ describe('CLI', () => {
   });
 
   // The Unix socket to listen to (instead of a host).
-  it('--socket', (done) => {
+  it('--socket', async () => {
     const socketPath = join('.', 'webpack.sock');
+    const { code, stdout } = await testBin(`--socket ${socketPath}`);
+    expect(code).toEqual(0);
+
+    if (process.platform !== 'win32') {
+      expect(stdout.includes(socketPath)).toBe(true);
 
     testBin(`--socket ${socketPath}`)
       .then((output) => {
@@ -154,6 +151,7 @@ describe('CLI', () => {
       });
   });
 
+  // TODO: hiroppy
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
     const examplePath = resolve(__dirname, '../../examples/cli/public');

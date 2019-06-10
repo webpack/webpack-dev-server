@@ -54,11 +54,11 @@ describe('mimeTypes option', () => {
 
     afterAll(testServer.close);
 
-    it('request to bundle file with modified mime type', (done) => {
-      req
+    it('request to bundle file with modified mime type', async () => {
+      await req
         .get('/main.js')
         .expect('Content-Type', /application\/octet-stream/)
-        .expect(200, done);
+        .expect(200);
     });
   });
 });

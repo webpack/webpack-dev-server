@@ -26,8 +26,8 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
 
-    it('should include hot script in the bundle', (done) => {
-      req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/, done);
+    it('should include hot script in the bundle', async () => {
+      await req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/);
     });
   });
 
@@ -51,8 +51,8 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
 
-    it('should include hot script in the bundle', (done) => {
-      req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/, done);
+    it('should include hot script in the bundle', async () => {
+      await req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/);
     });
   });
 
@@ -72,14 +72,10 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
 
-    it('should NOT include hot script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200)
-        .then(({ text }) => {
-          expect(text).not.toMatch(/webpack\/hot\/dev-server\.js/);
-          done();
-        });
+    it('should NOT include hot script in the bundle', async () => {
+      const { text } = await req.get('/main.js').expect(200);
+
+      expect(text).not.toMatch(/webpack\/hot\/dev-server\.js/);
     });
   });
 
