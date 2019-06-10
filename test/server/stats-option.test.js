@@ -6,7 +6,7 @@ const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['stats-option'];
 
 describe('stats option', () => {
-  it(`should works with difference stats values (contains 'hash', 'assets', 'warnings' and 'errors')`, () => {
+  it(`should works with difference stats values (contains 'hash', 'assets', 'warnings' and 'errors')`, async () => {
     const allStats = [
       {},
       // eslint-disable-next-line no-undefined
@@ -18,23 +18,22 @@ describe('stats option', () => {
       },
     ];
 
-    return allStats.reduce((p, stats) => {
-      return p.then(() => {
-        return new Promise((resolve) => {
-          const compiler = webpack(config);
-          const server = new Server(compiler, { stats, port, quiet: true });
+    for (const stats of allStats) {
+      const compiler = webpack(config);
+      const server = new Server(compiler, { stats, port, quiet: true });
 
-          compiler.hooks.done.tap('webpack-dev-server', (s) => {
-            expect(Object.keys(server.getStats(s))).toMatchSnapshot();
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise((resolve) => {
+        compiler.hooks.done.tap('webpack-dev-server', (s) => {
+          expect(Object.keys(server.getStats(s))).toMatchSnapshot();
 
-            server.close(resolve);
-          });
-
-          compiler.run(() => {});
-          server.listen(port, 'localhost');
+          server.close(resolve);
         });
+
+        compiler.run(() => {});
+        server.listen(port, 'localhost');
       });
-    }, Promise.resolve());
+    }
   });
 
   it('should respect warningsFilter', (done) => {
