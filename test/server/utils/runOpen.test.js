@@ -15,9 +15,10 @@ describe('runOpen util', () => {
       open.mockImplementation(() => Promise.resolve());
     });
 
-    it('on specify URL', () => {
-      return runOpen('https://example.com', {}, console).then(() => {
-        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+    it('on specify URL', async () => {
+      await runOpen('https://example.com', {}, console);
+
+      expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com",
             Object {
@@ -25,16 +26,16 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
 
-    it('on specify URL with page', () => {
-      return runOpen(
+    it('on specify URL with page', async () => {
+      await runOpen(
         'https://example.com',
         { openPage: '/index.html' },
         console
-      ).then(() => {
-        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+      );
+
+      expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com/index.html",
             Object {
@@ -42,7 +43,6 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
 
     it('on specify URL with page inside array', () => {
@@ -81,16 +81,16 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
 
-    it('on specify URL with page in Google Chrome ', () => {
-      return runOpen(
+    it('on specify URL with page in Google Chrome ', async () => {
+      await runOpen(
         'https://example.com',
         { open: 'Google Chrome', openPage: '/index.html' },
         console
-      ).then(() => {
-        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+      );
+
+      expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com/index.html",
             Object {
@@ -99,16 +99,16 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
+  });
 
-    it('on specify absolute https URL with page in Google Chrome ', () => {
-      return runOpen(
-        'https://example.com',
-        { open: 'Google Chrome', openPage: 'https://example2.com' },
-        console
-      ).then(() => {
-        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+  it('on specify absolute https URL with page in Google Chrome ', () => {
+    return runOpen(
+      'https://example.com',
+      { open: 'Google Chrome', openPage: 'https://example2.com' },
+      console
+    ).then(() => {
+      expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example2.com",
             Object {
@@ -117,16 +117,16 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
+  });
 
-    it('on specify absolute http URL with page in Google Chrome ', () => {
-      return runOpen(
-        'https://example.com',
-        { open: 'Google Chrome', openPage: 'http://example2.com' },
-        console
-      ).then(() => {
-        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+  it('on specify absolute http URL with page in Google Chrome ', () => {
+    return runOpen(
+      'https://example.com',
+      { open: 'Google Chrome', openPage: 'http://example2.com' },
+      console
+    ).then(() => {
+      expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "http://example2.com",
             Object {
@@ -135,7 +135,6 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
   });
 
@@ -191,11 +190,10 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
 
-    it('on specify URL with page and log error', () => {
-      return runOpen(
+    it('on specify URL with page and log error', async () => {
+      await runOpen(
         'https://example.com',
         { openPage: '/index.html' },
         logMock
@@ -211,7 +209,6 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
 
     it('on specify URL in Google Chrome and log error', () => {
@@ -232,11 +229,10 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
 
-    it('on specify URL with page in Google Chrome and log error ', () => {
-      return runOpen(
+    it('on specify URL with page in Google Chrome and log error ', async () => {
+      await runOpen(
         'https://example.com',
         { open: 'Google Chrome', openPage: '/index.html' },
         logMock
@@ -253,7 +249,6 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
   });
 });
