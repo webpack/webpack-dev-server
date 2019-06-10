@@ -17,10 +17,10 @@ describe('multi compiler', () => {
   afterAll(testServer.close);
 
   // TODO: this is a very basic test, optimally it should test multiple configs etc.
-  it('should handle GET request to bundle', (done) => {
-    req
+  it('should handle GET request to bundle', async () => {
+    await req
       .get('/main.js')
       .expect('Content-Type', 'application/javascript; charset=UTF-8')
-      .expect(200, done);
+      .expect(200);
   });
 });

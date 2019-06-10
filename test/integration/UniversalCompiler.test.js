@@ -16,35 +16,33 @@ describe('universal compiler', () => {
 
   afterAll(testServer.close);
 
-  it('client bundle should have the inlined the client runtime', (done) => {
-    req
+  it('client bundle should have the inlined the client runtime', async () => {
+    const { res, err } = await req
       .get('/client.js')
       .expect('Content-Type', 'application/javascript; charset=UTF-8')
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.text).toContain('Hello from the client');
-        expect(res.text).toContain('sockjs-client');
-        done();
-      });
+      .expect(200);
+
+    if (err) {
+      throw err;
+    }
+
+    expect(res.text).toContain('Hello from the client');
+    expect(res.text).toContain('sockjs-client');
   });
 
-  it('server bundle should NOT have the inlined the client runtime', (done) => {
+  it('server bundle should NOT have the inlined the client runtime', async () => {
     // we wouldn't normally request a server bundle
     // but we'll do it here to check the contents
-    req
+    const { res, err } = await req
       .get('/server.js')
       .expect('Content-Type', 'application/javascript; charset=UTF-8')
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.text).toContain('Hello from the server');
-        expect(res.text).not.toContain('sockjs-client');
-        done();
-      });
+      .expect(200);
+
+    if (err) {
+      throw err;
+    }
+
+    expect(res.text).toContain('Hello from the server');
+    expect(res.text).not.toContain('sockjs-client');
   });
 });
