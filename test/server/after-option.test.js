@@ -39,13 +39,12 @@ describe('after option', () => {
 
   afterAll(testServer.close);
 
-  it('should handle after route', () => {
-    return req
+  it('should handle after route', async () => {
+    const res = await req
       .get('/after/some/path')
       .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect(200)
-      .then((response) => {
-        expect(response.text).toBe('after');
-      });
+      .expect(200);
+
+    expect(res.text).toBe('after');
   });
 });

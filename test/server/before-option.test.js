@@ -39,13 +39,12 @@ describe('before option', () => {
 
   afterAll(testServer.close);
 
-  it('should handle before route', () => {
-    return req
+  it('should handle before route', async () => {
+    const res = await req
       .get('/before/some/path')
       .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect(200)
-      .then((response) => {
-        expect(response.text).toBe('before');
-      });
+      .expect(200);
+
+    expect(res.text).toBe('before');
   });
 });

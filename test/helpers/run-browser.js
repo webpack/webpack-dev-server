@@ -2,7 +2,7 @@
 
 const puppeteer = require('puppeteer');
 
-function runBrowser(config) {
+async function runBrowser(config) {
   const options = {
     viewport: {
       width: 500,
@@ -12,26 +12,15 @@ function runBrowser(config) {
     ...config,
   };
 
-  return new Promise((resolve, reject) => {
-    let page;
-    let browser;
-
-    puppeteer
-      .launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      })
-      .then((launchedBrowser) => {
-        browser = launchedBrowser;
-        return browser.newPage();
-      })
-      .then((newPage) => {
-        page = newPage;
-        page.emulate(options);
-        resolve({ page, browser });
-      })
-      .catch(reject);
+  const launchedBrowser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
+  const browser = launchedBrowser;
+  const page = await browser.newPage();
+  page.emulate(options);
+
+  return { page, browser };
 }
 
 module.exports = runBrowser;
