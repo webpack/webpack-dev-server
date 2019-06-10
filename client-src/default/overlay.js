@@ -4,10 +4,9 @@
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
 const ansiHTML = require('ansi-html');
-const Entities = require('html-entities').AllHtmlEntities;
+const { AllHtmlEntities } = require('html-entities');
 
-const entities = new Entities();
-
+const entities = new AllHtmlEntities();
 const colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
@@ -20,6 +19,11 @@ const colors = {
   lightgrey: 'EBE7E3',
   darkgrey: '6D7891',
 };
+
+let overlayIframe = null;
+let overlayDiv = null;
+let lastOnOverlayDivReady = null;
+
 ansiHTML.setColors(colors);
 
 function createOverlayIframe(onIframeLoad) {
@@ -62,10 +66,6 @@ function addOverlayDivTo(iframe) {
   return div;
 }
 
-let overlayIframe = null;
-let overlayDiv = null;
-let lastOnOverlayDivReady = null;
-
 function ensureOverlayDivExists(onOverlayDivReady) {
   if (overlayDiv) {
     // Everything is ready, call the callback right away.
@@ -78,7 +78,7 @@ function ensureOverlayDivExists(onOverlayDivReady) {
   lastOnOverlayDivReady = onOverlayDivReady;
 
   if (overlayIframe) {
-    // We're already creating it.
+    // We've already created it.
     return;
   }
 
@@ -95,16 +95,8 @@ function ensureOverlayDivExists(onOverlayDivReady) {
   document.body.appendChild(overlayIframe);
 }
 
-function showMessageOverlay(message) {
-  ensureOverlayDivExists((div) => {
-    // Make it look similar to our terminal.
-    div.innerHTML = `<span style="color: #${
-      colors.red
-    }">Failed to compile.</span><br><br>${ansiHTML(entities.encode(message))}`;
-  });
-}
-
-function destroyErrorOverlay() {
+// Successful compilation.
+function clear() {
   if (!overlayDiv) {
     // It is not there in the first place.
     return;
@@ -117,12 +109,19 @@ function destroyErrorOverlay() {
   lastOnOverlayDivReady = null;
 }
 
-// Successful compilation.
-exports.clear = function handleSuccess() {
-  destroyErrorOverlay();
-};
-
 // Compilation with errors (e.g. syntax error or missing modules).
-exports.showMessage = function handleMessage(messages) {
-  showMessageOverlay(messages[0]);
+function showMessage(messages) {
+  ensureOverlayDivExists((div) => {
+    // Make it look similar to our terminal.
+    div.innerHTML = `<span style="color: #${
+      colors.red
+    }">Failed to compile.</span><br><br>${ansiHTML(
+      entities.encode(messages[0])
+    )}`;
+  });
+}
+
+module.exports = {
+  clear,
+  showMessage,
 };
