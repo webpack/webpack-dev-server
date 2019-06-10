@@ -5,7 +5,6 @@ import ansiHTML from 'ansi-html';
 import { AllHtmlEntities as Entities } from 'html-entities';
 
 const entities = new Entities();
-
 const colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
@@ -95,7 +94,7 @@ function ensureOverlayDivExists(onOverlayDivReady) {
 }
 
 // Successful compilation.
-function clear() {
+export function clear() {
   if (!overlayDiv) {
     // It is not there in the first place.
     return;
@@ -108,12 +107,14 @@ function clear() {
   lastOnOverlayDivReady = null;
 }
 
-// Successful compilation.
-export function clear() {
-  destroyErrorOverlay();
-}
-
 // Compilation with errors (e.g. syntax error or missing modules).
 export function showMessage(messages) {
-  showMessageOverlay(messages[0]);
+  ensureOverlayDivExists((div) => {
+    // Make it look similar to our terminal.
+    div.innerHTML = `<span style="color: #${
+      colors.red
+    }">Failed to compile.</span><br><br>${ansiHTML(
+      entities.encode(messages[0])
+    )}`;
+  });
 }
