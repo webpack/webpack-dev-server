@@ -22,15 +22,15 @@ describe('compress option', () => {
 
     afterAll(testServer.close);
 
-    it('request to bundle file', (done) => {
-      req
+    it('request to bundle file', async () => {
+      await req
         .get('/main.js')
         .expect((res) => {
           if (res.header['content-encoding']) {
             throw new Error('Expected `content-encoding` header is undefined.');
           }
         })
-        .expect(200, done);
+        .expect(200);
     });
   });
 
@@ -49,11 +49,11 @@ describe('compress option', () => {
 
     afterAll(testServer.close);
 
-    it('request to bundle file', (done) => {
-      req
+    it('request to bundle file', async () => {
+      await req
         .get('/main.js')
         .expect('Content-Encoding', 'gzip')
-        .expect(200, done);
+        .expect(200);
     });
   });
 
@@ -72,15 +72,15 @@ describe('compress option', () => {
 
     afterAll(testServer.close);
 
-    it('request to bundle file', (done) => {
-      req
+    it('request to bundle file', async () => {
+      await req
         .get('/main.js')
         .expect((res) => {
           if (res.header['content-encoding']) {
             throw new Error('Expected `content-encoding` header is undefined.');
           }
         })
-        .expect(200, done);
+        .expect(200);
     });
   });
 });

@@ -50,11 +50,11 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('request to directory', (done) => {
-      req
+    it('request to directory', async () => {
+      await req
         .get('/foo')
         .accept('html')
-        .expect(200, /Foobar/, done);
+        .expect(200, /Foobar/);
     });
   });
 
@@ -77,18 +77,18 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('historyApiFallback should take preference above directory index', (done) => {
-      req
+    it('historyApiFallback should take preference above directory index', async () => {
+      await req
         .get('/')
         .accept('html')
-        .expect(200, /Foobar/, done);
+        .expect(200, /Foobar/);
     });
 
-    it('request to directory', (done) => {
-      req
+    it('request to directory', async () => {
+      await req
         .get('/foo')
         .accept('html')
-        .expect(200, /Foobar/, done);
+        .expect(200, /Foobar/);
     });
 
     it('contentBase file should take preference above historyApiFallback', (done) => {
@@ -124,11 +124,11 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('historyApiFallback should work and ignore static content', (done) => {
-      req
+    it('historyApiFallback should work and ignore static content', async () => {
+      await req
         .get('/index.html')
         .accept('html')
-        .expect(200, /In-memory file/, done);
+        .expect(200, /In-memory file/);
     });
   });
 
@@ -160,25 +160,25 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('historyApiFallback respect rewrites for index', (done) => {
-      req
+    it('historyApiFallback respect rewrites for index', async () => {
+      await req
         .get('/')
         .accept('html')
-        .expect(200, /Foobar/, done);
+        .expect(200, /Foobar/);
     });
 
-    it('historyApiFallback respect rewrites and shows index for unknown urls', (done) => {
-      req
+    it('historyApiFallback respect rewrites and shows index for unknown urls', async () => {
+      await req
         .get('/acme')
         .accept('html')
-        .expect(200, /Foobar/, done);
+        .expect(200, /Foobar/);
     });
 
-    it('historyApiFallback respect any other specified rewrites', (done) => {
-      req
+    it('historyApiFallback respect any other specified rewrites', async () => {
+      await req
         .get('/other')
         .accept('html')
-        .expect(200, /Other file/, done);
+        .expect(200, /Other file/);
     });
   });
 
@@ -199,11 +199,11 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('should take precedence over contentBase files', (done) => {
-      req
+    it('should take precedence over contentBase files', async () => {
+      await req
         .get('/foo')
         .accept('html')
-        .expect(200, /In-memory file/, done);
+        .expect(200, /In-memory file/);
     });
   });
 });
