@@ -309,7 +309,7 @@ describe('contentBase option', () => {
     beforeAll((done) => {
       jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
 
-      server = testServer.start(config, {}, done);
+      server = testServer.start(config, { port }, done);
       req = request(server.app);
     });
 
