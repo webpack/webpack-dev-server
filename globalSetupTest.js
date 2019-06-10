@@ -7,8 +7,7 @@ const ports = require('./test/ports-map');
 async function validatePorts() {
   const samples = [];
 
-  Object.keys(ports).forEach((key) => {
-    const value = ports[key];
+  Object.entries(ports).forEach(([key, value]) => {
     const arr = Array.isArray(value) ? value : [value];
 
     arr.forEach((port) => {
