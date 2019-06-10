@@ -23,8 +23,8 @@ describe('port', () => {
       expect(address.port).toBeDefined();
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200);
     });
 
     afterAll(testServer.close);
@@ -51,8 +51,8 @@ describe('port', () => {
       expect(address.port).toBeDefined();
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200);
     });
 
     afterAll(testServer.close);
@@ -78,8 +78,8 @@ describe('port', () => {
       expect(address.port).toBeDefined();
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200);
     });
 
     afterAll(testServer.close);
@@ -104,8 +104,8 @@ describe('port', () => {
       expect(address.port).toBe(33333);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200);
     });
 
     afterAll(testServer.close);
@@ -130,8 +130,8 @@ describe('port', () => {
       expect(address.port).toBe(33333);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200);
     });
 
     afterAll(testServer.close);

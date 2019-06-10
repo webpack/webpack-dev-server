@@ -4,6 +4,7 @@ const http = require('http');
 const express = require('express');
 const SockJS = require('sockjs-client/dist/sockjs');
 const SockJSServer = require('../../../lib/servers/SockJSServer');
+const timer = require('../../helpers/timer');
 const port = require('../../ports-map').SockJSServer;
 
 describe('SockJSServer', () => {
@@ -32,15 +33,16 @@ describe('SockJSServer', () => {
   });
 
   describe('server', () => {
-    it('should recieve connection, send message, and close client', (done) => {
+    it('should recieve connection, send message, and close client', async () => {
       const data = [];
 
-      socketServer.onConnection((connection) => {
+      socketServer.onConnection(async (connection) => {
         data.push('open');
         socketServer.send(connection, 'hello world');
-        setTimeout(() => {
-          socketServer.close(connection);
-        }, 1000);
+
+        await timer(1000);
+
+        socketServer.close(connection);
       });
 
       const client = new SockJS(`http://localhost:${port}/sockjs-node`);
@@ -53,13 +55,12 @@ describe('SockJSServer', () => {
         data.push('close');
       };
 
-      setTimeout(() => {
-        expect(data.length).toEqual(3);
-        expect(data[0]).toEqual('open');
-        expect(data[1]).toEqual('hello world');
-        expect(data[2]).toEqual('close');
-        done();
-      }, 3000);
+      await timer(3000);
+
+      expect(data.length).toEqual(3);
+      expect(data[0]).toEqual('open');
+      expect(data[1]).toEqual('hello world');
+      expect(data[2]).toEqual('close');
     });
   });
 

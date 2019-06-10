@@ -25,8 +25,8 @@ describe('sockPath options', () => {
       expect(!!server.sockPath.match(/\/[a-z0-9\-/]+[^/]$/)).toBeTruthy();
     });
 
-    it('responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
+    it('responds with a 200', async () => {
+      await req.get('/sockjs-node').expect(200);
     });
   });
 
@@ -49,8 +49,8 @@ describe('sockPath options', () => {
       expect(server.sockPath).toEqual(path);
     });
 
-    it('responds with a 200 second', (done) => {
-      req.get(path).expect(200, done);
+    it('responds with a 200 second', async () => {
+      await req.get(path).expect(200);
     });
   });
 });
