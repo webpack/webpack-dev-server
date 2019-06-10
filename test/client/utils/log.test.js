@@ -35,7 +35,7 @@ describe('log', () => {
   });
 
   test('should set log level via setLogLevel', () => {
-    ['info', 'warn', 'error', 'debug', 'trace', 'warning'].forEach((level) => {
+    ['info', 'warn', 'error', 'debug', 'trace'].forEach((level) => {
       setLogLevel(level);
     });
 
@@ -44,14 +44,12 @@ describe('log', () => {
     ).toMatchSnapshot();
   });
 
-  test('should set none and silent via setLogLevel', () => {
-    ['none', 'silent'].forEach((level) => {
-      setLogLevel(level);
-    });
+  test('should set silent via setLogLevel', () => {
+    setLogLevel('silent');
 
     expect(
       logMock.getLogger.mock.results[0].value.disableAll.mock.results
-    ).toHaveLength(2);
+    ).toHaveLength(1);
   });
 
   test('should output exception log when the level is unknown', () => {
