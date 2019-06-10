@@ -17,7 +17,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+      normalize(webpackOptions.entry[0]).includes('client/index.js?')
     ).toBeTruthy();
     expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
   });
@@ -33,7 +33,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(3);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+      normalize(webpackOptions.entry[0]).includes('client/index.js?')
     ).toBeTruthy();
     expect(webpackOptions.entry[1]).toEqual('./foo.js');
     expect(webpackOptions.entry[2]).toEqual('./bar.js');
@@ -54,7 +54,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry.foo.length).toEqual(2);
 
     expect(
-      normalize(webpackOptions.entry.foo[0]).indexOf('client/index.js?') !== -1
+      normalize(webpackOptions.entry.foo[0]).includes('client/index.js?')
     ).toBeTruthy();
     expect(webpackOptions.entry.foo[1]).toEqual('./foo.js');
     expect(webpackOptions.entry.bar[1]).toEqual('./bar.js');
@@ -70,7 +70,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry[1]).toEqual('./src');
   });
 
-  it('should preserves dynamic entry points', (done) => {
+  it('should preserves dynamic entry points', async () => {
     let i = 0;
     const webpackOptions = {
       // simulate dynamic entry
@@ -85,22 +85,21 @@ describe('addEntries util', () => {
 
     expect(typeof webpackOptions.entry).toEqual('function');
 
-    webpackOptions
-      .entry()
-      .then((entryFirstRun) =>
-        webpackOptions.entry().then((entrySecondRun) => {
-          expect(entryFirstRun.length).toEqual(2);
-          expect(entryFirstRun[1]).toEqual('./src-1.js');
+    {
+      const entry = await webpackOptions.entry();
 
-          expect(entrySecondRun.length).toEqual(2);
-          expect(entrySecondRun[1]).toEqual('./src-2.js');
-          done();
-        })
-      )
-      .catch(done);
+      expect(entry.length).toEqual(2);
+      expect(entry[1]).toEqual('./src-1.js');
+    }
+    {
+      const entry = await webpackOptions.entry();
+
+      expect(entry.length).toEqual(2);
+      expect(entry[1]).toEqual('./src-2.js');
+    }
   });
 
-  it('should preserves asynchronous dynamic entry points', (done) => {
+  it('should preserves asynchronous dynamic entry points', async () => {
     let i = 0;
     const webpackOptions = {
       // simulate async dynamic entry
@@ -117,19 +116,18 @@ describe('addEntries util', () => {
 
     expect(typeof webpackOptions.entry).toEqual('function');
 
-    webpackOptions
-      .entry()
-      .then((entryFirstRun) =>
-        webpackOptions.entry().then((entrySecondRun) => {
-          expect(entryFirstRun.length).toEqual(2);
-          expect(entryFirstRun[1]).toEqual('./src-1.js');
+    {
+      const entry = await webpackOptions.entry();
 
-          expect(entrySecondRun.length).toEqual(2);
-          expect(entrySecondRun[1]).toEqual('./src-2.js');
-          done();
-        })
-      )
-      .catch(done);
+      expect(entry.length).toEqual(2);
+      expect(entry[1]).toEqual('./src-1.js');
+    }
+    {
+      const entry = await webpackOptions.entry();
+
+      expect(entry.length).toEqual(2);
+      expect(entry[1]).toEqual('./src-2.js');
+    }
   });
 
   it("should prepends webpack's hot reload client script", () => {
@@ -312,7 +310,7 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+          normalize(webpackOptions.entry[0]).includes('client/index.js?')
         ).toBeTruthy();
       }
 
@@ -344,7 +342,7 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+          normalize(webpackOptions.entry[0]).includes('client/index.js?')
         ).toBeTruthy();
       }
 
@@ -400,7 +398,7 @@ describe('addEntries util', () => {
     expect(webWebpackOptions.entry.length).toEqual(2);
 
     expect(
-      normalize(webWebpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+      normalize(webWebpackOptions.entry[0]).includes('client/index.js?')
     ).toBeTruthy();
 
     expect(normalize(webWebpackOptions.entry[1])).toEqual('./foo.js');
