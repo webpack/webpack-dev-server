@@ -4,7 +4,7 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/provide-plugin-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 
-describe.skip('ProvidePlugin', () => {
+describe('ProvidePlugin', () => {
   describe('inline', () => {
     beforeAll((done) => {
       const options = {
