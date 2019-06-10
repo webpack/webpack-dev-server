@@ -53,7 +53,7 @@
     "killable": "^1.0.1",
     "loglevel": "^1.6.3",
     "open": "^6.2.0",
-    "p-retry": "^3.0.1",
+    "p-retry": "^4.1.0",
     "portfinder": "^1.0.21",
     "schema-utils": "^1.0.0",
     "selfsigned": "^1.10.4",
@@ -67,7 +67,7 @@
     "url": "^0.11.0",
     "webpack-dev-middleware": "^3.7.0",
     "webpack-log": "^2.0.0",
-    "ws": "^6.2.1",
+    "ws": "^7.1.1",
     "yargs": "12.0.5"
   },
   "devDependencies": {
@@ -111,8 +111,7 @@
     "typescript": "^3.5.3",
     "url-loader": "^1.1.2",
     "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6",
-    "ws": "^7.0.0"
+    "webpack-cli": "^3.3.6"
   },
   "peerDependencies": {
     "webpack": "^4.0.0"
