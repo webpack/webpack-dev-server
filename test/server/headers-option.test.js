@@ -24,11 +24,11 @@ describe('headers option', () => {
 
     afterAll(testServer.close);
 
-    it('GET request with headers', (done) => {
-      req
+    it('GET request with headers', async () => {
+      await req
         .get('/main')
         .expect('X-Foo', '1')
-        .expect(200, done);
+        .expect(200);
     });
   });
 
@@ -47,17 +47,18 @@ describe('headers option', () => {
 
     afterAll(testServer.close);
 
-    it('GET request with headers as an array', (done) => {
+    it('GET request with headers as an array', async () => {
       // https://github.com/webpack/webpack-dev-server/pull/1650#discussion_r254217027
       const expected = ['v7', 'v8', 'v9'].includes(
         process.version.split('.')[0]
       )
         ? 'key1=value1,key2=value2'
         : 'key1=value1, key2=value2';
-      req
+
+      await req
         .get('/main')
         .expect('X-Bar', expected)
-        .expect(200, done);
+        .expect(200);
     });
   });
 });
