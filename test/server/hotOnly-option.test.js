@@ -25,10 +25,10 @@ describe('hotOnly options', () => {
 
     afterAll(testServer.close);
 
-    it('should include hotOnly script in the bundle', (done) => {
-      req
+    it('should include hotOnly script in the bundle', async () => {
+      await req
         .get('/main.js')
-        .expect(200, /webpack\/hot\/only-dev-server\.js/, done);
+        .expect(200, /webpack\/hot\/only-dev-server\.js/);
     });
   });
 
