@@ -2,6 +2,7 @@
 
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
+const port = require('../ports-map')['lazy-option'];
 
 describe('lazy option', () => {
   afterEach(testServer.close);
@@ -10,6 +11,7 @@ describe('lazy option', () => {
     expect(() => {
       testServer.start(config, {
         lazy: true,
+        port,
       });
     }).toThrow(/'filename' option must be set/);
   });
@@ -20,6 +22,7 @@ describe('lazy option', () => {
       {
         lazy: true,
         filename: 'bundle.js',
+        port,
       },
       done
     );

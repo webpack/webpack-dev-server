@@ -5,7 +5,7 @@ Array [
   Array [
     "client",
     "index.js?http:",
-    "localhost",
+    "localhost:8090",
   ],
   Array [
     "node_modules",
@@ -35,7 +35,7 @@ Array [
   Array [
     "client",
     "index.js?http:",
-    "localhost",
+    "localhost:8090",
   ],
   Array [
     "node_modules",
