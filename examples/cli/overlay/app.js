@@ -6,4 +6,4 @@ target.classList.add('pass');
 target.innerHTML = 'Success!';
 
 // This results in an error:
-// if(!window) require("test");
+// if (!window) require('test');

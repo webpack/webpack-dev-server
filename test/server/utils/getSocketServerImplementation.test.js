@@ -4,7 +4,7 @@ const getSocketServerImplementation = require('../../../lib/utils/getSocketServe
 const SockJSServer = require('../../../lib/servers/SockJSServer');
 
 describe('getSocketServerImplementation util', () => {
-  it("should work with serverMode: 'sockjs'", () => {
+  it("should works with string serverMode ('sockjs')", () => {
     let result;
 
     expect(() => {
@@ -16,7 +16,7 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should work with serverMode: SockJSServer class', () => {
+  it('should works with serverMode (SockJSServer class)', () => {
     let result;
 
     expect(() => {
@@ -28,7 +28,7 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should work with serverMode: SockJSServer full path', () => {
+  it('should work with serverMode (SockJSServer full path)', () => {
     let result;
 
     expect(() => {
@@ -40,7 +40,7 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should throw with serverMode: bad path', () => {
+  it('should throws with serverMode (bad path)', () => {
     expect(() => {
       getSocketServerImplementation({
         serverMode: '/bad/path/to/implementation',

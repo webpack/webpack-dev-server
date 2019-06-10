@@ -3,6 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
+const port = require('../ports-map')['hotOnly-option'];
 
 describe('hotOnly options', () => {
   let server;
@@ -11,7 +12,7 @@ describe('hotOnly options', () => {
   describe('simple hotOnly config entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hotOnly: true,
         watchOptions: {
@@ -35,7 +36,7 @@ describe('hotOnly options', () => {
     it('should register the HMR plugin before compilation is complete', (done) => {
       let pluginFound = false;
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hotOnly: true,
         watchOptions: {

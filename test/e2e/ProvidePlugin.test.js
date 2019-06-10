@@ -3,12 +3,13 @@
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/provide-plugin-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
+const port = require('../ports-map').ProvidePlugin;
 
-describe.skip('ProvidePlugin', () => {
+describe('ProvidePlugin', () => {
   describe('inline', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         watchOptions: {
@@ -33,7 +34,7 @@ describe.skip('ProvidePlugin', () => {
                 browser.close().then(done);
               });
           });
-          page.goto('http://localhost:9000/main');
+          page.goto(`http://localhost:${port}/main`);
         });
       });
     });
@@ -42,7 +43,7 @@ describe.skip('ProvidePlugin', () => {
   describe('not inline', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: false,
         watchOptions: {
@@ -68,7 +69,7 @@ describe.skip('ProvidePlugin', () => {
                 browser.close().then(done);
               });
           });
-          page.goto('http://localhost:9000/main');
+          page.goto(`http://localhost:${port}/main`);
         });
       });
     });

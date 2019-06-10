@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.7.1](https://github.com/webpack/webpack-dev-server/compare/v3.7.0...v3.7.1) (2019-06-07)
+
+
+### Bug Fixes
+
+* retry finding port when port is null and get ports in sequence ([#1993](https://github.com/webpack/webpack-dev-server/issues/1993)) ([bc57514](https://github.com/webpack/webpack-dev-server/commit/bc57514))
+
+
+
 ## [3.7.0](https://github.com/webpack/webpack-dev-server/compare/v3.5.1...v3.7.0) (2019-06-06)
 
 
