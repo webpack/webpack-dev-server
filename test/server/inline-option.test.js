@@ -26,10 +26,10 @@ describe('inline option', () => {
 
     afterAll(testServer.close);
 
-    it('should include inline client script in the bundle', (done) => {
+    it('should include inline client script in the bundle', async () => {
       const url = new RegExp(`client/index.js\\?http://0.0.0.0:${port}`);
 
-      req.get('/main.js').expect(200, url, done);
+      await req.get('/main.js').expect(200, url);
     });
   });
 
@@ -76,14 +76,10 @@ describe('inline option', () => {
 
     afterAll(testServer.close);
 
-    it('should NOT include inline client script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200)
-        .then(({ text }) => {
-          expect(text.includes(`client/index.js?http://0.0.0.0:${port}`));
-          done();
-        });
+    it('should NOT include inline client script in the bundle', async () => {
+      const { text } = await req.get('/main.js').expect(200);
+
+      expect(text.includes(`client/index.js?http://0.0.0.0:${port}`));
     });
   });
 });

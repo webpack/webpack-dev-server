@@ -37,19 +37,17 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
 
       fs.truncateSync(nestedFile);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      await req.get('/').expect(200, /Heyo/);
     });
 
-    it('Request to other file', (done) => {
-      req.get('/other.html').expect(200, /Other html/, done);
+    it('Request to other file', async () => {
+      await req.get('/other.html').expect(200, /Other html/);
     });
 
     it('Watches folder recursively', (done) => {
@@ -108,12 +106,12 @@ describe('contentBase option', () => {
       });
     });
 
-    it("shouldn't list the files inside the assets folder (404)", (done) => {
-      req.get('/assets/').expect(404, done);
+    it("shouldn't list the files inside the assets folder (404)", async () => {
+      await req.get('/assets/').expect(404);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      await req.get('/bar/').expect(200, /Heyo/);
     });
   });
 
@@ -133,17 +131,15 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get('/assets/').expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      await req.get('/assets/').expect(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      await req.get('/bar/').expect(200, /Heyo/);
     });
   });
 
@@ -162,17 +158,15 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get('/assets/').expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      await req.get('/assets/').expect(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      await req.get('/bar/').expect(200, /Heyo/);
     });
   });
 
@@ -190,17 +184,15 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('Request to first directory', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to first directory', async () => {
+      await req.get('/').expect(200, /Heyo/);
     });
 
-    it('Request to second directory', (done) => {
-      req.get('/foo.html').expect(200, /Foo!/, done);
+    it('Request to second directory', async () => {
+      await req.get('/foo.html').expect(200, /Foo!/);
     });
   });
 
@@ -218,16 +210,14 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('Request to page', (done) => {
-      req
+    it('Request to page', async () => {
+      await req
         .get('/other.html')
         .expect('Location', '//localhost:9099999/other.html')
-        .expect(302, done);
+        .expect(302);
     });
   });
 
@@ -245,25 +235,23 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('Request to page', (done) => {
-      req
+    it('Request to page', async () => {
+      await req
         .get('/foo.html')
         // TODO: hmm, two slashes seems to be a bug?
         .expect('Location', 'http://example.com//foo.html')
-        .expect(302, done);
+        .expect(302);
     });
 
-    it('Request to page with search params', (done) => {
-      req
+    it('Request to page with search params', async () => {
+      await req
         .get('/foo.html?space=ship')
         // TODO: hmm, two slashes seems to be a bug?
         .expect('Location', 'http://example.com//foo.html?space=ship')
-        .expect(302, done);
+        .expect(302);
     });
   });
 
@@ -326,13 +314,11 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('Request to page', (done) => {
-      req.get('/other.html').expect(200, done);
+    it('Request to page', async () => {
+      await req.get('/other.html').expect(200);
     });
   });
 
@@ -354,13 +340,11 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('Request to page', (done) => {
-      req.get('/other.html').expect(404, done);
+    it('Request to page', async () => {
+      await req.get('/other.html').expect(404);
     });
   });
 
@@ -378,13 +362,11 @@ describe('contentBase option', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
+      testServer.close(done);
     });
 
-    it('Request foo.wasm', (done) => {
-      req.get('/foo.wasm').expect('Content-Type', 'application/wasm', done);
+    it('Request foo.wasm', async () => {
+      await req.get('/foo.wasm').expect('Content-Type', 'application/wasm');
     });
   });
 });

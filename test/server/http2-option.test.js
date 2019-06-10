@@ -107,14 +107,10 @@ describe('http2 option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req
-        .get('/')
-        .expect(200, /Heyo/)
-        .then(({ res }) => {
-          expect(res.httpVersion).not.toEqual('2.0');
-          done();
-        });
+    it('Request to index', async () => {
+      const { res } = await req.get('/').expect(200, /Heyo/);
+
+      expect(res.httpVersion).not.toEqual('2.0');
     });
 
     afterAll(testServer.close);

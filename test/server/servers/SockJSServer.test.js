@@ -4,6 +4,7 @@ const http = require('http');
 const express = require('express');
 const SockJS = require('sockjs-client/dist/sockjs');
 const SockJSServer = require('../../../lib/servers/SockJSServer');
+const timer = require('../../helpers/timer');
 const port = require('../../ports-map').SockJSServer;
 
 describe('SockJSServer', () => {
@@ -32,18 +33,18 @@ describe('SockJSServer', () => {
   });
 
   describe('server', () => {
-    it('should recieve connection, send message, and close client', (done) => {
+    it('should recieve connection, send message, and close client', async () => {
       const data = [];
-
       let headers;
-      socketServer.onConnection((connection, h) => {
-        headers = h;
+
+      socketServer.onConnection(async (connection) => {
         data.push('open');
         socketServer.send(connection, 'hello world');
-        setTimeout(() => {
-          // the server closes the connection with the client
-          socketServer.close(connection);
-        }, 1000);
+
+        await timer(1000);
+
+        // the server closes the connection with the client
+        socketServer.close(connection);
       });
 
       const client = new SockJS(`http://localhost:${port}/sockjs-node`);
@@ -56,14 +57,13 @@ describe('SockJSServer', () => {
         data.push('close');
       };
 
-      setTimeout(() => {
-        expect(headers.host).toMatchSnapshot();
-        expect(data).toMatchSnapshot();
-        done();
-      }, 3000);
+      await timer(3000);
+
+      expect(headers.host).toMatchSnapshot();
+      expect(data).toMatchSnapshot();
     });
 
-    it('should receive client close event', (done) => {
+    it('should receive client close event', async () => {
       let receivedClientClose = false;
       socketServer.onConnection((connection) => {
         socketServer.onConnectionClose(connection, () => {
@@ -74,15 +74,14 @@ describe('SockJSServer', () => {
       // eslint-disable-next-line new-cap
       const client = new SockJS(`http://localhost:${port}/sockjs-node`);
 
-      setTimeout(() => {
-        // the client closes itself, the server does not close it
-        client.close();
-      }, 1000);
+      await timer(1000);
 
-      setTimeout(() => {
-        expect(receivedClientClose).toBeTruthy();
-        done();
-      }, 3000);
+      // the client closes itself, the server does not close it
+      client.close();
+
+      await timer(3000);
+
+      expect(receivedClientClose).toBeTruthy();
     });
   });
 

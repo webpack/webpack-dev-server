@@ -33,75 +33,7 @@ describe('options', () => {
     expect(res).toEqual(true);
   });
 
-  describe('validation', () => {
-    let server;
-
-    afterAll((done) => {
-      if (server) {
-        server.close(() => {
-          done();
-        });
-      }
-    });
-
-    function validateOption(propertyName, cases) {
-      const successCount = cases.success.length;
-      const testCases = [];
-
-      for (const key of Object.keys(cases)) {
-        testCases.push(...cases[key]);
-      }
-
-      let current = 0;
-
-      return testCases.reduce((p, value) => {
-        let compiler = webpack(config);
-
-        return p
-          .then(() => {
-            const opts =
-              Object.prototype.toString.call(value) === '[object Object]' &&
-              Object.keys(value).length !== 0
-                ? value
-                : {
-                    [propertyName]: value,
-                  };
-
-            server = new Server(compiler, opts);
-          })
-          .then(() => {
-            if (current < successCount) {
-              expect(true).toBeTruthy();
-            } else {
-              expect(false).toBeTruthy();
-            }
-          })
-          .catch((err) => {
-            if (current >= successCount) {
-              expect(err).toBeInstanceOf(ValidationError);
-            } else {
-              expect(false).toBeTruthy();
-            }
-          })
-          .then(() => {
-            return new Promise((resolve) => {
-              if (server) {
-                server.close(() => {
-                  compiler = null;
-                  server = null;
-                  resolve();
-                });
-              } else {
-                resolve();
-              }
-            });
-          })
-          .then(() => {
-            current += 1;
-          });
-      }, Promise.resolve());
-    }
-
+  {
     const memfs = createFsFromVolume(new Volume());
     // We need to patch memfs
     // https://github.com/webpack/webpack-dev-middleware#fs
@@ -432,10 +364,58 @@ describe('options', () => {
       },
     };
 
-    Object.keys(cases).forEach((key) => {
-      it(key, () => {
-        return validateOption(key, cases[key]);
+    for (const [key, values] of Object.entries(cases)) {
+      it(`should validate "${key}" option`, async () => {
+        const compiler = webpack(config);
+        const { success, failure } = values;
+
+        for (const sample of success) {
+          let server;
+
+          try {
+            server = new Server(compiler, createOptions(key, sample));
+            expect(true).toBeTruthy();
+          } catch (e) {
+            expect(false).toBeTruthy();
+          }
+
+          // eslint-disable-next-line no-await-in-loop
+          await closeServer(server);
+        }
+
+        for (const sample of failure) {
+          let server;
+
+          try {
+            server = new Server(compiler, createOptions(key, sample));
+            expect(false).toBeTruthy();
+          } catch (e) {
+            expect(e).toBeInstanceOf(ValidationError);
+          }
+
+          // eslint-disable-next-line no-await-in-loop
+          await closeServer(server);
+        }
       });
+    }
+  }
+
+  function createOptions(key, value) {
+    return Object.prototype.toString.call(value) === '[object Object]' &&
+      Object.keys(value).length !== 0
+      ? value
+      : {
+          [key]: value,
+        };
+  }
+
+  async function closeServer(server) {
+    await new Promise((resolve) => {
+      if (server) {
+        server.close(resolve);
+      } else {
+        resolve();
+      }
     });
-  });
+  }
 });
