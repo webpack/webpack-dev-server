@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
+const port = require('../ports-map')['liveReload-option'];
 
 const contentBasePublic = path.resolve(
   __dirname,
@@ -23,6 +24,7 @@ describe('liveReload option', () => {
           contentBase: contentBasePublic,
           watchContentBase: true,
           liveReload: false,
+          port,
         },
         done
       );
@@ -70,6 +72,7 @@ describe('liveReload option', () => {
           contentBase: contentBasePublic,
           watchContentBase: true,
           liveReload: true,
+          port,
         },
         done
       );

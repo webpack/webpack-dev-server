@@ -7,21 +7,21 @@ const bodyParser = require('body-parser');
 const WebSocket = require('ws');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/proxy-config/webpack.config');
+const [port1, port2, port3, port4] = require('../ports-map')['proxy-option'];
 
 const WebSocketServer = WebSocket.Server;
 const contentBase = path.resolve(__dirname, '../fixtures/proxy-config');
 
 const proxyOptionPathsAsProperties = {
   '/proxy1': {
-    target: 'http://localhost:9000',
+    target: `http://localhost:${port1}`,
   },
   '/api/proxy2': {
-    target: 'http://localhost:9001',
+    target: `http://localhost:${port2}`,
     pathRewrite: { '^/api': '' },
   },
   '/foo': {
     bypass(req) {
-      console.log(req.path);
       if (/\.html$/.test(req.path)) {
         return '/index.html';
       }
@@ -40,7 +40,7 @@ const proxyOptionPathsAsProperties = {
 
 const proxyOption = {
   context: () => true,
-  target: 'http://localhost:9000',
+  target: `http://localhost:${port1}`,
 };
 
 const proxyOptionOfArray = [
@@ -48,7 +48,7 @@ const proxyOptionOfArray = [
   function proxy() {
     return {
       context: '/api/proxy2',
-      target: 'http://localhost:9001',
+      target: `http://localhost:${port2}`,
       pathRewrite: { '^/api': '' },
     };
   },
@@ -69,8 +69,8 @@ function startProxyServers() {
     res.send('from proxy2');
   });
 
-  listeners.push(proxy1.listen(9000));
-  listeners.push(proxy2.listen(9001));
+  listeners.push(proxy1.listen(port1));
+  listeners.push(proxy2.listen(port2));
 
   // return a function to shutdown proxy servers
   return function proxy() {
@@ -93,6 +93,7 @@ describe('proxy option', () => {
         {
           contentBase,
           proxy: proxyOptionPathsAsProperties,
+          port: port3,
         },
         done
       );
@@ -149,6 +150,7 @@ describe('proxy option', () => {
         {
           contentBase,
           proxy: proxyOption,
+          port: port3,
         },
         done
       );
@@ -179,6 +181,7 @@ describe('proxy option', () => {
         {
           contentBase,
           proxy: proxyOptionOfArray,
+          port: port3,
         },
         done
       );
@@ -206,7 +209,7 @@ describe('proxy option', () => {
     let req;
     let listener;
     const proxyTarget = {
-      target: 'http://localhost:9000',
+      target: `http://localhost:${port1}`,
     };
 
     beforeAll((done) => {
@@ -216,7 +219,7 @@ describe('proxy option', () => {
         res.send('from proxy');
       });
 
-      listener = proxy.listen(9000);
+      listener = proxy.listen(port1);
 
       server = testServer.start(
         config,
@@ -226,6 +229,7 @@ describe('proxy option', () => {
             '/proxy1': proxyTarget,
             '/proxy2': proxyTarget,
           },
+          port: port3,
         },
         done
       );
@@ -261,15 +265,16 @@ describe('proxy option', () => {
           proxy: [
             {
               context: '/',
-              target: 'http://localhost:9003',
+              target: `http://localhost:${port4}`,
               ws: true,
             },
           ],
+          port: port3,
         },
         done
       );
 
-      wsServer = new WebSocketServer({ port: 9003 });
+      wsServer = new WebSocketServer({ port: port4 });
       wsServer.on('connection', (server) => {
         server.on('message', (message) => {
           server.send(message);
@@ -278,7 +283,7 @@ describe('proxy option', () => {
     });
 
     beforeEach((done) => {
-      ws = new WebSocket('ws://localhost:8080/proxy3/socket');
+      ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
       ws.on('message', (message) => {
         responseMessage = message;
         done();
@@ -303,7 +308,7 @@ describe('proxy option', () => {
     let req;
     let listener;
     const proxyTarget = {
-      target: 'http://localhost:9000',
+      target: `http://localhost:${port1}`,
     };
 
     beforeAll((done) => {
@@ -339,7 +344,7 @@ describe('proxy option', () => {
         res.send('DELETE method from proxy');
       });
 
-      listener = proxy.listen(9000);
+      listener = proxy.listen(port1);
 
       server = testServer.start(
         config,

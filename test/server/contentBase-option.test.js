@@ -5,6 +5,7 @@ const fs = require('fs');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
+const port = require('../ports-map')['contentBase-option'];
 
 const contentBasePublic = path.resolve(
   __dirname,
@@ -28,6 +29,7 @@ describe('contentBase option', () => {
         {
           contentBase: contentBasePublic,
           watchContentBase: true,
+          port,
         },
         done
       );
@@ -93,6 +95,7 @@ describe('contentBase option', () => {
           contentBase: contentBasePublic,
           watchContentBase: true,
           serveIndex: false,
+          port,
         },
         done
       );
@@ -122,6 +125,7 @@ describe('contentBase option', () => {
           contentBase: contentBasePublic,
           watchContentBase: true,
           serveIndex: true,
+          port,
         },
         done
       );
@@ -150,6 +154,7 @@ describe('contentBase option', () => {
         {
           contentBase: contentBasePublic,
           watchContentBase: true,
+          port,
         },
         done
       );
@@ -177,6 +182,7 @@ describe('contentBase option', () => {
         config,
         {
           contentBase: [contentBasePublic, contentBaseOther],
+          port,
         },
         done
       );
@@ -204,6 +210,7 @@ describe('contentBase option', () => {
         config,
         {
           contentBase: 9099999,
+          port,
         },
         done
       );
@@ -230,6 +237,7 @@ describe('contentBase option', () => {
         config,
         {
           contentBase: 'http://example.com/',
+          port,
         },
         done
       );
@@ -288,6 +296,7 @@ describe('contentBase option', () => {
         config,
         {
           contentBase: false,
+          port,
         },
         done
       );
@@ -311,6 +320,7 @@ describe('contentBase option', () => {
         config,
         {
           contentBase: [contentBasePublic],
+          port,
         },
         done
       );

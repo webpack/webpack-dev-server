@@ -3,6 +3,7 @@
 const webpack = require('webpack');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
+const port = require('../ports-map')['stats-option'];
 
 describe('stats option', () => {
   it(`should works with difference stats values (contains 'hash', 'assets', 'warnings' and 'errors')`, () => {
@@ -21,7 +22,7 @@ describe('stats option', () => {
       return p.then(() => {
         return new Promise((resolve) => {
           const compiler = webpack(config);
-          const server = new Server(compiler, { stats });
+          const server = new Server(compiler, { stats, port });
 
           compiler.hooks.done.tap('webpack-dev-server', (s) => {
             expect(Object.keys(server.getStats(s))).toMatchSnapshot();
@@ -30,7 +31,7 @@ describe('stats option', () => {
           });
 
           compiler.run(() => {});
-          server.listen(8080, 'localhost');
+          server.listen(port, 'localhost');
         });
       });
     }, Promise.resolve());
@@ -40,6 +41,7 @@ describe('stats option', () => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
       stats: { warningsFilter: 'test' },
+      port,
     });
 
     compiler.hooks.done.tap('webpack-dev-server', (s) => {
@@ -54,6 +56,6 @@ describe('stats option', () => {
     });
 
     compiler.run(() => {});
-    server.listen(8080, 'localhost');
+    server.listen(port, 'localhost');
   });
 });

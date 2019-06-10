@@ -4,6 +4,7 @@ const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const multiCompilerConfig = require('../fixtures/multi-compiler-config/webpack.config');
+const port = require('../ports-map')['inline-option'];
 
 describe('inline option', () => {
   let server;
@@ -12,7 +13,7 @@ describe('inline option', () => {
   describe('simple inline config entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         watchOptions: {
@@ -26,16 +27,16 @@ describe('inline option', () => {
     afterAll(testServer.close);
 
     it('should include inline client script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200, /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/, done);
+      const url = new RegExp(`client/index.js\\?http://0.0.0.0:${port}`);
+
+      req.get('/main.js').expect(200, url, done);
     });
   });
 
   describe('multi compiler inline config entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         watchOptions: {
@@ -53,16 +54,16 @@ describe('inline option', () => {
     afterAll(testServer.close);
 
     it('should include inline client script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200, /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/, done);
+      const url = new RegExp(`client/index.js\\?http://0.0.0.0:${port}`);
+
+      req.get('/main.js').expect(200, url, done);
     });
   });
 
   describe('inline disabled entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: false,
         watchOptions: {
@@ -80,9 +81,7 @@ describe('inline option', () => {
         .get('/main.js')
         .expect(200)
         .then(({ text }) => {
-          expect(text).not.toMatch(
-            /client\/index\.js\?http:\/\/0\.0\.0\.0:9000/
-          );
+          expect(text.includes(`client/index.js?http://0.0.0.0:${port}`));
           done();
         });
     });

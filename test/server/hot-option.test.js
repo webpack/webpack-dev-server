@@ -4,6 +4,7 @@ const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const multiCompilerConfig = require('../fixtures/multi-compiler-config/webpack.config');
+const port = require('../ports-map')['hot-option'];
 
 describe('hot option', () => {
   let server;
@@ -12,7 +13,7 @@ describe('hot option', () => {
   describe('simple hot config entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hot: true,
         watchOptions: {
@@ -33,7 +34,7 @@ describe('hot option', () => {
   describe('multi compiler hot config entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hot: true,
         watchOptions: {
@@ -58,7 +59,7 @@ describe('hot option', () => {
   describe('hot disabled entries', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hot: false,
         watchOptions: {
@@ -89,7 +90,7 @@ describe('hot option', () => {
     it('should register the HMR plugin before compilation is complete', (done) => {
       let pluginFound = false;
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hot: true,
         watchOptions: {
@@ -123,7 +124,7 @@ describe('hot option', () => {
     it('should register the HMR plugin before compilation is complete', (done) => {
       let pluginFound = false;
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hot: true,
         watchOptions: {
@@ -157,7 +158,7 @@ describe('hot option', () => {
     it('should NOT register the HMR plugin before compilation is complete', (done) => {
       let pluginFound = false;
       const options = {
-        port: 9000,
+        port,
         inline: true,
         hot: false,
         watchOptions: {

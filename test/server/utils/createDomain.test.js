@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const internalIp = require('internal-ip');
 const Server = require('../../../lib/Server');
 const createDomain = require('../../../lib/utils/createDomain');
+const [port1, port2] = require('../../ports-map').createDomain;
 const config = require('./../../fixtures/simple-config/webpack.config');
 
 describe('check utility functions', () => {
@@ -15,9 +16,7 @@ describe('check utility functions', () => {
   });
 
   afterEach((done) => {
-    server.close(() => {
-      done();
-    });
+    server.close(done);
   });
 
   const tests = [
@@ -25,32 +24,32 @@ describe('check utility functions', () => {
       name: 'default',
       options: {
         host: 'localhost',
-        port: 8080,
+        port: port1,
       },
-      expected: 'http://localhost:8080',
+      expected: `http://localhost:${port1}`,
     },
     {
       name: 'no host option',
       options: {
-        port: 8080,
+        port: port1,
       },
-      expected: 'http://localhost:8080',
+      expected: `http://localhost:${port1}`,
     },
     {
       name: 'https',
       options: {
         host: 'localhost',
-        port: 8080,
+        port: port1,
         https: true,
       },
-      expected: 'https://localhost:8080',
+      expected: `https://localhost:${port1}`,
       timeout: 60000,
     },
     {
       name: 'override with public',
       options: {
         host: 'localhost',
-        port: 8080,
+        port: port1,
         public: 'myhost.test',
       },
       expected: 'http://myhost.test',
@@ -59,16 +58,16 @@ describe('check utility functions', () => {
       name: 'override with public (port)',
       options: {
         host: 'localhost',
-        port: 8080,
-        public: 'myhost.test:9090',
+        port: port1,
+        public: `myhost.test:${port2}`,
       },
-      expected: 'http://myhost.test:9090',
+      expected: `http://myhost.test:${port2}`,
     },
     {
       name: 'override with public (protocol)',
       options: {
         host: 'localhost',
-        port: 8080,
+        port: port1,
         public: 'https://myhost.test',
       },
       expected: 'https://myhost.test',
@@ -77,18 +76,18 @@ describe('check utility functions', () => {
       name: 'override with public (protocol + port)',
       options: {
         host: 'localhost',
-        port: 8080,
-        public: 'https://myhost.test:9090',
+        port: port1,
+        public: `https://myhost.test:${port2}`,
       },
-      expected: 'https://myhost.test:9090',
+      expected: `https://myhost.test:${port2}`,
     },
     {
       name: 'localIp',
       options: {
         useLocalIp: true,
-        port: 8080,
+        port: port1,
       },
-      expected: `http://${internalIp.v4.sync() || 'localhost'}:8080`,
+      expected: `http://${internalIp.v4.sync() || 'localhost'}:${port1}`,
     },
   ];
 
