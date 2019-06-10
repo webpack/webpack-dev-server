@@ -9,6 +9,7 @@ const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const { writeAsync } = require('../helpers/fs');
 const testServer = require('../helpers/test-server');
 const runBrowser = require('../helpers/run-browser');
+const port = require('../ports-map').Client;
 
 const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 
@@ -20,7 +21,7 @@ describe('reload', () => {
         'body { background-color: rgb(0, 0, 255); }'
       );
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         hot: true,
@@ -41,7 +42,7 @@ describe('reload', () => {
         const { page, browser } = await runBrowser();
         let refreshed = false;
 
-        page.goto('http://localhost:9000/main');
+        page.goto(`http://localhost:${port}/main`);
         await page.waitForNavigation({ waitUntil: 'load' });
 
         {
@@ -59,7 +60,7 @@ describe('reload', () => {
           if (
             req.isNavigationRequest() &&
             req.frame() === page.mainFrame() &&
-            req.url() === 'http://localhost:9000/main'
+            req.url() === `http://localhost:${port}/main`
           ) {
             refreshed = true;
           }

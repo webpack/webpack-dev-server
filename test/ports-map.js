@@ -40,9 +40,7 @@ const portsList = {
 let startPort = 8079;
 const ports = {};
 
-Object.keys(portsList).forEach((key) => {
-  const value = portsList[key];
-
+Object.entries(portsList).forEach(([key, value]) => {
   ports[key] =
     value === 1
       ? (startPort += 1)

@@ -56,7 +56,7 @@ describe('ProvidePlugin', () => {
 
     describe('on browser client', () => {
       it('should not inject client implementation', async () => {
-        const { page, browser } = runBrowser();
+        const { page, browser } = await runBrowser();
 
         page.goto(`http://localhost:${port}/main`);
         await page.waitForNavigation({ waitUntil: 'load' });

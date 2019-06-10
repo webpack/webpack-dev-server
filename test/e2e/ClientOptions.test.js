@@ -73,7 +73,7 @@ describe('Client code', () => {
       );
 
       expect(
-        requestObj.url().includes(`http://localhost:${port1}/sockjs-node`)
+        req.url().includes(`http://localhost:${port1}/sockjs-node`)
       ).toBeTruthy();
 
       await browser.close();
