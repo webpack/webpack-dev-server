@@ -9,6 +9,32 @@ const { log, setLogLevel } = require('./utils/log');
 const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
 const createSocketUrl = require('./utils/createSocketUrl');
+const querystring = require('querystring');
+const url = require('url');
+
+let compilerName;
+(function parseCompilerName(resourceQuery) {
+  let urlParts;
+
+  if (typeof resourceQuery === 'string' && resourceQuery !== '') {
+    // If this bundle is inlined, use the resource query to get the correct url.
+    urlParts = url.parse(resourceQuery.substr(1));
+  } else {
+    // Else, get the url from the <script> this file was called with.
+    let scriptHost = getCurrentScriptSource();
+
+    // eslint-disable-next-line no-useless-escape
+    scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
+    urlParts = url.parse(scriptHost || '/', false, true);
+  }
+  const { auth, path } = urlParts;
+
+  // eslint-disable-next-line no-undefined
+  if (path !== null && path !== undefined && path !== '/') {
+    const parsedQuery = querystring.parse(path);
+    compilerName = parsedQuery.compilerName;
+  }
+})(__resourceQuery)
 
 const status = {
   isUnloading: false,
@@ -43,7 +69,8 @@ const onSocketMessage = {
     options.liveReload = true;
     log.info('[WDS] Live Reloading enabled.');
   },
-  invalid() {
+  invalid(targetCompilerName) {
+    if (compilerName && compilerName !== targetCompilerName) return;
     log.info('[WDS] App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.useWarningOverlay || options.useErrorOverlay) {
@@ -90,7 +117,8 @@ const onSocketMessage = {
     }
     sendMessage('Progress', data);
   },
-  ok() {
+  ok(targetCompilerName) {
+    if (!options.initial && compilerName && compilerName !== targetCompilerName) return;
     sendMessage('Ok');
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
