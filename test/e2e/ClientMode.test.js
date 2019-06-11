@@ -3,12 +3,13 @@
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
+const port = require('../ports-map').ClientMode;
 
 describe('clientMode', () => {
   describe('sockjs', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         clientMode: 'sockjs',
@@ -22,7 +23,7 @@ describe('clientMode', () => {
       it('logs as usual', (done) => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
-          page.goto('http://localhost:9000/main');
+          page.goto(`http://localhost:${port}/main`);
           page.on('console', ({ _text }) => {
             res.push(_text);
           });
@@ -39,7 +40,7 @@ describe('clientMode', () => {
   describe('custom client', () => {
     beforeAll((done) => {
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         clientMode: require.resolve(
@@ -55,7 +56,7 @@ describe('clientMode', () => {
       it('logs additional messages to console', (done) => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
-          page.goto('http://localhost:9000/main');
+          page.goto(`http://localhost:${port}/main`);
           page.on('console', ({ _text }) => {
             res.push(_text);
           });
