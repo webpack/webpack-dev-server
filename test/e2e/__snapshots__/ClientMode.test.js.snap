@@ -8,6 +8,8 @@ Array [
   "[WDS] Live Reloading enabled.",
   "hash",
   "ok",
+  "close",
+  "[WDS] Disconnected!",
 ]
 `;
 
@@ -15,5 +17,6 @@ exports[`clientMode sockjs on browser client logs as usual 1`] = `
 Array [
   "Hey.",
   "[WDS] Live Reloading enabled.",
+  "[WDS] Disconnected!",
 ]
 `;

@@ -17,8 +17,6 @@ describe('clientMode', () => {
       testServer.startAwaitingCompilation(config, options, done);
     });
 
-    afterAll(testServer.close);
-
     describe('on browser client', () => {
       it('logs as usual', (done) => {
         runBrowser().then(({ page, browser }) => {
@@ -29,8 +27,13 @@ describe('clientMode', () => {
           });
 
           setTimeout(() => {
-            expect(res).toMatchSnapshot();
-            browser.close().then(done);
+            testServer.close(() => {
+              // make sure the client gets the close message
+              setTimeout(() => {
+                expect(res).toMatchSnapshot();
+                browser.close().then(done);
+              }, 1000);
+            });
           }, 3000);
         });
       });
@@ -50,8 +53,6 @@ describe('clientMode', () => {
       testServer.startAwaitingCompilation(config, options, done);
     });
 
-    afterAll(testServer.close);
-
     describe('on browser client', () => {
       it('logs additional messages to console', (done) => {
         runBrowser().then(({ page, browser }) => {
@@ -62,8 +63,13 @@ describe('clientMode', () => {
           });
 
           setTimeout(() => {
-            expect(res).toMatchSnapshot();
-            browser.close().then(done);
+            testServer.close(() => {
+              // make sure the client gets the close message
+              setTimeout(() => {
+                expect(res).toMatchSnapshot();
+                browser.close().then(done);
+              }, 1000);
+            });
           }, 3000);
         });
       });
