@@ -27,7 +27,9 @@ describe('inline option', () => {
     afterAll(testServer.close);
 
     it('should include inline client script in the bundle', (done) => {
-      const url = new RegExp(`client/index.js\\?http://0.0.0.0:${port}`);
+      const url = new RegExp(
+        `client/default/index.js\\?http://0.0.0.0:${port}`
+      );
 
       req.get('/main.js').expect(200, url, done);
     });
@@ -54,7 +56,9 @@ describe('inline option', () => {
     afterAll(testServer.close);
 
     it('should include inline client script in the bundle', (done) => {
-      const url = new RegExp(`client/index.js\\?http://0.0.0.0:${port}`);
+      const url = new RegExp(
+        `client/default/index.js\\?http://0.0.0.0:${port}`
+      );
 
       req.get('/main.js').expect(200, url, done);
     });
@@ -81,7 +85,9 @@ describe('inline option', () => {
         .get('/main.js')
         .expect(200)
         .then(({ text }) => {
-          expect(text.includes(`client/index.js?http://0.0.0.0:${port}`));
+          expect(
+            text.includes(`client/default/index.js?http://0.0.0.0:${port}`)
+          );
           done();
         });
     });

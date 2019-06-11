@@ -4,7 +4,20 @@
 /* eslint-disable
   camelcase
 */
-const Client = __webpack_dev_server_client__;
+
+// this SockJSClient is here as a default fallback, in case inline mode
+// is off or the client is not injected. This will be switched to
+// WebsocketClient when it becomes the default
+const SockJSClient = require('../clients/SockJSClient');
+
+let Client;
+try {
+  // if __webpack_dev_server_client__ is undefined, we should fall back
+  // to SockJSClient
+  Client = __webpack_dev_server_client__;
+} catch (e) {
+  Client = SockJSClient;
+}
 
 let retries = 0;
 let client = null;
