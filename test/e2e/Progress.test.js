@@ -45,7 +45,12 @@ describe('client progress', () => {
               'body { background-color: rgb(255, 0, 0); }'
             );
             page.waitFor(10000).then(() => {
-              expect(res.includes('[WDS] 0% - compiling.')).toBeTruthy();
+              const testExp = /\[WDS\] [0-9]{1,3}% - compiling\./;
+              const match = res.find((line) => {
+                return testExp.test(line);
+              });
+              // eslint-disable-next-line no-undefined
+              expect(match).not.toEqual(undefined);
               fs.unlinkSync(cssFilePath);
               browser.close().then(done);
             });
