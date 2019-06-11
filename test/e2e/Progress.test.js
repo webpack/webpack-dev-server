@@ -8,6 +8,7 @@ const { resolve } = require('path');
 const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
+const port = require('../ports-map').Progress;
 
 const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 
@@ -19,7 +20,7 @@ describe('client progress', () => {
         'body { background-color: rgb(0, 0, 255); }'
       );
       const options = {
-        port: 9000,
+        port,
         host: '0.0.0.0',
         inline: true,
         hot: true,
@@ -56,7 +57,7 @@ describe('client progress', () => {
             });
           });
 
-          page.goto('http://localhost:9000/main');
+          page.goto(`http://localhost:${port}/main`);
           page.on('console', ({ _text }) => {
             res.push(_text);
           });
