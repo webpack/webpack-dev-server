@@ -32,6 +32,7 @@ describe('client progress', () => {
     });
 
     afterAll((done) => {
+      fs.unlinkSync(cssFilePath);
       testServer.close(done);
     });
 
@@ -51,7 +52,6 @@ describe('client progress', () => {
               });
               // eslint-disable-next-line no-undefined
               expect(match).not.toEqual(undefined);
-              fs.unlinkSync(cssFilePath);
               browser.close().then(done);
             });
           });
