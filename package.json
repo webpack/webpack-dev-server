@@ -32,7 +32,7 @@
     "build:client:sockjs": "webpack ./client-src/sockjs/index.js -o client/sockjs.bundle.js --color --config client-src/sockjs/webpack.config.js",
     "build:client": "rimraf ./client/* && npm-run-all -s -l -p \"build:client:**\"",
     "webpack-dev-server": "cd $INIT_CWD && node ../../../bin/webpack-dev-server.js",
-    "release": "standard-version"
+    "release": "git fetch --tags && standard-version"
   },
   "dependencies": {
     "ansi-html": "0.0.7",
