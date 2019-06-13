@@ -60,7 +60,6 @@ $(() => {
       }
     },
     ok() {
-      console.log('OK!!');
       okness.text('');
       $errors.hide();
       reloadApp();
