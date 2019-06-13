@@ -30,8 +30,10 @@ describe('ProvidePlugin', () => {
                 return window.injectedClient === window.expectedClient;
               })
               .then((isCorrectClient) => {
-                expect(isCorrectClient).toBeTruthy();
-                browser.close().then(done);
+                browser.close().then(() => {
+                  expect(isCorrectClient).toBeTruthy();
+                  done();
+                });
               });
           });
           page.goto(`http://localhost:${port}/main`);
@@ -65,8 +67,10 @@ describe('ProvidePlugin', () => {
                 return window.injectedClient === undefined;
               })
               .then((isCorrectClient) => {
-                expect(isCorrectClient).toBeTruthy();
-                browser.close().then(done);
+                browser.close().then(() => {
+                  expect(isCorrectClient).toBeTruthy();
+                  done();
+                });
               });
           });
           page.goto(`http://localhost:${port}/main`);
