@@ -47,12 +47,10 @@ describe('client progress', () => {
               'body { background-color: rgb(255, 0, 0); }'
             );
             page.waitFor(10000).then(() => {
-              const testExp = /\[WDS\] [0-9]{1,3}% - compiling\./;
-              const match = res.find((line) => {
-                return testExp.test(line);
+              browser.close().then(() => {
+                expect(res).toMatchSnapshot();
+                done();
               });
-              // eslint-disable-next-line no-undefined
-              expect(match).not.toEqual(undefined);
               browser.close().then(done);
             });
           });
