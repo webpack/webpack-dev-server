@@ -5,20 +5,18 @@
   camelcase
 */
 
-let Client;
-try {
-  // if __webpack_dev_server_client__ is undefined, we should fall back
-  // to SockJSClient
-  Client = __webpack_dev_server_client__;
-} catch (e) {
-  // this SockJSClient is here as a default fallback, in case inline mode
-  // is off or the client is not injected. This will be switched to
-  // WebsocketClient when it becomes the default
+// this SockJSClient is here as a default fallback, in case inline mode
+// is off or the client is not injected. This will be switched to
+// WebsocketClient when it becomes the default
 
-  // eslint-disable-next-line global-require
-  const SockJSClient = require('../clients/SockJSClient');
-  Client = SockJSClient;
-}
+// important: the path to SockJSClient here is made to work in the 'client'
+// directory, but is updated via the webpack compilation when compiled from
+// the 'client-src' directory
+const Client =
+  typeof __webpack_dev_server_client__ !== 'undefined'
+    ? __webpack_dev_server_client__
+    : // eslint-disable-next-line import/no-unresolved
+      require('./clients/SockJSClient');
 
 let retries = 0;
 let client = null;

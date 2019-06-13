@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -33,5 +34,11 @@ module.exports = {
         to: path.resolve(__dirname, '../../client/live.html'),
       },
     ]),
+    new webpack.NormalModuleReplacementPlugin(/\/clients\//, (resource) => {
+      resource.request = resource.request.replace(
+        /\/clients\//,
+        '/../clients/'
+      );
+    }),
   ],
 };

@@ -17,8 +17,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/default/index.js?') !==
-        -1
+      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
     ).toBeTruthy();
     expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
   });
@@ -34,8 +33,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(3);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/default/index.js?') !==
-        -1
+      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
     ).toBeTruthy();
     expect(webpackOptions.entry[1]).toEqual('./foo.js');
     expect(webpackOptions.entry[2]).toEqual('./bar.js');
@@ -56,9 +54,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry.foo.length).toEqual(2);
 
     expect(
-      normalize(webpackOptions.entry.foo[0]).indexOf(
-        'client/default/index.js?'
-      ) !== -1
+      normalize(webpackOptions.entry.foo[0]).indexOf('client/index.js?') !== -1
     ).toBeTruthy();
     expect(webpackOptions.entry.foo[1]).toEqual('./foo.js');
     expect(webpackOptions.entry.bar[1]).toEqual('./bar.js');
@@ -296,9 +292,7 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).indexOf(
-            'client/default/index.js?'
-          ) !== -1
+          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
         ).toBeTruthy();
       }
 
@@ -330,9 +324,7 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).indexOf(
-            'client/default/index.js?'
-          ) !== -1
+          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
         ).toBeTruthy();
       }
 
@@ -388,9 +380,7 @@ describe('addEntries util', () => {
     expect(webWebpackOptions.entry.length).toEqual(2);
 
     expect(
-      normalize(webWebpackOptions.entry[0]).indexOf(
-        'client/default/index.js?'
-      ) !== -1
+      normalize(webWebpackOptions.entry[0]).indexOf('client/index.js?') !== -1
     ).toBeTruthy();
 
     expect(normalize(webWebpackOptions.entry[1])).toEqual('./foo.js');
