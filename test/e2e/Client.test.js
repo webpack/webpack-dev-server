@@ -48,8 +48,6 @@ describe('reload', () => {
                 return bgColor;
               })
               .then((color) => {
-                expect(color).toEqual('rgb(0, 0, 255)');
-
                 page.setRequestInterception(true).then(() => {
                   page.on('request', (req) => {
                     if (
@@ -66,8 +64,6 @@ describe('reload', () => {
                     'body { background-color: rgb(255, 0, 0); }'
                   );
                   page.waitFor(10000).then(() => {
-                    expect(refreshed).toBeFalsy();
-
                     page
                       .evaluate(() => {
                         const body = document.body;
@@ -77,8 +73,12 @@ describe('reload', () => {
                         return bgColor;
                       })
                       .then((color2) => {
-                        expect(color2).toEqual('rgb(255, 0, 0)');
-                        browser.close().then(done);
+                        browser.close().then(() => {
+                          expect(color).toEqual('rgb(0, 0, 255)');
+                          expect(color2).toEqual('rgb(255, 0, 0)');
+                          expect(refreshed).toBeFalsy();
+                          done();
+                        });
                       });
                   });
                 });
@@ -126,8 +126,6 @@ describe('reload', () => {
                 return bgColor;
               })
               .then((color) => {
-                expect(color).toEqual('rgb(0, 0, 255)');
-
                 page.setRequestInterception(true).then(() => {
                   page.on('request', (req) => {
                     if (
@@ -144,8 +142,6 @@ describe('reload', () => {
                     'body { background-color: rgb(255, 0, 0); }'
                   );
                   page.waitFor(10000).then(() => {
-                    expect(refreshed).toBeTruthy();
-
                     page
                       .evaluate(() => {
                         const body = document.body;
@@ -155,8 +151,12 @@ describe('reload', () => {
                         return bgColor;
                       })
                       .then((color2) => {
-                        expect(color2).toEqual('rgb(255, 0, 0)');
-                        browser.close().then(done);
+                        browser.close().then(() => {
+                          expect(color).toEqual('rgb(0, 0, 255)');
+                          expect(color2).toEqual('rgb(255, 0, 0)');
+                          expect(refreshed).toBeTruthy();
+                          done();
+                        });
                       });
                   });
                 });

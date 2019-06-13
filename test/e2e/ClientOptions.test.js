@@ -69,10 +69,14 @@ describe('Client code', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
-            expect(
-              requestObj.url().includes(`http://localhost:${port1}/sockjs-node`)
-            ).toBeTruthy();
-            browser.close().then(done);
+            browser.close().then(() => {
+              expect(
+                requestObj
+                  .url()
+                  .includes(`http://localhost:${port1}/sockjs-node`)
+              ).toBeTruthy();
+              done();
+            });
           });
         page.goto(`http://localhost:${port2}/main`);
       });
@@ -105,12 +109,14 @@ describe('Client complex inline script path', () => {
             requestObj.url().match(/foo\/test\/bar/)
           )
           .then((requestObj) => {
-            expect(
-              requestObj
-                .url()
-                .includes(`http://myhost.test:${port2}/foo/test/bar/`)
-            ).toBeTruthy();
-            browser.close().then(done);
+            browser.close().then(() => {
+              expect(
+                requestObj
+                  .url()
+                  .includes(`http://myhost.test:${port2}/foo/test/bar/`)
+              ).toBeTruthy();
+              done();
+            });
           });
         page.goto(`http://localhost:${port2}/main`);
       });
@@ -143,12 +149,14 @@ describe('Client complex inline script path with sockPort', () => {
             requestObj.url().match(/foo\/test\/bar/)
           )
           .then((requestObj) => {
-            expect(
-              requestObj
-                .url()
-                .includes(`http://localhost:${port3}/foo/test/bar`)
-            ).toBeTruthy();
-            browser.close().then(done);
+            browser.close().then(() => {
+              expect(
+                requestObj
+                  .url()
+                  .includes(`http://localhost:${port3}/foo/test/bar`)
+              ).toBeTruthy();
+              done();
+            });
           });
 
         page.goto(`http://localhost:${port2}/main`);
@@ -182,10 +190,14 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
-            expect(
-              requestObj.url().includes(`http://localhost:${port3}/sockjs-node`)
-            ).toBeTruthy();
-            browser.close().then(done);
+            browser.close().then(() => {
+              expect(
+                requestObj
+                  .url()
+                  .includes(`http://localhost:${port3}/sockjs-node`)
+              ).toBeTruthy();
+              done();
+            });
           });
         page.goto(`http://localhost:${port2}/main`);
       });
@@ -215,12 +227,14 @@ describe('Client complex inline script path with sockHost', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
-            expect(
-              requestObj
-                .url()
-                .includes(`http://myhost.test:${port2}/sockjs-node`)
-            ).toBeTruthy();
-            browser.close().then(done);
+            browser.close().then(() => {
+              expect(
+                requestObj
+                  .url()
+                  .includes(`http://myhost.test:${port2}/sockjs-node`)
+              ).toBeTruthy();
+              done();
+            });
           });
         page.goto(`http://localhost:${port2}/main`);
       });
@@ -286,8 +300,10 @@ describe('Client console.log', () => {
               res.push(_text);
             });
             setTimeout(() => {
-              expect(res).toMatchSnapshot();
-              browser.close().then(resolve);
+              browser.close().then(() => {
+                expect(res).toMatchSnapshot();
+                resolve();
+              });
             }, 1000);
           });
         })
