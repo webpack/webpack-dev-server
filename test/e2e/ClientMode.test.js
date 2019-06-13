@@ -30,8 +30,10 @@ describe('clientMode', () => {
             testServer.close(() => {
               // make sure the client gets the close message
               setTimeout(() => {
-                expect(res).toMatchSnapshot();
-                browser.close().then(done);
+                browser.close().then(() => {
+                  expect(res).toMatchSnapshot();
+                  done();
+                });
               }, 1000);
             });
           }, 3000);
@@ -66,8 +68,10 @@ describe('clientMode', () => {
             testServer.close(() => {
               // make sure the client gets the close message
               setTimeout(() => {
-                expect(res).toMatchSnapshot();
-                browser.close().then(done);
+                browser.close().then(() => {
+                  expect(res).toMatchSnapshot();
+                  done();
+                });
               }, 1000);
             });
           }, 3000);
