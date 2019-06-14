@@ -48,10 +48,16 @@ describe('client progress', () => {
             );
             page.waitFor(10000).then(() => {
               browser.close().then(() => {
-                expect(res).toMatchSnapshot();
+                // example output that would match:
+                // "[WDS] 40% - building (0/1 modules)."
+                const testExp = /\[WDS\] [0-9]{1,3}% - building \([0-1]\/1 modules\)\./;
+                const match = res.find((line) => {
+                  return testExp.test(line);
+                });
+                // eslint-disable-next-line no-undefined
+                expect(match).not.toEqual(undefined);
                 done();
               });
-              browser.close().then(done);
             });
           });
 

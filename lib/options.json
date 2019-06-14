@@ -429,7 +429,7 @@
       "pfx": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserverpfx)",
       "pfxPassphrase": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpfxpassphrase)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
-      "profile": "should be {Boolean}",
+      "profile": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprofile)",
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
