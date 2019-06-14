@@ -4,8 +4,6 @@
 
 /* eslint-disable no-shadow, no-console */
 
-const fs = require('fs');
-const net = require('net');
 const debug = require('debug')('webpack-dev-server');
 const importLocal = require('import-local');
 const yargs = require('yargs');
@@ -15,7 +13,6 @@ const setupExitSignals = require('../lib/utils/setupExitSignals');
 const colors = require('../lib/utils/colors');
 const processOptions = require('../lib/utils/processOptions');
 const createLogger = require('../lib/utils/createLogger');
-const findPort = require('../lib/utils/findPort');
 const getVersions = require('../lib/utils/getVersions');
 const options = require('./options');
 
@@ -115,58 +112,7 @@ function startDevServer(config, options) {
     throw err;
   }
 
-  if (options.socket) {
-    server.listeningApp.on('error', (e) => {
-      if (e.code === 'EADDRINUSE') {
-        const clientSocket = new net.Socket();
-
-        clientSocket.on('error', (err) => {
-          if (err.code === 'ECONNREFUSED') {
-            // No other server listening on this socket so it can be safely removed
-            fs.unlinkSync(options.socket);
-
-            server.listen(options.socket, options.host, (error) => {
-              if (error) {
-                throw error;
-              }
-            });
-          }
-        });
-
-        clientSocket.connect({ path: options.socket }, () => {
-          throw new Error('This socket is already used');
-        });
-      }
-    });
-
-    server.listen(options.socket, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-
-      // chmod 666 (rw rw rw)
-      const READ_WRITE = 438;
-
-      fs.chmod(options.socket, READ_WRITE, (err) => {
-        if (err) {
-          throw err;
-        }
-      });
-    });
-  } else {
-    findPort(options.port)
-      .then((port) => {
-        options.port = port;
-        server.listen(options.port, options.host, (err) => {
-          if (err) {
-            throw err;
-          }
-        });
-      })
-      .catch((err) => {
-        throw err;
-      });
-  }
+  server.start();
 }
 
 processOptions(config, argv, (config, options) => {
