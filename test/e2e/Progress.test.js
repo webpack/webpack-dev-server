@@ -48,8 +48,10 @@ describe('client progress', () => {
             );
             page.waitFor(10000).then(() => {
               browser.close().then(() => {
+                // check that there is some percentage progress output
+                const regExp = /^\[WDS\] [0-9]{1,3}% - /;
                 const match = res.find((line) => {
-                  return line === '[WDS] 100% - Compilation completed.';
+                  return regExp.test(line);
                 });
                 // eslint-disable-next-line no-undefined
                 expect(match).not.toEqual(undefined);
