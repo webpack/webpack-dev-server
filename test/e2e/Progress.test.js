@@ -48,15 +48,14 @@ describe('client progress', () => {
             );
             page.waitFor(10000).then(() => {
               browser.close().then(() => {
-                // console.log(res);
-                // // check that there is some percentage progress output
-                // const regExp = /^\[WDS\] [0-9]{1,3}% - /;
-                // const match = res.find((line) => {
-                //   return regExp.test(line);
-                // });
-                // // eslint-disable-next-line no-undefined
-                // expect(match).not.toEqual(undefined);
-                expect(res).toMatchSnapshot();
+                console.log(res);
+                // check that there is some percentage progress output
+                const regExp = /^\[WDS\] [0-9]{1,3}% - /;
+                const match = res.find((line) => {
+                  return regExp.test(line);
+                });
+                // eslint-disable-next-line no-undefined
+                expect(match).not.toEqual(undefined);
                 done();
               });
             });
