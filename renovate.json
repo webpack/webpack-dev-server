@@ -1,5 +1,6 @@
 {
   "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
+  "baseBranches": ["master", "next"],
   "labels": ["renovate"],
   "minor": {
     "groupName": "all minor dependencies"
@@ -12,6 +13,11 @@
   "packageRules": [
     {
       "depTypeList": ["peerDependencies"],
+      "enabled": false
+    },
+    {
+      "baseBranchList": ["next"],
+      "updateTypes": ["digest", "pin", "patch", "minor"],
       "enabled": false
     }
   ]
