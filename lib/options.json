@@ -386,7 +386,7 @@
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
       "ca": "should be {String|Buffer}",
       "cert": "should be {String|Buffer}",
-      "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'none', 'silent', 'info', 'debug', 'trace', 'error', 'warning', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
+      "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'silent', 'info', 'debug', 'trace', 'error', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
       "clientMode": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverclientmode)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
