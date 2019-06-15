@@ -75,16 +75,17 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
     });
+  });
 
-    it('on specify absolute https URL with page in Google Chrome ', () => {
-      return runOpen(
-        'https://example.com',
-        { open: 'Google Chrome', openPage: 'https://example2.com' },
-        console
-      ).then(() => {
-        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+  it('on specify absolute https URL with page in Google Chrome ', async () => {
+    await runOpen(
+      'https://example.com',
+      { open: 'Google Chrome', openPage: 'https://example2.com' },
+      console
+    );
+
+    expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example2.com",
             Object {
@@ -93,16 +94,16 @@ describe('runOpen util', () => {
             },
           ]
         `);
-      });
-    });
+  });
 
-    it('on specify absolute http URL with page in Google Chrome ', () => {
-      return runOpen(
-        'https://example.com',
-        { open: 'Google Chrome', openPage: 'http://example2.com' },
-        console
-      ).then(() => {
-        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+  it('on specify absolute http URL with page in Google Chrome ', async () => {
+    runOpen(
+      'https://example.com',
+      { open: 'Google Chrome', openPage: 'http://example2.com' },
+      console
+    );
+
+    expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "http://example2.com",
             Object {
@@ -111,7 +112,6 @@ describe('runOpen util', () => {
             },
           ]
         `);
-    });
   });
 
   describe('should not open browser', () => {

@@ -37,56 +37,50 @@ describe('reload', () => {
     });
 
     describe('on browser client', () => {
-      it('should hot reload without page refresh', (done) => {
-        runBrowser().then(({ page, browser }) => {
-          let refreshed = false;
-          page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page
-              .evaluate(() => {
-                const body = document.body;
-                const bgColor = getComputedStyle(body)['background-color'];
-                return bgColor;
-              })
-              .then((color) => {
-                page.setRequestInterception(true).then(() => {
-                  page.on('request', (req) => {
-                    if (
-                      req.isNavigationRequest() &&
-                      req.frame() === page.mainFrame() &&
-                      req.url() === `http://localhost:${port}/main`
-                    ) {
-                      refreshed = true;
-                    }
-                    req.continue();
-                  });
-                  fs.writeFileSync(
-                    cssFilePath,
-                    'body { background-color: rgb(255, 0, 0); }'
-                  );
-                  page.waitFor(10000).then(() => {
-                    page
-                      .evaluate(() => {
-                        const body = document.body;
-                        const bgColor = getComputedStyle(body)[
-                          'background-color'
-                        ];
-                        return bgColor;
-                      })
-                      .then((color2) => {
-                        browser.close().then(() => {
-                          expect(color).toEqual('rgb(0, 0, 255)');
-                          expect(color2).toEqual('rgb(255, 0, 0)');
-                          expect(refreshed).toBeFalsy();
-                          done();
-                        });
-                      });
-                  });
-                });
-              });
-          });
+      it('should hot reload without page refresh', async () => {
+        let refreshed = false;
+        const { page, browser } = await runBrowser();
 
-          page.goto(`http://localhost:${port}/main`);
+        page.goto(`http://localhost:${port}/main`);
+
+        await page.waitForNavigation({ waitUntil: 'load' });
+
+        const color = await page.evaluate(() => {
+          const body = document.body;
+          const bgColor = getComputedStyle(body)['background-color'];
+          return bgColor;
         });
+
+        await page.setRequestInterception(true);
+
+        page.on('request', (req) => {
+          if (
+            req.isNavigationRequest() &&
+            req.frame() === page.mainFrame() &&
+            req.url() === `http://localhost:${port}/main`
+          ) {
+            refreshed = true;
+          }
+          req.continue();
+        });
+        fs.writeFileSync(
+          cssFilePath,
+          'body { background-color: rgb(255, 0, 0); }'
+        );
+
+        await page.waitFor(10000);
+
+        const color2 = await page.evaluate(() => {
+          const body = document.body;
+          const bgColor = getComputedStyle(body)['background-color'];
+          return bgColor;
+        });
+
+        await browser.close();
+
+        expect(color).toEqual('rgb(0, 0, 255)');
+        expect(color2).toEqual('rgb(255, 0, 0)');
+        expect(refreshed).toBeFalsy();
       });
     });
   });
@@ -115,56 +109,50 @@ describe('reload', () => {
     });
 
     describe('on browser client', () => {
-      it('should reload with page refresh', (done) => {
-        runBrowser().then(({ page, browser }) => {
-          let refreshed = false;
-          page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page
-              .evaluate(() => {
-                const body = document.body;
-                const bgColor = getComputedStyle(body)['background-color'];
-                return bgColor;
-              })
-              .then((color) => {
-                page.setRequestInterception(true).then(() => {
-                  page.on('request', (req) => {
-                    if (
-                      req.isNavigationRequest() &&
-                      req.frame() === page.mainFrame() &&
-                      req.url() === `http://localhost:${port}/main`
-                    ) {
-                      refreshed = true;
-                    }
-                    req.continue();
-                  });
-                  fs.writeFileSync(
-                    cssFilePath,
-                    'body { background-color: rgb(255, 0, 0); }'
-                  );
-                  page.waitFor(10000).then(() => {
-                    page
-                      .evaluate(() => {
-                        const body = document.body;
-                        const bgColor = getComputedStyle(body)[
-                          'background-color'
-                        ];
-                        return bgColor;
-                      })
-                      .then((color2) => {
-                        browser.close().then(() => {
-                          expect(color).toEqual('rgb(0, 0, 255)');
-                          expect(color2).toEqual('rgb(255, 0, 0)');
-                          expect(refreshed).toBeTruthy();
-                          done();
-                        });
-                      });
-                  });
-                });
-              });
-          });
+      it('should reload with page refresh', async () => {
+        let refreshed = false;
+        const { page, browser } = await runBrowser();
 
-          page.goto(`http://localhost:${port}/main`);
+        page.goto(`http://localhost:${port}/main`);
+
+        await page.waitForNavigation({ waitUntil: 'load' });
+
+        const color = await page.evaluate(() => {
+          const body = document.body;
+          const bgColor = getComputedStyle(body)['background-color'];
+          return bgColor;
         });
+
+        await page.setRequestInterception(true);
+
+        page.on('request', (req) => {
+          if (
+            req.isNavigationRequest() &&
+            req.frame() === page.mainFrame() &&
+            req.url() === `http://localhost:${port}/main`
+          ) {
+            refreshed = true;
+          }
+          req.continue();
+        });
+        fs.writeFileSync(
+          cssFilePath,
+          'body { background-color: rgb(255, 0, 0); }'
+        );
+
+        await page.waitFor(10000);
+
+        const color2 = await page.evaluate(() => {
+          const body = document.body;
+          const bgColor = getComputedStyle(body)['background-color'];
+          return bgColor;
+        });
+
+        await browser.close();
+
+        expect(color).toEqual('rgb(0, 0, 255)');
+        expect(color2).toEqual('rgb(255, 0, 0)');
+        expect(refreshed).toBeTruthy();
       });
     });
   });
