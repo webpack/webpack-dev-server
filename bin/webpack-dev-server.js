@@ -112,7 +112,11 @@ function startDevServer(config, options) {
     throw err;
   }
 
-  server.start();
+  server.listen(options.socket || options.port, options.host, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 }
 
 processOptions(config, argv, (config, options) => {
