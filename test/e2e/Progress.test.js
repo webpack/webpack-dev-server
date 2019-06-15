@@ -62,8 +62,8 @@ describe('client progress', () => {
           });
 
           page.goto(`http://localhost:${port}/main`);
-          page.on('console', ({ _text }) => {
-            res.push(_text);
+          page.on('console', (data) => {
+            res.push(data.text());
           });
         });
       });
