@@ -25,9 +25,7 @@ describe('CLI', () => {
     const { code, stderr } = await testBin('--progress --profile');
     expect(code).toEqual(0);
     // should profile
-    expect(output.stderr.includes('after chunk modules optimization')).toBe(
-      true
-    );
+    expect(stderr.includes('after chunk modules optimization')).toBe(true);
   });
 
   it('--bonjour', async () => {
@@ -58,8 +56,8 @@ describe('CLI', () => {
   });
 
   it('unspecified port', async () => {
-    const { output } = await testBin('');
-    expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
+    const { stdout } = await testBin('');
+    expect(/http:\/\/localhost:[0-9]+/.test(stdout)).toEqual(true);
   });
 
   it('--color', async () => {

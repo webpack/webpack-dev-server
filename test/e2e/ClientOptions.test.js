@@ -50,19 +50,17 @@ describe('Client code', () => {
     });
 
     afterAll((done) => {
-      proxy.close(() => {
-        done();
-      });
+      proxy.close(done);
     });
 
-    it('responds with a 200', (done) => {
+    it('responds with a 200', async () => {
       {
         const req = request(`http://localhost:${port2}`);
-        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+        await req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n');
       }
       {
         const req = request(`http://localhost:${port1}`);
-        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+        await req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n');
       }
     });
 
@@ -297,47 +295,34 @@ describe('Client console.log', () => {
     },
   ];
 
-  cases.forEach(({ title, options }) => {
-    it(title, (done) => {
+  for (const { title, options } of cases) {
+    it(title, async () => {
       const res = [];
       const testOptions = Object.assign({}, baseOptions, options);
 
-      // TODO: use async/await when Node.js v6 support is dropped
-      Promise.resolve()
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.startAwaitingCompilation(config, testOptions, resolve);
-          });
-        })
-        .then(() => {
-          // make sure the previous Promise is not passing along strange arguments to runBrowser
-          return runBrowser();
-        })
-        .then(({ page, browser }) => {
-          return new Promise((resolve) => {
-            page.goto(`http://localhost:${port2}/main`);
-            page.on('console', ({ _text }) => {
-              res.push(_text);
-            });
-            // wait for load before closing the browser
-            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-              page.waitFor(beforeBrowserCloseDelay).then(() => {
-                browser.close().then(() => {
-                  resolve();
-                });
-              });
-            });
-          });
-        })
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.close(resolve);
-          });
-        })
-        .then(() => {
-          expect(res).toMatchSnapshot();
-          done();
-        });
+      // TODO: refactor(hiroppy)
+      await new Promise((resolve) => {
+        testServer.startAwaitingCompilation(config, testOptions, resolve);
+      });
+
+      const { page, browser } = await runBrowser();
+
+      page.goto(`http://localhost:${port2}/main`);
+      page.on('console', ({ _text }) => {
+        res.push(_text);
+      });
+
+      // wait for load before closing the browser
+      await page.waitForNavigation({ waitUntil: 'load' });
+      await page.waitFor(beforeBrowserCloseDelay);
+      await browser.close();
+
+      expect(res).toMatchSnapshot();
+
+      // TODO: refactor(hiroppy)
+      await new Promise((resolve) => {
+        testServer.close(resolve);
+      });
     });
-  });
+  }
 });
