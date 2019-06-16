@@ -85,7 +85,6 @@ const onSocketMessage = {
     }
   },
   'progress-update': function progressUpdate(data) {
-    console.log(data.msg);
     if (options.useProgress) {
       log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
     }

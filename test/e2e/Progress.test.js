@@ -48,7 +48,6 @@ describe('client progress', () => {
             );
             page.waitFor(10000).then(() => {
               browser.close().then(() => {
-                console.log(res);
                 // check that there is some percentage progress output
                 const regExp = /^\[WDS\] [0-9]{1,3}% - /;
                 const match = res.find((line) => {
