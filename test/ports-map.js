@@ -37,7 +37,9 @@ const portsList = {
   ProvidePlugin: 1,
 };
 
-let startPort = 8079;
+// moved up start port from 8079 so that it does not overlap
+// with the typical default port of 8080
+let startPort = 8089;
 const ports = {};
 
 Object.keys(portsList).forEach((key) => {

@@ -9,9 +9,15 @@ describe('port', () => {
   let server = null;
   let req = null;
 
-  describe('is not be specified', () => {
+  describe('is a string', () => {
     beforeAll((done) => {
-      server = testServer.start(config, { port }, done);
+      server = testServer.start(
+        config,
+        {
+          port: `${port}`,
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -19,7 +25,54 @@ describe('port', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('127.0.0.1');
-      // Random port
+      expect(address.port).toBe(port);
+    });
+
+    it('Request to index', (done) => {
+      req.get('/').expect(200, done);
+    });
+
+    afterAll(testServer.close);
+  });
+
+  describe('is a number', () => {
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    it('server address', () => {
+      const address = server.listeningApp.address();
+
+      expect(address.address).toBe('127.0.0.1');
+      expect(address.port).toBe(port);
+    });
+
+    it('Request to index', (done) => {
+      req.get('/').expect(200, done);
+    });
+
+    afterAll(testServer.close);
+  });
+
+  describe('is not specified', () => {
+    beforeAll((done) => {
+      // the options object here should be empty, because port is not specified in this test
+      server = testServer.start(config, {}, done);
+      req = request(server.app);
+    });
+
+    it('server address', () => {
+      const address = server.listeningApp.address();
+
+      expect(address.address).toBe('127.0.0.1');
+      // Likely port 8080, but not guaranteed if port is taken
       expect(address.port).toBeDefined();
     });
 
@@ -47,7 +100,7 @@ describe('port', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('127.0.0.1');
-      // Random port
+      // Likely port 8080, but not guaranteed if port is taken
       expect(address.port).toBeDefined();
     });
 
@@ -74,60 +127,8 @@ describe('port', () => {
       const address = server.listeningApp.address();
 
       expect(address.address).toBe('127.0.0.1');
-      // Random port
+      // Likely port 8080, but not guaranteed if port is taken
       expect(address.port).toBeDefined();
-    });
-
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
-
-    afterAll(testServer.close);
-  });
-
-  describe('is "33333"', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          port: '33333',
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    it('server address', () => {
-      const address = server.listeningApp.address();
-
-      expect(address.address).toBe('127.0.0.1');
-      expect(address.port).toBe(33333);
-    });
-
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
-
-    afterAll(testServer.close);
-  });
-
-  describe('is 33333', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          port: '33333',
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    it('server address', () => {
-      const address = server.listeningApp.address();
-
-      expect(address.address).toBe('127.0.0.1');
-      expect(address.port).toBe(33333);
     });
 
     it('Request to index', (done) => {
