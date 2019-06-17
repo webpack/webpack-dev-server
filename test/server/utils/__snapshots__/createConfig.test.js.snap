@@ -1202,12 +1202,14 @@ Object {
 
 exports[`createConfig sockHost option 1`] = `
 Object {
+  "clientSocketOptions": Object {
+    "host": true,
+  },
   "hot": true,
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
-  "sockHost": true,
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1217,12 +1219,14 @@ Object {
 
 exports[`createConfig sockPath option 1`] = `
 Object {
+  "clientSocketOptions": Object {
+    "path": "path",
+  },
   "hot": true,
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
-  "sockPath": "path",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1232,12 +1236,14 @@ Object {
 
 exports[`createConfig sockPort option 1`] = `
 Object {
+  "clientSocketOptions": Object {
+    "port": "port",
+  },
   "hot": true,
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
-  "sockPort": "port",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
