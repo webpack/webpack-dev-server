@@ -195,7 +195,9 @@ describe('transportMode', () => {
             config,
             {
               port,
-              sockPath: '/foo/test/bar/',
+              clientSocketOptions: {
+                path: '/foo/test/bar/',
+              },
               transportMode: {
                 server: class MySockJSServer extends BaseServer {
                   constructor(serv) {
@@ -217,7 +219,7 @@ describe('transportMode', () => {
                       prefix: this.server.sockPath,
                     });
 
-                    sockPath = server.options.sockPath;
+                    sockPath = server.options.clientSocketOptions.path;
                   }
 
                   send(connection, message) {

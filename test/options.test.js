@@ -290,17 +290,9 @@ describe('options', () => {
         success: [''],
         failure: [false],
       },
-      sockHost: {
-        success: [''],
-        failure: [false],
-      },
-      sockPath: {
-        success: [''],
-        failure: [false],
-      },
-      sockPort: {
-        success: ['', 0, null],
-        failure: [false],
+      clientSocketOptions: {
+        success: [[], ['']],
+        failure: [[false], false],
       },
       staticOptions: {
         success: [{}],
