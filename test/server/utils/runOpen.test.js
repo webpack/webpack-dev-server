@@ -80,6 +80,24 @@ describe('runOpen util', () => {
         `);
       });
     });
+
+    it('on specify URL with page in Google Chrome ', () => {
+      return runOpen(
+        'https://example.com',
+        { open: 'Google Chrome', openPage: 'https://example2.com' },
+        console
+      ).then(() => {
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example2.com",
+            Object {
+              "app": "Google Chrome",
+              "wait": false,
+            },
+          ]
+        `);
+      });
+    });
   });
 
   describe('should not open browser', () => {
