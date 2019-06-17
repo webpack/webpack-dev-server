@@ -56,6 +56,12 @@ Pull requests often need some real-world testing.
 
 The pull request is now ready to be tested.
 
+## Contributor License Agreement
+
+When submitting your contribution, a CLA (Contributor License Agreement) bot will come by to verify that you signed the [CLA](https://cla.js.foundation/webpack/webpack-dev-server). If it is your first time, it will link you to the right place to sign it. However, if you have committed your contributions using an email that is not the same as your email used on GitHub, the CLA bot can't accept your contribution.
+
+Run `git config user.email` to see your Git email, and verify it with [your GitHub email](https://github.com/settings/emails).
+
 ---
 
 _Many thanks to [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_
