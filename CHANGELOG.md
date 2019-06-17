@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.7.2](https://github.com/webpack/webpack-dev-server/compare/v3.7.1...v3.7.2) (2019-06-17)
+
+
+### Bug Fixes
+
+* **client:** add default fallback for client ([#2015](https://github.com/webpack/webpack-dev-server/issues/2015)) ([d26b444](https://github.com/webpack/webpack-dev-server/commit/d26b444))
+* **open:** set `wait: false` to run server.close successfully ([#2001](https://github.com/webpack/webpack-dev-server/issues/2001)) ([2b4cb52](https://github.com/webpack/webpack-dev-server/commit/2b4cb52))
+* **test:** fixed ProvidePlugin.test.js ([#2002](https://github.com/webpack/webpack-dev-server/issues/2002)) ([47453cb](https://github.com/webpack/webpack-dev-server/commit/47453cb))
+
+
+
 ### [3.7.1](https://github.com/webpack/webpack-dev-server/compare/v3.7.0...v3.7.1) (2019-06-07)
 
 
