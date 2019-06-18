@@ -81,7 +81,7 @@ describe('runOpen util', () => {
       });
     });
 
-    it('on specify URL with page in Google Chrome ', () => {
+    it('on specify absolute https URL with page in Google Chrome ', () => {
       return runOpen(
         'https://example.com',
         { open: 'Google Chrome', openPage: 'https://example2.com' },
@@ -90,6 +90,24 @@ describe('runOpen util', () => {
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example2.com",
+            Object {
+              "app": "Google Chrome",
+              "wait": false,
+            },
+          ]
+        `);
+      });
+    });
+
+    it('on specify absolute http URL with page in Google Chrome ', () => {
+      return runOpen(
+        'https://example.com',
+        { open: 'Google Chrome', openPage: 'http://example2.com' },
+        console
+      ).then(() => {
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "http://example2.com",
             Object {
               "app": "Google Chrome",
               "wait": false,
