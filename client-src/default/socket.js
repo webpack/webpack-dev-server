@@ -9,14 +9,10 @@
 // is off or the client is not injected. This will be switched to
 // WebsocketClient when it becomes the default
 
-// important: the path to SockJSClient here is made to work in the 'client'
-// directory, but is updated via the webpack compilation when compiled from
-// the 'client-src' directory
 const Client =
   typeof __webpack_dev_server_client__ !== 'undefined'
     ? __webpack_dev_server_client__
-    : // eslint-disable-next-line import/no-unresolved
-      require('./clients/SockJSClient');
+    : require('../clients/SockJSClient');
 
 let retries = 0;
 let client = null;

@@ -1,7 +1,5 @@
 'use strict';
 
-const webpack = require('webpack');
-
 module.exports = {
   mode: 'production',
   module: {
@@ -17,12 +15,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.NormalModuleReplacementPlugin(/\/clients\//, (resource) => {
-      resource.request = resource.request.replace(
-        /\/clients\//,
-        '/../clients/'
-      );
-    }),
-  ],
 };
