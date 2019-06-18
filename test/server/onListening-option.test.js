@@ -5,6 +5,7 @@ const { join } = require('path');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['onListening-option'];
+const { skipTestOnWindows } = require('../helpers/conditional-test');
 
 describe('onListening option', () => {
   describe('with host and port', () => {
@@ -35,6 +36,10 @@ describe('onListening option', () => {
   });
 
   describe('with Unix socket', () => {
+    if (skipTestOnWindows('Unix sockets are not supported on Windows')) {
+      return;
+    }
+
     const socketPath = join('.', 'onListening.webpack.sock');
     let onListeningIsRunning = false;
 
@@ -58,13 +63,9 @@ describe('onListening option', () => {
     afterAll(testServer.close);
 
     it('should run onListening callback', (done) => {
-      if (process.platform === 'win32') {
-        done();
-      } else {
-        expect(onListeningIsRunning).toBe(true);
+      expect(onListeningIsRunning).toBe(true);
 
-        unlink(socketPath, done);
-      }
+      unlink(socketPath, done);
     });
   });
 });
