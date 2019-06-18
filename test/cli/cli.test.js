@@ -4,6 +4,7 @@ const { unlink } = require('fs');
 const { join, resolve } = require('path');
 const execa = require('execa');
 const testBin = require('../helpers/test-bin');
+const { skipTestOnWindows } = require('../helpers/conditional-test');
 
 const httpsCertificateDirectory = resolve(
   __dirname,
@@ -82,21 +83,20 @@ describe('CLI', () => {
 
   // The Unix socket to listen to (instead of a host).
   it('--socket', (done) => {
+    if (skipTestOnWindows('Unix sockets are not supported on Windows')) {
+      return;
+    }
     const socketPath = join('.', 'webpack.sock');
 
     testBin(`--socket ${socketPath}`)
       .then((output) => {
         expect(output.code).toEqual(0);
 
-        if (process.platform === 'win32') {
-          done();
-        } else {
-          expect(output.stdout.includes(socketPath)).toBe(true);
+        expect(output.stdout.includes(socketPath)).toBe(true);
 
-          unlink(socketPath, () => {
-            done();
-          });
-        }
+        unlink(socketPath, () => {
+          done();
+        });
       })
       .catch(done);
   });
