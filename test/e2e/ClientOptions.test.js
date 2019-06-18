@@ -166,7 +166,7 @@ describe('Client complex inline script path with sockPort', () => {
 });
 
 // previously, using sockPort without sockPath had the ability
-// to alter the sockPath (based on a bug in client-src/index.js)
+// to alter the sockPath (based on a bug in client-src/default/index.js)
 // so we need to make sure sockPath is not altered in this case
 describe('Client complex inline script path with sockPort, no sockPath', () => {
   beforeAll((done) => {
