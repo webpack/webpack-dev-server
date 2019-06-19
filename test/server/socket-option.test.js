@@ -15,22 +15,27 @@ describe('socket', () => {
   let server = null;
 
   describe('path to a non-existent file', () => {
-    if (skipTestOnWindows('Unix sockets are not supported on Windows')) {
-      return;
-    }
+    // if (skipTestOnWindows('Unix sockets are not supported on Windows')) {
+    //   return;
+    // }
 
+    let err;
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
           socket: socketPath,
         },
-        done
+        (e) => {
+          err = e;
+          done();
+        }
       );
     });
 
-    it('should work as Unix socket', (done) => {
+    it('should work as Unix socket or error on windows', (done) => {
       if (process.platform === 'win32') {
+        expect(err.code).toEqual('EACCES');
         done();
       } else {
         const clientSocket = new net.Socket();

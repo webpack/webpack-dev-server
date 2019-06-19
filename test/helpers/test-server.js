@@ -72,7 +72,7 @@ function startAwaitingCompilationFullSetup(config, options, done) {
   let readyCount = 0;
   let err;
   const ready = (e) => {
-    err = e instanceof Error ? e : err;
+    err = e instanceof Error || (typeof e === 'object' && e.code) ? e : err;
     readyCount += 1;
     if (readyCount === 2) {
       done(err);

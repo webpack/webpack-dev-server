@@ -81,24 +81,31 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  // The Unix socket to listen to (instead of a host).
-  it('--socket', (done) => {
+  describe('Unix socket', () => {
     if (skipTestOnWindows('Unix sockets are not supported on Windows')) {
       return;
     }
-    const socketPath = join('.', 'webpack.sock');
 
-    testBin(`--socket ${socketPath}`)
-      .then((output) => {
-        expect(output.code).toEqual(0);
+    // The Unix socket to listen to (instead of a host).
+    it('--socket', (done) => {
+      const socketPath = join('.', 'webpack.sock');
 
-        expect(output.stdout.includes(socketPath)).toBe(true);
+      testBin(`--socket ${socketPath}`)
+        .then((output) => {
+          expect(output.code).toEqual(0);
 
-        unlink(socketPath, () => {
-          done();
-        });
-      })
-      .catch(done);
+          if (process.platform === 'win32') {
+            done();
+          } else {
+            expect(output.stdout.includes(socketPath)).toBe(true);
+
+            unlink(socketPath, () => {
+              done();
+            });
+          }
+        })
+        .catch(done);
+    });
   });
 
   it('should accept the promise function of webpack.config.js', (done) => {
