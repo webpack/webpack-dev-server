@@ -17,45 +17,49 @@ describe('index', () => {
   const resourceQueryValue = global.__resourceQuery;
 
   beforeEach(() => {
-    global.__resourceQuery = 'foo';
+    // make this an empty string so that it works on Node when we need
+    // to redirect the __resourceQuery to another file,
+    // e.g. require(`./index${__resourceQuery}`) will not work with Node
+    // unless __resourceQuery === ''
+    global.__resourceQuery = '';
     self.location.reload = jest.fn();
 
     // log
-    jest.setMock('../../client-src/default/utils/log.js', {
+    jest.setMock('../../client/default/utils/log.js', {
       log: {
         info: jest.fn(),
         warn: jest.fn(),
         error: jest.fn(),
       },
     });
-    log = require('../../client-src/default/utils/log');
+    log = require('../../client/utils/log');
 
     // socket
-    jest.setMock('../../client-src/default/socket.js', jest.fn());
-    socket = require('../../client-src/default/socket');
+    jest.setMock('../../client/default/socket.js', jest.fn());
+    socket = require('../../client/socket');
 
     // overlay
-    jest.setMock('../../client-src/default/overlay.js', {
+    jest.setMock('../../client/default/overlay.js', {
       clear: jest.fn(),
       showMessage: jest.fn(),
     });
-    overlay = require('../../client-src/default/overlay');
+    overlay = require('../../client/overlay');
 
     // reloadApp
-    jest.setMock('../../client-src/default/utils/reloadApp.js', jest.fn());
-    reloadApp = require('../../client-src/default/utils/reloadApp');
+    jest.setMock('../../client/default/utils/reloadApp.js', jest.fn());
+    reloadApp = require('../../client/utils/reloadApp');
 
     // sendMessage
-    jest.setMock('../../client-src/default/utils/sendMessage.js', jest.fn());
-    sendMessage = require('../../client-src/default/utils/sendMessage');
+    jest.setMock('../../client/default/utils/sendMessage.js', jest.fn());
+    sendMessage = require('../../client/utils/sendMessage');
 
     // createSocketUrl
     jest.setMock(
-      '../../client-src/default/utils/createSocketUrl.js',
+      '../../client/default/utils/createSocketUrl.js',
       () => 'mock-url'
     );
 
-    require('../../client-src/default');
+    require('../../client/index');
     onSocketMessage = socket.mock.calls[0][1];
   });
 

@@ -3,7 +3,7 @@
 const http = require('http');
 const express = require('express');
 const sockjs = require('sockjs');
-const SockJSClient = require('../../../client-src/clients/SockJSClient');
+const SockJSClient = require('../../../client/clients/SockJSClient');
 const port = require('../../ports-map').sockJSClient;
 
 describe('SockJSClient', () => {

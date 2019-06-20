@@ -18,7 +18,7 @@ describe('log', () => {
     });
 
     // eslint-disable-next-line global-require
-    setLogLevel = require('../../../client-src/default/utils/log').setLogLevel;
+    setLogLevel = require('../../../client/utils/log').setLogLevel;
   });
 
   afterEach(() => {

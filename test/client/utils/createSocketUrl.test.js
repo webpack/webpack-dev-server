@@ -17,12 +17,12 @@ describe('createSocketUrl', () => {
 
   samples.forEach((url) => {
     jest.doMock(
-      '../../../client-src/default/utils/getCurrentScriptSource.js',
+      '../../../client/default/utils/getCurrentScriptSource.js',
       () => () => url
     );
 
     // eslint-disable-next-line global-require
-    const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+    const createSocketUrl = require('../../../client/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {
       expect(createSocketUrl(url)).toMatchSnapshot();

@@ -2,7 +2,7 @@
 
 /* global self */
 
-const sendMessage = require('../../../client-src/default/utils/sendMessage');
+const sendMessage = require('../../../client/utils/sendMessage');
 
 describe('sendMessage', () => {
   afterEach(() => {
