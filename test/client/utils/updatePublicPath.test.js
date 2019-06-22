@@ -1,6 +1,8 @@
 'use strict';
 
-describe('createSocketUrl', () => {
+/* eslint-disable camelcase, no-undef */
+
+describe('updatePublicPath', () => {
   const samples = [
     'test',
     'https://example.com',
@@ -16,19 +18,29 @@ describe('createSocketUrl', () => {
     `http://0.0.0.0:9000?sockHost=${encodeURIComponent('my.host')}`,
     'http://0.0.0.0:9000?sockPort=8888',
     `http://0.0.0.0:9000?publicPath=${encodeURIComponent('/dist/')}`,
+    `http://0.0.0.0:9000?publicPath=${encodeURIComponent('/long/dist/path/')}`,
+    `http://0.0.0.0:9000?publicPath=${encodeURIComponent(
+      'http://my.host:8888/dist/'
+    )}`,
     `http://0.0.0.0:9000?sockPath=${encodeURIComponent(
       '/path/to/sockjs-node'
     )}&sockHost=${encodeURIComponent('my.host')}&sockPort=8888`,
+    `http://0.0.0.0:9000?sockPath=${encodeURIComponent(
+      '/path/to/sockjs-node'
+    )}&sockHost=${encodeURIComponent(
+      'my.host'
+    )}&sockPort=8888&publicPath=${encodeURIComponent(
+      'http://my.host:8888/dist/'
+    )}`,
     `http://user:pass@[::]:8080?sockPath=${encodeURIComponent(
       '/path/to/sockjs-node'
     )}&sockPort=8888`,
     `http://user:pass@[::]:8080?sockPath=${encodeURIComponent(
       '/path/to/sockjs-node'
     )}&sockHost=${encodeURIComponent('my.host')}&sockPort=8888`,
-    // TODO: comment out after the major release
-    // https://github.com/webpack/webpack-dev-server/pull/1954#issuecomment-498043376
-    // 'file://filename',
   ];
+
+  global.__webpack_public_path__ = '';
 
   samples.forEach((url) => {
     jest.doMock(
@@ -36,22 +48,21 @@ describe('createSocketUrl', () => {
       () => () => url
     );
 
-    const {
-      default: createSocketUrl,
-      // eslint-disable-next-line global-require
-    } = require('../../../client-src/default/utils/createSocketUrl');
+    // eslint-disable-next-line global-require
+    const updatePublicPath = require('../../../client-src/default/utils/updatePublicPath');
 
-    test(`should return the url when __resourceQuery is ${url}`, () => {
-      // include ? at the start of the __resourceQuery to make it like a real
-      // resource query
-      expect(createSocketUrl(`?${url}`)).toMatchSnapshot();
+    test(`should set public path when __resourceQuery is ${url}`, () => {
+      __webpack_public_path__ = '';
+      updatePublicPath(`?${url}`);
+      expect(__webpack_public_path__).toMatchSnapshot();
     });
 
-    test(`should return the url when the current script source is ${url}`, () => {
-      expect(createSocketUrl()).toMatchSnapshot();
+    test(`should set public path when the current script source is ${url}`, () => {
+      __webpack_public_path__ = '';
+      updatePublicPath();
+      expect(__webpack_public_path__).toMatchSnapshot();
     });
 
-    // put here because resetModules mustn't be reset when L27 is finished
     jest.resetModules();
   });
 });

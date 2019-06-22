@@ -1,28 +1,14 @@
 'use strict';
 
-const express = require('express');
-const httpProxy = require('http-proxy-middleware');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
+const startProxy = require('../helpers/start-proxy');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('Client code', () => {
-  function startProxy(port, cb) {
-    const proxy = express();
-    proxy.use(
-      '/',
-      httpProxy({
-        target: `http://localhost:${port1}`,
-        ws: true,
-        changeOrigin: true,
-      })
-    );
-    return proxy.listen(port, cb);
-  }
-
   beforeAll((done) => {
     const options = {
       compress: true,
@@ -46,7 +32,7 @@ describe('Client code', () => {
     let proxy;
 
     beforeAll((done) => {
-      proxy = startProxy(port2, done);
+      proxy = startProxy(port2, port1, done);
     });
 
     afterAll((done) => {

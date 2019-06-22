@@ -10,10 +10,16 @@ function createSocketUrl(resourceQuery) {
     urlParts = url.parse(resourceQuery.substr(1));
   } else {
     // Else, get the url from the <script> this file was called with.
-    let scriptHost = getCurrentScriptSource();
+    const scriptHost = getCurrentScriptSource();
+
+    // it seems the reg exp below was intended to cut off the path of a script source,
+    // so if you have my.host/long/path as the script source, it would become my.host.
+    // however, it did not work, because if you had http://my.host/long/path it would
+    // turn it into http:/. Cutting off the path is no longer needed, since we
+    // simply do url.parse and pull the host from there.
 
     // eslint-disable-next-line no-useless-escape
-    scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
+    // scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
     urlParts = url.parse(scriptHost || '/', false, true);
   }
 
@@ -50,9 +56,15 @@ function createSocketUrl(resourceQuery) {
   }
 
   // default values of the sock url if they are not provided
-  let sockHost = hostname;
-  let sockPath = '/sockjs-node';
-  let sockPort = urlParts.port;
+  const defaultHost = hostname;
+  const defaultSockPath = '/sockjs-node';
+  const defaultPort = urlParts.port;
+  const defaultPublicPath = '/';
+
+  let sockHost = defaultHost;
+  let sockPath = defaultSockPath;
+  let sockPort = defaultPort;
+  let publicPath = defaultPublicPath;
 
   // eslint-disable-next-line no-undefined
   const shouldParsePath = path !== null && path !== undefined && path !== '/';
@@ -64,6 +76,7 @@ function createSocketUrl(resourceQuery) {
     sockHost = parsedQuery.sockHost || sockHost;
     sockPath = parsedQuery.sockPath || sockPath;
     sockPort = parsedQuery.sockPort || sockPort;
+    publicPath = parsedQuery.publicPath || publicPath;
   }
 
   return url.format({

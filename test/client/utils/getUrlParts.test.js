@@ -1,6 +1,6 @@
 'use strict';
 
-describe('createSocketUrl', () => {
+describe('getUrlParts', () => {
   const samples = [
     'test',
     'https://example.com',
@@ -16,18 +16,26 @@ describe('createSocketUrl', () => {
     `http://0.0.0.0:9000?sockHost=${encodeURIComponent('my.host')}`,
     'http://0.0.0.0:9000?sockPort=8888',
     `http://0.0.0.0:9000?publicPath=${encodeURIComponent('/dist/')}`,
+    `http://0.0.0.0:9000?publicPath=${encodeURIComponent('/long/dist/path/')}`,
+    `http://0.0.0.0:9000?publicPath=${encodeURIComponent(
+      'http://my.host:8888/dist/'
+    )}`,
     `http://0.0.0.0:9000?sockPath=${encodeURIComponent(
       '/path/to/sockjs-node'
     )}&sockHost=${encodeURIComponent('my.host')}&sockPort=8888`,
+    `http://0.0.0.0:9000?sockPath=${encodeURIComponent(
+      '/path/to/sockjs-node'
+    )}&sockHost=${encodeURIComponent(
+      'my.host'
+    )}&sockPort=8888&publicPath=${encodeURIComponent(
+      'http://my.host:8888/dist/'
+    )}`,
     `http://user:pass@[::]:8080?sockPath=${encodeURIComponent(
       '/path/to/sockjs-node'
     )}&sockPort=8888`,
     `http://user:pass@[::]:8080?sockPath=${encodeURIComponent(
       '/path/to/sockjs-node'
     )}&sockHost=${encodeURIComponent('my.host')}&sockPort=8888`,
-    // TODO: comment out after the major release
-    // https://github.com/webpack/webpack-dev-server/pull/1954#issuecomment-498043376
-    // 'file://filename',
   ];
 
   samples.forEach((url) => {
@@ -36,22 +44,17 @@ describe('createSocketUrl', () => {
       () => () => url
     );
 
-    const {
-      default: createSocketUrl,
-      // eslint-disable-next-line global-require
-    } = require('../../../client-src/default/utils/createSocketUrl');
+    // eslint-disable-next-line global-require
+    const getUrlParts = require('../../../client-src/default/utils/getUrlParts');
 
-    test(`should return the url when __resourceQuery is ${url}`, () => {
-      // include ? at the start of the __resourceQuery to make it like a real
-      // resource query
-      expect(createSocketUrl(`?${url}`)).toMatchSnapshot();
+    test(`should return url parts when __resourceQuery is ${url}`, () => {
+      expect(getUrlParts(`?${url}`)).toMatchSnapshot();
     });
 
-    test(`should return the url when the current script source is ${url}`, () => {
-      expect(createSocketUrl()).toMatchSnapshot();
+    test(`should return url parts when the current script source is ${url}`, () => {
+      expect(getUrlParts()).toMatchSnapshot();
     });
 
-    // put here because resetModules mustn't be reset when L27 is finished
     jest.resetModules();
   });
 });

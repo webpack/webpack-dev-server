@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?publicPath=%2Fdist%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/dist/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?publicPath=%2Flong%2Fdist%2Fpath%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/long/dist/path/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?publicPath=http%3A%2F%2Fmy.host%3A8888%2Fdist%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "http://my.host:8888/dist/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?sockHost=my.host 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "my.host",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "my.host",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888&publicPath=http%3A%2F%2Fmy.host%3A8888%2Fdist%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "http://my.host:8888/dist/",
+  "sockHost": "my.host",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://0.0.0.0:9000?sockPort=8888 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://user:pass@[::]:8080 1`] = `
+Object {
+  "auth": "user:pass",
+  "defaultHost": "localhost",
+  "defaultPort": "8080",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "8080",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `
+Object {
+  "auth": "user:pass",
+  "defaultHost": "localhost",
+  "defaultPort": "8080",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "my.host",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockPort=8888 1`] = `
+Object {
+  "auth": "user:pass",
+  "defaultHost": "localhost",
+  "defaultPort": "8080",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is http://user:password@localhost/ 1`] = `
+Object {
+  "auth": "user:password",
+  "defaultHost": "localhost",
+  "defaultPort": "",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is https://example.com 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "example.com",
+  "defaultPort": "",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "example.com",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is https://example.com/path 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "example.com",
+  "defaultPort": "",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "example.com",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is https://example.com/path/foo.js 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "example.com",
+  "defaultPort": "",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "example.com",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is https://localhost:123 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "123",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "123",
+}
+`;
+
+exports[`getUrlParts should return url parts when __resourceQuery is test 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": null,
+  "defaultPort": "",
+  "protocol": null,
+  "publicPath": "/",
+  "sockHost": null,
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?publicPath=%2Fdist%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/dist/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?publicPath=%2Flong%2Fdist%2Fpath%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/long/dist/path/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?publicPath=http%3A%2F%2Fmy.host%3A8888%2Fdist%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "http://my.host:8888/dist/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?sockHost=my.host 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "my.host",
+  "sockPath": "/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "9000",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "my.host",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888&publicPath=http%3A%2F%2Fmy.host%3A8888%2Fdist%2F 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "http://my.host:8888/dist/",
+  "sockHost": "my.host",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://0.0.0.0:9000?sockPort=8888 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "9000",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://user:pass@[::]:8080 1`] = `
+Object {
+  "auth": "user:pass",
+  "defaultHost": "localhost",
+  "defaultPort": "8080",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "8080",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `
+Object {
+  "auth": "user:pass",
+  "defaultHost": "localhost",
+  "defaultPort": "8080",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "my.host",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockPort=8888 1`] = `
+Object {
+  "auth": "user:pass",
+  "defaultHost": "localhost",
+  "defaultPort": "8080",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/path/to/sockjs-node",
+  "sockPort": "8888",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is http://user:password@localhost/ 1`] = `
+Object {
+  "auth": "user:password",
+  "defaultHost": "localhost",
+  "defaultPort": "",
+  "protocol": "http:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is https://example.com 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "example.com",
+  "defaultPort": "",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "example.com",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is https://example.com/path 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "example.com",
+  "defaultPort": "",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "example.com",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is https://example.com/path/foo.js 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "example.com",
+  "defaultPort": "",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "example.com",
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is https://localhost:123 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": "localhost",
+  "defaultPort": "123",
+  "protocol": "https:",
+  "publicPath": "/",
+  "sockHost": "localhost",
+  "sockPath": "/sockjs-node",
+  "sockPort": "123",
+}
+`;
+
+exports[`getUrlParts should return url parts when the current script source is test 1`] = `
+Object {
+  "auth": null,
+  "defaultHost": null,
+  "defaultPort": "",
+  "protocol": null,
+  "publicPath": "/",
+  "sockHost": null,
+  "sockPath": "/sockjs-node",
+  "sockPort": "",
+}
+`;

@@ -1,33 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createSocketUrl should return the url when __resourceQuery is ?test 1`] = `"/sockjs-node"`;
-
 exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0 1`] = `"http://localhost/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when __resourceQuery is http://user:pass@[::]:8080 1`] = `"ttp:user:pass@localhost:8080/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0:9000?publicPath=%2Fdist%2F 1`] = `"http://localhost:9000/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when __resourceQuery is http://user:password@localhost/ 1`] = `"ttp:user:password@localhost/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0:9000?sockHost=my.host 1`] = `"http://my.host:9000/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when __resourceQuery is https://example.com 1`] = `"ttps:example.com/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node 1`] = `"http://localhost:9000/path/to/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when __resourceQuery is https://example.com/path 1`] = `"ttps:example.com/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `"http://my.host:8888/path/to/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when __resourceQuery is https://example.com/path/foo.js 1`] = `"ttps:example.com/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0:9000?sockPort=8888 1`] = `"http://localhost:8888/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when __resourceQuery is https://localhost:123 1`] = `"ttps:localhost:123/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://user:pass@[::]:8080 1`] = `"http://user:pass@localhost:8080/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when the current script source is ?test 1`] = `"/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `"http://user:pass@my.host:8888/path/to/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0 1`] = `"http:/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockPort=8888 1`] = `"http://user:pass@localhost:8888/path/to/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when the current script source is http://user:pass@[::]:8080 1`] = `"http:/sockjs-node"`;
+exports[`createSocketUrl should return the url when __resourceQuery is http://user:password@localhost/ 1`] = `"http://user:password@localhost/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when __resourceQuery is https://example.com 1`] = `"https://example.com/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when __resourceQuery is https://example.com/path 1`] = `"https://example.com/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when __resourceQuery is https://example.com/path/foo.js 1`] = `"https://example.com/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when __resourceQuery is https://localhost:123 1`] = `"https://localhost:123/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when __resourceQuery is test 1`] = `"/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0 1`] = `"http://localhost/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0:9000?publicPath=%2Fdist%2F 1`] = `"http://localhost:9000/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0:9000?sockHost=my.host 1`] = `"http://my.host:9000/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node 1`] = `"http://localhost:9000/path/to/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0:9000?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `"http://my.host:8888/path/to/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0:9000?sockPort=8888 1`] = `"http://localhost:8888/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://user:pass@[::]:8080 1`] = `"http://user:pass@localhost:8080/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockHost=my.host&sockPort=8888 1`] = `"http://user:pass@my.host:8888/path/to/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://user:pass@[::]:8080?sockPath=%2Fpath%2Fto%2Fsockjs-node&sockPort=8888 1`] = `"http://user:pass@localhost:8888/path/to/sockjs-node"`;
 
 exports[`createSocketUrl should return the url when the current script source is http://user:password@localhost/ 1`] = `"http://user:password@localhost/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when the current script source is https://example.com 1`] = `"https:/sockjs-node"`;
+exports[`createSocketUrl should return the url when the current script source is https://example.com 1`] = `"https://example.com/sockjs-node"`;
 
 exports[`createSocketUrl should return the url when the current script source is https://example.com/path 1`] = `"https://example.com/sockjs-node"`;
 
 exports[`createSocketUrl should return the url when the current script source is https://example.com/path/foo.js 1`] = `"https://example.com/sockjs-node"`;
 
-exports[`createSocketUrl should return the url when the current script source is https://localhost:123 1`] = `"https:/sockjs-node"`;
+exports[`createSocketUrl should return the url when the current script source is https://localhost:123 1`] = `"https://localhost:123/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is test 1`] = `"/sockjs-node"`;

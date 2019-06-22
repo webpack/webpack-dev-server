@@ -44,6 +44,7 @@ const portsList = {
   'profile-option': 1,
   Iframe: 1,
   'stdin-option': 1,
+  PublicPath: 2,
 };
 
 let startPort = 8089;
