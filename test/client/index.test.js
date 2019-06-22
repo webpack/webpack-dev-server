@@ -11,6 +11,7 @@ describe('index', () => {
   let reloadApp;
   let sendMessage;
   let onSocketMessage;
+  let updatePublicPath;
   const locationValue = self.location;
   const resourceQueryValue = global.__resourceQuery;
 
@@ -52,6 +53,13 @@ describe('index', () => {
       '../../client-src/default/utils/createSocketUrl.js',
       () => 'mock-url'
     );
+
+    // updatePublicPath
+    jest.setMock(
+      '../../client-src/default/utils/updatePublicPath.js',
+      jest.fn()
+    );
+    updatePublicPath = require('../../client-src/default/utils/updatePublicPath');
 
     require('../../client-src/default');
     onSocketMessage = socket.mock.calls[0][1];
@@ -212,5 +220,10 @@ describe('index', () => {
     onSocketMessage.close();
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  test('should run updatePublicPath', () => {
+    expect(updatePublicPath).toBeCalled();
+    expect(updatePublicPath.mock.calls[0]).toMatchSnapshot();
   });
 });

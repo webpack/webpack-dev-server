@@ -74,6 +74,12 @@ exports[`index should run onSocketMessage['still-ok'] 1`] = `"[WDS] Nothing chan
 
 exports[`index should run onSocketMessage['still-ok'] 2`] = `"StillOk"`;
 
+exports[`index should run updatePublicPath 1`] = `
+Array [
+  "foo",
+]
+`;
+
 exports[`index should set arguments into socket function 1`] = `
 Array [
   "mock-url",

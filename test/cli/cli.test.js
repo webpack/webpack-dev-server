@@ -57,7 +57,8 @@ describe('CLI', () => {
   it('--sockPath', async () => {
     const { stdout } = await testBin('--sockPath /mysockPath');
     expect(
-      /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(stdout)
+      // the /mysockPath becomes %2FmysockPath from encodeURIComponent
+      /http:\/\/localhost:[0-9]+?sockPath=%2FmysockPath/.test(stdout)
     ).toEqual(true);
   });
 
