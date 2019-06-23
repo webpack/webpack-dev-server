@@ -51,16 +51,6 @@ describe('getSocketServerImplementation util', () => {
     }).toThrow(/serverMode must be a string denoting a default implementation/);
   });
 
-  it('should throw with serverMode (not extending BaseServer)', () => {
-    expect(() => {
-      getSocketServerImplementation({
-        serverMode: class ServerImplementation {},
-      });
-    }).toThrow(
-      'serverMode must extend the class BaseServer, found via require(webpack-dev-server/lib/servers/BaseServer)'
-    );
-  });
-
   it('should throw with serverMode (incorrect constructor)', () => {
     expect(() => {
       getSocketServerImplementation({
@@ -69,7 +59,7 @@ describe('getSocketServerImplementation util', () => {
         },
       });
     }).toThrow(
-      'serverMode must have a constructor that takes a single server argument and calls super(server)'
+      "serverMode must have a constructor that takes a single server argument and calls super(server) on the superclass BaseServer, found via require('webpack-dev-server/lib/servers/BaseServer')"
     );
   });
 
