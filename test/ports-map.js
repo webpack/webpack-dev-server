@@ -36,6 +36,7 @@ const portsList = {
   'stats-option': 1,
   ProvidePlugin: 1,
   WebsocketClient: 1,
+  WebsocketServer: 1,
 };
 
 let startPort = 8079;
