@@ -3,7 +3,7 @@
 const webpack = require('webpack');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['progress-option'];
+const port = require('../ports-map')['profile-option'];
 
 describe('profile', () => {
   describe('output', () => {
