@@ -6,7 +6,7 @@ const ws = require('ws');
 const WebsocketServer = require('../../../lib/servers/WebsocketServer');
 const port = require('../../ports-map').WebsocketServer;
 
-describe('SockJSServer', () => {
+describe('WebsocketServer', () => {
   let socketServer;
   let listeningApp;
 
