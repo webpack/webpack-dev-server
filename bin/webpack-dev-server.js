@@ -4,8 +4,6 @@
 
 /* eslint-disable no-shadow, no-console */
 
-const fs = require('fs');
-const net = require('net');
 const debug = require('debug')('webpack-dev-server');
 const importLocal = require('import-local');
 const yargs = require('yargs');
@@ -109,42 +107,10 @@ function startDevServer(config, options) {
   }
 
   if (options.socket) {
-    server.listeningApp.on('error', (e) => {
-      if (e.code === 'EADDRINUSE') {
-        const clientSocket = new net.Socket();
-
-        clientSocket.on('error', (err) => {
-          if (err.code === 'ECONNREFUSED') {
-            // No other server listening on this socket so it can be safely removed
-            fs.unlinkSync(options.socket);
-
-            server.listen(options.socket, options.host, (error) => {
-              if (error) {
-                throw error;
-              }
-            });
-          }
-        });
-
-        clientSocket.connect({ path: options.socket }, () => {
-          throw new Error('This socket is already used');
-        });
-      }
-    });
-
     server.listen(options.socket, options.host, (err) => {
       if (err) {
         throw err;
       }
-
-      // chmod 666 (rw rw rw)
-      const READ_WRITE = 438;
-
-      fs.chmod(options.socket, READ_WRITE, (err) => {
-        if (err) {
-          throw err;
-        }
-      });
     });
   } else {
     server.listen(options.port, options.host, (err) => {
