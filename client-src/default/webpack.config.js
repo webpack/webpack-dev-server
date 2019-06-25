@@ -18,11 +18,14 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.NormalModuleReplacementPlugin(/\/clients\//, (resource) => {
-      resource.request = resource.request.replace(
-        /\/clients\//,
-        '/../clients/'
-      );
-    }),
+    new webpack.NormalModuleReplacementPlugin(
+      /^\.\/clients\/SockJSClient$/,
+      (resource) => {
+        resource.request = resource.request.replace(
+          /^\.\/clients\/SockJSClient$/,
+          '../clients/SockJSClient'
+        );
+      }
+    ),
   ],
 };

@@ -34,11 +34,14 @@ module.exports = {
         to: path.resolve(__dirname, '../../client/live.html'),
       },
     ]),
-    new webpack.NormalModuleReplacementPlugin(/\/clients\//, (resource) => {
-      resource.request = resource.request.replace(
-        /\/clients\//,
-        '/../clients/'
-      );
-    }),
+    new webpack.NormalModuleReplacementPlugin(
+      /^\.\/clients\/SockJSClient$/,
+      (resource) => {
+        resource.request = resource.request.replace(
+          /^\.\/clients\/SockJSClient$/,
+          '../clients/SockJSClient'
+        );
+      }
+    ),
   ],
 };
