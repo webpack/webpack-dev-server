@@ -5,33 +5,33 @@ exports[`getSocketServerImplementation util should throw with serverMode (bad pa
 exports[`getSocketServerImplementation util should throw with serverMode (no close, onConnection methods) 1`] = `
 [ValidationError: webpack Dev Server Invalid Options
 
-options should have required property 'close'
-options should have required property 'onConnection'
+options - serverMode must have a close(connection) method that closes the provided client connection object
+options - serverMode must have a onConnection(f) method that calls f(connection) whenever a new client connection is made
 ]
 `;
 
 exports[`getSocketServerImplementation util should throw with serverMode (no constructor, send, close, onConnection methods) 1`] = `
 [ValidationError: webpack Dev Server Invalid Options
 
-options should have required property 'constructor'
-options should have required property 'send'
-options should have required property 'close'
-options should have required property 'onConnection'
+options [object Object]
+options - serverMode must have a send(connection, message) method that sends the message string to the provided client connection object
+options - serverMode must have a close(connection) method that closes the provided client connection object
+options - serverMode must have a onConnection(f) method that calls f(connection) whenever a new client connection is made
 ]
 `;
 
 exports[`getSocketServerImplementation util should throw with serverMode (no onConnection method) 1`] = `
 [ValidationError: webpack Dev Server Invalid Options
 
-options should have required property 'onConnection'
+options - serverMode must have a onConnection(f) method that calls f(connection) whenever a new client connection is made
 ]
 `;
 
 exports[`getSocketServerImplementation util should throw with serverMode (no send, close, onConnection methods) 1`] = `
 [ValidationError: webpack Dev Server Invalid Options
 
-options should have required property 'send'
-options should have required property 'close'
-options should have required property 'onConnection'
+options - serverMode must have a send(connection, message) method that sends the message string to the provided client connection object
+options - serverMode must have a close(connection) method that closes the provided client connection object
+options - serverMode must have a onConnection(f) method that calls f(connection) whenever a new client connection is made
 ]
 `;

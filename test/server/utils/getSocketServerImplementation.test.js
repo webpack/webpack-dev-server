@@ -43,6 +43,24 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
+  it('should work with serverMode (additional class methods)', () => {
+    let result;
+
+    const ExtendedSockJSServer = class ExtendedSockJSServer extends SockJSServer {
+      myMethod() {
+        this.test = true;
+      }
+    };
+
+    expect(() => {
+      result = getSocketServerImplementation({
+        serverMode: ExtendedSockJSServer,
+      });
+    }).not.toThrow();
+
+    expect(result).toEqual(ExtendedSockJSServer);
+  });
+
   const ClassWithoutConstructor = class ClassWithoutConstructor {};
   // eslint-disable-next-line no-undefined
   ClassWithoutConstructor.prototype.constructor = undefined;
