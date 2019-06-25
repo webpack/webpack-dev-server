@@ -3,25 +3,22 @@
 const net = require('net');
 const fs = require('fs');
 const path = require('path');
-const webpack = require('webpack');
-const testServer = require('../helpers/test-server');
-const TestUnixSocket = require('../helpers/test-unix-socket');
-const { skipTestOnWindows } = require('../helpers/conditional-test');
-const config = require('../fixtures/simple-config/webpack.config');
-const Server = require('../../lib/Server');
+const TestUnixSocket = require('../../helpers/test-unix-socket');
+const { skipTestOnWindows } = require('../../helpers/conditional-test');
+const startUnixSocket = require('../../../lib/utils/startUnixSocket');
 
-describe('socket', () => {
-  const socketPath = path.join('.', 'socket-option.webpack.sock');
-  let server = null;
+describe('startUnixSocket', () => {
+  const socketPath = path.join('.', 'startUnixSocket.webpack.sock');
+  let testUnixSocket = null;
 
   describe('path to a non-existent file', () => {
     let err;
     beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          socket: socketPath,
-        },
+      testUnixSocket = new TestUnixSocket();
+      startUnixSocket(
+        testUnixSocket.server,
+        socketPath,
+        () => {},
         (e) => {
           err = e;
           done();
@@ -44,7 +41,7 @@ describe('socket', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
+      testUnixSocket.close(() => {
         fs.unlink(socketPath, done);
       });
     });
@@ -57,13 +54,8 @@ describe('socket', () => {
 
     beforeAll((done) => {
       fs.writeFileSync(socketPath, '');
-      server = testServer.start(
-        config,
-        {
-          socket: socketPath,
-        },
-        done
-      );
+      testUnixSocket = new TestUnixSocket();
+      startUnixSocket(testUnixSocket.server, socketPath, () => {}, done);
     });
 
     it('should work as Unix socket', (done) => {
@@ -76,7 +68,7 @@ describe('socket', () => {
     });
 
     afterAll((done) => {
-      testServer.close(() => {
+      testUnixSocket.close(() => {
         fs.unlink(socketPath, done);
       });
     });
@@ -87,63 +79,61 @@ describe('socket', () => {
       return;
     }
 
-    let testUnixSocket;
+    let dummyUnixSocket;
     beforeAll((done) => {
-      testUnixSocket = new TestUnixSocket();
-      testUnixSocket.server.listen(socketPath, 511, () => {
+      dummyUnixSocket = new TestUnixSocket();
+      dummyUnixSocket.server.listen(socketPath, 511, () => {
         done();
       });
     });
 
     it('should work as Unix socket', (done) => {
-      server = testServer.start(
-        config,
-        {
-          socket: socketPath,
-        },
+      testUnixSocket = new TestUnixSocket();
+      startUnixSocket(
+        testUnixSocket.server,
+        socketPath,
+        () => {},
         (err) => {
           expect(err).not.toBeNull();
           expect(err).not.toBeUndefined();
           expect(err.message).toEqual('This socket is already used');
-          server.close(done);
+          testUnixSocket.close(done);
         }
       );
     });
 
     afterAll((done) => {
-      testUnixSocket.close(() => {
+      dummyUnixSocket.close(() => {
         fs.unlink(socketPath, done);
       });
     });
   });
 
   describe('path to existent, unused file', () => {
-    let devServer;
-    const options = {
-      socket: socketPath,
-    };
     beforeAll(() => {
       fs.writeFileSync(socketPath, '');
+      testUnixSocket = new TestUnixSocket();
     });
 
     // this test is significant because previously the callback was called
     // twice if a file at the given socket path already existed, but
     // could be removed
     it('should only call server.listen callback once', (done) => {
-      const compiler = webpack(config);
-
-      devServer = new Server(compiler, options);
-      const onListen = jest.fn();
-      // eslint-disable-next-line no-undefined
-      devServer.listen(options.socket, undefined, onListen);
+      const userCallback = jest.fn();
+      startUnixSocket(
+        testUnixSocket.server,
+        socketPath,
+        () => {},
+        userCallback
+      );
       setTimeout(() => {
-        expect(onListen).toBeCalledTimes(1);
+        expect(userCallback).toBeCalledTimes(1);
         done();
       }, 10000);
     });
 
     afterAll((done) => {
-      devServer.close(done);
+      testUnixSocket.close(done);
     });
   });
 });
