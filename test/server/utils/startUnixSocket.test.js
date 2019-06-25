@@ -15,15 +15,10 @@ describe('startUnixSocket', () => {
     let err;
     beforeAll((done) => {
       testUnixSocket = new TestUnixSocket();
-      startUnixSocket(
-        testUnixSocket.server,
-        socketPath,
-        () => {},
-        (e) => {
-          err = e;
-          done();
-        }
-      );
+      startUnixSocket(testUnixSocket.server, socketPath, (e) => {
+        err = e;
+        done();
+      });
     });
 
     it('should work as Unix socket or error on windows', (done) => {
@@ -55,7 +50,7 @@ describe('startUnixSocket', () => {
     beforeAll((done) => {
       fs.writeFileSync(socketPath, '');
       testUnixSocket = new TestUnixSocket();
-      startUnixSocket(testUnixSocket.server, socketPath, () => {}, done);
+      startUnixSocket(testUnixSocket.server, socketPath, done);
     });
 
     it('should work as Unix socket', (done) => {
@@ -89,17 +84,12 @@ describe('startUnixSocket', () => {
 
     it('should throw already used error', (done) => {
       testUnixSocket = new TestUnixSocket();
-      startUnixSocket(
-        testUnixSocket.server,
-        socketPath,
-        () => {},
-        (err) => {
-          expect(err).not.toBeNull();
-          expect(err).not.toBeUndefined();
-          expect(err.message).toEqual('This socket is already used');
-          testUnixSocket.close(done);
-        }
-      );
+      startUnixSocket(testUnixSocket.server, socketPath, (err) => {
+        expect(err).not.toBeNull();
+        expect(err).not.toBeUndefined();
+        expect(err.message).toEqual('This socket is already used');
+        testUnixSocket.close(done);
+      });
     });
 
     afterAll((done) => {
@@ -120,12 +110,7 @@ describe('startUnixSocket', () => {
     // could be removed
     it('should only call server.listen callback once', (done) => {
       const userCallback = jest.fn();
-      startUnixSocket(
-        testUnixSocket.server,
-        socketPath,
-        () => {},
-        userCallback
-      );
+      startUnixSocket(testUnixSocket.server, socketPath, userCallback);
       setTimeout(() => {
         expect(userCallback).toBeCalledTimes(1);
         done();
