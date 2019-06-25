@@ -47,12 +47,10 @@ describe('SockJSClient', () => {
         data.push(msg);
       });
 
-      await timer(3000);
-
-      expect(data.length).toEqual(3);
-      expect(data[0]).toEqual('open');
-      expect(data[1]).toEqual('hello world');
-      expect(data[2]).toEqual('close');
+      setTimeout(() => {
+        expect(data).toMatchSnapshot();
+        done();
+      }, 3000);
     });
   });
 
