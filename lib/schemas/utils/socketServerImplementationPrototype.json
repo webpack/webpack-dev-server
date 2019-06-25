@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "constructor": {
+      "instanceof": "Function"
+    },
+    "send": {
+      "instanceof": "Function"
+    },
+    "close": {
+      "instanceof": "Function"
+    },
+    "onConnection": {
+      "instanceof": "Function"
+    }
+  },
+  "errorMessage": {
+    "properties": {
+      "constructor": "- serverMode must have a constructor that takes a single server argument and calls super(server) on the superclass BaseServer, found via require('webpack-dev-server/lib/servers/BaseServer')",
+      "send": "- serverMode must have a send(connection, message) method that sends the message string to the provided client connection object",
+      "close": "- serverMode must have a close(connection) method that closes the provided client connection object",
+      "onConnection": "- serverMode must have a onConnection(f) method that calls f(connection) whenever a new client connection is made"
+    }
+  },
+  "required": ["constructor", "send", "close", "onConnection"],
+  "additionalProperties": false
+}

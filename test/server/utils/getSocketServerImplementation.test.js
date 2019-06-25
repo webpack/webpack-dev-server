@@ -43,59 +43,38 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should throw with serverMode (bad path)', () => {
-    expect(() => {
-      getSocketServerImplementation({
+  const ClassWithoutConstructor = class ClassWithoutConstructor {};
+  // eslint-disable-next-line no-undefined
+  ClassWithoutConstructor.prototype.constructor = undefined;
+
+  const badSetups = [
+    {
+      title: 'should throw with serverMode (bad path)',
+      config: {
         serverMode: '/bad/path/to/implementation',
-      });
-    }).toThrow(/serverMode must be a string denoting a default implementation/);
-  });
-
-  it('should throw with serverMode (incorrect constructor)', () => {
-    expect(() => {
-      getSocketServerImplementation({
-        serverMode: class ServerImplementation extends BaseServer {
-          constructor() {}
-        },
-      });
-    }).toThrow(
-      "serverMode must have a constructor that takes a single server argument and calls super(server) on the superclass BaseServer, found via require('webpack-dev-server/lib/servers/BaseServer')"
-    );
-  });
-
-  it('should throw with serverMode (no send method)', () => {
-    expect(() => {
-      getSocketServerImplementation({
+      },
+    },
+    {
+      title:
+        'should throw with serverMode (no constructor, send, close, onConnection methods)',
+      config: {
+        serverMode: ClassWithoutConstructor,
+      },
+    },
+    {
+      title:
+        'should throw with serverMode (no send, close, onConnection methods)',
+      config: {
         serverMode: class ServerImplementation extends BaseServer {
           constructor(server) {
             super(server);
           }
         },
-      });
-    }).toThrow(
-      'serverMode must have a send(connection, message) method that sends the message string to the provided client connection object'
-    );
-  });
-
-  it('should throw with serverMode (incorrect send parameters)', () => {
-    expect(() => {
-      getSocketServerImplementation({
-        serverMode: class ServerImplementation extends BaseServer {
-          constructor(server) {
-            super(server);
-          }
-
-          send(connection) {}
-        },
-      });
-    }).toThrow(
-      'serverMode must have a send(connection, message) method that sends the message string to the provided client connection object'
-    );
-  });
-
-  it('should throw with serverMode (no close method)', () => {
-    expect(() => {
-      getSocketServerImplementation({
+      },
+    },
+    {
+      title: 'should throw with serverMode (no close, onConnection methods)',
+      config: {
         serverMode: class ServerImplementation extends BaseServer {
           constructor(server) {
             super(server);
@@ -103,15 +82,11 @@ describe('getSocketServerImplementation util', () => {
 
           send(connection, message) {}
         },
-      });
-    }).toThrow(
-      'serverMode must have a close(connection) method that closes the provided client connection object'
-    );
-  });
-
-  it('should throw with serverMode (no onConnection method)', () => {
-    expect(() => {
-      getSocketServerImplementation({
+      },
+    },
+    {
+      title: 'should throw with serverMode (no onConnection method)',
+      config: {
         serverMode: class ServerImplementation extends BaseServer {
           constructor(server) {
             super(server);
@@ -121,9 +96,19 @@ describe('getSocketServerImplementation util', () => {
 
           close(connection) {}
         },
-      });
-    }).toThrow(
-      'serverMode must have a onConnection(f) method that calls f(connection) whenever a new client connection is made'
-    );
+      },
+    },
+  ];
+
+  badSetups.forEach((setup) => {
+    it(setup.title, () => {
+      let thrown = false;
+      try {
+        getSocketServerImplementation(setup.config);
+      } catch (e) {
+        thrown = true;
+        expect(e).toMatchSnapshot();
+      }
+    });
   });
 });
