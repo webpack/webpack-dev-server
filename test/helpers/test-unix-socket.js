@@ -15,11 +15,15 @@ const TestUnixSocket = class TestUnixSocket {
   }
 
   close(done) {
-    // get rid of connected sockets
-    for (const socket of this.sockets.values()) {
-      socket.destroy();
+    if (this.server.listening) {
+      // get rid of connected sockets
+      for (const socket of this.sockets.values()) {
+        socket.destroy();
+      }
+      this.server.close(done);
+    } else {
+      done();
     }
-    this.server.close(done);
   }
 };
 

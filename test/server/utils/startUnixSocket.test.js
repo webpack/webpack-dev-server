@@ -87,7 +87,7 @@ describe('startUnixSocket', () => {
       });
     });
 
-    it('should work as Unix socket', (done) => {
+    it('should throw already used error', (done) => {
       testUnixSocket = new TestUnixSocket();
       startUnixSocket(
         testUnixSocket.server,

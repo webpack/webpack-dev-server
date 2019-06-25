@@ -95,7 +95,7 @@ describe('socket', () => {
       });
     });
 
-    it('should work as Unix socket', (done) => {
+    it('should throw already used error', (done) => {
       server = testServer.start(
         config,
         {
