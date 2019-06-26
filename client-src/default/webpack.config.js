@@ -29,8 +29,6 @@ module.exports = {
             /^\.\/clients\/SockJSClient$/,
             '../clients/SockJSClient'
           );
-          console.log(resource);
-          console.log(require.resolve('../default'));
         }
       }
     ),
