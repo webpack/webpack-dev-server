@@ -277,8 +277,21 @@ describe('contentBase option', () => {
       try {
         // eslint-disable-next-line no-unused-vars
         server = testServer.start(config, {
-          port: 9004,
           contentBase: 'https://example.com/',
+          watchContentBase: true,
+        });
+
+        expect(true).toBe(false);
+      } catch (e) {
+        expect(e.message).toBe('Watching remote files is not supported.');
+        done();
+      }
+    });
+    it('Should throw exception (number)', (done) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        server = testServer.start(config, {
+          contentBase: 2,
           watchContentBase: true,
         });
 
@@ -292,7 +305,6 @@ describe('contentBase option', () => {
       try {
         // eslint-disable-next-line no-unused-vars
         server = testServer.start(config, {
-          port: 9003,
           contentBase: [contentBasePublic, 'https://example.com/'],
           watchContentBase: true,
         });
