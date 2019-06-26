@@ -38,8 +38,8 @@ module.exports = {
       /^\.\/clients\/SockJSClient$/,
       (resource) => {
         if (
-          resource.context.includes('/webpack-dev-server/client-src/') ||
-          resource.context.includes('\\webpack-dev-server\\client-src\\')
+          resource.context.includes('/client-src/default') ||
+          resource.context.includes('\\client-src\\default')
         ) {
           resource.request = resource.request.replace(
             /^\.\/clients\/SockJSClient$/,
