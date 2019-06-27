@@ -58,6 +58,10 @@ describe('options', () => {
         success: ['silent', 'info', 'error', 'warn', 'trace', 'debug'],
         failure: ['whoops!', 'none', 'warning'],
       },
+      clientMode: {
+        success: ['sockjs', require.resolve('../client/clients/SockJSClient')],
+        failure: [false],
+      },
       compress: {
         success: [true],
         failure: [''],
