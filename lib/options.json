@@ -48,6 +48,9 @@
         "warning"
       ]
     },
+    "clientMode": {
+      "type": "string"
+    },
     "compress": {
       "type": "boolean"
     },
@@ -390,6 +393,7 @@
       "ca": "should be {String|Buffer}",
       "cert": "should be {String|Buffer}",
       "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'none', 'silent', 'info', 'debug', 'trace', 'error', 'warning', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
+      "clientMode": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverclientmode)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
@@ -430,7 +434,7 @@
       "reporter": "should be {Function} (https://github.com/webpack/webpack-dev-middleware#reporter)",
       "requestCert": "should be {Boolean}",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
-      "serverMode": "should be {String|Function} (https://webpack.js.org/configuration/dev-server/#devserverservermode-)",
+      "serverMode": "should be {String|Function} (https://webpack.js.org/configuration/dev-server/#devserverservermode)",
       "serverSideRender": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#serversiderender)",
       "setup": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserversetup)",
       "sockHost": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserversockhost)",
