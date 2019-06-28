@@ -39,6 +39,7 @@ const portsList = {
   WebsocketClient: 1,
   WebsocketServer: 1,
   ClientMode: 1,
+  'clientMode-option': 1,
 };
 
 let startPort = 8079;
