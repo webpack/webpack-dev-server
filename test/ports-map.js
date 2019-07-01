@@ -1,6 +1,7 @@
 'use strict';
 
 // test-file-name: the number of ports
+// important: new port mappings must be added to the bottom of this list
 const portsList = {
   cli: 2,
   sockJSClient: 1,
@@ -37,6 +38,8 @@ const portsList = {
   ProvidePlugin: 1,
   WebsocketClient: 1,
   WebsocketServer: 1,
+  ClientMode: 1,
+  'clientMode-option': 1,
 };
 
 let startPort = 8079;
