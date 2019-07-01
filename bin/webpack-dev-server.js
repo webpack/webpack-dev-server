@@ -97,12 +97,6 @@ function startDevServer(config, options) {
     throw err;
   }
 
-  if (options.progress) {
-    new webpack.ProgressPlugin({
-      profile: argv.profile,
-    }).apply(compiler);
-  }
-
   try {
     server = new Server(compiler, options, log);
   } catch (err) {
