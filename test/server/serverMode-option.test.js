@@ -229,80 +229,80 @@ describe('serverMode option', () => {
         }).toThrow(/serverMode must be a string/);
       });
     });
-  });
 
-  describe('with a bad host header', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          port,
-          serverMode: class MySockJSServer extends BaseServer {
-            constructor(serv) {
-              super(serv);
-              this.socket = sockjs.createServer({
-                // Use provided up-to-date sockjs-client
-                sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
-                // Limit useless logs
-                log: (severity, line) => {
-                  if (severity === 'error') {
-                    this.server.log.error(line);
-                  } else {
-                    this.server.log.debug(line);
-                  }
-                },
-              });
-
-              this.socket.installHandlers(this.server.listeningApp, {
-                prefix: this.server.sockPath,
-              });
-            }
-
-            send(connection, message) {
-              connection.write(message);
-            }
-
-            close(connection) {
-              connection.close();
-            }
-
-            onConnection(f) {
-              this.socket.on('connection', (connection) => {
-                f(connection, {
-                  host: null,
+    describe('with a bad host header', () => {
+      beforeAll((done) => {
+        server = testServer.start(
+          config,
+          {
+            port,
+            serverMode: class MySockJSServer extends BaseServer {
+              constructor(serv) {
+                super(serv);
+                this.socket = sockjs.createServer({
+                  // Use provided up-to-date sockjs-client
+                  sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
+                  // Limit useless logs
+                  log: (severity, line) => {
+                    if (severity === 'error') {
+                      this.server.log.error(line);
+                    } else {
+                      this.server.log.debug(line);
+                    }
+                  },
                 });
-              });
-            }
 
-            onConnectionClose(connection, f) {
-              connection.on('close', f);
-            }
+                this.socket.installHandlers(this.server.listeningApp, {
+                  prefix: this.server.sockPath,
+                });
+              }
+
+              send(connection, message) {
+                connection.write(message);
+              }
+
+              close(connection) {
+                connection.close();
+              }
+
+              onConnection(f) {
+                this.socket.on('connection', (connection) => {
+                  f(connection, {
+                    host: null,
+                  });
+                });
+              }
+
+              onConnectionClose(connection, f) {
+                connection.on('close', f);
+              }
+            },
           },
-        },
-        done
-      );
-    });
+          done
+        );
+      });
 
-    it('results in an error', (done) => {
-      const data = [];
-      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+      it('results in an error', (done) => {
+        const data = [];
+        const client = new SockJS(`http://localhost:${port}/sockjs-node`);
 
-      client.onopen = () => {
-        data.push('open');
-      };
+        client.onopen = () => {
+          data.push('open');
+        };
 
-      client.onmessage = (e) => {
-        data.push(e.data);
-      };
+        client.onmessage = (e) => {
+          data.push(e.data);
+        };
 
-      client.onclose = () => {
-        data.push('close');
-      };
+        client.onclose = () => {
+          data.push('close');
+        };
 
-      setTimeout(() => {
-        expect(data).toMatchSnapshot();
-        done();
-      }, 5000);
+        setTimeout(() => {
+          expect(data).toMatchSnapshot();
+          done();
+        }, 5000);
+      });
     });
   });
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`serverMode option with a bad host header results in an error 1`] = `
+exports[`serverMode option passed to server with a bad host header results in an error 1`] = `
 Array [
   "open",
   "{\\"type\\":\\"error\\",\\"data\\":\\"Invalid Host/Origin header\\"}",
