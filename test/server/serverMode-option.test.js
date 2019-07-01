@@ -8,144 +8,226 @@ const sockjs = require('sockjs');
 const SockJS = require('sockjs-client/dist/sockjs');
 const SockJSServer = require('../../lib/servers/SockJSServer');
 const config = require('../fixtures/simple-config/webpack.config');
-const testServer = require('../helpers/test-server');
 const BaseServer = require('../../lib/servers/BaseServer');
 const port = require('../ports-map')['serverMode-option'];
 
 describe('serverMode option', () => {
+  let mockedTestServer;
+  let testServer;
   let server;
   let req;
+  let getSocketServerImplementation;
 
-  afterEach((done) => {
-    testServer.close(done);
-    req = null;
-    server = null;
-  });
+  const serverModes = [
+    {
+      title: 'as a string ("sockjs")',
+      serverMode: 'sockjs',
+    },
+    {
+      title: 'as a path ("sockjs")',
+      serverMode: require.resolve('../../lib/servers/SockJSServer'),
+    },
+    {
+      title: 'as a string ("ws")',
+      serverMode: 'ws',
+    },
+    {
+      title: 'as a path ("ws")',
+      serverMode: require.resolve('../../lib/servers/WebsocketServer'),
+    },
+    {
+      title: 'as a class (custom implementation)',
+      serverMode: class CustomServer {},
+    },
+    {
+      title: 'as a nonexistent path',
+      serverMode: '/bad/path/to/implementation',
+    },
+  ];
 
-  describe('as a string ("sockjs")', () => {
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
-        {
-          serverMode: 'sockjs',
-          port,
-        },
-        done
-      );
-      req = request(`http://localhost:${port}`);
+  describe('is passed to getSocketServerImplementation correctly', () => {
+    beforeEach(() => {
+      jest.mock('../../lib/utils/getSocketServerImplementation');
+      // eslint-disable-next-line global-require
+      getSocketServerImplementation = require('../../lib/utils/getSocketServerImplementation');
+      getSocketServerImplementation.mockImplementation(() => {
+        return class MockServer {
+          // eslint-disable-next-line no-empty-function
+          onConnection() {}
+        };
+      });
     });
 
-    it('sockjs path responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
-    });
-  });
+    afterEach((done) => {
+      jest.resetAllMocks();
+      jest.resetModules();
 
-  describe('as a path ("sockjs")', () => {
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
-        {
-          serverMode: require.resolve('../../lib/servers/SockJSServer'),
-          port,
-        },
-        done
-      );
-      req = request(`http://localhost:${port}`);
+      mockedTestServer.close(done);
     });
 
-    it('sockjs path responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
-    });
-  });
-
-  describe('as a class ("sockjs")', () => {
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
-        {
-          serverMode: SockJSServer,
-          port,
-        },
-        done
-      );
-      req = request(`http://localhost:${port}`);
-    });
-
-    it('sockjs path responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
-    });
-  });
-
-  describe('as a class (custom "sockjs" implementation)', () => {
-    it('uses supplied server implementation', (done) => {
-      let sockPath;
-      server = testServer.start(
-        config,
-        {
-          port,
-          sockPath: '/foo/test/bar/',
-          serverMode: class MySockJSServer extends BaseServer {
-            constructor(serv) {
-              super(serv);
-              this.socket = sockjs.createServer({
-                // Use provided up-to-date sockjs-client
-                sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
-                // Limit useless logs
-                log: (severity, line) => {
-                  if (severity === 'error') {
-                    this.server.log.error(line);
-                  } else {
-                    this.server.log.debug(line);
-                  }
-                },
-              });
-
-              this.socket.installHandlers(this.server.listeningApp, {
-                prefix: this.server.sockPath,
-              });
-
-              sockPath = server.options.sockPath;
-            }
-
-            send(connection, message) {
-              connection.write(message);
-            }
-
-            close(connection) {
-              connection.close();
-            }
-
-            onConnection(f) {
-              this.socket.on('connection', (connection) => {
-                f(connection, connection.headers);
-              });
-            }
-
-            onConnectionClose(connection, f) {
-              connection.on('close', f);
-            }
+    serverModes.forEach((data) => {
+      it(data.title, (done) => {
+        // eslint-disable-next-line global-require
+        mockedTestServer = require('../helpers/test-server');
+        mockedTestServer.start(
+          config,
+          {
+            serverMode: data.serverMode,
+            port,
           },
-        },
-        () => {
-          expect(sockPath).toEqual('/foo/test/bar/');
-          done();
-        }
-      );
+          () => {
+            expect(getSocketServerImplementation.mock.calls.length).toEqual(1);
+            expect(getSocketServerImplementation.mock.calls[0].length).toEqual(
+              1
+            );
+            expect(
+              getSocketServerImplementation.mock.calls[0][0].serverMode
+            ).toEqual(data.serverMode);
+            done();
+          }
+        );
+      });
     });
   });
 
-  describe('as a path with nonexistent path', () => {
-    it('should throw an error', () => {
-      expect(() => {
+  describe('passed to server', () => {
+    beforeAll(() => {
+      jest.unmock('../../lib/utils/getSocketServerImplementation');
+      // eslint-disable-next-line global-require
+      testServer = require('../helpers/test-server');
+    });
+
+    afterEach((done) => {
+      testServer.close(done);
+      req = null;
+      server = null;
+    });
+
+    describe('as a string ("sockjs")', () => {
+      beforeEach((done) => {
         server = testServer.start(
           config,
           {
-            serverMode: '/bad/path/to/implementation',
+            serverMode: 'sockjs',
             port,
           },
-          () => {}
+          done
         );
-      }).toThrow(/serverMode must be a string/);
+        req = request(`http://localhost:${port}`);
+      });
+
+      it('sockjs path responds with a 200', (done) => {
+        req.get('/sockjs-node').expect(200, done);
+      });
+    });
+
+    describe('as a path ("sockjs")', () => {
+      beforeEach((done) => {
+        server = testServer.start(
+          config,
+          {
+            serverMode: require.resolve('../../lib/servers/SockJSServer'),
+            port,
+          },
+          done
+        );
+        req = request(`http://localhost:${port}`);
+      });
+
+      it('sockjs path responds with a 200', (done) => {
+        req.get('/sockjs-node').expect(200, done);
+      });
+    });
+
+    describe('as a class ("sockjs")', () => {
+      beforeEach((done) => {
+        server = testServer.start(
+          config,
+          {
+            serverMode: SockJSServer,
+            port,
+          },
+          done
+        );
+        req = request(`http://localhost:${port}`);
+      });
+
+      it('sockjs path responds with a 200', (done) => {
+        req.get('/sockjs-node').expect(200, done);
+      });
+    });
+
+    describe('as a class (custom "sockjs" implementation)', () => {
+      let sockPath;
+      it('uses supplied server implementation', (done) => {
+        server = testServer.start(
+          config,
+          {
+            port,
+            sockPath: '/foo/test/bar/',
+            serverMode: class MySockJSServer extends BaseServer {
+              constructor(serv) {
+                super(serv);
+                this.socket = sockjs.createServer({
+                  // Use provided up-to-date sockjs-client
+                  sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
+                  // Limit useless logs
+                  log: (severity, line) => {
+                    if (severity === 'error') {
+                      this.server.log.error(line);
+                    } else {
+                      this.server.log.debug(line);
+                    }
+                  },
+                });
+
+                this.socket.installHandlers(this.server.listeningApp, {
+                  prefix: this.server.sockPath,
+                });
+
+                sockPath = server.options.sockPath;
+              }
+
+              send(connection, message) {
+                connection.write(message);
+              }
+
+              close(connection) {
+                connection.close();
+              }
+
+              onConnection(f) {
+                this.socket.on('connection', (connection) => {
+                  f(connection, connection.headers);
+                });
+              }
+
+              onConnectionClose(connection, f) {
+                connection.on('close', f);
+              }
+            },
+          },
+          () => {
+            expect(sockPath).toEqual('/foo/test/bar/');
+            done();
+          }
+        );
+      });
+    });
+
+    describe('as a path with nonexistent path', () => {
+      it('should throw an error', () => {
+        expect(() => {
+          server = testServer.start(
+            config,
+            {
+              serverMode: '/bad/path/to/implementation',
+              port,
+            },
+            () => {}
+          );
+        }).toThrow(/serverMode must be a string/);
+      });
     });
   });
 
