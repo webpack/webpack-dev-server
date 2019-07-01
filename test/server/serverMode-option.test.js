@@ -5,6 +5,7 @@
 */
 const request = require('supertest');
 const sockjs = require('sockjs');
+const SockJS = require('sockjs-client/dist/sockjs');
 const SockJSServer = require('../../lib/servers/SockJSServer');
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
@@ -77,6 +78,7 @@ describe('serverMode option', () => {
 
   describe('as a class (custom "sockjs" implementation)', () => {
     it('uses supplied server implementation', (done) => {
+      let sockPath;
       server = testServer.start(
         config,
         {
@@ -102,7 +104,7 @@ describe('serverMode option', () => {
                 prefix: this.server.sockPath,
               });
 
-              expect(server.options.sockPath).toEqual('/foo/test/bar/');
+              sockPath = server.options.sockPath;
             }
 
             send(connection, message) {
@@ -114,11 +116,20 @@ describe('serverMode option', () => {
             }
 
             onConnection(f) {
-              this.socket.on('connection', f);
+              this.socket.on('connection', (connection) => {
+                f(connection, connection.headers);
+              });
+            }
+
+            onConnectionClose(connection, f) {
+              connection.on('close', f);
             }
           },
         },
-        done
+        () => {
+          expect(sockPath).toEqual('/foo/test/bar/');
+          done();
+        }
       );
     });
   });
@@ -135,6 +146,81 @@ describe('serverMode option', () => {
           () => {}
         );
       }).toThrow(/serverMode must be a string/);
+    });
+  });
+
+  describe('with a bad host header', () => {
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          port,
+          serverMode: class MySockJSServer extends BaseServer {
+            constructor(serv) {
+              super(serv);
+              this.socket = sockjs.createServer({
+                // Use provided up-to-date sockjs-client
+                sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
+                // Limit useless logs
+                log: (severity, line) => {
+                  if (severity === 'error') {
+                    this.server.log.error(line);
+                  } else {
+                    this.server.log.debug(line);
+                  }
+                },
+              });
+
+              this.socket.installHandlers(this.server.listeningApp, {
+                prefix: this.server.sockPath,
+              });
+            }
+
+            send(connection, message) {
+              connection.write(message);
+            }
+
+            close(connection) {
+              connection.close();
+            }
+
+            onConnection(f) {
+              this.socket.on('connection', (connection) => {
+                f(connection, {
+                  host: null,
+                });
+              });
+            }
+
+            onConnectionClose(connection, f) {
+              connection.on('close', f);
+            }
+          },
+        },
+        done
+      );
+    });
+
+    it('results in an error', (done) => {
+      const data = [];
+      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+
+      client.onopen = () => {
+        data.push('open');
+      };
+
+      client.onmessage = (e) => {
+        data.push(e.data);
+      };
+
+      client.onclose = () => {
+        data.push('close');
+      };
+
+      setTimeout(() => {
+        expect(data).toMatchSnapshot();
+        done();
+      }, 5000);
     });
   });
 });
