@@ -309,6 +309,10 @@ describe('options', () => {
         success: ['', 0, null],
         failure: [false],
       },
+      profile: {
+        success: [false],
+        failure: [''],
+      },
       progress: {
         success: [false],
         failure: [''],

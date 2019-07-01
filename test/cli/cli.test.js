@@ -20,6 +20,23 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.code).toEqual(0);
         expect(output.stderr.includes('0% compiling')).toBe(true);
+        // should not profile
+        expect(
+          output.stderr.includes('ms after chunk modules optimization')
+        ).toBe(false);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--progress --profile', (done) => {
+    testBin('--progress --profile')
+      .then((output) => {
+        expect(output.code).toEqual(0);
+        // should profile
+        expect(
+          output.stderr.includes('ms after chunk modules optimization')
+        ).toBe(true);
         done();
       })
       .catch(done);
