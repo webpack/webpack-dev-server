@@ -36,13 +36,15 @@ describe('SockJSServer', () => {
     it('should recieve connection, send message, and close client', async () => {
       const data = [];
 
-      socketServer.onConnection(async (connection) => {
+      let headers;
+      socketServer.onConnection((connection, h) => {
+        headers = h;
         data.push('open');
         socketServer.send(connection, 'hello world');
-
-        await timer(1000);
-
-        socketServer.close(connection);
+        setTimeout(() => {
+          // the server closes the connection with the client
+          socketServer.close(connection);
+        }, 1000);
       });
 
       const client = new SockJS(`http://localhost:${port}/sockjs-node`);
@@ -56,7 +58,30 @@ describe('SockJSServer', () => {
       };
 
       setTimeout(() => {
+        expect(headers.host).toMatchSnapshot();
         expect(data).toMatchSnapshot();
+        done();
+      }, 3000);
+    });
+
+    it('should receive client close event', (done) => {
+      let receivedClientClose = false;
+      socketServer.onConnection((connection) => {
+        socketServer.onConnectionClose(connection, () => {
+          receivedClientClose = true;
+        });
+      });
+
+      // eslint-disable-next-line new-cap
+      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+
+      setTimeout(() => {
+        // the client closes itself, the server does not close it
+        client.close();
+      }, 1000);
+
+      setTimeout(() => {
+        expect(receivedClientClose).toBeTruthy();
         done();
       }, 3000);
     });
