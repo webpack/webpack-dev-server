@@ -69,7 +69,7 @@ function createSocketUrl(resourceQuery) {
   }
 
   return url.format({
-    protocol,
+    protocol: sockHost === '' ? '' : protocol ,
     auth,
     hostname: sockHost,
     port: sockPort,
