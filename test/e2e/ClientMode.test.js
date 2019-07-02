@@ -42,6 +42,43 @@ describe('clientMode', () => {
     });
   });
 
+  describe('ws', () => {
+    beforeAll((done) => {
+      const options = {
+        port,
+        host: '0.0.0.0',
+        inline: true,
+        clientMode: 'ws',
+        serverMode: require.resolve('../../lib/servers/WebsocketServer'),
+      };
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    describe('on browser client', () => {
+      it('logs as usual', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          const res = [];
+          page.goto(`http://localhost:${port}/main`);
+          page.on('console', ({ _text }) => {
+            res.push(_text);
+          });
+
+          setTimeout(() => {
+            testServer.close(() => {
+              // make sure the client gets the close message
+              setTimeout(() => {
+                browser.close().then(() => {
+                  expect(res).toMatchSnapshot();
+                  done();
+                });
+              }, 1000);
+            });
+          }, 3000);
+        });
+      });
+    });
+  });
+
   describe('custom client', () => {
     beforeAll((done) => {
       const options = {

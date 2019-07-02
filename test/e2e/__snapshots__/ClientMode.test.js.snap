@@ -20,3 +20,11 @@ Array [
   "[WDS] Disconnected!",
 ]
 `;
+
+exports[`clientMode ws on browser client logs as usual 1`] = `
+Array [
+  "Hey.",
+  "[WDS] Live Reloading enabled.",
+  "[WDS] Disconnected!",
+]
+`;
