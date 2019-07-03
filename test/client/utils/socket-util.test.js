@@ -18,11 +18,11 @@ describe('socket', () => {
       example: mockHandler,
     });
 
-    const mockServerInstance = SockJSClient.mock.instances[0];
+    const mockClientInstance = SockJSClient.mock.instances[0];
 
     // this simulates recieving a message from the server and passing it
     // along to the callback of onMessage
-    mockServerInstance.onMessage.mock.calls[0][0](
+    mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
         type: 'example',
         data: 'hello world',
@@ -30,9 +30,9 @@ describe('socket', () => {
     );
 
     expect(SockJSClient.mock.calls[0]).toMatchSnapshot();
-    expect(mockServerInstance.onOpen.mock.calls).toMatchSnapshot();
-    expect(mockServerInstance.onClose.mock.calls).toMatchSnapshot();
-    expect(mockServerInstance.onMessage.mock.calls).toMatchSnapshot();
+    expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
+    expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
+    expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
     expect(mockHandler.mock.calls).toMatchSnapshot();
   });
 
@@ -48,12 +48,12 @@ describe('socket', () => {
       example: mockHandler,
     });
 
-    const mockServerInstance =
+    const mockClientInstance =
       global.__webpack_dev_server_client__.mock.instances[0];
 
     // this simulates recieving a message from the server and passing it
     // along to the callback of onMessage
-    mockServerInstance.onMessage.mock.calls[0][0](
+    mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
         type: 'example',
         data: 'hello world',
@@ -63,9 +63,9 @@ describe('socket', () => {
     expect(
       global.__webpack_dev_server_client__.mock.calls[0]
     ).toMatchSnapshot();
-    expect(mockServerInstance.onOpen.mock.calls).toMatchSnapshot();
-    expect(mockServerInstance.onClose.mock.calls).toMatchSnapshot();
-    expect(mockServerInstance.onMessage.mock.calls).toMatchSnapshot();
+    expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
+    expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
+    expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
     expect(mockHandler.mock.calls).toMatchSnapshot();
   });
 });
