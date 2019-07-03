@@ -224,9 +224,100 @@ describe('serverMode option', () => {
               serverMode: '/bad/path/to/implementation',
               port,
             },
-            () => {}
+            () => { }
           );
         }).toThrow(/serverMode must be a string/);
+      });
+    });
+
+    describe('without a header', () => {
+      let mockWarn;
+      beforeAll((done) => {
+        server = testServer.start(
+          config,
+          {
+            port,
+            serverMode: class MySockJSServer extends BaseServer {
+              constructor(serv) {
+                super(serv);
+                this.socket = sockjs.createServer({
+                  // Use provided up-to-date sockjs-client
+                  sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
+                  // Limit useless logs
+                  log: (severity, line) => {
+                    if (severity === 'error') {
+                      this.server.log.error(line);
+                    } else {
+                      this.server.log.debug(line);
+                    }
+                  },
+                });
+
+                this.socket.installHandlers(this.server.listeningApp, {
+                  prefix: this.server.sockPath,
+                });
+              }
+
+              send(connection, message) {
+                connection.write(message);
+              }
+
+              close(connection) {
+                connection.close();
+              }
+
+              onConnection(f) {
+                this.socket.on('connection', (connection) => {
+                  f(connection);
+                });
+              }
+
+              onConnectionClose(connection, f) {
+                connection.on('close', f);
+              }
+            },
+          },
+          done
+        );
+
+        mockWarn = jest.spyOn(server.log, 'warn').mockImplementation(() => { });
+      });
+
+      it('results in an error', (done) => {
+        const data = [];
+        const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+
+        client.onopen = () => {
+          data.push('open');
+        };
+
+        client.onmessage = (e) => {
+          data.push(e.data);
+        };
+
+        client.onclose = () => {
+          data.push('close');
+        };
+
+        setTimeout(() => {
+          expect(data).toMatchSnapshot();
+          const calls = mockWarn.mock.calls;
+          mockWarn.mockRestore();
+
+          let foundWarning = false;
+          const regExp = /serverMode implementation must pass headers to the callback of onConnection\(f\)/;
+          calls.every((call) => {
+            if (regExp.test(call)) {
+              foundWarning = true;
+              return false;
+            }
+            return true;
+          });
+
+          expect(foundWarning).toBeTruthy();
+
+          done();
+        }, 5000);
       });
     });
 
@@ -306,94 +397,90 @@ describe('serverMode option', () => {
     });
   });
 
-  describe('without a header', () => {
-    let mockWarn;
-    beforeAll((done) => {
-      server = testServer.start(
+  describe('server', () => {
+    let MockSockJSServer;
+    beforeEach((done) => {
+      jest.mock('../../lib/servers/SockJSServer');
+      // eslint-disable-next-line global-require
+      mockedTestServer = require('../helpers/test-server');
+      // eslint-disable-next-line global-require
+      MockSockJSServer = require('../../lib/servers/SockJSServer');
+
+      server = mockedTestServer.start(
         config,
         {
           port,
-          serverMode: class MySockJSServer extends BaseServer {
-            constructor(serv) {
-              super(serv);
-              this.socket = sockjs.createServer({
-                // Use provided up-to-date sockjs-client
-                sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
-                // Limit useless logs
-                log: (severity, line) => {
-                  if (severity === 'error') {
-                    this.server.log.error(line);
-                  } else {
-                    this.server.log.debug(line);
-                  }
-                },
-              });
-
-              this.socket.installHandlers(this.server.listeningApp, {
-                prefix: this.server.sockPath,
-              });
-            }
-
-            send(connection, message) {
-              connection.write(message);
-            }
-
-            close(connection) {
-              connection.close();
-            }
-
-            onConnection(f) {
-              this.socket.on('connection', (connection) => {
-                f(connection);
-              });
-            }
-
-            onConnectionClose(connection, f) {
-              connection.on('close', f);
-            }
-          },
         },
         done
       );
-
-      mockWarn = jest.spyOn(server.log, 'warn').mockImplementation(() => {});
     });
 
-    it('results in an error', (done) => {
-      const data = [];
-      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+    afterEach((done) => {
+      mockedTestServer.close(done);
+      jest.resetAllMocks();
+      jest.resetModules();
 
-      client.onopen = () => {
-        data.push('open');
+      server = null;
+    });
+
+    it('should use server implementation correctly', () => {
+      const mockServerInstance = MockSockJSServer.mock.instances[0];
+
+      const connectionObj = {
+        foo: 'bar',
       };
+      // this simulates a client connecting to the server
+      mockServerInstance.onConnection.mock.calls[0][0](connectionObj, {
+        host: `localhost:${port}`,
+        origin: `http://localhost:${port}`,
+      });
 
-      client.onmessage = (e) => {
-        data.push(e.data);
-      };
+      expect(server.sockets.length).toEqual(1);
+      expect(server.sockets).toMatchSnapshot();
 
-      client.onclose = () => {
-        data.push('close');
-      };
+      // this simulates a client leaving the server
+      mockServerInstance.onConnectionClose.mock.calls[0][1](connectionObj);
 
-      setTimeout(() => {
-        expect(data).toMatchSnapshot();
-        const calls = mockWarn.mock.calls;
-        mockWarn.mockRestore();
+      expect(server.sockets.length).toEqual(0);
 
-        let foundWarning = false;
-        const regExp = /serverMode implementation must pass headers to the callback of onConnection\(f\)/;
-        calls.every((call) => {
-          if (regExp.test(call)) {
-            foundWarning = true;
-            return false;
-          }
-          return true;
-        });
+      // check that the dev server was passed to the socket server implementation constructor
+      expect(MockSockJSServer.mock.calls[0].length).toEqual(1);
+      expect(MockSockJSServer.mock.calls[0][0].options.port).toEqual(port);
 
-        expect(foundWarning).toBeTruthy();
+      expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
+      expect(mockServerInstance.send.mock.calls.length).toEqual(3);
+      // call 0 to the send() method is liveReload
+      expect(mockServerInstance.send.mock.calls[0]).toMatchSnapshot();
+      // call 1 to the send() method is hash data, so we skip it
+      // call 2 to the send() method is the "ok" message
+      expect(mockServerInstance.send.mock.calls[2]).toMatchSnapshot();
+      // close should not be called because the server never forcefully closes
+      // a successful client connection
+      expect(mockServerInstance.close.mock.calls.length).toEqual(0);
+      expect(mockServerInstance.onConnectionClose.mock.calls).toMatchSnapshot();
+    });
 
-        done();
-      }, 5000);
+    it('should close client with bad headers', () => {
+      const mockServerInstance = MockSockJSServer.mock.instances[0];
+
+      // this simulates a client connecting to the server
+      mockServerInstance.onConnection.mock.calls[0][0](
+        {
+          foo: 'bar',
+        },
+        {
+          host: null,
+        }
+      );
+      expect(server.sockets.length).toEqual(0);
+      expect(MockSockJSServer.mock.calls[0].length).toEqual(1);
+      expect(MockSockJSServer.mock.calls[0][0].options.port).toEqual(port);
+      expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
+      // the only call to send() here should be an invalid header message
+      expect(mockServerInstance.send.mock.calls).toMatchSnapshot();
+      expect(mockServerInstance.close.mock.calls).toMatchSnapshot();
+      // onConnectionClose should never get called since the client should be closed first
+      expect(mockServerInstance.onConnectionClose.mock.calls.length).toEqual(0);
     });
   });
 });
