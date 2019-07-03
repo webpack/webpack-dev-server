@@ -223,4 +223,95 @@ describe('serverMode option', () => {
       }, 5000);
     });
   });
+
+  describe('without a header', () => {
+    let mockWarn;
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          port,
+          serverMode: class MySockJSServer extends BaseServer {
+            constructor(serv) {
+              super(serv);
+              this.socket = sockjs.createServer({
+                // Use provided up-to-date sockjs-client
+                sockjs_url: '/__webpack_dev_server__/sockjs.bundle.js',
+                // Limit useless logs
+                log: (severity, line) => {
+                  if (severity === 'error') {
+                    this.server.log.error(line);
+                  } else {
+                    this.server.log.debug(line);
+                  }
+                },
+              });
+
+              this.socket.installHandlers(this.server.listeningApp, {
+                prefix: this.server.sockPath,
+              });
+            }
+
+            send(connection, message) {
+              connection.write(message);
+            }
+
+            close(connection) {
+              connection.close();
+            }
+
+            onConnection(f) {
+              this.socket.on('connection', (connection) => {
+                f(connection);
+              });
+            }
+
+            onConnectionClose(connection, f) {
+              connection.on('close', f);
+            }
+          },
+        },
+        done
+      );
+
+      mockWarn = jest.spyOn(server.log, 'warn').mockImplementation(() => {});
+    });
+
+    it('results in an error', (done) => {
+      const data = [];
+      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+
+      client.onopen = () => {
+        data.push('open');
+      };
+
+      client.onmessage = (e) => {
+        data.push(e.data);
+      };
+
+      client.onclose = () => {
+        data.push('close');
+      };
+
+      setTimeout(() => {
+        expect(data).toMatchSnapshot();
+        const calls = mockWarn.mock.calls;
+        mockWarn.mockRestore();
+
+        let foundWarning = false;
+        const regExp = /serverMode implementation must pass headers to the callback of onConnection\(f\)/;
+        calls.every((call) => {
+          if (regExp.test(call)) {
+            foundWarning = true;
+            return false;
+          }
+          return true;
+        });
+
+        expect(foundWarning).toBeTruthy();
+
+        done();
+      }, 5000);
+    });
+  });
 });
