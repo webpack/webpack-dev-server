@@ -7,3 +7,11 @@ Array [
   "close",
 ]
 `;
+
+exports[`serverMode option without a header results in an error 1`] = `
+Array [
+  "open",
+  "{\\"type\\":\\"error\\",\\"data\\":\\"Invalid Host/Origin header\\"}",
+  "close",
+]
+`;
