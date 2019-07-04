@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 1`] = `
+Array [
+  "my.url",
+]
+`;
+
+exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 2`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 3`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 4`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 5`] = `
+Array [
+  Array [
+    "hello world",
+  ],
+]
+`;
+
+exports[`socket should use __webpack_dev_server_client__ when set 1`] = `
+Array [
+  "my.url",
+]
+`;
+
+exports[`socket should use __webpack_dev_server_client__ when set 2`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`socket should use __webpack_dev_server_client__ when set 3`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`socket should use __webpack_dev_server_client__ when set 4`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`socket should use __webpack_dev_server_client__ when set 5`] = `
+Array [
+  Array [
+    "hello world",
+  ],
+]
+`;
