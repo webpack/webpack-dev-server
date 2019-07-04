@@ -1,10 +1,13 @@
 'use strict';
 
+/* eslint-disable constructor-super, no-empty-function, no-useless-constructor, no-unused-vars, class-methods-use-this */
+
 const getSocketServerImplementation = require('../../../lib/utils/getSocketServerImplementation');
+const BaseServer = require('../../../lib/servers/BaseServer');
 const SockJSServer = require('../../../lib/servers/SockJSServer');
 
 describe('getSocketServerImplementation util', () => {
-  it("should works with string serverMode ('sockjs')", () => {
+  it("should work with string serverMode ('sockjs')", () => {
     let result;
 
     expect(() => {
@@ -16,7 +19,7 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should works with serverMode (SockJSServer class)', () => {
+  it('should work with serverMode (SockJSServer class)', () => {
     let result;
 
     expect(() => {
@@ -40,11 +43,90 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should throws with serverMode (bad path)', () => {
+  it('should work with serverMode (additional class methods)', () => {
+    let result;
+
+    const ExtendedSockJSServer = class ExtendedSockJSServer extends SockJSServer {
+      myMethod() {
+        this.test = true;
+      }
+    };
+
     expect(() => {
-      getSocketServerImplementation({
-        serverMode: '/bad/path/to/implementation',
+      result = getSocketServerImplementation({
+        serverMode: ExtendedSockJSServer,
       });
-    }).toThrow(/serverMode must be a string/);
+    }).not.toThrow();
+
+    expect(result).toEqual(ExtendedSockJSServer);
+  });
+
+  const ClassWithoutConstructor = class ClassWithoutConstructor {};
+  // eslint-disable-next-line no-undefined
+  ClassWithoutConstructor.prototype.constructor = undefined;
+
+  const badSetups = [
+    {
+      title: 'should throw with serverMode (bad path)',
+      config: {
+        serverMode: '/bad/path/to/implementation',
+      },
+    },
+    {
+      title:
+        'should throw with serverMode (no constructor, send, close, onConnection methods)',
+      config: {
+        serverMode: ClassWithoutConstructor,
+      },
+    },
+    {
+      title:
+        'should throw with serverMode (no send, close, onConnection methods)',
+      config: {
+        serverMode: class ServerImplementation extends BaseServer {
+          constructor(server) {
+            super(server);
+          }
+        },
+      },
+    },
+    {
+      title: 'should throw with serverMode (no close, onConnection methods)',
+      config: {
+        serverMode: class ServerImplementation extends BaseServer {
+          constructor(server) {
+            super(server);
+          }
+
+          send(connection, message) {}
+        },
+      },
+    },
+    {
+      title: 'should throw with serverMode (no onConnection method)',
+      config: {
+        serverMode: class ServerImplementation extends BaseServer {
+          constructor(server) {
+            super(server);
+          }
+
+          send(connection, message) {}
+
+          close(connection) {}
+        },
+      },
+    },
+  ];
+
+  badSetups.forEach((setup) => {
+    it(setup.title, () => {
+      let thrown = false;
+      try {
+        getSocketServerImplementation(setup.config);
+      } catch (e) {
+        thrown = true;
+        expect(e).toMatchSnapshot();
+      }
+    });
   });
 });
