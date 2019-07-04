@@ -252,6 +252,9 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
+  // publicPath in output option should not change the results of
+  // createConfig, since publicPath changes were moved from createConfig
+  // to setPublicPath helper
   it('publicPath option (path in output option)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {

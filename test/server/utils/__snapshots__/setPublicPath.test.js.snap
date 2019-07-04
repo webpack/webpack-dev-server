@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setPublicPath absolute devServer.publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "http://localhost:8080/assets/",
+}
+`;
+
+exports[`setPublicPath bad relative devServer.publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "assets/",
+}
+`;
+
+exports[`setPublicPath multi compiler, no devServer.publicPath, / compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/",
+}
+`;
+
+exports[`setPublicPath multi compiler, no devServer.publicPath, absolute url compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "http://localhost:8080/assets/",
+}
+`;
+
+exports[`setPublicPath multi compiler, no devServer.publicPath, bad relative compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/assets/",
+}
+`;
+
+exports[`setPublicPath multi compiler, no devServer.publicPath, no compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "http://localhost:8080/assets/",
+}
+`;
+
+exports[`setPublicPath multi compiler, no devServer.publicPath, relative compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/assets/",
+}
+`;
+
+exports[`setPublicPath no devServer.publicPath, / compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/",
+}
+`;
+
+exports[`setPublicPath no devServer.publicPath, absolute url compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "http://localhost:8080/assets/",
+}
+`;
+
+exports[`setPublicPath no devServer.publicPath, bad relative compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/assets/",
+}
+`;
+
+exports[`setPublicPath no devServer.publicPath, no compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/",
+}
+`;
+
+exports[`setPublicPath no devServer.publicPath, relative compiler publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/assets/",
+}
+`;
+
+exports[`setPublicPath relative devServer.publicPath should set correct options.publicPath 1`] = `
+Object {
+  "publicPath": "/assets/",
+}
+`;

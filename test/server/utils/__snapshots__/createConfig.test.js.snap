@@ -10,7 +10,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -28,7 +27,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -43,7 +41,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -58,7 +55,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -74,7 +70,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -90,7 +85,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -106,7 +100,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -122,7 +115,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -137,7 +129,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -152,7 +143,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -167,7 +157,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -182,7 +171,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -200,7 +188,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -215,7 +202,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -230,7 +216,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -245,7 +230,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -260,7 +244,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -275,7 +258,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -290,7 +272,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -305,7 +286,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -320,7 +300,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -335,7 +314,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -350,7 +328,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -365,7 +342,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -380,7 +356,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -394,7 +369,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -409,7 +383,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -423,7 +396,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -438,7 +410,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -452,7 +423,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -466,7 +436,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -480,7 +449,6 @@ Object {
   "hotOnly": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -494,7 +462,6 @@ Object {
   "hotOnly": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -510,7 +477,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -526,7 +492,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -541,7 +506,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -556,7 +520,6 @@ Object {
   "noInfo": true,
   "pfxPassphrase": "passphrase",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -571,7 +534,6 @@ Object {
   "https": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -585,7 +547,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -599,7 +560,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -614,7 +574,6 @@ Object {
   "inline": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -629,7 +588,6 @@ Object {
   "inline": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -645,7 +603,6 @@ Object {
   "key": "/path/to/server.key",
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -661,7 +618,6 @@ Object {
   "key": "/path/to/server.key",
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -676,7 +632,6 @@ Object {
   "lazy": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -691,7 +646,6 @@ Object {
   "lazy": true,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -728,7 +682,6 @@ Object {
   },
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -747,7 +700,6 @@ Object {
   },
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -762,7 +714,6 @@ Object {
   "noInfo": true,
   "onListening": [Function],
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -778,7 +729,6 @@ Object {
   "open": true,
   "openPage": "",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -794,7 +744,6 @@ Object {
   "open": true,
   "openPage": "",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -810,7 +759,6 @@ Object {
   "open": "Google Chrome",
   "openPage": "",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -826,7 +774,6 @@ Object {
   "open": true,
   "openPage": "/different/page",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -842,7 +789,6 @@ Object {
   "open": true,
   "openPage": "/different/page",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -857,7 +803,6 @@ Object {
   "noInfo": true,
   "overlay": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -888,7 +833,6 @@ Object {
   "noInfo": true,
   "pfx": "/path/to/file.pfx",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -904,7 +848,6 @@ Object {
   "noInfo": true,
   "pfx": "/path/to/file.pfx",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -919,7 +862,6 @@ Object {
   "noInfo": true,
   "pfxPassphrase": "passphrase",
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -933,7 +875,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 7070,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -947,7 +888,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": null,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -961,7 +901,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": "9090",
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -975,7 +914,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": undefined,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -989,7 +927,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 9090,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1019,7 +956,6 @@ Object {
   "noInfo": true,
   "port": 8080,
   "progress": true,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1034,7 +970,6 @@ Object {
   "noInfo": true,
   "port": 8080,
   "progress": true,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1049,7 +984,6 @@ Object {
   "noInfo": true,
   "port": 8080,
   "public": true,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1064,7 +998,6 @@ Object {
   "noInfo": true,
   "port": 8080,
   "public": true,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1078,7 +1011,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1092,7 +1024,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/assets/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1106,7 +1037,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/assets/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1134,7 +1064,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "http://localhost:8080/assets/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1162,7 +1091,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "quiet": true,
   "stats": Object {
     "cached": false,
@@ -1177,7 +1105,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "quiet": true,
   "stats": Object {
     "cached": false,
@@ -1192,7 +1119,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1251,7 +1177,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "socket": "socket",
   "stats": Object {
     "cached": false,
@@ -1266,7 +1191,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "socket": "socket",
   "stats": Object {
     "cached": false,
@@ -1281,7 +1205,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "colors": true,
     "errors": true,
@@ -1295,7 +1218,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": "errors-only",
 }
 `;
@@ -1377,7 +1299,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1392,7 +1313,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1407,7 +1327,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1422,7 +1341,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1437,7 +1355,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -1454,7 +1371,6 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "port": 8080,
-  "publicPath": "/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
