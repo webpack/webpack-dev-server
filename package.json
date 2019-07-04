@@ -24,7 +24,7 @@
     "test:watch": "npm run test:coverage --watch",
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
-    "prepare": "rimraf ./ssl/*.pem && npm run build:client",
+    "prepare": "npm run snyk-protect; rimraf ./ssl/*.pem && npm run build:client",
     "build:client:default": "babel client-src/default --out-dir client --ignore \"./client-src/default/*.config.js\"",
     "build:client:clients": "babel client-src/clients --out-dir client/clients",
     "build:client:index": "webpack ./client-src/default/index.js -o client/index.bundle.js --color --config client-src/default/webpack.config.js",
@@ -32,7 +32,8 @@
     "build:client:sockjs": "webpack ./client-src/sockjs/index.js -o client/sockjs.bundle.js --color --config client-src/sockjs/webpack.config.js",
     "build:client": "rimraf ./client/* && npm-run-all -s -l -p \"build:client:**\"",
     "webpack-dev-server": "cd $INIT_CWD && node ../../../bin/webpack-dev-server.js",
-    "release": "standard-version"
+    "release": "standard-version",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "ansi-html": "0.0.7",
@@ -67,7 +68,8 @@
     "webpack-dev-middleware": "^3.7.0",
     "webpack-log": "^2.0.0",
     "ws": "^6.2.1",
-    "yargs": "12.0.5"
+    "yargs": "12.0.5",
+    "snyk": "^1.190.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -117,5 +119,6 @@
   "bugs": "https://github.com/webpack/webpack-dev-server/issues",
   "homepage": "https://github.com/webpack/webpack-dev-server#readme",
   "repository": "https://github.com/webpack/webpack-dev-server.git",
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
