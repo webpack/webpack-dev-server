@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`updateCompiler multi compiler config, hot and inline should apply plugins 1`] = `
+Array [
+  HotModuleReplacementPlugin {
+    "fullBuildTimeout": 200,
+    "multiStep": undefined,
+    "options": Object {},
+    "requestTimeout": 10000,
+  },
+]
+`;
+
+exports[`updateCompiler multi compiler config, hot and inline should apply plugins 2`] = `
+Array [
+  HotModuleReplacementPlugin {
+    "fullBuildTimeout": 200,
+    "multiStep": undefined,
+    "options": Object {},
+    "requestTimeout": 10000,
+  },
+]
+`;
+
+exports[`updateCompiler simple config with HMR already, hot and inline should apply plugins 1`] = `
+Array [
+  HotModuleReplacementPlugin {
+    "fullBuildTimeout": 200,
+    "multiStep": undefined,
+    "options": Object {},
+    "requestTimeout": 10000,
+  },
+]
+`;
+
+exports[`updateCompiler simple config, hot and inline should apply plugins 1`] = `
+Array [
+  HotModuleReplacementPlugin {
+    "fullBuildTimeout": 200,
+    "multiStep": undefined,
+    "options": Object {},
+    "requestTimeout": 10000,
+  },
+]
+`;
+
+exports[`updateCompiler simple config, inline should apply plugins without HMR 1`] = `undefined`;
