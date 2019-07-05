@@ -7,11 +7,11 @@ describe('socket', () => {
   });
 
   it('should default to SockJSClient when no __webpack_dev_server_client__ set', () => {
-    jest.mock('../../../client/clients/SockJSClient');
+    jest.mock('../../client/clients/SockJSClient');
     // eslint-disable-next-line global-require
-    const socket = require('../../../client/socket');
+    const socket = require('../../client/socket');
     // eslint-disable-next-line global-require
-    const SockJSClient = require('../../../client/clients/SockJSClient');
+    const SockJSClient = require('../../client/clients/SockJSClient');
 
     const mockHandler = jest.fn();
     socket('my.url', {
@@ -37,11 +37,11 @@ describe('socket', () => {
   });
 
   it('should use __webpack_dev_server_client__ when set', () => {
-    jest.mock('../../../client/clients/SockJSClient');
+    jest.mock('../../client/clients/SockJSClient');
     // eslint-disable-next-line global-require
-    const socket = require('../../../client/socket');
+    const socket = require('../../client/socket');
     // eslint-disable-next-line global-require
-    global.__webpack_dev_server_client__ = require('../../../client/clients/SockJSClient');
+    global.__webpack_dev_server_client__ = require('../../client/clients/SockJSClient');
 
     const mockHandler = jest.fn();
     socket('my.url', {
