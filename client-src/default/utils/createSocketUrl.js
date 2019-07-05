@@ -58,7 +58,8 @@ function createSocketUrl(resourceQuery) {
   let sockPort = urlParts.port;
 
   // eslint-disable-next-line no-undefined
-  if (path !== null && path !== undefined && path !== '/') {
+  const pathCondi = path !== null && path !== undefined && path !== '/';
+  if (pathCondi) {
     const parsedQuery = querystring.parse(path);
     // all of these sock url params are optionally passed in through
     // resourceQuery, so we need to fall back to the default if
