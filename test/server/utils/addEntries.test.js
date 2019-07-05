@@ -8,12 +8,18 @@ const configEntryAsFunction = require('./../../fixtures/entry-as-function/webpac
 
 const normalize = (entry) => entry.split(path.sep).join('/');
 
+const log = {
+  info: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+};
+
 describe('addEntries util', () => {
   it('should adds devServer entry points to a single entry point', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(
@@ -29,7 +35,7 @@ describe('addEntries util', () => {
 
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.entry.length).toEqual(3);
     expect(
@@ -49,7 +55,7 @@ describe('addEntries util', () => {
 
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.entry.foo.length).toEqual(2);
 
@@ -64,7 +70,7 @@ describe('addEntries util', () => {
     const webpackOptions = {};
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(webpackOptions.entry[1]).toEqual('./src');
@@ -81,7 +87,7 @@ describe('addEntries util', () => {
     };
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(typeof webpackOptions.entry).toEqual('function');
 
@@ -113,7 +119,7 @@ describe('addEntries util', () => {
 
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(typeof webpackOptions.entry).toEqual('function');
 
@@ -143,7 +149,7 @@ describe('addEntries util', () => {
       hot: true,
     };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     const hotClientScript = webpackOptions.entry.app[1];
 
@@ -164,7 +170,7 @@ describe('addEntries util', () => {
       hotOnly: true,
     };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     const hotClientScript = webpackOptions.entry.app[1];
 
@@ -178,7 +184,7 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect('plugins' in webpackOptions).toBeFalsy();
   });
@@ -187,7 +193,7 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.plugins).toEqual([]);
   });
@@ -200,7 +206,7 @@ describe('addEntries util', () => {
     });
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
   });
@@ -212,7 +218,7 @@ describe('addEntries util', () => {
     });
     const devServerOptions = { hot: true };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.plugins).toEqual([
       existingPlugin,
@@ -224,7 +230,7 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = { hotOnly: true };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.plugins).toEqual([
       new webpack.HotModuleReplacementPlugin(),
@@ -238,7 +244,7 @@ describe('addEntries util', () => {
     });
     const devServerOptions = { hot: true };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.plugins).toEqual([
       new webpack.HotModuleReplacementPlugin(),
@@ -250,8 +256,8 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = { hot: true };
 
-    addEntries(webpackOptions, devServerOptions);
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(webpackOptions.entry.length).toEqual(3);
 
@@ -265,7 +271,7 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
 
     expect(typeof webpackOptions.entry === 'function').toBe(true);
   });
@@ -282,7 +288,12 @@ describe('addEntries util', () => {
 
     const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
+
+    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.error).toHaveBeenCalledTimes(1);
+    log.warn.mockReset();
+    log.error.mockReset();
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions, index) => {
@@ -314,7 +325,12 @@ describe('addEntries util', () => {
       injectClient: (compilerConfig) => compilerConfig.name === 'only-include',
     };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
+
+    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.error).toHaveBeenCalledTimes(1);
+    log.warn.mockReset();
+    log.error.mockReset();
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions, index) => {
@@ -347,7 +363,12 @@ describe('addEntries util', () => {
       hot: true,
     };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
+
+    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.error).toHaveBeenCalledTimes(1);
+    log.warn.mockReset();
+    log.error.mockReset();
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions) => {
@@ -372,7 +393,12 @@ describe('addEntries util', () => {
       hot: true,
     };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, devServerOptions, null, log);
+
+    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.error).toHaveBeenCalledTimes(1);
+    log.warn.mockReset();
+    log.error.mockReset();
 
     // node target should have the client runtime but not the hot runtime
     const webWebpackOptions = webpackOptions[0];
@@ -395,5 +421,11 @@ describe('addEntries util', () => {
     ).toBeTruthy();
 
     expect(normalize(nodeWebpackOptions.entry[1])).toEqual('./foo.js');
+  });
+
+  afterEach(() => {
+    expect(log.info).toHaveBeenCalledTimes(0);
+    expect(log.warn).toHaveBeenCalledTimes(0);
+    expect(log.error).toHaveBeenCalledTimes(0);
   });
 });
