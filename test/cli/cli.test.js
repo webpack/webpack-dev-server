@@ -118,6 +118,41 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--stdin without stdin end should time out', (done) => {
+    const configPath = resolve(
+      __dirname,
+      '../fixtures/simple-config/webpack.config.js'
+    );
+    const childProcess = testBin('--stdin', configPath);
+
+    childProcess
+      .then(() => {})
+      .catch((err) => {
+        expect(err.timedOut).toBeTruthy();
+        done();
+      });
+  });
+
+  it('--stdin with stdin end should exit without time out', (done) => {
+    const configPath = resolve(
+      __dirname,
+      '../fixtures/simple-config/webpack.config.js'
+    );
+    const childProcess = testBin('--stdin', configPath);
+
+    setTimeout(() => {
+      childProcess.stdin.emit('end');
+    }, 1000);
+
+    childProcess
+      .then((output) => {
+        expect(output.code).toEqual(0);
+        expect(output.timedOut).toBeFalsy();
+        done();
+      })
+      .catch(done);
+  });
+
   it('should accept the promise function of webpack.config.js', (done) => {
     testBin(
       false,
