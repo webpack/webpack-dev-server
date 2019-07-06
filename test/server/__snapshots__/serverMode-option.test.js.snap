@@ -1,9 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`serverMode option with a bad host header results in an error 1`] = `
+exports[`serverMode option passed to server with a bad host header results in an error 1`] = `
 Array [
   "open",
   "{\\"type\\":\\"error\\",\\"data\\":\\"Invalid Host/Origin header\\"}",
   "close",
+]
+`;
+
+exports[`serverMode option passed to server without a header results in an error 1`] = `
+Array [
+  "open",
+  "{\\"type\\":\\"error\\",\\"data\\":\\"Invalid Host/Origin header\\"}",
+  "close",
+]
+`;
+
+exports[`serverMode option server should close client with bad headers 1`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`serverMode option server should close client with bad headers 2`] = `
+Array [
+  Array [
+    Object {
+      "foo": "bar",
+    },
+    "{\\"type\\":\\"error\\",\\"data\\":\\"Invalid Host/Origin header\\"}",
+  ],
+]
+`;
+
+exports[`serverMode option server should close client with bad headers 3`] = `
+Array [
+  Array [
+    Object {
+      "foo": "bar",
+    },
+  ],
+]
+`;
+
+exports[`serverMode option server should use server implementation correctly 1`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+]
+`;
+
+exports[`serverMode option server should use server implementation correctly 2`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`serverMode option server should use server implementation correctly 3`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+  "{\\"type\\":\\"liveReload\\"}",
+]
+`;
+
+exports[`serverMode option server should use server implementation correctly 4`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+  "{\\"type\\":\\"ok\\"}",
+]
+`;
+
+exports[`serverMode option server should use server implementation correctly 5`] = `
+Array [
+  Array [
+    Object {
+      "foo": "bar",
+    },
+    [Function],
+  ],
 ]
 `;
