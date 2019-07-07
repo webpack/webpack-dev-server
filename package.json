@@ -22,6 +22,7 @@
     "test:only": "jest",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
+    "type:check": "tsc --noEmit",
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
     "prepare": "rimraf ./ssl/*.pem && npm run build:client",
@@ -106,6 +107,7 @@
     "style-loader": "^0.23.1",
     "supertest": "^4.0.2",
     "tcp-port-used": "^1.0.1",
+    "typescript": "^3.4.5",
     "url-loader": "^1.1.2",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
