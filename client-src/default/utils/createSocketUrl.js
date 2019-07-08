@@ -28,12 +28,13 @@ function createSocketUrl(resourceQuery) {
   // why do we need this check?
   // hostname n/a for file protocol (example, when using electron, ionic)
   // see: https://github.com/webpack/webpack-dev-server/pull/384
-  if (
+  const isAnyHostname =
     (hostname === '0.0.0.0' || hostname === '::') &&
     self.location.hostname &&
     // eslint-disable-next-line no-bitwise
-    !!~self.location.protocol.indexOf('http')
-  ) {
+    !!~self.location.protocol.indexOf('http');
+
+  if (isAnyHostname) {
     hostname = self.location.hostname;
   }
 
@@ -54,7 +55,8 @@ function createSocketUrl(resourceQuery) {
   let sockPort = urlParts.port;
 
   // eslint-disable-next-line no-undefined
-  if (path !== null && path !== undefined && path !== '/') {
+  const shouldParsePath = path !== null && path !== undefined && path !== '/';
+  if (shouldParsePath) {
     const parsedQuery = querystring.parse(path);
     // all of these sock url params are optionally passed in through
     // resourceQuery, so we need to fall back to the default if
