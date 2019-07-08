@@ -31,7 +31,7 @@ Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/m
 
 Once it is done, you can modify any file locally. In the `examples/` directory you'll find a lot of examples with instructions on how to run it. This can be very handy when testing if your code works.
 
-If you are modifying a file in the `client/` directory, be sure to run `npm run prepublish` after it. This will recompile the files.
+If you are modifying a file in the `client/` directory, be sure to run `npm run prepare` after it. This will recompile the files.
 
 ## Testing a Pull Request
 
@@ -52,9 +52,54 @@ Pull requests often need some real-world testing.
 
 2. Run `npm install`.
 
-3. Go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-server`), and run `npm run prepublish`.
+3. Go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-server`), and run `npm run prepare`.
 
 The pull request is now ready to be tested.
+
+
+## Commit message
+
+Our commit messages format follows the [angular.js commits format](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format).
+
+We don't use the scope. The template of a commit would look like this:
+
+### Commit Message Format
+
+Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
+format that includes a **type** and a **subject**:
+
+```md
+<type>: <subject>
+<BLANK LINE>
+
+<body>
+<BLANK LINE>
+<footer>
+```
+
+This is the list of _type_ of commits that we accept:
+
+-   ast
+-   break
+-   chore
+-   cli
+-   docs
+-   feat
+-   fix
+-   misc
+-   tests
+
+The **header** is mandatory.
+
+Any line of the commit message cannot be longer 100 characters. This allows the message to be easier
+to read on GitHub as well as in several git tools.
+
+For more information about what each part of the template mean, head up to the documentation in the
+[angular repo](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format)
+
+<!--
+Referenced from : https://github.com/webpack/webpack-cli/blob/next/.github/CONTRIBUTING.md#commit-message-format
+-->
 
 ## Contributor License Agreement
 
