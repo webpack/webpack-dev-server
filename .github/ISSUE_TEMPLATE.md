@@ -11,6 +11,7 @@
 - NPM Version:
 - webpack Version:
 - webpack-dev-server Version:
+- Browser:
 
 <!--
   Please place an x, no spaces, in all [ ] that apply
