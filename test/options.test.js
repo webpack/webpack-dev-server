@@ -12,6 +12,16 @@ const config = require('./fixtures/simple-config/webpack.config');
 describe('options', () => {
   jest.setTimeout(20000);
 
+  let consoleMock;
+
+  beforeAll(() => {
+    consoleMock = jest.spyOn(console, 'warn').mockImplementation();
+  });
+
+  afterAll(() => {
+    consoleMock.mockRestore();
+  });
+
   it('should match properties and errorMessage', () => {
     const properties = Object.keys(options.properties);
     const messages = Object.keys(options.errorMessage.properties);
