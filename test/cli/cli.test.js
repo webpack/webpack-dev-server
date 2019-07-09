@@ -129,15 +129,10 @@ describe('CLI', () => {
       childProcess.stdin.emit('end');
     }, 500);
 
-    childProcess
-      .then((output) => {
-        expect(output.timedOut).toBeTruthy();
-        done();
-      })
-      .catch((e) => {
-        expect(e.timedOut).toBeTruthy();
-        done();
-      });
+    childProcess.then(done).catch((e) => {
+      expect(e.failed).toBeTruthy();
+      done();
+    });
   });
 
   it('--stdin, with "end" event should exit without time out', (done) => {
