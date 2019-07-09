@@ -37,10 +37,7 @@ module.exports = {
     new webpack.NormalModuleReplacementPlugin(
       /^\.\/clients\/SockJSClient$/,
       (resource) => {
-        if (
-          resource.context.includes('/client-src/default') ||
-          resource.context.includes('\\client-src\\default')
-        ) {
+        if (resource.context.startsWith(process.cwd())) {
           resource.request = resource.request.replace(
             /^\.\/clients\/SockJSClient$/,
             '../clients/SockJSClient'
