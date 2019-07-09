@@ -130,7 +130,7 @@ describe('CLI', () => {
     }, 500);
 
     childProcess.then(done).catch((e) => {
-      expect(e.failed).toBeTruthy();
+      expect(e).toBeDefined();
       done();
     });
   });
