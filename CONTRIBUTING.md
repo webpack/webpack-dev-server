@@ -59,7 +59,7 @@ The pull request is now ready to be tested.
 
 ## Commit message
 
-Our commit messages format follows the [angular.js commits format](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format).
+Our commit messages format follows the [Conventional Commits Standards](https://github.com/conventional-changelog/commitlint).
 
 We don't use the scope. The template of a commit would look like this:
 
@@ -79,15 +79,17 @@ format that includes a **type** and a **subject**:
 
 This is the list of _type_ of commits that we accept:
 
--   ast
--   break
--   chore
--   cli
--   docs
--   feat
--   fix
--   misc
--   tests
+- build
+- ci
+- chore
+- docs
+- feat
+- fix
+- perf
+- refactor
+- revert
+- style
+- test
 
 The **header** is mandatory.
 
@@ -95,12 +97,23 @@ Any line of the commit message cannot be longer 100 characters. This allows the 
 to read on GitHub as well as in several git tools.
 
 For more information about what each part of the template mean, head up to the documentation in the
-[angular repo](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format)
+[Conventional Commit](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional)
 
-<!--
-Referenced from : https://github.com/webpack/webpack-cli/blob/next/.github/CONTRIBUTING.md#commit-message-format
--->
+**Examples**
+```bash
+echo ": some message" # fails
+echo "fix: some message" # passes
+echo "fix: SOMEMESSAGE" # fails -- cause subject needs to be in lowercase
+```
 
+With Scope
+
+```bash
+echo "fix(SCOPE): some message" # fails -- cause scope needs to be in lowercase
+echo "fix(scope): some message" # passes
+```
+
+[`Refer for more rules`](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional#rules)
 ## Contributor License Agreement
 
 When submitting your contribution, a CLA (Contributor License Agreement) bot will come by to verify that you signed the [CLA](https://cla.js.foundation/webpack/webpack-dev-server). If it is your first time, it will link you to the right place to sign it. However, if you have committed your contributions using an email that is not the same as your email used on GitHub, the CLA bot can't accept your contribution.
