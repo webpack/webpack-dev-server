@@ -20,6 +20,7 @@ describe('progress', () => {
       const server = new Server(compiler, {
         port,
         progress: true,
+        quiet: true,
       });
 
       compiler.hooks.done.tap('webpack-dev-server', () => {

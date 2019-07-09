@@ -8,10 +8,13 @@ const timer = require('../../helpers/timer');
 const port = require('../../ports-map').sockJSClient;
 
 describe('SockJSClient', () => {
+  let consoleMock;
   let socketServer;
   let listeningApp;
 
   beforeAll((done) => {
+    consoleMock = jest.spyOn(console, 'log').mockImplementation();
+
     // eslint-disable-next-line new-cap
     const app = new express();
 
@@ -23,6 +26,10 @@ describe('SockJSClient', () => {
       });
       done();
     });
+  });
+
+  afterAll(() => {
+    consoleMock.mockRestore();
   });
 
   describe('client', () => {
