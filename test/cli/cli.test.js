@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 'use strict';
 
 const { unlink } = require('fs');
@@ -18,7 +22,7 @@ describe('CLI', () => {
   it('--progress', (done) => {
     testBin('--progress')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stderr.includes('0% compiling')).toBe(true);
         // should not profile
         expect(
@@ -32,7 +36,7 @@ describe('CLI', () => {
   it('--progress --profile', (done) => {
     testBin('--progress --profile')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         // should profile
         expect(
           output.stderr.includes('ms after chunk modules optimization')
@@ -45,7 +49,7 @@ describe('CLI', () => {
   it('--bonjour', (done) => {
     testBin('--bonjour')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stdout.includes('Bonjour')).toBe(true);
         done();
       })
@@ -55,7 +59,7 @@ describe('CLI', () => {
   it('--https', (done) => {
     testBin('--https')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stdout.includes('Project is running at')).toBe(true);
         done();
       })
@@ -67,7 +71,7 @@ describe('CLI', () => {
       `--https --cacert ${caPath} --pfx ${pfxPath} --key ${keyPath} --cert ${certPath} --pfx-passphrase webpack-dev-server`
     )
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stdout.includes('Project is running at')).toBe(true);
         done();
       })
@@ -103,7 +107,7 @@ describe('CLI', () => {
 
     testBin(`--socket ${socketPath}`)
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
 
         if (process.platform === 'win32') {
           done();
@@ -130,7 +134,7 @@ describe('CLI', () => {
     }, 500);
 
     childProcess.then(done).catch((e) => {
-      expect(e).toBeDefined();
+      expect(e.timedOut).toBeTruthy();
       done();
     });
   });
@@ -148,7 +152,7 @@ describe('CLI', () => {
 
     childProcess
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.timedOut).toBeFalsy();
         done();
       })
@@ -161,7 +165,7 @@ describe('CLI', () => {
       resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
     )
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         done();
       })
       .catch((err) => {
