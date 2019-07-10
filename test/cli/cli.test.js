@@ -133,8 +133,13 @@ describe('CLI', () => {
       childProcess.stdin.emit('end');
     }, 500);
 
+    setTimeout(() => {
+      childProcess.kill();
+    }, 1000);
+
     childProcess.then(done).catch((e) => {
-      expect(e.timedOut).toBeTruthy();
+      expect(e.timedOut).toBeFalsy();
+      expect(e.killed).toBeTruthy();
       done();
     });
   });
@@ -154,6 +159,7 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.timedOut).toBeFalsy();
+        expect(output.killed).toBeFalsy();
         done();
       })
       .catch(done);
