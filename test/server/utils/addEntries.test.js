@@ -290,9 +290,9 @@ describe('addEntries util', () => {
 
     addEntries(webpackOptions, devServerOptions, null, log);
 
-    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.info).toHaveBeenCalledTimes(1);
     expect(log.error).toHaveBeenCalledTimes(1);
-    log.warn.mockReset();
+    log.info.mockReset();
     log.error.mockReset();
 
     // eslint-disable-next-line no-shadow
@@ -327,9 +327,9 @@ describe('addEntries util', () => {
 
     addEntries(webpackOptions, devServerOptions, null, log);
 
-    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.info).toHaveBeenCalledTimes(1);
     expect(log.error).toHaveBeenCalledTimes(1);
-    log.warn.mockReset();
+    log.info.mockReset();
     log.error.mockReset();
 
     // eslint-disable-next-line no-shadow
@@ -365,9 +365,9 @@ describe('addEntries util', () => {
 
     addEntries(webpackOptions, devServerOptions, null, log);
 
-    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.info).toHaveBeenCalledTimes(1);
     expect(log.error).toHaveBeenCalledTimes(1);
-    log.warn.mockReset();
+    log.info.mockReset();
     log.error.mockReset();
 
     // eslint-disable-next-line no-shadow
@@ -395,9 +395,9 @@ describe('addEntries util', () => {
 
     addEntries(webpackOptions, devServerOptions, null, log);
 
-    expect(log.warn).toHaveBeenCalledTimes(1);
+    expect(log.info).toHaveBeenCalledTimes(1);
     expect(log.error).toHaveBeenCalledTimes(1);
-    log.warn.mockReset();
+    log.info.mockReset();
     log.error.mockReset();
 
     // node target should have the client runtime but not the hot runtime
