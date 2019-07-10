@@ -283,51 +283,6 @@ Object {
 }
 `;
 
-exports[`createConfig filename option (in devServer config) 1`] = `
-Object {
-  "filename": "[name]-dev-server-bundle.js",
-  "hot": true,
-  "hotOnly": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig filename option (in output config) 1`] = `
-Object {
-  "filename": "[name]-output-bundle.js",
-  "hot": true,
-  "hotOnly": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig filename option (in webpack config) 1`] = `
-Object {
-  "filename": "[name]-bundle.js",
-  "hot": true,
-  "hotOnly": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
 exports[`createConfig historyApiFallback option (in devServer config) 1`] = `
 Object {
   "historyApiFallback": true,

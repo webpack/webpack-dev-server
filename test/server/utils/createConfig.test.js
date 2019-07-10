@@ -276,42 +276,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('filename option (in webpack config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in output config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-output-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { filename: '[name]-dev-server-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('watchOptions option (in output config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
