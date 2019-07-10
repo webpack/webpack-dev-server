@@ -3,6 +3,7 @@
 /* eslint-disable
   no-undefined
 */
+
 const webpack = require('webpack');
 const Server = require('../../lib/Server');
 
