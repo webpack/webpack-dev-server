@@ -15,8 +15,10 @@ describe('updateCompiler', () => {
       const spy = jest.spyOn(compiler.hooks.entryOption, 'call');
 
       updateCompiler(compiler, {
-        serverMode: 'sockjs',
-        clientMode: 'sockjs',
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
         inline: true,
       });
 
@@ -51,8 +53,10 @@ describe('updateCompiler', () => {
       const spy = jest.spyOn(compiler.hooks.entryOption, 'call');
 
       updateCompiler(compiler, {
-        serverMode: 'sockjs',
-        clientMode: 'sockjs',
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
         inline: true,
         hot: true,
       });
@@ -88,8 +92,10 @@ describe('updateCompiler', () => {
       const spy = jest.spyOn(compiler.hooks.entryOption, 'call');
 
       updateCompiler(compiler, {
-        serverMode: 'sockjs',
-        clientMode: 'sockjs',
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
         inline: true,
         hot: true,
       });
@@ -128,8 +134,10 @@ describe('updateCompiler', () => {
       });
 
       updateCompiler(multiCompiler, {
-        serverMode: 'sockjs',
-        clientMode: 'sockjs',
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
         inline: true,
         hot: true,
       });

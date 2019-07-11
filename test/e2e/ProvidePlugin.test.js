@@ -52,8 +52,7 @@ describe('ProvidePlugin', () => {
         port,
         host: '0.0.0.0',
         inline: true,
-        clientMode: 'ws',
-        serverMode: require.resolve('../../lib/servers/WebsocketServer'),
+        transportMode: 'ws',
         watchOptions: {
           poll: true,
         },

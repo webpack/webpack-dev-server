@@ -147,10 +147,6 @@ describe('options', () => {
         ],
         failure: ['whoops!'],
       },
-      clientMode: {
-        success: ['sockjs', require.resolve('../client/clients/SockJSClient')],
-        failure: [false],
-      },
       compress: {
         success: [true],
         failure: [''],
@@ -361,14 +357,6 @@ describe('options', () => {
         success: [true],
         failure: [''],
       },
-      serverMode: {
-        success: [
-          'sockjs',
-          require.resolve('../lib/servers/SockJSServer'),
-          SockJSServer,
-        ],
-        failure: [false],
-      },
       serverSideRender: {
         success: [true],
         failure: [''],
@@ -409,6 +397,44 @@ describe('options', () => {
           'verbose',
         ],
         failure: ['whoops!', null],
+      },
+      transportMode: {
+        success: [
+          'ws',
+          'sockjs',
+          {
+            server: 'sockjs',
+          },
+          {
+            server: require.resolve('../lib/servers/SockJSServer'),
+          },
+          {
+            server: SockJSServer,
+          },
+          {
+            client: 'sockjs',
+          },
+          {
+            client: require.resolve('../client/clients/SockJSClient'),
+          },
+          {
+            server: SockJSServer,
+            client: require.resolve('../client/clients/SockJSClient'),
+          },
+        ],
+        failure: [
+          'nonexistent-implementation',
+          null,
+          {
+            notAnOption: true,
+          },
+          {
+            server: false,
+          },
+          {
+            client: () => {},
+          },
+        ],
       },
       useLocalIp: {
         success: [false],
