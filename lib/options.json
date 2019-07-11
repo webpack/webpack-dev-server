@@ -369,7 +369,8 @@
                 }
               ]
             }
-          }
+          },
+          "additionalProperties": false
         },
         {
           "enum": ["sockjs", "ws"]

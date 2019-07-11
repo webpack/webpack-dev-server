@@ -403,36 +403,54 @@ describe('options', () => {
           'ws',
           'sockjs',
           {
-            server: 'sockjs',
+            transportMode: {
+              server: 'sockjs',
+            },
           },
           {
-            server: require.resolve('../lib/servers/SockJSServer'),
+            transportMode: {
+              server: require.resolve('../lib/servers/SockJSServer'),
+            },
           },
           {
-            server: SockJSServer,
+            transportMode: {
+              server: SockJSServer,
+            },
           },
           {
-            client: 'sockjs',
+            transportMode: {
+              client: 'sockjs',
+            },
           },
           {
-            client: require.resolve('../client/clients/SockJSClient'),
+            transportMode: {
+              client: require.resolve('../client/clients/SockJSClient'),
+            },
           },
           {
-            server: SockJSServer,
-            client: require.resolve('../client/clients/SockJSClient'),
+            transportMode: {
+              server: SockJSServer,
+              client: require.resolve('../client/clients/SockJSClient'),
+            },
           },
         ],
         failure: [
           'nonexistent-implementation',
           null,
           {
-            notAnOption: true,
+            transportMode: {
+              notAnOption: true,
+            },
           },
           {
-            server: false,
+            transportMode: {
+              server: false,
+            },
           },
           {
-            client: () => {},
+            transportMode: {
+              client: () => {},
+            },
           },
         ],
       },
