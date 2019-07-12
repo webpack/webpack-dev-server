@@ -5,7 +5,6 @@
 */
 const fs = require('fs');
 const { resolve } = require('path');
-const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Progress;
@@ -13,12 +12,24 @@ const port = require('../ports-map').Progress;
 const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 
 describe('client progress', () => {
+  let testServer;
+  let processStderrMock;
+
   describe('using hot', () => {
     beforeAll((done) => {
+      // ProgressPlugin uses process.stderr and reset webpack
+      jest.resetModules();
+      processStderrMock = jest
+        .spyOn(process.stderr, 'write')
+        .mockImplementation();
+      // eslint-disable-next-line global-require
+      testServer = require('../helpers/test-server');
+
       fs.writeFileSync(
         cssFilePath,
         'body { background-color: rgb(0, 0, 255); }'
       );
+
       const options = {
         port,
         host: '0.0.0.0',
@@ -29,12 +40,14 @@ describe('client progress', () => {
           poll: 500,
         },
       };
+
       testServer.startAwaitingCompilation(reloadConfig, options, done);
     });
 
     afterAll((done) => {
       fs.unlinkSync(cssFilePath);
       testServer.close(done);
+      processStderrMock.mockRestore();
     });
 
     describe('on browser client', () => {
