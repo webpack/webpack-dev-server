@@ -29,6 +29,20 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--entry', (done) => {
+    testBin('--entry ../simple-config/foo.js')
+      .then((output) => {
+        expect(
+          output.stdout.includes(
+            '/client?http://localhost ../simple-config/foo.js'
+          )
+        ).toEqual(true);
+        expect(output.stdout.includes('Compiled successfully.')).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--progress --profile', (done) => {
     testBin('--progress --profile')
       .then((output) => {
