@@ -139,7 +139,7 @@ describe('CLI', () => {
       childProcess.kill();
     }, 1000);
 
-    childProcess.once('close', (code, signal) => {
+    childProcess.once('exit', (code, signal) => {
       expect(childProcess.killed).toBeTruthy();
       expect(signal).toEqual('SIGTERM');
       done();
