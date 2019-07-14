@@ -15,7 +15,10 @@ const basicConfigPath = path.resolve(
 
 function testBin(testArgs, configPath, useSpawn) {
   const cwd = process.cwd();
-  const env = process.env.NODE_ENV;
+  const env = {
+    NODE_ENV: process.env.NODE_ENV,
+    PATH: process.env.PATH,
+  };
 
   if (!configPath) {
     configPath = basicConfigPath;
