@@ -144,6 +144,11 @@ describe('CLI', () => {
       expect(signal).toEqual('SIGTERM');
       done();
     });
+
+    childProcess.once('error', (err) => {
+      console.log(err);
+      done();
+    });
   });
 
   it('--stdin, with "end" event should exit without time out', (done) => {
