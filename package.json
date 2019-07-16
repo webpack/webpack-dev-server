@@ -32,7 +32,7 @@
     "build:client:live": "webpack ./client-src/live/index.js -o client/live.bundle.js --color --config client-src/live/webpack.config.js",
     "build:client:sockjs": "webpack ./client-src/sockjs/index.js -o client/sockjs.bundle.js --color --config client-src/sockjs/webpack.config.js",
     "build:client": "rimraf ./client/* && npm-run-all -s -l -p \"build:client:**\"",
-    "webpack-dev-server": "cd $INIT_CWD && node ../../../bin/webpack-dev-server.js",
+    "webpack-dev-server": "node examples/run-example.js",
     "release": "standard-version"
   },
   "dependencies": {
@@ -75,7 +75,7 @@
     "@babel/core": "^7.4.5",
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
-    "@commitlint/cli": "^8.0.0",
+    "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.0.0",
     "babel-loader": "^8.0.6",
     "body-parser": "^1.19.0",

@@ -22,7 +22,7 @@ describe('stats option', () => {
       return p.then(() => {
         return new Promise((resolve) => {
           const compiler = webpack(config);
-          const server = new Server(compiler, { stats, port });
+          const server = new Server(compiler, { stats, port, quiet: true });
 
           compiler.hooks.done.tap('webpack-dev-server', (s) => {
             expect(Object.keys(server.getStats(s))).toMatchSnapshot();
@@ -42,6 +42,7 @@ describe('stats option', () => {
     const server = new Server(compiler, {
       stats: { warningsFilter: 'test' },
       port,
+      quiet: true,
     });
 
     compiler.hooks.done.tap('webpack-dev-server', (s) => {
