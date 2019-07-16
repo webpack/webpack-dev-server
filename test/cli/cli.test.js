@@ -127,7 +127,7 @@ describe('CLI', () => {
       __dirname,
       '../fixtures/simple-config/webpack.config.js'
     );
-    const childProcess = testBin(false, configPath);
+    const childProcess = testBin(false, configPath, true);
 
     setTimeout(() => {
       // this is meant to confirm that it does not have any effect on the running process
@@ -140,8 +140,8 @@ describe('CLI', () => {
       childProcess.kill();
     }, 1000);
 
-    childProcess.then(done).catch((err) => {
-      expect(err.killed).toBeTruthy();
+    childProcess.once('exit', () => {
+      expect(childProcess.killed).toBeTruthy();
       done();
     });
   });
