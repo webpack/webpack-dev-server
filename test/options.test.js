@@ -42,7 +42,6 @@ describe('options', () => {
     afterAll((done) => {
       if (server) {
         // emit stdin end event to prevent open listener with stdin option
-        // process.stdin.emit('end');
         server.close(() => {
           done();
         });
@@ -74,7 +73,8 @@ describe('options', () => {
 
             server = new Server(compiler, opts);
             // emit stdin end event to prevent open listener with stdin option
-            // process.stdin.emit('end');
+            process.stdin.emit('end');
+            process.stdin.pause();
           })
           .then(() => {
             if (current < successCount) {
@@ -417,10 +417,10 @@ describe('options', () => {
         ],
         failure: ['whoops!', null],
       },
-      // stdin: {
-      //   success: [true],
-      //   failure: [''],
-      // },
+      stdin: {
+        success: [true],
+        failure: [''],
+      },
       useLocalIp: {
         success: [false],
         failure: [''],

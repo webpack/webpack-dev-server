@@ -132,7 +132,7 @@ describe('CLI', () => {
     setTimeout(() => {
       // this is meant to confirm that it does not have any effect on the running process
       // since options.stdin is not enabled
-      // childProcess.stdin.emit('end');
+      childProcess.stdin.emit('end');
     }, 500);
 
     setTimeout(() => {

@@ -19,6 +19,7 @@ describe('handleStdin', () => {
         stdin: true,
       });
       process.stdin.emit('end');
+      process.stdin.pause();
       setTimeout(() => {
         expect(exitSpy.mock.calls[0]).toEqual([0]);
         done();
@@ -29,7 +30,8 @@ describe('handleStdin', () => {
   describe('disabled (default)', () => {
     it('should not exit process', (done) => {
       handleStdin({});
-      // process.stdin.emit('end');
+      process.stdin.emit('end');
+      process.stdin.pause();
       setTimeout(() => {
         expect(exitSpy.mock.calls.length).toEqual(0);
         done();
