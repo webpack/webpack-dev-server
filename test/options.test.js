@@ -73,6 +73,8 @@ describe('options', () => {
                   };
 
             server = new Server(compiler, opts);
+            // emit stdin end event to prevent open listener with stdin option
+            process.stdin.emit('end');
           })
           .then(() => {
             if (current < successCount) {
@@ -91,8 +93,6 @@ describe('options', () => {
           .then(() => {
             return new Promise((resolve) => {
               if (server) {
-                // emit stdin end event to prevent open listener with stdin option
-                process.stdin.emit('end');
                 server.close(() => {
                   compiler = null;
                   server = null;
