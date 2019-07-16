@@ -143,11 +143,6 @@ describe('CLI', () => {
       expect(childProcess.killed).toBeTruthy();
       done();
     });
-
-    childProcess.once('error', (err) => {
-      console.log(err);
-      done();
-    });
   });
 
   it('--stdin, with "end" event should exit without time out', (done) => {

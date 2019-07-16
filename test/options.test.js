@@ -13,13 +13,16 @@ describe('options', () => {
   jest.setTimeout(20000);
 
   let consoleMock;
+  let exitMock;
 
   beforeAll(() => {
     consoleMock = jest.spyOn(console, 'warn').mockImplementation();
+    exitMock = jest.spyOn(process, 'exit').mockImplementation();
   });
 
   afterAll(() => {
     consoleMock.mockRestore();
+    exitMock.mockRestore();
   });
 
   it('should match properties and errorMessage', () => {
@@ -38,6 +41,8 @@ describe('options', () => {
 
     afterAll((done) => {
       if (server) {
+        // emit stdin end event to prevent open listener with stdin option
+        process.stdin.emit('end');
         server.close(() => {
           done();
         });
@@ -86,6 +91,8 @@ describe('options', () => {
           .then(() => {
             return new Promise((resolve) => {
               if (server) {
+                // emit stdin end event to prevent open listener with stdin option
+                process.stdin.emit('end');
                 server.close(() => {
                   compiler = null;
                   server = null;
@@ -410,10 +417,10 @@ describe('options', () => {
         ],
         failure: ['whoops!', null],
       },
-      // stdin: {
-      //   success: [true],
-      //   failure: [''],
-      // },
+      stdin: {
+        success: [true],
+        failure: [''],
+      },
       useLocalIp: {
         success: [false],
         failure: [''],
