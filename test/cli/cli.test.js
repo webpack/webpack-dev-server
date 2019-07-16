@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 'use strict';
 
 const { unlink } = require('fs');
@@ -127,20 +123,21 @@ describe('CLI', () => {
       __dirname,
       '../fixtures/simple-config/webpack.config.js'
     );
-    const childProcess = testBin(false, configPath, true);
+    const childProcess = testBin(false, configPath);
 
     setTimeout(() => {
       // this is meant to confirm that it does not have any effect on the running process
       // since options.stdin is not enabled
       childProcess.stdin.emit('end');
+      childProcess.stdin.pause();
     }, 500);
 
     setTimeout(() => {
       childProcess.kill();
     }, 1000);
 
-    childProcess.once('exit', () => {
-      expect(childProcess.killed).toBeTruthy();
+    childProcess.then(done).catch((err) => {
+      expect(err.killed).toBeTruthy();
       done();
     });
   });
@@ -154,6 +151,7 @@ describe('CLI', () => {
 
     setTimeout(() => {
       childProcess.stdin.emit('end');
+      childProcess.stdin.pause();
     }, 500);
 
     childProcess
