@@ -53,7 +53,7 @@
     "loglevel": "^1.6.3",
     "opn": "^5.5.0",
     "p-retry": "^3.0.1",
-    "portfinder": "^1.0.20",
+    "portfinder": "^1.0.21",
     "schema-utils": "^1.0.0",
     "selfsigned": "^1.10.4",
     "semver": "^6.2.0",
@@ -98,7 +98,7 @@
     "less-loader": "^5.0.0",
     "lint-staged": "^9.2.0",
     "marked": "^0.7.0",
-    "memfs": "^2.15.4",
+    "memfs": "^2.15.5",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "puppeteer": "^1.18.1",
@@ -109,7 +109,7 @@
     "tcp-port-used": "^1.0.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.6"
   },
   "peerDependencies": {
     "webpack": "^4.0.0"
