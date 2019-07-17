@@ -305,12 +305,15 @@ describe('Client console.log', () => {
             page.on('console', ({ _text }) => {
               res.push(_text);
             });
-            setTimeout(() => {
-              browser.close().then(() => {
-                expect(res).toMatchSnapshot();
-                resolve();
-              });
-            }, 1000);
+            // wait for load before closing the browser
+            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
+              setTimeout(() => {
+                browser.close().then(() => {
+                  expect(res).toMatchSnapshot();
+                  resolve();
+                });
+              }, 500);
+            });
           });
         })
         .then(() => {
