@@ -70,13 +70,13 @@
     "yargs": "12.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
     "@babel/runtime": "^7.5.4",
     "@commitlint/cli": "^8.1.0",
-    "@commitlint/config-conventional": "^8.0.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "babel-loader": "^8.0.6",
     "body-parser": "^1.19.0",
     "commitlint-azure-pipelines-cli": "^1.0.2",
@@ -97,7 +97,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "lint-staged": "^9.2.0",
-    "marked": "^0.6.3",
+    "marked": "^0.7.0",
     "memfs": "^2.15.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
@@ -108,7 +108,7 @@
     "supertest": "^4.0.2",
     "tcp-port-used": "^1.0.1",
     "url-loader": "^2.0.0",
-    "webpack": "^4.35.2",
+    "webpack": "^4.36.1",
     "webpack-cli": "^3.3.5"
   },
   "peerDependencies": {
