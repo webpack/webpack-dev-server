@@ -156,6 +156,7 @@ describe('CLI', () => {
 
     childProcess
       .then((output) => {
+        childProcess.stdin.removeAllListeners('end');
         expect(output.code).toEqual(0);
         expect(output.timedOut).toBeFalsy();
         expect(output.killed).toBeFalsy();

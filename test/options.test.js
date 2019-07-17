@@ -94,6 +94,7 @@ describe('options', () => {
             return new Promise((resolve) => {
               if (server) {
                 server.close(() => {
+                  process.stdin.removeAllListeners('end');
                   compiler = null;
                   server = null;
                   resolve();

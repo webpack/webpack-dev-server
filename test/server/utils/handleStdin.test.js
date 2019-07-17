@@ -10,6 +10,7 @@ describe('handleStdin', () => {
   });
 
   afterEach(() => {
+    process.stdin.removeAllListeners('end');
     exitSpy.mockReset();
   });
 

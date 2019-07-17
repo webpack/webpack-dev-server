@@ -16,6 +16,7 @@ describe('stdin', () => {
   afterEach((done) => {
     server = null;
     exitSpy.mockReset();
+    process.stdin.removeAllListeners('end');
     testServer.close(done);
   });
 
