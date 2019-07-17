@@ -9,7 +9,8 @@
     "__webpack_dev_server_client__": true
   },
   "parserOptions": {
-    "sourceType": "script"
+    "sourceType": "script",
+    "ecmaVersion": 10
   },
   "rules": {
     "curly": "error",
