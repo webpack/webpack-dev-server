@@ -84,6 +84,7 @@ describe('routes util', () => {
     req.get('/webpack-dev-server').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('text/html');
       expect(res.statusCode).toEqual(200);
+      expect(res.text).toMatchSnapshot();
       done();
     });
   });
