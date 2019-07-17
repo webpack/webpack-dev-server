@@ -80,11 +80,13 @@ describe('routes util', () => {
     expect(statusCode).toEqual(200);
   });
 
-  it('should handles GET request to directory index', async () => {
-    const { headers, statusCode } = await req.get('/webpack-dev-server');
-
-    expect(headers['content-type']).toEqual('text/html');
-    expect(statusCode).toEqual(200);
+  it('should handles GET request to directory index', (done) => {
+    req.get('/webpack-dev-server').then(({ res }) => {
+      expect(res.headers['content-type']).toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
+      expect(res.text).toMatchSnapshot();
+      done();
+    });
   });
 
   it('should handles HEAD request to directory index', async () => {
