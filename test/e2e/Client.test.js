@@ -91,27 +91,29 @@ describe('reload', () => {
                       }
                       req.continue();
                     });
-                    fs.writeFileSync(
-                      cssFilePath,
-                      'body { background-color: rgb(255, 0, 0); }'
-                    );
-                    page.waitFor(10000).then(() => {
-                      page
-                        .evaluate(() => {
-                          const body = document.body;
-                          const bgColor = getComputedStyle(body)[
-                            'background-color'
-                          ];
-                          return bgColor;
-                        })
-                        .then((color2) => {
-                          browser.close().then(() => {
-                            expect(color).toEqual('rgb(0, 0, 255)');
-                            expect(color2).toEqual('rgb(255, 0, 0)');
-                            expect(refreshed).toEqual(mode.shouldRefresh);
-                            done();
+                    page.waitFor(3000).then(() => {
+                      fs.writeFileSync(
+                        cssFilePath,
+                        'body { background-color: rgb(255, 0, 0); }'
+                      );
+                      page.waitFor(5000).then(() => {
+                        page
+                          .evaluate(() => {
+                            const body = document.body;
+                            const bgColor = getComputedStyle(body)[
+                              'background-color'
+                            ];
+                            return bgColor;
+                          })
+                          .then((color2) => {
+                            browser.close().then(() => {
+                              expect(color).toEqual('rgb(0, 0, 255)');
+                              expect(color2).toEqual('rgb(255, 0, 0)');
+                              expect(refreshed).toEqual(mode.shouldRefresh);
+                              done();
+                            });
                           });
-                        });
+                      });
                     });
                   });
                 });
