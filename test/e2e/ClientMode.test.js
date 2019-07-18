@@ -74,7 +74,7 @@ describe('clientMode', () => {
                     expect(res).toMatchSnapshot();
                     done();
                   });
-                }, 10000);
+                }, 1000);
               });
             }, 3000);
           });
