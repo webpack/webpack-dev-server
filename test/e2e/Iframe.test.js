@@ -46,7 +46,7 @@ describe('Client iframe console.log', () => {
     },
   ];
 
-  for (const { title, options } of cases) {
+  cases.forEach(({ title, options }) => {
     it(title, () => {
       const res = [];
       const testOptions = Object.assign({}, baseOptions, options);
@@ -58,19 +58,22 @@ describe('Client iframe console.log', () => {
             testServer.startAwaitingCompilation(config, testOptions, resolve);
           });
         })
-        .then(runBrowser)
+        .then(() => {
+          // make sure the previous Promise is not passing along strange arguments to runBrowser
+          return runBrowser();
+        })
         .then(({ page, browser }) => {
           return new Promise((resolve) => {
             page.goto(`http://localhost:${port}/webpack-dev-server/main`);
             page.on('console', ({ _text }) => {
               res.push(_text);
             });
-            setTimeout(() => {
+            page.waitFor(3000).then(() => {
               browser.close().then(() => {
                 expect(res).toMatchSnapshot();
                 resolve();
               });
-            }, 3000);
+            });
           });
         })
         .then(() => {
@@ -79,5 +82,5 @@ describe('Client iframe console.log', () => {
           });
         });
     });
-  }
+  });
 });

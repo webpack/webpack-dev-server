@@ -54,10 +54,10 @@ describe('clientMode', () => {
               res.push(_text);
             });
 
-            setTimeout(() => {
+            page.waitFor(3000).then(() => {
               testServer.close(() => {
                 // make sure the client gets the close message
-                setTimeout(() => {
+                page.waitFor(1000).then(() => {
                   browser.close().then(() => {
                     for (let i = res.length - 1; i >= 0; i--) {
                       if (res[i] === '[WDS] Disconnected!') {
@@ -74,9 +74,9 @@ describe('clientMode', () => {
                     expect(res).toMatchSnapshot();
                     done();
                   });
-                }, 1000);
+                });
               });
-            }, 3000);
+            });
           });
         });
       });

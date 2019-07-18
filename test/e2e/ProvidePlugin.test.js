@@ -26,16 +26,18 @@ describe('ProvidePlugin', () => {
       it('should inject SockJS client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page
-              .evaluate(() => {
-                return window.injectedClient === window.expectedClient;
-              })
-              .then((isCorrectClient) => {
-                browser.close().then(() => {
-                  expect(isCorrectClient).toBeTruthy();
-                  done();
+            page.waitFor(500).then(() => {
+              page
+                .evaluate(() => {
+                  return window.injectedClient === window.expectedClient;
+                })
+                .then((isCorrectClient) => {
+                  browser.close().then(() => {
+                    expect(isCorrectClient).toBeTruthy();
+                    done();
+                  });
                 });
-              });
+            });
           });
           page.goto(`http://localhost:${port}/main`);
         });
@@ -64,16 +66,18 @@ describe('ProvidePlugin', () => {
       it('should inject ws client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page
-              .evaluate(() => {
-                return window.injectedClient === window.expectedClient;
-              })
-              .then((isCorrectClient) => {
-                browser.close().then(() => {
-                  expect(isCorrectClient).toBeTruthy();
-                  done();
+            page.waitFor(500).then(() => {
+              page
+                .evaluate(() => {
+                  return window.injectedClient === window.expectedClient;
+                })
+                .then((isCorrectClient) => {
+                  browser.close().then(() => {
+                    expect(isCorrectClient).toBeTruthy();
+                    done();
+                  });
                 });
-              });
+            });
           });
           page.goto(`http://localhost:${port}/main`);
         });
@@ -100,17 +104,19 @@ describe('ProvidePlugin', () => {
       it('should not inject client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page
-              .evaluate(() => {
-                // eslint-disable-next-line no-undefined
-                return window.injectedClient === undefined;
-              })
-              .then((isCorrectClient) => {
-                browser.close().then(() => {
-                  expect(isCorrectClient).toBeTruthy();
-                  done();
+            page.waitFor(500).then(() => {
+              page
+                .evaluate(() => {
+                  // eslint-disable-next-line no-undefined
+                  return window.injectedClient === undefined;
+                })
+                .then((isCorrectClient) => {
+                  browser.close().then(() => {
+                    expect(isCorrectClient).toBeTruthy();
+                    done();
+                  });
                 });
-              });
+            });
           });
           page.goto(`http://localhost:${port}/main`);
         });
