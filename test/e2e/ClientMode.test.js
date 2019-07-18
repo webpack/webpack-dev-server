@@ -59,10 +59,22 @@ describe('clientMode', () => {
                 // make sure the client gets the close message
                 setTimeout(() => {
                   browser.close().then(() => {
+                    for (let i = res.length - 1; i >= 0; i--) {
+                      if (res[i] === '[WDS] Disconnected!') {
+                        break;
+                      } else if (
+                        res[i] === 'close' ||
+                        res[i].includes('net::ERR_CONNECTION_REFUSED')
+                      ) {
+                        // remove additional logging for the now failing connection,
+                        // since this could be a variable number of error messages
+                        res.splice(i, 1);
+                      }
+                    }
                     expect(res).toMatchSnapshot();
                     done();
                   });
-                }, 1000);
+                }, 10000);
               });
             }, 3000);
           });
