@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 'use strict';
 
 /* eslint-disable
@@ -53,7 +57,7 @@ describe('reload', () => {
             host: '0.0.0.0',
             inline: true,
             watchOptions: {
-              poll: 500,
+              poll: true,
             },
           },
           mode.options
@@ -91,12 +95,12 @@ describe('reload', () => {
                       }
                       req.continue();
                     });
-                    page.waitFor(3000).then(() => {
+                    page.waitFor(5000).then(() => {
                       fs.writeFileSync(
                         cssFilePath,
                         'body { background-color: rgb(255, 0, 0); }'
                       );
-                      page.waitFor(7000).then(() => {
+                      page.waitFor(10000).then(() => {
                         page
                           .evaluate(() => {
                             const body = document.body;
