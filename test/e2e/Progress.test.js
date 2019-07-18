@@ -55,12 +55,12 @@ describe('client progress', () => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(5000).then(() => {
+            page.waitFor(3000).then(() => {
               fs.writeFileSync(
                 cssFilePath,
                 'body { background-color: rgb(255, 0, 0); }'
               );
-              page.waitFor(5000).then(() => {
+              page.waitFor(7000).then(() => {
                 browser.close().then(() => {
                   // check that there is some percentage progress output
                   const regExp = /^\[WDS\] [0-9]{1,3}% - /;

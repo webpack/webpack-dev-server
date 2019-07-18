@@ -96,7 +96,7 @@ describe('reload', () => {
                         cssFilePath,
                         'body { background-color: rgb(255, 0, 0); }'
                       );
-                      page.waitFor(5000).then(() => {
+                      page.waitFor(7000).then(() => {
                         page
                           .evaluate(() => {
                             const body = document.body;
