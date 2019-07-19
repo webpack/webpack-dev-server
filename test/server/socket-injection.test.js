@@ -13,7 +13,29 @@ describe('websocket client injection', () => {
   let req;
   let server;
 
-  describe('testing when liveReload enabled (default)', () => {
+  describe('testing default settings', () => {
+    beforeAll((done) => {
+      const options = {
+        port,
+      };
+      server = testServer.start(config, options, done);
+      req = request(`http://localhost:${port}`);
+    });
+
+    afterAll(testServer.close);
+
+    it('should be injected', (done) => {
+      req
+        .get('/sockjs-node/info')
+        .expect(200)
+        .then(({ res }) => {
+          expect(JSON.parse(res.text).websocket).toBe(true);
+          done();
+        });
+    });
+  });
+
+  describe('testing when liveReload is enabled', () => {
     beforeAll((done) => {
       const options = {
         port,
@@ -35,6 +57,7 @@ describe('websocket client injection', () => {
         });
     });
   });
+
   describe('testing when hot enabled', () => {
     beforeAll((done) => {
       const options = {
@@ -57,7 +80,8 @@ describe('websocket client injection', () => {
         });
     });
   });
-  describe('testing when hot enabled and liveReload disabled', () => {
+
+  describe('testing when hot is enabled and liveReload is disabled', () => {
     beforeAll((done) => {
       const options = {
         port,
@@ -80,7 +104,32 @@ describe('websocket client injection', () => {
         });
     });
   });
-  describe('testing when hot & liveReload disabled', () => {
+
+  describe('testing when hot is disabled and liveReload is enabled', () => {
+    beforeAll((done) => {
+      const options = {
+        port,
+        hot: false,
+        liveReload: true,
+      };
+      server = testServer.start(config, options, done);
+      req = request(`http://localhost:${port}`);
+    });
+
+    afterAll(testServer.close);
+
+    it('should be injected', (done) => {
+      req
+        .get('/sockjs-node/info')
+        .expect(200)
+        .then(({ res }) => {
+          expect(JSON.parse(res.text).websocket).toBe(true);
+          done();
+        });
+    });
+  });
+
+  describe('testing when hot and liveReload are disabled', () => {
     beforeAll((done) => {
       const options = {
         port,
