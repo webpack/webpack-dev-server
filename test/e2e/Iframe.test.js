@@ -47,12 +47,12 @@ describe('Client iframe console.log', () => {
   ];
 
   cases.forEach(({ title, options }) => {
-    it(title, () => {
+    it(title, (done) => {
       const res = [];
       const testOptions = Object.assign({}, baseOptions, options);
 
       // TODO: use async/await when Node.js v6 support is dropped
-      return Promise.resolve()
+      Promise.resolve()
         .then(() => {
           return new Promise((resolve) => {
             testServer.startAwaitingCompilation(config, testOptions, resolve);
@@ -70,7 +70,6 @@ describe('Client iframe console.log', () => {
             });
             page.waitFor(3000).then(() => {
               browser.close().then(() => {
-                expect(res).toMatchSnapshot();
                 resolve();
               });
             });
@@ -80,6 +79,10 @@ describe('Client iframe console.log', () => {
           return new Promise((resolve) => {
             testServer.close(resolve);
           });
+        })
+        .then(() => {
+          expect(res).toMatchSnapshot();
+          done();
         });
     });
   });

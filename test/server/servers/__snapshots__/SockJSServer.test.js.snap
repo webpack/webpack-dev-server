@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SockJSServer server should recieve connection, send message, and close client 1`] = `"localhost:8093"`;
+exports[`SockJSServer server should recieve connection, send message, and close client 1`] = `"localhost:8083"`;
 
 exports[`SockJSServer server should recieve connection, send message, and close client 2`] = `
 Array [

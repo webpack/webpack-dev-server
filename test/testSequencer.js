@@ -1,14 +1,20 @@
 'use strict';
 
+/* eslint-disable import/no-extraneous-dependencies, class-methods-use-this */
+
 const Sequencer = require('@jest/test-sequencer').default;
 
 class CustomSequencer extends Sequencer {
   sort(tests) {
     const copyTests = Array.from(tests);
     const len = copyTests.length;
-    const endToEndTests = copyTests.filter(test => test.path.includes('/e2e/'));
-    const nonEndToEndTests = copyTests.filter(test => !test.path.includes('/e2e/'));
-    
+    const endToEndTests = copyTests.filter((test) =>
+      test.path.includes('/e2e/')
+    );
+    const nonEndToEndTests = copyTests.filter(
+      (test) => !test.path.includes('/e2e/')
+    );
+
     // bring the most unstable test to the front
     const str = 'e2e/Client.test.js';
     endToEndTests.sort((testA, testB) => {
@@ -28,11 +34,10 @@ class CustomSequencer extends Sequencer {
     for (let i = 0; i < len; i++) {
       if (i % spacing === 0 && endToEndIndex < endToEndTests.length) {
         res.push(endToEndTests[endToEndIndex]);
-        endToEndIndex++;
-      }
-      else if (nonEndToEndIndex < nonEndToEndTests.length) {
+        endToEndIndex += 1;
+      } else if (nonEndToEndIndex < nonEndToEndTests.length) {
         res.push(nonEndToEndTests[nonEndToEndIndex]);
-        nonEndToEndIndex++;
+        nonEndToEndIndex += 1;
       }
     }
 

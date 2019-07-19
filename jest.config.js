@@ -8,5 +8,5 @@ module.exports = {
   testMatch: ['**/test/**/*.test.js'],
   setupFilesAfterEnv: ['<rootDir>/setupTest.js'],
   globalSetup: '<rootDir>/globalSetupTest.js',
-  testSequencer: '<rootDir>/testSequencer.js',
+  testSequencer: '<rootDir>/test/testSequencer.js',
 };

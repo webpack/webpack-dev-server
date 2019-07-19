@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WebsocketServer server should recieve connection, send message, and close client 1`] = `"localhost:8131"`;
+exports[`WebsocketServer server should recieve connection, send message, and close client 1`] = `"localhost:8121"`;
 
 exports[`WebsocketServer server should recieve connection, send message, and close client 2`] = `
 Array [
