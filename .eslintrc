@@ -5,7 +5,8 @@
     "window": true
   },
   "parserOptions": {
-    "sourceType": "script"
+    "sourceType": "script",
+    "ecmaVersion": 10
   },
   "rules": {
     "curly": "error",
