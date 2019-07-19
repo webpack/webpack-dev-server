@@ -12,18 +12,23 @@ class CustomSequencer extends Sequencer {
   sort(tests) {
     const copyTests = Array.from(tests);
     const len = copyTests.length;
+
+    const isEndToEndTest = (test) => {
+      // backslash test for Windows
+      return test.path.includes('/e2e/') || test.path.includes('\\e2e\\');
+    };
+
     // seperate e2e and non-e2e tests into two separate arrays
-    const endToEndTests = copyTests.filter((test) =>
-      test.path.includes('/e2e/')
-    );
-    const nonEndToEndTests = copyTests.filter(
-      (test) => !test.path.includes('/e2e/')
-    );
+    const endToEndTests = copyTests.filter(isEndToEndTest);
+    const nonEndToEndTests = copyTests.filter((test) => !isEndToEndTest(test));
 
     // bring the most unstable test to the front
-    const str = 'e2e/Client.test.js';
     endToEndTests.sort((testA, testB) => {
-      if (testB.path.includes(str)) {
+      // backslash test for Windows
+      if (
+        testB.path.includes('e2e/Client.test.js') ||
+        testB.path.includes('e2e\\Client.test.js')
+      ) {
         return 1;
       }
 
