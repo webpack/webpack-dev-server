@@ -4,7 +4,7 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Iframe;
-const { beforeBrowserCloseDelay } = require('../helpers/server-constants');
+const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 // iframe mode should be tested while still supported, because
 // its sources differ from those of inline mode, which can cause unexpected

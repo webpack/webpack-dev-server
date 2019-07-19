@@ -16,7 +16,7 @@ const port = require('../ports-map').Client;
 const {
   reloadReadyDelay,
   completeReloadDelay,
-} = require('../helpers/server-constants');
+} = require('../helpers/puppeteer-constants');
 
 const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 

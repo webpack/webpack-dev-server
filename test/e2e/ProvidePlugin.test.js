@@ -5,7 +5,7 @@ const config = require('../fixtures/provide-plugin-config/webpack.config');
 const wsConfig = require('../fixtures/provide-plugin-ws-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').ProvidePlugin;
-const { beforeBrowserCloseDelay } = require('../helpers/server-constants');
+const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('ProvidePlugin', () => {
   describe('inline with default clientMode (sockjs)', () => {

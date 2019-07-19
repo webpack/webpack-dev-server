@@ -1,7 +1,7 @@
 'use strict';
 
 const puppeteer = require('puppeteer');
-const { puppeteerArgs } = require('./server-constants');
+const { puppeteerArgs } = require('./puppeteer-constants');
 
 function runBrowser(config) {
   const options = {

@@ -7,7 +7,7 @@ const port = require('../ports-map').ClientMode;
 const {
   initConsoleDelay,
   awaitServerCloseDelay,
-} = require('../helpers/server-constants');
+} = require('../helpers/puppeteer-constants');
 
 describe('clientMode', () => {
   const modes = [
