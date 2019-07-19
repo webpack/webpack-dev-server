@@ -4,6 +4,10 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').ClientMode;
+const {
+  initConsoleDelay,
+  awaitServerCloseDelay,
+} = require('../helpers/server-constants');
 
 describe('clientMode', () => {
   const modes = [
@@ -54,10 +58,10 @@ describe('clientMode', () => {
               res.push(_text);
             });
 
-            page.waitFor(3000).then(() => {
+            page.waitFor(initConsoleDelay).then(() => {
               testServer.close(() => {
                 // make sure the client gets the close message
-                page.waitFor(1000).then(() => {
+                page.waitFor(awaitServerCloseDelay).then(() => {
                   browser.close().then(() => {
                     for (let i = res.length - 1; i >= 0; i--) {
                       if (res[i] === '[WDS] Disconnected!') {

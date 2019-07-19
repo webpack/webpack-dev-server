@@ -8,6 +8,10 @@ const { resolve } = require('path');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Progress;
+const {
+  reloadReadyDelay,
+  completeReloadDelay,
+} = require('../helpers/server-constants');
 
 const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 
@@ -55,12 +59,12 @@ describe('client progress', () => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(5000).then(() => {
+            page.waitFor(reloadReadyDelay).then(() => {
               fs.writeFileSync(
                 cssFilePath,
                 'body { background-color: rgb(255, 0, 0); }'
               );
-              page.waitFor(10000).then(() => {
+              page.waitFor(completeReloadDelay).then(() => {
                 browser.close().then(() => {
                   // check that there is some percentage progress output
                   const regExp = /^\[WDS\] [0-9]{1,3}% - /;

@@ -7,6 +7,7 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
+const { beforeBrowserCloseDelay } = require('../helpers/server-constants');
 
 describe('Client code', () => {
   function startProxy(port) {
@@ -70,7 +71,7 @@ describe('Client code', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
-            page.waitFor(3000).then(() => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(
                   requestObj
@@ -113,7 +114,7 @@ describe('Client complex inline script path', () => {
             requestObj.url().match(/foo\/test\/bar/)
           )
           .then((requestObj) => {
-            page.waitFor(3000).then(() => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(
                   requestObj
@@ -156,7 +157,7 @@ describe('Client complex inline script path with sockPort', () => {
             requestObj.url().match(/foo\/test\/bar/)
           )
           .then((requestObj) => {
-            page.waitFor(3000).then(() => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(
                   requestObj
@@ -200,7 +201,7 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
-            page.waitFor(3000).then(() => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(
                   requestObj
@@ -240,7 +241,7 @@ describe('Client complex inline script path with sockHost', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
-            page.waitFor(3000).then(() => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(
                   requestObj
@@ -320,7 +321,7 @@ describe('Client console.log', () => {
             });
             // wait for load before closing the browser
             page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-              page.waitFor(3000).then(() => {
+              page.waitFor(beforeBrowserCloseDelay).then(() => {
                 browser.close().then(() => {
                   resolve();
                 });

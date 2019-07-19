@@ -4,10 +4,15 @@
 
 const Sequencer = require('@jest/test-sequencer').default;
 
+// The purpose of this sequencer is to spread end to end (e2e) tests evenly amongst
+// other tests during the test run. Jest runs tests concurrently, but we want e2e tests
+// to overlap as little as possible during this concurrent testing since e2e
+// tests use lots of memory and tend to be more unstable
 class CustomSequencer extends Sequencer {
   sort(tests) {
     const copyTests = Array.from(tests);
     const len = copyTests.length;
+    // seperate e2e and non-e2e tests into two separate arrays
     const endToEndTests = copyTests.filter((test) =>
       test.path.includes('/e2e/')
     );
@@ -27,11 +32,14 @@ class CustomSequencer extends Sequencer {
 
     const res = [];
 
+    // an e2e test will be placed into the resulting array at this spacing interval
     const spacing = Math.ceil(len / endToEndTests.length);
 
     let endToEndIndex = 0;
     let nonEndToEndIndex = 0;
     for (let i = 0; i < len; i++) {
+      // push an e2e test into the resulting array if we have reached the correct index,
+      // otherwise push a non-e2e test
       if (i % spacing === 0 && endToEndIndex < endToEndTests.length) {
         res.push(endToEndTests[endToEndIndex]);
         endToEndIndex += 1;

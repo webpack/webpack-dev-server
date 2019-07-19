@@ -13,6 +13,10 @@ const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Client;
+const {
+  reloadReadyDelay,
+  completeReloadDelay,
+} = require('../helpers/server-constants');
 
 const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 
@@ -95,12 +99,12 @@ describe('reload', () => {
                       }
                       req.continue();
                     });
-                    page.waitFor(5000).then(() => {
+                    page.waitFor(reloadReadyDelay).then(() => {
                       fs.writeFileSync(
                         cssFilePath,
                         'body { background-color: rgb(255, 0, 0); }'
                       );
-                      page.waitFor(10000).then(() => {
+                      page.waitFor(completeReloadDelay).then(() => {
                         page
                           .evaluate(() => {
                             const body = document.body;

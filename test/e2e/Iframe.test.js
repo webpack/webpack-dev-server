@@ -4,6 +4,7 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Iframe;
+const { beforeBrowserCloseDelay } = require('../helpers/server-constants');
 
 // iframe mode should be tested while still supported, because
 // its sources differ from those of inline mode, which can cause unexpected
@@ -68,9 +69,11 @@ describe('Client iframe console.log', () => {
             page.on('console', ({ _text }) => {
               res.push(_text);
             });
-            page.waitFor(3000).then(() => {
-              browser.close().then(() => {
-                resolve();
+            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
+              page.waitFor(beforeBrowserCloseDelay).then(() => {
+                browser.close().then(() => {
+                  resolve();
+                });
               });
             });
           });
