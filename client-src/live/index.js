@@ -1,6 +1,6 @@
 'use strict';
 
-/* eslint import/no-extraneous-dependencies: off, global-require: off */
+/* eslint import/no-extraneous-dependencies: off */
 
 const $ = require('jquery');
 const stripAnsi = require('strip-ansi');

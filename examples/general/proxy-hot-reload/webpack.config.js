@@ -1,6 +1,5 @@
 'use strict';
 
-/* eslint global-require: off */
 const fs = require('fs');
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
