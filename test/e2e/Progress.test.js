@@ -22,7 +22,6 @@ describe('client progress', () => {
       processStderrMock = jest
         .spyOn(process.stderr, 'write')
         .mockImplementation();
-      // eslint-disable-next-line global-require
       testServer = require('../helpers/test-server');
 
       fs.writeFileSync(

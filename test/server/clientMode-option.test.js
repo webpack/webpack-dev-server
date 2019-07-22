@@ -29,7 +29,6 @@ describe('clientMode option', () => {
   describe('is passed to getSocketClientPath correctly', () => {
     beforeEach(() => {
       jest.mock('../../lib/utils/getSocketClientPath');
-      // eslint-disable-next-line global-require
       getSocketClientPath = require('../../lib/utils/getSocketClientPath');
     });
 
@@ -42,7 +41,6 @@ describe('clientMode option', () => {
 
     clientModes.forEach((data) => {
       it(data.title, (done) => {
-        // eslint-disable-next-line global-require
         mockedTestServer = require('../helpers/test-server');
         mockedTestServer.start(
           config,
@@ -67,7 +65,6 @@ describe('clientMode option', () => {
   describe('passed to server', () => {
     beforeAll(() => {
       jest.unmock('../../lib/utils/getSocketClientPath');
-      // eslint-disable-next-line global-require
       testServer = require('../helpers/test-server');
     });
 
