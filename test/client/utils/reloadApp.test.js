@@ -15,7 +15,6 @@ describe('reloadApp', () => {
 
     jest.mock('loglevel');
 
-    // eslint-disable-next-line global-require
     log = require('loglevel');
     log.getLogger.mockImplementation(() => {
       return {
@@ -24,7 +23,6 @@ describe('reloadApp', () => {
       };
     });
 
-    // eslint-disable-next-line global-require
     reloadApp = require('../../../client-src/default/utils/reloadApp').default;
   });
 
@@ -47,7 +45,6 @@ describe('reloadApp', () => {
 
   test('should run hot', () => {
     jest.mock('webpack/hot/emitter');
-    // eslint-disable-next-line global-require
     const emitter = require('webpack/hot/emitter');
     emitter.emit = jest.fn();
 

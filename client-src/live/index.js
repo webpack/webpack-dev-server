@@ -1,4 +1,6 @@
-/* eslint import/no-extraneous-dependencies: off, global-require: off */
+'use strict';
+
+/* eslint import/no-extraneous-dependencies: off */
 
 import $ from 'jquery';
 import stripAnsi from 'strip-ansi';
