@@ -137,7 +137,6 @@ describe('Server', () => {
     it('should be present', () => {
       expect(process.env.WEBPACK_DEV_SERVER).toBeUndefined();
 
-      // eslint-disable-next-line global-require
       require('../../lib/Server');
 
       expect(process.env.WEBPACK_DEV_SERVER).toBe(true);

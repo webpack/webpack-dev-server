@@ -7,7 +7,6 @@ describe('updateCompiler', () => {
   describe('simple config, inline', () => {
     let compiler;
     beforeAll(() => {
-      // eslint-disable-next-line global-require
       const webpackConfig = require('../../fixtures/simple-config/webpack.config');
       compiler = webpack(webpackConfig);
     });
@@ -44,7 +43,6 @@ describe('updateCompiler', () => {
   describe('simple config, hot and inline', () => {
     let compiler;
     beforeAll(() => {
-      // eslint-disable-next-line global-require
       const webpackConfig = require('../../fixtures/simple-config/webpack.config');
       compiler = webpack(webpackConfig);
     });
@@ -81,7 +79,6 @@ describe('updateCompiler', () => {
   describe('simple config with HMR already, hot and inline', () => {
     let compiler;
     beforeAll(() => {
-      // eslint-disable-next-line global-require
       const webpackConfig = require('../../fixtures/simple-config/webpack.config');
       webpackConfig.plugins = [new webpack.HotModuleReplacementPlugin()];
       compiler = webpack(webpackConfig);
@@ -119,7 +116,6 @@ describe('updateCompiler', () => {
   describe('multi compiler config, hot and inline', () => {
     let multiCompiler;
     beforeAll(() => {
-      // eslint-disable-next-line global-require
       const webpackConfig = require('../../fixtures/multi-compiler-2-config/webpack.config');
       webpackConfig[1].plugins = [new webpack.HotModuleReplacementPlugin()];
       multiCompiler = webpack(webpackConfig);
