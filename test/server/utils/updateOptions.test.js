@@ -45,10 +45,8 @@ describe('updateOptions', () => {
       beforeAll(() => {
         let webpackConfig;
         if (data.multiCompiler) {
-          // eslint-disable-next-line global-require
           webpackConfig = require('../../fixtures/multi-compiler-config/webpack.config');
         } else {
-          // eslint-disable-next-line global-require
           webpackConfig = require('../../fixtures/simple-config/webpack.config');
         }
 
