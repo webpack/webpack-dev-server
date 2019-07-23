@@ -7,6 +7,7 @@ Object {
     "/path/to/dist1",
     "/path/to/dist2",
   ],
+  "filename": "[name].js",
   "serverMode": "sockjs",
   "watchOptions": Object {},
 }
@@ -16,6 +17,79 @@ exports[`normalizeOptions contentBase string should set correct options 1`] = `
 Object {
   "clientMode": "sockjs",
   "contentBase": "/path/to/dist",
+  "filename": "[name].js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions existing devServer.filename, existing compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "devserver-bundle.js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions existing devServer.filename, no compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "devserver-bundle.js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions multi compiler, existing devServer.filename, existing compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "devserver-bundle.js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions multi compiler, existing devServer.filename, no compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "devserver-bundle.js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions multi compiler, no devServer.filename, existing compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "mybundle.js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions multi compiler, no devServer.filename, no compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "[name].js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no devServer.filename, existing compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "mybundle.js",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no devServer.filename, no compiler filename should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "filename": "[name].js",
   "serverMode": "sockjs",
   "watchOptions": Object {},
 }
@@ -24,6 +98,7 @@ Object {
 exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
   "clientMode": "sockjs",
+  "filename": "[name].js",
   "serverMode": "sockjs",
   "watchOptions": Object {},
 }
@@ -32,6 +107,7 @@ Object {
 exports[`normalizeOptions watchOptions should set correct options 1`] = `
 Object {
   "clientMode": "sockjs",
+  "filename": "[name].js",
   "serverMode": "sockjs",
   "watchOptions": Object {
     "poll": true,
