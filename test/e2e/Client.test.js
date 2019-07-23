@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 'use strict';
 
 /* eslint-disable
@@ -9,6 +13,10 @@ const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Client;
+const {
+  reloadReadyDelay,
+  completeReloadDelay,
+} = require('../helpers/puppeteer-constants');
 
 const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 
@@ -53,7 +61,7 @@ describe('reload', () => {
             host: '0.0.0.0',
             inline: true,
             watchOptions: {
-              poll: 500,
+              poll: true,
             },
           },
           mode.options
@@ -91,27 +99,29 @@ describe('reload', () => {
                       }
                       req.continue();
                     });
-                    fs.writeFileSync(
-                      cssFilePath,
-                      'body { background-color: rgb(255, 0, 0); }'
-                    );
-                    page.waitFor(10000).then(() => {
-                      page
-                        .evaluate(() => {
-                          const body = document.body;
-                          const bgColor = getComputedStyle(body)[
-                            'background-color'
-                          ];
-                          return bgColor;
-                        })
-                        .then((color2) => {
-                          browser.close().then(() => {
-                            expect(color).toEqual('rgb(0, 0, 255)');
-                            expect(color2).toEqual('rgb(255, 0, 0)');
-                            expect(refreshed).toEqual(mode.shouldRefresh);
-                            done();
+                    page.waitFor(reloadReadyDelay).then(() => {
+                      fs.writeFileSync(
+                        cssFilePath,
+                        'body { background-color: rgb(255, 0, 0); }'
+                      );
+                      page.waitFor(completeReloadDelay).then(() => {
+                        page
+                          .evaluate(() => {
+                            const body = document.body;
+                            const bgColor = getComputedStyle(body)[
+                              'background-color'
+                            ];
+                            return bgColor;
+                          })
+                          .then((color2) => {
+                            browser.close().then(() => {
+                              expect(color).toEqual('rgb(0, 0, 255)');
+                              expect(color2).toEqual('rgb(255, 0, 0)');
+                              expect(refreshed).toEqual(mode.shouldRefresh);
+                              done();
+                            });
                           });
-                        });
+                      });
                     });
                   });
                 });

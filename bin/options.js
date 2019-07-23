@@ -1,7 +1,6 @@
 'use strict';
 
 /* eslint-disable
-  global-require,
   multiline-ternary,
   space-before-function-paren
 */
