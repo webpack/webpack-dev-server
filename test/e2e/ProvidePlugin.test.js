@@ -5,6 +5,7 @@ const config = require('../fixtures/provide-plugin-config/webpack.config');
 const wsConfig = require('../fixtures/provide-plugin-ws-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').ProvidePlugin;
+const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('ProvidePlugin', () => {
   describe('inline with default clientMode (sockjs)', () => {
@@ -23,19 +24,24 @@ describe('ProvidePlugin', () => {
     afterAll(testServer.close);
 
     describe('on browser client', () => {
-      it('should inject SockJS client implementation', async () => {
-        const { page, browser } = await runBrowser();
-
-        page.goto(`http://localhost:${port}/main`);
-        await page.waitForNavigation({ waitUntil: 'load' });
-
-        const isCorrectClient = await page.evaluate(() => {
-          return window.injectedClient === window.expectedClient;
+      it('should inject SockJS client implementation', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          page.waitForNavigation({ waitUntil: 'load' }).then(() => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              page
+                .evaluate(() => {
+                  return window.injectedClient === window.expectedClient;
+                })
+                .then((isCorrectClient) => {
+                  browser.close().then(() => {
+                    expect(isCorrectClient).toBeTruthy();
+                    done();
+                  });
+                });
+            });
+          });
+          page.goto(`http://localhost:${port}/main`);
         });
-
-        await browser.close();
-
-        expect(isCorrectClient).toBeTruthy();
       });
     });
   });
@@ -61,16 +67,18 @@ describe('ProvidePlugin', () => {
       it('should inject ws client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page
-              .evaluate(() => {
-                return window.injectedClient === window.expectedClient;
-              })
-              .then((isCorrectClient) => {
-                browser.close().then(() => {
-                  expect(isCorrectClient).toBeTruthy();
-                  done();
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              page
+                .evaluate(() => {
+                  return window.injectedClient === window.expectedClient;
+                })
+                .then((isCorrectClient) => {
+                  browser.close().then(() => {
+                    expect(isCorrectClient).toBeTruthy();
+                    done();
+                  });
                 });
-              });
+            });
           });
           page.goto(`http://localhost:${port}/main`);
         });
@@ -94,21 +102,25 @@ describe('ProvidePlugin', () => {
     afterAll(testServer.close);
 
     describe('on browser client', () => {
-      it('should not inject client implementation', async () => {
-        const { page, browser } = await runBrowser();
-
-        page.goto(`http://localhost:${port}/main`);
-
-        await page.waitForNavigation({ waitUntil: 'load' });
-
-        const isCorrectClient = await page.evaluate(() => {
-          // eslint-disable-next-line no-undefined
-          return window.injectedClient === undefined;
+      it('should not inject client implementation', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          page.waitForNavigation({ waitUntil: 'load' }).then(() => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              page
+                .evaluate(() => {
+                  // eslint-disable-next-line no-undefined
+                  return window.injectedClient === undefined;
+                })
+                .then((isCorrectClient) => {
+                  browser.close().then(() => {
+                    expect(isCorrectClient).toBeTruthy();
+                    done();
+                  });
+                });
+            });
+          });
+          page.goto(`http://localhost:${port}/main`);
         });
-
-        await browser.close();
-
-        expect(isCorrectClient).toBeTruthy();
       });
     });
   });

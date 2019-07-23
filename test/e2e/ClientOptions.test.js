@@ -8,6 +8,7 @@ const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const timer = require('../helpers/timer');
+const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('Client code', () => {
   function startProxy(port) {
@@ -64,19 +65,24 @@ describe('Client code', () => {
       }
     });
 
-    it('requests websocket through the proxy with proper port number', async () => {
-      const { page, browser } = await runBrowser();
-
-      page.goto(`http://localhost:${port2}/main`);
-      const req = await page.waitForRequest((requestObj) =>
-        requestObj.url().match(/sockjs-node/)
-      );
-
-      await browser.close();
-
-      expect(
-        req.url().includes(`http://localhost:${port1}/sockjs-node`)
-      ).toBeTruthy();
+    it('requests websocket through the proxy with proper port number', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .then((requestObj) => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(
+                  requestObj
+                    .url()
+                    .includes(`http://localhost:${port1}/sockjs-node`)
+                ).toBeTruthy();
+                done();
+              });
+            });
+          });
+        page.goto(`http://localhost:${port2}/main`);
+      });
     });
   });
 });
@@ -100,20 +106,26 @@ describe('Client complex inline script path', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct public hostname and sockPath', async () => {
-      const { page, browser } = await runBrowser();
-
-      page.goto(`http://localhost:${port2}/main`);
-
-      const req = await page.waitForRequest((requestObj) =>
-        requestObj.url().match(/foo\/test\/bar/)
-      );
-
-      await browser.close();
-
-      expect(
-        req.url().includes(`http://myhost.test:${port2}/foo/test/bar/`)
-      ).toBeTruthy();
+    it('uses the correct public hostname and sockPath', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) =>
+            requestObj.url().match(/foo\/test\/bar/)
+          )
+          .then((requestObj) => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(
+                  requestObj
+                    .url()
+                    .includes(`http://myhost.test:${port2}/foo/test/bar/`)
+                ).toBeTruthy();
+                done();
+              });
+            });
+          });
+        page.goto(`http://localhost:${port2}/main`);
+      });
     });
   });
 });
@@ -137,20 +149,27 @@ describe('Client complex inline script path with sockPort', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort', async () => {
-      const { page, browser } = await runBrowser();
+    it('uses the correct sockPort', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) =>
+            requestObj.url().match(/foo\/test\/bar/)
+          )
+          .then((requestObj) => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(
+                  requestObj
+                    .url()
+                    .includes(`http://localhost:${port3}/foo/test/bar`)
+                ).toBeTruthy();
+                done();
+              });
+            });
+          });
 
-      page.goto(`http://localhost:${port2}/main`);
-
-      const req = await page.waitForRequest((requestObj) =>
-        requestObj.url().match(/foo\/test\/bar/)
-      );
-
-      await browser.close();
-
-      expect(
-        req.url().includes(`http://localhost:${port3}/foo/test/bar`)
-      ).toBeTruthy();
+        page.goto(`http://localhost:${port2}/main`);
+      });
     });
   });
 });
@@ -176,19 +195,24 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort and sockPath', async () => {
-      const { page, browser } = await runBrowser();
-
-      page.goto(`http://localhost:${port2}/main`);
-      const req = await page.waitForRequest((requestObj) =>
-        requestObj.url().match(/sockjs-node/)
-      );
-
-      await browser.close();
-
-      expect(
-        req.url().includes(`http://localhost:${port3}/sockjs-node`)
-      ).toBeTruthy();
+    it('uses the correct sockPort and sockPath', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .then((requestObj) => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(
+                  requestObj
+                    .url()
+                    .includes(`http://localhost:${port3}/sockjs-node`)
+                ).toBeTruthy();
+                done();
+              });
+            });
+          });
+        page.goto(`http://localhost:${port2}/main`);
+      });
     });
   });
 });
@@ -211,19 +235,24 @@ describe('Client complex inline script path with sockHost', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockHost', async () => {
-      const { page, browser } = await runBrowser();
-
-      page.goto(`http://localhost:${port2}/main`);
-
-      const req = await page.waitForRequest((requestObj) =>
-        requestObj.url().match(/sockjs-node/)
-      );
-      await browser.close();
-
-      expect(
-        req.url().includes(`http://myhost.test:${port2}/sockjs-node`)
-      ).toBeTruthy();
+    it('uses the correct sockHost', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .then((requestObj) => {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(
+                  requestObj
+                    .url()
+                    .includes(`http://myhost.test:${port2}/sockjs-node`)
+                ).toBeTruthy();
+                done();
+              });
+            });
+          });
+        page.goto(`http://localhost:${port2}/main`);
+      });
     });
   });
 });
@@ -267,32 +296,47 @@ describe('Client console.log', () => {
     },
   ];
 
-  for (const { title, options } of cases) {
-    it(title, async () => {
+  cases.forEach(({ title, options }) => {
+    it(title, (done) => {
       const res = [];
       const testOptions = Object.assign({}, baseOptions, options);
 
-      // TODO: refactor(hiroppy)
-      await new Promise((resolve) => {
-        testServer.startAwaitingCompilation(config, testOptions, resolve);
-      });
-
-      const { page, browser } = await runBrowser();
-
-      page.goto(`http://localhost:${port2}/main`);
-      page.on('console', ({ _text }) => {
-        res.push(_text);
-      });
-
-      await timer(3000);
-
-      expect(res).toMatchSnapshot();
-      await browser.close();
-
-      // TODO: refactor(hiroppy)
-      await new Promise((resolve) => {
-        testServer.close(resolve);
-      });
+      // TODO: use async/await when Node.js v6 support is dropped
+      Promise.resolve()
+        .then(() => {
+          return new Promise((resolve) => {
+            testServer.startAwaitingCompilation(config, testOptions, resolve);
+          });
+        })
+        .then(() => {
+          // make sure the previous Promise is not passing along strange arguments to runBrowser
+          return runBrowser();
+        })
+        .then(({ page, browser }) => {
+          return new Promise((resolve) => {
+            page.goto(`http://localhost:${port2}/main`);
+            page.on('console', ({ _text }) => {
+              res.push(_text);
+            });
+            // wait for load before closing the browser
+            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
+              page.waitFor(beforeBrowserCloseDelay).then(() => {
+                browser.close().then(() => {
+                  resolve();
+                });
+              });
+            });
+          });
+        })
+        .then(() => {
+          return new Promise((resolve) => {
+            testServer.close(resolve);
+          });
+        })
+        .then(() => {
+          expect(res).toMatchSnapshot();
+          done();
+        });
     });
-  }
+  });
 });

@@ -1,6 +1,7 @@
 'use strict';
 
 const puppeteer = require('puppeteer');
+const { puppeteerArgs } = require('./puppeteer-constants');
 
 async function runBrowser(config) {
   const options = {
@@ -12,15 +13,27 @@ async function runBrowser(config) {
     ...config,
   };
 
-  const launchedBrowser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
-  const browser = launchedBrowser;
-  const page = await browser.newPage();
-  page.emulate(options);
+  return new Promise((resolve, reject) => {
+    let page;
+    let browser;
 
-  return { page, browser };
+    puppeteer
+      .launch({
+        headless: true,
+        // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
+        args: puppeteerArgs,
+      })
+      .then((launchedBrowser) => {
+        browser = launchedBrowser;
+        return browser.newPage();
+      })
+      .then((newPage) => {
+        page = newPage;
+        page.emulate(options);
+        resolve({ page, browser });
+      })
+      .catch(reject);
+  });
 }
 
 module.exports = runBrowser;
