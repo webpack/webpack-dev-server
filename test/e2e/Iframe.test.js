@@ -4,6 +4,7 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Iframe;
+const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 // iframe mode should be tested while still supported, because
 // its sources differ from those of inline mode, which can cause unexpected
@@ -46,38 +47,46 @@ describe('Client iframe console.log', () => {
     },
   ];
 
-  for (const { title, options } of cases) {
-    it(title, () => {
+  cases.forEach(({ title, options }) => {
+    it(title, (done) => {
       const res = [];
       const testOptions = Object.assign({}, baseOptions, options);
 
       // TODO: use async/await when Node.js v6 support is dropped
-      return Promise.resolve()
+      Promise.resolve()
         .then(() => {
           return new Promise((resolve) => {
             testServer.startAwaitingCompilation(config, testOptions, resolve);
           });
         })
-        .then(runBrowser)
+        .then(() => {
+          // make sure the previous Promise is not passing along strange arguments to runBrowser
+          return runBrowser();
+        })
         .then(({ page, browser }) => {
           return new Promise((resolve) => {
             page.goto(`http://localhost:${port}/webpack-dev-server/main`);
             page.on('console', ({ _text }) => {
               res.push(_text);
             });
-            setTimeout(() => {
-              browser.close().then(() => {
-                expect(res).toMatchSnapshot();
-                resolve();
+            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
+              page.waitFor(beforeBrowserCloseDelay).then(() => {
+                browser.close().then(() => {
+                  resolve();
+                });
               });
-            }, 3000);
+            });
           });
         })
         .then(() => {
           return new Promise((resolve) => {
             testServer.close(resolve);
           });
+        })
+        .then(() => {
+          expect(res).toMatchSnapshot();
+          done();
         });
     });
-  }
+  });
 });
