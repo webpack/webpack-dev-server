@@ -1,6 +1,7 @@
 'use strict';
 
 const puppeteer = require('puppeteer');
+const { puppeteerArgs } = require('./puppeteer-constants');
 
 function runBrowser(config) {
   const options = {
@@ -19,7 +20,8 @@ function runBrowser(config) {
     puppeteer
       .launch({
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
+        args: puppeteerArgs,
       })
       .then((launchedBrowser) => {
         browser = launchedBrowser;
