@@ -1,9 +1,9 @@
 'use strict';
 
 const webpack = require('webpack');
-const updateOptions = require('../../../lib/utils/updateOptions');
+const normalizeOptions = require('../../../lib/utils/normalizeOptions');
 
-describe('updateOptions', () => {
+describe('normalizeOptions', () => {
   const cases = [
     {
       title: 'no options',
@@ -55,7 +55,7 @@ describe('updateOptions', () => {
 
       it('should set correct options', () => {
         const originalContentBase = data.options.contentBase;
-        updateOptions(compiler, data.options);
+        normalizeOptions(compiler, data.options);
         if (data.optionsResults) {
           expect(data.options).toEqual(data.optionsResults);
         } else {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`updateOptions contentBase array should set correct options 1`] = `
+exports[`normalizeOptions contentBase array should set correct options 1`] = `
 Object {
   "clientMode": "sockjs",
   "contentBase": Array [
@@ -12,7 +12,7 @@ Object {
 }
 `;
 
-exports[`updateOptions contentBase string should set correct options 1`] = `
+exports[`normalizeOptions contentBase string should set correct options 1`] = `
 Object {
   "clientMode": "sockjs",
   "contentBase": "/path/to/dist",
@@ -21,7 +21,7 @@ Object {
 }
 `;
 
-exports[`updateOptions no options should set correct options 1`] = `
+exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
   "clientMode": "sockjs",
   "serverMode": "sockjs",
@@ -29,7 +29,7 @@ Object {
 }
 `;
 
-exports[`updateOptions watchOptions should set correct options 1`] = `
+exports[`normalizeOptions watchOptions should set correct options 1`] = `
 Object {
   "clientMode": "sockjs",
   "serverMode": "sockjs",
