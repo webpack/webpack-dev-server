@@ -12,7 +12,7 @@ describe('SockJSClient', () => {
   let listeningApp;
 
   beforeAll((done) => {
-    consoleMock = jest.spyOn(console, 'log').mockImplementation();
+    consoleMock = jest.spyOn(console, 'info').mockImplementation();
 
     // eslint-disable-next-line new-cap
     const app = new express();

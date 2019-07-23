@@ -5,26 +5,25 @@ Array [
   "Hey.",
   "open",
   "liveReload",
-  "[WDS] Live Reloading enabled.",
+  "<i> [WDS] Live Reloading enabled.",
   "hash",
   "ok",
-  "close",
-  "[WDS] Disconnected!",
+  "<e> [WDS] Disconnected!",
 ]
 `;
 
 exports[`clientMode sockjs on browser client logs correctly 1`] = `
 Array [
   "Hey.",
-  "[WDS] Live Reloading enabled.",
-  "[WDS] Disconnected!",
+  "<i> [WDS] Live Reloading enabled.",
+  "<e> [WDS] Disconnected!",
 ]
 `;
 
 exports[`clientMode ws on browser client logs correctly 1`] = `
 Array [
   "Hey.",
-  "[WDS] Live Reloading enabled.",
-  "[WDS] Disconnected!",
+  "<i> [WDS] Live Reloading enabled.",
+  "<e> [WDS] Disconnected!",
 ]
 `;

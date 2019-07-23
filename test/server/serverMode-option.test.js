@@ -17,7 +17,8 @@ describe('serverMode option', () => {
   let server;
   let req;
   let getSocketServerImplementation;
-  let consoleMock;
+  let consoleInfoMock;
+  let consoleWarnMock;
 
   const serverModes = [
     {
@@ -47,11 +48,13 @@ describe('serverMode option', () => {
   ];
 
   beforeAll(() => {
-    consoleMock = jest.spyOn(console, 'log').mockImplementation();
+    consoleInfoMock = jest.spyOn(console, 'info').mockImplementation();
+    consoleWarnMock = jest.spyOn(console, 'warn').mockImplementation();
   });
 
   afterAll(() => {
-    consoleMock.mockRestore();
+    consoleInfoMock.mockRestore();
+    consoleWarnMock.mockRestore();
   });
 
   describe('is passed to getSocketServerImplementation correctly', () => {

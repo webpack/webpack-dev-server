@@ -9,7 +9,7 @@ Array [
 exports[`Client console.log hot disabled 1`] = `
 Array [
   "Hey.",
-  "[WDS] Live Reloading enabled.",
+  "<i> [WDS] Live Reloading enabled.",
 ]
 `;
 
@@ -17,8 +17,8 @@ exports[`Client console.log hot enabled 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[WDS] Hot Module Replacement enabled.",
-  "[WDS] Live Reloading enabled.",
+  "<i> [WDS] Hot Module Replacement enabled.",
+  "<i> [WDS] Live Reloading enabled.",
 ]
 `;
 
@@ -31,6 +31,6 @@ Array [
 exports[`Client console.log liveReload enabled 1`] = `
 Array [
   "Hey.",
-  "[WDS] Live Reloading enabled.",
+  "<i> [WDS] Live Reloading enabled.",
 ]
 `;
