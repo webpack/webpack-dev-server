@@ -4,7 +4,7 @@ const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
 const port = require('../ports-map')['stdin-option'];
 
-describe('stdin', () => {
+describe.skip('stdin', () => {
   // eslint-disable-next-line no-unused-vars
   let server;
   let exitSpy;

@@ -2,7 +2,7 @@
 
 const handleStdin = require('../../../lib/utils/handleStdin');
 
-describe('handleStdin', () => {
+describe.skip('handleStdin', () => {
   let exitSpy;
 
   beforeAll(() => {
