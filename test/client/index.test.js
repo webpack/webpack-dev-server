@@ -224,7 +224,7 @@ describe('index', () => {
   });
 
   test('should run onSocketMessage.close (liveReload enabled)', () => {
-    // enabling hot
+    // enabling liveReload
     onSocketMessage.liveReload();
     onSocketMessage.close();
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
