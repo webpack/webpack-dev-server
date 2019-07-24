@@ -418,10 +418,10 @@ describe('options', () => {
         ],
         failure: ['whoops!', null],
       },
-      stdin: {
-        success: [true],
-        failure: [''],
-      },
+      // stdin: {
+      //   success: [true],
+      //   failure: [''],
+      // },
       useLocalIp: {
         success: [false],
         failure: [''],
