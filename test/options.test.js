@@ -13,16 +13,13 @@ describe('options', () => {
   jest.setTimeout(20000);
 
   let consoleMock;
-  let exitMock;
 
   beforeAll(() => {
     consoleMock = jest.spyOn(console, 'warn').mockImplementation();
-    exitMock = jest.spyOn(process, 'exit').mockImplementation();
   });
 
   afterAll(() => {
     consoleMock.mockRestore();
-    exitMock.mockRestore();
   });
 
   it('should match properties and errorMessage', () => {
