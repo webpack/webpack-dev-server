@@ -136,7 +136,9 @@ const onSocketMessage = {
     log.error(error);
   },
   close() {
-    log.error('[WDS] Disconnected!');
+    if (options.hot || options.liveReload) log.error('[WDS] Disconnected!');
+    else
+      {log.error('[WDS] Hot Module Replacement & Live Reloading are disabled!');}
     sendMessage('Close');
   },
 };
