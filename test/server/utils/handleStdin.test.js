@@ -1,38 +1,24 @@
 'use strict';
 
-const config = require('../fixtures/simple-config/webpack.config');
-const testServer = require('../helpers/test-server');
-const port = require('../ports-map')['stdin-option'];
+const handleStdin = require('../../../lib/utils/handleStdin');
 
-describe('stdin', () => {
-  // eslint-disable-next-line no-unused-vars
-  let server;
+describe('handleStdin', () => {
   let exitSpy;
 
   beforeAll(() => {
     exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
   });
 
-  afterEach((done) => {
-    server = null;
-    exitSpy.mockReset();
+  afterEach(() => {
     process.stdin.removeAllListeners('end');
-    testServer.close(done);
+    exitSpy.mockReset();
   });
 
   describe('enabled', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          port,
-          stdin: true,
-        },
-        done
-      );
-    });
-
     it('should exit process', (done) => {
+      handleStdin({
+        stdin: true,
+      });
       process.stdin.emit('end');
       process.stdin.pause();
       setTimeout(() => {
@@ -43,17 +29,8 @@ describe('stdin', () => {
   });
 
   describe('disabled (default)', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          port,
-        },
-        done
-      );
-    });
-
     it('should not exit process', (done) => {
+      handleStdin({});
       process.stdin.emit('end');
       process.stdin.pause();
       setTimeout(() => {
