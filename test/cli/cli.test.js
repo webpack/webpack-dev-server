@@ -118,53 +118,6 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('without --stdin, with stdin "end" event should time out', (done) => {
-    const configPath = resolve(
-      __dirname,
-      '../fixtures/simple-config/webpack.config.js'
-    );
-    const childProcess = testBin(false, configPath, true);
-
-    setTimeout(() => {
-      // this is meant to confirm that it does not have any effect on the running process
-      // since options.stdin is not enabled
-      childProcess.stdin.emit('end');
-      childProcess.stdin.pause();
-    }, 500);
-
-    setTimeout(() => {
-      childProcess.kill();
-    }, 1000);
-
-    childProcess.once('exit', () => {
-      expect(childProcess.killed).toBeTruthy();
-      done();
-    });
-  });
-
-  it('--stdin, with "end" event should exit without time out', (done) => {
-    const configPath = resolve(
-      __dirname,
-      '../fixtures/simple-config/webpack.config.js'
-    );
-    const childProcess = testBin('--stdin', configPath);
-
-    setTimeout(() => {
-      childProcess.stdin.emit('end');
-      childProcess.stdin.pause();
-    }, 500);
-
-    childProcess
-      .then((output) => {
-        childProcess.stdin.removeAllListeners('end');
-        expect(output.code).toEqual(0);
-        expect(output.timedOut).toBeFalsy();
-        expect(output.killed).toBeFalsy();
-        done();
-      })
-      .catch(done);
-  });
-
   it('should accept the promise function of webpack.config.js', (done) => {
     testBin(
       false,
