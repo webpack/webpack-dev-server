@@ -23,7 +23,8 @@ function startFullSetup(config, options, done) {
   if (
     options.inline === undefined &&
     options.hot === undefined &&
-    options.hotOnly === undefined
+    options.hotOnly === undefined &&
+    options.liveReload === undefined
   ) {
     options.inline = false;
   }
