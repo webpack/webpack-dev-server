@@ -244,6 +244,26 @@ describe('addEntries util', () => {
     ]);
   });
 
+  it("should not add the HMR plugin again if it's already there from a different webpack", () => {
+    const existingPlugin = new webpack.BannerPlugin('bruce');
+
+    // Simulate the inclusion of another webpack's HotModuleReplacementPlugin
+    class HotModuleReplacementPlugin {}
+
+    const webpackOptions = Object.assign({}, config, {
+      plugins: [new HotModuleReplacementPlugin(), existingPlugin],
+    });
+    const devServerOptions = { hot: true };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    expect(webpackOptions.plugins).toEqual([
+      // Nothing should be injected
+      new HotModuleReplacementPlugin(),
+      existingPlugin,
+    ]);
+  });
+
   it('should can prevent duplicate entries from successive calls', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = { hot: true };
