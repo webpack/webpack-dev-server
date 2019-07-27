@@ -17,6 +17,7 @@
     "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css}\" --list-different",
     "lint:js": "eslint . --cache",
     "lint": "npm-run-all -l -p \"lint:**\"",
+    "lint:type": "tsc --noEmit",
     "commitlint": "commitlint --from=master",
     "security": "npm audit",
     "test:only": "jest",
@@ -107,6 +108,7 @@
     "style-loader": "^0.23.1",
     "supertest": "^4.0.2",
     "tcp-port-used": "^1.0.1",
+    "typescript": "^3.4.5",
     "url-loader": "^2.0.0",
     "webpack": "^4.38.0",
     "webpack-cli": "^3.3.6"
