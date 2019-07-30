@@ -104,7 +104,7 @@
     "prettier": "^1.18.2",
     "puppeteer": "^1.19.0",
     "rimraf": "^2.6.3",
-    "standard-version": "^6.0.1",
+    "standard-version": "^7.0.0",
     "style-loader": "^0.23.1",
     "supertest": "^4.0.2",
     "tcp-port-used": "^1.0.1",
