@@ -15,7 +15,6 @@ const setupExitSignals = require('../lib/utils/setupExitSignals');
 const colors = require('../lib/utils/colors');
 const processOptions = require('../lib/utils/processOptions');
 const createLogger = require('../lib/utils/createLogger');
-const findPort = require('../lib/utils/findPort');
 const getVersions = require('../lib/utils/getVersions');
 const options = require('./options');
 
@@ -148,18 +147,11 @@ function startDevServer(config, options) {
       });
     });
   } else {
-    findPort(options.port)
-      .then((port) => {
-        options.port = port;
-        server.listen(options.port, options.host, (err) => {
-          if (err) {
-            throw err;
-          }
-        });
-      })
-      .catch((err) => {
+    server.listen(options.port, options.host, (err) => {
+      if (err) {
         throw err;
-      });
+      }
+    });
   }
 }
 

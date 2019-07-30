@@ -62,15 +62,36 @@ describe('CLI', () => {
     expect(stdout.includes('Project is running at')).toBe(true);
   });
 
-  it('--sockPath', async () => {
-    const { stdout } = await testBin('--sockPath /mysockPath');
-    expect(stdout.includes('http://localhost&sockPath=/mysockPath')).toBe(true);
+  it('--sockPath', (done) => {
+    testBin('--sockPath /mysockPath')
+      .then((output) => {
+        expect(
+          /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(output.stdout)
+        ).toEqual(true);
+        done();
+      })
+      .catch(done);
   });
 
-  it('--color', async () => {
-    const { stdout } = await testBin('--color');
-    // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
-    expect(stdout.includes('\u001b[39m \u001b[90m｢wds｣\u001b[39m:')).toBe(true);
+  it('unspecified port', (done) => {
+    testBin('')
+      .then((output) => {
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--color', (done) => {
+    testBin('--color')
+      .then((output) => {
+        // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
+        expect(
+          output.stdout.includes('\u001b[39m \u001b[90m｢wds｣\u001b[39m:')
+        ).toEqual(true);
+        done();
+      })
+      .catch(done);
   });
 
   // The Unix socket to listen to (instead of a host).
