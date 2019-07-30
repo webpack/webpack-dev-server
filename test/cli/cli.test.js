@@ -78,8 +78,17 @@ describe('CLI', () => {
     testBin('--sockPath /mysockPath')
       .then((output) => {
         expect(
-          output.stdout.includes('http://localhost&sockPath=/mysockPath')
+          /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(output.stdout)
         ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('unspecified port', (done) => {
+    testBin('')
+      .then((output) => {
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
         done();
       })
       .catch(done);
