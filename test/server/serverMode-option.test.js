@@ -57,7 +57,6 @@ describe('serverMode option', () => {
   describe('is passed to getSocketServerImplementation correctly', () => {
     beforeEach(() => {
       jest.mock('../../lib/utils/getSocketServerImplementation');
-      // eslint-disable-next-line global-require
       getSocketServerImplementation = require('../../lib/utils/getSocketServerImplementation');
       getSocketServerImplementation.mockImplementation(() => {
         return class MockServer {
@@ -76,7 +75,6 @@ describe('serverMode option', () => {
 
     serverModes.forEach((data) => {
       it(data.title, (done) => {
-        // eslint-disable-next-line global-require
         mockedTestServer = require('../helpers/test-server');
         mockedTestServer.start(
           config,
@@ -102,7 +100,6 @@ describe('serverMode option', () => {
   describe('passed to server', () => {
     beforeAll(() => {
       jest.unmock('../../lib/utils/getSocketServerImplementation');
-      // eslint-disable-next-line global-require
       testServer = require('../helpers/test-server');
     });
 
@@ -410,9 +407,7 @@ describe('serverMode option', () => {
     let MockSockJSServer;
     beforeEach((done) => {
       jest.mock('../../lib/servers/SockJSServer');
-      // eslint-disable-next-line global-require
       mockedTestServer = require('../helpers/test-server');
-      // eslint-disable-next-line global-require
       MockSockJSServer = require('../../lib/servers/SockJSServer');
 
       server = mockedTestServer.start(

@@ -40,6 +40,14 @@ describe('getSocketClientPath', () => {
     }).toThrow(/clientMode must be a string/);
   });
 
+  it('should throw with clientMode: bad type', () => {
+    expect(() => {
+      getSocketClientPath({
+        clientMode: 1,
+      });
+    }).toThrow(/clientMode must be a string/);
+  });
+
   it('should throw with clientMode: unimplemented client', () => {
     expect(() => {
       getSocketClientPath({

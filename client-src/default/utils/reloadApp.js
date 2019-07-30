@@ -13,7 +13,6 @@ function reloadApp(
   }
   if (hot) {
     log.info('[WDS] App hot update...');
-    // eslint-disable-next-line global-require
     const hotEmitter = require('webpack/hot/emitter');
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {

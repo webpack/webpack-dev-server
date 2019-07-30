@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normalizeOptions contentBase array should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "contentBase": Array [
+    "/path/to/dist1",
+    "/path/to/dist2",
+  ],
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions contentBase string should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "contentBase": "/path/to/dist",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "serverMode": "sockjs",
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions watchOptions should set correct options 1`] = `
+Object {
+  "clientMode": "sockjs",
+  "serverMode": "sockjs",
+  "watchOptions": Object {
+    "poll": true,
+  },
+}
+`;

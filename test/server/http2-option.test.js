@@ -27,9 +27,7 @@ describe('http2 option', () => {
     semver.gte(process.version, '8.8.0') &&
     semver.lt(process.version, '10.0.0')
   ) {
-    /* eslint-disable global-require */
     const http2 = require('http2');
-    /* eslint-enable global-require */
     describe('http2 works with https', () => {
       beforeAll((done) => {
         server = testServer.start(
