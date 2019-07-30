@@ -11,6 +11,8 @@ module.exports = class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
     this.client = new WebSocket(url.replace(/^http/, 'ws'));
+
+    this.client.onerror = () => {};
   }
 
   static getClientPath(options) {

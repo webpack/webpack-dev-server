@@ -10,6 +10,8 @@ module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
     this.sock = new SockJS(url);
+
+    this.sock.onerror = () => {};
   }
 
   static getClientPath(options) {
