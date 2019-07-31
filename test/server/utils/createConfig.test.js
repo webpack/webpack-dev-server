@@ -980,12 +980,84 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('overlay', () => {
+  it('overlay option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        overlay: true,
+      }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('overlay option (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: { overlay: true },
       }),
       argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('sockHost option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        sockHost: true,
+      }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('sockPath option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        sockPath: 'path',
+      }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('sockPort option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        sockPort: 'port',
+      }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('liveReload option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        liveReload: false,
+      }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('profile option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        profile: 'profile',
+      }),
       { port: 8080 }
     );
 

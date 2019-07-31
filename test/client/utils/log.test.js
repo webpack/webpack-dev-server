@@ -6,7 +6,6 @@ describe('log', () => {
 
   beforeEach(() => {
     jest.mock('loglevel');
-    // eslint-disable-next-line global-require
     logMock = require('loglevel');
     logMock.getLogger.mockImplementation(() => {
       return {
@@ -17,7 +16,6 @@ describe('log', () => {
       };
     });
 
-    // eslint-disable-next-line global-require
     setLogLevel = require('../../../client-src/default/utils/log').setLogLevel;
   });
 

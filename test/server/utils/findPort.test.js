@@ -4,7 +4,7 @@ const http = require('http');
 const portfinder = require('portfinder');
 const findPort = require('../../../lib/utils/findPort');
 
-describe('findPort util', () => {
+describe('findPort', () => {
   let dummyServers = [];
 
   afterEach(() => {

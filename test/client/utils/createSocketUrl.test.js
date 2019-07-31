@@ -21,7 +21,6 @@ describe('createSocketUrl', () => {
       () => () => url
     );
 
-    // eslint-disable-next-line global-require
     const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {

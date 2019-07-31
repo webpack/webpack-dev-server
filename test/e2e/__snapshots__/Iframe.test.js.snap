@@ -31,5 +31,6 @@ Array [
 exports[`Client iframe console.log liveReload enabled 1`] = `
 Array [
   "Hey.",
+  "[WDS] Live Reloading enabled.",
 ]
 `;

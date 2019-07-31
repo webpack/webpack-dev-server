@@ -5,7 +5,8 @@
     "window": true
   },
   "parserOptions": {
-    "sourceType": "script"
+    "sourceType": "script",
+    "ecmaVersion": 10
   },
   "rules": {
     "curly": "error",
@@ -14,6 +15,7 @@
     "no-underscore-dangle": "off",
     "prefer-destructuring": ["error", { "object": false, "array": false }],
     "prefer-rest-params": "off",
-    "strict": ["error", "safe"]
+    "strict": ["error", "safe"],
+    "global-require": "off"
   }
 }

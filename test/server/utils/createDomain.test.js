@@ -7,7 +7,7 @@ const createDomain = require('../../../lib/utils/createDomain');
 const [port1, port2] = require('../../ports-map').createDomain;
 const config = require('./../../fixtures/simple-config/webpack.config');
 
-describe('check utility functions', () => {
+describe('createDomain', () => {
   let compiler;
   let server;
 
