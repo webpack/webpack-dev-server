@@ -33,8 +33,8 @@ describe('CLI', () => {
     testBin('--entry ../simple-config/foo.js')
       .then((output) => {
         expect(
-          output.stdout.includes(
-            '/client?http://localhost ../simple-config/foo.js'
+          /client\?http:\/\/localhost:[0-9]+ ..\/simple-config\/foo.js/.test(
+            output.stdout
           )
         ).toEqual(true);
         expect(output.stdout.includes('Compiled successfully.')).toEqual(true);
