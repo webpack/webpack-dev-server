@@ -11,7 +11,9 @@ module.exports = class SockJSClient extends BaseClient {
     super();
     this.sock = new SockJS(url);
 
-    this.sock.onerror = () => {};
+    this.sock.onerror = (err) => {
+      console.error(err);
+    };
   }
 
   static getClientPath(options) {
