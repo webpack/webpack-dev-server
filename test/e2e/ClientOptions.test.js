@@ -7,7 +7,6 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
-const timer = require('../helpers/timer');
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('Client code', () => {

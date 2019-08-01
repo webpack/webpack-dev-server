@@ -54,10 +54,8 @@ describe('SockJSClient', () => {
         data.push(msg);
       });
 
-      setTimeout(() => {
-        expect(data).toMatchSnapshot();
-        done();
-      }, 3000);
+      await timer(3000);
+      expect(data).toMatchSnapshot();
     });
   });
 

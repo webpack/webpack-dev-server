@@ -57,11 +57,9 @@ describe('SockJSServer', () => {
         data.push('close');
       };
 
-      setTimeout(() => {
-        expect(headers.host).toMatchSnapshot();
-        expect(data).toMatchSnapshot();
-        done();
-      }, 3000);
+      await timer(3000);
+      expect(headers.host).toMatchSnapshot();
+      expect(data).toMatchSnapshot();
     });
 
     it('should receive client close event', (done) => {
