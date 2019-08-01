@@ -1,5 +1,8 @@
 'use strict';
 
+/* eslint-disable
+  no-redeclare
+*/
 /* global self */
 
 const {

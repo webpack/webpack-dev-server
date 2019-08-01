@@ -1,5 +1,3 @@
-'use strict';
-
 /* eslint import/no-extraneous-dependencies: off */
 
 import $ from 'jquery';

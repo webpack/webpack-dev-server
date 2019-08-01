@@ -1,7 +1,8 @@
 'use strict';
 
 /* eslint-disable
-  no-undefined
+  no-undefined,
+  no-redeclare
 */
 /* global self */
 
