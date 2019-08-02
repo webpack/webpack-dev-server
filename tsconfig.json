@@ -12,5 +12,10 @@
     "types": ["node"],
     "esModuleInterop": true
   },
-  "include": ["lib/utils/addEntries.js"]
+  "include": [
+    "lib/utils/addEntries.js",
+    "lib/utils/colors.js",
+    "lib/utils/createCertificate.js",
+    "lib/utils/createConfig.js"
+  ]
 }
