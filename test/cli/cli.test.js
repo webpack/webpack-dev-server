@@ -34,9 +34,9 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.code).toEqual(0);
         // should profile
-        expect(
-          output.stderr.includes('ms after chunk modules optimization')
-        ).toBe(true);
+        expect(output.stderr.includes('after chunk modules optimization')).toBe(
+          true
+        );
         done();
       })
       .catch(done);
