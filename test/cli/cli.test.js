@@ -42,15 +42,11 @@ describe('CLI', () => {
     done();
   });
 
-  it('--progress --profile', (done) => {
-    testBin('--progress --profile')
-      .then((output) => {
-        expect(output.code).toEqual(0);
-        // should profile
-        expect(output.stderr).toContain('after chunk modules optimization');
-        done();
-      })
-      .catch(done);
+  it('--progress --profile', async () => {
+    const { code, stderr } = await testBin('--progress --profile');
+    expect(code).toEqual(0);
+    // should profile
+    expect(stderr.includes('after chunk modules optimization')).toBe(true);
   });
 
   it('--bonjour', (done) => {
@@ -93,8 +89,8 @@ describe('CLI', () => {
   });
 
   it('unspecified port', async () => {
-    const { output } = await testBin('');
-    expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
+    const { stdout } = await testBin('');
+    expect(/http:\/\/localhost:[0-9]+/.test(stdout)).toEqual(true);
   });
 
   it('--color', (done) => {
