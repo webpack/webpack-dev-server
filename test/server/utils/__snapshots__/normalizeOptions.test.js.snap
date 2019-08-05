@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`normalizeOptions absolute options.publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "http://localhost:8080/assets/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions bad relative options.publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/assets/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
 exports[`normalizeOptions contentBase array should set correct options 1`] = `
 Object {
   "filename": "[name].js",
@@ -36,7 +72,7 @@ Object {
 }
 `;
 
-exports[`normalizeOptions existing devServer.filename, existing compiler filename should set correct options 1`] = `
+exports[`normalizeOptions existing options.filename, existing compiler filename should set correct options 1`] = `
 Object {
   "filename": "devserver-bundle.js",
   "inline": true,
@@ -54,7 +90,7 @@ Object {
 }
 `;
 
-exports[`normalizeOptions existing devServer.filename, no compiler filename should set correct options 1`] = `
+exports[`normalizeOptions existing options.filename, no compiler filename should set correct options 1`] = `
 Object {
   "filename": "devserver-bundle.js",
   "inline": true,
@@ -72,7 +108,7 @@ Object {
 }
 `;
 
-exports[`normalizeOptions multi compiler, existing devServer.filename, existing compiler filename should set correct options 1`] = `
+exports[`normalizeOptions multi compiler, existing options.filename, existing compiler filename should set correct options 1`] = `
 Object {
   "filename": "devserver-bundle.js",
   "inline": true,
@@ -90,7 +126,7 @@ Object {
 }
 `;
 
-exports[`normalizeOptions multi compiler, existing devServer.filename, no compiler filename should set correct options 1`] = `
+exports[`normalizeOptions multi compiler, existing options.filename, no compiler filename should set correct options 1`] = `
 Object {
   "filename": "devserver-bundle.js",
   "inline": true,
@@ -108,7 +144,7 @@ Object {
 }
 `;
 
-exports[`normalizeOptions multi compiler, no devServer.filename, existing compiler filename should set correct options 1`] = `
+exports[`normalizeOptions multi compiler, no options.filename, existing compiler filename should set correct options 1`] = `
 Object {
   "filename": "mybundle.js",
   "inline": true,
@@ -126,7 +162,7 @@ Object {
 }
 `;
 
-exports[`normalizeOptions multi compiler, no devServer.filename, no compiler filename should set correct options 1`] = `
+exports[`normalizeOptions multi compiler, no options.filename, no compiler filename should set correct options 1`] = `
 Object {
   "filename": "[name].js",
   "inline": true,
@@ -144,7 +180,7 @@ Object {
 }
 `;
 
-exports[`normalizeOptions no devServer.filename, existing compiler filename should set correct options 1`] = `
+exports[`normalizeOptions multi compiler, no options.publicPath, / compiler publicPath should set correct options 1`] = `
 Object {
   "filename": "mybundle.js",
   "inline": true,
@@ -162,12 +198,66 @@ Object {
 }
 `;
 
-exports[`normalizeOptions no devServer.filename, no compiler filename should set correct options 1`] = `
+exports[`normalizeOptions multi compiler, no options.publicPath, absolute url compiler publicPath should set correct options 1`] = `
 Object {
-  "filename": "[name].js",
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "http://localhost:8080/assets/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions multi compiler, no options.publicPath, bad relative compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/assets/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions multi compiler, no options.publicPath, no compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions multi compiler, no options.publicPath, relative compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/assets/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
@@ -186,6 +276,150 @@ Object {
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options.filename, existing compiler filename should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options.filename, no compiler filename should set correct options 1`] = `
+Object {
+  "filename": "[name].js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options.publicPath, / compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options.publicPath, absolute url compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "http://localhost:8080/assets/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options.publicPath, bad relative compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/assets/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options.publicPath, no compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions no options.publicPath, relative compiler publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/assets/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions relative options.publicPath should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/assets/",
   "stats": Object {
     "cached": false,
     "cachedAssets": false,

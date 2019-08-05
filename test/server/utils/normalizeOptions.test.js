@@ -105,14 +105,14 @@ describe('normalizeOptions', () => {
     },
 
     {
-      title: 'no devServer.filename, no compiler filename',
+      title: 'no options.filename, no compiler filename',
       webpackConfig: null,
       multiCompiler: false,
       options: {},
       optionsResults: null,
     },
     {
-      title: 'no devServer.filename, existing compiler filename',
+      title: 'no options.filename, existing compiler filename',
       webpackConfig: {
         output: {
           filename: 'mybundle.js',
@@ -123,7 +123,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'existing devServer.filename, no compiler filename',
+      title: 'existing options.filename, no compiler filename',
       webpackConfig: null,
       multiCompiler: false,
       options: {
@@ -132,7 +132,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'existing devServer.filename, existing compiler filename',
+      title: 'existing options.filename, existing compiler filename',
       webpackConfig: {
         output: {
           filename: 'mybundle.js',
@@ -145,15 +145,14 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'multi compiler, no devServer.filename, no compiler filename',
+      title: 'multi compiler, no options.filename, no compiler filename',
       webpackConfig: null,
       multiCompiler: true,
       options: {},
       optionsResults: null,
     },
     {
-      title:
-        'multi compiler, no devServer.filename, existing compiler filename',
+      title: 'multi compiler, no options.filename, existing compiler filename',
       webpackConfig: {
         output: {
           filename: 'mybundle.js',
@@ -164,8 +163,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title:
-        'multi compiler, existing devServer.filename, no compiler filename',
+      title: 'multi compiler, existing options.filename, no compiler filename',
       webpackConfig: null,
       multiCompiler: true,
       options: {
@@ -175,7 +173,7 @@ describe('normalizeOptions', () => {
     },
     {
       title:
-        'multi compiler, existing devServer.filename, existing compiler filename',
+        'multi compiler, existing options.filename, existing compiler filename',
       webpackConfig: {
         output: {
           filename: 'mybundle.js',
@@ -186,6 +184,138 @@ describe('normalizeOptions', () => {
         filename: 'devserver-bundle.js',
       },
       optionsResults: null,
+    },
+
+    {
+      title: 'no options.publicPath, no compiler publicPath',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {},
+    },
+    {
+      title: 'no options.publicPath, relative compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: '/assets/',
+        },
+      },
+      multiCompiler: false,
+      options: {},
+    },
+    {
+      title: 'no options.publicPath, bad relative compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: 'assets/',
+        },
+      },
+      multiCompiler: false,
+      options: {},
+    },
+    {
+      title: 'no options.publicPath, / compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: '/',
+        },
+      },
+      multiCompiler: false,
+      options: {},
+    },
+    {
+      title: 'no options.publicPath, absolute url compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: 'http://localhost:8080/assets/',
+        },
+      },
+      multiCompiler: false,
+      options: {},
+    },
+    {
+      title: 'multi compiler, no options.publicPath, no compiler publicPath',
+      webpackConfig: null,
+      multiCompiler: true,
+      options: {},
+    },
+    {
+      title:
+        'multi compiler, no options.publicPath, relative compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: '/assets/',
+        },
+      },
+      multiCompiler: true,
+      options: {},
+    },
+    {
+      title:
+        'multi compiler, no options.publicPath, bad relative compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: 'assets/',
+        },
+      },
+      multiCompiler: true,
+      options: {},
+    },
+    {
+      title: 'multi compiler, no options.publicPath, / compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: '/',
+        },
+      },
+      multiCompiler: true,
+      options: {},
+    },
+    {
+      title:
+        'multi compiler, no options.publicPath, absolute url compiler publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: 'http://localhost:8080/assets/',
+        },
+      },
+      multiCompiler: true,
+      options: {},
+    },
+    {
+      title: 'relative options.publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: '/',
+        },
+      },
+      multiCompiler: false,
+      options: {
+        publicPath: '/assets/',
+      },
+    },
+    {
+      title: 'bad relative options.publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: '/',
+        },
+      },
+      multiCompiler: false,
+      options: {
+        publicPath: 'assets/',
+      },
+    },
+    {
+      title: 'absolute options.publicPath',
+      webpackConfig: {
+        output: {
+          publicPath: '/',
+        },
+      },
+      multiCompiler: false,
+      options: {
+        publicPath: 'http://localhost:8080/assets/',
+      },
     },
   ];
 
