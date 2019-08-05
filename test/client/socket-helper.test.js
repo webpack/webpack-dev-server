@@ -8,7 +8,7 @@ describe('socket', () => {
 
   it('should default to SockJSClient when no __webpack_dev_server_client__ set', () => {
     jest.mock('../../client/clients/SockJSClient');
-    const socket = require('../../client/socket');
+    const { default: socket } = require('../../client/socket');
     const SockJSClient = require('../../client/clients/SockJSClient');
 
     const mockHandler = jest.fn();
@@ -36,7 +36,7 @@ describe('socket', () => {
 
   it('should use __webpack_dev_server_client__ when set', () => {
     jest.mock('../../client/clients/SockJSClient');
-    const socket = require('../../client/socket');
+    const { default: socket } = require('../../client/socket');
     global.__webpack_dev_server_client__ = require('../../client/clients/SockJSClient');
 
     const mockHandler = jest.fn();

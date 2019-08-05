@@ -37,7 +37,8 @@ describe('SockJSServer', () => {
       const data = [];
       let headers;
 
-      socketServer.onConnection(async (connection) => {
+      socketServer.onConnection(async (connection, h) => {
+        headers = h;
         data.push('open');
         socketServer.send(connection, 'hello world');
 
