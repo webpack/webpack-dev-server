@@ -26,7 +26,7 @@ describe('options', () => {
     const properties = Object.keys(options.properties);
     const messages = Object.keys(options.errorMessage.properties);
 
-    expect(properties.length).toEqual(messages.length);
+    expect(properties).toEqual(messages);
 
     const res = properties.every((name) => messages.includes(name));
 
