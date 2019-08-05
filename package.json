@@ -20,7 +20,7 @@
     "lint:type": "tsc --noEmit",
     "commitlint": "commitlint --from=master",
     "security": "npm audit",
-    "test:only": "jest",
+    "test:only": "jest --forceExit",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
     "test": "npm run test:coverage",
@@ -110,7 +110,7 @@
     "tcp-port-used": "^1.0.1",
     "typescript": "^3.5.3",
     "url-loader": "^1.1.2",
-    "webpack": "^4.39.0",
+    "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6"
   },
   "peerDependencies": {
