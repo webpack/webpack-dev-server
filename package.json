@@ -109,7 +109,7 @@
     "supertest": "^4.0.2",
     "tcp-port-used": "^1.0.1",
     "typescript": "^3.6.2",
-    "url-loader": "^1.1.2",
+    "url-loader": "^2.1.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8"
   },
