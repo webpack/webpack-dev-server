@@ -102,13 +102,14 @@ describe('runOpen util', () => {
     });
   });
 
-  it('on specify absolute https URL with page in Google Chrome ', () => {
-    return runOpen(
+  it('on specify absolute https URL with page in Google Chrome ', async () => {
+    await runOpen(
       'https://example.com',
       { open: 'Google Chrome', openPage: 'https://example2.com' },
       console
-    ).then(() => {
-      expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+    );
+
+    expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example2.com",
             Object {
@@ -117,16 +118,16 @@ describe('runOpen util', () => {
             },
           ]
         `);
-    });
   });
 
-  it('on specify absolute http URL with page in Google Chrome ', () => {
-    return runOpen(
+  it('on specify absolute http URL with page in Google Chrome ', async () => {
+    runOpen(
       'https://example.com',
       { open: 'Google Chrome', openPage: 'http://example2.com' },
       console
-    ).then(() => {
-      expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+    );
+
+    expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "http://example2.com",
             Object {
@@ -135,7 +136,6 @@ describe('runOpen util', () => {
             },
           ]
         `);
-    });
   });
 
   it('on specify multiple absolute https URLs with pages in Google Chrome ', () => {
