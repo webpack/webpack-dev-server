@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Validation validation should fail validation for invalid \`contentBase\` configuration 1`] = `
+"Invalid configuration object. Webpack Dev Server has been initialised using a configuration object that does not match the API schema.
+ - configuration.contentBase[0] should be a string."
+`;
+
+exports[`Validation validation should fail validation for invalid \`hot\` configuration 1`] = `
+"Invalid configuration object. Webpack Dev Server has been initialised using a configuration object that does not match the API schema.
+ - configuration.hot should be a boolean."
+`;
+
+exports[`Validation validation should fail validation for invalid \`logLevel\` configuration 1`] = `
+"Invalid configuration object. Webpack Dev Server has been initialised using a configuration object that does not match the API schema.
+ - configuration.logLevel should be one of these:
+   \\"info\\" | \\"warn\\" | \\"error\\" | \\"debug\\" | \\"trace\\" | \\"silent\\""
+`;
+
+exports[`Validation validation should fail validation for invalid \`overlay\` configuration 1`] = `
+"Invalid configuration object. Webpack Dev Server has been initialised using a configuration object that does not match the API schema.
+ - configuration.overlay.errors should be a boolean."
+`;
+
+exports[`Validation validation should fail validation for invalid \`writeToDisk\` configuration 1`] = `
+"Invalid configuration object. Webpack Dev Server has been initialised using a configuration object that does not match the API schema.
+ - configuration.writeToDisk should be one of these:
+   boolean | function
+   Details:
+    * configuration.writeToDisk should be a boolean.
+    * configuration.writeToDisk should be an instance of function."
+`;
+
+exports[`Validation validation should fail validation for no additional properties 1`] = `
+"Invalid configuration object. Webpack Dev Server has been initialised using a configuration object that does not match the API schema.
+ - configuration has an unknown property 'additional'. These properties are valid:
+   object { after?, allowedHosts?, before?, bonjour?, ca?, cert?, clientLogLevel?, clientMode?, compress?, contentBase?, disableHostCheck?, features?, filename?, fs?, headers?, historyApiFallback?, host?, hot?, hotOnly?, http2?, https?, index?, injectClient?, injectHot?, inline?, key?, lazy?, liveReload?, log?, logLevel?, logTime?, mimeTypes?, noInfo?, onListening?, open?, openPage?, overlay?, pfx?, pfxPassphrase?, port?, profile?, progress?, proxy?, public?, publicPath?, quiet?, reporter?, requestCert?, serveIndex?, serverMode?, serverSideRender?, setup?, sockHost?, sockPath?, sockPort?, socket?, staticOptions?, stats?, useLocalIp?, warn?, watchContentBase?, watchOptions?, writeToDisk? }"
+`;

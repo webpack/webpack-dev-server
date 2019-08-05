@@ -55,7 +55,7 @@
     "open": "^6.2.0",
     "p-retry": "^4.1.0",
     "portfinder": "^1.0.21",
-    "schema-utils": "^1.0.0",
+    "schema-utils": "^2.0.1",
     "selfsigned": "^1.10.4",
     "semver": "^6.3.0",
     "serve-index": "^1.9.1",

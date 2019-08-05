@@ -1,7 +1,6 @@
 'use strict';
 
 const { join } = require('path');
-const ValidationError = require('schema-utils/src/ValidationError');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
@@ -379,7 +378,9 @@ describe('options', () => {
             server = new Server(compiler, createOptions(key, sample));
             expect(false).toBeTruthy();
           } catch (e) {
-            expect(e).toBeInstanceOf(ValidationError);
+            expect(
+              e.message.includes('Invalid configuration object')
+            ).toBeTruthy();
           }
 
           // eslint-disable-next-line no-await-in-loop
