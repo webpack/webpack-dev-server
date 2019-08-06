@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 'use strict';
 
 const { join, resolve } = require('path');
@@ -16,35 +20,35 @@ const certPath = resolve(httpsCertificateDirectory, 'server.crt');
 
 describe('CLI', () => {
   it('--progress', async () => {
-    const { code, stderr } = await testBin('--progress');
-    expect(code).toEqual(0);
+    const { exitCode, stderr } = await testBin('--progress');
+    expect(exitCode).toEqual(0);
     expect(stderr.includes('0% compiling')).toBe(true);
   });
 
   it('--progress --profile', async () => {
-    const { code, stderr } = await testBin('--progress --profile');
-    expect(code).toEqual(0);
+    const { exitCode, stderr } = await testBin('--progress --profile');
+    expect(exitCode).toEqual(0);
     // should profile
     expect(stderr.includes('after chunk modules optimization')).toBe(true);
   });
 
   it('--bonjour', async () => {
-    const { code, stdout } = await testBin('--bonjour');
-    expect(code).toEqual(0);
+    const { exitCode, stdout } = await testBin('--bonjour');
+    expect(exitCode).toEqual(0);
     expect(stdout.includes('Bonjour')).toBe(true);
   });
 
   it('--https', async () => {
-    const { code, stdout } = await testBin('--https');
-    expect(code).toEqual(0);
+    const { exitCode, stdout } = await testBin('--https');
+    expect(exitCode).toEqual(0);
     expect(stdout.includes('Project is running at')).toBe(true);
   });
 
   it('--https --cacert --pfx --key --cert --pfx-passphrase', async () => {
-    const { code, stdout } = await testBin(
+    const { exitCode, stdout } = await testBin(
       `--https --cacert ${caPath} --pfx ${pfxPath} --key ${keyPath} --cert ${certPath} --pfx-passphrase webpack-dev-server`
     );
-    expect(code).toEqual(0);
+    expect(exitCode).toEqual(0);
     expect(stdout.includes('Project is running at')).toBe(true);
   });
 
@@ -69,8 +73,8 @@ describe('CLI', () => {
   // The Unix socket to listen to (instead of a host).
   it('--socket', async () => {
     const socketPath = join('.', 'webpack.sock');
-    const { code, stdout } = await testBin(`--socket ${socketPath}`);
-    expect(code).toEqual(0);
+    const { exitCode, stdout } = await testBin(`--socket ${socketPath}`);
+    expect(exitCode).toEqual(0);
 
     if (process.platform !== 'win32') {
       expect(stdout.includes(socketPath)).toBe(true);
@@ -81,18 +85,13 @@ describe('CLI', () => {
 
   it('should accept the promise function of webpack.config.js', async () => {
     try {
-      const { code } = await testBin(
+      const { exitCode } = await testBin(
         false,
         resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
       );
-      expect(code).toEqual(0);
+      expect(exitCode).toEqual(0);
     } catch (err) {
-      // for windows
-      if (process.platform === 'win32') {
-        expect(err.stdout.includes('Compiled successfully.')).toBe(true);
-      } else {
-        throw err;
-      }
+      expect(err.stdout.includes('Compiled successfully.')).toBe(true);
     }
   });
 
