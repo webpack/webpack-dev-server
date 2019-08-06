@@ -3,6 +3,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const normalizeOptions = require('../../../lib/utils/normalizeOptions');
+const multiWebpackConfig = require('../../fixtures/multi-compiler-config/webpack.config');
+const simpleWebpackConfig = require('../../fixtures/simple-config/webpack.config');
+const webpackConfigNoStats = require('../../fixtures/schema/webpack.config.no-dev-stats');
 
 describe('normalizeOptions', () => {
   const cases = [
@@ -12,8 +15,50 @@ describe('normalizeOptions', () => {
       options: {},
       optionsResults: null,
     },
+
+    // ------- compiler's options.devServer works ------- //
+
     {
-      title: 'contentBase string',
+      title: 'compiler options.devServer',
+      webpackConfig: {
+        devServer: {
+          hot: true,
+        },
+      },
+      multiCompiler: false,
+      options: {},
+      optionsResults: null,
+    },
+
+    {
+      title: 'complex compiler options.devServer',
+      webpackConfig: webpackConfigNoStats,
+      multiCompiler: false,
+      options: {},
+      optionsResults: {
+        contentBase: path.resolve('_contentBase'),
+      },
+    },
+
+    // ---- normal options override compiler's options.devServer ---- //
+
+    {
+      title: 'normal options override compiler options.devServer',
+      webpackConfig: {
+        devServer: {
+          hot: true,
+        },
+      },
+      multiCompiler: false,
+      options: {
+        hot: false,
+      },
+      optionsResults: null,
+    },
+
+    // ------------------ contentBase ------------------ //
+    {
+      title: 'contentBase (string)',
       multiCompiler: false,
       options: {
         contentBase: 'path/to/dist',
@@ -23,7 +68,7 @@ describe('normalizeOptions', () => {
       },
     },
     {
-      title: 'contentBase array',
+      title: 'contentBase (array)',
       multiCompiler: false,
       options: {
         contentBase: ['path/to/dist1', 'path/to/dist2'],
@@ -36,15 +81,15 @@ describe('normalizeOptions', () => {
       },
     },
     {
-      title: 'watchOptions',
+      title: 'contentBase (boolean)',
       multiCompiler: false,
       options: {
-        watchOptions: {
-          poll: true,
-        },
+        contentBase: false,
       },
       optionsResults: null,
     },
+
+    // ------------------ watchOptions ------------------ //
 
     {
       title: 'transportMode sockjs string',
@@ -123,6 +168,49 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
+      title: 'options.watchOptions',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        watchOptions: {
+          poll: true,
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'compiler watchOptions',
+      webpackConfig: {
+        watchOptions: {
+          poll: true,
+        },
+      },
+      multiCompiler: false,
+      options: {},
+      optionsResults: null,
+    },
+
+    // ------------------ filename ------------------ //
+
+    {
+      title: 'no options.filename, no compiler filename',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {},
+      optionsResults: null,
+    },
+    {
+      title: 'no options.filename, existing compiler filename',
+      webpackConfig: {
+        output: {
+          filename: 'mybundle.js',
+        },
+      },
+      multiCompiler: false,
+      options: {},
+      optionsResults: null,
+    },
+    {
       title: 'existing options.filename, no compiler filename',
       webpackConfig: null,
       multiCompiler: false,
@@ -144,47 +232,8 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
-    {
-      title: 'multi compiler, no options.filename, no compiler filename',
-      webpackConfig: null,
-      multiCompiler: true,
-      options: {},
-      optionsResults: null,
-    },
-    {
-      title: 'multi compiler, no options.filename, existing compiler filename',
-      webpackConfig: {
-        output: {
-          filename: 'mybundle.js',
-        },
-      },
-      multiCompiler: true,
-      options: {},
-      optionsResults: null,
-    },
-    {
-      title: 'multi compiler, existing options.filename, no compiler filename',
-      webpackConfig: null,
-      multiCompiler: true,
-      options: {
-        filename: 'devserver-bundle.js',
-      },
-      optionsResults: null,
-    },
-    {
-      title:
-        'multi compiler, existing options.filename, existing compiler filename',
-      webpackConfig: {
-        output: {
-          filename: 'mybundle.js',
-        },
-      },
-      multiCompiler: true,
-      options: {
-        filename: 'devserver-bundle.js',
-      },
-      optionsResults: null,
-    },
+
+    // ------------------ publicPath ------------------ //
 
     {
       title: 'no options.publicPath, no compiler publicPath',
@@ -233,55 +282,6 @@ describe('normalizeOptions', () => {
       options: {},
     },
     {
-      title: 'multi compiler, no options.publicPath, no compiler publicPath',
-      webpackConfig: null,
-      multiCompiler: true,
-      options: {},
-    },
-    {
-      title:
-        'multi compiler, no options.publicPath, relative compiler publicPath',
-      webpackConfig: {
-        output: {
-          publicPath: '/assets/',
-        },
-      },
-      multiCompiler: true,
-      options: {},
-    },
-    {
-      title:
-        'multi compiler, no options.publicPath, bad relative compiler publicPath',
-      webpackConfig: {
-        output: {
-          publicPath: 'assets/',
-        },
-      },
-      multiCompiler: true,
-      options: {},
-    },
-    {
-      title: 'multi compiler, no options.publicPath, / compiler publicPath',
-      webpackConfig: {
-        output: {
-          publicPath: '/',
-        },
-      },
-      multiCompiler: true,
-      options: {},
-    },
-    {
-      title:
-        'multi compiler, no options.publicPath, absolute url compiler publicPath',
-      webpackConfig: {
-        output: {
-          publicPath: 'http://localhost:8080/assets/',
-        },
-      },
-      multiCompiler: true,
-      options: {},
-    },
-    {
       title: 'relative options.publicPath',
       webpackConfig: {
         output: {
@@ -317,67 +317,170 @@ describe('normalizeOptions', () => {
         publicPath: 'http://localhost:8080/assets/',
       },
     },
+
+    // ------------------ stats ------------------ //
+
+    {
+      title: 'options.stats',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        stats: 'errors-only',
+      },
+    },
+    {
+      title: 'compiler stats',
+      webpackConfig: {
+        stats: { errors: true },
+      },
+      multiCompiler: false,
+      options: {},
+    },
+
+    // ------------------ inline ------------------ //
+
+    {
+      title: 'options.inline',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        inline: false,
+      },
+    },
+
+    // ------------------ liveReload ------------------ //
+
+    {
+      title: 'options.liveReload',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        liveReload: false,
+      },
+    },
+
+    // ------------------ open/openPage ------------------ //
+
+    {
+      title: 'options.open (boolean)',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        open: true,
+      },
+    },
+    {
+      title: 'options.open (string)',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        open: 'Google Chrome',
+      },
+    },
+    {
+      title: 'options.open (empty string)',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        open: '',
+      },
+    },
+    {
+      title: 'options.openPage, no options.open',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        openPage: '/different/page',
+      },
+    },
+    {
+      title: 'options.openPage, options.open',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        open: true,
+        openPage: '/different/page',
+      },
+    },
   ];
 
   cases.forEach((data) => {
-    describe(data.title, () => {
-      let compiler;
-      beforeAll(() => {
-        // this will merge webpack configs through a depth of one layer of objects,
-        // specifically so that the webpack config output object can be merged
-        const mergeConfigs = (baseConfig, config) => {
-          Object.keys(config).forEach((key1) => {
-            if (typeof config[key1] === 'object') {
-              Object.keys(config[key1]).forEach((key2) => {
-                if (!baseConfig[key1]) {
-                  baseConfig[key1] = {};
+    let repeatWithMultiCompiler = false;
+    if (data.webpackConfig) {
+      repeatWithMultiCompiler = true;
+    }
+
+    const useMultiCompiler = [false];
+
+    if (repeatWithMultiCompiler) {
+      useMultiCompiler.push(true);
+    }
+
+    useMultiCompiler.forEach((multi) => {
+      data.multiCompiler = multi;
+      describe(
+        data.title + (data.multiCompiler ? ' (multi compiler)' : ''),
+        () => {
+          let compiler;
+          beforeAll(() => {
+            // this will merge webpack configs through a depth of one layer of objects,
+            // specifically so that the webpack config output object can be merged
+            const mergeConfigs = (baseConfig, config) => {
+              Object.keys(config).forEach((key1) => {
+                if (typeof config[key1] === 'object') {
+                  Object.keys(config[key1]).forEach((key2) => {
+                    if (!baseConfig[key1]) {
+                      baseConfig[key1] = {};
+                    }
+                    baseConfig[key1][key2] = config[key1][key2];
+                  });
+                } else {
+                  baseConfig[key1] = config[key1];
                 }
-                baseConfig[key1][key2] = config[key1][key2];
               });
+            };
+
+            let webpackConfig;
+            if (data.multiCompiler) {
+              webpackConfig = [Object.assign({}, multiWebpackConfig[0])];
             } else {
-              baseConfig[key1] = config[key1];
+              webpackConfig = Object.assign({}, simpleWebpackConfig);
             }
+
+            if (data.webpackConfig) {
+              mergeConfigs(
+                data.multiCompiler ? webpackConfig[0] : webpackConfig,
+                data.webpackConfig
+              );
+            }
+
+            compiler = webpack(webpackConfig);
           });
-        };
 
-        let webpackConfig;
-        if (data.multiCompiler) {
-          webpackConfig = require('../../fixtures/multi-compiler-config/webpack.config');
-        } else {
-          webpackConfig = require('../../fixtures/simple-config/webpack.config');
-        }
+          it('should set correct options', () => {
+            const optionsClone = Object.assign({}, data.options);
+            const originalContentBase = optionsClone.contentBase;
+            normalizeOptions(compiler, optionsClone);
+            if (data.optionsResults) {
+              Object.keys(data.optionsResults).forEach((key) => {
+                expect(optionsClone[key]).toEqual(data.optionsResults[key]);
+                delete optionsClone[key];
+              });
+            }
 
-        if (data.webpackConfig) {
-          mergeConfigs(
-            data.multiCompiler ? webpackConfig[0] : webpackConfig,
-            data.webpackConfig
-          );
-        }
-
-        compiler = webpack(webpackConfig);
-      });
-
-      it('should set correct options', () => {
-        const originalContentBase = data.options.contentBase;
-        normalizeOptions(compiler, data.options);
-        if (data.optionsResults) {
-          Object.keys(data.optionsResults).forEach((key) => {
-            expect(data.options[key]).toEqual(data.optionsResults[key]);
-            delete data.options[key];
+            if (
+              optionsClone.contentBase &&
+              optionsClone.contentBase !== originalContentBase
+            ) {
+              // we don't want this in the snapshot, because it is
+              // the current working directory
+              expect(optionsClone.contentBase).toEqual(process.cwd());
+              delete optionsClone.contentBase;
+            }
+            expect(optionsClone).toMatchSnapshot();
           });
         }
-
-        if (
-          data.options.contentBase &&
-          data.options.contentBase !== originalContentBase
-        ) {
-          // we don't want this in the snapshot, because it is
-          // the current working directory
-          expect(data.options.contentBase).toEqual(process.cwd());
-          delete data.options.contentBase;
-        }
-        expect(data.options).toMatchSnapshot();
-      });
+      );
     });
   });
 });

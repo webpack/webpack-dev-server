@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path');
 const createConfig = require('../../../lib/utils/createConfig');
 const webpackConfig = require('./../../fixtures/schema/webpack.config.simple');
 const webpackConfigNoStats = require('./../../fixtures/schema/webpack.config.no-dev-stats');
@@ -210,131 +209,11 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('publicPath option (not specify)', () => {
-    const config = createConfig(webpackConfig, argv, { port: 8080 });
+  // removed: publicPath tests
 
-    expect(config).toMatchSnapshot();
-  });
+  // removed: filename tests
 
-  it('publicPath option (path in devServer option)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { publicPath: '/assets/' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('publicPath option (url in devServer option)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { publicPath: 'http://localhost:8080/assets/' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('publicPath option (url in output option)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { publicPath: 'http://localhost:8080/assets/' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('publicPath option (path in output option)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { publicPath: '/assets/' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('publicPath option (path without starting slash in output option)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { publicPath: 'assets/' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in webpack config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in output config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-output-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { filename: '[name]-dev-server-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('watchOptions option (in output config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        watchOptions: { poll: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('watchOptions option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { watchOptions: { poll: true } },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
+  // removed: watchOptions tests
 
   it('hot option', () => {
     const config = createConfig(
@@ -402,55 +281,7 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('contentBase option (string)', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { contentBase: 'assets' }),
-      { port: 8080 }
-    );
-
-    config.contentBase = path.relative(process.cwd(), config.contentBase);
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('contentBase option (array)', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { contentBase: ['assets', 'static'] }),
-      { port: 8080 }
-    );
-
-    config.contentBase = config.contentBase.map((item) =>
-      path.relative(process.cwd(), item)
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('contentBase option (boolean)', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { contentBase: false }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('contentBase option (string) (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { contentBase: 'assets' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    config.contentBase = path.relative(process.cwd(), config.contentBase);
-
-    expect(config).toMatchSnapshot();
-  });
+  // removed: contentBase tests
 
   it('watchContentBase option', () => {
     const config = createConfig(
