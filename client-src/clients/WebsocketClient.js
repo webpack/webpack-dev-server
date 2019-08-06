@@ -13,7 +13,8 @@ module.exports = class WebsocketClient extends BaseClient {
     this.client = new WebSocket(url.replace(/^http/, 'ws'));
 
     this.client.onerror = (err) => {
-      console.error(err);
+      // TODO: use logger to log the error event once client and client-src
+      // are reorganized to have the same directory structure
     };
   }
 

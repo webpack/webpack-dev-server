@@ -12,7 +12,8 @@ module.exports = class SockJSClient extends BaseClient {
     this.sock = new SockJS(url);
 
     this.sock.onerror = (err) => {
-      console.error(err);
+      // TODO: use logger to log the error event once client and client-src
+      // are reorganized to have the same directory structure
     };
   }
 
