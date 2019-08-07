@@ -8,7 +8,7 @@ describe('setupExitSignals', () => {
   const signals = ['SIGINT', 'SIGTERM'];
 
   beforeAll(() => {
-    exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => { });
+    exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
     server = {
       close: jest.fn((callback) => {
         callback();
@@ -41,12 +41,12 @@ describe('setupExitSignals', () => {
         server: null,
       };
       setupExitSignals(serverData);
-  
+
       setTimeout(() => {
         serverData.server = server;
         process.emit(signal);
       }, 500);
-  
+
       setTimeout(() => {
         expect(server.close.mock.calls.length).toEqual(1);
         expect(exitSpy.mock.calls.length).toEqual(1);
