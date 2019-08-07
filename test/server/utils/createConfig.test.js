@@ -209,12 +209,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  // removed: publicPath tests
-
-  // removed: filename tests
-
-  // removed: watchOptions tests
-
   it('hot option', () => {
     const config = createConfig(
       webpackConfig,
@@ -280,8 +274,6 @@ describe('createConfig', () => {
 
     expect(config).toMatchSnapshot();
   });
-
-  // removed: contentBase tests
 
   it('watchContentBase option', () => {
     const config = createConfig(
