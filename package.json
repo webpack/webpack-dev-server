@@ -105,7 +105,7 @@
     "puppeteer": "^1.19.0",
     "rimraf": "^2.6.3",
     "standard-version": "^7.0.0",
-    "style-loader": "^0.23.1",
+    "style-loader": "^1.0.0",
     "supertest": "^4.0.2",
     "tcp-port-used": "^1.0.1",
     "typescript": "^3.5.3",
