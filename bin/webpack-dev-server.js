@@ -19,8 +19,11 @@ const getVersions = require('../lib/utils/getVersions');
 const options = require('./options');
 
 let server;
+const serverData = {
+  server: null,
+};
 
-setupExitSignals(server);
+setupExitSignals(serverData);
 
 // Prefer the local installation of webpack-dev-server
 if (importLocal(__filename)) {
@@ -98,6 +101,7 @@ function startDevServer(config, options) {
 
   try {
     server = new Server(compiler, options, log);
+    serverData.server = server;
   } catch (err) {
     if (err.name === 'ValidationError') {
       log.error(colors.error(options.stats.colors, err.message));
