@@ -22,7 +22,10 @@ let server;
 const serverData = {
   server: null,
 };
-
+// we must pass an object that contains the server object as a property so that
+// we can update this server property later, and setupExitSignals will be able to 
+// recognize that the server has been instantiated, because we will set
+// serverData.server to the new server object.
 setupExitSignals(serverData);
 
 // Prefer the local installation of webpack-dev-server
