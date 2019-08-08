@@ -19,8 +19,14 @@ const getVersions = require('../lib/utils/getVersions');
 const options = require('./options');
 
 let server;
-
-setupExitSignals(server);
+const serverData = {
+  server: null,
+};
+// we must pass an object that contains the server object as a property so that
+// we can update this server property later, and setupExitSignals will be able to
+// recognize that the server has been instantiated, because we will set
+// serverData.server to the new server object.
+setupExitSignals(serverData);
 
 // Prefer the local installation of webpack-dev-server
 if (importLocal(__filename)) {
@@ -98,6 +104,7 @@ function startDevServer(config, options) {
 
   try {
     server = new Server(compiler, options, log);
+    serverData.server = server;
   } catch (err) {
     if (err.name === 'ValidationError') {
       log.error(colors.error(options.stats.colors, err.message));
