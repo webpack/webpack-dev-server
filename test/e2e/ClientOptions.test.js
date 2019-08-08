@@ -10,7 +10,7 @@ const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('Client code', () => {
-  function startProxy(port) {
+  function startProxy(port, cb) {
     const proxy = express();
     proxy.use(
       '/',
@@ -20,7 +20,7 @@ describe('Client code', () => {
         changeOrigin: true,
       })
     );
-    return proxy.listen(port);
+    return proxy.listen(port, cb);
   }
 
   beforeAll((done) => {
@@ -45,8 +45,8 @@ describe('Client code', () => {
   describe('behind a proxy', () => {
     let proxy;
 
-    beforeAll(() => {
-      proxy = startProxy(port2);
+    beforeAll((done) => {
+      proxy = startProxy(port2, done);
     });
 
     afterAll((done) => {
@@ -55,15 +55,14 @@ describe('Client code', () => {
       });
     });
 
-    it('responds with a 200', (done) => {
-      {
-        const req = request(`http://localhost:${port2}`);
-        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
-      }
-      {
-        const req = request(`http://localhost:${port1}`);
-        req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
-      }
+    it('responds with a 200 on proxy port', (done) => {
+      const req = request(`http://localhost:${port2}`);
+      req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+    });
+
+    it('responds with a 200 on non-proxy port', (done) => {
+      const req = request(`http://localhost:${port1}`);
+      req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
     });
 
     it('requests websocket through the proxy with proper port number', (done) => {
