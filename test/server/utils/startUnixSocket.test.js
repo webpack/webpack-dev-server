@@ -114,7 +114,7 @@ describe('startUnixSocket', () => {
       setTimeout(() => {
         expect(userCallback).toBeCalledTimes(1);
         done();
-      }, 10000);
+      }, 3000);
     });
 
     afterAll((done) => {
