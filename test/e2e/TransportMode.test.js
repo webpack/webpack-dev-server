@@ -14,7 +14,9 @@ describe('transportMode client', () => {
     {
       title: 'sockjs',
       options: {
-        transportMode: 'sockjs',
+        transportMode: {
+          client: 'sockjs',
+        },
       },
     },
     {
