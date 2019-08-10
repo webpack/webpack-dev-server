@@ -48,8 +48,10 @@ describe('updatePublicPath', () => {
       () => () => url
     );
 
-    // eslint-disable-next-line global-require
-    const updatePublicPath = require('../../../client-src/default/utils/updatePublicPath');
+    const {
+      default: updatePublicPath,
+      // eslint-disable-next-line global-require
+    } = require('../../../client-src/default/utils/updatePublicPath');
 
     test(`should set public path when __resourceQuery is ${url}`, () => {
       __webpack_public_path__ = '';

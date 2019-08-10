@@ -1,9 +1,7 @@
-'use strict';
-
 /* global __webpack_public_path__ */
 
-const url = require('url');
-const getUrlParts = require('./getUrlParts');
+import url from 'url';
+import getUrlParts from './getUrlParts';
 
 function updatePublicPath(resourceQuery) {
   const urlParts = getUrlParts(resourceQuery);
@@ -26,4 +24,4 @@ function updatePublicPath(resourceQuery) {
   __webpack_public_path__ = __webpack_public_path__ || publicPath;
 }
 
-module.exports = updatePublicPath;
+export default updatePublicPath;

@@ -9,6 +9,9 @@ import { log, setLogLevel } from './utils/log';
 import sendMessage from './utils/sendMessage';
 import reloadApp from './utils/reloadApp';
 import createSocketUrl from './utils/createSocketUrl';
+import updatePublicPath from './utils/updatePublicPath';
+
+updatePublicPath(__resourceQuery);
 
 const status = {
   isUnloading: false,

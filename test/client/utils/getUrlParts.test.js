@@ -44,8 +44,10 @@ describe('getUrlParts', () => {
       () => () => url
     );
 
-    // eslint-disable-next-line global-require
-    const getUrlParts = require('../../../client-src/default/utils/getUrlParts');
+    const {
+      default: getUrlParts,
+      // eslint-disable-next-line global-require
+    } = require('../../../client-src/default/utils/getUrlParts');
 
     test(`should return url parts when __resourceQuery is ${url}`, () => {
       expect(getUrlParts(`?${url}`)).toMatchSnapshot();
