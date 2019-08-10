@@ -375,6 +375,10 @@ describe('options', () => {
           },
         ],
       },
+      stdin: {
+        success: [false],
+        failure: [''],
+      },
       useLocalIp: {
         success: [false],
         failure: [''],
