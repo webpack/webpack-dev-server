@@ -331,6 +331,10 @@ describe('options', () => {
         ],
         failure: ['whoops!', null],
       },
+      stdin: {
+        success: [false],
+        failure: [''],
+      },
       useLocalIp: {
         success: [false],
         failure: [''],

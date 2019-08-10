@@ -355,6 +355,9 @@
         }
       ]
     },
+    "stdin": {
+      "type": "boolean"
+    },
     "useLocalIp": {
       "type": "boolean"
     },
@@ -438,6 +441,7 @@
       "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserversocket)",
       "staticOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverstaticoptions)",
       "stats": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstats-)",
+      "stdin": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstdin)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)",
       "warn": "should be {Function}",
       "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverwatchcontentbase)",
