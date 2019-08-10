@@ -114,7 +114,8 @@
     "webpack-cli": "^3.3.6"
   },
   "peerDependencies": {
-    "webpack": "^4.0.0"
+    "webpack": "^4.0.0",
+    "webpack-cli": "^3.0.0"
   },
   "author": "Tobias Koppers @sokra",
   "bugs": "https://github.com/webpack/webpack-dev-server/issues",
