@@ -8,6 +8,7 @@ const { join, resolve } = require('path');
 const execa = require('execa');
 const { unlinkAsync } = require('../helpers/fs');
 const testBin = require('../helpers/test-bin');
+const timer = require('../helpers/timer');
 
 const httpsCertificateDirectory = resolve(
   __dirname,
@@ -83,28 +84,27 @@ describe('CLI', () => {
     }
   });
 
-  it('without --stdin, with stdin "end" event should time out', (done) => {
+  it('without --stdin, with stdin "end" event should time out', async (done) => {
     const configPath = resolve(
       __dirname,
       '../fixtures/simple-config/webpack.config.js'
     );
     const childProcess = testBin(false, configPath, true);
 
-    setTimeout(() => {
-      // this is meant to confirm that it does not have any effect on the running process
-      // since options.stdin is not enabled
-      childProcess.stdin.emit('end');
-      childProcess.stdin.pause();
-    }, 500);
-
-    setTimeout(() => {
-      childProcess.kill();
-    }, 1000);
-
     childProcess.once('exit', () => {
       expect(childProcess.killed).toBeTruthy();
       done();
     });
+
+    await timer(500);
+    // this is meant to confirm that it does not have any effect on the running process
+    // since options.stdin is not enabled
+    childProcess.stdin.emit('end');
+    childProcess.stdin.pause();
+
+    await timer(500);
+
+    childProcess.kill();
   });
 
   it('--stdin, with "end" event should exit without time out', async () => {
@@ -114,10 +114,10 @@ describe('CLI', () => {
     );
     const childProcess = testBin('--stdin', configPath);
 
-    setTimeout(() => {
-      childProcess.stdin.emit('end');
-      childProcess.stdin.pause();
-    }, 500);
+    await timer(500);
+
+    childProcess.stdin.emit('end');
+    childProcess.stdin.pause();
 
     const { exitCode, timedOut, killed } = await childProcess;
     expect(exitCode).toEqual(0);
