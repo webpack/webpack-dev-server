@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const { spawn } = require('child_process');
 const execa = require('execa');
 
 const webpackDevServerPath = path.resolve(
@@ -12,9 +13,12 @@ const basicConfigPath = path.resolve(
   '../fixtures/cli/webpack.config.js'
 );
 
-function testBin(testArgs, configPath) {
+function testBin(testArgs, configPath, useSpawn) {
   const cwd = process.cwd();
-  const env = process.env.NODE_ENV;
+  const env = {
+    NODE_ENV: process.env.NODE_ENV,
+    PATH: process.env.PATH,
+  };
 
   if (!configPath) {
     configPath = basicConfigPath;
@@ -28,7 +32,16 @@ function testBin(testArgs, configPath) {
 
   const args = [webpackDevServerPath, '--config', configPath].concat(testArgs);
 
-  return execa('node', args, { cwd, env, timeout: 10000 });
+  const opts = { cwd, env, timeout: 10000 };
+  let execLib = execa;
+  // use Node's spawn as a workaround for execa issues
+  // https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+  if (useSpawn) {
+    execLib = spawn;
+    delete opts.timeout;
+  }
+
+  return execLib('node', args, opts);
 }
 
 module.exports = testBin;
