@@ -1,5 +1,6 @@
 'use strict';
 
+const timer = require('../../helpers/timer');
 const handleStdin = require('../../../lib/utils/handleStdin');
 
 describe('handleStdin', () => {
@@ -15,28 +16,26 @@ describe('handleStdin', () => {
   });
 
   describe('enabled', () => {
-    it('should exit process', (done) => {
+    it('should exit process', async () => {
       handleStdin({
         stdin: true,
       });
       process.stdin.emit('end');
-      setTimeout(() => {
-        process.stdin.pause();
-        expect(exitSpy.mock.calls[0]).toEqual([0]);
-        done();
-      }, 1000);
+
+      await timer(1000);
+      process.stdin.pause();
+      expect(exitSpy.mock.calls[0]).toEqual([0]);
     });
   });
 
   describe('disabled (default)', () => {
-    it('should not exit process', (done) => {
+    it('should not exit process', async () => {
       handleStdin({});
       process.stdin.emit('end');
-      setTimeout(() => {
-        process.stdin.pause();
-        expect(exitSpy.mock.calls.length).toEqual(0);
-        done();
-      }, 1000);
+
+      await timer(1000);
+      process.stdin.pause();
+      expect(exitSpy.mock.calls.length).toEqual(0);
     });
   });
 });

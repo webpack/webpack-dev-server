@@ -2,6 +2,7 @@
 
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
+const timer = require('../helpers/timer');
 const port = require('../ports-map')['stdin-option'];
 
 describe('stdin', () => {
@@ -32,13 +33,11 @@ describe('stdin', () => {
       );
     });
 
-    it('should exit process', (done) => {
+    it('should exit process', async () => {
       process.stdin.emit('end');
-      setTimeout(() => {
-        process.stdin.pause();
-        expect(exitSpy.mock.calls[0]).toEqual([0]);
-        done();
-      }, 1000);
+      await timer(1000);
+      process.stdin.pause();
+      expect(exitSpy.mock.calls[0]).toEqual([0]);
     });
   });
 
@@ -53,13 +52,11 @@ describe('stdin', () => {
       );
     });
 
-    it('should not exit process', (done) => {
+    it('should not exit process', async () => {
       process.stdin.emit('end');
-      setTimeout(() => {
-        process.stdin.pause();
-        expect(exitSpy.mock.calls.length).toEqual(0);
-        done();
-      }, 1000);
+      await timer(1000);
+      process.stdin.pause();
+      expect(exitSpy.mock.calls.length).toEqual(0);
     });
   });
 });

@@ -107,7 +107,7 @@ describe('CLI', () => {
     });
   });
 
-  it('--stdin, with "end" event should exit without time out', (done) => {
+  it('--stdin, with "end" event should exit without time out', async () => {
     const configPath = resolve(
       __dirname,
       '../fixtures/simple-config/webpack.config.js'
@@ -119,15 +119,10 @@ describe('CLI', () => {
       childProcess.stdin.pause();
     }, 500);
 
-    childProcess
-      .then((output) => {
-        childProcess.stdin.removeAllListeners('end');
-        expect(output.code).toEqual(0);
-        expect(output.timedOut).toBeFalsy();
-        expect(output.killed).toBeFalsy();
-        done();
-      })
-      .catch(done);
+    const { exitCode, timedOut, killed } = await childProcess;
+    expect(exitCode).toEqual(0);
+    expect(timedOut).toBeFalsy();
+    expect(killed).toBeFalsy();
   });
 
   it('should accept the promise function of webpack.config.js', async () => {
