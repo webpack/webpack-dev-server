@@ -147,10 +147,6 @@ describe('options', () => {
         ],
         failure: ['whoops!'],
       },
-      clientMode: {
-        success: ['sockjs', require.resolve('../client/clients/SockJSClient')],
-        failure: [false],
-      },
       compress: {
         success: [true],
         failure: [''],
@@ -361,14 +357,6 @@ describe('options', () => {
         success: [true],
         failure: [''],
       },
-      serverMode: {
-        success: [
-          'sockjs',
-          require.resolve('../lib/servers/SockJSServer'),
-          SockJSServer,
-        ],
-        failure: [false],
-      },
       serverSideRender: {
         success: [true],
         failure: [''],
@@ -409,6 +397,62 @@ describe('options', () => {
           'verbose',
         ],
         failure: ['whoops!', null],
+      },
+      transportMode: {
+        success: [
+          'ws',
+          'sockjs',
+          {
+            transportMode: {
+              server: 'sockjs',
+            },
+          },
+          {
+            transportMode: {
+              server: require.resolve('../lib/servers/SockJSServer'),
+            },
+          },
+          {
+            transportMode: {
+              server: SockJSServer,
+            },
+          },
+          {
+            transportMode: {
+              client: 'sockjs',
+            },
+          },
+          {
+            transportMode: {
+              client: require.resolve('../client/clients/SockJSClient'),
+            },
+          },
+          {
+            transportMode: {
+              server: SockJSServer,
+              client: require.resolve('../client/clients/SockJSClient'),
+            },
+          },
+        ],
+        failure: [
+          'nonexistent-implementation',
+          null,
+          {
+            transportMode: {
+              notAnOption: true,
+            },
+          },
+          {
+            transportMode: {
+              server: false,
+            },
+          },
+          {
+            transportMode: {
+              client: () => {},
+            },
+          },
+        ],
       },
       useLocalIp: {
         success: [false],
