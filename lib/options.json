@@ -246,6 +246,21 @@
         },
         {
           "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "basePort": {
+              "type": "number"
+            },
+            "highestPort": {
+              "type": "number"
+            },
+            "retry": {
+              "type": "number"
+            }
+          },
+          "required": ["basePort"]
         }
       ]
     },
@@ -422,7 +437,7 @@
       "overlay": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveroverlay)",
       "pfx": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserverpfx)",
       "pfxPassphrase": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpfxpassphrase)",
-      "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
+      "port": "should be {Number|String|Null|Object} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "profile": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprofile)",
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",

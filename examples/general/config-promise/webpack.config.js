@@ -1,15 +1,25 @@
 'use strict';
 
-// our setup function adds behind-the-scenes bits to the config that all of our
-// examples need
+const http = require('http');
 const { setup } = require('../../util');
 
-module.exports = new Promise((resolve) => {
-  resolve(
-    setup({
-      context: __dirname,
-      entry: './app.js',
-      devServer: {},
-    })
-  );
-});
+const basePort = 8085;
+
+module.exports = async () => {
+  await new Promise((resolve) => {
+    const server = http.createServer();
+
+    server.listen(basePort, resolve);
+  });
+
+  return setup({
+    context: __dirname,
+    entry: './app.js',
+    devServer: {
+      port: {
+        // basePort,
+        highestPort: 8090,
+      },
+    },
+  });
+};

@@ -1,14 +1,23 @@
 'use strict';
 
 const http = require('http');
-const portfinder = require('portfinder');
-const findPort = require('../../../lib/utils/findPort');
+const port = require('../../ports-map').findPort;
+
+// 8139
+const basePort = port[0];
 
 describe('findPort', () => {
+  let findPort;
   let dummyServers = [];
 
+  beforeEach(() => {
+    jest.doMock('../../../lib/utils/defaultPort', () => basePort);
+    findPort = require('../../../lib/utils/findPort');
+  });
+
   afterEach(async () => {
-    delete process.env.DEFAULT_PORT_RETRY;
+    jest.resetAllMocks();
+    jest.resetModules();
 
     async function close(server) {
       return new Promise((resolve) => {
@@ -29,7 +38,7 @@ describe('findPort', () => {
       return new Promise((resolve) => {
         const server = http.createServer();
         dummyServers.push(server);
-        server.listen(8080 + i, resolve);
+        server.listen(basePort + i, resolve);
       });
     }
 
@@ -42,94 +51,119 @@ describe('findPort', () => {
   }
 
   it('should returns the port when the port is specified', async () => {
-    process.env.DEFAULT_PORT_RETRY = 5;
-
-    const port = await findPort(8082);
-    expect(port).toEqual(8082);
+    expect(await findPort(Number(basePort))).toEqual(basePort);
+    expect(await findPort(String(basePort))).toEqual(basePort);
+    expect(await findPort({ basePort })).toEqual(basePort);
   });
 
-  it.only('should returns the port when the port is null', async () => {
-    const retryCount = 2;
+  it('should returns the port when the port is null or undefined', async () => {
+    // basePort: 8139
+    // used ports: 8139, 8140
+    // retry:        0     1     2
+    // expect: 8141
+    const retry = 2;
 
-    process.env.DEFAULT_PORT_RETRY = 2;
+    await createDummyServers(retry);
 
-    await createDummyServers(retryCount);
-
-    const port = await findPort(null);
-
-    expect(port).toEqual(8080 + retryCount);
-  });
-
-  it('should returns the port when the port is undefined', async () => {
-    const retryCount = 2;
-
-    process.env.DEFAULT_PORT_RETRY = 2;
-
-    await createDummyServers(retryCount);
-
+    expect(await findPort(null)).toEqual(basePort + retry);
     // eslint-disable-next-line no-undefined
-    const port = findPort(undefined);
-
-    expect(port).toEqual(8080 + retryCount);
+    expect(await findPort(undefined)).toEqual(basePort + retry);
   });
 
-  it('should retry finding the port for up to defaultPortRetry times (number)', async () => {
-    const retryCount = 3;
+  it('should retry finding the port', async () => {
+    // basePort: 8139
+    // used ports: 8139
+    // retry:        0     1
+    // expect: 8140
+    const retry = 1;
 
-    process.env.DEFAULT_PORT_RETRY = retryCount;
+    await createDummyServers(retry);
 
-    await createDummyServers(retryCount);
-
-    const port = await findPort();
-
-    expect(port).toEqual(8080 + retryCount);
+    expect(await findPort({ retry })).toEqual(basePort + retry);
+    expect(await findPort({ retry: String(retry) })).toEqual(basePort + retry);
   });
 
-  it('should retry finding the port for up to defaultPortRetry times (string)', async () => {
-    const retryCount = 3;
+  it('should find an unused port when the highestPort is set', async () => {
+    // basePort: 8139
+    // highestPort: 8141
+    // used ports: 8139, 8140
+    // retry:        0     1     2     3
+    // expect: 8141
+    const allocatedPortsLength = 2;
+    const highestPort = basePort + 2;
 
-    process.env.DEFAULT_PORT_RETRY = `${retryCount}`;
+    await createDummyServers(allocatedPortsLength);
 
-    await createDummyServers(retryCount);
-
-    const port = await findPort();
-
-    expect(port).toEqual(8080 + retryCount);
+    expect(await findPort({ highestPort })).toEqual(
+      basePort + allocatedPortsLength
+    );
+    expect(await findPort({ highestPort: String(highestPort) })).toEqual(
+      basePort + allocatedPortsLength
+    );
   });
 
-  it('should retry finding the port when serial ports are busy', async () => {
-    const busyPorts = [8080, 8081, 8082, 8083];
+  it('should throw an error when a free port is not found', async () => {
+    // basePort: 8139
+    // used ports: 8139, 8140, 8141, 8142, 8143
+    // retry:        0     1     2
+    // expect: No open ports available
+    const allocatedPortsLength = 5;
+    const retry = 2;
 
-    process.env.DEFAULT_PORT_RETRY = 3;
+    await createDummyServers(allocatedPortsLength);
 
-    await createDummyServers(busyPorts);
-
-    const port = await findPort();
-
-    expect(port).toEqual(8080 + busyPorts.length);
+    await expect(
+      findPort({ highestPort: basePort + allocatedPortsLength, retry })
+    ).rejects.toThrow('No open ports available');
   });
 
-  it("should throws the error when the port isn't found", async () => {
-    expect.assertions(1);
+  it('should find an unused port when the basePort and highestPort are set', async () => {
+    // basePort: 8140
+    // highestPort: 8144
+    // used ports: 8139, 8140, 8141, 8142
+    // retry:              0     1     2     3
+    // expect: 8143
+    const allocatedPortsLength = 4;
+    const base = basePort + 1;
+    const highestPort = basePort + 5;
 
-    const spy = jest
-      .spyOn(portfinder, 'getPort')
-      .mockImplementation((callback) => {
-        return callback(new Error('busy'));
-      });
+    await createDummyServers(allocatedPortsLength);
 
-    const retryCount = 1;
+    expect(await findPort({ basePort: base, highestPort })).toEqual(
+      basePort + allocatedPortsLength
+    );
+  });
 
-    process.env.DEFAULT_PORT_RETRY = 0;
+  it('should find an unused port when the basePort, highestPort and retry are set', async () => {
+    // base: 8140
+    // highestPort: 8144
+    // used ports: 8139, 8140, 8141, 8142
+    const allocatedPortsLength = 4;
+    const base = basePort + 1;
+    const highestPort = basePort + 5;
 
-    await createDummyServers(retryCount);
+    await createDummyServers(allocatedPortsLength);
 
-    try {
-      await findPort();
-    } catch (err) {
-      expect(err.message).toMatchSnapshot();
+    {
+      // used ports: 8139, 8140, 8141, 8142
+      // retry:              0     1     2     3
+      // expect: 8143
+      const retry = 3;
+
+      expect(await findPort({ basePort: base, highestPort, retry })).toEqual(
+        base + retry
+      );
     }
 
-    spy.mockRestore();
+    {
+      // used ports: 8139, 8140, 8141, 8142
+      // retry:                    0     1
+      // expect: No open ports available
+      const retry = 1;
+
+      await expect(
+        findPort({ basePort: base, highestPort, retry })
+      ).rejects.toThrow('No open ports available');
+    }
   });
 });
