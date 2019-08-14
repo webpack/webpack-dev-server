@@ -53,7 +53,6 @@
     "killable": "^1.0.1",
     "loglevel": "^1.6.3",
     "open": "^6.2.0",
-    "p-retry": "^4.1.0",
     "portfinder": "^1.0.21",
     "schema-utils": "^1.0.0",
     "selfsigned": "^1.10.4",
