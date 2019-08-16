@@ -268,7 +268,7 @@ describe('contentBase option', () => {
   });
 
   describe('testing single & multiple external paths', () => {
-    afterAll((done) => {
+    afterEach((done) => {
       testServer.close(() => {
         done();
       });
@@ -299,6 +299,29 @@ describe('contentBase option', () => {
       } catch (e) {
         expect(e.message).toBe('Watching remote files is not supported.');
         done();
+      }
+    });
+    it('Should not throw exception (local path with lower case first character)', (done) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        server = new Promise((resolve, reject) => {
+          testServer.start(config, {
+            contentBase:
+              contentBasePublic.charAt(0).toLowerCase() +
+              contentBasePublic.substring(1),
+            watchContentBase: true,
+            port: 2222,
+          });
+          resolve(testServer);
+        });
+
+        server.then((testServer) => {
+          testServer.close(() => {
+            done();
+          });
+        });
+      } catch (e) {
+        expect(true).toBe(false);
       }
     });
     it('Should throw exception (array)', (done) => {
