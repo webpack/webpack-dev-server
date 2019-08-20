@@ -74,6 +74,7 @@ Object {
 
 exports[`normalizeOptions compiler options.devServer (multi compiler) should set correct options 1`] = `
 Object {
+  "clientLogLevel": "silent",
   "filename": "[name].js",
   "hot": true,
   "inline": true,
@@ -93,6 +94,7 @@ Object {
 
 exports[`normalizeOptions compiler options.devServer should set correct options 1`] = `
 Object {
+  "clientLogLevel": "silent",
   "filename": "[name].js",
   "hot": true,
   "inline": true,
@@ -657,6 +659,7 @@ Object {
 
 exports[`normalizeOptions normal options override compiler options.devServer (multi compiler) should set correct options 1`] = `
 Object {
+  "clientLogLevel": "debug",
   "filename": "[name].js",
   "hot": false,
   "inline": true,
@@ -676,8 +679,180 @@ Object {
 
 exports[`normalizeOptions normal options override compiler options.devServer should set correct options 1`] = `
 Object {
+  "clientLogLevel": "debug",
   "filename": "[name].js",
   "hot": false,
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.clientLogLevel overrides compiler options.devServer.clientLogLevel (multi compiler) should set correct options 1`] = `
+Object {
+  "clientLogLevel": "debug",
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.clientLogLevel overrides compiler options.devServer.clientLogLevel should set correct options 1`] = `
+Object {
+  "clientLogLevel": "debug",
+  "filename": "mybundle.js",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.host localhost overrides compiler options.devServer.host (multi compiler) should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "host": "localhost",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.host localhost overrides compiler options.devServer.host should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "host": "localhost",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.host should set correct options 1`] = `
+Object {
+  "filename": "[name].js",
+  "host": "0.0.0.0",
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.hot overrides compiler options.devServer.hot (multi compiler) should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "hot": false,
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.hot overrides compiler options.devServer.hot should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "hot": false,
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.hotOnly overrides compiler options.devServer.hotOnly (multi compiler) should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "hotOnly": false,
+  "inline": true,
+  "liveReload": true,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions options.hotOnly overrides compiler options.devServer.hotOnly should set correct options 1`] = `
+Object {
+  "filename": "mybundle.js",
+  "hotOnly": false,
   "inline": true,
   "liveReload": true,
   "publicPath": "/",

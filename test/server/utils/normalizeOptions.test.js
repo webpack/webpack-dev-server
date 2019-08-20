@@ -16,13 +16,14 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
 
-    // ------- compiler's options.devServer works ------- //
+    // compiler's options.devServer works
 
     {
       title: 'compiler options.devServer',
       webpackConfig: {
         devServer: {
           hot: true,
+          clientLogLevel: 'silent',
         },
       },
       multiCompiler: false,
@@ -40,23 +41,25 @@ describe('normalizeOptions', () => {
       },
     },
 
-    // ---- normal options override compiler's options.devServer ---- //
+    // normal options override compiler's options.devServer
 
     {
       title: 'normal options override compiler options.devServer',
       webpackConfig: {
         devServer: {
           hot: true,
+          clientLogLevel: 'silent',
         },
       },
       multiCompiler: false,
       options: {
         hot: false,
+        clientLogLevel: 'debug',
       },
       optionsResults: null,
     },
 
-    // ------------------ contentBase ------------------ //
+    // contentBase
     {
       title: 'contentBase (string)',
       multiCompiler: false,
@@ -89,7 +92,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
 
-    // ------------------ watchOptions ------------------ //
+    // watchOptions
 
     {
       title: 'transportMode sockjs string',
@@ -190,7 +193,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
 
-    // ------------------ filename ------------------ //
+    // filename
 
     {
       title: 'no options.filename, no compiler filename',
@@ -233,7 +236,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
 
-    // ------------------ publicPath ------------------ //
+    // publicPath
 
     {
       title: 'no options.publicPath, no compiler publicPath',
@@ -318,7 +321,7 @@ describe('normalizeOptions', () => {
       },
     },
 
-    // ------------------ stats ------------------ //
+    // stats
 
     {
       title: 'options.stats',
@@ -337,7 +340,7 @@ describe('normalizeOptions', () => {
       options: {},
     },
 
-    // ------------------ inline ------------------ //
+    // inline
 
     {
       title: 'options.inline',
@@ -348,7 +351,7 @@ describe('normalizeOptions', () => {
       },
     },
 
-    // ------------------ liveReload ------------------ //
+    // liveReload
 
     {
       title: 'options.liveReload',
@@ -359,7 +362,7 @@ describe('normalizeOptions', () => {
       },
     },
 
-    // ------------------ open/openPage ------------------ //
+    // open/openPage
 
     {
       title: 'options.open (boolean)',
@@ -401,6 +404,78 @@ describe('normalizeOptions', () => {
         open: true,
         openPage: '/different/page',
       },
+    },
+
+    // host
+
+    // this test is here because previously devServer.host would override CLI host option
+    // only if CLI's options.host was localhost. Since we want a firm stance that
+    // normal/CLI options always override the compiler's devServer options, this is no
+    // longer the case.
+    {
+      title: 'options.host localhost overrides compiler options.devServer.host',
+      webpackConfig: {
+        devServer: {
+          host: '0.0.0.0',
+        },
+      },
+      multiCompiler: false,
+      options: {
+        host: 'localhost',
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'options.host',
+      webpackConfig: null,
+      multiCompiler: false,
+      options: {
+        host: '0.0.0.0',
+      },
+      optionsResults: null,
+    },
+
+    {
+      title: 'options.hot overrides compiler options.devServer.hot',
+      webpackConfig: {
+        devServer: {
+          hot: true,
+        },
+      },
+      multiCompiler: false,
+      options: {
+        hot: false,
+      },
+      optionsResults: null,
+    },
+
+    {
+      title: 'options.hotOnly overrides compiler options.devServer.hotOnly',
+      webpackConfig: {
+        devServer: {
+          hotOnly: true,
+        },
+      },
+      multiCompiler: false,
+      options: {
+        hotOnly: false,
+      },
+      optionsResults: null,
+    },
+
+    {
+      title:
+        'options.clientLogLevel overrides compiler options.devServer.clientLogLevel',
+      webpackConfig: {
+        devServer: {
+          clientLogLevel: 'silent',
+        },
+      },
+      multiCompiler: false,
+      options: {
+        clientLogLevel: 'debug',
+      },
+      optionsResults: null,
     },
   ];
 

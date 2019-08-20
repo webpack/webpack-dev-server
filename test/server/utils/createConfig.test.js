@@ -209,28 +209,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hot option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { hot: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('hot option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { hot: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('hotOnly option', () => {
     const config = createConfig(
       webpackConfig,
