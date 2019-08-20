@@ -10,7 +10,7 @@ describe('SockJSServer', () => {
   let socketServer;
   let listeningApp;
 
-  beforeAll((done) => {
+  beforeEach((done) => {
     // eslint-disable-next-line new-cap
     const app = new express();
 
@@ -84,9 +84,20 @@ describe('SockJSServer', () => {
         done();
       }, 3000);
     });
+
+    it('should not throw an exception when connection is null', () => {
+      const cb = jest.fn();
+
+      socketServer.onConnection(cb);
+
+      expect(() => {
+        socketServer.socket.emit('connection', null);
+      }).not.toThrow();
+      expect(cb.mock.calls[0]).toEqual([null, null]);
+    });
   });
 
-  afterAll((done) => {
+  afterEach((done) => {
     listeningApp.close(done);
   });
 });
