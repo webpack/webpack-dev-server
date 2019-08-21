@@ -302,69 +302,39 @@ describe('contentBase option', () => {
       }
     });
     it('Should not throw exception (local path with lower case first character)', (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = new Promise((resolve, reject) => {
-          testServer.start(config, {
-            contentBase:
-              contentBasePublic.charAt(0).toLowerCase() +
-              contentBasePublic.substring(1),
-            watchContentBase: true,
-            port: port + 1,
-          });
-          resolve(testServer);
-        });
-
-        server.then((resolvedServer) => {
-          resolvedServer.close(() => {
-            done();
-          });
-        });
-      } catch (e) {
-        expect(true).toBe(false);
-      }
+      testServer.start(
+        config,
+        {
+          contentBase:
+            contentBasePublic.charAt(0).toLowerCase() +
+            contentBasePublic.substring(1),
+          watchContentBase: true,
+          port,
+        },
+        done
+      );
     });
     it("Should not throw exception (local path with lower case first character & has '-')", (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = new Promise((resolve, reject) => {
-          testServer.start(config, {
-            contentBase: 'c:\\absolute\\path\\to\\content-base',
-            watchContentBase: true,
-            port: port + 2,
-          });
-          resolve(testServer);
-        });
-
-        server.then((resolvedServer) => {
-          resolvedServer.close(() => {
-            done();
-          });
-        });
-      } catch (e) {
-        expect(true).toBe(false);
-      }
+      testServer.start(
+        config,
+        {
+          contentBase: 'c:\\absolute\\path\\to\\content-base',
+          watchContentBase: true,
+          port,
+        },
+        done
+      );
     });
     it("Should not throw exception (local path with upper case first character & has '-')", (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = new Promise((resolve, reject) => {
-          testServer.start(config, {
-            contentBase: 'C:\\absolute\\path\\to\\content-base',
-            watchContentBase: true,
-            port: port + 3,
-          });
-          resolve(testServer);
-        });
-
-        server.then((resolvedServer) => {
-          resolvedServer.close(() => {
-            done();
-          });
-        });
-      } catch (e) {
-        expect(true).toBe(false);
-      }
+      testServer.start(
+        config,
+        {
+          contentBase: 'C:\\absolute\\path\\to\\content-base',
+          watchContentBase: true,
+          port,
+        },
+        done
+      );
     });
 
     it('Should throw exception (array)', (done) => {
