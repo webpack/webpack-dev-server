@@ -324,6 +324,49 @@ describe('contentBase option', () => {
         expect(true).toBe(false);
       }
     });
+    it("Should not throw exception (local path with lower case first character & has '-')", (done) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        server = new Promise((resolve, reject) => {
+          testServer.start(config, {
+            contentBase: 'c:absolutepath\tocontent-base',
+            watchContentBase: true,
+            port: 2223,
+          });
+          resolve(testServer);
+        });
+
+        server.then((testServer) => {
+          testServer.close(() => {
+            done();
+          });
+        });
+      } catch (e) {
+        expect(true).toBe(false);
+      }
+    });
+    it("Should not throw exception (local path with upper case first character & has '-')", (done) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        server = new Promise((resolve, reject) => {
+          testServer.start(config, {
+            contentBase: 'C:absolutepath\tocontent-base',
+            watchContentBase: true,
+            port: 2223,
+          });
+          resolve(testServer);
+        });
+
+        server.then((testServer) => {
+          testServer.close(() => {
+            done();
+          });
+        });
+      } catch (e) {
+        expect(true).toBe(false);
+      }
+    });
+
     it('Should throw exception (array)', (done) => {
       try {
         // eslint-disable-next-line no-unused-vars
