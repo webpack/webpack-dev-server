@@ -352,7 +352,7 @@ describe('contentBase option', () => {
           testServer.start(config, {
             contentBase: 'C:\\absolute\\path\\to\\content-base',
             watchContentBase: true,
-            port: 2223,
+            port: 2224,
           });
           resolve(testServer);
         });
