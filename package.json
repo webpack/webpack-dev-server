@@ -95,7 +95,7 @@
     "jest": "^24.9.0",
     "jest-junit": "^7.0.0",
     "jquery": "^3.4.1",
-    "less": "^3.10.1",
+    "less": "^3.10.2",
     "less-loader": "^5.0.0",
     "lint-staged": "^9.2.3",
     "marked": "^0.7.0",
