@@ -310,7 +310,7 @@ describe('contentBase option', () => {
               contentBasePublic.charAt(0).toLowerCase() +
               contentBasePublic.substring(1),
             watchContentBase: true,
-            port: 2222,
+            port: port+1,
           });
           resolve(testServer);
         });
@@ -331,7 +331,7 @@ describe('contentBase option', () => {
           testServer.start(config, {
             contentBase: 'c:\\absolute\\path\\to\\content-base',
             watchContentBase: true,
-            port: 2223,
+            port: port+2,
           });
           resolve(testServer);
         });
@@ -352,7 +352,7 @@ describe('contentBase option', () => {
           testServer.start(config, {
             contentBase: 'C:\\absolute\\path\\to\\content-base',
             watchContentBase: true,
-            port: 2224,
+            port: port+3,
           });
           resolve(testServer);
         });
