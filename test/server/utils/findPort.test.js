@@ -16,6 +16,8 @@ describe('findPort', () => {
   });
 
   afterEach(async () => {
+    delete process.env.DEFAULT_PORT_RETRY;
+
     jest.resetAllMocks();
     jest.resetModules();
 
@@ -62,6 +64,7 @@ describe('findPort', () => {
     // retry:        0     1     2
     // expect: 8141
     const retry = 2;
+    process.env.DEFAULT_PORT_RETRY = retry;
 
     await createDummyServers(retry);
 
@@ -76,11 +79,12 @@ describe('findPort', () => {
     // retry:        0     1
     // expect: 8140
     const retry = 1;
+    process.env.DEFAULT_PORT_RETRY = retry;
 
     await createDummyServers(retry);
 
-    expect(await findPort({ retry })).toEqual(basePort + retry);
-    expect(await findPort({ retry: String(retry) })).toEqual(basePort + retry);
+    expect(await findPort()).toEqual(basePort + retry);
+    expect(await findPort()).toEqual(basePort + retry);
   });
 
   it('should find an unused port when the highestPort is set', async () => {
@@ -109,11 +113,12 @@ describe('findPort', () => {
     // expect: No open ports available
     const allocatedPortsLength = 5;
     const retry = 2;
+    process.env.DEFAULT_PORT_RETRY = retry;
 
     await createDummyServers(allocatedPortsLength);
 
     await expect(
-      findPort({ highestPort: basePort + allocatedPortsLength, retry })
+      findPort({ highestPort: basePort + allocatedPortsLength })
     ).rejects.toThrow('No open ports available');
   });
 
@@ -149,8 +154,9 @@ describe('findPort', () => {
       // retry:              0     1     2     3
       // expect: 8143
       const retry = 3;
+      process.env.DEFAULT_PORT_RETRY = retry;
 
-      expect(await findPort({ basePort: base, highestPort, retry })).toEqual(
+      expect(await findPort({ basePort: base, highestPort })).toEqual(
         base + retry
       );
     }
@@ -160,10 +166,11 @@ describe('findPort', () => {
       // retry:                    0     1
       // expect: No open ports available
       const retry = 1;
+      process.env.DEFAULT_PORT_RETRY = retry;
 
-      await expect(
-        findPort({ basePort: base, highestPort, retry })
-      ).rejects.toThrow('No open ports available');
+      await expect(findPort({ basePort: base, highestPort })).rejects.toThrow(
+        'No open ports available'
+      );
     }
   });
 });

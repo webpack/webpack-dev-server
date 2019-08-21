@@ -255,9 +255,6 @@
             },
             "highestPort": {
               "type": "number"
-            },
-            "retry": {
-              "type": "number"
             }
           },
           "required": ["basePort"]
