@@ -329,7 +329,7 @@ describe('contentBase option', () => {
         // eslint-disable-next-line no-unused-vars
         server = new Promise((resolve, reject) => {
           testServer.start(config, {
-            contentBase: 'c:absolutepath\tocontent-base',
+            contentBase: 'c:\\absolute\\path\\to\\content-base',
             watchContentBase: true,
             port: 2223,
           });
@@ -350,7 +350,7 @@ describe('contentBase option', () => {
         // eslint-disable-next-line no-unused-vars
         server = new Promise((resolve, reject) => {
           testServer.start(config, {
-            contentBase: 'C:absolutepath\tocontent-base',
+            contentBase: 'C:\\absolute\\path\\to\\content-base',
             watchContentBase: true,
             port: 2223,
           });
