@@ -10,6 +10,7 @@ const { unlinkAsync } = require('../helpers/fs');
 const testBin = require('../helpers/test-bin');
 const port1 = require('../ports-map').cli[0];
 const timer = require('../helpers/timer');
+const { skipTestOnWindows } = require('../helpers/conditional-test');
 
 const httpsCertificateDirectory = resolve(
   __dirname,
@@ -94,14 +95,14 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  // The Unix socket to listen to (instead of a host).
-  it('--socket', async () => {
-    const socketPath = join('.', 'webpack.sock');
-    const { exitCode, stdout } = await testBin(`--socket ${socketPath}`);
-    expect(exitCode).toEqual(0);
+  describe('Unix socket', () => {
+    if (skipTestOnWindows('Unix sockets are not supported on Windows')) {
+      return;
+    }
 
-    if (process.platform !== 'win32') {
-      expect(stdout.includes(socketPath)).toBe(true);
+    // The Unix socket to listen to (instead of a host).
+    it('--socket', async () => {
+      const socketPath = join('.', 'webpack.sock');
 
     testBin(`--socket ${socketPath}`)
       .then((output) => {
