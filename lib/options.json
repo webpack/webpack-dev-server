@@ -51,9 +51,6 @@
           "enum": [false]
         },
         {
-          "type": "number"
-        },
-        {
           "type": "string"
         },
         {
@@ -392,7 +389,7 @@
       "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'silent', 'info', 'debug', 'trace', 'error', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
       "clientMode": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverclientmode)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
-      "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
+      "contentBase": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
       "features": "should be {Array}",
       "filename": "should be {String|RegExp|Function} (https://webpack.js.org/configuration/dev-server/#devserverfilename-)",

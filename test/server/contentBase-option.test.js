@@ -196,31 +196,6 @@ describe('contentBase option', () => {
     });
   });
 
-  describe('to port', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          contentBase: 9099999,
-          port,
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    afterAll((done) => {
-      testServer.close(done);
-    });
-
-    it('Request to page', async () => {
-      await req
-        .get('/other.html')
-        .expect('Location', '//localhost:9099999/other.html')
-        .expect(302);
-    });
-  });
-
   describe('to external url', () => {
     beforeAll((done) => {
       server = testServer.start(
@@ -285,11 +260,16 @@ describe('contentBase option', () => {
 
         expect(true).toBe(false);
       } catch (e) {
-        expect(e.message).toBe('Watching remote files is not supported.');
+        const [title, message] = e.message.split('\n\n');
+
+        expect(title).toEqual('webpack Dev Server Invalid Options');
+        expect(message.trim()).toEqual(
+          'options.contentBase should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)'
+        );
         done();
       }
     });
-    it('Should throw exception (array)', (done) => {
+    it('Should throw exception (array:string)', (done) => {
       try {
         // eslint-disable-next-line no-unused-vars
         server = testServer.start(config, {
@@ -300,6 +280,25 @@ describe('contentBase option', () => {
         expect(true).toBe(false);
       } catch (e) {
         expect(e.message).toBe('Watching remote files is not supported.');
+        done();
+      }
+    });
+    it('Should throw exception (array:number)', (done) => {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        server = testServer.start(config, {
+          contentBase: [contentBasePublic, 90999],
+          watchContentBase: true,
+        });
+
+        expect(true).toBe(false);
+      } catch (e) {
+        const [title, message] = e.message.split('\n\n');
+
+        expect(title).toEqual('webpack Dev Server Invalid Options');
+        expect(message.trim()).toEqual(
+          'options.contentBase should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)'
+        );
         done();
       }
     });
