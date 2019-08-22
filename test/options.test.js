@@ -77,8 +77,8 @@ describe('options', () => {
         failure: [''],
       },
       contentBase: {
-        success: [0, '.', false],
-        failure: [[1], [false]],
+        success: ['.', false],
+        failure: [1, [1], [false]],
       },
       disableHostCheck: {
         success: [true],
