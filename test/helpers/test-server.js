@@ -40,9 +40,19 @@ function startFullSetup(config, options, done) {
 
   server = new Server(compiler, options);
 
-  const port = Object.prototype.hasOwnProperty.call(options, 'port')
-    ? options.port
-    : 8080;
+  // originally the fallback default was 8080, but it should be
+  // undefined so that the server.listen method can choose it for us,
+  // and thus prevent port mapping collision between tests
+  let port;
+  if (Object.prototype.hasOwnProperty.call(options, 'port')) {
+    port = options.port;
+  } else if (Object.prototype.hasOwnProperty.call(options, 'socket')) {
+    port = options.socket;
+  } else {
+    // TODO: remove this when findPort is implemented in the server.listen method
+    port = 8080;
+  }
+
   const host = Object.prototype.hasOwnProperty.call(options, 'host')
     ? options.host
     : 'localhost';
@@ -65,10 +75,12 @@ function startFullSetup(config, options, done) {
 
 function startAwaitingCompilationFullSetup(config, options, done) {
   let readyCount = 0;
-  const ready = () => {
+  let err;
+  const ready = (e) => {
+    err = e instanceof Error || (typeof e === 'object' && e.code) ? e : err;
     readyCount += 1;
     if (readyCount === 2) {
-      done();
+      done(err);
     }
   };
 

@@ -9,6 +9,7 @@ const execa = require('execa');
 const { unlinkAsync } = require('../helpers/fs');
 const testBin = require('../helpers/test-bin');
 const timer = require('../helpers/timer');
+const { skipTestOnWindows } = require('../helpers/conditional-test');
 
 const httpsCertificateDirectory = resolve(
   __dirname,
@@ -71,17 +72,24 @@ describe('CLI', () => {
     expect(stdout.includes('\u001b[39m \u001b[90m｢wds｣\u001b[39m:')).toBe(true);
   });
 
-  // The Unix socket to listen to (instead of a host).
-  it('--socket', async () => {
-    const socketPath = join('.', 'webpack.sock');
-    const { exitCode, stdout } = await testBin(`--socket ${socketPath}`);
-    expect(exitCode).toEqual(0);
-
-    if (process.platform !== 'win32') {
-      expect(stdout.includes(socketPath)).toBe(true);
-
-      await unlinkAsync(socketPath);
+  describe('Unix socket', () => {
+    if (skipTestOnWindows('Unix sockets are not supported on Windows')) {
+      return;
     }
+
+    // The Unix socket to listen to (instead of a host).
+    it('--socket', async () => {
+      const socketPath = join('.', 'webpack.sock');
+
+      const { exitCode, stdout } = await testBin(`--socket ${socketPath}`);
+      expect(exitCode).toEqual(0);
+
+      if (process.platform !== 'win32') {
+        expect(stdout.includes(socketPath)).toBe(true);
+
+        await unlinkAsync(socketPath);
+      }
+    });
   });
 
   it('without --stdin, with stdin "end" event should time out', async (done) => {
