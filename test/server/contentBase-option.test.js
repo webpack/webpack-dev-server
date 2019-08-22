@@ -268,7 +268,7 @@ describe('contentBase option', () => {
   });
 
   describe('testing single & multiple external paths', () => {
-    afterAll((done) => {
+    afterEach((done) => {
       testServer.close(() => {
         done();
       });
@@ -301,6 +301,42 @@ describe('contentBase option', () => {
         done();
       }
     });
+    it('Should not throw exception (local path with lower case first character)', (done) => {
+      testServer.start(
+        config,
+        {
+          contentBase:
+            contentBasePublic.charAt(0).toLowerCase() +
+            contentBasePublic.substring(1),
+          watchContentBase: true,
+          port,
+        },
+        done
+      );
+    });
+    it("Should not throw exception (local path with lower case first character & has '-')", (done) => {
+      testServer.start(
+        config,
+        {
+          contentBase: 'c:\\absolute\\path\\to\\content-base',
+          watchContentBase: true,
+          port,
+        },
+        done
+      );
+    });
+    it("Should not throw exception (local path with upper case first character & has '-')", (done) => {
+      testServer.start(
+        config,
+        {
+          contentBase: 'C:\\absolute\\path\\to\\content-base',
+          watchContentBase: true,
+          port,
+        },
+        done
+      );
+    });
+
     it('Should throw exception (array)', (done) => {
       try {
         // eslint-disable-next-line no-unused-vars
