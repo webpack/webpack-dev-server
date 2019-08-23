@@ -81,6 +81,7 @@ describe('onListening option', () => {
     });
 
     it('should run onListening callback, providing server without error', () => {
+      // the err could be null or undefined
       expect(resultingErr == null).toBeTruthy();
       expect(resultingDevServer).toEqual(server);
       expect(onListeningIsRunning).toBe(true);
@@ -135,6 +136,7 @@ describe('onListening option', () => {
     });
 
     it('should run onListening callback with error', () => {
+      // the err could be null or undefined
       expect(resultingErr == null).toBeFalsy();
       expect(resultingErr.message).toEqual('This socket is already used');
       expect(resultingDevServer).toEqual(server);
