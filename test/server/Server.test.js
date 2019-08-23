@@ -184,17 +184,12 @@ describe('Server', () => {
     it('should complete async callback before calling onListening', (done) => {
       const callOrder = [];
       const compiler = webpack(config);
-      const server = new Server(
-        compiler,
-        Object.assign(
-          {
-            onListening: () => {
-              callOrder.push('onListening');
-            },
-          },
-          baseDevConfig
-        )
-      );
+      const server = new Server(compiler, {
+        onListening: () => {
+          callOrder.push('onListening');
+        },
+        ...baseDevConfig,
+      });
       server.listen(port, '0.0.0.0', async () => {
         await timer(1000);
         callOrder.push('user callback');
