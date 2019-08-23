@@ -37,7 +37,7 @@ describe('onListening option', () => {
     afterAll(testServer.close);
 
     it('should run onListening callback, providing server without error', () => {
-      expect(resultingErr).toBeUndefined();
+      expect(resultingErr).toEqual(null);
       expect(resultingDevServer).toEqual(server);
       expect(onListeningIsRunning).toBe(true);
     });
@@ -76,7 +76,7 @@ describe('onListening option', () => {
     afterAll(testServer.close);
 
     it('should run onListening callback, providing server without error', async () => {
-      expect(resultingErr).toBeUndefined();
+      expect(resultingErr).toEqual(null);
       expect(resultingDevServer).toEqual(server);
       expect(onListeningIsRunning).toBe(true);
 
@@ -127,7 +127,7 @@ describe('onListening option', () => {
     });
 
     it('should run onListening callback, providing server without error', async () => {
-      expect(resultingErr).not.toBeUndefined();
+      expect(resultingErr).not.toEqual(null);
       expect(resultingErr.message).toEqual('This socket is already used');
       expect(resultingDevServer).toEqual(server);
       expect(onListeningIsRunning).toBe(true);
