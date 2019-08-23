@@ -37,6 +37,63 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'transportMode sockjs string',
+      multiCompiler: false,
+      options: {
+        transportMode: 'sockjs',
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'transportMode ws string',
+      multiCompiler: false,
+      options: {
+        transportMode: 'ws',
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'transportMode ws object',
+      multiCompiler: false,
+      options: {
+        transportMode: {
+          server: 'ws',
+          client: 'ws',
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'transportMode custom server path',
+      multiCompiler: false,
+      options: {
+        transportMode: {
+          server: '/path/to/custom/server/',
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'transportMode custom server class',
+      multiCompiler: false,
+      options: {
+        transportMode: {
+          server: class CustomServerImplementation {},
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'transportMode custom client path',
+      multiCompiler: false,
+      options: {
+        transportMode: {
+          client: '/path/to/custom/client/',
+        },
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

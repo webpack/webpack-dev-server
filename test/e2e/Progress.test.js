@@ -5,7 +5,7 @@
 */
 const fs = require('fs');
 const { resolve } = require('path');
-const reloadConfig = require('../fixtures/reload-config/webpack.config');
+const reloadConfig = require('../fixtures/reload-config-2/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Progress;
 const {
@@ -13,7 +13,7 @@ const {
   completeReloadDelay,
 } = require('../helpers/puppeteer-constants');
 
-const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
+const cssFilePath = resolve(__dirname, '../fixtures/reload-config-2/main.css');
 
 describe('client progress', () => {
   let testServer;

@@ -8,7 +8,7 @@ const port = require('../ports-map').ProvidePlugin;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('ProvidePlugin', () => {
-  describe('inline with default clientMode (sockjs)', () => {
+  describe('inline with default transportMode.client (sockjs)', () => {
     beforeAll((done) => {
       const options = {
         port,
@@ -46,14 +46,13 @@ describe('ProvidePlugin', () => {
     });
   });
 
-  describe('inline with clientMode ws', () => {
+  describe('inline with transportMode.client ws', () => {
     beforeAll((done) => {
       const options = {
         port,
         host: '0.0.0.0',
         inline: true,
-        clientMode: 'ws',
-        serverMode: require.resolve('../../lib/servers/WebsocketServer'),
+        transportMode: 'ws',
         watchOptions: {
           poll: true,
         },

@@ -5,83 +5,97 @@ const SockJSServer = require('../../../lib/servers/SockJSServer');
 const WebsocketServer = require('../../../lib/servers/WebsocketServer');
 
 describe('getSocketServerImplementation util', () => {
-  it("should work with string serverMode ('sockjs')", () => {
+  it("should work with string transportMode.server ('sockjs')", () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        serverMode: 'sockjs',
+        transportMode: {
+          server: 'sockjs',
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should work with serverMode (SockJSServer class)', () => {
+  it('should work with transportMode.server (SockJSServer class)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        serverMode: SockJSServer,
+        transportMode: {
+          server: SockJSServer,
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should work with serverMode (SockJSServer full path)', () => {
+  it('should work with transportMode.server (SockJSServer full path)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        serverMode: require.resolve('../../../lib/servers/SockJSServer'),
+        transportMode: {
+          server: require.resolve('../../../lib/servers/SockJSServer'),
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(SockJSServer);
   });
 
-  it("should work with string serverMode ('ws')", () => {
+  it("should work with string transportMode.server ('ws')", () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        serverMode: 'ws',
+        transportMode: {
+          server: 'ws',
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(WebsocketServer);
   });
 
-  it('should work with serverMode (WebsocketServer class)', () => {
+  it('should work with transportMode.server (WebsocketServer class)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        serverMode: WebsocketServer,
+        transportMode: {
+          server: WebsocketServer,
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(WebsocketServer);
   });
 
-  it('should work with serverMode (WebsocketServer full path)', () => {
+  it('should work with transportMode.server (WebsocketServer full path)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        serverMode: require.resolve('../../../lib/servers/WebsocketServer'),
+        transportMode: {
+          server: require.resolve('../../../lib/servers/WebsocketServer'),
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(WebsocketServer);
   });
 
-  it('should throw with serverMode (bad path)', () => {
+  it('should throw with transportMode.server (bad path)', () => {
     expect(() => {
       getSocketServerImplementation({
-        serverMode: '/bad/path/to/implementation',
+        transportMode: {
+          server: '/bad/path/to/implementation',
+        },
       });
-    }).toThrow(/serverMode must be a string/);
+    }).toThrow(/transportMode.server must be a string/);
   });
 });
