@@ -118,16 +118,19 @@ describe('onListening option', () => {
             },
             socket: socketPath,
           },
-          done
+          // this function is passed err as the first argument, so we need
+          // to prevent jest from doing anything with it and call done()
+          // with no arguments
+          () => {
+            done();
+          }
         );
       });
     });
 
     afterAll((done) => {
       testUnixSocket.close(() => {
-        testServer.close(() => {
-          unlink(socketPath, done);
-        });
+        unlink(socketPath, done);
       });
     });
 
