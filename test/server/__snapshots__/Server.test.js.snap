@@ -59,3 +59,10 @@ Array [
   },
 ]
 `;
+
+exports[`Server server.listen should complete async callback before calling onListening 1`] = `
+Array [
+  "user callback",
+  "onListening",
+]
+`;
