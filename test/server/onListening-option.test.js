@@ -1,7 +1,7 @@
 'use strict';
 
 const { join } = require('path');
-const { unlinkAsync } = require('../helpers/fs');
+const { unlink } = require('fs');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['onListening-option'];
@@ -74,14 +74,16 @@ describe('onListening option', () => {
       );
     });
 
-    afterAll(testServer.close);
+    afterAll((done) => {
+      testServer.close(() => {
+        unlink(socketPath, done);
+      });
+    });
 
-    it('should run onListening callback, providing server without error', async () => {
+    it('should run onListening callback, providing server without error', () => {
       expect(resultingErr == null).toBeTruthy();
       expect(resultingDevServer).toEqual(server);
       expect(onListeningIsRunning).toBe(true);
-
-      await unlinkAsync(socketPath);
     });
   });
 
@@ -123,17 +125,17 @@ describe('onListening option', () => {
 
     afterAll((done) => {
       testUnixSocket.close(() => {
-        testServer.close(done);
+        testServer.close(() => {
+          unlink(socketPath, done);
+        });
       });
     });
 
-    it('should run onListening callback, providing server without error', async () => {
+    it('should run onListening callback with error', () => {
       expect(resultingErr == null).toBeFalsy();
       expect(resultingErr.message).toEqual('This socket is already used');
       expect(resultingDevServer).toEqual(server);
       expect(onListeningIsRunning).toBe(true);
-
-      await unlinkAsync(socketPath);
     });
   });
 });
