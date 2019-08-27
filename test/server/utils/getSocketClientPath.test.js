@@ -8,42 +8,60 @@ const sockjsClientPath = require.resolve(
 const baseClientPath = require.resolve('../../../client/clients/BaseClient');
 
 describe('getSocketClientPath', () => {
-  it("should work with clientMode: 'sockjs'", () => {
+  it("should work with transportMode.client: 'sockjs'", () => {
     let result;
 
     expect(() => {
       result = getSocketClientPath({
-        clientMode: 'sockjs',
+        transportMode: {
+          client: 'sockjs',
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(sockjsClientPath);
   });
 
-  it('should work with clientMode: SockJSClient full path', () => {
+  it('should work with transportMode.client: SockJSClient full path', () => {
     let result;
 
     expect(() => {
       result = getSocketClientPath({
-        clientMode: sockjsClientPath,
+        transportMode: {
+          client: sockjsClientPath,
+        },
       });
     }).not.toThrow();
 
     expect(result).toEqual(sockjsClientPath);
   });
 
-  it('should throw with clientMode: bad path', () => {
+  it('should throw with transportMode.client: bad path', () => {
     expect(() => {
       getSocketClientPath({
-        clientMode: '/bad/path/to/implementation',
+        transportMode: {
+          client: '/bad/path/to/implementation',
+        },
       });
-    }).toThrow(/clientMode must be a string/);
+    }).toThrow(/transportMode\.client must be a string/);
   });
 
-  it('should throw with clientMode: unimplemented client', () => {
+  it('should throw with transportMode.client: bad type', () => {
     expect(() => {
       getSocketClientPath({
-        clientMode: baseClientPath,
+        transportMode: {
+          client: 1,
+        },
+      });
+    }).toThrow(/transportMode\.client must be a string/);
+  });
+
+  it('should throw with transportMode.client: unimplemented client', () => {
+    expect(() => {
+      getSocketClientPath({
+        transportMode: {
+          client: baseClientPath,
+        },
       });
     }).toThrow('Client needs implementation');
   });

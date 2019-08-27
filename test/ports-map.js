@@ -32,21 +32,20 @@ const portsList = {
   'open-option': 1,
   'port-option': 1,
   'proxy-option': 4,
-  'serverMode-option': 1,
+  'transportMode-option': 1,
   'sockPath-option': 1,
   'stats-option': 1,
   ProvidePlugin: 1,
   WebsocketClient: 1,
   WebsocketServer: 1,
-  ClientMode: 1,
-  'clientMode-option': 1,
+  TransportMode: 1,
   Progress: 1,
   'progress-option': 1,
   'profile-option': 1,
   Iframe: 1,
 };
 
-let startPort = 8079;
+let startPort = 8089;
 const ports = {};
 
 Object.keys(portsList).forEach((key) => {

@@ -5,11 +5,15 @@
 */
 const fs = require('fs');
 const { resolve } = require('path');
-const reloadConfig = require('../fixtures/reload-config/webpack.config');
+const reloadConfig = require('../fixtures/reload-config-2/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Progress;
+const {
+  reloadReadyDelay,
+  completeReloadDelay,
+} = require('../helpers/puppeteer-constants');
 
-const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
+const cssFilePath = resolve(__dirname, '../fixtures/reload-config-2/main.css');
 
 describe('client progress', () => {
   let testServer;
@@ -22,7 +26,6 @@ describe('client progress', () => {
       processStderrMock = jest
         .spyOn(process.stderr, 'write')
         .mockImplementation();
-      // eslint-disable-next-line global-require
       testServer = require('../helpers/test-server');
 
       fs.writeFileSync(
@@ -37,7 +40,7 @@ describe('client progress', () => {
         hot: true,
         progress: true,
         watchOptions: {
-          poll: 500,
+          poll: true,
         },
       };
 
@@ -55,20 +58,22 @@ describe('client progress', () => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            fs.writeFileSync(
-              cssFilePath,
-              'body { background-color: rgb(255, 0, 0); }'
-            );
-            page.waitFor(10000).then(() => {
-              browser.close().then(() => {
-                // check that there is some percentage progress output
-                const regExp = /^\[WDS\] [0-9]{1,3}% - /;
-                const match = res.find((line) => {
-                  return regExp.test(line);
+            page.waitFor(reloadReadyDelay).then(() => {
+              fs.writeFileSync(
+                cssFilePath,
+                'body { background-color: rgb(255, 0, 0); }'
+              );
+              page.waitFor(completeReloadDelay).then(() => {
+                browser.close().then(() => {
+                  // check that there is some percentage progress output
+                  const regExp = /^\[WDS\] [0-9]{1,3}% - /;
+                  const match = res.find((line) => {
+                    return regExp.test(line);
+                  });
+                  // eslint-disable-next-line no-undefined
+                  expect(match).not.toEqual(undefined);
+                  done();
                 });
-                // eslint-disable-next-line no-undefined
-                expect(match).not.toEqual(undefined);
-                done();
               });
             });
           });

@@ -34,9 +34,9 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.code).toEqual(0);
         // should profile
-        expect(
-          output.stderr.includes('ms after chunk modules optimization')
-        ).toBe(true);
+        expect(output.stderr.includes('after chunk modules optimization')).toBe(
+          true
+        );
         done();
       })
       .catch(done);
@@ -78,8 +78,17 @@ describe('CLI', () => {
     testBin('--sockPath /mysockPath')
       .then((output) => {
         expect(
-          output.stdout.includes('http://localhost&sockPath=/mysockPath')
+          /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(output.stdout)
         ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('unspecified port', (done) => {
+    testBin('')
+      .then((output) => {
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
         done();
       })
       .catch(done);
