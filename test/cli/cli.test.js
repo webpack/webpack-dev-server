@@ -36,9 +36,9 @@ describe('CLI', () => {
     expect(
       output.stdout.includes('Project is running at http://localhost:8080/')
     ).toBe(true);
-    expect(
-      output.stdout.includes('webpack output is served from /')
-    ).toBe(true);
+    expect(output.stdout.includes('webpack output is served from /')).toBe(
+      true
+    );
     expect(
       output.stdout.includes('Content not from webpack is served from')
     ).toBe(true);
