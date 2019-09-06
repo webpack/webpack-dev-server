@@ -51,12 +51,12 @@
     "ip": "^1.1.5",
     "is-absolute-url": "^3.0.1",
     "killable": "^1.0.1",
-    "loglevel": "^1.6.3",
+    "loglevel": "^1.6.4",
     "opn": "^5.5.0",
     "p-retry": "^3.0.1",
-    "portfinder": "^1.0.23",
+    "portfinder": "^1.0.24",
     "schema-utils": "^1.0.0",
-    "selfsigned": "^1.10.4",
+    "selfsigned": "^1.10.6",
     "semver": "^6.3.0",
     "serve-index": "^1.9.1",
     "sockjs": "0.3.19",
@@ -111,7 +111,7 @@
     "typescript": "^3.6.2",
     "url-loader": "^1.1.2",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.8"
   },
   "peerDependencies": {
     "webpack": "^4.0.0"
