@@ -47,6 +47,9 @@ jobs:
         node-8:
           node_version: ^8.9.0
           webpack_version: latest
+        node-8-canary:
+          node_version: ^8.9.0
+          webpack_version: next
     steps:
       - task: NodeTool@0
         inputs:
@@ -95,6 +98,9 @@ jobs:
         node-8:
           node_version: ^8.9.0
           webpack_version: latest
+        node-8-canary:
+          node_version: ^8.9.0
+          webpack_version: next
     steps:
       - task: NodeTool@0
         inputs:
@@ -143,6 +149,9 @@ jobs:
         node-8:
           node_version: ^8.9.0
           webpack_version: latest
+        node-8-canary:
+          node_version: ^8.9.0
+          webpack_version: next
     steps:
       - script: 'git config --global core.autocrlf input'
         displayName: 'Config git core.autocrlf'
