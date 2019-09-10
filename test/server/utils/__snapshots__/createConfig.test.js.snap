@@ -639,18 +639,6 @@ Object {
 }
 `;
 
-exports[`createConfig stats option (colors) 1`] = `
-Object {
-  "hot": true,
-  "noInfo": true,
-  "port": 8080,
-  "stats": Object {
-    "colors": true,
-    "errors": true,
-  },
-}
-`;
-
 exports[`createConfig stats option 1`] = `
 Object {
   "hot": true,

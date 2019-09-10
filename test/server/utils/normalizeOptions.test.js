@@ -477,6 +477,100 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+
+    {
+      title: 'compiler options.devServer.stats',
+      webpackConfig: {
+        devServer: {
+          stats: {
+            colors: true,
+          },
+        },
+      },
+      multiCompiler: false,
+      options: {},
+      optionsResults: null,
+    },
+    {
+      title: 'options.stats overrides compiler options.devServer.stats',
+      webpackConfig: {
+        devServer: {
+          // this stats object should not be used
+          stats: {
+            colors: true,
+          },
+        },
+      },
+      multiCompiler: false,
+      options: {
+        stats: {
+          cached: true,
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title:
+        'compiler options.devServer.stats overrides compiler options.stats',
+      webpackConfig: {
+        devServer: {
+          stats: {
+            colors: true,
+          },
+        },
+        // this stats object should not be used for the dev server
+        stats: 'none',
+      },
+      multiCompiler: false,
+      options: {},
+      optionsResults: null,
+    },
+    {
+      title: 'compiler options.stats',
+      webpackConfig: {
+        stats: 'none',
+      },
+      multiCompiler: false,
+      options: {},
+      optionsResults: null,
+    },
+
+    {
+      title:
+        'compiler options.stats.colors does not override options.stats.colors',
+      webpackConfig: {
+        stats: {
+          // colors for the dev server will be true, because the main options object
+          // explicitly sets colors to true below
+          colors: false,
+        },
+      },
+      multiCompiler: false,
+      options: {
+        stats: {
+          colors: true,
+          cached: true,
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'compiler options.stats.colors used',
+      webpackConfig: {
+        stats: {
+          // colors for the dev server will be false, because the main options object
+          // does not set colors below
+          colors: false,
+        },
+      },
+      multiCompiler: false,
+      options: {
+        stats: {
+          cached: true,
+        },
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

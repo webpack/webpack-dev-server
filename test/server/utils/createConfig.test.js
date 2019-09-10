@@ -287,18 +287,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('stats option (colors)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { stats: { errors: true } },
-      }),
-      Object.assign({}, argv, { color: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('lazy option', () => {
     const config = createConfig(
       webpackConfig,
