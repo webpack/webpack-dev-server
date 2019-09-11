@@ -110,20 +110,26 @@ Object {
     "cachedAssets": false,
     "colors": true,
   },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
   "watchOptions": Object {},
 }
 `;
 
 exports[`normalizeOptions compiler options.devServer.stats (multi compiler) should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "colors": true,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -131,14 +137,16 @@ Object {
 
 exports[`normalizeOptions compiler options.devServer.stats overrides compiler options.stats (multi compiler) should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "colors": true,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -146,14 +154,16 @@ Object {
 
 exports[`normalizeOptions compiler options.devServer.stats overrides compiler options.stats should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "colors": true,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -161,14 +171,16 @@ Object {
 
 exports[`normalizeOptions compiler options.devServer.stats should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "colors": true,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -176,41 +188,47 @@ Object {
 
 exports[`normalizeOptions compiler options.stats (multi compiler) should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": "none",
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
   "watchOptions": Object {},
 }
 `;
 
 exports[`normalizeOptions compiler options.stats should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": "none",
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
   "watchOptions": Object {},
 }
 `;
 
 exports[`normalizeOptions compiler options.stats.colors does not override options.stats.colors (multi compiler) should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "cached": true,
     "colors": true,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -218,15 +236,17 @@ Object {
 
 exports[`normalizeOptions compiler options.stats.colors does not override options.stats.colors should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "cached": true,
     "colors": true,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -234,15 +254,17 @@ Object {
 
 exports[`normalizeOptions compiler options.stats.colors used (multi compiler) should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "cached": true,
     "colors": false,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -250,12 +272,10 @@ Object {
 
 exports[`normalizeOptions compiler options.stats.colors used should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "cached": true,
     "colors": false,
@@ -584,6 +604,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "sockjs",
@@ -621,6 +642,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "sockjs",
@@ -658,6 +680,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "sockjs",
@@ -1195,21 +1218,27 @@ Object {
     "cachedAssets": false,
     "colors": true,
   },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
   "watchOptions": Object {},
 }
 `;
 
 exports[`normalizeOptions options.stats overrides compiler options.devServer.stats (multi compiler) should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "cached": true,
     "colors": true,
+  },
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
   },
   "watchOptions": Object {},
 }
@@ -1217,12 +1246,10 @@ Object {
 
 exports[`normalizeOptions options.stats overrides compiler options.devServer.stats should set correct options 1`] = `
 Object {
-  "clientMode": "sockjs",
   "filename": "mybundle.js",
   "inline": true,
   "liveReload": true,
   "publicPath": "/",
-  "serverMode": "sockjs",
   "stats": Object {
     "cached": true,
     "colors": true,
@@ -1318,6 +1345,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "/path/to/custom/client/",
@@ -1336,6 +1364,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "sockjs",
@@ -1354,6 +1383,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "sockjs",
@@ -1372,6 +1402,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "sockjs",
@@ -1390,6 +1421,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "ws",
@@ -1408,6 +1440,7 @@ Object {
   "stats": Object {
     "cached": false,
     "cachedAssets": false,
+    "colors": true,
   },
   "transportMode": Object {
     "client": "ws",
