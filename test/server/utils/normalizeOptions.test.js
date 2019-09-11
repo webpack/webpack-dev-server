@@ -2,12 +2,16 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const normalizeOptions = require('../../../lib/utils/normalizeOptions');
 const multiWebpackConfig = require('../../fixtures/multi-compiler-config/webpack.config');
 const simpleWebpackConfig = require('../../fixtures/simple-config/webpack.config');
 const webpackConfigNoStats = require('../../fixtures/schema/webpack.config.no-dev-stats');
 
 describe('normalizeOptions', () => {
+  jest.setMock('supports-color', {
+    stdout: true,
+  });
+  const normalizeOptions = require('../../../lib/utils/normalizeOptions');
+
   const cases = [
     {
       title: 'no options',
