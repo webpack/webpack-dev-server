@@ -29,6 +29,22 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--quiet', async (done) => {
+    const output = await testBin('--quiet');
+    expect(output.code).toEqual(0);
+    expect(output.stdout.split('\n').length === 3).toBe(true);
+    expect(
+      output.stdout.includes('Project is running at http://localhost:8080/')
+    ).toBe(true);
+    expect(output.stdout.includes('webpack output is served from /')).toBe(
+      true
+    );
+    expect(
+      output.stdout.includes('Content not from webpack is served from')
+    ).toBe(true);
+    done();
+  });
+
   it('--progress --profile', (done) => {
     testBin('--progress --profile')
       .then((output) => {
