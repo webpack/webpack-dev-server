@@ -49,7 +49,7 @@
     "import-local": "^2.0.0",
     "internal-ip": "^4.3.0",
     "ip": "^1.1.5",
-    "is-absolute-url": "^3.0.1",
+    "is-absolute-url": "^3.0.2",
     "killable": "^1.0.1",
     "loglevel": "^1.6.4",
     "opn": "^5.5.0",
