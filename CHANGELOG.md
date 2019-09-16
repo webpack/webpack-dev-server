@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.8.1](https://github.com/webpack/webpack-dev-server/compare/v3.8.0...v3.8.1) (2019-09-16)
+
+
+### Bug Fixes
+
+* add null check for connection.headers ([#2200](https://github.com/webpack/webpack-dev-server/issues/2200)) ([7964997](https://github.com/webpack/webpack-dev-server/commit/7964997))
+* false positive for an absolute path in the `ContentBase` option on windows ([#2202](https://github.com/webpack/webpack-dev-server/issues/2202)) ([68ecf78](https://github.com/webpack/webpack-dev-server/commit/68ecf78))
+* add status in quiet log level ([#2235](https://github.com/webpack/webpack-dev-server/issues/2235)) ([7e2224e](https://github.com/webpack/webpack-dev-server/commit/7e2224e))
+* scriptHost in client ([#2246](https://github.com/webpack/webpack-dev-server/issues/2246)) ([00903f6](https://github.com/webpack/webpack-dev-server/commit/00903f6))
+
 ## [3.8.0](https://github.com/webpack/webpack-dev-server/compare/v3.7.2...v3.8.0) (2019-08-09)
 
 
