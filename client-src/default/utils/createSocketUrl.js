@@ -16,8 +16,10 @@ function createSocketUrl(resourceQuery) {
     // Else, get the url from the <script> this file was called with.
     let scriptHost = getCurrentScriptSource();
 
-    // eslint-disable-next-line no-useless-escape
-    scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
+    if (scriptHost) {
+      // eslint-disable-next-line no-useless-escape
+      scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
+    }
     urlParts = url.parse(scriptHost || '/', false, true);
   }
 
