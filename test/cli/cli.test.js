@@ -4,6 +4,7 @@ const { unlink } = require('fs');
 const { join, resolve } = require('path');
 const execa = require('execa');
 const testBin = require('../helpers/test-bin');
+const port1 = require('../ports-map').cli[0];
 
 const httpsCertificateDirectory = resolve(
   __dirname,
@@ -30,11 +31,11 @@ describe('CLI', () => {
   });
 
   it('--quiet', async (done) => {
-    const output = await testBin('--quiet');
+    const output = await testBin(`--quiet --port ${port1}`);
     expect(output.code).toEqual(0);
     expect(output.stdout.split('\n').length === 3).toBe(true);
     expect(
-      output.stdout.includes('Project is running at http://localhost:8080/')
+      output.stdout.includes(`Project is running at http://localhost:${port1}/`)
     ).toBe(true);
     expect(output.stdout.includes('webpack output is served from /')).toBe(
       true
