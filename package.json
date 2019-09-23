@@ -111,7 +111,7 @@
     "typescript": "^3.6.3",
     "url-loader": "^1.1.2",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.9"
   },
   "peerDependencies": {
     "webpack": "^4.0.0"
