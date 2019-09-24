@@ -7,6 +7,7 @@ const { noop } = require('webpack-dev-middleware/lib/util');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
+const timer = require('../helpers/timer');
 
 jest.mock('sockjs/lib/transport');
 
@@ -168,6 +169,30 @@ describe('Server', () => {
       require('../../lib/Server');
 
       expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
+    });
+  });
+
+  describe('server.listen', () => {
+    it('should complete async callback before calling onListening', (done) => {
+      const callOrder = [];
+      const compiler = webpack(config);
+      const server = new Server(compiler, {
+        onListening: () => {
+          callOrder.push('onListening');
+        },
+        ...baseDevConfig,
+      });
+      server.listen(port, '0.0.0.0', async () => {
+        await timer(1000);
+        callOrder.push('user callback');
+      });
+
+      // we need a timeout because even if the server is done listening,
+      // the compiler might still be compiling
+      setTimeout(() => {
+        expect(callOrder).toMatchSnapshot();
+        server.close(done);
+      }, 5000);
     });
   });
 });
