@@ -110,7 +110,7 @@
     "tcp-port-used": "^1.0.1",
     "typescript": "^3.6.3",
     "url-loader": "^1.1.2",
-    "webpack": "^4.40.2",
+    "webpack": "^4.40.3",
     "webpack-cli": "^3.3.9"
   },
   "peerDependencies": {
