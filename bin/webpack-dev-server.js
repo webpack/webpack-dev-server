@@ -113,19 +113,13 @@ function startDevServer(config, options) {
     throw err;
   }
 
-  if (options.socket) {
-    server.listen(options.socket, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-  } else {
-    server.listen(options.port, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-  }
+  // options.socket does not have a default value, so it will only be set
+  // if the user sets it explicitly
+  server.listen(options.socket || options.port, options.host, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 }
 
 processOptions(config, argv, (config, options) => {
