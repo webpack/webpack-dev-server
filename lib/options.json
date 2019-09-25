@@ -40,23 +40,24 @@
       "enum": ["info", "warn", "error", "debug", "trace", "silent"]
     },
     "clientSocketOptions": {
-      "anyOf": [
-        {
-          "type": "array"
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
         },
-        {
-          "type": "object"
+        "path": {
+          "type": "string"
+        },
+        "port": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
         }
-      ],
-      "items": {
-        "anyOf": [
-          {
-            "type": "number"
-          },
-          {
-            "type": "string"
-          }
-        ]
       }
     },
     "compress": {
@@ -404,7 +405,7 @@
       "ca": "should be {String|Buffer}",
       "cert": "should be {String|Buffer}",
       "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'silent', 'info', 'debug', 'trace', 'error', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
-      "clientSocketOptions": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserverclientsocketoptions)",
+      "clientSocketOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclientsocketoptions)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",

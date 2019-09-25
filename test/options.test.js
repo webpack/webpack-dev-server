@@ -291,8 +291,8 @@ describe('options', () => {
         failure: [false],
       },
       clientSocketOptions: {
-        success: [[], ['']],
-        failure: [[false], false],
+        success: [{}],
+        failure: [false],
       },
       staticOptions: {
         success: [{}],
