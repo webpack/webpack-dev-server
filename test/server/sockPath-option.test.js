@@ -37,9 +37,7 @@ describe('sockPath options', () => {
       server = testServer.start(
         config,
         {
-          clientSocketOptions: {
-            path: '/foo/test/bar/',
-          },
+          sockPath: '/foo/test/bar/',
           port,
         },
         done

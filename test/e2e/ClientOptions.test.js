@@ -96,9 +96,7 @@ describe('Client complex inline script path', () => {
         poll: true,
       },
       public: 'myhost.test',
-      clientSocketOptions: {
-        path: '/foo/test/bar/',
-      },
+      sockPath: '/foo/test/bar/',
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -140,10 +138,8 @@ describe('Client complex inline script path with sockPort', () => {
       watchOptions: {
         poll: true,
       },
-      clientSocketOptions: {
-        path: '/foo/test/bar/',
-        port: port3,
-      },
+      sockPath: '/foo/test/bar/',
+      sockPort: port3,
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -189,9 +185,7 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
       watchOptions: {
         poll: true,
       },
-      clientSocketOptions: {
-        port: port3,
-      },
+      sockPort: port3,
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -231,9 +225,7 @@ describe('Client complex inline script path with sockHost', () => {
       watchOptions: {
         poll: true,
       },
-      clientSocketOptions: {
-        host: 'myhost.test',
-      },
+      sockHost: 'myhost.test',
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
