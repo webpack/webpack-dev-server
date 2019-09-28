@@ -13,6 +13,8 @@ describe('createSocketUrl', () => {
     // TODO: comment out after the major release
     // https://github.com/webpack/webpack-dev-server/pull/1954#issuecomment-498043376
     // 'file://filename',
+    // eslint-disable-next-line no-undefined
+    undefined,
   ];
 
   samples.forEach((url) => {
@@ -21,7 +23,6 @@ describe('createSocketUrl', () => {
       () => () => url
     );
 
-    // eslint-disable-next-line global-require
     const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {

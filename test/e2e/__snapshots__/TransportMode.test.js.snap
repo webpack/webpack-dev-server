@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transportMode client custom client on browser client logs correctly 1`] = `
+Array [
+  "Hey.",
+  "open",
+  "liveReload",
+  "[WDS] Live Reloading enabled.",
+  "hash",
+  "ok",
+  "close",
+  "[WDS] Disconnected!",
+]
+`;
+
+exports[`transportMode client sockjs on browser client logs correctly 1`] = `
+Array [
+  "Hey.",
+  "[WDS] Live Reloading enabled.",
+  "[WDS] Disconnected!",
+]
+`;
+
+exports[`transportMode client ws on browser client logs correctly 1`] = `
+Array [
+  "Hey.",
+  "[WDS] Live Reloading enabled.",
+  "[WDS] Disconnected!",
+]
+`;

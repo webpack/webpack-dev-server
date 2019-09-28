@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.8.1](https://github.com/webpack/webpack-dev-server/compare/v3.8.0...v3.8.1) (2019-09-16)
+
+
+### Bug Fixes
+
+* add null check for connection.headers ([#2200](https://github.com/webpack/webpack-dev-server/issues/2200)) ([7964997](https://github.com/webpack/webpack-dev-server/commit/7964997))
+* false positive for an absolute path in the `ContentBase` option on windows ([#2202](https://github.com/webpack/webpack-dev-server/issues/2202)) ([68ecf78](https://github.com/webpack/webpack-dev-server/commit/68ecf78))
+* add status in quiet log level ([#2235](https://github.com/webpack/webpack-dev-server/issues/2235)) ([7e2224e](https://github.com/webpack/webpack-dev-server/commit/7e2224e))
+* scriptHost in client ([#2246](https://github.com/webpack/webpack-dev-server/issues/2246)) ([00903f6](https://github.com/webpack/webpack-dev-server/commit/00903f6))
+
+## [3.8.0](https://github.com/webpack/webpack-dev-server/compare/v3.7.2...v3.8.0) (2019-08-09)
+
+
+### Bug Fixes
+
+* **server:** fix setupExitSignals usage ([#2181](https://github.com/webpack/webpack-dev-server/issues/2181)) ([bbe410e](https://github.com/webpack/webpack-dev-server/commit/bbe410e))
+* **server:** set port before instantiating server ([#2143](https://github.com/webpack/webpack-dev-server/issues/2143)) ([cfbf229](https://github.com/webpack/webpack-dev-server/commit/cfbf229))
+* check for name of HotModuleReplacementPlugin to avoid RangeError ([#2146](https://github.com/webpack/webpack-dev-server/issues/2146)) ([4579775](https://github.com/webpack/webpack-dev-server/commit/4579775))
+* **server:** check for external urls in array ([#1980](https://github.com/webpack/webpack-dev-server/issues/1980)) ([fa78347](https://github.com/webpack/webpack-dev-server/commit/fa78347))
+* **server:** fix header check for socket server ([#2077](https://github.com/webpack/webpack-dev-server/issues/2077)) ([7f51859](https://github.com/webpack/webpack-dev-server/commit/7f51859))
+* **server:** stricter headers security check ([#2092](https://github.com/webpack/webpack-dev-server/issues/2092)) ([078ddca](https://github.com/webpack/webpack-dev-server/commit/078ddca))
+
+
+### Features
+
+* **server:** add transportMode ([#2116](https://github.com/webpack/webpack-dev-server/issues/2116)) ([b5b9cb4](https://github.com/webpack/webpack-dev-server/commit/b5b9cb4))
+* **server:** serverMode 'ws' option ([#2082](https://github.com/webpack/webpack-dev-server/issues/2082)) ([04483f4](https://github.com/webpack/webpack-dev-server/commit/04483f4))
+* **server/client:** made progress option available to API ([#1961](https://github.com/webpack/webpack-dev-server/issues/1961)) ([56274e4](https://github.com/webpack/webpack-dev-server/commit/56274e4))
+
+### Potential Breaking changes
+
+We have migrated `serverMode` and `clientMode` to `transportMode` as an experimental option. If you want to use this feature, you have to change your settings. 
+
+Related PR: https://github.com/webpack/webpack-dev-server/pull/2116
+
+
 ### [3.7.2](https://github.com/webpack/webpack-dev-server/compare/v3.7.1...v3.7.2) (2019-06-17)
 
 

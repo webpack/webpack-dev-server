@@ -20,13 +20,14 @@ describe('open option', () => {
     const server = new Server(compiler, {
       open: true,
       port,
+      quiet: true,
     });
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://localhost:8110/",
+            "http://localhost:8120/",
             Object {
               "wait": false,
             },

@@ -10,6 +10,11 @@ const port = require('../ports-map').Server;
 
 jest.mock('sockjs/lib/transport');
 
+const baseDevConfig = {
+  port,
+  quiet: true,
+};
+
 describe('Server', () => {
   describe('sockjs', () => {
     it('add decorateConnection', () => {
@@ -22,10 +27,12 @@ describe('Server', () => {
   describe('addEntries', () => {
     it('add hot option', (done) => {
       const compiler = webpack(config);
-      const server = new Server(compiler, {
-        hot: true,
-        port,
-      });
+      const server = new Server(
+        compiler,
+        Object.assign({}, baseDevConfig, {
+          hot: true,
+        })
+      );
 
       expect(
         server.middleware.context.compiler.options.entry.map((p) => {
@@ -45,10 +52,12 @@ describe('Server', () => {
 
     it('add hotOnly option', (done) => {
       const compiler = webpack(config);
-      const server = new Server(compiler, {
-        hotOnly: true,
-        port,
-      });
+      const server = new Server(
+        compiler,
+        Object.assign({}, baseDevConfig, {
+          hotOnly: true,
+        })
+      );
 
       expect(
         server.middleware.context.compiler.options.entry.map((p) => {
@@ -95,7 +104,7 @@ describe('Server', () => {
       });
 
       const compiler = webpack(config);
-      const server = new Server(compiler, { port });
+      const server = new Server(compiler, baseDevConfig);
 
       compiler.hooks.done.tap('webpack-dev-server', (s) => {
         const output = server.getStats(s);
@@ -128,7 +137,6 @@ describe('Server', () => {
     it('should be present', () => {
       expect(process.env.WEBPACK_DEV_SERVER).toBeUndefined();
 
-      // eslint-disable-next-line global-require
       require('../../lib/Server');
 
       expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
@@ -139,7 +147,7 @@ describe('Server', () => {
     describe('Testing callback functions on calling invalidate without callback', () => {
       it('should be `noop` (the default callback function)', (done) => {
         const compiler = webpack(config);
-        const server = new Server(compiler, { port });
+        const server = new Server(compiler, baseDevConfig);
 
         server.invalidate();
         expect(server.middleware.context.callbacks[0]).toBe(noop);
@@ -156,7 +164,7 @@ describe('Server', () => {
       it('should be `callback` function', (done) => {
         const compiler = webpack(config);
         const callback = jest.fn();
-        const server = new Server(compiler, { port });
+        const server = new Server(compiler, baseDevConfig);
 
         server.invalidate(callback);
 

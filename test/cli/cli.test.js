@@ -4,6 +4,7 @@ const { unlink } = require('fs');
 const { join, resolve } = require('path');
 const execa = require('execa');
 const testBin = require('../helpers/test-bin');
+const port1 = require('../ports-map').cli[0];
 
 const httpsCertificateDirectory = resolve(
   __dirname,
@@ -29,14 +30,30 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--quiet', async (done) => {
+    const output = await testBin(`--quiet --port ${port1}`);
+    expect(output.code).toEqual(0);
+    expect(output.stdout.split('\n').length === 3).toBe(true);
+    expect(
+      output.stdout.includes(`Project is running at http://localhost:${port1}/`)
+    ).toBe(true);
+    expect(output.stdout.includes('webpack output is served from /')).toBe(
+      true
+    );
+    expect(
+      output.stdout.includes('Content not from webpack is served from')
+    ).toBe(true);
+    done();
+  });
+
   it('--progress --profile', (done) => {
     testBin('--progress --profile')
       .then((output) => {
         expect(output.code).toEqual(0);
         // should profile
-        expect(
-          output.stderr.includes('ms after chunk modules optimization')
-        ).toBe(true);
+        expect(output.stderr.includes('after chunk modules optimization')).toBe(
+          true
+        );
         done();
       })
       .catch(done);
@@ -78,8 +95,17 @@ describe('CLI', () => {
     testBin('--sockPath /mysockPath')
       .then((output) => {
         expect(
-          output.stdout.includes('http://localhost&sockPath=/mysockPath')
+          /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(output.stdout)
         ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('unspecified port', (done) => {
+    testBin('')
+      .then((output) => {
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
         done();
       })
       .catch(done);

@@ -3,6 +3,7 @@
 /* eslint-disable
   no-undefined
 */
+
 const webpack = require('webpack');
 const Server = require('../../lib/Server');
 
@@ -22,7 +23,8 @@ function startFullSetup(config, options, done) {
   if (
     options.inline === undefined &&
     options.hot === undefined &&
-    options.hotOnly === undefined
+    options.hotOnly === undefined &&
+    options.liveReload === undefined
   ) {
     options.inline = false;
   }

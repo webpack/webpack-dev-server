@@ -7,7 +7,7 @@ const createDomain = require('../../../lib/utils/createDomain');
 const [port1, port2] = require('../../ports-map').createDomain;
 const config = require('./../../fixtures/simple-config/webpack.config');
 
-describe('check utility functions', () => {
+describe('createDomain', () => {
   let compiler;
   let server;
 
@@ -25,6 +25,7 @@ describe('check utility functions', () => {
       options: {
         host: 'localhost',
         port: port1,
+        quiet: true,
       },
       expected: `http://localhost:${port1}`,
     },
@@ -32,6 +33,7 @@ describe('check utility functions', () => {
       name: 'no host option',
       options: {
         port: port1,
+        quiet: true,
       },
       expected: `http://localhost:${port1}`,
     },
@@ -41,6 +43,7 @@ describe('check utility functions', () => {
         host: 'localhost',
         port: port1,
         https: true,
+        quiet: true,
       },
       expected: `https://localhost:${port1}`,
       timeout: 60000,
@@ -51,6 +54,7 @@ describe('check utility functions', () => {
         host: 'localhost',
         port: port1,
         public: 'myhost.test',
+        quiet: true,
       },
       expected: 'http://myhost.test',
     },
@@ -60,6 +64,7 @@ describe('check utility functions', () => {
         host: 'localhost',
         port: port1,
         public: `myhost.test:${port2}`,
+        quiet: true,
       },
       expected: `http://myhost.test:${port2}`,
     },
@@ -69,6 +74,7 @@ describe('check utility functions', () => {
         host: 'localhost',
         port: port1,
         public: 'https://myhost.test',
+        quiet: true,
       },
       expected: 'https://myhost.test',
     },
@@ -78,6 +84,7 @@ describe('check utility functions', () => {
         host: 'localhost',
         port: port1,
         public: `https://myhost.test:${port2}`,
+        quiet: true,
       },
       expected: `https://myhost.test:${port2}`,
     },
@@ -86,6 +93,7 @@ describe('check utility functions', () => {
       options: {
         useLocalIp: true,
         port: port1,
+        quiet: true,
       },
       expected: `http://${internalIp.v4.sync() || 'localhost'}:${port1}`,
     },

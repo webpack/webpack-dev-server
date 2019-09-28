@@ -22,6 +22,7 @@ describe('profile', () => {
         // profile will only have an effect when progress is enabled
         progress: true,
         profile: true,
+        quiet: true,
       });
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -29,17 +30,21 @@ describe('profile', () => {
         mockStderr.mockRestore();
         let foundProgress = false;
         let foundProfile = false;
+
         calls.forEach((call) => {
-          if (call[0].includes('0% compiling')) {
+          const text = call[0];
+
+          if (text.includes('0% compiling')) {
             foundProgress = true;
           }
 
           // this is an indicator that the profile option is enabled,
           // so we should expect to find it in stderr since profile is enabled
-          if (call[0].includes('ms after chunk modules optimization')) {
+          if (text.includes('after chunk modules optimization')) {
             foundProfile = true;
           }
         });
+
         expect(foundProgress).toBeTruthy();
         expect(foundProfile).toBeTruthy();
 
