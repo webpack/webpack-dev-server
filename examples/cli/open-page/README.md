@@ -10,5 +10,5 @@ as the argument to the `open-page` option.
 
 ## What Should Happen
 
-The script should open `http://localhost:8080/` in your default browser.
-You should see the text on the page itself change to read `Success!`.
+The script should open `http://localhost:8080/example.html#page1` in your
+default browser. You should see the text on the page itself change to read `Success!`.
