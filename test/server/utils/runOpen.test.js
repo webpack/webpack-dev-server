@@ -51,14 +51,7 @@ describe('runOpen util', () => {
         { openPage: ['/index.html'] },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
-          Array [
-            "https://example.com/index.html",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
+        expect(opn.mock.calls[0]).toMatchSnapshot();
       });
     });
 
@@ -68,22 +61,8 @@ describe('runOpen util', () => {
         { openPage: ['/index.html', '/index2.html'] },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
-          Array [
-            "https://example.com/index.html",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
-        expect(opn.mock.calls[1]).toMatchInlineSnapshot(`
-          Array [
-            "https://example.com/index2.html",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
+        expect(opn.mock.calls[0]).toMatchSnapshot();
+        expect(opn.mock.calls[1]).toMatchSnapshot();
       });
     });
 
@@ -169,24 +148,8 @@ describe('runOpen util', () => {
       },
       console
     ).then(() => {
-      expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
-        Array [
-          "https://example2.com",
-          Object {
-            "app": "Google Chrome",
-            "wait": false,
-          },
-        ]
-      `);
-      expect(opn.mock.calls[1]).toMatchInlineSnapshot(`
-        Array [
-          "https://example3.com",
-          Object {
-            "app": "Google Chrome",
-            "wait": false,
-          },
-        ]
-      `);
+      expect(opn.mock.calls[0]).toMatchSnapshot();
+      expect(opn.mock.calls[1]).toMatchSnapshot();
     });
   });
 
@@ -199,24 +162,8 @@ describe('runOpen util', () => {
       },
       console
     ).then(() => {
-      expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
-        Array [
-          "https://example.com/index.html",
-          Object {
-            "app": "Google Chrome",
-            "wait": false,
-          },
-        ]
-      `);
-      expect(opn.mock.calls[1]).toMatchInlineSnapshot(`
-        Array [
-          "https://example2.com",
-          Object {
-            "app": "Google Chrome",
-            "wait": false,
-          },
-        ]
-      `);
+      expect(opn.mock.calls[0]).toMatchSnapshot();
+      expect(opn.mock.calls[1]).toMatchSnapshot();
     });
   });
 

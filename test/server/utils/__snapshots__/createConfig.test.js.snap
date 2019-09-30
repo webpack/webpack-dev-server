@@ -859,7 +859,9 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "open": true,
-  "openPage": "/different/page",
+  "openPage": Array [
+    "/different/page",
+  ],
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
