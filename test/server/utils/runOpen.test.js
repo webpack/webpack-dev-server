@@ -45,6 +45,48 @@ describe('runOpen util', () => {
       });
     });
 
+    it('on specify URL with page inside array', () => {
+      return runOpen(
+        'https://example.com',
+        { openPage: ['/index.html'] },
+        console
+      ).then(() => {
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+      });
+    });
+
+    it('on specify URL with multiple pages inside array', () => {
+      return runOpen(
+        'https://example.com',
+        { openPage: ['/index.html', '/index2.html'] },
+        console
+      ).then(() => {
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+        expect(opn.mock.calls[1]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index2.html",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+      });
+    });
+
     it('on specify URL in Google Chrome', () => {
       return runOpen(
         'https://example.com',
@@ -115,6 +157,66 @@ describe('runOpen util', () => {
           ]
         `);
       });
+    });
+  });
+
+  it('on specify multiple absolute https URLs with pages in Google Chrome ', () => {
+    return runOpen(
+      'https://example.com',
+      {
+        open: 'Google Chrome',
+        openPage: ['https://example2.com', 'https://example3.com'],
+      },
+      console
+    ).then(() => {
+      expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+        Array [
+          "https://example2.com",
+          Object {
+            "app": "Google Chrome",
+            "wait": false,
+          },
+        ]
+      `);
+      expect(opn.mock.calls[1]).toMatchInlineSnapshot(`
+        Array [
+          "https://example3.com",
+          Object {
+            "app": "Google Chrome",
+            "wait": false,
+          },
+        ]
+      `);
+    });
+  });
+
+  it('on specify one relative URL and one absolute URL with pages in Google Chrome ', () => {
+    return runOpen(
+      'https://example.com',
+      {
+        open: 'Google Chrome',
+        openPage: ['/index.html', 'https://example2.com'],
+      },
+      console
+    ).then(() => {
+      expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+        Array [
+          "https://example.com/index.html",
+          Object {
+            "app": "Google Chrome",
+            "wait": false,
+          },
+        ]
+      `);
+      expect(opn.mock.calls[1]).toMatchInlineSnapshot(`
+        Array [
+          "https://example2.com",
+          Object {
+            "app": "Google Chrome",
+            "wait": false,
+          },
+        ]
+      `);
     });
   });
 
