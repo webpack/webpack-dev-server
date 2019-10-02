@@ -181,7 +181,7 @@ describe('runOpen util', () => {
     it('on specify URL and log error', () => {
       return runOpen('https://example.com', {}, logMock).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open https://example.com in browser. If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
@@ -201,7 +201,7 @@ describe('runOpen util', () => {
         logMock
       ).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open https://example.com/index.html in browser. If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
@@ -221,7 +221,7 @@ describe('runOpen util', () => {
         logMock
       ).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open https://example.com in browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
@@ -242,7 +242,7 @@ describe('runOpen util', () => {
         logMock
       ).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open https://example.com/index.html in browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
