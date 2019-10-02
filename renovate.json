@@ -20,5 +20,6 @@
       "updateTypes": ["digest", "pin", "patch", "minor"],
       "enabled": false
     }
-  ]
+  ],
+  "ignoreDeps": ["http-proxy-middleware"]
 }
