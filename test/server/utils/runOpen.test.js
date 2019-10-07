@@ -45,6 +45,27 @@ describe('runOpen util', () => {
       });
     });
 
+    it('on specify URL with page inside array', () => {
+      return runOpen(
+        'https://example.com',
+        { openPage: ['/index.html'] },
+        console
+      ).then(() => {
+        expect(opn.mock.calls[0]).toMatchSnapshot();
+      });
+    });
+
+    it('on specify URL with multiple pages inside array', () => {
+      return runOpen(
+        'https://example.com',
+        { openPage: ['/index.html', '/index2.html'] },
+        console
+      ).then(() => {
+        expect(opn.mock.calls[0]).toMatchSnapshot();
+        expect(opn.mock.calls[1]).toMatchSnapshot();
+      });
+    });
+
     it('on specify URL in Google Chrome', () => {
       return runOpen(
         'https://example.com',
@@ -118,6 +139,34 @@ describe('runOpen util', () => {
     });
   });
 
+  it('on specify multiple absolute https URLs with pages in Google Chrome ', () => {
+    return runOpen(
+      'https://example.com',
+      {
+        open: 'Google Chrome',
+        openPage: ['https://example2.com', 'https://example3.com'],
+      },
+      console
+    ).then(() => {
+      expect(opn.mock.calls[0]).toMatchSnapshot();
+      expect(opn.mock.calls[1]).toMatchSnapshot();
+    });
+  });
+
+  it('on specify one relative URL and one absolute URL with pages in Google Chrome ', () => {
+    return runOpen(
+      'https://example.com',
+      {
+        open: 'Google Chrome',
+        openPage: ['/index.html', 'https://example2.com'],
+      },
+      console
+    ).then(() => {
+      expect(opn.mock.calls[0]).toMatchSnapshot();
+      expect(opn.mock.calls[1]).toMatchSnapshot();
+    });
+  });
+
   describe('should not open browser', () => {
     const logMock = { warn: jest.fn() };
 
@@ -132,7 +181,7 @@ describe('runOpen util', () => {
     it('on specify URL and log error', () => {
       return runOpen('https://example.com', {}, logMock).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open \\"https://example.com\\" in browser. If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
@@ -152,7 +201,7 @@ describe('runOpen util', () => {
         logMock
       ).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open \\"https://example.com/index.html\\" in browser. If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
@@ -172,7 +221,7 @@ describe('runOpen util', () => {
         logMock
       ).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open \\"https://example.com\\" in browser: \\"Google Chrome\\". If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
@@ -193,7 +242,7 @@ describe('runOpen util', () => {
         logMock
       ).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
-          `"Unable to open browser: Google Chrome. If you are running in a headless environment, please do not use the --open flag"`
+          `"Unable to open \\"https://example.com/index.html\\" in browser: \\"Google Chrome\\". If you are running in a headless environment, please do not use the --open flag"`
         );
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
