@@ -52,7 +52,7 @@
     "is-absolute-url": "^3.0.1",
     "killable": "^1.0.1",
     "loglevel": "^1.6.4",
-    "open": "^6.2.0",
+    "open": "^7.0.0",
     "p-retry": "^4.1.0",
     "portfinder": "^1.0.24",
     "schema-utils": "^1.0.0",
