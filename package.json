@@ -71,8 +71,8 @@
     "yargs": "12.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.3",
-    "@babel/core": "^7.6.3",
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/runtime": "^7.6.3",
@@ -91,7 +91,7 @@
     "file-loader": "^3.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^3.0.8",
+    "husky": "^3.0.9",
     "jest": "^24.9.0",
     "jest-junit": "^8.0.0",
     "jquery": "^3.4.1",
@@ -108,9 +108,9 @@
     "style-loader": "^1.0.0",
     "supertest": "^4.0.2",
     "tcp-port-used": "^1.0.1",
-    "typescript": "^3.6.3",
+    "typescript": "^3.6.4",
     "url-loader": "^1.1.2",
-    "webpack": "^4.41.0",
+    "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"
   },
   "peerDependencies": {
