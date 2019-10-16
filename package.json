@@ -54,7 +54,7 @@
     "loglevel": "^1.6.4",
     "opn": "^5.5.0",
     "p-retry": "^3.0.1",
-    "portfinder": "^1.0.24",
+    "portfinder": "^1.0.25",
     "schema-utils": "^1.0.0",
     "selfsigned": "^1.10.7",
     "semver": "^6.3.0",
@@ -110,7 +110,7 @@
     "tcp-port-used": "^1.0.1",
     "typescript": "^3.6.4",
     "url-loader": "^1.1.2",
-    "webpack": "^4.41.1",
+    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9"
   },
   "peerDependencies": {
