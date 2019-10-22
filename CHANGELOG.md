@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.9.0](https://github.com/webpack/webpack-dev-server/compare/v3.8.2...v3.9.0) (2019-10-22)
+
+
+### Bug Fixes
+
+* add `hostname` and `port` to bonjour name to prevent name collisions ([#2276](https://github.com/webpack/webpack-dev-server/issues/2276)) ([d8af2d9](https://github.com/webpack/webpack-dev-server/commit/d8af2d9))
+* add `extKeyUsage` to self-signed cert ([#2274](https://github.com/webpack/webpack-dev-server/issues/2274)) ([a4dbc3b](https://github.com/webpack/webpack-dev-server/commit/a4dbc3b))
+
+
+### Features
+
+* add multiple `openPage` support ([#2266](https://github.com/webpack/webpack-dev-server/issues/2266)) ([c9e9178](https://github.com/webpack/webpack-dev-server/commit/c9e9178))
+
 ### [3.8.2](https://github.com/webpack/webpack-dev-server/compare/v3.8.1...v3.8.2) (2019-10-02)
 
 ### Security
