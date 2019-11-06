@@ -209,7 +209,18 @@
       ]
     },
     "openPage": {
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      ]
     },
     "overlay": {
       "anyOf": [
@@ -436,7 +447,7 @@
       "noInfo": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservernoinfo-)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
       "open": "should be {String|Boolean} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
-      "openPage": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
+      "openPage": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
       "overlay": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveroverlay)",
       "pfx": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserverpfx)",
       "pfxPassphrase": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpfxpassphrase)",

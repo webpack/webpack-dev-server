@@ -818,6 +818,25 @@ Object {
 }
 `;
 
+exports[`createConfig openPage multiple option (in devServer config) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "open": true,
+  "openPage": Array [
+    "/different/page",
+    "/different/page2",
+  ],
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
 exports[`createConfig openPage option (in devServer config) 1`] = `
 Object {
   "hot": true,
@@ -840,7 +859,9 @@ Object {
   "hotOnly": false,
   "noInfo": true,
   "open": true,
-  "openPage": "/different/page",
+  "openPage": Array [
+    "/different/page",
+  ],
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
