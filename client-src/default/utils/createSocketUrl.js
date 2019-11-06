@@ -11,15 +11,11 @@ function createSocketUrl(resourceQuery) {
 
   if (typeof resourceQuery === 'string' && resourceQuery !== '') {
     // If this bundle is inlined, use the resource query to get the correct url.
+    // strip leading `?` from query string
     urlParts = url.parse(resourceQuery.substr(1));
   } else {
     // Else, get the url from the <script> this file was called with.
-    let scriptHost = getCurrentScriptSource();
-
-    if (scriptHost) {
-      // eslint-disable-next-line no-useless-escape
-      scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
-    }
+    const scriptHost = getCurrentScriptSource();
     urlParts = url.parse(scriptHost || '/', false, true);
   }
 
