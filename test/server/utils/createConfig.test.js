@@ -887,6 +887,21 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
+  it('openPage multiple option (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: {
+          open: true,
+          openPage: ['/different/page', '/different/page2'],
+        },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
   it('useLocalIp option', () => {
     const config = createConfig(
       webpackConfig,
