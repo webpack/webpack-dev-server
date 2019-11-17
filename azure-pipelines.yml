@@ -50,6 +50,9 @@ jobs:
         node-6:
           node_version: ^6.9.0
           webpack_version: latest
+        webpack-new:
+          node_version: ^10.13.0
+          webpack_version: 5.0.0-alpha.26
     steps:
       - task: NodeTool@0
         inputs:
