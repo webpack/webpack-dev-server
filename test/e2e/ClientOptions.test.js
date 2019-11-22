@@ -72,11 +72,9 @@ describe('Client code', () => {
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(
-                  requestObj
-                    .url()
-                    .includes(`http://localhost:${port1}/sockjs-node`)
-                ).toBeTruthy();
+                expect(requestObj.url()).toContain(
+                  `http://localhost:${port1}/sockjs-node`
+                );
                 done();
               });
             });
@@ -115,11 +113,9 @@ describe('Client complex inline script path', () => {
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(
-                  requestObj
-                    .url()
-                    .includes(`http://myhost.test:${port2}/foo/test/bar/`)
-                ).toBeTruthy();
+                expect(requestObj.url()).toContain(
+                  `http://myhost.test:${port2}/foo/test/bar/`
+                );
                 done();
               });
             });
@@ -158,11 +154,9 @@ describe('Client complex inline script path with sockPort', () => {
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(
-                  requestObj
-                    .url()
-                    .includes(`http://localhost:${port3}/foo/test/bar`)
-                ).toBeTruthy();
+                expect(requestObj.url()).toContain(
+                  `http://localhost:${port3}/foo/test/bar`
+                );
                 done();
               });
             });
@@ -202,11 +196,9 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(
-                  requestObj
-                    .url()
-                    .includes(`http://localhost:${port3}/sockjs-node`)
-                ).toBeTruthy();
+                expect(requestObj.url()).toContain(
+                  `http://localhost:${port3}/sockjs-node`
+                );
                 done();
               });
             });
@@ -242,11 +234,9 @@ describe('Client complex inline script path with sockHost', () => {
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(
-                  requestObj
-                    .url()
-                    .includes(`http://myhost.test:${port2}/sockjs-node`)
-                ).toBeTruthy();
+                expect(requestObj.url()).toContain(
+                  `http://myhost.test:${port2}/sockjs-node`
+                );
                 done();
               });
             });
