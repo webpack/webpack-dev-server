@@ -26,7 +26,8 @@ describe('createSocketUrl', () => {
     const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {
-      expect(createSocketUrl(url)).toMatchSnapshot();
+      const query = url ? url.querystring : url;
+      expect(createSocketUrl(query)).toMatchSnapshot();
     });
 
     test(`should return the url when the current script source is ${url}`, () => {
