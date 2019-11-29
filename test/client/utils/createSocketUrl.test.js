@@ -10,6 +10,7 @@ describe('createSocketUrl', () => {
     'http://0.0.0.0',
     'https://localhost:123',
     'http://user:pass@[::]:8080',
+    'http://127.0.0.1',
     // TODO: comment out after the major release
     // https://github.com/webpack/webpack-dev-server/pull/1954#issuecomment-498043376
     // 'file://filename',
@@ -26,7 +27,8 @@ describe('createSocketUrl', () => {
     const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {
-      expect(createSocketUrl(url)).toMatchSnapshot();
+      const query = url ? url.querystring : url;
+      expect(createSocketUrl(query)).toMatchSnapshot();
     });
 
     test(`should return the url when the current script source is ${url}`, () => {
