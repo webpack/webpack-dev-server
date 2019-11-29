@@ -10,6 +10,7 @@ describe('createSocketUrl', () => {
     'http://0.0.0.0',
     'https://localhost:123',
     'http://user:pass@[::]:8080',
+    'http://127.0.0.1',
     // TODO: comment out after the major release
     // https://github.com/webpack/webpack-dev-server/pull/1954#issuecomment-498043376
     // 'file://filename',

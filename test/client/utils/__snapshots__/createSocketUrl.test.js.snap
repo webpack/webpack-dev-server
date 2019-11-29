@@ -4,6 +4,8 @@ exports[`createSocketUrl should return the url when __resourceQuery is ?test 1`]
 
 exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0 1`] = `"http://localhost/sockjs-node"`;
 
+exports[`createSocketUrl should return the url when __resourceQuery is http://127.0.0.1 1`] = `"http://127.0.0.1/sockjs-node"`;
+
 exports[`createSocketUrl should return the url when __resourceQuery is http://user:pass@[::]:8080 1`] = `"http://user:pass@localhost:8080/sockjs-node"`;
 
 exports[`createSocketUrl should return the url when __resourceQuery is http://user:password@localhost/ 1`] = `"http://user:password@localhost/sockjs-node"`;
@@ -21,6 +23,8 @@ exports[`createSocketUrl should return the url when __resourceQuery is undefined
 exports[`createSocketUrl should return the url when the current script source is ?test 1`] = `"/sockjs-node"`;
 
 exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0 1`] = `"http://localhost/sockjs-node"`;
+
+exports[`createSocketUrl should return the url when the current script source is http://127.0.0.1 1`] = `"http://127.0.0.1/sockjs-node"`;
 
 exports[`createSocketUrl should return the url when the current script source is http://user:pass@[::]:8080 1`] = `"http://user:pass@localhost:8080/sockjs-node"`;
 

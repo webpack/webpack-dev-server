@@ -46,6 +46,7 @@ function createSocketUrl(resourceQuery) {
   // because the browser doesn't accept non-secure websockets.
   if (
     hostname &&
+    hostname !== '127.0.0.1' &&
     (self.location.protocol === 'https:' || urlParts.hostname === '0.0.0.0')
   ) {
     protocol = self.location.protocol;
