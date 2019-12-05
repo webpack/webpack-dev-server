@@ -38,4 +38,115 @@ describe('createSocketUrl', () => {
     // put here because resetModules mustn't be reset when L20 is finished
     jest.resetModules();
   });
+
+  const samples2 = [
+    // script source,       location,                output socket URL
+    [
+      'http://example.com',
+      'https://something.com',
+      'https://example.com/sockjs-node',
+    ],
+    [
+      'http://127.0.0.1',
+      'https://something.com',
+      'http://127.0.0.1/sockjs-node',
+    ],
+    [
+      'http://0.0.0.0',
+      'https://something.com',
+      'https://something.com/sockjs-node',
+    ],
+    [
+      'http://0.0.0.0',
+      'http://something.com',
+      'http://something.com/sockjs-node',
+    ],
+    [
+      'http://example.com',
+      'http://something.com',
+      'http://example.com/sockjs-node',
+    ],
+    [
+      'https://example.com',
+      'http://something.com',
+      'https://example.com/sockjs-node',
+    ],
+  ];
+
+  samples2.forEach(([scriptSrc, loc, expected]) => {
+    jest.doMock(
+      '../../../client-src/default/utils/getCurrentScriptSource.js',
+      () => () => scriptSrc
+    );
+
+    const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+
+    test(`should return socket ${expected} for script source ${scriptSrc} and location ${loc}`, () => {
+      // eslint-disable-next-line no-undefined
+      expect(createSocketUrl(undefined, loc).toString()).toEqual(expected);
+    });
+
+    jest.resetModules();
+  });
+
+  const samples3 = [
+    // script source,       location,                output socket URL
+    [
+      '?http://example.com',
+      'https://something.com',
+      'https://example.com/sockjs-node',
+    ],
+    [
+      '?http://127.0.0.1',
+      'https://something.com',
+      'http://127.0.0.1/sockjs-node',
+    ],
+    [
+      '?http://0.0.0.0',
+      'https://something.com',
+      'https://something.com/sockjs-node',
+    ],
+    [
+      '?http://0.0.0.0',
+      'http://something.com',
+      'http://something.com/sockjs-node',
+    ],
+    [
+      '?http://example.com',
+      'http://something.com',
+      'http://example.com/sockjs-node',
+    ],
+    [
+      '?https://example.com',
+      'http://something.com',
+      'https://example.com/sockjs-node',
+    ],
+    [
+      '?https://example.com?sockHost=asdf',
+      'http://something.com',
+      'https://asdf/sockjs-node',
+    ],
+    [
+      '?https://example.com?sockPort=34',
+      'http://something.com',
+      'https://example.com:34/sockjs-node',
+    ],
+    [
+      '?https://example.com?sockPath=xxx',
+      'http://something.com',
+      'https://example.com/xxx',
+    ],
+    [
+      '?http://0.0.0.0:8096&sockPort=8097',
+      'http://localhost',
+      'http://localhost:8097/sockjs-node',
+    ],
+  ];
+  samples3.forEach(([scriptSrc, loc, expected]) => {
+    test(`should return socket ${expected} for query ${scriptSrc} and location ${loc}`, () => {
+      const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+
+      expect(createSocketUrl(scriptSrc, loc).toString()).toEqual(expected);
+    });
+  });
 });
