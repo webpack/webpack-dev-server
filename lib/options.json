@@ -51,6 +51,9 @@
     "compress": {
       "type": "boolean"
     },
+    "contentBasePublicPath": {
+      "type": "string"
+    },
     "contentBase": {
       "anyOf": [
         {
@@ -460,6 +463,7 @@
       "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverquiet-)",
       "reporter": "should be {Function} (https://github.com/webpack/webpack-dev-middleware#reporter)",
       "requestCert": "should be {Boolean}",
+      "contentBasePublicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
       "serverSideRender": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#serversiderender)",
       "setup": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserversetup)",

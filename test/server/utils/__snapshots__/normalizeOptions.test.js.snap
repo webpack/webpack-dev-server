@@ -6,6 +6,7 @@ Object {
     "/path/to/dist1",
     "/path/to/dist2",
   ],
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
     "server": "sockjs",
@@ -17,6 +18,18 @@ Object {
 exports[`normalizeOptions contentBase string should set correct options 1`] = `
 Object {
   "contentBase": "/path/to/dist",
+  "contentBasePublicPath": "/",
+  "transportMode": Object {
+    "client": "sockjs",
+    "server": "sockjs",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions contentBasePublicPath string should set correct options 1`] = `
+Object {
+  "contentBasePublicPath": "/content-base-public-path",
   "transportMode": Object {
     "client": "sockjs",
     "server": "sockjs",
@@ -27,6 +40,7 @@ Object {
 
 exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
     "server": "sockjs",
@@ -37,6 +51,7 @@ Object {
 
 exports[`normalizeOptions transportMode custom client path should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "/path/to/custom/client/",
     "server": "sockjs",
@@ -47,6 +62,7 @@ Object {
 
 exports[`normalizeOptions transportMode custom server class should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
     "server": [Function],
@@ -57,6 +73,7 @@ Object {
 
 exports[`normalizeOptions transportMode custom server path should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
     "server": "/path/to/custom/server/",
@@ -67,6 +84,7 @@ Object {
 
 exports[`normalizeOptions transportMode sockjs string should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
     "server": "sockjs",
@@ -77,6 +95,7 @@ Object {
 
 exports[`normalizeOptions transportMode ws object should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -87,6 +106,7 @@ Object {
 
 exports[`normalizeOptions transportMode ws string should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -97,6 +117,7 @@ Object {
 
 exports[`normalizeOptions watchOptions should set correct options 1`] = `
 Object {
+  "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
     "server": "sockjs",
