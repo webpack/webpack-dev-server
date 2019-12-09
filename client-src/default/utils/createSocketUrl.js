@@ -76,7 +76,11 @@ function getSocketUrl(urlParts, loc) {
   // they are not provided
   const sockHost = query.sockHost || hostname;
   const sockPath = query.sockPath || '/sockjs-node';
-  const sockPort = query.sockPort || port;
+  let sockPort = query.sockPort || port;
+
+  if (sockPort === 'location') {
+    sockPort = loc.port;
+  }
 
   return url.format({
     protocol,
