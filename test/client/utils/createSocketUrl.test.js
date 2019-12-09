@@ -141,6 +141,16 @@ describe('createSocketUrl', () => {
       'http://localhost',
       'http://localhost:8097/sockjs-node',
     ],
+    [
+      '?http://example.com:8096&sockPort=location',
+      'http://something.com',
+      'http://example.com/sockjs-node',
+    ],
+    [
+      '?http://0.0.0.0:8096&sockPort=location',
+      'http://localhost:3000',
+      'http://localhost:3000/sockjs-node',
+    ],
   ];
   samples3.forEach(([scriptSrc, loc, expected]) => {
     test(`should return socket ${expected} for query ${scriptSrc} and location ${loc}`, () => {
