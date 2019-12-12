@@ -23,14 +23,16 @@ const certPath = resolve(httpsCertificateDirectory, 'server.crt');
 
 describe('CLI', () => {
   it('--quiet', async (done) => {
-    const output = await testBin(`--quiet --colors=false --port ${port1}`);
-    expect(output.code).toEqual(0);
-    expect(output.stdout.split('\n').length === 3).toBe(true);
-    expect(output.stdout).toContain(
+    const { exitCode, stdout } = await testBin(
+      `--quiet --colors=false --port ${port1}`
+    );
+    expect(exitCode).toEqual(0);
+    expect(stdout.split('\n').length === 3).toBe(true);
+    expect(stdout).toContain(
       `Project is running at http://localhost:${port1}/`
     );
-    expect(output.stdout).toContain('webpack output is served from /');
-    expect(output.stdout).toContain('Content not from webpack is served from');
+    expect(stdout).toContain('webpack output is served from /');
+    expect(stdout).toContain('Content not from webpack is served from');
     done();
   });
 
@@ -38,10 +40,8 @@ describe('CLI', () => {
     const { exitCode, stderr } = await testBin('--progress');
     expect(exitCode).toEqual(0);
     expect(stderr.includes('0% compiling')).toBe(true);
-        // should not profile
-        expect(output.stderr).not.toContain(
-          'ms after chunk modules optimization'
-        );
+    // should not profile
+    expect(stderr).not.toContain('ms after chunk modules optimization');
   });
 
   it('--progress --profile', async () => {
@@ -103,78 +103,71 @@ describe('CLI', () => {
     // The Unix socket to listen to (instead of a host).
     it('--socket', async () => {
       const socketPath = join('.', 'webpack.sock');
+      const { stdout, exitCode } = await testBin(`--socket ${socketPath}`);
 
-    testBin(`--socket ${socketPath}`)
-      .then((output) => {
-        expect(output.code).toEqual(0);
+      expect(exitCode).toEqual(0);
 
-        if (process.platform === 'win32') {
-          done();
-        } else {
-          expect(output.stdout).toContain(socketPath);
+      if (process.platform !== 'win32') {
+        expect(stdout).toContain(socketPath);
 
-          unlink(socketPath, () => {
-            done();
-          });
-        }
-      })
-      .catch(done);
-  });
-
-  it('without --stdin, with stdin "end" event should time out', async (done) => {
-    const configPath = resolve(
-      __dirname,
-      '../fixtures/simple-config/webpack.config.js'
-    );
-    const childProcess = testBin(false, configPath, true);
-
-    childProcess.once('exit', () => {
-      expect(childProcess.killed).toBeTruthy();
-      done();
+        await unlinkAsync(socketPath);
+      }
     });
 
-    await timer(500);
-    // this is meant to confirm that it does not have any effect on the running process
-    // since options.stdin is not enabled
-    childProcess.stdin.emit('end');
-    childProcess.stdin.pause();
-
-    await timer(500);
-
-    childProcess.kill();
-  });
-
-  it('--stdin, with "end" event should exit without time out', async () => {
-    const configPath = resolve(
-      __dirname,
-      '../fixtures/simple-config/webpack.config.js'
-    );
-    const childProcess = testBin('--stdin', configPath);
-
-    await timer(500);
-
-    childProcess.stdin.emit('end');
-    childProcess.stdin.pause();
-
-    const { exitCode, timedOut, killed } = await childProcess;
-    expect(exitCode).toEqual(0);
-    expect(timedOut).toBeFalsy();
-    expect(killed).toBeFalsy();
-  });
-
-  it('should accept the promise function of webpack.config.js', async () => {
-    try {
-      const { exitCode } = await testBin(
-        false,
-        resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
+    it('without --stdin, with stdin "end" event should time out', async (done) => {
+      const configPath = resolve(
+        __dirname,
+        '../fixtures/simple-config/webpack.config.js'
       );
+      const childProcess = testBin(false, configPath, true);
+
+      childProcess.once('exit', () => {
+        expect(childProcess.killed).toBeTruthy();
+        done();
+      });
+
+      await timer(500);
+      // this is meant to confirm that it does not have any effect on the running process
+      // since options.stdin is not enabled
+      childProcess.stdin.emit('end');
+      childProcess.stdin.pause();
+
+      await timer(500);
+
+      childProcess.kill();
+    });
+
+    it('--stdin, with "end" event should exit without time out', async () => {
+      const configPath = resolve(
+        __dirname,
+        '../fixtures/simple-config/webpack.config.js'
+      );
+      const childProcess = testBin('--stdin', configPath);
+
+      await timer(500);
+
+      childProcess.stdin.emit('end');
+      childProcess.stdin.pause();
+
+      const { exitCode, timedOut, killed } = await childProcess;
       expect(exitCode).toEqual(0);
-    } catch (err) {
-      expect(err.stdout.includes('Compiled successfully.')).toBe(true);
-    }
+      expect(timedOut).toBeFalsy();
+      expect(killed).toBeFalsy();
+    });
+
+    it('should accept the promise function of webpack.config.js', async () => {
+      try {
+        const { exitCode } = await testBin(
+          false,
+          resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
+        );
+        expect(exitCode).toEqual(0);
+      } catch (err) {
+        expect(err.stdout.includes('Compiled successfully.')).toBe(true);
+      }
+    });
   });
 
-  // TODO: hiroppy
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
     const examplePath = resolve(__dirname, '../../examples/cli/public');
