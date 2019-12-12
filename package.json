@@ -54,6 +54,7 @@
     "loglevel": "^1.6.6",
     "open": "^6.2.0",
     "p-retry": "^4.1.0",
+    "portfinder": "^1.0.25",
     "schema-utils": "^1.0.0",
     "selfsigned": "^1.10.7",
     "semver": "^6.3.0",

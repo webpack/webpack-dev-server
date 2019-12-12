@@ -23,14 +23,16 @@ const certPath = resolve(httpsCertificateDirectory, 'server.crt');
 
 describe('CLI', () => {
   it('--quiet', async (done) => {
-    const output = await testBin(`--quiet --colors=false --port ${port1}`);
-    expect(output.code).toEqual(0);
-    expect(output.stdout.split('\n').length === 3).toBe(true);
-    expect(output.stdout).toContain(
+    const { exitCode, stdout } = await testBin(
+      `--quiet --colors=false --port ${port1}`
+    );
+    expect(exitCode).toEqual(0);
+    expect(stdout.split('\n').length === 3).toBe(true);
+    expect(stdout).toContain(
       `Project is running at http://localhost:${port1}/`
     );
-    expect(output.stdout).toContain('webpack output is served from /');
-    expect(output.stdout).toContain('Content not from webpack is served from');
+    expect(stdout).toContain('webpack output is served from /');
+    expect(stdout).toContain('Content not from webpack is served from');
     done();
   });
 
@@ -38,10 +40,8 @@ describe('CLI', () => {
     const { exitCode, stderr } = await testBin('--progress');
     expect(exitCode).toEqual(0);
     expect(stderr.includes('0% compiling')).toBe(true);
-        // should not profile
-        expect(output.stderr).not.toContain(
-          'ms after chunk modules optimization'
-        );
+    // should not profile
+    expect(stderr).not.toContain('ms after chunk modules optimization');
   });
 
   it('--progress --profile', async () => {
@@ -103,179 +103,175 @@ describe('CLI', () => {
     // The Unix socket to listen to (instead of a host).
     it('--socket', async () => {
       const socketPath = join('.', 'webpack.sock');
+      const { stdout, exitCode } = await testBin(`--socket ${socketPath}`);
 
-    testBin(`--socket ${socketPath}`)
-      .then((output) => {
-        expect(output.code).toEqual(0);
-
-        if (process.platform === 'win32') {
-          done();
-        } else {
-          expect(output.stdout).toContain(socketPath);
-
-          unlink(socketPath, () => {
-            done();
-          });
-        }
-      })
-      .catch(done);
-  });
-
-  it('without --stdin, with stdin "end" event should time out', async (done) => {
-    const configPath = resolve(
-      __dirname,
-      '../fixtures/simple-config/webpack.config.js'
-    );
-    const childProcess = testBin(false, configPath, true);
-
-    childProcess.once('exit', () => {
-      expect(childProcess.killed).toBeTruthy();
-      done();
-    });
-
-    await timer(500);
-    // this is meant to confirm that it does not have any effect on the running process
-    // since options.stdin is not enabled
-    childProcess.stdin.emit('end');
-    childProcess.stdin.pause();
-
-    await timer(500);
-
-    childProcess.kill();
-  });
-
-  it('--stdin, with "end" event should exit without time out', async () => {
-    const configPath = resolve(
-      __dirname,
-      '../fixtures/simple-config/webpack.config.js'
-    );
-    const childProcess = testBin('--stdin', configPath);
-
-    await timer(500);
-
-    childProcess.stdin.emit('end');
-    childProcess.stdin.pause();
-
-    const { exitCode, timedOut, killed } = await childProcess;
-    expect(exitCode).toEqual(0);
-    expect(timedOut).toBeFalsy();
-    expect(killed).toBeFalsy();
-  });
-
-  it('should accept the promise function of webpack.config.js', async () => {
-    try {
-      const { exitCode } = await testBin(
-        false,
-        resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
-      );
       expect(exitCode).toEqual(0);
-    } catch (err) {
-      expect(err.stdout.includes('Compiled successfully.')).toBe(true);
-    }
-  });
 
-  // TODO: hiroppy
-  it('should exit the process when SIGINT is detected', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = resolve(__dirname, '../../examples/cli/public');
-    const cp = execa('node', [cliPath], { cwd: examplePath });
+      if (process.platform !== 'win32') {
+        expect(stdout).toContain(socketPath);
 
-    cp.stdout.on('data', (data) => {
-      const bits = data.toString();
-
-      if (/Compiled successfully/.test(bits)) {
-        expect(cp.pid !== 0).toBe(true);
-
-        cp.kill('SIGINT');
+        await unlinkAsync(socketPath);
       }
     });
 
-    cp.on('exit', () => {
-      done();
-    });
-  });
-
-  it('should exit the process when SIGINT is detected, even before the compilation is done', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = resolve(__dirname, '../../examples/cli/public');
-    const cp = execa('node', [cliPath], { cwd: examplePath });
-    let killed = false;
-
-    cp.stdout.on('data', () => {
-      if (!killed) {
-        expect(cp.pid !== 0).toBe(true);
-
-        cp.kill('SIGINT');
-      }
-
-      killed = true;
-    });
-
-    cp.on('exit', () => {
-      done();
-    });
-  });
-
-  it('should use different random port when multiple instances are started on different processes', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = resolve(__dirname, '../../examples/cli/public');
-
-    const cp = execa('node', [cliPath, '--colors=false'], { cwd: examplePath });
-    const cp2 = execa('node', [cliPath, '--colors=false'], {
-      cwd: examplePath,
-    });
-
-    const runtime = {
-      cp: {
-        port: null,
-        done: false,
-      },
-      cp2: {
-        port: null,
-        done: false,
-      },
-    };
-
-    cp.stdout.on('data', (data) => {
-      const bits = data.toString();
-      const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
-        bits
+    it('without --stdin, with stdin "end" event should time out', async (done) => {
+      const configPath = resolve(
+        __dirname,
+        '../fixtures/simple-config/webpack.config.js'
       );
-      if (portMatch) {
-        runtime.cp.port = portMatch[1];
-      }
-      if (/Compiled successfully/.test(bits)) {
-        expect(cp.pid !== 0).toBe(true);
-        cp.kill('SIGINT');
-      }
+      const childProcess = testBin(false, configPath, true);
+
+      childProcess.once('exit', () => {
+        expect(childProcess.killed).toBeTruthy();
+        done();
+      });
+
+      await timer(500);
+      // this is meant to confirm that it does not have any effect on the running process
+      // since options.stdin is not enabled
+      childProcess.stdin.emit('end');
+      childProcess.stdin.pause();
+
+      await timer(500);
+
+      childProcess.kill();
     });
-    cp2.stdout.on('data', (data) => {
-      const bits = data.toString();
-      const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
-        bits
+
+    it('--stdin, with "end" event should exit without time out', async () => {
+      const configPath = resolve(
+        __dirname,
+        '../fixtures/simple-config/webpack.config.js'
       );
-      if (portMatch) {
-        runtime.cp2.port = portMatch[1];
-      }
-      if (/Compiled successfully/.test(bits)) {
-        expect(cp.pid !== 0).toBe(true);
-        cp2.kill('SIGINT');
+      const childProcess = testBin('--stdin', configPath);
+
+      await timer(500);
+
+      childProcess.stdin.emit('end');
+      childProcess.stdin.pause();
+
+      const { exitCode, timedOut, killed } = await childProcess;
+      expect(exitCode).toEqual(0);
+      expect(timedOut).toBeFalsy();
+      expect(killed).toBeFalsy();
+    });
+
+    it('should accept the promise function of webpack.config.js', async () => {
+      try {
+        const { exitCode } = await testBin(
+          false,
+          resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
+        );
+        expect(exitCode).toEqual(0);
+      } catch (err) {
+        expect(err.stdout.includes('Compiled successfully.')).toBe(true);
       }
     });
 
-    cp.on('exit', () => {
-      runtime.cp.done = true;
-      if (runtime.cp2.done) {
-        expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+    // TODO: hiroppy
+    it('should exit the process when SIGINT is detected', (done) => {
+      const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+      const examplePath = resolve(__dirname, '../../examples/cli/public');
+      const cp = execa('node', [cliPath], { cwd: examplePath });
+
+      cp.stdout.on('data', (data) => {
+        const bits = data.toString();
+
+        if (/Compiled successfully/.test(bits)) {
+          expect(cp.pid !== 0).toBe(true);
+
+          cp.kill('SIGINT');
+        }
+      });
+
+      cp.on('exit', () => {
         done();
-      }
+      });
     });
-    cp2.on('exit', () => {
-      runtime.cp2.done = true;
-      if (runtime.cp.done) {
-        expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+
+    it('should exit the process when SIGINT is detected, even before the compilation is done', (done) => {
+      const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+      const examplePath = resolve(__dirname, '../../examples/cli/public');
+      const cp = execa('node', [cliPath], { cwd: examplePath });
+      let killed = false;
+
+      cp.stdout.on('data', () => {
+        if (!killed) {
+          expect(cp.pid !== 0).toBe(true);
+
+          cp.kill('SIGINT');
+        }
+
+        killed = true;
+      });
+
+      cp.on('exit', () => {
         done();
-      }
+      });
+    });
+
+    it('should use different random port when multiple instances are started on different processes', (done) => {
+      const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+      const examplePath = resolve(__dirname, '../../examples/cli/public');
+
+      const cp = execa('node', [cliPath, '--colors=false'], {
+        cwd: examplePath,
+      });
+      const cp2 = execa('node', [cliPath, '--colors=false'], {
+        cwd: examplePath,
+      });
+
+      const runtime = {
+        cp: {
+          port: null,
+          done: false,
+        },
+        cp2: {
+          port: null,
+          done: false,
+        },
+      };
+
+      cp.stdout.on('data', (data) => {
+        const bits = data.toString();
+        const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
+          bits
+        );
+        if (portMatch) {
+          runtime.cp.port = portMatch[1];
+        }
+        if (/Compiled successfully/.test(bits)) {
+          expect(cp.pid !== 0).toBe(true);
+          cp.kill('SIGINT');
+        }
+      });
+      cp2.stdout.on('data', (data) => {
+        const bits = data.toString();
+        const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
+          bits
+        );
+        if (portMatch) {
+          runtime.cp2.port = portMatch[1];
+        }
+        if (/Compiled successfully/.test(bits)) {
+          expect(cp.pid !== 0).toBe(true);
+          cp2.kill('SIGINT');
+        }
+      });
+
+      cp.on('exit', () => {
+        runtime.cp.done = true;
+        if (runtime.cp2.done) {
+          expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+          done();
+        }
+      });
+      cp2.on('exit', () => {
+        runtime.cp2.done = true;
+        if (runtime.cp.done) {
+          expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+          done();
+        }
+      });
     });
   });
 });

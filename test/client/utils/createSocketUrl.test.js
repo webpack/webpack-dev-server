@@ -82,7 +82,9 @@ describe('createSocketUrl', () => {
       () => () => scriptSrc
     );
 
-    const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+    const {
+      default: createSocketUrl,
+    } = require('../../../client-src/default/utils/createSocketUrl');
 
     test(`should return socket ${expected} for script source ${scriptSrc} and location ${loc}`, () => {
       // eslint-disable-next-line no-undefined
@@ -157,7 +159,9 @@ describe('createSocketUrl', () => {
   ];
   samples3.forEach(([scriptSrc, loc, expected]) => {
     test(`should return socket ${expected} for query ${scriptSrc} and location ${loc}`, () => {
-      const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+      const {
+        default: createSocketUrl,
+      } = require('../../../client-src/default/utils/createSocketUrl');
 
       expect(createSocketUrl(scriptSrc, loc).toString()).toEqual(expected);
     });
