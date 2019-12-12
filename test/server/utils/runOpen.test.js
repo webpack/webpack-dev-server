@@ -51,7 +51,7 @@ describe('runOpen util', () => {
         { openPage: ['/index.html'] },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toMatchSnapshot();
+        expect(open.mock.calls[0]).toMatchSnapshot();
       });
     });
 
@@ -61,8 +61,8 @@ describe('runOpen util', () => {
         { openPage: ['/index.html', '/index2.html'] },
         console
       ).then(() => {
-        expect(opn.mock.calls[0]).toMatchSnapshot();
-        expect(opn.mock.calls[1]).toMatchSnapshot();
+        expect(open.mock.calls[0]).toMatchSnapshot();
+        expect(open.mock.calls[1]).toMatchSnapshot();
       });
     });
 
@@ -81,6 +81,7 @@ describe('runOpen util', () => {
             },
           ]
         `);
+      });
     });
 
     it('on specify URL with page in Google Chrome ', async () => {
@@ -147,8 +148,8 @@ describe('runOpen util', () => {
       },
       console
     ).then(() => {
-      expect(opn.mock.calls[0]).toMatchSnapshot();
-      expect(opn.mock.calls[1]).toMatchSnapshot();
+      expect(open.mock.calls[0]).toMatchSnapshot();
+      expect(open.mock.calls[1]).toMatchSnapshot();
     });
   });
 
@@ -161,8 +162,8 @@ describe('runOpen util', () => {
       },
       console
     ).then(() => {
-      expect(opn.mock.calls[0]).toMatchSnapshot();
-      expect(opn.mock.calls[1]).toMatchSnapshot();
+      expect(open.mock.calls[0]).toMatchSnapshot();
+      expect(open.mock.calls[1]).toMatchSnapshot();
     });
   });
 
@@ -190,6 +191,7 @@ describe('runOpen util', () => {
             },
           ]
         `);
+      });
     });
 
     it('on specify URL with page and log error', async () => {
@@ -209,6 +211,7 @@ describe('runOpen util', () => {
             },
           ]
         `);
+      });
     });
 
     it('on specify URL in Google Chrome and log error', () => {
@@ -229,6 +232,7 @@ describe('runOpen util', () => {
             },
           ]
         `);
+      });
     });
 
     it('on specify URL with page in Google Chrome and log error ', async () => {
@@ -249,6 +253,7 @@ describe('runOpen util', () => {
             },
           ]
         `);
+      });
     });
   });
 });
