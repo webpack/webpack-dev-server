@@ -21,5 +21,28 @@
     "prefer-rest-params": "off",
     "strict": ["error", "safe"],
     "global-require": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["examples/**/*.js"],
+      "env": {
+        "browser": true
+      },
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["test/**/*.js"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["client-src/**/*.js"],
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    }
+  ]
 }
