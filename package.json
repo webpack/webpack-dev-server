@@ -57,7 +57,7 @@
     "portfinder": "^1.0.25",
     "schema-utils": "^1.0.0",
     "selfsigned": "^1.10.7",
-    "semver": "^6.3.0",
+    "semver": "^7.1.0",
     "serve-index": "^1.9.1",
     "sockjs": "0.3.19",
     "sockjs-client": "1.4.0",
