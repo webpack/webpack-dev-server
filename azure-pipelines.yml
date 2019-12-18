@@ -2,10 +2,13 @@ trigger:
   - master
   - next
 
+variables:
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
 jobs:
   - job: Lint
     pool:
-      vmImage: ubuntu-16.04
+      vmImage: ubuntu-latest
     steps:
       - task: NodeTool@0
         inputs:
@@ -20,10 +23,12 @@ jobs:
           node -v
           npm -v
         displayName: 'Print versions'
-      - task: Npm@1
+      - task: CacheBeta@1
         inputs:
-          command: custom
-          customCommand: ci
+          key: npm | $(Agent.OS) | package-lock.json
+          path: $(npm_config_cache)
+        displayName: 'Cache npm'
+      - script: npm ci
         displayName: 'Install dependencies'
       - script: npm run lint
         displayName: 'Run lint'
@@ -34,10 +39,13 @@ jobs:
 
   - job: Linux
     pool:
-      vmImage: ubuntu-16.04
+      vmImage: ubuntu-latest
     strategy:
-      maxParallel: 5
+      maxParallel: 6
       matrix:
+        node-13:
+          node_version: ^13.0.0
+          webpack_version: latest
         node-12:
           node_version: ^12.0.0
           webpack_version: latest
@@ -50,6 +58,9 @@ jobs:
         node-6:
           node_version: ^6.9.0
           webpack_version: latest
+        node-10-canary:
+          node_version: ^10.13.0
+          webpack_version: next
     steps:
       - task: NodeTool@0
         inputs:
@@ -64,10 +75,12 @@ jobs:
           node -v
           npm -v
         displayName: 'Print versions'
-      - task: Npm@1
+      - task: CacheBeta@1
         inputs:
-          command: custom
-          customCommand: ci
+          key: npm | $(Agent.OS) | package-lock.json
+          path: $(npm_config_cache)
+        displayName: 'Cache npm'
+      - script: npm ci
         displayName: 'Install dependencies'
       - script: npm i webpack@$(webpack_version)
         displayName: 'Install "webpack@$(webpack_version)"'
@@ -85,10 +98,13 @@ jobs:
 
   - job: macOS
     pool:
-      vmImage: macOS-10.14
+      vmImage: macOS-latest
     strategy:
-      maxParallel: 5
+      maxParallel: 6
       matrix:
+        node-13:
+          node_version: ^13.0.0
+          webpack_version: latest
         node-12:
           node_version: ^12.0.0
           webpack_version: latest
@@ -101,6 +117,9 @@ jobs:
         node-6:
           node_version: ^6.9.0
           webpack_version: latest
+        node-10-canary:
+          node_version: ^10.13.0
+          webpack_version: next
     steps:
       - task: NodeTool@0
         inputs:
@@ -115,10 +134,12 @@ jobs:
           node -v
           npm -v
         displayName: 'Print versions'
-      - task: Npm@1
+      - task: CacheBeta@1
         inputs:
-          command: custom
-          customCommand: ci
+          key: npm | $(Agent.OS) | package-lock.json
+          path: $(npm_config_cache)
+        displayName: 'Cache npm'
+      - script: npm ci
         displayName: 'Install dependencies'
       - script: npm i webpack@$(webpack_version)
         displayName: 'Install "webpack@$(webpack_version)"'
@@ -136,10 +157,13 @@ jobs:
 
   - job: Windows
     pool:
-      vmImage: windows-2019
+      vmImage: windows-latest
     strategy:
-      maxParallel: 5
+      maxParallel: 6
       matrix:
+        node-13:
+          node_version: ^13.0.0
+          webpack_version: latest
         node-12:
           node_version: ^12.0.0
           webpack_version: latest
@@ -152,6 +176,9 @@ jobs:
         node-6:
           node_version: ^6.9.0
           webpack_version: latest
+        node-10-canary:
+          node_version: ^10.13.0
+          webpack_version: next
     steps:
       - script: 'git config --global core.autocrlf input'
         displayName: 'Config git core.autocrlf'
@@ -169,10 +196,12 @@ jobs:
           node -v
           npm -v
         displayName: 'Print versions'
-      - task: Npm@1
+      - task: CacheBeta@1
         inputs:
-          command: custom
-          customCommand: ci
+          key: npm | $(Agent.OS) | package-lock.json
+          path: $(npm_config_cache)
+        displayName: 'Cache npm'
+      - script: npm ci
         displayName: 'Install dependencies'
       - script: npm i webpack@$(webpack_version)
         displayName: 'Install "webpack@$(webpack_version)"'
