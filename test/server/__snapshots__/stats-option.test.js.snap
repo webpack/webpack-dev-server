@@ -43,3 +43,14 @@ Array [
   "warnings",
 ]
 `;
+
+exports[`stats option should works with difference stats values (contains 'hash', 'assets', 'warnings' and 'errors') 5`] = `
+Array [
+  "assets",
+  "assetsByChunkName",
+  "errors",
+  "filteredAssets",
+  "hash",
+  "warnings",
+]
+`;

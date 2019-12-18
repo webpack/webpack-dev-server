@@ -10,7 +10,7 @@ describe('stats option', () => {
     const allStats = [
       {},
       // eslint-disable-next-line no-undefined
-      // undefined,
+      undefined,
       false,
       'errors-only',
       {
