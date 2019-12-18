@@ -176,8 +176,9 @@ describe('CLI', () => {
 
   it('should exit the process when SIGINT is detected, even before the compilation is done', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = resolve(__dirname, '../../examples/cli/public');
-    const cp = execa('node', [cliPath], { cwd: examplePath });
+    const simpleConfig = resolve(__dirname, '../fixtures/simple-config');
+    const cp = execa('node', [cliPath], { cwd: simpleConfig });
+
     let killed = false;
 
     cp.stdout.on('data', () => {
@@ -197,11 +198,13 @@ describe('CLI', () => {
 
   it('should use different random port when multiple instances are started on different processes', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = resolve(__dirname, '../../examples/cli/public');
+    const simpleConfig = resolve(__dirname, '../fixtures/simple-config');
 
-    const cp = execa('node', [cliPath, '--colors=false'], { cwd: examplePath });
+    const cp = execa('node', [cliPath, '--colors=false'], {
+      cwd: simpleConfig,
+    });
     const cp2 = execa('node', [cliPath, '--colors=false'], {
-      cwd: examplePath,
+      cwd: simpleConfig,
     });
 
     const runtime = {
@@ -220,22 +223,27 @@ describe('CLI', () => {
       const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
         bits
       );
+
       if (portMatch) {
         runtime.cp.port = portMatch[1];
       }
+
       if (/Compiled successfully/.test(bits)) {
         expect(cp.pid !== 0).toBe(true);
         cp.kill('SIGINT');
       }
     });
+
     cp2.stdout.on('data', (data) => {
       const bits = data.toString();
       const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
         bits
       );
+
       if (portMatch) {
         runtime.cp2.port = portMatch[1];
       }
+
       if (/Compiled successfully/.test(bits)) {
         expect(cp.pid !== 0).toBe(true);
         cp2.kill('SIGINT');
@@ -249,8 +257,10 @@ describe('CLI', () => {
         done();
       }
     });
+
     cp2.on('exit', () => {
       runtime.cp2.done = true;
+
       if (runtime.cp.done) {
         expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
         done();

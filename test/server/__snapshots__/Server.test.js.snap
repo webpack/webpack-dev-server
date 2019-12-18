@@ -19,17 +19,6 @@ Array [
 ]
 `;
 
-exports[`Server addEntries add hot option 2`] = `
-Array [
-  HotModuleReplacementPlugin {
-    "fullBuildTimeout": 200,
-    "multiStep": undefined,
-    "options": Object {},
-    "requestTimeout": 10000,
-  },
-]
-`;
-
 exports[`Server addEntries add hotOnly option 1`] = `
 Array [
   Array [
@@ -46,16 +35,5 @@ Array [
   Array [
     "foo.js",
   ],
-]
-`;
-
-exports[`Server addEntries add hotOnly option 2`] = `
-Array [
-  HotModuleReplacementPlugin {
-    "fullBuildTimeout": 200,
-    "multiStep": undefined,
-    "options": Object {},
-    "requestTimeout": 10000,
-  },
 ]
 `;

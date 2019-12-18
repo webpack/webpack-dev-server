@@ -15,8 +15,8 @@ Array [
 
 exports[`Client iframe console.log hot enabled 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[HMR] Waiting for update signal from WDS...",
   "[WDS] Hot Module Replacement enabled.",
   "[WDS] Live Reloading enabled.",
 ]

@@ -84,7 +84,8 @@ describe('Client iframe console.log', () => {
           });
         })
         .then(() => {
-          expect(res).toMatchSnapshot();
+          // Order doesn't matter, maybe we should improve that in future
+          expect(res.sort()).toMatchSnapshot();
           done();
         });
     });

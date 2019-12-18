@@ -39,9 +39,9 @@ describe('Server', () => {
           return relative('.', p).split(sep);
         })
       ).toMatchSnapshot();
-      expect(
-        server.middleware.context.compiler.options.plugins
-      ).toMatchSnapshot();
+      expect(server.middleware.context.compiler.options.plugins).toEqual([
+        new webpack.HotModuleReplacementPlugin(),
+      ]);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
         server.close(done);
@@ -64,9 +64,9 @@ describe('Server', () => {
           return relative('.', p).split(sep);
         })
       ).toMatchSnapshot();
-      expect(
-        server.middleware.context.compiler.options.plugins
-      ).toMatchSnapshot();
+      expect(server.middleware.context.compiler.options.plugins).toEqual([
+        new webpack.HotModuleReplacementPlugin(),
+      ]);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
         server.close(done);
@@ -78,14 +78,6 @@ describe('Server', () => {
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe('express.static.mine.types', () => {
-    beforeEach(() => {
-      jest.resetModules();
-    });
-
-    afterEach(() => {
-      jest.unmock('express');
-    });
-
     it("should success even if mine.types doesn't exist", (done) => {
       jest.mock('express', () => {
         const data = jest.requireActual('express');
@@ -115,31 +107,6 @@ describe('Server', () => {
 
       compiler.run(() => {});
       server.listen(port, 'localhost');
-    });
-  });
-
-  describe('WEBPACK_DEV_SERVER environment variable', () => {
-    const OLD_ENV = process.env;
-
-    beforeEach(() => {
-      // this is important - it clears the cache
-      jest.resetModules();
-
-      process.env = { ...OLD_ENV };
-
-      delete process.env.WEBPACK_DEV_SERVER;
-    });
-
-    afterEach(() => {
-      process.env = OLD_ENV;
-    });
-
-    it('should be present', () => {
-      expect(process.env.WEBPACK_DEV_SERVER).toBeUndefined();
-
-      require('../../lib/Server');
-
-      expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
     });
   });
 
@@ -176,6 +143,31 @@ describe('Server', () => {
 
         compiler.run(() => {});
       });
+    });
+  });
+
+  describe('WEBPACK_DEV_SERVER environment variable', () => {
+    const OLD_ENV = process.env;
+
+    beforeEach(() => {
+      // this is important - it clears the cache
+      jest.resetModules();
+
+      process.env = { ...OLD_ENV };
+
+      delete process.env.WEBPACK_DEV_SERVER;
+    });
+
+    afterEach(() => {
+      process.env = OLD_ENV;
+    });
+
+    it('should be present', () => {
+      expect(process.env.WEBPACK_DEV_SERVER).toBeUndefined();
+
+      require('../../lib/Server');
+
+      expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
     });
   });
 });
