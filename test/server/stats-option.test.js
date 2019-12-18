@@ -10,7 +10,7 @@ describe('stats option', () => {
     const allStats = [
       {},
       // eslint-disable-next-line no-undefined
-      undefined,
+      // undefined,
       false,
       'errors-only',
       {
@@ -25,7 +25,7 @@ describe('stats option', () => {
           const server = new Server(compiler, { stats, port, quiet: true });
 
           compiler.hooks.done.tap('webpack-dev-server', (s) => {
-            expect(Object.keys(server.getStats(s))).toMatchSnapshot();
+            expect(Object.keys(server.getStats(s)).sort()).toMatchSnapshot();
 
             server.close(resolve);
           });
@@ -51,7 +51,15 @@ describe('stats option', () => {
       const output = server.getStats(s);
 
       expect(output.warnings.length).toBe(1);
-      expect(output.warnings[0]).toBe('another warning');
+
+      // Webpack@4
+      if (typeof output.warnings[0] === 'string') {
+        expect(output.warnings[0]).toBe('another warning');
+      }
+      // Webpack@5
+      else {
+        expect(output.warnings[0]).toEqual({ message: 'another warning' });
+      }
 
       server.close(done);
     });
