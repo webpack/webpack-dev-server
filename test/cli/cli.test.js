@@ -262,7 +262,7 @@ describe('CLI', () => {
       runtime.cp2.done = true;
 
       if (runtime.cp.done) {
-        // expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+        expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
         done();
       }
     });
