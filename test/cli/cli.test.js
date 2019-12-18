@@ -176,7 +176,8 @@ describe('CLI', () => {
 
   it('should exit the process when SIGINT is detected, even before the compilation is done', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const cp = execa('node', [cliPath]);
+    const simpleConfig = resolve(__dirname, '../fixtures/simple-config');
+    const cp = execa('node', [cliPath], { cwd: simpleConfig });
 
     let killed = false;
 
@@ -197,9 +198,14 @@ describe('CLI', () => {
 
   it('should use different random port when multiple instances are started on different processes', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const simpleConfig = resolve(__dirname, '../fixtures/simple-config');
 
-    const cp = execa('node', [cliPath, '--colors=false']);
-    const cp2 = execa('node', [cliPath, '--colors=false']);
+    const cp = execa('node', [cliPath, '--colors=false'], {
+      cwd: simpleConfig,
+    });
+    const cp2 = execa('node', [cliPath, '--colors=false'], {
+      cwd: simpleConfig,
+    });
 
     const runtime = {
       cp: {
