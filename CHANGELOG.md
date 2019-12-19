@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.10.1](https://github.com/webpack/webpack-dev-server/compare/v3.10.0...v3.10.1) (2019-12-19)
+
+
+### Bug Fixes
+
+* ie11 compatibility ([1306abe](https://github.com/webpack/webpack-dev-server/commit/1306abeb8c5fd125952cdc177fdf38c2c31b3c4f))
+
 ## [3.10.0](https://github.com/webpack/webpack-dev-server/compare/v3.9.0...v3.10.0) (2019-12-18)
 
 
