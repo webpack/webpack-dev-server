@@ -54,7 +54,7 @@ function getSocketUrl(urlParts, loc) {
   if (
     (hostname === '0.0.0.0' || hostname === '::') &&
     loc.hostname &&
-    loc.protocol.startsWith('http')
+    loc.protocol.indexOf('http') === 0
   ) {
     hostname = loc.hostname;
   }
