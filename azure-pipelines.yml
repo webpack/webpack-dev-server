@@ -44,7 +44,7 @@ jobs:
       maxParallel: 6
       matrix:
         node-13:
-          node_version: ^13.0.0
+          node_version: ^13.5.0
           webpack_version: latest
         node-12:
           node_version: ^12.0.0
@@ -97,7 +97,7 @@ jobs:
       maxParallel: 6
       matrix:
         node-13:
-          node_version: ^13.0.0
+          node_version: ^13.5.0
           webpack_version: latest
         node-12:
           node_version: ^12.0.0
@@ -150,7 +150,7 @@ jobs:
       maxParallel: 6
       matrix:
         node-13:
-          node_version: ^13.0.0
+          node_version: ^13.5.0
           webpack_version: latest
         node-12:
           node_version: ^12.0.0
