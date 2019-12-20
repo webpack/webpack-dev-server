@@ -257,49 +257,55 @@ describe('proxy option', () => {
     let wsServer;
     let responseMessage;
 
-    beforeAll((done) => {
-      testServer.start(
-        config,
-        {
-          contentBase,
-          proxy: [
+    const transportModes = ['sockjs', 'ws'];
+    transportModes.forEach((transportMode) => {
+      describe(`with transportMode: ${transportMode}`, () => {
+        beforeAll((done) => {
+          testServer.start(
+            config,
             {
-              context: '/',
-              target: `http://localhost:${port4}`,
-              ws: true,
+              contentBase,
+              transportMode,
+              proxy: [
+                {
+                  context: '/',
+                  target: `http://localhost:${port4}`,
+                  ws: true,
+                },
+              ],
+              port: port3,
             },
-          ],
-          port: port3,
-        },
-        done
-      );
+            done
+          );
 
-      wsServer = new WebSocketServer({ port: port4 });
-      wsServer.on('connection', (server) => {
-        server.on('message', (message) => {
-          server.send(message);
+          wsServer = new WebSocketServer({ port: port4 });
+          wsServer.on('connection', (server) => {
+            server.on('message', (message) => {
+              server.send(message);
+            });
+          });
+        });
+
+        beforeEach((done) => {
+          ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
+          ws.on('message', (message) => {
+            responseMessage = message;
+            done();
+          });
+          ws.on('open', () => {
+            ws.send('foo');
+          });
+        });
+
+        it('Should receive response', () => {
+          expect(responseMessage).toEqual('foo');
+        });
+
+        afterAll((done) => {
+          wsServer.close();
+          testServer.close(done);
         });
       });
-    });
-
-    beforeEach((done) => {
-      ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
-      ws.on('message', (message) => {
-        responseMessage = message;
-        done();
-      });
-      ws.on('open', () => {
-        ws.send('foo');
-      });
-    });
-
-    it('Should receive response', () => {
-      expect(responseMessage).toEqual('foo');
-    });
-
-    afterAll((done) => {
-      wsServer.close();
-      testServer.close(done);
     });
   });
 

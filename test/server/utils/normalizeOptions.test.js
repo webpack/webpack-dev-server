@@ -94,6 +94,14 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'contentBasePublicPath string',
+      multiCompiler: false,
+      options: {
+        contentBasePublicPath: '/content-base-public-path',
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

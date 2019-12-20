@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.10.0](https://github.com/webpack/webpack-dev-server/compare/v3.9.0...v3.10.0) (2019-12-18)
+
+
+### Features
+
+* **client:** allow sock port to use location's port (`sockPort: 'location'`) ([#2341](https://github.com/webpack/webpack-dev-server/issues/2341)) ([dc10d06](https://github.com/webpack/webpack-dev-server/commit/dc10d0647413ad57814b684b5f6ef3659531f0f6))
+* **server:** add `contentBasePublicPath` option ([#2150](https://github.com/webpack/webpack-dev-server/issues/2150)) ([cee700d](https://github.com/webpack/webpack-dev-server/commit/cee700d59aff644a499ee310c4a32d5c5693e559))
+
+
+### Bug Fixes
+
+* **client:** don't override protocol for socket connection to 127.0.0.1 ([#2303](https://github.com/webpack/webpack-dev-server/issues/2303)) ([3a31917](https://github.com/webpack/webpack-dev-server/commit/3a31917a02818dabb3dc549e3e4994618475d131)), closes [#2302](https://github.com/webpack/webpack-dev-server/issues/2302)
+* **server:** respect sockPath on transportMode: 'ws' ([#2310](https://github.com/webpack/webpack-dev-server/issues/2310)) ([#2311](https://github.com/webpack/webpack-dev-server/issues/2311)) ([e188542](https://github.com/webpack/webpack-dev-server/commit/e188542d888dbb55be64c9da2f747343b73c319f))
+* https on chrome linux ([#2330](https://github.com/webpack/webpack-dev-server/issues/2330)) ([dc8b475](https://github.com/webpack/webpack-dev-server/commit/dc8b47510e24649edb38e5a07579be389898189e))
+* support webpack@5 ([#2359](https://github.com/webpack/webpack-dev-server/issues/2359)) ([8f89c01](https://github.com/webpack/webpack-dev-server/commit/8f89c0188579a419dc68021f8bc0fbeae70cbe5d))
+
 ## [3.9.0](https://github.com/webpack/webpack-dev-server/compare/v3.8.2...v3.9.0) (2019-10-22)
 
 
