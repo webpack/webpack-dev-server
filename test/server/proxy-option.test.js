@@ -45,11 +45,12 @@ const proxyOption = {
 
 const proxyOptionOfArray = [
   { context: '/proxy1', target: proxyOption.target },
-  function proxy() {
+  function proxy(req) {
     return {
       context: '/api/proxy2',
       target: `http://localhost:${port2}`,
       pathRewrite: { '^/api': '' },
+      bypass: () => (req.query.foo ? false : null),
     };
   },
 ];
@@ -200,6 +201,10 @@ describe('proxy option', () => {
     });
 
     it('respects a proxy option of function', (done) => {
+      req.get('/api/proxy2').expect(200, 'from proxy2', done);
+    });
+
+    it('should allow for behavior configured by req', (done) => {
       req.get('/api/proxy2').expect(200, 'from proxy2', done);
     });
   });
