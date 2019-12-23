@@ -205,7 +205,7 @@ describe('proxy option', () => {
     });
 
     it('should allow for behavior configured by req', (done) => {
-      req.get('/api/proxy2').expect(200, 'from proxy2', done);
+      req.get('/api/proxy2?foo=true').expect(200, 'from proxy2', done);
     });
   });
 
