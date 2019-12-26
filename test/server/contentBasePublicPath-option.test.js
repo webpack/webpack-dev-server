@@ -277,19 +277,19 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('POST request', (done) => {
-      req.post(`${contentBasePublicPath}/`).expect(405, done);
+      req.post(`${contentBasePublicPath}/`).expect(404, done);
     });
 
     it('PUT request', (done) => {
-      req.put(`${contentBasePublicPath}/`).expect(405, done);
+      req.put(`${contentBasePublicPath}/`).expect(404, done);
     });
 
     it('DELETE request', (done) => {
-      req.delete(`${contentBasePublicPath}/`).expect(405, done);
+      req.delete(`${contentBasePublicPath}/`).expect(404, done);
     });
 
     it('PATCH request', (done) => {
-      req.patch(`${contentBasePublicPath}/`).expect(405, done);
+      req.patch(`${contentBasePublicPath}/`).expect(404, done);
     });
   });
 });

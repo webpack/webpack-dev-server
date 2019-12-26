@@ -29,6 +29,10 @@ describe('after option', () => {
           appArg.get('/after/some/path', (_, response) => {
             response.send('after');
           });
+
+          appArg.post('/after/some/path', (_, response) => {
+            response.send('after POST');
+          });
         },
         port,
       },
@@ -46,6 +50,16 @@ describe('after option', () => {
       .expect(200)
       .then((response) => {
         expect(response.text).toBe('after');
+      });
+  });
+
+  it('should handle POST requests to after route', () => {
+    return req
+      .post('/after/some/path')
+      .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect(200)
+      .then((response) => {
+        expect(response.text).toBe('after POST');
       });
   });
 });
