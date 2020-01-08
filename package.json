@@ -45,7 +45,7 @@
     "del": "^5.0.0",
     "express": "^4.17.1",
     "html-entities": "^1.2.1",
-    "http-proxy-middleware": "^0.19.1",
+    "http-proxy-middleware": "^0.20.0",
     "import-local": "^3.0.2",
     "internal-ip": "^5.0.0",
     "ip": "^1.1.5",
