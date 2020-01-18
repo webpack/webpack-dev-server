@@ -116,6 +116,11 @@
   "peerDependencies": {
     "webpack": "^4.0.0 || ^5.0.0"
   },
+  "peerDependenciesMeta": {
+    "webpack-cli": {
+      "optional": true
+    }
+  },
   "author": "Tobias Koppers @sokra",
   "bugs": "https://github.com/webpack/webpack-dev-server/issues",
   "homepage": "https://github.com/webpack/webpack-dev-server#readme",
