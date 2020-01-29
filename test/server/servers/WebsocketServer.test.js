@@ -23,6 +23,7 @@ describe('WebsocketServer', () => {
         },
         sockPath: '/ws-server',
         listeningApp,
+        heartbeatInterval: 800,
       };
 
       socketServer = new WebsocketServer(server);
@@ -56,6 +57,12 @@ describe('WebsocketServer', () => {
       client.onclose = () => {
         data.push('close');
       };
+
+      // the heartbeat interval was shortened greatly above
+      // so that the client is quickly pinged
+      client.on('ping', () => {
+        data.push('ping');
+      });
 
       setTimeout(() => {
         expect(headers.host).toMatchSnapshot();

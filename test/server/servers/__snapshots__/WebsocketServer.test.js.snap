@@ -6,6 +6,7 @@ exports[`WebsocketServer server should recieve connection, send message, and clo
 Array [
   "open",
   "hello world",
+  "ping",
   "close",
 ]
 `;
