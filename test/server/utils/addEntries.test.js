@@ -359,7 +359,7 @@ describe('addEntries util', () => {
     });
 
     // node target should have the client runtime but not the hot runtime
-    const webWebpackOptions = webpackOptions[0];
+    const [webWebpackOptions, nodeWebpackOptions] = webpackOptions;
 
     expect(webWebpackOptions.entry.length).toEqual(2);
 
@@ -368,9 +368,6 @@ describe('addEntries util', () => {
     ).toBeTruthy();
 
     expect(normalize(webWebpackOptions.entry[1])).toEqual('./foo.js');
-
-    // node target should have the hot runtime but not the client runtime
-    const nodeWebpackOptions = webpackOptions[1];
 
     expect(nodeWebpackOptions.entry.length).toEqual(2);
 
