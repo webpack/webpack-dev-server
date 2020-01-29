@@ -183,4 +183,63 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
   });
+
+  describe('simple hot only config entries', () => {
+    beforeAll((done) => {
+      const options = {
+        port,
+        inline: true,
+        hot: 'only',
+        watchOptions: {
+          poll: true,
+        },
+      };
+      server = testServer.startAwaitingCompilation(config, options, done);
+      req = request(server.app);
+    });
+
+    afterAll(testServer.close);
+
+    it('should include hot only script in the bundle', async () => {
+      await req
+        .get('/main.js')
+        .expect(200, /webpack\/hot\/only-dev-server\.js/);
+    });
+  });
+
+  describe('simple hot only config HMR plugin', () => {
+    it('should register the HMR plugin before compilation is complete', (done) => {
+      let pluginFound = false;
+
+      const options = {
+        port,
+        inline: true,
+        hot: 'only',
+        watchOptions: {
+          poll: true,
+        },
+      };
+      const fullSetup = testServer.startAwaitingCompilationFullSetup(
+        config,
+        options,
+        () => {
+          expect(pluginFound).toBeTruthy();
+          done();
+        }
+      );
+
+      const compiler = fullSetup.compiler;
+
+      compiler.hooks.compilation.intercept({
+        register: (tapInfo) => {
+          if (tapInfo.name === 'HotModuleReplacementPlugin') {
+            pluginFound = true;
+          }
+          return tapInfo;
+        },
+      });
+    });
+
+    afterAll(testServer.close);
+  });
 });

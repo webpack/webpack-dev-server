@@ -11,9 +11,8 @@ const normalize = (entry) => entry.split(path.sep).join('/');
 describe('addEntries util', () => {
   it('should adds devServer entry points to a single entry point', () => {
     const webpackOptions = Object.assign({}, config);
-    const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(
@@ -27,9 +26,7 @@ describe('addEntries util', () => {
       entry: ['./foo.js', './bar.js'],
     });
 
-    const devServerOptions = {};
-
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(webpackOptions.entry.length).toEqual(3);
     expect(
@@ -47,9 +44,7 @@ describe('addEntries util', () => {
       },
     });
 
-    const devServerOptions = {};
-
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(webpackOptions.entry.foo.length).toEqual(2);
 
@@ -62,9 +57,8 @@ describe('addEntries util', () => {
 
   it('should set defaults to src if no entry point is given', () => {
     const webpackOptions = {};
-    const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(webpackOptions.entry[1]).toEqual('./src');
@@ -79,9 +73,8 @@ describe('addEntries util', () => {
         return `./src-${i}.js`;
       },
     };
-    const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(typeof webpackOptions.entry).toEqual('function');
 
@@ -110,9 +103,7 @@ describe('addEntries util', () => {
         }),
     };
 
-    const devServerOptions = {};
-
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(typeof webpackOptions.entry).toEqual('function');
 
@@ -137,11 +128,7 @@ describe('addEntries util', () => {
       },
     });
 
-    const devServerOptions = {
-      hot: true,
-    };
-
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, { hot: true });
 
     const hotClientScript = webpackOptions.entry.app[1];
 
@@ -151,18 +138,14 @@ describe('addEntries util', () => {
     expect(hotClientScript).toEqual(require.resolve(hotClientScript));
   });
 
-  it("should prepends webpack's hot-only client script", () => {
+  it("should prepends webpack's hot only client script", () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         app: './app.js',
       },
     });
 
-    const devServerOptions = {
-      hotOnly: true,
-    };
-
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, { hot: 'only' });
 
     const hotClientScript = webpackOptions.entry.app[1];
 
@@ -174,18 +157,16 @@ describe('addEntries util', () => {
 
   it("should doesn't add the HMR plugin if not hot and no plugins", () => {
     const webpackOptions = Object.assign({}, config);
-    const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect('plugins' in webpackOptions).toBeFalsy();
   });
 
   it("should doesn't add the HMR plugin if not hot and empty plugins", () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
-    const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(webpackOptions.plugins).toEqual([]);
   });
@@ -196,9 +177,8 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config, {
       plugins: [existingPlugin1, existingPlugin2],
     });
-    const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
   });
@@ -208,9 +188,8 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config, {
       plugins: [existingPlugin],
     });
-    const devServerOptions = { hot: true };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, { hot: true });
 
     expect(webpackOptions.plugins).toEqual([
       existingPlugin,
@@ -220,9 +199,8 @@ describe('addEntries util', () => {
 
   it('should adds the HMR plugin if hot-only', () => {
     const webpackOptions = Object.assign({}, config);
-    const devServerOptions = { hotOnly: true };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, { hot: 'only' });
 
     expect(webpackOptions.plugins).toEqual([
       new webpack.HotModuleReplacementPlugin(),
@@ -234,9 +212,8 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config, {
       plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin],
     });
-    const devServerOptions = { hot: true };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, { hot: true });
 
     expect(webpackOptions.plugins).toEqual([
       new webpack.HotModuleReplacementPlugin(),
@@ -253,9 +230,8 @@ describe('addEntries util', () => {
     const webpackOptions = Object.assign({}, config, {
       plugins: [new HotModuleReplacementPlugin(), existingPlugin],
     });
-    const devServerOptions = { hot: true };
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, { hot: true });
 
     expect(webpackOptions.plugins).toEqual([
       // Nothing should be injected
@@ -266,10 +242,9 @@ describe('addEntries util', () => {
 
   it('should can prevent duplicate entries from successive calls', () => {
     const webpackOptions = Object.assign({}, config);
-    const devServerOptions = { hot: true };
 
-    addEntries(webpackOptions, devServerOptions);
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, { hot: true });
+    addEntries(webpackOptions, { hot: true });
 
     expect(webpackOptions.entry.length).toEqual(3);
 
@@ -281,9 +256,8 @@ describe('addEntries util', () => {
 
   it('should supports entry as Function', () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
-    const devServerOptions = {};
 
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     expect(typeof webpackOptions.entry === 'function').toBe(true);
   });
@@ -298,9 +272,7 @@ describe('addEntries util', () => {
       Object.assign({ target: 'node' }, config) /* index:5 */,
     ];
 
-    const devServerOptions = {};
-
-    addEntries(webpackOptions, devServerOptions);
+    addEntries(webpackOptions, {});
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions, index) => {
@@ -328,11 +300,9 @@ describe('addEntries util', () => {
       Object.assign({ target: 'node' }, config),
     ];
 
-    const devServerOptions = {
+    addEntries(webpackOptions, {
       injectClient: (compilerConfig) => compilerConfig.name === 'only-include',
-    };
-
-    addEntries(webpackOptions, devServerOptions);
+    });
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions, index) => {
@@ -358,14 +328,12 @@ describe('addEntries util', () => {
       Object.assign({ target: 'node' }, config),
     ];
 
-    const devServerOptions = {
+    addEntries(webpackOptions, {
       // disable inlining the client so entry indexes match up
       // and we can use the same assertions for both configs
       injectClient: false,
       hot: true,
-    };
-
-    addEntries(webpackOptions, devServerOptions);
+    });
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions) => {
@@ -385,12 +353,10 @@ describe('addEntries util', () => {
       Object.assign({ target: 'node' }, config),
     ];
 
-    const devServerOptions = {
+    addEntries(webpackOptions, {
       injectHot: (compilerConfig) => compilerConfig.target === 'node',
       hot: true,
-    };
-
-    addEntries(webpackOptions, devServerOptions);
+    });
 
     // node target should have the client runtime but not the hot runtime
     const webWebpackOptions = webpackOptions[0];

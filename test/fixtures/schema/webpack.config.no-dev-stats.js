@@ -13,7 +13,6 @@ module.exports = {
     publicPath: '_publicPath',
     filename: '_filename',
     hot: '_hot',
-    hotOnly: '_hotOnly',
     clientLogLevel: '_clientLogLevel',
     contentBase: '_contentBase',
     watchContentBase: '_watchContentBase',

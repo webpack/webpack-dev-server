@@ -19,7 +19,7 @@ Array [
 ]
 `;
 
-exports[`Server addEntries add hotOnly option 1`] = `
+exports[`Server addEntries add hot with the "only" value option 1`] = `
 Array [
   Array [
     "client",

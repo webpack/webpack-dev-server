@@ -131,12 +131,11 @@ exports[`options should throw an error on the "host" option with "false" value 1
 
 exports[`options should throw an error on the "hot" option with "" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.hot should be a boolean."
-`;
-
-exports[`options should throw an error on the "hotOnly" option with "" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.hotOnly should be a boolean."
+ - options.hot should be one of these:
+   boolean | \\"only\\"
+   Details:
+    * options.hot should be a boolean.
+    * options.hot should be \\"only\\"."
 `;
 
 exports[`options should throw an error on the "http2" option with "" value 1`] = `
