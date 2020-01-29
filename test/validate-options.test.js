@@ -92,11 +92,7 @@ describe('options', () => {
       failure: [false],
     },
     hot: {
-      success: [true],
-      failure: [''],
-    },
-    hotOnly: {
-      success: [true],
+      success: [true, 'only'],
       failure: [''],
     },
     http2: {

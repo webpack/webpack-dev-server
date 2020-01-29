@@ -114,10 +114,14 @@
       ]
     },
     "hot": {
-      "type": "boolean"
-    },
-    "hotOnly": {
-      "type": "boolean"
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": ["only"]
+        }
+      ]
     },
     "http2": {
       "type": "boolean"
@@ -427,7 +431,6 @@
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
       "host": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserverhost)",
       "hot": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhot)",
-      "hotOnly": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhotonly)",
       "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttp2)",
       "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttps)",
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverindex)",

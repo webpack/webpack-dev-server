@@ -45,9 +45,14 @@ const options = {
     describe: 'Print compilation progress in percentage',
     group: BASIC_GROUP,
   },
+  hot: {
+    type: 'boolean',
+    describe: 'Enables/Disables hot mode',
+    group: ADVANCED_GROUP,
+  },
   'hot-only': {
     type: 'boolean',
-    describe: 'Do not refresh page if HMR fails',
+    describe: 'Enables hot only mode',
     group: ADVANCED_GROUP,
   },
   stdin: {
