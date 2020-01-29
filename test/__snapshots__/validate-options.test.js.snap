@@ -82,12 +82,6 @@ exports[`options should throw an error on the "disableHostCheck" option with "" 
  - options.disableHostCheck should be a boolean."
 `;
 
-exports[`options should throw an error on the "features" option with "false" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.features should be an array:
-   [string, ...]"
-`;
-
 exports[`options should throw an error on the "filename" option with "false" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.filename should be one of these:
