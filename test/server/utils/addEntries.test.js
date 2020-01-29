@@ -9,7 +9,7 @@ const configEntryAsFunction = require('./../../fixtures/entry-as-function/webpac
 const normalize = (entry) => entry.split(path.sep).join('/');
 
 describe('addEntries util', () => {
-  it('should adds devServer entry points to a single entry point', () => {
+  it('should add devServer entry points to a single entry point', () => {
     const webpackOptions = Object.assign({}, config);
 
     addEntries(webpackOptions, {});
@@ -21,7 +21,7 @@ describe('addEntries util', () => {
     expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
   });
 
-  it('should adds devServer entry points to a multi-module entry point', () => {
+  it('should add devServer entry points to a multi-module entry point', () => {
     const webpackOptions = Object.assign({}, config, {
       entry: ['./foo.js', './bar.js'],
     });
@@ -36,7 +36,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry[2]).toEqual('./bar.js');
   });
 
-  it('should adds devServer entry points to a multi entry point object', () => {
+  it('should add devServer entry points to a multi entry point object', () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         foo: './foo.js',
@@ -64,7 +64,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry[1]).toEqual('./src');
   });
 
-  it('should preserves dynamic entry points', async () => {
+  it('should preserve dynamic entry points', async () => {
     let i = 0;
     const webpackOptions = {
       // simulate dynamic entry
@@ -92,7 +92,7 @@ describe('addEntries util', () => {
     }
   });
 
-  it('should preserves asynchronous dynamic entry points', async () => {
+  it('should preserve asynchronous dynamic entry points', async () => {
     let i = 0;
     const webpackOptions = {
       // simulate async dynamic entry
@@ -121,7 +121,7 @@ describe('addEntries util', () => {
     }
   });
 
-  it("should prepends webpack's hot reload client script", () => {
+  it("should prepend webpack's hot reload client script", () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         app: './app.js',
@@ -138,7 +138,7 @@ describe('addEntries util', () => {
     expect(hotClientScript).toEqual(require.resolve(hotClientScript));
   });
 
-  it("should prepends webpack's hot only client script", () => {
+  it("should prepend webpack's hot only client script", () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         app: './app.js',
@@ -155,7 +155,7 @@ describe('addEntries util', () => {
     expect(hotClientScript).toEqual(require.resolve(hotClientScript));
   });
 
-  it("should doesn't add the HMR plugin if not hot and no plugins", () => {
+  it('should not add the HMR plugin if not hot and no plugins', () => {
     const webpackOptions = Object.assign({}, config);
 
     addEntries(webpackOptions, {});
@@ -163,7 +163,7 @@ describe('addEntries util', () => {
     expect('plugins' in webpackOptions).toBeFalsy();
   });
 
-  it("should doesn't add the HMR plugin if not hot and empty plugins", () => {
+  it('should not add the HMR plugin if not hot and empty plugins', () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
 
     addEntries(webpackOptions, {});
@@ -171,7 +171,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.plugins).toEqual([]);
   });
 
-  it("should doesn't add the HMR plugin if not hot and some plugins", () => {
+  it('should not add the HMR plugin if not hot and some plugins', () => {
     const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
     const existingPlugin2 = new webpack.DefinePlugin({ foo: 'bar' });
     const webpackOptions = Object.assign({}, config, {
@@ -183,7 +183,7 @@ describe('addEntries util', () => {
     expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
   });
 
-  it('should adds the HMR plugin if hot', () => {
+  it('should add the HMR plugin if hot', () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
     const webpackOptions = Object.assign({}, config, {
       plugins: [existingPlugin],
@@ -197,7 +197,7 @@ describe('addEntries util', () => {
     ]);
   });
 
-  it('should adds the HMR plugin if hot-only', () => {
+  it('should add the HMR plugin if hot-only', () => {
     const webpackOptions = Object.assign({}, config);
 
     addEntries(webpackOptions, { hot: 'only' });
@@ -207,7 +207,7 @@ describe('addEntries util', () => {
     ]);
   });
 
-  it("should doesn't add the HMR plugin again if it's already there", () => {
+  it("should not add the HMR plugin again if it's already there", () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
     const webpackOptions = Object.assign({}, config, {
       plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin],
@@ -240,7 +240,7 @@ describe('addEntries util', () => {
     ]);
   });
 
-  it('should can prevent duplicate entries from successive calls', () => {
+  it('should prevent duplicate entries from successive calls', () => {
     const webpackOptions = Object.assign({}, config);
 
     addEntries(webpackOptions, { hot: true });
@@ -254,7 +254,7 @@ describe('addEntries util', () => {
     expect(result.length).toEqual(1);
   });
 
-  it('should supports entry as Function', () => {
+  it('should support entry as Function', () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
 
     addEntries(webpackOptions, {});
@@ -262,7 +262,7 @@ describe('addEntries util', () => {
     expect(typeof webpackOptions.entry === 'function').toBe(true);
   });
 
-  it('should only prepends devServer entry points to web targets by default', () => {
+  it('should only prepend devServer entry points to web targets by default', () => {
     const webpackOptions = [
       Object.assign({}, config),
       Object.assign({ target: 'web' }, config),
@@ -292,7 +292,7 @@ describe('addEntries util', () => {
     });
   });
 
-  it('should allows selecting compilations to inline the client into', () => {
+  it('should allow selecting compilations to inline the client into', () => {
     const webpackOptions = [
       Object.assign({}, config),
       Object.assign({ target: 'web' }, config),
@@ -322,7 +322,7 @@ describe('addEntries util', () => {
     });
   });
 
-  it('should prepends the hot runtime to all targets by default (when hot)', () => {
+  it('should prepend the hot runtime to all targets by default (when hot)', () => {
     const webpackOptions = [
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'node' }, config),
@@ -347,7 +347,7 @@ describe('addEntries util', () => {
     });
   });
 
-  it('should allows selecting which compilations to inject the hot runtime into', () => {
+  it('should allow selecting which compilations to inject the hot runtime into', () => {
     const webpackOptions = [
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'node' }, config),
