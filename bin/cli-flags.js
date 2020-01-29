@@ -50,15 +50,21 @@ module.exports = {
       group: BASIC_GROUP,
     },
     {
+      name: 'hot',
+      type: Boolean,
+      describe: 'Enables/Disables hot mode',
+      group: ADVANCED_GROUP,
+    },
+    {
       name: 'hot-only',
       type: Boolean,
-      describe: 'Do not refresh page if HMR fails',
+      describe: 'Enables hot only mode',
       group: ADVANCED_GROUP,
     },
     {
       name: 'stdin',
       type: Boolean,
-      describe: 'close when stdin ends',
+      describe: 'Close when stdin ends',
     },
     {
       name: 'open',

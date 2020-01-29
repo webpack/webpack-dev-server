@@ -9,8 +9,6 @@ const argv = {
   port: 8080,
   // Can be `--no-hot` in CLI (undocumented)
   hot: true,
-  // Can be `--no-hot-only` in CLI (misleading and undocumented)
-  hotOnly: false,
 };
 
 describe('createConfig', () => {
@@ -358,20 +356,20 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hotOnly option', () => {
+  it('hot only option', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign({}, argv, { hotOnly: true }),
+      Object.assign({}, argv, { hot: 'only' }),
       { port: 8080 }
     );
 
     expect(config).toMatchSnapshot();
   });
 
-  it('hotOnly option (in devServer config)', () => {
+  it('hot only option (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { hotOnly: true },
+        devServer: { hot: 'only' },
       }),
       argv,
       { port: 8080 }
