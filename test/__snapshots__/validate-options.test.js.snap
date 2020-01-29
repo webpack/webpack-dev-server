@@ -1,0 +1,504 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`options should throw an error on the "after" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.after should be an instance of function."
+`;
+
+exports[`options should throw an error on the "allowedHosts" option with "[false]" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.allowedHosts[0] should be a string."
+`;
+
+exports[`options should throw an error on the "allowedHosts" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.allowedHosts should be an array:
+   [string, ...]"
+`;
+
+exports[`options should throw an error on the "before" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.before should be an instance of function."
+`;
+
+exports[`options should throw an error on the "bonjour" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.bonjour should be a boolean."
+`;
+
+exports[`options should throw an error on the "ca" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.ca should be one of these:
+   string | Buffer
+   Details:
+    * options.ca should be a string.
+    * options.ca should be an instance of Buffer."
+`;
+
+exports[`options should throw an error on the "cert" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.cert should be one of these:
+   string | Buffer
+   Details:
+    * options.cert should be a string.
+    * options.cert should be an instance of Buffer."
+`;
+
+exports[`options should throw an error on the "clientLogLevel" option with "none" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.clientLogLevel should be one of these:
+   \\"info\\" | \\"warn\\" | \\"error\\" | \\"debug\\" | \\"trace\\" | \\"silent\\""
+`;
+
+exports[`options should throw an error on the "clientLogLevel" option with "warning" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.clientLogLevel should be one of these:
+   \\"info\\" | \\"warn\\" | \\"error\\" | \\"debug\\" | \\"trace\\" | \\"silent\\""
+`;
+
+exports[`options should throw an error on the "clientLogLevel" option with "whoops!" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.clientLogLevel should be one of these:
+   \\"info\\" | \\"warn\\" | \\"error\\" | \\"debug\\" | \\"trace\\" | \\"silent\\""
+`;
+
+exports[`options should throw an error on the "compress" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.compress should be a boolean."
+`;
+
+exports[`options should throw an error on the "contentBase" option with "[1]" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.contentBase[0] should be a string."
+`;
+
+exports[`options should throw an error on the "contentBase" option with "[false]" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.contentBase[0] should be a string."
+`;
+
+exports[`options should throw an error on the "disableHostCheck" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.disableHostCheck should be a boolean."
+`;
+
+exports[`options should throw an error on the "features" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.features should be an array:
+   [string, ...]"
+`;
+
+exports[`options should throw an error on the "filename" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.filename should be one of these:
+   string | RegExp | function
+   Details:
+    * options.filename should be a string.
+    * options.filename should be an instance of RegExp.
+    * options.filename should be an instance of function."
+`;
+
+exports[`options should throw an error on the "fs" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.fs should be an object:
+   object { … }"
+`;
+
+exports[`options should throw an error on the "headers" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.headers should be an object:
+   object { … }"
+`;
+
+exports[`options should throw an error on the "historyApiFallback" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.historyApiFallback should be one of these:
+   boolean | object { … }
+   Details:
+    * options.historyApiFallback should be a boolean.
+    * options.historyApiFallback should be an object:
+      object { … }"
+`;
+
+exports[`options should throw an error on the "host" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.host should be one of these:
+   string | null
+   Details:
+    * options.host should be a string.
+    * options.host should be a null."
+`;
+
+exports[`options should throw an error on the "hot" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.hot should be a boolean."
+`;
+
+exports[`options should throw an error on the "hotOnly" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.hotOnly should be a boolean."
+`;
+
+exports[`options should throw an error on the "http2" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.http2 should be a boolean."
+`;
+
+exports[`options should throw an error on the "https" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.https should be one of these:
+   object { … } | boolean
+   Details:
+    * options.https should be an object:
+      object { … }
+    * options.https should be a boolean."
+`;
+
+exports[`options should throw an error on the "index" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.index should be a string."
+`;
+
+exports[`options should throw an error on the "injectClient" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.injectClient should be one of these:
+   boolean | function
+   Details:
+    * options.injectClient should be a boolean.
+    * options.injectClient should be an instance of function."
+`;
+
+exports[`options should throw an error on the "injectHot" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.injectHot should be one of these:
+   boolean | function
+   Details:
+    * options.injectHot should be a boolean.
+    * options.injectHot should be an instance of function."
+`;
+
+exports[`options should throw an error on the "inline" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.inline should be a boolean."
+`;
+
+exports[`options should throw an error on the "key" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.key should be one of these:
+   string | Buffer
+   Details:
+    * options.key should be a string.
+    * options.key should be an instance of Buffer."
+`;
+
+exports[`options should throw an error on the "lazy" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.lazy should be a boolean."
+`;
+
+exports[`options should throw an error on the "log" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.log should be an instance of function."
+`;
+
+exports[`options should throw an error on the "logLevel" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.logLevel should be one of these:
+   \\"info\\" | \\"warn\\" | \\"error\\" | \\"debug\\" | \\"trace\\" | \\"silent\\""
+`;
+
+exports[`options should throw an error on the "logTime" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.logTime should be a boolean."
+`;
+
+exports[`options should throw an error on the "mimeTypes" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.mimeTypes should be an object:
+   object { … }"
+`;
+
+exports[`options should throw an error on the "noInfo" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.noInfo should be a boolean."
+`;
+
+exports[`options should throw an error on the "onListening" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.onListening should be an instance of function."
+`;
+
+exports[`options should throw an error on the "open" option with "{}" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.open should be one of these:
+   string | boolean
+   Details:
+    * options.open should be a string.
+    * options.open should be a boolean."
+`;
+
+exports[`options should throw an error on the "openPage" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.openPage should be one of these:
+   string | [string, ...] (should not have fewer than 1 item)
+   Details:
+    * options.openPage should be a string.
+    * options.openPage should be an array:
+      [string, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options should throw an error on the "overlay" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.overlay should be one of these:
+   boolean | object { errors?, warnings?, … }
+   Details:
+    * options.overlay should be a boolean.
+    * options.overlay should be an object:
+      object { errors?, warnings?, … }"
+`;
+
+exports[`options should throw an error on the "overlay" option with "{"errors":"test"}" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.overlay.errors should be a boolean."
+`;
+
+exports[`options should throw an error on the "overlay" option with "{"warnings":"test"}" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.overlay.warnings should be a boolean."
+`;
+
+exports[`options should throw an error on the "pfx" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.pfx should be one of these:
+   string | Buffer
+   Details:
+    * options.pfx should be a string.
+    * options.pfx should be an instance of Buffer."
+`;
+
+exports[`options should throw an error on the "pfxPassphrase" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.pfxPassphrase should be a string."
+`;
+
+exports[`options should throw an error on the "port" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.port should be one of these:
+   number | string | null
+   Details:
+    * options.port should be a number.
+    * options.port should be a string.
+    * options.port should be a null."
+`;
+
+exports[`options should throw an error on the "profile" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.profile should be a boolean."
+`;
+
+exports[`options should throw an error on the "progress" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.progress should be a boolean."
+`;
+
+exports[`options should throw an error on the "proxy" option with "[]" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.proxy should be an non-empty array."
+`;
+
+exports[`options should throw an error on the "proxy" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.proxy should be one of these:
+   object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
+   Details:
+    * options.proxy should be an object:
+      object { … }
+    * options.proxy should be an array:
+      [object { … } | function, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options should throw an error on the "proxy" option with "function () {}" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.proxy should be one of these:
+   object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
+   Details:
+    * options.proxy should be an object:
+      object { … }
+    * options.proxy should be an array:
+      [object { … } | function, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options should throw an error on the "public" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.public should be a string."
+`;
+
+exports[`options should throw an error on the "publicPath" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.publicPath should be a string."
+`;
+
+exports[`options should throw an error on the "quiet" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.quiet should be a boolean."
+`;
+
+exports[`options should throw an error on the "reporter" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.reporter should be an instance of function."
+`;
+
+exports[`options should throw an error on the "requestCert" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.requestCert should be a boolean."
+`;
+
+exports[`options should throw an error on the "serveIndex" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.serveIndex should be a boolean."
+`;
+
+exports[`options should throw an error on the "serverSideRender" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.serverSideRender should be a boolean."
+`;
+
+exports[`options should throw an error on the "setup" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.setup should be an instance of function."
+`;
+
+exports[`options should throw an error on the "sockHost" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.sockHost should be a string."
+`;
+
+exports[`options should throw an error on the "sockPath" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.sockPath should be a string."
+`;
+
+exports[`options should throw an error on the "sockPort" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.sockPort should be one of these:
+   number | string | null
+   Details:
+    * options.sockPort should be a number.
+    * options.sockPort should be a string.
+    * options.sockPort should be a null."
+`;
+
+exports[`options should throw an error on the "socket" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.socket should be a string."
+`;
+
+exports[`options should throw an error on the "staticOptions" option with "false" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.staticOptions should be an object:
+   object { … }"
+`;
+
+exports[`options should throw an error on the "stats" option with "null" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.stats should be one of these:
+   object { … } | boolean | \\"none\\" | \\"errors-only\\" | \\"errors-warnings\\" | \\"minimal\\" | \\"normal\\" | \\"verbose\\"
+   Details:
+    * options.stats should be an object:
+      object { … }
+    * options.stats should be a boolean.
+    * options.stats should be one of these:
+      \\"none\\" | \\"errors-only\\" | \\"errors-warnings\\" | \\"minimal\\" | \\"normal\\" | \\"verbose\\""
+`;
+
+exports[`options should throw an error on the "stats" option with "whoops!" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.stats should be one of these:
+   object { … } | boolean | \\"none\\" | \\"errors-only\\" | \\"errors-warnings\\" | \\"minimal\\" | \\"normal\\" | \\"verbose\\"
+   Details:
+    * options.stats should be an object:
+      object { … }
+    * options.stats should be a boolean.
+    * options.stats should be one of these:
+      \\"none\\" | \\"errors-only\\" | \\"errors-warnings\\" | \\"minimal\\" | \\"normal\\" | \\"verbose\\""
+`;
+
+exports[`options should throw an error on the "stdin" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.stdin should be a boolean."
+`;
+
+exports[`options should throw an error on the "transportMode" option with "{"notAnOption":true}" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.transportMode has an unknown property 'notAnOption'. These properties are valid:
+   object { client?, server? }"
+`;
+
+exports[`options should throw an error on the "transportMode" option with "{"server":false}" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.transportMode should be one of these:
+   object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   Details:
+    * options.transportMode.server should be one of these:
+      string | function
+      Details:
+       * options.transportMode.server should be a string.
+       * options.transportMode.server should be an instance of function."
+`;
+
+exports[`options should throw an error on the "transportMode" option with "{}" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.transportMode.client should be a string."
+`;
+
+exports[`options should throw an error on the "transportMode" option with "nonexistent-implementation" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.transportMode should be one of these:
+   object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   Details:
+    * options.transportMode should be an object:
+      object { client?, server? }
+    * options.transportMode should be one of these:
+      \\"sockjs\\" | \\"ws\\""
+`;
+
+exports[`options should throw an error on the "transportMode" option with "null" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.transportMode should be one of these:
+   object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   Details:
+    * options.transportMode should be an object:
+      object { client?, server? }
+    * options.transportMode should be one of these:
+      \\"sockjs\\" | \\"ws\\""
+`;
+
+exports[`options should throw an error on the "useLocalIp" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.useLocalIp should be a boolean."
+`;
+
+exports[`options should throw an error on the "warn" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.warn should be an instance of function."
+`;
+
+exports[`options should throw an error on the "watchContentBase" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.watchContentBase should be a boolean."
+`;
+
+exports[`options should throw an error on the "watchOptions" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.watchOptions should be an object:
+   object { … }"
+`;
+
+exports[`options should throw an error on the "writeToDisk" option with "" value 1`] = `
+"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.writeToDisk should be one of these:
+   boolean | function
+   Details:
+    * options.writeToDisk should be a boolean.
+    * options.writeToDisk should be an instance of function."
+`;
