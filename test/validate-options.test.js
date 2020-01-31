@@ -139,10 +139,6 @@ describe('options', () => {
       success: [{}],
       failure: [false],
     },
-    noInfo: {
-      success: [true],
-      failure: [''],
-    },
     onListening: {
       success: [() => {}],
       failure: [''],

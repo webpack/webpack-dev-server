@@ -83,12 +83,6 @@ const options = {
     group: DISPLAY_GROUP,
     describe: 'Enables/Disables colors on the console',
   },
-  info: {
-    type: 'boolean',
-    group: DISPLAY_GROUP,
-    default: true,
-    describe: 'Info',
-  },
   quiet: {
     type: 'boolean',
     group: DISPLAY_GROUP,
