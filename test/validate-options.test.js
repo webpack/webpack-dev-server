@@ -67,10 +67,6 @@ describe('options', () => {
       success: [true],
       failure: [''],
     },
-    features: {
-      success: [['before'], []],
-      failure: [false],
-    },
     filename: {
       success: ['', new RegExp(''), () => {}],
       failure: [false],
