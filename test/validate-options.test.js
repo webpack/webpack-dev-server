@@ -312,10 +312,6 @@ describe('options', () => {
       success: [false],
       failure: [''],
     },
-    warn: {
-      success: [() => {}],
-      failure: [''],
-    },
     watchContentBase: {
       success: [true],
       failure: [''],

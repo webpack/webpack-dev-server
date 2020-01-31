@@ -386,9 +386,6 @@
     "useLocalIp": {
       "type": "boolean"
     },
-    "warn": {
-      "instanceof": "Function"
-    },
     "watchContentBase": {
       "type": "boolean"
     },
@@ -466,7 +463,6 @@
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
       "stdin": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstdin)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)",
-      "warn": "should be {Function}",
       "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverwatchcontentbase)",
       "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchoptions-)",
       "writeToDisk": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverwritetodisk-)"

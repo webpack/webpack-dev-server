@@ -471,11 +471,6 @@ exports[`options should throw an error on the "useLocalIp" option with "" value 
  - options.useLocalIp should be a boolean."
 `;
 
-exports[`options should throw an error on the "warn" option with "" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.warn should be an instance of function."
-`;
-
 exports[`options should throw an error on the "watchContentBase" option with "" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchContentBase should be a boolean."
