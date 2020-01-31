@@ -60,7 +60,7 @@ describe('options', () => {
       failure: [''],
     },
     contentBase: {
-      success: [0, '.', false],
+      success: ['./directory', false, ['./directory', './other-directory']],
       failure: [[1], [false]],
     },
     disableHostCheck: {

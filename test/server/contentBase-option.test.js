@@ -196,99 +196,13 @@ describe('contentBase option', () => {
     });
   });
 
-  describe('to port', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          contentBase: 9099999,
-          port,
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    afterAll((done) => {
-      testServer.close(done);
-    });
-
-    it('Request to page', async () => {
-      await req
-        .get('/other.html')
-        .expect('Location', '//localhost:9099999/other.html')
-        .expect(302);
-    });
-  });
-
-  describe('to external url', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          contentBase: 'http://example.com/',
-          port,
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    afterAll((done) => {
-      testServer.close(done);
-    });
-
-    it('Request to page', async () => {
-      await req
-        .get('/foo.html')
-        // TODO: hmm, two slashes seems to be a bug?
-        .expect('Location', 'http://example.com//foo.html')
-        .expect(302);
-    });
-
-    it('Request to page with search params', async () => {
-      await req
-        .get('/foo.html?space=ship')
-        // TODO: hmm, two slashes seems to be a bug?
-        .expect('Location', 'http://example.com//foo.html?space=ship')
-        .expect(302);
-    });
-  });
-
   describe('testing single & multiple external paths', () => {
     afterEach((done) => {
       testServer.close(() => {
         done();
       });
     });
-    it('Should throw exception (string)', (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = testServer.start(config, {
-          contentBase: 'https://example.com/',
-          watchContentBase: true,
-        });
 
-        expect(true).toBe(false);
-      } catch (e) {
-        expect(e.message).toBe('Watching remote files is not supported.');
-        done();
-      }
-    });
-    it('Should throw exception (number)', (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = testServer.start(config, {
-          contentBase: 2,
-          watchContentBase: true,
-        });
-
-        expect(true).toBe(false);
-      } catch (e) {
-        expect(e.message).toBe('Watching remote files is not supported.');
-        done();
-      }
-    });
     it('Should not throw exception (local path with lower case first character)', (done) => {
       testServer.start(
         config,
@@ -302,6 +216,7 @@ describe('contentBase option', () => {
         done
       );
     });
+
     it("Should not throw exception (local path with lower case first character & has '-')", (done) => {
       testServer.start(
         config,
@@ -313,6 +228,7 @@ describe('contentBase option', () => {
         done
       );
     });
+
     it("Should not throw exception (local path with upper case first character & has '-')", (done) => {
       testServer.start(
         config,
@@ -323,21 +239,6 @@ describe('contentBase option', () => {
         },
         done
       );
-    });
-
-    it('Should throw exception (array)', (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = testServer.start(config, {
-          contentBase: [contentBasePublic, 'https://example.com/'],
-          watchContentBase: true,
-        });
-
-        expect(true).toBe(false);
-      } catch (e) {
-        expect(e.message).toBe('Watching remote files is not supported.');
-        done();
-      }
     });
   });
 
