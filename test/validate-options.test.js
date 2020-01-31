@@ -233,10 +233,6 @@ describe('options', () => {
       success: [true],
       failure: [''],
     },
-    setup: {
-      success: [() => {}],
-      failure: [''],
-    },
     socket: {
       success: [''],
       failure: [false],
