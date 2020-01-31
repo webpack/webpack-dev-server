@@ -356,11 +356,6 @@ exports[`options should throw an error on the "serverSideRender" option with "" 
  - options.serverSideRender should be a boolean."
 `;
 
-exports[`options should throw an error on the "setup" option with "" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.setup should be an instance of function."
-`;
-
 exports[`options should throw an error on the "sockHost" option with "false" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.sockHost should be a string."
