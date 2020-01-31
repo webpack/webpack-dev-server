@@ -45,19 +45,6 @@
     "disableHostCheck": {
       "type": "boolean"
     },
-    "filename": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "RegExp"
-        },
-        {
-          "instanceof": "Function"
-        }
-      ]
-    },
     "fs": {
       "type": "object"
     },
@@ -131,9 +118,6 @@
       ]
     },
     "inline": {
-      "type": "boolean"
-    },
-    "lazy": {
       "type": "boolean"
     },
     "liveReload": {
@@ -355,7 +339,6 @@
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
-      "filename": "should be {String|RegExp|Function} (https://webpack.js.org/configuration/dev-server/#devserverfilename-)",
       "fs": "should be {Object} (https://github.com/webpack/webpack-dev-middleware#fs)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders-)",
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
@@ -367,7 +350,6 @@
       "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
       "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverinline)",
-      "lazy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlazy-)",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
       "log": "should be {Function}",
       "logLevel": "should be {String} and equal to one of the allowed values\n\n [ 'info', 'warn', 'error', 'debug', 'trace', 'silent' ]\n\n (https://github.com/webpack/webpack-dev-middleware#loglevel)",

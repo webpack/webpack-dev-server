@@ -59,10 +59,6 @@ describe('options', () => {
       success: [true],
       failure: [''],
     },
-    filename: {
-      success: ['', new RegExp(''), () => {}],
-      failure: [false],
-    },
     fs: {
       success: [outputFileSystem],
       failure: [false],
@@ -104,10 +100,6 @@ describe('options', () => {
       failure: [''],
     },
     inline: {
-      success: [true],
-      failure: [''],
-    },
-    lazy: {
       success: [true],
       failure: [''],
     },
@@ -319,10 +311,7 @@ describe('options', () => {
       let error;
 
       const compiler = webpack(config);
-      const optionsForServer =
-        key === 'lazy'
-          ? { [key]: value, filename: 'filename' }
-          : { [key]: value };
+      const optionsForServer = { [key]: value };
 
       try {
         server = new Server(compiler, optionsForServer);
