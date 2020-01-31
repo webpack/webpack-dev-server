@@ -34,7 +34,7 @@ describe('Client code', () => {
       watchOptions: {
         poll: true,
       },
-      quiet: true,
+      logLevel: 'silent',
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -95,7 +95,7 @@ describe('Client complex inline script path', () => {
       },
       public: 'myhost.test',
       sockPath: '/foo/test/bar/',
-      quiet: true,
+      logLevel: 'silent',
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -136,7 +136,7 @@ describe('Client complex inline script path with sockPort', () => {
       },
       sockPath: '/foo/test/bar/',
       sockPort: port3,
-      quiet: true,
+      logLevel: 'silent',
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -180,7 +180,7 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
         poll: true,
       },
       sockPort: port3,
-      quiet: true,
+      logLevel: 'silent',
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -218,7 +218,7 @@ describe('Client complex inline script path with sockHost', () => {
         poll: true,
       },
       sockHost: 'myhost.test',
-      quiet: true,
+      logLevel: 'silent',
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -250,7 +250,7 @@ describe('Client console.log', () => {
   const baseOptions = {
     port: port2,
     host: '0.0.0.0',
-    quiet: true,
+    logLevel: 'silent',
   };
   const cases = [
     {

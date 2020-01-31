@@ -24,13 +24,6 @@ describe('createLogger util', () => {
     expect(logger.currentLevel).toBe(3);
   });
 
-  it('should create logger with quiet option', () => {
-    const logger = createLogger({ quiet: true });
-
-    expect(logger.name).toBe('wds');
-    expect(logger.currentLevel).toBe(5);
-  });
-
   it('should create logger with logTime option', () => {
     const logger = createLogger({ logTime: true });
 

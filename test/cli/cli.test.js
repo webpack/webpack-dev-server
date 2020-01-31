@@ -8,7 +8,6 @@ const { join, resolve } = require('path');
 const execa = require('execa');
 const { unlinkAsync } = require('../helpers/fs');
 const testBin = require('../helpers/test-bin');
-const port1 = require('../ports-map').cli[0];
 const timer = require('../helpers/timer');
 const { skipTestOnWindows } = require('../helpers/conditional-test');
 
@@ -22,20 +21,6 @@ const keyPath = resolve(httpsCertificateDirectory, 'server.key');
 const certPath = resolve(httpsCertificateDirectory, 'server.crt');
 
 describe('CLI', () => {
-  it('--quiet', async (done) => {
-    const { exitCode, stdout } = await testBin(
-      `--quiet --colors=false --port ${port1}`
-    );
-    expect(exitCode).toEqual(0);
-    expect(stdout.split('\n').length === 3).toBe(true);
-    expect(stdout).toContain(
-      `Project is running at http://localhost:${port1}/`
-    );
-    expect(stdout).toContain('webpack output is served from /');
-    expect(stdout).toContain('Content not from webpack is served from');
-    done();
-  });
-
   it('--progress', async () => {
     const { exitCode, stderr } = await testBin('--progress');
     expect(exitCode).toEqual(0);

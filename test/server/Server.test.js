@@ -11,10 +11,7 @@ const timer = require('../helpers/timer');
 
 jest.mock('sockjs/lib/transport');
 
-const baseDevConfig = {
-  port,
-  quiet: true,
-};
+const baseDevConfig = { port, logLevel: 'silent' };
 
 describe('Server', () => {
   describe('sockjs', () => {

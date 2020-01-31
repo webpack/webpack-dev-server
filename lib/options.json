@@ -288,9 +288,6 @@
     "publicPath": {
       "type": "string"
     },
-    "quiet": {
-      "type": "boolean"
-    },
     "reporter": {
       "instanceof": "Function"
     },
@@ -440,7 +437,6 @@
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
       "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublicpath-)",
-      "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverquiet-)",
       "reporter": "should be {Function} (https://github.com/webpack/webpack-dev-middleware#reporter)",
       "requestCert": "should be {Boolean}",
       "contentBasePublicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",

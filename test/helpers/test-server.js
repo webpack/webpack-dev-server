@@ -12,8 +12,8 @@ let server;
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
-  if (options.quiet === undefined) {
-    options.quiet = true;
+  if (options.logLevel === undefined) {
+    options.logLevel = 'silent';
   }
 
   // originally, inline was not working by default for tests with the API
