@@ -20,7 +20,7 @@ describe('stats option', () => {
 
     for (const stats of allStats) {
       const compiler = webpack(config);
-      const server = new Server(compiler, { stats, port, quiet: true });
+      const server = new Server(compiler, { stats, port, logLevel: 'silent' });
 
       // eslint-disable-next-line no-await-in-loop
       await new Promise((resolve) => {
@@ -41,7 +41,7 @@ describe('stats option', () => {
     const server = new Server(compiler, {
       stats: { warningsFilter: 'test' },
       port,
-      quiet: true,
+      logLevel: 'silent',
     });
 
     compiler.hooks.done.tap('webpack-dev-server', (s) => {

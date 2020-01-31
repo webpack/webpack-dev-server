@@ -185,10 +185,6 @@ describe('options', () => {
       success: [''],
       failure: [false],
     },
-    quiet: {
-      success: [true],
-      failure: [''],
-    },
     reporter: {
       success: [() => {}],
       failure: [''],

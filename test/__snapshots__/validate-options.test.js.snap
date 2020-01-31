@@ -285,11 +285,6 @@ exports[`options should throw an error on the "publicPath" option with "false" v
  - options.publicPath should be a string."
 `;
 
-exports[`options should throw an error on the "quiet" option with "" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.quiet should be a boolean."
-`;
-
 exports[`options should throw an error on the "reporter" option with "" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.reporter should be an instance of function."

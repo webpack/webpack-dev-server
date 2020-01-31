@@ -1014,32 +1014,6 @@ Object {
 }
 `;
 
-exports[`createConfig quiet option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "port": 8080,
-  "publicPath": "/",
-  "quiet": true,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig quiet option 1`] = `
-Object {
-  "hot": true,
-  "port": 8080,
-  "publicPath": "/",
-  "quiet": true,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
 exports[`createConfig simple 1`] = `
 Object {
   "hot": true,
@@ -1157,7 +1131,6 @@ Object {
   "progress": "_progress",
   "public": "_public",
   "publicPath": "_publicPath",
-  "quiet": "_quiet",
   "socket": "_socket",
   "stats": Object {
     "assetsSort": "size",
@@ -1187,7 +1160,6 @@ Object {
     "progress": "_progress",
     "public": "_public",
     "publicPath": "_publicPath",
-    "quiet": "_quiet",
     "socket": "_socket",
     "stats": Object {
       "assetsSort": "size",

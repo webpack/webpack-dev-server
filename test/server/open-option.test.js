@@ -20,7 +20,7 @@ describe('open option', () => {
     const server = new Server(compiler, {
       open: true,
       port,
-      quiet: true,
+      logLevel: 'silent',
     });
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
