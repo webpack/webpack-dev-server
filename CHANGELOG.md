@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.10.2](https://github.com/webpack/webpack-dev-server/compare/v3.10.0...v3.10.2) (2020-01-31)
+
+
+### Bug Fixes
+
+* fallthrough non `GET` and `HEAD` request to routes ([#2374](https://github.com/webpack/webpack-dev-server/issues/2374)) ([ebe8eca](https://github.com/webpack/webpack-dev-server/commit/ebe8eca37957a9009f8627e7dfb82699606846de))
+* add an optional peer dependency on webpack-cli ([#2396](https://github.com/webpack/webpack-dev-server/issues/2396)) ([aa365df](https://github.com/webpack/webpack-dev-server/commit/aa365dfd7e86c5dca31304bd5dcfe9bb9b767b40))
+* add heartbeat for the websocket server ([#2404](https://github.com/webpack/webpack-dev-server/issues/2404)) ([1a7c827](https://github.com/webpack/webpack-dev-server/commit/1a7c8273de5a5b164c63c9919950babd7ecfaadb))
+
+### [3.10.1](https://github.com/webpack/webpack-dev-server/compare/v3.10.0...v3.10.1) (2019-12-19)
+
+
+### Bug Fixes
+
+* ie11 compatibility ([1306abe](https://github.com/webpack/webpack-dev-server/commit/1306abeb8c5fd125952cdc177fdf38c2c31b3c4f))
+
 ## [3.10.0](https://github.com/webpack/webpack-dev-server/compare/v3.9.0...v3.10.0) (2019-12-18)
 
 
