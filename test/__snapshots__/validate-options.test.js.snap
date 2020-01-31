@@ -217,11 +217,6 @@ exports[`options should throw an error on the "mimeTypes" option with "false" va
    object { … }"
 `;
 
-exports[`options should throw an error on the "noInfo" option with "" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.noInfo should be a boolean."
-`;
-
 exports[`options should throw an error on the "onListening" option with "" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onListening should be an instance of function."

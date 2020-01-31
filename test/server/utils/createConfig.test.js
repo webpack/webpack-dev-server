@@ -528,18 +528,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('info option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { noInfo: false },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('mimeTypes option', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
