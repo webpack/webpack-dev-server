@@ -26,24 +26,6 @@ exports[`options should throw an error on the "bonjour" option with "" value 1`]
  - options.bonjour should be a boolean."
 `;
 
-exports[`options should throw an error on the "ca" option with "false" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.ca should be one of these:
-   string | Buffer
-   Details:
-    * options.ca should be a string.
-    * options.ca should be an instance of Buffer."
-`;
-
-exports[`options should throw an error on the "cert" option with "false" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.cert should be one of these:
-   string | Buffer
-   Details:
-    * options.cert should be a string.
-    * options.cert should be an instance of Buffer."
-`;
-
 exports[`options should throw an error on the "clientLogLevel" option with "none" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.clientLogLevel should be one of these:
@@ -175,15 +157,6 @@ exports[`options should throw an error on the "inline" option with "" value 1`] 
  - options.inline should be a boolean."
 `;
 
-exports[`options should throw an error on the "key" option with "false" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.key should be one of these:
-   string | Buffer
-   Details:
-    * options.key should be a string.
-    * options.key should be an instance of Buffer."
-`;
-
 exports[`options should throw an error on the "lazy" option with "" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.lazy should be a boolean."
@@ -255,20 +228,6 @@ exports[`options should throw an error on the "overlay" option with "{"warnings"
  - options.overlay.warnings should be a boolean."
 `;
 
-exports[`options should throw an error on the "pfx" option with "false" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.pfx should be one of these:
-   string | Buffer
-   Details:
-    * options.pfx should be a string.
-    * options.pfx should be an instance of Buffer."
-`;
-
-exports[`options should throw an error on the "pfxPassphrase" option with "false" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.pfxPassphrase should be a string."
-`;
-
 exports[`options should throw an error on the "port" option with "false" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be one of these:
@@ -334,11 +293,6 @@ exports[`options should throw an error on the "quiet" option with "" value 1`] =
 exports[`options should throw an error on the "reporter" option with "" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.reporter should be an instance of function."
-`;
-
-exports[`options should throw an error on the "requestCert" option with "" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.requestCert should be a boolean."
 `;
 
 exports[`options should throw an error on the "serveIndex" option with "" value 1`] = `

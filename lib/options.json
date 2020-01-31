@@ -16,26 +16,6 @@
     "bonjour": {
       "type": "boolean"
     },
-    "ca": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
-        }
-      ]
-    },
-    "cert": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
-        }
-      ]
-    },
     "clientLogLevel": {
       "enum": ["info", "warn", "error", "debug", "trace", "silent"]
     },
@@ -153,16 +133,6 @@
     "inline": {
       "type": "boolean"
     },
-    "key": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
-        }
-      ]
-    },
     "lazy": {
       "type": "boolean"
     },
@@ -226,19 +196,6 @@
         }
       ]
     },
-    "pfx": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
-        }
-      ]
-    },
-    "pfxPassphrase": {
-      "type": "string"
-    },
     "port": {
       "anyOf": [
         {
@@ -290,9 +247,6 @@
     },
     "reporter": {
       "instanceof": "Function"
-    },
-    "requestCert": {
-      "type": "boolean"
     },
     "serveIndex": {
       "type": "boolean"
@@ -400,8 +354,6 @@
       "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserverallowedhosts)",
       "before": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
-      "ca": "should be {String|Buffer}",
-      "cert": "should be {String|Buffer}",
       "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'silent', 'info', 'debug', 'trace', 'error', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
@@ -418,7 +370,6 @@
       "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
       "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverinline)",
-      "key": "should be {String|Buffer}",
       "lazy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlazy-)",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
       "log": "should be {Function}",
@@ -429,8 +380,6 @@
       "open": "should be {String|Boolean} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "openPage": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
       "overlay": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveroverlay)",
-      "pfx": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserverpfx)",
-      "pfxPassphrase": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpfxpassphrase)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "profile": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprofile)",
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",
@@ -439,7 +388,6 @@
       "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublicpath-)",
       "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverquiet-)",
       "reporter": "should be {Function} (https://github.com/webpack/webpack-dev-middleware#reporter)",
-      "requestCert": "should be {Boolean}",
       "contentBasePublicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
       "serverSideRender": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#serversiderender)",

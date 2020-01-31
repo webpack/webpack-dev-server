@@ -74,9 +74,10 @@ Object {
 
 exports[`createConfig cacert option 1`] = `
 Object {
-  "ca": "/path/to/ca.pem",
   "hot": true,
-  "https": true,
+  "https": Object {
+    "ca": "/path/to/ca.pem",
+  },
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
@@ -102,9 +103,10 @@ Object {
 
 exports[`createConfig cert option 1`] = `
 Object {
-  "cert": "/path/to/server.crt",
   "hot": true,
-  "https": true,
+  "https": Object {
+    "cert": "/path/to/server.crt",
+  },
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
@@ -558,8 +560,9 @@ Object {
 exports[`createConfig key option 1`] = `
 Object {
   "hot": true,
-  "https": true,
-  "key": "/path/to/server.key",
+  "https": Object {
+    "key": "/path/to/server.key",
+  },
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
@@ -790,8 +793,9 @@ Object {
 exports[`createConfig pfx option 1`] = `
 Object {
   "hot": true,
-  "https": true,
-  "pfx": "/path/to/file.pfx",
+  "https": Object {
+    "pfx": "/path/to/file.pfx",
+  },
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
@@ -804,7 +808,6 @@ Object {
 exports[`createConfig pfxPassphrase option 1`] = `
 Object {
   "hot": true,
-  "pfxPassphrase": "passphrase",
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
@@ -1150,7 +1153,6 @@ Object {
   "lazy": "_lazy",
   "open": "_open",
   "openPage": "_openPage",
-  "pfxPassphrase": "_pfxPassphrase",
   "port": "_port",
   "progress": "_progress",
   "public": "_public",
@@ -1181,7 +1183,6 @@ Object {
     "lazy": "_lazy",
     "open": "_open",
     "openPage": "_openPage",
-    "pfxPassphrase": "_pfxPassphrase",
     "port": "_port",
     "progress": "_progress",
     "public": "_public",

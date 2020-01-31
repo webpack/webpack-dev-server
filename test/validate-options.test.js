@@ -43,14 +43,6 @@ describe('options', () => {
       success: [false],
       failure: [''],
     },
-    ca: {
-      success: ['', Buffer.from('')],
-      failure: [false],
-    },
-    cert: {
-      success: ['', Buffer.from('')],
-      failure: [false],
-    },
     clientLogLevel: {
       success: ['silent', 'info', 'error', 'warn', 'trace', 'debug'],
       failure: ['whoops!', 'none', 'warning'],
@@ -115,10 +107,6 @@ describe('options', () => {
       success: [true],
       failure: [''],
     },
-    key: {
-      success: ['', Buffer.from('')],
-      failure: [false],
-    },
     lazy: {
       success: [true],
       failure: [''],
@@ -167,14 +155,6 @@ describe('options', () => {
         { warnings: 'test' },
       ],
     },
-    pfx: {
-      success: ['', Buffer.from('')],
-      failure: [false],
-    },
-    pfxPassphrase: {
-      success: [''],
-      failure: [false],
-    },
     port: {
       success: ['', 0, null],
       failure: [false],
@@ -211,10 +191,6 @@ describe('options', () => {
     },
     reporter: {
       success: [() => {}],
-      failure: [''],
-    },
-    requestCert: {
-      success: [true],
       failure: [''],
     },
     serveIndex: {
