@@ -274,42 +274,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('filename option (in webpack config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in output config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-output-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { filename: '[name]-dev-server-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('watchOptions option (in output config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
@@ -490,28 +454,6 @@ describe('createConfig', () => {
         devServer: { stats: { errors: true } },
       }),
       Object.assign({}, argv, { color: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('lazy option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { lazy: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('lazy option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { lazy: true },
-      }),
-      argv,
       { port: 8080 }
     );
 

@@ -64,16 +64,6 @@ exports[`options should throw an error on the "disableHostCheck" option with "" 
  - options.disableHostCheck should be a boolean."
 `;
 
-exports[`options should throw an error on the "filename" option with "false" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.filename should be one of these:
-   string | RegExp | function
-   Details:
-    * options.filename should be a string.
-    * options.filename should be an instance of RegExp.
-    * options.filename should be an instance of function."
-`;
-
 exports[`options should throw an error on the "fs" option with "false" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.fs should be an object:
@@ -155,11 +145,6 @@ exports[`options should throw an error on the "injectHot" option with "" value 1
 exports[`options should throw an error on the "inline" option with "" value 1`] = `
 "Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.inline should be a boolean."
-`;
-
-exports[`options should throw an error on the "lazy" option with "" value 1`] = `
-"Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.lazy should be a boolean."
 `;
 
 exports[`options should throw an error on the "log" option with "" value 1`] = `

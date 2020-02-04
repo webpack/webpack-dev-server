@@ -27,7 +27,7 @@ describe('open option', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://localhost:8119/",
+            "http://localhost:8118/",
             Object {
               "wait": false,
             },
