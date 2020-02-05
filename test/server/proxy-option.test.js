@@ -326,6 +326,19 @@ describe('proxy option', () => {
       // Parse application/json
       proxy.use(bodyParser.json());
 
+      // This forces Express to try to decode URLs, which is needed for the test
+      // associated with the middleware below.
+      proxy.all('*', (_req, res, next) => {
+        next();
+      });
+      // We must define all 4 params in order for this to be detected as an
+      // error handling middleware.
+      // eslint-disable-next-line no-unused-vars
+      proxy.use((error, proxyReq, res, next) => {
+        res.status(500);
+        res.send('error from proxy');
+      });
+
       proxy.get('/get', (proxyReq, res) => {
         res.send('GET method from proxy');
       });
@@ -370,6 +383,10 @@ describe('proxy option', () => {
         listener.close();
         done();
       });
+    });
+
+    it('errors', (done) => {
+      req.get('/%').expect(500, 'error from proxy', done);
     });
 
     it('GET method', (done) => {
