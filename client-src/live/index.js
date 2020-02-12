@@ -122,7 +122,7 @@ $(() => {
       });
       try {
         let old = `${iframe[0].contentWindow.location}`;
-        if (old.indexOf('about') === 0) {
+        if (old.startsWith('about')) {
           old = null;
         }
         iframe.attr('src', old || contentPage + window.location.hash);
