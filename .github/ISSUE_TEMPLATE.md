@@ -24,17 +24,9 @@
 ### Code
 
 <!--
-  If you have a large amount of code to share which demonstrates the problem
-  you're experiencing, or your webpack config is very large, please provide a link
-  to your repository rather than pasting code. We'd also encourage you to use a
-  Github Gist link instead of pasting code. Otherwise, please paste relevant
-  short snippets below.
+  If you have a large amount of code to share which demonstrates the problem you're experiencing, or your webpack config is very large,   please provide a link to your repository rather than pasting code. We'd also encourage you to use a Github Gist link instead of  pasting code. Otherwise, please paste relevant short snippets below.
 
-  For bugs, please do consider providing a link to a stripped-down, bare-bones
-  repo that can reproduce the problem you're experiencing. Many times, bugs
-  aren't actual bugs, but rather specific issues with loaders, plugins, or
-  an environment/OS. Problems with complicated or large applications will almost
-  always require this to be triaged.
+  For bugs, please do consider providing a link to a stripped-down, bare-bones repo that can reproduce the problem you're experiencing.   Many times, bugs aren't actual bugs, but rather specific issues with loaders, plugins, or an environment/OS. Problems with complicated   or large applications will almost always require this to be triaged.
 -->
 
 ```js
