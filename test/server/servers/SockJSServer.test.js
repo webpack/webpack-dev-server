@@ -32,7 +32,7 @@ describe('SockJSServer', () => {
   });
 
   describe('server', () => {
-    it('should recieve connection, send message, and close client', (done) => {
+    it('should receive connection, send message, and close client', (done) => {
       const data = [];
 
       let headers;

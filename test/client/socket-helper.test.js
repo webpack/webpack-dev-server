@@ -18,7 +18,7 @@ describe('socket', () => {
 
     const mockClientInstance = SockJSClient.mock.instances[0];
 
-    // this simulates recieving a message from the server and passing it
+    // this simulates receiving a message from the server and passing it
     // along to the callback of onMessage
     mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
@@ -47,7 +47,7 @@ describe('socket', () => {
     const mockClientInstance =
       global.__webpack_dev_server_client__.mock.instances[0];
 
-    // this simulates recieving a message from the server and passing it
+    // this simulates receiving a message from the server and passing it
     // along to the callback of onMessage
     mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
