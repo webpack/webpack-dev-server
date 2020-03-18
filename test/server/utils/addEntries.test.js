@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const addEntries = require('../../../lib/utils/addEntries');
 const config = require('./../../fixtures/simple-config/webpack.config');
 const configEntryAsFunction = require('./../../fixtures/entry-as-function/webpack.config');
+const configEntryAsDescriptor = require('./../../fixtures/entry-as-descriptor/webpack.config');
 
 const normalize = (entry) => entry.split(path.sep).join('/');
 
@@ -288,6 +289,17 @@ describe('addEntries util', () => {
     addEntries(webpackOptions, devServerOptions);
 
     expect(typeof webpackOptions.entry === 'function').toBe(true);
+  });
+
+  it('should supports entry as descriptor', () => {
+    const webpackOptions = Object.assign({}, configEntryAsDescriptor);
+    const devServerOptions = {};
+
+    addEntries(webpackOptions, devServerOptions);
+
+    expect(typeof webpackOptions.entry === 'object').toBe(true);
+    expect(typeof webpackOptions.entry.main === 'object').toBe(true);
+    expect(Array.isArray(webpackOptions.entry.main.import)).toBe(true);
   });
 
   it('should only prepends devServer entry points to web targets by default', () => {

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.10.3](https://github.com/webpack/webpack-dev-server/compare/v3.10.2...v3.10.3) (2020-02-05)
+
+
+### Bug Fixes
+
+* forward error requests to the proxy ([#2425](https://github.com/webpack/webpack-dev-server/issues/2425)) ([e291cd4](https://github.com/webpack/webpack-dev-server/commit/e291cd4922f66c5c69dfd1fd3839812cfa502de5))
+
 ### [3.10.2](https://github.com/webpack/webpack-dev-server/compare/v3.10.0...v3.10.2) (2020-01-31)
 
 
