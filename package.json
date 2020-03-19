@@ -38,7 +38,7 @@
   "dependencies": {
     "ansi-html": "0.0.7",
     "bonjour": "^3.5.0",
-    "chokidar": "^2.1.8",
+    "chokidar": "^3.3.1",
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "debug": "^4.1.1",
@@ -92,7 +92,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "jest-junit": "^10.0.0",
     "jquery": "^3.4.1",
     "less": "^3.11.1",
