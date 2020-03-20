@@ -18,7 +18,7 @@ class CustomSequencer extends Sequencer {
       return test.path.includes('/e2e/') || test.path.includes('\\e2e\\');
     };
 
-    // seperate e2e and non-e2e tests into two separate arrays
+    // separate e2e and non-e2e tests into two separate arrays
     const endToEndTests = copyTests.filter(isEndToEndTest);
     const nonEndToEndTests = copyTests.filter((test) => !isEndToEndTest(test));
 
