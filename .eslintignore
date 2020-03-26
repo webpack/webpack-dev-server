@@ -3,3 +3,4 @@
 coverage
 client-src/live/web_modules/
 node_modules
+bin/deprecated-cli-config/
