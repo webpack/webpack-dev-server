@@ -50,7 +50,10 @@ describe('compress option', () => {
     afterAll(testServer.close);
 
     it('request to bundle file', (done) => {
-      req.get('/main.js').expect('Content-Encoding', 'gzip').expect(200, done);
+      req
+        .get('/main.js')
+        .expect('Content-Encoding', 'gzip')
+        .expect(200, done);
     });
   });
 
