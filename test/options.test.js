@@ -1,7 +1,7 @@
 'use strict';
 
 const { join } = require('path');
-const ValidationError = require('schema-utils/src/ValidationError');
+const ValidationError = require('schema-utils/dist/ValidationError');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
