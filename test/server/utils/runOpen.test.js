@@ -231,8 +231,11 @@ describe('runOpen util', () => {
       logMock.warn.mockClear();
     });
 
-    it('on specify URL', () => {
+    it('on specify URL and log error', () => {
       return runOpen('https://example.com', {}, logMock).then(() => {
+        expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
+          `"Unable to open \\"https://example.com\\" in browser. If you are running in a headless environment, please do not use the --open flag"`
+        );
         expect(opn).toBeCalledWith('https://example.com', { wait: false });
 
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
@@ -246,12 +249,15 @@ describe('runOpen util', () => {
       });
     });
 
-    it('on specify URL with page', () => {
+    it('on specify URL with page and log error', () => {
       return runOpen(
         'https://example.com',
         { openPage: '/index.html' },
         logMock
       ).then(() => {
+        expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
+          `"Unable to open \\"https://example.com/index.html\\" in browser. If you are running in a headless environment, please do not use the --open flag"`
+        );
         expect(opn).toBeCalledWith('https://example.com/index.html', {
           wait: false,
         });
@@ -267,12 +273,15 @@ describe('runOpen util', () => {
       });
     });
 
-    it('on specify URL in Google Chrome', () => {
+    it('on specify URL in Google Chrome and log error', () => {
       return runOpen(
         'https://example.com',
         { open: 'Google Chrome' },
         logMock
       ).then(() => {
+        expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
+          `"Unable to open \\"https://example.com\\" in browser: \\"Google Chrome\\". If you are running in a headless environment, please do not use the --open flag"`
+        );
         expect(opn).toBeCalledWith('https://example.com', {
           app: 'Google Chrome',
           wait: false,
@@ -296,6 +305,9 @@ describe('runOpen util', () => {
         { open: 'Google Chrome', openPage: '/index.html' },
         logMock
       ).then(() => {
+        expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
+          `"Unable to open \\"https://example.com/index.html\\" in browser: \\"Google Chrome\\". If you are running in a headless environment, please do not use the --open flag"`
+        );
         expect(opn).toBeCalledWith('https://example.com/index.html', {
           app: 'Google Chrome',
           wait: false,
