@@ -255,5 +255,31 @@ describe('runOpen util', () => {
         `);
       });
     });
+
+    it('on specify URL with page in Google Chrome incognito mode and log error ', () => {
+      return runOpen(
+        'https://example.com',
+        {
+          open: { app: ['Google Chrome', '--incognito'] },
+          openPage: '/index.html',
+        },
+        logMock
+      ).then(() => {
+        expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
+          `"Unable to open \\"https://example.com/index.html\\" in browser: \\"{\\"app\\":[\\"Google Chrome\\",\\"--incognito\\"]}\\". If you are running in a headless environment, please do not use the --open flag"`
+        );
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "app": Array [
+                "Google Chrome",
+                "--incognito",
+              ],
+            },
+          ]
+        `);
+      });
+    });
   });
 });
