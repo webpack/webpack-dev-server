@@ -16,6 +16,7 @@ const contentBaseOther = path.resolve(
 );
 
 const contentBasePublicPath = '/serve-content-base-at-this-url';
+const contentBasePublicOtherPath = '/serve-other-content-at-this-url';
 
 describe('contentBasePublicPath option', () => {
   let server;
@@ -290,6 +291,47 @@ describe('contentBasePublicPath option', () => {
 
     it('PATCH request', (done) => {
       req.patch(`${contentBasePublicPath}/`).expect(404, done);
+    });
+  });
+
+  describe('multiple contentBasePublicPath entries', () => {
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          contentBase: [contentBasePublic, contentBaseOther],
+          contentBasePublicPath: [
+            contentBasePublicPath,
+            contentBasePublicOtherPath,
+          ],
+          watchContentBase: true,
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        done();
+      });
+    });
+
+    it('Request the first path to index', (done) => {
+      req.get(`${contentBasePublicPath}/`).expect(200, /Heyo/, done);
+    });
+
+    it('Request the first path to other file', (done) => {
+      req
+        .get(`${contentBasePublicPath}/other.html`)
+        .expect(200, /Other html/, done);
+    });
+
+    it('Request the second path to foo', (done) => {
+      req
+        .get(`${contentBasePublicOtherPath}/foo.html`)
+        .expect(200, /Foo!/, done);
     });
   });
 });
