@@ -86,7 +86,7 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-config-webpack": "^1.2.5",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-import": "^2.20.2",
     "execa": "^1.0.0",
     "file-loader": "^5.1.0",
     "html-loader": "^0.5.5",
@@ -110,7 +110,7 @@
     "tcp-port-used": "^1.0.1",
     "typescript": "^3.8.3",
     "url-loader": "^3.0.0",
-    "webpack": "^4.42.0",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   },
   "peerDependencies": {
