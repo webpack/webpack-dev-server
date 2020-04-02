@@ -868,15 +868,12 @@ describe('createConfig', () => {
   it('open option (object)', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign(
-        {},
-        {
-          ...argv,
-          open: {
-            app: ['Google Chrome', '--incognito'],
-          },
-        }
-      ),
+      {
+        ...argv,
+        open: {
+          app: ['Google Chrome', '--incognito'],
+        },
+      },
       { port: 8080 }
     );
     expect(config).toMatchSnapshot();
