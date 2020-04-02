@@ -78,7 +78,9 @@ describe('options', () => {
           })
           .catch((err) => {
             if (current >= successCount) {
-              expect(err).toBeInstanceOf(ValidationError);
+              expect(
+                err instanceof ValidationError || err instanceof TypeError
+              ).toBe(true);
             } else {
               expect(false).toBeTruthy();
             }
