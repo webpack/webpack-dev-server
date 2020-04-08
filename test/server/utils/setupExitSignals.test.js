@@ -25,6 +25,16 @@ describe('setupExitSignals', () => {
   });
 
   signals.forEach((signal) => {
+    it(`should exit process (${signal}, serverData never defined`, (done) => {
+      // eslint-disable-next-line no-undefined
+      setupExitSignals(undefined);
+      process.emit(signal);
+      setTimeout(() => {
+        expect(exitSpy.mock.calls.length).toEqual(1);
+        done();
+      }, 1000);
+    });
+
     it(`should exit process (${signal}, server never defined)`, (done) => {
       setupExitSignals({
         server: null,
