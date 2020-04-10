@@ -14,7 +14,9 @@
     "node": ">= 6.11.5"
   },
   "scripts": {
-    "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css}\" --list-different",
+    "pretty-lint-base": "prettier \"{**/*,*}.{js,json,md,yml,css}\"",
+    "pretty-lint-fix": "yarn pretty-lint-base --loglevel warn --write",
+    "pretty-lint": "yarn pretty-lint-base --check",
     "lint:js": "eslint . --cache",
     "lint": "npm-run-all -l -p \"lint:**\"",
     "lint:type": "tsc --noEmit",
@@ -101,7 +103,7 @@
     "marked": "^0.8.2",
     "memfs": "^3.1.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.4",
     "puppeteer": "^1.20.0",
     "rimraf": "^3.0.2",
     "standard-version": "^7.1.0",

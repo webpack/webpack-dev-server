@@ -28,10 +28,7 @@ describe('historyApiFallback option', () => {
     });
 
     it('request to directory', (done) => {
-      req
-        .get('/foo')
-        .accept('html')
-        .expect(200, /Heyyy/, done);
+      req.get('/foo').accept('html').expect(200, /Heyyy/, done);
     });
   });
 
