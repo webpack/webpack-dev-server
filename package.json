@@ -94,7 +94,7 @@
     "husky": "^4.2.3",
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "lint-staged": "^10.1.2",
