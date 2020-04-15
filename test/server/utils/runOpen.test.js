@@ -17,6 +17,8 @@ describe('runOpen util', () => {
 
     it('on specify URL', () => {
       return runOpen('https://example.com', {}, console).then(() => {
+        expect(opn).toBeCalledWith('https://example.com', { wait: false });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com",
@@ -34,6 +36,10 @@ describe('runOpen util', () => {
         { openPage: '/index.html' },
         console
       ).then(() => {
+        expect(opn).toBeCalledWith('https://example.com/index.html', {
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com/index.html",
@@ -51,6 +57,10 @@ describe('runOpen util', () => {
         { openPage: ['/index.html'] },
         console
       ).then(() => {
+        expect(opn).toBeCalledWith('https://example.com/index.html', {
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchSnapshot();
       });
     });
@@ -61,6 +71,13 @@ describe('runOpen util', () => {
         { openPage: ['/index.html', '/index2.html'] },
         console
       ).then(() => {
+        expect(opn).toBeCalledWith('https://example.com/index.html', {
+          wait: false,
+        });
+        expect(opn).toBeCalledWith('https://example.com/index2.html', {
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchSnapshot();
         expect(opn.mock.calls[1]).toMatchSnapshot();
       });
@@ -72,6 +89,11 @@ describe('runOpen util', () => {
         { open: 'Google Chrome' },
         console
       ).then(() => {
+        expect(opn).toBeCalledWith('https://example.com', {
+          app: 'Google Chrome',
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com",
@@ -90,6 +112,11 @@ describe('runOpen util', () => {
         { open: 'Google Chrome', openPage: '/index.html' },
         console
       ).then(() => {
+        expect(opn).toBeCalledWith('https://example.com/index.html', {
+          app: 'Google Chrome',
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com/index.html",
@@ -108,6 +135,11 @@ describe('runOpen util', () => {
         { open: 'Google Chrome', openPage: 'https://example2.com' },
         console
       ).then(() => {
+        expect(opn).toBeCalledWith('https://example2.com', {
+          app: 'Google Chrome',
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example2.com",
@@ -126,6 +158,10 @@ describe('runOpen util', () => {
         { open: 'Google Chrome', openPage: 'http://example2.com' },
         console
       ).then(() => {
+        expect(opn).toBeCalledWith('http://example2.com', {
+          app: 'Google Chrome',
+          wait: false,
+        });
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "http://example2.com",
@@ -148,6 +184,14 @@ describe('runOpen util', () => {
       },
       console
     ).then(() => {
+      expect(opn).toBeCalledWith('https://example2.com', {
+        app: 'Google Chrome',
+        wait: false,
+      });
+      expect(opn).toBeCalledWith('https://example3.com', {
+        app: 'Google Chrome',
+        wait: false,
+      });
       expect(opn.mock.calls[0]).toMatchSnapshot();
       expect(opn.mock.calls[1]).toMatchSnapshot();
     });
@@ -162,6 +206,15 @@ describe('runOpen util', () => {
       },
       console
     ).then(() => {
+      expect(opn).toBeCalledWith('https://example.com/index.html', {
+        app: 'Google Chrome',
+        wait: false,
+      });
+      expect(opn).toBeCalledWith('https://example2.com', {
+        app: 'Google Chrome',
+        wait: false,
+      });
+
       expect(opn.mock.calls[0]).toMatchSnapshot();
       expect(opn.mock.calls[1]).toMatchSnapshot();
     });
@@ -183,6 +236,8 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open \\"https://example.com\\" in browser. If you are running in a headless environment, please do not use the --open flag"`
         );
+        expect(opn).toBeCalledWith('https://example.com', { wait: false });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com",
@@ -203,6 +258,10 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open \\"https://example.com/index.html\\" in browser. If you are running in a headless environment, please do not use the --open flag"`
         );
+        expect(opn).toBeCalledWith('https://example.com/index.html', {
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com/index.html",
@@ -223,6 +282,11 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open \\"https://example.com\\" in browser: \\"Google Chrome\\". If you are running in a headless environment, please do not use the --open flag"`
         );
+        expect(opn).toBeCalledWith('https://example.com', {
+          app: 'Google Chrome',
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com",
@@ -244,12 +308,44 @@ describe('runOpen util', () => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
           `"Unable to open \\"https://example.com/index.html\\" in browser: \\"Google Chrome\\". If you are running in a headless environment, please do not use the --open flag"`
         );
+        expect(opn).toBeCalledWith('https://example.com/index.html', {
+          app: 'Google Chrome',
+          wait: false,
+        });
+
         expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
             "https://example.com/index.html",
             Object {
               "app": "Google Chrome",
               "wait": false,
+            },
+          ]
+        `);
+      });
+    });
+
+    it('on specify URL with page in Google Chrome incognito mode and log error ', () => {
+      return runOpen(
+        'https://example.com',
+        {
+          open: { app: ['Google Chrome', '--incognito'] },
+          openPage: '/index.html',
+        },
+        logMock
+      ).then(() => {
+        expect(opn).toBeCalledWith('https://example.com/index.html', {
+          app: ['Google Chrome', '--incognito'],
+        });
+
+        expect(opn.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "app": Array [
+                "Google Chrome",
+                "--incognito",
+              ],
             },
           ]
         `);

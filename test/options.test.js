@@ -262,8 +262,8 @@ describe('options', () => {
         failure: [''],
       },
       open: {
-        success: [true, ''],
-        failure: [{}],
+        success: [true, '', {}],
+        failure: [[]],
       },
       openPage: {
         success: [''],

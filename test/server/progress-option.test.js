@@ -46,7 +46,13 @@ describe('progress', () => {
       });
 
       compiler.run(() => {});
-      server.listen(port, 'localhost');
+      const app = server.listen(port, 'localhost');
+
+      app.on('progress-update', ({ percent, msg }) => {
+        expect(percent).toBeGreaterThanOrEqual(0);
+        expect(percent).toBeLessThanOrEqual(100);
+        expect(typeof msg).toEqual('string');
+      });
     });
   });
 });

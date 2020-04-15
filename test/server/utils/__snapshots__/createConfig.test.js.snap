@@ -802,7 +802,28 @@ Object {
 }
 `;
 
-exports[`createConfig open option (browser) 1`] = `
+exports[`createConfig open option (object) 1`] = `
+Object {
+  "hot": true,
+  "hotOnly": false,
+  "noInfo": true,
+  "open": Object {
+    "app": Array [
+      "Google Chrome",
+      "--incognito",
+    ],
+  },
+  "openPage": "",
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig open option (string) 1`] = `
 Object {
   "hot": true,
   "hotOnly": false,
