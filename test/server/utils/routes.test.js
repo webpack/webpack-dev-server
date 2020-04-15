@@ -64,6 +64,10 @@ describe('routes util', () => {
     });
   });
 
+  it('GET request to invalidate endpoint', (done) => {
+    req.get('/invalidate').expect(200, done);
+  });
+
   it('should handles GET request to live html', (done) => {
     req.get('/webpack-dev-server/').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('text/html');
