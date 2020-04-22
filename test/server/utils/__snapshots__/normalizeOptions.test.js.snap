@@ -8,8 +8,8 @@ Object {
   ],
   "contentBasePublicPath": "/",
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -20,8 +20,8 @@ Object {
   "contentBase": "/path/to/dist",
   "contentBasePublicPath": "/",
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -31,8 +31,8 @@ exports[`normalizeOptions contentBasePublicPath string should set correct option
 Object {
   "contentBasePublicPath": "/content-base-public-path",
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -42,8 +42,8 @@ exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
   "contentBasePublicPath": "/",
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -54,7 +54,7 @@ Object {
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "/path/to/custom/client/",
-    "server": "sockjs",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -64,7 +64,7 @@ exports[`normalizeOptions transportMode custom server class should set correct o
 Object {
   "contentBasePublicPath": "/",
   "transportMode": Object {
-    "client": "sockjs",
+    "client": "ws",
     "server": [Function],
   },
   "watchOptions": Object {},
@@ -75,7 +75,7 @@ exports[`normalizeOptions transportMode custom server path should set correct op
 Object {
   "contentBasePublicPath": "/",
   "transportMode": Object {
-    "client": "sockjs",
+    "client": "ws",
     "server": "/path/to/custom/server/",
   },
   "watchOptions": Object {},
@@ -119,8 +119,8 @@ exports[`normalizeOptions watchOptions should set correct options 1`] = `
 Object {
   "contentBasePublicPath": "/",
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {
     "poll": true,
