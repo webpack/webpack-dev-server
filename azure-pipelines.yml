@@ -55,9 +55,6 @@ jobs:
         node-8:
           node_version: ^8.9.0
           webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
-          webpack_version: latest
         node-10-canary:
           node_version: ^10.13.0
           webpack_version: next
@@ -114,9 +111,6 @@ jobs:
         node-8:
           node_version: ^8.9.0
           webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
-          webpack_version: latest
         node-10-canary:
           node_version: ^10.13.0
           webpack_version: next
@@ -172,9 +166,6 @@ jobs:
           webpack_version: latest
         node-8:
           node_version: ^8.9.0
-          webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
           webpack_version: latest
         node-10-canary:
           node_version: ^10.13.0
