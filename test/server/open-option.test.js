@@ -1,9 +1,9 @@
 'use strict';
 
-jest.mock('opn');
+jest.mock('open');
 
 const webpack = require('webpack');
-const open = require('opn');
+const open = require('open');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['open-option'];
