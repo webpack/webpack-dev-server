@@ -2,8 +2,11 @@
 
 exports[`transportMode client custom client on browser client logs correctly 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "open",
+  "hot",
+  "[WDS] Hot Module Replacement enabled.",
   "liveReload",
   "[WDS] Live Reloading enabled.",
   "hash",
@@ -15,7 +18,9 @@ Array [
 
 exports[`transportMode client sockjs on browser client logs correctly 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[WDS] Hot Module Replacement enabled.",
   "[WDS] Live Reloading enabled.",
   "[WDS] Disconnected!",
 ]
@@ -23,7 +28,9 @@ Array [
 
 exports[`transportMode client ws on browser client logs correctly 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[WDS] Hot Module Replacement enabled.",
   "[WDS] Live Reloading enabled.",
   "[WDS] Disconnected!",
 ]

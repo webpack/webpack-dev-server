@@ -15,7 +15,6 @@ describe('hot option', () => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },
@@ -36,7 +35,6 @@ describe('hot option', () => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },
@@ -92,7 +90,6 @@ describe('hot option', () => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },
@@ -126,7 +123,6 @@ describe('hot option', () => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },

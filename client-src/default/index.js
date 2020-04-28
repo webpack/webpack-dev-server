@@ -15,7 +15,7 @@ const status = {
   currentHash: '',
 };
 const options = {
-  hot: false,
+  hot: true,
   hotReload: true,
   liveReload: false,
   initial: true,
@@ -36,7 +36,6 @@ if (typeof window !== 'undefined') {
 
 const onSocketMessage = {
   hot() {
-    options.hot = true;
     log.info('[WDS] Hot Module Replacement enabled.');
   },
   liveReload() {

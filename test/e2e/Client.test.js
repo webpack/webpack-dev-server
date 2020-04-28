@@ -24,15 +24,11 @@ describe('reload', () => {
   const modes = [
     {
       title: 'hot with default transportMode.client (sockjs)',
-      options: {
-        hot: true,
-      },
       shouldRefresh: false,
     },
     {
       title: 'hot with transportMode.client ws',
       options: {
-        hot: true,
         transportMode: 'ws',
       },
       shouldRefresh: false,
