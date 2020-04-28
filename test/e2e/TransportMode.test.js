@@ -8,25 +8,27 @@ const {
   initConsoleDelay,
   awaitServerCloseDelay,
 } = require('../helpers/puppeteer-constants');
-const isWebpack5 = require('../helpers/isWebpack5');
 
 describe('transportMode client', () => {
   const modes = [
     {
       title: 'sockjs',
       options: {
+        hot: false,
         transportMode: 'sockjs',
       },
     },
     {
       title: 'ws',
       options: {
+        hot: false,
         transportMode: 'ws',
       },
     },
     {
       title: 'custom client',
       options: {
+        hot: false,
         transportMode: {
           server: 'sockjs',
           client: require.resolve(
@@ -78,16 +80,7 @@ describe('transportMode client', () => {
                         res.splice(i, 1);
                       }
                     }
-
-                    // TODO: delete this code when getting rid of webpack5
-                    if (isWebpack5) {
-                      const swap = res[0];
-                      res[0] = res[1];
-                      res[1] = swap;
-                    }
-
                     expect(res).toMatchSnapshot();
-
                     done();
                   });
                 });
