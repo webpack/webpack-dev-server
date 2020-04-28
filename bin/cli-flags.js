@@ -15,11 +15,6 @@ module.exports = {
       describe: 'Broadcasts the server via ZeroConf networking on start',
     },
     {
-      name: 'lazy',
-      type: Boolean,
-      describe: 'Lazy',
-    },
-    {
       name: 'liveReload',
       type: Boolean,
       defaultValue: true,

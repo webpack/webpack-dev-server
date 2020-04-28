@@ -163,10 +163,6 @@ describe('options', () => {
         success: [['before'], []],
         failure: [false],
       },
-      filename: {
-        success: ['', new RegExp(''), () => {}],
-        failure: [false],
-      },
       fs: {
         success: [
           {
@@ -218,20 +214,6 @@ describe('options', () => {
       key: {
         success: ['', Buffer.from('')],
         failure: [false],
-      },
-      lazy: {
-        success: [
-          {
-            lazy: true,
-            filename: '.',
-          },
-        ],
-        failure: [
-          {
-            lazy: '',
-            filename: '.',
-          },
-        ],
       },
       log: {
         success: [() => {}],
