@@ -19,7 +19,7 @@ describe('CLI', () => {
   it('--progress', (done) => {
     testBin('--progress')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('0% compiling');
         // should not profile
         expect(output.stderr).not.toContain(
@@ -32,7 +32,7 @@ describe('CLI', () => {
 
   it('--quiet', async (done) => {
     const output = await testBin(`--quiet --colors=false --port ${port1}`);
-    expect(output.code).toEqual(0);
+    expect(output.exitCode).toEqual(0);
     expect(output.stdout.split('\n').length === 3).toBe(true);
     expect(output.stdout).toContain(
       `Project is running at http://localhost:${port1}/`
@@ -45,7 +45,7 @@ describe('CLI', () => {
   it('--progress --profile', (done) => {
     testBin('--progress --profile')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         // should profile
         expect(output.stderr).toContain('after chunk modules optimization');
         done();
@@ -56,7 +56,7 @@ describe('CLI', () => {
   it('--bonjour', (done) => {
     testBin('--bonjour')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('Bonjour');
         done();
       })
@@ -66,7 +66,7 @@ describe('CLI', () => {
   it('--https', (done) => {
     testBin('--https')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('Project is running at');
         done();
       })
@@ -78,7 +78,7 @@ describe('CLI', () => {
       `--https --cacert ${caPath} --pfx ${pfxPath} --key ${keyPath} --cert ${certPath} --pfx-passphrase webpack-dev-server`
     )
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('Project is running at');
         done();
       })
@@ -109,9 +109,7 @@ describe('CLI', () => {
     testBin('--color')
       .then((output) => {
         // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
-        expect(output.stdout).toContain(
-          '\u001b[39m \u001b[90m｢wds｣\u001b[39m:'
-        );
+        expect(output.stdout).toContain('\u001b[34m⬡ wds: \u001b[39m');
         done();
       })
       .catch(done);
@@ -123,7 +121,7 @@ describe('CLI', () => {
 
     testBin(`--socket ${socketPath}`)
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
 
         if (process.platform === 'win32') {
           done();
@@ -144,7 +142,7 @@ describe('CLI', () => {
       resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
     )
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         done();
       })
       .catch((err) => {
