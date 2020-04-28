@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index option should return foo.html Request to index 1`] = `
+"<html>
+  <body>
+    <p>foo</p>
+  </body>
+</html>
+"
+`;

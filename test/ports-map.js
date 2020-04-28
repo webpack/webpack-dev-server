@@ -43,6 +43,7 @@ const portsList = {
   'progress-option': 1,
   'profile-option': 1,
   Iframe: 1,
+  'index-option': 1,
 };
 
 let startPort = 8089;
