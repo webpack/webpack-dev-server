@@ -109,7 +109,12 @@ describe('CLI', () => {
     testBin('--color')
       .then((output) => {
         // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
-        expect(output.stdout).toContain('\u001b[34m⬡ wds: \u001b[39m');
+        const text =
+          process.platform === 'win32'
+            ? '\u001b[94m⬡ wds: \u001b[39m'
+            : '\u001b[34m⬡ wds: \u001b[39m';
+
+        expect(output.stdout).toContain(text);
         done();
       })
       .catch(done);
