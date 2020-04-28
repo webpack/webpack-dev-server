@@ -7,7 +7,11 @@ exports[`Validation validation should fail validation for invalid \`contentBase\
 
 exports[`Validation validation should fail validation for invalid \`hot\` configuration 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.hot should be a boolean."
+ - configuration.hot should be one of these:
+   boolean | \\"only\\"
+   Details:
+    * configuration.hot should be a boolean.
+    * configuration.hot should be \\"only\\"."
 `;
 
 exports[`Validation validation should fail validation for invalid \`logLevel\` configuration 1`] = `
@@ -33,5 +37,5 @@ exports[`Validation validation should fail validation for invalid \`writeToDisk\
 exports[`Validation validation should fail validation for no additional properties 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration has an unknown property 'additional'. These properties are valid:
-   object { after?, allowedHosts?, before?, bonjour?, ca?, cert?, clientLogLevel?, compress?, contentBasePublicPath?, contentBase?, disableHostCheck?, features?, filename?, fs?, headers?, historyApiFallback?, host?, hot?, hotOnly?, http2?, https?, index?, injectClient?, injectHot?, inline?, key?, lazy?, liveReload?, log?, logLevel?, logTime?, mimeTypes?, noInfo?, onListening?, open?, openPage?, overlay?, pfx?, pfxPassphrase?, port?, profile?, progress?, proxy?, public?, publicPath?, quiet?, reporter?, requestCert?, serveIndex?, serverSideRender?, setup?, sockHost?, sockPath?, sockPort?, socket?, staticOptions?, stats?, transportMode?, useLocalIp?, warn?, watchContentBase?, watchOptions?, writeToDisk? }"
+   object { after?, allowedHosts?, before?, bonjour?, ca?, cert?, clientLogLevel?, compress?, contentBasePublicPath?, contentBase?, disableHostCheck?, features?, filename?, fs?, headers?, historyApiFallback?, host?, hot?, http2?, https?, index?, injectClient?, injectHot?, inline?, key?, lazy?, liveReload?, log?, logLevel?, logTime?, mimeTypes?, noInfo?, onListening?, open?, openPage?, overlay?, pfx?, pfxPassphrase?, port?, profile?, progress?, proxy?, public?, publicPath?, quiet?, reporter?, requestCert?, serveIndex?, serverSideRender?, setup?, sockHost?, sockPath?, sockPort?, socket?, staticOptions?, stats?, transportMode?, useLocalIp?, warn?, watchContentBase?, watchOptions?, writeToDisk? }"
 `;

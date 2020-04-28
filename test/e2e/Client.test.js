@@ -24,15 +24,11 @@ describe('reload', () => {
   const modes = [
     {
       title: 'hot with default transportMode.client (sockjs)',
-      options: {
-        hot: true,
-      },
       shouldRefresh: false,
     },
     {
       title: 'hot with transportMode.client ws',
       options: {
-        hot: true,
         transportMode: 'ws',
       },
       shouldRefresh: false,
@@ -110,15 +106,18 @@ describe('reload', () => {
                             const bgColor = getComputedStyle(body)[
                               'background-color'
                             ];
+
                             return bgColor;
                           })
                           .then((color2) => {
-                            browser.close().then(() => {
-                              expect(color).toEqual('rgb(0, 0, 255)');
-                              expect(color2).toEqual('rgb(255, 0, 0)');
-                              expect(refreshed).toEqual(mode.shouldRefresh);
-                              done();
-                            });
+                            expect(color).toEqual('rgb(0, 0, 255)');
+                            expect(color2).toEqual('rgb(255, 0, 0)');
+                            expect(refreshed).toEqual(mode.shouldRefresh);
+
+                            return browser.close();
+                          })
+                          .then(() => {
+                            done();
                           });
                       });
                     });

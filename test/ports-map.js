@@ -21,7 +21,6 @@ const portsList = {
   'historyApiFallback-option': 1,
   'host-option': 1,
   'hot-option': 1,
-  'hotOnly-option': 1,
   'http2-option': 1,
   'https-option': 1,
   'inline-option': 1,
