@@ -15,7 +15,6 @@ describe('hot option', () => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },
@@ -31,12 +30,34 @@ describe('hot option', () => {
     });
   });
 
+  describe('simple hot-only config entries', () => {
+    beforeAll((done) => {
+      const options = {
+        port,
+        inline: true,
+        hot: 'only',
+        watchOptions: {
+          poll: true,
+        },
+      };
+      server = testServer.startAwaitingCompilation(config, options, done);
+      req = request(server.app);
+    });
+
+    afterAll(testServer.close);
+
+    it('should include hot-only script in the bundle', (done) => {
+      req
+        .get('/main.js')
+        .expect(200, /webpack\/hot\/only-dev-server\.js/, done);
+    });
+  });
+
   describe('multi compiler hot config entries', () => {
     beforeAll((done) => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },
@@ -92,7 +113,6 @@ describe('hot option', () => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },
@@ -126,7 +146,6 @@ describe('hot option', () => {
       const options = {
         port,
         inline: true,
-        hot: true,
         watchOptions: {
           poll: true,
         },

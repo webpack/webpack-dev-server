@@ -7,10 +7,7 @@
 
 const webpack = require('webpack');
 const Server = require('../lib/Server');
-const schema = require('../lib/options.json');
 const config = require('./fixtures/simple-config/webpack.config');
-
-const messages = schema.errorMessage.properties;
 
 describe('Validation', () => {
   let compiler;
@@ -36,32 +33,26 @@ describe('Validation', () => {
       {
         name: 'invalid `hot` configuration',
         config: { hot: 'false' },
-        message: `options.hot ${messages.hot}`,
       },
       {
         name: 'invalid `logLevel` configuration',
         config: { logLevel: 1 },
-        message: `options.logLevel ${messages.logLevel.split('\n\n')[0]}`,
       },
       {
         name: 'invalid `writeToDisk` configuration',
         config: { writeToDisk: 1 },
-        message: `options.writeToDisk ${messages.writeToDisk}`,
       },
       {
         name: 'invalid `overlay` configuration',
         config: { overlay: { errors: 1 } },
-        message: `options.overlay ${messages.overlay}`,
       },
       {
         name: 'invalid `contentBase` configuration',
         config: { contentBase: [0] },
-        message: `options.contentBase ${messages.contentBase}`,
       },
       {
         name: 'no additional properties',
         config: { additional: true },
-        message: 'options should NOT have additional properties',
       },
     ];
 
@@ -74,36 +65,14 @@ describe('Validation', () => {
             throw err;
           }
 
-          const [title, message] = err.message.split('\n\n');
+          const [title] = err.message.split('\n\n');
 
-          expect(title).toEqual('webpack Dev Server Invalid Options');
-          expect(message.trim()).toEqual(test.message);
-
+          expect(title).toMatchSnapshot();
           return;
         }
 
         throw new Error("Validation didn't fail");
       });
-    });
-  });
-
-  describe('filename', () => {
-    afterEach((done) => {
-      server.close(() => {
-        done();
-      });
-    });
-
-    it('should allow filename to be a function', () => {
-      try {
-        server = new Server(compiler, { filename: () => {} });
-      } catch (err) {
-        if (err === 'ValidationError') {
-          throw err;
-        }
-
-        throw new Error("Validation failed and it shouldn't");
-      }
     });
   });
 
