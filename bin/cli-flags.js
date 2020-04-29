@@ -27,13 +27,6 @@ module.exports = {
       defaultValue: true,
     },
     {
-      name: 'inline',
-      type: Boolean,
-      defaultValue: true,
-      describe:
-        'Inline mode (set to false to disable including client scripts like livereload)',
-    },
-    {
       name: 'profile',
       type: Boolean,
       describe: 'Print compilation profile data for progress steps',
