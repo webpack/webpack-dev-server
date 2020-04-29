@@ -265,48 +265,6 @@ Object {
 }
 `;
 
-exports[`createConfig filename option (in devServer config) 1`] = `
-Object {
-  "filename": "[name]-dev-server-bundle.js",
-  "hot": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig filename option (in output config) 1`] = `
-Object {
-  "filename": "[name]-output-bundle.js",
-  "hot": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig filename option (in webpack config) 1`] = `
-Object {
-  "filename": "[name]-bundle.js",
-  "hot": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
 exports[`createConfig historyApiFallback option (in devServer config) 1`] = `
 Object {
   "historyApiFallback": true,
@@ -589,34 +547,6 @@ Object {
   "hot": true,
   "https": true,
   "key": "/path/to/server.key",
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig lazy option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "lazy": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig lazy option 1`] = `
-Object {
-  "hot": true,
-  "lazy": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1234,13 +1164,11 @@ Object {
   "compress": "_compress",
   "contentBase": "_contentBase",
   "disableHostCheck": "_disableHostCheck",
-  "filename": "_filename",
   "historyApiFallback": "_historyApiFallback",
   "host": "_foo",
   "hot": "_hot",
   "https": "_https",
   "inline": "_inline",
-  "lazy": "_lazy",
   "noInfo": true,
   "open": "_open",
   "openPage": "_openPage",
@@ -1266,13 +1194,11 @@ Object {
     "compress": "_compress",
     "contentBase": "_contentBase",
     "disableHostCheck": "_disableHostCheck",
-    "filename": "_filename",
     "historyApiFallback": "_historyApiFallback",
     "host": "_foo",
     "hot": "_hot",
     "https": "_https",
     "inline": "_inline",
-    "lazy": "_lazy",
     "noInfo": true,
     "open": "_open",
     "openPage": "_openPage",

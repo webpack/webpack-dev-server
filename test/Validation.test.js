@@ -76,26 +76,6 @@ describe('Validation', () => {
     });
   });
 
-  describe('filename', () => {
-    afterEach((done) => {
-      server.close(() => {
-        done();
-      });
-    });
-
-    it('should allow filename to be a function', () => {
-      try {
-        server = new Server(compiler, { filename: () => {} });
-      } catch (err) {
-        if (err === 'ValidationError') {
-          throw err;
-        }
-
-        throw new Error("Validation failed and it shouldn't");
-      }
-    });
-  });
-
   describe('checkHost', () => {
     afterEach((done) => {
       server.close(() => {
