@@ -94,19 +94,6 @@
         "type": "string"
       }
     },
-    "filename": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "RegExp"
-        },
-        {
-          "instanceof": "Function"
-        }
-      ]
-    },
     "fs": {
       "type": "object"
     },
@@ -134,10 +121,14 @@
       ]
     },
     "hot": {
-      "type": "boolean"
-    },
-    "hotOnly": {
-      "type": "boolean"
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": ["only"]
+        }
+      ]
     },
     "http2": {
       "type": "boolean"
@@ -187,9 +178,6 @@
           "instanceof": "Buffer"
         }
       ]
-    },
-    "lazy": {
-      "type": "boolean"
     },
     "liveReload": {
       "type": "boolean"
@@ -441,13 +429,11 @@
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
       "features": "should be {Array}",
-      "filename": "should be {String|RegExp|Function} (https://webpack.js.org/configuration/dev-server/#devserverfilename-)",
       "fs": "should be {Object} (https://github.com/webpack/webpack-dev-middleware#fs)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders-)",
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
       "host": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserverhost)",
-      "hot": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhot)",
-      "hotOnly": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhotonly)",
+      "hot": "should be {Boolean|String} (https://webpack.js.org/configuration/dev-server/#devserverhot)",
       "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttp2)",
       "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttps)",
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverindex)",
@@ -455,7 +441,6 @@
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
       "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverinline)",
       "key": "should be {String|Buffer}",
-      "lazy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlazy-)",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
       "log": "should be {Function}",
       "logLevel": "should be {String} and equal to one of the allowed values\n\n [ 'info', 'warn', 'error', 'debug', 'trace', 'silent' ]\n\n (https://github.com/webpack/webpack-dev-middleware#loglevel)",

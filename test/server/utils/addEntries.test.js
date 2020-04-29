@@ -162,7 +162,7 @@ describe('addEntries util', () => {
     });
 
     const devServerOptions = {
-      hotOnly: true,
+      hot: 'only',
     };
 
     addEntries(webpackOptions, devServerOptions);
@@ -223,7 +223,7 @@ describe('addEntries util', () => {
 
   it('should adds the HMR plugin if hot-only', () => {
     const webpackOptions = Object.assign({}, config);
-    const devServerOptions = { hotOnly: true };
+    const devServerOptions = { hot: 'only' };
 
     addEntries(webpackOptions, devServerOptions);
 

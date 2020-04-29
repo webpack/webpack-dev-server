@@ -43,8 +43,15 @@ describe('liveReload option', () => {
 
         // simulating server behaviour
         if (server.options.liveReload !== false) {
+          // issue: https://github.com/facebook/jest/issues/9471
+          Object.defineProperty(window, 'location', {
+            writable: true,
+            value: { assign: jest.fn() },
+          });
+
           Object.defineProperty(window.location, 'reload', {
-            configurable: true,
+            writable: true,
+            value: { assign: jest.fn() },
           });
           window.location.reload = jest.fn();
           window.location.reload();
@@ -91,9 +98,16 @@ describe('liveReload option', () => {
 
         // simulating server behaviour
         if (server.options.liveReload !== false) {
-          Object.defineProperty(window.location, 'reload', {
-            configurable: true,
+          Object.defineProperty(window, 'location', {
+            writable: true,
+            value: { assign: jest.fn() },
           });
+
+          Object.defineProperty(window.location, 'reload', {
+            writable: true,
+            value: { assign: jest.fn() },
+          });
+
           window.location.reload = jest.fn();
           window.location.reload();
           reloaded = true;

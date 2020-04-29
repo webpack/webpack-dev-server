@@ -11,7 +11,10 @@ describe('reloadApp', () => {
     locationValue = self.location;
 
     self.postMessage = jest.fn();
-    self.location.reload = jest.fn();
+
+    Object.defineProperty(window, 'location', {
+      value: { reload: jest.fn() },
+    });
 
     jest.mock('loglevel');
 

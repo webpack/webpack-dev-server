@@ -7,7 +7,6 @@ Object {
     "host2.com",
   ],
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -25,7 +24,6 @@ Object {
     "host2.com",
   ],
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -40,7 +38,6 @@ exports[`createConfig bonjour option (devServer config) 1`] = `
 Object {
   "bonjour": true,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -55,7 +52,6 @@ exports[`createConfig bonjour option 1`] = `
 Object {
   "bonjour": true,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -70,7 +66,6 @@ exports[`createConfig cacert option (in devServer config) 1`] = `
 Object {
   "ca": "/path/to/ca.pem",
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "port": 8080,
@@ -86,7 +81,6 @@ exports[`createConfig cacert option 1`] = `
 Object {
   "ca": "/path/to/ca.pem",
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "port": 8080,
@@ -102,7 +96,6 @@ exports[`createConfig cert option (in devServer config) 1`] = `
 Object {
   "cert": "/path/to/server.crt",
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "port": 8080,
@@ -118,7 +111,6 @@ exports[`createConfig cert option 1`] = `
 Object {
   "cert": "/path/to/server.crt",
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "port": 8080,
@@ -134,7 +126,6 @@ exports[`createConfig clientLogLevel option (in devServer config) 1`] = `
 Object {
   "clientLogLevel": "none",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -149,7 +140,6 @@ exports[`createConfig clientLogLevel option 1`] = `
 Object {
   "clientLogLevel": "none",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -164,7 +154,6 @@ exports[`createConfig compress option (in devServer config) 1`] = `
 Object {
   "compress": true,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -179,7 +168,6 @@ exports[`createConfig compress option 1`] = `
 Object {
   "compress": true,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -197,7 +185,6 @@ Object {
     "static",
   ],
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -212,7 +199,6 @@ exports[`createConfig contentBase option (boolean) 1`] = `
 Object {
   "contentBase": false,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -227,7 +213,6 @@ exports[`createConfig contentBase option (string) (in devServer config) 1`] = `
 Object {
   "contentBase": "assets",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -242,7 +227,6 @@ exports[`createConfig contentBase option (string) 1`] = `
 Object {
   "contentBase": "assets",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -257,7 +241,6 @@ exports[`createConfig disableHostCheck option (in devServer config) 1`] = `
 Object {
   "disableHostCheck": true,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -272,52 +255,6 @@ exports[`createConfig disableHostCheck option 1`] = `
 Object {
   "disableHostCheck": true,
   "hot": true,
-  "hotOnly": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig filename option (in devServer config) 1`] = `
-Object {
-  "filename": "[name]-dev-server-bundle.js",
-  "hot": true,
-  "hotOnly": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig filename option (in output config) 1`] = `
-Object {
-  "filename": "[name]-output-bundle.js",
-  "hot": true,
-  "hotOnly": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig filename option (in webpack config) 1`] = `
-Object {
-  "filename": "[name]-bundle.js",
-  "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -332,7 +269,6 @@ exports[`createConfig historyApiFallback option (in devServer config) 1`] = `
 Object {
   "historyApiFallback": true,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -347,7 +283,6 @@ exports[`createConfig historyApiFallback option 1`] = `
 Object {
   "historyApiFallback": true,
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -362,7 +297,6 @@ exports[`createConfig host option (devServer config) 1`] = `
 Object {
   "host": "example.dev",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -377,7 +311,6 @@ exports[`createConfig host option (localhost) 1`] = `
 Object {
   "host": "localhost",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -391,7 +324,6 @@ Object {
 exports[`createConfig host option (null) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -406,7 +338,6 @@ exports[`createConfig host option (specify for CLI and devServer config) 1`] = `
 Object {
   "host": "other.dev",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -420,7 +351,6 @@ Object {
 exports[`createConfig host option (undefined) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -435,7 +365,6 @@ exports[`createConfig host option 1`] = `
 Object {
   "host": "example.dev",
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -449,7 +378,6 @@ Object {
 exports[`createConfig hot option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -463,35 +391,6 @@ Object {
 exports[`createConfig hot option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig hotOnly option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "hotOnly": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig hotOnly option 1`] = `
-Object {
-  "hot": true,
-  "hotOnly": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -505,7 +404,6 @@ Object {
 exports[`createConfig http2 option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "http2": true,
   "https": true,
   "noInfo": true,
@@ -521,7 +419,6 @@ Object {
 exports[`createConfig http2 option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "http2": true,
   "https": true,
   "noInfo": true,
@@ -537,7 +434,6 @@ Object {
 exports[`createConfig https option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "port": 8080,
@@ -552,7 +448,6 @@ Object {
 exports[`createConfig https option (in devServer config) 2`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "pfxPassphrase": "passphrase",
   "port": 8080,
@@ -567,7 +462,6 @@ Object {
 exports[`createConfig https option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "port": 8080,
@@ -582,7 +476,6 @@ Object {
 exports[`createConfig info option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -596,7 +489,6 @@ Object {
 exports[`createConfig info option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -610,7 +502,6 @@ Object {
 exports[`createConfig inline option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "inline": false,
   "noInfo": true,
   "port": 8080,
@@ -625,7 +516,6 @@ Object {
 exports[`createConfig inline option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "inline": false,
   "noInfo": true,
   "port": 8080,
@@ -640,7 +530,6 @@ Object {
 exports[`createConfig key option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "key": "/path/to/server.key",
   "noInfo": true,
@@ -656,39 +545,8 @@ Object {
 exports[`createConfig key option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "key": "/path/to/server.key",
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig lazy option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "hotOnly": false,
-  "lazy": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig lazy option 1`] = `
-Object {
-  "hot": true,
-  "hotOnly": false,
-  "lazy": true,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -702,7 +560,6 @@ Object {
 exports[`createConfig liveReload option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "liveReload": false,
   "noInfo": true,
   "port": 8080,
@@ -717,7 +574,6 @@ Object {
 exports[`createConfig mimeTypes option - with force 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "mimeTypes": Object {
     "force": true,
     "typeMap": Object {
@@ -739,7 +595,6 @@ Object {
 exports[`createConfig mimeTypes option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "mimeTypes": Object {
     "text/html": Array [
       "phtml",
@@ -758,7 +613,6 @@ Object {
 exports[`createConfig onListening option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "onListening": [Function],
   "port": 8080,
@@ -773,7 +627,6 @@ Object {
 exports[`createConfig open option (boolean) (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "open": true,
   "openPage": "",
@@ -789,7 +642,6 @@ Object {
 exports[`createConfig open option (boolean) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "open": true,
   "openPage": "",
@@ -805,7 +657,6 @@ Object {
 exports[`createConfig open option (object) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "open": Object {
     "app": Array [
@@ -826,7 +677,6 @@ Object {
 exports[`createConfig open option (string) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "open": "Google Chrome",
   "openPage": "",
@@ -842,7 +692,6 @@ Object {
 exports[`createConfig openPage multiple option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "open": true,
   "openPage": Array [
@@ -861,7 +710,6 @@ Object {
 exports[`createConfig openPage option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "open": true,
   "openPage": "/different/page",
@@ -877,7 +725,6 @@ Object {
 exports[`createConfig openPage option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "open": true,
   "openPage": Array [
@@ -895,7 +742,6 @@ Object {
 exports[`createConfig overlay option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "overlay": true,
   "port": 8080,
@@ -910,7 +756,6 @@ Object {
 exports[`createConfig overlay option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "overlay": true,
   "port": 8080,
@@ -925,7 +770,6 @@ Object {
 exports[`createConfig pfx option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "pfx": "/path/to/file.pfx",
@@ -941,7 +785,6 @@ Object {
 exports[`createConfig pfx option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "https": true,
   "noInfo": true,
   "pfx": "/path/to/file.pfx",
@@ -957,7 +800,6 @@ Object {
 exports[`createConfig pfxPassphrase option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "pfxPassphrase": "passphrase",
   "port": 8080,
@@ -972,7 +814,6 @@ Object {
 exports[`createConfig port option (difference) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 7070,
   "publicPath": "/",
@@ -986,7 +827,6 @@ Object {
 exports[`createConfig port option (same) (null) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": null,
   "publicPath": "/",
@@ -1000,7 +840,6 @@ Object {
 exports[`createConfig port option (same) (string) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": "9090",
   "publicPath": "/",
@@ -1014,7 +853,6 @@ Object {
 exports[`createConfig port option (same) (undefined) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": undefined,
   "publicPath": "/",
@@ -1028,7 +866,6 @@ Object {
 exports[`createConfig port option (same) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 9090,
   "publicPath": "/",
@@ -1042,7 +879,6 @@ Object {
 exports[`createConfig profile option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "profile": "profile",
@@ -1057,7 +893,6 @@ Object {
 exports[`createConfig progress option (devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "progress": true,
@@ -1072,7 +907,6 @@ Object {
 exports[`createConfig progress option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "progress": true,
@@ -1087,7 +921,6 @@ Object {
 exports[`createConfig public option (devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "public": true,
@@ -1102,7 +935,6 @@ Object {
 exports[`createConfig public option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "public": true,
@@ -1117,7 +949,6 @@ Object {
 exports[`createConfig publicPath option (not specify) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1131,7 +962,6 @@ Object {
 exports[`createConfig publicPath option (path in devServer option) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/assets/",
@@ -1145,7 +975,6 @@ Object {
 exports[`createConfig publicPath option (path in output option) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/assets/",
@@ -1159,7 +988,6 @@ Object {
 exports[`createConfig publicPath option (path without starting slash in output option) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/assets/",
@@ -1173,7 +1001,6 @@ Object {
 exports[`createConfig publicPath option (url in devServer option) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "http://localhost:8080/assets/",
@@ -1187,7 +1014,6 @@ Object {
 exports[`createConfig publicPath option (url in output option) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "http://localhost:8080/assets/",
@@ -1201,7 +1027,6 @@ Object {
 exports[`createConfig quiet option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1216,7 +1041,6 @@ Object {
 exports[`createConfig quiet option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1231,7 +1055,6 @@ Object {
 exports[`createConfig simple 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1245,7 +1068,6 @@ Object {
 exports[`createConfig sockHost option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1260,7 +1082,6 @@ Object {
 exports[`createConfig sockPath option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1275,7 +1096,6 @@ Object {
 exports[`createConfig sockPort option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1290,7 +1110,6 @@ Object {
 exports[`createConfig socket option (devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1305,7 +1124,6 @@ Object {
 exports[`createConfig socket option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1320,7 +1138,6 @@ Object {
 exports[`createConfig stats option (colors) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1334,7 +1151,6 @@ Object {
 exports[`createConfig stats option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1348,14 +1164,11 @@ Object {
   "compress": "_compress",
   "contentBase": "_contentBase",
   "disableHostCheck": "_disableHostCheck",
-  "filename": "_filename",
   "historyApiFallback": "_historyApiFallback",
   "host": "_foo",
   "hot": "_hot",
-  "hotOnly": "_hotOnly",
   "https": "_https",
   "inline": "_inline",
-  "lazy": "_lazy",
   "noInfo": true,
   "open": "_open",
   "openPage": "_openPage",
@@ -1381,14 +1194,11 @@ Object {
     "compress": "_compress",
     "contentBase": "_contentBase",
     "disableHostCheck": "_disableHostCheck",
-    "filename": "_filename",
     "historyApiFallback": "_historyApiFallback",
     "host": "_foo",
     "hot": "_hot",
-    "hotOnly": "_hotOnly",
     "https": "_https",
     "inline": "_inline",
-    "lazy": "_lazy",
     "noInfo": true,
     "open": "_open",
     "openPage": "_openPage",
@@ -1416,7 +1226,6 @@ Object {
 exports[`createConfig useLocalIp option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1431,7 +1240,6 @@ Object {
 exports[`createConfig useLocalIp option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1446,7 +1254,6 @@ Object {
 exports[`createConfig watchContentBase option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1461,7 +1268,6 @@ Object {
 exports[`createConfig watchContentBase option 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1476,7 +1282,6 @@ Object {
 exports[`createConfig watchOptions option (in devServer config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -1493,7 +1298,6 @@ Object {
 exports[`createConfig watchOptions option (in output config) 1`] = `
 Object {
   "hot": true,
-  "hotOnly": false,
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",

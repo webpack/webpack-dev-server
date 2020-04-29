@@ -60,12 +60,12 @@ describe('Server', () => {
       compiler.run(() => {});
     });
 
-    it('add hotOnly option', (done) => {
+    it('add hot-only option', (done) => {
       const compiler = webpack(config);
       const server = new Server(
         compiler,
         Object.assign({}, baseDevConfig, {
-          hotOnly: true,
+          hot: 'only',
         })
       );
 

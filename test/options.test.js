@@ -1,7 +1,7 @@
 'use strict';
 
 const { join } = require('path');
-const ValidationError = require('schema-utils/src/ValidationError');
+const { ValidationError } = require('schema-utils');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
@@ -163,10 +163,6 @@ describe('options', () => {
         success: [['before'], []],
         failure: [false],
       },
-      filename: {
-        success: ['', new RegExp(''), () => {}],
-        failure: [false],
-      },
       fs: {
         success: [
           {
@@ -188,12 +184,8 @@ describe('options', () => {
         failure: [false],
       },
       hot: {
-        success: [true],
-        failure: [''],
-      },
-      hotOnly: {
-        success: [true],
-        failure: [''],
+        success: [true, 'only'],
+        failure: ['', 'foo'],
       },
       http2: {
         success: [true],
@@ -222,20 +214,6 @@ describe('options', () => {
       key: {
         success: ['', Buffer.from('')],
         failure: [false],
-      },
-      lazy: {
-        success: [
-          {
-            lazy: true,
-            filename: '.',
-          },
-        ],
-        failure: [
-          {
-            lazy: '',
-            filename: '.',
-          },
-        ],
       },
       log: {
         success: [() => {}],
