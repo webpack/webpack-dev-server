@@ -11,7 +11,7 @@
     "client"
   ],
   "engines": {
-    "node": ">= 6.11.5"
+    "node": ">= 10.13.0"
   },
   "scripts": {
     "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css}\" --list-different",
@@ -57,7 +57,6 @@
     "portfinder": "^1.0.25",
     "schema-utils": "^2.6.6",
     "selfsigned": "^1.10.7",
-    "semver": "^7.3.2",
     "serve-index": "^1.9.1",
     "sockjs": "0.3.20",
     "sockjs-client": "1.4.0",
