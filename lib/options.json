@@ -166,9 +166,6 @@
         }
       ]
     },
-    "inline": {
-      "type": "boolean"
-    },
     "key": {
       "anyOf": [
         {
@@ -439,7 +436,6 @@
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverindex)",
       "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
-      "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverinline)",
       "key": "should be {String|Buffer}",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
       "log": "should be {Function}",

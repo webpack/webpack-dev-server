@@ -10,7 +10,7 @@ describe('universal compiler', () => {
   let req;
 
   beforeAll((done) => {
-    server = testServer.start(config, { inline: true, port }, done);
+    server = testServer.start(config, { port }, done);
     req = request(server.app);
   });
 

@@ -1,7 +1,6 @@
 # CLI: Default State
 
-This example demonstrates how to use `webpack-dev-server` in its default, inline
-state.
+This example demonstrates how to use `webpack-dev-server`.
 
 ```console
 npm run webpack-dev-server -- --open

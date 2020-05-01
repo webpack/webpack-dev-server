@@ -34,7 +34,7 @@ describe('reload', () => {
       shouldRefresh: false,
     },
     {
-      title: 'inline',
+      title: 'reload without hot',
       options: {
         hot: false,
       },
@@ -54,7 +54,6 @@ describe('reload', () => {
           {
             port,
             host: '0.0.0.0',
-            inline: true,
             watchOptions: {
               poll: true,
             },

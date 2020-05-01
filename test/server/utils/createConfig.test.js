@@ -663,28 +663,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('inline option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { inline: false }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('inline option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { inline: false },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('historyApiFallback option', () => {
     const config = createConfig(
       webpackConfig,
