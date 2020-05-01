@@ -8,12 +8,11 @@ const port = require('../ports-map').ProvidePlugin;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('ProvidePlugin', () => {
-  describe('inline with default transportMode.client (sockjs)', () => {
+  describe('default transportMode.client (sockjs)', () => {
     beforeAll((done) => {
       const options = {
         port,
         host: '0.0.0.0',
-        inline: true,
         watchOptions: {
           poll: true,
         },
@@ -46,12 +45,11 @@ describe('ProvidePlugin', () => {
     });
   });
 
-  describe('inline with transportMode.client ws', () => {
+  describe('with transportMode.client ws', () => {
     beforeAll((done) => {
       const options = {
         port,
         host: '0.0.0.0',
-        inline: true,
         transportMode: 'ws',
         watchOptions: {
           poll: true,
@@ -70,45 +68,6 @@ describe('ProvidePlugin', () => {
               page
                 .evaluate(() => {
                   return window.injectedClient === window.expectedClient;
-                })
-                .then((isCorrectClient) => {
-                  browser.close().then(() => {
-                    expect(isCorrectClient).toBeTruthy();
-                    done();
-                  });
-                });
-            });
-          });
-          page.goto(`http://localhost:${port}/main`);
-        });
-      });
-    });
-  });
-
-  describe('not inline', () => {
-    beforeAll((done) => {
-      const options = {
-        port,
-        host: '0.0.0.0',
-        inline: false,
-        watchOptions: {
-          poll: true,
-        },
-      };
-      testServer.startAwaitingCompilation(config, options, done);
-    });
-
-    afterAll(testServer.close);
-
-    describe('on browser client', () => {
-      it('should not inject client implementation', (done) => {
-        runBrowser().then(({ page, browser }) => {
-          page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
-              page
-                .evaluate(() => {
-                  // eslint-disable-next-line no-undefined
-                  return window.injectedClient === undefined;
                 })
                 .then((isCorrectClient) => {
                   browser.close().then(() => {

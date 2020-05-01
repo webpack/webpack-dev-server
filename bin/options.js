@@ -26,12 +26,6 @@ const options = {
     describe: 'Enables/Disables serveIndex middleware',
     default: true,
   },
-  inline: {
-    type: 'boolean',
-    default: true,
-    describe:
-      'Inline mode (set to false to disable including client scripts like livereload)',
-  },
   profile: {
     type: 'boolean',
     describe: 'Print compilation profile data for progress steps',

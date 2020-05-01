@@ -14,7 +14,6 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        inline: true,
         watchOptions: {
           poll: true,
         },
@@ -34,7 +33,6 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        inline: true,
         hot: 'only',
         watchOptions: {
           poll: true,
@@ -57,7 +55,6 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        inline: true,
         watchOptions: {
           poll: true,
         },
@@ -81,7 +78,6 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        inline: true,
         hot: false,
         watchOptions: {
           poll: true,
@@ -112,7 +108,6 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        inline: true,
         watchOptions: {
           poll: true,
         },
@@ -145,7 +140,6 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        inline: true,
         watchOptions: {
           poll: true,
         },
@@ -178,7 +172,6 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        inline: true,
         hot: false,
         watchOptions: {
           poll: true,

@@ -3,6 +3,7 @@
 exports[`Client console.log clientLogLevel is silent 1`] = `
 Array [
   "Hey.",
+  "[HMR] Waiting for update signal from WDS...",
 ]
 `;
 

@@ -36,7 +36,6 @@ describe('client progress', () => {
       const options = {
         port,
         host: '0.0.0.0',
-        inline: true,
         hot: true,
         progress: true,
         watchOptions: {

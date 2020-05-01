@@ -499,34 +499,6 @@ Object {
 }
 `;
 
-exports[`createConfig inline option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "inline": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig inline option 1`] = `
-Object {
-  "hot": true,
-  "inline": false,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
 exports[`createConfig key option (in devServer config) 1`] = `
 Object {
   "hot": true,
@@ -1168,7 +1140,6 @@ Object {
   "host": "_foo",
   "hot": "_hot",
   "https": "_https",
-  "inline": "_inline",
   "noInfo": true,
   "open": "_open",
   "openPage": "_openPage",
@@ -1198,7 +1169,6 @@ Object {
     "host": "_foo",
     "hot": "_hot",
     "https": "_https",
-    "inline": "_inline",
     "noInfo": true,
     "open": "_open",
     "openPage": "_openPage",

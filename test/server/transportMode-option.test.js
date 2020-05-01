@@ -576,7 +576,6 @@ describe('transportMode', () => {
           mockedTestServer.start(
             config,
             {
-              inline: true,
               transportMode: data.transportMode,
               port,
             },
@@ -618,7 +617,6 @@ describe('transportMode', () => {
             testServer.start(
               config,
               {
-                inline: true,
                 transportMode: data.transportMode,
                 port,
               },
