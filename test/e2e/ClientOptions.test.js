@@ -273,6 +273,7 @@ describe('Client console.log', () => {
         liveReload: true,
       },
     },
+    // TODO: make clientLogLevel work as expected for HMR logs
     {
       title: 'clientLogLevel is silent',
       options: {
