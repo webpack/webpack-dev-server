@@ -19,7 +19,6 @@ module.exports = {
     quiet: '_quiet',
     https: '_https',
     pfxPassphrase: '_pfxPassphrase',
-    inline: '_inline',
     historyApiFallback: '_historyApiFallback',
     compress: '_compress',
     disableHostCheck: '_disableHostCheck',

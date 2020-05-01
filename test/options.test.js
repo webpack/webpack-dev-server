@@ -207,10 +207,6 @@ describe('options', () => {
         success: [true, () => {}],
         failure: [''],
       },
-      inline: {
-        success: [true],
-        failure: [''],
-      },
       key: {
         success: ['', Buffer.from('')],
         failure: [false],

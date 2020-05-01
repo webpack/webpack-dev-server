@@ -47,7 +47,6 @@ describe('transportMode client', () => {
           {
             port,
             host: '0.0.0.0',
-            inline: true,
           },
           mode.options
         );

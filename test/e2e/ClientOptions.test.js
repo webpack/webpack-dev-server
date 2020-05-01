@@ -29,7 +29,6 @@ describe('Client code', () => {
       port: port1,
       host: '0.0.0.0',
       disableHostCheck: true,
-      inline: true,
       hot: true,
       watchOptions: {
         poll: true,
@@ -85,12 +84,11 @@ describe('Client code', () => {
   });
 });
 
-describe('Client complex inline script path', () => {
+describe('Client complex script path', () => {
   beforeAll((done) => {
     const options = {
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },
@@ -126,12 +124,11 @@ describe('Client complex inline script path', () => {
   });
 });
 
-describe('Client complex inline script path with sockPort', () => {
+describe('Client complex script path with sockPort', () => {
   beforeAll((done) => {
     const options = {
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },
@@ -171,12 +168,11 @@ describe('Client complex inline script path with sockPort', () => {
 // previously, using sockPort without sockPath had the ability
 // to alter the sockPath (based on a bug in client-src/default/index.js)
 // so we need to make sure sockPath is not altered in this case
-describe('Client complex inline script path with sockPort, no sockPath', () => {
+describe('Client complex script path with sockPort, no sockPath', () => {
   beforeAll((done) => {
     const options = {
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },
@@ -209,12 +205,11 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
   });
 });
 
-describe('Client complex inline script path with sockHost', () => {
+describe('Client complex script path with sockHost', () => {
   beforeAll((done) => {
     const options = {
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },

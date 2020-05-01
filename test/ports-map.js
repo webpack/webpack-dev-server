@@ -23,7 +23,6 @@ const portsList = {
   'hot-option': 1,
   'http2-option': 1,
   'https-option': 1,
-  'inline-option': 1,
   'liveReload-option': 1,
   'mineTypes-option': 1,
   'onListening-option': 1,

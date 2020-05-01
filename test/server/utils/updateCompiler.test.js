@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const updateCompiler = require('../../../lib/utils/updateCompiler');
 
 describe('updateCompiler', () => {
-  describe('simple config, inline', () => {
+  describe('simple config, no hot', () => {
     let compiler;
 
     beforeAll(() => {
@@ -19,7 +19,6 @@ describe('updateCompiler', () => {
           server: 'sockjs',
           client: 'sockjs',
         },
-        inline: true,
       });
 
       let tapsByHMR = 0;
@@ -40,7 +39,7 @@ describe('updateCompiler', () => {
     });
   });
 
-  describe('simple config, hot and inline', () => {
+  describe('simple config, hot', () => {
     let compiler;
 
     beforeAll(() => {
@@ -55,7 +54,6 @@ describe('updateCompiler', () => {
           server: 'sockjs',
           client: 'sockjs',
         },
-        inline: true,
         hot: true,
       });
 
@@ -79,7 +77,7 @@ describe('updateCompiler', () => {
     });
   });
 
-  describe('simple config with HMR already, hot and inline', () => {
+  describe('simple config with HMR already, hot', () => {
     let compiler;
 
     beforeAll(() => {
@@ -96,7 +94,6 @@ describe('updateCompiler', () => {
           server: 'sockjs',
           client: 'sockjs',
         },
-        inline: true,
         hot: true,
       });
 
@@ -120,7 +117,7 @@ describe('updateCompiler', () => {
     });
   });
 
-  describe('multi compiler config, hot and inline', () => {
+  describe('multi compiler config, hot', () => {
     let multiCompiler;
 
     beforeAll(() => {
@@ -137,7 +134,6 @@ describe('updateCompiler', () => {
           server: 'sockjs',
           client: 'sockjs',
         },
-        inline: true,
         hot: true,
       });
 
