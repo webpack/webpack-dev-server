@@ -76,6 +76,16 @@ describe('Server', () => {
     });
   });
 
+  it('test listeningApp error reporting', () => {
+    const logMock = jest.fn();
+    const compiler = webpack(config);
+    const server = new Server(compiler, baseDevConfig);
+
+    server.log.error = logMock;
+
+    server.listeningApp.emit('error', new Error('Error !!!'));
+    expect(server.log.error).toBeCalledWith(new Error('Error !!!'));
+  });
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe('express.static.mine.types', () => {
     it("should success even if mine.types doesn't exist", (done) => {
