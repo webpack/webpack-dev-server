@@ -17,7 +17,14 @@ describe('sockPath options', () => {
 
   describe('default behavior', () => {
     beforeEach((done) => {
-      server = testServer.start(config, { port }, done);
+      server = testServer.start(
+        config,
+        {
+          transportMode: 'sockjs',
+          port,
+        },
+        done
+      );
       req = request(`http://localhost:${port}`);
     });
 
@@ -37,6 +44,7 @@ describe('sockPath options', () => {
       server = testServer.start(
         config,
         {
+          transportMode: 'sockjs',
           sockPath: '/foo/test/bar/',
           port,
         },
