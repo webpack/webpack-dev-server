@@ -25,6 +25,7 @@ describe('Client code', () => {
 
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       compress: true,
       port: port1,
       host: '0.0.0.0',
@@ -87,6 +88,7 @@ describe('Client code', () => {
 describe('Client complex script path', () => {
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
       watchOptions: {
@@ -127,6 +129,7 @@ describe('Client complex script path', () => {
 describe('Client complex script path with sockPort', () => {
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
       watchOptions: {
@@ -171,6 +174,7 @@ describe('Client complex script path with sockPort', () => {
 describe('Client complex script path with sockPort, no sockPath', () => {
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
       watchOptions: {
@@ -208,6 +212,7 @@ describe('Client complex script path with sockPort, no sockPath', () => {
 describe('Client complex script path with sockHost', () => {
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
       watchOptions: {
