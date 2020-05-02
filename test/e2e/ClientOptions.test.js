@@ -9,7 +9,7 @@ const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
-describe('Client code', () => {
+describe('sockjs client proxy', () => {
   function startProxy(port, cb) {
     const proxy = express();
     proxy.use(
@@ -66,7 +66,7 @@ describe('Client code', () => {
     });
 
     it('requests websocket through the proxy with proper port number', (done) => {
-      runBrowser().then(({ page, browser }) => {
+      runBrowser().then(async ({ page, browser }) => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
           .then((requestObj) => {
@@ -85,7 +85,75 @@ describe('Client code', () => {
   });
 });
 
-describe('Client complex script path', () => {
+describe('ws client proxy', () => {
+  function startProxy(port, cb) {
+    const proxy = express();
+    proxy.use(
+      '/',
+      createProxyMiddleware({
+        target: `http://localhost:${port1}`,
+        ws: true,
+        changeOrigin: true,
+      })
+    );
+    return proxy.listen(port, cb);
+  }
+
+  beforeAll((done) => {
+    const options = {
+      transportMode: 'ws',
+      compress: true,
+      port: port1,
+      host: '0.0.0.0',
+      disableHostCheck: true,
+      hot: true,
+      watchOptions: {
+        poll: true,
+      },
+      quiet: true,
+      public: 'myhost.test',
+    };
+    testServer.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(testServer.close);
+
+  // [HPM] Proxy created: /  ->  http://localhost:{port1}
+  describe('behind a proxy', () => {
+    let proxy;
+
+    beforeAll((done) => {
+      proxy = startProxy(port2, done);
+    });
+
+    afterAll((done) => {
+      proxy.close(() => {
+        done();
+      });
+    });
+
+    // TODO: listen for websocket requestType via puppeteer when added
+    // to puppeteer: https://github.com/puppeteer/puppeteer/issues/2974
+    it('requests websocket through the proxy with proper port number', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page.on('console', (msg) => {
+          const text = msg.text();
+          if (msg.type() === 'error' && text.includes('WebSocket connection')) {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(text).toContain(`ws://myhost.test:${port2}/sockjs-node`);
+                done();
+              });
+            });
+          }
+        });
+        page.goto(`http://localhost:${port2}/main`);
+      });
+    });
+  });
+});
+
+describe('sockjs public and sockPath', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -104,7 +172,7 @@ describe('Client complex script path', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct public hostname and sockPath', (done) => {
+    it('uses the correct public hostname and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
           .waitForRequest((requestObj) =>
@@ -126,7 +194,7 @@ describe('Client complex script path', () => {
   });
 });
 
-describe('Client complex script path with sockPort', () => {
+describe('sockjs sockPath and sockPort', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -145,7 +213,7 @@ describe('Client complex script path with sockPort', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort', (done) => {
+    it('uses correct port and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
           .waitForRequest((requestObj) =>
@@ -171,7 +239,7 @@ describe('Client complex script path with sockPort', () => {
 // previously, using sockPort without sockPath had the ability
 // to alter the sockPath (based on a bug in client-src/default/index.js)
 // so we need to make sure sockPath is not altered in this case
-describe('Client complex script path with sockPort, no sockPath', () => {
+describe('sockjs sockPort, no sockPath', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -189,7 +257,7 @@ describe('Client complex script path with sockPort, no sockPath', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort and sockPath', (done) => {
+    it('uses correct port and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
@@ -209,7 +277,7 @@ describe('Client complex script path with sockPort, no sockPath', () => {
   });
 });
 
-describe('Client complex script path with sockHost', () => {
+describe('sockjs sockHost', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -227,7 +295,7 @@ describe('Client complex script path with sockHost', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockHost', (done) => {
+    it('uses correct host', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
@@ -241,6 +309,49 @@ describe('Client complex script path with sockHost', () => {
               });
             });
           });
+        page.goto(`http://localhost:${port2}/main`);
+      });
+    });
+  });
+});
+
+describe('ws client sockHost, sockPort, and sockPath', () => {
+  beforeAll((done) => {
+    const options = {
+      transportMode: 'ws',
+      port: port2,
+      host: '0.0.0.0',
+      watchOptions: {
+        poll: true,
+      },
+      sockHost: 'myhost.test',
+      sockPort: port3,
+      sockPath: '/foo/test/bar/',
+      quiet: true,
+    };
+    testServer.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(testServer.close);
+
+  describe('browser client', () => {
+    // TODO: listen for websocket requestType via puppeteer when added
+    // to puppeteer: https://github.com/puppeteer/puppeteer/issues/2974
+    it('uses correct host, port, and path', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page.on('console', (msg) => {
+          const text = msg.text();
+          if (msg.type() === 'error' && text.includes('WebSocket connection')) {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(text).toContain(
+                  `ws://myhost.test:${port3}/foo/test/bar/`
+                );
+                done();
+              });
+            });
+          }
+        });
         page.goto(`http://localhost:${port2}/main`);
       });
     });
