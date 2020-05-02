@@ -13,7 +13,6 @@ jest.mock('sockjs/lib/transport');
 
 const baseDevConfig = {
   port,
-  quiet: true,
 };
 
 describe('Server', () => {

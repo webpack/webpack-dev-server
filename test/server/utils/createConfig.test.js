@@ -486,28 +486,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('quiet option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { quiet: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('quiet option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { quiet: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('https option', () => {
     const config = createConfig(
       webpackConfig,

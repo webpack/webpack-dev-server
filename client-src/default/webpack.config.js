@@ -1,9 +1,18 @@
 'use strict';
 
+const { join, resolve } = require('path');
 const webpack = require('webpack');
 
 module.exports = {
   mode: 'production',
+  entry: [
+    join(__dirname, '../../node_modules/util'),
+    join(__dirname, './index.js'),
+  ],
+  output: {
+    path: resolve('client'),
+    filename: 'index.bundle.js',
+  },
   module: {
     rules: [
       {

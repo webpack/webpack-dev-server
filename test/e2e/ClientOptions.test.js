@@ -10,6 +10,12 @@ const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('Client code', () => {
+  Object.assign(config, {
+    infrastructureLogging: {
+      level: 'none',
+    },
+  });
+
   function startProxy(port, cb) {
     const proxy = express();
     proxy.use(
@@ -33,7 +39,6 @@ describe('Client code', () => {
       watchOptions: {
         poll: true,
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -94,7 +99,6 @@ describe('Client complex script path', () => {
       },
       public: 'myhost.test',
       sockPath: '/foo/test/bar/',
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -134,7 +138,6 @@ describe('Client complex script path with sockPort', () => {
       },
       sockPath: '/foo/test/bar/',
       sockPort: port3,
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -177,7 +180,6 @@ describe('Client complex script path with sockPort, no sockPath', () => {
         poll: true,
       },
       sockPort: port3,
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -214,7 +216,6 @@ describe('Client complex script path with sockHost', () => {
         poll: true,
       },
       sockHost: 'myhost.test',
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -246,7 +247,6 @@ describe('Client console.log', () => {
   const baseOptions = {
     port: port2,
     host: '0.0.0.0',
-    quiet: true,
   };
   const cases = [
     {
@@ -277,7 +277,7 @@ describe('Client console.log', () => {
     {
       title: 'clientLogLevel is silent',
       options: {
-        clientLogLevel: 'silent',
+        clientLogLevel: 'none',
       },
     },
   ];

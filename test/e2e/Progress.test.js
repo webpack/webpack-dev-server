@@ -65,7 +65,7 @@ describe('client progress', () => {
               page.waitFor(completeReloadDelay).then(() => {
                 browser.close().then(() => {
                   // check that there is some percentage progress output
-                  const regExp = /^\[WDS\] [0-9]{1,3}% - /;
+                  const regExp = /^\[webpack-dev-server\] [0-9]{1,3}% - /;
                   const match = res.find((line) => {
                     return regExp.test(line);
                   });

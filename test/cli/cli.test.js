@@ -30,18 +30,6 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--quiet', async (done) => {
-    const output = await testBin(`--quiet --colors=false --port ${port1}`);
-    expect(output.exitCode).toEqual(0);
-    expect(output.stdout.split('\n').length === 3).toBe(true);
-    expect(output.stdout).toContain(
-      `Project is running at http://localhost:${port1}/`
-    );
-    expect(output.stdout).toContain('webpack output is served from /');
-    expect(output.stdout).toContain('Content not from webpack is served from');
-    done();
-  });
-
   it('--progress --profile', (done) => {
     testBin('--progress --profile')
       .then((output) => {
@@ -57,7 +45,10 @@ describe('CLI', () => {
     testBin('--bonjour')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('Bonjour');
+
+        // use stderr
+        // fyi: https://github.com/webpack/webpack/blob/0d4607c68e04a659fa58499e1332c97d5376368a/lib/node/nodeConsole.js#L58
+        expect(output.stderr).toContain('Bonjour');
         done();
       })
       .catch(done);
@@ -67,7 +58,7 @@ describe('CLI', () => {
     testBin('--https')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('Project is running at');
+        expect(output.stderr).toContain('Project is running at');
         done();
       })
       .catch(done);
@@ -79,7 +70,7 @@ describe('CLI', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('Project is running at');
+        expect(output.stderr).toContain('Project is running at');
         done();
       })
       .catch(done);
@@ -99,7 +90,7 @@ describe('CLI', () => {
   it('unspecified port', (done) => {
     testBin('')
       .then((output) => {
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
         done();
       })
       .catch(done);
@@ -108,13 +99,10 @@ describe('CLI', () => {
   it('--color', (done) => {
     testBin('--color')
       .then((output) => {
-        // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
-        const text =
-          process.platform === 'win32'
-            ? '\u001b[94m⬡ wds: \u001b[39m'
-            : '\u001b[34m⬡ wds: \u001b[39m';
+        const expected =
+          '<i> [webpack-dev-server] Project is running at \u001b[1m\u001b[34mh';
 
-        expect(output.stdout).toContain(text);
+        expect(output.stderr).toContain(expected);
         done();
       })
       .catch(done);
@@ -131,7 +119,7 @@ describe('CLI', () => {
         if (process.platform === 'win32') {
           done();
         } else {
-          expect(output.stdout).toContain(socketPath);
+          expect(output.stderr).toContain(socketPath);
 
           unlink(socketPath, () => {
             done();
@@ -139,6 +127,16 @@ describe('CLI', () => {
         }
       })
       .catch(done);
+  });
+
+  it('--port', async () => {
+    const output = await testBin(`--colors=false --port ${port1}`);
+
+    expect(output.exitCode).toEqual(0);
+    expect(output.stderr.split('\n').length === 3).toBe(true);
+    expect(output.stderr).toContain(
+      `Project is running at http://localhost:${port1}/`
+    );
   });
 
   it('should accept the promise function of webpack.config.js', (done) => {
@@ -200,74 +198,53 @@ describe('CLI', () => {
   });
 
   it('should use different random port when multiple instances are started on different processes', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const simpleConfig = resolve(__dirname, '../fixtures/simple-config');
+    const config = resolve(
+      __dirname,
+      '../fixtures/simple-config/webpack.config.js'
+    );
 
-    const cp = execa('node', [cliPath, '--colors=false'], {
-      cwd: simpleConfig,
-    });
-    const cp2 = execa('node', [cliPath, '--colors=false'], {
-      cwd: simpleConfig,
-    });
-
-    const runtime = {
-      cp: {
-        port: null,
-        done: false,
-      },
-      cp2: {
-        port: null,
-        done: false,
-      },
-    };
-
-    cp.stdout.on('data', (data) => {
-      const bits = data.toString();
+    function getPort(str) {
       const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
-        bits
+        str
       );
 
       if (portMatch) {
-        runtime.cp.port = portMatch[1];
+        return portMatch[1];
       }
 
-      if (/Compiled successfully/.test(bits)) {
-        expect(cp.pid !== 0).toBe(true);
-        cp.kill('SIGINT');
+      return null;
+    }
+
+    let portCp1;
+    const { stderr: stderr1, pid: pid1, kill: kill1 } = testBin(false, config);
+
+    stderr1.on('data', (data) => {
+      const port = getPort(data.toString());
+
+      if (port) {
+        expect(pid1 !== 0).toBe(true);
+        portCp1 = port;
       }
     });
 
-    cp2.stdout.on('data', (data) => {
-      const bits = data.toString();
-      const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
-        bits
+    setTimeout(() => {
+      const { stderr: stderr2, pid: pid2, kill: kill2 } = testBin(
+        false,
+        config
       );
 
-      if (portMatch) {
-        runtime.cp2.port = portMatch[1];
-      }
+      stderr2.on('data', (data) => {
+        const portCp2 = getPort(data.toString());
 
-      if (/Compiled successfully/.test(bits)) {
-        expect(cp.pid !== 0).toBe(true);
-        cp2.kill('SIGINT');
-      }
-    });
+        if (portCp2) {
+          kill1('SIGINT');
+          kill2('SIGINT');
 
-    cp.on('exit', () => {
-      runtime.cp.done = true;
-      if (runtime.cp2.done) {
-        expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
-        done();
-      }
-    });
-
-    cp2.on('exit', () => {
-      runtime.cp2.done = true;
-
-      if (runtime.cp.done) {
-        expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
-        done();
-      }
-    });
+          expect(pid2 !== 0).toBe(true);
+          expect(portCp1).not.toBe(portCp2);
+          done();
+        }
+      });
+    }, 700);
   });
 });

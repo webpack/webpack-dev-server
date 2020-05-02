@@ -16,15 +16,9 @@ describe('reloadApp', () => {
       value: { reload: jest.fn() },
     });
 
-    jest.mock('loglevel');
-
-    log = require('loglevel');
-    log.getLogger.mockImplementation(() => {
-      return {
-        info: jest.fn(),
-        setDefaultLevel: jest.fn(),
-      };
-    });
+    log = {
+      info: jest.fn(),
+    };
 
     reloadApp = require('../../../client-src/default/utils/reloadApp');
   });
@@ -37,13 +31,13 @@ describe('reloadApp', () => {
 
   test('should do nothing when isUnloading is true or hotReload is false', () => {
     // eslint-disable-next-line no-undefined
-    expect(reloadApp({}, { isUnloading: false })).toEqual(undefined);
-    expect(log.getLogger.mock.results[0].value.info).not.toBeCalled();
+    expect(reloadApp({}, { isUnloading: false }, log)).toEqual(undefined);
+    expect(log.info).not.toBeCalled();
     expect(reloadApp({ hotReload: false }, { isUnloading: false })).toEqual(
       // eslint-disable-next-line no-undefined
       undefined
     );
-    expect(log.getLogger.mock.results[0].value.info).not.toBeCalled();
+    expect(log.info).not.toBeCalled();
   });
 
   test('should run hot', () => {
@@ -53,12 +47,11 @@ describe('reloadApp', () => {
 
     reloadApp(
       { hot: true, hotReload: true },
-      { isUnloading: false, currentHash: 'hash' }
+      { isUnloading: false, currentHash: 'hash' },
+      log
     );
 
-    expect(
-      log.getLogger.mock.results[0].value.info.mock.calls[0][0]
-    ).toMatchSnapshot();
+    expect(log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(emitter.emit.mock.calls[0][0]).toMatchSnapshot();
     expect(self.postMessage.mock.calls[0]).toMatchSnapshot();
   });
@@ -73,13 +66,12 @@ describe('reloadApp', () => {
 
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false }
+      { isUnloading: false },
+      log
     );
 
     setTimeout(() => {
-      expect(
-        log.getLogger.mock.results[0].value.info.mock.calls[0][0]
-      ).toMatchSnapshot();
+      expect(log.info.mock.calls[0][0]).toMatchSnapshot();
       expect(self.location.reload).toBeCalled();
       done();
     });
@@ -88,13 +80,12 @@ describe('reloadApp', () => {
   test('should run liveReload when protocol is http:', (done) => {
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false }
+      { isUnloading: false },
+      log
     );
 
     setTimeout(() => {
-      expect(
-        log.getLogger.mock.results[0].value.info.mock.calls[0][0]
-      ).toMatchSnapshot();
+      expect(log.info.mock.calls[0][0]).toMatchSnapshot();
       expect(self.location.reload).toBeCalled();
       done();
     });

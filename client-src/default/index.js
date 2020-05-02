@@ -1,11 +1,16 @@
 'use strict';
 
+// webpack@5 doesn't inject node polyfill automatically
+// this is for tapable
+// window.process = require('process/browser');
+// require('util/util');
+
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
 const stripAnsi = require('strip-ansi');
 const socket = require('./socket');
 const overlay = require('./overlay');
-const { log, setLogLevel } = require('./utils/log');
+const createLogger = require('./utils/createLogger');
 const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
 const createSocketUrl = require('./utils/createSocketUrl');
@@ -24,6 +29,7 @@ const options = {
   useProgress: false,
 };
 const socketUrl = createSocketUrl(__resourceQuery);
+let log = createLogger(null);
 
 self.addEventListener('beforeunload', () => {
   status.isUnloading = true;
@@ -37,14 +43,14 @@ if (typeof window !== 'undefined') {
 const onSocketMessage = {
   hot() {
     options.hot = true;
-    log.info('[WDS] Hot Module Replacement enabled.');
+    log.info('Hot Module Replacement enabled.');
   },
   liveReload() {
     options.liveReload = true;
-    log.info('[WDS] Live Reloading enabled.');
+    log.info('Live Reloading enabled.');
   },
   invalid() {
-    log.info('[WDS] App updated. Recompiling...');
+    log.info('App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
@@ -55,18 +61,14 @@ const onSocketMessage = {
     status.currentHash = hash;
   },
   'still-ok': function stillOk() {
-    log.info('[WDS] Nothing changed.');
+    log.info('Nothing changed.');
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
     sendMessage('StillOk');
   },
   'log-level': function logLevel(level) {
-    const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
-    if (hotCtx.keys().indexOf('./log') !== -1) {
-      hotCtx('./log').setLogLevel(level);
-    }
-    setLogLevel(level);
+    log = createLogger(level);
   },
   overlay(value) {
     if (typeof document !== 'undefined') {
@@ -86,7 +88,7 @@ const onSocketMessage = {
   },
   'progress-update': function progressUpdate(data) {
     if (options.useProgress) {
-      log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+      log.info(`${data.percent}% - ${data.msg}.`);
     }
     sendMessage('Progress', data);
   },
@@ -98,14 +100,14 @@ const onSocketMessage = {
     if (options.initial) {
       return (options.initial = false);
     } // eslint-disable-line no-return-assign
-    reloadApp(options, status);
+    reloadApp(options, status, log);
   },
   'content-changed': function contentChanged() {
-    log.info('[WDS] Content base changed. Reloading...');
+    log.info('Content base changed. Reloading...');
     self.location.reload();
   },
   warnings(warnings) {
-    log.warn('[WDS] Warnings while compiling.');
+    log.warn('Warnings while compiling.');
     const strippedWarnings = warnings.map((warning) => stripAnsi(warning));
     sendMessage('Warnings', strippedWarnings);
     for (let i = 0; i < strippedWarnings.length; i++) {
@@ -118,10 +120,10 @@ const onSocketMessage = {
     if (options.initial) {
       return (options.initial = false);
     } // eslint-disable-line no-return-assign
-    reloadApp(options, status);
+    reloadApp(options, status, log);
   },
   errors(errors) {
-    log.error('[WDS] Errors while compiling. Reload prevented.');
+    log.error('Errors while compiling. Reload prevented.');
     const strippedErrors = errors.map((error) => stripAnsi(error));
     sendMessage('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) {
@@ -136,7 +138,7 @@ const onSocketMessage = {
     log.error(error);
   },
   close() {
-    log.error('[WDS] Disconnected!');
+    log.error('Disconnected!');
     sendMessage('Close');
   },
 };

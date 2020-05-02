@@ -16,7 +16,6 @@ module.exports = {
     contentBase: '_contentBase',
     watchContentBase: '_watchContentBase',
     noInfo: '_noInfo',
-    quiet: '_quiet',
     https: '_https',
     pfxPassphrase: '_pfxPassphrase',
     historyApiFallback: '_historyApiFallback',

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createLogger util with the compiler should output log when use the default level 1`] = `
+"<i> [webpack-dev-server] foo
+"
+`;
+
+exports[`createLogger util without the compiler should output log when use the default level 1`] = `"[webpack-dev-server] foo"`;

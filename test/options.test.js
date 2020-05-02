@@ -15,7 +15,7 @@ describe('options', () => {
   let consoleMock;
 
   beforeAll(() => {
-    consoleMock = jest.spyOn(console, 'warn').mockImplementation();
+    consoleMock = jest.spyOn(console, 'warn');
   });
 
   afterAll(() => {
@@ -133,18 +133,7 @@ describe('options', () => {
         failure: [false],
       },
       clientLogLevel: {
-        success: [
-          'silent',
-          'info',
-          'error',
-          'warn',
-          'trace',
-          'debug',
-          // deprecated
-          'none',
-          // deprecated
-          'warning',
-        ],
+        success: ['none', 'error', 'warn', 'info', 'log', 'verbose'],
         failure: ['whoops!'],
       },
       compress: {
@@ -215,10 +204,6 @@ describe('options', () => {
         success: [() => {}],
         failure: [''],
       },
-      logLevel: {
-        success: ['silent', 'info', 'error', 'warn', 'trace', 'debug'],
-        failure: [false],
-      },
       logTime: {
         success: [true],
         failure: [''],
@@ -226,10 +211,6 @@ describe('options', () => {
       mimeTypes: {
         success: [{}],
         failure: [false],
-      },
-      noInfo: {
-        success: [true],
-        failure: [''],
       },
       onListening: {
         success: [() => {}],
@@ -314,10 +295,6 @@ describe('options', () => {
       publicPath: {
         success: [''],
         failure: [false],
-      },
-      quiet: {
-        success: [true],
-        failure: [''],
       },
       reporter: {
         success: [() => {}],

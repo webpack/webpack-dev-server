@@ -74,17 +74,12 @@ const options = {
     default: true,
     describe: 'Info',
   },
-  quiet: {
-    type: 'boolean',
-    group: DISPLAY_GROUP,
-    describe: 'Quiet',
-  },
   'client-log-level': {
     type: 'string',
     group: DISPLAY_GROUP,
     default: 'info',
     describe:
-      'Log level in the browser (trace, debug, info, warn, error or silent)',
+      'Log level in the browser (none, error, warn, info, log, verbose)',
   },
   https: {
     type: 'boolean',

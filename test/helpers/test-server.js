@@ -12,10 +12,6 @@ let server;
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
-  if (options.quiet === undefined) {
-    options.quiet = true;
-  }
-
   // defaulting to this will hopefully help with problems on OSX in tests
   if (options.watchOptions === undefined) {
     options.watchOptions = {

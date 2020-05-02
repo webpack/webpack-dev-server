@@ -1,47 +1,65 @@
 'use strict';
 
+const webpack = require('webpack');
 const createLogger = require('../../../lib/utils/createLogger');
+const config = require('../../fixtures/simple-config/webpack.config');
 
 describe('createLogger util', () => {
-  it('should create logger without options', () => {
-    const logger = createLogger();
-
-    expect(logger.name).toBe('wds');
-    expect(logger.currentLevel).toBe(2);
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('should create logger with logLevel option (debug)', () => {
-    const logger = createLogger({ logLevel: 'debug' });
+  describe('without the compiler', () => {
+    let consoleMock;
 
-    expect(logger.name).toBe('wds');
-    expect(logger.currentLevel).toBe(1);
+    beforeEach(() => {
+      consoleMock = jest.spyOn(console, 'info');
+    });
+
+    it('should output log when use the default level', () => {
+      const logger = createLogger(null);
+
+      logger.info('foo');
+
+      expect(consoleMock).toBeCalled();
+      expect(consoleMock.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    it('should not output log when specify the level', () => {
+      const logger = createLogger(null, 'none');
+
+      logger.info('foo');
+      expect(consoleMock).not.toBeCalled();
+    });
   });
 
-  it('should create logger with logLevel option (warn)', () => {
-    const logger = createLogger({ logLevel: 'warn' });
+  describe('with the compiler', () => {
+    let consoleMock;
 
-    expect(logger.name).toBe('wds');
-    expect(logger.currentLevel).toBe(3);
-  });
+    beforeEach(() => {
+      consoleMock = jest.spyOn(process.stderr, 'write');
+    });
 
-  it('should create logger with noInfo option', () => {
-    const logger = createLogger({ noInfo: true });
+    it('should output log when use the default level', () => {
+      const compiler = webpack(config);
+      const logger = createLogger(compiler);
 
-    expect(logger.name).toBe('wds');
-    expect(logger.currentLevel).toBe(3);
-  });
+      logger.info('foo');
+      expect(consoleMock).toBeCalled();
+      expect(consoleMock.mock.calls[0][0]).toMatchSnapshot();
+    });
 
-  it('should create logger with quiet option', () => {
-    const logger = createLogger({ quiet: true });
+    it('should not output log when specify the level', () => {
+      const compiler = webpack({
+        ...config,
+        infrastructureLogging: {
+          level: 'none',
+        },
+      });
+      const logger = createLogger(compiler);
 
-    expect(logger.name).toBe('wds');
-    expect(logger.currentLevel).toBe(5);
-  });
-
-  it('should create logger with logTime option', () => {
-    const logger = createLogger({ logTime: true });
-
-    expect(logger.name).toBe('wds');
-    expect(logger.currentLevel).toBe(2);
+      logger.info('foo');
+      expect(consoleMock).not.toBeCalled();
+    });
   });
 });

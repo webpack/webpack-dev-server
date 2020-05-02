@@ -2,7 +2,7 @@
 
 'use strict';
 
-/* eslint-disable no-shadow, no-console */
+/* eslint-disable no-shadow */
 
 const fs = require('fs');
 const net = require('net');
@@ -19,6 +19,7 @@ const getVersions = require('../lib/utils/getVersions');
 const options = require('./options');
 
 let server;
+const log = createLogger(null);
 const serverData = {
   server: null,
 };
@@ -38,12 +39,12 @@ if (importLocal(__filename)) {
 try {
   require.resolve('webpack-cli');
 } catch (err) {
-  console.error('The CLI moved into a separate package: webpack-cli');
-  console.error(
+  log.error('The CLI moved into a separate package: webpack-cli');
+  log.error(
     "Please install 'webpack-cli' in addition to webpack itself to use the CLI"
   );
-  console.error('-> When using npm: npm i -D webpack-cli');
-  console.error('-> When using yarn: yarn add -D webpack-cli');
+  log.error('-> When using npm: npm i -D webpack-cli');
+  log.error('-> When using yarn: yarn add -D webpack-cli');
 
   process.exitCode = 1;
 }
@@ -86,8 +87,6 @@ const config = require(convertArgvPath)(yargs, argv, {
 });
 
 function startDevServer(config, options) {
-  const log = createLogger(options);
-
   let compiler;
 
   try {
@@ -103,7 +102,7 @@ function startDevServer(config, options) {
   }
 
   try {
-    server = new Server(compiler, options, log);
+    server = new Server(compiler, options);
     serverData.server = server;
   } catch (err) {
     if (err.name === 'ValidationError') {

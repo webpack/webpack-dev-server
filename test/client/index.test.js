@@ -6,7 +6,9 @@
 /* global self */
 
 describe('index', () => {
-  let log;
+  let logInfo;
+  let logWarn;
+  let logError;
   let socket;
   let overlay;
   let reloadApp;
@@ -18,15 +20,9 @@ describe('index', () => {
   beforeEach(() => {
     global.__resourceQuery = 'foo';
 
-    // log
-    jest.setMock('../../client-src/default/utils/log.js', {
-      log: {
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      },
-    });
-    log = require('../../client-src/default/utils/log');
+    logInfo = jest.spyOn(console, 'info');
+    logWarn = jest.spyOn(console, 'warn');
+    logError = jest.spyOn(console, 'error');
 
     // socket
     jest.setMock('../../client-src/default/socket.js', jest.fn());
@@ -70,17 +66,17 @@ describe('index', () => {
 
   test('should run onSocketMessage.hot', () => {
     onSocketMessage.hot();
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(logInfo.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test('should run onSocketMessage.liveReload', () => {
     onSocketMessage.liveReload();
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(logInfo.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test('should run onSocketMessage.invalid', () => {
     onSocketMessage.invalid();
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(logInfo.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
     expect(overlay.clear).not.toBeCalled();
 
@@ -92,7 +88,7 @@ describe('index', () => {
 
   test("should run onSocketMessage['still-ok']", () => {
     onSocketMessage['still-ok']();
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(logInfo.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
     expect(overlay.clear).not.toBeCalled();
 
@@ -113,7 +109,7 @@ describe('index', () => {
       msg: 'mock-msg',
       percent: '12',
     });
-    expect(log.log.info).not.toBeCalled();
+    expect(logInfo).not.toBeCalled();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
 
     onSocketMessage.progress(true);
@@ -121,7 +117,7 @@ describe('index', () => {
       msg: 'mock-msg',
       percent: '12',
     });
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(logInfo.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test('should run onSocketMessage.overlay with an argument is Object', () => {
@@ -157,7 +153,7 @@ describe('index', () => {
   test("should run onSocketMessage['content-changed']", () => {
     onSocketMessage['content-changed']();
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(logInfo.mock.calls[0][0]).toMatchSnapshot();
     // TODO(hiroppy): need to investigate because of updated jest
     // expect(self.location.reload).toBeCalled();
   });
@@ -171,9 +167,9 @@ describe('index', () => {
       ]);
       expect(res).toEqual(false);
 
-      expect(log.log.warn.mock.calls[0][0]).toMatchSnapshot();
+      expect(logWarn.mock.calls[0][0]).toMatchSnapshot();
       expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-      expect(log.log.warn.mock.calls.splice(1)).toMatchSnapshot();
+      expect(logWarn.mock.calls.splice(1)).toMatchSnapshot();
     }
 
     // change flags
@@ -192,9 +188,9 @@ describe('index', () => {
   test('should run onSocketMessage.errors', () => {
     onSocketMessage.errors(['error1', '\u001B[4error2\u001B[0m', 'error3']);
 
-    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(logError.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-    expect(log.log.error.mock.calls.splice(1)).toMatchSnapshot();
+    expect(logError.mock.calls.splice(1)).toMatchSnapshot();
 
     // change flags
     onSocketMessage.overlay({
@@ -206,12 +202,12 @@ describe('index', () => {
 
   test('should run onSocketMessage.error', () => {
     onSocketMessage.error('error!!');
-    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(logError.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test('should run onSocketMessage.close', () => {
     onSocketMessage.close();
-    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(logError.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 });

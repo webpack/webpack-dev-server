@@ -37,16 +37,7 @@
       ]
     },
     "clientLogLevel": {
-      "enum": [
-        "info",
-        "warn",
-        "error",
-        "debug",
-        "trace",
-        "silent",
-        "none",
-        "warning"
-      ]
+      "enum": ["none", "error", "warn", "info", "log", "verbose"]
     },
     "compress": {
       "type": "boolean"
@@ -182,17 +173,11 @@
     "log": {
       "instanceof": "Function"
     },
-    "logLevel": {
-      "enum": ["info", "warn", "error", "debug", "trace", "silent"]
-    },
     "logTime": {
       "type": "boolean"
     },
     "mimeTypes": {
       "type": "object"
-    },
-    "noInfo": {
-      "type": "boolean"
     },
     "onListening": {
       "instanceof": "Function"
@@ -300,9 +285,6 @@
     },
     "publicPath": {
       "type": "string"
-    },
-    "quiet": {
-      "type": "boolean"
     },
     "reporter": {
       "instanceof": "Function"
@@ -439,10 +421,8 @@
       "key": "should be {String|Buffer}",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
       "log": "should be {Function}",
-      "logLevel": "should be {String} and equal to one of the allowed values\n\n [ 'info', 'warn', 'error', 'debug', 'trace', 'silent' ]\n\n (https://github.com/webpack/webpack-dev-middleware#loglevel)",
       "logTime": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#logtime)",
       "mimeTypes": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devservermimetypes-)",
-      "noInfo": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservernoinfo-)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
       "open": "should be {String|Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "openPage": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
@@ -455,7 +435,6 @@
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
       "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublicpath-)",
-      "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverquiet-)",
       "reporter": "should be {Function} (https://github.com/webpack/webpack-dev-middleware#reporter)",
       "requestCert": "should be {Boolean}",
       "contentBasePublicPath": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",

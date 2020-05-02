@@ -10,7 +10,7 @@ Array [
 exports[`Client console.log hot disabled 1`] = `
 Array [
   "Hey.",
-  "[WDS] Live Reloading enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -18,8 +18,8 @@ exports[`Client console.log hot enabled 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
-  "[WDS] Hot Module Replacement enabled.",
-  "[WDS] Live Reloading enabled.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -27,7 +27,7 @@ exports[`Client console.log liveReload disabled 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
-  "[WDS] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
 ]
 `;
 
@@ -35,7 +35,7 @@ exports[`Client console.log liveReload enabled 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
-  "[WDS] Hot Module Replacement enabled.",
-  "[WDS] Live Reloading enabled.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
