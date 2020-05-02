@@ -26,7 +26,7 @@ describe('universal compiler', () => {
           return done(err);
         }
         expect(res.text).toContain('Hello from the client');
-        expect(res.text).toContain('ws');
+        expect(res.text).toContain('WebsocketClient');
         done();
       });
   });
@@ -43,7 +43,7 @@ describe('universal compiler', () => {
           return done(err);
         }
         expect(res.text).toContain('Hello from the server');
-        expect(res.text).not.toContain('ws');
+        expect(res.text).not.toContain('WebsocketClient');
         done();
       });
   });
