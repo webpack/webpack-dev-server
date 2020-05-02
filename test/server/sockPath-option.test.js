@@ -33,7 +33,7 @@ describe('sockPath options', () => {
     });
 
     it('responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
+      req.get('/ws').expect(200, done);
     });
   });
 

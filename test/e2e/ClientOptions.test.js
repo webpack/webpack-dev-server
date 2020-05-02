@@ -57,23 +57,23 @@ describe('sockjs client proxy', () => {
 
     it('responds with a 200 on proxy port', (done) => {
       const req = request(`http://localhost:${port2}`);
-      req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
     });
 
     it('responds with a 200 on non-proxy port', (done) => {
       const req = request(`http://localhost:${port1}`);
-      req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
     });
 
     it('requests websocket through the proxy with proper port number', (done) => {
       runBrowser().then(async ({ page, browser }) => {
         page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://localhost:${port1}/sockjs-node`
+                  `http://localhost:${port1}/ws`
                 );
                 done();
               });
@@ -141,7 +141,7 @@ describe('ws client proxy', () => {
           if (msg.type() === 'error' && text.includes('WebSocket connection')) {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(text).toContain(`ws://myhost.test:${port2}/sockjs-node`);
+                expect(text).toContain(`ws://myhost.test:${port2}/ws`);
                 done();
               });
             });
@@ -260,12 +260,12 @@ describe('sockjs sockPort, no sockPath', () => {
     it('uses correct port and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://localhost:${port3}/sockjs-node`
+                  `http://localhost:${port3}/ws`
                 );
                 done();
               });
@@ -298,12 +298,12 @@ describe('sockjs sockHost', () => {
     it('uses correct host', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://myhost.test:${port2}/sockjs-node`
+                  `http://myhost.test:${port2}/ws`
                 );
                 done();
               });

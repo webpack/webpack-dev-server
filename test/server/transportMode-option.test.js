@@ -144,7 +144,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -164,7 +164,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -184,7 +184,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -324,7 +324,7 @@ describe('transportMode', () => {
 
         it('results in an error', (done) => {
           const data = [];
-          const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+          const client = new SockJS(`http://localhost:${port}/ws`);
 
           client.onopen = () => {
             data.push('open');
@@ -416,7 +416,7 @@ describe('transportMode', () => {
 
         it('results in an error', (done) => {
           const data = [];
-          const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+          const client = new SockJS(`http://localhost:${port}/ws`);
 
           client.onopen = () => {
             data.push('open');
