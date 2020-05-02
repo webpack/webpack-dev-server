@@ -1,7 +1,5 @@
 'use strict';
 
-const webpack = require('webpack');
-
 module.exports = {
   mode: 'production',
   module: {
@@ -17,17 +15,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.NormalModuleReplacementPlugin(
-      /^\.\/clients\/WebsocketClient$/,
-      (resource) => {
-        if (resource.context.startsWith(process.cwd())) {
-          resource.request = resource.request.replace(
-            /^\.\/clients\/WebsocketClient$/,
-            '../clients/WebsocketClient'
-          );
-        }
-      }
-    ),
-  ],
 };
