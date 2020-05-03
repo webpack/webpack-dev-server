@@ -96,31 +96,6 @@ const options = {
     group: SSL_GROUP,
     describe: 'HTTP/2, must be used with HTTPS',
   },
-  key: {
-    type: 'string',
-    describe: 'Path to a SSL key.',
-    group: SSL_GROUP,
-  },
-  cert: {
-    type: 'string',
-    describe: 'Path to a SSL certificate.',
-    group: SSL_GROUP,
-  },
-  cacert: {
-    type: 'string',
-    describe: 'Path to a SSL CA certificate.',
-    group: SSL_GROUP,
-  },
-  pfx: {
-    type: 'string',
-    describe: 'Path to a SSL pfx file.',
-    group: SSL_GROUP,
-  },
-  'pfx-passphrase': {
-    type: 'string',
-    describe: 'Passphrase for pfx file.',
-    group: SSL_GROUP,
-  },
   'content-base': {
     type: 'string',
     describe: 'A directory or URL to serve HTML content from.',

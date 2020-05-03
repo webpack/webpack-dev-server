@@ -16,26 +16,6 @@
     "bonjour": {
       "type": "boolean"
     },
-    "ca": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
-        }
-      ]
-    },
-    "cert": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
-        }
-      ]
-    },
     "clientLogLevel": {
       "enum": [
         "info",
@@ -136,10 +116,59 @@
     "https": {
       "anyOf": [
         {
-          "type": "object"
+          "type": "boolean"
         },
         {
-          "type": "boolean"
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "passphrase": {
+              "type": "string"
+            },
+            "requestCert": {
+              "type": "boolean"
+            },
+            "ca": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "instanceof": "Buffer"
+                }
+              ]
+            },
+            "key": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "instanceof": "Buffer"
+                }
+              ]
+            },
+            "pfx": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "instanceof": "Buffer"
+                }
+              ]
+            },
+            "cert": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "instanceof": "Buffer"
+                }
+              ]
+            }
+          }
         }
       ]
     },
@@ -163,16 +192,6 @@
         },
         {
           "instanceof": "Function"
-        }
-      ]
-    },
-    "key": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
         }
       ]
     },
@@ -241,19 +260,6 @@
           }
         }
       ]
-    },
-    "pfx": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "instanceof": "Buffer"
-        }
-      ]
-    },
-    "pfxPassphrase": {
-      "type": "string"
     },
     "port": {
       "anyOf": [
@@ -419,8 +425,6 @@
       "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserverallowedhosts)",
       "before": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
-      "ca": "should be {String|Buffer}",
-      "cert": "should be {String|Buffer}",
       "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'none', 'silent', 'info', 'debug', 'trace', 'error', 'warning', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
@@ -436,7 +440,6 @@
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverindex)",
       "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
-      "key": "should be {String|Buffer}",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
       "log": "should be {Function}",
       "logLevel": "should be {String} and equal to one of the allowed values\n\n [ 'info', 'warn', 'error', 'debug', 'trace', 'silent' ]\n\n (https://github.com/webpack/webpack-dev-middleware#loglevel)",
@@ -447,8 +450,6 @@
       "open": "should be {String|Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "openPage": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
       "overlay": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveroverlay)",
-      "pfx": "should be {String|Buffer} (https://webpack.js.org/configuration/dev-server/#devserverpfx)",
-      "pfxPassphrase": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpfxpassphrase)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "profile": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprofile)",
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",

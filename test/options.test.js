@@ -1,5 +1,6 @@
 'use strict';
 
+const { readFileSync } = require('fs');
 const { join } = require('path');
 const { ValidationError } = require('schema-utils');
 const webpack = require('webpack');
@@ -8,6 +9,11 @@ const Server = require('../lib/Server');
 const options = require('../lib/options.json');
 const SockJSServer = require('../lib/servers/SockJSServer');
 const config = require('./fixtures/simple-config/webpack.config');
+
+const httpsCertificateDirectory = join(
+  __dirname,
+  './fixtures/https-certificate'
+);
 
 describe('options', () => {
   jest.setTimeout(20000);
@@ -124,14 +130,6 @@ describe('options', () => {
         success: [false],
         failure: [''],
       },
-      ca: {
-        success: ['', Buffer.from('')],
-        failure: [false],
-      },
-      cert: {
-        success: ['', Buffer.from('')],
-        failure: [false],
-      },
       clientLogLevel: {
         success: [
           'silent',
@@ -192,8 +190,36 @@ describe('options', () => {
         failure: [''],
       },
       https: {
-        success: [true, {}],
-        failure: [''],
+        success: [
+          false,
+          {
+            https: {
+              ca: join(httpsCertificateDirectory, 'ca.pem'),
+              key: join(httpsCertificateDirectory, 'server.key'),
+              pfx: join(httpsCertificateDirectory, 'server.pfx'),
+              cert: join(httpsCertificateDirectory, 'server.crt'),
+              requestCert: true,
+              passphrase: 'webpack-dev-server',
+            },
+          },
+          {
+            https: {
+              ca: readFileSync(join(httpsCertificateDirectory, 'ca.pem')),
+              pfx: readFileSync(join(httpsCertificateDirectory, 'server.pfx')),
+              key: readFileSync(join(httpsCertificateDirectory, 'server.key')),
+              cert: readFileSync(join(httpsCertificateDirectory, 'server.crt')),
+              passphrase: 'webpack-dev-server',
+            },
+          },
+        ],
+        failure: [
+          '',
+          {
+            https: {
+              foo: 'bar',
+            },
+          },
+        ],
       },
       index: {
         success: [''],
@@ -206,10 +232,6 @@ describe('options', () => {
       injectHot: {
         success: [true, () => {}],
         failure: [''],
-      },
-      key: {
-        success: ['', Buffer.from('')],
-        failure: [false],
       },
       log: {
         success: [() => {}],
@@ -276,14 +298,6 @@ describe('options', () => {
             },
           },
         ],
-      },
-      pfx: {
-        success: ['', Buffer.from('')],
-        failure: [false],
-      },
-      pfxPassphrase: {
-        success: [''],
-        failure: [false],
       },
       port: {
         success: ['', 0, null],
