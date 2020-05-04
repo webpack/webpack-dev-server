@@ -21,7 +21,7 @@ describe('SockJSServer', () => {
           error: () => {},
           debug: () => {},
         },
-        sockPath: '/sockjs-node',
+        sockPath: '/ws',
         listeningApp,
       };
 
@@ -46,7 +46,7 @@ describe('SockJSServer', () => {
         }, 1000);
       });
 
-      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+      const client = new SockJS(`http://localhost:${port}/ws`);
 
       client.onmessage = (e) => {
         data.push(e.data);
@@ -72,7 +72,7 @@ describe('SockJSServer', () => {
       });
 
       // eslint-disable-next-line new-cap
-      const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+      const client = new SockJS(`http://localhost:${port}/ws`);
 
       setTimeout(() => {
         // the client closes itself, the server does not close it

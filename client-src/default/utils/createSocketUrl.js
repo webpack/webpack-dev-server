@@ -75,7 +75,7 @@ function getSocketUrl(urlParts, loc) {
   // resourceQuery, so we need to fall back to the default if
   // they are not provided
   const sockHost = query.sockHost || hostname;
-  const sockPath = query.sockPath || '/sockjs-node';
+  const sockPath = query.sockPath || '/ws';
   let sockPort = query.sockPort || port;
 
   if (sockPort === 'location') {

@@ -6,17 +6,17 @@ describe('socket', () => {
     jest.resetModules();
   });
 
-  it('should default to SockJSClient when no __webpack_dev_server_client__ set', () => {
-    jest.mock('../../client/clients/SockJSClient');
+  it('should default to WebsocketClient when no __webpack_dev_server_client__ set', () => {
+    jest.mock('../../client/clients/WebsocketClient');
     const socket = require('../../client/socket');
-    const SockJSClient = require('../../client/clients/SockJSClient');
+    const WebsocketClient = require('../../client/clients/WebsocketClient');
 
     const mockHandler = jest.fn();
     socket('my.url', {
       example: mockHandler,
     });
 
-    const mockClientInstance = SockJSClient.mock.instances[0];
+    const mockClientInstance = WebsocketClient.mock.instances[0];
 
     // this simulates receiving a message from the server and passing it
     // along to the callback of onMessage
@@ -27,7 +27,7 @@ describe('socket', () => {
       })
     );
 
-    expect(SockJSClient.mock.calls[0]).toMatchSnapshot();
+    expect(WebsocketClient.mock.calls[0]).toMatchSnapshot();
     expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
     expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
     expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
@@ -35,9 +35,9 @@ describe('socket', () => {
   });
 
   it('should use __webpack_dev_server_client__ when set', () => {
-    jest.mock('../../client/clients/SockJSClient');
+    jest.mock('../../client/clients/WebsocketClient');
     const socket = require('../../client/socket');
-    global.__webpack_dev_server_client__ = require('../../client/clients/SockJSClient');
+    global.__webpack_dev_server_client__ = require('../../client/clients/WebsocketClient');
 
     const mockHandler = jest.fn();
     socket('my.url', {

@@ -17,7 +17,14 @@ describe('sockPath options', () => {
 
   describe('default behavior', () => {
     beforeEach((done) => {
-      server = testServer.start(config, { port }, done);
+      server = testServer.start(
+        config,
+        {
+          transportMode: 'sockjs',
+          port,
+        },
+        done
+      );
       req = request(`http://localhost:${port}`);
     });
 
@@ -26,7 +33,7 @@ describe('sockPath options', () => {
     });
 
     it('responds with a 200', (done) => {
-      req.get('/sockjs-node').expect(200, done);
+      req.get('/ws').expect(200, done);
     });
   });
 
@@ -37,6 +44,7 @@ describe('sockPath options', () => {
       server = testServer.start(
         config,
         {
+          transportMode: 'sockjs',
           sockPath: '/foo/test/bar/',
           port,
         },
