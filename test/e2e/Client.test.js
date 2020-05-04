@@ -23,13 +23,13 @@ const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 describe('reload', () => {
   const modes = [
     {
-      title: 'hot with default transportMode.client (sockjs)',
+      title: 'hot with default transportMode.client (ws)',
       shouldRefresh: false,
     },
     {
-      title: 'hot with transportMode.client ws',
+      title: 'hot with transportMode.client sockjs',
       options: {
-        transportMode: 'ws',
+        transportMode: 'sockjs',
       },
       shouldRefresh: false,
     },

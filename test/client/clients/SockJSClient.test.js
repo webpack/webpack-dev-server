@@ -21,7 +21,7 @@ describe('SockJSClient', () => {
     listeningApp.listen(port, 'localhost', () => {
       socketServer = sockjs.createServer();
       socketServer.installHandlers(listeningApp, {
-        prefix: '/sockjs-node',
+        prefix: '/ws',
       });
       done();
     });
@@ -41,7 +41,7 @@ describe('SockJSClient', () => {
         }, 1000);
       });
 
-      const client = new SockJSClient(`http://localhost:${port}/sockjs-node`);
+      const client = new SockJSClient(`http://localhost:${port}/ws`);
       const data = [];
 
       client.onOpen(() => {

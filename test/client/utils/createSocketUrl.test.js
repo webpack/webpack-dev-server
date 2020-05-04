@@ -41,36 +41,12 @@ describe('createSocketUrl', () => {
 
   const samples2 = [
     // script source,       location,                output socket URL
-    [
-      'http://example.com',
-      'https://something.com',
-      'https://example.com/sockjs-node',
-    ],
-    [
-      'http://127.0.0.1',
-      'https://something.com',
-      'http://127.0.0.1/sockjs-node',
-    ],
-    [
-      'http://0.0.0.0',
-      'https://something.com',
-      'https://something.com/sockjs-node',
-    ],
-    [
-      'http://0.0.0.0',
-      'http://something.com',
-      'http://something.com/sockjs-node',
-    ],
-    [
-      'http://example.com',
-      'http://something.com',
-      'http://example.com/sockjs-node',
-    ],
-    [
-      'https://example.com',
-      'http://something.com',
-      'https://example.com/sockjs-node',
-    ],
+    ['http://example.com', 'https://something.com', 'https://example.com/ws'],
+    ['http://127.0.0.1', 'https://something.com', 'http://127.0.0.1/ws'],
+    ['http://0.0.0.0', 'https://something.com', 'https://something.com/ws'],
+    ['http://0.0.0.0', 'http://something.com', 'http://something.com/ws'],
+    ['http://example.com', 'http://something.com', 'http://example.com/ws'],
+    ['https://example.com', 'http://something.com', 'https://example.com/ws'],
   ];
 
   samples2.forEach(([scriptSrc, loc, expected]) => {
@@ -91,45 +67,21 @@ describe('createSocketUrl', () => {
 
   const samples3 = [
     // script source,       location,                output socket URL
-    [
-      '?http://example.com',
-      'https://something.com',
-      'https://example.com/sockjs-node',
-    ],
-    [
-      '?http://127.0.0.1',
-      'https://something.com',
-      'http://127.0.0.1/sockjs-node',
-    ],
-    [
-      '?http://0.0.0.0',
-      'https://something.com',
-      'https://something.com/sockjs-node',
-    ],
-    [
-      '?http://0.0.0.0',
-      'http://something.com',
-      'http://something.com/sockjs-node',
-    ],
-    [
-      '?http://example.com',
-      'http://something.com',
-      'http://example.com/sockjs-node',
-    ],
-    [
-      '?https://example.com',
-      'http://something.com',
-      'https://example.com/sockjs-node',
-    ],
+    ['?http://example.com', 'https://something.com', 'https://example.com/ws'],
+    ['?http://127.0.0.1', 'https://something.com', 'http://127.0.0.1/ws'],
+    ['?http://0.0.0.0', 'https://something.com', 'https://something.com/ws'],
+    ['?http://0.0.0.0', 'http://something.com', 'http://something.com/ws'],
+    ['?http://example.com', 'http://something.com', 'http://example.com/ws'],
+    ['?https://example.com', 'http://something.com', 'https://example.com/ws'],
     [
       '?https://example.com?sockHost=asdf',
       'http://something.com',
-      'https://asdf/sockjs-node',
+      'https://asdf/ws',
     ],
     [
       '?https://example.com?sockPort=34',
       'http://something.com',
-      'https://example.com:34/sockjs-node',
+      'https://example.com:34/ws',
     ],
     [
       '?https://example.com?sockPath=xxx',
@@ -139,17 +91,17 @@ describe('createSocketUrl', () => {
     [
       '?http://0.0.0.0:8096&sockPort=8097',
       'http://localhost',
-      'http://localhost:8097/sockjs-node',
+      'http://localhost:8097/ws',
     ],
     [
       '?http://example.com:8096&sockPort=location',
       'http://something.com',
-      'http://example.com/sockjs-node',
+      'http://example.com/ws',
     ],
     [
       '?http://0.0.0.0:8096&sockPort=location',
       'http://localhost:3000',
-      'http://localhost:3000/sockjs-node',
+      'http://localhost:3000/ws',
     ],
   ];
   samples3.forEach(([scriptSrc, loc, expected]) => {

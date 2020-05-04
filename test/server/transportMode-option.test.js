@@ -144,7 +144,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -164,7 +164,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -184,7 +184,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -324,7 +324,7 @@ describe('transportMode', () => {
 
         it('results in an error', (done) => {
           const data = [];
-          const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+          const client = new SockJS(`http://localhost:${port}/ws`);
 
           client.onopen = () => {
             data.push('open');
@@ -416,7 +416,7 @@ describe('transportMode', () => {
 
         it('results in an error', (done) => {
           const data = [];
-          const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+          const client = new SockJS(`http://localhost:${port}/ws`);
 
           client.onopen = () => {
             data.push('open');
@@ -439,11 +439,11 @@ describe('transportMode', () => {
     });
 
     describe('server', () => {
-      let MockSockJSServer;
+      let MockWebsocketServer;
       beforeEach((done) => {
-        jest.mock('../../lib/servers/SockJSServer');
+        jest.mock('../../lib/servers/WebsocketServer');
         mockedTestServer = require('../helpers/test-server');
-        MockSockJSServer = require('../../lib/servers/SockJSServer');
+        MockWebsocketServer = require('../../lib/servers/WebsocketServer');
 
         server = mockedTestServer.start(
           config,
@@ -463,7 +463,7 @@ describe('transportMode', () => {
       });
 
       it('should use server implementation correctly', () => {
-        const mockServerInstance = MockSockJSServer.mock.instances[0];
+        const mockServerInstance = MockWebsocketServer.mock.instances[0];
 
         const connectionObj = {
           foo: 'bar',
@@ -483,8 +483,8 @@ describe('transportMode', () => {
         expect(server.sockets.length).toEqual(0);
 
         // check that the dev server was passed to the socket server implementation constructor
-        expect(MockSockJSServer.mock.calls[0].length).toEqual(1);
-        expect(MockSockJSServer.mock.calls[0][0].options.port).toEqual(port);
+        expect(MockWebsocketServer.mock.calls[0].length).toEqual(1);
+        expect(MockWebsocketServer.mock.calls[0][0].options.port).toEqual(port);
 
         expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
         expect(mockServerInstance.send.mock.calls.length).toEqual(4);
@@ -504,7 +504,7 @@ describe('transportMode', () => {
       });
 
       it('should close client with bad headers', () => {
-        const mockServerInstance = MockSockJSServer.mock.instances[0];
+        const mockServerInstance = MockWebsocketServer.mock.instances[0];
 
         // this simulates a client connecting to the server
         mockServerInstance.onConnection.mock.calls[0][0](
@@ -516,8 +516,8 @@ describe('transportMode', () => {
           }
         );
         expect(server.sockets.length).toEqual(0);
-        expect(MockSockJSServer.mock.calls[0].length).toEqual(1);
-        expect(MockSockJSServer.mock.calls[0][0].options.port).toEqual(port);
+        expect(MockWebsocketServer.mock.calls[0].length).toEqual(1);
+        expect(MockWebsocketServer.mock.calls[0][0].options.port).toEqual(port);
         expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
         // the only call to send() here should be an invalid header message
         expect(mockServerInstance.send.mock.calls).toMatchSnapshot();

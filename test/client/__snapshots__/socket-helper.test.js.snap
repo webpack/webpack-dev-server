@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 1`] = `
+exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 1`] = `
 Array [
   "my.url",
 ]
 `;
 
-exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 2`] = `
+exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 2`] = `
 Array [
   Array [
     [Function],
@@ -14,7 +14,7 @@ Array [
 ]
 `;
 
-exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 3`] = `
+exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 3`] = `
 Array [
   Array [
     [Function],
@@ -22,7 +22,7 @@ Array [
 ]
 `;
 
-exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 4`] = `
+exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 4`] = `
 Array [
   Array [
     [Function],
@@ -30,7 +30,7 @@ Array [
 ]
 `;
 
-exports[`socket should default to SockJSClient when no __webpack_dev_server_client__ set 5`] = `
+exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 5`] = `
 Array [
   Array [
     "hello world",
