@@ -509,17 +509,27 @@ describe('createConfig', () => {
   });
 
   it('https option', () => {
-    const config = createConfig(
+    const config1 = createConfig(
       webpackConfig,
       Object.assign({}, argv, { https: true }),
       { port: 8080 }
     );
 
-    expect(config).toMatchSnapshot();
+    expect(config1).toMatchSnapshot();
+
+    const config2 = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        https: { ca: Buffer.from('') },
+      }),
+      { port: 8080 }
+    );
+
+    expect(config2).toMatchSnapshot();
   });
 
   it('https option (in devServer config)', () => {
-    const config = createConfig(
+    const config1 = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: { https: true },
       }),
@@ -527,7 +537,17 @@ describe('createConfig', () => {
       { port: 8080 }
     );
 
-    expect(config).toMatchSnapshot();
+    expect(config1).toMatchSnapshot();
+
+    const config2 = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { https: { ca: Buffer.from('') } },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config2).toMatchSnapshot();
   });
 
   it('http2 option', () => {
@@ -544,117 +564,6 @@ describe('createConfig', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: { https: true, http2: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('key option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, key: '/path/to/server.key' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('key option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { https: true, key: '/path/to/server.key' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cert option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, cert: '/path/to/server.crt' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cert option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { https: true, cert: '/path/to/server.crt' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cacert option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, cacert: '/path/to/ca.pem' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cacert option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        // TODO rename `ca` to `cacert` for `v4` to avoid difference between CLI and configuration
-        devServer: { https: true, ca: '/path/to/ca.pem' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('pfx option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, pfx: '/path/to/file.pfx' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('pfx option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { https: true, pfx: '/path/to/file.pfx' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('pfxPassphrase option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { pfxPassphrase: 'passphrase' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('https option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { pfxPassphrase: 'passphrase' },
       }),
       argv,
       { port: 8080 }
