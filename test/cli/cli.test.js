@@ -6,15 +6,6 @@ const execa = require('execa');
 const testBin = require('../helpers/test-bin');
 const port1 = require('../ports-map').cli[0];
 
-const httpsCertificateDirectory = resolve(
-  __dirname,
-  '../fixtures/https-certificate'
-);
-const caPath = resolve(httpsCertificateDirectory, 'ca.pem');
-const pfxPath = resolve(httpsCertificateDirectory, 'server.pfx');
-const keyPath = resolve(httpsCertificateDirectory, 'server.key');
-const certPath = resolve(httpsCertificateDirectory, 'server.crt');
-
 describe('CLI', () => {
   it('--progress', (done) => {
     testBin('--progress')
@@ -65,18 +56,6 @@ describe('CLI', () => {
 
   it('--https', (done) => {
     testBin('--https')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('Project is running at');
-        done();
-      })
-      .catch(done);
-  });
-
-  it('--https --cacert --pfx --key --cert --pfx-passphrase', (done) => {
-    testBin(
-      `--https --cacert ${caPath} --pfx ${pfxPath} --key ${keyPath} --cert ${certPath} --pfx-passphrase webpack-dev-server`
-    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('Project is running at');
