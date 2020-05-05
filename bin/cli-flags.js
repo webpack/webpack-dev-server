@@ -85,36 +85,6 @@ module.exports = {
       describe: 'HTTP/2, must be used with HTTPS',
     },
     {
-      name: 'key',
-      type: String,
-      describe: 'Path to a SSL key.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'cert',
-      type: String,
-      describe: 'Path to a SSL certificate.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'cacert',
-      type: String,
-      describe: 'Path to a SSL CA certificate.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'pfx',
-      type: String,
-      describe: 'Path to a SSL pfx file.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'pfx-passphrase',
-      type: String,
-      describe: 'Passphrase for pfx file.',
-      group: SSL_GROUP,
-    },
-    {
       name: 'content-base',
       type: String,
       describe: 'A directory or URL to serve HTML content from.',

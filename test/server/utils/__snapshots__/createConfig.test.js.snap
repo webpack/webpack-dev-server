@@ -62,66 +62,6 @@ Object {
 }
 `;
 
-exports[`createConfig cacert option (in devServer config) 1`] = `
-Object {
-  "ca": "/path/to/ca.pem",
-  "hot": true,
-  "https": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig cacert option 1`] = `
-Object {
-  "ca": "/path/to/ca.pem",
-  "hot": true,
-  "https": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig cert option (in devServer config) 1`] = `
-Object {
-  "cert": "/path/to/server.crt",
-  "hot": true,
-  "https": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig cert option 1`] = `
-Object {
-  "cert": "/path/to/server.crt",
-  "hot": true,
-  "https": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
 exports[`createConfig clientLogLevel option (in devServer config) 1`] = `
 Object {
   "clientLogLevel": "none",
@@ -448,8 +388,13 @@ Object {
 exports[`createConfig https option (in devServer config) 2`] = `
 Object {
   "hot": true,
+  "https": Object {
+    "ca": Object {
+      "data": Array [],
+      "type": "Buffer",
+    },
+  },
   "noInfo": true,
-  "pfxPassphrase": "passphrase",
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
@@ -460,6 +405,20 @@ Object {
 `;
 
 exports[`createConfig https option 1`] = `
+Object {
+  "hot": true,
+  "https": true,
+  "noInfo": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig https option 2`] = `
 Object {
   "hot": true,
   "https": true,
@@ -489,36 +448,6 @@ Object {
 exports[`createConfig info option 1`] = `
 Object {
   "hot": true,
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig key option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "https": true,
-  "key": "/path/to/server.key",
-  "noInfo": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig key option 1`] = `
-Object {
-  "hot": true,
-  "https": true,
-  "key": "/path/to/server.key",
   "noInfo": true,
   "port": 8080,
   "publicPath": "/",
@@ -730,50 +659,6 @@ Object {
   "hot": true,
   "noInfo": true,
   "overlay": true,
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig pfx option (in devServer config) 1`] = `
-Object {
-  "hot": true,
-  "https": true,
-  "noInfo": true,
-  "pfx": "/path/to/file.pfx",
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig pfx option 1`] = `
-Object {
-  "hot": true,
-  "https": true,
-  "noInfo": true,
-  "pfx": "/path/to/file.pfx",
-  "port": 8080,
-  "publicPath": "/",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig pfxPassphrase option 1`] = `
-Object {
-  "hot": true,
-  "noInfo": true,
-  "pfxPassphrase": "passphrase",
   "port": 8080,
   "publicPath": "/",
   "stats": Object {
@@ -1143,7 +1028,6 @@ Object {
   "noInfo": true,
   "open": "_open",
   "openPage": "_openPage",
-  "pfxPassphrase": "_pfxPassphrase",
   "port": "_port",
   "progress": "_progress",
   "public": "_public",
@@ -1172,7 +1056,6 @@ Object {
     "noInfo": true,
     "open": "_open",
     "openPage": "_openPage",
-    "pfxPassphrase": "_pfxPassphrase",
     "port": "_port",
     "progress": "_progress",
     "public": "_public",

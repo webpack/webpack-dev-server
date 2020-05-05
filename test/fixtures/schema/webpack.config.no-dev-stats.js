@@ -18,7 +18,6 @@ module.exports = {
     noInfo: '_noInfo',
     quiet: '_quiet',
     https: '_https',
-    pfxPassphrase: '_pfxPassphrase',
     historyApiFallback: '_historyApiFallback',
     compress: '_compress',
     disableHostCheck: '_disableHostCheck',
