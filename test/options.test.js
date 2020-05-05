@@ -114,11 +114,11 @@ describe('options', () => {
     memfs.join = join;
 
     const cases = {
-      after: {
+      onAfterSetupMiddleware: {
         success: [() => {}],
         failure: [false],
       },
-      before: {
+      onBeforeSetupMiddleware: {
         success: [() => {}],
         failure: [false],
       },
@@ -158,7 +158,7 @@ describe('options', () => {
         failure: [''],
       },
       features: {
-        success: [['before'], []],
+        success: [['onBeforeSetupMiddleware', 'onAfterSetupMiddleware'], []],
         failure: [false],
       },
       fs: {
@@ -347,10 +347,6 @@ describe('options', () => {
       },
       serverSideRender: {
         success: [true],
-        failure: [''],
-      },
-      setup: {
-        success: [() => {}],
         failure: [''],
       },
       socket: {
