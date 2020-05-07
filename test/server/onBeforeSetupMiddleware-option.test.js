@@ -3,9 +3,9 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['before-option'];
+const port = require('../ports-map')['onBeforeSetupMiddleware-option'];
 
-describe('before option', () => {
+describe('onBeforeSetupMiddleware option', () => {
   let server;
   let req;
 
@@ -13,20 +13,16 @@ describe('before option', () => {
     server = testServer.start(
       config,
       {
-        before: (appArg, serverArg, compilerArg) => {
-          if (!appArg) {
+        onBeforeSetupMiddleware: ({ app, compiler }) => {
+          if (!app) {
             throw new Error('app is not defined');
           }
 
-          if (!serverArg) {
-            throw new Error('server is not defined');
-          }
-
-          if (!compilerArg) {
+          if (!compiler) {
             throw new Error('compiler is not defined');
           }
 
-          appArg.get('/before/some/path', (_, response) => {
+          app.get('/before/some/path', (_, response) => {
             response.send('before');
           });
         },

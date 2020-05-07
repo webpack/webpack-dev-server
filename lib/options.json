@@ -1,17 +1,11 @@
 {
   "type": "object",
   "properties": {
-    "after": {
-      "instanceof": "Function"
-    },
     "allowedHosts": {
       "type": "array",
       "items": {
         "type": "string"
       }
-    },
-    "before": {
-      "instanceof": "Function"
     },
     "bonjour": {
       "type": "boolean"
@@ -213,6 +207,12 @@
     "noInfo": {
       "type": "boolean"
     },
+    "onAfterSetupMiddleware": {
+      "instanceof": "Function"
+    },
+    "onBeforeSetupMiddleware": {
+      "instanceof": "Function"
+    },
     "onListening": {
       "instanceof": "Function"
     },
@@ -322,9 +322,6 @@
     "serverSideRender": {
       "type": "boolean"
     },
-    "setup": {
-      "instanceof": "Function"
-    },
     "sockHost": {
       "type": "string"
     },
@@ -421,9 +418,7 @@
   },
   "errorMessage": {
     "properties": {
-      "after": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
       "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserverallowedhosts)",
-      "before": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
       "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'none', 'silent', 'info', 'debug', 'trace', 'error', 'warning', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
@@ -446,6 +441,8 @@
       "logTime": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#logtime)",
       "mimeTypes": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devservermimetypes-)",
       "noInfo": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservernoinfo-)",
+      "onAfterSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
+      "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
       "open": "should be {String|Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "openPage": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
@@ -462,7 +459,6 @@
       "contentBasePublicPath": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
       "serverSideRender": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#serversiderender)",
-      "setup": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserversetup)",
       "sockHost": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserversockhost)",
       "sockPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserversockpath)",
       "sockPort": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserversockport)",
