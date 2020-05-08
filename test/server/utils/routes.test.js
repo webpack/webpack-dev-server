@@ -64,8 +64,12 @@ describe('routes util', () => {
     });
   });
 
-  it('GET request to invalidate endpoint', (done) => {
-    req.get('/invalidate').expect(200, done);
+  it('should handles GET request to invalidate endpoint', (done) => {
+    req.get('/webpack-dev-server/invalidate').then(({ res }) => {
+      expect(res.headers['content-type']).not.toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
+      done();
+    });
   });
 
   it('should handles GET request to live html', (done) => {
