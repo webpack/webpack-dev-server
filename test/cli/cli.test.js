@@ -10,7 +10,7 @@ describe('CLI', () => {
   it('--progress', (done) => {
     testBin('--progress')
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('100%');
         // should not profile
         expect(output.stderr).not.toContain(
