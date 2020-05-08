@@ -29,7 +29,7 @@ describe('progress', () => {
         let foundProgress = false;
         let foundProfile = false;
         calls.forEach((call) => {
-          if (call[0].includes('0% compiling')) {
+          if (call[0].includes('2%')) {
             foundProgress = true;
           }
 

@@ -34,7 +34,7 @@ describe('profile', () => {
         calls.forEach((call) => {
           const text = call[0];
 
-          if (text.includes('0% compiling')) {
+          if (text.includes('2%')) {
             foundProgress = true;
           }
 
