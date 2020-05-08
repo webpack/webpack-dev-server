@@ -11,7 +11,7 @@ describe('CLI', () => {
     testBin('--progress')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('0% compiling');
+        expect(output.stderr).toContain('100%');
         // should not profile
         expect(output.stderr).not.toContain(
           'ms after chunk modules optimization'
