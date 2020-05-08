@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.11.0](https://github.com/webpack/webpack-dev-server/compare/v3.10.3...v3.11.0) (2020-05-08)
+
+
+### Features
+
+* add icons for directory viewer ([#2441](https://github.com/webpack/webpack-dev-server/issues/2441)) ([e953d01](https://github.com/webpack/webpack-dev-server/commit/e953d01ca93764dabe38cedad8e7b9ef4e7f04bc))
+* allow multiple `contentBasePublicPath` paths ([#2489](https://github.com/webpack/webpack-dev-server/issues/2489)) ([c6bdfe4](https://github.com/webpack/webpack-dev-server/commit/c6bdfe4afb2ce3612c02142954c68a8e657c3915))
+* emit progress-update ([#2498](https://github.com/webpack/webpack-dev-server/issues/2498)) ([4808abd](https://github.com/webpack/webpack-dev-server/commit/4808abd434bac0511da688aee861f7e2d8b0c81c)), closes [#1666](https://github.com/webpack/webpack-dev-server/issues/1666)
+* add invalidate endpoint ([#2493](https://github.com/webpack/webpack-dev-server/issues/2493)) ([89ffb86](https://github.com/webpack/webpack-dev-server/commit/89ffb86cd26425c59e3937ca06a2c804a01b8f1d))
+* allow open option to accept an object ([#2492](https://github.com/webpack/webpack-dev-server/issues/2492)) ([adeb92e](https://github.com/webpack/webpack-dev-server/commit/adeb92e1e37551a6cbf3063942d6c2c7efbdff10))
+
+
+### Bug Fixes
+
+* do not swallow errors from server ([#2512](https://github.com/webpack/webpack-dev-server/issues/2512)) ([06583f2](https://github.com/webpack/webpack-dev-server/commit/06583f268b70f4a9715e4b747b1557055c419086))
+* security vulnerability in yargs-parser ([#2566](https://github.com/webpack/webpack-dev-server/issues/2566)) ([41d1d0c](https://github.com/webpack/webpack-dev-server/commit/41d1d0cf99f53df0569991a85489d3c8bc095af5))
+* don't crash on setupExitSignals(undefined) ([#2507](https://github.com/webpack/webpack-dev-server/issues/2507)) ([0d5c681](https://github.com/webpack/webpack-dev-server/commit/0d5c68143d780e631cdaf09081822fc87d7cb3ba))
+* support entry descriptor (closes [#2453](https://github.com/webpack/webpack-dev-server/issues/2453)) ([#2465](https://github.com/webpack/webpack-dev-server/issues/2465)) ([8bbef6a](https://github.com/webpack/webpack-dev-server/commit/8bbef6adf6ae5f6a3109ecd4a6246223d2f77cb2))
+* update jquery ([#2516](https://github.com/webpack/webpack-dev-server/issues/2516)) ([99ccfd8](https://github.com/webpack/webpack-dev-server/commit/99ccfd84d1db566aa4ed77c441c4674bc4e986df))
+
 ### [3.10.3](https://github.com/webpack/webpack-dev-server/compare/v3.10.2...v3.10.3) (2020-02-05)
 
 
