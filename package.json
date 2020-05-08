@@ -66,7 +66,7 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-log": "^3.0.1",
     "ws": "^7.2.5",
-    "yargs": "^12.0.5"
+    "yargs": "^13.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
