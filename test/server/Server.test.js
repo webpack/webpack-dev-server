@@ -7,6 +7,7 @@ const { noop } = require('webpack-dev-middleware/lib/util');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
+const isWebpack5 = require('../helpers/isWebpack5');
 
 jest.mock('sockjs/lib/transport');
 
@@ -34,11 +35,20 @@ describe('Server', () => {
         })
       );
 
-      expect(
-        server.middleware.context.compiler.options.entry.map((p) => {
+      let entries;
+
+      if (isWebpack5) {
+        entries = server.middleware.context.compiler.options.entry.main.import.map(
+          (p) => {
+            return relative('.', p).split(sep);
+          }
+        );
+      } else {
+        entries = server.middleware.context.compiler.options.entry.map((p) => {
           return relative('.', p).split(sep);
-        })
-      ).toMatchSnapshot();
+        });
+      }
+      expect(entries).toMatchSnapshot();
       expect(server.middleware.context.compiler.options.plugins).toEqual([
         new webpack.HotModuleReplacementPlugin(),
       ]);
@@ -59,11 +69,21 @@ describe('Server', () => {
         })
       );
 
-      expect(
-        server.middleware.context.compiler.options.entry.map((p) => {
+      let entries;
+
+      if (isWebpack5) {
+        entries = server.middleware.context.compiler.options.entry.main.import.map(
+          (p) => {
+            return relative('.', p).split(sep);
+          }
+        );
+      } else {
+        entries = server.middleware.context.compiler.options.entry.map((p) => {
           return relative('.', p).split(sep);
-        })
-      ).toMatchSnapshot();
+        });
+      }
+
+      expect(entries).toMatchSnapshot();
       expect(server.middleware.context.compiler.options.plugins).toEqual([
         new webpack.HotModuleReplacementPlugin(),
       ]);

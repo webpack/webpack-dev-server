@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const updateCompiler = require('../../../lib/utils/updateCompiler');
+const isWebpack5 = require('../../helpers/isWebpack5');
 
 describe('updateCompiler', () => {
   describe('simple config, inline', () => {
@@ -36,7 +37,12 @@ describe('updateCompiler', () => {
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(0);
       expect(tapsByProvidePlugin).toEqual(1);
-      expect(compiler.options.plugins).toBeUndefined();
+
+      if (isWebpack5) {
+        expect(compiler.options.plugins).toEqual([]);
+      } else {
+        expect(compiler.options.plugins).toBeUndefined();
+      }
     });
   });
 
