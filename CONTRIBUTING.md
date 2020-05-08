@@ -19,7 +19,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 Good pull requests, such as patches, improvements, and new features, are a fantastic help. They should remain focused in scope and not contain unrelated commits.
 
-It is advised to first create an issue (if there is not one already) before making a pull request. This way the maintainers can first discuss with you if they agree and it also helps with providing some context.
+It is advised to first create an issue (if there is not one already) before making a pull request. This way, the maintainers can first discuss with you if they agree and it also helps with providing some context.
 
 Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/master/examples) to see if all functionality still works. When introducing new functionality, also add an example. This helps the maintainers to understand it and check if it still works.
 
@@ -48,7 +48,7 @@ Pull requests often need some real-world testing.
 - `github:webpack/webpack-dev-server#pull/<ID>/head`
   where `<ID>` is the ID of the pull request.
 
-- `file:../path/to/local/webapck-dev-server/fork` is the path to your local repo, just make sure you hit the correct path
+- `file:../path/to/local/webpack-dev-server/fork` is the path to your local repo, just make sure you hit the correct path
 
 2. Run `npm install`.
 

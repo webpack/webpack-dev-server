@@ -109,7 +109,7 @@ needed modifications to the code for the module. Because of that, we ask users
 with general support, "how-to", or "why isn't this working" questions to try one
 of the other support channels that are available.
 
-Your first-stop-shop for support for webpack-dev-server should by the excellent
+Your first-stop-shop for support for webpack-dev-server should start by the excellent
 [documentation][docs-url] for the module. If you see an opportunity for improvement
 of those docs, please head over to the [webpack.js.org repo][wjo-url] and open a
 pull request.
@@ -120,7 +120,7 @@ head over to [StackOverflow][stack-url] and do a quick search or open a new
 question. Remember; It's always much easier to answer questions that include your
 `webpack.config.js` and relevant files!
 
-If you're twitter-savvy you can tweet [#webpack][hash-url] with your question
+If you're twitter-savvy, you can tweet [#webpack][hash-url] with your question
 and someone should be able to reach out and lend a hand.
 
 If you have discovered a :bug:, have a feature suggestion, or would like to see
