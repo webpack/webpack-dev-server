@@ -74,32 +74,32 @@ describe('createSocketUrl', () => {
     ['?http://example.com', 'http://something.com', 'http://example.com/ws'],
     ['?https://example.com', 'http://something.com', 'https://example.com/ws'],
     [
-      '?https://example.com?sockHost=asdf',
+      '?https://example.com?host=asdf',
       'http://something.com',
       'https://asdf/ws',
     ],
     [
-      '?https://example.com?sockPort=34',
+      '?https://example.com?port=34',
       'http://something.com',
       'https://example.com:34/ws',
     ],
     [
-      '?https://example.com?sockPath=xxx',
+      '?https://example.com?path=xxx',
       'http://something.com',
       'https://example.com/xxx',
     ],
     [
-      '?http://0.0.0.0:8096&sockPort=8097',
+      '?http://0.0.0.0:8096&port=8097',
       'http://localhost',
       'http://localhost:8097/ws',
     ],
     [
-      '?http://example.com:8096&sockPort=location',
+      '?http://example.com:8096&port=location',
       'http://something.com',
       'http://example.com/ws',
     ],
     [
-      '?http://0.0.0.0:8096&sockPort=location',
+      '?http://0.0.0.0:8096&port=location',
       'http://localhost:3000',
       'http://localhost:3000/ws',
     ],

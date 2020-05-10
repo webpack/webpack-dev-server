@@ -200,4 +200,38 @@ describe('Server', () => {
       expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
     });
   });
+
+  describe('getClientOptionsPath', () => {
+    it('should default to ws', () => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, baseDevConfig);
+      expect(server.getClientOptionsPath()).toEqual('/ws');
+    });
+
+    it('should use custom path with slashes on either end', () => {
+      const compiler = webpack(config);
+      const server = new Server(
+        compiler,
+        Object.assign({}, baseDevConfig, {
+          clientOptions: {
+            path: '/custom/path/',
+          },
+        })
+      );
+      expect(server.getClientOptionsPath()).toEqual('/custom/path');
+    });
+
+    it('should use custom path and add slash at start', () => {
+      const compiler = webpack(config);
+      const server = new Server(
+        compiler,
+        Object.assign({}, baseDevConfig, {
+          clientOptions: {
+            path: 'custom/path',
+          },
+        })
+      );
+      expect(server.getClientOptionsPath()).toEqual('/custom/path');
+    });
+  });
 });

@@ -21,7 +21,7 @@ describe('SockJSServer', () => {
           error: () => {},
           debug: () => {},
         },
-        sockPath: '/ws',
+        getClientOptionsPath: () => '/ws',
         listeningApp,
       };
 

@@ -102,6 +102,17 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'clientOptions',
+      multiCompiler: false,
+      options: {
+        clientOptions: {
+          host: 'my.host',
+          port: 9000,
+        },
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

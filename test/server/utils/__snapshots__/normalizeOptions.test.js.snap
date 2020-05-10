@@ -1,7 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`normalizeOptions clientOptions should set correct options 1`] = `
+Object {
+  "clientOptions": Object {
+    "host": "my.host",
+    "port": 9000,
+  },
+  "contentBasePublicPath": "/",
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
 exports[`normalizeOptions contentBase array should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBase": Array [
     "/path/to/dist1",
     "/path/to/dist2",
@@ -17,6 +33,7 @@ Object {
 
 exports[`normalizeOptions contentBase string should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBase": "/path/to/dist",
   "contentBasePublicPath": "/",
   "transportMode": Object {
@@ -29,6 +46,7 @@ Object {
 
 exports[`normalizeOptions contentBasePublicPath string should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/content-base-public-path",
   "transportMode": Object {
     "client": "ws",
@@ -40,6 +58,7 @@ Object {
 
 exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -51,6 +70,7 @@ Object {
 
 exports[`normalizeOptions transportMode custom client path should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "/path/to/custom/client/",
@@ -62,6 +82,7 @@ Object {
 
 exports[`normalizeOptions transportMode custom server class should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -73,6 +94,7 @@ Object {
 
 exports[`normalizeOptions transportMode custom server path should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -84,6 +106,7 @@ Object {
 
 exports[`normalizeOptions transportMode sockjs string should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
@@ -95,6 +118,7 @@ Object {
 
 exports[`normalizeOptions transportMode ws object should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -106,6 +130,7 @@ Object {
 
 exports[`normalizeOptions transportMode ws string should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -117,6 +142,7 @@ Object {
 
 exports[`normalizeOptions watchOptions should set correct options 1`] = `
 Object {
+  "clientOptions": Object {},
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",

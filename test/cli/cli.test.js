@@ -64,17 +64,6 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--sockPath', (done) => {
-    testBin('--sockPath /mysockPath')
-      .then((output) => {
-        expect(
-          /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(output.stdout)
-        ).toEqual(true);
-        done();
-      })
-      .catch(done);
-  });
-
   it('unspecified port', (done) => {
     testBin('')
       .then((output) => {

@@ -145,6 +145,64 @@ describe('options', () => {
         ],
         failure: ['whoops!'],
       },
+      clientOptions: {
+        success: [
+          {
+            clientOptions: {},
+          },
+          {
+            clientOptions: {
+              host: '',
+            },
+          },
+          {
+            clientOptions: {
+              path: '',
+            },
+          },
+          {
+            clientOptions: {
+              port: '',
+            },
+          },
+          {
+            clientOptions: {
+              host: '',
+              path: '',
+              port: 8080,
+            },
+          },
+          {
+            clientOptions: {
+              host: '',
+              path: '',
+              port: '',
+            },
+          },
+          {
+            clientOptions: {
+              host: '',
+              path: '',
+              port: null,
+            },
+          },
+        ],
+        failure: [
+          'whoops!',
+          {
+            clientOptions: {
+              unknownOption: true,
+            },
+          },
+          {
+            clientOptions: {
+              host: true,
+              path: '',
+              port: 8080,
+            },
+          },
+        ],
+      },
       compress: {
         success: [true],
         failure: [''],
@@ -351,18 +409,6 @@ describe('options', () => {
       },
       socket: {
         success: [''],
-        failure: [false],
-      },
-      sockHost: {
-        success: [''],
-        failure: [false],
-      },
-      sockPath: {
-        success: [''],
-        failure: [false],
-      },
-      sockPort: {
-        success: ['', 0, null],
         failure: [false],
       },
       staticOptions: {
