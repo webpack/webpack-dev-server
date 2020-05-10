@@ -30,7 +30,7 @@ describe('clientOptions option', () => {
 
     it('defaults to a path', () => {
       expect(
-        server.getClientOptionsPath().match(/\/[a-z0-9\-/]+[^/]$/)
+        server.options.clientOptions.path.match(/\/[a-z0-9\-/]+[^/]$/)
       ).toBeTruthy();
     });
 
@@ -58,7 +58,7 @@ describe('clientOptions option', () => {
     });
 
     it('sets the sock path correctly and strips leading and trailing /s', () => {
-      expect(server.getClientOptionsPath()).toEqual(path);
+      expect(server.options.clientOptions.path).toEqual(path);
     });
 
     it('responds with a 200 second', (done) => {

@@ -176,43 +176,6 @@ describe('Server', () => {
     });
   });
 
-  describe('getClientOptionsPath', () => {
-    it('should default to ws', (done) => {
-      const compiler = webpack(config);
-      const server = new Server(compiler, baseDevConfig);
-      expect(server.getClientOptionsPath()).toEqual('/ws');
-      server.close(done);
-    });
-
-    it('should use custom path with slashes on either end', (done) => {
-      const compiler = webpack(config);
-      const server = new Server(
-        compiler,
-        Object.assign({}, baseDevConfig, {
-          clientOptions: {
-            path: '/custom/path/',
-          },
-        })
-      );
-      expect(server.getClientOptionsPath()).toEqual('/custom/path');
-      server.close(done);
-    });
-
-    it('should use custom path and add slash at start', (done) => {
-      const compiler = webpack(config);
-      const server = new Server(
-        compiler,
-        Object.assign({}, baseDevConfig, {
-          clientOptions: {
-            path: 'custom/path',
-          },
-        })
-      );
-      expect(server.getClientOptionsPath()).toEqual('/custom/path');
-      server.close(done);
-    });
-  });
-
   describe('WEBPACK_DEV_SERVER environment variable', () => {
     const OLD_ENV = process.env;
 

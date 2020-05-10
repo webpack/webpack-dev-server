@@ -1,10 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`normalizeOptions clientOptions should set correct options 1`] = `
+exports[`normalizeOptions clientOptions host and port should set correct options 1`] = `
 Object {
   "clientOptions": Object {
     "host": "my.host",
+    "path": "/ws",
     "port": 9000,
+  },
+  "contentBasePublicPath": "/",
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions clientOptions path should set correct options 1`] = `
+Object {
+  "clientOptions": Object {
+    "path": "/custom/path",
+  },
+  "contentBasePublicPath": "/",
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions clientOptions path without leading/ending slashes should set correct options 1`] = `
+Object {
+  "clientOptions": Object {
+    "path": "/custom/path",
   },
   "contentBasePublicPath": "/",
   "transportMode": Object {
@@ -17,7 +46,9 @@ Object {
 
 exports[`normalizeOptions contentBase array should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBase": Array [
     "/path/to/dist1",
     "/path/to/dist2",
@@ -33,7 +64,9 @@ Object {
 
 exports[`normalizeOptions contentBase string should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBase": "/path/to/dist",
   "contentBasePublicPath": "/",
   "transportMode": Object {
@@ -46,7 +79,9 @@ Object {
 
 exports[`normalizeOptions contentBasePublicPath string should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/content-base-public-path",
   "transportMode": Object {
     "client": "ws",
@@ -58,7 +93,9 @@ Object {
 
 exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -70,7 +107,9 @@ Object {
 
 exports[`normalizeOptions transportMode custom client path should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "/path/to/custom/client/",
@@ -82,7 +121,9 @@ Object {
 
 exports[`normalizeOptions transportMode custom server class should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -94,7 +135,9 @@ Object {
 
 exports[`normalizeOptions transportMode custom server path should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -106,7 +149,9 @@ Object {
 
 exports[`normalizeOptions transportMode sockjs string should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "sockjs",
@@ -118,7 +163,9 @@ Object {
 
 exports[`normalizeOptions transportMode ws object should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -130,7 +177,9 @@ Object {
 
 exports[`normalizeOptions transportMode ws string should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
@@ -142,7 +191,9 @@ Object {
 
 exports[`normalizeOptions watchOptions should set correct options 1`] = `
 Object {
-  "clientOptions": Object {},
+  "clientOptions": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
   "transportMode": Object {
     "client": "ws",
