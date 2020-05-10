@@ -111,7 +111,7 @@ describe('ws client proxy', () => {
         poll: true,
       },
       quiet: true,
-      public: 'myhost.test',
+      public: 'myhost',
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -141,7 +141,7 @@ describe('ws client proxy', () => {
           if (msg.type() === 'error' && text.includes('WebSocket connection')) {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(text).toContain(`ws://myhost.test:${port2}/ws`);
+                expect(text).toContain(`ws://myhost:${port2}/ws`);
                 done();
               });
             });
@@ -184,7 +184,7 @@ describe('sockjs public and client path', () => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://myhost.test:${port2}/foo/test/bar/`
+                  `http://myhost.test:${port2}/foo/test/bar`
                 );
                 done();
               });
@@ -333,7 +333,7 @@ describe('ws client host, port, and path', () => {
         poll: true,
       },
       clientOptions: {
-        host: 'myhost.test',
+        host: 'myhost',
         port: port3,
         path: '/foo/test/bar/',
       },
@@ -354,9 +354,7 @@ describe('ws client host, port, and path', () => {
           if (msg.type() === 'error' && text.includes('WebSocket connection')) {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(text).toContain(
-                  `ws://myhost.test:${port3}/foo/test/bar/`
-                );
+                expect(text).toContain(`ws://myhost:${port3}/foo/test/bar`);
                 done();
               });
             });
