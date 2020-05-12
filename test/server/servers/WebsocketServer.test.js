@@ -28,7 +28,7 @@ describe('WebsocketServer', () => {
           },
         },
         listeningApp,
-        heartbeatInterval: 800,
+        wsHeartbeatInterval: 800,
       };
       socketServer = new WebsocketServer(server);
       done();
