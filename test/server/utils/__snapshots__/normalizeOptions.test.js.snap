@@ -8,6 +8,9 @@ Object {
     "port": 9000,
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -22,6 +25,9 @@ Object {
     "path": "/custom/path",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -36,6 +42,9 @@ Object {
     "path": "/custom/path",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -54,6 +63,9 @@ Object {
     "/path/to/dist2",
   ],
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -69,6 +81,9 @@ Object {
   },
   "contentBase": "/path/to/dist",
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -83,6 +98,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/content-base-public-path",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -97,6 +115,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -111,6 +132,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "/path/to/custom/client/",
     "server": "ws",
@@ -125,6 +149,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": [Function],
@@ -139,6 +166,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "/path/to/custom/server/",
@@ -153,6 +183,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "sockjs",
     "server": "sockjs",
@@ -167,6 +200,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -181,6 +217,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -195,6 +234,9 @@ Object {
     "path": "/ws",
   },
   "contentBasePublicPath": "/",
+  "hot": true,
+  "serveIndex": true,
+  "stats": Object {},
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
