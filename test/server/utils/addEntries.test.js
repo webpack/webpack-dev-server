@@ -438,4 +438,44 @@ describe('addEntries util', () => {
 
     expect(normalize(nodeWebpackOptions.entry[1])).toEqual('./foo.js');
   });
+
+  it('does not use clientOptions.path when default', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = {
+      clientOptions: {
+        path: '/ws',
+      },
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+    expect(webpackOptions.entry[0]).not.toContain('&path=/ws');
+  });
+
+  it('uses custom clientOptions.path', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = {
+      clientOptions: {
+        path: '/custom/path',
+      },
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+    expect(webpackOptions.entry[0]).toContain('&path=/custom/path');
+  });
+
+  it('uses custom clientOptions', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = {
+      clientOptions: {
+        host: 'my.host',
+        port: 8080,
+        path: '/custom/path',
+      },
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+    expect(webpackOptions.entry[0]).toContain(
+      '&host=my.host&path=/custom/path&port=8080'
+    );
+  });
 });

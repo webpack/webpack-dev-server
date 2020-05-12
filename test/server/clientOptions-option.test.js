@@ -3,9 +3,9 @@
 const request = require('supertest');
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
-const port = require('../ports-map')['sockPath-option'];
+const port = require('../ports-map')['clientOptions-option'];
 
-describe('sockPath options', () => {
+describe('clientOptions option', () => {
   let server;
   let req;
 
@@ -29,7 +29,9 @@ describe('sockPath options', () => {
     });
 
     it('defaults to a path', () => {
-      expect(!!server.sockPath.match(/\/[a-z0-9\-/]+[^/]$/)).toBeTruthy();
+      expect(
+        server.options.clientOptions.path.match(/\/[a-z0-9\-/]+[^/]$/)
+      ).toBeTruthy();
     });
 
     it('responds with a 200', (done) => {
@@ -37,7 +39,7 @@ describe('sockPath options', () => {
     });
   });
 
-  describe('socksPath option', () => {
+  describe('path option', () => {
     const path = '/foo/test/bar';
 
     beforeEach((done) => {
@@ -45,7 +47,9 @@ describe('sockPath options', () => {
         config,
         {
           transportMode: 'sockjs',
-          sockPath: '/foo/test/bar/',
+          clientOptions: {
+            path: '/foo/test/bar/',
+          },
           port,
         },
         done
@@ -54,7 +58,7 @@ describe('sockPath options', () => {
     });
 
     it('sets the sock path correctly and strips leading and trailing /s', () => {
-      expect(server.sockPath).toEqual(path);
+      expect(server.options.clientOptions.path).toEqual(path);
     });
 
     it('responds with a 200 second', (done) => {

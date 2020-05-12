@@ -30,7 +30,7 @@ const portsList = {
   'port-option': 1,
   'proxy-option': 4,
   'transportMode-option': 1,
-  'sockPath-option': 1,
+  'clientOptions-option': 1,
   'stats-option': 1,
   ProvidePlugin: 1,
   WebsocketClient: 1,

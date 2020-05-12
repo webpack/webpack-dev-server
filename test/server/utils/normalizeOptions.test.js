@@ -102,6 +102,37 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'clientOptions host and port',
+      multiCompiler: false,
+      options: {
+        clientOptions: {
+          host: 'my.host',
+          port: 9000,
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'clientOptions path',
+      multiCompiler: false,
+      options: {
+        clientOptions: {
+          path: '/custom/path/',
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'clientOptions path without leading/ending slashes',
+      multiCompiler: false,
+      options: {
+        clientOptions: {
+          path: 'custom/path',
+        },
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

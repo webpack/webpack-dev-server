@@ -111,7 +111,7 @@ describe('ws client proxy', () => {
         poll: true,
       },
       quiet: true,
-      public: 'myhost.test',
+      public: 'myhost',
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -141,7 +141,7 @@ describe('ws client proxy', () => {
           if (msg.type() === 'error' && text.includes('WebSocket connection')) {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(text).toContain(`ws://myhost.test:${port2}/ws`);
+                expect(text).toContain(`ws://myhost:${port2}/ws`);
                 done();
               });
             });
@@ -153,7 +153,7 @@ describe('ws client proxy', () => {
   });
 });
 
-describe('sockjs public and sockPath', () => {
+describe('sockjs public and client path', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -163,7 +163,9 @@ describe('sockjs public and sockPath', () => {
         poll: true,
       },
       public: 'myhost.test',
-      sockPath: '/foo/test/bar/',
+      clientOptions: {
+        path: '/foo/test/bar/',
+      },
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -182,7 +184,7 @@ describe('sockjs public and sockPath', () => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://myhost.test:${port2}/foo/test/bar/`
+                  `http://myhost.test:${port2}/foo/test/bar`
                 );
                 done();
               });
@@ -194,7 +196,7 @@ describe('sockjs public and sockPath', () => {
   });
 });
 
-describe('sockjs sockPath and sockPort', () => {
+describe('sockjs client path and port', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -203,8 +205,10 @@ describe('sockjs sockPath and sockPort', () => {
       watchOptions: {
         poll: true,
       },
-      sockPath: '/foo/test/bar/',
-      sockPort: port3,
+      clientOptions: {
+        path: '/foo/test/bar/',
+        port: port3,
+      },
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -236,10 +240,10 @@ describe('sockjs sockPath and sockPort', () => {
   });
 });
 
-// previously, using sockPort without sockPath had the ability
-// to alter the sockPath (based on a bug in client-src/default/index.js)
-// so we need to make sure sockPath is not altered in this case
-describe('sockjs sockPort, no sockPath', () => {
+// previously, using port without path had the ability
+// to alter the path (based on a bug in client-src/default/index.js)
+// so we need to make sure path is not altered in this case
+describe('sockjs client port, no path', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -248,7 +252,9 @@ describe('sockjs sockPort, no sockPath', () => {
       watchOptions: {
         poll: true,
       },
-      sockPort: port3,
+      clientOptions: {
+        port: port3,
+      },
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -277,7 +283,7 @@ describe('sockjs sockPort, no sockPath', () => {
   });
 });
 
-describe('sockjs sockHost', () => {
+describe('sockjs client host', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'sockjs',
@@ -286,7 +292,9 @@ describe('sockjs sockHost', () => {
       watchOptions: {
         poll: true,
       },
-      sockHost: 'myhost.test',
+      clientOptions: {
+        host: 'myhost.test',
+      },
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -315,7 +323,7 @@ describe('sockjs sockHost', () => {
   });
 });
 
-describe('ws client sockHost, sockPort, and sockPath', () => {
+describe('ws client host, port, and path', () => {
   beforeAll((done) => {
     const options = {
       transportMode: 'ws',
@@ -324,9 +332,11 @@ describe('ws client sockHost, sockPort, and sockPath', () => {
       watchOptions: {
         poll: true,
       },
-      sockHost: 'myhost.test',
-      sockPort: port3,
-      sockPath: '/foo/test/bar/',
+      clientOptions: {
+        host: 'myhost',
+        port: port3,
+        path: '/foo/test/bar/',
+      },
       quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -344,9 +354,7 @@ describe('ws client sockHost, sockPort, and sockPath', () => {
           if (msg.type() === 'error' && text.includes('WebSocket connection')) {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
-                expect(text).toContain(
-                  `ws://myhost.test:${port3}/foo/test/bar/`
-                );
+                expect(text).toContain(`ws://myhost:${port3}/foo/test/bar`);
                 done();
               });
             });

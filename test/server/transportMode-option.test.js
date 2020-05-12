@@ -189,13 +189,12 @@ describe('transportMode', () => {
       });
 
       describe('as a class (custom "sockjs" implementation)', () => {
-        let sockPath;
+        let customServerUsed = false;
         it('uses supplied server implementation', (done) => {
           server = testServer.start(
             config,
             {
               port,
-              sockPath: '/foo/test/bar/',
               transportMode: {
                 server: class MySockJSServer extends BaseServer {
                   constructor(serv) {
@@ -214,10 +213,10 @@ describe('transportMode', () => {
                     });
 
                     this.socket.installHandlers(this.server.listeningApp, {
-                      prefix: this.server.sockPath,
+                      prefix: 'ws',
                     });
 
-                    sockPath = server.options.sockPath;
+                    customServerUsed = true;
                   }
 
                   send(connection, message) {
@@ -241,7 +240,7 @@ describe('transportMode', () => {
               },
             },
             () => {
-              expect(sockPath).toEqual('/foo/test/bar/');
+              expect(customServerUsed).toBeTruthy();
               done();
             }
           );
@@ -290,7 +289,7 @@ describe('transportMode', () => {
                     });
 
                     this.socket.installHandlers(this.server.listeningApp, {
-                      prefix: this.server.sockPath,
+                      prefix: this.server.options.clientOptions.path,
                     });
                   }
 
@@ -384,7 +383,7 @@ describe('transportMode', () => {
                     });
 
                     this.socket.installHandlers(this.server.listeningApp, {
-                      prefix: this.server.sockPath,
+                      prefix: this.server.options.clientOptions.path,
                     });
                   }
 
