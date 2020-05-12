@@ -87,7 +87,7 @@ execute the file or command.
 Either method will start a server instance and begin listening for connections
 from `localhost` on port `8080`.
 
-webpack-dev-server is configured by default to support live-reload of files as
+webpack-dev-server is configured by default to support the live-reload of files as
 you edit your assets while the server is running.
 
 See [**the documentation**][docs-url] for more use cases and options.
@@ -99,7 +99,7 @@ state, the project only officially supports the _last two versions of major
 browsers_. We simply don't have the resources to support every whacky
 browser out there.
 
-If you find a bug with an obscure / old browser, we would actively welcome a
+If you find a bug with an obscure/old browser, we would actively welcome a
 Pull Request to resolve the bug.
 
 ## Support
@@ -116,7 +116,7 @@ pull request.
 
 From there, we encourage users to visit the [webpack Gitter chat][chat-url] and
 talk to the fine folks there. If your quest for answers comes up dry in chat,
-head over to [StackOverflow][stack-url] and do a quick search or open a new
+head over to [StackOverflow][stack-url], and do a quick search or open a new
 question. Remember; It's always much easier to answer questions that include your
 `webpack.config.js` and relevant files!
 
