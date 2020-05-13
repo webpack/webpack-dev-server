@@ -26,8 +26,9 @@ Array [
 exports[`Client console.log liveReload disabled 1`] = `
 Array [
   "Hey.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[WDS] Hot Module Replacement enabled.",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "[WDS] Disconnected!",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 

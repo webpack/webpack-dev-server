@@ -58,7 +58,30 @@ describe('websocket client injection', () => {
     });
   });
 
-  describe('testing when hot enabled', () => {
+  describe('testing when liveReload is disabled', () => {
+    beforeAll((done) => {
+      const options = {
+        port,
+        liveReload: false,
+      };
+      server = testServer.start(config, options, done);
+      req = request(`http://localhost:${port}`);
+    });
+
+    afterAll(testServer.close);
+
+    it('should not be injected', (done) => {
+      req
+        .get('/sockjs-node/info')
+        .expect(404)
+        .then(({ res }) => {
+          expect(res.text.includes('Cannot GET /sockjs-node/info')).toBe(true);
+          done();
+        });
+    });
+  });
+
+  describe('testing when hot is enabled', () => {
     beforeAll((done) => {
       const options = {
         port,
