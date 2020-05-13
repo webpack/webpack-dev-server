@@ -214,4 +214,20 @@ describe('index', () => {
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
+
+  test('should run onSocketMessage.close (hot enabled)', () => {
+    // enabling hot
+    onSocketMessage.hot();
+    onSocketMessage.close();
+    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  test('should run onSocketMessage.close (liveReload enabled)', () => {
+    // enabling liveReload
+    onSocketMessage.liveReload();
+    onSocketMessage.close();
+    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+  });
 });

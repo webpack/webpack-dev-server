@@ -365,6 +365,12 @@ describe('Client console.log', () => {
     port: port2,
     host: '0.0.0.0',
   };
+  const transportModes = [
+    {},
+    { transportMode: 'sockjs' },
+    { transportMode: 'ws' },
+  ];
+
   const cases = [
     {
       title: 'hot disabled',
@@ -390,6 +396,13 @@ describe('Client console.log', () => {
         liveReload: true,
       },
     },
+    {
+      title: 'liveReload & hot are disabled',
+      options: {
+        liveReload: false,
+        hot: false,
+      },
+    },
     // TODO: make clientLogLevel work as expected for HMR logs
     {
       title: 'clientLogLevel is silent',
@@ -399,48 +412,54 @@ describe('Client console.log', () => {
     },
   ];
 
-  cases.forEach(({ title, options }) => {
-    it(title, (done) => {
-      const res = [];
-      const testOptions = Object.assign({}, baseOptions, options);
+  transportModes.forEach((mode) => {
+    cases.forEach(({ title, options }) => {
+      title += ` (${
+        Object.keys(mode).length ? mode.transportMode : 'default'
+      })`;
+      options = { ...mode, ...options };
+      it(title, (done) => {
+        const res = [];
+        const testOptions = Object.assign({}, baseOptions, options);
 
-      // TODO: use async/await when Node.js v6 support is dropped
-      Promise.resolve()
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.startAwaitingCompilation(config, testOptions, resolve);
-          });
-        })
-        .then(() => {
-          // make sure the previous Promise is not passing along strange arguments to runBrowser
-          return runBrowser();
-        })
-        .then(({ page, browser }) => {
-          return new Promise((resolve) => {
-            page.goto(`http://localhost:${port2}/main`);
-            page.on('console', ({ _text }) => {
-              res.push(_text);
+        // TODO: use async/await when Node.js v6 support is dropped
+        Promise.resolve()
+          .then(() => {
+            return new Promise((resolve) => {
+              testServer.startAwaitingCompilation(config, testOptions, resolve);
             });
-            // wait for load before closing the browser
-            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-              page.waitFor(beforeBrowserCloseDelay).then(() => {
-                browser.close().then(() => {
-                  resolve();
+          })
+          .then(() => {
+            // make sure the previous Promise is not passing along strange arguments to runBrowser
+            return runBrowser();
+          })
+          .then(({ page, browser }) => {
+            return new Promise((resolve) => {
+              page.goto(`http://localhost:${port2}/main`);
+              page.on('console', ({ _text }) => {
+                res.push(_text);
+              });
+              // wait for load before closing the browser
+              page.waitForNavigation({ waitUntil: 'load' }).then(() => {
+                page.waitFor(beforeBrowserCloseDelay).then(() => {
+                  browser.close().then(() => {
+                    resolve();
+                  });
                 });
               });
             });
+          })
+          .then(() => {
+            return new Promise((resolve) => {
+              testServer.close(resolve);
+            });
+          })
+          .then(() => {
+            // Order doesn't matter, maybe we should improve that in future
+            expect(res.sort()).toMatchSnapshot();
+            done();
           });
-        })
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.close(resolve);
-          });
-        })
-        .then(() => {
-          // Order doesn't matter, maybe we should improve that in future
-          expect(res.sort()).toMatchSnapshot();
-          done();
-        });
+      });
     });
   });
 });
