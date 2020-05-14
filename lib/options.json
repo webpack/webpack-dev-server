@@ -87,12 +87,6 @@
     "disableHostCheck": {
       "type": "boolean"
     },
-    "features": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "fs": {
       "type": "object"
     },
@@ -431,7 +425,6 @@
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
-      "features": "should be {Array}",
       "fs": "should be {Object} (https://github.com/webpack/webpack-dev-middleware#fs)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders-)",
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
