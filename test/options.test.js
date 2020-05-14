@@ -215,10 +215,6 @@ describe('options', () => {
         success: [true],
         failure: [''],
       },
-      features: {
-        success: [['onBeforeSetupMiddleware', 'onAfterSetupMiddleware'], []],
-        failure: [false],
-      },
       fs: {
         success: [
           {
