@@ -17,8 +17,9 @@ describe('SockJSServer', () => {
     listeningApp = http.createServer(app);
     listeningApp.listen(port, 'localhost', () => {
       const server = {
-        log: {
+        logger: {
           error: () => {},
+          log: () => {},
           debug: () => {},
         },
         options: {

@@ -211,20 +211,8 @@
     "liveReload": {
       "type": "boolean"
     },
-    "log": {
-      "instanceof": "Function"
-    },
-    "logLevel": {
-      "enum": ["info", "warn", "error", "debug", "trace", "silent"]
-    },
-    "logTime": {
-      "type": "boolean"
-    },
     "mimeTypes": {
       "type": "object"
-    },
-    "noInfo": {
-      "type": "boolean"
     },
     "onAfterSetupMiddleware": {
       "instanceof": "Function"
@@ -326,12 +314,6 @@
     "publicPath": {
       "type": "string"
     },
-    "quiet": {
-      "type": "boolean"
-    },
-    "reporter": {
-      "instanceof": "Function"
-    },
     "requestCert": {
       "type": "boolean"
     },
@@ -396,9 +378,6 @@
     "useLocalIp": {
       "type": "boolean"
     },
-    "warn": {
-      "instanceof": "Function"
-    },
     "watchContentBase": {
       "type": "boolean"
     },
@@ -436,11 +415,7 @@
       "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
-      "log": "should be {Function}",
-      "logLevel": "should be {String} and equal to one of the allowed values\n\n [ 'info', 'warn', 'error', 'debug', 'trace', 'silent' ]\n\n (https://github.com/webpack/webpack-dev-middleware#loglevel)",
-      "logTime": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#logtime)",
       "mimeTypes": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devservermimetypes-)",
-      "noInfo": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservernoinfo-)",
       "onAfterSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
       "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
@@ -453,8 +428,6 @@
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
       "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublicpath-)",
-      "quiet": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverquiet-)",
-      "reporter": "should be {Function} (https://github.com/webpack/webpack-dev-middleware#reporter)",
       "requestCert": "should be {Boolean}",
       "contentBasePublicPath": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
@@ -464,7 +437,6 @@
       "stats": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstats-)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)",
-      "warn": "should be {Function}",
       "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverwatchcontentbase)",
       "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchoptions-)",
       "writeToDisk": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverwritetodisk-)"

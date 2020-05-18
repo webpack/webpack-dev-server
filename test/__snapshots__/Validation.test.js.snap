@@ -14,12 +14,6 @@ exports[`Validation validation should fail validation for invalid \`hot\` config
     * configuration.hot should be \\"only\\"."
 `;
 
-exports[`Validation validation should fail validation for invalid \`logLevel\` configuration 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.logLevel should be one of these:
-   \\"info\\" | \\"warn\\" | \\"error\\" | \\"debug\\" | \\"trace\\" | \\"silent\\""
-`;
-
 exports[`Validation validation should fail validation for invalid \`overlay\` configuration 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.overlay.errors should be a boolean."
@@ -37,5 +31,5 @@ exports[`Validation validation should fail validation for invalid \`writeToDisk\
 exports[`Validation validation should fail validation for no additional properties 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration has an unknown property 'additional'. These properties are valid:
-   object { allowedHosts?, bonjour?, clientLogLevel?, clientOptions?, compress?, contentBasePublicPath?, contentBase?, disableHostCheck?, fs?, headers?, historyApiFallback?, host?, hot?, http2?, https?, index?, injectClient?, injectHot?, liveReload?, log?, logLevel?, logTime?, mimeTypes?, noInfo?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, publicPath?, quiet?, reporter?, requestCert?, serveIndex?, serverSideRender?, socket?, staticOptions?, stats?, transportMode?, useLocalIp?, warn?, watchContentBase?, watchOptions?, writeToDisk? }"
+   object { allowedHosts?, bonjour?, clientLogLevel?, clientOptions?, compress?, contentBasePublicPath?, contentBase?, disableHostCheck?, fs?, headers?, historyApiFallback?, host?, hot?, http2?, https?, index?, injectClient?, injectHot?, liveReload?, mimeTypes?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, publicPath?, requestCert?, serveIndex?, serverSideRender?, socket?, staticOptions?, stats?, transportMode?, useLocalIp?, watchContentBase?, watchOptions?, writeToDisk? }"
 `;

@@ -35,10 +35,6 @@ describe('Validation', () => {
         config: { hot: 'false' },
       },
       {
-        name: 'invalid `logLevel` configuration',
-        config: { logLevel: 1 },
-      },
-      {
         name: 'invalid `writeToDisk` configuration',
         config: { writeToDisk: 1 },
       },

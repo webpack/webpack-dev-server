@@ -14,7 +14,6 @@ const Server = require('../lib/Server');
 const setupExitSignals = require('../lib/utils/setupExitSignals');
 const colors = require('../lib/utils/colors');
 const processOptions = require('../lib/utils/processOptions');
-const createLogger = require('../lib/utils/createLogger');
 const getVersions = require('../lib/utils/getVersions');
 const options = require('./options');
 
@@ -86,15 +85,13 @@ const config = require(convertArgvPath)(yargs, argv, {
 });
 
 function startDevServer(config, options) {
-  const log = createLogger(options);
-
   let compiler;
 
   try {
     compiler = webpack(config);
   } catch (err) {
     if (err instanceof webpack.WebpackOptionsValidationError) {
-      log.error(colors.error(options.stats.colors, err.message));
+      console.error(colors.error(options.stats.colors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
     }
@@ -103,11 +100,11 @@ function startDevServer(config, options) {
   }
 
   try {
-    server = new Server(compiler, options, log);
+    server = new Server(compiler, options);
     serverData.server = server;
   } catch (err) {
     if (err.name === 'ValidationError') {
-      log.error(colors.error(options.stats.colors, err.message));
+      console.error(colors.error(options.stats.colors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
     }
