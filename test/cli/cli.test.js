@@ -6,6 +6,36 @@ const execa = require('execa');
 const testBin = require('../helpers/test-bin');
 
 describe('CLI', () => {
+  it('--hot', (done) => {
+    testBin('--hot')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).toContain('/hot/dev-server');
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-hot', (done) => {
+    testBin('--no-hot')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).not.toContain('/hot/dev-server');
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--hot-only', (done) => {
+    testBin('--hot-only')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).toContain('/hot/only-dev-server');
+        done();
+      })
+      .catch(done);
+  });
+
   it('--progress', (done) => {
     testBin('--progress')
       .then((output) => {

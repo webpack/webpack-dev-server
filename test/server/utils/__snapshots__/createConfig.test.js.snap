@@ -293,7 +293,55 @@ Object {
 }
 `;
 
-exports[`createConfig hot option (in devServer config) 1`] = `
+exports[`createConfig hot only option (in devServer config) 1`] = `
+Object {
+  "hot": "only",
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig hot only option 1`] = `
+Object {
+  "hot": "only",
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig hot option (false) (in devServer config) 1`] = `
+Object {
+  "hot": false,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig hot option (false) 1`] = `
+Object {
+  "hot": false,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig hot option (true) (in devServer config) 1`] = `
 Object {
   "hot": true,
   "port": 8080,
@@ -305,7 +353,7 @@ Object {
 }
 `;
 
-exports[`createConfig hot option 1`] = `
+exports[`createConfig hot option (true) 1`] = `
 Object {
   "hot": true,
   "port": 8080,
@@ -875,7 +923,7 @@ Object {
   "disableHostCheck": "_disableHostCheck",
   "historyApiFallback": "_historyApiFallback",
   "host": "_foo",
-  "hot": "_hot",
+  "hot": true,
   "https": "_https",
   "open": "_open",
   "openPage": "_openPage",
@@ -901,7 +949,7 @@ Object {
     "disableHostCheck": "_disableHostCheck",
     "historyApiFallback": "_historyApiFallback",
     "host": "_foo",
-    "hot": "_hot",
+    "hot": true,
     "https": "_https",
     "open": "_open",
     "openPage": "_openPage",
