@@ -18,10 +18,6 @@ describe('WebsocketServer', () => {
     listeningApp = http.createServer(app);
     listeningApp.listen(port, 'localhost', () => {
       server = {
-        log: {
-          error: () => {},
-          debug: () => {},
-        },
         options: {
           clientOptions: {
             path: '/ws-server',

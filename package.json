@@ -64,7 +64,6 @@
     "supports-color": "^7.1.0",
     "url": "^0.11.0",
     "webpack-dev-middleware": "^3.7.2",
-    "webpack-log": "^3.0.1",
     "ws": "^7.2.5",
     "yargs": "^13.3.2"
   },
@@ -77,6 +76,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@jest/test-sequencer": "^26.0.1",
+    "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
     "commitlint-azure-pipelines-cli": "^1.0.3",

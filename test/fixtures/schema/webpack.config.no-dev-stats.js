@@ -15,8 +15,6 @@ module.exports = {
     clientLogLevel: '_clientLogLevel',
     contentBase: '_contentBase',
     watchContentBase: '_watchContentBase',
-    noInfo: '_noInfo',
-    quiet: '_quiet',
     https: '_https',
     historyApiFallback: '_historyApiFallback',
     compress: '_compress',

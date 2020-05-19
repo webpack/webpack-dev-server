@@ -18,7 +18,6 @@ describe('transportMode', () => {
     let server;
     let req;
     let getSocketServerImplementation;
-    let consoleMock;
 
     const serverModes = [
       {
@@ -54,14 +53,6 @@ describe('transportMode', () => {
         },
       },
     ];
-
-    beforeAll(() => {
-      consoleMock = jest.spyOn(console, 'log').mockImplementation();
-    });
-
-    afterAll(() => {
-      consoleMock.mockRestore();
-    });
 
     describe('is passed to getSocketServerImplementation correctly', () => {
       beforeEach(() => {
@@ -205,9 +196,11 @@ describe('transportMode', () => {
                       // Limit useless logs
                       log: (severity, line) => {
                         if (severity === 'error') {
-                          this.server.log.error(line);
+                          this.server.logger.error(line);
+                        } else if (severity === 'info') {
+                          this.server.logger.log(line);
                         } else {
-                          this.server.log.debug(line);
+                          this.server.logger.debug(line);
                         }
                       },
                     });
@@ -281,9 +274,9 @@ describe('transportMode', () => {
                       // Limit useless logs
                       log: (severity, line) => {
                         if (severity === 'error') {
-                          this.server.log.error(line);
+                          this.server.logger.error(line);
                         } else {
-                          this.server.log.debug(line);
+                          this.server.logger.debug(line);
                         }
                       },
                     });
@@ -317,7 +310,7 @@ describe('transportMode', () => {
           );
 
           mockWarn = jest
-            .spyOn(server.log, 'warn')
+            .spyOn(server.logger, 'warn')
             .mockImplementation(() => {});
         });
 
@@ -375,9 +368,11 @@ describe('transportMode', () => {
                       // Limit useless logs
                       log: (severity, line) => {
                         if (severity === 'error') {
-                          this.server.log.error(line);
+                          this.server.logger.error(line);
+                        } else if (severity === 'info') {
+                          this.server.logger.log(line);
                         } else {
-                          this.server.log.debug(line);
+                          this.server.logger.debug(line);
                         }
                       },
                     });

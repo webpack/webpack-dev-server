@@ -287,25 +287,9 @@ describe('options', () => {
         success: [true, () => {}],
         failure: [''],
       },
-      log: {
-        success: [() => {}],
-        failure: [''],
-      },
-      logLevel: {
-        success: ['silent', 'info', 'error', 'warn', 'trace', 'debug'],
-        failure: [false],
-      },
-      logTime: {
-        success: [true],
-        failure: [''],
-      },
       mimeTypes: {
         success: [{}],
         failure: [false],
-      },
-      noInfo: {
-        success: [true],
-        failure: [''],
       },
       onListening: {
         success: [() => {}],
@@ -382,14 +366,6 @@ describe('options', () => {
       publicPath: {
         success: [''],
         failure: [false],
-      },
-      quiet: {
-        success: [true],
-        failure: [''],
-      },
-      reporter: {
-        success: [() => {}],
-        failure: [''],
       },
       requestCert: {
         success: [true],
@@ -482,10 +458,6 @@ describe('options', () => {
       },
       useLocalIp: {
         success: [false],
-        failure: [''],
-      },
-      warn: {
-        success: [() => {}],
         failure: [''],
       },
       watchContentBase: {

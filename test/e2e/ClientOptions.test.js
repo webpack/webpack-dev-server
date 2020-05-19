@@ -18,6 +18,7 @@ describe('sockjs client proxy', () => {
         target: `http://localhost:${port1}`,
         ws: true,
         changeOrigin: true,
+        logLevel: 'warn',
       })
     );
     return proxy.listen(port, cb);
@@ -34,7 +35,6 @@ describe('sockjs client proxy', () => {
       watchOptions: {
         poll: true,
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -110,7 +110,6 @@ describe('ws client proxy', () => {
       watchOptions: {
         poll: true,
       },
-      quiet: true,
       public: 'myhost',
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -166,7 +165,6 @@ describe('sockjs public and client path', () => {
       clientOptions: {
         path: '/foo/test/bar/',
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -209,7 +207,6 @@ describe('sockjs client path and port', () => {
         path: '/foo/test/bar/',
         port: port3,
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -255,7 +252,6 @@ describe('sockjs client port, no path', () => {
       clientOptions: {
         port: port3,
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -295,7 +291,6 @@ describe('sockjs client host', () => {
       clientOptions: {
         host: 'myhost.test',
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -337,7 +332,6 @@ describe('ws client host, port, and path', () => {
         port: port3,
         path: '/foo/test/bar/',
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -370,7 +364,6 @@ describe('Client console.log', () => {
   const baseOptions = {
     port: port2,
     host: '0.0.0.0',
-    quiet: true,
   };
   const cases = [
     {

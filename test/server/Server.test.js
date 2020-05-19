@@ -11,10 +11,7 @@ const isWebpack5 = require('../helpers/isWebpack5');
 
 jest.mock('sockjs/lib/transport');
 
-const baseDevConfig = {
-  port,
-  quiet: true,
-};
+const baseDevConfig = { port };
 
 describe('Server', () => {
   describe('sockjs', () => {
@@ -101,11 +98,12 @@ describe('Server', () => {
     const compiler = webpack(config);
     const server = new Server(compiler, baseDevConfig);
 
-    server.log.error = logMock;
-
+    server.logger.error = logMock;
     server.listeningApp.emit('error', new Error('Error !!!'));
-    expect(server.log.error).toBeCalledWith(new Error('Error !!!'));
+
+    expect(server.logger.error).toBeCalledWith(new Error('Error !!!'));
   });
+
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe('express.static.mine.types', () => {
     it("should success even if mine.types doesn't exist", (done) => {
