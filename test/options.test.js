@@ -381,9 +381,9 @@ describe('options', () => {
         success: [''],
         failure: [false],
       },
-      requestCert: {
-        success: [true],
-        failure: [''],
+      publicPath: {
+        success: [''],
+        failure: [false],
       },
       serveIndex: {
         success: [true],

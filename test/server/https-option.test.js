@@ -165,5 +165,37 @@ describe('https option', () => {
     });
   });
 
+  describe('should support the "requestCert" option', () => {
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          contentBase: contentBasePublic,
+          https: {
+            requestCert: true,
+            ca: fs.readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
+            pfx: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'server.pfx')
+            ),
+            key: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'server.key')
+            ),
+            cert: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'server.crt')
+            ),
+            passphrase: 'webpack-dev-server',
+          },
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    it('Request to index', (done) => {
+      req.get('/').expect(200, /Heyo/, done);
+    });
+  });
+
   afterEach(testServer.close);
 });
