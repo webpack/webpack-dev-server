@@ -133,6 +133,46 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'liveReload is true',
+      multiCompiler: false,
+      options: {
+        liveReload: true,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'liveReload is false',
+      multiCompiler: false,
+      options: {
+        liveReload: false,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'hot is true',
+      multiCompiler: false,
+      options: {
+        hot: true,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'hot is false',
+      multiCompiler: false,
+      options: {
+        hot: false,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'hot is only',
+      multiCompiler: false,
+      options: {
+        hot: 'only',
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {
