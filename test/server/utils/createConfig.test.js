@@ -298,7 +298,7 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hot option', () => {
+  it('hot option (true)', () => {
     const config = createConfig(
       webpackConfig,
       Object.assign({}, argv, { hot: true }),
@@ -308,12 +308,58 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hot option (in devServer config)', () => {
+  it('hot option (false)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { hot: false }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('hot option (true) (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: { hot: true },
       }),
       argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('hot option (false) (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { hot: false },
+      }),
+      // eslint-disable-next-line no-undefined
+      Object.assign({}, argv, { hot: undefined }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('hot only option', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { hotOnly: true }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('hot only option (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { hot: 'only' },
+      }),
+      // eslint-disable-next-line no-undefined
+      Object.assign({}, argv, { hot: undefined }),
       { port: 8080 }
     );
 
