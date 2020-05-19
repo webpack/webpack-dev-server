@@ -42,7 +42,7 @@ describe('liveReload option', () => {
         // it means that file has changed
 
         // simulating server behaviour
-        if (server.options.liveReload !== false) {
+        if (server.options.liveReload) {
           // issue: https://github.com/facebook/jest/issues/9471
           Object.defineProperty(window, 'location', {
             writable: true,
@@ -97,7 +97,7 @@ describe('liveReload option', () => {
         // it means that files has changed
 
         // simulating server behaviour
-        if (server.options.liveReload !== false) {
+        if (server.options.liveReload) {
           Object.defineProperty(window, 'location', {
             writable: true,
             value: { assign: jest.fn() },
