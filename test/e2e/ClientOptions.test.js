@@ -412,53 +412,28 @@ describe('Client console.log', () => {
     },
   ];
 
-  transportModes.forEach((mode) => {
-    cases.forEach(({ title, options }) => {
+  transportModes.forEach(async (mode) => {
+    await cases.forEach(async ({ title, options }) => {
       title += ` (${
         Object.keys(mode).length ? mode.transportMode : 'default'
       })`;
       options = { ...mode, ...options };
-      it(title, (done) => {
+      const testOptions = Object.assign({}, baseOptions, options);
+      await it(title, async (done) => {
+        await testServer.startAwaitingCompilation(config, testOptions);
         const res = [];
-        const testOptions = Object.assign({}, baseOptions, options);
-
-        // TODO: use async/await when Node.js v6 support is dropped
-        Promise.resolve()
-          .then(() => {
-            return new Promise((resolve) => {
-              testServer.startAwaitingCompilation(config, testOptions, resolve);
-            });
-          })
-          .then(() => {
-            // make sure the previous Promise is not passing along strange arguments to runBrowser
-            return runBrowser();
-          })
-          .then(({ page, browser }) => {
-            return new Promise((resolve) => {
-              page.goto(`http://localhost:${port2}/main`);
-              page.on('console', ({ _text }) => {
-                res.push(_text);
-              });
-              // wait for load before closing the browser
-              page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-                page.waitFor(beforeBrowserCloseDelay).then(() => {
-                  browser.close().then(() => {
-                    resolve();
-                  });
-                });
-              });
-            });
-          })
-          .then(() => {
-            return new Promise((resolve) => {
-              testServer.close(resolve);
-            });
-          })
-          .then(() => {
-            // Order doesn't matter, maybe we should improve that in future
-            expect(res.sort()).toMatchSnapshot();
-            done();
-          });
+        const { page, browser } = await runBrowser();
+        page.goto(`http://localhost:${port2}/main`);
+        page.on('console', ({ _text }) => {
+          res.push(_text);
+        });
+        // wait for load before closing the browser
+        await page.waitForNavigation({ waitUntil: 'load' });
+        await page.waitFor(beforeBrowserCloseDelay);
+        await browser.close();
+        // Order doesn't matter, maybe we should improve that in future
+        await expect(res.sort()).toMatchSnapshot();
+        await testServer.close(done);
       });
     });
   });

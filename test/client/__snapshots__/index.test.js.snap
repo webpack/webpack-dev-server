@@ -8,7 +8,7 @@ exports[`index should run onSocketMessage.close (liveReload enabled) 1`] = `"[WD
 
 exports[`index should run onSocketMessage.close (liveReload enabled) 2`] = `"Close"`;
 
-exports[`index should run onSocketMessage.close 1`] = `"[WDS] Hot Module Replacement & Live Reloading are disabled!"`;
+exports[`index should run onSocketMessage.close 1`] = `"[WDS] Disconnected!"`;
 
 exports[`index should run onSocketMessage.close 2`] = `"Close"`;
 
