@@ -96,7 +96,7 @@ Array [
   Object {
     "foo": "bar",
   },
-  "{\\"type\\":\\"liveReload\\",\\"data\\":true}",
+  "{\\"type\\":\\"liveReload\\"}",
 ]
 `;
 
