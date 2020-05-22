@@ -137,6 +137,7 @@ const onSocketMessage = {
   },
   close() {
     log.error('[WDS] Disconnected!');
+
     sendMessage('Close');
   },
 };

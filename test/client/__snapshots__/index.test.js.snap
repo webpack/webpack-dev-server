@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`index should run onSocketMessage.close (hot enabled) 1`] = `"[WDS] Disconnected!"`;
+
+exports[`index should run onSocketMessage.close (hot enabled) 2`] = `"Close"`;
+
+exports[`index should run onSocketMessage.close (liveReload enabled) 1`] = `"[WDS] Disconnected!"`;
+
+exports[`index should run onSocketMessage.close (liveReload enabled) 2`] = `"Close"`;
+
 exports[`index should run onSocketMessage.close 1`] = `"[WDS] Disconnected!"`;
 
 exports[`index should run onSocketMessage.close 2`] = `"Close"`;
