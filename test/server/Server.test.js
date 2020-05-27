@@ -103,9 +103,13 @@ describe('Server', () => {
 
     server.log.error = logMock;
 
-    server.listeningApp.emit('error', new Error('Error !!!'));
+    const emitError = () =>
+      server.listeningApp.emit('error', new Error('Error !!!'));
+
+    expect(emitError).toThrowError();
     expect(server.log.error).toBeCalledWith(new Error('Error !!!'));
   });
+
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe('express.static.mine.types', () => {
     it("should success even if mine.types doesn't exist", (done) => {
