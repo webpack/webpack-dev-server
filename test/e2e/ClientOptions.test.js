@@ -405,9 +405,9 @@ describe('Client console.log', () => {
     },
     // TODO: make clientLogLevel work as expected for HMR logs
     {
-      title: 'clientLogLevel is silent',
+      title: 'clientLogLevel is none',
       options: {
-        clientLogLevel: 'silent',
+        clientLogLevel: 'none',
       },
     },
   ];

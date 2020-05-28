@@ -131,19 +131,8 @@ describe('options', () => {
         failure: [''],
       },
       clientLogLevel: {
-        success: [
-          'silent',
-          'info',
-          'error',
-          'warn',
-          'trace',
-          'debug',
-          // deprecated
-          'none',
-          // deprecated
-          'warning',
-        ],
-        failure: ['whoops!'],
+        success: ['none', 'error', 'warn', 'info', 'log', 'verbose'],
+        failure: ['whoops!', 'silent'],
       },
       clientOptions: {
         success: [
