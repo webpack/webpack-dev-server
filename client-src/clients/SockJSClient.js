@@ -13,7 +13,7 @@ module.exports = class SockJSClient extends BaseClient {
     this.sock = new SockJS(url);
 
     this.sock.onerror = (err) => {
-      log.error('[WDS]', err);
+      log.error(err);
     };
   }
 

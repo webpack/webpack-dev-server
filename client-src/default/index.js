@@ -37,14 +37,14 @@ if (typeof window !== 'undefined') {
 const onSocketMessage = {
   hot() {
     options.hot = true;
-    log.info('[WDS] Hot Module Replacement enabled.');
+    log.info('Hot Module Replacement enabled.');
   },
   liveReload() {
     options.liveReload = true;
-    log.info('[WDS] Live Reloading enabled.');
+    log.info('Live Reloading enabled.');
   },
   invalid() {
-    log.info('[WDS] App updated. Recompiling...');
+    log.info('App updated. Recompiling...');
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
@@ -55,7 +55,7 @@ const onSocketMessage = {
     status.currentHash = hash;
   },
   'still-ok': function stillOk() {
-    log.info('[WDS] Nothing changed.');
+    log.info('Nothing changed.');
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
@@ -66,6 +66,7 @@ const onSocketMessage = {
     if (hotCtx.keys().indexOf('./log') !== -1) {
       hotCtx('./log').setLogLevel(level);
     }
+
     setLogLevel(level);
   },
   overlay(value) {
@@ -86,7 +87,7 @@ const onSocketMessage = {
   },
   'progress-update': function progressUpdate(data) {
     if (options.useProgress) {
-      log.info(`[WDS] ${data.percent}% - ${data.msg}.`);
+      log.info(`${data.percent}% - ${data.msg}.`);
     }
     sendMessage('Progress', data);
   },
@@ -101,11 +102,11 @@ const onSocketMessage = {
     reloadApp(options, status);
   },
   'content-changed': function contentChanged() {
-    log.info('[WDS] Content base changed. Reloading...');
+    log.info('Content base changed. Reloading...');
     self.location.reload();
   },
   warnings(warnings) {
-    log.warn('[WDS] Warnings while compiling.');
+    log.warn('Warnings while compiling.');
     const strippedWarnings = warnings.map((warning) => stripAnsi(warning));
     sendMessage('Warnings', strippedWarnings);
     for (let i = 0; i < strippedWarnings.length; i++) {
@@ -121,7 +122,7 @@ const onSocketMessage = {
     reloadApp(options, status);
   },
   errors(errors) {
-    log.error('[WDS] Errors while compiling. Reload prevented.');
+    log.error('Errors while compiling. Reload prevented.');
     const strippedErrors = errors.map((error) => stripAnsi(error));
     sendMessage('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) {
@@ -136,7 +137,7 @@ const onSocketMessage = {
     log.error(error);
   },
   close() {
-    log.error('[WDS] Disconnected!');
+    log.error('Disconnected!');
 
     sendMessage('Close');
   },

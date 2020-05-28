@@ -14,7 +14,7 @@ module.exports = class WebsocketClient extends BaseClient {
     this.client = new WebSocket(url.replace(/^http/, 'ws'));
 
     this.client.onerror = (err) => {
-      log.error('[WDS]', err);
+      log.error(err);
     };
   }
 

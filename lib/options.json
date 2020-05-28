@@ -11,16 +11,7 @@
       "type": "boolean"
     },
     "clientLogLevel": {
-      "enum": [
-        "info",
-        "warn",
-        "error",
-        "debug",
-        "trace",
-        "silent",
-        "none",
-        "warning"
-      ]
+      "enum": ["none", "error", "warn", "info", "log", "verbose"]
     },
     "clientOptions": {
       "type": "object",

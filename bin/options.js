@@ -78,7 +78,7 @@ const options = {
     group: DISPLAY_GROUP,
     default: 'info',
     describe:
-      'Log level in the browser (trace, debug, info, warn, error or silent)',
+      'Log level in the browser (none, error, warn, info, log, verbose)',
   },
   https: {
     type: 'boolean',
