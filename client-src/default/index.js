@@ -1,5 +1,10 @@
 'use strict';
 
+// webpack@5 doesn't inject node polyfill automatically
+// this is for tapable
+window.process = require('process/browser');
+require('util/util');
+
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
 const stripAnsi = require('strip-ansi');

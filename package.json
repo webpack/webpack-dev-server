@@ -53,6 +53,7 @@
     "open": "^7.0.4",
     "p-retry": "^4.2.0",
     "portfinder": "^1.0.26",
+    "process": "^0.11.10",
     "schema-utils": "^2.7.0",
     "selfsigned": "^1.10.7",
     "serve-index": "^1.9.1",
@@ -62,6 +63,7 @@
     "strip-ansi": "^6.0.0",
     "supports-color": "^7.1.0",
     "url": "^0.11.0",
+    "util": "^0.12.3",
     "webpack-dev-middleware": "^3.7.2",
     "ws": "^7.2.5",
     "yargs": "^13.3.2"
