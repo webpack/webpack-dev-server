@@ -1,6 +1,7 @@
 'use strict';
 
 // webpack@5 doesn't inject node polyfill automatically
+window.global = window.global || window;
 // this is for tapable
 window.process = require('process/browser');
 require('util/util');
