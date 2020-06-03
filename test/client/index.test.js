@@ -53,6 +53,13 @@ describe('index', () => {
       () => 'mock-url'
     );
 
+    // issue: https://github.com/jsdom/jsdom/issues/2112
+    delete window.location;
+    window.location = {
+      ...locationValue,
+      reload: jest.fn(),
+    };
+
     require('../../client-src/default');
     onSocketMessage = socket.mock.calls[0][1];
   });
@@ -158,8 +165,7 @@ describe('index', () => {
     onSocketMessage['content-changed']();
 
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
-    // TODO(hiroppy): need to investigate because of updated jest
-    // expect(self.location.reload).toBeCalled();
+    expect(self.location.reload).toBeCalled();
   });
 
   test('should run onSocketMessage.warnings', () => {
