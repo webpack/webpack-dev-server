@@ -366,22 +366,42 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('clientLogLevel option', () => {
+  it('clientLogging option', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign({}, argv, { clientLogLevel: 'none' }),
+      Object.assign({}, argv, { clientLogging: 'none' }),
       { port: 8080 }
     );
 
     expect(config).toMatchSnapshot();
   });
 
-  it('clientLogLevel option (in devServer config)', () => {
+  it('client.logging option (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { clientLogLevel: 'none' },
+        devServer: {
+          client: {
+            logging: 'none',
+          },
+        },
       }),
       argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('clientLogging option overrides devServer config', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: {
+          clientOptions: {
+            logging: 'verbose',
+          },
+        },
+      }),
+      Object.assign({}, argv, { clientLogging: 'none' }),
       { port: 8080 }
     );
 

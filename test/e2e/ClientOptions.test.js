@@ -403,11 +403,13 @@ describe('Client console.log', () => {
         hot: false,
       },
     },
-    // TODO: make clientLogLevel work as expected for HMR logs
+    // TODO: make client logging work as expected for HMR logs
     {
-      title: 'clientLogLevel is none',
+      title: 'client logging is none',
       options: {
-        clientLogLevel: 'none',
+        clientOptions: {
+          logging: 'none',
+        },
       },
     },
   ];

@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Client console.log clientLogLevel is none (default) 1`] = `
+exports[`Client console.log client logging is none (default) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
 ]
 `;
 
-exports[`Client console.log clientLogLevel is none (sockjs) 1`] = `
+exports[`Client console.log client logging is none (sockjs) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
 ]
 `;
 
-exports[`Client console.log clientLogLevel is none (ws) 1`] = `
+exports[`Client console.log client logging is none (ws) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",

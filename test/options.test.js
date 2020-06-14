@@ -130,10 +130,6 @@ describe('options', () => {
         success: [false],
         failure: [''],
       },
-      clientLogLevel: {
-        success: ['none', 'error', 'warn', 'info', 'log', 'verbose'],
-        failure: ['whoops!', 'silent'],
-      },
       clientOptions: {
         success: [
           {
@@ -156,9 +152,40 @@ describe('options', () => {
           },
           {
             clientOptions: {
+              logging: 'none',
+            },
+          },
+          {
+            clientOptions: {
+              logging: 'error',
+            },
+          },
+          {
+            clientOptions: {
+              logging: 'warn',
+            },
+          },
+          {
+            clientOptions: {
+              logging: 'info',
+            },
+          },
+          {
+            clientOptions: {
+              logging: 'log',
+            },
+          },
+          {
+            clientOptions: {
+              logging: 'verbose',
+            },
+          },
+          {
+            clientOptions: {
               host: '',
               path: '',
               port: 8080,
+              logging: 'none',
             },
           },
           {
@@ -188,6 +215,16 @@ describe('options', () => {
               host: true,
               path: '',
               port: 8080,
+            },
+          },
+          {
+            clientOptions: {
+              logging: 'whoops!',
+            },
+          },
+          {
+            clientOptions: {
+              logging: 'silent',
             },
           },
         ],
