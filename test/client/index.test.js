@@ -110,8 +110,8 @@ describe('index', () => {
   });
 
   // TODO: need to mock require.context
-  test.skip("should run onSocketMessage['log-level']", () => {
-    onSocketMessage['log-level']();
+  test.skip("should run onSocketMessage['logging']", () => {
+    onSocketMessage.logging();
   });
 
   test("should run onSocketMessage.progress and onSocketMessage['progress-update']", () => {

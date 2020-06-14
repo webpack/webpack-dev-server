@@ -65,7 +65,7 @@ module.exports = {
       describe: 'Open default browser with the specified page',
     },
     {
-      name: 'client-log-level',
+      name: 'client-logging',
       type: String,
       group: DISPLAY_GROUP,
       defaultValue: 'info',

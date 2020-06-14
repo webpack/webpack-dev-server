@@ -73,7 +73,7 @@ const options = {
     group: DISPLAY_GROUP,
     describe: 'Enables/Disables colors on the console',
   },
-  'client-log-level': {
+  'client-logging': {
     type: 'string',
     group: DISPLAY_GROUP,
     default: 'info',

@@ -67,7 +67,7 @@ const onSocketMessage = {
     }
     sendMessage('StillOk');
   },
-  'log-level': function logLevel(level) {
+  logging: function logging(level) {
     // this is needed because the HMR logger operate separately from
     // dev server logger
     const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);

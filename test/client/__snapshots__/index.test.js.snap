@@ -94,7 +94,7 @@ Array [
     "hot": [Function],
     "invalid": [Function],
     "liveReload": [Function],
-    "log-level": [Function],
+    "logging": [Function],
     "ok": [Function],
     "overlay": [Function],
     "progress": [Function],
