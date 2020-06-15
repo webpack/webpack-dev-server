@@ -2,9 +2,8 @@
 
 // webpack@5 doesn't inject node polyfill automatically
 window.global = window.global || window;
-// this is for tapable
-window.process = require('process/browser');
-require('util/util');
+window.process = window.process || {};
+window.process.env = window.process.env || {};
 
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
