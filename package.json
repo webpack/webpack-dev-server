@@ -19,7 +19,6 @@
     "lint": "npm-run-all -l -p \"lint:**\"",
     "lint:type": "tsc --noEmit",
     "commitlint": "commitlint --from=master",
-    "security": "npm audit",
     "test:only": "jest --forceExit",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
