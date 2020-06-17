@@ -30,7 +30,6 @@
     "build:client:clients": "babel client-src/clients --out-dir client/clients",
     "build:client:index": "webpack --color --config client-src/default/webpack.config.js",
     "build:client:sockjs": "webpack --color --config client-src/sockjs/webpack.config.js",
-    "build:client:log": "webpack --color --config client-src/log/webpack.config.js",
     "build:client": "rimraf ./client/* && npm-run-all -s -l -p \"build:client:**\"",
     "webpack-dev-server": "node examples/run-example.js",
     "release": "standard-version"
