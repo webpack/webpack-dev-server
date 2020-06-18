@@ -1,6 +1,9 @@
 'use strict';
 
 /* global WorkerGlobalScope self */
+/* eslint-disable
+  camelcase
+*/
 
 const { log } = require('./log');
 
@@ -13,7 +16,12 @@ function reloadApp(
   }
   if (hot) {
     log.info('App hot update...');
-    const hotEmitter = require('webpack/hot/emitter');
+    const hotEmitter =
+      typeof __webpack_hot_emitter__ !== 'undefined'
+        ? // eslint-disable-next-line no-undef
+          __webpack_hot_emitter__
+        : // eslint-disable-next-line import/no-unresolved
+          require('webpack/hot/emitter');
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {
       // broadcast update to window
