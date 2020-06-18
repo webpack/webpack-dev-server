@@ -26,6 +26,7 @@
     "pretest": "npm run lint",
     "prepare": "rimraf ./ssl/*.pem && npm run build:client",
     "build:client:default": "babel client-src/default --out-dir client/default --ignore \"./client-src/default/*.config.js\"",
+    "build:client:entry": "babel client-src/entry --out-dir client/entry --ignore \"./client-src/entry/bundle.js\"",
     "build:client:clients": "babel client-src/clients --out-dir client/clients",
     "build:client:index": "webpack --color --config client-src/default/webpack.config.js",
     "build:client:sockjs": "webpack --color --config client-src/sockjs/webpack.config.js",

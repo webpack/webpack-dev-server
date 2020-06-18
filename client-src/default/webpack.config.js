@@ -6,8 +6,9 @@ module.exports = {
   mode: 'production',
   entry: path.join(__dirname, 'index.js'),
   output: {
-    path: path.resolve(__dirname, '../../client/default'),
-    filename: 'index.bundle.js',
+    path: path.resolve(__dirname, '../../client/entry'),
+    filename: 'bundle.js',
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
