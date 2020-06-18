@@ -1,11 +1,23 @@
 'use strict';
 
+jest.setMock('../../../client/entry/bundle.js', jest.fn());
+
 const request = require('supertest');
 const testServer = require('../../helpers/test-server');
 const config = require('../../fixtures/simple-config/webpack.config');
 const port = require('../../ports-map').entry;
+const bundle = require('../../../client/entry/bundle');
 
 describe('entry', () => {
+  describe('module', () => {
+    it('should pass resource query to bundle', () => {
+      global.__resourceQuery = 'test';
+      require('../../../client/entry');
+      expect(bundle.mock.calls.length).toEqual(1);
+      expect(bundle.mock.calls[0][0]).toEqual('test');
+    });
+  });
+
   describe('bundled output', () => {
     let server;
     let req;
