@@ -4,7 +4,7 @@ exports[`Server addEntries add hot option 1`] = `
 Array [
   Array [
     "client",
-    "default",
+    "entry",
     "index.js?http:",
     "localhost:8100",
   ],
@@ -24,7 +24,7 @@ exports[`Server addEntries add hot-only option 1`] = `
 Array [
   Array [
     "client",
-    "default",
+    "entry",
     "index.js?http:",
     "localhost:8100",
   ],

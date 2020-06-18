@@ -13,10 +13,9 @@ describe('index', () => {
   let sendMessage;
   let onSocketMessage;
   const locationValue = self.location;
-  const resourceQueryValue = global.__resourceQuery;
 
   beforeEach(() => {
-    global.__resourceQuery = 'foo';
+    const resourceQuery = 'foo';
 
     // log
     jest.setMock('../../client-src/default/utils/log.js', {
@@ -60,12 +59,13 @@ describe('index', () => {
       reload: jest.fn(),
     };
 
-    require('../../client-src/default');
+    const init = require('../../client-src/default');
+    init(resourceQuery);
+
     onSocketMessage = socket.mock.calls[0][1];
   });
 
   afterEach(() => {
-    global.__resourceQuery = resourceQueryValue;
     Object.assign(self, locationValue);
     jest.resetAllMocks();
     jest.resetModules();

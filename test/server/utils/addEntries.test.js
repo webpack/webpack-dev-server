@@ -18,7 +18,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/default/index.js?') !==
+      normalize(webpackOptions.entry[0]).indexOf('client/entry/index.js?') !==
         -1
     ).toBeTruthy();
     expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
@@ -35,7 +35,7 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(3);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/default/index.js?') !==
+      normalize(webpackOptions.entry[0]).indexOf('client/entry/index.js?') !==
         -1
     ).toBeTruthy();
     expect(webpackOptions.entry[1]).toEqual('./foo.js');
@@ -58,7 +58,7 @@ describe('addEntries util', () => {
 
     expect(
       normalize(webpackOptions.entry.foo[0]).indexOf(
-        'client/default/index.js?'
+        'client/entry/index.js?'
       ) !== -1
     ).toBeTruthy();
     expect(webpackOptions.entry.foo[1]).toEqual('./foo.js');
@@ -329,7 +329,7 @@ describe('addEntries util', () => {
       if (expectInline) {
         expect(
           normalize(webpackOptions.entry[0]).indexOf(
-            'client/default/index.js?'
+            'client/entry/index.js?'
           ) !== -1
         ).toBeTruthy();
       }
@@ -363,7 +363,7 @@ describe('addEntries util', () => {
       if (expectInline) {
         expect(
           normalize(webpackOptions.entry[0]).indexOf(
-            'client/default/index.js?'
+            'client/entry/index.js?'
           ) !== -1
         ).toBeTruthy();
       }
@@ -421,7 +421,7 @@ describe('addEntries util', () => {
 
     expect(
       normalize(webWebpackOptions.entry[0]).indexOf(
-        'client/default/index.js?'
+        'client/entry/index.js?'
       ) !== -1
     ).toBeTruthy();
 
