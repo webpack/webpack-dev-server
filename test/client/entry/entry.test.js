@@ -30,7 +30,7 @@ describe('entry', () => {
 
     afterAll(testServer.close);
 
-    it('should not include const', async () => {
+    it('should get full user bundle and parse with ES5', async () => {
       const { text } = await req
         .get('/main.js')
         .expect('Content-Type', 'application/javascript; charset=UTF-8')
