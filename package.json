@@ -76,6 +76,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@jest/test-sequencer": "^26.0.1",
+    "acorn": "^7.3.1",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",

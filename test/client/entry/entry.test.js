@@ -2,6 +2,7 @@
 
 jest.setMock('../../../client/entry/bundle.js', jest.fn());
 
+const acorn = require('acorn');
 const request = require('supertest');
 const testServer = require('../../helpers/test-server');
 const config = require('../../fixtures/simple-config/webpack.config');
@@ -35,7 +36,11 @@ describe('entry', () => {
         .expect('Content-Type', 'application/javascript; charset=UTF-8')
         .expect(200);
 
-      expect(text).not.toContain('const ');
+      expect(() => {
+        acorn.parse(text, {
+          ecmaVersion: 5,
+        });
+      }).not.toThrow();
     });
   });
 });
