@@ -74,7 +74,7 @@ function init(resourceQuery) {
       if (hotCtx.keys().indexOf('./log') !== -1) {
         hotCtx('./log').setLogLevel(level);
       }
-  
+
       setLogLevel(level);
     },
     overlay(value) {
@@ -123,7 +123,7 @@ function init(resourceQuery) {
       if (options.useWarningOverlay) {
         overlay.showMessage(warnings);
       }
-  
+
       if (options.initial) {
         return (options.initial = false);
       } // eslint-disable-line no-return-assign
