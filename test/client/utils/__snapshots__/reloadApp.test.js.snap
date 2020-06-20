@@ -1,10 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`reloadApp should run hot 1`] = `"App hot update..."`;
+exports[`reloadApp should run hot if emitter not passed in 1`] = `"App hot update..."`;
 
-exports[`reloadApp should run hot 2`] = `"webpackHotUpdate"`;
+exports[`reloadApp should run hot if emitter not passed in 2`] = `"webpackHotUpdate"`;
 
-exports[`reloadApp should run hot 3`] = `
+exports[`reloadApp should run hot if emitter not passed in 3`] = `
+Array [
+  "webpackHotUpdatehash",
+  "*",
+]
+`;
+
+exports[`reloadApp should run hot if emitter passed in 1`] = `"App hot update..."`;
+
+exports[`reloadApp should run hot if emitter passed in 2`] = `"webpackHotUpdate"`;
+
+exports[`reloadApp should run hot if emitter passed in 3`] = `
 Array [
   "webpackHotUpdatehash",
   "*",

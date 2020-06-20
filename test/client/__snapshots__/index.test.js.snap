@@ -43,15 +43,22 @@ exports[`index should run onSocketMessage.liveReload 1`] = `"Live Reloading enab
 exports[`index should run onSocketMessage.ok 1`] = `"Ok"`;
 
 exports[`index should run onSocketMessage.ok 2`] = `
-Object {
-  "hot": false,
-  "hotReload": true,
-  "initial": false,
-  "liveReload": false,
-  "useErrorOverlay": false,
-  "useProgress": false,
-  "useWarningOverlay": false,
-}
+Array [
+  Object {
+    "hot": false,
+    "hotReload": true,
+    "initial": false,
+    "liveReload": false,
+    "useErrorOverlay": false,
+    "useProgress": false,
+    "useWarningOverlay": false,
+  },
+  Object {
+    "currentHash": "mock-hash",
+    "isUnloading": false,
+  },
+  "bar",
+]
 `;
 
 exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] 1`] = `"Progress"`;

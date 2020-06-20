@@ -45,19 +45,43 @@ describe('reloadApp', () => {
     expect(log.getLogger.mock.results[0].value.info).not.toBeCalled();
   });
 
-  test('should run hot', () => {
+  test('should run hot if emitter not passed in', () => {
     jest.mock('webpack/hot/emitter');
     const emitter = require('webpack/hot/emitter');
     emitter.emit = jest.fn();
 
     reloadApp(
       { hot: true, hotReload: true },
-      { isUnloading: false, currentHash: 'hash' }
+      { isUnloading: false, currentHash: 'hash' },
+      null
     );
 
     expect(
       log.getLogger.mock.results[0].value.info.mock.calls[0][0]
     ).toMatchSnapshot();
+    expect(emitter.emit.mock.calls[0][0]).toMatchSnapshot();
+    expect(self.postMessage.mock.calls[0]).toMatchSnapshot();
+  });
+
+  test('should run hot if emitter passed in', () => {
+    jest.mock('webpack/hot/emitter');
+    const emitterModule = require('webpack/hot/emitter');
+    emitterModule.emit = jest.fn();
+
+    const emitter = {
+      emit: jest.fn(),
+    };
+
+    reloadApp(
+      { hot: true, hotReload: true },
+      { isUnloading: false, currentHash: 'hash' },
+      emitter
+    );
+
+    expect(
+      log.getLogger.mock.results[0].value.info.mock.calls[0][0]
+    ).toMatchSnapshot();
+    expect(emitterModule.emit).not.toBeCalled();
     expect(emitter.emit.mock.calls[0][0]).toMatchSnapshot();
     expect(self.postMessage.mock.calls[0]).toMatchSnapshot();
   });
@@ -72,7 +96,8 @@ describe('reloadApp', () => {
 
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false }
+      { isUnloading: false },
+      null
     );
 
     setTimeout(() => {
@@ -87,7 +112,8 @@ describe('reloadApp', () => {
   test('should run liveReload when protocol is http:', (done) => {
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false }
+      { isUnloading: false },
+      null
     );
 
     setTimeout(() => {

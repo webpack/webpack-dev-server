@@ -157,7 +157,7 @@ describe('index', () => {
 
       const res = onSocketMessage.ok();
       expect(reloadApp).toBeCalled();
-      expect(reloadApp.mock.calls[0][0]).toMatchSnapshot();
+      expect(reloadApp.mock.calls[0]).toMatchSnapshot();
       expect(res).toEqual(undefined);
     }
   });
