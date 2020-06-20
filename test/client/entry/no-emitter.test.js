@@ -9,11 +9,9 @@ global.__resourceQuery = 'test1';
 const bundle = require('../../../client/entry/bundle');
 
 describe('entry without emitter', () => {
-  describe('module', () => {
-    it('should pass resource query to bundle without emitter', () => {
-      require('../../../client/entry');
-      expect(bundle.mock.calls.length).toEqual(1);
-      expect(bundle.mock.calls[0]).toEqual(['test1', null]);
-    });
+  it('should pass resource query to bundle without emitter', () => {
+    require('../../../client/entry');
+    expect(bundle.mock.calls.length).toEqual(1);
+    expect(bundle.mock.calls[0]).toEqual(['test1', null]);
   });
 });
