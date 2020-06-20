@@ -16,7 +16,8 @@ describe('index', () => {
 
   beforeEach(() => {
     const resourceQuery = 'foo';
-    const hotEmitter = 'bar';
+    const hotEmitter = 'hotEmitter';
+    const clientClass = 'clientClass';
 
     // log
     jest.setMock('../../client-src/default/utils/log.js', {
@@ -61,7 +62,7 @@ describe('index', () => {
     };
 
     const init = require('../../client-src/default');
-    init(resourceQuery, hotEmitter);
+    init(resourceQuery, hotEmitter, clientClass);
 
     onSocketMessage = socket.mock.calls[0][1];
   });

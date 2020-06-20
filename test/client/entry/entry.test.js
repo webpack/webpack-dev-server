@@ -5,6 +5,7 @@ jest.setMock('../../../client/entry/bundle.js', jest.fn());
 
 global.__resourceQuery = 'test1';
 global.__webpack_hot_emitter__ = 'test2';
+global.__webpack_dev_server_client__ = 'test3';
 
 const acorn = require('acorn');
 const request = require('supertest');
@@ -19,7 +20,7 @@ describe('entry', () => {
     it('should pass resource query and emitter to bundle', () => {
       require('../../../client/entry');
       expect(bundle.mock.calls.length).toEqual(1);
-      expect(bundle.mock.calls[0]).toEqual(['test1', 'test2']);
+      expect(bundle.mock.calls[0]).toEqual(['test1', 'test2', 'test3']);
     });
   });
 
@@ -27,7 +28,7 @@ describe('entry', () => {
     it('should call unbundled init function', () => {
       require('../../../client-src/entry');
       expect(init.mock.calls.length).toEqual(1);
-      expect(init.mock.calls[0]).toEqual(['test1', 'test2']);
+      expect(init.mock.calls[0]).toEqual(['test1', 'test2', 'test3']);
     });
   });
 

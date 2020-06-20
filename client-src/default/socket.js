@@ -1,22 +1,12 @@
 'use strict';
 
-/* global __webpack_dev_server_client__ */
-/* eslint-disable
-  camelcase
-*/
-
-// this WebsocketClient is here as a default fallback,
-//  in case the client is not injected
-const Client =
-  typeof __webpack_dev_server_client__ !== 'undefined'
-    ? __webpack_dev_server_client__
-    : // eslint-disable-next-line import/no-unresolved
-      require('../clients/WebsocketClient');
-
 let retries = 0;
 let client = null;
 
-const socket = function initSocket(url, handlers) {
+const socket = function initSocket(url, handlers, clientClass) {
+  // this WebsocketClient is here as a default fallback,
+  // in case the client is not injected
+  const Client = clientClass || require('../clients/WebsocketClient');
   client = new Client(url);
 
   client.onOpen(() => {

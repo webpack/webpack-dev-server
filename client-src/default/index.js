@@ -15,7 +15,7 @@ const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
 const createSocketUrl = require('./utils/createSocketUrl');
 
-function init(resourceQuery, hotEmitter) {
+function init(resourceQuery, hotEmitter, clientClass) {
   const status = {
     isUnloading: false,
     currentHash: '',
@@ -151,7 +151,7 @@ function init(resourceQuery, hotEmitter) {
     },
   };
 
-  socket(socketUrl, onSocketMessage);
+  socket(socketUrl, onSocketMessage, clientClass);
 }
 
 module.exports = init;

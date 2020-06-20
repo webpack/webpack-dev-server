@@ -12,6 +12,6 @@ describe('entry without emitter', () => {
   it('should pass resource query to bundle without emitter', () => {
     require('../../../client/entry');
     expect(bundle.mock.calls.length).toEqual(1);
-    expect(bundle.mock.calls[0]).toEqual(['test1', null]);
+    expect(bundle.mock.calls[0]).toEqual(['test1', null, null]);
   });
 });

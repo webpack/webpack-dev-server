@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 1`] = `
+exports[`socket should default to WebsocketClient when no clientClass provided 1`] = `
 Array [
   "my.url",
 ]
 `;
 
-exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 2`] = `
+exports[`socket should default to WebsocketClient when no clientClass provided 2`] = `
 Array [
   Array [
     [Function],
@@ -14,7 +14,7 @@ Array [
 ]
 `;
 
-exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 3`] = `
+exports[`socket should default to WebsocketClient when no clientClass provided 3`] = `
 Array [
   Array [
     [Function],
@@ -22,7 +22,7 @@ Array [
 ]
 `;
 
-exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 4`] = `
+exports[`socket should default to WebsocketClient when no clientClass provided 4`] = `
 Array [
   Array [
     [Function],
@@ -30,7 +30,7 @@ Array [
 ]
 `;
 
-exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 5`] = `
+exports[`socket should default to WebsocketClient when no clientClass provided 5`] = `
 Array [
   Array [
     "hello world",
@@ -38,13 +38,13 @@ Array [
 ]
 `;
 
-exports[`socket should use __webpack_dev_server_client__ when set 1`] = `
+exports[`socket should use clientClass when passed in 1`] = `
 Array [
   "my.url",
 ]
 `;
 
-exports[`socket should use __webpack_dev_server_client__ when set 2`] = `
+exports[`socket should use clientClass when passed in 2`] = `
 Array [
   Array [
     [Function],
@@ -52,7 +52,7 @@ Array [
 ]
 `;
 
-exports[`socket should use __webpack_dev_server_client__ when set 3`] = `
+exports[`socket should use clientClass when passed in 3`] = `
 Array [
   Array [
     [Function],
@@ -60,7 +60,7 @@ Array [
 ]
 `;
 
-exports[`socket should use __webpack_dev_server_client__ when set 4`] = `
+exports[`socket should use clientClass when passed in 4`] = `
 Array [
   Array [
     [Function],
@@ -68,7 +68,7 @@ Array [
 ]
 `;
 
-exports[`socket should use __webpack_dev_server_client__ when set 5`] = `
+exports[`socket should use clientClass when passed in 5`] = `
 Array [
   Array [
     "hello world",
