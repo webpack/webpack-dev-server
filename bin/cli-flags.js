@@ -65,12 +65,12 @@ module.exports = {
       describe: 'Open default browser with the specified page',
     },
     {
-      name: 'client-log-level',
+      name: 'client-logging',
       type: String,
       group: DISPLAY_GROUP,
       defaultValue: 'info',
       describe:
-        'Log level in the browser (trace, debug, info, warn, error or silent)',
+        'Log level in the browser (none, error, warn, info, log, verbose)',
     },
     {
       name: 'https',

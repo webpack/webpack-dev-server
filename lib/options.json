@@ -10,18 +10,6 @@
     "bonjour": {
       "type": "boolean"
     },
-    "clientLogLevel": {
-      "enum": [
-        "info",
-        "warn",
-        "error",
-        "debug",
-        "trace",
-        "silent",
-        "none",
-        "warning"
-      ]
-    },
     "clientOptions": {
       "type": "object",
       "properties": {
@@ -43,6 +31,9 @@
               "type": "null"
             }
           ]
+        },
+        "logging": {
+          "enum": ["none", "error", "warn", "info", "log", "verbose"]
         }
       },
       "additionalProperties": false
@@ -399,7 +390,6 @@
     "properties": {
       "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserverallowedhosts)",
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
-      "clientLogLevel": "should be {String} and equal to one of the allowed values\n\n [ 'none', 'silent', 'info', 'debug', 'trace', 'error', 'warning', 'warn' ]\n\n (https://webpack.js.org/configuration/dev-server/#devserverclientloglevel)",
       "clientOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclientoptions)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",

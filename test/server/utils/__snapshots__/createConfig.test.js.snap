@@ -58,9 +58,11 @@ Object {
 }
 `;
 
-exports[`createConfig clientLogLevel option (in devServer config) 1`] = `
+exports[`createConfig client.logging option (in devServer config) 1`] = `
 Object {
-  "clientLogLevel": "none",
+  "client": Object {
+    "logging": "none",
+  },
   "hot": true,
   "port": 8080,
   "publicPath": "/",
@@ -71,9 +73,26 @@ Object {
 }
 `;
 
-exports[`createConfig clientLogLevel option 1`] = `
+exports[`createConfig clientLogging option 1`] = `
 Object {
-  "clientLogLevel": "none",
+  "clientOptions": Object {
+    "logging": "none",
+  },
+  "hot": true,
+  "port": 8080,
+  "publicPath": "/",
+  "stats": Object {
+    "cached": false,
+    "cachedAssets": false,
+  },
+}
+`;
+
+exports[`createConfig clientLogging option overrides devServer config 1`] = `
+Object {
+  "clientOptions": Object {
+    "logging": "none",
+  },
   "hot": true,
   "port": 8080,
   "publicPath": "/",
@@ -917,7 +936,7 @@ Object {
 
 exports[`createConfig use webpack stats 1`] = `
 Object {
-  "clientLogLevel": "_clientLogLevel",
+  "clientLogging": "_clientLogging",
   "compress": "_compress",
   "contentBase": "_contentBase",
   "disableHostCheck": "_disableHostCheck",
@@ -943,7 +962,7 @@ Object {
 exports[`createConfig use webpack stats 2`] = `
 Object {
   "devServer": Object {
-    "clientLogLevel": "_clientLogLevel",
+    "clientLogging": "_clientLogging",
     "compress": "_compress",
     "contentBase": "_contentBase",
     "disableHostCheck": "_disableHostCheck",

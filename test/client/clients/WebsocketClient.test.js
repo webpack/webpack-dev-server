@@ -58,7 +58,7 @@ describe('WebsocketClient', () => {
       client.client.onerror(testError);
 
       expect(log.error.mock.calls.length).toEqual(1);
-      expect(log.error.mock.calls[0]).toEqual(['[WDS]', testError]);
+      expect(log.error.mock.calls[0]).toEqual([testError]);
 
       setTimeout(() => {
         expect(data).toMatchSnapshot();

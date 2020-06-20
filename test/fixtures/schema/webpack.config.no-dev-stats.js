@@ -12,7 +12,7 @@ module.exports = {
     progress: '_progress',
     publicPath: '_publicPath',
     hot: '_hot',
-    clientLogLevel: '_clientLogLevel',
+    clientLogging: '_clientLogging',
     contentBase: '_contentBase',
     watchContentBase: '_watchContentBase',
     https: '_https',

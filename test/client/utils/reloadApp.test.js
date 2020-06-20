@@ -16,13 +16,12 @@ describe('reloadApp', () => {
       value: { reload: jest.fn() },
     });
 
-    jest.mock('loglevel');
+    jest.mock('webpack/lib/logging/runtime');
 
-    log = require('loglevel');
+    log = require('webpack/lib/logging/runtime');
     log.getLogger.mockImplementation(() => {
       return {
         info: jest.fn(),
-        setDefaultLevel: jest.fn(),
       };
     });
 

@@ -49,7 +49,6 @@
     "ip": "^1.1.5",
     "is-absolute-url": "^3.0.3",
     "killable": "^1.0.1",
-    "loglevel": "^1.6.8",
     "open": "^7.0.4",
     "p-retry": "^4.2.0",
     "portfinder": "^1.0.26",
@@ -62,6 +61,7 @@
     "strip-ansi": "^6.0.0",
     "supports-color": "^7.1.0",
     "url": "^0.11.0",
+    "util": "^0.12.3",
     "webpack-dev-middleware": "^3.7.2",
     "ws": "^7.2.5",
     "yargs": "^13.3.2"
