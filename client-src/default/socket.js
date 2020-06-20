@@ -30,7 +30,7 @@ const socket = function initSocket(url, handlers, clientClass) {
       retries += 1;
 
       setTimeout(() => {
-        socket(url, handlers);
+        socket(url, handlers, clientClass);
       }, retryInMs);
     }
   });
