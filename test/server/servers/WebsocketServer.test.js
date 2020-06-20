@@ -19,7 +19,7 @@ describe('WebsocketServer', () => {
     listeningApp.listen(port, 'localhost', () => {
       server = {
         options: {
-          clientOptions: {
+          client: {
             path: '/ws-server',
           },
         },

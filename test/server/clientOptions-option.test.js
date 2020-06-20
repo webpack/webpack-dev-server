@@ -3,9 +3,9 @@
 const request = require('supertest');
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
-const port = require('../ports-map')['clientOptions-option'];
+const port = require('../ports-map')['client-option'];
 
-describe('clientOptions option', () => {
+describe('client option', () => {
   let server;
   let req;
 
@@ -30,7 +30,7 @@ describe('clientOptions option', () => {
 
     it('defaults to a path', () => {
       expect(
-        server.options.clientOptions.path.match(/\/[a-z0-9\-/]+[^/]$/)
+        server.options.client.path.match(/\/[a-z0-9\-/]+[^/]$/)
       ).toBeTruthy();
     });
 
@@ -47,7 +47,7 @@ describe('clientOptions option', () => {
         config,
         {
           transportMode: 'sockjs',
-          clientOptions: {
+          client: {
             path: '/foo/test/bar/',
           },
           port,
@@ -58,7 +58,7 @@ describe('clientOptions option', () => {
     });
 
     it('sets the sock path correctly and strips leading and trailing /s', () => {
-      expect(server.options.clientOptions.path).toEqual(path);
+      expect(server.options.client.path).toEqual(path);
     });
 
     it('responds with a 200 second', (done) => {
