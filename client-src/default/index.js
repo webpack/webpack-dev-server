@@ -146,6 +146,8 @@ function init(resourceQuery, hotEmitter) {
     },
     close() {
       log.error('Disconnected!');
+
+      sendMessage('Close');
     },
   };
 
