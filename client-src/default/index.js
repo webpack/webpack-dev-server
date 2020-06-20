@@ -15,7 +15,7 @@ const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
 const createSocketUrl = require('./utils/createSocketUrl');
 
-function init(resourceQuery) {
+function init(resourceQuery, hotEmitter) {
   const status = {
     isUnloading: false,
     currentHash: '',
@@ -107,7 +107,7 @@ function init(resourceQuery) {
       if (options.initial) {
         return (options.initial = false);
       } // eslint-disable-line no-return-assign
-      reloadApp(options, status);
+      reloadApp(options, status, hotEmitter);
     },
     'content-changed': function contentChanged() {
       log.info('Content base changed. Reloading...');
@@ -127,7 +127,7 @@ function init(resourceQuery) {
       if (options.initial) {
         return (options.initial = false);
       } // eslint-disable-line no-return-assign
-      reloadApp(options, status);
+      reloadApp(options, status, hotEmitter);
     },
     errors(errors) {
       log.error('Errors while compiling. Reload prevented.');
