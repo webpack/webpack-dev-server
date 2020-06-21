@@ -5,12 +5,14 @@
 /* eslint-disable
   no-unused-vars
 */
-const { log } = require('../default/utils/log');
+
 const BaseClient = require('./BaseClient');
 
 module.exports = class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
+    const { log } = require('../default/utils/log');
+
     this.client = new WebSocket(url.replace(/^http/, 'ws'));
 
     this.client.onerror = (err) => {

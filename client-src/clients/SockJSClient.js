@@ -4,12 +4,13 @@
   no-unused-vars
 */
 const SockJS = require('sockjs-client/dist/sockjs');
-const { log } = require('../default/utils/log');
 const BaseClient = require('./BaseClient');
 
 module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
+    const { log } = require('../default/utils/log');
+
     this.sock = new SockJS(url);
 
     this.sock.onerror = (err) => {
