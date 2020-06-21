@@ -9,6 +9,8 @@ const BaseClient = require('./BaseClient');
 module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
+    // we require the logger in here because otherwise
+    // webpack@5 polyfills do not get applied to it
     const { log } = require('../default/utils/log');
 
     this.sock = new SockJS(url);

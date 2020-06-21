@@ -11,6 +11,8 @@ const BaseClient = require('./BaseClient');
 module.exports = class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
+    // we require the logger in here because otherwise
+    // webpack@5 polyfills do not get applied to it
     const { log } = require('../default/utils/log');
 
     this.client = new WebSocket(url.replace(/^http/, 'ws'));

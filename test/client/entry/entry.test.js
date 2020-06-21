@@ -14,8 +14,13 @@ const config = require('../../fixtures/simple-config/webpack.config');
 const port = require('../../ports-map').entry;
 const init = require('../../../client-src/default');
 const bundle = require('../../../client/entry/bundle');
+const isWebpack5 = require('../../helpers/isWebpack5');
 
 describe('entry', () => {
+  // the ES5 check test for the bundle will not work on webpack@5,
+  // because webpack@5 bundle output uses some ES6 syntax
+  const runBundledOutputTest = isWebpack5 ? describe.skip : describe;
+
   describe('module', () => {
     it('should pass resource query and emitter to bundle', () => {
       require('../../../client/entry');
@@ -32,7 +37,7 @@ describe('entry', () => {
     });
   });
 
-  describe('bundled output', () => {
+  runBundledOutputTest('bundled output', () => {
     let server;
     let req;
 
