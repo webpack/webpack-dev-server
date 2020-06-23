@@ -9,7 +9,8 @@ const isWebpack5 = require('../helpers/isWebpack5');
 
 describe('bundle', () => {
   // the ES5 check test for the bundle will not work on webpack@5,
-  // because webpack@5 bundle output uses some ES6 syntax
+  // because webpack@5 bundle output uses some ES6 syntax that can
+  // only be avoided with babel-loader
   const runBundleTest = isWebpack5 ? describe.skip : describe;
 
   runBundleTest('bundled output', () => {
@@ -34,19 +35,23 @@ describe('bundle', () => {
         acorn.parse(text, {
           ecmaVersion: 5,
           onToken: (token) => {
+            // a webpack bundle is a series of evaluated JavaScript
+            // strings like this: eval('...')
+            // if we want the bundle to work using ES5, we need to
+            // check that these strings are good with ES5 as well
+
+            // this can be done by waiting for tokens during the main parse
+            // then when we hit a string in an 'eval' function we also try
+            // to parse that string with ES5
             if (token.type.label === 'name' && token.value === 'eval') {
               evalStep += 1;
             } else if (token.type.label === '(' && evalStep === 1) {
               evalStep += 1;
             } else if (token.type.label === 'string' && evalStep === 2) {
               const program = token.value;
-              try {
-                acorn.parse(program, {
-                  ecmaVersion: 5,
-                });
-              } catch (e) {
-                console.log(program);
-              }
+              acorn.parse(program, {
+                ecmaVersion: 5,
+              });
 
               evalStep = 0;
             }
