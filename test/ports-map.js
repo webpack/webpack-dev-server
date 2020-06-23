@@ -42,6 +42,8 @@ const portsList = {
   Iframe: 1,
   SocketInjection: 1,
   'static-publicPath-option': 1,
+  'contentBasePublicPath-option': 1,
+  bundle: 1,
 };
 
 let startPort = 8089;
