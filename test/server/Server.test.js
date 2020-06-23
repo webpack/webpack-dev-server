@@ -103,10 +103,11 @@ describe('Server', () => {
 
     server.log.error = logMock;
 
-    // const emitError = () =>
-    server.listeningApp.emit('error', new Error('Error !!!'));
+    const emitError = () =>
+      server.listeningApp.emit('error', new Error('Error !!!'));
 
-    // expect(emitError).toThrowError();
+    expect(emitError).toThrowError();
+
     expect(server.log.error).toBeCalledWith(new Error('Error !!!'));
   });
 
