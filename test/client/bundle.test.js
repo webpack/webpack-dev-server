@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
 const acorn = require('acorn');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
@@ -13,7 +15,21 @@ describe('bundle', () => {
   // only be avoided with babel-loader
   const runBundleTest = isWebpack5 ? describe.skip : describe;
 
-  runBundleTest('bundled output', () => {
+  runBundleTest('index.bundle.js bundled output', () => {
+    it('should parse with ES5', () => {
+      const bundleStr = fs.readFileSync(
+        path.resolve(__dirname, '../../client/default/index.bundle.js'),
+        'utf8'
+      );
+      expect(() => {
+        acorn.parse(bundleStr, {
+          ecmaVersion: 5,
+        });
+      }).not.toThrow();
+    });
+  });
+
+  runBundleTest('main.js bundled output', () => {
     let server;
     let req;
 
