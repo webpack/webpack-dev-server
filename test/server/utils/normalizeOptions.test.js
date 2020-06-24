@@ -103,10 +103,10 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'clientOptions host and port',
+      title: 'client host and port',
       multiCompiler: false,
       options: {
-        clientOptions: {
+        client: {
           host: 'my.host',
           port: 9000,
         },
@@ -114,20 +114,20 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'clientOptions path',
+      title: 'client path',
       multiCompiler: false,
       options: {
-        clientOptions: {
+        client: {
           path: '/custom/path/',
         },
       },
       optionsResults: null,
     },
     {
-      title: 'clientOptions path without leading/ending slashes',
+      title: 'client path without leading/ending slashes',
       multiCompiler: false,
       options: {
-        clientOptions: {
+        client: {
           path: 'custom/path',
         },
       },

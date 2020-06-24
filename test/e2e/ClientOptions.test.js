@@ -162,7 +162,7 @@ describe('sockjs public and client path', () => {
         poll: true,
       },
       public: 'myhost.test',
-      clientOptions: {
+      client: {
         path: '/foo/test/bar/',
       },
     };
@@ -203,7 +203,7 @@ describe('sockjs client path and port', () => {
       watchOptions: {
         poll: true,
       },
-      clientOptions: {
+      client: {
         path: '/foo/test/bar/',
         port: port3,
       },
@@ -249,7 +249,7 @@ describe('sockjs client port, no path', () => {
       watchOptions: {
         poll: true,
       },
-      clientOptions: {
+      client: {
         port: port3,
       },
     };
@@ -288,7 +288,7 @@ describe('sockjs client host', () => {
       watchOptions: {
         poll: true,
       },
-      clientOptions: {
+      client: {
         host: 'myhost.test',
       },
     };
@@ -327,7 +327,7 @@ describe('ws client host, port, and path', () => {
       watchOptions: {
         poll: true,
       },
-      clientOptions: {
+      client: {
         host: 'myhost',
         port: port3,
         path: '/foo/test/bar/',
@@ -407,7 +407,7 @@ describe('Client console.log', () => {
     {
       title: 'client logging is none',
       options: {
-        clientOptions: {
+        client: {
           logging: 'none',
         },
       },

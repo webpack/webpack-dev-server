@@ -439,10 +439,10 @@ describe('addEntries util', () => {
     expect(normalize(nodeWebpackOptions.entry[1])).toEqual('./foo.js');
   });
 
-  it('does not use clientOptions.path when default', () => {
+  it('does not use client.path when default', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = {
-      clientOptions: {
+      client: {
         path: '/ws',
       },
     };
@@ -451,10 +451,10 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry[0]).not.toContain('&path=/ws');
   });
 
-  it('uses custom clientOptions.path', () => {
+  it('uses custom client.path', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = {
-      clientOptions: {
+      client: {
         path: '/custom/path',
       },
     };
@@ -463,10 +463,10 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry[0]).toContain('&path=/custom/path');
   });
 
-  it('uses custom clientOptions', () => {
+  it('uses custom client', () => {
     const webpackOptions = Object.assign({}, config);
     const devServerOptions = {
-      clientOptions: {
+      client: {
         host: 'my.host',
         port: 8080,
         path: '/custom/path',

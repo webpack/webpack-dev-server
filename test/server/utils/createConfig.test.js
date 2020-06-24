@@ -396,7 +396,7 @@ describe('createConfig', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: {
-          clientOptions: {
+          client: {
             logging: 'verbose',
           },
         },

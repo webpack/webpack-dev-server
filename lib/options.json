@@ -10,7 +10,7 @@
     "bonjour": {
       "type": "boolean"
     },
-    "clientOptions": {
+    "client": {
       "type": "object",
       "properties": {
         "host": {
@@ -390,7 +390,7 @@
     "properties": {
       "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserverallowedhosts)",
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
-      "clientOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclientoptions)",
+      "client": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclient)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",

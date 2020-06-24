@@ -75,7 +75,7 @@ Object {
 
 exports[`createConfig clientLogging option 1`] = `
 Object {
-  "clientOptions": Object {
+  "client": Object {
     "logging": "none",
   },
   "hot": true,
@@ -90,7 +90,7 @@ Object {
 
 exports[`createConfig clientLogging option overrides devServer config 1`] = `
 Object {
-  "clientOptions": Object {
+  "client": Object {
     "logging": "none",
   },
   "hot": true,

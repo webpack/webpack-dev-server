@@ -130,58 +130,58 @@ describe('options', () => {
         success: [false],
         failure: [''],
       },
-      clientOptions: {
+      client: {
         success: [
           {
-            clientOptions: {},
+            client: {},
           },
           {
-            clientOptions: {
+            client: {
               host: '',
             },
           },
           {
-            clientOptions: {
+            client: {
               path: '',
             },
           },
           {
-            clientOptions: {
+            client: {
               port: '',
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'none',
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'error',
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'warn',
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'info',
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'log',
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'verbose',
             },
           },
           {
-            clientOptions: {
+            client: {
               host: '',
               path: '',
               port: 8080,
@@ -189,14 +189,14 @@ describe('options', () => {
             },
           },
           {
-            clientOptions: {
+            client: {
               host: '',
               path: '',
               port: '',
             },
           },
           {
-            clientOptions: {
+            client: {
               host: '',
               path: '',
               port: null,
@@ -206,24 +206,24 @@ describe('options', () => {
         failure: [
           'whoops!',
           {
-            clientOptions: {
+            client: {
               unknownOption: true,
             },
           },
           {
-            clientOptions: {
+            client: {
               host: true,
               path: '',
               port: 8080,
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'whoops!',
             },
           },
           {
-            clientOptions: {
+            client: {
               logging: 'silent',
             },
           },
