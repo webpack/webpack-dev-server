@@ -17,7 +17,6 @@ module.exports = {
     {
       name: 'live-reload',
       type: Boolean,
-      defaultValue: true,
       describe: 'Enables/Disables live reloading on changing files',
     },
     {
@@ -62,7 +61,6 @@ module.exports = {
       name: 'client-logging',
       type: String,
       group: DISPLAY_GROUP,
-      defaultValue: 'info',
       describe:
         'Log level in the browser (none, error, warn, info, log, verbose)',
     },
