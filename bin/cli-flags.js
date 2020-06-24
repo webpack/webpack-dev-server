@@ -56,6 +56,7 @@ module.exports = {
       name: 'open-page',
       type: String,
       describe: 'Open default browser with the specified page',
+      multiple: true,
     },
     {
       name: 'client-logging',
