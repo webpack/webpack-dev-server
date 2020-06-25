@@ -116,6 +116,22 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
+      title: 'serveIndex is true',
+      multiCompiler: false,
+      options: {
+        serveIndex: true,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'serveIndex is false',
+      multiCompiler: false,
+      options: {
+        serveIndex: false,
+      },
+      optionsResults: null,
+    },
+    {
       title: 'hot is true',
       multiCompiler: false,
       options: {

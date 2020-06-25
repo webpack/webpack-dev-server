@@ -874,6 +874,42 @@ Object {
 }
 `;
 
+exports[`normalizeOptions serveIndex is false should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": false,
+  "stats": Object {},
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions serveIndex is true should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
+  "stats": Object {},
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
 exports[`normalizeOptions transportMode custom client path should set correct options 1`] = `
 Object {
   "client": Object {
