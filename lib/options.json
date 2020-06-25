@@ -75,14 +75,11 @@
         }
       ]
     },
+    "devMiddleware": {
+      "type": "object"
+    },
     "disableHostCheck": {
       "type": "boolean"
-    },
-    "fs": {
-      "type": "object"
-    },
-    "headers": {
-      "type": "object"
     },
     "historyApiFallback": {
       "anyOf": [
@@ -176,9 +173,6 @@
         }
       ]
     },
-    "index": {
-      "type": "string"
-    },
     "injectClient": {
       "anyOf": [
         {
@@ -201,9 +195,6 @@
     },
     "liveReload": {
       "type": "boolean"
-    },
-    "mimeTypes": {
-      "type": "object"
     },
     "onAfterSetupMiddleware": {
       "instanceof": "Function"
@@ -302,16 +293,10 @@
     "public": {
       "type": "string"
     },
-    "publicPath": {
-      "type": "string"
-    },
     "requestCert": {
       "type": "boolean"
     },
     "serveIndex": {
-      "type": "boolean"
-    },
-    "serverSideRender": {
       "type": "boolean"
     },
     "socket": {
@@ -374,16 +359,6 @@
     },
     "watchOptions": {
       "type": "object"
-    },
-    "writeToDisk": {
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "instanceof": "Function"
-        }
-      ]
     }
   },
   "errorMessage": {
@@ -393,9 +368,8 @@
       "client": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclient)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
+      "devMiddleware": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware-)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
-      "fs": "should be {Object} (https://github.com/webpack/webpack-dev-middleware#fs)",
-      "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders-)",
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
       "host": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserverhost)",
       "hot": "should be {Boolean|String} (https://webpack.js.org/configuration/dev-server/#devserverhot)",
@@ -404,8 +378,7 @@
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverindex)",
       "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
-      "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload-)",
-      "mimeTypes": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devservermimetypes-)",
+      "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload)",
       "onAfterSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
       "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
@@ -417,19 +390,16 @@
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
-      "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublicpath-)",
       "requestCert": "should be {Boolean}",
       "contentBasePublicPath": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
-      "serverSideRender": "should be {Boolean} (https://github.com/webpack/webpack-dev-middleware#serversiderender)",
       "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserversocket)",
       "staticOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverstaticoptions)",
-      "stats": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstats-)",
+      "stats": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstats)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)",
       "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverwatchcontentbase)",
-      "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchoptions-)",
-      "writeToDisk": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverwritetodisk-)"
+      "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchoptions)"
     }
   },
   "additionalProperties": false
