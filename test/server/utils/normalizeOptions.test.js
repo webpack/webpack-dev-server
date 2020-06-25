@@ -464,7 +464,6 @@ describe('normalizeOptions', () => {
             });
           }
 
-          console.log(data.options);
           expect(data.options).toMatchSnapshot();
         }
       });
