@@ -217,7 +217,11 @@ describe('createConfig', () => {
   it('publicPath option (path in devServer option)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { publicPath: '/assets/' },
+        devServer: {
+          devMiddleware: {
+            publicPath: '/assets/',
+          },
+        },
       }),
       argv,
       { port: 8080 }
@@ -229,7 +233,11 @@ describe('createConfig', () => {
   it('publicPath option (url in devServer option)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { publicPath: 'http://localhost:8080/assets/' },
+        devServer: {
+          devMiddleware: {
+            publicPath: 'http://localhost:8080/assets/',
+          },
+        },
       }),
       argv,
       { port: 8080 }
