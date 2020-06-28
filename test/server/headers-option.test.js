@@ -14,7 +14,9 @@ describe('headers option', () => {
       server = testServer.start(
         config,
         {
-          headers: { 'X-Foo': '1' },
+          devMiddleware: {
+            headers: { 'X-Foo': '1' },
+          },
           port,
         },
         done
@@ -34,7 +36,9 @@ describe('headers option', () => {
       server = testServer.start(
         config,
         {
-          headers: { 'X-Bar': ['key1=value1', 'key2=value2'] },
+          devMiddleware: {
+            headers: { 'X-Bar': ['key1=value1', 'key2=value2'] },
+          },
           port,
         },
         done
