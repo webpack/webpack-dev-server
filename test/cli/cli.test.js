@@ -90,15 +90,6 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--color', (done) => {
-    testBin('--color')
-      .then((output) => {
-        expect(output.stderr).toContain('Project is running at \u001b');
-        done();
-      })
-      .catch(done);
-  });
-
   // The Unix socket to listen to (instead of a host).
   it('--socket', (done) => {
     const socketPath = join('.', 'webpack.sock');
