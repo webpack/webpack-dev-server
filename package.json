@@ -59,7 +59,6 @@
     "sockjs-client": "1.4.0",
     "spdy": "^4.0.2",
     "strip-ansi": "^6.0.0",
-    "supports-color": "^7.1.0",
     "url": "^0.11.0",
     "util": "^0.12.3",
     "webpack-dev-middleware": "^4.0.0-rc.1",
