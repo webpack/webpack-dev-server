@@ -11,10 +11,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -29,10 +25,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -44,10 +36,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -59,10 +47,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -76,10 +60,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -93,10 +73,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -110,10 +86,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -125,10 +97,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -140,10 +108,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -158,10 +122,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -173,10 +133,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -188,10 +144,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -203,10 +155,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -218,10 +166,6 @@ Object {
   "disableHostCheck": true,
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -233,10 +177,6 @@ Object {
   "disableHostCheck": true,
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -248,10 +188,6 @@ Object {
   "historyApiFallback": true,
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -263,10 +199,6 @@ Object {
   "historyApiFallback": true,
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -278,10 +210,6 @@ Object {
   "host": "example.dev",
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -293,10 +221,6 @@ Object {
   "host": "localhost",
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -307,10 +231,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -322,10 +242,6 @@ Object {
   "host": "other.dev",
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -336,10 +252,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -351,10 +263,6 @@ Object {
   "host": "example.dev",
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -365,10 +273,6 @@ Object {
   },
   "hot": "only",
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -379,10 +283,6 @@ Object {
   },
   "hot": "only",
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -393,10 +293,6 @@ Object {
   },
   "hot": false,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -407,10 +303,6 @@ Object {
   },
   "hot": false,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -421,10 +313,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -435,10 +323,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -451,10 +335,6 @@ Object {
   "http2": true,
   "https": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -467,10 +347,6 @@ Object {
   "http2": true,
   "https": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -482,10 +358,6 @@ Object {
   "hot": true,
   "https": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -502,10 +374,6 @@ Object {
     },
   },
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -517,10 +385,6 @@ Object {
   "hot": true,
   "https": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -532,10 +396,6 @@ Object {
   "hot": true,
   "https": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -546,10 +406,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -561,10 +417,6 @@ Object {
   "hot": true,
   "liveReload": false,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -583,10 +435,6 @@ Object {
     },
   },
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -602,10 +450,6 @@ Object {
     ],
   },
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -617,10 +461,6 @@ Object {
   "hot": true,
   "onListening": [Function],
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -633,10 +473,6 @@ Object {
   "open": true,
   "openPage": "",
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -649,10 +485,6 @@ Object {
   "open": true,
   "openPage": "",
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -670,10 +502,6 @@ Object {
   },
   "openPage": "",
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -686,10 +514,6 @@ Object {
   "open": "Google Chrome",
   "openPage": "",
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -705,10 +529,6 @@ Object {
     "/different/page2",
   ],
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -721,10 +541,6 @@ Object {
   "open": true,
   "openPage": "/different/page",
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -739,10 +555,6 @@ Object {
     "/different/page",
   ],
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -754,10 +566,6 @@ Object {
   "hot": true,
   "overlay": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -769,10 +577,6 @@ Object {
   "hot": true,
   "overlay": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -783,10 +587,6 @@ Object {
   },
   "hot": true,
   "port": 7070,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -797,10 +597,6 @@ Object {
   },
   "hot": true,
   "port": null,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -811,10 +607,6 @@ Object {
   },
   "hot": true,
   "port": "9090",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -825,10 +617,6 @@ Object {
   },
   "hot": true,
   "port": undefined,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -839,10 +627,6 @@ Object {
   },
   "hot": true,
   "port": 9090,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -854,10 +638,6 @@ Object {
   "hot": true,
   "port": 8080,
   "profile": "profile",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -869,10 +649,6 @@ Object {
   "hot": true,
   "port": 8080,
   "progress": true,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -884,10 +660,6 @@ Object {
   "hot": true,
   "port": 8080,
   "progress": true,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -899,10 +671,6 @@ Object {
   "hot": true,
   "port": 8080,
   "public": true,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -914,10 +682,6 @@ Object {
   "hot": true,
   "port": 8080,
   "public": true,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -928,10 +692,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -942,10 +702,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -956,10 +712,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -970,10 +722,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -984,10 +732,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -998,10 +742,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -1012,10 +752,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -1027,10 +763,6 @@ Object {
   "hot": true,
   "port": 8080,
   "socket": "socket",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
 }
 `;
 
@@ -1042,98 +774,6 @@ Object {
   "hot": true,
   "port": 8080,
   "socket": "socket",
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
-}
-`;
-
-exports[`createConfig stats option (colors) 1`] = `
-Object {
-  "devMiddleware": Object {
-    "publicPath": "/",
-  },
-  "hot": true,
-  "port": 8080,
-  "stats": Object {
-    "colors": true,
-    "errors": true,
-  },
-}
-`;
-
-exports[`createConfig stats option 1`] = `
-Object {
-  "devMiddleware": Object {
-    "publicPath": "/",
-  },
-  "hot": true,
-  "port": 8080,
-  "stats": "errors-only",
-}
-`;
-
-exports[`createConfig use webpack stats 1`] = `
-Object {
-  "clientLogging": "_clientLogging",
-  "compress": "_compress",
-  "contentBase": "_contentBase",
-  "devMiddleware": Object {
-    "publicPath": "/",
-  },
-  "disableHostCheck": "_disableHostCheck",
-  "historyApiFallback": "_historyApiFallback",
-  "host": "_foo",
-  "hot": true,
-  "https": "_https",
-  "open": "_open",
-  "openPage": "_openPage",
-  "port": "_port",
-  "progress": "_progress",
-  "public": "_public",
-  "publicPath": "_publicPath",
-  "socket": "_socket",
-  "stats": Object {
-    "assetsSort": "size",
-  },
-  "useLocalIp": "_useLocalIp",
-  "watchContentBase": "_watchContentBase",
-}
-`;
-
-exports[`createConfig use webpack stats 2`] = `
-Object {
-  "devServer": Object {
-    "clientLogging": "_clientLogging",
-    "compress": "_compress",
-    "contentBase": "_contentBase",
-    "devMiddleware": Object {
-      "publicPath": "/",
-    },
-    "disableHostCheck": "_disableHostCheck",
-    "historyApiFallback": "_historyApiFallback",
-    "host": "_foo",
-    "hot": true,
-    "https": "_https",
-    "open": "_open",
-    "openPage": "_openPage",
-    "port": "_port",
-    "progress": "_progress",
-    "public": "_public",
-    "publicPath": "_publicPath",
-    "socket": "_socket",
-    "stats": Object {
-      "assetsSort": "size",
-    },
-    "useLocalIp": "_useLocalIp",
-    "watchContentBase": "_watchContentBase",
-  },
-  "entry": "./app.js",
-  "mode": "development",
-  "stats": Object {
-    "assetsSort": "size",
-  },
 }
 `;
 
@@ -1144,10 +784,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
   "useLocalIp": true,
 }
 `;
@@ -1159,10 +795,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
   "useLocalIp": true,
 }
 `;
@@ -1174,10 +806,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
   "watchContentBase": true,
 }
 `;
@@ -1189,10 +817,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
   "watchContentBase": true,
 }
 `;
@@ -1204,10 +828,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
   "watchOptions": Object {
     "poll": true,
   },
@@ -1221,10 +841,6 @@ Object {
   },
   "hot": true,
   "port": 8080,
-  "stats": Object {
-    "cached": false,
-    "cachedAssets": false,
-  },
   "watchOptions": Object {
     "poll": true,
   },
