@@ -173,6 +173,16 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'devMiddleware is set',
+      multiCompiler: false,
+      options: {
+        devMiddleware: {
+          serverSideRender: true,
+        },
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {
