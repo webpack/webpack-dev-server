@@ -305,26 +305,6 @@
     "staticOptions": {
       "type": "object"
     },
-    "stats": {
-      "anyOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "boolean"
-        },
-        {
-          "enum": [
-            "none",
-            "errors-only",
-            "errors-warnings",
-            "minimal",
-            "normal",
-            "verbose"
-          ]
-        }
-      ]
-    },
     "transportMode": {
       "anyOf": [
         {
@@ -395,7 +375,6 @@
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
       "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserversocket)",
       "staticOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverstaticoptions)",
-      "stats": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstats)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)",
       "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverwatchcontentbase)",
