@@ -355,7 +355,6 @@
       "hot": "should be {Boolean|String} (https://webpack.js.org/configuration/dev-server/#devserverhot)",
       "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttp2)",
       "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttps)",
-      "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverindex)",
       "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
       "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
       "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload)",
