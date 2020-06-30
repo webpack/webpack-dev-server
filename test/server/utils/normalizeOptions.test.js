@@ -174,10 +174,10 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'devMiddleware is set',
+      title: 'dev is set',
       multiCompiler: false,
       options: {
-        devMiddleware: {
+        dev: {
           serverSideRender: true,
         },
       },

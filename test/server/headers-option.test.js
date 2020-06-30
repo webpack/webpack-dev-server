@@ -61,7 +61,7 @@ describe('headers option', () => {
         config,
         {
           headers: { 'X-Foo': '1' },
-          devMiddleware: {
+          dev: {
             headers: { 'X-Foo': '2' },
           },
           port,

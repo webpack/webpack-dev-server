@@ -217,7 +217,7 @@ describe('createConfig', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: {
-          devMiddleware: {
+          dev: {
             publicPath: '/assets/',
           },
         },
@@ -233,7 +233,7 @@ describe('createConfig', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: {
-          devMiddleware: {
+          dev: {
             publicPath: 'http://localhost:8080/assets/',
           },
         },

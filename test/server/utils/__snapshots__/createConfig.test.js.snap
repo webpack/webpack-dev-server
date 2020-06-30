@@ -6,7 +6,7 @@ Object {
     ".host.com",
     "host2.com",
   ],
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -20,7 +20,7 @@ Object {
     ".host.com",
     "host2.com",
   ],
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -31,7 +31,7 @@ Object {
 exports[`createConfig bonjour option (devServer config) 1`] = `
 Object {
   "bonjour": true,
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -42,7 +42,7 @@ Object {
 exports[`createConfig bonjour option 1`] = `
 Object {
   "bonjour": true,
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -55,7 +55,7 @@ Object {
   "client": Object {
     "logging": "none",
   },
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -68,7 +68,7 @@ Object {
   "client": Object {
     "logging": "none",
   },
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -81,7 +81,7 @@ Object {
   "client": Object {
     "logging": "none",
   },
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -92,7 +92,7 @@ Object {
 exports[`createConfig compress option (in devServer config) 1`] = `
 Object {
   "compress": true,
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -103,7 +103,7 @@ Object {
 exports[`createConfig compress option 1`] = `
 Object {
   "compress": true,
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -117,7 +117,7 @@ Object {
     "assets",
     "static",
   ],
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -128,7 +128,7 @@ Object {
 exports[`createConfig contentBase option (boolean) 1`] = `
 Object {
   "contentBase": false,
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -139,7 +139,7 @@ Object {
 exports[`createConfig contentBase option (string) (in devServer config) 1`] = `
 Object {
   "contentBase": "assets",
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -150,7 +150,7 @@ Object {
 exports[`createConfig contentBase option (string) 1`] = `
 Object {
   "contentBase": "assets",
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -160,7 +160,7 @@ Object {
 
 exports[`createConfig disableHostCheck option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "disableHostCheck": true,
@@ -171,7 +171,7 @@ Object {
 
 exports[`createConfig disableHostCheck option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "disableHostCheck": true,
@@ -182,7 +182,7 @@ Object {
 
 exports[`createConfig historyApiFallback option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "historyApiFallback": true,
@@ -193,7 +193,7 @@ Object {
 
 exports[`createConfig historyApiFallback option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "historyApiFallback": true,
@@ -204,7 +204,7 @@ Object {
 
 exports[`createConfig host option (devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "host": "example.dev",
@@ -215,7 +215,7 @@ Object {
 
 exports[`createConfig host option (localhost) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "host": "localhost",
@@ -226,7 +226,7 @@ Object {
 
 exports[`createConfig host option (null) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -236,7 +236,7 @@ Object {
 
 exports[`createConfig host option (specify for CLI and devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "host": "other.dev",
@@ -247,7 +247,7 @@ Object {
 
 exports[`createConfig host option (undefined) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -257,7 +257,7 @@ Object {
 
 exports[`createConfig host option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "host": "example.dev",
@@ -268,7 +268,7 @@ Object {
 
 exports[`createConfig hot only option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": "only",
@@ -278,7 +278,7 @@ Object {
 
 exports[`createConfig hot only option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": "only",
@@ -288,7 +288,7 @@ Object {
 
 exports[`createConfig hot option (false) (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": false,
@@ -298,7 +298,7 @@ Object {
 
 exports[`createConfig hot option (false) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": false,
@@ -308,7 +308,7 @@ Object {
 
 exports[`createConfig hot option (true) (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -318,7 +318,7 @@ Object {
 
 exports[`createConfig hot option (true) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -328,7 +328,7 @@ Object {
 
 exports[`createConfig http2 option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -340,7 +340,7 @@ Object {
 
 exports[`createConfig http2 option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -352,7 +352,7 @@ Object {
 
 exports[`createConfig https option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -363,7 +363,7 @@ Object {
 
 exports[`createConfig https option (in devServer config) 2`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -379,7 +379,7 @@ Object {
 
 exports[`createConfig https option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -390,7 +390,7 @@ Object {
 
 exports[`createConfig https option 2`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -401,7 +401,7 @@ Object {
 
 exports[`createConfig info option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -411,7 +411,7 @@ Object {
 
 exports[`createConfig liveReload option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -422,7 +422,7 @@ Object {
 
 exports[`createConfig mimeTypes option - with force 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -440,7 +440,7 @@ Object {
 
 exports[`createConfig mimeTypes option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -455,7 +455,7 @@ Object {
 
 exports[`createConfig onListening option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -466,7 +466,7 @@ Object {
 
 exports[`createConfig open option (boolean) (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -478,7 +478,7 @@ Object {
 
 exports[`createConfig open option (boolean) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -490,7 +490,7 @@ Object {
 
 exports[`createConfig open option (object) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -507,7 +507,7 @@ Object {
 
 exports[`createConfig open option (string) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -519,7 +519,7 @@ Object {
 
 exports[`createConfig openPage multiple option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -534,7 +534,7 @@ Object {
 
 exports[`createConfig openPage option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -546,7 +546,7 @@ Object {
 
 exports[`createConfig openPage option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -560,7 +560,7 @@ Object {
 
 exports[`createConfig overlay option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -571,7 +571,7 @@ Object {
 
 exports[`createConfig overlay option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -582,7 +582,7 @@ Object {
 
 exports[`createConfig port option (difference) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -592,7 +592,7 @@ Object {
 
 exports[`createConfig port option (same) (null) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -602,7 +602,7 @@ Object {
 
 exports[`createConfig port option (same) (string) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -612,7 +612,7 @@ Object {
 
 exports[`createConfig port option (same) (undefined) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -622,7 +622,7 @@ Object {
 
 exports[`createConfig port option (same) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -632,7 +632,7 @@ Object {
 
 exports[`createConfig profile option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -643,7 +643,7 @@ Object {
 
 exports[`createConfig progress option (devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -654,7 +654,7 @@ Object {
 
 exports[`createConfig progress option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -665,7 +665,7 @@ Object {
 
 exports[`createConfig public option (devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -676,7 +676,7 @@ Object {
 
 exports[`createConfig public option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -687,7 +687,7 @@ Object {
 
 exports[`createConfig publicPath option (not specify) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -697,7 +697,7 @@ Object {
 
 exports[`createConfig publicPath option (path in devServer option) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/assets/",
   },
   "hot": true,
@@ -707,7 +707,7 @@ Object {
 
 exports[`createConfig publicPath option (path in output option) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/assets/",
   },
   "hot": true,
@@ -717,7 +717,7 @@ Object {
 
 exports[`createConfig publicPath option (path without starting slash in output option) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/assets/",
   },
   "hot": true,
@@ -727,7 +727,7 @@ Object {
 
 exports[`createConfig publicPath option (url in devServer option) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "http://localhost:8080/assets/",
   },
   "hot": true,
@@ -737,7 +737,7 @@ Object {
 
 exports[`createConfig publicPath option (url in output option) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "http://localhost:8080/assets/",
   },
   "hot": true,
@@ -747,7 +747,7 @@ Object {
 
 exports[`createConfig simple 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -757,7 +757,7 @@ Object {
 
 exports[`createConfig socket option (devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -768,7 +768,7 @@ Object {
 
 exports[`createConfig socket option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -779,7 +779,7 @@ Object {
 
 exports[`createConfig useLocalIp option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -790,7 +790,7 @@ Object {
 
 exports[`createConfig useLocalIp option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -801,7 +801,7 @@ Object {
 
 exports[`createConfig watchContentBase option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -812,7 +812,7 @@ Object {
 
 exports[`createConfig watchContentBase option 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -823,7 +823,7 @@ Object {
 
 exports[`createConfig watchOptions option (in devServer config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,
@@ -836,7 +836,7 @@ Object {
 
 exports[`createConfig watchOptions option (in output config) 1`] = `
 Object {
-  "devMiddleware": Object {
+  "dev": Object {
     "publicPath": "/",
   },
   "hot": true,

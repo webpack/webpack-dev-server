@@ -75,7 +75,7 @@
         }
       ]
     },
-    "devMiddleware": {
+    "dev": {
       "type": "object"
     },
     "disableHostCheck": {
@@ -351,7 +351,7 @@
       "client": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclient)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
-      "devMiddleware": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware-)",
+      "dev": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverdev-)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders)",
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",

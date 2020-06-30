@@ -237,10 +237,10 @@ describe('options', () => {
         success: [0, '.', false],
         failure: [[1], [false]],
       },
-      devMiddleware: {
+      dev: {
         success: [
           {
-            devMiddleware: {},
+            dev: {},
           },
         ],
         failure: [''],
