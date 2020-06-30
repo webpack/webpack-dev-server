@@ -3,6 +3,7 @@
 const webpack = require('webpack');
 const getCompilerConfigArray = require('../../../lib/utils/getCompilerConfigArray');
 const getStatsOption = require('../../../lib/utils/getStatsOption');
+const isWebpack5 = require('../../helpers/isWebpack5');
 
 describe('getStatsOption', () => {
   it('should return empty stats object for empty array', () => {
@@ -76,6 +77,13 @@ describe('getStatsOption', () => {
       },
     ]);
     const configArr = getCompilerConfigArray(compiler);
-    expect(getStatsOption(configArr)).toEqual('verbose');
+    const statsOption = getStatsOption(configArr);
+    if (isWebpack5) {
+      expect(statsOption).toEqual({
+        preset: 'verbose',
+      });
+    } else {
+      expect(statsOption).toEqual('verbose');
+    }
   });
 });
