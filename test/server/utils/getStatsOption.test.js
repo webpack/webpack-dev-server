@@ -83,7 +83,7 @@ describe('getStatsOption', () => {
         preset: 'errors-only',
       });
     } else {
-      expect(statsOption).toEqual('verbose');
+      expect(statsOption).toEqual('errors-only');
     }
   });
 });
