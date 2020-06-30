@@ -70,6 +70,9 @@ describe('getStatsOption', () => {
         entry: './index.js',
       },
       {
+        stats: {},
+      },
+      {
         stats: 'errors-only',
       },
       {
