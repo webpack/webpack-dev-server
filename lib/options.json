@@ -81,6 +81,9 @@
     "disableHostCheck": {
       "type": "boolean"
     },
+    "headers": {
+      "type": "object"
+    },
     "historyApiFallback": {
       "anyOf": [
         {
@@ -350,6 +353,7 @@
       "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "devMiddleware": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware-)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
+      "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders)",
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
       "host": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserverhost)",
       "hot": "should be {Boolean|String} (https://webpack.js.org/configuration/dev-server/#devserverhot)",
