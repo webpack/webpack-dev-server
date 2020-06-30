@@ -249,6 +249,10 @@ describe('options', () => {
         success: [true],
         failure: [''],
       },
+      headers: {
+        success: [{}],
+        failure: [false],
+      },
       historyApiFallback: {
         success: [{}, true],
         failure: [''],
