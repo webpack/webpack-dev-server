@@ -70,7 +70,7 @@ describe('getStatsOption', () => {
         entry: './index.js',
       },
       {
-        stats: 'verbose',
+        stats: 'errors-only',
       },
       {
         stats: 'none',
@@ -80,7 +80,7 @@ describe('getStatsOption', () => {
     const statsOption = getStatsOption(configArr);
     if (isWebpack5) {
       expect(statsOption).toEqual({
-        preset: 'verbose',
+        preset: 'errors-only',
       });
     } else {
       expect(statsOption).toEqual('verbose');
