@@ -55,7 +55,7 @@ describe('headers option', () => {
     });
   });
 
-  describe('dev middleware headers take precedence', () => {
+  describe('dev middleware headers take precedence for dev middleware output files', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
