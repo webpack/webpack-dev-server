@@ -43,7 +43,7 @@ describe('bundle', () => {
     it('should get full user bundle and parse with ES5', async () => {
       const { text } = await req
         .get('/main.js')
-        .expect('Content-Type', 'application/javascript; charset=UTF-8')
+        .expect('Content-Type', 'application/javascript; charset=utf-8')
         .expect(200);
 
       expect(() => {
