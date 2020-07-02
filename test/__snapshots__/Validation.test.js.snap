@@ -14,22 +14,22 @@ exports[`Validation validation should fail validation for invalid \`hot\` config
     * configuration.hot should be \\"only\\"."
 `;
 
+exports[`Validation validation should fail validation for invalid \`injectHot\` configuration 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.injectHot should be one of these:
+   boolean | function
+   Details:
+    * configuration.injectHot should be a boolean.
+    * configuration.injectHot should be an instance of function."
+`;
+
 exports[`Validation validation should fail validation for invalid \`overlay\` configuration 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.overlay.errors should be a boolean."
 `;
 
-exports[`Validation validation should fail validation for invalid \`writeToDisk\` configuration 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.writeToDisk should be one of these:
-   boolean | function
-   Details:
-    * configuration.writeToDisk should be a boolean.
-    * configuration.writeToDisk should be an instance of function."
-`;
-
 exports[`Validation validation should fail validation for no additional properties 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration has an unknown property 'additional'. These properties are valid:
-   object { allowedHosts?, bonjour?, client?, compress?, contentBasePublicPath?, contentBase?, disableHostCheck?, fs?, headers?, historyApiFallback?, host?, hot?, http2?, https?, index?, injectClient?, injectHot?, liveReload?, mimeTypes?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, publicPath?, requestCert?, serveIndex?, serverSideRender?, socket?, staticOptions?, stats?, transportMode?, useLocalIp?, watchContentBase?, watchOptions?, writeToDisk? }"
+   object { allowedHosts?, bonjour?, client?, compress?, contentBasePublicPath?, contentBase?, dev?, disableHostCheck?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, requestCert?, serveIndex?, socket?, staticOptions?, transportMode?, useLocalIp?, watchContentBase?, watchOptions? }"
 `;

@@ -237,17 +237,17 @@ describe('options', () => {
         success: [0, '.', false],
         failure: [[1], [false]],
       },
+      dev: {
+        success: [
+          {
+            dev: {},
+          },
+        ],
+        failure: [''],
+      },
       disableHostCheck: {
         success: [true],
         failure: [''],
-      },
-      fs: {
-        success: [
-          {
-            fs: memfs,
-          },
-        ],
-        failure: [false],
       },
       headers: {
         success: [{}],
@@ -301,10 +301,6 @@ describe('options', () => {
           },
         ],
       },
-      index: {
-        success: [''],
-        failure: [false],
-      },
       injectClient: {
         success: [true, () => {}],
         failure: [''],
@@ -312,10 +308,6 @@ describe('options', () => {
       injectHot: {
         success: [true, () => {}],
         failure: [''],
-      },
-      mimeTypes: {
-        success: [{}],
-        failure: [false],
       },
       onListening: {
         success: [() => {}],
@@ -389,19 +381,11 @@ describe('options', () => {
         success: [''],
         failure: [false],
       },
-      publicPath: {
-        success: [''],
-        failure: [false],
-      },
       requestCert: {
         success: [true],
         failure: [''],
       },
       serveIndex: {
-        success: [true],
-        failure: [''],
-      },
-      serverSideRender: {
         success: [true],
         failure: [''],
       },
@@ -412,19 +396,6 @@ describe('options', () => {
       staticOptions: {
         success: [{}],
         failure: [false],
-      },
-      stats: {
-        success: [
-          true,
-          {},
-          'none',
-          'errors-only',
-          'errors-warnings',
-          'minimal',
-          'normal',
-          'verbose',
-        ],
-        failure: ['whoops!', null],
       },
       transportMode: {
         success: [
@@ -492,10 +463,6 @@ describe('options', () => {
       },
       watchOptions: {
         success: [{}],
-        failure: [''],
-      },
-      writeToDisk: {
-        success: [true, () => {}],
         failure: [''],
       },
     };

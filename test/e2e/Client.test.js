@@ -60,7 +60,13 @@ describe('reload', () => {
           },
           mode.options
         );
-        testServer.startAwaitingCompilation(reloadConfig, options, done);
+
+        // we need a delay between file writing and the start
+        // of the compilation due to a bug in webpack@4, as not doing
+        // so results in the done hook being called repeatedly
+        setTimeout(() => {
+          testServer.startAwaitingCompilation(reloadConfig, options, done);
+        }, 2000);
       });
 
       afterAll((done) => {

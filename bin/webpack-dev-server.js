@@ -15,6 +15,7 @@ const setupExitSignals = require('../lib/utils/setupExitSignals');
 const colors = require('../lib/utils/colors');
 const processOptions = require('../lib/utils/processOptions');
 const getVersions = require('../lib/utils/getVersions');
+const getColorsOption = require('../lib/utils/getColorsOption');
 const options = require('./options');
 
 let server;
@@ -87,11 +88,14 @@ const config = require(convertArgvPath)(yargs, argv, {
 function startDevServer(config, options) {
   let compiler;
 
+  const configArr = config instanceof Array ? config : [config];
+  const statsColors = getColorsOption(configArr);
+
   try {
     compiler = webpack(config);
   } catch (err) {
     if (err instanceof webpack.WebpackOptionsValidationError) {
-      console.error(colors.error(options.stats.colors, err.message));
+      console.error(colors.error(statsColors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
     }
@@ -104,7 +108,7 @@ function startDevServer(config, options) {
     serverData.server = server;
   } catch (err) {
     if (err.name === 'ValidationError') {
-      console.error(colors.error(options.stats.colors, err.message));
+      console.error(colors.error(statsColors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
     }

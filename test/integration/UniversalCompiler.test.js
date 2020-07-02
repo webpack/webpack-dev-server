@@ -19,7 +19,7 @@ describe('universal compiler', () => {
   it('client bundle should have the inlined the client runtime', (done) => {
     req
       .get('/client.js')
-      .expect('Content-Type', 'application/javascript; charset=UTF-8')
+      .expect('Content-Type', 'application/javascript; charset=utf-8')
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -36,7 +36,7 @@ describe('universal compiler', () => {
     // but we'll do it here to check the contents
     req
       .get('/server.js')
-      .expect('Content-Type', 'application/javascript; charset=UTF-8')
+      .expect('Content-Type', 'application/javascript; charset=utf-8')
       .expect(200)
       .end((err, res) => {
         if (err) {

@@ -35,8 +35,8 @@ describe('Validation', () => {
         config: { hot: 'false' },
       },
       {
-        name: 'invalid `writeToDisk` configuration',
-        config: { writeToDisk: 1 },
+        name: 'invalid `injectHot` configuration',
+        config: { injectHot: 1 },
       },
       {
         name: 'invalid `overlay` configuration',

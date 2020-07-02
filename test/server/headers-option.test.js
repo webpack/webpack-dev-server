@@ -54,4 +54,27 @@ describe('headers option', () => {
       req.get('/main').expect('X-Bar', expected).expect(200, done);
     });
   });
+
+  describe('dev middleware headers take precedence for dev middleware output files', () => {
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          headers: { 'X-Foo': '1' },
+          dev: {
+            headers: { 'X-Foo': '2' },
+          },
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll(testServer.close);
+
+    it('GET request with headers', (done) => {
+      req.get('/main.js').expect('X-Foo', '2').expect(200, done);
+    });
+  });
 });

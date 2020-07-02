@@ -173,6 +173,16 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'dev is set',
+      multiCompiler: false,
+      options: {
+        dev: {
+          serverSideRender: true,
+        },
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

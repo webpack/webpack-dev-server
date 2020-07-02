@@ -8,7 +8,7 @@ const express = require('express');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map').WebsocketClient;
+const port = require('../ports-map').SocketInjection;
 const config = require('../fixtures/client-config/webpack.config');
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 

@@ -3,7 +3,6 @@
 const path = require('path');
 const createConfig = require('../../../lib/utils/createConfig');
 const webpackConfig = require('./../../fixtures/schema/webpack.config.simple');
-const webpackConfigNoStats = require('./../../fixtures/schema/webpack.config.no-dev-stats');
 
 const argv = {
   port: 8080,
@@ -217,7 +216,11 @@ describe('createConfig', () => {
   it('publicPath option (path in devServer option)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { publicPath: '/assets/' },
+        devServer: {
+          dev: {
+            publicPath: '/assets/',
+          },
+        },
       }),
       argv,
       { port: 8080 }
@@ -229,7 +232,11 @@ describe('createConfig', () => {
   it('publicPath option (url in devServer option)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { publicPath: 'http://localhost:8080/assets/' },
+        devServer: {
+          dev: {
+            publicPath: 'http://localhost:8080/assets/',
+          },
+        },
       }),
       argv,
       { port: 8080 }
@@ -474,30 +481,6 @@ describe('createConfig', () => {
         devServer: { watchContentBase: true },
       }),
       argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('stats option', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { stats: 'errors-only' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('stats option (colors)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { stats: { errors: true } },
-      }),
-      Object.assign({}, argv, { color: true }),
       { port: 8080 }
     );
 
@@ -825,13 +808,6 @@ describe('createConfig', () => {
     );
 
     expect(config).toMatchSnapshot();
-  });
-
-  it('use webpack stats', () => {
-    expect(
-      createConfig(webpackConfigNoStats, argv, { port: 8080 })
-    ).toMatchSnapshot();
-    expect(webpackConfigNoStats).toMatchSnapshot();
   });
 
   it('onListening option', () => {
