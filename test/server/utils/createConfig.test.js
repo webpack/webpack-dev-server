@@ -159,30 +159,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('socket option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, {
-        socket: 'socket',
-      }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('socket option (devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { socket: 'socket' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('progress option', () => {
     const config = createConfig(
       webpackConfig,

@@ -8,7 +8,6 @@ module.exports = {
   devServer: {
     host: '_foo',
     public: '_public',
-    socket: '_socket',
     progress: '_progress',
     publicPath: '_publicPath',
     hot: '_hot',
