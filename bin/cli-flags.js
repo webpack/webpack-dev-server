@@ -21,7 +21,7 @@ module.exports = {
       describe: 'Enables/Disables live reloading on changing files',
     },
     {
-      name: 'serveIndex',
+      name: 'static-serve-index',
       type: Boolean,
       describe: 'Enables/Disables serveIndex middleware',
       defaultValue: true,
@@ -85,15 +85,15 @@ module.exports = {
       describe: 'HTTP/2, must be used with HTTPS',
     },
     {
-      name: 'content-base',
+      name: 'static-directory',
       type: String,
       describe: 'A directory or URL to serve HTML content from.',
       group: RESPONSE_GROUP,
     },
     {
-      name: 'watch-content-base',
+      name: 'static-watch',
       type: Boolean,
-      describe: 'Enable live-reloading of the content-base.',
+      describe: 'Enable live-reloading of the static directory.',
       group: RESPONSE_GROUP,
     },
     {
