@@ -1,5 +1,54 @@
 {
   "type": "object",
+  "definitions": {
+    "StaticObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "directory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "staticOptions": {
+          "type": "object"
+        },
+        "publicPath": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "serveIndex": {
+          "type": "boolean"
+        },
+        "watch": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": ["directory"]
+    },
+    "StaticString": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
   "properties": {
     "allowedHosts": {
       "type": "array",
@@ -265,65 +314,23 @@
     "static": {
       "anyOf": [
         {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "directory": {
-              "type": "string",
-              "minLength": 1
-            },
-            "staticOptions": {
-              "type": "object"
-            },
-            "publicPath": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "minLength": 1
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "minItems": 1
-                }
-              ]
-            },
-            "serveIndex": {
-              "type": "boolean"
-            },
-            "watch": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "object"
-                }
-              ]
-            }
-          },
-          "required": ["directory"]
-        },
-        {
           "type": "boolean"
         },
         {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/definitions/StaticString"
+        },
+        {
+          "$ref": "#/definitions/StaticObject"
         },
         {
           "type": "array",
           "items": {
             "anyOf": [
               {
-                "type": "string",
-                "minLength": 1
+                "$ref": "#/definitions/StaticString"
               },
               {
-                "type": "object"
+                "$ref": "#/definitions/StaticObject"
               }
             ]
           },
