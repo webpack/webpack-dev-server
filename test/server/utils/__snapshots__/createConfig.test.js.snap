@@ -755,28 +755,6 @@ Object {
 }
 `;
 
-exports[`createConfig socket option (devServer config) 1`] = `
-Object {
-  "dev": Object {
-    "publicPath": "/",
-  },
-  "hot": true,
-  "port": 8080,
-  "socket": "socket",
-}
-`;
-
-exports[`createConfig socket option 1`] = `
-Object {
-  "dev": Object {
-    "publicPath": "/",
-  },
-  "hot": true,
-  "port": 8080,
-  "socket": "socket",
-}
-`;
-
 exports[`createConfig useLocalIp option (in devServer config) 1`] = `
 Object {
   "dev": Object {

@@ -302,9 +302,6 @@
     "serveIndex": {
       "type": "boolean"
     },
-    "socket": {
-      "type": "string"
-    },
     "staticOptions": {
       "type": "object"
     },
@@ -376,7 +373,6 @@
       "requestCert": "should be {Boolean}",
       "contentBasePublicPath": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
-      "socket": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserversocket)",
       "staticOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverstaticoptions)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)",

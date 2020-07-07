@@ -1,7 +1,6 @@
 'use strict';
 
-const { unlink } = require('fs');
-const { join, resolve } = require('path');
+const { resolve } = require('path');
 const execa = require('execa');
 const testBin = require('../helpers/test-bin');
 
@@ -86,27 +85,6 @@ describe('CLI', () => {
       .then((output) => {
         expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
         done();
-      })
-      .catch(done);
-  });
-
-  // The Unix socket to listen to (instead of a host).
-  it('--socket', (done) => {
-    const socketPath = join('.', 'webpack.sock');
-
-    testBin(`--socket ${socketPath}`)
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-
-        if (process.platform === 'win32') {
-          done();
-        } else {
-          expect(output.stderr).toContain(socketPath);
-
-          unlink(socketPath, () => {
-            done();
-          });
-        }
       })
       .catch(done);
   });

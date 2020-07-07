@@ -389,10 +389,6 @@ describe('options', () => {
         success: [true],
         failure: [''],
       },
-      socket: {
-        success: [''],
-        failure: [false],
-      },
       staticOptions: {
         success: [{}],
         failure: [false],

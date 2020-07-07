@@ -108,11 +108,6 @@ const options = {
     describe: 'Will not check the host',
     group: CONNECTION_GROUP,
   },
-  socket: {
-    type: 'String',
-    describe: 'Socket to listen',
-    group: CONNECTION_GROUP,
-  },
   public: {
     type: 'string',
     describe: 'The public hostname/ip address of the server',

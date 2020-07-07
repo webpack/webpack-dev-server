@@ -122,12 +122,6 @@ module.exports = {
       group: CONNECTION_GROUP,
     },
     {
-      name: 'socket',
-      type: String,
-      describe: 'Socket to listen',
-      group: CONNECTION_GROUP,
-    },
-    {
       name: 'public',
       type: String,
       describe: 'The public hostname/ip address of the server',
