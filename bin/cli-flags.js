@@ -67,7 +67,7 @@ module.exports = {
         'Open the default browser, or optionally specify a browser name',
     },
     {
-      name: 'useLocalIp',
+      name: 'use-local-ip',
       type: Boolean,
       describe: 'Open default browser with local IP',
     },
