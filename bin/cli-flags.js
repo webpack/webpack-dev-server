@@ -134,7 +134,7 @@ module.exports = {
     {
       name: 'name',
       type: String,
-      describe: 'Name or index of webpack config to get devServer config from',
+      describe: 'Name of webpack config to get devServer config from',
     },
   ],
 };
