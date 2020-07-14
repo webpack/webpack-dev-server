@@ -32,8 +32,8 @@ jobs:
         displayName: 'Install dependencies'
       - script: npm run lint
         displayName: 'Run lint'
-      # - script: npm run security
-      #   displayName: 'Run NPM audit'
+      - script: npm audit --production
+        displayName: 'Run NPM audit'
       - script: ./node_modules/.bin/commitlint-azure-pipelines
         displayName: 'Run lint commit message'
 
@@ -51,12 +51,6 @@ jobs:
           webpack_version: latest
         node-10:
           node_version: ^10.13.0
-          webpack_version: latest
-        node-8:
-          node_version: ^8.9.0
-          webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
           webpack_version: latest
         node-10-canary:
           node_version: ^10.13.0
@@ -111,12 +105,6 @@ jobs:
         node-10:
           node_version: ^10.13.0
           webpack_version: latest
-        node-8:
-          node_version: ^8.9.0
-          webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
-          webpack_version: latest
         node-10-canary:
           node_version: ^10.13.0
           webpack_version: next
@@ -169,12 +157,6 @@ jobs:
           webpack_version: latest
         node-10:
           node_version: ^10.13.0
-          webpack_version: latest
-        node-8:
-          node_version: ^8.9.0
-          webpack_version: latest
-        node-6:
-          node_version: ^6.9.0
           webpack_version: latest
         node-10-canary:
           node_version: ^10.13.0

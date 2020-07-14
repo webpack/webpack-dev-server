@@ -23,22 +23,18 @@ const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
 describe('reload', () => {
   const modes = [
     {
-      title: 'hot with default transportMode.client (sockjs)',
+      title: 'hot with default transportMode.client (ws)',
+      shouldRefresh: false,
+    },
+    {
+      title: 'hot with transportMode.client sockjs',
       options: {
-        hot: true,
+        transportMode: 'sockjs',
       },
       shouldRefresh: false,
     },
     {
-      title: 'hot with transportMode.client ws',
-      options: {
-        hot: true,
-        transportMode: 'ws',
-      },
-      shouldRefresh: false,
-    },
-    {
-      title: 'inline',
+      title: 'reload without hot',
       options: {
         hot: false,
       },
@@ -58,14 +54,19 @@ describe('reload', () => {
           {
             port,
             host: '0.0.0.0',
-            inline: true,
             watchOptions: {
               poll: true,
             },
           },
           mode.options
         );
-        testServer.startAwaitingCompilation(reloadConfig, options, done);
+
+        // we need a delay between file writing and the start
+        // of the compilation due to a bug in webpack@4, as not doing
+        // so results in the done hook being called repeatedly
+        setTimeout(() => {
+          testServer.startAwaitingCompilation(reloadConfig, options, done);
+        }, 2000);
       });
 
       afterAll((done) => {
@@ -110,15 +111,18 @@ describe('reload', () => {
                             const bgColor = getComputedStyle(body)[
                               'background-color'
                             ];
+
                             return bgColor;
                           })
                           .then((color2) => {
-                            browser.close().then(() => {
-                              expect(color).toEqual('rgb(0, 0, 255)');
-                              expect(color2).toEqual('rgb(255, 0, 0)');
-                              expect(refreshed).toEqual(mode.shouldRefresh);
-                              done();
-                            });
+                            expect(color).toEqual('rgb(0, 0, 255)');
+                            expect(color2).toEqual('rgb(255, 0, 0)');
+                            expect(refreshed).toEqual(mode.shouldRefresh);
+
+                            return browser.close();
+                          })
+                          .then(() => {
+                            done();
                           });
                       });
                     });

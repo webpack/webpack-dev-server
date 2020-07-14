@@ -5,26 +5,25 @@ Array [
   "Hey.",
   "open",
   "liveReload",
-  "[WDS] Live Reloading enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
   "hash",
   "ok",
-  "close",
-  "[WDS] Disconnected!",
+  "[webpack-dev-server] Disconnected!",
 ]
 `;
 
 exports[`transportMode client sockjs on browser client logs correctly 1`] = `
 Array [
   "Hey.",
-  "[WDS] Live Reloading enabled.",
-  "[WDS] Disconnected!",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Disconnected!",
 ]
 `;
 
 exports[`transportMode client ws on browser client logs correctly 1`] = `
 Array [
   "Hey.",
-  "[WDS] Live Reloading enabled.",
-  "[WDS] Disconnected!",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Disconnected!",
 ]
 `;

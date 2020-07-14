@@ -1,15 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`normalizeOptions client host and port should set correct options 1`] = `
+Object {
+  "client": Object {
+    "host": "my.host",
+    "path": "/ws",
+    "port": 9000,
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions client path should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/custom/path",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions client path without leading/ending slashes should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/custom/path",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
 exports[`normalizeOptions contentBase array should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBase": Array [
     "/path/to/dist1",
     "/path/to/dist2",
   ],
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -17,11 +80,18 @@ Object {
 
 exports[`normalizeOptions contentBase string should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBase": "/path/to/dist",
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -29,10 +99,127 @@ Object {
 
 exports[`normalizeOptions contentBasePublicPath string should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/content-base-public-path",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions dev is set should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {
+    "serverSideRender": true,
+  },
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions hot is false should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": false,
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions hot is only should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": "only",
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions hot is true should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions liveReload is false should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": false,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+  "watchOptions": Object {},
+}
+`;
+
+exports[`normalizeOptions liveReload is true should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -40,10 +227,17 @@ Object {
 
 exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -51,10 +245,17 @@ Object {
 
 exports[`normalizeOptions transportMode custom client path should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
     "client": "/path/to/custom/client/",
-    "server": "sockjs",
+    "server": "ws",
   },
   "watchOptions": Object {},
 }
@@ -62,9 +263,16 @@ Object {
 
 exports[`normalizeOptions transportMode custom server class should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
-    "client": "sockjs",
+    "client": "ws",
     "server": [Function],
   },
   "watchOptions": Object {},
@@ -73,9 +281,16 @@ Object {
 
 exports[`normalizeOptions transportMode custom server path should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
-    "client": "sockjs",
+    "client": "ws",
     "server": "/path/to/custom/server/",
   },
   "watchOptions": Object {},
@@ -84,7 +299,14 @@ Object {
 
 exports[`normalizeOptions transportMode sockjs string should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
     "client": "sockjs",
     "server": "sockjs",
@@ -95,7 +317,14 @@ Object {
 
 exports[`normalizeOptions transportMode ws object should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -106,7 +335,14 @@ Object {
 
 exports[`normalizeOptions transportMode ws string should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
@@ -117,10 +353,17 @@ Object {
 
 exports[`normalizeOptions watchOptions should set correct options 1`] = `
 Object {
+  "client": Object {
+    "path": "/ws",
+  },
   "contentBasePublicPath": "/",
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "serveIndex": true,
   "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
+    "client": "ws",
+    "server": "ws",
   },
   "watchOptions": Object {
     "poll": true,

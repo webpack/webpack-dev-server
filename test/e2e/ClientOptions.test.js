@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const httpProxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
@@ -9,15 +9,16 @@ const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
-describe('Client code', () => {
+describe('sockjs client proxy', () => {
   function startProxy(port, cb) {
     const proxy = express();
     proxy.use(
       '/',
-      httpProxy({
+      createProxyMiddleware({
         target: `http://localhost:${port1}`,
         ws: true,
         changeOrigin: true,
+        logLevel: 'warn',
       })
     );
     return proxy.listen(port, cb);
@@ -25,16 +26,15 @@ describe('Client code', () => {
 
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       compress: true,
       port: port1,
       host: '0.0.0.0',
       disableHostCheck: true,
-      inline: true,
       hot: true,
       watchOptions: {
         poll: true,
       },
-      quiet: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -57,23 +57,23 @@ describe('Client code', () => {
 
     it('responds with a 200 on proxy port', (done) => {
       const req = request(`http://localhost:${port2}`);
-      req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
     });
 
     it('responds with a 200 on non-proxy port', (done) => {
       const req = request(`http://localhost:${port1}`);
-      req.get('/sockjs-node').expect(200, 'Welcome to SockJS!\n', done);
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
     });
 
     it('requests websocket through the proxy with proper port number', (done) => {
-      runBrowser().then(({ page, browser }) => {
+      runBrowser().then(async ({ page, browser }) => {
         page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://localhost:${port1}/sockjs-node`
+                  `http://localhost:${port1}/ws`
                 );
                 done();
               });
@@ -85,18 +85,86 @@ describe('Client code', () => {
   });
 });
 
-describe('Client complex inline script path', () => {
+describe('ws client proxy', () => {
+  function startProxy(port, cb) {
+    const proxy = express();
+    proxy.use(
+      '/',
+      createProxyMiddleware({
+        target: `http://localhost:${port1}`,
+        ws: true,
+        changeOrigin: true,
+      })
+    );
+    return proxy.listen(port, cb);
+  }
+
   beforeAll((done) => {
     const options = {
+      transportMode: 'ws',
+      compress: true,
+      port: port1,
+      host: '0.0.0.0',
+      disableHostCheck: true,
+      hot: true,
+      watchOptions: {
+        poll: true,
+      },
+      public: 'myhost',
+    };
+    testServer.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(testServer.close);
+
+  // [HPM] Proxy created: /  ->  http://localhost:{port1}
+  describe('behind a proxy', () => {
+    let proxy;
+
+    beforeAll((done) => {
+      proxy = startProxy(port2, done);
+    });
+
+    afterAll((done) => {
+      proxy.close(() => {
+        done();
+      });
+    });
+
+    // TODO: listen for websocket requestType via puppeteer when added
+    // to puppeteer: https://github.com/puppeteer/puppeteer/issues/2974
+    it('requests websocket through the proxy with proper port number', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page.on('console', (msg) => {
+          const text = msg.text();
+          if (msg.type() === 'error' && text.includes('WebSocket connection')) {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(text).toContain(`ws://myhost:${port2}/ws`);
+                done();
+              });
+            });
+          }
+        });
+        page.goto(`http://localhost:${port2}/main`);
+      });
+    });
+  });
+});
+
+describe('sockjs public and client path', () => {
+  beforeAll((done) => {
+    const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },
       public: 'myhost.test',
-      sockPath: '/foo/test/bar/',
-      quiet: true,
+      client: {
+        path: '/foo/test/bar/',
+      },
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -104,7 +172,7 @@ describe('Client complex inline script path', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct public hostname and sockPath', (done) => {
+    it('uses the correct public hostname and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
           .waitForRequest((requestObj) =>
@@ -114,7 +182,7 @@ describe('Client complex inline script path', () => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://myhost.test:${port2}/foo/test/bar/`
+                  `http://myhost.test:${port2}/foo/test/bar`
                 );
                 done();
               });
@@ -126,18 +194,19 @@ describe('Client complex inline script path', () => {
   });
 });
 
-describe('Client complex inline script path with sockPort', () => {
+describe('sockjs client path and port', () => {
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },
-      sockPath: '/foo/test/bar/',
-      sockPort: port3,
-      quiet: true,
+      client: {
+        path: '/foo/test/bar/',
+        port: port3,
+      },
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -145,7 +214,7 @@ describe('Client complex inline script path with sockPort', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort', (done) => {
+    it('uses correct port and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
           .waitForRequest((requestObj) =>
@@ -168,20 +237,21 @@ describe('Client complex inline script path with sockPort', () => {
   });
 });
 
-// previously, using sockPort without sockPath had the ability
-// to alter the sockPath (based on a bug in client-src/default/index.js)
-// so we need to make sure sockPath is not altered in this case
-describe('Client complex inline script path with sockPort, no sockPath', () => {
+// previously, using port without path had the ability
+// to alter the path (based on a bug in client-src/default/index.js)
+// so we need to make sure path is not altered in this case
+describe('sockjs client port, no path', () => {
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },
-      sockPort: port3,
-      quiet: true,
+      client: {
+        port: port3,
+      },
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -189,15 +259,15 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockPort and sockPath', (done) => {
+    it('uses correct port and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://localhost:${port3}/sockjs-node`
+                  `http://localhost:${port3}/ws`
                 );
                 done();
               });
@@ -209,17 +279,18 @@ describe('Client complex inline script path with sockPort, no sockPath', () => {
   });
 });
 
-describe('Client complex inline script path with sockHost', () => {
+describe('sockjs client host', () => {
   beforeAll((done) => {
     const options = {
+      transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      inline: true,
       watchOptions: {
         poll: true,
       },
-      sockHost: 'myhost.test',
-      quiet: true,
+      client: {
+        host: 'myhost.test',
+      },
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -227,20 +298,62 @@ describe('Client complex inline script path with sockHost', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
-    it('uses the correct sockHost', (done) => {
+    it('uses correct host', (done) => {
       runBrowser().then(({ page, browser }) => {
         page
-          .waitForRequest((requestObj) => requestObj.url().match(/sockjs-node/))
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://myhost.test:${port2}/sockjs-node`
+                  `http://myhost.test:${port2}/ws`
                 );
                 done();
               });
             });
           });
+        page.goto(`http://localhost:${port2}/main`);
+      });
+    });
+  });
+});
+
+describe('ws client host, port, and path', () => {
+  beforeAll((done) => {
+    const options = {
+      transportMode: 'ws',
+      port: port2,
+      host: '0.0.0.0',
+      watchOptions: {
+        poll: true,
+      },
+      client: {
+        host: 'myhost',
+        port: port3,
+        path: '/foo/test/bar/',
+      },
+    };
+    testServer.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(testServer.close);
+
+  describe('browser client', () => {
+    // TODO: listen for websocket requestType via puppeteer when added
+    // to puppeteer: https://github.com/puppeteer/puppeteer/issues/2974
+    it('uses correct host, port, and path', (done) => {
+      runBrowser().then(({ page, browser }) => {
+        page.on('console', (msg) => {
+          const text = msg.text();
+          if (msg.type() === 'error' && text.includes('WebSocket connection')) {
+            page.waitFor(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(text).toContain(`ws://myhost:${port3}/foo/test/bar`);
+                done();
+              });
+            });
+          }
+        });
         page.goto(`http://localhost:${port2}/main`);
       });
     });
@@ -251,8 +364,13 @@ describe('Client console.log', () => {
   const baseOptions = {
     port: port2,
     host: '0.0.0.0',
-    quiet: true,
   };
+  const transportModes = [
+    {},
+    { transportMode: 'sockjs' },
+    { transportMode: 'ws' },
+  ];
+
   const cases = [
     {
       title: 'hot disabled',
@@ -279,55 +397,46 @@ describe('Client console.log', () => {
       },
     },
     {
-      title: 'clientLogLevel is silent',
+      title: 'liveReload & hot are disabled',
       options: {
-        clientLogLevel: 'silent',
+        liveReload: false,
+        hot: false,
+      },
+    },
+    // TODO: make client logging work as expected for HMR logs
+    {
+      title: 'client logging is none',
+      options: {
+        client: {
+          logging: 'none',
+        },
       },
     },
   ];
 
-  cases.forEach(({ title, options }) => {
-    it(title, (done) => {
-      const res = [];
+  transportModes.forEach(async (mode) => {
+    await cases.forEach(async ({ title, options }) => {
+      title += ` (${
+        Object.keys(mode).length ? mode.transportMode : 'default'
+      })`;
+      options = { ...mode, ...options };
       const testOptions = Object.assign({}, baseOptions, options);
-
-      // TODO: use async/await when Node.js v6 support is dropped
-      Promise.resolve()
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.startAwaitingCompilation(config, testOptions, resolve);
-          });
-        })
-        .then(() => {
-          // make sure the previous Promise is not passing along strange arguments to runBrowser
-          return runBrowser();
-        })
-        .then(({ page, browser }) => {
-          return new Promise((resolve) => {
-            page.goto(`http://localhost:${port2}/main`);
-            page.on('console', ({ _text }) => {
-              res.push(_text);
-            });
-            // wait for load before closing the browser
-            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-              page.waitFor(beforeBrowserCloseDelay).then(() => {
-                browser.close().then(() => {
-                  resolve();
-                });
-              });
-            });
-          });
-        })
-        .then(() => {
-          return new Promise((resolve) => {
-            testServer.close(resolve);
-          });
-        })
-        .then(() => {
-          // Order doesn't matter, maybe we should improve that in future
-          expect(res.sort()).toMatchSnapshot();
-          done();
+      await it(title, async (done) => {
+        await testServer.startAwaitingCompilation(config, testOptions);
+        const res = [];
+        const { page, browser } = await runBrowser();
+        page.goto(`http://localhost:${port2}/main`);
+        page.on('console', ({ _text }) => {
+          res.push(_text);
         });
+        // wait for load before closing the browser
+        await page.waitForNavigation({ waitUntil: 'load' });
+        await page.waitFor(beforeBrowserCloseDelay);
+        await browser.close();
+        // Order doesn't matter, maybe we should improve that in future
+        await expect(res.sort()).toMatchSnapshot();
+        await testServer.close(done);
+      });
     });
   });
 });

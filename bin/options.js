@@ -16,10 +16,6 @@ const options = {
     type: 'boolean',
     describe: 'Broadcasts the server via ZeroConf networking on start',
   },
-  lazy: {
-    type: 'boolean',
-    describe: 'Lazy',
-  },
   liveReload: {
     type: 'boolean',
     describe: 'Enables/Disables live reloading on changing files',
@@ -30,12 +26,6 @@ const options = {
     describe: 'Enables/Disables serveIndex middleware',
     default: true,
   },
-  inline: {
-    type: 'boolean',
-    default: true,
-    describe:
-      'Inline mode (set to false to disable including client scripts like livereload)',
-  },
   profile: {
     type: 'boolean',
     describe: 'Print compilation profile data for progress steps',
@@ -44,6 +34,11 @@ const options = {
     type: 'boolean',
     describe: 'Print compilation progress in percentage',
     group: BASIC_GROUP,
+  },
+  hot: {
+    type: 'boolean',
+    describe: 'Enables/disables HMR',
+    group: ADVANCED_GROUP,
   },
   'hot-only': {
     type: 'boolean',
@@ -67,34 +62,12 @@ const options = {
     describe: 'Open default browser with the specified page',
     requiresArg: true,
   },
-  color: {
-    type: 'boolean',
-    alias: 'colors',
-    default: function supportsColor() {
-      // Use `require('supports-color').stdout` for supports-color >= 5.0.0.
-      // See https://github.com/webpack/webpack-dev-server/pull/1555.
-      return require('supports-color').stdout;
-    },
-    group: DISPLAY_GROUP,
-    describe: 'Enables/Disables colors on the console',
-  },
-  info: {
-    type: 'boolean',
-    group: DISPLAY_GROUP,
-    default: true,
-    describe: 'Info',
-  },
-  quiet: {
-    type: 'boolean',
-    group: DISPLAY_GROUP,
-    describe: 'Quiet',
-  },
-  'client-log-level': {
+  'client-logging': {
     type: 'string',
     group: DISPLAY_GROUP,
     default: 'info',
     describe:
-      'Log level in the browser (trace, debug, info, warn, error or silent)',
+      'Log level in the browser (none, error, warn, info, log, verbose)',
   },
   https: {
     type: 'boolean',
@@ -105,31 +78,6 @@ const options = {
     type: 'boolean',
     group: SSL_GROUP,
     describe: 'HTTP/2, must be used with HTTPS',
-  },
-  key: {
-    type: 'string',
-    describe: 'Path to a SSL key.',
-    group: SSL_GROUP,
-  },
-  cert: {
-    type: 'string',
-    describe: 'Path to a SSL certificate.',
-    group: SSL_GROUP,
-  },
-  cacert: {
-    type: 'string',
-    describe: 'Path to a SSL CA certificate.',
-    group: SSL_GROUP,
-  },
-  pfx: {
-    type: 'string',
-    describe: 'Path to a SSL pfx file.',
-    group: SSL_GROUP,
-  },
-  'pfx-passphrase': {
-    type: 'string',
-    describe: 'Passphrase for pfx file.',
-    group: SSL_GROUP,
   },
   'content-base': {
     type: 'string',
@@ -158,11 +106,6 @@ const options = {
   'disable-host-check': {
     type: 'boolean',
     describe: 'Will not check the host',
-    group: CONNECTION_GROUP,
-  },
-  socket: {
-    type: 'String',
-    describe: 'Socket to listen',
     group: CONNECTION_GROUP,
   },
   public: {

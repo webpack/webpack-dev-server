@@ -16,22 +16,6 @@ describe('routes util', () => {
 
   afterAll(testServer.close);
 
-  it('should handles GET request to live bundle', (done) => {
-    req.get('/__webpack_dev_server__/live.bundle.js').then(({ res }) => {
-      expect(res.headers['content-type']).toEqual('application/javascript');
-      expect(res.statusCode).toEqual(200);
-      done();
-    });
-  });
-
-  it('should handles HEAD request to live bundle', (done) => {
-    req.head('/__webpack_dev_server__/live.bundle.js').then(({ res }) => {
-      expect(res.headers['content-type']).toEqual('application/javascript');
-      expect(res.statusCode).toEqual(200);
-      done();
-    });
-  });
-
   it('should handles GET request to sockjs bundle', (done) => {
     req.get('/__webpack_dev_server__/sockjs.bundle.js').then(({ res }) => {
       expect(res.headers['content-type']).toEqual('application/javascript');

@@ -17,7 +17,6 @@ describe('index', () => {
 
   beforeEach(() => {
     global.__resourceQuery = 'foo';
-    self.location.reload = jest.fn();
 
     // log
     jest.setMock('../../client-src/default/utils/log.js', {
@@ -53,6 +52,13 @@ describe('index', () => {
       '../../client-src/default/utils/createSocketUrl.js',
       () => 'mock-url'
     );
+
+    // issue: https://github.com/jsdom/jsdom/issues/2112
+    delete window.location;
+    window.location = {
+      ...locationValue,
+      reload: jest.fn(),
+    };
 
     require('../../client-src/default');
     onSocketMessage = socket.mock.calls[0][1];
@@ -104,8 +110,8 @@ describe('index', () => {
   });
 
   // TODO: need to mock require.context
-  test.skip("should run onSocketMessage['log-level']", () => {
-    onSocketMessage['log-level']();
+  test.skip("should run onSocketMessage['logging']", () => {
+    onSocketMessage.logging();
   });
 
   test("should run onSocketMessage.progress and onSocketMessage['progress-update']", () => {
@@ -210,6 +216,22 @@ describe('index', () => {
   });
 
   test('should run onSocketMessage.close', () => {
+    onSocketMessage.close();
+    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  test('should run onSocketMessage.close (hot enabled)', () => {
+    // enabling hot
+    onSocketMessage.hot();
+    onSocketMessage.close();
+    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  test('should run onSocketMessage.close (liveReload enabled)', () => {
+    // enabling liveReload
+    onSocketMessage.liveReload();
     onSocketMessage.close();
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();

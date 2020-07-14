@@ -102,6 +102,87 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'client host and port',
+      multiCompiler: false,
+      options: {
+        client: {
+          host: 'my.host',
+          port: 9000,
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'client path',
+      multiCompiler: false,
+      options: {
+        client: {
+          path: '/custom/path/',
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'client path without leading/ending slashes',
+      multiCompiler: false,
+      options: {
+        client: {
+          path: 'custom/path',
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'liveReload is true',
+      multiCompiler: false,
+      options: {
+        liveReload: true,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'liveReload is false',
+      multiCompiler: false,
+      options: {
+        liveReload: false,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'hot is true',
+      multiCompiler: false,
+      options: {
+        hot: true,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'hot is false',
+      multiCompiler: false,
+      options: {
+        hot: false,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'hot is only',
+      multiCompiler: false,
+      options: {
+        hot: 'only',
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'dev is set',
+      multiCompiler: false,
+      options: {
+        dev: {
+          serverSideRender: true,
+        },
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

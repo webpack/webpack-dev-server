@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Validation validation should fail validation for invalid \`contentBase\` configuration 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.contentBase[0] should be a string."
+`;
+
+exports[`Validation validation should fail validation for invalid \`hot\` configuration 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.hot should be one of these:
+   boolean | \\"only\\"
+   Details:
+    * configuration.hot should be a boolean.
+    * configuration.hot should be \\"only\\"."
+`;
+
+exports[`Validation validation should fail validation for invalid \`injectHot\` configuration 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.injectHot should be one of these:
+   boolean | function
+   Details:
+    * configuration.injectHot should be a boolean.
+    * configuration.injectHot should be an instance of function."
+`;
+
+exports[`Validation validation should fail validation for invalid \`overlay\` configuration 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.overlay.errors should be a boolean."
+`;
+
+exports[`Validation validation should fail validation for no additional properties 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration has an unknown property 'additional'. These properties are valid:
+   object { allowedHosts?, bonjour?, client?, compress?, contentBasePublicPath?, contentBase?, dev?, disableHostCheck?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, requestCert?, serveIndex?, staticOptions?, transportMode?, useLocalIp?, watchContentBase?, watchOptions? }"
+`;

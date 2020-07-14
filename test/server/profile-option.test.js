@@ -16,13 +16,14 @@ describe('profile', () => {
     });
 
     it('should show percentage progress with profile data', (done) => {
+      config.infrastructureLogging.level = 'info';
+
       const compiler = webpack(config);
       const server = new Server(compiler, {
         port,
         // profile will only have an effect when progress is enabled
         progress: true,
         profile: true,
-        quiet: true,
       });
 
       compiler.hooks.done.tap('webpack-dev-server', () => {

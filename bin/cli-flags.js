@@ -15,11 +15,6 @@ module.exports = {
       describe: 'Broadcasts the server via ZeroConf networking on start',
     },
     {
-      name: 'lazy',
-      type: Boolean,
-      describe: 'Lazy',
-    },
-    {
       name: 'live-reload',
       type: Boolean,
       defaultValue: true,
@@ -30,13 +25,6 @@ module.exports = {
       type: Boolean,
       describe: 'Enables/Disables serveIndex middleware',
       defaultValue: true,
-    },
-    {
-      name: 'inline',
-      type: Boolean,
-      defaultValue: true,
-      describe:
-        'Inline mode (set to false to disable including client scripts like livereload)',
     },
     {
       name: 'profile',
@@ -77,12 +65,12 @@ module.exports = {
       describe: 'Open default browser with the specified page',
     },
     {
-      name: 'client-log-level',
+      name: 'client-logging',
       type: String,
       group: DISPLAY_GROUP,
       defaultValue: 'info',
       describe:
-        'Log level in the browser (trace, debug, info, warn, error or silent)',
+        'Log level in the browser (none, error, warn, info, log, verbose)',
     },
     {
       name: 'https',
@@ -95,36 +83,6 @@ module.exports = {
       type: Boolean,
       group: SSL_GROUP,
       describe: 'HTTP/2, must be used with HTTPS',
-    },
-    {
-      name: 'key',
-      type: String,
-      describe: 'Path to a SSL key.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'cert',
-      type: String,
-      describe: 'Path to a SSL certificate.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'cacert',
-      type: String,
-      describe: 'Path to a SSL CA certificate.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'pfx',
-      type: String,
-      describe: 'Path to a SSL pfx file.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'pfx-passphrase',
-      type: String,
-      describe: 'Passphrase for pfx file.',
-      group: SSL_GROUP,
     },
     {
       name: 'content-base',
@@ -161,12 +119,6 @@ module.exports = {
       name: 'disable-host-check',
       type: Boolean,
       describe: 'Will not check the host',
-      group: CONNECTION_GROUP,
-    },
-    {
-      name: 'socket',
-      type: String,
-      describe: 'Socket to listen',
       group: CONNECTION_GROUP,
     },
     {

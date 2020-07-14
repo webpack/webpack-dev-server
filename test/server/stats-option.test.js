@@ -21,8 +21,8 @@ describe('stats option', () => {
     return allStats.reduce((p, stats) => {
       return p.then(() => {
         return new Promise((resolve) => {
-          const compiler = webpack(config);
-          const server = new Server(compiler, { stats, port, quiet: true });
+          const compiler = webpack(Object.assign({}, config, { stats }));
+          const server = new Server(compiler, { port });
 
           compiler.hooks.done.tap('webpack-dev-server', (s) => {
             expect(Object.keys(server.getStats(s)).sort()).toMatchSnapshot();
@@ -38,11 +38,13 @@ describe('stats option', () => {
   });
 
   it('should respect warningsFilter', (done) => {
-    const compiler = webpack(config);
+    const compiler = webpack(
+      Object.assign({}, config, {
+        stats: { warningsFilter: 'test' },
+      })
+    );
     const server = new Server(compiler, {
-      stats: { warningsFilter: 'test' },
       port,
-      quiet: true,
     });
 
     compiler.hooks.done.tap('webpack-dev-server', (s) => {

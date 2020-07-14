@@ -12,7 +12,7 @@ function reloadApp(
     return;
   }
   if (hot) {
-    log.info('[WDS] App hot update...');
+    log.info('App hot update...');
     const hotEmitter = require('webpack/hot/emitter');
     hotEmitter.emit('webpackHotUpdate', currentHash);
     if (typeof self !== 'undefined' && self.window) {
@@ -40,7 +40,7 @@ function reloadApp(
 
   function applyReload(rootWindow, intervalId) {
     clearInterval(intervalId);
-    log.info('[WDS] App updated. Reloading...');
+    log.info('App updated. Reloading...');
     rootWindow.location.reload();
   }
 }

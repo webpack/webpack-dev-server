@@ -10,7 +10,7 @@ function createSocketUrl(resourceQuery, currentLocation) {
 
   if (typeof resourceQuery === 'string' && resourceQuery !== '') {
     // If this bundle is inlined, use the resource query to get the correct url.
-    // format is like `?http://0.0.0.0:8096&sockPort=8097&sockHost=localhost`
+    // format is like `?http://0.0.0.0:8096&port=8097&host=localhost`
     urlParts = url.parse(
       resourceQuery
         // strip leading `?` from query string to get a valid URL
@@ -74,23 +74,23 @@ function getSocketUrl(urlParts, loc) {
   // all of these sock url params are optionally passed in through
   // resourceQuery, so we need to fall back to the default if
   // they are not provided
-  const sockHost = query.sockHost || hostname;
-  const sockPath = query.sockPath || '/sockjs-node';
-  let sockPort = query.sockPort || port;
+  const host = query.host || hostname;
+  const path = query.path || '/ws';
+  let portOption = query.port || port;
 
-  if (sockPort === 'location') {
-    sockPort = loc.port;
+  if (portOption === 'location') {
+    portOption = loc.port;
   }
 
   return url.format({
     protocol,
     auth,
-    hostname: sockHost,
-    port: sockPort,
-    // If sockPath is provided it'll be passed in via the resourceQuery as a
+    hostname: host,
+    port: portOption,
+    // If path is provided it'll be passed in via the resourceQuery as a
     // query param so it has to be parsed out of the querystring in order for the
     // client to open the socket to the correct location.
-    pathname: sockPath,
+    pathname: path,
   });
 }
 

@@ -12,23 +12,6 @@ let server;
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
-  if (options.quiet === undefined) {
-    options.quiet = true;
-  }
-
-  // originally, inline was not working by default for tests with the API
-  // if you need to test inline, it should be set explicitly,
-  // rather than expecting it to be defaulted to
-  // (the only test that relied on inline before this point was Client.test.js)
-  if (
-    options.inline === undefined &&
-    options.hot === undefined &&
-    options.hotOnly === undefined &&
-    options.liveReload === undefined
-  ) {
-    options.inline = false;
-  }
-
   // defaulting to this will hopefully help with problems on OSX in tests
   if (options.watchOptions === undefined) {
     options.watchOptions = {

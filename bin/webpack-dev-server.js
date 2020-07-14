@@ -4,8 +4,6 @@
 
 /* eslint-disable no-shadow, no-console */
 
-const fs = require('fs');
-const net = require('net');
 const debug = require('debug')('webpack-dev-server');
 const importLocal = require('import-local');
 const yargs = require('yargs');
@@ -14,8 +12,8 @@ const Server = require('../lib/Server');
 const setupExitSignals = require('../lib/utils/setupExitSignals');
 const colors = require('../lib/utils/colors');
 const processOptions = require('../lib/utils/processOptions');
-const createLogger = require('../lib/utils/createLogger');
 const getVersions = require('../lib/utils/getVersions');
+const getColorsOption = require('../lib/utils/getColorsOption');
 const options = require('./options');
 
 let server;
@@ -86,15 +84,16 @@ const config = require(convertArgvPath)(yargs, argv, {
 });
 
 function startDevServer(config, options) {
-  const log = createLogger(options);
-
   let compiler;
+
+  const configArr = config instanceof Array ? config : [config];
+  const statsColors = getColorsOption(configArr);
 
   try {
     compiler = webpack(config);
   } catch (err) {
     if (err instanceof webpack.WebpackOptionsValidationError) {
-      log.error(colors.error(options.stats.colors, err.message));
+      console.error(colors.error(statsColors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
     }
@@ -103,11 +102,11 @@ function startDevServer(config, options) {
   }
 
   try {
-    server = new Server(compiler, options, log);
+    server = new Server(compiler, options);
     serverData.server = server;
   } catch (err) {
     if (err.name === 'ValidationError') {
-      log.error(colors.error(options.stats.colors, err.message));
+      console.error(colors.error(statsColors, err.message));
       // eslint-disable-next-line no-process-exit
       process.exit(1);
     }
@@ -115,51 +114,11 @@ function startDevServer(config, options) {
     throw err;
   }
 
-  if (options.socket) {
-    server.listeningApp.on('error', (e) => {
-      if (e.code === 'EADDRINUSE') {
-        const clientSocket = new net.Socket();
-
-        clientSocket.on('error', (err) => {
-          if (err.code === 'ECONNREFUSED') {
-            // No other server listening on this socket so it can be safely removed
-            fs.unlinkSync(options.socket);
-
-            server.listen(options.socket, options.host, (error) => {
-              if (error) {
-                throw error;
-              }
-            });
-          }
-        });
-
-        clientSocket.connect({ path: options.socket }, () => {
-          throw new Error('This socket is already used');
-        });
-      }
-    });
-
-    server.listen(options.socket, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-
-      // chmod 666 (rw rw rw)
-      const READ_WRITE = 438;
-
-      fs.chmod(options.socket, READ_WRITE, (err) => {
-        if (err) {
-          throw err;
-        }
-      });
-    });
-  } else {
-    server.listen(options.port, options.host, (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-  }
+  server.listen(options.port, options.host, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 }
 
 processOptions(config, argv, (config, options) => {

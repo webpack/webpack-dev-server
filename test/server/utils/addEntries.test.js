@@ -18,7 +18,8 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(2);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+      normalize(webpackOptions.entry[0]).indexOf('client/default/index.js?') !==
+        -1
     ).toBeTruthy();
     expect(normalize(webpackOptions.entry[1])).toEqual('./foo.js');
   });
@@ -34,7 +35,8 @@ describe('addEntries util', () => {
 
     expect(webpackOptions.entry.length).toEqual(3);
     expect(
-      normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+      normalize(webpackOptions.entry[0]).indexOf('client/default/index.js?') !==
+        -1
     ).toBeTruthy();
     expect(webpackOptions.entry[1]).toEqual('./foo.js');
     expect(webpackOptions.entry[2]).toEqual('./bar.js');
@@ -55,7 +57,9 @@ describe('addEntries util', () => {
     expect(webpackOptions.entry.foo.length).toEqual(2);
 
     expect(
-      normalize(webpackOptions.entry.foo[0]).indexOf('client/index.js?') !== -1
+      normalize(webpackOptions.entry.foo[0]).indexOf(
+        'client/default/index.js?'
+      ) !== -1
     ).toBeTruthy();
     expect(webpackOptions.entry.foo[1]).toEqual('./foo.js');
     expect(webpackOptions.entry.bar[1]).toEqual('./bar.js');
@@ -162,7 +166,7 @@ describe('addEntries util', () => {
     });
 
     const devServerOptions = {
-      hotOnly: true,
+      hot: 'only',
     };
 
     addEntries(webpackOptions, devServerOptions);
@@ -223,7 +227,7 @@ describe('addEntries util', () => {
 
   it('should adds the HMR plugin if hot-only', () => {
     const webpackOptions = Object.assign({}, config);
-    const devServerOptions = { hotOnly: true };
+    const devServerOptions = { hot: 'only' };
 
     addEntries(webpackOptions, devServerOptions);
 
@@ -324,7 +328,9 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+          normalize(webpackOptions.entry[0]).indexOf(
+            'client/default/index.js?'
+          ) !== -1
         ).toBeTruthy();
       }
 
@@ -356,7 +362,9 @@ describe('addEntries util', () => {
 
       if (expectInline) {
         expect(
-          normalize(webpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+          normalize(webpackOptions.entry[0]).indexOf(
+            'client/default/index.js?'
+          ) !== -1
         ).toBeTruthy();
       }
 
@@ -412,7 +420,9 @@ describe('addEntries util', () => {
     expect(webWebpackOptions.entry.length).toEqual(2);
 
     expect(
-      normalize(webWebpackOptions.entry[0]).indexOf('client/index.js?') !== -1
+      normalize(webWebpackOptions.entry[0]).indexOf(
+        'client/default/index.js?'
+      ) !== -1
     ).toBeTruthy();
 
     expect(normalize(webWebpackOptions.entry[1])).toEqual('./foo.js');
@@ -427,5 +437,45 @@ describe('addEntries util', () => {
     ).toBeTruthy();
 
     expect(normalize(nodeWebpackOptions.entry[1])).toEqual('./foo.js');
+  });
+
+  it('does not use client.path when default', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = {
+      client: {
+        path: '/ws',
+      },
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+    expect(webpackOptions.entry[0]).not.toContain('&path=/ws');
+  });
+
+  it('uses custom client.path', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = {
+      client: {
+        path: '/custom/path',
+      },
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+    expect(webpackOptions.entry[0]).toContain('&path=/custom/path');
+  });
+
+  it('uses custom client', () => {
+    const webpackOptions = Object.assign({}, config);
+    const devServerOptions = {
+      client: {
+        host: 'my.host',
+        port: 8080,
+        path: '/custom/path',
+      },
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+    expect(webpackOptions.entry[0]).toContain(
+      '&host=my.host&path=/custom/path&port=8080'
+    );
   });
 });

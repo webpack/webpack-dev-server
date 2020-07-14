@@ -43,7 +43,7 @@ describe('findPort', () => {
     });
   });
 
-  it.only('should returns the port when the port is null', () => {
+  it('should returns the port when the port is null', () => {
     const retryCount = 2;
 
     process.env.DEFAULT_PORT_RETRY = 2;

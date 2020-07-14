@@ -18,7 +18,6 @@ describe('transportMode', () => {
     let server;
     let req;
     let getSocketServerImplementation;
-    let consoleMock;
 
     const serverModes = [
       {
@@ -54,14 +53,6 @@ describe('transportMode', () => {
         },
       },
     ];
-
-    beforeAll(() => {
-      consoleMock = jest.spyOn(console, 'log').mockImplementation();
-    });
-
-    afterAll(() => {
-      consoleMock.mockRestore();
-    });
 
     describe('is passed to getSocketServerImplementation correctly', () => {
       beforeEach(() => {
@@ -144,7 +135,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -164,7 +155,7 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
@@ -184,18 +175,17 @@ describe('transportMode', () => {
         });
 
         it('sockjs path responds with a 200', (done) => {
-          req.get('/sockjs-node').expect(200, done);
+          req.get('/ws').expect(200, done);
         });
       });
 
       describe('as a class (custom "sockjs" implementation)', () => {
-        let sockPath;
+        let customServerUsed = false;
         it('uses supplied server implementation', (done) => {
           server = testServer.start(
             config,
             {
               port,
-              sockPath: '/foo/test/bar/',
               transportMode: {
                 server: class MySockJSServer extends BaseServer {
                   constructor(serv) {
@@ -206,18 +196,20 @@ describe('transportMode', () => {
                       // Limit useless logs
                       log: (severity, line) => {
                         if (severity === 'error') {
-                          this.server.log.error(line);
+                          this.server.logger.error(line);
+                        } else if (severity === 'info') {
+                          this.server.logger.log(line);
                         } else {
-                          this.server.log.debug(line);
+                          this.server.logger.debug(line);
                         }
                       },
                     });
 
                     this.socket.installHandlers(this.server.listeningApp, {
-                      prefix: this.server.sockPath,
+                      prefix: 'ws',
                     });
 
-                    sockPath = server.options.sockPath;
+                    customServerUsed = true;
                   }
 
                   send(connection, message) {
@@ -241,7 +233,7 @@ describe('transportMode', () => {
               },
             },
             () => {
-              expect(sockPath).toEqual('/foo/test/bar/');
+              expect(customServerUsed).toBeTruthy();
               done();
             }
           );
@@ -282,15 +274,15 @@ describe('transportMode', () => {
                       // Limit useless logs
                       log: (severity, line) => {
                         if (severity === 'error') {
-                          this.server.log.error(line);
+                          this.server.logger.error(line);
                         } else {
-                          this.server.log.debug(line);
+                          this.server.logger.debug(line);
                         }
                       },
                     });
 
                     this.socket.installHandlers(this.server.listeningApp, {
-                      prefix: this.server.sockPath,
+                      prefix: this.server.options.client.path,
                     });
                   }
 
@@ -318,13 +310,13 @@ describe('transportMode', () => {
           );
 
           mockWarn = jest
-            .spyOn(server.log, 'warn')
+            .spyOn(server.logger, 'warn')
             .mockImplementation(() => {});
         });
 
         it('results in an error', (done) => {
           const data = [];
-          const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+          const client = new SockJS(`http://localhost:${port}/ws`);
 
           client.onopen = () => {
             data.push('open');
@@ -376,15 +368,17 @@ describe('transportMode', () => {
                       // Limit useless logs
                       log: (severity, line) => {
                         if (severity === 'error') {
-                          this.server.log.error(line);
+                          this.server.logger.error(line);
+                        } else if (severity === 'info') {
+                          this.server.logger.log(line);
                         } else {
-                          this.server.log.debug(line);
+                          this.server.logger.debug(line);
                         }
                       },
                     });
 
                     this.socket.installHandlers(this.server.listeningApp, {
-                      prefix: this.server.sockPath,
+                      prefix: this.server.options.client.path,
                     });
                   }
 
@@ -416,7 +410,7 @@ describe('transportMode', () => {
 
         it('results in an error', (done) => {
           const data = [];
-          const client = new SockJS(`http://localhost:${port}/sockjs-node`);
+          const client = new SockJS(`http://localhost:${port}/ws`);
 
           client.onopen = () => {
             data.push('open');
@@ -439,11 +433,11 @@ describe('transportMode', () => {
     });
 
     describe('server', () => {
-      let MockSockJSServer;
+      let MockWebsocketServer;
       beforeEach((done) => {
-        jest.mock('../../lib/servers/SockJSServer');
+        jest.mock('../../lib/servers/WebsocketServer');
         mockedTestServer = require('../helpers/test-server');
-        MockSockJSServer = require('../../lib/servers/SockJSServer');
+        MockWebsocketServer = require('../../lib/servers/WebsocketServer');
 
         server = mockedTestServer.start(
           config,
@@ -463,7 +457,7 @@ describe('transportMode', () => {
       });
 
       it('should use server implementation correctly', () => {
-        const mockServerInstance = MockSockJSServer.mock.instances[0];
+        const mockServerInstance = MockWebsocketServer.mock.instances[0];
 
         const connectionObj = {
           foo: 'bar',
@@ -483,16 +477,18 @@ describe('transportMode', () => {
         expect(server.sockets.length).toEqual(0);
 
         // check that the dev server was passed to the socket server implementation constructor
-        expect(MockSockJSServer.mock.calls[0].length).toEqual(1);
-        expect(MockSockJSServer.mock.calls[0][0].options.port).toEqual(port);
+        expect(MockWebsocketServer.mock.calls[0].length).toEqual(1);
+        expect(MockWebsocketServer.mock.calls[0][0].options.port).toEqual(port);
 
         expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
-        expect(mockServerInstance.send.mock.calls.length).toEqual(3);
-        // call 0 to the send() method is liveReload
+        expect(mockServerInstance.send.mock.calls.length).toEqual(4);
+        // call 0 to the send() method is hot
         expect(mockServerInstance.send.mock.calls[0]).toMatchSnapshot();
-        // call 1 to the send() method is hash data, so we skip it
-        // call 2 to the send() method is the "ok" message
-        expect(mockServerInstance.send.mock.calls[2]).toMatchSnapshot();
+        // call 1 to the send() method is liveReload
+        expect(mockServerInstance.send.mock.calls[1]).toMatchSnapshot();
+        // call 2 to the send() method is hash data, so we skip it
+        // call 3 to the send() method is the "ok" message
+        expect(mockServerInstance.send.mock.calls[3]).toMatchSnapshot();
         // close should not be called because the server never forcefully closes
         // a successful client connection
         expect(mockServerInstance.close.mock.calls.length).toEqual(0);
@@ -502,7 +498,7 @@ describe('transportMode', () => {
       });
 
       it('should close client with bad headers', () => {
-        const mockServerInstance = MockSockJSServer.mock.instances[0];
+        const mockServerInstance = MockWebsocketServer.mock.instances[0];
 
         // this simulates a client connecting to the server
         mockServerInstance.onConnection.mock.calls[0][0](
@@ -514,8 +510,8 @@ describe('transportMode', () => {
           }
         );
         expect(server.sockets.length).toEqual(0);
-        expect(MockSockJSServer.mock.calls[0].length).toEqual(1);
-        expect(MockSockJSServer.mock.calls[0][0].options.port).toEqual(port);
+        expect(MockWebsocketServer.mock.calls[0].length).toEqual(1);
+        expect(MockWebsocketServer.mock.calls[0][0].options.port).toEqual(port);
         expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
         // the only call to send() here should be an invalid header message
         expect(mockServerInstance.send.mock.calls).toMatchSnapshot();
@@ -574,7 +570,6 @@ describe('transportMode', () => {
           mockedTestServer.start(
             config,
             {
-              inline: true,
               transportMode: data.transportMode,
               port,
             },
@@ -616,7 +611,6 @@ describe('transportMode', () => {
             testServer.start(
               config,
               {
-                inline: true,
                 transportMode: data.transportMode,
                 port,
               },

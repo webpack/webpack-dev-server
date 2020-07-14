@@ -9,5 +9,8 @@ module.exports = [
       path: '/',
     },
     node: false,
+    infrastructureLogging: {
+      level: 'warn',
+    },
   },
 ];

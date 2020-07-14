@@ -3,14 +3,11 @@
 const path = require('path');
 const createConfig = require('../../../lib/utils/createConfig');
 const webpackConfig = require('./../../fixtures/schema/webpack.config.simple');
-const webpackConfigNoStats = require('./../../fixtures/schema/webpack.config.no-dev-stats');
 
 const argv = {
   port: 8080,
   // Can be `--no-hot` in CLI (undocumented)
   hot: true,
-  // Can be `--no-hot-only` in CLI (misleading and undocumented)
-  hotOnly: false,
 };
 
 describe('createConfig', () => {
@@ -162,30 +159,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('socket option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, {
-        socket: 'socket',
-      }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('socket option (devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { socket: 'socket' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('progress option', () => {
     const config = createConfig(
       webpackConfig,
@@ -219,7 +192,11 @@ describe('createConfig', () => {
   it('publicPath option (path in devServer option)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { publicPath: '/assets/' },
+        devServer: {
+          dev: {
+            publicPath: '/assets/',
+          },
+        },
       }),
       argv,
       { port: 8080 }
@@ -231,7 +208,11 @@ describe('createConfig', () => {
   it('publicPath option (url in devServer option)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { publicPath: 'http://localhost:8080/assets/' },
+        devServer: {
+          dev: {
+            publicPath: 'http://localhost:8080/assets/',
+          },
+        },
       }),
       argv,
       { port: 8080 }
@@ -276,42 +257,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('filename option (in webpack config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in output config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        output: { filename: '[name]-output-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('filename option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { filename: '[name]-dev-server-bundle.js' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('watchOptions option (in output config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
@@ -336,7 +281,7 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hot option', () => {
+  it('hot option (true)', () => {
     const config = createConfig(
       webpackConfig,
       Object.assign({}, argv, { hot: true }),
@@ -346,7 +291,17 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hot option (in devServer config)', () => {
+  it('hot option (false)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { hot: false }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('hot option (true) (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: { hot: true },
@@ -358,7 +313,20 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hotOnly option', () => {
+  it('hot option (false) (in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { hot: false },
+      }),
+      // eslint-disable-next-line no-undefined
+      Object.assign({}, argv, { hot: undefined }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('hot only option', () => {
     const config = createConfig(
       webpackConfig,
       Object.assign({}, argv, { hotOnly: true }),
@@ -368,34 +336,55 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('hotOnly option (in devServer config)', () => {
+  it('hot only option (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { hotOnly: true },
+        devServer: { hot: 'only' },
       }),
-      argv,
+      // eslint-disable-next-line no-undefined
+      Object.assign({}, argv, { hot: undefined }),
       { port: 8080 }
     );
 
     expect(config).toMatchSnapshot();
   });
 
-  it('clientLogLevel option', () => {
+  it('clientLogging option', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign({}, argv, { clientLogLevel: 'none' }),
+      Object.assign({}, argv, { clientLogging: 'none' }),
       { port: 8080 }
     );
 
     expect(config).toMatchSnapshot();
   });
 
-  it('clientLogLevel option (in devServer config)', () => {
+  it('client.logging option (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { clientLogLevel: 'none' },
+        devServer: {
+          client: {
+            logging: 'none',
+          },
+        },
       }),
       argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('clientLogging option overrides devServer config', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: {
+          client: {
+            logging: 'verbose',
+          },
+        },
+      }),
+      Object.assign({}, argv, { clientLogging: 'none' }),
       { port: 8080 }
     );
 
@@ -474,68 +463,10 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('stats option', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { stats: 'errors-only' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('stats option (colors)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { stats: { errors: true } },
-      }),
-      Object.assign({}, argv, { color: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('lazy option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { lazy: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('lazy option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { lazy: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('info option', () => {
     const config = createConfig(
       webpackConfig,
       Object.assign({}, argv, { info: false }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('info option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { noInfo: false },
-      }),
-      argv,
       { port: 8080 }
     );
 
@@ -568,40 +499,28 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('quiet option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { quiet: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('quiet option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { quiet: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('https option', () => {
-    const config = createConfig(
+    const config1 = createConfig(
       webpackConfig,
       Object.assign({}, argv, { https: true }),
       { port: 8080 }
     );
 
-    expect(config).toMatchSnapshot();
+    expect(config1).toMatchSnapshot();
+
+    const config2 = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, {
+        https: { ca: Buffer.from('') },
+      }),
+      { port: 8080 }
+    );
+
+    expect(config2).toMatchSnapshot();
   });
 
   it('https option (in devServer config)', () => {
-    const config = createConfig(
+    const config1 = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: { https: true },
       }),
@@ -609,7 +528,17 @@ describe('createConfig', () => {
       { port: 8080 }
     );
 
-    expect(config).toMatchSnapshot();
+    expect(config1).toMatchSnapshot();
+
+    const config2 = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { https: { ca: Buffer.from('') } },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config2).toMatchSnapshot();
   });
 
   it('http2 option', () => {
@@ -626,139 +555,6 @@ describe('createConfig', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
         devServer: { https: true, http2: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('key option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, key: '/path/to/server.key' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('key option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { https: true, key: '/path/to/server.key' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cert option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, cert: '/path/to/server.crt' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cert option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { https: true, cert: '/path/to/server.crt' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cacert option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, cacert: '/path/to/ca.pem' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('cacert option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        // TODO rename `ca` to `cacert` for `v4` to avoid difference between CLI and configuration
-        devServer: { https: true, ca: '/path/to/ca.pem' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('pfx option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { https: true, pfx: '/path/to/file.pfx' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('pfx option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { https: true, pfx: '/path/to/file.pfx' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('pfxPassphrase option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { pfxPassphrase: 'passphrase' }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('https option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { pfxPassphrase: 'passphrase' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('inline option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { inline: false }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('inline option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { inline: false },
       }),
       argv,
       { port: 8080 }
@@ -990,13 +786,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('use webpack stats', () => {
-    expect(
-      createConfig(webpackConfigNoStats, argv, { port: 8080 })
-    ).toMatchSnapshot();
-    expect(webpackConfigNoStats).toMatchSnapshot();
-  });
-
   it('onListening option', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
@@ -1027,42 +816,6 @@ describe('createConfig', () => {
         devServer: { overlay: true },
       }),
       argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('sockHost option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, {
-        sockHost: true,
-      }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('sockPath option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, {
-        sockPath: 'path',
-      }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('sockPort option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, {
-        sockPort: 'port',
-      }),
       { port: 8080 }
     );
 
