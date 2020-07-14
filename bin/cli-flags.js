@@ -20,7 +20,7 @@ module.exports = {
       describe: 'Lazy',
     },
     {
-      name: 'liveReload',
+      name: 'live-reload',
       type: Boolean,
       defaultValue: true,
       describe: 'Enables/Disables live reloading on changing files',
