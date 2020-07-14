@@ -58,7 +58,7 @@ const options = {
     type: 'string',
     describe: 'Open the default browser, or optionally specify a browser name',
   },
-  useLocalIp: {
+  'use-local-ip': {
     type: 'boolean',
     describe: 'Open default browser with local IP',
   },
