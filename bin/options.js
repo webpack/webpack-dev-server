@@ -16,7 +16,7 @@ const options = {
     type: 'boolean',
     describe: 'Broadcasts the server via ZeroConf networking on start',
   },
-  liveReload: {
+  'live-reload': {
     type: 'boolean',
     describe: 'Enables/Disables live reloading on changing files',
     default: true,
