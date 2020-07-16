@@ -15,7 +15,7 @@ module.exports = {
       describe: 'Broadcasts the server via ZeroConf networking on start',
     },
     {
-      name: 'liveReload',
+      name: 'live-reload',
       type: Boolean,
       defaultValue: true,
       describe: 'Enables/Disables live reloading on changing files',
@@ -55,7 +55,7 @@ module.exports = {
         'Open the default browser, or optionally specify a browser name',
     },
     {
-      name: 'useLocalIp',
+      name: 'use-local-ip',
       type: Boolean,
       describe: 'Open default browser with local IP',
     },

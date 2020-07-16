@@ -16,7 +16,7 @@ const options = {
     type: 'boolean',
     describe: 'Broadcasts the server via ZeroConf networking on start',
   },
-  liveReload: {
+  'live-reload': {
     type: 'boolean',
     describe: 'Enables/Disables live reloading on changing files',
     default: true,
@@ -53,7 +53,7 @@ const options = {
     type: 'string',
     describe: 'Open the default browser, or optionally specify a browser name',
   },
-  useLocalIp: {
+  'use-local-ip': {
     type: 'boolean',
     describe: 'Open default browser with local IP',
   },
