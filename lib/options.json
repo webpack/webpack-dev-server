@@ -296,9 +296,6 @@
     "public": {
       "type": "string"
     },
-    "publicPath": {
-      "type": "string"
-    },
     "serveIndex": {
       "type": "boolean"
     },
@@ -370,7 +367,6 @@
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
-      "publicPath": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublicpath-)",
       "contentBasePublicPath": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
       "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
       "staticOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverstaticoptions)",

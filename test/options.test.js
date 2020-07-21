@@ -381,10 +381,6 @@ describe('options', () => {
         success: [''],
         failure: [false],
       },
-      publicPath: {
-        success: [''],
-        failure: [false],
-      },
       serveIndex: {
         success: [true],
         failure: [''],
