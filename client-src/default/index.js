@@ -6,7 +6,6 @@ window.process = window.process || {};
 window.process.env = window.process.env || {};
 
 /* global __resourceQuery WorkerGlobalScope self */
-/* eslint prefer-destructuring: off */
 const stripAnsi = require('strip-ansi');
 const socket = require('./socket');
 const overlay = require('./overlay');
@@ -105,7 +104,7 @@ const onSocketMessage = {
     }
     if (options.initial) {
       return (options.initial = false);
-    } // eslint-disable-line no-return-assign
+    }
     reloadApp(options, status);
   },
   'content-changed': function contentChanged() {
@@ -125,7 +124,8 @@ const onSocketMessage = {
 
     if (options.initial) {
       return (options.initial = false);
-    } // eslint-disable-line no-return-assign
+    }
+
     reloadApp(options, status);
   },
   errors(errors) {

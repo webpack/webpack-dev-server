@@ -1,8 +1,5 @@
 'use strict';
 
-/* eslint-disable
-  no-unused-vars
-*/
 const SockJS = require('sockjs-client/dist/sockjs');
 const { log } = require('../default/utils/log');
 const BaseClient = require('./BaseClient');
@@ -17,6 +14,7 @@ module.exports = class SockJSClient extends BaseClient {
     };
   }
 
+  // eslint-disable-next-line no-unused-vars
   static getClientPath(options) {
     return require.resolve('./SockJSClient');
   }

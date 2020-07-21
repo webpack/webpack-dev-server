@@ -1,8 +1,5 @@
 'use strict';
 
-/* eslint-disable
-  no-undefined
-*/
 /* global self */
 
 describe('index', () => {
@@ -157,6 +154,7 @@ describe('index', () => {
       const res = onSocketMessage.ok();
       expect(reloadApp).toBeCalled();
       expect(reloadApp.mock.calls[0][0]).toMatchSnapshot();
+      // eslint-disable-next-line no-undefined
       expect(res).toEqual(undefined);
     }
   });
@@ -188,6 +186,7 @@ describe('index', () => {
         warnings: true,
       });
       const res = onSocketMessage.warnings([]);
+      // eslint-disable-next-line no-undefined
       expect(res).toEqual(undefined);
 
       expect(overlay.showMessage).toBeCalled();

@@ -93,7 +93,6 @@ describe('historyApiFallback option', () => {
         .get('/random-file')
         .accept('html')
         .end((err, res) => {
-          // eslint-disable-line
           if (err) {
             done(err);
           }

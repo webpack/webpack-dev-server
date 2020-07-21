@@ -1,9 +1,5 @@
 'use strict';
 
-/* eslint-disable
-  multiline-ternary,
-  space-before-function-paren
-*/
 const ADVANCED_GROUP = 'Advanced options:';
 const DISPLAY_GROUP = 'Stats options:';
 const SSL_GROUP = 'SSL options:';
