@@ -31,5 +31,5 @@ exports[`Validation validation should fail validation for invalid \`overlay\` co
 exports[`Validation validation should fail validation for no additional properties 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration has an unknown property 'additional'. These properties are valid:
-   object { allowedHosts?, bonjour?, client?, compress?, contentBasePublicPath?, contentBase?, dev?, disableHostCheck?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, requestCert?, serveIndex?, staticOptions?, transportMode?, useLocalIp?, watchContentBase?, watchOptions? }"
+   object { allowedHosts?, bonjour?, client?, compress?, contentBasePublicPath?, contentBase?, dev?, disableHostCheck?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, serveIndex?, staticOptions?, transportMode?, useLocalIp?, watchContentBase?, watchOptions? }"
 `;

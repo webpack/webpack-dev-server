@@ -381,10 +381,6 @@ describe('options', () => {
         success: [''],
         failure: [false],
       },
-      requestCert: {
-        success: [true],
-        failure: [''],
-      },
       serveIndex: {
         success: [true],
         failure: [''],
