@@ -1,10 +1,5 @@
 'use strict';
 
-/* eslint-disable
-  no-shadow,
-  array-bracket-spacing
-*/
-
 const webpack = require('webpack');
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');

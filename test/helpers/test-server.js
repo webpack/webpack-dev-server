@@ -1,9 +1,5 @@
 'use strict';
 
-/* eslint-disable
-  no-undefined
-*/
-
 const webpack = require('webpack');
 const Server = require('../../lib/Server');
 
@@ -13,6 +9,7 @@ let server;
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
   // defaulting to this will hopefully help with problems on OSX in tests
+  // eslint-disable-next-line no-undefined
   if (options.watchOptions === undefined) {
     options.watchOptions = {
       poll: true,
