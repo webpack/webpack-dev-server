@@ -1,7 +1,5 @@
 'use strict';
 
-process.env.DEBUG = 'puppeteer:none';
-
 const puppeteer = require('puppeteer');
 const { puppeteerArgs } = require('./puppeteer-constants');
 
