@@ -95,14 +95,6 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'contentBasePublicPath string',
-      multiCompiler: false,
-      options: {
-        contentBasePublicPath: '/content-base-public-path',
-      },
-      optionsResults: null,
-    },
-    {
       title: 'client host and port',
       multiCompiler: false,
       options: {
@@ -183,6 +175,66 @@ describe('normalizeOptions', () => {
       },
       optionsResults: null,
     },
+    {
+      title: 'static is true',
+      multiCompiler: false,
+      options: {
+        static: true,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'static is false',
+      multiCompiler: false,
+      options: {
+        static: false,
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'static is string',
+      multiCompiler: false,
+      options: {
+        static: '/static/path',
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'static is an array of strings',
+      multiCompiler: false,
+      options: {
+        static: ['/static/path1', '/static/path2'],
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'static is an array of static objects',
+      multiCompiler: false,
+      options: {
+        static: [
+          {
+            directory: '/static/path1',
+          },
+          {
+            publicPath: '/static/public/path',
+          },
+        ],
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'static is an array of strings and static objects',
+      multiCompiler: false,
+      options: {
+        static: [
+          '/static/path1',
+          {
+            publicPath: '/static/public/path',
+          },
+        ],
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {
@@ -211,6 +263,17 @@ describe('normalizeOptions', () => {
             expect(data.options.contentBase).toEqual(process.cwd());
             delete data.options.contentBase;
           }
+
+          if (data.options.static) {
+            data.options.static.forEach((staticOpts) => {
+              if (staticOpts.directory === process.cwd()) {
+                // give an indication in the snapshot that this is the
+                // current working directory
+                staticOpts.directory = 'CWD';
+              }
+            });
+          }
+
           expect(data.options).toMatchSnapshot();
         }
       });
