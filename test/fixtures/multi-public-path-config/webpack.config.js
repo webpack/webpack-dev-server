@@ -19,7 +19,7 @@ module.exports = [
           test: /\.html$/,
           loader: 'file-loader',
           options: {
-            name: 'file.html',
+            name: 'path/to/file.html',
           },
         },
       ],
