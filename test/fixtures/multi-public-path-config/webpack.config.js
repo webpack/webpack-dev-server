@@ -6,6 +6,7 @@ module.exports = [
     context: __dirname,
     entry: './foo.js',
     output: {
+      path: __dirname,
       filename: 'foo.js',
       publicPath: '/bundle1/',
     },
@@ -30,6 +31,7 @@ module.exports = [
     context: __dirname,
     entry: './bar.js',
     output: {
+      path: __dirname,
       filename: 'bar.js',
       publicPath: '/bundle2/',
     },
