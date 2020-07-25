@@ -64,6 +64,9 @@ $(() => {
       $errors.hide();
       reloadApp();
     },
+    'content-changed': function contentChanged() {
+      window.location.reload();
+    },
     warnings() {
       okness.text('Warnings while compiling.');
       $errors.hide();
