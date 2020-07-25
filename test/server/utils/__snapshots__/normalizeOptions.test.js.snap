@@ -317,7 +317,155 @@ Object {
 }
 `;
 
+exports[`normalizeOptions multi compiler watchOptions is set should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "aggregateTimeout": 300,
+      },
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
 exports[`normalizeOptions no options should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "aggregateTimeout": 300,
+      },
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object with static watch overriding it should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "poll": 500,
+      },
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object with static watch true should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "aggregateTimeout": 300,
+      },
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object with watch false should set correct options 1`] = `
 Object {
   "client": Object {
     "path": "/ws",
@@ -407,7 +555,7 @@ Object {
     Object {
       "directory": "CWD",
       "publicPath": Array [
-        "/static/public/path",
+        "/static/public/path/",
       ],
       "serveIndex": Object {
         "icons": true,
@@ -445,6 +593,34 @@ Object {
     },
     Object {
       "directory": "/static/path2",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is an object should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "/static/path",
       "publicPath": Array [
         "/",
       ],
@@ -507,6 +683,231 @@ Object {
 `;
 
 exports[`normalizeOptions static is true should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static publicPath is a string should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/static/public/path/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static publicPath is an array should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/static/public/path1/",
+        "/static/public/path2/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static serveIndex is an object should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": false,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static serveIndex is false should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": false,
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static serveIndex is true should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static watch is an object should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "poll": 500,
+      },
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static watch is false should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": false,
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static watch is true should set correct options 1`] = `
 Object {
   "client": Object {
     "path": "/ws",
