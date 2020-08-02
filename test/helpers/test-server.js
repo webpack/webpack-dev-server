@@ -8,14 +8,6 @@ let server;
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
-  // defaulting to this will hopefully help with problems on OSX in tests
-  // eslint-disable-next-line no-undefined
-  if (options.watchOptions === undefined) {
-    options.watchOptions = {
-      poll: true,
-    };
-  }
-
   const compiler = webpack(config);
 
   server = new Server(compiler, options);

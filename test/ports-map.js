@@ -16,7 +16,7 @@ const portsList = {
   'onAfterSetupMiddleware-option': 1,
   'onBeforeSetupMiddleware-option': 1,
   'compress-option': 1,
-  'contentBase-option': 1,
+  'static-directory-option': 1,
   'headers-option': 1,
   'historyApiFallback-option': 1,
   'host-option': 1,
