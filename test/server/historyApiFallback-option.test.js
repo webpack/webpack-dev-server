@@ -55,12 +55,12 @@ describe('historyApiFallback option', () => {
     });
   });
 
-  describe('as object with contentBase', () => {
+  describe('as object with static', () => {
     beforeAll((done) => {
       server = testServer.start(
         config2,
         {
-          contentBase: path.resolve(
+          static: path.resolve(
             __dirname,
             '../fixtures/historyapifallback-2-config'
           ),
@@ -88,7 +88,7 @@ describe('historyApiFallback option', () => {
         .expect(200, /Foobar/, done);
     });
 
-    it('contentBase file should take preference above historyApiFallback', (done) => {
+    it('static file should take preference above historyApiFallback', (done) => {
       req
         .get('/random-file')
         .accept('html')
@@ -97,6 +97,8 @@ describe('historyApiFallback option', () => {
             done(err);
           }
 
+          console.log(res.statusCode);
+
           expect(res.body.toString().trim()).toEqual('Random file');
 
           done();
@@ -104,12 +106,12 @@ describe('historyApiFallback option', () => {
     });
   });
 
-  describe('as object with contentBase set to false', () => {
+  describe('as object with static set to false', () => {
     beforeAll((done) => {
       server = testServer.start(
         config3,
         {
-          contentBase: false,
+          static: false,
           historyApiFallback: {
             index: '/bar.html',
           },
@@ -128,13 +130,13 @@ describe('historyApiFallback option', () => {
     });
   });
 
-  describe('as object with contentBase and rewrites', () => {
+  describe('as object with static and rewrites', () => {
     beforeAll((done) => {
       server = testServer.start(
         config2,
         {
           port,
-          contentBase: path.resolve(
+          static: path.resolve(
             __dirname,
             '../fixtures/historyapifallback-2-config'
           ),
@@ -183,7 +185,7 @@ describe('historyApiFallback option', () => {
       server = testServer.start(
         config3,
         {
-          contentBase: path.resolve(
+          static: path.resolve(
             __dirname,
             '../fixtures/historyapifallback-3-config'
           ),
@@ -195,7 +197,7 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('should take precedence over contentBase files', (done) => {
+    it('should take precedence over static files', (done) => {
       req
         .get('/foo')
         .accept('html')
