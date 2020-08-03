@@ -4,21 +4,21 @@ const path = require('path');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
-const port = require('../ports-map')['contentBasePublicPath-option'];
+const port = require('../ports-map')['static-publicPath-option'];
 
-const contentBasePublic = path.resolve(
+const publicDirectory = path.resolve(
   __dirname,
   '../fixtures/contentbase-config/public'
 );
-const contentBaseOther = path.resolve(
+const otherPublicDirectory = path.resolve(
   __dirname,
   '../fixtures/contentbase-config/other'
 );
 
-const contentBasePublicPath = '/serve-content-base-at-this-url';
-const contentBasePublicOtherPath = '/serve-other-content-at-this-url';
+const staticPublicPath = '/serve-content-base-at-this-url';
+const otherStaticPublicPath = '/serve-other-content-at-this-url';
 
-describe('contentBasePublicPath option', () => {
+describe('static.publicPath option', () => {
   let server;
   let req;
 
@@ -27,9 +27,11 @@ describe('contentBasePublicPath option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          contentBasePublicPath,
-          watchContentBase: true,
+          static: {
+            directory: publicDirectory,
+            publicPath: staticPublicPath,
+            watch: true,
+          },
           port,
         },
         done
@@ -44,25 +46,25 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('Request to index', (done) => {
-      req.get(`${contentBasePublicPath}/`).expect(200, /Heyo/, done);
+      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
     });
 
     it('Request to other file', (done) => {
-      req
-        .get(`${contentBasePublicPath}/other.html`)
-        .expect(200, /Other html/, done);
+      req.get(`${staticPublicPath}/other.html`).expect(200, /Other html/, done);
     });
   });
 
-  describe('test listing files in folders without index.html using the option serveIndex:false', () => {
+  describe('test listing files in folders without index.html using the option static.serveIndex:false', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          contentBasePublicPath,
-          watchContentBase: true,
-          serveIndex: false,
+          static: {
+            directory: publicDirectory,
+            publicPath: staticPublicPath,
+            watch: true,
+            serveIndex: false,
+          },
           port,
         },
         done
@@ -77,23 +79,25 @@ describe('contentBasePublicPath option', () => {
     });
 
     it("shouldn't list the files inside the assets folder (404)", (done) => {
-      req.get(`${contentBasePublicPath}/assets/`).expect(404, done);
+      req.get(`${staticPublicPath}/assets/`).expect(404, done);
     });
 
     it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get(`${contentBasePublicPath}/bar/`).expect(200, /Heyo/, done);
+      req.get(`${staticPublicPath}/bar/`).expect(200, /Heyo/, done);
     });
   });
 
-  describe('test listing files in folders without index.html using the option serveIndex:true', () => {
+  describe('test listing files in folders without index.html using the option static.serveIndex:true', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          contentBasePublicPath,
-          watchContentBase: true,
-          serveIndex: true,
+          static: {
+            directory: publicDirectory,
+            publicPath: staticPublicPath,
+            watch: true,
+            serveIndex: true,
+          },
           port,
         },
         done
@@ -108,22 +112,24 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('should list the files inside the assets folder (200)', (done) => {
-      req.get(`${contentBasePublicPath}/assets/`).expect(200, done);
+      req.get(`${staticPublicPath}/assets/`).expect(200, done);
     });
 
     it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get(`${contentBasePublicPath}/bar/`).expect(200, /Heyo/, done);
+      req.get(`${staticPublicPath}/bar/`).expect(200, /Heyo/, done);
     });
   });
 
-  describe('test listing files in folders without index.html using the option serveIndex default (true)', () => {
+  describe('test listing files in folders without index.html using the option static.serveIndex default (true)', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          contentBasePublicPath,
-          watchContentBase: true,
+          static: {
+            directory: publicDirectory,
+            publicPath: staticPublicPath,
+            watch: true,
+          },
           port,
         },
         done
@@ -138,11 +144,11 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('should list the files inside the assets folder (200)', (done) => {
-      req.get(`${contentBasePublicPath}/assets/`).expect(200, done);
+      req.get(`${staticPublicPath}/assets/`).expect(200, done);
     });
 
     it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get(`${contentBasePublicPath}/bar/`).expect(200, /Heyo/, done);
+      req.get(`${staticPublicPath}/bar/`).expect(200, /Heyo/, done);
     });
   });
 
@@ -151,8 +157,16 @@ describe('contentBasePublicPath option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: [contentBasePublic, contentBaseOther],
-          contentBasePublicPath,
+          static: [
+            {
+              directory: publicDirectory,
+              publicPath: staticPublicPath,
+            },
+            {
+              directory: otherPublicDirectory,
+              publicPath: staticPublicPath,
+            },
+          ],
           port,
         },
         done
@@ -167,45 +181,24 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('Request to first directory', (done) => {
-      req.get(`${contentBasePublicPath}/`).expect(200, /Heyo/, done);
+      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
     });
 
     it('Request to second directory', (done) => {
-      req.get(`${contentBasePublicPath}/foo.html`).expect(200, /Foo!/, done);
+      req.get(`${staticPublicPath}/foo.html`).expect(200, /Foo!/, done);
     });
   });
 
   describe('default to PWD', () => {
     beforeAll((done) => {
-      jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
-
-      server = testServer.start(config, { contentBasePublicPath }, done);
-      req = request(server.app);
-    });
-
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
-    });
-
-    it('Request to page', (done) => {
-      req.get(`${contentBasePublicPath}/other.html`).expect(200, done);
-    });
-  });
-
-  describe('disable', () => {
-    beforeAll((done) => {
-      // This is a somewhat weird test, but it is important that we mock
-      // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
-      jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
+      jest.spyOn(process, 'cwd').mockImplementation(() => publicDirectory);
 
       server = testServer.start(
         config,
         {
-          contentBase: false,
-          contentBasePublicPath,
-          port,
+          static: {
+            publicPath: staticPublicPath,
+          },
         },
         done
       );
@@ -219,7 +212,7 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('Request to page', (done) => {
-      req.get(`${contentBasePublicPath}/other.html`).expect(404, done);
+      req.get(`${staticPublicPath}/other.html`).expect(200, done);
     });
   });
 
@@ -228,8 +221,10 @@ describe('contentBasePublicPath option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: [contentBasePublic],
-          contentBasePublicPath,
+          static: {
+            directory: publicDirectory,
+            publicPath: staticPublicPath,
+          },
           port,
         },
         done
@@ -245,7 +240,7 @@ describe('contentBasePublicPath option', () => {
 
     it('Request foo.wasm', (done) => {
       req
-        .get(`${contentBasePublicPath}/foo.wasm`)
+        .get(`${staticPublicPath}/foo.wasm`)
         .expect('Content-Type', 'application/wasm', done);
     });
   });
@@ -255,9 +250,11 @@ describe('contentBasePublicPath option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          contentBasePublicPath,
-          watchContentBase: true,
+          static: {
+            directory: publicDirectory,
+            publicPath: staticPublicPath,
+            watch: true,
+          },
           port,
         },
         done
@@ -270,41 +267,47 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('GET request', (done) => {
-      req.get(`${contentBasePublicPath}/`).expect(200, done);
+      req.get(`${staticPublicPath}/`).expect(200, done);
     });
 
     it('HEAD request', (done) => {
-      req.head(`${contentBasePublicPath}/`).expect(200, done);
+      req.head(`${staticPublicPath}/`).expect(200, done);
     });
 
     it('POST request', (done) => {
-      req.post(`${contentBasePublicPath}/`).expect(404, done);
+      req.post(`${staticPublicPath}/`).expect(404, done);
     });
 
     it('PUT request', (done) => {
-      req.put(`${contentBasePublicPath}/`).expect(404, done);
+      req.put(`${staticPublicPath}/`).expect(404, done);
     });
 
     it('DELETE request', (done) => {
-      req.delete(`${contentBasePublicPath}/`).expect(404, done);
+      req.delete(`${staticPublicPath}/`).expect(404, done);
     });
 
     it('PATCH request', (done) => {
-      req.patch(`${contentBasePublicPath}/`).expect(404, done);
+      req.patch(`${staticPublicPath}/`).expect(404, done);
     });
   });
 
-  describe('multiple contentBasePublicPath entries', () => {
+  describe('multiple static.publicPath entries', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: [contentBasePublic, contentBaseOther],
-          contentBasePublicPath: [
-            contentBasePublicPath,
-            contentBasePublicOtherPath,
+          static: [
+            {
+              directory: publicDirectory,
+              publicPath: staticPublicPath,
+              watch: true,
+            },
+            {
+              directory: otherPublicDirectory,
+              publicPath: otherStaticPublicPath,
+              watch: true,
+            },
           ],
-          watchContentBase: true,
           port,
         },
         done
@@ -319,19 +322,15 @@ describe('contentBasePublicPath option', () => {
     });
 
     it('Request the first path to index', (done) => {
-      req.get(`${contentBasePublicPath}/`).expect(200, /Heyo/, done);
+      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
     });
 
     it('Request the first path to other file', (done) => {
-      req
-        .get(`${contentBasePublicPath}/other.html`)
-        .expect(200, /Other html/, done);
+      req.get(`${staticPublicPath}/other.html`).expect(200, /Other html/, done);
     });
 
     it('Request the second path to foo', (done) => {
-      req
-        .get(`${contentBasePublicOtherPath}/foo.html`)
-        .expect(200, /Foo!/, done);
+      req.get(`${otherStaticPublicPath}/foo.html`).expect(200, /Foo!/, done);
     });
   });
 });

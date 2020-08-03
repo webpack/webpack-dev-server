@@ -41,8 +41,7 @@
             }
           ]
         }
-      },
-      "required": ["directory"]
+      }
     },
     "StaticString": {
       "type": "string",
