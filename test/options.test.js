@@ -233,10 +233,6 @@ describe('options', () => {
         success: [true],
         failure: [''],
       },
-      contentBase: {
-        success: [0, '.', false],
-        failure: [[1], [false]],
-      },
       dev: {
         success: [
           {
@@ -381,13 +377,42 @@ describe('options', () => {
         success: [''],
         failure: [false],
       },
-      serveIndex: {
-        success: [true],
-        failure: [''],
-      },
-      staticOptions: {
-        success: [{}],
-        failure: [false],
+      static: {
+        success: [
+          'path',
+          false,
+          {
+            static: {
+              directory: 'path',
+              staticOptions: {},
+              publicPath: '/',
+              serveIndex: true,
+              watch: true,
+            },
+          },
+          {
+            static: {
+              directory: 'path',
+              staticOptions: {},
+              publicPath: ['/public1/', '/public2/'],
+              serveIndex: true,
+              watch: {},
+            },
+          },
+          {
+            static: [
+              'path1',
+              {
+                directory: 'path2',
+                staticOptions: {},
+                publicPath: '/',
+                serveIndex: true,
+                watch: true,
+              },
+            ],
+          },
+        ],
+        failure: [0, null, ''],
       },
       transportMode: {
         success: [
@@ -447,14 +472,6 @@ describe('options', () => {
       },
       useLocalIp: {
         success: [false],
-        failure: [''],
-      },
-      watchContentBase: {
-        success: [true],
-        failure: [''],
-      },
-      watchOptions: {
-        success: [{}],
         failure: [''],
       },
     };

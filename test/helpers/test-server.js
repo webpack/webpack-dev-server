@@ -8,6 +8,14 @@ let server;
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
+  if (typeof options.static === 'undefined') {
+    options.static = {
+      watch: {
+        poll: true,
+      },
+    };
+  }
+
   const compiler = webpack(config);
 
   server = new Server(compiler, options);
