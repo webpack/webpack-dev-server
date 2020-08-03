@@ -14,9 +14,6 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        watchOptions: {
-          poll: true,
-        },
       };
       server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -34,9 +31,6 @@ describe('hot option', () => {
       const options = {
         port,
         hot: 'only',
-        watchOptions: {
-          poll: true,
-        },
       };
       server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -55,9 +49,6 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        watchOptions: {
-          poll: true,
-        },
       };
       server = testServer.startAwaitingCompilation(
         multiCompilerConfig,
@@ -79,9 +70,6 @@ describe('hot option', () => {
       const options = {
         port,
         hot: false,
-        watchOptions: {
-          poll: true,
-        },
       };
       server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -108,9 +96,6 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        watchOptions: {
-          poll: true,
-        },
       };
       const fullSetup = testServer.startAwaitingCompilationFullSetup(
         config,
@@ -140,9 +125,6 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        watchOptions: {
-          poll: true,
-        },
       };
       const fullSetup = testServer.startAwaitingCompilationFullSetup(
         multiCompilerConfig,
@@ -173,9 +155,6 @@ describe('hot option', () => {
       const options = {
         port,
         hot: false,
-        watchOptions: {
-          poll: true,
-        },
       };
       const fullSetup = testServer.startAwaitingCompilationFullSetup(
         config,

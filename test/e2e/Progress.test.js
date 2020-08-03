@@ -38,9 +38,6 @@ describe('client progress', () => {
         host: '0.0.0.0',
         hot: true,
         progress: true,
-        watchOptions: {
-          poll: true,
-        },
       };
 
       // we need a delay between file writing and the start
