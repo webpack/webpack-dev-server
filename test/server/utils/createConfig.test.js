@@ -257,30 +257,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('watchOptions option (in output config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        watchOptions: { poll: true },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('watchOptions option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { watchOptions: { poll: true } },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('hot option (true)', () => {
     const config = createConfig(
       webpackConfig,
@@ -391,70 +367,32 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('contentBase option (string)', () => {
+  it('static option (string)', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign({}, argv, { contentBase: 'assets' }),
+      Object.assign({}, argv, { static: 'assets' }),
       { port: 8080 }
     );
 
-    config.contentBase = path.relative(process.cwd(), config.contentBase);
+    config.static = path.relative(process.cwd(), config.static);
 
     expect(config).toMatchSnapshot();
   });
 
-  it('contentBase option (array)', () => {
+  it('static option (boolean)', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign({}, argv, { contentBase: ['assets', 'static'] }),
-      { port: 8080 }
-    );
-
-    config.contentBase = config.contentBase.map((item) =>
-      path.relative(process.cwd(), item)
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('contentBase option (boolean)', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { contentBase: false }),
+      Object.assign({}, argv, { static: false }),
       { port: 8080 }
     );
 
     expect(config).toMatchSnapshot();
   });
 
-  it('contentBase option (string) (in devServer config)', () => {
+  it('static option (in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { contentBase: 'assets' },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    config.contentBase = path.relative(process.cwd(), config.contentBase);
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('watchContentBase option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, { watchContentBase: true }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('watchContentBase option (in devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { watchContentBase: true },
+        devServer: { static: true },
       }),
       argv,
       { port: 8080 }

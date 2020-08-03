@@ -21,12 +21,6 @@ module.exports = {
       describe: 'Enables/Disables live reloading on changing files',
     },
     {
-      name: 'static-serve-index',
-      type: Boolean,
-      describe: 'Enables/Disables serveIndex middleware',
-      defaultValue: true,
-    },
-    {
       name: 'profile',
       type: Boolean,
       describe: 'Print compilation profile data for progress steps',
@@ -85,15 +79,9 @@ module.exports = {
       describe: 'HTTP/2, must be used with HTTPS',
     },
     {
-      name: 'static-directory',
+      name: 'static',
       type: String,
       describe: 'A directory or URL to serve HTML content from.',
-      group: RESPONSE_GROUP,
-    },
-    {
-      name: 'static-watch',
-      type: Boolean,
-      describe: 'Enable live-reloading of the static directory.',
       group: RESPONSE_GROUP,
     },
     {
