@@ -83,6 +83,7 @@ module.exports = {
       type: String,
       describe: 'A directory or URL to serve HTML content from.',
       group: RESPONSE_GROUP,
+      multiple: true,
     },
     {
       name: 'history-api-fallback',

@@ -374,7 +374,23 @@ describe('createConfig', () => {
       { port: 8080 }
     );
 
-    config.static = path.relative(process.cwd(), config.static);
+    config.static = config.static.map((staticDir) =>
+      path.relative(process.cwd(), staticDir)
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('static option (list of strings)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { static: 'assets1,assets2' }),
+      { port: 8080 }
+    );
+
+    config.static = config.static.map((staticDir) =>
+      path.relative(process.cwd(), staticDir)
+    );
 
     expect(config).toMatchSnapshot();
   });

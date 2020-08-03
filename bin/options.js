@@ -72,7 +72,8 @@ const options = {
   },
   static: {
     type: 'string',
-    describe: 'A directory or URL to serve HTML content from.',
+    describe:
+      'A comma-delimited string of directories to serve static content from.',
     group: RESPONSE_GROUP,
   },
   'history-api-fallback': {

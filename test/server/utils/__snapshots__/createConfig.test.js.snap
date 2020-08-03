@@ -606,12 +606,26 @@ Object {
 }
 `;
 
+exports[`createConfig static option (list of strings) 1`] = `
+Object {
+  "dev": Object {},
+  "hot": true,
+  "port": 8080,
+  "static": Array [
+    "assets1",
+    "assets2",
+  ],
+}
+`;
+
 exports[`createConfig static option (string) 1`] = `
 Object {
   "dev": Object {},
   "hot": true,
   "port": 8080,
-  "static": "assets",
+  "static": Array [
+    "assets",
+  ],
 }
 `;
 
