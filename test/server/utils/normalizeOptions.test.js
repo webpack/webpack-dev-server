@@ -12,32 +12,6 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'contentBase string',
-      multiCompiler: false,
-      options: {
-        contentBase: '/path/to/dist',
-      },
-      optionsResults: null,
-    },
-    {
-      title: 'contentBase array',
-      multiCompiler: false,
-      options: {
-        contentBase: ['/path/to/dist1', '/path/to/dist2'],
-      },
-      optionsResults: null,
-    },
-    {
-      title: 'watchOptions',
-      multiCompiler: false,
-      options: {
-        watchOptions: {
-          poll: true,
-        },
-      },
-      optionsResults: null,
-    },
-    {
       title: 'transportMode sockjs string',
       multiCompiler: false,
       options: {

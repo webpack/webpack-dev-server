@@ -91,7 +91,7 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: contentBase,
           proxy: proxyOptionPathsAsProperties,
           port: port3,
         },
@@ -148,7 +148,7 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: contentBase,
           proxy: proxyOption,
           port: port3,
         },
@@ -179,7 +179,7 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: contentBase,
           proxy: proxyOptionOfArray,
           port: port3,
         },
@@ -224,7 +224,7 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: contentBase,
           proxy: {
             '/proxy1': proxyTarget,
             '/proxy2': proxyTarget,
@@ -264,7 +264,7 @@ describe('proxy option', () => {
           testServer.start(
             config,
             {
-              contentBase,
+              static: contentBase,
               transportMode,
               proxy: [
                 {
@@ -368,7 +368,7 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: contentBase,
           proxy: {
             '**': proxyTarget,
           },

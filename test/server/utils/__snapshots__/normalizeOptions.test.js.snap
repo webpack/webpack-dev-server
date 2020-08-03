@@ -86,67 +86,6 @@ Object {
 }
 `;
 
-exports[`normalizeOptions contentBase array should set correct options 1`] = `
-Object {
-  "client": Object {
-    "path": "/ws",
-  },
-  "contentBase": Array [
-    "/path/to/dist1",
-    "/path/to/dist2",
-  ],
-  "dev": Object {},
-  "hot": true,
-  "liveReload": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
-    },
-  ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
-  },
-}
-`;
-
-exports[`normalizeOptions contentBase string should set correct options 1`] = `
-Object {
-  "client": Object {
-    "path": "/ws",
-  },
-  "contentBase": "/path/to/dist",
-  "dev": Object {},
-  "hot": true,
-  "liveReload": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
-    },
-  ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
-  },
-}
-`;
-
 exports[`normalizeOptions dev is set should set correct options 1`] = `
 Object {
   "client": Object {
@@ -1099,37 +1038,6 @@ Object {
   "transportMode": Object {
     "client": "ws",
     "server": "ws",
-  },
-}
-`;
-
-exports[`normalizeOptions watchOptions should set correct options 1`] = `
-Object {
-  "client": Object {
-    "path": "/ws",
-  },
-  "dev": Object {},
-  "hot": true,
-  "liveReload": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
-    },
-  ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
-  },
-  "watchOptions": Object {
-    "poll": true,
   },
 }
 `;
