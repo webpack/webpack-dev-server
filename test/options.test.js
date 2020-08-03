@@ -395,7 +395,7 @@ describe('options', () => {
               directory: 'path',
               staticOptions: {},
               publicPath: ['/public1/', '/public2/'],
-              serveIndex: true,
+              serveIndex: {},
               watch: {},
             },
           },

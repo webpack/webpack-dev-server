@@ -29,7 +29,14 @@
           ]
         },
         "serveIndex": {
-          "type": "boolean"
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object"
+            }
+          ]
         },
         "watch": {
           "anyOf": [
