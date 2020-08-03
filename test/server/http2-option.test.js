@@ -21,7 +21,7 @@ describe('http2 option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: contentBasePublic,
           https: true,
           http2: true,
           port,
@@ -63,7 +63,7 @@ describe('http2 option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: contentBasePublic,
           http2: true,
           port,
         },
@@ -84,7 +84,7 @@ describe('http2 option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: contentBasePublic,
           https: true,
           http2: false,
           port,
