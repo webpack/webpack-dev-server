@@ -97,8 +97,6 @@ describe('historyApiFallback option', () => {
             done(err);
           }
 
-          console.log(res.statusCode);
-
           expect(res.body.toString().trim()).toEqual('Random file');
 
           done();

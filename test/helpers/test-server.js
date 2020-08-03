@@ -8,11 +8,10 @@ let server;
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
+  // disable watching by default for tests
   if (typeof options.static === 'undefined') {
     options.static = {
-      watch: {
-        poll: true,
-      },
+      watch: false,
     };
   }
 
