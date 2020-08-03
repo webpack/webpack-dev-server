@@ -1,10 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Validation validation should fail validation for invalid \`contentBase\` configuration 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.contentBase[0] should be a string."
-`;
-
 exports[`Validation validation should fail validation for invalid \`hot\` configuration 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.hot should be one of these:
@@ -28,8 +23,21 @@ exports[`Validation validation should fail validation for invalid \`overlay\` co
  - configuration.overlay.errors should be a boolean."
 `;
 
+exports[`Validation validation should fail validation for invalid \`static\` configuration 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.static should be one of these:
+   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   Details:
+    * configuration.static[0] should be one of these:
+      non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+      Details:
+       * configuration.static[0] should be a non-empty string.
+       * configuration.static[0] should be an object:
+         object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
+`;
+
 exports[`Validation validation should fail validation for no additional properties 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration has an unknown property 'additional'. These properties are valid:
-   object { allowedHosts?, bonjour?, client?, compress?, contentBasePublicPath?, contentBase?, dev?, disableHostCheck?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, serveIndex?, staticOptions?, transportMode?, useLocalIp?, watchContentBase?, watchOptions? }"
+   object { allowedHosts?, bonjour?, client?, compress?, dev?, disableHostCheck?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, profile?, progress?, proxy?, public?, static?, transportMode?, useLocalIp? }"
 `;

@@ -38,8 +38,8 @@ describe('Validation', () => {
         config: { overlay: { errors: 1 } },
       },
       {
-        name: 'invalid `contentBase` configuration',
-        config: { contentBase: [0] },
+        name: 'invalid `static` configuration',
+        config: { static: [0] },
       },
       {
         name: 'no additional properties',
