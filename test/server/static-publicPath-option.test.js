@@ -333,4 +333,51 @@ describe('static.publicPath option', () => {
       req.get(`${otherStaticPublicPath}/foo.html`).expect(200, /Foo!/, done);
     });
   });
+
+  describe('multiple static.publicPath entries with publicPath array', () => {
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          static: [
+            {
+              directory: publicDirectory,
+              publicPath: staticPublicPath,
+              watch: true,
+            },
+            {
+              directory: otherPublicDirectory,
+              publicPath: [staticPublicPath, otherStaticPublicPath],
+              watch: true,
+            },
+          ],
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        done();
+      });
+    });
+
+    it('Request the first path to index', (done) => {
+      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
+    });
+
+    it('Request the first path to other file', (done) => {
+      req.get(`${staticPublicPath}/other.html`).expect(200, /Other html/, done);
+    });
+
+    it('Request the first path to foo', (done) => {
+      req.get(`${staticPublicPath}/foo.html`).expect(200, /Foo!/, done);
+    });
+
+    it('Request the second path to foo', (done) => {
+      req.get(`${otherStaticPublicPath}/foo.html`).expect(200, /Foo!/, done);
+    });
+  });
 });
