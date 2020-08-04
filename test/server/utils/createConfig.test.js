@@ -384,7 +384,7 @@ describe('createConfig', () => {
   it('static option (list of strings)', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign({}, argv, { static: 'assets1,assets2' }),
+      Object.assign({}, argv, { static: ['assets1', 'assets2'] }),
       { port: 8080 }
     );
 

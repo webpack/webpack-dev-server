@@ -81,7 +81,7 @@ module.exports = {
     {
       name: 'static',
       type: String,
-      describe: 'A directory or URL to serve HTML content from.',
+      describe: 'A directory to serve static content from.',
       group: RESPONSE_GROUP,
       multiple: true,
     },
