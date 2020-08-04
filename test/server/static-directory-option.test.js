@@ -292,7 +292,13 @@ describe('static.directory option', () => {
     beforeAll((done) => {
       jest.spyOn(process, 'cwd').mockImplementation(() => publicDirectory);
 
-      server = testServer.start(config, {}, done);
+      server = testServer.start(
+        config,
+        {
+          static: null,
+        },
+        done
+      );
       req = request(server.app);
     });
 

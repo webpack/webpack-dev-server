@@ -10,9 +10,10 @@ let server;
 function startFullSetup(config, options, done) {
   // disable watching by default for tests
   if (typeof options.static === 'undefined') {
-    options.static = {
-      watch: false,
-    };
+    options.static = false;
+  } else if (options.static === null) {
+    // this provides a way of using the default static value
+    delete options.static;
   }
 
   const compiler = webpack(config);
