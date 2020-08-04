@@ -22,7 +22,10 @@ describe('stats option', () => {
       return p.then(() => {
         return new Promise((resolve) => {
           const compiler = webpack(Object.assign({}, config, { stats }));
-          const server = new Server(compiler, { port });
+          const server = new Server(compiler, {
+            static: false,
+            port,
+          });
 
           compiler.hooks.done.tap('webpack-dev-server', (s) => {
             expect(Object.keys(server.getStats(s)).sort()).toMatchSnapshot();
@@ -44,6 +47,7 @@ describe('stats option', () => {
       })
     );
     const server = new Server(compiler, {
+      static: false,
       port,
     });
 
