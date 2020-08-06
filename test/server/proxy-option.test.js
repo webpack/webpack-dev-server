@@ -36,6 +36,18 @@ const proxyOptionPathsAsProperties = {
       }
     },
   },
+  '/proxy/async': {
+    bypass(req, res) {
+      if (/\/proxy\/async$/.test(req.path)) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            res.end('proxy async response');
+            resolve(true);
+          }, 10);
+        });
+      }
+    },
+  },
 };
 
 const proxyOption = {
@@ -134,6 +146,10 @@ describe('proxy option', () => {
 
       it('should not pass through a proxy when a bypass function returns false', (done) => {
         req.get('/proxyfalse').expect(404, done);
+      });
+
+      it('should wait if bypass returns promise', (done) => {
+        req.get('/proxy/async').expect(200, 'proxy async response', done);
       });
     });
   });
