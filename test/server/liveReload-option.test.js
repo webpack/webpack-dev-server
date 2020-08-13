@@ -21,7 +21,10 @@ describe('liveReload option', () => {
       server = testServer.start(
         config,
         {
-          static: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           liveReload: false,
           port,
         },
@@ -75,7 +78,10 @@ describe('liveReload option', () => {
       server = testServer.start(
         config,
         {
-          static: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           liveReload: true,
           port,
         },

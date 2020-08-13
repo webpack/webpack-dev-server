@@ -10,7 +10,10 @@ const isWebpack5 = require('../helpers/isWebpack5');
 
 jest.mock('sockjs/lib/transport');
 
-const baseDevConfig = { port };
+const baseDevConfig = {
+  port,
+  static: false,
+};
 
 describe('Server', () => {
   describe('sockjs', () => {

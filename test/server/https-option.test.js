@@ -26,7 +26,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          static: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: true,
           port,
         },
@@ -49,7 +52,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          static: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: {
             ca: fs.readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
             pfx: fs.readFileSync(
@@ -109,7 +115,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          static: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: {
             ca: path.join(httpsCertificateDirectory, 'ca-symlink.pem'),
             pfx: path.join(httpsCertificateDirectory, 'server-symlink.pfx'),
@@ -136,7 +145,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          static: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: {
             ca: fs
               .readFileSync(path.join(httpsCertificateDirectory, 'ca.pem'))
@@ -170,7 +182,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          static: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: {
             requestCert: true,
             ca: fs.readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),

@@ -24,6 +24,7 @@ describe('profile', () => {
         // profile will only have an effect when progress is enabled
         progress: true,
         profile: true,
+        static: false,
       });
 
       compiler.hooks.done.tap('webpack-dev-server', () => {

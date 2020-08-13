@@ -73,6 +73,10 @@ describe('options', () => {
                     [propertyName]: value,
                   };
 
+            if (typeof opts.static === 'undefined') {
+              opts.static = false;
+            }
+
             server = new Server(compiler, opts);
           })
           .then(() => {
