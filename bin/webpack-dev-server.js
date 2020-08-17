@@ -16,7 +16,6 @@ const getVersions = require('../lib/utils/getVersions');
 const getColorsOption = require('../lib/utils/getColorsOption');
 const options = require('./options');
 
-let server;
 const serverData = {
   server: null,
 };
@@ -84,9 +83,9 @@ const config = require(convertArgvPath)(yargs, argv, {
 });
 
 function startDevServer(config, options) {
+  let server;
   let compiler;
-
-  const configArr = config instanceof Array ? config : [config];
+  const configArr = Array.isArray(config) ? config : [config];
   const statsColors = getColorsOption(configArr);
 
   try {
