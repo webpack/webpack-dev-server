@@ -94,6 +94,7 @@ describe('createDomain', () => {
   tests.forEach((test) => {
     it(`test createDomain '${test.name}'`, (done) => {
       const { options, expected } = test;
+      options.static = false;
 
       server = new Server(compiler, options);
 

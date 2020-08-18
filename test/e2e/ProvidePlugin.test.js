@@ -13,9 +13,6 @@ describe('ProvidePlugin', () => {
       const options = {
         port,
         host: '0.0.0.0',
-        watchOptions: {
-          poll: true,
-        },
       };
       testServer.startAwaitingCompilation(wsConfig, options, done);
     });
@@ -51,9 +48,6 @@ describe('ProvidePlugin', () => {
         port,
         host: '0.0.0.0',
         transportMode: 'sockjs',
-        watchOptions: {
-          poll: true,
-        },
       };
       testServer.startAwaitingCompilation(sockjsConfig, options, done);
     });

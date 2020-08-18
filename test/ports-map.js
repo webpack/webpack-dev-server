@@ -16,7 +16,7 @@ const portsList = {
   'onAfterSetupMiddleware-option': 1,
   'onBeforeSetupMiddleware-option': 1,
   'compress-option': 1,
-  'contentBase-option': 1,
+  'static-directory-option': 1,
   'headers-option': 1,
   'historyApiFallback-option': 1,
   'host-option': 1,
@@ -41,7 +41,7 @@ const portsList = {
   'profile-option': 1,
   Iframe: 1,
   SocketInjection: 1,
-  'contentBasePublicPath-option': 1,
+  'static-publicPath-option': 1,
 };
 
 let startPort = 8089;

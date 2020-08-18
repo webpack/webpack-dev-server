@@ -52,11 +52,9 @@ describe('reload', () => {
         const options = Object.assign(
           {},
           {
+            static: false,
             port,
             host: '0.0.0.0',
-            watchOptions: {
-              poll: true,
-            },
           },
           mode.options
         );

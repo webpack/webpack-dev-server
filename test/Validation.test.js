@@ -38,8 +38,8 @@ describe('Validation', () => {
         config: { overlay: { errors: 1 } },
       },
       {
-        name: 'invalid `contentBase` configuration',
-        config: { contentBase: [0] },
+        name: 'invalid `static` configuration',
+        config: { static: [0] },
       },
       {
         name: 'no additional properties',
@@ -50,6 +50,9 @@ describe('Validation', () => {
     tests.forEach((test) => {
       it(`should fail validation for ${test.name}`, () => {
         try {
+          if (!test.config.static) {
+            test.config.static = false;
+          }
           server = new Server(compiler, test.config);
         } catch (err) {
           if (err.name !== 'ValidationError') {

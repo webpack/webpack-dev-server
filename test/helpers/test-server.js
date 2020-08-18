@@ -8,12 +8,12 @@ let server;
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
-  // defaulting to this will hopefully help with problems on OSX in tests
-  // eslint-disable-next-line no-undefined
-  if (options.watchOptions === undefined) {
-    options.watchOptions = {
-      poll: true,
-    };
+  // disable watching by default for tests
+  if (typeof options.static === 'undefined') {
+    options.static = false;
+  } else if (options.static === null) {
+    // this provides a way of using the default static value
+    delete options.static;
   }
 
   const compiler = webpack(config);

@@ -1,5 +1,60 @@
 {
   "type": "object",
+  "definitions": {
+    "StaticObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "directory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "staticOptions": {
+          "type": "object"
+        },
+        "publicPath": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "serveIndex": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "watch": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "StaticString": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
   "properties": {
     "allowedHosts": {
       "type": "array",
@@ -40,40 +95,6 @@
     },
     "compress": {
       "type": "boolean"
-    },
-    "contentBasePublicPath": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        }
-      ]
-    },
-    "contentBase": {
-      "anyOf": [
-        {
-          "enum": [false]
-        },
-        {
-          "type": "number"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        }
-      ]
     },
     "dev": {
       "type": "object"
@@ -296,11 +317,32 @@
     "public": {
       "type": "string"
     },
-    "serveIndex": {
-      "type": "boolean"
-    },
-    "staticOptions": {
-      "type": "object"
+    "static": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/StaticString"
+        },
+        {
+          "$ref": "#/definitions/StaticObject"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/StaticString"
+              },
+              {
+                "$ref": "#/definitions/StaticObject"
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      ]
     },
     "transportMode": {
       "anyOf": [
@@ -330,12 +372,6 @@
     },
     "useLocalIp": {
       "type": "boolean"
-    },
-    "watchContentBase": {
-      "type": "boolean"
-    },
-    "watchOptions": {
-      "type": "object"
     }
   },
   "errorMessage": {
@@ -344,7 +380,6 @@
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
       "client": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclient)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
-      "contentBase": "should be {Number|String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbase)",
       "dev": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverdev-)",
       "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders)",
@@ -367,13 +402,9 @@
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
-      "contentBasePublicPath": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devservercontentbasepublicpath)",
-      "serveIndex": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverserveindex)",
-      "staticOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverstaticoptions)",
+      "static": "should be {Boolean|String|Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverstatic)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
-      "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)",
-      "watchContentBase": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverwatchcontentbase)",
-      "watchOptions": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchoptions)"
+      "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)"
     }
   },
   "additionalProperties": false

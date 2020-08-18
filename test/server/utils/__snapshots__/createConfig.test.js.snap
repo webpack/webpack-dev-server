@@ -93,45 +93,6 @@ Object {
 }
 `;
 
-exports[`createConfig contentBase option (array) 1`] = `
-Object {
-  "contentBase": Array [
-    "assets",
-    "static",
-  ],
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-}
-`;
-
-exports[`createConfig contentBase option (boolean) 1`] = `
-Object {
-  "contentBase": false,
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-}
-`;
-
-exports[`createConfig contentBase option (string) (in devServer config) 1`] = `
-Object {
-  "contentBase": "assets",
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-}
-`;
-
-exports[`createConfig contentBase option (string) 1`] = `
-Object {
-  "contentBase": "assets",
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-}
-`;
-
 exports[`createConfig disableHostCheck option (in devServer config) 1`] = `
 Object {
   "dev": Object {},
@@ -627,6 +588,47 @@ Object {
 }
 `;
 
+exports[`createConfig static option (boolean) 1`] = `
+Object {
+  "dev": Object {},
+  "hot": true,
+  "port": 8080,
+  "static": false,
+}
+`;
+
+exports[`createConfig static option (in devServer config) 1`] = `
+Object {
+  "dev": Object {},
+  "hot": true,
+  "port": 8080,
+  "static": true,
+}
+`;
+
+exports[`createConfig static option (list of strings) 1`] = `
+Object {
+  "dev": Object {},
+  "hot": true,
+  "port": 8080,
+  "static": Array [
+    "assets1",
+    "assets2",
+  ],
+}
+`;
+
+exports[`createConfig static option (string) 1`] = `
+Object {
+  "dev": Object {},
+  "hot": true,
+  "port": 8080,
+  "static": Array [
+    "assets",
+  ],
+}
+`;
+
 exports[`createConfig useLocalIp option (in devServer config) 1`] = `
 Object {
   "dev": Object {},
@@ -642,45 +644,5 @@ Object {
   "hot": true,
   "port": 8080,
   "useLocalIp": true,
-}
-`;
-
-exports[`createConfig watchContentBase option (in devServer config) 1`] = `
-Object {
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-  "watchContentBase": true,
-}
-`;
-
-exports[`createConfig watchContentBase option 1`] = `
-Object {
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-  "watchContentBase": true,
-}
-`;
-
-exports[`createConfig watchOptions option (in devServer config) 1`] = `
-Object {
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-  "watchOptions": Object {
-    "poll": true,
-  },
-}
-`;
-
-exports[`createConfig watchOptions option (in output config) 1`] = `
-Object {
-  "dev": Object {},
-  "hot": true,
-  "port": 8080,
-  "watchOptions": Object {
-    "poll": true,
-  },
 }
 `;

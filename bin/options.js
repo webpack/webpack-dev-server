@@ -17,11 +17,6 @@ const options = {
     describe: 'Enables/Disables live reloading on changing files',
     default: true,
   },
-  serveIndex: {
-    type: 'boolean',
-    describe: 'Enables/Disables serveIndex middleware',
-    default: true,
-  },
   profile: {
     type: 'boolean',
     describe: 'Print compilation profile data for progress steps',
@@ -75,14 +70,9 @@ const options = {
     group: SSL_GROUP,
     describe: 'HTTP/2, must be used with HTTPS',
   },
-  'content-base': {
+  static: {
     type: 'string',
-    describe: 'A directory or URL to serve HTML content from.',
-    group: RESPONSE_GROUP,
-  },
-  'watch-content-base': {
-    type: 'boolean',
-    describe: 'Enable live-reloading of the content-base.',
+    describe: 'A directory to serve static content from.',
     group: RESPONSE_GROUP,
   },
   'history-api-fallback': {

@@ -5,30 +5,32 @@ const fs = require('fs');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
-const port = require('../ports-map')['contentBase-option'];
+const port = require('../ports-map')['static-directory-option'];
 
-const contentBasePublic = path.resolve(
+const publicDirectory = path.resolve(
   __dirname,
   '../fixtures/contentbase-config/public'
 );
-const contentBaseOther = path.resolve(
+const otherPublicDirectory = path.resolve(
   __dirname,
   '../fixtures/contentbase-config/other'
 );
 
-describe('contentBase option', () => {
+describe('static.directory option', () => {
   let server;
   let req;
 
   describe('to directory', () => {
-    const nestedFile = path.resolve(contentBasePublic, 'assets/example.txt');
+    const nestedFile = path.resolve(publicDirectory, 'assets/example.txt');
 
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          watchContentBase: true,
+          static: {
+            directory: publicDirectory,
+            watch: true,
+          },
           port,
         },
         done
@@ -66,11 +68,7 @@ describe('contentBase option', () => {
     });
 
     it('watch node_modules', (done) => {
-      const filePath = path.join(
-        contentBasePublic,
-        'node_modules',
-        'index.html'
-      );
+      const filePath = path.join(publicDirectory, 'node_modules', 'index.html');
       fs.writeFileSync(filePath, 'foo', 'utf8');
 
       // chokidar emitted a change,
@@ -87,14 +85,16 @@ describe('contentBase option', () => {
     });
   });
 
-  describe('test listing files in folders without index.html using the option serveIndex:false', () => {
+  describe('test listing files in folders without index.html using the option static.serveIndex:false', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          watchContentBase: true,
-          serveIndex: false,
+          static: {
+            directory: publicDirectory,
+            watch: true,
+            serveIndex: false,
+          },
           port,
         },
         done
@@ -117,14 +117,16 @@ describe('contentBase option', () => {
     });
   });
 
-  describe('test listing files in folders without index.html using the option serveIndex:true', () => {
+  describe('test listing files in folders without index.html using the option static.serveIndex:true', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          watchContentBase: true,
-          serveIndex: true,
+          static: {
+            directory: publicDirectory,
+            watch: true,
+            serveIndex: true,
+          },
           port,
         },
         done
@@ -147,13 +149,15 @@ describe('contentBase option', () => {
     });
   });
 
-  describe('test listing files in folders without index.html using the option serveIndex default (true)', () => {
+  describe('test listing files in folders without index.html using the option static.serveIndex default (true)', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          watchContentBase: true,
+          static: {
+            directory: publicDirectory,
+            watch: true,
+          },
           port,
         },
         done
@@ -181,7 +185,7 @@ describe('contentBase option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: [contentBasePublic, contentBaseOther],
+          static: [publicDirectory, otherPublicDirectory],
           port,
         },
         done
@@ -204,100 +208,24 @@ describe('contentBase option', () => {
     });
   });
 
-  describe('to port', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          contentBase: 9099999,
-          port,
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
-    });
-
-    it('Request to page', (done) => {
-      req
-        .get('/other.html')
-        .expect('Location', '//localhost:9099999/other.html')
-        .expect(302, done);
-    });
-  });
-
-  describe('to external url', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          contentBase: 'http://example.com/',
-          port,
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
-    });
-
-    it('Request to page', (done) => {
-      req
-        .get('/foo.html')
-        // TODO: hmm, two slashes seems to be a bug?
-        .expect('Location', 'http://example.com//foo.html')
-        .expect(302, done);
-    });
-
-    it('Request to page with search params', (done) => {
-      req
-        .get('/foo.html?space=ship')
-        // TODO: hmm, two slashes seems to be a bug?
-        .expect('Location', 'http://example.com//foo.html?space=ship')
-        .expect(302, done);
-    });
-  });
-
   describe('testing single & multiple external paths', () => {
     afterEach((done) => {
       testServer.close(() => {
         done();
       });
     });
-    it('Should throw exception (string)', (done) => {
+    it('Should throw exception (external url)', (done) => {
       try {
         // eslint-disable-next-line no-unused-vars
         server = testServer.start(config, {
-          contentBase: 'https://example.com/',
-          watchContentBase: true,
+          static: 'https://example.com/',
         });
 
         expect(true).toBe(false);
       } catch (e) {
-        expect(e.message).toBe('Watching remote files is not supported.');
-        done();
-      }
-    });
-    it('Should throw exception (number)', (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = testServer.start(config, {
-          contentBase: 2,
-          watchContentBase: true,
-        });
-
-        expect(true).toBe(false);
-      } catch (e) {
-        expect(e.message).toBe('Watching remote files is not supported.');
+        expect(e.message).toBe(
+          'Using a URL as static.directory is not supported'
+        );
         done();
       }
     });
@@ -305,10 +233,12 @@ describe('contentBase option', () => {
       testServer.start(
         config,
         {
-          contentBase:
-            contentBasePublic.charAt(0).toLowerCase() +
-            contentBasePublic.substring(1),
-          watchContentBase: true,
+          static: {
+            directory:
+              publicDirectory.charAt(0).toLowerCase() +
+              publicDirectory.substring(1),
+            watch: true,
+          },
           port,
         },
         done
@@ -318,8 +248,10 @@ describe('contentBase option', () => {
       testServer.start(
         config,
         {
-          contentBase: 'c:\\absolute\\path\\to\\content-base',
-          watchContentBase: true,
+          static: {
+            directory: 'c:\\absolute\\path\\to\\content-base',
+            watch: true,
+          },
           port,
         },
         done
@@ -329,25 +261,28 @@ describe('contentBase option', () => {
       testServer.start(
         config,
         {
-          contentBase: 'C:\\absolute\\path\\to\\content-base',
-          watchContentBase: true,
+          static: {
+            directory: 'C:\\absolute\\path\\to\\content-base',
+            watch: true,
+          },
           port,
         },
         done
       );
     });
 
-    it('Should throw exception (array)', (done) => {
+    it('Should throw exception (array with absolute url)', (done) => {
       try {
         // eslint-disable-next-line no-unused-vars
         server = testServer.start(config, {
-          contentBase: [contentBasePublic, 'https://example.com/'],
-          watchContentBase: true,
+          static: [publicDirectory, 'https://example.com/'],
         });
 
         expect(true).toBe(false);
       } catch (e) {
-        expect(e.message).toBe('Watching remote files is not supported.');
+        expect(e.message).toBe(
+          'Using a URL as static.directory is not supported'
+        );
         done();
       }
     });
@@ -355,9 +290,15 @@ describe('contentBase option', () => {
 
   describe('default to PWD', () => {
     beforeAll((done) => {
-      jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
+      jest.spyOn(process, 'cwd').mockImplementation(() => publicDirectory);
 
-      server = testServer.start(config, {}, done);
+      server = testServer.start(
+        config,
+        {
+          static: null,
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -376,12 +317,12 @@ describe('contentBase option', () => {
     beforeAll((done) => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
-      jest.spyOn(process, 'cwd').mockImplementation(() => contentBasePublic);
+      jest.spyOn(process, 'cwd').mockImplementation(() => publicDirectory);
 
       server = testServer.start(
         config,
         {
-          contentBase: false,
+          static: false,
           port,
         },
         done
@@ -405,7 +346,7 @@ describe('contentBase option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: [contentBasePublic],
+          static: [publicDirectory],
           port,
         },
         done

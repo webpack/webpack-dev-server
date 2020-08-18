@@ -32,9 +32,6 @@ describe('sockjs client proxy', () => {
       host: '0.0.0.0',
       disableHostCheck: true,
       hot: true,
-      watchOptions: {
-        poll: true,
-      },
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -107,9 +104,6 @@ describe('ws client proxy', () => {
       host: '0.0.0.0',
       disableHostCheck: true,
       hot: true,
-      watchOptions: {
-        poll: true,
-      },
       public: 'myhost',
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -158,9 +152,6 @@ describe('sockjs public and client path', () => {
       transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      watchOptions: {
-        poll: true,
-      },
       public: 'myhost.test',
       client: {
         path: '/foo/test/bar/',
@@ -200,9 +191,6 @@ describe('sockjs client path and port', () => {
       transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      watchOptions: {
-        poll: true,
-      },
       client: {
         path: '/foo/test/bar/',
         port: port3,
@@ -246,9 +234,6 @@ describe('sockjs client port, no path', () => {
       transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      watchOptions: {
-        poll: true,
-      },
       client: {
         port: port3,
       },
@@ -285,9 +270,6 @@ describe('sockjs client host', () => {
       transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      watchOptions: {
-        poll: true,
-      },
       client: {
         host: 'myhost.test',
       },
@@ -324,9 +306,6 @@ describe('ws client host, port, and path', () => {
       transportMode: 'ws',
       port: port2,
       host: '0.0.0.0',
-      watchOptions: {
-        poll: true,
-      },
       client: {
         host: 'myhost',
         port: port3,
