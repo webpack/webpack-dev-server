@@ -1,0 +1,93 @@
+name: webpack-dev-server
+
+on:
+  push:
+    branches:
+      - master
+      - next
+      - v4
+  pull_request:
+    branches:
+      - master
+      - next
+      - v4
+
+jobs:
+  lint:
+    name: Lint - ${{ matrix.os }} - Node v${{ matrix.node-version }}
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [12.x]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.node-version }}
+
+      - name: Use latest NPM
+        run: sudo npm i -g npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Security audit
+        run: npm audit
+
+      - name: Check commit message
+        uses: wagoid/commitlint-github-action@v1
+
+  test:
+    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [10.x, 12.x, 14.x]
+        webpack-version: [latest, next]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Use latest NPM on ubuntu/macos
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        run: sudo npm i -g npm
+
+      - name: Use latest NPM on windows
+        if: matrix.os == 'windows-latest'
+        run: npm i -g npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install webpack ${{ matrix.webpack-version }}
+        run: npm i webpack@${{ matrix.webpack-version }}
+
+      - name: Run tests for webpack version ${{ matrix.webpack-version }}
+        run: npm run test:coverage -- --ci
+
+      - name: Submit coverage data to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
