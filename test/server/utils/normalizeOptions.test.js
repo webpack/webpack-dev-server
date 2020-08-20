@@ -390,6 +390,14 @@ describe('normalizeOptions', () => {
         },
       ],
     },
+    {
+      title: 'firewall is set',
+      multiCompiler: false,
+      options: {
+        firewall: false,
+      },
+      optionsResults: null,
+    },
   ];
 
   cases.forEach((data) => {

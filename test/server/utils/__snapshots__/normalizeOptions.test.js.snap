@@ -8,6 +8,7 @@ Object {
     "port": 9000,
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -36,6 +37,7 @@ Object {
     "path": "/custom/path",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -64,6 +66,7 @@ Object {
     "path": "/custom/path",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -94,6 +97,36 @@ Object {
   "dev": Object {
     "serverSideRender": true,
   },
+  "firewall": true,
+  "hot": true,
+  "liveReload": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "transportMode": Object {
+    "client": "ws",
+    "server": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions firewall is set should set correct options 1`] = `
+Object {
+  "client": Object {
+    "path": "/ws",
+  },
+  "dev": Object {},
+  "firewall": false,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -122,6 +155,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": false,
   "liveReload": true,
   "static": Array [
@@ -150,6 +184,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": "only",
   "liveReload": true,
   "static": Array [
@@ -178,6 +213,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -206,6 +242,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": false,
   "static": Array [
@@ -234,6 +271,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -262,6 +300,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -292,6 +331,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -320,6 +360,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -350,6 +391,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -380,6 +422,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -410,6 +453,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -438,6 +482,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -477,6 +522,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -516,6 +562,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -555,6 +602,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -583,6 +631,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": false,
@@ -599,6 +648,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -627,6 +677,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -655,6 +706,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -683,6 +735,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -712,6 +765,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -740,6 +794,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -766,6 +821,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -794,6 +850,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -824,6 +881,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -852,6 +910,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -880,6 +939,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -908,6 +968,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -936,6 +997,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -964,6 +1026,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -992,6 +1055,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [
@@ -1020,6 +1084,7 @@ Object {
     "path": "/ws",
   },
   "dev": Object {},
+  "firewall": true,
   "hot": true,
   "liveReload": true,
   "static": Array [

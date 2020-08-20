@@ -106,12 +106,6 @@ module.exports = {
       group: CONNECTION_GROUP,
     },
     {
-      name: 'disable-host-check',
-      type: Boolean,
-      describe: 'Will not check the host',
-      group: CONNECTION_GROUP,
-    },
-    {
       name: 'public',
       type: String,
       describe: 'The public hostname/ip address of the server',
@@ -124,10 +118,10 @@ module.exports = {
       group: CONNECTION_GROUP,
     },
     {
-      name: 'allowed-hosts',
+      name: 'firewall',
       type: String,
       describe:
-        'A list of hosts that are allowed to access the dev server, separated by spaces',
+        'Enable/disable firewall, or set hosts that are allowed to access the dev server',
       group: CONNECTION_GROUP,
       multiple: true,
     },

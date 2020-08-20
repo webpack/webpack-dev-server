@@ -87,11 +87,6 @@ const options = {
     describe: 'The port',
     group: CONNECTION_GROUP,
   },
-  'disable-host-check': {
-    type: 'boolean',
-    describe: 'Will not check the host',
-    group: CONNECTION_GROUP,
-  },
   public: {
     type: 'string',
     describe: 'The public hostname/ip address of the server',
@@ -103,10 +98,10 @@ const options = {
     describe: 'The hostname/ip address the server will bind to',
     group: CONNECTION_GROUP,
   },
-  'allowed-hosts': {
+  firewall: {
     type: 'string',
     describe:
-      'A comma-delimited string of hosts that are allowed to access the dev server',
+      'Enable/disable firewall, or set hosts that are allowed to access the dev server',
     group: CONNECTION_GROUP,
   },
 };

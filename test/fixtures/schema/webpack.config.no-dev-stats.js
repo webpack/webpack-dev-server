@@ -17,7 +17,7 @@ module.exports = {
     https: '_https',
     historyApiFallback: '_historyApiFallback',
     compress: '_compress',
-    disableHostCheck: '_disableHostCheck',
+    firewall: '_firewall',
     open: '_open',
     openPage: '_openPage',
     useLocalIp: '_useLocalIp',

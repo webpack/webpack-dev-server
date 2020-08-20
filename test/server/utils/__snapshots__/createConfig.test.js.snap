@@ -1,31 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createConfig allowedHosts option (devServer config) 1`] = `
-Object {
-  "allowedHosts": Array [
-    ".host.com",
-    "host2.com",
-  ],
-  "dev": Object {},
-  "host": "localhost",
-  "hot": true,
-  "port": 8080,
-}
-`;
-
-exports[`createConfig allowedHosts option 1`] = `
-Object {
-  "allowedHosts": Array [
-    ".host.com",
-    "host2.com",
-  ],
-  "dev": Object {},
-  "host": "localhost",
-  "hot": true,
-  "port": 8080,
-}
-`;
-
 exports[`createConfig bonjour option (devServer config) 1`] = `
 Object {
   "bonjour": true,
@@ -102,20 +76,66 @@ Object {
 }
 `;
 
-exports[`createConfig disableHostCheck option (in devServer config) 1`] = `
+exports[`createConfig firewall option (boolean false) 1`] = `
 Object {
   "dev": Object {},
-  "disableHostCheck": true,
+  "firewall": false,
   "host": "localhost",
   "hot": true,
   "port": 8080,
 }
 `;
 
-exports[`createConfig disableHostCheck option 1`] = `
+exports[`createConfig firewall option (boolean in devServer config) 1`] = `
 Object {
   "dev": Object {},
-  "disableHostCheck": true,
+  "firewall": true,
+  "host": "localhost",
+  "hot": true,
+  "port": 8080,
+}
+`;
+
+exports[`createConfig firewall option (boolean true) 1`] = `
+Object {
+  "dev": Object {},
+  "firewall": true,
+  "host": "localhost",
+  "hot": true,
+  "port": 8080,
+}
+`;
+
+exports[`createConfig firewall option (empty string) 1`] = `
+Object {
+  "dev": Object {},
+  "firewall": true,
+  "host": "localhost",
+  "hot": true,
+  "port": 8080,
+}
+`;
+
+exports[`createConfig firewall option (string array in devServer config) 1`] = `
+Object {
+  "dev": Object {},
+  "firewall": Array [
+    ".host.com",
+    "host2.com",
+  ],
+  "host": "localhost",
+  "hot": true,
+  "port": 8080,
+}
+`;
+
+exports[`createConfig firewall option (string array) 1`] = `
+Object {
+  "dev": Object {},
+  "firewall": Array [
+    ".host.com",
+    "host2.com",
+  ],
   "host": "localhost",
   "hot": true,
   "port": 8080,
