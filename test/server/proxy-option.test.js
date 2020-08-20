@@ -57,11 +57,17 @@ const proxyOption = {
 
 const proxyOptionOfArray = [
   { context: '/proxy1', target: proxyOption.target },
-  function proxy() {
+  function proxy(req, res, next) {
     return {
       context: '/api/proxy2',
       target: `http://localhost:${port2}`,
       pathRewrite: { '^/api': '' },
+      bypass: () => {
+        if (req && req.query.foo) {
+          res.end(`foo+${next.name}+${typeof next}`);
+          return false;
+        }
+      },
     };
   },
 ];
@@ -226,6 +232,13 @@ describe('proxy option', () => {
 
     it('respects a proxy option of function', (done) => {
       req.get('/api/proxy2').expect(200, 'from proxy2', done);
+    });
+
+    it('should allow req, res, and next', async () => {
+      const { text, statusCode } = await req.get('/api/proxy2?foo=true');
+
+      expect(statusCode).toEqual(200);
+      expect(text).toEqual('foo+next+function');
     });
   });
 
