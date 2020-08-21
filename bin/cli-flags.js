@@ -131,10 +131,5 @@ module.exports = {
       group: CONNECTION_GROUP,
       multiple: true,
     },
-    {
-      name: 'name',
-      type: String,
-      describe: 'Name of webpack config to get devServer config from',
-    },
   ],
 };
