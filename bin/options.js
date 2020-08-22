@@ -15,7 +15,6 @@ const options = {
   'live-reload': {
     type: 'boolean',
     describe: 'Enables/Disables live reloading on changing files',
-    default: true,
   },
   profile: {
     type: 'boolean',
@@ -56,7 +55,6 @@ const options = {
   'client-logging': {
     type: 'string',
     group: DISPLAY_GROUP,
-    default: 'info',
     describe:
       'Log level in the browser (none, error, warn, info, log, verbose)',
   },

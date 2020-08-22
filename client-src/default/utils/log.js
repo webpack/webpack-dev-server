@@ -3,6 +3,8 @@
 const log = require('webpack/lib/logging/runtime');
 
 const name = 'webpack-dev-server';
+// default level is set on the client side, so it does not need
+// to be set by the CLI or API
 const defaultLevel = 'info';
 
 function setLogLevel(level) {
