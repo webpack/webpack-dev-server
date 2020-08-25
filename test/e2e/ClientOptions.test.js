@@ -30,7 +30,7 @@ describe('sockjs client proxy', () => {
       compress: true,
       port: port1,
       host: '0.0.0.0',
-      disableHostCheck: true,
+      firewall: false,
       hot: true,
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -102,7 +102,7 @@ describe('ws client proxy', () => {
       compress: true,
       port: port1,
       host: '0.0.0.0',
-      disableHostCheck: true,
+      firewall: false,
       hot: true,
       public: 'myhost',
     };

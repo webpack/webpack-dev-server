@@ -126,10 +126,6 @@ describe('options', () => {
         success: [() => {}],
         failure: [false],
       },
-      allowedHosts: {
-        success: [[], ['']],
-        failure: [[false], false],
-      },
       bonjour: {
         success: [false],
         failure: [''],
@@ -245,9 +241,9 @@ describe('options', () => {
         ],
         failure: [''],
       },
-      disableHostCheck: {
-        success: [true],
-        failure: [''],
+      firewall: {
+        success: [true, false, ['']],
+        failure: ['', []],
       },
       headers: {
         success: [{}],

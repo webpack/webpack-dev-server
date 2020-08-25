@@ -56,12 +56,6 @@
     }
   },
   "properties": {
-    "allowedHosts": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "bonjour": {
       "type": "boolean"
     },
@@ -99,8 +93,19 @@
     "dev": {
       "type": "object"
     },
-    "disableHostCheck": {
-      "type": "boolean"
+    "firewall": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      ]
     },
     "headers": {
       "type": "object"
@@ -376,12 +381,11 @@
   },
   "errorMessage": {
     "properties": {
-      "allowedHosts": "should be {Array} (https://webpack.js.org/configuration/dev-server/#devserverallowedhosts)",
       "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
       "client": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclient)",
       "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
       "dev": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverdev-)",
-      "disableHostCheck": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck)",
+      "firewall": "should be {Boolean|Array} (https://webpack.js.org/configuration/dev-server/#devserverfirewall)",
       "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders)",
       "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
       "host": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserverhost)",

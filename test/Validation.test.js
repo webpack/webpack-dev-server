@@ -77,10 +77,10 @@ describe('Validation', () => {
       });
     });
 
-    it('should always allow any host if options.disableHostCheck is set', () => {
+    it('should always allow any host if options.firewall is disabled', () => {
       const options = {
         public: 'test.host:80',
-        disableHostCheck: true,
+        firewall: false,
       };
 
       const headers = {
@@ -175,10 +175,10 @@ describe('Validation', () => {
       }
     });
 
-    describe('allowedHosts', () => {
-      it('should allow hosts in allowedHosts', () => {
+    describe('firewall', () => {
+      it('should allow hosts in firewall', () => {
         const tests = ['test.host', 'test2.host', 'test3.host'];
-        const options = { allowedHosts: tests };
+        const options = { firewall: tests };
         server = new Server(compiler, options);
         tests.forEach((test) => {
           const headers = { host: test };
@@ -188,8 +188,8 @@ describe('Validation', () => {
         });
       });
 
-      it('should allow hosts that pass a wildcard in allowedHosts', () => {
-        const options = { allowedHosts: ['.example.com'] };
+      it('should allow hosts that pass a wildcard in firewall', () => {
+        const options = { firewall: ['.example.com'] };
         server = new Server(compiler, options);
         const tests = [
           'www.example.com',

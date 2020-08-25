@@ -111,30 +111,6 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('allowedHosts option', () => {
-    const config = createConfig(
-      webpackConfig,
-      Object.assign({}, argv, {
-        allowedHosts: '.host.com,host2.com',
-      }),
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
-  it('allowedHosts option (devServer config)', () => {
-    const config = createConfig(
-      Object.assign({}, webpackConfig, {
-        devServer: { allowedHosts: ['.host.com', 'host2.com'] },
-      }),
-      argv,
-      { port: 8080 }
-    );
-
-    expect(config).toMatchSnapshot();
-  });
-
   it('public option', () => {
     const config = createConfig(
       webpackConfig,
@@ -561,20 +537,62 @@ describe('createConfig', () => {
     expect(config).toMatchSnapshot();
   });
 
-  it('disableHostCheck option', () => {
+  it('firewall option (empty string)', () => {
     const config = createConfig(
       webpackConfig,
-      Object.assign({}, argv, { disableHostCheck: true }),
+      Object.assign({}, argv, { firewall: '' }),
       { port: 8080 }
     );
 
     expect(config).toMatchSnapshot();
   });
 
-  it('disableHostCheck option (in devServer config)', () => {
+  it('firewall option (boolean true)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { firewall: true }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('firewall option (boolean false)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { firewall: false }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('firewall option (string array)', () => {
+    const config = createConfig(
+      webpackConfig,
+      Object.assign({}, argv, { firewall: ['.host.com', 'host2.com'] }),
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('firewall option (boolean in devServer config)', () => {
     const config = createConfig(
       Object.assign({}, webpackConfig, {
-        devServer: { disableHostCheck: true },
+        devServer: { firewall: true },
+      }),
+      argv,
+      { port: 8080 }
+    );
+
+    expect(config).toMatchSnapshot();
+  });
+
+  it('firewall option (string array in devServer config)', () => {
+    const config = createConfig(
+      Object.assign({}, webpackConfig, {
+        devServer: { firewall: ['.host.com', 'host2.com'] },
       }),
       argv,
       { port: 8080 }
