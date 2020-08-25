@@ -18,6 +18,7 @@ module.exports = {
       name: 'live-reload',
       type: Boolean,
       describe: 'Enables/Disables live reloading on changing files',
+      negative: true,
     },
     {
       name: 'profile',
@@ -43,7 +44,7 @@ module.exports = {
     },
     {
       name: 'open',
-      type: String,
+      type: [String, Boolean],
       describe:
         'Open the default browser, or optionally specify a browser name',
     },
@@ -79,10 +80,11 @@ module.exports = {
     },
     {
       name: 'static',
-      type: String,
+      type: [String, Boolean],
       describe: 'A directory to serve static content from.',
       group: RESPONSE_GROUP,
       multiple: true,
+      negative: true,
     },
     {
       name: 'history-api-fallback',
@@ -121,8 +123,6 @@ module.exports = {
       describe: 'The hostname/ip address the server will bind to',
       group: CONNECTION_GROUP,
     },
-    // use command-line-args "multiple" option, allowing the usage: --allowed-hosts host1 host2 host3
-    // instead of the old, comma-separated syntax: --allowed-hosts host1,host2,host3
     {
       name: 'allowed-hosts',
       type: String,
