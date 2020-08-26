@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('webpack/lib/logging/runtime');
+const log = require('../../transpiled-modules/log');
 
 const name = 'webpack-dev-server';
 // default level is set on the client side, so it does not need

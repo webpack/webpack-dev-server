@@ -29,6 +29,7 @@
     "build:client:clients": "babel client-src/clients --out-dir client/clients",
     "build:client:index": "webpack --color --config client-src/default/webpack.config.js",
     "build:client:sockjs": "webpack --color --config client-src/sockjs/webpack.config.js",
+    "build:client:transpiled-modules": "webpack --color --config client-src/transpiled-modules/webpack.config.js",
     "build:client": "rimraf ./client/* && npm-run-all -s -l -p \"build:client:**\"",
     "webpack-dev-server": "node examples/run-example.js",
     "release": "standard-version"
@@ -74,6 +75,7 @@
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^10.0.0",
     "@jest/test-sequencer": "^26.3.0",
+    "acorn": "^8.0.1",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
@@ -107,7 +109,8 @@
     "typescript": "^3.9.7",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-merge": "^4.2.2"
   },
   "peerDependencies": {
     "webpack": "^4.0.0 || ^5.0.0"

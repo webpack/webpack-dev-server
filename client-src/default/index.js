@@ -6,7 +6,7 @@ window.process = window.process || {};
 window.process.env = window.process.env || {};
 
 /* global __resourceQuery WorkerGlobalScope self */
-const stripAnsi = require('strip-ansi');
+const stripAnsi = require('../transpiled-modules/strip-ansi');
 const socket = require('./socket');
 const overlay = require('./overlay');
 const { log, setLogLevel } = require('./utils/log');
