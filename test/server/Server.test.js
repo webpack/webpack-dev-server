@@ -96,18 +96,13 @@ describe('Server', () => {
   });
 
   it('test listeningApp error reporting', () => {
-    const logMock = jest.fn();
     const compiler = webpack(config);
     const server = new Server(compiler, baseDevConfig);
-
-    server.logger.error = logMock;
 
     const emitError = () =>
       server.listeningApp.emit('error', new Error('Error !!!'));
 
     expect(emitError).toThrowError();
-
-    expect(server.logger.error).toBeCalledWith(new Error('Error !!!'));
   });
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
