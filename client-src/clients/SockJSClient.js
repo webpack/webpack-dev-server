@@ -1,9 +1,7 @@
 'use strict';
 
-/* eslint-disable
-  no-unused-vars
-*/
 const SockJS = require('sockjs-client/dist/sockjs');
+const { log } = require('../default/utils/log');
 const BaseClient = require('./BaseClient');
 
 module.exports = class SockJSClient extends BaseClient {
@@ -12,11 +10,11 @@ module.exports = class SockJSClient extends BaseClient {
     this.sock = new SockJS(url);
 
     this.sock.onerror = (err) => {
-      // TODO: use logger to log the error event once client and client-src
-      // are reorganized to have the same directory structure
+      log.error(err);
     };
   }
 
+  // eslint-disable-next-line no-unused-vars
   static getClientPath(options) {
     return require.resolve('./SockJSClient');
   }

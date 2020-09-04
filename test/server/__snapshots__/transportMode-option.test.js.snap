@@ -87,7 +87,7 @@ Array [
   Object {
     "foo": "bar",
   },
-  "{\\"type\\":\\"liveReload\\"}",
+  "{\\"type\\":\\"hot\\"}",
 ]
 `;
 
@@ -96,11 +96,20 @@ Array [
   Object {
     "foo": "bar",
   },
-  "{\\"type\\":\\"ok\\"}",
+  "{\\"type\\":\\"liveReload\\"}",
 ]
 `;
 
 exports[`transportMode server server should use server implementation correctly 5`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+  "{\\"type\\":\\"ok\\"}",
+]
+`;
+
+exports[`transportMode server server should use server implementation correctly 6`] = `
 Array [
   Array [
     Object {

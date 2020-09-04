@@ -14,11 +14,6 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        inline: true,
-        hot: true,
-        watchOptions: {
-          poll: true,
-        },
       };
       server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -31,15 +26,29 @@ describe('hot option', () => {
     });
   });
 
+  describe('simple hot-only config entries', () => {
+    beforeAll((done) => {
+      const options = {
+        port,
+        hot: 'only',
+      };
+      server = testServer.startAwaitingCompilation(config, options, done);
+      req = request(server.app);
+    });
+
+    afterAll(testServer.close);
+
+    it('should include hot-only script in the bundle', (done) => {
+      req
+        .get('/main.js')
+        .expect(200, /webpack\/hot\/only-dev-server\.js/, done);
+    });
+  });
+
   describe('multi compiler hot config entries', () => {
     beforeAll((done) => {
       const options = {
         port,
-        inline: true,
-        hot: true,
-        watchOptions: {
-          poll: true,
-        },
       };
       server = testServer.startAwaitingCompilation(
         multiCompilerConfig,
@@ -60,11 +69,7 @@ describe('hot option', () => {
     beforeAll((done) => {
       const options = {
         port,
-        inline: true,
         hot: false,
-        watchOptions: {
-          poll: true,
-        },
       };
       server = testServer.startAwaitingCompilation(config, options, done);
       req = request(server.app);
@@ -91,11 +96,6 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        inline: true,
-        hot: true,
-        watchOptions: {
-          poll: true,
-        },
       };
       const fullSetup = testServer.startAwaitingCompilationFullSetup(
         config,
@@ -125,11 +125,6 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        inline: true,
-        hot: true,
-        watchOptions: {
-          poll: true,
-        },
       };
       const fullSetup = testServer.startAwaitingCompilationFullSetup(
         multiCompilerConfig,
@@ -159,11 +154,7 @@ describe('hot option', () => {
       let pluginFound = false;
       const options = {
         port,
-        inline: true,
         hot: false,
-        watchOptions: {
-          poll: true,
-        },
       };
       const fullSetup = testServer.startAwaitingCompilationFullSetup(
         config,

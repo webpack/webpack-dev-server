@@ -11,15 +11,17 @@ describe('reloadApp', () => {
     locationValue = self.location;
 
     self.postMessage = jest.fn();
-    self.location.reload = jest.fn();
 
-    jest.mock('loglevel');
+    Object.defineProperty(window, 'location', {
+      value: { reload: jest.fn() },
+    });
 
-    log = require('loglevel');
+    jest.mock('webpack/lib/logging/runtime');
+
+    log = require('webpack/lib/logging/runtime');
     log.getLogger.mockImplementation(() => {
       return {
         info: jest.fn(),
-        setDefaultLevel: jest.fn(),
       };
     });
 

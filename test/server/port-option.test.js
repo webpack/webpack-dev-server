@@ -11,7 +11,16 @@ describe('port', () => {
 
   describe('is not be specified', () => {
     beforeAll((done) => {
-      server = testServer.start(config, { port }, done);
+      server = testServer.start(
+        config,
+        {
+          static: {
+            watch: false,
+          },
+          port,
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -35,6 +44,9 @@ describe('port', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           // eslint-disable-next-line no-undefined
           port: undefined,
         },
@@ -63,6 +75,9 @@ describe('port', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           port: null,
         },
         done
@@ -90,6 +105,9 @@ describe('port', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           port: '33333',
         },
         done
@@ -116,6 +134,9 @@ describe('port', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           port: '33333',
         },
         done

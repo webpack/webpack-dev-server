@@ -25,7 +25,7 @@ module.exports = {
     }
 
     const result = Object.assign(defaults, config);
-    const before = function before(app) {
+    const onBeforeSetupMiddleware = ({ app }) => {
       app.get('/.assets/*', (req, res) => {
         const filename = path.join(__dirname, '/', req.path);
         res.sendFile(filename);
@@ -74,14 +74,14 @@ module.exports = {
       })
     );
 
-    if (result.devServer.before) {
-      const proxy = result.devServer.before;
-      result.devServer.before = function replace(app) {
-        before(app);
+    if (result.devServer.onBeforeSetupMiddleware) {
+      const proxy = result.devServer.onBeforeSetupMiddleware;
+      result.devServer.onBeforeSetupMiddleware = function replace(app) {
+        onBeforeSetupMiddleware(app);
         proxy(app);
       };
     } else {
-      result.devServer.before = before;
+      result.devServer.onBeforeSetupMiddleware = onBeforeSetupMiddleware;
     }
 
     const output = {

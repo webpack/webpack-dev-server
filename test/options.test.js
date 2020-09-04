@@ -1,13 +1,19 @@
 'use strict';
 
+const { readFileSync } = require('fs');
 const { join } = require('path');
-const ValidationError = require('schema-utils/src/ValidationError');
+const { ValidationError } = require('schema-utils');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
 const options = require('../lib/options.json');
 const SockJSServer = require('../lib/servers/SockJSServer');
 const config = require('./fixtures/simple-config/webpack.config');
+
+const httpsCertificateDirectory = join(
+  __dirname,
+  './fixtures/https-certificate'
+);
 
 describe('options', () => {
   jest.setTimeout(20000);
@@ -67,6 +73,10 @@ describe('options', () => {
                     [propertyName]: value,
                   };
 
+            if (typeof opts.static === 'undefined') {
+              opts.static = false;
+            }
+
             server = new Server(compiler, opts);
           })
           .then(() => {
@@ -108,72 +118,132 @@ describe('options', () => {
     memfs.join = join;
 
     const cases = {
-      after: {
+      onAfterSetupMiddleware: {
         success: [() => {}],
         failure: [false],
       },
-      before: {
+      onBeforeSetupMiddleware: {
         success: [() => {}],
         failure: [false],
-      },
-      allowedHosts: {
-        success: [[], ['']],
-        failure: [[false], false],
       },
       bonjour: {
         success: [false],
         failure: [''],
       },
-      ca: {
-        success: ['', Buffer.from('')],
-        failure: [false],
-      },
-      cert: {
-        success: ['', Buffer.from('')],
-        failure: [false],
-      },
-      clientLogLevel: {
+      client: {
         success: [
-          'silent',
-          'info',
-          'error',
-          'warn',
-          'trace',
-          'debug',
-          // deprecated
-          'none',
-          // deprecated
-          'warning',
+          {
+            client: {},
+          },
+          {
+            client: {
+              host: '',
+            },
+          },
+          {
+            client: {
+              path: '',
+            },
+          },
+          {
+            client: {
+              port: '',
+            },
+          },
+          {
+            client: {
+              logging: 'none',
+            },
+          },
+          {
+            client: {
+              logging: 'error',
+            },
+          },
+          {
+            client: {
+              logging: 'warn',
+            },
+          },
+          {
+            client: {
+              logging: 'info',
+            },
+          },
+          {
+            client: {
+              logging: 'log',
+            },
+          },
+          {
+            client: {
+              logging: 'verbose',
+            },
+          },
+          {
+            client: {
+              host: '',
+              path: '',
+              port: 8080,
+              logging: 'none',
+            },
+          },
+          {
+            client: {
+              host: '',
+              path: '',
+              port: '',
+            },
+          },
+          {
+            client: {
+              host: '',
+              path: '',
+              port: null,
+            },
+          },
         ],
-        failure: ['whoops!'],
+        failure: [
+          'whoops!',
+          {
+            client: {
+              unknownOption: true,
+            },
+          },
+          {
+            client: {
+              host: true,
+              path: '',
+              port: 8080,
+            },
+          },
+          {
+            client: {
+              logging: 'whoops!',
+            },
+          },
+          {
+            client: {
+              logging: 'silent',
+            },
+          },
+        ],
       },
       compress: {
         success: [true],
         failure: [''],
       },
-      contentBase: {
-        success: [0, '.', false],
-        failure: [[1], [false]],
-      },
-      disableHostCheck: {
-        success: [true],
-        failure: [''],
-      },
-      features: {
-        success: [['before'], []],
-        failure: [false],
-      },
-      filename: {
-        success: ['', new RegExp(''), () => {}],
-        failure: [false],
-      },
-      fs: {
+      dev: {
         success: [
           {
-            fs: memfs,
+            dev: {},
           },
         ],
-        failure: [false],
+        failure: [''],
+      },
+      firewall: {
+        success: [true, false, ['']],
+        failure: ['', []],
       },
       headers: {
         success: [{}],
@@ -188,24 +258,44 @@ describe('options', () => {
         failure: [false],
       },
       hot: {
-        success: [true],
-        failure: [''],
-      },
-      hotOnly: {
-        success: [true],
-        failure: [''],
+        success: [true, 'only'],
+        failure: ['', 'foo'],
       },
       http2: {
         success: [true],
         failure: [''],
       },
       https: {
-        success: [true, {}],
-        failure: [''],
-      },
-      index: {
-        success: [''],
-        failure: [false],
+        success: [
+          false,
+          {
+            https: {
+              ca: join(httpsCertificateDirectory, 'ca.pem'),
+              key: join(httpsCertificateDirectory, 'server.key'),
+              pfx: join(httpsCertificateDirectory, 'server.pfx'),
+              cert: join(httpsCertificateDirectory, 'server.crt'),
+              requestCert: true,
+              passphrase: 'webpack-dev-server',
+            },
+          },
+          {
+            https: {
+              ca: readFileSync(join(httpsCertificateDirectory, 'ca.pem')),
+              pfx: readFileSync(join(httpsCertificateDirectory, 'server.pfx')),
+              key: readFileSync(join(httpsCertificateDirectory, 'server.key')),
+              cert: readFileSync(join(httpsCertificateDirectory, 'server.crt')),
+              passphrase: 'webpack-dev-server',
+            },
+          },
+        ],
+        failure: [
+          '',
+          {
+            https: {
+              foo: 'bar',
+            },
+          },
+        ],
       },
       injectClient: {
         success: [true, () => {}],
@@ -213,48 +303,6 @@ describe('options', () => {
       },
       injectHot: {
         success: [true, () => {}],
-        failure: [''],
-      },
-      inline: {
-        success: [true],
-        failure: [''],
-      },
-      key: {
-        success: ['', Buffer.from('')],
-        failure: [false],
-      },
-      lazy: {
-        success: [
-          {
-            lazy: true,
-            filename: '.',
-          },
-        ],
-        failure: [
-          {
-            lazy: '',
-            filename: '.',
-          },
-        ],
-      },
-      log: {
-        success: [() => {}],
-        failure: [''],
-      },
-      logLevel: {
-        success: ['silent', 'info', 'error', 'warn', 'trace', 'debug'],
-        failure: [false],
-      },
-      logTime: {
-        success: [true],
-        failure: [''],
-      },
-      mimeTypes: {
-        success: [{}],
-        failure: [false],
-      },
-      noInfo: {
-        success: [true],
         failure: [''],
       },
       onListening: {
@@ -303,14 +351,6 @@ describe('options', () => {
           },
         ],
       },
-      pfx: {
-        success: ['', Buffer.from('')],
-        failure: [false],
-      },
-      pfxPassphrase: {
-        success: [''],
-        failure: [false],
-      },
       port: {
         success: ['', 0, null],
         failure: [false],
@@ -337,66 +377,42 @@ describe('options', () => {
         success: [''],
         failure: [false],
       },
-      publicPath: {
-        success: [''],
-        failure: [false],
-      },
-      quiet: {
-        success: [true],
-        failure: [''],
-      },
-      reporter: {
-        success: [() => {}],
-        failure: [''],
-      },
-      requestCert: {
-        success: [true],
-        failure: [''],
-      },
-      serveIndex: {
-        success: [true],
-        failure: [''],
-      },
-      serverSideRender: {
-        success: [true],
-        failure: [''],
-      },
-      setup: {
-        success: [() => {}],
-        failure: [''],
-      },
-      socket: {
-        success: [''],
-        failure: [false],
-      },
-      sockHost: {
-        success: [''],
-        failure: [false],
-      },
-      sockPath: {
-        success: [''],
-        failure: [false],
-      },
-      sockPort: {
-        success: ['', 0, null],
-        failure: [false],
-      },
-      staticOptions: {
-        success: [{}],
-        failure: [false],
-      },
-      stats: {
+      static: {
         success: [
-          true,
-          {},
-          'none',
-          'errors-only',
-          'errors-warnings',
-          'minimal',
-          'normal',
-          'verbose',
+          'path',
+          false,
+          {
+            static: {
+              directory: 'path',
+              staticOptions: {},
+              publicPath: '/',
+              serveIndex: true,
+              watch: true,
+            },
+          },
+          {
+            static: {
+              directory: 'path',
+              staticOptions: {},
+              publicPath: ['/public1/', '/public2/'],
+              serveIndex: {},
+              watch: {},
+            },
+          },
+          {
+            static: [
+              'path1',
+              {
+                directory: 'path2',
+                staticOptions: {},
+                publicPath: '/',
+                serveIndex: true,
+                watch: true,
+              },
+            ],
+          },
         ],
-        failure: ['whoops!', null],
+        failure: [0, null, ''],
       },
       transportMode: {
         success: [
@@ -456,22 +472,6 @@ describe('options', () => {
       },
       useLocalIp: {
         success: [false],
-        failure: [''],
-      },
-      warn: {
-        success: [() => {}],
-        failure: [''],
-      },
-      watchContentBase: {
-        success: [true],
-        failure: [''],
-      },
-      watchOptions: {
-        success: [{}],
-        failure: [''],
-      },
-      writeToDisk: {
-        success: [true, () => {}],
         failure: [''],
       },
     };

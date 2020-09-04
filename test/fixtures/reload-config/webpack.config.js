@@ -15,5 +15,8 @@ module.exports = {
       },
     ],
   },
+  infrastructureLogging: {
+    level: 'warn',
+  },
   node: false,
 };

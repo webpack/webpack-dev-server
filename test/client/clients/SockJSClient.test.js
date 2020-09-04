@@ -3,10 +3,17 @@
 const http = require('http');
 const express = require('express');
 const sockjs = require('sockjs');
-const SockJSClient = require('../../../client-src/clients/SockJSClient');
 const port = require('../../ports-map').sockJSClient;
 
+jest.setMock('../../../client-src/default/utils/log', {
+  log: {
+    error: jest.fn(),
+  },
+});
+
 describe('SockJSClient', () => {
+  const SockJSClient = require('../../../client-src/clients/SockJSClient');
+  const { log } = require('../../../client-src/default/utils/log');
   let consoleMock;
   let socketServer;
   let listeningApp;
@@ -21,7 +28,7 @@ describe('SockJSClient', () => {
     listeningApp.listen(port, 'localhost', () => {
       socketServer = sockjs.createServer();
       socketServer.installHandlers(listeningApp, {
-        prefix: '/sockjs-node',
+        prefix: '/ws',
       });
       done();
     });
@@ -41,7 +48,7 @@ describe('SockJSClient', () => {
         }, 1000);
       });
 
-      const client = new SockJSClient(`http://localhost:${port}/sockjs-node`);
+      const client = new SockJSClient(`http://localhost:${port}/ws`);
       const data = [];
 
       client.onOpen(() => {
@@ -53,6 +60,12 @@ describe('SockJSClient', () => {
       client.onMessage((msg) => {
         data.push(msg);
       });
+
+      const testError = new Error('test');
+      client.sock.onerror(testError);
+
+      expect(log.error.mock.calls.length).toEqual(1);
+      expect(log.error.mock.calls[0]).toEqual([testError]);
 
       setTimeout(() => {
         expect(data).toMatchSnapshot();

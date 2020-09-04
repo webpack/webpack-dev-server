@@ -9,6 +9,9 @@ module.exports = [
       path: '/',
     },
     node: false,
+    infrastructureLogging: {
+      level: 'warn',
+    },
   },
   {
     mode: 'development',
@@ -18,5 +21,8 @@ module.exports = [
       path: '/',
     },
     node: false,
+    infrastructureLogging: {
+      level: 'warn',
+    },
   },
 ];

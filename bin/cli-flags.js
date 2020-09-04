@@ -15,28 +15,10 @@ module.exports = {
       describe: 'Broadcasts the server via ZeroConf networking on start',
     },
     {
-      name: 'lazy',
+      name: 'live-reload',
       type: Boolean,
-      describe: 'Lazy',
-    },
-    {
-      name: 'liveReload',
-      type: Boolean,
-      defaultValue: true,
       describe: 'Enables/Disables live reloading on changing files',
-    },
-    {
-      name: 'serveIndex',
-      type: Boolean,
-      describe: 'Enables/Disables serveIndex middleware',
-      defaultValue: true,
-    },
-    {
-      name: 'inline',
-      type: Boolean,
-      defaultValue: true,
-      describe:
-        'Inline mode (set to false to disable including client scripts like livereload)',
+      negative: true,
     },
     {
       name: 'profile',
@@ -62,12 +44,12 @@ module.exports = {
     },
     {
       name: 'open',
-      type: String,
+      type: [String, Boolean],
       describe:
         'Open the default browser, or optionally specify a browser name',
     },
     {
-      name: 'useLocalIp',
+      name: 'use-local-ip',
       type: Boolean,
       describe: 'Open default browser with local IP',
     },
@@ -75,14 +57,14 @@ module.exports = {
       name: 'open-page',
       type: String,
       describe: 'Open default browser with the specified page',
+      multiple: true,
     },
     {
-      name: 'client-log-level',
+      name: 'client-logging',
       type: String,
       group: DISPLAY_GROUP,
-      defaultValue: 'info',
       describe:
-        'Log level in the browser (trace, debug, info, warn, error or silent)',
+        'Log level in the browser (none, error, warn, info, log, verbose)',
     },
     {
       name: 'https',
@@ -97,46 +79,12 @@ module.exports = {
       describe: 'HTTP/2, must be used with HTTPS',
     },
     {
-      name: 'key',
-      type: String,
-      describe: 'Path to a SSL key.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'cert',
-      type: String,
-      describe: 'Path to a SSL certificate.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'cacert',
-      type: String,
-      describe: 'Path to a SSL CA certificate.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'pfx',
-      type: String,
-      describe: 'Path to a SSL pfx file.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'pfx-passphrase',
-      type: String,
-      describe: 'Passphrase for pfx file.',
-      group: SSL_GROUP,
-    },
-    {
-      name: 'content-base',
-      type: String,
-      describe: 'A directory or URL to serve HTML content from.',
+      name: 'static',
+      type: [String, Boolean],
+      describe: 'A directory to serve static content from.',
       group: RESPONSE_GROUP,
-    },
-    {
-      name: 'watch-content-base',
-      type: Boolean,
-      describe: 'Enable live-reloading of the content-base.',
-      group: RESPONSE_GROUP,
+      multiple: true,
+      negative: true,
     },
     {
       name: 'history-api-fallback',
@@ -158,18 +106,6 @@ module.exports = {
       group: CONNECTION_GROUP,
     },
     {
-      name: 'disable-host-check',
-      type: Boolean,
-      describe: 'Will not check the host',
-      group: CONNECTION_GROUP,
-    },
-    {
-      name: 'socket',
-      type: String,
-      describe: 'Socket to listen',
-      group: CONNECTION_GROUP,
-    },
-    {
       name: 'public',
       type: String,
       describe: 'The public hostname/ip address of the server',
@@ -181,13 +117,11 @@ module.exports = {
       describe: 'The hostname/ip address the server will bind to',
       group: CONNECTION_GROUP,
     },
-    // use command-line-args "multiple" option, allowing the usage: --allowed-hosts host1 host2 host3
-    // instead of the old, comma-separated syntax: --allowed-hosts host1,host2,host3
     {
-      name: 'allowed-hosts',
+      name: 'firewall',
       type: String,
       describe:
-        'A list of hosts that are allowed to access the dev server, separated by spaces',
+        'Enable/disable firewall, or set hosts that are allowed to access the dev server',
       group: CONNECTION_GROUP,
       multiple: true,
     },

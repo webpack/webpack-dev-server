@@ -16,11 +16,13 @@ describe('progress', () => {
     });
 
     it('should show percentage progress without profile data', (done) => {
+      config.infrastructureLogging.level = 'info';
+
       const compiler = webpack(config);
       const server = new Server(compiler, {
         port,
         progress: true,
-        quiet: true,
+        static: false,
       });
 
       compiler.hooks.done.tap('webpack-dev-server', () => {

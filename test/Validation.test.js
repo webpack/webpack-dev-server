@@ -1,16 +1,8 @@
 'use strict';
 
-/* eslint-disable
-  no-shadow,
-  array-bracket-spacing
-*/
-
 const webpack = require('webpack');
 const Server = require('../lib/Server');
-const schema = require('../lib/options.json');
 const config = require('./fixtures/simple-config/webpack.config');
-
-const messages = schema.errorMessage.properties;
 
 describe('Validation', () => {
   let compiler;
@@ -36,74 +28,45 @@ describe('Validation', () => {
       {
         name: 'invalid `hot` configuration',
         config: { hot: 'false' },
-        message: `options.hot ${messages.hot}`,
       },
       {
-        name: 'invalid `logLevel` configuration',
-        config: { logLevel: 1 },
-        message: `options.logLevel ${messages.logLevel.split('\n\n')[0]}`,
-      },
-      {
-        name: 'invalid `writeToDisk` configuration',
-        config: { writeToDisk: 1 },
-        message: `options.writeToDisk ${messages.writeToDisk}`,
+        name: 'invalid `injectHot` configuration',
+        config: { injectHot: 1 },
       },
       {
         name: 'invalid `overlay` configuration',
         config: { overlay: { errors: 1 } },
-        message: `options.overlay ${messages.overlay}`,
       },
       {
-        name: 'invalid `contentBase` configuration',
-        config: { contentBase: [0] },
-        message: `options.contentBase ${messages.contentBase}`,
+        name: 'invalid `static` configuration',
+        config: { static: [0] },
       },
       {
         name: 'no additional properties',
         config: { additional: true },
-        message: 'options should NOT have additional properties',
       },
     ];
 
     tests.forEach((test) => {
       it(`should fail validation for ${test.name}`, () => {
         try {
+          if (!test.config.static) {
+            test.config.static = false;
+          }
           server = new Server(compiler, test.config);
         } catch (err) {
           if (err.name !== 'ValidationError') {
             throw err;
           }
 
-          const [title, message] = err.message.split('\n\n');
+          const [title] = err.message.split('\n\n');
 
-          expect(title).toEqual('webpack Dev Server Invalid Options');
-          expect(message.trim()).toEqual(test.message);
-
+          expect(title).toMatchSnapshot();
           return;
         }
 
         throw new Error("Validation didn't fail");
       });
-    });
-  });
-
-  describe('filename', () => {
-    afterEach((done) => {
-      server.close(() => {
-        done();
-      });
-    });
-
-    it('should allow filename to be a function', () => {
-      try {
-        server = new Server(compiler, { filename: () => {} });
-      } catch (err) {
-        if (err === 'ValidationError') {
-          throw err;
-        }
-
-        throw new Error("Validation failed and it shouldn't");
-      }
     });
   });
 
@@ -114,10 +77,10 @@ describe('Validation', () => {
       });
     });
 
-    it('should always allow any host if options.disableHostCheck is set', () => {
+    it('should always allow any host if options.firewall is disabled', () => {
       const options = {
         public: 'test.host:80',
-        disableHostCheck: true,
+        firewall: false,
       };
 
       const headers = {
@@ -212,10 +175,10 @@ describe('Validation', () => {
       }
     });
 
-    describe('allowedHosts', () => {
-      it('should allow hosts in allowedHosts', () => {
+    describe('firewall', () => {
+      it('should allow hosts in firewall', () => {
         const tests = ['test.host', 'test2.host', 'test3.host'];
-        const options = { allowedHosts: tests };
+        const options = { firewall: tests };
         server = new Server(compiler, options);
         tests.forEach((test) => {
           const headers = { host: test };
@@ -225,8 +188,8 @@ describe('Validation', () => {
         });
       });
 
-      it('should allow hosts that pass a wildcard in allowedHosts', () => {
-        const options = { allowedHosts: ['.example.com'] };
+      it('should allow hosts that pass a wildcard in firewall', () => {
+        const options = { firewall: ['.example.com'] };
         server = new Server(compiler, options);
         const tests = [
           'www.example.com',

@@ -3,7 +3,6 @@
 const { relative, sep } = require('path');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
-const { noop } = require('webpack-dev-middleware/lib/util');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
@@ -13,7 +12,7 @@ jest.mock('sockjs/lib/transport');
 
 const baseDevConfig = {
   port,
-  quiet: true,
+  static: false,
 };
 
 describe('Server', () => {
@@ -60,12 +59,12 @@ describe('Server', () => {
       compiler.run(() => {});
     });
 
-    it('add hotOnly option', (done) => {
+    it('add hot-only option', (done) => {
       const compiler = webpack(config);
       const server = new Server(
         compiler,
         Object.assign({}, baseDevConfig, {
-          hotOnly: true,
+          hot: 'only',
         })
       );
 
@@ -101,19 +100,19 @@ describe('Server', () => {
     const compiler = webpack(config);
     const server = new Server(compiler, baseDevConfig);
 
-    server.log.error = logMock;
+    server.logger.error = logMock;
 
     const emitError = () =>
       server.listeningApp.emit('error', new Error('Error !!!'));
 
     expect(emitError).toThrowError();
 
-    expect(server.log.error).toBeCalledWith(new Error('Error !!!'));
+    expect(server.logger.error).toBeCalledWith(new Error('Error !!!'));
   });
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
-  describe('express.static.mine.types', () => {
-    it("should success even if mine.types doesn't exist", (done) => {
+  describe('express.static.mime.types', () => {
+    it("should success even if mime.types doesn't exist", (done) => {
       jest.mock('express', () => {
         const data = jest.requireActual('express');
         const { static: st } = data;
@@ -147,12 +146,12 @@ describe('Server', () => {
 
   describe('Invalidate Callback', () => {
     describe('Testing callback functions on calling invalidate without callback', () => {
-      it('should be `noop` (the default callback function)', (done) => {
+      it('should use default `noop` callback', (done) => {
         const compiler = webpack(config);
         const server = new Server(compiler, baseDevConfig);
 
         server.invalidate();
-        expect(server.middleware.context.callbacks[0]).toBe(noop);
+        expect(server.middleware.context.callbacks.length).toEqual(1);
 
         compiler.hooks.done.tap('webpack-dev-server', () => {
           server.close(done);
@@ -163,7 +162,7 @@ describe('Server', () => {
     });
 
     describe('Testing callback functions on calling invalidate with callback', () => {
-      it('should be `callback` function', (done) => {
+      it('should use `callback` function', (done) => {
         const compiler = webpack(config);
         const callback = jest.fn();
         const server = new Server(compiler, baseDevConfig);

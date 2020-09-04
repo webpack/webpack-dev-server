@@ -36,6 +36,18 @@ const proxyOptionPathsAsProperties = {
       }
     },
   },
+  '/proxy/async': {
+    bypass(req, res) {
+      if (/\/proxy\/async$/.test(req.path)) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            res.end('proxy async response');
+            resolve(true);
+          }, 10);
+        });
+      }
+    },
+  },
 };
 
 const proxyOption = {
@@ -45,11 +57,17 @@ const proxyOption = {
 
 const proxyOptionOfArray = [
   { context: '/proxy1', target: proxyOption.target },
-  function proxy() {
+  function proxy(req, res, next) {
     return {
       context: '/api/proxy2',
       target: `http://localhost:${port2}`,
       pathRewrite: { '^/api': '' },
+      bypass: () => {
+        if (req && req.query.foo) {
+          res.end(`foo+${next.name}+${typeof next}`);
+          return false;
+        }
+      },
     };
   },
 ];
@@ -91,7 +109,10 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
           proxy: proxyOptionPathsAsProperties,
           port: port3,
         },
@@ -135,6 +156,10 @@ describe('proxy option', () => {
       it('should not pass through a proxy when a bypass function returns false', (done) => {
         req.get('/proxyfalse').expect(404, done);
       });
+
+      it('should wait if bypass returns promise', (done) => {
+        req.get('/proxy/async').expect(200, 'proxy async response', done);
+      });
     });
   });
 
@@ -148,7 +173,10 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
           proxy: proxyOption,
           port: port3,
         },
@@ -179,7 +207,10 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
           proxy: proxyOptionOfArray,
           port: port3,
         },
@@ -201,6 +232,13 @@ describe('proxy option', () => {
 
     it('respects a proxy option of function', (done) => {
       req.get('/api/proxy2').expect(200, 'from proxy2', done);
+    });
+
+    it('should allow req, res, and next', async () => {
+      const { text, statusCode } = await req.get('/api/proxy2?foo=true');
+
+      expect(statusCode).toEqual(200);
+      expect(text).toEqual('foo+next+function');
     });
   });
 
@@ -224,7 +262,10 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
           proxy: {
             '/proxy1': proxyTarget,
             '/proxy2': proxyTarget,
@@ -264,7 +305,10 @@ describe('proxy option', () => {
           testServer.start(
             config,
             {
-              contentBase,
+              static: {
+                directory: contentBase,
+                watch: false,
+              },
               transportMode,
               proxy: [
                 {
@@ -368,7 +412,10 @@ describe('proxy option', () => {
       server = testServer.start(
         config,
         {
-          contentBase,
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
           proxy: {
             '**': proxyTarget,
           },

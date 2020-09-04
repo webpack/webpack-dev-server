@@ -21,8 +21,7 @@ describe('liveReload option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          watchContentBase: true,
+          static: contentBasePublic,
           liveReload: false,
           port,
         },
@@ -42,9 +41,16 @@ describe('liveReload option', () => {
         // it means that file has changed
 
         // simulating server behaviour
-        if (server.options.liveReload !== false) {
+        if (server.options.liveReload) {
+          // issue: https://github.com/facebook/jest/issues/9471
+          Object.defineProperty(window, 'location', {
+            writable: true,
+            value: { assign: jest.fn() },
+          });
+
           Object.defineProperty(window.location, 'reload', {
-            configurable: true,
+            writable: true,
+            value: { assign: jest.fn() },
           });
           window.location.reload = jest.fn();
           window.location.reload();
@@ -69,8 +75,7 @@ describe('liveReload option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
-          watchContentBase: true,
+          static: contentBasePublic,
           liveReload: true,
           port,
         },
@@ -90,10 +95,17 @@ describe('liveReload option', () => {
         // it means that files has changed
 
         // simulating server behaviour
-        if (server.options.liveReload !== false) {
-          Object.defineProperty(window.location, 'reload', {
-            configurable: true,
+        if (server.options.liveReload) {
+          Object.defineProperty(window, 'location', {
+            writable: true,
+            value: { assign: jest.fn() },
           });
+
+          Object.defineProperty(window.location, 'reload', {
+            writable: true,
+            value: { assign: jest.fn() },
+          });
+
           window.location.reload = jest.fn();
           window.location.reload();
           reloaded = true;
