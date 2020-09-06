@@ -37,22 +37,26 @@ describe('Server', () => {
       let entries;
 
       if (isWebpack5) {
-        entries = server.middleware.context.compiler.options.entry.main.import.map(
-          (p) => {
+        compiler.hooks.afterEmit.tap('webpack-dev-server', (compilation) => {
+          const mainDeps = compilation.entries.get('main').dependencies;
+          const globalDeps = compilation.globalEntry.dependencies;
+          const deps = globalDeps.concat(mainDeps).map((dep) => dep.request);
+          entries = deps.map((p) => {
             return relative('.', p).split(sep);
-          }
-        );
+          });
+        });
       } else {
         entries = server.middleware.context.compiler.options.entry.map((p) => {
           return relative('.', p).split(sep);
         });
       }
-      expect(entries).toMatchSnapshot();
+
       expect(server.middleware.context.compiler.options.plugins).toEqual([
         new webpack.HotModuleReplacementPlugin(),
       ]);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
         server.close(done);
       });
 
@@ -71,23 +75,26 @@ describe('Server', () => {
       let entries;
 
       if (isWebpack5) {
-        entries = server.middleware.context.compiler.options.entry.main.import.map(
-          (p) => {
+        compiler.hooks.afterEmit.tap('webpack-dev-server', (compilation) => {
+          const mainDeps = compilation.entries.get('main').dependencies;
+          const globalDeps = compilation.globalEntry.dependencies;
+          const deps = globalDeps.concat(mainDeps).map((dep) => dep.request);
+          entries = deps.map((p) => {
             return relative('.', p).split(sep);
-          }
-        );
+          });
+        });
       } else {
         entries = server.middleware.context.compiler.options.entry.map((p) => {
           return relative('.', p).split(sep);
         });
       }
 
-      expect(entries).toMatchSnapshot();
       expect(server.middleware.context.compiler.options.plugins).toEqual([
         new webpack.HotModuleReplacementPlugin(),
       ]);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
         server.close(done);
       });
 
