@@ -61,6 +61,14 @@ function startAwaitingCompilationFullSetup(config, options, done) {
   return fullSetup;
 }
 
+function asyncStart(config, options) {
+  return new Promise((fulfill) => {
+    const res = startAwaitingCompilationFullSetup(config, options, () => {
+      fulfill(res);
+    });
+  });
+}
+
 function startAwaitingCompilation(config, options, done) {
   return startAwaitingCompilationFullSetup(config, options, done).server;
 }
@@ -96,5 +104,6 @@ module.exports = {
   startAwaitingCompilationFullSetup,
   startBeforeCompilation,
   start,
+  asyncStart,
   close,
 };

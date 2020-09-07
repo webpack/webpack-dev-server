@@ -401,7 +401,7 @@ describe('Client console.log', () => {
       options = { ...mode, ...options };
       const testOptions = Object.assign({}, baseOptions, options);
       await it(title, async (done) => {
-        await testServer.startAwaitingCompilation(config, testOptions);
+        await testServer.asyncStart(config, testOptions);
         const res = [];
         const { page, browser } = await runBrowser();
         page.goto(`http://localhost:${port2}/main`);
