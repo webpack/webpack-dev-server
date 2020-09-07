@@ -3,6 +3,7 @@
 /* eslint-disable
   class-methods-use-this
 */
+const path = require('path');
 const request = require('supertest');
 const sockjs = require('sockjs');
 const SockJS = require('sockjs-client/dist/sockjs');
@@ -553,15 +554,21 @@ describe('transportMode', () => {
 
     describe('is passed to getSocketClientPath correctly', () => {
       beforeEach(() => {
-        jest.mock('../../lib/utils/getSocketClientPath');
+        jest.setMock(
+          '../../lib/utils/getSocketClientPath',
+          jest.fn(() => {
+            return path.resolve(__dirname, '../../client/clients/SockJSClient');
+          })
+        );
         getSocketClientPath = require('../../lib/utils/getSocketClientPath');
       });
 
       afterEach((done) => {
-        jest.resetAllMocks();
-        jest.resetModules();
-
-        mockedTestServer.close(done);
+        mockedTestServer.close(() => {
+          jest.resetAllMocks();
+          jest.resetModules();
+          done();
+        });
       });
 
       clientModes.forEach((data) => {
