@@ -674,4 +674,32 @@ describe('addEntries util', () => {
 
     expect(injected).toContain('&host=my.host&path=/custom/path&port=8080');
   });
+
+  if (isWebpack5) {
+    it('disables hook tap on close callback', () => {
+      const webpackOptions = Object.assign({}, config);
+      const compiler = webpack(webpackOptions);
+      const devServerOptions = {};
+
+      compiler.hooks.make.tapAsync = jest.fn();
+      const closeCallback = addEntries(compiler, devServerOptions);
+      // this will disable entries from being added to the compilation from
+      // the compiler hook in addEntries, as it simulates the server being closed
+      closeCallback();
+
+      const makeHook = compiler.hooks.make.tapAsync;
+      const cb = makeHook.mock.calls[0][1];
+
+      const addEntryMock = jest.fn();
+      const compilation = {
+        addEntry: addEntryMock,
+      };
+      const finalCb = jest.fn();
+      cb(compilation, finalCb);
+
+      // no entries are added, but the final callback of the hook is still called
+      expect(addEntryMock.mock.calls.length).toEqual(0);
+      expect(finalCb.mock.calls.length).toEqual(1);
+    });
+  }
 });
