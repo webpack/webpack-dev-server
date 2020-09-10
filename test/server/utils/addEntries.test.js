@@ -676,30 +676,41 @@ describe('addEntries util', () => {
   });
 
   if (isWebpack5) {
-    it('disables hook tap on close callback', () => {
+    it('handles multiple calls via compiler property', async () => {
       const webpackOptions = Object.assign({}, config);
       const compiler = webpack(webpackOptions);
       const devServerOptions = {};
 
       compiler.hooks.make.tapAsync = jest.fn();
-      const closeCallback = addEntries(compiler, devServerOptions);
-      // this will disable entries from being added to the compilation from
-      // the compiler hook in addEntries, as it simulates the server being closed
-      closeCallback();
+      addEntries(compiler, devServerOptions);
+
+      expect(compiler.webpackDevServerMakeCallbackCount).toEqual(1);
+
+      addEntries(compiler, devServerOptions);
+
+      expect(compiler.webpackDevServerMakeCallbackCount).toEqual(2);
 
       const makeHook = compiler.hooks.make.tapAsync;
-      const cb = makeHook.mock.calls[0][1];
+      const cb1 = makeHook.mock.calls[0][1];
+      const cb2 = makeHook.mock.calls[1][1];
 
       const addEntryMock = jest.fn();
       const compilation = {
         addEntry: addEntryMock,
       };
-      const finalCb = jest.fn();
-      cb(compilation, finalCb);
+      const finalCb1 = jest.fn();
+      cb1(compilation, finalCb1);
 
-      // no entries are added, but the final callback of the hook is still called
+      // no entries are added, since the old callback was called
+      // but the final callback is still called
       expect(addEntryMock.mock.calls.length).toEqual(0);
-      expect(finalCb.mock.calls.length).toEqual(1);
+      expect(finalCb1.mock.calls.length).toEqual(1);
+
+      const finalCb2 = jest.fn();
+      cb2(compilation, finalCb2);
+
+      // entries are added because this is the most recently added callback
+      expect(addEntryMock.mock.calls.length).toEqual(1);
     });
   }
 });

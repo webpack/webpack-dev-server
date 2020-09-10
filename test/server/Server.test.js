@@ -100,19 +100,6 @@ describe('Server', () => {
 
       compiler.run(() => {});
     });
-
-    it('should call close callback', (done) => {
-      const compiler = webpack(config);
-      const server = new Server(compiler, Object.assign({}, baseDevConfig));
-      expect(typeof server._closeCallback).toEqual('function');
-
-      server._closeCallback = jest.fn();
-
-      server.close(() => {
-        expect(server._closeCallback.mock.calls.length).toEqual(1);
-        done();
-      });
-    });
   });
 
   it('test listeningApp error reporting', () => {

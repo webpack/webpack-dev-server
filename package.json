@@ -110,7 +110,7 @@
     "tcp-port-used": "^1.0.1",
     "typescript": "^3.9.7",
     "url-loader": "^4.1.0",
-    "webpack": "^4.44.1",
+    "webpack": "^5.0.0-beta.29",
     "webpack-cli": "^3.3.12",
     "webpack-merge": "^4.2.2"
   },
