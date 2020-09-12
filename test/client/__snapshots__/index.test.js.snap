@@ -12,6 +12,8 @@ exports[`index should run onSocketMessage.close 1`] = `"Disconnected!"`;
 
 exports[`index should run onSocketMessage.close 2`] = `"Close"`;
 
+exports[`index should run onSocketMessage.contentChanged 1`] = `"Content base changed. Reloading..."`;
+
 exports[`index should run onSocketMessage.error 1`] = `"error!!"`;
 
 exports[`index should run onSocketMessage.errors 1`] = `"Errors while compiling. Reload prevented."`;
@@ -54,9 +56,13 @@ Object {
 }
 `;
 
-exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] 1`] = `"Progress"`;
+exports[`index should run onSocketMessage.progress and onSocketMessage.progressUpdate 1`] = `"Progress"`;
 
-exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] 2`] = `"12% - mock-msg."`;
+exports[`index should run onSocketMessage.progress and onSocketMessage.progressUpdate 2`] = `"12% - mock-msg."`;
+
+exports[`index should run onSocketMessage.stillOk 1`] = `"Nothing changed."`;
+
+exports[`index should run onSocketMessage.stillOk 2`] = `"StillOk"`;
 
 exports[`index should run onSocketMessage.warnings 1`] = `"Warnings while compiling."`;
 
@@ -76,18 +82,12 @@ Array [
 ]
 `;
 
-exports[`index should run onSocketMessage['content-changed'] 1`] = `"Content base changed. Reloading..."`;
-
-exports[`index should run onSocketMessage['still-ok'] 1`] = `"Nothing changed."`;
-
-exports[`index should run onSocketMessage['still-ok'] 2`] = `"StillOk"`;
-
 exports[`index should set arguments into socket function 1`] = `
 Array [
   "mock-url",
   Object {
     "close": [Function],
-    "content-changed": [Function],
+    "contentChanged": [Function],
     "error": [Function],
     "errors": [Function],
     "hash": [Function],
@@ -98,8 +98,8 @@ Array [
     "ok": [Function],
     "overlay": [Function],
     "progress": [Function],
-    "progress-update": [Function],
-    "still-ok": [Function],
+    "progressUpdate": [Function],
+    "stillOk": [Function],
     "warnings": [Function],
   },
 ]

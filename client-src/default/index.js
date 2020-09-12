@@ -58,7 +58,7 @@ const onSocketMessage = {
   hash(hash) {
     status.currentHash = hash;
   },
-  'still-ok': function stillOk() {
+  stillOk() {
     log.info('Nothing changed.');
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
@@ -91,7 +91,7 @@ const onSocketMessage = {
       options.useProgress = progress;
     }
   },
-  'progress-update': function progressUpdate(data) {
+  progressUpdate(data) {
     if (options.useProgress) {
       log.info(`${data.percent}% - ${data.msg}.`);
     }
@@ -107,7 +107,7 @@ const onSocketMessage = {
     }
     reloadApp(options, status);
   },
-  'content-changed': function contentChanged() {
+  contentChanged() {
     log.info('Content base changed. Reloading...');
     self.location.reload();
   },

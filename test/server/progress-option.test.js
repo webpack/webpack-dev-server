@@ -50,7 +50,7 @@ describe('progress', () => {
       compiler.run(() => {});
       const app = server.listen(port, 'localhost');
 
-      app.on('progress-update', ({ percent, msg }) => {
+      app.on('progressUpdate', ({ percent, msg }) => {
         expect(percent).toBeGreaterThanOrEqual(0);
         expect(percent).toBeLessThanOrEqual(100);
         expect(typeof msg).toEqual('string');

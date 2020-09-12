@@ -94,15 +94,15 @@ describe('index', () => {
     expect(overlay.clear).toBeCalled();
   });
 
-  test("should run onSocketMessage['still-ok']", () => {
-    onSocketMessage['still-ok']();
+  test('should run onSocketMessage.stillOk', () => {
+    onSocketMessage.stillOk();
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
     expect(overlay.clear).not.toBeCalled();
 
     // change flags
     onSocketMessage.overlay(true);
-    onSocketMessage['still-ok']();
+    onSocketMessage.stillOk();
     expect(overlay.clear).toBeCalled();
   });
 
@@ -111,9 +111,9 @@ describe('index', () => {
     onSocketMessage.logging();
   });
 
-  test("should run onSocketMessage.progress and onSocketMessage['progress-update']", () => {
+  test('should run onSocketMessage.progress and onSocketMessage.progressUpdate', () => {
     onSocketMessage.progress(false);
-    onSocketMessage['progress-update']({
+    onSocketMessage.progressUpdate({
       msg: 'mock-msg',
       percent: '12',
     });
@@ -121,7 +121,7 @@ describe('index', () => {
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
 
     onSocketMessage.progress(true);
-    onSocketMessage['progress-update']({
+    onSocketMessage.progressUpdate({
       msg: 'mock-msg',
       percent: '12',
     });
@@ -159,8 +159,8 @@ describe('index', () => {
     }
   });
 
-  test("should run onSocketMessage['content-changed']", () => {
-    onSocketMessage['content-changed']();
+  test('should run onSocketMessage.contentChanged', () => {
+    onSocketMessage.contentChanged();
 
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(self.location.reload).toBeCalled();
