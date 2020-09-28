@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const httpProxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
@@ -14,7 +14,7 @@ describe('Client code', () => {
     const proxy = express();
     proxy.use(
       '/',
-      httpProxy({
+      createProxyMiddleware({
         target: `http://localhost:${port1}`,
         ws: true,
         changeOrigin: true,
