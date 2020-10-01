@@ -56,7 +56,7 @@
     "p-retry": "^3.0.1",
     "portfinder": "^1.0.26",
     "schema-utils": "^1.0.0",
-    "selfsigned": "^1.10.7",
+    "selfsigned": "^1.10.8",
     "semver": "^6.3.0",
     "serve-index": "^1.9.1",
     "sockjs": "0.3.20",
