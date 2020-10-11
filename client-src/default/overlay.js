@@ -112,11 +112,17 @@ function clear() {
 // Compilation with errors (e.g. syntax error or missing modules).
 function showMessage(messages) {
   ensureOverlayDivExists((div) => {
+    let singleMessage = messages[0];
+
+    if (singleMessage && singleMessage.message) {
+      singleMessage = singleMessage.message;
+    }
+
     // Make it look similar to our terminal.
     div.innerHTML = `<span style="color: #${
       colors.red
     }">Failed to compile.</span><br><br>${ansiHTML(
-      entities.encode(messages[0].message || messages[0])
+      entities.encode(singleMessage)
     )}`;
   });
 }
