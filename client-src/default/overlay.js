@@ -116,7 +116,7 @@ function showMessage(messages) {
     div.innerHTML = `<span style="color: #${
       colors.red
     }">Failed to compile.</span><br><br>${ansiHTML(
-      entities.encode(messages[0])
+      entities.encode(messages[0].message || messages[0])
     )}`;
   });
 }
