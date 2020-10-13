@@ -370,10 +370,12 @@
         {
           "enum": [
             "none",
+            "summary",
             "errors-only",
             "errors-warnings",
             "minimal",
             "normal",
+            "detailed",
             "verbose"
           ]
         }
