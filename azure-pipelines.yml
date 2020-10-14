@@ -45,19 +45,19 @@ jobs:
       matrix:
         node-14:
           node_version: ^14.0.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-12:
           node_version: ^12.0.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-10:
           node_version: ^10.13.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-8:
           node_version: ^8.9.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-6:
           node_version: ^6.9.0
-          webpack_version: 4
+          webpack_version: webpack-4
     steps:
       - task: NodeTool@0
         inputs:
@@ -101,19 +101,19 @@ jobs:
       matrix:
         node-14:
           node_version: ^14.0.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-12:
           node_version: ^12.0.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-10:
           node_version: ^10.13.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-8:
           node_version: ^8.9.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-6:
           node_version: ^6.9.0
-          webpack_version: 4
+          webpack_version: webpack-4
     steps:
       - task: NodeTool@0
         inputs:
@@ -157,19 +157,19 @@ jobs:
       matrix:
         node-14:
           node_version: ^14.0.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-12:
           node_version: ^12.0.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-10:
           node_version: ^10.13.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-8:
           node_version: ^8.9.0
-          webpack_version: 4
+          webpack_version: webpack-4
         node-6:
           node_version: ^6.9.0
-          webpack_version: 4
+          webpack_version: webpack-4
     steps:
       - script: 'git config --global core.autocrlf input'
         displayName: 'Config git core.autocrlf'
