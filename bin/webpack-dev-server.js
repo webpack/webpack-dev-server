@@ -53,12 +53,24 @@ yargs.usage(
 );
 
 // webpack-cli@3.3 path : 'webpack-cli/bin/config/config-yargs'
+// removed in webpack-cli@4
 let configYargsPath;
 try {
   require.resolve('webpack-cli/bin/config/config-yargs');
   configYargsPath = 'webpack-cli/bin/config/config-yargs';
 } catch (e) {
-  configYargsPath = 'webpack-cli/bin/config-yargs';
+  try {
+    require.resolve('webpack-cli/bin/config-yargs');
+    configYargsPath = 'webpack-cli/bin/config-yargs';
+  } catch (e2) {
+    console.error('The webpack-dev-server CLI will be removed in v4');
+    console.error(
+      "Please use 'webpack serve' command from webpack-cli to run webpack-dev-server"
+    );
+
+    // eslint-disable-next-line no-process-exit
+    process.exit(1);
+  }
 }
 // eslint-disable-next-line import/no-extraneous-dependencies
 // eslint-disable-next-line import/no-dynamic-require
