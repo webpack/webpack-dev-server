@@ -69,14 +69,14 @@ script as such:
 
 ```json
 "scripts": {
-  "start:dev": "webpack-dev-server"
+  "dev": "webpack serve"
 }
 ```
 
 And run the following in your terminal/console:
 
 ```console
-npm run start:dev
+npm run dev
 ```
 
 NPM will automagically reference the binary in `node_modules` for you, and
