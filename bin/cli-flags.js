@@ -22,19 +22,16 @@ module.exports = {
     {
       name: 'liveReload',
       type: Boolean,
-      defaultValue: true,
       describe: 'Enables/Disables live reloading on changing files',
     },
     {
       name: 'serveIndex',
       type: Boolean,
       describe: 'Enables/Disables serveIndex middleware',
-      defaultValue: true,
     },
     {
       name: 'inline',
       type: Boolean,
-      defaultValue: true,
       describe:
         'Inline mode (set to false to disable including client scripts like livereload)',
     },
@@ -80,7 +77,6 @@ module.exports = {
       name: 'client-log-level',
       type: String,
       group: DISPLAY_GROUP,
-      defaultValue: 'info',
       describe:
         'Log level in the browser (trace, debug, info, warn, error or silent)',
     },
