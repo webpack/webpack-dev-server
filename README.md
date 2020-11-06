@@ -67,9 +67,26 @@ NPM package.json scripts are a convenient and useful means to run locally instal
 binaries without having to be concerned about their full paths. Simply define a
 script as such:
 
-```json
-"scripts": {
-  "start:dev": "webpack-dev-server"
+Case:webpack-cli 3
+```package.json
+{
+  "scripts": {
+    "serve": "webpack-dev-server"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.12"
+  }
+}
+
+Case:webpack-cli 4
+```package.json
+{
+  "scripts": {
+    "serve": "webpack serve"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.0.0"
+  }
 }
 ```
 
