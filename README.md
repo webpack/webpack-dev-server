@@ -55,8 +55,16 @@ There are two main, recommended methods of using the module:
 The easiest way to use it is with the CLI. In the directory where your
 `webpack.config.js` is, run:
 
+> For webpack-cli 3.x:
+
 ```console
 node_modules/.bin/webpack-dev-server
+```
+
+> For webpack-cli 4.x:
+
+```console
+node_modules/webpack-cli/bin/cli.js serve
 ```
 
 _**Note**: Many CLI options are available with `webpack-dev-server`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
@@ -67,9 +75,19 @@ NPM package.json scripts are a convenient and useful means to run locally instal
 binaries without having to be concerned about their full paths. Simply define a
 script as such:
 
+> For webpack-cli 3.x:
+
 ```json
 "scripts": {
-  "start:dev": "webpack-dev-server"
+  "start:dev": "webpack-dev-server",
+}
+```
+
+> For webpack-cli 4.x:
+
+```json
+"scripts": {
+  "start:dev": "webpack serve",
 }
 ```
 
