@@ -55,7 +55,7 @@
     "p-retry": "^4.2.0",
     "portfinder": "^1.0.28",
     "schema-utils": "^2.7.0",
-    "selfsigned": "^1.10.7",
+    "selfsigned": "^1.10.8",
     "serve-index": "^1.9.1",
     "sockjs": "0.3.20",
     "sockjs-client": "1.4.0",
