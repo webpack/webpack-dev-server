@@ -125,20 +125,20 @@ describe('ws client proxy', () => {
       });
     });
 
+    // Using Chrome DevTools protocol directly for now:
+    // https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketCreated
     // TODO: listen for websocket requestType via puppeteer when added
     // to puppeteer: https://github.com/puppeteer/puppeteer/issues/2974
     it('requests websocket through the proxy with proper port number', (done) => {
       runBrowser().then(({ page, browser }) => {
-        page.on('console', (msg) => {
-          const text = msg.text();
-          if (msg.type() === 'error' && text.includes('WebSocket connection')) {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
-              browser.close().then(() => {
-                expect(text).toContain(`ws://myhost:${port2}/ws`);
-                done();
-              });
+        const client = page._client;
+        client.on('Network.webSocketCreated', (evt) => {
+          page.waitFor(beforeBrowserCloseDelay).then(() => {
+            browser.close().then(() => {
+              expect(evt.url).toContain(`ws://myhost:${port2}/ws`);
+              done();
             });
-          }
+          });
         });
         page.goto(`http://localhost:${port2}/main`);
       });
@@ -318,20 +318,20 @@ describe('ws client host, port, and path', () => {
   afterAll(testServer.close);
 
   describe('browser client', () => {
+    // Using Chrome DevTools protocol directly for now:
+    // https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketCreated
     // TODO: listen for websocket requestType via puppeteer when added
     // to puppeteer: https://github.com/puppeteer/puppeteer/issues/2974
     it('uses correct host, port, and path', (done) => {
       runBrowser().then(({ page, browser }) => {
-        page.on('console', (msg) => {
-          const text = msg.text();
-          if (msg.type() === 'error' && text.includes('WebSocket connection')) {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
-              browser.close().then(() => {
-                expect(text).toContain(`ws://myhost:${port3}/foo/test/bar`);
-                done();
-              });
+        const client = page._client;
+        client.on('Network.webSocketCreated', (evt) => {
+          page.waitFor(beforeBrowserCloseDelay).then(() => {
+            browser.close().then(() => {
+              expect(evt.url).toContain(`ws://myhost:${port3}/foo/test/bar`);
+              done();
             });
-          }
+          });
         });
         page.goto(`http://localhost:${port2}/main`);
       });
@@ -401,20 +401,21 @@ describe('Client console.log', () => {
       options = { ...mode, ...options };
       const testOptions = Object.assign({}, baseOptions, options);
       await it(title, async (done) => {
-        await testServer.startAwaitingCompilation(config, testOptions);
-        const res = [];
-        const { page, browser } = await runBrowser();
-        page.goto(`http://localhost:${port2}/main`);
-        page.on('console', ({ _text }) => {
-          res.push(_text);
+        testServer.startAwaitingCompilation(config, testOptions, async () => {
+          const res = [];
+          const { page, browser } = await runBrowser();
+          page.goto(`http://localhost:${port2}/main`);
+          page.on('console', ({ _text }) => {
+            res.push(_text);
+          });
+          // wait for load before closing the browser
+          await page.waitForNavigation({ waitUntil: 'load' });
+          await page.waitFor(beforeBrowserCloseDelay);
+          await browser.close();
+          // Order doesn't matter, maybe we should improve that in future
+          await expect(res.sort()).toMatchSnapshot();
+          await testServer.close(done);
         });
-        // wait for load before closing the browser
-        await page.waitForNavigation({ waitUntil: 'load' });
-        await page.waitFor(beforeBrowserCloseDelay);
-        await browser.close();
-        // Order doesn't matter, maybe we should improve that in future
-        await expect(res.sort()).toMatchSnapshot();
-        await testServer.close(done);
       });
     });
   });
