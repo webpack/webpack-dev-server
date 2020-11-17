@@ -420,6 +420,58 @@ describe('addEntries util', () => {
     });
   });
 
+  (isWebpack5 ? it : it.skip)(
+    'should prepend devServer entry points depending on targetProperties',
+    () => {
+      // https://github.com/webpack/webpack/issues/11660
+      const configDisableChunkLoading = Object.assign({}, config);
+      configDisableChunkLoading.output = Object.assign({}, config.output, {
+        chunkLoading: false,
+        wasmLoading: false,
+        workerChunkLoading: false,
+      });
+
+      const webpackOptions = [
+        Object.assign(
+          { target: ['web', 'webworker'] },
+          configDisableChunkLoading
+        ),
+        Object.assign({ target: 'browserslist:last 2 versions' }, config),
+        Object.assign({ target: ['web', 'node'] }, configDisableChunkLoading),
+        Object.assign(
+          { target: 'browserslist:last 2 versions, maintained node versions' },
+          configDisableChunkLoading
+        ),
+        Object.assign(
+          { target: 'browserslist:maintained node versions' },
+          config
+        ) /* index:4 */,
+        Object.assign({ target: false }, config),
+      ];
+      const compiler = webpack(webpackOptions);
+
+      const devServerOptions = {};
+
+      addEntries(compiler, devServerOptions);
+
+      // eslint-disable-next-line no-shadow
+      compiler.compilers.forEach((compiler, index) => {
+        const entries = getEntries(compiler);
+        const expectInline = index < 4;
+
+        expect(entries.length).toEqual(expectInline ? 2 : 1);
+
+        if (expectInline) {
+          expect(
+            normalize(entries[0]).indexOf('client/default/index.js?') !== -1
+          ).toBeTruthy();
+        }
+
+        expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
+      });
+    }
+  );
+
   it('should allows selecting compilations to inline the client into', () => {
     const webpackOptions = [
       Object.assign({}, config),
