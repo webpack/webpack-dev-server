@@ -199,6 +199,7 @@ describe('static.publicPath option', () => {
           static: {
             publicPath: staticPublicPath,
           },
+          port,
         },
         done
       );

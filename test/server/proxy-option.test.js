@@ -419,6 +419,7 @@ describe('proxy option', () => {
           proxy: {
             '**': proxyTarget,
           },
+          port: port3,
         },
         done
       );

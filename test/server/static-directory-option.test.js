@@ -296,6 +296,7 @@ describe('static.directory option', () => {
         config,
         {
           static: null,
+          port,
         },
         done
       );
