@@ -25,17 +25,9 @@ describe('Server', () => {
   });
 
   describe('addEntries', () => {
-    it('add hot option', (done) => {
-      const compiler = webpack(config);
-      const server = new Server(
-        compiler,
-        Object.assign({}, baseDevConfig, {
-          hot: true,
-        })
-      );
+    let entries;
 
-      let entries;
-
+    function getEntries(server) {
       if (isWebpack5) {
         entries = server.middleware.context.compiler.options.entry.main.import.map(
           (p) => {
@@ -47,6 +39,18 @@ describe('Server', () => {
           return relative('.', p).split(sep);
         });
       }
+    }
+
+    it('add hot option', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(
+        compiler,
+        Object.assign({}, baseDevConfig, {
+          hot: true,
+        })
+      );
+
+      getEntries(server);
       expect(entries).toMatchSnapshot();
       expect(server.middleware.context.compiler.options.plugins).toEqual([
         new webpack.HotModuleReplacementPlugin(),
@@ -68,20 +72,7 @@ describe('Server', () => {
         })
       );
 
-      let entries;
-
-      if (isWebpack5) {
-        entries = server.middleware.context.compiler.options.entry.main.import.map(
-          (p) => {
-            return relative('.', p).split(sep);
-          }
-        );
-      } else {
-        entries = server.middleware.context.compiler.options.entry.map((p) => {
-          return relative('.', p).split(sep);
-        });
-      }
-
+      getEntries(server);
       expect(entries).toMatchSnapshot();
       expect(server.middleware.context.compiler.options.plugins).toEqual([
         new webpack.HotModuleReplacementPlugin(),

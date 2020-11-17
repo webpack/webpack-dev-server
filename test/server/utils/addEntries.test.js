@@ -10,20 +10,24 @@ const configEntryAsDescriptor = require('./../../fixtures/entry-as-descriptor/we
 const normalize = (entry) => entry.split(path.sep).join('/');
 
 describe('addEntries util', () => {
+  function getEntries(compiler) {
+    const entryOption = compiler.options.entry;
+    return entryOption;
+  }
+
   it('should adds devServer entry points to a single entry point', () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(compiler.options.entry.length).toEqual(2);
+    expect(entries.length).toEqual(2);
     expect(
-      normalize(compiler.options.entry[0]).indexOf(
-        'client/default/index.js?'
-      ) !== -1
+      normalize(entries[0]).indexOf('client/default/index.js?') !== -1
     ).toBeTruthy();
-    expect(normalize(compiler.options.entry[1])).toEqual('./foo.js');
+    expect(normalize(entries[1])).toEqual('./foo.js');
   });
 
   it('should adds devServer entry points to a multi-module entry point', () => {
@@ -35,15 +39,14 @@ describe('addEntries util', () => {
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(compiler.options.entry.length).toEqual(3);
+    expect(entries.length).toEqual(3);
     expect(
-      normalize(compiler.options.entry[0]).indexOf(
-        'client/default/index.js?'
-      ) !== -1
+      normalize(entries[0]).indexOf('client/default/index.js?') !== -1
     ).toBeTruthy();
-    expect(compiler.options.entry[1]).toEqual('./foo.js');
-    expect(compiler.options.entry[2]).toEqual('./bar.js');
+    expect(entries[1]).toEqual('./foo.js');
+    expect(entries[2]).toEqual('./bar.js');
   });
 
   it('should adds devServer entry points to a multi entry point object', () => {
@@ -58,16 +61,15 @@ describe('addEntries util', () => {
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(compiler.options.entry.foo.length).toEqual(2);
+    expect(entries.foo.length).toEqual(2);
 
     expect(
-      normalize(compiler.options.entry.foo[0]).indexOf(
-        'client/default/index.js?'
-      ) !== -1
+      normalize(entries.foo[0]).indexOf('client/default/index.js?') !== -1
     ).toBeTruthy();
-    expect(compiler.options.entry.foo[1]).toEqual('./foo.js');
-    expect(compiler.options.entry.bar[1]).toEqual('./bar.js');
+    expect(entries.foo[1]).toEqual('./foo.js');
+    expect(entries.bar[1]).toEqual('./bar.js');
   });
 
   it('should set defaults to src if no entry point is given', () => {
@@ -76,9 +78,10 @@ describe('addEntries util', () => {
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(compiler.options.entry.length).toEqual(2);
-    expect(compiler.options.entry[1]).toEqual('./src');
+    expect(entries.length).toEqual(2);
+    expect(entries[1]).toEqual('./src');
   });
 
   it('should preserves dynamic entry points', (done) => {
@@ -94,13 +97,13 @@ describe('addEntries util', () => {
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(typeof compiler.options.entry).toEqual('function');
+    expect(typeof entries).toEqual('function');
 
-    compiler.options
-      .entry()
+    entries()
       .then((entryFirstRun) =>
-        compiler.options.entry().then((entrySecondRun) => {
+        entries().then((entrySecondRun) => {
           expect(entryFirstRun.length).toEqual(2);
           expect(entryFirstRun[1]).toEqual('./src-1.js');
 
@@ -127,13 +130,13 @@ describe('addEntries util', () => {
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(typeof compiler.options.entry).toEqual('function');
+    expect(typeof entries).toEqual('function');
 
-    compiler.options
-      .entry()
+    entries()
       .then((entryFirstRun) =>
-        compiler.options.entry().then((entrySecondRun) => {
+        entries().then((entrySecondRun) => {
           expect(entryFirstRun.length).toEqual(2);
           expect(entryFirstRun[1]).toEqual('./src-1.js');
 
@@ -158,8 +161,9 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    const hotClientScript = compiler.options.entry.app[1];
+    const hotClientScript = entries.app[1];
 
     expect(
       normalize(hotClientScript).includes('webpack/hot/dev-server')
@@ -180,8 +184,9 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    const hotClientScript = compiler.options.entry.app[1];
+    const hotClientScript = entries.app[1];
 
     expect(
       normalize(hotClientScript).includes('webpack/hot/only-dev-server')
@@ -233,10 +238,10 @@ describe('addEntries util', () => {
 
     addEntries(compiler, devServerOptions);
 
-    expect(webpackOptions.plugins).toEqual([
-      existingPlugin,
-      new webpack.HotModuleReplacementPlugin(),
-    ]);
+    expect(compiler.options.plugins).toContainEqual(existingPlugin);
+    expect(compiler.options.plugins).toContainEqual(
+      new webpack.HotModuleReplacementPlugin()
+    );
   });
 
   it('should adds the HMR plugin if hot-only', () => {
@@ -246,9 +251,9 @@ describe('addEntries util', () => {
 
     addEntries(compiler, devServerOptions);
 
-    expect(compiler.options.plugins).toEqual([
-      new webpack.HotModuleReplacementPlugin(),
-    ]);
+    expect(compiler.options.plugins).toContainEqual(
+      new webpack.HotModuleReplacementPlugin()
+    );
   });
 
   it("should doesn't add the HMR plugin again if it's already there", () => {
@@ -298,10 +303,11 @@ describe('addEntries util', () => {
 
     addEntries(compiler, devServerOptions);
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(compiler.options.entry.length).toEqual(3);
+    expect(entries.length).toEqual(3);
 
-    const result = compiler.options.entry.filter((entry) =>
+    const result = entries.filter((entry) =>
       normalize(entry).includes('webpack/hot/dev-server')
     );
     expect(result.length).toEqual(1);
@@ -313,8 +319,9 @@ describe('addEntries util', () => {
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(typeof compiler.options.entry === 'function').toBe(true);
+    expect(typeof entries === 'function').toBe(true);
   });
 
   it.skip('should supports entry as descriptor', () => {
@@ -323,10 +330,11 @@ describe('addEntries util', () => {
     const devServerOptions = {};
 
     addEntries(compiler, devServerOptions);
+    const entries = getEntries(compiler);
 
-    expect(typeof compiler.options.entry === 'object').toBe(true);
-    expect(typeof compiler.options.entry.main === 'object').toBe(true);
-    expect(Array.isArray(compiler.options.entry.main.import)).toBe(true);
+    expect(typeof entries === 'object').toBe(true);
+    expect(typeof entries.main === 'object').toBe(true);
+    expect(Array.isArray(entries.main.import)).toBe(true);
   });
 
   it('should only prepends devServer entry points to web targets by default', () => {
@@ -346,21 +354,18 @@ describe('addEntries util', () => {
 
     // eslint-disable-next-line no-shadow
     compiler.compilers.forEach((compiler, index) => {
+      const entries = getEntries(compiler);
       const expectInline = index !== 5; /* all but the node target */
 
-      expect(compiler.options.entry.length).toEqual(expectInline ? 2 : 1);
+      expect(entries.length).toEqual(expectInline ? 2 : 1);
 
       if (expectInline) {
         expect(
-          normalize(compiler.options.entry[0]).indexOf(
-            'client/default/index.js?'
-          ) !== -1
+          normalize(entries[0]).indexOf('client/default/index.js?') !== -1
         ).toBeTruthy();
       }
 
-      expect(normalize(compiler.options.entry[expectInline ? 1 : 0])).toEqual(
-        './foo.js'
-      );
+      expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
     });
   });
 
@@ -381,21 +386,18 @@ describe('addEntries util', () => {
 
     // eslint-disable-next-line no-shadow
     compiler.compilers.forEach((compiler, index) => {
+      const entries = getEntries(compiler);
       const expectInline = index === 2; /* only the "only-include" compiler */
 
-      expect(compiler.options.entry.length).toEqual(expectInline ? 2 : 1);
+      expect(entries.length).toEqual(expectInline ? 2 : 1);
 
       if (expectInline) {
         expect(
-          normalize(compiler.options.entry[0]).indexOf(
-            'client/default/index.js?'
-          ) !== -1
+          normalize(entries[0]).indexOf('client/default/index.js?') !== -1
         ).toBeTruthy();
       }
 
-      expect(normalize(compiler.options.entry[expectInline ? 1 : 0])).toEqual(
-        './foo.js'
-      );
+      expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
     });
   });
 
@@ -417,13 +419,14 @@ describe('addEntries util', () => {
 
     // eslint-disable-next-line no-shadow
     compiler.compilers.forEach((compiler) => {
-      expect(compiler.options.entry.length).toEqual(2);
+      const entries = getEntries(compiler);
+      expect(entries.length).toEqual(2);
 
       expect(
-        normalize(compiler.options.entry[0]).includes('webpack/hot/dev-server')
+        normalize(entries[0]).includes('webpack/hot/dev-server')
       ).toBeTruthy();
 
-      expect(normalize(compiler.options.entry[1])).toEqual('./foo.js');
+      expect(normalize(entries[1])).toEqual('./foo.js');
     });
   });
 
@@ -442,28 +445,26 @@ describe('addEntries util', () => {
     addEntries(compiler, devServerOptions);
 
     // node target should have the client runtime but not the hot runtime
-    const webWebpackOptions = compiler.compilers[0].options;
+    const webEntries = getEntries(compiler.compilers[0]);
 
-    expect(webWebpackOptions.entry.length).toEqual(2);
+    expect(webEntries.length).toEqual(2);
 
     expect(
-      normalize(webWebpackOptions.entry[0]).indexOf(
-        'client/default/index.js?'
-      ) !== -1
+      normalize(webEntries[0]).indexOf('client/default/index.js?') !== -1
     ).toBeTruthy();
 
-    expect(normalize(webWebpackOptions.entry[1])).toEqual('./foo.js');
+    expect(normalize(webEntries[1])).toEqual('./foo.js');
 
     // node target should have the hot runtime but not the client runtime
-    const nodeWebpackOptions = compiler.compilers[1].options;
+    const nodeEntries = getEntries(compiler.compilers[1]);
 
-    expect(nodeWebpackOptions.entry.length).toEqual(2);
+    expect(nodeEntries.length).toEqual(2);
 
     expect(
-      normalize(nodeWebpackOptions.entry[0]).includes('webpack/hot/dev-server')
+      normalize(nodeEntries[0]).includes('webpack/hot/dev-server')
     ).toBeTruthy();
 
-    expect(normalize(nodeWebpackOptions.entry[1])).toEqual('./foo.js');
+    expect(normalize(nodeEntries[1])).toEqual('./foo.js');
   });
 
   it('does not use client.path when default', () => {
@@ -476,7 +477,8 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    expect(compiler.options.entry[0]).not.toContain('&path=/ws');
+    const entries = getEntries(compiler);
+    expect(entries[0]).not.toContain('&path=/ws');
   });
 
   it('uses custom client.path', () => {
@@ -489,7 +491,8 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    expect(compiler.options.entry[0]).toContain('&path=/custom/path');
+    const entries = getEntries(compiler);
+    expect(entries[0]).toContain('&path=/custom/path');
   });
 
   it('uses custom client', () => {
@@ -504,8 +507,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    expect(compiler.options.entry[0]).toContain(
-      '&host=my.host&path=/custom/path&port=8080'
-    );
+    const entries = getEntries(compiler);
+    expect(entries[0]).toContain('&host=my.host&path=/custom/path&port=8080');
   });
 });
