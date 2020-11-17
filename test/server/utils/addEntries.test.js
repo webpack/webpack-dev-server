@@ -309,11 +309,12 @@ describe('addEntries util', () => {
   it('should only prepends devServer entry points to web targets by default', () => {
     const webpackOptions = [
       Object.assign({}, config),
+      Object.assign({ target: 'browserslist' }, config),
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'webworker' }, config),
       Object.assign({ target: 'electron-renderer' }, config),
       Object.assign({ target: 'node-webkit' }, config),
-      Object.assign({ target: 'node' }, config) /* index:5 */,
+      Object.assign({ target: 'node' }, config) /* index:6 */,
     ];
 
     const devServerOptions = {};
@@ -322,7 +323,7 @@ describe('addEntries util', () => {
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions, index) => {
-      const expectInline = index !== 5; /* all but the node target */
+      const expectInline = index !== 6; /* all but the node target */
 
       expect(webpackOptions.entry.length).toEqual(expectInline ? 2 : 1);
 
