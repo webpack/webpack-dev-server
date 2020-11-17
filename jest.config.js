@@ -8,5 +8,6 @@ module.exports = {
   testMatch: ['**/test/**/*.test.js'],
   setupFilesAfterEnv: ['<rootDir>/setupTest.js'],
   globalSetup: '<rootDir>/globalSetupTest.js',
+  testRunner: 'jest-circus/runner',
   testSequencer: '<rootDir>/test/testSequencer.js',
 };

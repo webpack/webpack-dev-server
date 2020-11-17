@@ -400,7 +400,7 @@ describe('Client console.log', () => {
       })`;
       options = { ...mode, ...options };
       const testOptions = Object.assign({}, baseOptions, options);
-      await it(title, async (done) => {
+      await it(title, (done) => {
         testServer.startAwaitingCompilation(config, testOptions, async () => {
           const res = [];
           const { page, browser } = await runBrowser();

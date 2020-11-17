@@ -42,9 +42,7 @@ describe('https option', () => {
       req.get('/').expect(200, /Heyo/, done);
     });
 
-    afterAll(() => {
-      testServer.close();
-    });
+    afterAll(testServer.close);
   });
 
   describe('as an object when ca, pfx, key and cert are buffer', () => {
