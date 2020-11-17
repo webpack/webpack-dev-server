@@ -44,9 +44,9 @@ describe('options', () => {
 
     afterAll((done) => {
       if (server) {
-        server.close(() => {
-          done();
-        });
+        server.close(done);
+      } else {
+        done();
       }
     });
 

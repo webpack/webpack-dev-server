@@ -64,4 +64,4 @@ Run `git config user.email` to see your Git email, and verify it with [your GitH
 
 ---
 
-_Many thanks to [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_
+_Many thanks to [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_
