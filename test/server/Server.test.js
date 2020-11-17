@@ -4,6 +4,7 @@ const { relative, sep } = require('path');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
 const Server = require('../../lib/Server');
+const DevServerEntryPlugin = require('../../lib/utils/DevServerEntryPlugin');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
 const isWebpack5 = require('../helpers/isWebpack5');
@@ -25,6 +26,27 @@ describe('Server', () => {
   });
 
   describe('addEntries', () => {
+    let entries;
+
+    function getEntries(server) {
+      if (isWebpack5) {
+        server.middleware.context.compiler.hooks.afterEmit.tap(
+          'webpack-dev-server',
+          (compilation) => {
+            const mainDeps = compilation.entries.get('main').dependencies;
+            const globalDeps = compilation.globalEntry.dependencies;
+            entries = globalDeps.concat(mainDeps).map((dep) => {
+              return relative('.', dep.request).split(sep);
+            });
+          }
+        );
+      } else {
+        entries = server.middleware.context.compiler.options.entry.map((p) => {
+          return relative('.', p).split(sep);
+        });
+      }
+    }
+
     it('add hot option', (done) => {
       const compiler = webpack(config);
       const server = new Server(
@@ -34,25 +56,16 @@ describe('Server', () => {
         })
       );
 
-      let entries;
+      getEntries(server);
 
+      const plugins = server.middleware.context.compiler.options.plugins;
+      expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
       if (isWebpack5) {
-        entries = server.middleware.context.compiler.options.entry.main.import.map(
-          (p) => {
-            return relative('.', p).split(sep);
-          }
-        );
-      } else {
-        entries = server.middleware.context.compiler.options.entry.map((p) => {
-          return relative('.', p).split(sep);
-        });
+        expect(plugins[0]).toBeInstanceOf(DevServerEntryPlugin);
       }
-      expect(entries).toMatchSnapshot();
-      expect(server.middleware.context.compiler.options.plugins).toEqual([
-        new webpack.HotModuleReplacementPlugin(),
-      ]);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
         server.close(done);
       });
 
@@ -68,26 +81,16 @@ describe('Server', () => {
         })
       );
 
-      let entries;
+      getEntries(server);
 
+      const plugins = server.middleware.context.compiler.options.plugins;
+      expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
       if (isWebpack5) {
-        entries = server.middleware.context.compiler.options.entry.main.import.map(
-          (p) => {
-            return relative('.', p).split(sep);
-          }
-        );
-      } else {
-        entries = server.middleware.context.compiler.options.entry.map((p) => {
-          return relative('.', p).split(sep);
-        });
+        expect(plugins[0]).toBeInstanceOf(DevServerEntryPlugin);
       }
 
-      expect(entries).toMatchSnapshot();
-      expect(server.middleware.context.compiler.options.plugins).toEqual([
-        new webpack.HotModuleReplacementPlugin(),
-      ]);
-
       compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
         server.close(done);
       });
 

@@ -44,6 +44,7 @@ const portsList = {
   'static-publicPath-option': 1,
   'contentBasePublicPath-option': 1,
   bundle: 1,
+  ModuleFederation: 1,
 };
 
 let startPort = 8089;
