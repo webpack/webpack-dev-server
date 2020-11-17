@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const addEntries = require('../../../lib/utils/addEntries');
+const isWebpack5 = require('../../helpers/isWebpack5');
 const config = require('./../../fixtures/simple-config/webpack.config');
 const configEntryAsFunction = require('./../../fixtures/entry-as-function/webpack.config');
 const configEntryAsDescriptor = require('./../../fixtures/entry-as-descriptor/webpack.config');
@@ -12,6 +13,27 @@ const normalize = (entry) => entry.split(path.sep).join('/');
 describe('addEntries util', () => {
   function getEntries(compiler) {
     const entryOption = compiler.options.entry;
+    if (isWebpack5) {
+      const entries = [];
+      const entryPlugin = compiler.options.plugins.find(
+        (plugin) => plugin.constructor.name === 'DevServerEntryPlugin'
+      );
+      if (entryPlugin) {
+        entries.push(...entryPlugin.entries);
+      }
+
+      // normalize entry descriptors
+      if (typeof entryOption === 'function') {
+        // merge entries into the dynamic entry function
+        Object.assign(entryOption, entries);
+        return entryOption;
+      } else if (entryOption.main) {
+        entries.push(...entryOption.main.import);
+      }
+      // merge named exports into entries
+      Object.assign(entries, entryOption);
+      return entries;
+    }
     return entryOption;
   }
 
@@ -63,13 +85,24 @@ describe('addEntries util', () => {
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
 
-    expect(entries.foo.length).toEqual(2);
+    if (isWebpack5) {
+      expect(entries.length).toEqual(1);
+      expect(
+        normalize(entries[0]).indexOf('client/default/index.js?') !== -1
+      ).toBeTruthy();
 
-    expect(
-      normalize(entries.foo[0]).indexOf('client/default/index.js?') !== -1
-    ).toBeTruthy();
-    expect(entries.foo[1]).toEqual('./foo.js');
-    expect(entries.bar[1]).toEqual('./bar.js');
+      expect(entries.foo.import.length).toEqual(1);
+      expect(entries.foo.import[0]).toEqual('./foo.js');
+      expect(entries.bar.import[0]).toEqual('./bar.js');
+    } else {
+      expect(entries.foo.length).toEqual(2);
+
+      expect(
+        normalize(entries.foo[0]).indexOf('client/default/index.js?') !== -1
+      ).toBeTruthy();
+      expect(entries.foo[1]).toEqual('./foo.js');
+      expect(entries.bar[1]).toEqual('./bar.js');
+    }
   });
 
   it('should set defaults to src if no entry point is given', () => {
@@ -104,11 +137,19 @@ describe('addEntries util', () => {
     entries()
       .then((entryFirstRun) =>
         entries().then((entrySecondRun) => {
-          expect(entryFirstRun.length).toEqual(2);
-          expect(entryFirstRun[1]).toEqual('./src-1.js');
+          if (isWebpack5) {
+            expect(entryFirstRun.main.import.length).toEqual(1);
+            expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
 
-          expect(entrySecondRun.length).toEqual(2);
-          expect(entrySecondRun[1]).toEqual('./src-2.js');
+            expect(entrySecondRun.main.import.length).toEqual(1);
+            expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
+          } else {
+            expect(entryFirstRun.length).toEqual(2);
+            expect(entryFirstRun[1]).toEqual('./src-1.js');
+
+            expect(entrySecondRun.length).toEqual(2);
+            expect(entrySecondRun[1]).toEqual('./src-2.js');
+          }
           done();
         })
       )
@@ -137,11 +178,19 @@ describe('addEntries util', () => {
     entries()
       .then((entryFirstRun) =>
         entries().then((entrySecondRun) => {
-          expect(entryFirstRun.length).toEqual(2);
-          expect(entryFirstRun[1]).toEqual('./src-1.js');
+          if (isWebpack5) {
+            expect(entryFirstRun.main.import.length).toEqual(1);
+            expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
 
-          expect(entrySecondRun.length).toEqual(2);
-          expect(entrySecondRun[1]).toEqual('./src-2.js');
+            expect(entrySecondRun.main.import.length).toEqual(1);
+            expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
+          } else {
+            expect(entryFirstRun.length).toEqual(2);
+            expect(entryFirstRun[1]).toEqual('./src-1.js');
+
+            expect(entrySecondRun.length).toEqual(2);
+            expect(entrySecondRun[1]).toEqual('./src-2.js');
+          }
           done();
         })
       )
@@ -163,7 +212,7 @@ describe('addEntries util', () => {
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
 
-    const hotClientScript = entries.app[1];
+    const hotClientScript = (isWebpack5 ? entries : entries.app)[1];
 
     expect(
       normalize(hotClientScript).includes('webpack/hot/dev-server')
@@ -186,7 +235,7 @@ describe('addEntries util', () => {
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
 
-    const hotClientScript = entries.app[1];
+    const hotClientScript = (isWebpack5 ? entries : entries.app)[1];
 
     expect(
       normalize(hotClientScript).includes('webpack/hot/only-dev-server')
@@ -324,7 +373,7 @@ describe('addEntries util', () => {
     expect(typeof entries === 'function').toBe(true);
   });
 
-  it.skip('should supports entry as descriptor', () => {
+  (isWebpack5 ? it : it.skip)('should supports entry as descriptor', () => {
     const webpackOptions = Object.assign({}, configEntryAsDescriptor);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {};
@@ -332,9 +381,11 @@ describe('addEntries util', () => {
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
 
-    expect(typeof entries === 'object').toBe(true);
-    expect(typeof entries.main === 'object').toBe(true);
-    expect(Array.isArray(entries.main.import)).toBe(true);
+    expect(entries.length).toEqual(2);
+    expect(
+      normalize(entries[0]).indexOf('client/default/index.js?') !== -1
+    ).toBeTruthy();
+    expect(normalize(entries[1])).toEqual('./foo.js');
   });
 
   it('should only prepends devServer entry points to web targets by default', () => {

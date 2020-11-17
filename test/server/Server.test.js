@@ -4,6 +4,7 @@ const { relative, sep } = require('path');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
 const Server = require('../../lib/Server');
+const DevServerEntryPlugin = require('../../lib/utils/DevServerEntryPlugin');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
 const isWebpack5 = require('../helpers/isWebpack5');
@@ -29,9 +30,14 @@ describe('Server', () => {
 
     function getEntries(server) {
       if (isWebpack5) {
-        entries = server.middleware.context.compiler.options.entry.main.import.map(
-          (p) => {
-            return relative('.', p).split(sep);
+        server.middleware.context.compiler.hooks.afterEmit.tap(
+          'webpack-dev-server',
+          (compilation) => {
+            const mainDeps = compilation.entries.get('main').dependencies;
+            const globalDeps = compilation.globalEntry.dependencies;
+            entries = globalDeps.concat(mainDeps).map((dep) => {
+              return relative('.', dep.request).split(sep);
+            });
           }
         );
       } else {
@@ -51,12 +57,15 @@ describe('Server', () => {
       );
 
       getEntries(server);
-      expect(entries).toMatchSnapshot();
-      expect(server.middleware.context.compiler.options.plugins).toEqual([
-        new webpack.HotModuleReplacementPlugin(),
-      ]);
+
+      const plugins = server.middleware.context.compiler.options.plugins;
+      expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
+      if (isWebpack5) {
+        expect(plugins[0]).toBeInstanceOf(DevServerEntryPlugin);
+      }
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
         server.close(done);
       });
 
@@ -73,12 +82,15 @@ describe('Server', () => {
       );
 
       getEntries(server);
-      expect(entries).toMatchSnapshot();
-      expect(server.middleware.context.compiler.options.plugins).toEqual([
-        new webpack.HotModuleReplacementPlugin(),
-      ]);
+
+      const plugins = server.middleware.context.compiler.options.plugins;
+      expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
+      if (isWebpack5) {
+        expect(plugins[0]).toBeInstanceOf(DevServerEntryPlugin);
+      }
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
         server.close(done);
       });
 
