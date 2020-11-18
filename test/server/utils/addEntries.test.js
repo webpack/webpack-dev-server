@@ -11,16 +11,24 @@ const configEntryAsDescriptor = require('./../../fixtures/entry-as-descriptor/we
 const normalize = (entry) => entry.split(path.sep).join('/');
 
 describe('addEntries util', () => {
-  function getEntries(compiler) {
+  async function getEntries(compiler) {
     const entryOption = compiler.options.entry;
     if (isWebpack5) {
       const entries = [];
-      const entryPlugin = compiler.options.plugins.find(
-        (plugin) => plugin.constructor.name === 'DevServerEntryPlugin'
+
+      const compilation = {
+        addEntry(_context, dep, _options, cb) {
+          if (!dep.loc.name) {
+            entries.push(dep.request);
+          }
+          cb();
+        },
+      };
+      await Promise.all(
+        compiler.hooks.make.taps
+          .filter((tap) => tap.name === 'DevServerPlugin')
+          .map((tap) => tap.fn(compilation))
       );
-      if (entryPlugin) {
-        entries.push(...entryPlugin.entries);
-      }
 
       // normalize entry descriptors
       if (typeof entryOption === 'function') {
@@ -37,7 +45,43 @@ describe('addEntries util', () => {
     return entryOption;
   }
 
-  it('should adds devServer entry points to a single entry point', () => {
+  (isWebpack5 ? it : it.skip)('should add hooks to add entries', async () => {
+    const tapPromise = jest.fn();
+    const compiler = {
+      options: {},
+      hooks: {
+        compilation: {
+          tap: jest.fn(),
+        },
+        make: {
+          tapPromise,
+        },
+      },
+    };
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
+    const compilation = {
+      addEntry: jest.fn((_context, _dep, _options, cb) => cb()),
+    };
+
+    addEntries(compiler, devServerOptions);
+    expect(tapPromise).toBeCalledTimes(1);
+    expect(tapPromise.mock.calls[0]).toMatchInlineSnapshot(`
+      Array [
+        "DevServerPlugin",
+        [Function],
+      ]
+    `);
+
+    await tapPromise.mock.calls[0][1](compilation);
+    expect(compilation.addEntry).toBeCalledTimes(1);
+  });
+
+  it('should adds devServer entry points to a single entry point', async () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
@@ -48,7 +92,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     expect(entries.length).toEqual(2);
     expect(
@@ -57,7 +101,7 @@ describe('addEntries util', () => {
     expect(normalize(entries[1])).toEqual('./foo.js');
   });
 
-  it('should adds devServer entry points to a multi-module entry point', () => {
+  it('should adds devServer entry points to a multi-module entry point', async () => {
     const webpackOptions = Object.assign({}, config, {
       entry: ['./foo.js', './bar.js'],
     });
@@ -71,7 +115,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     expect(entries.length).toEqual(3);
     expect(
@@ -81,7 +125,7 @@ describe('addEntries util', () => {
     expect(entries[2]).toEqual('./bar.js');
   });
 
-  it('should adds devServer entry points to a multi entry point object', () => {
+  it('should adds devServer entry points to a multi entry point object', async () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         foo: './foo.js',
@@ -98,7 +142,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     if (isWebpack5) {
       expect(entries.length).toEqual(1);
@@ -120,7 +164,7 @@ describe('addEntries util', () => {
     }
   });
 
-  it('should set defaults to src if no entry point is given', () => {
+  it('should set defaults to src if no entry point is given', async () => {
     const webpackOptions = {};
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
@@ -131,7 +175,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     expect(entries.length).toEqual(2);
     expect(entries[1]).toEqual('./src');
@@ -155,30 +199,30 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    getEntries(compiler).then((entries) => {
+      expect(typeof entries).toEqual('function');
 
-    expect(typeof entries).toEqual('function');
+      entries()
+        .then((entryFirstRun) =>
+          entries().then((entrySecondRun) => {
+            if (isWebpack5) {
+              expect(entryFirstRun.main.import.length).toEqual(1);
+              expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
 
-    entries()
-      .then((entryFirstRun) =>
-        entries().then((entrySecondRun) => {
-          if (isWebpack5) {
-            expect(entryFirstRun.main.import.length).toEqual(1);
-            expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
+              expect(entrySecondRun.main.import.length).toEqual(1);
+              expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
+            } else {
+              expect(entryFirstRun.length).toEqual(2);
+              expect(entryFirstRun[1]).toEqual('./src-1.js');
 
-            expect(entrySecondRun.main.import.length).toEqual(1);
-            expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
-          } else {
-            expect(entryFirstRun.length).toEqual(2);
-            expect(entryFirstRun[1]).toEqual('./src-1.js');
-
-            expect(entrySecondRun.length).toEqual(2);
-            expect(entrySecondRun[1]).toEqual('./src-2.js');
-          }
-          done();
-        })
-      )
-      .catch(done);
+              expect(entrySecondRun.length).toEqual(2);
+              expect(entrySecondRun[1]).toEqual('./src-2.js');
+            }
+            done();
+          })
+        )
+        .catch(done);
+    });
   });
 
   it('should preserves asynchronous dynamic entry points', (done) => {
@@ -201,33 +245,33 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    getEntries(compiler).then((entries) => {
+      expect(typeof entries).toEqual('function');
 
-    expect(typeof entries).toEqual('function');
+      entries()
+        .then((entryFirstRun) =>
+          entries().then((entrySecondRun) => {
+            if (isWebpack5) {
+              expect(entryFirstRun.main.import.length).toEqual(1);
+              expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
 
-    entries()
-      .then((entryFirstRun) =>
-        entries().then((entrySecondRun) => {
-          if (isWebpack5) {
-            expect(entryFirstRun.main.import.length).toEqual(1);
-            expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
+              expect(entrySecondRun.main.import.length).toEqual(1);
+              expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
+            } else {
+              expect(entryFirstRun.length).toEqual(2);
+              expect(entryFirstRun[1]).toEqual('./src-1.js');
 
-            expect(entrySecondRun.main.import.length).toEqual(1);
-            expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
-          } else {
-            expect(entryFirstRun.length).toEqual(2);
-            expect(entryFirstRun[1]).toEqual('./src-1.js');
-
-            expect(entrySecondRun.length).toEqual(2);
-            expect(entrySecondRun[1]).toEqual('./src-2.js');
-          }
-          done();
-        })
-      )
-      .catch(done);
+              expect(entrySecondRun.length).toEqual(2);
+              expect(entrySecondRun[1]).toEqual('./src-2.js');
+            }
+            done();
+          })
+        )
+        .catch(done);
+    });
   });
 
-  it("should prepends webpack's hot reload client script", () => {
+  it("should prepends webpack's hot reload client script", async () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         app: './app.js',
@@ -244,7 +288,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     const hotClientScript = (isWebpack5 ? entries : entries.app)[1];
 
@@ -254,7 +298,7 @@ describe('addEntries util', () => {
     expect(hotClientScript).toEqual(require.resolve(hotClientScript));
   });
 
-  it("should prepends webpack's hot-only client script", () => {
+  it("should prepends webpack's hot-only client script", async () => {
     const webpackOptions = Object.assign({}, config, {
       entry: {
         app: './app.js',
@@ -271,7 +315,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     const hotClientScript = (isWebpack5 ? entries : entries.app)[1];
 
@@ -392,7 +436,7 @@ describe('addEntries util', () => {
     ]);
   });
 
-  it('should can prevent duplicate entries from successive calls', () => {
+  it('should can prevent duplicate entries from successive calls', async () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
@@ -405,7 +449,7 @@ describe('addEntries util', () => {
 
     addEntries(compiler, devServerOptions);
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     expect(entries.length).toEqual(3);
 
@@ -415,7 +459,7 @@ describe('addEntries util', () => {
     expect(result.length).toEqual(1);
   });
 
-  it('should supports entry as Function', () => {
+  it('should supports entry as Function', async () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
@@ -426,32 +470,35 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
 
     expect(typeof entries === 'function').toBe(true);
   });
 
-  (isWebpack5 ? it : it.skip)('should supports entry as descriptor', () => {
-    const webpackOptions = Object.assign({}, configEntryAsDescriptor);
-    const compiler = webpack(webpackOptions);
-    const devServerOptions = {
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
-      },
-    };
+  (isWebpack5 ? it : it.skip)(
+    'should supports entry as descriptor',
+    async () => {
+      const webpackOptions = Object.assign({}, configEntryAsDescriptor);
+      const compiler = webpack(webpackOptions);
+      const devServerOptions = {
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
+      };
 
-    addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+      addEntries(compiler, devServerOptions);
+      const entries = await getEntries(compiler);
 
-    expect(entries.length).toEqual(2);
-    expect(
-      normalize(entries[0]).indexOf('client/default/index.js?') !== -1
-    ).toBeTruthy();
-    expect(normalize(entries[1])).toEqual('./foo.js');
-  });
+      expect(entries.length).toEqual(2);
+      expect(
+        normalize(entries[0]).indexOf('client/default/index.js?') !== -1
+      ).toBeTruthy();
+      expect(normalize(entries[1])).toEqual('./foo.js');
+    }
+  );
 
-  it('should only prepends devServer entry points to web targets by default', () => {
+  it('should only prepends devServer entry points to web targets by default', async () => {
     const webpackOptions = [
       Object.assign({}, config),
       Object.assign({ target: 'web' }, config),
@@ -471,24 +518,27 @@ describe('addEntries util', () => {
 
     addEntries(compiler, devServerOptions);
 
-    // eslint-disable-next-line no-shadow
-    compiler.compilers.forEach((compiler, index) => {
-      const entries = getEntries(compiler);
-      const expectInline = index !== 5; /* all but the node target */
+    await Promise.all(
+      // eslint-disable-next-line no-shadow
+      compiler.compilers.map((compiler, index) =>
+        getEntries(compiler).then((entries) => {
+          const expectInline = index !== 5; /* all but the node target */
 
-      expect(entries.length).toEqual(expectInline ? 2 : 1);
+          expect(entries.length).toEqual(expectInline ? 2 : 1);
 
-      if (expectInline) {
-        expect(
-          normalize(entries[0]).indexOf('client/default/index.js?') !== -1
-        ).toBeTruthy();
-      }
+          if (expectInline) {
+            expect(
+              normalize(entries[0]).indexOf('client/default/index.js?') !== -1
+            ).toBeTruthy();
+          }
 
-      expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
-    });
+          expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
+        })
+      )
+    );
   });
 
-  it('should allows selecting compilations to inline the client into', () => {
+  it('should allows selecting compilations to inline the client into', async () => {
     const webpackOptions = [
       Object.assign({}, config),
       Object.assign({ target: 'web' }, config),
@@ -507,24 +557,28 @@ describe('addEntries util', () => {
 
     addEntries(compiler, devServerOptions);
 
-    // eslint-disable-next-line no-shadow
-    compiler.compilers.forEach((compiler, index) => {
-      const entries = getEntries(compiler);
-      const expectInline = index === 2; /* only the "only-include" compiler */
+    await Promise.all(
+      // eslint-disable-next-line no-shadow
+      compiler.compilers.map((compiler, index) =>
+        getEntries(compiler).then((entries) => {
+          const expectInline =
+            index === 2; /* only the "only-include" compiler */
 
-      expect(entries.length).toEqual(expectInline ? 2 : 1);
+          expect(entries.length).toEqual(expectInline ? 2 : 1);
 
-      if (expectInline) {
-        expect(
-          normalize(entries[0]).indexOf('client/default/index.js?') !== -1
-        ).toBeTruthy();
-      }
+          if (expectInline) {
+            expect(
+              normalize(entries[0]).indexOf('client/default/index.js?') !== -1
+            ).toBeTruthy();
+          }
 
-      expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
-    });
+          expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
+        })
+      )
+    );
   });
 
-  it('should prepends the hot runtime to all targets by default (when hot)', () => {
+  it('should prepends the hot runtime to all targets by default (when hot)', async () => {
     const webpackOptions = [
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'node' }, config),
@@ -544,20 +598,23 @@ describe('addEntries util', () => {
 
     addEntries(compiler, devServerOptions);
 
-    // eslint-disable-next-line no-shadow
-    compiler.compilers.forEach((compiler) => {
-      const entries = getEntries(compiler);
-      expect(entries.length).toEqual(2);
+    await Promise.all(
+      // eslint-disable-next-line no-shadow
+      compiler.compilers.map((compiler) =>
+        getEntries(compiler).then((entries) => {
+          expect(entries.length).toEqual(2);
 
-      expect(
-        normalize(entries[0]).includes('webpack/hot/dev-server')
-      ).toBeTruthy();
+          expect(
+            normalize(entries[0]).includes('webpack/hot/dev-server')
+          ).toBeTruthy();
 
-      expect(normalize(entries[1])).toEqual('./foo.js');
-    });
+          expect(normalize(entries[1])).toEqual('./foo.js');
+        })
+      )
+    );
   });
 
-  it('should allows selecting which compilations to inject the hot runtime into', () => {
+  it('should allows selecting which compilations to inject the hot runtime into', async () => {
     const webpackOptions = [
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'node' }, config),
@@ -576,7 +633,7 @@ describe('addEntries util', () => {
     addEntries(compiler, devServerOptions);
 
     // node target should have the client runtime but not the hot runtime
-    const webEntries = getEntries(compiler.compilers[0]);
+    const webEntries = await getEntries(compiler.compilers[0]);
 
     expect(webEntries.length).toEqual(2);
 
@@ -587,7 +644,7 @@ describe('addEntries util', () => {
     expect(normalize(webEntries[1])).toEqual('./foo.js');
 
     // node target should have the hot runtime but not the client runtime
-    const nodeEntries = getEntries(compiler.compilers[1]);
+    const nodeEntries = await getEntries(compiler.compilers[1]);
 
     expect(nodeEntries.length).toEqual(2);
 
@@ -598,7 +655,7 @@ describe('addEntries util', () => {
     expect(normalize(nodeEntries[1])).toEqual('./foo.js');
   });
 
-  it('does not use client.path when default', () => {
+  it('does not use client.path when default', async () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
@@ -612,11 +669,11 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
     expect(entries[0]).not.toContain('&path=/ws');
   });
 
-  it('uses custom client.path', () => {
+  it('uses custom client.path', async () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
@@ -630,11 +687,11 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
     expect(entries[0]).toContain('&path=/custom/path');
   });
 
-  it('uses custom client', () => {
+  it('uses custom client', async () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
@@ -650,7 +707,7 @@ describe('addEntries util', () => {
     };
 
     addEntries(compiler, devServerOptions);
-    const entries = getEntries(compiler);
+    const entries = await getEntries(compiler);
     expect(entries[0]).toContain('&host=my.host&path=/custom/path&port=8080');
   });
 });

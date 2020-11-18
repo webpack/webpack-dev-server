@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const updateCompiler = require('../../../lib/utils/updateCompiler');
-const DevServerEntryPlugin = require('../../../lib/utils/DevServerEntryPlugin');
 const isWebpack5 = require('../../helpers/isWebpack5');
 
 describe('updateCompiler', () => {
@@ -39,10 +38,7 @@ describe('updateCompiler', () => {
       expect(tapsByProvidePlugin).toEqual(1);
 
       if (isWebpack5) {
-        expect(compiler.options.plugins).toHaveLength(1);
-        expect(compiler.options.plugins[0]).toBeInstanceOf(
-          DevServerEntryPlugin
-        );
+        expect(compiler.options.plugins).toHaveLength(0);
       } else {
         expect(compiler.options.plugins).toBeUndefined();
       }
@@ -84,11 +80,6 @@ describe('updateCompiler', () => {
       expect(compiler.options.plugins).toContainEqual(
         new webpack.HotModuleReplacementPlugin()
       );
-      if (isWebpack5) {
-        expect(compiler.options.plugins[0]).toBeInstanceOf(
-          DevServerEntryPlugin
-        );
-      }
     });
   });
 
@@ -129,11 +120,6 @@ describe('updateCompiler', () => {
       expect(compiler.options.plugins).toContainEqual(
         new webpack.HotModuleReplacementPlugin()
       );
-      if (isWebpack5) {
-        expect(compiler.options.plugins[1]).toBeInstanceOf(
-          DevServerEntryPlugin
-        );
-      }
     });
   });
 
@@ -157,7 +143,7 @@ describe('updateCompiler', () => {
         hot: true,
       });
 
-      multiCompiler.compilers.forEach((compiler, index) => {
+      multiCompiler.compilers.forEach((compiler) => {
         let tapsByHMR = 0;
         let tapsByProvidePlugin = 0;
 
@@ -175,11 +161,6 @@ describe('updateCompiler', () => {
         expect(compiler.options.plugins).toContainEqual(
           new webpack.HotModuleReplacementPlugin()
         );
-        if (isWebpack5) {
-          expect(compiler.options.plugins[index]).toBeInstanceOf(
-            DevServerEntryPlugin
-          );
-        }
       });
     });
   });
