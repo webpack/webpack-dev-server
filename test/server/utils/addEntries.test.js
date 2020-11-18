@@ -2,7 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const addEntries = require('../../../lib/utils/addEntries');
+const DevServerPlugin = require('../../../lib/utils/addEntries');
 const isWebpack5 = require('../../helpers/isWebpack5');
 const config = require('./../../fixtures/simple-config/webpack.config');
 const configEntryAsFunction = require('./../../fixtures/entry-as-function/webpack.config');
@@ -68,7 +68,8 @@ describe('addEntries util', () => {
       addEntry: jest.fn((_context, _dep, _options, cb) => cb()),
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     expect(tapPromise).toBeCalledTimes(1);
     expect(tapPromise.mock.calls[0]).toMatchInlineSnapshot(`
       Array [
@@ -91,7 +92,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
 
     expect(entries.length).toEqual(2);
@@ -114,7 +116,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
 
     expect(entries.length).toEqual(3);
@@ -141,7 +144,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
 
     if (isWebpack5) {
@@ -174,7 +178,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
 
     expect(entries.length).toEqual(2);
@@ -198,7 +203,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     getEntries(compiler).then((entries) => {
       expect(typeof entries).toEqual('function');
 
@@ -244,7 +250,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     getEntries(compiler).then((entries) => {
       expect(typeof entries).toEqual('function');
 
@@ -287,7 +294,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
 
     const hotClientScript = (isWebpack5 ? entries : entries.app)[1];
@@ -314,7 +322,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
 
     const hotClientScript = (isWebpack5 ? entries : entries.app)[1];
@@ -335,7 +344,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
 
     expect('plugins' in webpackOptions).toBeFalsy();
   });
@@ -350,7 +360,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
 
     expect(webpackOptions.plugins).toEqual([]);
   });
@@ -369,7 +380,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
 
     expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
   });
@@ -388,7 +400,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
 
     expect(compiler.options.plugins).toContainEqual(existingPlugin);
     expect(compiler.options.plugins).toContainEqual(
@@ -407,7 +420,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
 
     expect(compiler.options.plugins).toContainEqual(
       new webpack.HotModuleReplacementPlugin()
@@ -428,7 +442,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
 
     expect(webpackOptions.plugins).toEqual([
       new webpack.HotModuleReplacementPlugin(),
@@ -436,28 +451,32 @@ describe('addEntries util', () => {
     ]);
   });
 
-  it('should can prevent duplicate entries from successive calls', async () => {
-    const webpackOptions = Object.assign({}, config);
-    const compiler = webpack(webpackOptions);
-    const devServerOptions = {
-      hot: true,
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
-      },
-    };
+  (isWebpack5 ? it.skip : it)(
+    'should can prevent duplicate entries from successive calls',
+    async () => {
+      const webpackOptions = Object.assign({}, config);
+      const compiler = webpack(webpackOptions);
+      const devServerOptions = {
+        hot: true,
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
+      };
 
-    addEntries(compiler, devServerOptions);
-    addEntries(compiler, devServerOptions);
-    const entries = await getEntries(compiler);
+      const plugin = new DevServerPlugin(devServerOptions);
+      plugin.apply(compiler);
+      plugin.apply(compiler);
+      const entries = await getEntries(compiler);
 
-    expect(entries.length).toEqual(3);
+      expect(entries.length).toEqual(3);
 
-    const result = entries.filter((entry) =>
-      normalize(entry).includes('webpack/hot/dev-server')
-    );
-    expect(result.length).toEqual(1);
-  });
+      const result = entries.filter((entry) =>
+        normalize(entry).includes('webpack/hot/dev-server')
+      );
+      expect(result.length).toEqual(1);
+    }
+  );
 
   it('should supports entry as Function', async () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
@@ -469,7 +488,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
 
     expect(typeof entries === 'function').toBe(true);
@@ -487,7 +507,8 @@ describe('addEntries util', () => {
         },
       };
 
-      addEntries(compiler, devServerOptions);
+      const plugin = new DevServerPlugin(devServerOptions);
+      plugin.apply(compiler);
       const entries = await getEntries(compiler);
 
       expect(entries.length).toEqual(2);
@@ -516,12 +537,13 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
-
     await Promise.all(
       // eslint-disable-next-line no-shadow
-      compiler.compilers.map((compiler, index) =>
-        getEntries(compiler).then((entries) => {
+      compiler.compilers.map((compiler, index) => {
+        const plugin = new DevServerPlugin(devServerOptions);
+        plugin.apply(compiler);
+
+        return getEntries(compiler).then((entries) => {
           const expectInline = index !== 5; /* all but the node target */
 
           expect(entries.length).toEqual(expectInline ? 2 : 1);
@@ -533,8 +555,8 @@ describe('addEntries util', () => {
           }
 
           expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
-        })
-      )
+        });
+      })
     );
   });
 
@@ -555,12 +577,12 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
-
     await Promise.all(
       // eslint-disable-next-line no-shadow
-      compiler.compilers.map((compiler, index) =>
-        getEntries(compiler).then((entries) => {
+      compiler.compilers.map((compiler, index) => {
+        const plugin = new DevServerPlugin(devServerOptions);
+        plugin.apply(compiler);
+        return getEntries(compiler).then((entries) => {
           const expectInline =
             index === 2; /* only the "only-include" compiler */
 
@@ -573,8 +595,8 @@ describe('addEntries util', () => {
           }
 
           expect(normalize(entries[expectInline ? 1 : 0])).toEqual('./foo.js');
-        })
-      )
+        });
+      })
     );
   });
 
@@ -596,12 +618,13 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
-
     await Promise.all(
       // eslint-disable-next-line no-shadow
-      compiler.compilers.map((compiler) =>
-        getEntries(compiler).then((entries) => {
+      compiler.compilers.map((compiler) => {
+        const plugin = new DevServerPlugin(devServerOptions);
+        plugin.apply(compiler);
+
+        return getEntries(compiler).then((entries) => {
           expect(entries.length).toEqual(2);
 
           expect(
@@ -609,8 +632,8 @@ describe('addEntries util', () => {
           ).toBeTruthy();
 
           expect(normalize(entries[1])).toEqual('./foo.js');
-        })
-      )
+        });
+      })
     );
   });
 
@@ -630,7 +653,11 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    // eslint-disable-next-line no-shadow
+    compiler.compilers.forEach((compiler) => {
+      const plugin = new DevServerPlugin(devServerOptions);
+      plugin.apply(compiler);
+    });
 
     // node target should have the client runtime but not the hot runtime
     const webEntries = await getEntries(compiler.compilers[0]);
@@ -668,7 +695,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
     expect(entries[0]).not.toContain('&path=/ws');
   });
@@ -686,7 +714,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
     expect(entries[0]).toContain('&path=/custom/path');
   });
@@ -706,7 +735,8 @@ describe('addEntries util', () => {
       },
     };
 
-    addEntries(compiler, devServerOptions);
+    const plugin = new DevServerPlugin(devServerOptions);
+    plugin.apply(compiler);
     const entries = await getEntries(compiler);
     expect(entries[0]).toContain('&host=my.host&path=/custom/path&port=8080');
   });

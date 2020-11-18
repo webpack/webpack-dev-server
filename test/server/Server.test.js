@@ -4,6 +4,7 @@ const { relative, sep } = require('path');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
 const Server = require('../../lib/Server');
+const DevServerPlugin = require('../../lib/utils/addEntries');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
 const isWebpack5 = require('../helpers/isWebpack5');
@@ -58,6 +59,7 @@ describe('Server', () => {
       getEntries(server);
 
       const plugins = server.middleware.context.compiler.options.plugins;
+      expect(plugins[0]).toBeInstanceOf(DevServerPlugin);
       expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -80,6 +82,7 @@ describe('Server', () => {
       getEntries(server);
 
       const plugins = server.middleware.context.compiler.options.plugins;
+      expect(plugins[0]).toBeInstanceOf(DevServerPlugin);
       expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
 
       compiler.hooks.done.tap('webpack-dev-server', () => {

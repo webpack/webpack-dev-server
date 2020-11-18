@@ -1,14 +1,14 @@
 'use strict';
 
 const webpack = require('webpack');
+const DevServerPlugin = require('../../../lib/utils/addEntries');
 const updateCompiler = require('../../../lib/utils/updateCompiler');
-const isWebpack5 = require('../../helpers/isWebpack5');
 
 describe('updateCompiler', () => {
   describe('simple config, no hot', () => {
     let compiler;
 
-    beforeAll(() => {
+    beforeEach(() => {
       const webpackConfig = require('../../fixtures/simple-config/webpack.config');
 
       compiler = webpack(webpackConfig);
@@ -36,12 +36,26 @@ describe('updateCompiler', () => {
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(0);
       expect(tapsByProvidePlugin).toEqual(1);
+      expect(compiler.options.plugins).toHaveLength(1);
+      expect(compiler.options.plugins[0]).toBeInstanceOf(DevServerPlugin);
+    });
 
-      if (isWebpack5) {
-        expect(compiler.options.plugins).toHaveLength(0);
-      } else {
-        expect(compiler.options.plugins).toBeUndefined();
-      }
+    it('should apply plugins only once when called twice', () => {
+      updateCompiler(compiler, {
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
+      });
+      updateCompiler(compiler, {
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
+      });
+
+      expect(compiler.options.plugins).toHaveLength(1);
+      expect(compiler.options.plugins[0]).toBeInstanceOf(DevServerPlugin);
     });
   });
 
@@ -77,6 +91,7 @@ describe('updateCompiler', () => {
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(1);
       expect(tapsByProvidePlugin).toEqual(1);
+      expect(compiler.options.plugins[0]).toBeInstanceOf(DevServerPlugin);
       expect(compiler.options.plugins).toContainEqual(
         new webpack.HotModuleReplacementPlugin()
       );
@@ -117,6 +132,7 @@ describe('updateCompiler', () => {
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(1);
       expect(tapsByProvidePlugin).toEqual(1);
+      expect(compiler.options.plugins[1]).toBeInstanceOf(DevServerPlugin);
       expect(compiler.options.plugins).toContainEqual(
         new webpack.HotModuleReplacementPlugin()
       );
@@ -143,7 +159,7 @@ describe('updateCompiler', () => {
         hot: true,
       });
 
-      multiCompiler.compilers.forEach((compiler) => {
+      multiCompiler.compilers.forEach((compiler, index) => {
         let tapsByHMR = 0;
         let tapsByProvidePlugin = 0;
 
@@ -158,6 +174,7 @@ describe('updateCompiler', () => {
         expect(compiler.hooks.entryOption.taps.length).toBe(1);
         expect(tapsByHMR).toEqual(1);
         expect(tapsByProvidePlugin).toEqual(1);
+        expect(compiler.options.plugins[index]).toBeInstanceOf(DevServerPlugin);
         expect(compiler.options.plugins).toContainEqual(
           new webpack.HotModuleReplacementPlugin()
         );
