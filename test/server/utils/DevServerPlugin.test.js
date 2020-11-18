@@ -2,11 +2,11 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const DevServerPlugin = require('../../../lib/utils/addEntries');
+const DevServerPlugin = require('../../../lib/utils/DevServerPlugin');
 const isWebpack5 = require('../../helpers/isWebpack5');
-const config = require('./../../fixtures/simple-config/webpack.config');
-const configEntryAsFunction = require('./../../fixtures/entry-as-function/webpack.config');
-const configEntryAsDescriptor = require('./../../fixtures/entry-as-descriptor/webpack.config');
+const config = require('../../fixtures/simple-config/webpack.config');
+const configEntryAsFunction = require('../../fixtures/entry-as-function/webpack.config');
+const configEntryAsDescriptor = require('../../fixtures/entry-as-descriptor/webpack.config');
 
 const normalize = (entry) => entry.split(path.sep).join('/');
 

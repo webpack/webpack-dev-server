@@ -1,7 +1,7 @@
 'use strict';
 
 const webpack = require('webpack');
-const DevServerPlugin = require('../../../lib/utils/addEntries');
+const DevServerPlugin = require('../../../lib/utils/DevServerPlugin');
 const updateCompiler = require('../../../lib/utils/updateCompiler');
 
 describe('updateCompiler', () => {
