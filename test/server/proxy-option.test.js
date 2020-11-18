@@ -91,9 +91,19 @@ function startProxyServers() {
   listeners.push(proxy2.listen(port2));
 
   // return a function to shutdown proxy servers
-  return function proxy() {
-    listeners.forEach((listener) => {
-      listener.close();
+  return function proxy(done) {
+    Promise.all(
+      listeners.map(
+        (listener) =>
+          new Promise((resolve) => {
+            listener.close(() => {
+              // ignore errors
+              resolve();
+            });
+          })
+      )
+    ).then(() => {
+      done();
     });
   };
 }
@@ -123,8 +133,7 @@ describe('proxy option', () => {
 
     afterAll((done) => {
       testServer.close(() => {
-        closeProxyServers();
-        done();
+        closeProxyServers(done);
       });
     });
 
@@ -187,8 +196,7 @@ describe('proxy option', () => {
 
     afterAll((done) => {
       testServer.close(() => {
-        closeProxyServers();
-        done();
+        closeProxyServers(done);
       });
     });
 
@@ -221,8 +229,7 @@ describe('proxy option', () => {
 
     afterAll((done) => {
       testServer.close(() => {
-        closeProxyServers();
-        done();
+        closeProxyServers(done);
       });
     });
 
@@ -279,8 +286,7 @@ describe('proxy option', () => {
 
     afterAll((done) => {
       testServer.close(() => {
-        listener.close();
-        done();
+        listener.close(done);
       });
     });
 
@@ -419,6 +425,7 @@ describe('proxy option', () => {
           proxy: {
             '**': proxyTarget,
           },
+          port: port3,
         },
         done
       );
@@ -427,8 +434,7 @@ describe('proxy option', () => {
 
     afterAll((done) => {
       testServer.close(() => {
-        listener.close();
-        done();
+        listener.close(done);
       });
     });
 
