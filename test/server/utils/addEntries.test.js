@@ -40,7 +40,12 @@ describe('addEntries util', () => {
   it('should adds devServer entry points to a single entry point', () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -58,7 +63,12 @@ describe('addEntries util', () => {
     });
     const compiler = webpack(webpackOptions);
 
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -80,7 +90,12 @@ describe('addEntries util', () => {
     });
     const compiler = webpack(webpackOptions);
 
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -108,7 +123,12 @@ describe('addEntries util', () => {
   it('should set defaults to src if no entry point is given', () => {
     const webpackOptions = {};
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -127,7 +147,12 @@ describe('addEntries util', () => {
       },
     };
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -168,7 +193,12 @@ describe('addEntries util', () => {
     };
     const compiler = webpack(webpackOptions);
 
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -207,6 +237,10 @@ describe('addEntries util', () => {
 
     const devServerOptions = {
       hot: true,
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
     };
 
     addEntries(compiler, devServerOptions);
@@ -230,6 +264,10 @@ describe('addEntries util', () => {
 
     const devServerOptions = {
       hot: 'only',
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
     };
 
     addEntries(compiler, devServerOptions);
@@ -246,7 +284,12 @@ describe('addEntries util', () => {
   it("should doesn't add the HMR plugin if not hot and no plugins", () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
 
@@ -256,7 +299,12 @@ describe('addEntries util', () => {
   it("should doesn't add the HMR plugin if not hot and empty plugins", () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
 
@@ -270,7 +318,12 @@ describe('addEntries util', () => {
       plugins: [existingPlugin1, existingPlugin2],
     });
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
 
@@ -283,7 +336,13 @@ describe('addEntries util', () => {
       plugins: [existingPlugin],
     });
     const compiler = webpack(webpackOptions);
-    const devServerOptions = { hot: true };
+    const devServerOptions = {
+      hot: true,
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
 
@@ -296,7 +355,13 @@ describe('addEntries util', () => {
   it('should adds the HMR plugin if hot-only', () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
-    const devServerOptions = { hot: 'only' };
+    const devServerOptions = {
+      hot: 'only',
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
 
@@ -311,7 +376,13 @@ describe('addEntries util', () => {
       plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin],
     });
     const compiler = webpack(webpackOptions);
-    const devServerOptions = { hot: true };
+    const devServerOptions = {
+      hot: true,
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
 
@@ -321,34 +392,16 @@ describe('addEntries util', () => {
     ]);
   });
 
-  it("should not add the HMR plugin again if it's already there from a different webpack", () => {
-    const existingPlugin = new webpack.BannerPlugin('bruce');
-
-    // Simulate the inclusion of another webpack's HotModuleReplacementPlugin
-    class HotModuleReplacementPlugin {
-      // eslint-disable-next-line class-methods-use-this
-      apply() {}
-    }
-
-    const webpackOptions = Object.assign({}, config, {
-      plugins: [new HotModuleReplacementPlugin(), existingPlugin],
-    });
-    const compiler = webpack(webpackOptions);
-    const devServerOptions = { hot: true };
-
-    addEntries(compiler, devServerOptions);
-
-    expect(webpackOptions.plugins).toEqual([
-      // Nothing should be injected
-      new HotModuleReplacementPlugin(),
-      existingPlugin,
-    ]);
-  });
-
   it('should can prevent duplicate entries from successive calls', () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
-    const devServerOptions = { hot: true };
+    const devServerOptions = {
+      hot: true,
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     addEntries(compiler, devServerOptions);
@@ -365,7 +418,12 @@ describe('addEntries util', () => {
   it('should supports entry as Function', () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -376,7 +434,12 @@ describe('addEntries util', () => {
   (isWebpack5 ? it : it.skip)('should supports entry as descriptor', () => {
     const webpackOptions = Object.assign({}, configEntryAsDescriptor);
     const compiler = webpack(webpackOptions);
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
     const entries = getEntries(compiler);
@@ -399,7 +462,12 @@ describe('addEntries util', () => {
     ];
     const compiler = webpack(webpackOptions);
 
-    const devServerOptions = {};
+    const devServerOptions = {
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
+    };
 
     addEntries(compiler, devServerOptions);
 
@@ -431,6 +499,10 @@ describe('addEntries util', () => {
 
     const devServerOptions = {
       injectClient: (compilerConfig) => compilerConfig.name === 'only-include',
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
     };
 
     addEntries(compiler, devServerOptions);
@@ -464,6 +536,10 @@ describe('addEntries util', () => {
       // and we can use the same assertions for both configs
       injectClient: false,
       hot: true,
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
     };
 
     addEntries(compiler, devServerOptions);
@@ -491,6 +567,10 @@ describe('addEntries util', () => {
     const devServerOptions = {
       injectHot: (compilerConfig) => compilerConfig.target === 'node',
       hot: true,
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
     };
 
     addEntries(compiler, devServerOptions);
@@ -525,6 +605,10 @@ describe('addEntries util', () => {
       client: {
         path: '/ws',
       },
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
+      },
     };
 
     addEntries(compiler, devServerOptions);
@@ -538,6 +622,10 @@ describe('addEntries util', () => {
     const devServerOptions = {
       client: {
         path: '/custom/path',
+      },
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
       },
     };
 
@@ -554,6 +642,10 @@ describe('addEntries util', () => {
         host: 'my.host',
         port: 8080,
         path: '/custom/path',
+      },
+      transportMode: {
+        server: 'sockjs',
+        client: 'sockjs',
       },
     };
 
