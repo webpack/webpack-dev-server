@@ -1,8 +1,8 @@
 'use strict';
 
 const webpack = require('webpack');
-const DevServerPlugin = require('../../../lib/utils/DevServerPlugin');
 const updateCompiler = require('../../../lib/utils/updateCompiler');
+const isWebpack5 = require('../../helpers/isWebpack5');
 
 describe('updateCompiler', () => {
   describe('simple config, no hot', () => {
@@ -24,6 +24,7 @@ describe('updateCompiler', () => {
 
       let tapsByHMR = 0;
       let tapsByProvidePlugin = 0;
+      let tapsByDevServerPlugin = 0;
 
       compiler.hooks.compilation.taps.forEach((tap) => {
         if (tap.name === 'HotModuleReplacementPlugin') {
@@ -33,29 +34,17 @@ describe('updateCompiler', () => {
         }
       });
 
+      compiler.hooks.make.taps.forEach((tap) => {
+        if (tap.name === 'DevServerPlugin') {
+          tapsByDevServerPlugin += 1;
+        }
+      });
+
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(0);
       expect(tapsByProvidePlugin).toEqual(1);
-      expect(compiler.options.plugins).toHaveLength(1);
-      expect(compiler.options.plugins[0]).toBeInstanceOf(DevServerPlugin);
-    });
-
-    it('should apply plugins only once when called twice', () => {
-      updateCompiler(compiler, {
-        transportMode: {
-          server: 'sockjs',
-          client: 'sockjs',
-        },
-      });
-      updateCompiler(compiler, {
-        transportMode: {
-          server: 'sockjs',
-          client: 'sockjs',
-        },
-      });
-
-      expect(compiler.options.plugins).toHaveLength(1);
-      expect(compiler.options.plugins[0]).toBeInstanceOf(DevServerPlugin);
+      expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
+      expect(compiler.options.plugins).toHaveLength(0);
     });
   });
 
@@ -79,6 +68,7 @@ describe('updateCompiler', () => {
 
       let tapsByHMR = 0;
       let tapsByProvidePlugin = 0;
+      let tapsByDevServerPlugin = 0;
 
       compiler.hooks.compilation.taps.forEach((tap) => {
         if (tap.name === 'HotModuleReplacementPlugin') {
@@ -88,13 +78,16 @@ describe('updateCompiler', () => {
         }
       });
 
+      compiler.hooks.make.taps.forEach((tap) => {
+        if (tap.name === 'DevServerPlugin') {
+          tapsByDevServerPlugin += 1;
+        }
+      });
+
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(1);
       expect(tapsByProvidePlugin).toEqual(1);
-      expect(compiler.options.plugins[0]).toBeInstanceOf(DevServerPlugin);
-      expect(compiler.options.plugins).toContainEqual(
-        new webpack.HotModuleReplacementPlugin()
-      );
+      expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
     });
   });
 
@@ -120,6 +113,7 @@ describe('updateCompiler', () => {
 
       let tapsByHMR = 0;
       let tapsByProvidePlugin = 0;
+      let tapsByDevServerPlugin = 0;
 
       compiler.hooks.compilation.taps.forEach((tap) => {
         if (tap.name === 'HotModuleReplacementPlugin') {
@@ -129,10 +123,16 @@ describe('updateCompiler', () => {
         }
       });
 
+      compiler.hooks.make.taps.forEach((tap) => {
+        if (tap.name === 'DevServerPlugin') {
+          tapsByDevServerPlugin += 1;
+        }
+      });
+
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(1);
       expect(tapsByProvidePlugin).toEqual(1);
-      expect(compiler.options.plugins[1]).toBeInstanceOf(DevServerPlugin);
+      expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
       expect(compiler.options.plugins).toContainEqual(
         new webpack.HotModuleReplacementPlugin()
       );
@@ -159,9 +159,10 @@ describe('updateCompiler', () => {
         hot: true,
       });
 
-      multiCompiler.compilers.forEach((compiler, index) => {
+      multiCompiler.compilers.forEach((compiler) => {
         let tapsByHMR = 0;
         let tapsByProvidePlugin = 0;
+        let tapsByDevServerPlugin = 0;
 
         compiler.hooks.compilation.taps.forEach((tap) => {
           if (tap.name === 'HotModuleReplacementPlugin') {
@@ -171,13 +172,16 @@ describe('updateCompiler', () => {
           }
         });
 
+        compiler.hooks.make.taps.forEach((tap) => {
+          if (tap.name === 'DevServerPlugin') {
+            tapsByDevServerPlugin += 1;
+          }
+        });
+
         expect(compiler.hooks.entryOption.taps.length).toBe(1);
         expect(tapsByHMR).toEqual(1);
         expect(tapsByProvidePlugin).toEqual(1);
-        expect(compiler.options.plugins[index]).toBeInstanceOf(DevServerPlugin);
-        expect(compiler.options.plugins).toContainEqual(
-          new webpack.HotModuleReplacementPlugin()
-        );
+        expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
       });
     });
   });

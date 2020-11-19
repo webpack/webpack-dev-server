@@ -10,7 +10,7 @@ const configEntryAsDescriptor = require('../../fixtures/entry-as-descriptor/webp
 
 const normalize = (entry) => entry.split(path.sep).join('/');
 
-describe('addEntries util', () => {
+describe('DevServerPlugin util', () => {
   async function getEntries(compiler) {
     const entryOption = compiler.options.entry;
     if (isWebpack5) {
@@ -384,48 +384,6 @@ describe('addEntries util', () => {
     plugin.apply(compiler);
 
     expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
-  });
-
-  it('should adds the HMR plugin if hot', () => {
-    const existingPlugin = new webpack.BannerPlugin('bruce');
-    const webpackOptions = Object.assign({}, config, {
-      plugins: [existingPlugin],
-    });
-    const compiler = webpack(webpackOptions);
-    const devServerOptions = {
-      hot: true,
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
-      },
-    };
-
-    const plugin = new DevServerPlugin(devServerOptions);
-    plugin.apply(compiler);
-
-    expect(compiler.options.plugins).toContainEqual(existingPlugin);
-    expect(compiler.options.plugins).toContainEqual(
-      new webpack.HotModuleReplacementPlugin()
-    );
-  });
-
-  it('should adds the HMR plugin if hot-only', () => {
-    const webpackOptions = Object.assign({}, config);
-    const compiler = webpack(webpackOptions);
-    const devServerOptions = {
-      hot: 'only',
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
-      },
-    };
-
-    const plugin = new DevServerPlugin(devServerOptions);
-    plugin.apply(compiler);
-
-    expect(compiler.options.plugins).toContainEqual(
-      new webpack.HotModuleReplacementPlugin()
-    );
   });
 
   it("should doesn't add the HMR plugin again if it's already there", () => {
