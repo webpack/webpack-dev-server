@@ -4,7 +4,6 @@ const { relative, sep } = require('path');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
 const Server = require('../../lib/Server');
-const DevServerEntryPlugin = require('../../lib/utils/DevServerEntryPlugin');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
 const isWebpack5 = require('../helpers/isWebpack5');
@@ -25,7 +24,7 @@ describe('Server', () => {
     });
   });
 
-  describe('addEntries', () => {
+  describe('DevServerPlugin', () => {
     let entries;
 
     function getEntries(server) {
@@ -58,12 +57,6 @@ describe('Server', () => {
 
       getEntries(server);
 
-      const plugins = server.middleware.context.compiler.options.plugins;
-      expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
-      if (isWebpack5) {
-        expect(plugins[0]).toBeInstanceOf(DevServerEntryPlugin);
-      }
-
       compiler.hooks.done.tap('webpack-dev-server', () => {
         expect(entries).toMatchSnapshot();
         server.close(done);
@@ -82,12 +75,6 @@ describe('Server', () => {
       );
 
       getEntries(server);
-
-      const plugins = server.middleware.context.compiler.options.plugins;
-      expect(plugins).toContainEqual(new webpack.HotModuleReplacementPlugin());
-      if (isWebpack5) {
-        expect(plugins[0]).toBeInstanceOf(DevServerEntryPlugin);
-      }
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
         expect(entries).toMatchSnapshot();

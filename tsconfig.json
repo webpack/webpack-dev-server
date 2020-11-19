@@ -12,5 +12,5 @@
     "types": ["node"],
     "esModuleInterop": true
   },
-  "include": ["lib/utils/addEntries.js"]
+  "include": ["lib/utils/DevServerPlugin.js"]
 }
