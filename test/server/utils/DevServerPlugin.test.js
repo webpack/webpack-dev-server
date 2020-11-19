@@ -560,6 +560,69 @@ describe('addEntries util', () => {
     );
   });
 
+  (isWebpack5 ? it : it.skip)(
+    'should prepend devServer entry points depending on targetProperties',
+    async () => {
+      // https://github.com/webpack/webpack/issues/11660
+      const configNoChunkLoading = Object.assign({}, config);
+      configNoChunkLoading.output = Object.assign(
+        {
+          chunkLoading: false,
+          wasmLoading: false,
+          workerChunkLoading: false,
+        },
+        config.output
+      );
+
+      const webpackOptions = [
+        Object.assign({ target: ['web', 'webworker'] }, configNoChunkLoading),
+        Object.assign({ target: 'browserslist:last 2 versions' }, config),
+        Object.assign({ target: ['web', 'node'] }, configNoChunkLoading),
+        Object.assign(
+          { target: 'browserslist:last 2 versions, maintained node versions' },
+          configNoChunkLoading
+        ),
+        Object.assign(
+          { target: 'browserslist:maintained node versions' },
+          config
+        ),
+        Object.assign({ target: false }, config),
+      ];
+      const compiler = webpack(webpackOptions);
+
+      const devServerOptions = {
+        transportMode: {
+          server: 'sockjs',
+          client: 'sockjs',
+        },
+      };
+
+      await Promise.all(
+        // eslint-disable-next-line no-shadow
+        compiler.compilers.map((compiler, index) => {
+          const plugin = new DevServerPlugin(devServerOptions);
+          plugin.apply(compiler);
+
+          return getEntries(compiler).then((entries) => {
+            const expectInline = index < 2; /* all but the node target */
+
+            expect(entries.length).toEqual(expectInline ? 2 : 1);
+
+            if (expectInline) {
+              expect(
+                normalize(entries[0]).indexOf('client/default/index.js?') !== -1
+              ).toBeTruthy();
+            }
+
+            expect(normalize(entries[expectInline ? 1 : 0])).toEqual(
+              './foo.js'
+            );
+          });
+        })
+      );
+    }
+  );
+
   it('should allows selecting compilations to inline the client into', async () => {
     const webpackOptions = [
       Object.assign({}, config),
