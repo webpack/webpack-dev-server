@@ -25,43 +25,15 @@ describe('setupExitSignals', () => {
   });
 
   signals.forEach((signal) => {
-    it(`should exit process (${signal}, serverData never defined`, (done) => {
-      // eslint-disable-next-line no-undefined
-      setupExitSignals(undefined);
+    it(`should close server, then exit process (${signal})`, (done) => {
+      setupExitSignals(server);
       process.emit(signal);
-      setTimeout(() => {
-        expect(exitSpy.mock.calls.length).toEqual(1);
-        done();
-      }, 1000);
-    });
-
-    it(`should exit process (${signal}, server never defined)`, (done) => {
-      setupExitSignals({
-        server: null,
-      });
-      process.emit(signal);
-      setTimeout(() => {
-        expect(exitSpy.mock.calls.length).toEqual(1);
-        done();
-      }, 1000);
-    });
-
-    it(`should close server, then exit process (${signal}, server defined before signal)`, (done) => {
-      const serverData = {
-        server: null,
-      };
-      setupExitSignals(serverData);
-
-      setTimeout(() => {
-        serverData.server = server;
-        process.emit(signal);
-      }, 500);
 
       setTimeout(() => {
         expect(server.close.mock.calls.length).toEqual(1);
         expect(exitSpy.mock.calls.length).toEqual(1);
         done();
-      }, 1500);
+      }, 1000);
     });
   });
 });

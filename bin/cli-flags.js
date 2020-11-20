@@ -38,6 +38,14 @@ module.exports = {
       group: ADVANCED_GROUP,
     },
     {
+      name: 'setup-exit-signals',
+      type: Boolean,
+      describe: 'Close and exit the process on SIGINT and SIGTERM',
+      group: ADVANCED_GROUP,
+      defaultValue: true,
+      negative: true,
+    },
+    {
       name: 'stdin',
       type: Boolean,
       describe: 'close when stdin ends',

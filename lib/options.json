@@ -322,6 +322,9 @@
     "public": {
       "type": "string"
     },
+    "setupExitSignals": {
+      "type": "boolean"
+    },
     "static": {
       "anyOf": [
         {
@@ -406,6 +409,7 @@
       "progress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverprogress---cli-only)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
+      "setupExitSignals": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals)",
       "static": "should be {Boolean|String|Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverstatic)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)"
