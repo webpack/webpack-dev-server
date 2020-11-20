@@ -6,7 +6,6 @@
 
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
-[![deps][deps]][deps-url]
 [![tests][tests]][tests-url]
 [![coverage][cover]][cover-url]
 [![chat][chat]][chat-url]
@@ -144,8 +143,6 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 [npm-url]: https://npmjs.com/package/webpack-dev-server
 [node]: https://img.shields.io/node/v/webpack-dev-server.svg
 [node-url]: https://nodejs.org
-[deps]: https://david-dm.org/webpack/webpack-dev-server.svg
-[deps-url]: https://david-dm.org/webpack/webpack-dev-server
 [tests]: https://github.com/webpack/webpack-dev-server/workflows/webpack-dev-server/badge.svg
 [tests-url]: https://github.com/webpack/webpack-dev-server/actions?query=workflow%3Awebpack-dev-server
 [cover]: https://codecov.io/gh/webpack/webpack-dev-server/branch/master/graph/badge.svg
