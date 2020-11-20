@@ -70,7 +70,7 @@ describe('sockjs client proxy', () => {
             page.waitFor(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://localhost:${port1}/ws`
+                  `http://localhost:${port2}/ws`
                 );
                 done();
               });
