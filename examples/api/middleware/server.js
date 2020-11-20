@@ -5,11 +5,7 @@ const WebpackDevServer = require('../../../lib/Server');
 const webpackConfig = require('./webpack.config');
 
 const compiler = Webpack(webpackConfig);
-const devServerOptions = Object.assign({}, webpackConfig.devServer, {
-  stats: {
-    colors: true,
-  },
-});
+const devServerOptions = webpackConfig.devServer;
 const server = new WebpackDevServer(compiler, devServerOptions);
 
 server.listen(8080, '127.0.0.1', () => {
