@@ -3,7 +3,7 @@
 ## Watching a single directory
 
 ```console
-npm run webpack-dev-server -- --content-base assets --watch-content-base --open
+npm run webpack-dev-server -- --static assets --open
 ```
 
 ### What Should Happen
@@ -20,13 +20,13 @@ npm run webpack-dev-server -- --content-base assets --watch-content-base --open
 module.exports = {
   /* ... */
   devServer: {
-    contentBase: ['assets', 'css'],
+    static: ['assets', 'css'],
   },
 };
 ```
 
 ```console
-npm run webpack-dev-server -- --watch-content-base --open
+npm run webpack-dev-server -- --open
 ```
 
 ### What Should Happen

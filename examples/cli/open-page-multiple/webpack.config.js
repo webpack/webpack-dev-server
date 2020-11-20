@@ -20,7 +20,7 @@ module.exports = [
       }),
     ],
   }),
-  setup({
+  {
     context: __dirname,
     entry: './app2.js',
     output: {
@@ -33,5 +33,5 @@ module.exports = [
         title: 'Open Page (Multiple) / Example / Page 2',
       }),
     ],
-  }),
+  },
 ];
