@@ -4,7 +4,6 @@ module.exports = {
   mode: 'development',
   context: __dirname,
   entry: './foo.js',
-  stats: 'verbose',
   plugins: [
     {
       apply(compiler) {

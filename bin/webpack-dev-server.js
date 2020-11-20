@@ -1,126 +1,158 @@
 #!/usr/bin/env node
+/* Based on webpack/bin/webpack.js */
+/* eslint-disable no-console */
 
 'use strict';
 
-/* eslint-disable no-shadow, no-console */
+/**
+ * @param {string} command process to run
+ * @param {string[]} args command line arguments
+ * @returns {Promise<void>} promise
+ */
+const runCommand = (command, args) => {
+  const cp = require('child_process');
+  return new Promise((resolve, reject) => {
+    const executedCommand = cp.spawn(command, args, {
+      stdio: 'inherit',
+      shell: true,
+    });
 
-const debug = require('debug')('webpack-dev-server');
-const importLocal = require('import-local');
-const yargs = require('yargs');
-const webpack = require('webpack');
-const Server = require('../lib/Server');
-const setupExitSignals = require('../lib/utils/setupExitSignals');
-const colors = require('../lib/utils/colors');
-const processOptions = require('../lib/utils/processOptions');
-const getVersions = require('../lib/utils/getVersions');
-const getColorsOption = require('../lib/utils/getColorsOption');
-const options = require('./options');
+    executedCommand.on('error', (error) => {
+      reject(error);
+    });
 
-let server;
-const serverData = {
-  server: null,
-};
-// we must pass an object that contains the server object as a property so that
-// we can update this server property later, and setupExitSignals will be able to
-// recognize that the server has been instantiated, because we will set
-// serverData.server to the new server object.
-setupExitSignals(serverData);
-
-// Prefer the local installation of webpack-dev-server
-if (importLocal(__filename)) {
-  debug('Using local install of webpack-dev-server');
-
-  return;
-}
-
-try {
-  require.resolve('webpack-cli');
-} catch (err) {
-  console.error('The CLI moved into a separate package: webpack-cli');
-  console.error(
-    "Please install 'webpack-cli' in addition to webpack itself to use the CLI"
-  );
-  console.error('-> When using npm: npm i -D webpack-cli');
-  console.error('-> When using yarn: yarn add -D webpack-cli');
-
-  process.exitCode = 1;
-}
-
-yargs.usage(
-  `${getVersions()}\nUsage:  https://webpack.js.org/configuration/dev-server/`
-);
-
-// webpack-cli@3.3 path : 'webpack-cli/bin/config/config-yargs'
-let configYargsPath;
-try {
-  require.resolve('webpack-cli/bin/config/config-yargs');
-  configYargsPath = 'webpack-cli/bin/config/config-yargs';
-} catch (e) {
-  configYargsPath = 'webpack-cli/bin/config-yargs';
-}
-// eslint-disable-next-line import/no-extraneous-dependencies
-// eslint-disable-next-line import/no-dynamic-require
-require(configYargsPath)(yargs);
-
-// It is important that this is done after the webpack yargs config,
-// so it overrides webpack's version info.
-yargs.version(getVersions());
-yargs.options(options);
-
-const argv = yargs.argv;
-
-// webpack-cli@3.3 path : 'webpack-cli/bin/utils/convert-argv'
-let convertArgvPath;
-try {
-  require.resolve('webpack-cli/bin/utils/convert-argv');
-  convertArgvPath = 'webpack-cli/bin/utils/convert-argv';
-} catch (e) {
-  convertArgvPath = 'webpack-cli/bin/convert-argv';
-}
-// eslint-disable-next-line import/no-extraneous-dependencies
-// eslint-disable-next-line import/no-dynamic-require
-const config = require(convertArgvPath)(yargs, argv, {
-  outputFilename: '/bundle.js',
-});
-
-function startDevServer(config, options) {
-  let compiler;
-
-  const configArr = config instanceof Array ? config : [config];
-  const statsColors = getColorsOption(configArr);
-
-  try {
-    compiler = webpack(config);
-  } catch (err) {
-    if (err instanceof webpack.WebpackOptionsValidationError) {
-      console.error(colors.error(statsColors, err.message));
-      // eslint-disable-next-line no-process-exit
-      process.exit(1);
-    }
-
-    throw err;
-  }
-
-  try {
-    server = new Server(compiler, options);
-    serverData.server = server;
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      console.error(colors.error(statsColors, err.message));
-      // eslint-disable-next-line no-process-exit
-      process.exit(1);
-    }
-
-    throw err;
-  }
-
-  server.listen(options.port, options.host, (err) => {
-    if (err) {
-      throw err;
-    }
+    executedCommand.on('exit', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
   });
-}
+};
 
-processOptions(config, argv, (config, options) => {
-  startDevServer(config, options);
-});
+/**
+ * @param {string} packageName name of the package
+ * @returns {boolean} is the package installed?
+ */
+const isInstalled = (packageName) => {
+  try {
+    require.resolve(packageName);
+
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+/**
+ * @param {CliOption} cli options
+ * @returns {void}
+ */
+const runCli = (cli) => {
+  if (cli.preprocess) {
+    cli.preprocess();
+  }
+  const path = require('path');
+  const pkgPath = require.resolve(`${cli.package}/package.json`);
+  // eslint-disable-next-line import/no-dynamic-require
+  const pkg = require(pkgPath);
+  // eslint-disable-next-line import/no-dynamic-require
+  require(path.resolve(path.dirname(pkgPath), pkg.bin[cli.binName]));
+};
+
+/**
+ * @typedef {Object} CliOption
+ * @property {string} name display name
+ * @property {string} package npm package name
+ * @property {string} binName name of the executable file
+ * @property {boolean} installed currently installed?
+ * @property {string} url homepage
+ * @property {function} preprocess preprocessor
+ */
+
+/** @type {CliOption} */
+const cli = {
+  name: 'webpack-cli',
+  package: 'webpack-cli',
+  binName: 'webpack-cli',
+  installed: isInstalled('webpack-cli'),
+  url: 'https://github.com/webpack/webpack-cli',
+  preprocess() {
+    process.argv.splice(2, 0, 'serve');
+  },
+};
+
+if (!cli.installed) {
+  const path = require('path');
+  const fs = require('graceful-fs');
+  const readLine = require('readline');
+
+  const notify = `CLI for webpack must be installed.\n  ${cli.name} (${cli.url})\n`;
+
+  console.error(notify);
+
+  let packageManager;
+
+  if (fs.existsSync(path.resolve(process.cwd(), 'yarn.lock'))) {
+    packageManager = 'yarn';
+  } else if (fs.existsSync(path.resolve(process.cwd(), 'pnpm-lock.yaml'))) {
+    packageManager = 'pnpm';
+  } else {
+    packageManager = 'npm';
+  }
+
+  const installOptions = [packageManager === 'yarn' ? 'add' : 'install', '-D'];
+
+  console.error(
+    `We will use "${packageManager}" to install the CLI via "${packageManager} ${installOptions.join(
+      ' '
+    )}".`
+  );
+
+  const question = `Do you want to install 'webpack-cli' (yes/no): `;
+
+  const questionInterface = readLine.createInterface({
+    input: process.stdin,
+    output: process.stderr,
+  });
+
+  // In certain scenarios (e.g. when STDIN is not in terminal mode), the callback function will not be
+  // executed. Setting the exit code here to ensure the script exits correctly in those cases. The callback
+  // function is responsible for clearing the exit code if the user wishes to install webpack-cli.
+  process.exitCode = 1;
+  questionInterface.question(question, (answer) => {
+    questionInterface.close();
+
+    const normalizedAnswer = answer.toLowerCase().startsWith('y');
+
+    if (!normalizedAnswer) {
+      console.error(
+        "You need to install 'webpack-cli' to use webpack via CLI.\n" +
+          'You can also install the CLI manually.'
+      );
+
+      return;
+    }
+    process.exitCode = 0;
+
+    console.log(
+      `Installing '${
+        cli.package
+      }' (running '${packageManager} ${installOptions.join(' ')} ${
+        cli.package
+      }')...`
+    );
+
+    runCommand(packageManager, installOptions.concat(cli.package))
+      .then(() => {
+        runCli(cli);
+      })
+      .catch((error) => {
+        console.error(error);
+        process.exitCode = 1;
+      });
+  });
+} else {
+  runCli(cli);
+}
