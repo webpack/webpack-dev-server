@@ -52,14 +52,14 @@ There are two main, recommended methods of using the module:
 
 ### With the CLI
 
-The easiest way to use it is with the CLI. In the directory where your
+The easiest way to use it is with the [webpack CLI](https://webpack.js.org/api/cli/). In the directory where your
 `webpack.config.js` is, run:
 
 ```console
-node_modules/.bin/webpack-dev-server
+node_modules/.bin/webpack serve
 ```
 
-_**Note**: Many CLI options are available with `webpack-dev-server`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
+_**Note**: Many CLI options are available with `webpack serve`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
 
 ### With NPM Scripts
 
@@ -69,7 +69,7 @@ script as such:
 
 ```json
 "scripts": {
-  "start:dev": "webpack-dev-server"
+  "start:dev": "webpack serve"
 }
 ```
 
