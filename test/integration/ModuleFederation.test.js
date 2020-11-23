@@ -6,8 +6,14 @@ const testServer = require('../helpers/test-server');
 const simpleConfig = require('../fixtures/module-federation-config/webpack.config');
 const objectEntryConfig = require('../fixtures/module-federation-config/webpack.object-entry.config');
 const multiConfig = require('../fixtures/module-federation-config/webpack.multi.config');
-const pluginConfig = require('../fixtures/module-federation-config/webpack.plugin');
 const port = require('../ports-map').ModuleFederation;
+const isWebpack5 = require('../helpers/isWebpack5');
+
+let pluginConfig;
+
+if (isWebpack5) {
+  pluginConfig = require('../fixtures/module-federation-config/webpack.plugin');
+}
 
 describe('module federation', () => {
   describe.each([
@@ -54,7 +60,7 @@ describe('module federation', () => {
     }
   });
 
-  describe('use plugin', () => {
+  (isWebpack5 ? describe : describe.skip)('use plugin', () => {
     let server;
     let req;
 
