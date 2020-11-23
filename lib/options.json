@@ -352,6 +352,9 @@
         }
       ]
     },
+    "stdin": {
+      "type": "boolean"
+    },
     "transportMode": {
       "anyOf": [
         {
@@ -411,6 +414,7 @@
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
       "setupExitSignals": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals)",
       "static": "should be {Boolean|String|Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverstatic)",
+      "stdin": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverstdin)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
       "useLocalIp": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserveruselocalip)"
     }

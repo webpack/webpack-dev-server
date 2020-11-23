@@ -210,6 +210,50 @@ runCLITest('CLI', () => {
     });
   });
 
+  it('should exit the process when stdin ends if --stdin', (done) => {
+    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const examplePath = resolve(__dirname, '../../examples/cli/public');
+    const cp = execa('node', [cliPath, '--stdin'], { cwd: examplePath });
+
+    cp.stderr.on('data', (data) => {
+      const bits = data.toString();
+
+      if (/Compiled successfully/.test(bits)) {
+        expect(cp.pid !== 0).toBe(true);
+
+        cp.stdin.write('hello');
+        cp.stdin.end('world');
+      }
+    });
+
+    cp.on('exit', () => {
+      done();
+    });
+  });
+
+  it('should exit the process when stdin ends if --stdin, even before the compilation is done', (done) => {
+    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const cwd = resolve(__dirname, '../fixtures/cli');
+    const cp = execa('node', [cliPath, '--stdin'], { cwd });
+
+    let killed = false;
+
+    cp.stderr.on('data', () => {
+      if (!killed) {
+        expect(cp.pid !== 0).toBe(true);
+
+        cp.stdin.write('hello');
+        cp.stdin.end('world');
+      }
+
+      killed = true;
+    });
+
+    cp.on('exit', () => {
+      done();
+    });
+  });
+
   // TODO: do not skip after @webpack-cli/serve passes null port by default
   // https://github.com/webpack/webpack-cli/pull/2126
   it.skip('should use different random port when multiple instances are started on different processes', (done) => {
