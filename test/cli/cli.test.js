@@ -138,6 +138,18 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('should display a usage statement', (done) => {
+    testBin('--help')
+      .then((output) => {
+        expect(output.stdout).toContain(
+          'Usage:  https://webpack.js.org/configuration/dev-server/'
+        );
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('should accept the promise function of webpack.config.js', (done) => {
     testBin(
       false,
