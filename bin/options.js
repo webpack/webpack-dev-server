@@ -35,6 +35,11 @@ const options = {
     describe: 'Do not refresh page if HMR fails',
     group: ADVANCED_GROUP,
   },
+  'setup-exit-signals': {
+    type: 'boolean',
+    describe: 'Close and exit the process on SIGINT and SIGTERM',
+    group: ADVANCED_GROUP,
+  },
   stdin: {
     type: 'boolean',
     describe: 'close when stdin ends',

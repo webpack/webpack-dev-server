@@ -84,6 +84,11 @@ jobs:
       - name: Install webpack ${{ matrix.webpack-version }}
         run: npm i webpack@${{ matrix.webpack-version }}
 
+      - name: Link webpack-dev-server
+        run: |
+          npm link
+          npm link webpack-dev-server
+
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci
 

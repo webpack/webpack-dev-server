@@ -6,7 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const marked = require('marked');
-const webpack = require('webpack');
 
 module.exports = {
   setup(config) {
@@ -65,7 +64,6 @@ module.exports = {
 
     marked(readme, { renderer });
 
-    result.plugins.push(new webpack.NamedModulesPlugin());
     result.plugins.push(
       new HtmlWebpackPlugin({
         filename: 'index.html',

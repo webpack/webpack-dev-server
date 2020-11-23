@@ -48,12 +48,12 @@ describe('progress', () => {
       });
 
       compiler.run(() => {});
-      const app = server.listen(port, 'localhost');
-
-      app.on('progress-update', ({ percent, msg }) => {
-        expect(percent).toBeGreaterThanOrEqual(0);
-        expect(percent).toBeLessThanOrEqual(100);
-        expect(typeof msg).toEqual('string');
+      server.listen(port, 'localhost').then((app) => {
+        app.on('progress-update', ({ percent, msg }) => {
+          expect(percent).toBeGreaterThanOrEqual(0);
+          expect(percent).toBeLessThanOrEqual(100);
+          expect(typeof msg).toEqual('string');
+        });
       });
     });
   });
