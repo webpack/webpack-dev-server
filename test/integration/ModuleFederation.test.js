@@ -7,6 +7,13 @@ const simpleConfig = require('../fixtures/module-federation-config/webpack.confi
 const objectEntryConfig = require('../fixtures/module-federation-config/webpack.object-entry.config');
 const multiConfig = require('../fixtures/module-federation-config/webpack.multi.config');
 const port = require('../ports-map').ModuleFederation;
+const isWebpack5 = require('../helpers/isWebpack5');
+
+let pluginConfig;
+
+if (isWebpack5) {
+  pluginConfig = require('../fixtures/module-federation-config/webpack.plugin');
+}
 
 describe('module federation', () => {
   describe.each([
@@ -51,5 +58,26 @@ describe('module federation', () => {
         expect(exports).toEqual('entry1');
       });
     }
+  });
+
+  (isWebpack5 ? describe : describe.skip)('use plugin', () => {
+    let server;
+    let req;
+
+    beforeAll((done) => {
+      server = testServer.start(pluginConfig, { port }, done);
+      req = request(server.app);
+    });
+
+    afterAll(testServer.close);
+
+    it('should contain hot script', async () => {
+      const { statusCode } = await req.get('/remoteEntry.js');
+      expect(statusCode).toEqual(200);
+      await req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/);
+      await req
+        .get('/remoteEntry.js')
+        .expect(200, /webpack\/hot\/dev-server\.js/);
+    });
   });
 });
