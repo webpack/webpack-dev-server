@@ -106,7 +106,6 @@ module.exports = {
       describe: 'Enable gzip compression',
       group: RESPONSE_GROUP,
     },
-    // findPort is currently not set up
     {
       name: 'port',
       type: Number,
