@@ -21,10 +21,15 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'progress',
+      name: 'client-progress',
       type: Boolean,
-      describe: 'Print compilation progress in percentage',
+      describe: 'Print compilation progress in percentage in the browser',
       group: BASIC_GROUP,
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.progress = opts.clientProgress;
+        delete opts.clientProgress;
+      },
     },
     {
       name: 'hot-only',

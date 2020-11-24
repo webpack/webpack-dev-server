@@ -202,6 +202,11 @@ describe('options', () => {
               port: null,
             },
           },
+          {
+            client: {
+              progress: false,
+            },
+          },
         ],
         failure: [
           'whoops!',
@@ -225,6 +230,11 @@ describe('options', () => {
           {
             client: {
               logging: 'silent',
+            },
+          },
+          {
+            client: {
+              progress: '',
             },
           },
         ],
@@ -354,10 +364,6 @@ describe('options', () => {
       port: {
         success: ['', 0, null],
         failure: [false],
-      },
-      progress: {
-        success: [false],
-        failure: [''],
       },
       proxy: {
         success: [
