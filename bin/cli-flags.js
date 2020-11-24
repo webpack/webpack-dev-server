@@ -36,6 +36,10 @@ module.exports = {
       type: Boolean,
       describe: 'Do not refresh page if HMR fails',
       group: ADVANCED_GROUP,
+      processor(opts) {
+        opts.hot = 'only';
+        delete opts.hotOnly;
+      },
     },
     {
       name: 'setup-exit-signals',
@@ -73,6 +77,11 @@ module.exports = {
       group: DISPLAY_GROUP,
       describe:
         'Log level in the browser (none, error, warn, info, log, verbose)',
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.logging = opts.clientLogging;
+        delete opts.clientLogging;
+      },
     },
     {
       name: 'https',
