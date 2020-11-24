@@ -21,11 +21,6 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'profile',
-      type: Boolean,
-      describe: 'Print compilation profile data for progress steps',
-    },
-    {
       name: 'progress',
       type: Boolean,
       describe: 'Print compilation progress in percentage',
