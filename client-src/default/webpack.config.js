@@ -9,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, '../../client/default'),
     filename: 'index.bundle.js',
   },
+  target: ['web', 'es5'],
   module: {
     rules: [
       {

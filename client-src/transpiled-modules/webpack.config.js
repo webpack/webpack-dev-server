@@ -9,6 +9,7 @@ const base = {
     path: path.resolve(__dirname, '../../client/transpiled-modules'),
     libraryTarget: 'commonjs2',
   },
+  target: ['web', 'es5'],
   module: {
     rules: [
       {
