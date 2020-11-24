@@ -67,7 +67,7 @@ describe('sockjs client proxy', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
                   `http://localhost:${port2}/ws`
@@ -133,7 +133,7 @@ describe('ws client proxy', () => {
       runBrowser().then(({ page, browser }) => {
         const client = page._client;
         client.on('Network.webSocketCreated', (evt) => {
-          page.waitFor(beforeBrowserCloseDelay).then(() => {
+          page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
             browser.close().then(() => {
               expect(evt.url).toContain(`ws://myhost:${port2}/ws`);
               done();
@@ -170,7 +170,7 @@ describe('sockjs public and client path', () => {
             requestObj.url().match(/foo\/test\/bar/)
           )
           .then((requestObj) => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
                   `http://myhost.test:${port2}/foo/test/bar`
@@ -209,7 +209,7 @@ describe('sockjs client path and port', () => {
             requestObj.url().match(/foo\/test\/bar/)
           )
           .then((requestObj) => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
                   `http://localhost:${port3}/foo/test/bar`
@@ -249,7 +249,7 @@ describe('sockjs client port, no path', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
                   `http://localhost:${port3}/ws`
@@ -285,7 +285,7 @@ describe('sockjs client host', () => {
         page
           .waitForRequest((requestObj) => requestObj.url().match(/ws/))
           .then((requestObj) => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
                   `http://myhost.test:${port2}/ws`
@@ -326,7 +326,7 @@ describe('ws client host, port, and path', () => {
       runBrowser().then(({ page, browser }) => {
         const client = page._client;
         client.on('Network.webSocketCreated', (evt) => {
-          page.waitFor(beforeBrowserCloseDelay).then(() => {
+          page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
             browser.close().then(() => {
               expect(evt.url).toContain(`ws://myhost:${port3}/foo/test/bar`);
               done();
@@ -410,7 +410,7 @@ describe('Client console.log', () => {
           });
           // wait for load before closing the browser
           await page.waitForNavigation({ waitUntil: 'load' });
-          await page.waitFor(beforeBrowserCloseDelay);
+          await page.waitForTimeout(beforeBrowserCloseDelay);
           await browser.close();
           // Order doesn't matter, maybe we should improve that in future
           await expect(res.sort()).toMatchSnapshot();

@@ -4,7 +4,9 @@ const SockJS = require('sockjs-client/dist/sockjs');
 const { log } = require('../default/utils/log');
 const BaseClient = require('./BaseClient');
 
-module.exports = class SockJSClient extends BaseClient {
+module.exports = class SockJSClient extends (
+  BaseClient
+) {
   constructor(url) {
     super();
     this.sock = new SockJS(url);

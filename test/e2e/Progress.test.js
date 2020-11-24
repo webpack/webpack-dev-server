@@ -59,12 +59,12 @@ describe('client progress', () => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(reloadReadyDelay).then(() => {
+            page.waitForTimeout(reloadReadyDelay).then(() => {
               fs.writeFileSync(
                 cssFilePath,
                 'body { background-color: rgb(255, 0, 0); }'
               );
-              page.waitFor(completeReloadDelay).then(() => {
+              page.waitForTimeout(completeReloadDelay).then(() => {
                 browser.close().then(() => {
                   // check that there is some percentage progress output
                   const regExp = /^\[webpack-dev-server\] [0-9]{1,3}% - /;

@@ -41,7 +41,7 @@ describe('ws websocket client injection', () => {
             res.push(_text);
           });
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 // if the error msg doesn't exist that means the ws websocket is working.
                 expect(res.includes(errorMsg)).toBe(false);
@@ -75,7 +75,7 @@ describe('ws websocket client injection', () => {
             res.push(_text);
           });
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 // if the error msg doesn't exist that means the ws websocket is working.
                 expect(res.includes(errorMsg)).toBe(false);
@@ -109,7 +109,7 @@ describe('ws websocket client injection', () => {
             res.push(_text);
           });
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 // if the error msg doesn't exist that means the ws websocket is working.
                 expect(res.includes(errorMsg)).toBe(false);
@@ -143,7 +143,7 @@ describe('ws websocket client injection', () => {
             res.push(_text);
           });
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 // if the error msg doesn't exist that means the ws websocket is working.
                 expect(res.includes(errorMsg)).toBe(false);
@@ -178,7 +178,7 @@ describe('ws websocket client injection', () => {
             res.push(_text);
           });
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 // if the error msg doesn't exist that means the ws websocket is working.
                 expect(res.includes(errorMsg)).toBe(false);
@@ -213,7 +213,7 @@ describe('ws websocket client injection', () => {
             res.push(_text);
           });
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 // if the error msg doesn't exist that means the ws websocket is working.
                 expect(res.includes(errorMsg)).toBe(false);
@@ -248,7 +248,7 @@ describe('ws websocket client injection', () => {
             res.push(_text);
           });
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 // if the error msg doesn't exist that means the ws websocket is working.
                 expect(res.includes(errorMsg)).toBe(true);
