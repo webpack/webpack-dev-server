@@ -97,12 +97,12 @@ describe('reload', () => {
                       }
                       req.continue();
                     });
-                    page.waitFor(reloadReadyDelay).then(() => {
+                    page.waitForTimeout(reloadReadyDelay).then(() => {
                       fs.writeFileSync(
                         cssFilePath,
                         'body { background-color: rgb(255, 0, 0); }'
                       );
-                      page.waitFor(completeReloadDelay).then(() => {
+                      page.waitForTimeout(completeReloadDelay).then(() => {
                         page
                           .evaluate(() => {
                             const body = document.body;

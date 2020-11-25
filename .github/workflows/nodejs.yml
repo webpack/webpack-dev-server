@@ -86,7 +86,7 @@ jobs:
 
       - name: Link webpack-dev-server
         run: |
-          npm link
+          npm link --ignore-scripts # do not build the client again
           npm link webpack-dev-server
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}

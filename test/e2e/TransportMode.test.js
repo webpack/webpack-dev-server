@@ -62,10 +62,10 @@ describe('transportMode client', () => {
               res.push(_text);
             });
 
-            page.waitFor(initConsoleDelay).then(() => {
+            page.waitForTimeout(initConsoleDelay).then(() => {
               testServer.close(() => {
                 // make sure the client gets the close message
-                page.waitFor(awaitServerCloseDelay).then(() => {
+                page.waitForTimeout(awaitServerCloseDelay).then(() => {
                   browser.close().then(() => {
                     for (let i = res.length - 1; i >= 0; i--) {
                       if (res[i] === '[webpack-dev-server] Disconnected!') {

@@ -23,7 +23,7 @@ describe('ProvidePlugin', () => {
       it('should inject ws client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               page
                 .evaluate(() => {
                   return window.injectedClient === window.expectedClient;
@@ -58,7 +58,7 @@ describe('ProvidePlugin', () => {
       it('should inject sockjs client implementation', (done) => {
         runBrowser().then(({ page, browser }) => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(beforeBrowserCloseDelay).then(() => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               page
                 .evaluate(() => {
                   return window.injectedClient === window.expectedClient;

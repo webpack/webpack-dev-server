@@ -11,4 +11,5 @@ module.exports = {
     library: 'SockJS',
     libraryTarget: 'umd',
   },
+  target: ['web', 'es5'],
 };
