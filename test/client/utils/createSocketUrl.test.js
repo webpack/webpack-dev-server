@@ -127,6 +127,16 @@ describe('createSocketUrl', () => {
       'https://asdf/sockjs-node',
     ],
     [
+      '?http://example.com:8096&sockHost=location',
+      'http://something.com',
+      'http://something.com:8096/sockjs-node',
+    ],
+    [
+      '?http://0.0.0.0:8096&sockHost=location',
+      'http://something.com',
+      'http://something.com:8096/sockjs-node',
+    ],
+    [
       '?https://example.com?sockPort=34',
       'http://something.com',
       'https://example.com:34/sockjs-node',
@@ -150,6 +160,11 @@ describe('createSocketUrl', () => {
       '?http://0.0.0.0:8096&sockPort=location',
       'http://localhost:3000',
       'http://localhost:3000/sockjs-node',
+    ],
+    [
+      '?http://example.com:8096&sockHost=location&sockPort=location',
+      'http://something.com:3000',
+      'http://something.com:3000/sockjs-node',
     ],
   ];
   samples3.forEach(([scriptSrc, loc, expected]) => {
