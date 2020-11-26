@@ -2,6 +2,8 @@
 
 exports[`createSocketUrl should return the url when __resourceQuery is ?test 1`] = `"/ws"`;
 
+exports[`createSocketUrl should return the url when __resourceQuery is file://filename 1`] = `"file://filename/ws"`;
+
 exports[`createSocketUrl should return the url when __resourceQuery is http://0.0.0.0 1`] = `"http://localhost/ws"`;
 
 exports[`createSocketUrl should return the url when __resourceQuery is http://127.0.0.1 1`] = `"http://127.0.0.1/ws"`;
@@ -21,6 +23,8 @@ exports[`createSocketUrl should return the url when __resourceQuery is https://l
 exports[`createSocketUrl should return the url when __resourceQuery is undefined 1`] = `"/ws"`;
 
 exports[`createSocketUrl should return the url when the current script source is ?test 1`] = `"/ws"`;
+
+exports[`createSocketUrl should return the url when the current script source is file://filename 1`] = `"file://filename/ws"`;
 
 exports[`createSocketUrl should return the url when the current script source is http://0.0.0.0 1`] = `"http://localhost/ws"`;
 

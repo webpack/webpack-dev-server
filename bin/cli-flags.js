@@ -21,21 +21,25 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'profile',
+      name: 'client-progress',
       type: Boolean,
-      describe: 'Print compilation profile data for progress steps',
-    },
-    {
-      name: 'progress',
-      type: Boolean,
-      describe: 'Print compilation progress in percentage',
+      describe: 'Print compilation progress in percentage in the browser',
       group: BASIC_GROUP,
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.progress = opts.clientProgress;
+        delete opts.clientProgress;
+      },
     },
     {
       name: 'hot-only',
       type: Boolean,
       describe: 'Do not refresh page if HMR fails',
       group: ADVANCED_GROUP,
+      processor(opts) {
+        opts.hot = 'only';
+        delete opts.hotOnly;
+      },
     },
     {
       name: 'setup-exit-signals',
@@ -73,6 +77,11 @@ module.exports = {
       group: DISPLAY_GROUP,
       describe:
         'Log level in the browser (none, error, warn, info, log, verbose)',
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.logging = opts.clientLogging;
+        delete opts.clientLogging;
+      },
     },
     {
       name: 'https',
@@ -106,7 +115,6 @@ module.exports = {
       describe: 'Enable gzip compression',
       group: RESPONSE_GROUP,
     },
-    // findPort is currently not set up
     {
       name: 'port',
       type: Number,

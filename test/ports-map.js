@@ -37,8 +37,6 @@ const portsList = {
   WebsocketServer: 1,
   TransportMode: 1,
   Progress: 1,
-  'progress-option': 1,
-  'profile-option': 1,
   Iframe: 1,
   SocketInjection: 1,
   'static-publicPath-option': 1,

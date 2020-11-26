@@ -98,31 +98,6 @@ runCLITest('CLI', () => {
       .catch(done);
   });
 
-  it('--progress', (done) => {
-    testBin('--progress')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('100%');
-        // should not profile
-        expect(output.stderr).not.toContain(
-          'ms after chunk modules optimization'
-        );
-        done();
-      })
-      .catch(done);
-  });
-
-  it('--progress --profile', (done) => {
-    testBin('--progress --profile')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        // should profile
-        expect(output.stderr).toContain('after chunk modules optimization');
-        done();
-      })
-      .catch(done);
-  });
-
   it('--bonjour', (done) => {
     testBin('--bonjour')
       .then((output) => {
