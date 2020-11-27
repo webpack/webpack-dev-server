@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
-    "@babel/core": "^7.12.8",
+    "@babel/core": "^7.12.9",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/runtime": "^7.12.5",
@@ -76,7 +76,7 @@
     "@jest/test-sequencer": "^26.6.3",
     "acorn": "^8.0.4",
     "babel-jest": "^26.6.3",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "body-parser": "^1.19.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.14.0",
@@ -105,7 +105,7 @@
     "tcp-port-used": "^1.0.1",
     "typescript": "^4.1.2",
     "url-loader": "^4.1.1",
-    "webpack": "^5.6.0",
+    "webpack": "^5.8.0",
     "webpack-cli": "^4.2.0",
     "webpack-merge": "^5.4.0"
   },
