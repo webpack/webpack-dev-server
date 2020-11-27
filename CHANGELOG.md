@@ -2,6 +2,123 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-beta.0](https://github.com/webpack/webpack-dev-server/compare/v3.11.0...v4.0.0-beta.0) (2020-11-27)
+
+### ⚠ BREAKING CHANGES
+
+* drop support `Node.js@6` and `Node.js@8`, minimum supported `Node.js` version is `Node@10`
+* the `hot` option is `true` by default
+* the `hotOnly` option was removed, if you need hot only mode, use `hot: 'only'` value
+* the default `transportMode` is switched from `sockjs` to `ws` (IE 11 and other old browsers doesn't support WebSocket, set `sockjs` value for `transportMode` if you need supports IE 11)
+* `before`, `after` and `setup` were removed in favor `onBeforeSetupMiddleware` (previously `before`) and `onAfterSetupMiddleware` options (previously `after`)
+* the `clientOptions` was renamed to the `client` option
+* the `key`, `cert`, `pfx`, `pfx-passphrase`, `cacert`, `ca` and `requestCert` options were moved to `https` options, please use `https.{key|cert|pfx|passphrase|requestCert|cacert|ca|requestCert}`
+* the `sockHost`, `sockPath` and `sockPort` options were removed in `client` option
+* the `inline` option (`iframe` live mode) was removed
+* the `lazy` and `filename` options were removed
+* the `features` option was removed
+* the `log`, `logLevel`, `logTime`, `noInfo`, `quiet`, `reporter` and `warn` options were removed in favor of built-in webpack logger, please read [this](https://webpack.js.org/configuration/other-options/#infrastructurelogginglevel) to enable and setup logging output
+* the `fs`, `index`, `mimeTypes`, `publicPath`, `serverSideRender`, and `writeToDisk` options were moved in the `dev` option (`webpack-dev-middleware` options)
+* updating `webpack-dev-middleware` to v4, which includes many breaking options changes, please [read](https://github.com/webpack/webpack-dev-middleware/releases)
+* the `stats` option was removed, please use the [`stats`](https://webpack.js.org/configuration/stats/) option from `webpack.config.js`
+* the `socket` option was removed
+* the `contentBase`, `contentBasePublicPath`, `serveIndex`, `staticOptions`, `watchContentBase`, `watchOptions` were removed in favor of the `static` option
+* the `disableHostCheck` and `allowedHosts` options were removed in favor of the `firewall` option
+* `server.listen()` will find free port if the `port` is not set and the `port` argument is not passed, also print a warning if the `port` option and the `port` argument passed to `server.listen()` are different
+* the `progress` option is moved to the `client` option, set `client: {progress: true}`
+* the `profile` option was removed, to print profile data, set `client: { progress: 'profile' }`
+* client uses the port of the current location (`location.port`, equivalent to `sockPort: 'location'`), by default. To get previously behavior, set the `client.port` with the port you'd like to set
+* client uses the hostname of the current location (`location.hostname`), by default. To get previously behavior, set the `client.host` with the hostname you'd like to set
+
+### Features
+
+* compatibility with `webpack@5`
+* compatibility with `webpack-cli@4`
+* added the `setupExitSignals` option, it takes a boolean and if true (default on CLI), the server will close and exit the process on SIGINT and SIGTERM
+* update `chokidar` to v3
+
+### Notes
+
+Unfortunately, due to the huge amount of changes it is very difficult to display all changes in a convenient form. Therefore, we offer you a couple of popular examples (feel free to send a PR with more examples).
+
+#### `static`
+
+Previously `contentBase`, `contentBasePublicPath`, `serveIndex`, `staticOptions`, `watchContentBase` and `watchOptions`
+
+```js
+module.exports = {
+  // ...
+  devServer: {
+    // Can be:
+    // static: path.resolve(__dirname, 'static')
+    // static: false
+    static: [
+      // Simple example
+      path.resolve(__dirname, 'static'),
+      // Complex example
+      {
+        directory: path.resolve(__dirname, 'static'),
+        staticOptions: {},
+        // Don't be confused with `dev.publicPath`, it is `publicPath` for static directory
+        // Can be:
+        // publicPath: ['/static-public-path-one/', '/static-public-path-two/'],
+        publicPath: '/static-public-path/',
+        // Can be:
+        // serveIndex: {} (options for the `serveIndex` option you can find https://github.com/expressjs/serve-index)
+        serveIndex: true,
+        // Can be:
+        // watch: {} (options for the `watch` option you can find https://github.com/paulmillr/chokidar)
+        watch: true,
+      },
+    ],
+  },
+};
+```
+
+#### `publicPath`
+
+```js
+module.exports = {
+  // ...
+  devServer: {
+    dev: {
+      publicPath: '/publicPathForDevServe',
+    },
+  },
+};
+```
+
+#### `firewall`
+
+Previously `disableHostCheck` and `allowedHosts`
+
+```js
+module.exports = {
+  // ...
+  devServer: {
+    dev: {
+      // Can be
+      // firewall: ['192.168.0.1', 'domain.com']
+      firewall: false,
+    },
+  },
+};
+```
+
+#### logging
+
+```js
+module.exports = {
+  // ...
+  infrastructureLogging: {
+    // Only warnings and errors
+    // level: 'none' disable logging
+    // Please read https://webpack.js.org/configuration/other-options/#infrastructurelogginglevel
+    level: 'warn',
+  },
+};
+```
+
 ## [3.11.0](https://github.com/webpack/webpack-dev-server/compare/v3.10.3...v3.11.0) (2020-05-08)
 
 
