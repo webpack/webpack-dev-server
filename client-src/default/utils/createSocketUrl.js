@@ -43,6 +43,8 @@ function getSocketUrl(urlParts, loc) {
   const { auth, query } = urlParts;
   let { hostname, protocol, port } = urlParts;
 
+  const isInaddrAny = hostname === '0.0.0.0' || hostname === '::';
+
   if (!port || port === '0') {
     port = loc.port;
   }
@@ -51,11 +53,7 @@ function getSocketUrl(urlParts, loc) {
   // why do we need this check?
   // hostname n/a for file protocol (example, when using electron, ionic)
   // see: https://github.com/webpack/webpack-dev-server/pull/384
-  if (
-    (hostname === '0.0.0.0' || hostname === '::') &&
-    loc.hostname &&
-    loc.protocol.indexOf('http') === 0
-  ) {
+  if (isInaddrAny && loc.hostname && loc.protocol.indexOf('http') === 0) {
     hostname = loc.hostname;
   }
 
@@ -66,7 +64,7 @@ function getSocketUrl(urlParts, loc) {
   if (
     hostname &&
     hostname !== '127.0.0.1' &&
-    (loc.protocol === 'https:' || urlParts.hostname === '0.0.0.0')
+    (loc.protocol === 'https:' || isInaddrAny)
   ) {
     protocol = loc.protocol;
   }
