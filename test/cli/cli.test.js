@@ -121,7 +121,9 @@ runCLITest('CLI', () => {
   it('unspecified port', (done) => {
     testBin('')
       .then((output) => {
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        expect(/http:\/\/127\.0\.0\.1:[0-9]+/.test(output.stderr)).toEqual(
+          true
+        );
         done();
       })
       .catch(done);

@@ -26,14 +26,18 @@ describe('createDomain', () => {
         host: 'localhost',
         port: port1,
       },
-      expected: `http://localhost:${port1}`,
+      expected: [
+        `http://localhost:${port1}`,
+        `http://127.0.0.1:${port1}`,
+        `http://[::1]:${port1}`,
+      ],
     },
     {
       name: 'no host option',
       options: {
         port: port1,
       },
-      expected: `http://localhost:${port1}`,
+      expected: [`http://0.0.0.0:${port1}`, `http://[::]:${port1}`],
     },
     {
       name: 'https',
@@ -42,7 +46,11 @@ describe('createDomain', () => {
         port: port1,
         https: true,
       },
-      expected: `https://localhost:${port1}`,
+      expected: [
+        `https://localhost:${port1}`,
+        `https://127.0.0.1:${port1}`,
+        `https://[::1]:${port1}`,
+      ],
       timeout: 60000,
     },
     {
@@ -52,7 +60,7 @@ describe('createDomain', () => {
         port: port1,
         public: 'myhost.test',
       },
-      expected: 'http://myhost.test',
+      expected: ['http://myhost.test'],
     },
     {
       name: 'override with public (port)',
@@ -61,7 +69,7 @@ describe('createDomain', () => {
         port: port1,
         public: `myhost.test:${port2}`,
       },
-      expected: `http://myhost.test:${port2}`,
+      expected: [`http://myhost.test:${port2}`],
     },
     {
       name: 'override with public (protocol)',
@@ -70,7 +78,7 @@ describe('createDomain', () => {
         port: port1,
         public: 'https://myhost.test',
       },
-      expected: 'https://myhost.test',
+      expected: ['https://myhost.test'],
     },
     {
       name: 'override with public (protocol + port)',
@@ -79,7 +87,7 @@ describe('createDomain', () => {
         port: port1,
         public: `https://myhost.test:${port2}`,
       },
-      expected: `https://myhost.test:${port2}`,
+      expected: [`https://myhost.test:${port2}`],
     },
     {
       name: 'localIp',
@@ -87,7 +95,12 @@ describe('createDomain', () => {
         useLocalIp: true,
         port: port1,
       },
-      expected: `http://${internalIp.v4.sync() || 'localhost'}:${port1}`,
+      expected: [
+        `http://${internalIp.v4.sync()}:${port1}`,
+        `https://localhost:${port1}`,
+        `https://127.0.0.1:${port1}`,
+        `https://[::1]:${port1}`,
+      ],
     },
   ];
 
@@ -105,7 +118,7 @@ describe('createDomain', () => {
 
         const domain = createDomain(options, server.listeningApp);
 
-        if (domain !== expected) {
+        if (!expected.includes(domain)) {
           done(`generated domain ${domain} doesn't match expected ${expected}`);
         } else {
           done();

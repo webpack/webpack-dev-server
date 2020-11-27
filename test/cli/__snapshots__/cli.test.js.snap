@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CLI --hot webpack 4 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:8080/
+"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
 <i> [webpack-dev-middleware] Hash: X
 <i> Version: webpack x.x.x Time: Xms
 <i> Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
 <i>   Asset     Size  Chunks             Chunk Names
 <i> main.js  X KiB    main  [emitted]  main
 <i> Entrypoint main = main.js
-<i> [0] multi Xdir/client/default?http://localhost (webpack)/hot/dev-server.js ./foo.js X bytes {main} [built]
-<i> [../../../client/default/index.js?http://localhost] Xdir/client/default?http://localhost X KiB {main} [built]
+<i> [0] multi Xdir/client/default?http://0.0.0.0 (webpack)/hot/dev-server.js ./foo.js X bytes {main} [built]
+<i> [../../../client/default/index.js?http://0.0.0.0] Xdir/client/default?http://0.0.0.0 X KiB {main} [built]
 <i> [../../../client/default/overlay.js] Xdir/client/default/overlay.js X KiB {main} [built]
 <i> [../../../client/default/socket.js] Xdir/client/default/socket.js X KiB {main} [built]
 <i> [../../../client/default/utils/createSocketUrl.js] Xdir/client/default/utils/createSocketUrl.js X KiB {main} [built]
@@ -28,7 +28,7 @@ exports[`CLI --hot webpack 4 1`] = `
 `;
 
 exports[`CLI --hot webpack 5 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:8080/
+"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
 <i> [webpack-dev-middleware] asset main.js X KiB [emitted] (name: main)
 <i> runtime modules X KiB 10 modules
 <i> cacheable modules X KiB
@@ -46,16 +46,16 @@ exports[`CLI --hot webpack 5 1`] = `
 `;
 
 exports[`CLI --no-hot webpack 4 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:8080/
+"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
 <i> [webpack-dev-middleware] Hash: X
 <i> Version: webpack x.x.x Time: Xms
 <i> Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
 <i>   Asset     Size  Chunks             Chunk Names
 <i> main.js  X KiB    main  [emitted]  main
 <i> Entrypoint main = main.js
-<i> [0] multi Xdir/client/default?http://localhost ./foo.js X bytes {main} [built]
+<i> [0] multi Xdir/client/default?http://0.0.0.0 ./foo.js X bytes {main} [built]
 <i> [../../../client/clients/WebsocketClient.js] Xdir/client/clients/WebsocketClient.js X KiB {main} [built]
-<i> [../../../client/default/index.js?http://localhost] Xdir/client/default?http://localhost X KiB {main} [built]
+<i> [../../../client/default/index.js?http://0.0.0.0] Xdir/client/default?http://0.0.0.0 X KiB {main} [built]
 <i> [../../../client/default/overlay.js] Xdir/client/default/overlay.js X KiB {main} [built]
 <i> [../../../client/default/socket.js] Xdir/client/default/socket.js X KiB {main} [built]
 <i> [../../../client/default/utils/createSocketUrl.js] Xdir/client/default/utils/createSocketUrl.js X KiB {main} [built]
@@ -73,7 +73,7 @@ exports[`CLI --no-hot webpack 4 1`] = `
 `;
 
 exports[`CLI --no-hot webpack 5 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:8080/
+"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
 <i> [webpack-dev-middleware] asset main.js X KiB [emitted] (name: main)
 <i> runtime modules X bytes 3 modules
 <i> cacheable modules X KiB
