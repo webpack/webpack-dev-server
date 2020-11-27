@@ -26,7 +26,12 @@ function testBin(testArgs, configPath) {
     testArgs = testArgs.split(' ');
   }
 
-  const args = [webpackDevServerPath, '--config', configPath].concat(testArgs);
+  const args = [
+    webpackDevServerPath,
+    '--config',
+    configPath,
+    '--no-static',
+  ].concat(testArgs);
 
   return execa('node', args, { cwd, env, timeout: 10000 });
 }

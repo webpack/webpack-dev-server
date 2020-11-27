@@ -22,7 +22,7 @@ module.exports = [
       ],
     },
   }),
-  setup({
+  {
     context: __dirname,
     entry: './app.js',
     output: {
@@ -44,5 +44,5 @@ module.exports = [
     optimization: {
       minimize: true,
     },
-  }),
+  },
 ];

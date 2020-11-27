@@ -18,13 +18,13 @@ describe('WebsocketServer', () => {
     listeningApp = http.createServer(app);
     listeningApp.listen(port, 'localhost', () => {
       server = {
-        log: {
-          error: () => {},
-          debug: () => {},
+        options: {
+          client: {
+            path: '/ws-server',
+          },
         },
-        sockPath: '/ws-server',
         listeningApp,
-        heartbeatInterval: 800,
+        wsHeartbeatInterval: 800,
       };
       socketServer = new WebsocketServer(server);
       done();

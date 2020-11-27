@@ -11,7 +11,16 @@ describe('host option', () => {
 
   describe('is not be specified', () => {
     beforeAll((done) => {
-      server = testServer.start(config, { port }, done);
+      server = testServer.start(
+        config,
+        {
+          static: {
+            watch: false,
+          },
+          port,
+        },
+        done
+      );
       req = request(server.app);
     });
 
@@ -34,6 +43,9 @@ describe('host option', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           // eslint-disable-next-line no-undefined
           host: undefined,
           port,
@@ -62,6 +74,9 @@ describe('host option', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           host: null,
           port,
         },
@@ -89,6 +104,9 @@ describe('host option', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           host: '127.0.0.1',
           port,
         },
@@ -116,6 +134,9 @@ describe('host option', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           host: 'localhost',
           port,
         },
@@ -143,6 +164,9 @@ describe('host option', () => {
       server = testServer.start(
         config,
         {
+          static: {
+            watch: false,
+          },
           host: '0.0.0.0',
           port,
         },

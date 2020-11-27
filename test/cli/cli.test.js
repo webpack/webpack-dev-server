@@ -1,53 +1,98 @@
 'use strict';
 
-const { unlink } = require('fs');
 const { join, resolve } = require('path');
 const execa = require('execa');
 const testBin = require('../helpers/test-bin');
-const port1 = require('../ports-map').cli[0];
+const isWebpack5 = require('../helpers/isWebpack5');
 
-const httpsCertificateDirectory = resolve(
-  __dirname,
-  '../fixtures/https-certificate'
-);
-const caPath = resolve(httpsCertificateDirectory, 'ca.pem');
-const pfxPath = resolve(httpsCertificateDirectory, 'server.pfx');
-const keyPath = resolve(httpsCertificateDirectory, 'server.key');
-const certPath = resolve(httpsCertificateDirectory, 'server.crt');
+// skip if webpack-dev-server is not linked
+let runCLITest = describe;
+let basePath;
+try {
+  basePath = join(require.resolve('webpack-dev-server'), '..', '..').replace(
+    /\\/g,
+    '/'
+  );
+} catch {
+  runCLITest = describe.skip;
+}
 
-describe('CLI', () => {
-  it('--progress', (done) => {
-    testBin('--progress')
+runCLITest('CLI', () => {
+  /* Based on webpack/test/StatsTestCases.test.js */
+  /**
+   * Escapes regular expression metacharacters
+   * @param {string} str String to quote
+   * @returns {string} Escaped string
+   */
+  const quotemeta = (str) => {
+    return str.replace(/[-[\]\\/{}()*+?.^$|]/g, '\\$&');
+  };
+
+  const normalizeOutput = (output) =>
+    output
+      // eslint-disable-next-line no-control-regex
+      .replace(/\u001b\[[0-9;]*m/g, '')
+      .replace(/[.0-9]+(\s?)(ms|KiB|bytes)/g, 'X$1$2')
+      .replace(
+        /(Built at:) (.*)$/gm,
+        '$1 Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT'
+      )
+      .replace(/webpack [^ )]+/g, 'webpack x.x.x')
+      .replace(new RegExp(quotemeta(basePath), 'g'), 'Xdir')
+      .replace(/(Hash:) [a-z0-9]+/g, '$1 X')
+      .replace(/ dependencies:Xms/g, '')
+      .replace(/, additional resolving: X ms/g, '');
+
+  const webpack4Test = isWebpack5 ? it.skip : it;
+  const webpack5Test = isWebpack5 ? it : it.skip;
+
+  webpack4Test('--hot webpack 4', (done) => {
+    testBin('--hot')
       .then((output) => {
-        expect(output.code).toEqual(0);
-        expect(output.stderr).toContain('100%');
-        // should not profile
-        expect(output.stderr).not.toContain(
-          'ms after chunk modules optimization'
-        );
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
         done();
       })
       .catch(done);
   });
 
-  it('--quiet', async (done) => {
-    const output = await testBin(`--quiet --colors=false --port ${port1}`);
-    expect(output.code).toEqual(0);
-    expect(output.stdout.split('\n').length === 3).toBe(true);
-    expect(output.stdout).toContain(
-      `Project is running at http://localhost:${port1}/`
-    );
-    expect(output.stdout).toContain('webpack output is served from /');
-    expect(output.stdout).toContain('Content not from webpack is served from');
-    done();
+  webpack4Test('--no-hot webpack 4', (done) => {
+    testBin('--no-hot')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
+        done();
+      })
+      .catch(done);
   });
 
-  it('--progress --profile', (done) => {
-    testBin('--progress --profile')
+  webpack5Test('--hot webpack 5', (done) => {
+    testBin('--hot')
       .then((output) => {
-        expect(output.code).toEqual(0);
-        // should profile
-        expect(output.stderr).toContain('after chunk modules optimization');
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
+        done();
+      })
+      .catch(done);
+  });
+
+  webpack5Test('--no-hot webpack 5', (done) => {
+    testBin('--no-hot')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
+        done();
+      })
+      .catch(done);
+  });
+
+  // TODO: do not skip after the major version is bumped
+  // https://github.com/webpack/webpack-cli/commit/7c5a2bae49625ee4982d7478b7e741968731cea2
+  it.skip('--hot-only', (done) => {
+    testBin('--hot-only')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).toContain('/hot/only-dev-server');
         done();
       })
       .catch(done);
@@ -56,8 +101,8 @@ describe('CLI', () => {
   it('--bonjour', (done) => {
     testBin('--bonjour')
       .then((output) => {
-        expect(output.code).toEqual(0);
-        expect(output.stdout).toContain('Bonjour');
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).toContain('Bonjour');
         done();
       })
       .catch(done);
@@ -66,31 +111,8 @@ describe('CLI', () => {
   it('--https', (done) => {
     testBin('--https')
       .then((output) => {
-        expect(output.code).toEqual(0);
-        expect(output.stdout).toContain('Project is running at');
-        done();
-      })
-      .catch(done);
-  });
-
-  it('--https --cacert --pfx --key --cert --pfx-passphrase', (done) => {
-    testBin(
-      `--https --cacert ${caPath} --pfx ${pfxPath} --key ${keyPath} --cert ${certPath} --pfx-passphrase webpack-dev-server`
-    )
-      .then((output) => {
-        expect(output.code).toEqual(0);
-        expect(output.stdout).toContain('Project is running at');
-        done();
-      })
-      .catch(done);
-  });
-
-  it('--sockPath', (done) => {
-    testBin('--sockPath /mysockPath')
-      .then((output) => {
-        expect(
-          /http:\/\/localhost:[0-9]+&sockPath=\/mysockPath/.test(output.stdout)
-        ).toEqual(true);
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).toContain('Project is running at');
         done();
       })
       .catch(done);
@@ -99,41 +121,10 @@ describe('CLI', () => {
   it('unspecified port', (done) => {
     testBin('')
       .then((output) => {
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stdout)).toEqual(true);
-        done();
-      })
-      .catch(done);
-  });
-
-  it('--color', (done) => {
-    testBin('--color')
-      .then((output) => {
-        // https://github.com/webpack/webpack-dev-server/blob/master/lib/utils/colors.js
-        expect(output.stdout).toContain(
-          '\u001b[39m \u001b[90m｢wds｣\u001b[39m:'
+        expect(/http:\/\/127\.0\.0\.1:[0-9]+/.test(output.stderr)).toEqual(
+          true
         );
         done();
-      })
-      .catch(done);
-  });
-
-  // The Unix socket to listen to (instead of a host).
-  it('--socket', (done) => {
-    const socketPath = join('.', 'webpack.sock');
-
-    testBin(`--socket ${socketPath}`)
-      .then((output) => {
-        expect(output.code).toEqual(0);
-
-        if (process.platform === 'win32') {
-          done();
-        } else {
-          expect(output.stdout).toContain(socketPath);
-
-          unlink(socketPath, () => {
-            done();
-          });
-        }
       })
       .catch(done);
   });
@@ -144,12 +135,12 @@ describe('CLI', () => {
       resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
     )
       .then((output) => {
-        expect(output.code).toEqual(0);
+        expect(output.exitCode).toEqual(0);
         done();
       })
       .catch((err) => {
         // for windows
-        expect(err.stdout).toContain('Compiled successfully.');
+        expect(err.stderr).toContain('Compiled successfully.');
         done();
       });
   });
@@ -159,7 +150,7 @@ describe('CLI', () => {
     const examplePath = resolve(__dirname, '../../examples/cli/public');
     const cp = execa('node', [cliPath], { cwd: examplePath });
 
-    cp.stdout.on('data', (data) => {
+    cp.stderr.on('data', (data) => {
       const bits = data.toString();
 
       if (/Compiled successfully/.test(bits)) {
@@ -176,12 +167,12 @@ describe('CLI', () => {
 
   it('should exit the process when SIGINT is detected, even before the compilation is done', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const simpleConfig = resolve(__dirname, '../fixtures/simple-config');
-    const cp = execa('node', [cliPath], { cwd: simpleConfig });
+    const cwd = resolve(__dirname, '../fixtures/cli');
+    const cp = execa('node', [cliPath], { cwd });
 
     let killed = false;
 
-    cp.stdout.on('data', () => {
+    cp.stderr.on('data', () => {
       if (!killed) {
         expect(cp.pid !== 0).toBe(true);
 
@@ -196,16 +187,58 @@ describe('CLI', () => {
     });
   });
 
-  it('should use different random port when multiple instances are started on different processes', (done) => {
+  it('should exit the process when stdin ends if --stdin', (done) => {
     const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const simpleConfig = resolve(__dirname, '../fixtures/simple-config');
+    const examplePath = resolve(__dirname, '../../examples/cli/public');
+    const cp = execa('node', [cliPath, '--stdin'], { cwd: examplePath });
 
-    const cp = execa('node', [cliPath, '--colors=false'], {
-      cwd: simpleConfig,
+    cp.stderr.on('data', (data) => {
+      const bits = data.toString();
+
+      if (/Compiled successfully/.test(bits)) {
+        expect(cp.pid !== 0).toBe(true);
+
+        cp.stdin.write('hello');
+        cp.stdin.end('world');
+      }
     });
-    const cp2 = execa('node', [cliPath, '--colors=false'], {
-      cwd: simpleConfig,
+
+    cp.on('exit', () => {
+      done();
     });
+  });
+
+  it('should exit the process when stdin ends if --stdin, even before the compilation is done', (done) => {
+    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const cwd = resolve(__dirname, '../fixtures/cli');
+    const cp = execa('node', [cliPath, '--stdin'], { cwd });
+
+    let killed = false;
+
+    cp.stderr.on('data', () => {
+      if (!killed) {
+        expect(cp.pid !== 0).toBe(true);
+
+        cp.stdin.write('hello');
+        cp.stdin.end('world');
+      }
+
+      killed = true;
+    });
+
+    cp.on('exit', () => {
+      done();
+    });
+  });
+
+  // TODO: do not skip after @webpack-cli/serve passes null port by default
+  // https://github.com/webpack/webpack-cli/pull/2126
+  it.skip('should use different random port when multiple instances are started on different processes', (done) => {
+    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const cwd = resolve(__dirname, '../fixtures/cli');
+
+    const cp = execa('node', [cliPath, '--colors=false'], { cwd });
+    const cp2 = execa('node', [cliPath, '--colors=false'], { cwd });
 
     const runtime = {
       cp: {
@@ -218,7 +251,7 @@ describe('CLI', () => {
       },
     };
 
-    cp.stdout.on('data', (data) => {
+    cp.stderr.on('data', (data) => {
       const bits = data.toString();
       const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
         bits
@@ -234,7 +267,7 @@ describe('CLI', () => {
       }
     });
 
-    cp2.stdout.on('data', (data) => {
+    cp2.stderr.on('data', (data) => {
       const bits = data.toString();
       const portMatch = /Project is running at http:\/\/localhost:(\d*)\//.exec(
         bits

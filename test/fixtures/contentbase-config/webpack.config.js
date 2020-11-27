@@ -7,4 +7,7 @@ module.exports = {
   output: {
     publicPath: '/',
   },
+  infrastructureLogging: {
+    level: 'warn',
+  },
 };

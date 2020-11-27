@@ -9,26 +9,21 @@ jest.mock('os', () => {
 });
 
 describe('runBonjour', () => {
-  let mock;
-  let publish = jest.fn();
-  let unpublishAll = jest.fn();
+  const mockPublish = jest.fn();
+  const mockUnpublishAll = jest.fn();
 
   beforeAll(() => {
-    mock = jest.mock('bonjour', () => () => {
+    jest.mock('bonjour', () => () => {
       return {
-        publish,
-        unpublishAll,
+        publish: mockPublish,
+        unpublishAll: mockUnpublishAll,
       };
     });
   });
 
   afterEach(() => {
-    publish = jest.fn();
-    unpublishAll = jest.fn();
-  });
-
-  afterAll(() => {
-    mock.mockRestore();
+    mockPublish.mockClear();
+    mockUnpublishAll.mockClear();
   });
 
   it('should call bonjour.publish', () => {
@@ -36,7 +31,7 @@ describe('runBonjour', () => {
       port: 1111,
     });
 
-    expect(publish.mock.calls[0][0]).toMatchSnapshot();
+    expect(mockPublish.mock.calls[0][0]).toMatchSnapshot();
   });
 
   it('should call bonjour.publish with different name for different ports', () => {
@@ -47,7 +42,7 @@ describe('runBonjour', () => {
       port: 2222,
     });
 
-    const calls = publish.mock.calls;
+    const calls = mockPublish.mock.calls;
 
     expect(calls[0][0].name).not.toEqual(calls[1][0].name);
   });

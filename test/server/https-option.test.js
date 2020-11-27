@@ -26,7 +26,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: true,
           port,
         },
@@ -39,9 +42,7 @@ describe('https option', () => {
       req.get('/').expect(200, /Heyo/, done);
     });
 
-    afterAll(() => {
-      testServer.close();
-    });
+    afterAll(testServer.close);
   });
 
   describe('as an object when ca, pfx, key and cert are buffer', () => {
@@ -49,7 +50,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: {
             ca: fs.readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
             pfx: fs.readFileSync(
@@ -80,7 +84,7 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: contentBasePublic,
           https: {
             ca: path.join(httpsCertificateDirectory, 'ca.pem'),
             pfx: path.join(httpsCertificateDirectory, 'server.pfx'),
@@ -109,7 +113,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: {
             ca: path.join(httpsCertificateDirectory, 'ca-symlink.pem'),
             pfx: path.join(httpsCertificateDirectory, 'server-symlink.pfx'),
@@ -136,7 +143,10 @@ describe('https option', () => {
       server = testServer.start(
         config,
         {
-          contentBase: contentBasePublic,
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
           https: {
             ca: fs
               .readFileSync(path.join(httpsCertificateDirectory, 'ca.pem'))
@@ -151,6 +161,41 @@ describe('https option', () => {
             cert: fs
               .readFileSync(path.join(httpsCertificateDirectory, 'server.crt'))
               .toString(),
+            passphrase: 'webpack-dev-server',
+          },
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    it('Request to index', (done) => {
+      req.get('/').expect(200, /Heyo/, done);
+    });
+  });
+
+  describe('should support the "requestCert" option', () => {
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          static: {
+            directory: contentBasePublic,
+            watch: false,
+          },
+          https: {
+            requestCert: true,
+            ca: fs.readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
+            pfx: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'server.pfx')
+            ),
+            key: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'server.key')
+            ),
+            cert: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'server.crt')
+            ),
             passphrase: 'webpack-dev-server',
           },
           port,

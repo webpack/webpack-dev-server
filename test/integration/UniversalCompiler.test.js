@@ -10,7 +10,7 @@ describe('universal compiler', () => {
   let req;
 
   beforeAll((done) => {
-    server = testServer.start(config, { inline: true, port }, done);
+    server = testServer.start(config, { port }, done);
     req = request(server.app);
   });
 
@@ -19,14 +19,14 @@ describe('universal compiler', () => {
   it('client bundle should have the inlined the client runtime', (done) => {
     req
       .get('/client.js')
-      .expect('Content-Type', 'application/javascript; charset=UTF-8')
+      .expect('Content-Type', 'application/javascript; charset=utf-8')
       .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
         expect(res.text).toContain('Hello from the client');
-        expect(res.text).toContain('sockjs-client');
+        expect(res.text).toContain('WebsocketClient');
         done();
       });
   });
@@ -36,14 +36,14 @@ describe('universal compiler', () => {
     // but we'll do it here to check the contents
     req
       .get('/server.js')
-      .expect('Content-Type', 'application/javascript; charset=UTF-8')
+      .expect('Content-Type', 'application/javascript; charset=utf-8')
       .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
         expect(res.text).toContain('Hello from the server');
-        expect(res.text).not.toContain('sockjs-client');
+        expect(res.text).not.toContain('WebsocketClient');
         done();
       });
   });

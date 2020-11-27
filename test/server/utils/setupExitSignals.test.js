@@ -5,10 +5,14 @@ const setupExitSignals = require('../../../lib/utils/setupExitSignals');
 describe('setupExitSignals', () => {
   let server;
   let exitSpy;
+  let stdinResumeSpy;
   const signals = ['SIGINT', 'SIGTERM'];
 
   beforeAll(() => {
     exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    stdinResumeSpy = jest
+      .spyOn(process.stdin, 'resume')
+      .mockImplementation(() => {});
     server = {
       close: jest.fn((callback) => {
         callback();
@@ -22,46 +26,59 @@ describe('setupExitSignals', () => {
     signals.forEach((signal) => {
       process.removeAllListeners(signal);
     });
+    process.stdin.removeAllListeners('end');
   });
 
   signals.forEach((signal) => {
-    it(`should exit process (${signal}, serverData never defined`, (done) => {
-      // eslint-disable-next-line no-undefined
-      setupExitSignals(undefined);
+    it(`should close server, then exit process (${signal})`, (done) => {
+      const serverSetupExitSignals = Object.assign(
+        {
+          options: {
+            setupExitSignals: true,
+          },
+        },
+        server
+      );
+      setupExitSignals(serverSetupExitSignals);
       process.emit(signal);
-      setTimeout(() => {
-        expect(exitSpy.mock.calls.length).toEqual(1);
-        done();
-      }, 1000);
-    });
-
-    it(`should exit process (${signal}, server never defined)`, (done) => {
-      setupExitSignals({
-        server: null,
-      });
-      process.emit(signal);
-      setTimeout(() => {
-        expect(exitSpy.mock.calls.length).toEqual(1);
-        done();
-      }, 1000);
-    });
-
-    it(`should close server, then exit process (${signal}, server defined before signal)`, (done) => {
-      const serverData = {
-        server: null,
-      };
-      setupExitSignals(serverData);
-
-      setTimeout(() => {
-        serverData.server = server;
-        process.emit(signal);
-      }, 500);
 
       setTimeout(() => {
         expect(server.close.mock.calls.length).toEqual(1);
         expect(exitSpy.mock.calls.length).toEqual(1);
         done();
-      }, 1500);
+      }, 1000);
     });
+  });
+
+  it(`should resume stdin if stdin: true`, () => {
+    const serverStdin = Object.assign(
+      {
+        options: {
+          stdin: true,
+        },
+      },
+      server
+    );
+    setupExitSignals(serverStdin);
+    expect(stdinResumeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it(`should close server, then exit process (stdin end)`, (done) => {
+    const serverStdin = Object.assign(
+      {
+        options: {
+          stdin: true,
+        },
+      },
+      server
+    );
+    setupExitSignals(serverStdin);
+    process.stdin.emit('end');
+
+    setTimeout(() => {
+      expect(server.close.mock.calls.length).toEqual(1);
+      expect(exitSpy.mock.calls.length).toEqual(1);
+      done();
+    }, 1000);
   });
 });

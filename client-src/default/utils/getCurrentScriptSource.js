@@ -14,7 +14,7 @@ function getCurrentScriptSource() {
     return currentScript.getAttribute('src');
   }
   // Fail as there was no script to use.
-  throw new Error('[WDS] Failed to get current script source.');
+  throw new Error('[webpack-dev-server] Failed to get current script source.');
 }
 
 module.exports = getCurrentScriptSource;

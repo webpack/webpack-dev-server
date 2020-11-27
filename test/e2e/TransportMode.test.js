@@ -14,18 +14,21 @@ describe('transportMode client', () => {
     {
       title: 'sockjs',
       options: {
+        hot: false,
         transportMode: 'sockjs',
       },
     },
     {
       title: 'ws',
       options: {
+        hot: false,
         transportMode: 'ws',
       },
     },
     {
       title: 'custom client',
       options: {
+        hot: false,
         transportMode: {
           server: 'sockjs',
           client: require.resolve(
@@ -44,7 +47,6 @@ describe('transportMode client', () => {
           {
             port,
             host: '0.0.0.0',
-            inline: true,
           },
           mode.options
         );
@@ -60,17 +62,19 @@ describe('transportMode client', () => {
               res.push(_text);
             });
 
-            page.waitFor(initConsoleDelay).then(() => {
+            page.waitForTimeout(initConsoleDelay).then(() => {
               testServer.close(() => {
                 // make sure the client gets the close message
-                page.waitFor(awaitServerCloseDelay).then(() => {
+                page.waitForTimeout(awaitServerCloseDelay).then(() => {
                   browser.close().then(() => {
                     for (let i = res.length - 1; i >= 0; i--) {
-                      if (res[i] === '[WDS] Disconnected!') {
+                      if (res[i] === '[webpack-dev-server] Disconnected!') {
                         break;
                       } else if (
                         res[i] === 'close' ||
-                        res[i].includes('net::ERR_CONNECTION_REFUSED')
+                        res[i].includes('net::ERR_CONNECTION_REFUSED') ||
+                        // this indicates a WebSocket Error object that was logged
+                        res[i].includes('JSHandle@object')
                       ) {
                         // remove additional logging for the now failing connection,
                         // since this could be a variable number of error messages

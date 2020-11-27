@@ -36,15 +36,18 @@ describe('client progress', () => {
       const options = {
         port,
         host: '0.0.0.0',
-        inline: true,
         hot: true,
-        progress: true,
-        watchOptions: {
-          poll: true,
+        client: {
+          progress: true,
         },
       };
 
-      testServer.startAwaitingCompilation(reloadConfig, options, done);
+      // we need a delay between file writing and the start
+      // of the compilation due to a bug in webpack@4, as not doing
+      // so results in the done hook being called repeatedly
+      setTimeout(() => {
+        testServer.startAwaitingCompilation(reloadConfig, options, done);
+      }, 2000);
     });
 
     afterAll((done) => {
@@ -58,15 +61,15 @@ describe('client progress', () => {
         runBrowser().then(({ page, browser }) => {
           const res = [];
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-            page.waitFor(reloadReadyDelay).then(() => {
+            page.waitForTimeout(reloadReadyDelay).then(() => {
               fs.writeFileSync(
                 cssFilePath,
                 'body { background-color: rgb(255, 0, 0); }'
               );
-              page.waitFor(completeReloadDelay).then(() => {
+              page.waitForTimeout(completeReloadDelay).then(() => {
                 browser.close().then(() => {
                   // check that there is some percentage progress output
-                  const regExp = /^\[WDS\] [0-9]{1,3}% - /;
+                  const regExp = /^\[webpack-dev-server\] [0-9]{1,3}% - /;
                   const match = res.find((line) => {
                     return regExp.test(line);
                   });

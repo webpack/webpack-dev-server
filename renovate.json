@@ -1,6 +1,6 @@
 {
   "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
-  "baseBranches": ["master", "next"],
+  "baseBranches": ["master"],
   "labels": ["renovate"],
   "minor": {
     "groupName": "all minor dependencies"
@@ -14,12 +14,7 @@
     {
       "depTypeList": ["peerDependencies"],
       "enabled": false
-    },
-    {
-      "baseBranchList": ["next"],
-      "updateTypes": ["digest", "pin", "patch", "minor"],
-      "enabled": false
     }
   ],
-  "ignoreDeps": ["http-proxy-middleware"]
+  "ignoreDeps": []
 }

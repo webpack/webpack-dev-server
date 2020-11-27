@@ -2,22 +2,22 @@
 
 /* global WebSocket */
 
-/* eslint-disable
-  no-unused-vars
-*/
+const { log } = require('../default/utils/log');
 const BaseClient = require('./BaseClient');
 
-module.exports = class WebsocketClient extends BaseClient {
+module.exports = class WebsocketClient extends (
+  BaseClient
+) {
   constructor(url) {
     super();
     this.client = new WebSocket(url.replace(/^http/, 'ws'));
 
     this.client.onerror = (err) => {
-      // TODO: use logger to log the error event once client and client-src
-      // are reorganized to have the same directory structure
+      log.error(err);
     };
   }
 
+  // eslint-disable-next-line no-unused-vars
   static getClientPath(options) {
     return require.resolve('./WebsocketClient');
   }

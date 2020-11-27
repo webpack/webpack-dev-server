@@ -29,9 +29,11 @@ Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/m
 
 2. Run `npm install` in the root `webpack-dev-server` folder.
 
+3. Run `npm link && npm link webpack-dev-server` to link the current project to `node_modules`.
+
 Once it is done, you can modify any file locally. In the `examples/` directory you'll find a lot of examples with instructions on how to run it. This can be very handy when testing if your code works.
 
-If you are modifying a file in the `client/` directory, be sure to run `npm run prepublish` after it. This will recompile the files.
+If you are modifying a file in the `client/` directory, be sure to run `npm run build:client` after it. This will recompile the files.
 
 ## Testing a Pull Request
 
@@ -64,4 +66,4 @@ Run `git config user.email` to see your Git email, and verify it with [your GitH
 
 ---
 
-_Many thanks to [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_
+_Many thanks to [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_

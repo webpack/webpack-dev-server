@@ -6,7 +6,6 @@
 
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
-[![deps][deps]][deps-url]
 [![tests][tests]][tests-url]
 [![coverage][cover]][cover-url]
 [![chat][chat]][chat-url]
@@ -52,14 +51,14 @@ There are two main, recommended methods of using the module:
 
 ### With the CLI
 
-The easiest way to use it is with the CLI. In the directory where your
+The easiest way to use it is with the [webpack CLI](https://webpack.js.org/api/cli/). In the directory where your
 `webpack.config.js` is, run:
 
 ```console
-node_modules/.bin/webpack-dev-server
+node_modules/.bin/webpack serve
 ```
 
-_**Note**: Many CLI options are available with `webpack-dev-server`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
+_**Note**: Many CLI options are available with `webpack serve`. Explore this [link](https://webpack.js.org/configuration/dev-server/)._
 
 ### With NPM Scripts
 
@@ -69,7 +68,7 @@ script as such:
 
 ```json
 "scripts": {
-  "start:dev": "webpack-dev-server"
+  "start:dev": "webpack serve"
 }
 ```
 
@@ -144,10 +143,8 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 [npm-url]: https://npmjs.com/package/webpack-dev-server
 [node]: https://img.shields.io/node/v/webpack-dev-server.svg
 [node-url]: https://nodejs.org
-[deps]: https://david-dm.org/webpack/webpack-dev-server.svg
-[deps-url]: https://david-dm.org/webpack/webpack-dev-server
-[tests]: https://dev.azure.com/webpack/webpack-dev-server/_apis/build/status/webpack.webpack-dev-server?branchName=master
-[tests-url]: https://dev.azure.com/webpack/webpack-dev-server/_build/latest?definitionId=7&branchName=master
+[tests]: https://github.com/webpack/webpack-dev-server/workflows/webpack-dev-server/badge.svg
+[tests-url]: https://github.com/webpack/webpack-dev-server/actions?query=workflow%3Awebpack-dev-server
 [cover]: https://codecov.io/gh/webpack/webpack-dev-server/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack/webpack-dev-server
 [chat]: https://badges.gitter.im/webpack/webpack.svg

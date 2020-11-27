@@ -1,9 +1,9 @@
 'use strict';
 
-jest.mock('opn');
+jest.mock('open');
 
 const webpack = require('webpack');
-const open = require('opn');
+const open = require('open');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['open-option'];
@@ -20,14 +20,14 @@ describe('open option', () => {
     const server = new Server(compiler, {
       open: true,
       port,
-      quiet: true,
+      static: false,
     });
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://localhost:8120/",
+            "http://127.0.0.1:8117/",
             Object {
               "wait": false,
             },
