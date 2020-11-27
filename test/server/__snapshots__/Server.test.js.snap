@@ -6,7 +6,7 @@ Array [
     "client",
     "default",
     "index.js?http:",
-    "localhost",
+    "0.0.0.0",
   ],
   Array [
     "node_modules",
@@ -26,7 +26,7 @@ Array [
     "client",
     "default",
     "index.js?http:",
-    "localhost",
+    "0.0.0.0",
   ],
   Array [
     "node_modules",
