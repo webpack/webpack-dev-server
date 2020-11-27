@@ -43,6 +43,7 @@ describe('createSocketUrl', () => {
     ['http://127.0.0.1', 'https://something.com', 'http://127.0.0.1/ws'],
     ['http://0.0.0.0', 'https://something.com', 'https://something.com/ws'],
     ['http://0.0.0.0', 'http://something.com', 'http://something.com/ws'],
+    ['http://[::]', 'https://something.com', 'https://something.com/ws'],
     ['http://example.com', 'http://something.com', 'http://example.com/ws'],
     ['https://example.com', 'http://something.com', 'https://example.com/ws'],
   ];
@@ -69,6 +70,7 @@ describe('createSocketUrl', () => {
     ['?http://127.0.0.1', 'https://something.com', 'http://127.0.0.1/ws'],
     ['?http://0.0.0.0', 'https://something.com', 'https://something.com/ws'],
     ['?http://0.0.0.0', 'http://something.com', 'http://something.com/ws'],
+    ['?http://[::]', 'https://something.com', 'https://something.com/ws'],
     ['?http://example.com', 'http://something.com', 'http://example.com/ws'],
     ['?https://example.com', 'http://something.com', 'https://example.com/ws'],
     [
