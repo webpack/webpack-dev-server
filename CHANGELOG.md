@@ -96,11 +96,9 @@ Previously `disableHostCheck` and `allowedHosts`
 module.exports = {
   // ...
   devServer: {
-    dev: {
-      // Can be
-      // firewall: ['192.168.0.1', 'domain.com']
-      firewall: false,
-    },
+    // Can be
+    // firewall: ['192.168.0.1', 'domain.com']
+    firewall: false,
   },
 };
 ```
