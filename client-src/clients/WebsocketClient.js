@@ -1,13 +1,9 @@
 'use strict';
 
-/* global WebSocket */
-
 const { log } = require('../default/utils/log');
 const BaseClient = require('./BaseClient');
 
-module.exports = class WebsocketClient extends (
-  BaseClient
-) {
+module.exports = class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
     this.client = new WebSocket(url.replace(/^http/, 'ws'));
