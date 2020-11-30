@@ -25,7 +25,7 @@ describe('port', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       // Random port
@@ -56,7 +56,7 @@ describe('port', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       // Random port
@@ -86,7 +86,7 @@ describe('port', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       // Random port
@@ -116,7 +116,7 @@ describe('port', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       expect(address.port).toBe(33333);
@@ -145,7 +145,7 @@ describe('port', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       expect(address.port).toBe(33333);

@@ -7,26 +7,24 @@ const WebsocketServer = require('../../../lib/servers/WebsocketServer');
 const port = require('../../ports-map').WebsocketServer;
 
 describe('WebsocketServer', () => {
-  let server;
   let socketServer;
-  let listeningApp;
+  let server;
 
   beforeEach((done) => {
     // eslint-disable-next-line new-cap
     const app = new express();
 
-    listeningApp = http.createServer(app);
-    listeningApp.listen(port, 'localhost', () => {
-      server = {
+    server = http.createServer(app);
+    server.listen(port, 'localhost', () => {
+      socketServer = new WebsocketServer({
         options: {
           client: {
             path: '/ws-server',
           },
         },
-        listeningApp,
+        server,
         wsHeartbeatInterval: 800,
-      };
-      socketServer = new WebsocketServer(server);
+      });
       done();
     });
   });
@@ -112,6 +110,6 @@ describe('WebsocketServer', () => {
   });
 
   afterEach((done) => {
-    listeningApp.close(done);
+    server.close(done);
   });
 });

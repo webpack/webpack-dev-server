@@ -25,7 +25,7 @@ describe('setupExitSignals option', () => {
     stdinResumeSpy = jest
       .spyOn(process.stdin, 'resume')
       .mockImplementation(() => {});
-    killSpy = jest.spyOn(server.listeningApp, 'kill');
+    killSpy = jest.spyOn(server.server, 'kill');
   });
 
   afterEach((done) => {

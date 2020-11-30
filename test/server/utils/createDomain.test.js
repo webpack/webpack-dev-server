@@ -116,7 +116,7 @@ describe('createDomain', () => {
           done(err);
         }
 
-        const domain = createDomain(options, server.listeningApp);
+        const domain = createDomain(options, server.server);
 
         if (!expected.includes(domain)) {
           done(`generated domain ${domain} doesn't match expected ${expected}`);

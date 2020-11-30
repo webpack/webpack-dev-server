@@ -15,16 +15,16 @@ describe('WebsocketClient', () => {
   const WebsocketClient = require('../../../client-src/clients/WebsocketClient');
   const { log } = require('../../../client-src/default/utils/log');
   let socketServer;
-  let listeningApp;
+  let server;
 
   beforeAll((done) => {
     // eslint-disable-next-line new-cap
     const app = new express();
 
-    listeningApp = http.createServer(app);
-    listeningApp.listen(port, 'localhost', () => {
+    server = http.createServer(app);
+    server.listen(port, 'localhost', () => {
       socketServer = new ws.Server({
-        server: listeningApp,
+        server,
         path: '/ws-server',
       });
       done();
@@ -68,7 +68,7 @@ describe('WebsocketClient', () => {
   });
 
   afterAll((done) => {
-    listeningApp.close(() => {
+    server.close(() => {
       done();
     });
   });

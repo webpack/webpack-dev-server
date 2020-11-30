@@ -8,15 +8,15 @@ const port = require('../../ports-map').SockJSServer;
 
 describe('SockJSServer', () => {
   let socketServer;
-  let listeningApp;
+  let server;
 
   beforeEach((done) => {
     // eslint-disable-next-line new-cap
     const app = new express();
 
-    listeningApp = http.createServer(app);
-    listeningApp.listen(port, 'localhost', () => {
-      const server = {
+    server = http.createServer(app);
+    server.listen(port, 'localhost', () => {
+      socketServer = new SockJSServer({
         logger: {
           error: () => {},
           log: () => {},
@@ -27,10 +27,8 @@ describe('SockJSServer', () => {
             path: '/ws',
           },
         },
-        listeningApp,
-      };
-
-      socketServer = new SockJSServer(server);
+        server,
+      });
 
       done();
     });
@@ -103,6 +101,6 @@ describe('SockJSServer', () => {
   });
 
   afterEach((done) => {
-    listeningApp.close(done);
+    server.close(done);
   });
 });

@@ -85,12 +85,11 @@ describe('Server', () => {
     });
   });
 
-  it('test listeningApp error reporting', () => {
+  it('test server error reporting', () => {
     const compiler = webpack(config);
     const server = new Server(compiler, baseDevConfig);
 
-    const emitError = () =>
-      server.listeningApp.emit('error', new Error('Error !!!'));
+    const emitError = () => server.server.emit('error', new Error('Error !!!'));
 
     expect(emitError).toThrowError();
   });
