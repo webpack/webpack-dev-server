@@ -57,7 +57,7 @@ describe('static.directory option', () => {
     it('Watches folder recursively', (done) => {
       // chokidar emitted a change,
       // meaning it watched the file correctly
-      server.contentBaseWatchers[0].on('change', () => {
+      server.staticWatchers[0].on('change', () => {
         done();
       });
 
@@ -73,7 +73,7 @@ describe('static.directory option', () => {
 
       // chokidar emitted a change,
       // meaning it watched the file correctly
-      server.contentBaseWatchers[0].on('change', () => {
+      server.staticWatchers[0].on('change', () => {
         fs.unlinkSync(filePath);
         done();
       });

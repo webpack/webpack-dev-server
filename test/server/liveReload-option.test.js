@@ -37,7 +37,7 @@ describe('liveReload option', () => {
     it('Should not reload on changing files', (done) => {
       let reloaded = false;
 
-      server.contentBaseWatchers[0].on('change', () => {
+      server.staticWatchers[0].on('change', () => {
         // it means that file has changed
 
         // simulating server behaviour
@@ -91,7 +91,7 @@ describe('liveReload option', () => {
     it('Should reload on changing files', (done) => {
       let reloaded = false;
 
-      server.contentBaseWatchers[0].on('change', () => {
+      server.staticWatchers[0].on('change', () => {
         // it means that files has changed
 
         // simulating server behaviour
