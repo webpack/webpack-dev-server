@@ -16,7 +16,7 @@ describe('SockJSClient', () => {
   const { log } = require('../../../client-src/default/utils/log');
   let consoleMock;
   let socketServer;
-  let listeningApp;
+  let server;
 
   beforeAll((done) => {
     consoleMock = jest.spyOn(console, 'log').mockImplementation();
@@ -24,10 +24,10 @@ describe('SockJSClient', () => {
     // eslint-disable-next-line new-cap
     const app = new express();
 
-    listeningApp = http.createServer(app);
-    listeningApp.listen(port, 'localhost', () => {
+    server = http.createServer(app);
+    server.listen(port, 'localhost', () => {
       socketServer = sockjs.createServer();
-      socketServer.installHandlers(listeningApp, {
+      socketServer.installHandlers(server, {
         prefix: '/ws',
       });
       done();
@@ -75,7 +75,7 @@ describe('SockJSClient', () => {
   });
 
   afterAll((done) => {
-    listeningApp.close(() => {
+    server.close(() => {
       done();
     });
   });

@@ -205,7 +205,7 @@ describe('transportMode', () => {
                       },
                     });
 
-                    this.socket.installHandlers(this.server.listeningApp, {
+                    this.socket.installHandlers(this.server.server, {
                       prefix: 'ws',
                     });
 
@@ -281,7 +281,7 @@ describe('transportMode', () => {
                       },
                     });
 
-                    this.socket.installHandlers(this.server.listeningApp, {
+                    this.socket.installHandlers(this.server.server, {
                       prefix: this.server.options.client.path,
                     });
                   }
@@ -377,7 +377,7 @@ describe('transportMode', () => {
                       },
                     });
 
-                    this.socket.installHandlers(this.server.listeningApp, {
+                    this.socket.installHandlers(this.server.server, {
                       prefix: this.server.options.client.path,
                     });
                   }

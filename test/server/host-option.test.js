@@ -25,7 +25,7 @@ describe('host option', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       expect(address.port).toBe(port);
@@ -56,7 +56,7 @@ describe('host option', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('::');
       expect(address.port).toBe(port);
@@ -86,7 +86,7 @@ describe('host option', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('::');
       expect(address.port).toBe(port);
@@ -116,7 +116,7 @@ describe('host option', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       expect(address.port).toBe(port);
@@ -146,7 +146,7 @@ describe('host option', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('127.0.0.1');
       expect(address.port).toBe(port);
@@ -176,7 +176,7 @@ describe('host option', () => {
     });
 
     it('server address', () => {
-      const address = server.listeningApp.address();
+      const address = server.server.address();
 
       expect(address.address).toBe('0.0.0.0');
       expect(address.port).toBe(port);
