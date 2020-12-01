@@ -18,11 +18,6 @@ exports[`Validation validation should fail validation for invalid \`injectHot\` 
     * configuration.injectHot should be an instance of function."
 `;
 
-exports[`Validation validation should fail validation for invalid \`overlay\` configuration 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.overlay.errors should be a boolean."
-`;
-
 exports[`Validation validation should fail validation for invalid \`static\` configuration 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
@@ -39,5 +34,5 @@ exports[`Validation validation should fail validation for invalid \`static\` con
 exports[`Validation validation should fail validation for no additional properties 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration has an unknown property 'additional'. These properties are valid:
-   object { bonjour?, client?, compress?, dev?, firewall?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, overlay?, port?, proxy?, public?, setupExitSignals?, static?, stdin?, transportMode?, useLocalIp? }"
+   object { bonjour?, client?, compress?, dev?, firewall?, headers?, historyApiFallback?, host?, hot?, http2?, https?, injectClient?, injectHot?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, port?, proxy?, public?, setupExitSignals?, static?, stdin?, transportMode?, useLocalIp? }"
 `;

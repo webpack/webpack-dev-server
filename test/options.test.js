@@ -207,6 +207,37 @@ describe('options', () => {
               progress: false,
             },
           },
+          {
+            client: {
+              overlay: true,
+            },
+          },
+          {
+            client: {
+              overlay: {},
+            },
+          },
+          {
+            client: {
+              overlay: {
+                error: true,
+              },
+            },
+          },
+          {
+            client: {
+              overlay: {
+                warnings: true,
+              },
+            },
+          },
+          {
+            client: {
+              overlay: {
+                arbitrary: '',
+              },
+            },
+          },
         ],
         failure: [
           'whoops!',
@@ -235,6 +266,25 @@ describe('options', () => {
           {
             client: {
               progress: '',
+            },
+          },
+          {
+            client: {
+              overlay: '',
+            },
+          },
+          {
+            client: {
+              overlay: {
+                errors: '',
+              },
+            },
+          },
+          {
+            client: {
+              overlay: {
+                warnings: '',
+              },
             },
           },
         ],
@@ -326,40 +376,6 @@ describe('options', () => {
       openPage: {
         success: [''],
         failure: [false],
-      },
-      overlay: {
-        success: [
-          true,
-          {},
-          {
-            overlay: {
-              errors: true,
-            },
-          },
-          {
-            overlay: {
-              warnings: true,
-            },
-          },
-          {
-            overlay: {
-              arbitrary: '',
-            },
-          },
-        ],
-        failure: [
-          '',
-          {
-            overlay: {
-              errors: '',
-            },
-          },
-          {
-            overlay: {
-              warnings: '',
-            },
-          },
-        ],
       },
       port: {
         success: ['', 0, null],
