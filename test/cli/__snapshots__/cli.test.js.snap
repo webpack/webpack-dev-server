@@ -28,7 +28,7 @@ exports[`CLI --hot webpack 4 1`] = `
 `;
 
 exports[`CLI --hot webpack 5 1`] = `
-"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
+"<i> [webpack-dev-server] Project is running at http://localhost:8080/
 <i> [webpack-dev-middleware] asset main.js X KiB [emitted] (name: main)
 <i> runtime modules X KiB 10 modules
 <i> cacheable modules X KiB
@@ -73,7 +73,7 @@ exports[`CLI --no-hot webpack 4 1`] = `
 `;
 
 exports[`CLI --no-hot webpack 5 1`] = `
-"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
+"<i> [webpack-dev-server] Project is running at http://localhost:8080/
 <i> [webpack-dev-middleware] asset main.js X KiB [emitted] (name: main)
 <i> runtime modules X bytes 3 modules
 <i> cacheable modules X KiB

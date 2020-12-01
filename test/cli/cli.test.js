@@ -2,6 +2,7 @@
 
 const { join, resolve } = require('path');
 const execa = require('execa');
+const internalIp = require('internal-ip');
 const testBin = require('../helpers/test-bin');
 const isWebpack5 = require('../helpers/isWebpack5');
 
@@ -118,12 +119,56 @@ runCLITest('CLI', () => {
       .catch(done);
   });
 
-  it('unspecified port', (done) => {
+  it('unspecified host and port', (done) => {
     testBin('')
       .then((output) => {
-        expect(/http:\/\/127\.0\.0\.1:[0-9]+/.test(output.stderr)).toEqual(
-          true
-        );
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host 0.0.0.0 (IPv4)', (done) => {
+    testBin('--host 0.0.0.0')
+      .then((output) => {
+        const localIP = internalIp.v4.sync();
+
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        expect(
+          new RegExp(`http://${localIP}:[0-9]+/`).test(output.stderr)
+        ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host :: (IPv6)', (done) => {
+    testBin('--host ::')
+      .then((output) => {
+        const localIP = internalIp.v4.sync();
+
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        expect(
+          new RegExp(`http://${localIP}:[0-9]+/`).test(output.stderr)
+        ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host localhost', (done) => {
+    testBin('--host localhost')
+      .then((output) => {
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--port', (done) => {
+    testBin('--port 9999')
+      .then((output) => {
+        expect(/http:\/\/localhost:9999/.test(output.stderr)).toEqual(true);
         done();
       })
       .catch(done);
