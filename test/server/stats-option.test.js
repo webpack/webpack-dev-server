@@ -73,4 +73,45 @@ describe('stats option', () => {
     compiler.run(() => {});
     server.listen(port, 'localhost');
   });
+
+  it('should allow publicPath of an empty string', (done) => {
+    // const c = jest.spyOn(console, 'info');
+    const compiler = webpack({
+      ...config,
+      ...{
+        infrastructureLogging: {
+          level: 'info',
+          debug: /webpack-dev-server/,
+        },
+        stats: {
+          logging: true,
+        },
+      },
+    });
+    const server = new Server(compiler, {
+      static: {
+        publicPath: '',
+      },
+      port,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', (s) => {
+      const logger = s.compilation.getLogger('webpack-dev-server');
+      const output = server.getStats(s);
+
+      // Webpack@4
+      // if (typeof output.warnings[0] === 'string') {
+      //   expect(output.warnings[0]).toBe('another warning');
+      // }
+      // // Webpack@5
+      // else {
+      //   expect(output.warnings[0]).toEqual({ message: 'another warning' });
+      // }
+
+      server.close(done);
+    });
+
+    compiler.run(() => {});
+    server.listen(port, 'localhost');
+  });
 });
