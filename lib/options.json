@@ -86,6 +86,24 @@
         },
         "progress": {
           "type": "boolean"
+        },
+        "overlay": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "boolean"
+                },
+                "warnings": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -264,24 +282,6 @@
         }
       ]
     },
-    "overlay": {
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "errors": {
-              "type": "boolean"
-            },
-            "warnings": {
-              "type": "boolean"
-            }
-          }
-        }
-      ]
-    },
     "port": {
       "anyOf": [
         {
@@ -403,7 +403,6 @@
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
       "open": "should be {String|Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "openPage": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
-      "overlay": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveroverlay)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",

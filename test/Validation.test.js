@@ -34,10 +34,6 @@ describe('Validation', () => {
         config: { injectHot: 1 },
       },
       {
-        name: 'invalid `overlay` configuration',
-        config: { overlay: { errors: 1 } },
-      },
-      {
         name: 'invalid `static` configuration',
         config: { static: [0] },
       },
