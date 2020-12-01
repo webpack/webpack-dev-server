@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CLI --hot webpack 4 1`] = `
-"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
+"<i> [webpack-dev-server] Project is running at http://localhost:8080/
 <i> [webpack-dev-middleware] Hash: X
 <i> Version: webpack x.x.x Time: Xms
 <i> Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
@@ -16,14 +16,14 @@ exports[`CLI --hot webpack 4 1`] = `
 <i> [../../../client/default/utils/log.js] Xdir/client/default/utils/log.js X bytes {main} [built]
 <i> [../../../client/default/utils/reloadApp.js] Xdir/client/default/utils/reloadApp.js X KiB {main} [built]
 <i> [../../../client/default/utils/sendMessage.js] Xdir/client/default/utils/sendMessage.js X bytes {main} [built]
-<i> [../../../client/transpiled-modules/strip-ansi.js] Xdir/client/transpiled-modules/strip-ansi.js X bytes {main} [built]
+<i> [../../../client/transpiled-modules/strip-ansi.js] Xdir/client/transpiled-modules/strip-ansi.js X KiB {main} [built]
 <i> [../../../node_modules/webpack/hot sync ^\\\\.\\\\/log$] (webpack)/hot sync nonrecursive ^\\\\.\\\\/log$ X bytes {main} [built]
 <i> [../../../node_modules/webpack/hot/dev-server.js] (webpack)/hot/dev-server.js X KiB {main} [built]
 <i> [../../../node_modules/webpack/hot/emitter.js] (webpack)/hot/emitter.js X bytes {main} [built]
 <i> [../../../node_modules/webpack/hot/log-apply-result.js] (webpack)/hot/log-apply-result.js X KiB {main} [built]
 <i> [../../../node_modules/webpack/hot/log.js] (webpack)/hot/log.js X KiB {main} [built]
 <i> [./foo.js] X bytes {main} [built]
-<i>     + 19 hidden modules
+<i>     + 18 hidden modules
 <i> [webpack-dev-middleware] Compiled successfully."
 `;
 
@@ -46,7 +46,7 @@ exports[`CLI --hot webpack 5 1`] = `
 `;
 
 exports[`CLI --no-hot webpack 4 1`] = `
-"<i> [webpack-dev-server] Project is running at http://127.0.0.1:8080/
+"<i> [webpack-dev-server] Project is running at http://localhost:8080/
 <i> [webpack-dev-middleware] Hash: X
 <i> Version: webpack x.x.x Time: Xms
 <i> Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
@@ -64,11 +64,11 @@ exports[`CLI --no-hot webpack 4 1`] = `
 <i> [../../../client/default/utils/reloadApp.js] Xdir/client/default/utils/reloadApp.js X KiB {main} [built]
 <i> [../../../client/default/utils/sendMessage.js] Xdir/client/default/utils/sendMessage.js X bytes {main} [built]
 <i> [../../../client/transpiled-modules/log.js] Xdir/client/transpiled-modules/log.js X KiB {main} [built]
-<i> [../../../client/transpiled-modules/strip-ansi.js] Xdir/client/transpiled-modules/strip-ansi.js X bytes {main} [built]
+<i> [../../../client/transpiled-modules/strip-ansi.js] Xdir/client/transpiled-modules/strip-ansi.js X KiB {main} [built]
 <i> [../../../node_modules/ansi-html/index.js] Xdir/node_modules/ansi-html/index.js X KiB {main} [built]
 <i> [../../../node_modules/webpack/hot sync ^\\\\.\\\\/log$] (webpack)/hot sync nonrecursive ^\\\\.\\\\/log$ X bytes {main} [built]
 <i> [./foo.js] X bytes {main} [built]
-<i>     + 17 hidden modules
+<i>     + 16 hidden modules
 <i> [webpack-dev-middleware] Compiled successfully."
 `;
 
