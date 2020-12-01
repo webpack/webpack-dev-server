@@ -8,7 +8,14 @@ const BaseClient = require('./BaseClient');
 module.exports = class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
-    this.client = new WebSocket(url.replace(/^http/, 'ws'));
+    this.client = new WebSocket(
+      ((urlToChange) => {
+        let wsUrl = urlToChange;
+        wsUrl = wsUrl.replace(/^http/, 'ws');
+        wsUrl = wsUrl.replace(/^file/, 'ws');
+        return wsUrl;
+      })(url)
+    );
 
     this.client.onerror = (err) => {
       log.error(err);
