@@ -143,14 +143,15 @@ runCLITest('CLI', () => {
   });
 
   // TODO search way how to tests it on github actions
-  it.skip('--host :: (IPv6)', (done) => {
+  it('--host :: (IPv6)', (done) => {
     testBin('--host ::')
       .then((output) => {
-        const localIP = internalIp.v4.sync();
+        const localIP = internalIp.v6.sync();
 
+        console.log(output.stderr);
         expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
         expect(
-          new RegExp(`http://${localIP}:[0-9]+/`).test(output.stderr)
+          new RegExp(`http://\[${localIP}\]:[0-9]+/`).test(output.stderr)
         ).toEqual(true);
         done();
       })
