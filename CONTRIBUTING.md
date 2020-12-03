@@ -50,7 +50,7 @@ Pull requests often need some real-world testing.
 - `github:webpack/webpack-dev-server#pull/<ID>/head`
   where `<ID>` is the ID of the pull request.
 
-- `file:../path/to/local/webapck-dev-server/fork` is the path to your local repo, just make sure you hit the correct path
+- `file:../path/to/local/webpack-dev-server/fork` is the path to your local repo, just make sure you hit the correct path
 
 2. Run `npm install`.
 
