@@ -475,7 +475,7 @@ describe('proxy option', () => {
     });
   });
 
-  describe.only('should work in multi compiler mode', () => {
+  describe('should work in multi compiler mode', () => {
     let server;
     let req;
     let closeProxyServers;
