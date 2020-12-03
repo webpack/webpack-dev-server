@@ -474,4 +474,42 @@ describe('proxy option', () => {
       req.delete('/delete').expect(200, 'DELETE method from proxy', done);
     });
   });
+
+  describe('should work in multi compiler mode', () => {
+    let server;
+    let req;
+    let closeProxyServers;
+
+    beforeAll((done) => {
+      closeProxyServers = startProxyServers();
+      server = testServer.start(
+        [config, config],
+        {
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
+          proxy: {
+            '*': {
+              context: () => true,
+              target: `http://localhost:${port1}`,
+            },
+          },
+          port: port3,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        closeProxyServers(done);
+      });
+    });
+
+    it('respects a proxy option', (done) => {
+      req.get('/proxy1').expect(200, 'from proxy1', done);
+    });
+  });
 });
