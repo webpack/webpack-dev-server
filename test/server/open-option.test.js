@@ -15,7 +15,7 @@ open.mockImplementation(() => {
 });
 
 describe('open option', () => {
-  it('should open', (done) => {
+  it('should work with unspecified host', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
       open: true,
@@ -27,7 +27,7 @@ describe('open option', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://127.0.0.1:8117/",
+            "http://localhost:8117/",
             Object {
               "wait": false,
             },
@@ -40,5 +40,86 @@ describe('open option', () => {
 
     compiler.run(() => {});
     server.listen(port, 'localhost');
+  });
+
+  it('should work with "0.0.0.0" host', (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      open: true,
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "http://localhost:8117/",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+        expect(open.mock.invocationCallOrder[0]).toEqual(1);
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, '0.0.0.0');
+  });
+
+  it('should work with "::" host', (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      open: true,
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "http://localhost:8117/",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+        expect(open.mock.invocationCallOrder[0]).toEqual(1);
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, '::');
+  });
+
+  it('should work with "localhost" host', (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      open: true,
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "http://localhost:8117/",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+        expect(open.mock.invocationCallOrder[0]).toEqual(1);
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, '::');
   });
 });
