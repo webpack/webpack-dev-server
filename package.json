@@ -83,7 +83,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-config-webpack": "^1.2.5",
     "eslint-plugin-import": "^2.22.1",
-    "execa": "^4.1.0",
+    "execa": "^5.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "husky": "^4.3.0",
