@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const webpack = require('webpack');
 const normalizeOptions = require('../../../lib/utils/normalizeOptions');
 
@@ -448,7 +449,7 @@ describe('normalizeOptions', () => {
 
           if (data.options.static) {
             data.options.static.forEach((staticOpts) => {
-              if (staticOpts.directory === process.cwd()) {
+              if (staticOpts.directory === path.join(process.cwd(), 'static')) {
                 // give an indication in the snapshot that this is the
                 // current working directory
                 staticOpts.directory = 'CWD';

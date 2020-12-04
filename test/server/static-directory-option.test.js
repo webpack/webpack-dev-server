@@ -7,14 +7,12 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
 const port = require('../ports-map')['static-directory-option'];
 
-const publicDirectory = path.resolve(
+const staticDirectory = path.resolve(
   __dirname,
-  '../fixtures/contentbase-config/public'
+  '../fixtures/contentbase-config'
 );
-const otherPublicDirectory = path.resolve(
-  __dirname,
-  '../fixtures/contentbase-config/other'
-);
+const publicDirectory = path.resolve(staticDirectory, 'public');
+const otherPublicDirectory = path.resolve(staticDirectory, 'other');
 
 describe('static.directory option', () => {
   let server;
@@ -290,7 +288,9 @@ describe('static.directory option', () => {
 
   describe('default to PWD', () => {
     beforeAll((done) => {
-      jest.spyOn(process, 'cwd').mockImplementation(() => publicDirectory);
+      jest
+        .spyOn(process, 'cwd')
+        .mockImplementation(() => path.resolve(staticDirectory));
 
       server = testServer.start(
         config,
@@ -310,7 +310,7 @@ describe('static.directory option', () => {
     });
 
     it('Request to page', (done) => {
-      req.get('/other.html').expect(200, done);
+      req.get('/index.html').expect(200, done);
     });
   });
 
