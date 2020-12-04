@@ -1,9 +1,15 @@
 'use strict';
 
+const path = require('path');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['port-option'];
+
+const staticDirectory = path.resolve(
+  __dirname,
+  '../fixtures/contentbase-config'
+);
 
 describe('port', () => {
   let server = null;
@@ -15,6 +21,7 @@ describe('port', () => {
         config,
         {
           static: {
+            directory: staticDirectory,
             watch: false,
           },
           port,
@@ -45,6 +52,7 @@ describe('port', () => {
         config,
         {
           static: {
+            directory: staticDirectory,
             watch: false,
           },
           // eslint-disable-next-line no-undefined
@@ -76,6 +84,7 @@ describe('port', () => {
         config,
         {
           static: {
+            directory: staticDirectory,
             watch: false,
           },
           port: null,
@@ -106,6 +115,7 @@ describe('port', () => {
         config,
         {
           static: {
+            directory: staticDirectory,
             watch: false,
           },
           port: '33333',
@@ -135,6 +145,7 @@ describe('port', () => {
         config,
         {
           static: {
+            directory: staticDirectory,
             watch: false,
           },
           port: '33333',
