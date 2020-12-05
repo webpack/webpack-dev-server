@@ -10,15 +10,47 @@ const BASIC_GROUP = 'Basic options:';
 module.exports = {
   devServer: [
     {
-      name: 'bonjour',
-      type: Boolean,
-      describe: 'Broadcasts the server via ZeroConf networking on start',
+      name: 'host',
+      type: String,
+      describe: 'The hostname/ip address the server will bind to',
+      group: CONNECTION_GROUP,
+    },
+    {
+      name: 'port',
+      type: Number,
+      describe: 'The port',
+      group: CONNECTION_GROUP,
+    },
+    {
+      name: 'static',
+      type: [String, Boolean],
+      describe: 'A directory to serve static content from.',
+      group: RESPONSE_GROUP,
+      multiple: true,
+      negative: true,
     },
     {
       name: 'live-reload',
       type: Boolean,
       describe: 'Enables/Disables live reloading on changing files',
       negative: true,
+    },
+    {
+      name: 'https',
+      type: Boolean,
+      group: SSL_GROUP,
+      describe: 'HTTPS',
+    },
+    {
+      name: 'http2',
+      type: Boolean,
+      group: SSL_GROUP,
+      describe: 'HTTP/2, must be used with HTTPS',
+    },
+    {
+      name: 'bonjour',
+      type: Boolean,
+      describe: 'Broadcasts the server via ZeroConf networking on start',
     },
     {
       name: 'client-progress',
@@ -84,26 +116,6 @@ module.exports = {
       },
     },
     {
-      name: 'https',
-      type: Boolean,
-      group: SSL_GROUP,
-      describe: 'HTTPS',
-    },
-    {
-      name: 'http2',
-      type: Boolean,
-      group: SSL_GROUP,
-      describe: 'HTTP/2, must be used with HTTPS',
-    },
-    {
-      name: 'static',
-      type: [String, Boolean],
-      describe: 'A directory to serve static content from.',
-      group: RESPONSE_GROUP,
-      multiple: true,
-      negative: true,
-    },
-    {
       name: 'history-api-fallback',
       type: Boolean,
       describe: 'Fallback to /index.html for Single Page Applications.',
@@ -116,21 +128,9 @@ module.exports = {
       group: RESPONSE_GROUP,
     },
     {
-      name: 'port',
-      type: Number,
-      describe: 'The port',
-      group: CONNECTION_GROUP,
-    },
-    {
       name: 'public',
       type: String,
       describe: 'The public hostname/ip address of the server',
-      group: CONNECTION_GROUP,
-    },
-    {
-      name: 'host',
-      type: String,
-      describe: 'The hostname/ip address the server will bind to',
       group: CONNECTION_GROUP,
     },
     {
