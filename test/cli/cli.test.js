@@ -175,6 +175,25 @@ runCLITest('CLI', () => {
       .catch(done);
   });
 
+  it('should log public path', (done) => {
+    testBin(
+      false,
+      resolve(__dirname, '../fixtures/dev-public-path/webpack.config.js')
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch((err) => {
+        // for windows
+        expect(err.stderr).toContain(
+          "webpack output is served from '/foo/bar' URL"
+        );
+        expect(err.stderr).toContain('Compiled successfully.');
+        done();
+      });
+  });
+
   it('should accept the promise function of webpack.config.js', (done) => {
     testBin(
       false,
