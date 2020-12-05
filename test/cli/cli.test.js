@@ -10,9 +10,7 @@ const isWebpack5 = require('../helpers/isWebpack5');
 let runCLITest = describe;
 let basePath;
 try {
-  basePath = path
-    .join(require.resolve('webpack-dev-server'), '..', '..')
-    .replace(/\\/g, '/');
+  basePath = path.join(require.resolve('webpack-dev-server'), '..', '..');
 } catch {
   runCLITest = describe.skip;
 }
