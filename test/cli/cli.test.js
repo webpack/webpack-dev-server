@@ -36,7 +36,8 @@ runCLITest('CLI', () => {
         '$1 Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT'
       )
       .replace(/webpack [^ )]+/g, 'webpack x.x.x')
-      .replace(new RegExp(`${quotemeta(basePath)}(/|\\)`, 'g'), '/Xdir/')
+      .replace(new RegExp(quotemeta(basePath), 'g'), 'Xdir')
+      .replace(/[\\/]static/, '/static')
       .replace(/(Hash:) [a-z0-9]+/g, '$1 X')
       .replace(/ dependencies:Xms/g, '')
       .replace(/, additional resolving: X ms/g, '');
