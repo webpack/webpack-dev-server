@@ -1,6 +1,6 @@
 'use strict';
 
-const { join, resolve } = require('path');
+const path = require('path');
 const execa = require('execa');
 const internalIp = require('internal-ip');
 const testBin = require('../helpers/test-bin');
@@ -9,11 +9,9 @@ const isWebpack5 = require('../helpers/isWebpack5');
 // skip if webpack-dev-server is not linked
 let runCLITest = describe;
 let basePath;
+
 try {
-  basePath = join(require.resolve('webpack-dev-server'), '..', '..').replace(
-    /\\/g,
-    '/'
-  );
+  basePath = path.join(require.resolve('webpack-dev-server'), '..', '..');
 } catch {
   runCLITest = describe.skip;
 }
@@ -39,7 +37,9 @@ runCLITest('CLI', () => {
         '$1 Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT'
       )
       .replace(/webpack [^ )]+/g, 'webpack x.x.x')
+      .replace(new RegExp(quotemeta(basePath.replace(/\\/g, '/')), 'g'), 'Xdir')
       .replace(new RegExp(quotemeta(basePath), 'g'), 'Xdir')
+      .replace(/[\\/]static/, '/static')
       .replace(/(Hash:) [a-z0-9]+/g, '$1 X')
       .replace(/ dependencies:Xms/g, '')
       .replace(/, additional resolving: X ms/g, '');
@@ -178,7 +178,7 @@ runCLITest('CLI', () => {
   it('should log public path', (done) => {
     testBin(
       false,
-      resolve(__dirname, '../fixtures/dev-public-path/webpack.config.js')
+      path.resolve(__dirname, '../fixtures/dev-public-path/webpack.config.js')
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
@@ -194,10 +194,35 @@ runCLITest('CLI', () => {
       });
   });
 
+  it('should log static', (done) => {
+    testBin(
+      false,
+      path.resolve(__dirname, '../fixtures/static/webpack.config.js')
+    )
+      .then((output) => {
+        console.log(output);
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch((err) => {
+        const staticDirectory = path.resolve(
+          __dirname,
+          '../fixtures/static/static'
+        );
+
+        // for windows
+        expect(err.stderr).toContain(
+          `Content not from webpack is served from '${staticDirectory}' directory`
+        );
+        expect(err.stderr).toContain('Compiled successfully.');
+        done();
+      });
+  });
+
   it('should accept the promise function of webpack.config.js', (done) => {
     testBin(
       false,
-      resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
+      path.resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
@@ -211,8 +236,8 @@ runCLITest('CLI', () => {
   });
 
   it('should exit the process when SIGINT is detected', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = resolve(__dirname, '../../examples/cli/public');
+    const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const examplePath = path.resolve(__dirname, '../../examples/cli/public');
     const cp = execa('node', [cliPath], { cwd: examplePath });
 
     cp.stderr.on('data', (data) => {
@@ -231,8 +256,8 @@ runCLITest('CLI', () => {
   });
 
   it('should exit the process when SIGINT is detected, even before the compilation is done', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const cwd = resolve(__dirname, '../fixtures/cli');
+    const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const cwd = path.resolve(__dirname, '../fixtures/cli');
     const cp = execa('node', [cliPath], { cwd });
 
     let killed = false;
@@ -253,8 +278,8 @@ runCLITest('CLI', () => {
   });
 
   it('should exit the process when stdin ends if --stdin', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = resolve(__dirname, '../../examples/cli/public');
+    const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const examplePath = path.resolve(__dirname, '../../examples/cli/public');
     const cp = execa('node', [cliPath, '--stdin'], { cwd: examplePath });
 
     cp.stderr.on('data', (data) => {
@@ -274,8 +299,8 @@ runCLITest('CLI', () => {
   });
 
   it('should exit the process when stdin ends if --stdin, even before the compilation is done', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const cwd = resolve(__dirname, '../fixtures/cli');
+    const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const cwd = path.resolve(__dirname, '../fixtures/cli');
     const cp = execa('node', [cliPath, '--stdin'], { cwd });
 
     let killed = false;
@@ -299,8 +324,8 @@ runCLITest('CLI', () => {
   // TODO: do not skip after @webpack-cli/serve passes null port by default
   // https://github.com/webpack/webpack-cli/pull/2126
   it.skip('should use different random port when multiple instances are started on different processes', (done) => {
-    const cliPath = resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const cwd = resolve(__dirname, '../fixtures/cli');
+    const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const cwd = path.resolve(__dirname, '../fixtures/cli');
 
     const cp = execa('node', [cliPath, '--colors=false'], { cwd });
     const cp2 = execa('node', [cliPath, '--colors=false'], { cwd });

@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 
 const base = {
@@ -9,7 +10,7 @@ const base = {
     path: path.resolve(__dirname, '../../client/transpiled-modules'),
     libraryTarget: 'commonjs2',
   },
-  target: ['web', 'es5'],
+  target: webpack.webpack ? ['web', 'es5'] : 'web',
   module: {
     rules: [
       {
