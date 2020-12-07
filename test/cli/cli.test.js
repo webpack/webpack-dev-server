@@ -9,10 +9,9 @@ const isWebpack5 = require('../helpers/isWebpack5');
 // skip if webpack-dev-server is not linked
 let runCLITest = describe;
 let basePath;
+
 try {
-  basePath = path
-    .join(require.resolve('webpack-dev-server'), '..', '..')
-    .replace(/\\/g, '/');
+  basePath = path.join(require.resolve('webpack-dev-server'), '..', '..');
 } catch {
   runCLITest = describe.skip;
 }
@@ -38,6 +37,7 @@ runCLITest('CLI', () => {
         '$1 Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT'
       )
       .replace(/webpack [^ )]+/g, 'webpack x.x.x')
+      .replace(new RegExp(quotemeta(basePath.replace(/\\/g, '/')), 'g'), 'Xdir')
       .replace(new RegExp(quotemeta(basePath), 'g'), 'Xdir')
       .replace(/[\\/]static/, '/static')
       .replace(/(Hash:) [a-z0-9]+/g, '$1 X')
