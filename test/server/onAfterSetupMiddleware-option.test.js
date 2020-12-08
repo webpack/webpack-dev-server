@@ -39,23 +39,21 @@ describe('onAfterSetupMiddleware option', () => {
 
   afterAll(testServer.close);
 
-  it('should handle after route', () => {
-    return req
+  it('should handle after route', () =>
+    req
       .get('/after/some/path')
       .expect('Content-Type', 'text/html; charset=utf-8')
       .expect(200)
       .then((response) => {
         expect(response.text).toBe('after');
-      });
-  });
+      }));
 
-  it('should handle POST requests to after route', () => {
-    return req
+  it('should handle POST requests to after route', () =>
+    req
       .post('/after/some/path')
       .expect('Content-Type', 'text/html; charset=utf-8')
       .expect(200)
       .then((response) => {
         expect(response.text).toBe('after POST');
-      });
-  });
+      }));
 });

@@ -13,11 +13,9 @@ class CustomSequencer extends Sequencer {
     const copyTests = Array.from(tests);
     const len = copyTests.length;
 
-    const isEndToEndTest = (test) => {
+    const isEndToEndTest = (test) =>
       // backslash test for Windows
-      return test.path.includes('/e2e/') || test.path.includes('\\e2e\\');
-    };
-
+      test.path.includes('/e2e/') || test.path.includes('\\e2e\\');
     // separate e2e and non-e2e tests into two separate arrays
     const endToEndTests = copyTests.filter(isEndToEndTest);
     const nonEndToEndTests = copyTests.filter((test) => !isEndToEndTest(test));

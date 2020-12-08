@@ -23,9 +23,7 @@ runCLITest('CLI', () => {
    * @param {string} str String to quote
    * @returns {string} Escaped string
    */
-  const quotemeta = (str) => {
-    return str.replace(/[-[\]\\/{}()*+?.^$|]/g, '\\$&');
-  };
+  const quotemeta = (str) => str.replace(/[-[\]\\/{}()*+?.^$|]/g, '\\$&');
 
   const normalizeOutput = (output) =>
     output

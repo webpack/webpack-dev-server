@@ -3,9 +3,7 @@
 module.exports = {
   mode: 'development',
   context: __dirname,
-  entry: () => {
-    return './foo.js';
-  },
+  entry: () => './foo.js',
   plugins: [
     {
       apply(compiler) {

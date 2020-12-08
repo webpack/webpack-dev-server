@@ -70,9 +70,7 @@ describe('client progress', () => {
                 browser.close().then(() => {
                   // check that there is some percentage progress output
                   const regExp = /^\[webpack-dev-server\] [0-9]{1,3}% - /;
-                  const match = res.find((line) => {
-                    return regExp.test(line);
-                  });
+                  const match = res.find((line) => regExp.test(line));
                   // eslint-disable-next-line no-undefined
                   expect(match).not.toEqual(undefined);
                   done();

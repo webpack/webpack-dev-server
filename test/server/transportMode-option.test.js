@@ -58,12 +58,13 @@ describe('transportMode', () => {
       beforeEach(() => {
         jest.mock('../../lib/utils/getSocketServerImplementation');
         getSocketServerImplementation = require('../../lib/utils/getSocketServerImplementation');
-        getSocketServerImplementation.mockImplementation(() => {
-          return class MockServer {
-            // eslint-disable-next-line no-empty-function
-            onConnection() {}
-          };
-        });
+        getSocketServerImplementation.mockImplementation(
+          () =>
+            class MockServer {
+              // eslint-disable-next-line no-empty-function
+              onConnection() {}
+            }
+        );
       });
 
       afterEach((done) => {
