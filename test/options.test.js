@@ -93,19 +93,20 @@ describe('options', () => {
               expect(false).toBeTruthy();
             }
           })
-          .then(() => {
-            return new Promise((resolve) => {
-              if (server) {
-                server.close(() => {
-                  compiler = null;
-                  server = null;
+          .then(
+            () =>
+              new Promise((resolve) => {
+                if (server) {
+                  server.close(() => {
+                    compiler = null;
+                    server = null;
+                    resolve();
+                  });
+                } else {
                   resolve();
-                });
-              } else {
-                resolve();
-              }
-            });
-          })
+                }
+              })
+          )
           .then(() => {
             current += 1;
           });
@@ -495,9 +496,7 @@ describe('options', () => {
     };
 
     Object.keys(cases).forEach((key) => {
-      it(key, () => {
-        return validateOption(key, cases[key]);
-      });
+      it(key, () => validateOption(key, cases[key]));
     });
   });
 });

@@ -25,9 +25,7 @@ describe('ProvidePlugin', () => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
             page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               page
-                .evaluate(() => {
-                  return window.injectedClient === window.expectedClient;
-                })
+                .evaluate(() => window.injectedClient === window.expectedClient)
                 .then((isCorrectClient) => {
                   browser.close().then(() => {
                     expect(isCorrectClient).toBeTruthy();
@@ -60,9 +58,7 @@ describe('ProvidePlugin', () => {
           page.waitForNavigation({ waitUntil: 'load' }).then(() => {
             page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               page
-                .evaluate(() => {
-                  return window.injectedClient === window.expectedClient;
-                })
+                .evaluate(() => window.injectedClient === window.expectedClient)
                 .then((isCorrectClient) => {
                   browser.close().then(() => {
                     expect(isCorrectClient).toBeTruthy();

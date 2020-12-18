@@ -11,28 +11,34 @@ describe('findPort', () => {
     delete process.env.DEFAULT_PORT_RETRY;
 
     return dummyServers
-      .reduce((p, server) => {
-        return p.then(() => {
-          return new Promise((resolve) => {
-            server.close(resolve);
-          });
-        });
-      }, Promise.resolve())
+      .reduce(
+        (p, server) =>
+          p.then(
+            () =>
+              new Promise((resolve) => {
+                server.close(resolve);
+              })
+          ),
+        Promise.resolve()
+      )
       .then(() => {
         dummyServers = [];
       });
   });
 
   function createDummyServers(n) {
-    return (Array.isArray(n) ? n : [...new Array(n)]).reduce((p, _, i) => {
-      return p.then(() => {
-        return new Promise((resolve) => {
-          const server = http.createServer();
-          dummyServers.push(server);
-          server.listen(8080 + i, resolve);
-        });
-      });
-    }, Promise.resolve());
+    return (Array.isArray(n) ? n : [...new Array(n)]).reduce(
+      (p, _, i) =>
+        p.then(
+          () =>
+            new Promise((resolve) => {
+              const server = http.createServer();
+              dummyServers.push(server);
+              server.listen(8080 + i, resolve);
+            })
+        ),
+      Promise.resolve()
+    );
   }
 
   it('should returns the port when the port is specified', () => {
@@ -111,9 +117,7 @@ describe('findPort', () => {
 
     const spy = jest
       .spyOn(portfinder, 'getPort')
-      .mockImplementation((callback) => {
-        return callback(new Error('busy'));
-      });
+      .mockImplementation((callback) => callback(new Error('busy')));
 
     const retryCount = 1;
 

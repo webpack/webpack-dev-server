@@ -18,26 +18,31 @@ describe('stats option', () => {
       },
     ];
 
-    return allStats.reduce((p, stats) => {
-      return p.then(() => {
-        return new Promise((resolve) => {
-          const compiler = webpack(Object.assign({}, config, { stats }));
-          const server = new Server(compiler, {
-            static: false,
-            port,
-          });
+    return allStats.reduce(
+      (p, stats) =>
+        p.then(
+          () =>
+            new Promise((resolve) => {
+              const compiler = webpack(Object.assign({}, config, { stats }));
+              const server = new Server(compiler, {
+                static: false,
+                port,
+              });
 
-          compiler.hooks.done.tap('webpack-dev-server', (s) => {
-            expect(Object.keys(server.getStats(s)).sort()).toMatchSnapshot();
+              compiler.hooks.done.tap('webpack-dev-server', (s) => {
+                expect(
+                  Object.keys(server.getStats(s)).sort()
+                ).toMatchSnapshot();
 
-            server.close(resolve);
-          });
+                server.close(resolve);
+              });
 
-          compiler.run(() => {});
-          server.listen(port, 'localhost');
-        });
-      });
-    }, Promise.resolve());
+              compiler.run(() => {});
+              server.listen(port, 'localhost');
+            })
+        ),
+      Promise.resolve()
+    );
   });
 
   it('should respect warningsFilter', (done) => {
