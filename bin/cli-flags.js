@@ -62,7 +62,7 @@ module.exports = {
     },
     {
       name: 'open',
-      type: String,
+      type: [String, Boolean],
       describe:
         'Open the default browser, or optionally specify a browser name',
     },
