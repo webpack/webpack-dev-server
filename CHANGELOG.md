@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.11.1](https://github.com/webpack/webpack-dev-server/compare/v3.11.0...v3.11.1) (2020-12-29)
+
+
+### Bug Fixes
+
+* the `open` option works using `webpack serve` without value ([#2948](https://github.com/webpack/webpack-dev-server/issues/2948)) ([4837dc9](https://github.com/webpack/webpack-dev-server/commit/4837dc92b944f8b4cdd7d6e3420367cf338e7f75))
+* vulnerable deps ([#2949](https://github.com/webpack/webpack-dev-server/issues/2949)) ([78dde50](https://github.com/webpack/webpack-dev-server/commit/78dde50f520c8b78de14272a4ae4cee1281bf2e3))
+
 ## [3.11.0](https://github.com/webpack/webpack-dev-server/compare/v3.10.3...v3.11.0) (2020-05-08)
 
 
