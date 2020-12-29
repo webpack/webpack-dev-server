@@ -72,13 +72,20 @@ function getSocketUrl(urlParts, loc) {
   // all of these sock url params are optionally passed in through
   // resourceQuery, so we need to fall back to the default if
   // they are not provided
-  const host = query.host || hostname;
+  let host = query.host || hostname;
   const path = query.path || '/ws';
   let portOption = query.port || port;
 
   if (portOption === 'location') {
     portOption = loc.port;
   }
+
+  // In case the host is a raw IPv6 address, it can be enclosed in
+  // the brackets as the brackets are needed in the final URL string.
+  // Need to remove those as url.format blindly adds its own set of brackets
+  // if the host string contains colons. That would lead to non-working
+  // double brackets (e.g. [[::]]) host
+  host = typeof host === 'string' ? host.replace(/^\[(.*)\]$/, '$1') : host;
 
   return url.format({
     protocol,
