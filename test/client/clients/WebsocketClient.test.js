@@ -65,6 +65,16 @@ describe('WebsocketClient', () => {
         done();
       }, 3000);
     });
+    it('should change the protocol from chrome-extension to http', (done) => {
+      const client = new WebsocketClient('chrome-extension://localhost/');
+      expect(client.client.url).toEqual('ws://localhost/');
+      done();
+    });
+    it('should change the protocol from file to http', (done) => {
+      const client = new WebsocketClient('file://localhost/');
+      expect(client.client.url).toEqual('ws://localhost/');
+      done();
+    });
   });
 
   afterAll((done) => {
