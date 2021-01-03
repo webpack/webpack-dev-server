@@ -7,7 +7,8 @@ const BaseClient = require('./BaseClient');
 module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
-    this.sock = new SockJS(url);
+    const sockUrl = url.replace(/^(?:chrome-extension|file)/i, 'http');
+    this.sock = new SockJS(sockUrl);
 
     this.sock.onerror = (err) => {
       log.error(err);
