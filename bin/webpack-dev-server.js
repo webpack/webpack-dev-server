@@ -107,7 +107,7 @@ if (!cli.installed) {
   console.error(
     `We will use "${packageManager}" to install the CLI via "${packageManager} ${installOptions.join(
       ' '
-    )}".`
+    )} ${cli.package}".`
   );
 
   const question = `Do you want to install 'webpack-cli' (yes/no): `;
