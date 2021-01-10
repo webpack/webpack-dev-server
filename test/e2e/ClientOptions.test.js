@@ -382,7 +382,6 @@ describe('Client console.log', () => {
         hot: false,
       },
     },
-    // TODO: make client logging work as expected for HMR logs
     {
       title: 'client logging is none',
       options: {

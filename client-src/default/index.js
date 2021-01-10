@@ -12,6 +12,7 @@ const overlay = require('./overlay');
 const { log, setLogLevel } = require('./utils/log');
 const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
+const getUrlOptions = require('./utils/getUrlOptions');
 const createSocketUrl = require('./utils/createSocketUrl');
 
 const status = {
@@ -27,11 +28,16 @@ const options = {
   useErrorOverlay: false,
   useProgress: false,
 };
-const socketUrl = createSocketUrl(__resourceQuery);
+const urlOptions = getUrlOptions(__resourceQuery);
+const socketUrl = createSocketUrl(urlOptions);
 
 self.addEventListener('beforeunload', () => {
   status.isUnloading = true;
 });
+
+if (urlOptions.query.logging) {
+  setLogLevel(urlOptions.query.logging);
+}
 
 if (typeof window !== 'undefined') {
   const qs = window.location.search.toLowerCase();
@@ -64,16 +70,6 @@ const onSocketMessage = {
       overlay.clear();
     }
     sendMessage('StillOk');
-  },
-  logging: function logging(level) {
-    // this is needed because the HMR logger operate separately from
-    // dev server logger
-    const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
-    if (hotCtx.keys().indexOf('./log') !== -1) {
-      hotCtx('./log').setLogLevel(level);
-    }
-
-    setLogLevel(level);
   },
   overlay(value) {
     if (typeof document !== 'undefined') {

@@ -3,43 +3,19 @@
 /* global self */
 
 const url = require('url');
-const getCurrentScriptSource = require('./getCurrentScriptSource');
-
-function createSocketUrl(resourceQuery, currentLocation) {
-  let urlParts;
-
-  if (typeof resourceQuery === 'string' && resourceQuery !== '') {
-    // If this bundle is inlined, use the resource query to get the correct url.
-    // format is like `?http://0.0.0.0:8096&port=8097&host=localhost`
-    urlParts = url.parse(
-      resourceQuery
-        // strip leading `?` from query string to get a valid URL
-        .substr(1)
-        // replace first `&` with `?` to have a valid query string
-        .replace('&', '?'),
-      true
-    );
-  } else {
-    // Else, get the url from the <script> this file was called with.
-    const scriptHost = getCurrentScriptSource();
-    urlParts = url.parse(scriptHost || '/', true, true);
-  }
-
-  // Use parameter to allow passing location in unit tests
-  if (typeof currentLocation === 'string' && currentLocation !== '') {
-    currentLocation = url.parse(currentLocation);
-  } else {
-    currentLocation = self.location;
-  }
-
-  return getSocketUrl(urlParts, currentLocation);
-}
 
 /*
  * Gets socket URL based on Script Source/Location
  * (scriptSrc: URL, location: URL) -> URL
  */
-function getSocketUrl(urlParts, loc) {
+function createSocketUrl(urlParts, loc) {
+  // Use parameter to allow passing location in unit tests
+  if (typeof loc === 'string' && loc !== '') {
+    loc = url.parse(loc);
+  } else {
+    loc = self.location;
+  }
+
   const { auth, query } = urlParts;
   let { hostname, protocol, port } = urlParts;
 

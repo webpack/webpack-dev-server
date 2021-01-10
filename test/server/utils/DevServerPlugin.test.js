@@ -749,6 +749,7 @@ describe('DevServerPlugin util', () => {
         host: 'my.host',
         port: 8080,
         path: '/custom/path',
+        logging: 'info',
       },
       transportMode: {
         server: 'sockjs',
@@ -759,6 +760,8 @@ describe('DevServerPlugin util', () => {
     const plugin = new DevServerPlugin(devServerOptions);
     plugin.apply(compiler);
     const entries = await getEntries(compiler);
-    expect(entries[0]).toContain('&host=my.host&path=/custom/path&port=8080');
+    expect(entries[0]).toContain(
+      '&host=my.host&path=/custom/path&port=8080&logging=info'
+    );
   });
 });

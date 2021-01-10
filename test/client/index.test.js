@@ -22,6 +22,7 @@ describe('index', () => {
         warn: jest.fn(),
         error: jest.fn(),
       },
+      setLogLevel: jest.fn(),
     });
     log = require('../../client-src/default/utils/log');
 
@@ -43,6 +44,15 @@ describe('index', () => {
     // sendMessage
     jest.setMock('../../client-src/default/utils/sendMessage.js', jest.fn());
     sendMessage = require('../../client-src/default/utils/sendMessage');
+
+    // getUrlOptions
+    jest.setMock('../../client-src/default/utils/getUrlOptions.js', () => {
+      return {
+        query: {
+          logging: 'none',
+        },
+      };
+    });
 
     // createSocketUrl
     jest.setMock(
@@ -104,11 +114,6 @@ describe('index', () => {
     onSocketMessage.overlay(true);
     onSocketMessage['still-ok']();
     expect(overlay.clear).toBeCalled();
-  });
-
-  // TODO: need to mock require.context
-  test.skip("should run onSocketMessage['logging']", () => {
-    onSocketMessage.logging();
   });
 
   test("should run onSocketMessage.progress and onSocketMessage['progress-update']", () => {
@@ -234,5 +239,9 @@ describe('index', () => {
     onSocketMessage.close();
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  test('should update log level if options is passed', () => {
+    expect(log.setLogLevel.mock.calls[0][0]).toMatchSnapshot();
   });
 });

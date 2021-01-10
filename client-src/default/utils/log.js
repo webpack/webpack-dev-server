@@ -1,5 +1,6 @@
 'use strict';
 
+const webpackHotLog = require('webpack/hot/log');
 const log = require('../../transpiled-modules/log');
 
 const name = 'webpack-dev-server';
@@ -8,6 +9,7 @@ const name = 'webpack-dev-server';
 const defaultLevel = 'info';
 
 function setLogLevel(level) {
+  webpackHotLog.setLogLevel(level);
   log.configureDefaultLogger({
     level,
   });
