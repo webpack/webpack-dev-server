@@ -85,7 +85,7 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--sockPath', (done) => {
+  it.skip('--sockPath', (done) => {
     testBin('--sockPath /mysockPath')
       .then((output) => {
         expect(/sockPath=\/mysockPath/.test(output.stdout)).toEqual(true);
