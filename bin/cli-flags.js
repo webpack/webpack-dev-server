@@ -78,7 +78,6 @@ module.exports = {
       type: Boolean,
       description: 'Close and exit the process on SIGINT and SIGTERM',
       group: ADVANCED_GROUP,
-      defaultValue: true,
       negative: true,
     },
     {
