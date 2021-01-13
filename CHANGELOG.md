@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.11.2](https://github.com/webpack/webpack-dev-server/compare/v3.11.1...v3.11.2) (2021-01-13)
+
+
+### Bug Fixes
+
+* cli arguments for `serve` command ([a5fe337](https://github.com/webpack/webpack-dev-server/commit/a5fe3372e306e3c90a5e63e452e3e9ee9a745875))
+
 ### [3.11.1](https://github.com/webpack/webpack-dev-server/compare/v3.11.0...v3.11.1) (2020-12-29)
 
 
