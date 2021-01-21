@@ -1,10 +1,5 @@
 'use strict';
 
-// webpack@5 doesn't inject node polyfill automatically
-window.global = window.global || window;
-window.process = window.process || {};
-window.process.env = window.process.env || {};
-
 /* global __resourceQuery WorkerGlobalScope self */
 const stripAnsi = require('../transpiled-modules/strip-ansi');
 const socket = require('./socket');
