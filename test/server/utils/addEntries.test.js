@@ -366,6 +366,42 @@ describe('addEntries util', () => {
     });
   });
 
+  it('should allows selecting chunks to inline the client into', () => {
+    const webpackOptions = [
+      Object.assign({}, config, {
+        entry: {
+          chunk1: './foo.js',
+          chunk2: './foo.js',
+          chunk3: './foo.js'
+        }
+      })
+    ];
+
+    const devServerOptions = {
+      injectClient: ['chunk1', 'chunk3']
+    };
+
+    addEntries(webpackOptions, devServerOptions);
+
+    // eslint-disable-next-line no-shadow
+    webpackOptions.forEach((webpackOptions) => {
+      expect(Object.keys(webpackOptions.entry).length).toEqual(3);
+      expect(webpackOptions.entry.chunk1.length).toEqual(2);
+      expect(webpackOptions.entry.chunk2.length).toEqual(1);
+      expect(webpackOptions.entry.chunk3.length).toEqual(2);
+
+      expect(
+        normalize(webpackOptions.entry.chunk1[0]).indexOf('client/index.js?') !== -1
+      ).toBeTruthy();
+      expect(normalize(webpackOptions.entry.chunk2[0])).toEqual(
+        './foo.js'
+      );
+      expect(
+        normalize(webpackOptions.entry.chunk3[0]).indexOf('client/index.js?') !== -1
+      ).toBeTruthy();
+    });
+  });
+
   it('should prepends the hot runtime to all targets by default (when hot)', () => {
     const webpackOptions = [
       Object.assign({ target: 'web' }, config),

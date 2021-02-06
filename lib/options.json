@@ -161,6 +161,13 @@
           "type": "boolean"
         },
         {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        {
           "instanceof": "Function"
         }
       ]
@@ -169,6 +176,13 @@
       "anyOf": [
         {
           "type": "boolean"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
         },
         {
           "instanceof": "Function"
@@ -451,8 +465,8 @@
       "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttp2)",
       "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttps)",
       "index": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverindex)",
-      "injectClient": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
-      "injectHot": "should be {Boolean|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
+      "injectClient": "should be {Boolean|String[]|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjectclient)",
+      "injectHot": "should be {Boolean|String[]|Function} (https://webpack.js.org/configuration/dev-server/#devserverinjecthot)",
       "inline": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverinline)",
       "key": "should be {String|Buffer}",
       "lazy": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlazy-)",
