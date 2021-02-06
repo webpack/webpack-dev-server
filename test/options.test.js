@@ -208,11 +208,11 @@ describe('options', () => {
         failure: [false],
       },
       injectClient: {
-        success: [true, () => {}],
+        success: [true, ['a'], () => {}],
         failure: [''],
       },
       injectHot: {
-        success: [true, () => {}],
+        success: [true, ['a'], () => {}],
         failure: [''],
       },
       inline: {
