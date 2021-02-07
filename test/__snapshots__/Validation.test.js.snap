@@ -12,9 +12,11 @@ exports[`Validation validation should fail validation for invalid \`hot\` config
 exports[`Validation validation should fail validation for invalid \`injectHot\` configuration 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.injectHot should be one of these:
-   boolean | function
+   boolean | [string, ...] (should not have fewer than 1 item) | function
    Details:
     * configuration.injectHot should be a boolean.
+    * configuration.injectHot should be an array:
+      [string, ...] (should not have fewer than 1 item)
     * configuration.injectHot should be an instance of function."
 `;
 

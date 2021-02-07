@@ -359,11 +359,11 @@ describe('options', () => {
         ],
       },
       injectClient: {
-        success: [true, () => {}],
+        success: [true, ['a'], () => {}],
         failure: [''],
       },
       injectHot: {
-        success: [true, () => {}],
+        success: [true, ['a'], () => {}],
         failure: [''],
       },
       onListening: {
