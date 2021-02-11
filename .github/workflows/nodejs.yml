@@ -93,21 +93,16 @@ jobs:
             ${{ runner.os }}-${{ matrix.webpack-version }}-node-
 
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Install webpack ${{ matrix.webpack-version }}
-        if: matrix.webpack-version == 'webpack-4'
+        if: matrix.webpack-version == '4'
         run: npm i webpack@${{ matrix.webpack-version }}
 
       - name: Link webpack-dev-server
         run: |
           npm link --ignore-scripts # do not build the client again
           npm link webpack-dev-server
-
-      - name: Build client
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: build:client
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci
