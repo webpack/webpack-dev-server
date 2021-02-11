@@ -78,7 +78,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: npm i -g npm
 
-      - name: Get npm cache directory.
+      - name: Get npm cache directory
         id: npm-cache-dir
         run: |
           echo "::set-output name=dir::$(npm config get cache)"
