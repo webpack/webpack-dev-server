@@ -88,9 +88,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ matrix.webpack-version }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-${{ matrix.webpack-version }}-node-
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
