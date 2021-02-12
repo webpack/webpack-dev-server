@@ -68,7 +68,7 @@ module.exports = {
     {
       name: 'stdin',
       type: Boolean,
-      description: 'close when stdin ends',
+      description: 'Close when stdin ends',
     },
     {
       name: 'open',
