@@ -11,6 +11,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -40,6 +41,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -69,6 +71,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -100,6 +103,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -129,6 +133,7 @@ Object {
   "firewall": false,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -158,6 +163,7 @@ Object {
   "firewall": true,
   "hot": false,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -187,6 +193,7 @@ Object {
   "firewall": true,
   "hot": "only",
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -216,6 +223,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -245,6 +253,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": false,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -274,6 +283,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -303,6 +313,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -334,6 +345,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -363,6 +375,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -394,6 +407,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -425,6 +439,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -456,6 +471,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -485,6 +501,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "/static/path1",
@@ -525,6 +542,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "/static/path1",
@@ -565,6 +583,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "/static/path1",
@@ -605,6 +624,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "/static/path",
@@ -634,6 +654,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": false,
   "transportMode": Object {
     "client": "ws",
@@ -651,6 +672,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "/static/path",
@@ -680,6 +702,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -709,6 +732,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -738,6 +762,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -768,6 +793,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -797,6 +823,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -824,6 +851,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -853,6 +881,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -884,6 +913,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -913,6 +943,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -942,6 +973,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -971,6 +1003,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -1000,6 +1033,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -1029,6 +1063,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -1058,6 +1093,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",
@@ -1087,6 +1123,7 @@ Object {
   "firewall": true,
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
   "static": Array [
     Object {
       "directory": "CWD",

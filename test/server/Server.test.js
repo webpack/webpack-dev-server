@@ -164,7 +164,7 @@ describe('Server', () => {
     });
   });
 
-  describe('WEBPACK_DEV_SERVER environment variable', () => {
+  describe('WEBPACK_SERVE environment variable', () => {
     const OLD_ENV = process.env;
 
     beforeEach(() => {
@@ -173,7 +173,7 @@ describe('Server', () => {
 
       process.env = { ...OLD_ENV };
 
-      delete process.env.WEBPACK_DEV_SERVER;
+      delete process.env.WEBPACK_SERVE;
     });
 
     afterEach(() => {
@@ -181,11 +181,11 @@ describe('Server', () => {
     });
 
     it('should be present', () => {
-      expect(process.env.WEBPACK_DEV_SERVER).toBeUndefined();
+      expect(process.env.WEBPACK_SERVE).toBeUndefined();
 
       require('../../lib/Server');
 
-      expect(process.env.WEBPACK_DEV_SERVER).toBe(true);
+      expect(process.env.WEBPACK_SERVE).toBe(true);
     });
   });
 });
