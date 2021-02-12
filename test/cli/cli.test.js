@@ -37,7 +37,7 @@ runCLITest('CLI', () => {
       .replace(/webpack [^ )]+/g, 'webpack x.x.x')
       .replace(new RegExp(quotemeta(basePath.replace(/\\/g, '/')), 'g'), 'Xdir')
       .replace(new RegExp(quotemeta(basePath), 'g'), 'Xdir')
-      .replace(/[\\/]static/, '/static')
+      .replace(/[\\/]public/, '/public')
       .replace(/(Hash:) [a-z0-9]+/g, '$1 X')
       .replace(/ dependencies:Xms/g, '')
       .replace(/, additional resolving: X ms/g, '');

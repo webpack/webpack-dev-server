@@ -2,7 +2,7 @@
 
 exports[`CLI --hot webpack 5 1`] = `
 "<i> [webpack-dev-server] Project is running at http://localhost:8080/
-<i> [webpack-dev-server] Content not from webpack x.x.x served from 'Xdir/static' directory
+<i> [webpack-dev-server] Content not from webpack x.x.x served from 'Xdir/public' directory
 <i> [webpack-dev-middleware] asset main.js X KiB [emitted] (name: main)
 <i> runtime modules X KiB 10 modules
 <i> cacheable modules X KiB
@@ -21,7 +21,7 @@ exports[`CLI --hot webpack 5 1`] = `
 
 exports[`CLI --no-hot webpack 5 1`] = `
 "<i> [webpack-dev-server] Project is running at http://localhost:8080/
-<i> [webpack-dev-server] Content not from webpack x.x.x served from 'Xdir/static' directory
+<i> [webpack-dev-server] Content not from webpack x.x.x served from 'Xdir/public' directory
 <i> [webpack-dev-middleware] asset main.js X KiB [emitted] (name: main)
 <i> runtime modules X bytes 3 modules
 <i> cacheable modules X KiB

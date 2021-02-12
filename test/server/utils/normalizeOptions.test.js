@@ -449,7 +449,7 @@ describe('normalizeOptions', () => {
 
           if (data.options.static) {
             data.options.static.forEach((staticOpts) => {
-              if (staticOpts.directory === path.join(process.cwd(), 'static')) {
+              if (staticOpts.directory === path.join(process.cwd(), 'public')) {
                 // give an indication in the snapshot that this is the
                 // current working directory
                 staticOpts.directory = 'CWD';
