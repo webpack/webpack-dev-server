@@ -125,7 +125,7 @@ const onSocketMessage = {
   },
   errors(errors) {
     log.error('Errors while compiling. Reload prevented.');
-    const strippedErrors = errors.map((error) => stripAnsi(error));
+    const strippedErrors = errors.map((error) => stripAnsi(error.message ? error.message : error));
     sendMessage('Errors', strippedErrors);
     for (let i = 0; i < strippedErrors.length; i++) {
       log.error(strippedErrors[i]);
