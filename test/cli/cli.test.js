@@ -6,16 +6,7 @@ const internalIp = require('internal-ip');
 const testBin = require('../helpers/test-bin');
 const isWebpack5 = require('../helpers/isWebpack5');
 
-// skip if webpack-dev-server is not linked
-let runCLITest = describe;
-
-try {
-  basePath = path.join(require.resolve('webpack-dev-server'), '..', '..');
-} catch {
-  runCLITest = describe.skip;
-}
-
-runCLITest('CLI', () => {
+describe('CLI', () => {
   const webpack4Test = isWebpack5 ? it.skip : it;
   const webpack5Test = isWebpack5 ? it : it.skip;
 
@@ -40,20 +31,30 @@ runCLITest('CLI', () => {
   });
 
   webpack5Test('--hot webpack 5', (done) => {
-    testBin('--hot', path.resolve(__dirname, '../fixtures/cli/verbose-config.js'))
+    testBin(
+      '--hot',
+      path.resolve(__dirname, '../fixtures/cli/verbose-config.js')
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('webpack/runtime/hot module replacement');
+        expect(output.stderr).toContain(
+          'webpack/runtime/hot module replacement'
+        );
         done();
       })
       .catch(done);
   });
 
   webpack5Test('--no-hot webpack 5', (done) => {
-    testBin('--no-hot', path.resolve(__dirname, '../fixtures/cli/verbose-config.js'))
+    testBin(
+      '--no-hot',
+      path.resolve(__dirname, '../fixtures/cli/verbose-config.js')
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain('webpack/runtime/hot module replacement');
+        expect(output.stderr).not.toContain(
+          'webpack/runtime/hot module replacement'
+        );
         done();
       })
       .catch(done);
