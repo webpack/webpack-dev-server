@@ -66,8 +66,7 @@ runCLITest('CLI', () => {
   });
 
   webpack5Test('--hot webpack 5', (done) => {
-    // host doesn't default to `localhost`
-    testBin('--hot --host localhost')
+    testBin('--hot')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(normalizeOutput(output.stderr)).toMatchSnapshot();
@@ -77,8 +76,7 @@ runCLITest('CLI', () => {
   });
 
   webpack5Test('--no-hot webpack 5', (done) => {
-    // host doesn't default to `localhost`
-    testBin('--no-hot --host localhost')
+    testBin('--no-hot')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(normalizeOutput(output.stderr)).toMatchSnapshot();
@@ -119,9 +117,7 @@ runCLITest('CLI', () => {
       .catch(done);
   });
 
-  // TODO: enable after fixing url bug with undefined host
-  // https://github.com/webpack/webpack-dev-server/pull/2992#discussion_r571360196
-  it.skip('unspecified host and port', (done) => {
+  it('unspecified host and port', (done) => {
     testBin('')
       .then((output) => {
         expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
