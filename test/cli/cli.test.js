@@ -8,7 +8,6 @@ const isWebpack5 = require('../helpers/isWebpack5');
 
 // skip if webpack-dev-server is not linked
 let runCLITest = describe;
-let basePath;
 
 try {
   basePath = path.join(require.resolve('webpack-dev-server'), '..', '..');
@@ -17,31 +16,6 @@ try {
 }
 
 runCLITest('CLI', () => {
-  /* Based on webpack/test/StatsTestCases.test.js */
-  /**
-   * Escapes regular expression metacharacters
-   * @param {string} str String to quote
-   * @returns {string} Escaped string
-   */
-  const quotemeta = (str) => str.replace(/[-[\]\\/{}()*+?.^$|]/g, '\\$&');
-
-  const normalizeOutput = (output) =>
-    output
-      // eslint-disable-next-line no-control-regex
-      .replace(/\u001b\[[0-9;]*m/g, '')
-      .replace(/[.0-9]+(\s?)(ms|KiB|bytes)/g, 'X$1$2')
-      .replace(
-        /(Built at:) (.*)$/gm,
-        '$1 Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT'
-      )
-      .replace(/webpack [^ )]+/g, 'webpack x.x.x')
-      .replace(new RegExp(quotemeta(basePath.replace(/\\/g, '/')), 'g'), 'Xdir')
-      .replace(new RegExp(quotemeta(basePath), 'g'), 'Xdir')
-      .replace(/[\\/]public/, '/public')
-      .replace(/(Hash:) [a-z0-9]+/g, '$1 X')
-      .replace(/ dependencies:Xms/g, '')
-      .replace(/, additional resolving: X ms/g, '');
-
   const webpack4Test = isWebpack5 ? it.skip : it;
   const webpack5Test = isWebpack5 ? it : it.skip;
 
@@ -66,20 +40,20 @@ runCLITest('CLI', () => {
   });
 
   webpack5Test('--hot webpack 5', (done) => {
-    testBin('--hot')
+    testBin('--hot', path.resolve(__dirname, '../fixtures/cli/verbose-config.js'))
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
+        expect(output.stderr).toContain('webpack/runtime/hot module replacement');
         done();
       })
       .catch(done);
   });
 
   webpack5Test('--no-hot webpack 5', (done) => {
-    testBin('--no-hot')
+    testBin('--no-hot', path.resolve(__dirname, '../fixtures/cli/verbose-config.js'))
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
+        expect(output.stderr).not.toContain('webpack/runtime/hot module replacement');
         done();
       })
       .catch(done);
