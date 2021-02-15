@@ -37,9 +37,7 @@ describe('CLI', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain(
-          'webpack/runtime/hot module replacement'
-        );
+        expect(output.stderr).toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);
@@ -52,9 +50,7 @@ describe('CLI', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain(
-          'webpack/runtime/hot module replacement'
-        );
+        expect(output.stderr).not.toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);

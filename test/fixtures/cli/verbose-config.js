@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
-  stats: 'verbose',
+  entry: './foo.js',
   mode: 'development',
+  stats: 'detailed',
 };
