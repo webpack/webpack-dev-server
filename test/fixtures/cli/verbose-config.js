@@ -5,8 +5,8 @@ module.exports = {
   entry: './foo.js',
   mode: 'development',
   stats: {
-		relatedAssets: true,
-		chunkGroups: true,
-		chunks: true,
+    relatedAssets: true,
+    chunkGroups: true,
+    chunks: true,
   },
 };
