@@ -6,42 +6,7 @@ const internalIp = require('internal-ip');
 const testBin = require('../helpers/test-bin');
 const isWebpack5 = require('../helpers/isWebpack5');
 
-// skip if webpack-dev-server is not linked
-let runCLITest = describe;
-let basePath;
-
-try {
-  basePath = path.join(require.resolve('webpack-dev-server'), '..', '..');
-} catch {
-  runCLITest = describe.skip;
-}
-
-runCLITest('CLI', () => {
-  /* Based on webpack/test/StatsTestCases.test.js */
-  /**
-   * Escapes regular expression metacharacters
-   * @param {string} str String to quote
-   * @returns {string} Escaped string
-   */
-  const quotemeta = (str) => str.replace(/[-[\]\\/{}()*+?.^$|]/g, '\\$&');
-
-  const normalizeOutput = (output) =>
-    output
-      // eslint-disable-next-line no-control-regex
-      .replace(/\u001b\[[0-9;]*m/g, '')
-      .replace(/[.0-9]+(\s?)(ms|KiB|bytes)/g, 'X$1$2')
-      .replace(
-        /(Built at:) (.*)$/gm,
-        '$1 Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT'
-      )
-      .replace(/webpack [^ )]+/g, 'webpack x.x.x')
-      .replace(new RegExp(quotemeta(basePath.replace(/\\/g, '/')), 'g'), 'Xdir')
-      .replace(new RegExp(quotemeta(basePath), 'g'), 'Xdir')
-      .replace(/[\\/]public/, '/public')
-      .replace(/(Hash:) [a-z0-9]+/g, '$1 X')
-      .replace(/ dependencies:Xms/g, '')
-      .replace(/, additional resolving: X ms/g, '');
-
+describe('CLI', () => {
   const webpack4Test = isWebpack5 ? it.skip : it;
   const webpack5Test = isWebpack5 ? it : it.skip;
 
@@ -66,22 +31,21 @@ runCLITest('CLI', () => {
   });
 
   webpack5Test('--hot webpack 5', (done) => {
-    // host doesn't default to `localhost`
-    testBin('--hot --host localhost')
+    // need detailed stats to check for 'dev-server.js'
+    testBin('--hot --stats=detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
+        expect(output.stderr).toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);
   });
 
   webpack5Test('--no-hot webpack 5', (done) => {
-    // host doesn't default to `localhost`
-    testBin('--no-hot --host localhost')
+    testBin('--no-hot --stats=detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeOutput(output.stderr)).toMatchSnapshot();
+        expect(output.stderr).not.toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);
@@ -119,9 +83,7 @@ runCLITest('CLI', () => {
       .catch(done);
   });
 
-  // TODO: enable after fixing url bug with undefined host
-  // https://github.com/webpack/webpack-dev-server/pull/2992#discussion_r571360196
-  it.skip('unspecified host and port', (done) => {
+  it('unspecified host and port', (done) => {
     testBin('')
       .then((output) => {
         expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
