@@ -31,10 +31,8 @@ describe('CLI', () => {
   });
 
   webpack5Test('--hot webpack 5', (done) => {
-    testBin(
-      '--hot',
-      path.resolve(__dirname, '../fixtures/cli/verbose-config.js')
-    )
+    // need detailed stats to check for 'dev-server.js'
+    testBin('--hot --stats=detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('webpack/hot/dev-server.js');
@@ -44,10 +42,7 @@ describe('CLI', () => {
   });
 
   webpack5Test('--no-hot webpack 5', (done) => {
-    testBin(
-      '--no-hot',
-      path.resolve(__dirname, '../fixtures/cli/verbose-config.js')
-    )
+    testBin('--no-hot --stats=detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).not.toContain('webpack/hot/dev-server.js');
