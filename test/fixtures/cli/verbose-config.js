@@ -1,7 +1,12 @@
 'use strict';
 
 module.exports = {
+  context: __dirname,
   entry: './foo.js',
   mode: 'development',
-  stats: 'detailed',
+  stats: {
+		relatedAssets: true,
+		chunkGroups: true,
+		chunks: true,
+  },
 };
