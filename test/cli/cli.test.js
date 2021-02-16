@@ -51,10 +51,9 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  // TODO: do not skip after the major version is bumped
-  // https://github.com/webpack/webpack-cli/commit/7c5a2bae49625ee4982d7478b7e741968731cea2
-  it.skip('--hot-only', (done) => {
-    testBin('--hot-only')
+  it('--hot-only', (done) => {
+    // need detailed stats to check for 'only-dev-server.js'
+    testBin('--hot-only --stats detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('/hot/only-dev-server');
