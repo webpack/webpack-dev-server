@@ -89,4 +89,14 @@ describe('DevServer', () => {
       })
       .catch(done);
   });
+
+  it('should prepend devServer entry points depending on targetProperties', (done) => {
+    testBin('--config ./test/fixtures/dev-server/target-config.js')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).toContain('client/default/index.js');
+        done();
+      })
+      .catch(done);
+  });
 });
