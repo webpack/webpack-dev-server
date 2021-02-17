@@ -43,7 +43,7 @@ describe('updateCompiler', () => {
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(0);
       expect(tapsByProvidePlugin).toEqual(1);
-      expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
+      expect(tapsByDevServerPlugin).toEqual(0);
       expect(compiler.options.plugins).toHaveLength(0);
     });
   });
@@ -87,7 +87,7 @@ describe('updateCompiler', () => {
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(1);
       expect(tapsByProvidePlugin).toEqual(1);
-      expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
+      expect(tapsByDevServerPlugin).toEqual(0);
     });
   });
 
@@ -131,8 +131,8 @@ describe('updateCompiler', () => {
 
       expect(compiler.hooks.entryOption.taps.length).toBe(1);
       expect(tapsByHMR).toEqual(1);
-      expect(tapsByProvidePlugin).toEqual(1);
-      expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
+      expect(tapsByProvidePlugin).toEqual(isWebpack5 ? 4 : 1);
+      expect(tapsByDevServerPlugin).toEqual(0);
       expect(compiler.options.plugins).toContainEqual(
         new webpack.HotModuleReplacementPlugin()
       );
@@ -181,7 +181,7 @@ describe('updateCompiler', () => {
         expect(compiler.hooks.entryOption.taps.length).toBe(1);
         expect(tapsByHMR).toEqual(1);
         expect(tapsByProvidePlugin).toEqual(1);
-        expect(tapsByDevServerPlugin).toEqual(isWebpack5 ? 1 : 0);
+        expect(tapsByDevServerPlugin).toEqual(0);
       });
     });
   });
