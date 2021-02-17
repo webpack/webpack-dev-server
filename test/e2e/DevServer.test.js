@@ -17,19 +17,22 @@ describe('DevServer', () => {
   });
 
   it('should add devServer entry points to a multi entry point object', (done) => {
-    testBin('--config ./test/fixtures/dev-server/multi-entry.js')
+    testBin(
+      '--config ./test/fixtures/dev-server/multi-entry.js --stats=verbose'
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('client/default/index.js?');
         expect(output.stderr).toContain('foo.js');
-        expect(output.stderr).toContain('bar.js');
         done();
       })
       .catch(done);
   });
 
   webpack5Test('should supports entry as descriptor', (done) => {
-    testBin('--config ./test/fixtures/entry-as-descriptor/webpack.config --stats detailed')
+    testBin(
+      '--config ./test/fixtures/entry-as-descriptor/webpack.config --stats detailed'
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('foo.js');
@@ -39,7 +42,9 @@ describe('DevServer', () => {
   });
 
   it('should only prepends devServer entry points to "web" target', (done) => {
-    testBin('--config ./test/fixtures/dev-server/default-config.js --target web')
+    testBin(
+      '--config ./test/fixtures/dev-server/default-config.js --target web'
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('client/default/index.js?');
@@ -50,7 +55,9 @@ describe('DevServer', () => {
   });
 
   it('should not prepend devServer entry points to "node" target', (done) => {
-    testBin('--config ./test/fixtures/dev-server/default-config.js --target node')
+    testBin(
+      '--config ./test/fixtures/dev-server/default-config.js --target node'
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).not.toContain('client/default/index.js?');
@@ -61,7 +68,9 @@ describe('DevServer', () => {
   });
 
   it('should prepends the hot runtime to "node" target as well', (done) => {
-    testBin('--config ./test/fixtures/dev-server/default-config.js --target node --hot')
+    testBin(
+      '--config ./test/fixtures/dev-server/default-config.js --target node --hot'
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain('webpack/hot/dev-server');
@@ -90,13 +99,16 @@ describe('DevServer', () => {
       .catch(done);
   });
 
-  it('should prepend devServer entry points depending on targetProperties', (done) => {
-    testBin('--config ./test/fixtures/dev-server/target-config.js')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('client/default/index.js');
-        done();
-      })
-      .catch(done);
-  });
+  webpack5Test(
+    'should prepend devServer entry points depending on targetProperties',
+    (done) => {
+      testBin('--config ./test/fixtures/dev-server/target-config.js')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(output.stderr).toContain('client/default/index.js');
+          done();
+        })
+        .catch(done);
+    }
+  );
 });
