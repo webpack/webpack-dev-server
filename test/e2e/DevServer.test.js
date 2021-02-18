@@ -10,24 +10,27 @@ describe('DevServer', () => {
     testBin('--config ./test/fixtures/dev-server/default-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('client/default/index.js?');
+        expect(output.stdout).toContain('client/default/index.js?');
         done();
       })
       .catch(done);
   });
 
-  it('should add devServer entry points to a multi entry point object', (done) => {
-    testBin(
-      '--config ./test/fixtures/dev-server/multi-entry.js --stats=verbose'
-    )
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('client/default/index.js?');
-        expect(output.stderr).toContain('foo.js');
-        done();
-      })
-      .catch(done);
-  });
+  webpack5Test(
+    'should add devServer entry points to a multi entry point object',
+    (done) => {
+      testBin(
+        '--config ./test/fixtures/dev-server/multi-entry.js --stats=verbose'
+      )
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(output.stdout).toContain('client/default/index.js?');
+          expect(output.stdout).toContain('foo.js');
+          done();
+        })
+        .catch(done);
+    }
+  );
 
   webpack5Test('should supports entry as descriptor', (done) => {
     testBin(
@@ -35,7 +38,7 @@ describe('DevServer', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('foo.js');
+        expect(output.stdout).toContain('foo.js');
         done();
       })
       .catch(done);
@@ -47,8 +50,8 @@ describe('DevServer', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('client/default/index.js?');
-        expect(output.stderr).toContain('foo.js');
+        expect(output.stdout).toContain('client/default/index.js?');
+        expect(output.stdout).toContain('foo.js');
         done();
       })
       .catch(done);
@@ -60,8 +63,8 @@ describe('DevServer', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain('client/default/index.js?');
-        expect(output.stderr).toContain('foo.js');
+        expect(output.stdout).not.toContain('client/default/index.js?');
+        expect(output.stdout).toContain('foo.js');
         done();
       })
       .catch(done);
@@ -73,7 +76,7 @@ describe('DevServer', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('webpack/hot/dev-server');
+        expect(output.stdout).toContain('webpack/hot/dev-server');
         done();
       })
       .catch(done);
@@ -83,7 +86,7 @@ describe('DevServer', () => {
     testBin('--config ./test/fixtures/dev-server/client-default-path-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain('&path=/ws');
+        expect(output.stdout).not.toContain('&path=/ws');
         done();
       })
       .catch(done);
@@ -93,7 +96,7 @@ describe('DevServer', () => {
     testBin('--config ./test/fixtures/dev-server/client-custom-path-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('&path=/custom/path');
+        expect(output.stdout).toContain('&path=/custom/path');
         done();
       })
       .catch(done);
@@ -105,7 +108,7 @@ describe('DevServer', () => {
       testBin('--config ./test/fixtures/dev-server/target-config.js')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(output.stderr).toContain('client/default/index.js');
+          expect(output.stdout).toContain('client/default/index.js');
           done();
         })
         .catch(done);

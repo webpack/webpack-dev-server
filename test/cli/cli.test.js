@@ -14,7 +14,7 @@ describe('CLI', () => {
     testBin('--hot')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('webpack/hot/dev-server.js');
+        expect(output.stdout).toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);
@@ -24,7 +24,7 @@ describe('CLI', () => {
     testBin('--no-hot')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain('webpack/hot/dev-server.js');
+        expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);
@@ -35,7 +35,7 @@ describe('CLI', () => {
     testBin('--hot --stats=detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('webpack/hot/dev-server.js');
+        expect(output.stdout).toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);
@@ -45,7 +45,7 @@ describe('CLI', () => {
     testBin('--no-hot --stats=detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain('webpack/hot/dev-server.js');
+        expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
         done();
       })
       .catch(done);
@@ -56,7 +56,7 @@ describe('CLI', () => {
     testBin('--hot-only --stats detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('/hot/only-dev-server');
+        expect(output.stdout).toContain('/hot/only-dev-server');
         done();
       })
       .catch(done);
@@ -152,7 +152,7 @@ describe('CLI', () => {
         expect(err.stderr).toContain(
           "webpack output is served from '/foo/bar' URL"
         );
-        expect(err.stderr).toContain('Compiled successfully.');
+        expect(err.stdout).toContain('main.js');
         done();
       });
   });
@@ -177,7 +177,7 @@ describe('CLI', () => {
         expect(err.stderr).toContain(
           `Content not from webpack is served from '${staticDirectory}' directory`
         );
-        expect(err.stderr).toContain('Compiled successfully.');
+        expect(err.stdout).toContain('main.js');
         done();
       });
   });
@@ -193,7 +193,7 @@ describe('CLI', () => {
       })
       .catch((err) => {
         // for windows
-        expect(err.stderr).toContain('Compiled successfully.');
+        expect(err.stdout).toContain('main.js');
         done();
       });
   });
@@ -203,10 +203,10 @@ describe('CLI', () => {
     const examplePath = path.resolve(__dirname, '../../examples/cli/public');
     const cp = execa('node', [cliPath], { cwd: examplePath });
 
-    cp.stderr.on('data', (data) => {
+    cp.stdout.on('data', (data) => {
       const bits = data.toString();
 
-      if (/Compiled successfully/.test(bits)) {
+      if (/main.js/.test(bits)) {
         expect(cp.pid !== 0).toBe(true);
 
         cp.kill('SIGINT');
@@ -225,7 +225,7 @@ describe('CLI', () => {
 
     let killed = false;
 
-    cp.stderr.on('data', () => {
+    cp.stdout.on('data', () => {
       if (!killed) {
         expect(cp.pid !== 0).toBe(true);
 
@@ -245,10 +245,10 @@ describe('CLI', () => {
     const examplePath = path.resolve(__dirname, '../../examples/cli/public');
     const cp = execa('node', [cliPath, '--stdin'], { cwd: examplePath });
 
-    cp.stderr.on('data', (data) => {
+    cp.stdout.on('data', (data) => {
       const bits = data.toString();
 
-      if (/Compiled successfully/.test(bits)) {
+      if (/main.js/.test(bits)) {
         expect(cp.pid !== 0).toBe(true);
 
         cp.stdin.write('hello');
@@ -268,7 +268,7 @@ describe('CLI', () => {
 
     let killed = false;
 
-    cp.stderr.on('data', () => {
+    cp.stdout.on('data', () => {
       if (!killed) {
         expect(cp.pid !== 0).toBe(true);
 
