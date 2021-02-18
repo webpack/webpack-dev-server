@@ -4,34 +4,9 @@ const path = require('path');
 const execa = require('execa');
 const internalIp = require('internal-ip');
 const testBin = require('../helpers/test-bin');
-const isWebpack5 = require('../helpers/isWebpack5');
 
 describe('CLI', () => {
-  const webpack4Test = isWebpack5 ? it.skip : it;
-  const webpack5Test = isWebpack5 ? it : it.skip;
-
-  webpack4Test('--hot webpack 4', (done) => {
-    testBin('--hot')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('webpack/hot/dev-server.js');
-        done();
-      })
-      .catch(done);
-  });
-
-  webpack4Test('--no-hot webpack 4', (done) => {
-    testBin('--no-hot')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
-        done();
-      })
-      .catch(done);
-  });
-
-  webpack5Test('--hot webpack 5', (done) => {
-    // need detailed stats to check for 'dev-server.js'
+  it('--hot', (done) => {
     testBin('--hot --stats=detailed')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
@@ -41,8 +16,8 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  webpack5Test('--no-hot webpack 5', (done) => {
-    testBin('--no-hot --stats=detailed')
+  it('--no-hot', (done) => {
+    testBin('--no-hot')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
@@ -52,8 +27,7 @@ describe('CLI', () => {
   });
 
   it('--hot-only', (done) => {
-    // need detailed stats to check for 'only-dev-server.js'
-    testBin('--hot-only --stats detailed')
+    testBin('--hot-only')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('/hot/only-dev-server');
