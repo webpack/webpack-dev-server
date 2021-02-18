@@ -62,7 +62,7 @@
     "strip-ansi": "^6.0.0",
     "url": "^0.11.0",
     "util": "^0.12.3",
-    "webpack-dev-middleware": "^4.0.2",
+    "webpack-dev-middleware": "^4.1.0",
     "ws": "^7.4.3"
   },
   "devDependencies": {
