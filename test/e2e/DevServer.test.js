@@ -56,7 +56,7 @@ describe('DevServer', () => {
 
   it('should not prepend devServer entry points to "node" target', (done) => {
     testBin(
-      '--config ./test/fixtures/dev-server/default-config.js --target node'
+      '--config ./test/fixtures/dev-server/default-config.js --target node --stats verbose'
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
