@@ -18,7 +18,7 @@ describe('DevServer', () => {
 
   it('should add devServer entry points to a multi entry point object', (done) => {
     testBin(
-      '--config ./test/fixtures/dev-server/multi-entry.js --stats=verbose'
+      '--config ./test/fixtures/dev-server/multi-entry.js --stats=detailed'
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
@@ -56,7 +56,7 @@ describe('DevServer', () => {
 
   it('should not prepend devServer entry points to "node" target', (done) => {
     testBin(
-      '--config ./test/fixtures/dev-server/default-config.js --target node --stats verbose'
+      '--config ./test/fixtures/dev-server/default-config.js --target node --stats detailed'
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
