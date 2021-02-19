@@ -61,6 +61,8 @@ node_modules/.bin/webpack serve
 Following options are available with `webpack serve`:
 
 ```
+Usage: webpack serve|s [entries...] [options]
+
 Options:
   -c, --config <value...>    Provide path to a webpack configuration file e.g. ./webpack.config.js.
   --config-name <value...>   Name of the configuration to use.
@@ -79,28 +81,28 @@ Options:
   -t, --target <value...>    Sets the build target e.g. node.
   --watch-options-stdin      Stop watching when stdin stream has ended.
   --no-watch-options-stdin   Do not stop watching when stdin stream has ended.
-  --host <value>             The hostname/ip address the server will bind to
-  --port <value>             The port
+  --host <value>             The hostname/ip address the server will bind to.
+  --port <value>             The port server will listen to.
   --static [value...]        A directory to serve static content from.
   --no-static                Negative 'static' option.
-  --live-reload              Enables/Disables live reloading on changing files
-  --no-live-reload           Negative 'live-reload' option.
-  --https                    HTTPS
-  --http2                    HTTP/2, must be used with HTTPS
-  --bonjour                  Broadcasts the server via ZeroConf networking on start
-  --client-progress          Print compilation progress in percentage in the browser
-  --hot-only                 Do not refresh page if HMR fails
-  --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM
-  --no-setup-exit-signals    Negative 'setup-exit-signals' option.
-  --stdin                    Close when stdin ends
-  --open [value]             Open the default browser, or optionally specify a browser name
-  --use-local-ip             Open default browser with local IP
-  --open-page <value...>     Open default browser with the specified page
-  --client-logging <value>   Log level in the browser (none, error, warn, info, log, verbose)
+  --live-reload              Enables live reloading on changing files.
+  --no-live-reload           Disables live reloading on changing files.
+  --https                    Use HTTPS protocol.
+  --http2                    Use HTTP/2, must be used with HTTPS.
+  --bonjour                  Broadcasts the server via ZeroConf networking on start.
+  --client-progress          Print compilation progress in percentage in the browser.
+  --hot-only                 Do not refresh page if HMR fails.
+  --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
+  --no-setup-exit-signals    Do not close and exit the process on SIGNIT and SIGTERM.
+  --stdin                    Close when stdin ends.
+  --open [value]             Open the default browser, or optionally specify a browser name.
+  --use-local-ip             Open default browser with local IP.
+  --open-page <value...>     Open default browser with the specified page.
+  --client-logging <value>   Log level in the browser (none, error, warn, info, log, verbose).
   --history-api-fallback     Fallback to /index.html for Single Page Applications.
-  --compress                 Enable gzip compression
-  --public <value>           The public hostname/ip address of the server
-  --firewall <value...>      Enable/disable firewall, or set hosts that are allowed to access the dev server
+  --compress                 Enable gzip compression.
+  --public <value>           The public hostname/ip address of the server.
+  --firewall <value...>      Enable/disable firewall, or set hosts that are allowed to access the dev server.
 
 Global options:
   --color                    Enable colors on console.
