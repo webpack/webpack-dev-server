@@ -16,5 +16,10 @@
       "enabled": false
     }
   ],
-  "ignoreDeps": []
+  "ignoreDeps": ["node"],
+  "force": {
+    "constraints": {
+      "node": ">= 10.13.0"
+    }
+  }
 }
