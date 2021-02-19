@@ -32,6 +32,19 @@ describe('DevServer', () => {
     }
   );
 
+  webpack5Test(
+    'should add devServer entry points to an empty entry object',
+    (done) => {
+      testBin('--config ./test/fixtures/dev-server/empty-entry.js')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(output.stdout).toContain('client/default/index.js?');
+          done();
+        })
+        .catch(done);
+    }
+  );
+
   webpack5Test('should supports entry as descriptor', (done) => {
     testBin(
       '--config ./test/fixtures/entry-as-descriptor/webpack.config --stats detailed'
