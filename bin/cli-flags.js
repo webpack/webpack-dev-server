@@ -23,6 +23,7 @@ module.exports = {
       name: 'live-reload',
       type: Boolean,
       description: 'Enables live reloading on changing files.',
+      negatedDescription: 'Disables live reloading on changing files.',
       negative: true,
     },
     {
@@ -63,6 +64,8 @@ module.exports = {
       name: 'setup-exit-signals',
       type: Boolean,
       description: 'Close and exit the process on SIGINT and SIGTERM.',
+      negatedDescription:
+        'Do not close and exit the process on SIGNIT and SIGTERM.',
       negative: true,
     },
     {
