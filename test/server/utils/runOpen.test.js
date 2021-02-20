@@ -119,6 +119,24 @@ describe('runOpen util', () => {
         `);
       }));
 
+    it('on specify URL with openPage option only ', () =>
+      runOpen('https://example.com', { openPage: '/index.html' }, console).then(
+        () => {
+          expect(open).toBeCalledWith('https://example.com/index.html', {
+            wait: false,
+          });
+
+          expect(open.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            "https://example.com/index.html",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+        }
+      ));
+
     it('on specify absolute https URL with page in Google Chrome ', () =>
       runOpen(
         'https://example.com',

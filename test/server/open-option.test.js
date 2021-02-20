@@ -42,6 +42,32 @@ describe('open option', () => {
     server.listen(port, 'localhost');
   });
 
+  it('should work with unspecified open option', (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      openPage: 'index.html',
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open.mock.calls[1]).toMatchInlineSnapshot(`
+          Array [
+            "http://localhost:8117/index.html",
+            Object {
+              "wait": false,
+            },
+          ]
+        `);
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, 'localhost');
+  });
+
   it('should work with "0.0.0.0" host', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
