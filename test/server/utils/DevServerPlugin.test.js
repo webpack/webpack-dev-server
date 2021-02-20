@@ -11,37 +11,7 @@ const normalize = (entry) => entry.split(path.sep).join('/');
 
 describe('DevServerPlugin util', () => {
   async function getEntries(compiler) {
-    const entryOption = compiler.options.entry;
-    if (isWebpack5) {
-      const entries = [];
-
-      const compilation = {
-        addEntry(_context, dep, _options, cb) {
-          if (!dep.loc.name) {
-            entries.push(dep.request);
-          }
-          cb();
-        },
-      };
-      await Promise.all(
-        compiler.hooks.make.taps
-          .filter((tap) => tap.name === 'DevServerPlugin')
-          .map((tap) => tap.fn(compilation))
-      );
-
-      // normalize entry descriptors
-      if (typeof entryOption === 'function') {
-        // merge entries into the dynamic entry function
-        Object.assign(entryOption, entries);
-        return entryOption;
-      } else if (entryOption.main) {
-        entries.push(...entryOption.main.import);
-      }
-      // merge named exports into entries
-      Object.assign(entries, entryOption);
-      return entries;
-    }
-    return entryOption;
+    return compiler.options.entry;
   }
 
   it('should preserves dynamic entry points', (done) => {
