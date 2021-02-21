@@ -85,6 +85,31 @@ describe('Server', () => {
     });
   });
 
+  describe('devServer property of the compiler', () => {
+    it('should reference the Server instance', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, baseDevConfig);
+
+      expect(compiler.devServer).toBe(server);
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        server.close(done);
+      });
+
+      compiler.run(() => {});
+    });
+
+    it('should prevent multiple Server instances from using the same compiler', () => {
+      const compiler = webpack(config);
+      let server = new Server(compiler, baseDevConfig);
+
+      expect(() => {
+        // eslint-disable-next-line no-unused-vars
+        server = new Server(compiler, baseDevConfig);
+      }).toThrow();
+    });
+  });
+
   it('test server error reporting', () => {
     const compiler = webpack(config);
     const server = new Server(compiler, baseDevConfig);
