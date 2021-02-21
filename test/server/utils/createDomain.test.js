@@ -11,7 +11,7 @@ describe('createDomain', () => {
   let compiler;
   let server;
 
-  beforeAll(() => {
+  beforeEach(() => {
     compiler = webpack(config);
   });
 

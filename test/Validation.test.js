@@ -8,7 +8,7 @@ describe('Validation', () => {
   let compiler;
   let server;
 
-  beforeAll(() => {
+  beforeEach(() => {
     compiler = webpack(config);
   });
 
