@@ -118,10 +118,12 @@ module.exports = {
     },
     {
       name: 'firewall',
-      type: String,
+      type: [String, Boolean],
       description:
-        'Enable/disable firewall, or set hosts that are allowed to access the dev server.',
+        'Enable firewall or set hosts that are allowed to access the dev server.',
+      negatedDescription: 'Disable firewall.',
       multiple: true,
+      negative: true,
     },
   ],
 };

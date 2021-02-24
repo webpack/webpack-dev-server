@@ -102,7 +102,8 @@ Options:
   --history-api-fallback     Fallback to /index.html for Single Page Applications.
   --compress                 Enable gzip compression.
   --public <value>           The public hostname/ip address of the server.
-  --firewall <value...>      Enable/disable firewall, or set hosts that are allowed to access the dev server.
+  --firewall [value...]      Enable firewall or set hosts that are allowed to access the dev server.
+  --no-firewall              Disable firewall.
 
 Global options:
   --color                    Enable colors on console.
