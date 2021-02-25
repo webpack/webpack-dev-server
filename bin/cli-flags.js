@@ -30,11 +30,15 @@ module.exports = {
       name: 'https',
       type: Boolean,
       description: 'Use HTTPS protocol.',
+      negatedDescription: 'Do not use HTTPS protocol.',
+      negative: true,
     },
     {
       name: 'http2',
       type: Boolean,
       description: 'Use HTTP/2, must be used with HTTPS.',
+      negatedDescription: 'Do not use HTTP/2.',
+      negative: true,
     },
     {
       name: 'bonjour',
@@ -105,11 +109,16 @@ module.exports = {
       name: 'history-api-fallback',
       type: Boolean,
       description: 'Fallback to /index.html for Single Page Applications.',
+      negatedDescription:
+        'Do not fallback to /index.html for Single Page Applications.',
+      negative: true,
     },
     {
       name: 'compress',
       type: Boolean,
       description: 'Enable gzip compression.',
+      negatedDescription: 'Disable gzip compression.',
+      negative: true,
     },
     {
       name: 'public',
