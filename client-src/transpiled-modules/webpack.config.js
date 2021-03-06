@@ -23,6 +23,12 @@ const base = {
       },
     ],
   },
+  plugins: [
+    new webpack.NormalModuleReplacementPlugin(
+      /^tapable\/lib\/SyncBailHook/,
+      path.join(__dirname, 'clientTapableSyncBailHook.js')
+    ),
+  ],
 };
 
 module.exports = [
