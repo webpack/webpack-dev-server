@@ -58,7 +58,7 @@ describe('CLI', () => {
   });
 
   it('--history-api-fallback', (done) => {
-    testBin('--history-api-fallback')
+    testBin('--history-api-fallback --no-color')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain(`404s will fallback to '/index.html'`);
