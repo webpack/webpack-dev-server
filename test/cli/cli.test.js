@@ -57,11 +57,34 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--no-https', (done) => {
+    testBin('--no-https')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(/https:\/\//.test(output.stderr)).toEqual(false);
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--history-api-fallback', (done) => {
     testBin('--history-api-fallback --no-color')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stderr).toContain(`404s will fallback to '/index.html'`);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-history-api-fallback', (done) => {
+    testBin('--no-history-api-fallback')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).not.toContain(
+          `404s will fallback to '/index.html'`
+        );
         done();
       })
       .catch(done);
