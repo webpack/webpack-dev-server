@@ -30,24 +30,29 @@ self.addEventListener('beforeunload', () => {
 
 if (typeof window !== 'undefined') {
   const qs = window.location.search.toLowerCase();
+
   options.hotReload = qs.indexOf('hotreload=false') === -1;
 }
 
 const onSocketMessage = {
   hot() {
     options.hot = true;
+
     log.info('Hot Module Replacement enabled.');
   },
   liveReload() {
     options.liveReload = true;
+
     log.info('Live Reloading enabled.');
   },
   invalid() {
     log.info('App updated. Recompiling...');
+
     // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
+
     sendMessage('Invalid');
   },
   hash(hash) {
@@ -55,15 +60,18 @@ const onSocketMessage = {
   },
   'still-ok': function stillOk() {
     log.info('Nothing changed.');
+
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
+
     sendMessage('StillOk');
   },
   logging: function logging(level) {
     // this is needed because the HMR logger operate separately from
     // dev server logger
     const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
+
     if (hotCtx.keys().indexOf('./log') !== -1) {
       hotCtx('./log').setLogLevel(level);
     }
@@ -90,29 +98,40 @@ const onSocketMessage = {
     if (options.useProgress) {
       log.info(`${data.percent}% - ${data.msg}.`);
     }
+
     sendMessage('Progress', data);
   },
   ok() {
     sendMessage('Ok');
+
     if (options.useWarningOverlay || options.useErrorOverlay) {
       overlay.clear();
     }
+
     if (options.initial) {
       return (options.initial = false);
     }
+
     reloadApp(options, status);
   },
   'content-changed': function contentChanged() {
     log.info('Content base changed. Reloading...');
+
     self.location.reload();
   },
   warnings(warnings) {
     log.warn('Warnings while compiling.');
-    const strippedWarnings = warnings.map((warning) => stripAnsi(warning));
+
+    const strippedWarnings = warnings.map((warning) =>
+      stripAnsi(warning.message ? warning.message : warning)
+    );
+
     sendMessage('Warnings', strippedWarnings);
+
     for (let i = 0; i < strippedWarnings.length; i++) {
       log.warn(strippedWarnings[i]);
     }
+
     if (options.useWarningOverlay) {
       overlay.showMessage(warnings);
     }
@@ -125,16 +144,21 @@ const onSocketMessage = {
   },
   errors(errors) {
     log.error('Errors while compiling. Reload prevented.');
+
     const strippedErrors = errors.map((error) =>
       stripAnsi(error.message ? error.message : error)
     );
+
     sendMessage('Errors', strippedErrors);
+
     for (let i = 0; i < strippedErrors.length; i++) {
       log.error(strippedErrors[i]);
     }
+
     if (options.useErrorOverlay) {
       overlay.showMessage(errors);
     }
+
     options.initial = false;
   },
   error(error) {

@@ -102,7 +102,8 @@ Options:
   --history-api-fallback     Fallback to /index.html for Single Page Applications.
   --compress                 Enable gzip compression.
   --public <value>           The public hostname/ip address of the server.
-  --firewall <value...>      Enable/disable firewall, or set hosts that are allowed to access the dev server.
+  --firewall [value...]      Enable firewall or set hosts that are allowed to access the dev server.
+  --no-firewall              Disable firewall.
 
 Global options:
   --color                    Enable colors on console.
@@ -161,7 +162,7 @@ needed modifications to the code for the module. Because of that, we ask users
 with general support, "how-to", or "why isn't this working" questions to try one
 of the other support channels that are available.
 
-Your first-stop-shop for support for webpack-dev-server should by the excellent
+Your first-stop-shop for support for webpack-dev-server should be the excellent
 [documentation][docs-url] for the module. If you see an opportunity for improvement
 of those docs, please head over to the [webpack.js.org repo][wjo-url] and open a
 pull request.

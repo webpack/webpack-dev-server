@@ -4,9 +4,8 @@
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
 const ansiHTML = require('ansi-html');
-const { AllHtmlEntities } = require('html-entities');
+const { encode } = require('html-entities');
 
-const entities = new AllHtmlEntities();
 const colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
@@ -114,7 +113,7 @@ function showMessage(messages) {
   ensureOverlayDivExists((div) => {
     // Make it look similar to our terminal.
     const errorMessage = messages[0].message || messages[0];
-    const text = ansiHTML(entities.encode(errorMessage));
+    const text = ansiHTML(encode(errorMessage));
 
     div.innerHTML = `<span style="color: #${colors.red}">Failed to compile.</span><br><br>${text}`;
   });
