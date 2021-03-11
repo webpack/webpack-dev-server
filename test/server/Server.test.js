@@ -86,11 +86,11 @@ describe('Server', () => {
   });
 
   describe('devServer property of the compiler', () => {
-    it('should reference the Server instance', (done) => {
+    it('should be true', (done) => {
       const compiler = webpack(config);
       const server = new Server(compiler, baseDevConfig);
 
-      expect(compiler.devServer).toBe(server);
+      expect(compiler[Symbol.for('webpack-dev-server')]).toBe(true);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
         server.close(done);
