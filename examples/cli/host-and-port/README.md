@@ -11,7 +11,7 @@ npm run webpack-dev-server -- --open --port 5000 --host 0.0.0.0
 
 ## IPv6
 
-_This also works with IPv4_
+_This also works with IPv6_
 
 ```console
 npm run webpack-dev-server -- --open --port 5000 --host ::
