@@ -88,7 +88,9 @@ Options:
   --live-reload              Enables live reloading on changing files.
   --no-live-reload           Disables live reloading on changing files.
   --https                    Use HTTPS protocol.
+  --no-https                 Do not use HTTPS protocol.
   --http2                    Use HTTP/2, must be used with HTTPS.
+  --no-http2                 Do not use HTTP/2.
   --bonjour                  Broadcasts the server via ZeroConf networking on start.
   --client-progress          Print compilation progress in percentage in the browser.
   --hot-only                 Do not refresh page if HMR fails.
@@ -100,7 +102,9 @@ Options:
   --open-page <value...>     Open default browser with the specified page.
   --client-logging <value>   Log level in the browser (none, error, warn, info, log, verbose).
   --history-api-fallback     Fallback to /index.html for Single Page Applications.
+  --no-history-api-fallback  Do not fallback to /index.html for Single Page Applications.
   --compress                 Enable gzip compression.
+  --no-compress              Disable gzip compression.
   --public <value>           The public hostname/ip address of the server.
   --firewall [value...]      Enable firewall or set hosts that are allowed to access the dev server.
   --no-firewall              Disable firewall.
