@@ -185,7 +185,7 @@ module.exports = {
       name: 'public',
       configs: [
         {
-          type: 'boolean',
+          type: 'string',
         },
       ],
       description: 'The public hostname/ip address of the server.',
