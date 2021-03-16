@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const internalIp = require('internal-ip');
 const Server = require('../../../lib/Server');
 const createDomain = require('../../../lib/utils/createDomain');
+const defaultPort = require('../../../lib/utils/defaultPort');
 const [port1, port2] = require('../../ports-map').createDomain;
 const config = require('./../../fixtures/simple-config/webpack.config');
 
@@ -16,7 +17,9 @@ describe('createDomain', () => {
   });
 
   afterEach((done) => {
-    server.close(done);
+    if (server) {
+      server.close(done);
+    } else done();
   });
 
   const tests = [
@@ -125,5 +128,13 @@ describe('createDomain', () => {
         }
       });
     });
+  });
+
+  it(`test createDomain when server is absent`, () => {
+    const options = {
+      useLocalIp: true,
+    };
+    const domain = createDomain(options);
+    expect(domain).toEqual(`http://${internalIp.v4.sync()}:${defaultPort}`);
   });
 });
