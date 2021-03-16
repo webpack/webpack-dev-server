@@ -4,6 +4,7 @@ module.exports = {
   devServer: [
     {
       name: 'host',
+      type: String,
       configs: [
         {
           type: 'string',
@@ -13,6 +14,7 @@ module.exports = {
     },
     {
       name: 'port',
+      type: Number,
       configs: [
         {
           type: 'number',
@@ -22,6 +24,7 @@ module.exports = {
     },
     {
       name: 'static',
+      type: [String, Boolean],
       configs: [
         {
           type: 'string',
@@ -36,6 +39,7 @@ module.exports = {
     },
     {
       name: 'live-reload',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -47,6 +51,7 @@ module.exports = {
     },
     {
       name: 'https',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -58,6 +63,7 @@ module.exports = {
     },
     {
       name: 'http2',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -69,6 +75,7 @@ module.exports = {
     },
     {
       name: 'bonjour',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -78,6 +85,7 @@ module.exports = {
     },
     {
       name: 'client-progress',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -92,6 +100,7 @@ module.exports = {
     },
     {
       name: 'setup-exit-signals',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -104,6 +113,7 @@ module.exports = {
     },
     {
       name: 'stdin',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -113,6 +123,7 @@ module.exports = {
     },
     {
       name: 'open',
+      type: [Boolean, String],
       configs: [
         {
           type: 'boolean',
@@ -126,6 +137,7 @@ module.exports = {
     },
     {
       name: 'use-local-ip',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -135,6 +147,7 @@ module.exports = {
     },
     {
       name: 'open-page',
+      type: String,
       configs: [
         {
           type: 'string',
@@ -145,6 +158,7 @@ module.exports = {
     },
     {
       name: 'client-logging',
+      type: String,
       configs: [
         {
           type: 'string',
@@ -160,6 +174,7 @@ module.exports = {
     },
     {
       name: 'history-api-fallback',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -172,6 +187,7 @@ module.exports = {
     },
     {
       name: 'compress',
+      type: Boolean,
       configs: [
         {
           type: 'boolean',
@@ -183,6 +199,7 @@ module.exports = {
     },
     {
       name: 'public',
+      type: String,
       configs: [
         {
           type: 'string',
@@ -192,6 +209,7 @@ module.exports = {
     },
     {
       name: 'firewall',
+      type: [Boolean, String],
       configs: [
         {
           type: 'boolean',
