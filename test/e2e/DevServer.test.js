@@ -1,6 +1,6 @@
 'use strict';
 
-const testBin = require('../helpers/test-bin');
+const { testBin } = require('../helpers/test-bin');
 const isWebpack5 = require('../helpers/isWebpack5');
 
 describe('DevServer', () => {
