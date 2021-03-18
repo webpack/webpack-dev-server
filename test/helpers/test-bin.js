@@ -2,6 +2,7 @@
 
 const path = require('path');
 const execa = require('execa');
+const internalIp = require('internal-ip');
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -31,4 +32,35 @@ function testBin(testArgs, configPath) {
   return execa('node', args, { cwd, env, timeout: 10000 });
 }
 
-module.exports = testBin;
+function normalizeStderr(stderr) {
+  let normalizedStderr = stderr;
+
+  normalizedStderr = normalizedStderr.replace(
+    new RegExp(process.cwd(), 'g'),
+    '<cwd>'
+  );
+
+  const networkIPv4 = internalIp.v4.sync();
+
+  if (networkIPv4) {
+    normalizedStderr = normalizedStderr.replace(
+      new RegExp(networkIPv4, 'g'),
+      '<network-ip-v4>'
+    );
+  }
+
+  const networkIPv6 = internalIp.v6.sync();
+
+  if (networkIPv6) {
+    normalizedStderr = normalizedStderr.replace(
+      new RegExp(networkIPv6, 'g'),
+      '<network-ip-v6>'
+    );
+  }
+
+  normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ':<port>/');
+
+  return normalizedStderr;
+}
+
+module.exports = { normalizeStderr, testBin };
