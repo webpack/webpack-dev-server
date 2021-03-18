@@ -164,7 +164,7 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it(`--host ${localIPv4} (IPv4)`, (done) => {
+  it(`--host <IPv4>`, (done) => {
     testBin(`--host ${localIPv4}`)
       .then((output) => {
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
@@ -174,7 +174,7 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it.skip(`--host ${localIPv6} (IPv6)`, (done) => {
+  it(`--host <IPv6>`, (done) => {
     testBin(`--host ${localIPv6}`)
       .then((output) => {
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
