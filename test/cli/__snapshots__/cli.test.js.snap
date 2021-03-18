@@ -7,13 +7,13 @@ exports[`CLI --host :: (IPv6): stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`CLI --host <IPv4>: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://<network-ip-v4>:<port>/ (IPv4)
+exports[`CLI --host ::1 (IPv6): stderr 1`] = `
+"<i> [webpack-dev-server] Project is running at http://[::1]:<port>/ (IPv6)
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`CLI --host <IPv6>: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://<network-ip-v4>:<port>/ (IPv4), http://[::ffff:<network-ip-v4>]:<port>/ (IPv6)
+exports[`CLI --host <IPv4>: stderr 1`] = `
+"<i> [webpack-dev-server] Project is running at http://<network-ip-v4>:<port>/ (IPv4)
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
