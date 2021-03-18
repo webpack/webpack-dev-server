@@ -124,7 +124,7 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--host ::1 (IPv6)', (done) => {
+  it.skip('--host ::1 (IPv6)', (done) => {
     testBin('--host ::1')
       .then((output) => {
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
