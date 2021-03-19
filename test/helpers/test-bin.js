@@ -38,7 +38,7 @@ function normalizeStderr(stderr, options = {}) {
 
   normalizedStderr = normalizedStderr
     .replace(/\\/g, '/')
-    .replace(new RegExp(process.cwd(), 'g'), '<cwd>');
+    .replace(new RegExp(process.cwd().replace(/\\/g, '/'), 'g'), '<cwd>');
 
   const networkIPv4 = internalIp.v4.sync();
 
