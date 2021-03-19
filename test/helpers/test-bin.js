@@ -2,6 +2,7 @@
 
 const path = require('path');
 const execa = require('execa');
+const stripAnsi = require('strip-ansi');
 const internalIp = require('internal-ip');
 
 const webpackDevServerPath = path.resolve(
@@ -33,12 +34,11 @@ function testBin(testArgs, configPath) {
 }
 
 function normalizeStderr(stderr, options = {}) {
-  let normalizedStderr = stderr;
+  let normalizedStderr = stripAnsi(stderr);
 
-  normalizedStderr = normalizedStderr.replace(
-    new RegExp(process.cwd(), 'g'),
-    '<cwd>'
-  );
+  normalizedStderr = normalizedStderr
+    .replace(/\\/g, '/')
+    .replace(new RegExp(process.cwd(), 'g'), '<cwd>');
 
   const networkIPv4 = internalIp.v4.sync();
 
