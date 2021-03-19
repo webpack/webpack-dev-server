@@ -32,7 +32,7 @@ function testBin(testArgs, configPath) {
   return execa('node', args, { cwd, env, timeout: 10000 });
 }
 
-function normalizeStderr(stderr) {
+function normalizeStderr(stderr, options = {}) {
   let normalizedStderr = stderr;
 
   normalizedStderr = normalizedStderr.replace(
@@ -59,6 +59,14 @@ function normalizeStderr(stderr) {
   }
 
   normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ':<port>/');
+
+  if (options.ipv6 && !networkIPv6) {
+    // Github Actions doesnt' support IPv6 on ubuntu in some cases
+    normalizedStderr = normalizedStderr.replace(
+      /\(IPv4\)/,
+      '(IPv4), http://[<network-ip-v6>]:<port>/ (IPv6)'
+    );
+  }
 
   return normalizedStderr;
 }

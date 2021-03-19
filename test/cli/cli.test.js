@@ -97,7 +97,9 @@ describe('CLI', () => {
   it('--host and --port are unspecified', (done) => {
     testBin('')
       .then((output) => {
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
 
         done();
       })
@@ -117,7 +119,9 @@ describe('CLI', () => {
   it('--host :: (IPv6)', (done) => {
     testBin('--host ::')
       .then((output) => {
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
 
         done();
       })
