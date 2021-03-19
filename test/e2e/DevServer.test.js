@@ -49,9 +49,6 @@ describe('DevServer', () => {
       './test/fixtures/entry-as-descriptor/webpack.config'
     )
       .then((output) => {
-        if (!output.stdout.trim()) {
-          console.log(output);
-        }
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('foo.js');
         done();
