@@ -56,15 +56,6 @@ module.exports = {
       },
     },
     {
-      name: 'hot-only',
-      type: Boolean,
-      description: 'Do not refresh page if HMR fails.',
-      processor(opts) {
-        opts.hot = 'only';
-        delete opts.hotOnly;
-      },
-    },
-    {
       name: 'setup-exit-signals',
       type: Boolean,
       description: 'Close and exit the process on SIGINT and SIGTERM.',
