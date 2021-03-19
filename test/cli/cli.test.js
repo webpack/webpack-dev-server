@@ -26,8 +26,9 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--hot-only', (done) => {
-    testBin('--hot-only')
+  // Enable after new webpack-cli release
+  it.skip('--hot only', (done) => {
+    testBin('--hot only')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('/hot/only-dev-server');
