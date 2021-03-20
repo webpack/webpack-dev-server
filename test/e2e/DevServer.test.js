@@ -7,7 +7,7 @@ describe('DevServer', () => {
   const webpack5Test = isWebpack5 ? it : it.skip;
 
   it('should add devServer entry points to a single entry point', (done) => {
-    testBin('--config ./test/fixtures/dev-server/default-config.js')
+    testBin(null, './test/fixtures/dev-server/default-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('client/default/index.js?');
@@ -19,9 +19,7 @@ describe('DevServer', () => {
   webpack5Test(
     'should add devServer entry points to a multi entry point object',
     (done) => {
-      testBin(
-        '--config ./test/fixtures/dev-server/multi-entry.js --stats=verbose'
-      )
+      testBin('--stats=verbose', './test/fixtures/dev-server/multi-entry.js')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(output.stdout).toContain('client/default/index.js?');
@@ -35,7 +33,7 @@ describe('DevServer', () => {
   webpack5Test(
     'should add devServer entry points to an empty entry object',
     (done) => {
-      testBin('--config ./test/fixtures/dev-server/empty-entry.js')
+      testBin(null, './test/fixtures/dev-server/empty-entry.js')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(output.stdout).toContain('client/default/index.js?');
@@ -47,7 +45,8 @@ describe('DevServer', () => {
 
   webpack5Test('should supports entry as descriptor', (done) => {
     testBin(
-      '--config ./test/fixtures/entry-as-descriptor/webpack.config --stats detailed'
+      '--stats detailed',
+      './test/fixtures/entry-as-descriptor/webpack.config'
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
@@ -58,9 +57,7 @@ describe('DevServer', () => {
   });
 
   it('should only prepends devServer entry points to "web" target', (done) => {
-    testBin(
-      '--config ./test/fixtures/dev-server/default-config.js --target web'
-    )
+    testBin('--target web', './test/fixtures/dev-server/default-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('client/default/index.js?');
@@ -71,9 +68,7 @@ describe('DevServer', () => {
   });
 
   it('should not prepend devServer entry points to "node" target', (done) => {
-    testBin(
-      '--config ./test/fixtures/dev-server/default-config.js --target node'
-    )
+    testBin('--target node', './test/fixtures/dev-server/default-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).not.toContain('client/default/index.js?');
@@ -85,7 +80,8 @@ describe('DevServer', () => {
 
   it('should prepends the hot runtime to "node" target as well', (done) => {
     testBin(
-      '--config ./test/fixtures/dev-server/default-config.js --target node --hot'
+      '--target node --hot',
+      './test/fixtures/dev-server/default-config.js'
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
@@ -96,7 +92,7 @@ describe('DevServer', () => {
   });
 
   it('does not use client.path when default', (done) => {
-    testBin('--config ./test/fixtures/dev-server/client-default-path-config.js')
+    testBin(null, './test/fixtures/dev-server/client-default-path-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).not.toContain('&path=/ws');
@@ -106,7 +102,7 @@ describe('DevServer', () => {
   });
 
   it('should use client.path when custom', (done) => {
-    testBin('--config ./test/fixtures/dev-server/client-custom-path-config.js')
+    testBin(null, './test/fixtures/dev-server/client-custom-path-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('&path=/custom/path');
@@ -118,7 +114,7 @@ describe('DevServer', () => {
   webpack5Test(
     'should prepend devServer entry points depending on targetProperties',
     (done) => {
-      testBin('--config ./test/fixtures/dev-server/target-config.js')
+      testBin(null, './test/fixtures/dev-server/target-config.js')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(output.stdout).toContain('client/default/index.js');

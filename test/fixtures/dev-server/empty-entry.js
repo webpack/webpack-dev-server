@@ -1,8 +1,10 @@
 'use strict';
 
+const ExitOnDonePlugin = require('../../helpers/ExitOnDonePlugin');
+
 module.exports = {
   mode: 'development',
-  stats: 'detailed',
+  stats: { orphanModules: true, preset: 'detailed' },
   entry: {},
   devServer: {
     transportMode: {
@@ -10,4 +12,5 @@ module.exports = {
       client: 'sockjs',
     },
   },
+  plugins: [ExitOnDonePlugin],
 };
