@@ -3,7 +3,10 @@
 const path = require('path');
 const execa = require('execa');
 const internalIp = require('internal-ip');
-const testBin = require('../helpers/test-bin');
+const { testBin, normalizeStderr } = require('../helpers/test-bin');
+
+const localIPv4 = internalIp.v4.sync();
+const localIPv6 = internalIp.v6.sync();
 
 describe('CLI', () => {
   it('--hot', (done) => {
@@ -91,10 +94,13 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('unspecified host and port', (done) => {
+  it('--host and --port are unspecified', (done) => {
     testBin('')
       .then((output) => {
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
+
         done();
       })
       .catch(done);
@@ -103,27 +109,30 @@ describe('CLI', () => {
   it('--host 0.0.0.0 (IPv4)', (done) => {
     testBin('--host 0.0.0.0')
       .then((output) => {
-        const localIP = internalIp.v4.sync();
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
-        expect(
-          new RegExp(`http://${localIP}:[0-9]+/`).test(output.stderr)
-        ).toEqual(true);
         done();
       })
       .catch(done);
   });
 
-  // TODO search way how to tests it on github actions
-  it.skip('--host :: (IPv6)', (done) => {
+  it('--host :: (IPv6)', (done) => {
     testBin('--host ::')
       .then((output) => {
-        const localIP = internalIp.v4.sync();
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
 
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
-        expect(
-          new RegExp(`http://${localIP}:[0-9]+/`).test(output.stderr)
-        ).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host ::1 (IPv6)', (done) => {
+    testBin('--host ::1')
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
         done();
       })
       .catch(done);
@@ -132,16 +141,58 @@ describe('CLI', () => {
   it('--host localhost', (done) => {
     testBin('--host localhost')
       .then((output) => {
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
         done();
       })
       .catch(done);
   });
 
-  it('--port and --host', (done) => {
-    testBin('--port 9999 --host localhost')
+  it('--host 127.0.0.1 (IPv4)', (done) => {
+    testBin('--host 127.0.0.1')
       .then((output) => {
-        expect(/http:\/\/localhost:9999/.test(output.stderr)).toEqual(true);
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host 0:0:0:0:0:FFFF:7F00:0001 (IPv6)', (done) => {
+    testBin('--host 0:0:0:0:0:FFFF:7F00:0001')
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it(`--host <IPv4>`, (done) => {
+    testBin(`--host ${localIPv4}`)
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it.skip(`--host <IPv6>`, (done) => {
+    testBin(`--host ${localIPv6}`)
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host localhost --port 9999', (done) => {
+    testBin('--host localhost --port 9999')
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
         done();
       })
       .catch(done);
@@ -293,8 +344,6 @@ describe('CLI', () => {
     });
   });
 
-  // TODO: do not skip after @webpack-cli/serve passes null port by default
-  // https://github.com/webpack/webpack-cli/pull/2126
   it.skip('should use different random port when multiple instances are started on different processes', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
     const cwd = path.resolve(__dirname, '../fixtures/cli');

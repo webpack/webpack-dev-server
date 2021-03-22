@@ -2,6 +2,8 @@
 
 const path = require('path');
 const execa = require('execa');
+const stripAnsi = require('strip-ansi');
+const internalIp = require('internal-ip');
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -31,4 +33,42 @@ function testBin(testArgs, configPath) {
   return execa('node', args, { cwd, env, timeout: 10000 });
 }
 
-module.exports = testBin;
+function normalizeStderr(stderr, options = {}) {
+  let normalizedStderr = stripAnsi(stderr);
+
+  normalizedStderr = normalizedStderr
+    .replace(/\\/g, '/')
+    .replace(new RegExp(process.cwd().replace(/\\/g, '/'), 'g'), '<cwd>');
+
+  const networkIPv4 = internalIp.v4.sync();
+
+  if (networkIPv4) {
+    normalizedStderr = normalizedStderr.replace(
+      new RegExp(networkIPv4, 'g'),
+      '<network-ip-v4>'
+    );
+  }
+
+  const networkIPv6 = internalIp.v6.sync();
+
+  if (networkIPv6) {
+    normalizedStderr = normalizedStderr.replace(
+      new RegExp(networkIPv6, 'g'),
+      '<network-ip-v6>'
+    );
+  }
+
+  normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ':<port>/');
+
+  if (options.ipv6 && !networkIPv6) {
+    // Github Actions doesnt' support IPv6 on ubuntu in some cases
+    normalizedStderr = normalizedStderr.replace(
+      /\(IPv4\)/,
+      '(IPv4), http://[<network-ip-v6>]:<port>/ (IPv6)'
+    );
+  }
+
+  return normalizedStderr;
+}
+
+module.exports = { normalizeStderr, testBin };
