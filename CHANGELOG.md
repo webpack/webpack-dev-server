@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-beta.1](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2021-03-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* `--hot-only` option was removed
+* default value of the `static` option is `path.resolve(process.cwd(), 'public')`, previously `path.resolve(process.cwd(), 'static')`
+* the `overlay` option was moved into the `client` option
+
+### Features
+
+* add more negative flags - `--no-https`, `--no-http2`, `--no-compress` and `--no-history-api-fallback` ([#3070](https://github.com/webpack/webpack-dev-server/issues/3070)) ([ebc966f](https://github.com/webpack/webpack-dev-server/commit/ebc966f398c38c23c6d36b4be47f303ddfd29e7d))
+* allow `Boolean` type for the `--firewall` option ([#3041](https://github.com/webpack/webpack-dev-server/issues/3041)) ([6711c1d](https://github.com/webpack/webpack-dev-server/commit/6711c1dd175820d781eac0cad6287582e8def950))
+* improve output for localhost and fix open ([#2892](https://github.com/webpack/webpack-dev-server/issues/2892)) ([9e65c24](https://github.com/webpack/webpack-dev-server/commit/9e65c24214666241334b89c9e070f4d03bb0f317))
+* improve output for IPv4 and IPv6 ([#3092](https://github.com/webpack/webpack-dev-server/issues/3092)) ([f362665](https://github.com/webpack/webpack-dev-server/commit/f3626654f7af58c159971b4059a741c25ce58249))
+
+
+### Bug Fixes
+
+* allow to open browser with `--open-page` ([#3032](https://github.com/webpack/webpack-dev-server/issues/3032)) ([581ee07](https://github.com/webpack/webpack-dev-server/commit/581ee07b0c511cabb6c531d8a680fdcdfafbc003))
+* content security policy issue in client log ([2de2e01](https://github.com/webpack/webpack-dev-server/commit/2de2e010005f0424f872950abf6155b4aa9a1963))
+* empty and multiple entries support ([#2920](https://github.com/webpack/webpack-dev-server/issues/2920)) ([45f6592](https://github.com/webpack/webpack-dev-server/commit/45f65923ac808d77a70b3fd695cf3deeab0b6585))
+* improve descriptions for CLI options ([#3021](https://github.com/webpack/webpack-dev-server/issues/3021)) ([7d339d4](https://github.com/webpack/webpack-dev-server/commit/7d339d40a74842cbeae0b9c8ef20147af3a0f468))
+* improve descriptions for negative flags ([#3029](https://github.com/webpack/webpack-dev-server/issues/3029)) ([2e2190a](https://github.com/webpack/webpack-dev-server/commit/2e2190a4c54ddebafc729857e5650772635a50ec))
+* multi compiler mode with proxy ([#2905](https://github.com/webpack/webpack-dev-server/issues/2905)) ([247a92b](https://github.com/webpack/webpack-dev-server/commit/247a92b90c105a2e29432de4de8a32d147139c42))
+* remove double brackets from the ws url when using raw IPv6 address ([#2951](https://github.com/webpack/webpack-dev-server/issues/2951)) ([2ec8160](https://github.com/webpack/webpack-dev-server/commit/2ec81605127cec82fae5064dd59da2798a628e02))
+* show correct url in output status ([#3013](https://github.com/webpack/webpack-dev-server/issues/3013)) ([06b3d91](https://github.com/webpack/webpack-dev-server/commit/06b3d91918ed87c2b18f8df0ae4b6a5edee06137))
+* show detailed error in overlay ([ba01b05](https://github.com/webpack/webpack-dev-server/commit/ba01b051d3455d99fa88a8dd3279e74e420b2f42))
+* support `file:` and `chrome-extension:` protocols in client ([#2954](https://github.com/webpack/webpack-dev-server/issues/2954)) ([163bdce](https://github.com/webpack/webpack-dev-server/commit/163bdce5f067dd5bd1ed138b764657f8465586eb))
+* warnings in overlay ([#3054](https://github.com/webpack/webpack-dev-server/issues/3054)) ([6144c8d](https://github.com/webpack/webpack-dev-server/commit/6144c8dabd144413d4e86bfb0cd9d82d7363fb9d))
+* webpack-cli installation message ([#2955](https://github.com/webpack/webpack-dev-server/issues/2955)) ([b9ce07f](https://github.com/webpack/webpack-dev-server/commit/b9ce07fd83a53a1047c2f0f1f49d511aef2f7b29))
+
+
 ## [4.0.0-beta.0](https://github.com/webpack/webpack-dev-server/compare/v3.11.0...v4.0.0-beta.0) (2020-11-27)
 
 ### ⚠ BREAKING CHANGES
