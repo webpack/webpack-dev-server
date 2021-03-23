@@ -15,7 +15,7 @@ open.mockImplementation(() => {
 });
 
 describe('open option', () => {
-  it.only('should work with unspecified host', (done) => {
+  it('should work with unspecified host', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
       open: true,
@@ -27,7 +27,7 @@ describe('open option', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://127.0.0.1:8117/",
+            "http://localhost:8117/",
             Object {
               "wait": false,
             },
@@ -54,7 +54,7 @@ describe('open option', () => {
       server.close(() => {
         expect(open.mock.calls[1]).toMatchInlineSnapshot(`
           Array [
-            "http://127.0.0.1:8117/index.html",
+            "http://localhost:8117/index.html",
             Object {
               "wait": false,
             },
@@ -80,7 +80,7 @@ describe('open option', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://127.0.0.1:8117/",
+            "http://localhost:8117/",
             Object {
               "wait": false,
             },
@@ -107,7 +107,7 @@ describe('open option', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://127.0.0.1:8117/",
+            "http://localhost:8117/",
             Object {
               "wait": false,
             },
@@ -134,7 +134,7 @@ describe('open option', () => {
       server.close(() => {
         expect(open.mock.calls[0]).toMatchInlineSnapshot(`
           Array [
-            "http://127.0.0.1:8117/",
+            "http://localhost:8117/",
             Object {
               "wait": false,
             },
