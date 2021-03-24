@@ -36,7 +36,7 @@ describe('client option', () => {
 
     it('overlay true by default', () => {
       expect(server.options.client.overlay).toBe(true);
-    })
+    });
 
     it('responds with a 200', (done) => {
       req.get('/ws').expect(200, done);
