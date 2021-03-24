@@ -34,7 +34,7 @@ describe('client option', () => {
       ).toBeTruthy();
     });
 
-    it ('overlay true by default', () => {
+    it('overlay true by default', () => {
       expect(server.options.client.overlay).toBe(true);
     })
 

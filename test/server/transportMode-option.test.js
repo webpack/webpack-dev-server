@@ -482,7 +482,7 @@ describe('transportMode', () => {
         expect(MockWebsocketServer.mock.calls[0][0].options.port).toEqual(port);
 
         expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
-        expect(mockServerInstance.send.mock.calls.length).toEqual(4);
+        expect(mockServerInstance.send.mock.calls.length).toEqual(5);
         // call 0 to the send() method is hot
         expect(mockServerInstance.send.mock.calls[0]).toMatchSnapshot();
         // call 1 to the send() method is liveReload
