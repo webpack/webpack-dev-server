@@ -6,6 +6,7 @@ Array [
   "open",
   "liveReload",
   "[webpack-dev-server] Live Reloading enabled.",
+  "overlay",
   "hash",
   "ok",
   "close",
