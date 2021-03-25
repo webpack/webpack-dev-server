@@ -240,18 +240,12 @@ describe('options', () => {
           },
           {
             client: {
-              needClientEntry: {
-                success: [true, () => {}],
-                failure: [''],
-              },
+              needClientEntry: true,
             },
           },
           {
             client: {
-              needHotEntry: {
-                success: [true, () => {}],
-                failure: [''],
-              },
+              needHotEntry: true,
             },
           },
         ],
