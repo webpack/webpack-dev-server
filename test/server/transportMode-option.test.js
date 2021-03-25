@@ -482,14 +482,14 @@ describe('transportMode', () => {
         expect(MockWebsocketServer.mock.calls[0][0].options.port).toEqual(port);
 
         expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
-        expect(mockServerInstance.send.mock.calls.length).toEqual(4);
+        expect(mockServerInstance.send.mock.calls.length).toEqual(5);
         // call 0 to the send() method is hot
         expect(mockServerInstance.send.mock.calls[0]).toMatchSnapshot();
         // call 1 to the send() method is liveReload
         expect(mockServerInstance.send.mock.calls[1]).toMatchSnapshot();
-        // call 2 to the send() method is hash data, so we skip it
-        // call 3 to the send() method is the "ok" message
-        expect(mockServerInstance.send.mock.calls[3]).toMatchSnapshot();
+        // call 3 to the send() method is hash data, so we skip it
+        // call 4 to the send() method is the "ok" message
+        expect(mockServerInstance.send.mock.calls[4]).toMatchSnapshot();
         // close should not be called because the server never forcefully closes
         // a successful client connection
         expect(mockServerInstance.close.mock.calls.length).toEqual(0);
