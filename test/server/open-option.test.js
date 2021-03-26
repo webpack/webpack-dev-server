@@ -1,12 +1,13 @@
 'use strict';
 
-jest.mock('open');
-
+const internalIp = require('internal-ip');
 const webpack = require('webpack');
 const open = require('open');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['open-option'];
+
+jest.mock('open');
 
 open.mockImplementation(() => {
   return {
@@ -14,7 +15,14 @@ open.mockImplementation(() => {
   };
 });
 
-describe('open option', () => {
+const internalIPv4 = internalIp.v4.sync();
+const internalIPv6 = internalIp.v6.sync();
+
+describe('"open" option', () => {
+  afterEach(() => {
+    open.mockClear();
+  });
+
   it('should work with unspecified host', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
@@ -25,47 +33,16 @@ describe('open option', () => {
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
-        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
-          Array [
-            "http://localhost:8117/",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
-        expect(open.mock.invocationCallOrder[0]).toEqual(1);
+        expect(open).toHaveBeenCalledWith('http://localhost:8117/', {
+          wait: false,
+        });
+
         done();
       });
     });
 
     compiler.run(() => {});
-    server.listen(port, 'localhost');
-  });
-
-  it('should work with unspecified open option', (done) => {
-    const compiler = webpack(config);
-    const server = new Server(compiler, {
-      openPage: 'index.html',
-      port,
-      static: false,
-    });
-
-    compiler.hooks.done.tap('webpack-dev-server', () => {
-      server.close(() => {
-        expect(open.mock.calls[1]).toMatchInlineSnapshot(`
-          Array [
-            "http://localhost:8117/index.html",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
-        done();
-      });
-    });
-
-    compiler.run(() => {});
-    server.listen(port, 'localhost');
+    server.listen(port);
   });
 
   it('should work with "0.0.0.0" host', (done) => {
@@ -78,15 +55,10 @@ describe('open option', () => {
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
-        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
-          Array [
-            "http://localhost:8117/",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
-        expect(open.mock.invocationCallOrder[0]).toEqual(1);
+        expect(open).toHaveBeenCalledWith('http://0.0.0.0:8117/', {
+          wait: false,
+        });
+
         done();
       });
     });
@@ -105,15 +77,10 @@ describe('open option', () => {
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
-        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
-          Array [
-            "http://localhost:8117/",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
-        expect(open.mock.invocationCallOrder[0]).toEqual(1);
+        expect(open).toHaveBeenCalledWith('http://[::]:8117/', {
+          wait: false,
+        });
+
         done();
       });
     });
@@ -132,20 +99,127 @@ describe('open option', () => {
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
-        expect(open.mock.calls[0]).toMatchInlineSnapshot(`
-          Array [
-            "http://localhost:8117/",
-            Object {
-              "wait": false,
-            },
-          ]
-        `);
-        expect(open.mock.invocationCallOrder[0]).toEqual(1);
+        expect(open).toHaveBeenCalledWith('http://localhost:8117/', {
+          wait: false,
+        });
+
         done();
       });
     });
 
     compiler.run(() => {});
-    server.listen(port, '::');
+    server.listen(port, 'localhost');
+  });
+
+  it('should work with "127.0.0.1" host', (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      open: true,
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open).toHaveBeenCalledWith('http://127.0.0.1:8117/', {
+          wait: false,
+        });
+
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, '127.0.0.1');
+  });
+
+  it('should work with "::1" host', (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      open: true,
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open).toHaveBeenCalledWith('http://[::1]:8117/', {
+          wait: false,
+        });
+
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, '::1');
+  });
+
+  it(`should work with "${internalIPv4}" host`, (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      open: true,
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open).toHaveBeenCalledWith(`http://${internalIPv4}:8117/`, {
+          wait: false,
+        });
+
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, internalIPv4);
+  });
+
+  if (internalIPv6) {
+    it(`should work with "${internalIPv6}" host`, (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, {
+        open: true,
+        port,
+        static: false,
+      });
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        server.close(() => {
+          expect(open).toHaveBeenCalledWith(`http://[${internalIPv6}]:8117/`, {
+            wait: false,
+          });
+
+          done();
+        });
+      });
+
+      compiler.run(() => {});
+      server.listen(port, internalIPv6);
+    });
+  }
+
+  it('should work with unspecified the `open` option and specified the `openPage` option', (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      openPage: 'index.html',
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open).toHaveBeenCalledWith('http://localhost:8117/index.html', {
+          wait: false,
+        });
+
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, 'localhost');
   });
 });
