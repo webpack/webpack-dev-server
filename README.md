@@ -96,7 +96,6 @@ Options:
   --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
   --no-setup-exit-signals    Do not close and exit the process on SIGNIT and SIGTERM.
   --open [value]             Open the default browser, or optionally specify a browser name.
-  --use-local-ip             Open default browser with local IP.
   --open-page <value...>     Open default browser with the specified page.
   --client-logging <value>   Log level in the browser (none, error, warn, info, log, verbose).
   --history-api-fallback     Fallback to /index.html for Single Page Applications.

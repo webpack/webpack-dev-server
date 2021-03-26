@@ -189,6 +189,42 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--host <local-ip>', (done) => {
+    testBin('--host local-ip')
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host <local-ipv4>', (done) => {
+    testBin('--host local-ipv4')
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should throw error for invalid host', (done) => {
+    const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
+    const cwd = path.resolve(__dirname, '../fixtures/cli');
+    const cp = execa('node', [cliPath, '--host', 'invalid'], { cwd });
+
+    cp.stderr.on('data', (chunk) => {
+      expect(chunk.toString()).toContain(
+        `Address "invalid" is not available. Try with a different value for "host" option.`
+      );
+    });
+
+    cp.on('exit', () => {
+      done();
+    });
+  });
+
   it('--host localhost --port 9999', (done) => {
     testBin('--host localhost --port 9999')
       .then((output) => {

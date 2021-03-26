@@ -129,16 +129,6 @@ module.exports = {
         'Open the default browser, or optionally specify a browser name.',
     },
     {
-      name: 'use-local-ip',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Open default browser with local IP.',
-    },
-    {
       name: 'open-page',
       type: String,
       configs: [

@@ -500,10 +500,6 @@ describe('options', () => {
           },
         ],
       },
-      useLocalIp: {
-        success: [false],
-        failure: [''],
-      },
     };
 
     Object.keys(cases).forEach((key) => {
