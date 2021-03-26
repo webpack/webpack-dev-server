@@ -2,51 +2,61 @@
 
 exports[`CLI --host :: (IPv6): stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Local: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network: http://<network-ip-v4>:<port>/ (IPv4), http://[<network-ip-v6>]:<port>/ (IPv6)
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host ::1 (IPv6): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:<port>/, http://[::1]:<port>/ (IPv6)
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://[::1]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host <IPv4>: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://<network-ip-v4>:<port>/ (IPv4)
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host 0.0.0.0 (IPv4): stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Local: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network: http://<network-ip-v4>:<port>/ (IPv4)
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host 0:0:0:0:0:FFFF:7F00:0001 (IPv6): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://127.0.0.1:<port>/ (IPv4), http://[::ffff:127.0.0.1]:<port>/ (IPv6)
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] On Your Network (IPv4): http://127.0.0.1:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[::ffff:127.0.0.1]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host 127.0.0.1 (IPv4): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:<port>/, http://127.0.0.1:<port>/ (IPv4)
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://127.0.0.1:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host and --port are unspecified: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Local: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network: http://<network-ip-v4>:<port>/ (IPv4), http://[<network-ip-v6>]:<port>/ (IPv6)
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host localhost --port 9999: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:<port>/, http://127.0.0.1:<port>/ (IPv4)
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://127.0.0.1:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`CLI --host localhost: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at http://localhost:<port>/, http://127.0.0.1:<port>/ (IPv4)
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://127.0.0.1:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;

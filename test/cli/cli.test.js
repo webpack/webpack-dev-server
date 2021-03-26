@@ -109,7 +109,9 @@ describe('CLI', () => {
   it('--host 0.0.0.0 (IPv4)', (done) => {
     testBin('--host 0.0.0.0')
       .then((output) => {
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
 
         done();
       })
