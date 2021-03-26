@@ -62,10 +62,19 @@ function normalizeStderr(stderr, options = {}) {
 
   if (options.ipv6 && !networkIPv6) {
     // Github Actions doesnt' support IPv6 on ubuntu in some cases
-    normalizedStderr = normalizedStderr.replace(
-      /\(IPv4\)/,
-      '(IPv4), http://[<network-ip-v6>]:<port>/ (IPv6)'
+    normalizedStderr = normalizedStderr.split('\n');
+
+    const ipv4MessageIndex = normalizedStderr.findIndex((item) =>
+      /On Your Network \(IPv4\)/.test(item)
     );
+
+    normalizedStderr.splice(
+      ipv4MessageIndex + 1,
+      0,
+      '<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/'
+    );
+
+    normalizedStderr = normalizedStderr.join('\n');
   }
 
   return normalizedStderr;
