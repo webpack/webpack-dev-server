@@ -112,16 +112,6 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'stdin',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Close when stdin ends.',
-    },
-    {
       name: 'open',
       type: [Boolean, String],
       configs: [

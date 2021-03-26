@@ -300,10 +300,10 @@ describe('CLI', () => {
     });
   });
 
-  it('should exit the process when stdin ends if --stdin', (done) => {
+  it('should exit the process when stdin ends if --watch-options-stdin', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
     const examplePath = path.resolve(__dirname, '../../examples/cli/public');
-    const cp = execa('node', [cliPath, '--stdin'], { cwd: examplePath });
+    const cp = execa('node', [cliPath, '--watch-options-stdin'], { cwd: examplePath });
 
     cp.stdout.on('data', (data) => {
       const bits = data.toString();
@@ -321,10 +321,10 @@ describe('CLI', () => {
     });
   });
 
-  it('should exit the process when stdin ends if --stdin, even before the compilation is done', (done) => {
+  it('should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
     const cwd = path.resolve(__dirname, '../fixtures/cli');
-    const cp = execa('node', [cliPath, '--stdin'], { cwd });
+    const cp = execa('node', [cliPath, '----watch-options-stdin'], { cwd });
 
     let killed = false;
 

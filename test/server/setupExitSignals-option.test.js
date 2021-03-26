@@ -16,7 +16,6 @@ describe('setupExitSignals option', () => {
       config,
       {
         setupExitSignals: true,
-        stdin: true,
         port,
       },
       done
@@ -40,16 +39,6 @@ describe('setupExitSignals option', () => {
 
   it.each(signals)('should close and exit on %s', (signal, done) => {
     process.emit(signal);
-
-    setTimeout(() => {
-      expect(killSpy.mock.calls.length).toEqual(1);
-      expect(exitSpy.mock.calls.length).toEqual(1);
-      done();
-    }, 1000);
-  });
-
-  it('should close and exit on stdin end', (done) => {
-    process.stdin.emit('end');
 
     setTimeout(() => {
       expect(killSpy.mock.calls.length).toEqual(1);
