@@ -96,7 +96,6 @@ Options:
   --hot-only                 Do not refresh page if HMR fails.
   --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
   --no-setup-exit-signals    Do not close and exit the process on SIGNIT and SIGTERM.
-  --stdin                    Close when stdin ends.
   --open [value]             Open the default browser, or optionally specify a browser name.
   --use-local-ip             Open default browser with local IP.
   --open-page <value...>     Open default browser with the specified page.
