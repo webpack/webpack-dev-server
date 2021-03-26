@@ -76,7 +76,6 @@ describe('options', () => {
             if (typeof opts.static === 'undefined') {
               opts.static = false;
             }
-
             server = new Server(compiler, opts);
           })
           .then(() => {
@@ -239,6 +238,16 @@ describe('options', () => {
               },
             },
           },
+          {
+            client: {
+              needClientEntry: true,
+            },
+          },
+          {
+            client: {
+              needHotEntry: true,
+            },
+          },
         ],
         failure: [
           'whoops!',
@@ -286,6 +295,16 @@ describe('options', () => {
               overlay: {
                 warnings: '',
               },
+            },
+          },
+          {
+            client: {
+              needClientEntry: [''],
+            },
+          },
+          {
+            client: {
+              needHotEntry: [''],
             },
           },
         ],
@@ -357,14 +376,6 @@ describe('options', () => {
             },
           },
         ],
-      },
-      injectClient: {
-        success: [true, () => {}],
-        failure: [''],
-      },
-      injectHot: {
-        success: [true, () => {}],
-        failure: [''],
       },
       onListening: {
         success: [() => {}],
