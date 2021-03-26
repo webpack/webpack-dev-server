@@ -9,10 +9,22 @@ exports[`Validation validation should fail validation for invalid \`hot\` config
     * configuration.hot should be \\"only\\"."
 `;
 
-exports[`Validation validation should fail validation for invalid \`injectHot\` configuration 1`] = `
+exports[`Validation validation should fail validation for invalid \`needClientEntry\` configuration 1`] = `
 "Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration has an unknown property 'injectHot'. These properties are valid:
-   object { bonjour?, client?, compress?, dev?, firewall?, headers?, historyApiFallback?, host?, hot?, http2?, https?, liveReload?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, openPage?, port?, proxy?, public?, setupExitSignals?, static?, transportMode?, useLocalIp? }"
+ - configuration.client.needClientEntry should be one of these:
+   boolean | function
+   Details:
+    * configuration.client.needClientEntry should be a boolean.
+    * configuration.client.needClientEntry should be an instance of function."
+`;
+
+exports[`Validation validation should fail validation for invalid \`needHotEntry\` configuration 1`] = `
+"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.needHotEntry should be one of these:
+   boolean | function
+   Details:
+    * configuration.client.needHotEntry should be a boolean.
+    * configuration.client.needHotEntry should be an instance of function."
 `;
 
 exports[`Validation validation should fail validation for invalid \`static\` configuration 1`] = `

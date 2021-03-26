@@ -30,8 +30,12 @@ describe('Validation', () => {
         config: { hot: 'false' },
       },
       {
-        name: 'invalid `injectHot` configuration',
-        config: { injectHot: 1 },
+        name: 'invalid `needClientEntry` configuration',
+        config: { client: { needClientEntry: 1 } },
+      },
+      {
+        name: 'invalid `needHotEntry` configuration',
+        config: { client: { needHotEntry: 1 } },
       },
       {
         name: 'invalid `static` configuration',
