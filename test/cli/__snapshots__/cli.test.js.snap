@@ -10,7 +10,7 @@ exports[`CLI --host :: (IPv6): stderr 1`] = `
 
 exports[`CLI --host ::1 (IPv6): stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://[::1]:<port>/
+<i> [webpack-dev-server] Loopback: http://[::1]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
@@ -37,7 +37,7 @@ exports[`CLI --host 0:0:0:0:0:FFFF:7F00:0001 (IPv6): stderr 1`] = `
 
 exports[`CLI --host 127.0.0.1 (IPv4): stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://127.0.0.1:<port>/
+<i> [webpack-dev-server] Loopback: http://127.0.0.1:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
