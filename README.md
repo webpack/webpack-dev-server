@@ -93,7 +93,6 @@ Options:
   --no-http2                 Do not use HTTP/2.
   --bonjour                  Broadcasts the server via ZeroConf networking on start.
   --client-progress          Print compilation progress in percentage in the browser.
-  --hot-only                 Do not refresh page if HMR fails.
   --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
   --no-setup-exit-signals    Do not close and exit the process on SIGNIT and SIGTERM.
   --open [value]             Open the default browser, or optionally specify a browser name.
