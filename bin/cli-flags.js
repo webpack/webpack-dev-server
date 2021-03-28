@@ -78,7 +78,8 @@ module.exports = {
       type: Boolean,
       configs: [
         {
-          type: 'boolean',
+          type: 'enum',
+          values: [true],
         },
       ],
       description: 'Broadcasts the server via ZeroConf networking on start.',
@@ -88,7 +89,8 @@ module.exports = {
       type: Boolean,
       configs: [
         {
-          type: 'boolean',
+          type: 'enum',
+          values: [true],
         },
       ],
       description: 'Print compilation progress in percentage in the browser.',
@@ -116,7 +118,8 @@ module.exports = {
       type: [Boolean, String],
       configs: [
         {
-          type: 'boolean',
+          type: 'enum',
+          values: [true],
         },
         {
           type: 'string',
