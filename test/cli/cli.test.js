@@ -29,8 +29,7 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  // Enable after new webpack-cli release
-  it.skip('--hot only', (done) => {
+  it('--hot only', (done) => {
     testBin('--hot only')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
