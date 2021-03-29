@@ -1,8 +1,6 @@
 'use strict';
 
-/* global self */
-
-const sendMessage = require('../../../client-src/default/utils/sendMessage');
+const sendMessage = require('../../../client-src/utils/sendMessage');
 
 describe('sendMessage', () => {
   afterEach(() => {

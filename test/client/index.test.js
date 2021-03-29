@@ -1,7 +1,5 @@
 'use strict';
 
-/* global self */
-
 describe('index', () => {
   let log;
   let socket;
@@ -16,33 +14,33 @@ describe('index', () => {
     global.__resourceQuery = 'foo';
 
     // log
-    jest.setMock('../../client-src/default/utils/log.js', {
+    jest.setMock('../../../client-src/modules/logger', {
       log: {
         info: jest.fn(),
         warn: jest.fn(),
         error: jest.fn(),
       },
     });
-    log = require('../../client-src/default/utils/log');
+    log = require('../../client-src/modules/logger');
 
     // socket
     jest.setMock('../../client-src/default/socket.js', jest.fn());
-    socket = require('../../client-src/default/socket');
+    socket = require('../../client-src/socket');
 
     // overlay
     jest.setMock('../../client-src/default/overlay.js', {
       clear: jest.fn(),
       showMessage: jest.fn(),
     });
-    overlay = require('../../client-src/default/overlay');
+    overlay = require('../../client-src/overlay');
 
     // reloadApp
     jest.setMock('../../client-src/default/utils/reloadApp.js', jest.fn());
-    reloadApp = require('../../client-src/default/utils/reloadApp');
+    reloadApp = require('../../client-src/utils/reloadApp');
 
     // sendMessage
     jest.setMock('../../client-src/default/utils/sendMessage.js', jest.fn());
-    sendMessage = require('../../client-src/default/utils/sendMessage');
+    sendMessage = require('../../client-src/utils/sendMessage');
 
     // createSocketUrl
     jest.setMock(
@@ -57,7 +55,7 @@ describe('index', () => {
       reload: jest.fn(),
     };
 
-    require('../../client-src/default');
+    require('../../client-src');
     onSocketMessage = socket.mock.calls[0][1];
   });
 

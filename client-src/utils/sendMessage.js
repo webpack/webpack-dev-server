@@ -1,6 +1,6 @@
 'use strict';
 
-/* global __resourceQuery WorkerGlobalScope self */
+/* global __resourceQuery WorkerGlobalScope */
 
 // Send messages to the outside, so plugins can consume it.
 function sendMsg(type, data) {

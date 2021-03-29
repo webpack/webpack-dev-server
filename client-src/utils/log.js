@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('../../transpiled-modules/log');
+const logger = require('../modules/logger');
 
 const name = 'webpack-dev-server';
 // default level is set on the client side, so it does not need
@@ -8,14 +8,9 @@ const name = 'webpack-dev-server';
 const defaultLevel = 'info';
 
 function setLogLevel(level) {
-  log.configureDefaultLogger({
-    level,
-  });
+  logger.configureDefaultLogger({ level });
 }
 
 setLogLevel(defaultLevel);
 
-module.exports = {
-  log: log.getLogger(name),
-  setLogLevel,
-};
+module.exports = { log: logger.getLogger(name), setLogLevel };

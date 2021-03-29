@@ -11,7 +11,7 @@ const Client =
   typeof __webpack_dev_server_client__ !== 'undefined'
     ? __webpack_dev_server_client__
     : // eslint-disable-next-line import/no-unresolved
-      require('../clients/WebsocketClient');
+      require('./clients/WebsocketClient');
 
 let retries = 0;
 let client = null;
@@ -37,6 +37,7 @@ const socket = function initSocket(url, handlers) {
       // Respectfully copied from the package `got`.
       // eslint-disable-next-line no-mixed-operators, no-restricted-properties
       const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
+
       retries += 1;
 
       setTimeout(() => {

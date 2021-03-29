@@ -5,7 +5,7 @@ const express = require('express');
 const ws = require('ws');
 const port = require('../../ports-map').WebsocketClient;
 
-jest.setMock('../../../client-src/default/utils/log', {
+jest.setMock('../../../client-src/utils/log', {
   log: {
     error: jest.fn(),
   },
@@ -13,7 +13,7 @@ jest.setMock('../../../client-src/default/utils/log', {
 
 describe('WebsocketClient', () => {
   const WebsocketClient = require('../../../client-src/clients/WebsocketClient');
-  const { log } = require('../../../client-src/default/utils/log');
+  const { log } = require('../../../client-src/utils/log');
   let socketServer;
   let server;
 

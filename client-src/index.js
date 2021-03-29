@@ -1,7 +1,8 @@
 'use strict';
 
-/* global __resourceQuery WorkerGlobalScope self */
-const stripAnsi = require('../transpiled-modules/strip-ansi');
+/* global __resourceQuery WorkerGlobalScope */
+
+const stripAnsi = require('./modules/strip-ansi');
 const socket = require('./socket');
 const overlay = require('./overlay');
 const { log, setLogLevel } = require('./utils/log');

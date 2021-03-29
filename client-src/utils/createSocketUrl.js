@@ -1,7 +1,5 @@
 'use strict';
 
-/* global self */
-
 const url = require('url');
 const getCurrentScriptSource = require('./getCurrentScriptSource');
 

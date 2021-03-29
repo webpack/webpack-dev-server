@@ -1,7 +1,5 @@
 'use strict';
 
-/* global self */
-
 describe('reloadApp', () => {
   let reloadApp;
   let log;
@@ -25,7 +23,7 @@ describe('reloadApp', () => {
       };
     });
 
-    reloadApp = require('../../../client-src/default/utils/reloadApp');
+    reloadApp = require('../../../client-src/utils/reloadApp');
   });
 
   afterEach(() => {

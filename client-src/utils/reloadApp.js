@@ -1,7 +1,5 @@
 'use strict';
 
-/* global WorkerGlobalScope self */
-
 const { log } = require('./log');
 
 function reloadApp(
@@ -11,10 +9,14 @@ function reloadApp(
   if (isUnloading || !hotReload) {
     return;
   }
+
   if (hot) {
     log.info('App hot update...');
+
     const hotEmitter = require('webpack/hot/emitter');
+
     hotEmitter.emit('webpackHotUpdate', currentHash);
+
     if (typeof self !== 'undefined' && self.window) {
       // broadcast update to window
       self.postMessage(`webpackHotUpdate${currentHash}`, '*');
@@ -23,6 +25,7 @@ function reloadApp(
   // allow refreshing the page only if liveReload isn't disabled
   else if (liveReload) {
     let rootWindow = self;
+
     // use parent window for reload (in case we're in an iframe with no valid src)
     const intervalId = self.setInterval(() => {
       if (rootWindow.location.protocol !== 'about:') {
@@ -30,6 +33,7 @@ function reloadApp(
         applyReload(rootWindow, intervalId);
       } else {
         rootWindow = rootWindow.parent;
+
         if (rootWindow.parent === rootWindow) {
           // if parent equals current window we've reached the root which would continue forever, so trigger a reload anyways
           applyReload(rootWindow, intervalId);

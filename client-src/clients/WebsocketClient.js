@@ -1,8 +1,6 @@
 'use strict';
 
-/* global WebSocket */
-
-const { log } = require('../default/utils/log');
+const { log } = require('../modules/logger');
 const BaseClient = require('./BaseClient');
 
 module.exports = class WebsocketClient extends BaseClient {
