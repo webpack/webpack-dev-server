@@ -382,12 +382,8 @@ describe('options', () => {
         failure: [''],
       },
       open: {
-        success: [true, '', {}],
-        failure: [[]],
-      },
-      openPage: {
-        success: [''],
-        failure: [false],
+        success: [true, '', {}, { open: { target: '' } }],
+        failure: [''],
       },
       port: {
         success: ['', 0, null],

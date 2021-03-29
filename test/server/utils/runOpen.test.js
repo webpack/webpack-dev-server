@@ -30,7 +30,7 @@ describe('runOpen util', () => {
       }));
 
     it('on specify URL with page', () =>
-      runOpen('https://example.com', { openPage: '/index.html' }, console).then(
+      runOpen('https://example.com', { open: {target: '/index.html'} }, console).then(
         () => {
           expect(open).toBeCalledWith('https://example.com/index.html', {
             wait: false,
@@ -50,7 +50,7 @@ describe('runOpen util', () => {
     it('on specify URL with page inside array', () =>
       runOpen(
         'https://example.com',
-        { openPage: ['/index.html'] },
+        { open: {target : ['/index.html'] }},
         console
       ).then(() => {
         expect(open).toBeCalledWith('https://example.com/index.html', {
@@ -63,7 +63,7 @@ describe('runOpen util', () => {
     it('on specify URL with multiple pages inside array', () =>
       runOpen(
         'https://example.com',
-        { openPage: ['/index.html', '/index2.html'] },
+        { open: {target : ['/index.html', '/index2.html'] }},
         console
       ).then(() => {
         expect(open).toBeCalledWith('https://example.com/index.html', {
@@ -100,7 +100,7 @@ describe('runOpen util', () => {
     it('on specify URL with page in Google Chrome ', () =>
       runOpen(
         'https://example.com',
-        { open: 'Google Chrome', openPage: '/index.html' },
+        { open: 'Google Chrome', open: {target : '/index.html' }},
         console
       ).then(() => {
         expect(open).toBeCalledWith('https://example.com/index.html', {
@@ -119,8 +119,8 @@ describe('runOpen util', () => {
         `);
       }));
 
-    it('on specify URL with openPage option only ', () =>
-      runOpen('https://example.com', { openPage: '/index.html' }, console).then(
+    it('on specify URL with open target only ', () =>
+      runOpen('https://example.com', { open: {target : '/index.html' } }, console).then(
         () => {
           expect(open).toBeCalledWith('https://example.com/index.html', {
             wait: false,
@@ -140,7 +140,7 @@ describe('runOpen util', () => {
     it('on specify absolute https URL with page in Google Chrome ', () =>
       runOpen(
         'https://example.com',
-        { open: 'Google Chrome', openPage: 'https://example2.com' },
+        { open: 'Google Chrome', open: {target : 'https://example2.com' }},
         console
       ).then(() => {
         expect(open).toBeCalledWith('https://example2.com', {
@@ -162,7 +162,7 @@ describe('runOpen util', () => {
     it('on specify absolute http URL with page in Google Chrome ', () =>
       runOpen(
         'https://example.com',
-        { open: 'Google Chrome', openPage: 'http://example2.com' },
+        { open: 'Google Chrome', open: {target : 'http://example2.com' }},
         console
       ).then(() => {
         expect(open).toBeCalledWith('http://example2.com', {
@@ -186,7 +186,7 @@ describe('runOpen util', () => {
       'https://example.com',
       {
         open: 'Google Chrome',
-        openPage: ['https://example2.com', 'https://example3.com'],
+        open: {target : ['https://example2.com', 'https://example3.com'] },
       },
       console
     ).then(() => {
@@ -207,7 +207,7 @@ describe('runOpen util', () => {
       'https://example.com',
       {
         open: 'Google Chrome',
-        openPage: ['/index.html', 'https://example2.com'],
+        open: {target : ['/index.html', 'https://example2.com'] },
       },
       console
     ).then(() => {
@@ -253,7 +253,7 @@ describe('runOpen util', () => {
       }));
 
     it('on specify URL with page and log error', () =>
-      runOpen('https://example.com', { openPage: '/index.html' }, logMock).then(
+      runOpen('https://example.com', { open: {target : '/index.html' }}, logMock).then(
         () => {
           expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
             `"Unable to open \\"https://example.com/index.html\\" in browser. If you are running in a headless environment, please do not use the --open flag"`
@@ -299,7 +299,7 @@ describe('runOpen util', () => {
     it('on specify URL with page in Google Chrome and log error ', () =>
       runOpen(
         'https://example.com',
-        { open: 'Google Chrome', openPage: '/index.html' },
+        { open: 'Google Chrome', open: {target : '/index.html' }},
         logMock
       ).then(() => {
         expect(logMock.warn.mock.calls[0][0]).toMatchInlineSnapshot(
@@ -325,8 +325,7 @@ describe('runOpen util', () => {
       runOpen(
         'https://example.com',
         {
-          open: { app: ['Google Chrome', '--incognito'] },
-          openPage: '/index.html',
+          open: { app: ['Google Chrome', '--incognito'], target : '/index.html' },
         },
         logMock
       ).then(() => {

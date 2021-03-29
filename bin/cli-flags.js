@@ -126,14 +126,14 @@ module.exports = {
         'Open the default browser, or optionally specify a browser name.',
     },
     {
-      name: 'open-page',
+      name: 'open-target',
       type: String,
       configs: [
         {
           type: 'string',
         },
       ],
-      description: 'Open default browser with the specified page.',
+      description: 'Open browser with the specified target.',
       multiple: true,
     },
     {

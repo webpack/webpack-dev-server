@@ -202,10 +202,12 @@ describe('"open" option', () => {
   //   });
   // }
 
-  it('should work with unspecified the `open` option and specified the `openPage` option', (done) => {
+  it.only('should work with unspecified the `open` option and specified the `openTarget` option', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
-      openPage: 'index.html',
+      open: {
+        target: 'index.html'
+      },
       port,
       static: false,
     });

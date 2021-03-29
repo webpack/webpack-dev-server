@@ -264,14 +264,15 @@
           "type": "boolean"
         },
         {
-          "type": "object"
-        }
-      ]
-    },
-    "openPage": {
-      "anyOf": [
-        {
-          "type": "string"
+          "type": "object",
+          "properties": {
+            "target": {
+              "type": "string"
+            },
+            "options": {
+              "type": "object"
+            }
+          }
         },
         {
           "type": "array",
@@ -394,7 +395,6 @@
       "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
       "open": "should be {String|Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
-      "openPage": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserveropenpage)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",

@@ -18,7 +18,7 @@ module.exports = {
     compress: '_compress',
     firewall: '_firewall',
     open: '_open',
-    openPage: '_openPage',
+    openTarget: '_openTarget',
     useLocalIp: '_useLocalIp',
     port: '_port',
   },
