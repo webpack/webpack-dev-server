@@ -34,7 +34,12 @@ module.exports = {
       },
     },
     {
-      files: ['test/client/**/*.js'],
+      files: [
+        'test/client/**/*.js',
+        'test/e2e/**/*.js',
+        'test/fixtures/**/*.js',
+        'test/server/liveReload-option.test.js',
+      ],
       env: {
         browser: true,
         node: true,
