@@ -2,13 +2,13 @@
 
 module.exports = {
   extends: ['webpack', 'prettier'],
-  globals: {
-    document: true,
-    window: true,
-  },
   parserOptions: {
     sourceType: 'script',
-    ecmaVersion: 10,
+    ecmaVersion: 2018
+  },
+  env: {
+    node: true,
+    es6: true
   },
   rules: {
     curly: 'error',
@@ -21,6 +21,12 @@ module.exports = {
     'global-require': 'off',
   },
   overrides: [
+    {
+      files: ['client-src/**/*.js'],
+      env: {
+        browser: true,
+      },
+    },
     {
       files: ['test/**/*.js'],
       rules: {
