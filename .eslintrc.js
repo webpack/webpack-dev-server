@@ -4,11 +4,11 @@ module.exports = {
   extends: ['webpack', 'prettier'],
   parserOptions: {
     sourceType: 'script',
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
   },
   env: {
     node: true,
-    es6: true
+    es6: true,
   },
   rules: {
     curly: 'error',
@@ -31,6 +31,13 @@ module.exports = {
       files: ['test/**/*.js'],
       rules: {
         'no-console': 'off',
+      },
+    },
+    {
+      files: ['test/client/**/*.js'],
+      env: {
+        browser: true,
+        node: true,
       },
     },
     {
