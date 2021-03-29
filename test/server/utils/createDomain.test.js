@@ -1,7 +1,6 @@
 'use strict';
 
 const webpack = require('webpack');
-const internalIp = require('internal-ip');
 const Server = require('../../../lib/Server');
 const createDomain = require('../../../lib/utils/createDomain');
 const [port1, port2] = require('../../ports-map').createDomain;
@@ -88,19 +87,6 @@ describe('createDomain', () => {
         public: `https://myhost.test:${port2}`,
       },
       expected: [`https://myhost.test:${port2}`],
-    },
-    {
-      name: 'localIp',
-      options: {
-        useLocalIp: true,
-        port: port1,
-      },
-      expected: [
-        `http://${internalIp.v4.sync()}:${port1}`,
-        `https://localhost:${port1}`,
-        `https://127.0.0.1:${port1}`,
-        `https://[::1]:${port1}`,
-      ],
     },
   ];
 

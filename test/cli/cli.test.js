@@ -189,6 +189,26 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--host <local-ip>', (done) => {
+    testBin('--host local-ip')
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--host <local-ipv4>', (done) => {
+    testBin('--host local-ipv4')
+      .then((output) => {
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--host localhost --port 9999', (done) => {
     testBin('--host localhost --port 9999')
       .then((output) => {
