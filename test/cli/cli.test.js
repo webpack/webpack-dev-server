@@ -209,22 +209,6 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('should throw error for invalid host', (done) => {
-    const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const cwd = path.resolve(__dirname, '../fixtures/cli');
-    const cp = execa('node', [cliPath, '--host', 'invalid'], { cwd });
-
-    cp.stderr.on('data', (chunk) => {
-      expect(chunk.toString()).toContain(
-        `Address "invalid" is not available. Try with a different value for "host" option.`
-      );
-    });
-
-    cp.on('exit', () => {
-      done();
-    });
-  });
-
   it('--host localhost --port 9999', (done) => {
     testBin('--host localhost --port 9999')
       .then((output) => {
