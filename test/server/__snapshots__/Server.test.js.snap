@@ -4,7 +4,6 @@ exports[`Server DevServerPlugin add hot option 1`] = `
 Array [
   Array [
     "client",
-    "default",
     "index.js?http:",
     "0.0.0.0",
   ],
@@ -24,7 +23,6 @@ exports[`Server DevServerPlugin add hot-only option 1`] = `
 Array [
   Array [
     "client",
-    "default",
     "index.js?http:",
     "0.0.0.0",
   ],
