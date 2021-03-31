@@ -75,7 +75,6 @@ describe('options', () => {
             }
           })
           .catch((err) => {
-            if (propertyName === 'watchFiles') console.log(err);
             if (current >= successCount) {
               expect(err).toBeInstanceOf(ValidationError);
             } else {
