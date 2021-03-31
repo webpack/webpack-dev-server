@@ -273,7 +273,7 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it.only('--open-target /index.html --open-app google-chrome', (done) => {
+  it('--open-target /index.html --open-app google-chrome', (done) => {
     testBin('--open-target /index.html --open-app google-chrome')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
