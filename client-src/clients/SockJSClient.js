@@ -1,7 +1,7 @@
 'use strict';
 
 const SockJS = require('../modules/sockjs-client');
-const { log } = require('../modules/logger');
+const { log } = require('../utils/log');
 const BaseClient = require('./BaseClient');
 
 module.exports = class SockJSClient extends BaseClient {

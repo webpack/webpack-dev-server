@@ -5,7 +5,7 @@ const express = require('express');
 const sockjs = require('sockjs');
 const port = require('../../ports-map').sockJSClient;
 
-jest.setMock('../../../client-src/modules/logger', {
+jest.setMock('../../../client-src/utils/log', {
   log: {
     error: jest.fn(),
   },
@@ -13,7 +13,7 @@ jest.setMock('../../../client-src/modules/logger', {
 
 describe('SockJSClient', () => {
   const SockJSClient = require('../../../client-src/clients/SockJSClient');
-  const { log } = require('../../../client-src/modules/logger');
+  const { log } = require('../../../client-src/utils/log');
   let consoleMock;
   let socketServer;
   let server;

@@ -1,14 +1,15 @@
 'use strict';
 
-const { log } = require('../modules/logger');
+const { log } = require('../utils/log');
 const BaseClient = require('./BaseClient');
 
 module.exports = class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
-    const wsUrl = url.replace(/^(?:http|chrome-extension|file)/i, 'ws');
-    this.client = new WebSocket(wsUrl);
 
+    const wsUrl = url.replace(/^(?:http|chrome-extension|file)/i, 'ws');
+
+    this.client = new WebSocket(wsUrl);
     this.client.onerror = (err) => {
       log.error(err);
     };
