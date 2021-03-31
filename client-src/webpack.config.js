@@ -66,6 +66,7 @@ module.exports = [
       filename: 'sockjs-client/index.js',
       library: 'SockJS',
       libraryTarget: 'umd',
+      globalObject: "(typeof self !== 'undefined' ? self : this)",
     },
   }),
 ];
