@@ -219,6 +219,69 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--open', (done) => {
+    testBin('--open')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open /index.html', (done) => {
+    testBin('--open /index.html')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open /first.html second.html', (done) => {
+    testBin('--open /first.html second.html')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open-app google-chrome', (done) => {
+    testBin('--open-app google-chrome')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open-target index.html', (done) => {
+    testBin('--open-target index.html')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open-target /first.html second.html', (done) => {
+    testBin('--open-target /first.html second.html')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it.only('--open-target /index.html --open-app google-chrome', (done) => {
+    testBin('--open-target /index.html --open-app google-chrome')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('should log public path', (done) => {
     testBin(
       '--no-color',
