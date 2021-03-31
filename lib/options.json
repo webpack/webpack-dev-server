@@ -424,6 +424,34 @@
           "enum": ["sockjs", "ws"]
         }
       ]
+    },
+    "watchFiles": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "options": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
     }
   },
   "errorMessage": {
@@ -449,7 +477,8 @@
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
       "setupExitSignals": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals)",
       "static": "should be {Boolean|String|Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverstatic)",
-      "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)"
+      "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
+      "watchFiles": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserverwatchfiles)"
     }
   },
   "additionalProperties": false
