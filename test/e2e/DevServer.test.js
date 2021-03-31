@@ -10,7 +10,7 @@ describe('DevServer', () => {
     testBin(null, './test/fixtures/dev-server/default-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('client/default/index.js?');
+        expect(output.stdout).toContain('client/index.js?');
         done();
       })
       .catch(done);
@@ -22,7 +22,7 @@ describe('DevServer', () => {
       testBin('--stats=verbose', './test/fixtures/dev-server/multi-entry.js')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(output.stdout).toContain('client/default/index.js?');
+          expect(output.stdout).toContain('client/index.js?');
           expect(output.stdout).toContain('foo.js');
           done();
         })
@@ -36,7 +36,7 @@ describe('DevServer', () => {
       testBin(null, './test/fixtures/dev-server/empty-entry.js')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(output.stdout).toContain('client/default/index.js?');
+          expect(output.stdout).toContain('client/index.js?');
           done();
         })
         .catch(done);
@@ -61,7 +61,7 @@ describe('DevServer', () => {
     testBin('--target web', './test/fixtures/dev-server/default-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('client/default/index.js?');
+        expect(output.stdout).toContain('client/index.js?');
         expect(output.stdout).toContain('foo.js');
         done();
       })
@@ -72,7 +72,7 @@ describe('DevServer', () => {
     testBin('--target node', './test/fixtures/dev-server/default-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).not.toContain('client/default/index.js?');
+        expect(output.stdout).not.toContain('client/index.js?');
         expect(output.stdout).toContain('foo.js');
         done();
       })
@@ -118,7 +118,7 @@ describe('DevServer', () => {
       testBin(null, './test/fixtures/dev-server/target-config.js')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(output.stdout).toContain('client/default/index.js');
+          expect(output.stdout).toContain('client/index.js');
           done();
         })
         .catch(done);

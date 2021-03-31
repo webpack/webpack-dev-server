@@ -17,9 +17,8 @@ describe('createSocketUrl', () => {
   ];
 
   samples.forEach((url) => {
-    jest.doMock(
-      '../../../client-src/default/utils/getCurrentScriptSource.js',
-      () => () => url
+    jest.doMock('../../../client-src/utils/getCurrentScriptSource', () => () =>
+      url
     );
 
     const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
@@ -50,7 +49,7 @@ describe('createSocketUrl', () => {
 
   samples2.forEach(([scriptSrc, loc, expected]) => {
     jest.doMock(
-      '../../../client-src/default/utils/getCurrentScriptSource.js',
+      '../../../client-src/utils/getCurrentScriptSource.js',
       () => () => scriptSrc
     );
 

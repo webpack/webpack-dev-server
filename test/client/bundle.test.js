@@ -48,6 +48,7 @@ describe('bundle', () => {
 
       expect(() => {
         let evalStep = 0;
+
         acorn.parse(text, {
           ecmaVersion: 5,
           onToken: (token) => {

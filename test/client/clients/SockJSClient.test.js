@@ -5,7 +5,7 @@ const express = require('express');
 const sockjs = require('sockjs');
 const port = require('../../ports-map').sockJSClient;
 
-jest.setMock('../../../client-src/utils/log', {
+jest.setMock('../../../client-src/modules/logger', {
   log: {
     error: jest.fn(),
   },
@@ -13,7 +13,7 @@ jest.setMock('../../../client-src/utils/log', {
 
 describe('SockJSClient', () => {
   const SockJSClient = require('../../../client-src/clients/SockJSClient');
-  const { log } = require('../../../client-src/utils/log');
+  const { log } = require('../../../client-src/modules/logger');
   let consoleMock;
   let socketServer;
   let server;
@@ -62,6 +62,7 @@ describe('SockJSClient', () => {
       });
 
       const testError = new Error('test');
+
       client.sock.onerror(testError);
 
       expect(log.error.mock.calls.length).toEqual(1);
@@ -69,17 +70,23 @@ describe('SockJSClient', () => {
 
       setTimeout(() => {
         expect(data).toMatchSnapshot();
+
         done();
       }, 3000);
     });
+
     it('should change the protocol from chrome-extension to http', (done) => {
       const client = new SockJSClient('chrome-extension://localhost');
+
       expect(client.sock.url).toEqual('http://localhost');
+
       done();
     });
+
     it('should change the protocol from file to http', (done) => {
       const client = new SockJSClient('file://localhost');
       expect(client.sock.url).toEqual('http://localhost');
+
       done();
     });
   });
