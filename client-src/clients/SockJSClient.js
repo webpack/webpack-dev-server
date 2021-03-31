@@ -1,6 +1,6 @@
 'use strict';
 
-const SockJS = require('sockjs-client/dist/sockjs');
+const SockJS = require('../modules/sockjs-client');
 const { log } = require('../modules/logger');
 const BaseClient = require('./BaseClient');
 
