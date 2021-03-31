@@ -65,18 +65,7 @@ describe('options', () => {
 
         return p
           .then(() => {
-            const opts =
-              Object.prototype.toString.call(value) === '[object Object]' &&
-              Object.keys(value).length !== 0
-                ? value
-                : {
-                    [propertyName]: value,
-                  };
-
-            if (typeof opts.static === 'undefined') {
-              opts.static = false;
-            }
-            server = new Server(compiler, opts);
+            server = new Server(compiler, { [propertyName]: value });
           })
           .then(() => {
             if (current < successCount) {
@@ -99,6 +88,7 @@ describe('options', () => {
                   server.close(() => {
                     compiler = null;
                     server = null;
+
                     resolve();
                   });
                 } else {
@@ -127,198 +117,132 @@ describe('options', () => {
         failure: [false],
       },
       bonjour: {
-        success: [false],
+        success: [false, true],
         failure: [''],
       },
       client: {
         success: [
+          {},
           {
-            client: {},
+            host: '',
           },
           {
-            client: {
-              host: '',
+            path: '',
+          },
+          {
+            port: '',
+          },
+          {
+            logging: 'none',
+          },
+          {
+            logging: 'error',
+          },
+          {
+            logging: 'warn',
+          },
+          {
+            logging: 'info',
+          },
+          {
+            logging: 'log',
+          },
+          {
+            logging: 'verbose',
+          },
+          {
+            host: '',
+            path: '',
+            port: 8080,
+            logging: 'none',
+          },
+          {
+            host: '',
+            path: '',
+            port: '',
+          },
+          {
+            host: '',
+            path: '',
+            port: null,
+          },
+          {
+            progress: false,
+          },
+          {
+            overlay: true,
+          },
+          {
+            overlay: {},
+          },
+          {
+            overlay: {
+              error: true,
             },
           },
           {
-            client: {
-              path: '',
+            overlay: {
+              warnings: true,
             },
           },
           {
-            client: {
-              port: '',
+            overlay: {
+              arbitrary: '',
             },
           },
           {
-            client: {
-              logging: 'none',
-            },
+            needClientEntry: true,
           },
           {
-            client: {
-              logging: 'error',
-            },
-          },
-          {
-            client: {
-              logging: 'warn',
-            },
-          },
-          {
-            client: {
-              logging: 'info',
-            },
-          },
-          {
-            client: {
-              logging: 'log',
-            },
-          },
-          {
-            client: {
-              logging: 'verbose',
-            },
-          },
-          {
-            client: {
-              host: '',
-              path: '',
-              port: 8080,
-              logging: 'none',
-            },
-          },
-          {
-            client: {
-              host: '',
-              path: '',
-              port: '',
-            },
-          },
-          {
-            client: {
-              host: '',
-              path: '',
-              port: null,
-            },
-          },
-          {
-            client: {
-              progress: false,
-            },
-          },
-          {
-            client: {
-              overlay: true,
-            },
-          },
-          {
-            client: {
-              overlay: {},
-            },
-          },
-          {
-            client: {
-              overlay: {
-                error: true,
-              },
-            },
-          },
-          {
-            client: {
-              overlay: {
-                warnings: true,
-              },
-            },
-          },
-          {
-            client: {
-              overlay: {
-                arbitrary: '',
-              },
-            },
-          },
-          {
-            client: {
-              needClientEntry: true,
-            },
-          },
-          {
-            client: {
-              needHotEntry: true,
-            },
+            needHotEntry: true,
           },
         ],
         failure: [
           'whoops!',
           {
-            client: {
-              unknownOption: true,
+            unknownOption: true,
+          },
+          {
+            host: true,
+            path: '',
+            port: 8080,
+          },
+          {
+            logging: 'whoops!',
+          },
+          {
+            logging: 'silent',
+          },
+          {
+            progress: '',
+          },
+          {
+            overlay: '',
+          },
+          {
+            overlay: {
+              errors: '',
             },
           },
           {
-            client: {
-              host: true,
-              path: '',
-              port: 8080,
+            overlay: {
+              warnings: '',
             },
           },
           {
-            client: {
-              logging: 'whoops!',
-            },
+            needClientEntry: [''],
           },
           {
-            client: {
-              logging: 'silent',
-            },
-          },
-          {
-            client: {
-              progress: '',
-            },
-          },
-          {
-            client: {
-              overlay: '',
-            },
-          },
-          {
-            client: {
-              overlay: {
-                errors: '',
-              },
-            },
-          },
-          {
-            client: {
-              overlay: {
-                warnings: '',
-              },
-            },
-          },
-          {
-            client: {
-              needClientEntry: [''],
-            },
-          },
-          {
-            client: {
-              needHotEntry: [''],
-            },
+            needHotEntry: [''],
           },
         ],
       },
       compress: {
-        success: [true],
+        success: [false, true],
         failure: [''],
       },
       dev: {
-        success: [
-          {
-            dev: {},
-          },
-        ],
+        success: [{}],
         failure: [''],
       },
       firewall: {
@@ -326,7 +250,7 @@ describe('options', () => {
         failure: ['', []],
       },
       headers: {
-        success: [{}],
+        success: [{}, { foo: 'bar' }],
         failure: [false],
       },
       historyApiFallback: {
@@ -334,7 +258,7 @@ describe('options', () => {
         failure: [''],
       },
       host: {
-        success: ['', null],
+        success: ['', 'localhost', null],
         failure: [false],
       },
       hot: {
@@ -342,38 +266,33 @@ describe('options', () => {
         failure: ['', 'foo'],
       },
       http2: {
-        success: [true],
+        success: [false, true],
         failure: [''],
       },
       https: {
         success: [
           false,
+          true,
           {
-            https: {
-              ca: join(httpsCertificateDirectory, 'ca.pem'),
-              key: join(httpsCertificateDirectory, 'server.key'),
-              pfx: join(httpsCertificateDirectory, 'server.pfx'),
-              cert: join(httpsCertificateDirectory, 'server.crt'),
-              requestCert: true,
-              passphrase: 'webpack-dev-server',
-            },
+            ca: join(httpsCertificateDirectory, 'ca.pem'),
+            key: join(httpsCertificateDirectory, 'server.key'),
+            pfx: join(httpsCertificateDirectory, 'server.pfx'),
+            cert: join(httpsCertificateDirectory, 'server.crt'),
+            requestCert: true,
+            passphrase: 'webpack-dev-server',
           },
           {
-            https: {
-              ca: readFileSync(join(httpsCertificateDirectory, 'ca.pem')),
-              pfx: readFileSync(join(httpsCertificateDirectory, 'server.pfx')),
-              key: readFileSync(join(httpsCertificateDirectory, 'server.key')),
-              cert: readFileSync(join(httpsCertificateDirectory, 'server.crt')),
-              passphrase: 'webpack-dev-server',
-            },
+            ca: readFileSync(join(httpsCertificateDirectory, 'ca.pem')),
+            pfx: readFileSync(join(httpsCertificateDirectory, 'server.pfx')),
+            key: readFileSync(join(httpsCertificateDirectory, 'server.key')),
+            cert: readFileSync(join(httpsCertificateDirectory, 'server.crt')),
+            passphrase: 'webpack-dev-server',
           },
         ],
         failure: [
           '',
           {
-            https: {
-              foo: 'bar',
-            },
+            foo: 'bar',
           },
         ],
       },
@@ -382,12 +301,19 @@ describe('options', () => {
         failure: [''],
       },
       open: {
-        success: [true, '', {}],
-        failure: [[]],
-      },
-      openPage: {
-        success: [''],
-        failure: [false],
+        success: [
+          true,
+          'foo',
+          ['foo', 'bar'],
+          { target: 'foo' },
+          { target: ['foo', 'bar'] },
+          { app: 'google-chrome' },
+          { app: ['google-chrome', '--incognito'] },
+          { target: 'foo', app: 'google-chrome' },
+          { target: ['foo', 'bar'], app: ['google-chrome', '--incognito'] },
+          {},
+        ],
+        failure: ['', [], { foo: 'bar' }],
       },
       port: {
         success: ['', 0, null],
@@ -396,15 +322,13 @@ describe('options', () => {
       proxy: {
         success: [
           {
-            proxy: {
-              '/api': 'http://localhost:3000',
-            },
+            '/api': 'http://localhost:3000',
           },
         ],
         failure: [[], () => {}, false],
       },
       public: {
-        success: [''],
+        success: ['', 'foo', 'auto'],
         failure: [false],
       },
       static: {
@@ -412,35 +336,29 @@ describe('options', () => {
           'path',
           false,
           {
-            static: {
-              directory: 'path',
+            directory: 'path',
+            staticOptions: {},
+            publicPath: '/',
+            serveIndex: true,
+            watch: true,
+          },
+          {
+            directory: 'path',
+            staticOptions: {},
+            publicPath: ['/public1/', '/public2/'],
+            serveIndex: {},
+            watch: {},
+          },
+          [
+            'path1',
+            {
+              directory: 'path2',
               staticOptions: {},
               publicPath: '/',
               serveIndex: true,
               watch: true,
             },
-          },
-          {
-            static: {
-              directory: 'path',
-              staticOptions: {},
-              publicPath: ['/public1/', '/public2/'],
-              serveIndex: {},
-              watch: {},
-            },
-          },
-          {
-            static: [
-              'path1',
-              {
-                directory: 'path2',
-                staticOptions: {},
-                publicPath: '/',
-                serveIndex: true,
-                watch: true,
-              },
-            ],
-          },
+          ],
         ],
         failure: [0, null, ''],
       },
@@ -449,54 +367,36 @@ describe('options', () => {
           'ws',
           'sockjs',
           {
-            transportMode: {
-              server: 'sockjs',
-            },
+            server: 'sockjs',
           },
           {
-            transportMode: {
-              server: require.resolve('../lib/servers/SockJSServer'),
-            },
+            server: require.resolve('../lib/servers/SockJSServer'),
           },
           {
-            transportMode: {
-              server: SockJSServer,
-            },
+            server: SockJSServer,
           },
           {
-            transportMode: {
-              client: 'sockjs',
-            },
+            client: 'sockjs',
           },
           {
-            transportMode: {
-              client: require.resolve('../client/clients/SockJSClient'),
-            },
+            client: require.resolve('../client/clients/SockJSClient'),
           },
           {
-            transportMode: {
-              server: SockJSServer,
-              client: require.resolve('../client/clients/SockJSClient'),
-            },
+            server: SockJSServer,
+            client: require.resolve('../client/clients/SockJSClient'),
           },
         ],
         failure: [
           'nonexistent-implementation',
           null,
           {
-            transportMode: {
-              notAnOption: true,
-            },
+            notAnOption: true,
           },
           {
-            transportMode: {
-              server: false,
-            },
+            server: false,
           },
           {
-            transportMode: {
-              client: () => {},
-            },
+            client: () => {},
           },
         ],
       },

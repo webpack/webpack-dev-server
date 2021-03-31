@@ -329,20 +329,6 @@
         }
       ]
     },
-    "openPage": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        }
-      ]
-    },
     "port": {
       "anyOf": [
         {
@@ -454,6 +440,7 @@
       "onAfterSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
       "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
+      "open": "should be {Boolean|String|(STRING | Object)[]} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
