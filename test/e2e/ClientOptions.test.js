@@ -394,24 +394,30 @@ describe('Client console.log', () => {
   ];
 
   transportModes.forEach(async (mode) => {
-    await cases.forEach(async ({ title, options }) => {
+    cases.forEach(async ({ title, options }) => {
       title += ` (${
         Object.keys(mode).length ? mode.transportMode : 'default'
       })`;
+
       options = { ...mode, ...options };
+
       const testOptions = Object.assign({}, baseOptions, options);
-      await it(title, (done) => {
+
+      it(title, (done) => {
         testServer.startAwaitingCompilation(config, testOptions, async () => {
           const res = [];
           const { page, browser } = await runBrowser();
+
           page.goto(`http://localhost:${port2}/main`);
           page.on('console', ({ _text }) => {
             res.push(_text);
           });
+
           // wait for load before closing the browser
           await page.waitForNavigation({ waitUntil: 'load' });
           await page.waitForTimeout(beforeBrowserCloseDelay);
           await browser.close();
+
           // Order doesn't matter, maybe we should improve that in future
           await expect(res.sort()).toMatchSnapshot();
           await testServer.close(done);

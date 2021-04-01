@@ -17,12 +17,11 @@ describe('createSocketUrl', () => {
   ];
 
   samples.forEach((url) => {
-    jest.doMock(
-      '../../../client-src/default/utils/getCurrentScriptSource.js',
-      () => () => url
+    jest.doMock('../../../client-src/utils/getCurrentScriptSource', () => () =>
+      url
     );
 
-    const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+    const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
 
     test(`should return the url when __resourceQuery is ${url}`, () => {
       const query = url ? url.querystring : url;
@@ -50,11 +49,11 @@ describe('createSocketUrl', () => {
 
   samples2.forEach(([scriptSrc, loc, expected]) => {
     jest.doMock(
-      '../../../client-src/default/utils/getCurrentScriptSource.js',
+      '../../../client-src/utils/getCurrentScriptSource.js',
       () => () => scriptSrc
     );
 
-    const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+    const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
 
     test(`should return socket ${expected} for script source ${scriptSrc} and location ${loc}`, () => {
       // eslint-disable-next-line no-undefined
@@ -106,7 +105,7 @@ describe('createSocketUrl', () => {
   ];
   samples3.forEach(([scriptSrc, loc, expected]) => {
     test(`should return socket ${expected} for query ${scriptSrc} and location ${loc}`, () => {
-      const createSocketUrl = require('../../../client-src/default/utils/createSocketUrl');
+      const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
 
       expect(createSocketUrl(scriptSrc, loc).toString()).toEqual(expected);
     });

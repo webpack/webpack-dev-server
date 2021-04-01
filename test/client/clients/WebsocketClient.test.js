@@ -5,7 +5,7 @@ const express = require('express');
 const ws = require('ws');
 const port = require('../../ports-map').WebsocketClient;
 
-jest.setMock('../../../client-src/default/utils/log', {
+jest.setMock('../../../client-src/utils/log', {
   log: {
     error: jest.fn(),
   },
@@ -13,7 +13,8 @@ jest.setMock('../../../client-src/default/utils/log', {
 
 describe('WebsocketClient', () => {
   const WebsocketClient = require('../../../client-src/clients/WebsocketClient');
-  const { log } = require('../../../client-src/default/utils/log');
+  const { log } = require('../../../client-src/utils/log');
+
   let socketServer;
   let server;
 
@@ -55,6 +56,7 @@ describe('WebsocketClient', () => {
       });
 
       const testError = new Error('test');
+
       client.client.onerror(testError);
 
       expect(log.error.mock.calls.length).toEqual(1);
@@ -62,17 +64,24 @@ describe('WebsocketClient', () => {
 
       setTimeout(() => {
         expect(data).toMatchSnapshot();
+
         done();
       }, 3000);
     });
+
     it('should change the protocol from chrome-extension to http', (done) => {
       const client = new WebsocketClient('chrome-extension://localhost/');
+
       expect(client.client.url).toEqual('ws://localhost/');
+
       done();
     });
+
     it('should change the protocol from file to http', (done) => {
       const client = new WebsocketClient('file://localhost/');
+
       expect(client.client.url).toEqual('ws://localhost/');
+
       done();
     });
   });

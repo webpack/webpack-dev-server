@@ -1,6 +1,6 @@
 'use strict';
 
-const overlay = require('../../client-src/default/overlay');
+const overlay = require('../../client-src/overlay');
 
 describe('overlay', () => {
   it('should run showMessage', async () => {

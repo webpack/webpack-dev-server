@@ -1,7 +1,5 @@
 'use strict';
 
-/* global self */
-
 describe('index', () => {
   let log;
   let socket;
@@ -16,39 +14,36 @@ describe('index', () => {
     global.__resourceQuery = 'foo';
 
     // log
-    jest.setMock('../../client-src/default/utils/log.js', {
+    jest.setMock('../../client-src/utils/log.js', {
       log: {
         info: jest.fn(),
         warn: jest.fn(),
         error: jest.fn(),
       },
     });
-    log = require('../../client-src/default/utils/log');
+    log = require('../../client-src/utils/log');
 
     // socket
-    jest.setMock('../../client-src/default/socket.js', jest.fn());
-    socket = require('../../client-src/default/socket');
+    jest.setMock('../../client-src/socket.js', jest.fn());
+    socket = require('../../client-src/socket');
 
     // overlay
-    jest.setMock('../../client-src/default/overlay.js', {
+    jest.setMock('../../client-src/overlay.js', {
       clear: jest.fn(),
       showMessage: jest.fn(),
     });
-    overlay = require('../../client-src/default/overlay');
+    overlay = require('../../client-src/overlay');
 
     // reloadApp
-    jest.setMock('../../client-src/default/utils/reloadApp.js', jest.fn());
-    reloadApp = require('../../client-src/default/utils/reloadApp');
+    jest.setMock('../../client-src/utils/reloadApp.js', jest.fn());
+    reloadApp = require('../../client-src/utils/reloadApp');
 
     // sendMessage
-    jest.setMock('../../client-src/default/utils/sendMessage.js', jest.fn());
-    sendMessage = require('../../client-src/default/utils/sendMessage');
+    jest.setMock('../../client-src/utils/sendMessage.js', jest.fn());
+    sendMessage = require('../../client-src/utils/sendMessage');
 
     // createSocketUrl
-    jest.setMock(
-      '../../client-src/default/utils/createSocketUrl.js',
-      () => 'mock-url'
-    );
+    jest.setMock('../../client-src/utils/createSocketUrl.js', () => 'mock-url');
 
     // issue: https://github.com/jsdom/jsdom/issues/2112
     delete window.location;
@@ -57,7 +52,7 @@ describe('index', () => {
       reload: jest.fn(),
     };
 
-    require('../../client-src/default');
+    require('../../client-src');
     onSocketMessage = socket.mock.calls[0][1];
   });
 

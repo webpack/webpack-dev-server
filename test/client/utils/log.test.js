@@ -11,7 +11,7 @@ describe('log', () => {
     });
     logMock = require('webpack/lib/logging/runtime');
 
-    setLogLevel = require('../../../client-src/default/utils/log').setLogLevel;
+    setLogLevel = require('../../../client-src/utils/log').setLogLevel;
   });
 
   afterEach(() => {

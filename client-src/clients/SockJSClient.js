@@ -1,15 +1,16 @@
 'use strict';
 
-const SockJS = require('sockjs-client/dist/sockjs');
-const { log } = require('../default/utils/log');
+const SockJS = require('../modules/sockjs-client');
+const { log } = require('../utils/log');
 const BaseClient = require('./BaseClient');
 
 module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
-    const sockUrl = url.replace(/^(?:chrome-extension|file)/i, 'http');
-    this.sock = new SockJS(sockUrl);
 
+    const sockUrl = url.replace(/^(?:chrome-extension|file)/i, 'http');
+
+    this.sock = new SockJS(sockUrl);
     this.sock.onerror = (err) => {
       log.error(err);
     };

@@ -34,22 +34,6 @@ describe('routes util', () => {
       });
     });
 
-    it('should handle GET request to inline bundle', (done) => {
-      req.get('/webpack-dev-server.js').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('application/javascript');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
-    });
-
-    it('should handle HEAD request to inline bundle', (done) => {
-      req.head('/webpack-dev-server.js').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('application/javascript');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
-    });
-
     it('should handle GET request to invalidate endpoint', (done) => {
       req.get('/webpack-dev-server/invalidate').then(({ res }) => {
         expect(res.headers['content-type']).not.toEqual('text/html');
