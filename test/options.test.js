@@ -402,8 +402,13 @@ describe('options', () => {
         ],
       },
       watchFiles: {
-        success: ['', [''], { watchFiles: { paths: [''], options: {} } }],
-        failure: [''],
+        success: [
+          '',
+          [''],
+          { watchFiles: { paths: [''], options: {} } },
+          { watchFiles: [{ paths: [''], options: {} }] },
+        ],
+        failure: [false, 123],
       },
     };
 

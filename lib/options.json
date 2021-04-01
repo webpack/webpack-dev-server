@@ -103,6 +103,21 @@
           ]
         }
       }
+    },
+    "WatchFilesObject": {
+      "type": "object",
+      "properties": {
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "options": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "properties": {
@@ -431,24 +446,19 @@
           "type": "string"
         },
         {
-          "type": "object",
-          "properties": {
-            "paths": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "options": {
-              "type": "object"
-            }
-          },
-          "additionalProperties": false
+          "$ref": "#/definitions/WatchFilesObject"
         },
         {
           "type": "array",
           "items": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/definitions/WatchFilesObject"
+              }
+            ]
           }
         }
       ]
