@@ -24,6 +24,7 @@ const portsList = {
   'http2-option': 1,
   'https-option': 1,
   'liveReload-option': 1,
+  'watchFiles-option': 1,
   'mineTypes-option': 1,
   'onListening-option': 1,
   'open-option': 1,
