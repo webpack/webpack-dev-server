@@ -75,4 +75,37 @@ describe('watchFiles option', () => {
       }, 1000);
     });
   });
+
+  describe('Should work with array config', () => {
+    const nestedFile = path.join(contentBasePublic, 'assets/example.txt');
+
+    beforeAll((done) => {
+      server = testServer.start(
+        config,
+        {
+          watchFiles: [{ paths: [nestedFile], options: { polls: 500 } }, nestedFile],
+          port,
+        },
+        done
+      );
+    });
+
+    afterAll((done) => {
+      testServer.close(done);
+      fs.truncateSync(nestedFile);
+    });
+
+    it('Should reload on file content change', (done) => {
+      server.staticWatchers[0].on('change', () => {
+        server.staticWatchers[1].on('change', () => {
+          done();
+        });
+      });
+
+      // change file content
+      setTimeout(() => {
+        fs.writeFileSync(nestedFile, 'Kurosaki Ichigo', 'utf8');
+      }, 1000);
+    });
+  });
 });
