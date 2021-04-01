@@ -3,7 +3,11 @@
 module.exports = {
   testURL: 'http://localhost/',
   collectCoverage: false,
-  coveragePathIgnorePatterns: ['test', '<rootDir>/node_modules'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/test/',
+    '<rootDir>/client/',
+  ],
   moduleFileExtensions: ['js', 'json'],
   testMatch: ['**/test/**/*.test.js'],
   setupFilesAfterEnv: ['<rootDir>/setupTest.js'],
