@@ -83,7 +83,10 @@ describe('watchFiles option', () => {
       server = testServer.start(
         config,
         {
-          watchFiles: [{ paths: [nestedFile], options: { polls: 500 } }, nestedFile],
+          watchFiles: [
+            { paths: [nestedFile], options: { polls: 500 } },
+            nestedFile,
+          ],
           port,
         },
         done
