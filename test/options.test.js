@@ -305,6 +305,7 @@ describe('options', () => {
           true,
           'foo',
           ['foo', 'bar'],
+          { target: true },
           { target: 'foo' },
           { target: ['foo', 'bar'] },
           { app: 'google-chrome' },

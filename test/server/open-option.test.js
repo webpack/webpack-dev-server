@@ -247,6 +247,26 @@ describe('"open" option', () => {
     server.listen(port, 'localhost');
   });
 
+  it("should work with boolean but don't close with 'false' value", (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
+      open: false,
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open).not.toHaveBeenCalled();
+
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, 'localhost');
+  });
+
   it('should work with relative string', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
@@ -385,8 +405,30 @@ describe('"open" option', () => {
   it('should work with empty object', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, {
+      open: {},
+      port,
+      static: false,
+    });
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open).toHaveBeenCalledWith('http://localhost:8117/', {
+          wait: false,
+        });
+
+        done();
+      });
+    });
+
+    compiler.run(() => {});
+    server.listen(port, 'localhost');
+  });
+
+  it("should work with object and with the boolean value of 'target' option", (done) => {
+    const compiler = webpack(config);
+    const server = new Server(compiler, {
       open: {
-        target: 'index.html',
+        target: true,
       },
       port,
       static: false,
@@ -394,7 +436,7 @@ describe('"open" option', () => {
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
-        expect(open).toHaveBeenCalledWith('http://localhost:8117/index.html', {
+        expect(open).toHaveBeenCalledWith('http://localhost:8117/', {
           wait: false,
         });
 

@@ -111,6 +111,7 @@ module.exports = {
         'Do not close and exit the process on SIGNIT and SIGTERM.',
       negative: true,
     },
+    // TODO remove in the next major release in favor `--open-target`
     {
       name: 'open',
       type: [Boolean, String],
@@ -144,6 +145,9 @@ module.exports = {
       name: 'open-target',
       type: String,
       configs: [
+        {
+          type: 'boolean',
+        },
         {
           type: 'string',
         },

@@ -70,6 +70,9 @@
         "target": {
           "anyOf": [
             {
+              "type": "boolean"
+            },
+            {
               "type": "string",
               "minLength": 1
             },

@@ -255,6 +255,15 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--open-target', (done) => {
+    testBin('--open-target')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--open-target index.html', (done) => {
     testBin('--open-target index.html')
       .then((output) => {
