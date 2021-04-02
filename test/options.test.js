@@ -403,10 +403,11 @@ describe('options', () => {
       },
       watchFiles: {
         success: [
-          '',
-          [''],
-          { watchFiles: { paths: [''], options: {} } },
-          { watchFiles: [{ paths: [''], options: {} }] },
+          'dir',
+          ['one-dir', 'two-dir'],
+          { paths: ['dir'] },
+          { paths: ['dir'], options: { usePolling: true } },
+          [{ paths: ['one-dir'] }, 'two-dir'],
         ],
         failure: [false, 123],
       },

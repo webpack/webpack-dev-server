@@ -104,17 +104,31 @@
         }
       }
     },
+    "WatchFilesString": {
+      "type": "string",
+      "minLength": 1
+    },
     "WatchFilesObject": {
       "type": "object",
       "properties": {
         "paths": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          ]
         },
         "options": {
-          "type": "object"
+          "type": "object",
+          "additionalProperties": true
         }
       },
       "additionalProperties": false
@@ -443,7 +457,7 @@
     "watchFiles": {
       "anyOf": [
         {
-          "type": "string"
+          "$ref": "#/definitions/WatchFilesString"
         },
         {
           "$ref": "#/definitions/WatchFilesObject"
@@ -453,7 +467,7 @@
           "items": {
             "anyOf": [
               {
-                "type": "string"
+                "$ref": "#/definitions/WatchFilesString"
               },
               {
                 "$ref": "#/definitions/WatchFilesObject"
@@ -481,7 +495,7 @@
       "onAfterSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
       "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
-      "open": "should be {Boolean|String|(STRING | Object)[]} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
+      "open": "should be {Boolean|String|(String | Object)[]} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
