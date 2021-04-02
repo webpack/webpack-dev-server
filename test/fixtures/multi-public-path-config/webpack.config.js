@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 module.exports = [
   {
     mode: 'development',
@@ -10,7 +12,6 @@ module.exports = [
       filename: 'foo.js',
       publicPath: '/bundle1/',
     },
-    node: false,
     infrastructureLogging: {
       level: 'warn',
     },
@@ -31,13 +32,26 @@ module.exports = [
     context: __dirname,
     entry: './bar.js',
     output: {
-      path: __dirname,
+      path: path.join(__dirname, 'named'),
       filename: 'bar.js',
       publicPath: '/bundle2/',
     },
-    node: false,
+    name: 'named',
+    stats: 'none',
     infrastructureLogging: {
       level: 'warn',
     },
+  },
+  {
+    mode: 'development',
+    context: __dirname,
+    entry: './bar.js',
+    output: {
+      path: path.join(__dirname, 'dist'),
+      filename: 'bar.js',
+      publicPath: 'auto',
+    },
+    name: 'other',
+    stats: false,
   },
 ];
