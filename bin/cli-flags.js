@@ -111,9 +111,11 @@ module.exports = {
         'Do not close and exit the process on SIGNIT and SIGTERM.',
       negative: true,
     },
+    // TODO remove in the next major release in favor `--open-target`
     {
       name: 'open',
       type: [Boolean, String],
+      multiple: true,
       configs: [
         {
           type: 'boolean',
@@ -122,18 +124,40 @@ module.exports = {
           type: 'string',
         },
       ],
-      description:
-        'Open the default browser, or optionally specify a browser name.',
+      description: 'Open the default browser.',
     },
     {
-      name: 'open-page',
+      name: 'open-app',
       type: String,
       configs: [
         {
           type: 'string',
         },
       ],
-      description: 'Open default browser with the specified page.',
+      description: 'Open specified browser.',
+      processor(opts) {
+        opts.open = opts.open || {};
+        opts.open.app = opts.openApp.split(' ');
+        delete opts.openApp;
+      },
+    },
+    {
+      name: 'open-target',
+      type: String,
+      configs: [
+        {
+          type: 'boolean',
+        },
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Open specified browser.',
+      processor(opts) {
+        opts.open = opts.open || {};
+        opts.open.target = opts.openTarget;
+        delete opts.openTarget;
+      },
       multiple: true,
     },
     {
