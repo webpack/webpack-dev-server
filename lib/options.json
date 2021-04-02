@@ -261,7 +261,7 @@
           "type": "string"
         },
         {
-          "type": "boolean"
+          "enum": [true]
         },
         {
           "type": "object",

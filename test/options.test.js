@@ -383,7 +383,7 @@ describe('options', () => {
       },
       open: {
         success: [true, '', {}, { open: { target: '' } }],
-        failure: [''],
+        failure: [123, false],
       },
       port: {
         success: ['', 0, null],
