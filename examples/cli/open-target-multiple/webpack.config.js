@@ -16,7 +16,7 @@ module.exports = [
       new HtmlWebpackPlugin({
         filename: 'example1.html',
         template: '../../.assets/layout.html',
-        title: 'Open Page (Multiple) / Example / Page 1',
+        title: 'Open Target (Multiple) / Example / Page 1',
       }),
     ],
   }),
@@ -30,7 +30,7 @@ module.exports = [
       new HtmlWebpackPlugin({
         filename: 'example2.html',
         template: '../../.assets/layout.html',
-        title: 'Open Page (Multiple) / Example / Page 2',
+        title: 'Open Target (Multiple) / Example / Page 2',
       }),
     ],
   },
