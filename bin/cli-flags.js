@@ -228,5 +228,16 @@ module.exports = {
       multiple: true,
       negative: true,
     },
+    {
+      name: 'watch-files',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Watch static files for file changes',
+      multiple: true,
+    },
   ],
 };

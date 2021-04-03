@@ -103,6 +103,35 @@
           ]
         }
       }
+    },
+    "WatchFilesString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "WatchFilesObject": {
+      "type": "object",
+      "properties": {
+        "paths": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          ]
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
     }
   },
   "properties": {
@@ -424,6 +453,29 @@
           "enum": ["sockjs", "ws"]
         }
       ]
+    },
+    "watchFiles": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/WatchFilesString"
+        },
+        {
+          "$ref": "#/definitions/WatchFilesObject"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/WatchFilesString"
+              },
+              {
+                "$ref": "#/definitions/WatchFilesObject"
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   "errorMessage": {
@@ -443,13 +495,14 @@
       "onAfterSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
       "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
       "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
-      "open": "should be {Boolean|String|(STRING | Object)[]} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
+      "open": "should be {Boolean|String|(String | Object)[]} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
       "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
       "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
       "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
       "setupExitSignals": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals)",
       "static": "should be {Boolean|String|Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverstatic)",
-      "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)"
+      "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
+      "watchFiles": "should be {String|Array|Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchfiles)"
     }
   },
   "additionalProperties": false

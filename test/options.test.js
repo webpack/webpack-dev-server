@@ -401,6 +401,16 @@ describe('options', () => {
           },
         ],
       },
+      watchFiles: {
+        success: [
+          'dir',
+          ['one-dir', 'two-dir'],
+          { paths: ['dir'] },
+          { paths: ['dir'], options: { usePolling: true } },
+          [{ paths: ['one-dir'] }, 'two-dir'],
+        ],
+        failure: [false, 123],
+      },
     };
 
     Object.keys(cases).forEach((key) => {

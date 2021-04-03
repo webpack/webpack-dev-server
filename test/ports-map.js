@@ -44,6 +44,7 @@ const portsList = {
   bundle: 1,
   ModuleFederation: 1,
   'setupExitSignals-option': 1,
+  'watchFiles-option': 1,
 };
 
 let startPort = 8089;
