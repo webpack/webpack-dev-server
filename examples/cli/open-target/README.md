@@ -1,12 +1,12 @@
 # CLI: Open Page Option
 
 ```console
-npm run webpack-dev-server -- --open-page example.html#page1
+npm run webpack-dev-server -- --open-target example.html#page1
 ```
 
 Some applications may consist of multiple pages. During development it may
 be useful to directly open a particular page. The page to open may be specified
-as the argument to the `open-page` option.
+as the argument to the `open-target` option.
 
 ## What Should Happen
 
