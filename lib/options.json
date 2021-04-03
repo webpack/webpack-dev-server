@@ -502,7 +502,7 @@
       "setupExitSignals": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals)",
       "static": "should be {Boolean|String|Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverstatic)",
       "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
-      "watchFiles": "should be {String|Array} (https://webpack.js.org/configuration/dev-server/#devserverwatchfiles)"
+      "watchFiles": "should be {String|Array|Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchfiles)"
     }
   },
   "additionalProperties": false

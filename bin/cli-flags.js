@@ -230,7 +230,7 @@ module.exports = {
     },
     {
       name: 'watch-files',
-      type: [String],
+      type: String,
       configs: [
         {
           type: 'string',
