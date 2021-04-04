@@ -152,7 +152,7 @@ module.exports = {
           type: 'string',
         },
       ],
-      description: 'Open specified browser.',
+      description: 'Open specified route in browser.',
       processor(opts) {
         opts.open = opts.open || {};
         opts.open.target = opts.openTarget;
