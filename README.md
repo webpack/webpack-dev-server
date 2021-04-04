@@ -95,9 +95,11 @@ Options:
   --client-progress          Print compilation progress in percentage in the browser.
   --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
   --no-setup-exit-signals    Do not close and exit the process on SIGNIT and SIGTERM.
-  --open [value]             Open the default browser, or optionally specify a browser name.
-  --open-app <value...>      Open specified browser.
-  --open-target <value...>   Open specified route in browser.
+  --open [value...]          Open the default browser.
+  --no-open                  Do not open the default browser.
+  --open-app <value>         Open specified browser.
+  --open-target [value...]   Open specified route in browser.
+  --no-open-target           Do not open specified route in browser.
   --client-logging <value>   Log level in the browser (none, error, warn, info, log, verbose).
   --history-api-fallback     Fallback to /index.html for Single Page Applications.
   --no-history-api-fallback  Do not fallback to /index.html for Single Page Applications.
@@ -106,6 +108,7 @@ Options:
   --public <value>           The public hostname/ip address of the server.
   --firewall [value...]      Enable firewall or set hosts that are allowed to access the dev server.
   --no-firewall              Disable firewall.
+  --watch-files <value...>   Watch static files for file changes.
 
 Global options:
   --color                    Enable colors on console.
