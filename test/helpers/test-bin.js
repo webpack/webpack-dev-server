@@ -28,7 +28,12 @@ function testBin(testArgs, configPath) {
     testArgs = testArgs.split(' ');
   }
 
-  const args = [webpackDevServerPath, '--config', configPath].concat(testArgs);
+  let args;
+  if (testArgs.includes('--help')) {
+    args = [webpackDevServerPath].concat(testArgs);
+  } else {
+    args = [webpackDevServerPath, '--config', configPath].concat(testArgs);
+  }
 
   return execa('node', args, { cwd, env, timeout: 10000 });
 }

@@ -10,6 +10,7 @@ module.exports = {
   ],
   moduleFileExtensions: ['js', 'json'],
   testMatch: ['**/test/**/*.test.js'],
+  snapshotResolver: '<rootDir>/test/helpers/snapshotResolver.js',
   setupFilesAfterEnv: ['<rootDir>/setupTest.js'],
   globalSetup: '<rootDir>/globalSetupTest.js',
   testRunner: 'jest-circus/runner',

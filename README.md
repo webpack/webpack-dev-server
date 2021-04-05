@@ -68,6 +68,7 @@ Options:
   --config-name <value...>   Name of the configuration to use.
   -m, --merge                Merge two or more configurations using 'webpack-merge'.
   --env <value...>           Environment passed to the configuration when it is a function.
+  --node-env <value>         Sets process.env.NODE_ENV to the specified value.
   --progress [value]         Print compilation progress during build.
   -j, --json [value]         Prints result as JSON or store it in a file.
   -d, --devtool <value>      Determine source maps to use.
@@ -79,6 +80,7 @@ Options:
   --stats [value]            It instructs webpack on how to treat the stats e.g. verbose.
   --no-stats                 Disable stats output.
   -t, --target <value...>    Sets the build target e.g. node.
+  --no-target                Negative 'target' option.
   --watch-options-stdin      Stop watching when stdin stream has ended.
   --no-watch-options-stdin   Do not stop watching when stdin stream has ended.
   --host <value>             The hostname/ip address the server will bind to.
@@ -92,6 +94,7 @@ Options:
   --http2                    Use HTTP/2, must be used with HTTPS.
   --no-http2                 Do not use HTTP/2.
   --bonjour                  Broadcasts the server via ZeroConf networking on start.
+  --no-bonjour               Negative 'bonjour' option.
   --client-progress          Print compilation progress in percentage in the browser.
   --client-overlay           Show a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay        Do not show a full-screen overlay in the browser when there are compiler errors or warnings.

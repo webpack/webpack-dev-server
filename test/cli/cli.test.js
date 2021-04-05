@@ -3,6 +3,7 @@
 const path = require('path');
 const execa = require('execa');
 const internalIp = require('internal-ip');
+const stripAnsi = require('strip-ansi');
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
 const localIPv4 = internalIp.v4.sync();
@@ -313,6 +314,15 @@ describe('CLI', () => {
     testBin('--client-overlay')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should generate correct cli flags', (done) => {
+    testBin('--help')
+      .then((output) => {
+        expect(stripAnsi(output.stdout)).toMatchSnapshot();
         done();
       })
       .catch(done);
