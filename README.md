@@ -132,8 +132,10 @@ binaries without having to be concerned about their full paths. Simply define a
 script as such:
 
 ```json
-"scripts": {
-  "start:dev": "webpack serve"
+{
+  "scripts": {
+    "serve": "webpack serve"
+  }
 }
 ```
 
