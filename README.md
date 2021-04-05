@@ -94,8 +94,9 @@ Options:
   --http2                    Use HTTP/2, must be used with HTTPS.
   --no-http2                 Do not use HTTP/2.
   --bonjour                  Broadcasts the server via ZeroConf networking on start.
-  --no-bonjour               Negative 'bonjour' option.
+  --no-bonjour               Do not broadcast the server via ZeroConf networking on start.
   --client-progress          Print compilation progress in percentage in the browser.
+  --no-client-progress       Do not print compilation progress in percentage in the browser.
   --client-overlay           Show a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay        Do not show a full-screen overlay in the browser when there are compiler errors or warnings.
   --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
@@ -131,8 +132,10 @@ binaries without having to be concerned about their full paths. Simply define a
 script as such:
 
 ```json
-"scripts": {
-  "start:dev": "webpack serve"
+{
+  "scripts": {
+    "serve": "webpack serve"
+  }
 }
 ```
 
