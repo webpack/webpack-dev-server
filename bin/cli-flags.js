@@ -82,6 +82,9 @@ module.exports = {
         },
       ],
       description: 'Broadcasts the server via ZeroConf networking on start.',
+      negatedDescription:
+        'Do not broadcast the server via ZeroConf networking on start.',
+      negative: true,
     },
     {
       name: 'client-progress',
@@ -92,6 +95,9 @@ module.exports = {
         },
       ],
       description: 'Print compilation progress in percentage in the browser.',
+      negatedDescription:
+        'Do not print compilation progress in percentage in the browser.',
+      negative: true,
       processor(opts) {
         opts.client = opts.client || {};
         opts.client.progress = opts.clientProgress;
@@ -110,6 +116,7 @@ module.exports = {
         'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
       negatedDescription:
         'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
+      negative: true,
       processor(opts) {
         opts.client = opts.client || {};
         opts.client.overlay = opts.clientOverlay;
@@ -144,6 +151,7 @@ module.exports = {
       ],
       description: 'Open the default browser.',
       negatedDescription: 'Do not open the default browser.',
+      negative: true,
     },
     {
       name: 'open-app',
@@ -179,6 +187,7 @@ module.exports = {
       },
       negatedDescription: 'Do not open specified route in browser.',
       multiple: true,
+      negative: true,
     },
     {
       name: 'client-logging',
