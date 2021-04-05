@@ -291,6 +291,15 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--client-overlay', (done) => {
+    testBin('--client-overlay')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('should log public path', (done) => {
     testBin(
       '--no-color',

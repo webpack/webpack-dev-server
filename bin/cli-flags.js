@@ -99,6 +99,24 @@ module.exports = {
       },
     },
     {
+      name: 'client-overlay',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description:
+        'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
+      negatedDescription:
+        'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.overlay = opts.clientOverlay;
+        delete opts.clientOverlay;
+      },
+    },
+    {
       name: 'setup-exit-signals',
       type: Boolean,
       configs: [

@@ -93,6 +93,8 @@ Options:
   --no-http2                 Do not use HTTP/2.
   --bonjour                  Broadcasts the server via ZeroConf networking on start.
   --client-progress          Print compilation progress in percentage in the browser.
+  --client-overlay           Show a full-screen overlay in the browser when there are compiler errors or warnings.
+  --no-client-overlay        Do not show a full-screen overlay in the browser when there are compiler errors or warnings.
   --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
   --no-setup-exit-signals    Do not close and exit the process on SIGNIT and SIGTERM.
   --open [value]             Open the default browser, or optionally specify a browser name.
