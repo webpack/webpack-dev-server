@@ -113,11 +113,7 @@ Options:
   --public <value>           The public hostname/ip address of the server.
   --firewall [value...]      Enable firewall or set hosts that are allowed to access the dev server.
   --no-firewall              Disable firewall.
-<<<<<<< HEAD
   --watch-files <value...>   Watch static files for file changes.
-=======
-  --watch-files <value...>   Watch static files for file changes
->>>>>>> test: add snapshot for cli flags
 
 Global options:
   --color                    Enable colors on console.
