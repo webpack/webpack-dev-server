@@ -136,7 +136,8 @@
   },
   "properties": {
     "bonjour": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Broadcasts the server via ZeroConf networking on start."
     },
     "client": {
       "type": "object",
@@ -205,13 +206,16 @@
           ]
         }
       },
+      "description": "Specifies client properties.",
       "additionalProperties": false
     },
     "compress": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Enable gzip compression for everything served:"
     },
     "dev": {
-      "type": "object"
+      "type": "object",
+      "description": "The bundled files will be available in the browser under this path."
     },
     "firewall": {
       "anyOf": [
@@ -225,10 +229,12 @@
           },
           "minItems": 1
         }
-      ]
+      ],
+      "description": "Defines routes which are enabled by default, on by default and allows localhost."
     },
     "headers": {
-      "type": "object"
+      "type": "object",
+      "description": "Adds headers to all responses."
     },
     "historyApiFallback": {
       "anyOf": [
@@ -238,7 +244,8 @@
         {
           "type": "object"
         }
-      ]
+      ],
+      "description": "When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses."
     },
     "host": {
       "anyOf": [
@@ -248,7 +255,8 @@
         {
           "type": "null"
         }
-      ]
+      ],
+      "description": "Specify a host to use. If you want your server to be accessible externally."
     },
     "hot": {
       "anyOf": [
@@ -258,10 +266,12 @@
         {
           "enum": ["only"]
         }
-      ]
+      ],
+      "description": "Enable webpack's Hot Module Replacement feature."
     },
     "http2": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Serve over HTTP/2 using spdy."
     },
     "https": {
       "anyOf": [
@@ -320,19 +330,24 @@
             }
           }
         }
-      ]
+      ],
+      "description": "By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS."
     },
     "liveReload": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "By default, the dev-server will reload/refresh the page when file changes are detected."
     },
     "onAfterSetupMiddleware": {
-      "instanceof": "Function"
+      "instanceof": "Function",
+      "description": "Provides the ability to execute custom middleware after all other middleware internally within the server."
     },
     "onBeforeSetupMiddleware": {
-      "instanceof": "Function"
+      "instanceof": "Function",
+      "description": "Provides the ability to execute custom middleware prior to all other middleware internally within the server."
     },
     "onListening": {
-      "instanceof": "Function"
+      "instanceof": "Function",
+      "description": "Provides an option to execute a custom function when webpack-dev-server starts listening for connections on a port."
     },
     "open": {
       "anyOf": [
@@ -359,7 +374,8 @@
           },
           "minItems": 1
         }
-      ]
+      ],
+      "description": "Tells dev-server to open the browser after server had been started. Set it to true to open your default browser."
     },
     "port": {
       "anyOf": [
@@ -372,7 +388,8 @@
         {
           "type": "null"
         }
-      ]
+      ],
+      "description": "Specify a port number to listen for requests on."
     },
     "proxy": {
       "anyOf": [
@@ -393,13 +410,16 @@
           },
           "minItems": 1
         }
-      ]
+      ],
+      "description": "Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain."
     },
     "public": {
-      "type": "string"
+      "type": "string",
+      "description": "When using inline mode and you're proxying dev-server, the inline client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this."
     },
     "setupExitSignals": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "it takes a boolean and if true (default on CLI), the server will close and exit the process on SIGINT and SIGTERM."
     },
     "static": {
       "anyOf": [
@@ -426,7 +446,8 @@
           },
           "minItems": 1
         }
-      ]
+      ],
+      "description": "It is possible to configure advanced options for serving static files from contentBase. See the Express documentation for the possible options."
     },
     "transportMode": {
       "anyOf": [
@@ -452,7 +473,8 @@
         {
           "enum": ["sockjs", "ws"]
         }
-      ]
+      ],
+      "description": "This option allows us either to choose the current devServer transport mode for client/server individually or to provide custom client/server implementation."
     },
     "watchFiles": {
       "anyOf": [
@@ -475,34 +497,8 @@
             ]
           }
         }
-      ]
-    }
-  },
-  "errorMessage": {
-    "properties": {
-      "bonjour": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverbonjour)",
-      "client": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverclient)",
-      "compress": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devservercompress)",
-      "dev": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverdev-)",
-      "firewall": "should be {Boolean|Array} (https://webpack.js.org/configuration/dev-server/#devserverfirewall)",
-      "headers": "should be {Object} (https://webpack.js.org/configuration/dev-server/#devserverheaders)",
-      "historyApiFallback": "should be {Boolean|Object} (https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback)",
-      "host": "should be {String|Null} (https://webpack.js.org/configuration/dev-server/#devserverhost)",
-      "hot": "should be {Boolean|String} (https://webpack.js.org/configuration/dev-server/#devserverhot)",
-      "http2": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttp2)",
-      "https": "should be {Object|Boolean} (https://webpack.js.org/configuration/dev-server/#devserverhttps)",
-      "liveReload": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserverlivereload)",
-      "onAfterSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverafter)",
-      "onBeforeSetupMiddleware": "should be {Function} (https://webpack.js.org/configuration/dev-server/#devserverbefore)",
-      "onListening": "should be {Function} (https://webpack.js.org/configuration/dev-server/#onlistening)",
-      "open": "should be {Boolean|String|(String | Object)[]} (https://webpack.js.org/configuration/dev-server/#devserveropen)",
-      "port": "should be {Number|String|Null} (https://webpack.js.org/configuration/dev-server/#devserverport)",
-      "proxy": "should be {Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverproxy)",
-      "public": "should be {String} (https://webpack.js.org/configuration/dev-server/#devserverpublic)",
-      "setupExitSignals": "should be {Boolean} (https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals)",
-      "static": "should be {Boolean|String|Object|Array} (https://webpack.js.org/configuration/dev-server/#devserverstatic)",
-      "transportMode": "should be {String|Object} (https://webpack.js.org/configuration/dev-server/#devservertransportmode)",
-      "watchFiles": "should be {String|Array|Object} (https://webpack.js.org/configuration/dev-server/#devserverwatchfiles)"
+      ],
+      "description": "List of files to watch for file changes and serve."
     }
   },
   "additionalProperties": false
