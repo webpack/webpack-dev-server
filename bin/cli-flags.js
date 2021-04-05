@@ -143,6 +143,7 @@ module.exports = {
         },
       ],
       description: 'Open the default browser.',
+      negatedDescription: 'Do not open the default browser.',
     },
     {
       name: 'open-app',
@@ -176,6 +177,7 @@ module.exports = {
         opts.open.target = opts.openTarget;
         delete opts.openTarget;
       },
+      negatedDescription: 'Do not open specified route in browser.',
       multiple: true,
     },
     {
@@ -254,7 +256,7 @@ module.exports = {
           type: 'string',
         },
       ],
-      description: 'Watch static files for file changes',
+      description: 'Watch static files for file changes.',
       multiple: true,
     },
   ],

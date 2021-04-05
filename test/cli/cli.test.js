@@ -246,6 +246,15 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--no-open', (done) => {
+    testBin('--no-open')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--open-app google-chrome', (done) => {
     testBin('--open-app google-chrome')
       .then((output) => {
@@ -257,6 +266,15 @@ describe('CLI', () => {
 
   it('--open-target', (done) => {
     testBin('--open-target')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-open-target', (done) => {
+    testBin('--no-open-target')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         done();
