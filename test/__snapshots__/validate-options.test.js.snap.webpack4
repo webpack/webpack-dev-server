@@ -2,7 +2,8 @@
 
 exports[`options validate should throw an error on the "bonjour" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.bonjour should be a boolean."
+ - configuration.bonjour should be a boolean.
+   -> Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `
@@ -68,30 +69,35 @@ exports[`options validate should throw an error on the "client" option with '{"p
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }"
+   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
+   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client should be an object:
-   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }"
+   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
+   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
 exports[`options validate should throw an error on the "compress" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.compress should be a boolean."
+ - configuration.compress should be a boolean.
+   -> Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
 `;
 
 exports[`options validate should throw an error on the "dev" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.dev should be an object:
-   object { … }"
+   object { … }
+   -> The bundled files will be available in the browser under this path. https://webpack.js.org/configuration/dev-server/#devserverdev-"
 `;
 
 exports[`options validate should throw an error on the "firewall" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.firewall should be one of these:
    boolean | [string, ...] (should not have fewer than 1 item)
+   -> Defines routes which are enabled by default, on by default and allows localhost. https://webpack.js.org/configuration/dev-server/#devserverfirewall
    Details:
     * configuration.firewall should be a boolean.
     * configuration.firewall should be an array:
@@ -106,13 +112,15 @@ exports[`options validate should throw an error on the "firewall" option with '[
 exports[`options validate should throw an error on the "headers" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.headers should be an object:
-   object { … }"
+   object { … }
+   -> Adds headers to all responses. https://webpack.js.org/configuration/dev-server/#devserverheaders"
 `;
 
 exports[`options validate should throw an error on the "historyApiFallback" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.historyApiFallback should be one of these:
    boolean | object { … }
+   -> When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
    Details:
     * configuration.historyApiFallback should be a boolean.
     * configuration.historyApiFallback should be an object:
@@ -123,6 +131,7 @@ exports[`options validate should throw an error on the "host" option with 'false
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.host should be one of these:
    string | null
+   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost
    Details:
     * configuration.host should be a string.
     * configuration.host should be a null."
@@ -132,6 +141,7 @@ exports[`options validate should throw an error on the "hot" option with '' valu
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.hot should be one of these:
    boolean | \\"only\\"
+   -> Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot
    Details:
     * configuration.hot should be a boolean.
     * configuration.hot should be \\"only\\"."
@@ -141,6 +151,7 @@ exports[`options validate should throw an error on the "hot" option with 'foo' v
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.hot should be one of these:
    boolean | \\"only\\"
+   -> Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot
    Details:
     * configuration.hot should be a boolean.
     * configuration.hot should be \\"only\\"."
@@ -148,13 +159,15 @@ exports[`options validate should throw an error on the "hot" option with 'foo' v
 
 exports[`options validate should throw an error on the "http2" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.http2 should be a boolean."
+ - configuration.http2 should be a boolean.
+   -> Serve over HTTP/2 using spdy. https://webpack.js.org/configuration/dev-server/#devserverhttp2"
 `;
 
 exports[`options validate should throw an error on the "https" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https should be one of these:
    boolean | object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }
+   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * configuration.https should be a boolean.
     * configuration.https should be an object:
@@ -169,17 +182,20 @@ exports[`options validate should throw an error on the "https" option with '{"fo
 
 exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.onAfterSetupMiddleware should be an instance of function."
+ - configuration.onAfterSetupMiddleware should be an instance of function.
+   -> Provides the ability to execute custom middleware after all other middleware internally within the server. https://webpack.js.org/configuration/dev-server/#devserverafter"
 `;
 
 exports[`options validate should throw an error on the "onBeforeSetupMiddleware" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.onBeforeSetupMiddleware should be an instance of function."
+ - configuration.onBeforeSetupMiddleware should be an instance of function.
+   -> Provides the ability to execute custom middleware prior to all other middleware internally within the server. https://webpack.js.org/configuration/dev-server/#devserverbefore"
 `;
 
 exports[`options validate should throw an error on the "onListening" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.onListening should be an instance of function."
+ - configuration.onListening should be an instance of function.
+   -> Provides an option to execute a custom function when webpack-dev-server starts listening for connections on a port. https://webpack.js.org/configuration/dev-server/#onlistening"
 `;
 
 exports[`options validate should throw an error on the "open" option with '' value 1`] = `
@@ -202,6 +218,7 @@ exports[`options validate should throw an error on the "port" option with 'false
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.port should be one of these:
    number | string | null
+   -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * configuration.port should be a number.
     * configuration.port should be a string.
@@ -217,6 +234,7 @@ exports[`options validate should throw an error on the "proxy" option with 'fals
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.proxy should be one of these:
    object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
+   -> Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy
    Details:
     * configuration.proxy should be an object:
       object { … }
@@ -228,6 +246,7 @@ exports[`options validate should throw an error on the "proxy" option with 'func
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.proxy should be one of these:
    object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
+   -> Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy
    Details:
     * configuration.proxy should be an object:
       object { … }
@@ -237,7 +256,8 @@ exports[`options validate should throw an error on the "proxy" option with 'func
 
 exports[`options validate should throw an error on the "public" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.public should be a string."
+ - configuration.public should be a string.
+   -> When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserverpublic"
 `;
 
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
@@ -249,6 +269,7 @@ exports[`options validate should throw an error on the "static" option with '0' 
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
    boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static should be a boolean.
     * configuration.static should be a non-empty string.
@@ -262,6 +283,7 @@ exports[`options validate should throw an error on the "static" option with 'nul
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
    boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static should be a boolean.
     * configuration.static should be a non-empty string.
@@ -281,6 +303,7 @@ exports[`options validate should throw an error on the "transportMode" option wi
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.transportMode should be one of these:
    object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   -> This option allows us either to choose the current devServer transport mode for client/server individually or to provide custom client/server implementation. https://webpack.js.org/configuration/dev-server/#devservertransportmode
    Details:
     * configuration.transportMode.server should be one of these:
       string | function
@@ -298,6 +321,7 @@ exports[`options validate should throw an error on the "transportMode" option wi
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.transportMode should be one of these:
    object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   -> This option allows us either to choose the current devServer transport mode for client/server individually or to provide custom client/server implementation. https://webpack.js.org/configuration/dev-server/#devservertransportmode
    Details:
     * configuration.transportMode should be an object:
       object { client?, server? }
@@ -309,6 +333,7 @@ exports[`options validate should throw an error on the "transportMode" option wi
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.transportMode should be one of these:
    object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   -> This option allows us either to choose the current devServer transport mode for client/server individually or to provide custom client/server implementation. https://webpack.js.org/configuration/dev-server/#devservertransportmode
    Details:
     * configuration.transportMode should be an object:
       object { client?, server? }
@@ -320,6 +345,7 @@ exports[`options validate should throw an error on the "watchFiles" option with 
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.watchFiles should be one of these:
    non-empty string | object { paths?, options? } | [non-empty string | object { paths?, options? }, ...]
+   -> List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
    Details:
     * configuration.watchFiles should be a non-empty string.
     * configuration.watchFiles should be an object:
@@ -332,6 +358,7 @@ exports[`options validate should throw an error on the "watchFiles" option with 
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.watchFiles should be one of these:
    non-empty string | object { paths?, options? } | [non-empty string | object { paths?, options? }, ...]
+   -> List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
    Details:
     * configuration.watchFiles should be a non-empty string.
     * configuration.watchFiles should be an object:
