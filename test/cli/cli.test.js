@@ -70,7 +70,7 @@ describe('CLI', () => {
   });
 
   it('--no-client-progress', (done) => {
-    testBin('--no-lcient-progress')
+    testBin('--no-client-progress')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         done();
