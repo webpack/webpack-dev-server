@@ -50,6 +50,56 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--no-bonjour', (done) => {
+    testBin('--no-bonjour')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).not.toContain('Bonjour');
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--client-progress', (done) => {
+    testBin('--client-progress')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-client-progress', (done) => {
+    testBin('--no-lcient-progress')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--http2', (done) => {
+    testBin('--http2')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stderr).toContain('Project is running at');
+        expect(/https:\/\//.test(output.stderr)).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-http2', (done) => {
+    testBin('--no-http2')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(/https:\/\//.test(output.stderr)).toEqual(false);
+        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--https', (done) => {
     testBin('--https')
       .then((output) => {
@@ -312,6 +362,42 @@ describe('CLI', () => {
 
   it('--client-overlay', (done) => {
     testBin('--client-overlay')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-client-overlay', (done) => {
+    testBin('--no-client-overlay')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--client-logging', (done) => {
+    testBin('--client-logging verbose')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--compress', (done) => {
+    testBin('--compress')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-compress', (done) => {
+    testBin('--compress')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         done();
