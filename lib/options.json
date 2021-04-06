@@ -415,7 +415,7 @@
     },
     "public": {
       "type": "string",
-      "description": "When using inline mode and you're proxying dev-server, the inline client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserverpublic"
+      "description": "When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserverpublic"
     },
     "setupExitSignals": {
       "type": "boolean",
@@ -447,7 +447,7 @@
           "minItems": 1
         }
       ],
-      "description": "It is possible to configure advanced options for serving static files from contentBase. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic"
+      "description": "It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic"
     },
     "transportMode": {
       "anyOf": [
