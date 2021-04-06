@@ -1,46 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`options validation bonjour 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "bonjour" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.bonjour should be a boolean."
 `;
 
-exports[`options validation client 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client should be an object:
-   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }"
-`;
-
-exports[`options validation client 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }"
-`;
-
-exports[`options validation client 3`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.host should be a string."
 `;
 
-exports[`options validation client 4`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "client" option with '{"logging":"silent"}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.logging should be one of these:
    \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\""
 `;
 
-exports[`options validation client 5`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "client" option with '{"logging":"whoops!"}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.logging should be one of these:
    \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\""
 `;
 
-exports[`options validation client 6`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.progress should be a boolean."
+exports[`options validate should throw an error on the "client" option with '{"needClientEntry":[""]}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.needClientEntry should be one of these:
+   boolean | function
+   Details:
+    * configuration.client.needClientEntry should be a boolean.
+    * configuration.client.needClientEntry should be an instance of function."
 `;
 
-exports[`options validation client 7`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "client" option with '{"needHotEntry":[""]}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.needHotEntry should be one of these:
+   boolean | function
+   Details:
+    * configuration.client.needHotEntry should be a boolean.
+    * configuration.client.needHotEntry should be an instance of function."
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.overlay should be one of these:
    boolean | object { errors?, warnings?, … }
    Details:
@@ -49,47 +50,46 @@ exports[`options validation client 7`] = `
       object { errors?, warnings?, … }"
 `;
 
-exports[`options validation client 8`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "client" option with '{"overlay":{"errors":""}}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.overlay.errors should be a boolean."
 `;
 
-exports[`options validation client 9`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "client" option with '{"overlay":{"warnings":""}}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.overlay.warnings should be a boolean."
 `;
 
-exports[`options validation client 10`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.needClientEntry should be one of these:
-   boolean | function
-   Details:
-    * configuration.client.needClientEntry should be a boolean.
-    * configuration.client.needClientEntry should be an instance of function."
+exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.progress should be a boolean."
 `;
 
-exports[`options validation client 11`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.needHotEntry should be one of these:
-   boolean | function
-   Details:
-    * configuration.client.needHotEntry should be a boolean.
-    * configuration.client.needHotEntry should be an instance of function."
+exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client has an unknown property 'unknownOption'. These properties are valid:
+   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }"
 `;
 
-exports[`options validation compress 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client should be an object:
+   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }"
+`;
+
+exports[`options validate should throw an error on the "compress" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.compress should be a boolean."
 `;
 
-exports[`options validation dev 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "dev" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.dev should be an object:
    object { … }"
 `;
 
-exports[`options validation firewall 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "firewall" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.firewall should be one of these:
    boolean | [string, ...] (should not have fewer than 1 item)
    Details:
@@ -98,19 +98,19 @@ exports[`options validation firewall 1`] = `
       [string, ...] (should not have fewer than 1 item)"
 `;
 
-exports[`options validation firewall 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "firewall" option with '[]' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.firewall should be an non-empty array."
 `;
 
-exports[`options validation headers 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "headers" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.headers should be an object:
    object { … }"
 `;
 
-exports[`options validation historyApiFallback 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "historyApiFallback" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.historyApiFallback should be one of these:
    boolean | object { … }
    Details:
@@ -119,8 +119,8 @@ exports[`options validation historyApiFallback 1`] = `
       object { … }"
 `;
 
-exports[`options validation host 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "host" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.host should be one of these:
    string | null
    Details:
@@ -128,8 +128,8 @@ exports[`options validation host 1`] = `
     * configuration.host should be a null."
 `;
 
-exports[`options validation hot 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "hot" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.hot should be one of these:
    boolean | \\"only\\"
    Details:
@@ -137,8 +137,8 @@ exports[`options validation hot 1`] = `
     * configuration.hot should be \\"only\\"."
 `;
 
-exports[`options validation hot 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "hot" option with 'foo' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.hot should be one of these:
    boolean | \\"only\\"
    Details:
@@ -146,13 +146,13 @@ exports[`options validation hot 2`] = `
     * configuration.hot should be \\"only\\"."
 `;
 
-exports[`options validation http2 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "http2" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.http2 should be a boolean."
 `;
 
-exports[`options validation https 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "https" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https should be one of these:
    boolean | object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }
    Details:
@@ -161,45 +161,45 @@ exports[`options validation https 1`] = `
       object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }"
 `;
 
-exports[`options validation https 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "https" option with '{"foo":"bar"}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https has an unknown property 'foo'. These properties are valid:
    object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }"
 `;
 
-exports[`options validation onAfterSetupMiddleware 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.onAfterSetupMiddleware should be an instance of function."
 `;
 
-exports[`options validation onBeforeSetupMiddleware 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "onBeforeSetupMiddleware" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.onBeforeSetupMiddleware should be an instance of function."
 `;
 
-exports[`options validation onListening 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "onListening" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.onListening should be an instance of function."
 `;
 
-exports[`options validation open 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "open" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.open should be an non-empty string."
 `;
 
-exports[`options validation open 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "open" option with '[]' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.open should be an non-empty array."
 `;
 
-exports[`options validation open 3`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "open" option with '{"foo":"bar"}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.open has an unknown property 'foo'. These properties are valid:
    object { target?, app? }"
 `;
 
-exports[`options validation port 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.port should be one of these:
    number | string | null
    Details:
@@ -208,13 +208,13 @@ exports[`options validation port 1`] = `
     * configuration.port should be a null."
 `;
 
-exports[`options validation proxy 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "proxy" option with '[]' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.proxy should be an non-empty array."
 `;
 
-exports[`options validation proxy 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "proxy" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.proxy should be one of these:
    object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
    Details:
@@ -224,8 +224,8 @@ exports[`options validation proxy 2`] = `
       [object { … } | function, ...] (should not have fewer than 1 item)"
 `;
 
-exports[`options validation proxy 3`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "proxy" option with 'function () {}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.proxy should be one of these:
    object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
    Details:
@@ -235,72 +235,50 @@ exports[`options validation proxy 3`] = `
       [object { … } | function, ...] (should not have fewer than 1 item)"
 `;
 
-exports[`options validation public 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "public" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.public should be a string."
 `;
 
-exports[`options validation static 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.static should be one of these:
-   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
-   Details:
-    * configuration.static should be a boolean.
-    * configuration.static should be a non-empty string.
-    * configuration.static should be an object:
-      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-    * configuration.static should be an array:
-      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)"
-`;
-
-exports[`options validation static 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.static should be one of these:
-   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
-   Details:
-    * configuration.static should be a boolean.
-    * configuration.static should be a non-empty string.
-    * configuration.static should be an object:
-      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-    * configuration.static should be an array:
-      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)"
-`;
-
-exports[`options validation static 3`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "static" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be an non-empty string."
 `;
 
-exports[`options validation transportMode 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.transportMode should be one of these:
-   object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+exports[`options validate should throw an error on the "static" option with '0' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.static should be one of these:
+   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
    Details:
-    * configuration.transportMode should be an object:
-      object { client?, server? }
-    * configuration.transportMode should be one of these:
-      \\"sockjs\\" | \\"ws\\""
+    * configuration.static should be a boolean.
+    * configuration.static should be a non-empty string.
+    * configuration.static should be an object:
+      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+    * configuration.static should be an array:
+      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)"
 `;
 
-exports[`options validation transportMode 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.transportMode should be one of these:
-   object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+exports[`options validate should throw an error on the "static" option with 'null' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.static should be one of these:
+   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
    Details:
-    * configuration.transportMode should be an object:
-      object { client?, server? }
-    * configuration.transportMode should be one of these:
-      \\"sockjs\\" | \\"ws\\""
+    * configuration.static should be a boolean.
+    * configuration.static should be a non-empty string.
+    * configuration.static should be an object:
+      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+    * configuration.static should be an array:
+      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)"
 `;
 
-exports[`options validation transportMode 3`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "transportMode" option with '{"notAnOption":true}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.transportMode has an unknown property 'notAnOption'. These properties are valid:
    object { client?, server? }"
 `;
 
-exports[`options validation transportMode 4`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "transportMode" option with '{"server":false}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.transportMode should be one of these:
    object { client?, server? } | \\"sockjs\\" | \\"ws\\"
    Details:
@@ -311,13 +289,35 @@ exports[`options validation transportMode 4`] = `
        * configuration.transportMode.server should be an instance of function."
 `;
 
-exports[`options validation transportMode 5`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "transportMode" option with '{}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.transportMode.client should be a string."
 `;
 
-exports[`options validation watchFiles 1`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "transportMode" option with 'nonexistent-implementation' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.transportMode should be one of these:
+   object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   Details:
+    * configuration.transportMode should be an object:
+      object { client?, server? }
+    * configuration.transportMode should be one of these:
+      \\"sockjs\\" | \\"ws\\""
+`;
+
+exports[`options validate should throw an error on the "transportMode" option with 'null' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.transportMode should be one of these:
+   object { client?, server? } | \\"sockjs\\" | \\"ws\\"
+   Details:
+    * configuration.transportMode should be an object:
+      object { client?, server? }
+    * configuration.transportMode should be one of these:
+      \\"sockjs\\" | \\"ws\\""
+`;
+
+exports[`options validate should throw an error on the "watchFiles" option with '123' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.watchFiles should be one of these:
    non-empty string | object { paths?, options? } | [non-empty string | object { paths?, options? }, ...]
    Details:
@@ -328,8 +328,8 @@ exports[`options validation watchFiles 1`] = `
       [non-empty string | object { paths?, options? }, ...]"
 `;
 
-exports[`options validation watchFiles 2`] = `
-"Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+exports[`options validate should throw an error on the "watchFiles" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.watchFiles should be one of these:
    non-empty string | object { paths?, options? } | [non-empty string | object { paths?, options? }, ...]
    Details:

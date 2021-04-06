@@ -2,7 +2,6 @@
 
 const { readFileSync } = require('fs');
 const { join } = require('path');
-const { ValidationError } = require('schema-utils');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
@@ -15,7 +14,7 @@ const httpsCertificateDirectory = join(
   './fixtures/https-certificate'
 );
 
-const cases = {
+const tests = {
   onAfterSetupMiddleware: {
     success: [() => {}],
     failure: [false],
@@ -345,77 +344,83 @@ describe('options', () => {
     expect(res).toEqual(true);
   });
 
-  describe('validation', () => {
-    let server;
+  describe('validate', () => {
+    function stringifyValue(value) {
+      if (
+        Array.isArray(value) ||
+        (value && typeof value === 'object' && value.constructor === Object)
+      ) {
+        return JSON.stringify(value, (_key, replacedValue) => {
+          if (
+            replacedValue &&
+            replacedValue.type &&
+            replacedValue.type === 'Buffer'
+          ) {
+            return '<Buffer>';
+          }
 
-    afterAll((done) => {
-      if (server) {
-        server.close(done);
-      } else {
-        done();
+          if (typeof replacedValue === 'string') {
+            replacedValue = replacedValue
+              .replace(/\\/g, '/')
+              .replace(
+                new RegExp(process.cwd().replace(/\\/g, '/'), 'g'),
+                '<cwd>'
+              );
+          }
+
+          return replacedValue;
+        });
       }
-    });
 
-    function validateOption(propertyName, cases) {
-      const successCount = cases.success.length;
-      const testCases = [];
+      return value;
+    }
 
-      for (const key of Object.keys(cases)) {
-        testCases.push(...cases[key]);
-      }
-
-      let current = 0;
-
-      return testCases.reduce((p, value) => {
+    function createTestCase(type, key, value) {
+      it(`should ${
+        type === 'success' ? 'successfully validate' : 'throw an error on'
+      } the "${key}" option with '${stringifyValue(value)}' value`, (done) => {
         let compiler = webpack(config);
+        let server;
+        let thrownError;
 
-        return p
-          .then(() => {
-            server = new Server(compiler, { [propertyName]: value });
-          })
-          .then(() => {
-            if (current < successCount) {
-              expect(true).toBeTruthy();
-            } else {
-              expect(false).toBeTruthy();
-            }
-          })
-          .catch((err) => {
-            if (current >= successCount) {
-              expect(err).toBeInstanceOf(ValidationError);
-              const [title] = err.message.split('\n\n');
-              expect(title).toMatchSnapshot();
-            } else {
-              expect(false).toBeTruthy();
-            }
-          })
-          .then(
-            () =>
-              new Promise((resolve) => {
-                if (server) {
-                  server.close(() => {
-                    compiler = null;
-                    server = null;
+        try {
+          server = new Server(compiler, { [key]: value });
+        } catch (error) {
+          thrownError = error;
+        }
 
-                    resolve();
-                  });
-                } else {
-                  resolve();
-                }
-              })
-          )
-          .then(() => {
-            current += 1;
+        if (type === 'success') {
+          expect(thrownError).toBeUndefined();
+        } else {
+          expect(thrownError).not.toBeUndefined();
+          expect(thrownError.toString()).toMatchSnapshot();
+        }
+
+        if (server) {
+          server.close(() => {
+            compiler = null;
+            server = null;
+
+            done();
           });
-      }, Promise.resolve());
+        } else {
+          done();
+        }
+      });
     }
 
     const memfs = createFsFromVolume(new Volume());
+
     // We need to patch memfs
     // https://github.com/webpack/webpack-dev-middleware#fs
     memfs.join = join;
-    Object.keys(cases).forEach((key) => {
-      it(key, () => validateOption(key, cases[key]));
-    });
+
+    for (const [key, values] of Object.entries(tests)) {
+      for (const type of Object.keys(values)) {
+        for (const value of values[type]) {
+          createTestCase(type, key, value);
+        }
+      }
+    }
   });
 });
