@@ -2,112 +2,126 @@
 
 describe('createSocketUrl', () => {
   const samples = [
-    '?test',
-    'https://example.com',
-    'https://example.com/path',
-    'https://example.com/path/foo.js',
-    'http://user:password@localhost/',
-    'http://0.0.0.0',
-    'https://localhost:123',
-    'http://user:pass@[::]:8080',
-    'http://127.0.0.1',
-    'file://filename',
-    // eslint-disable-next-line no-undefined
-    undefined,
-  ];
-
-  samples.forEach((url) => {
-    jest.doMock('../../../client-src/utils/getCurrentScriptSource', () => () =>
-      url
-    );
-
-    const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
-
-    test(`should return the url when __resourceQuery is ${url}`, () => {
-      const query = url ? url.querystring : url;
-      expect(createSocketUrl(query)).toMatchSnapshot();
-    });
-
-    test(`should return the url when the current script source is ${url}`, () => {
-      expect(createSocketUrl()).toMatchSnapshot();
-    });
-
-    // put here because resetModules mustn't be reset when L20 is finished
-    jest.resetModules();
-  });
-
-  const samples2 = [
-    // script source,       location,                output socket URL
-    ['http://example.com', 'https://something.com', 'https://example.com/ws'],
-    ['http://127.0.0.1', 'https://something.com', 'http://127.0.0.1/ws'],
-    ['http://0.0.0.0', 'https://something.com', 'https://something.com/ws'],
-    ['http://0.0.0.0', 'http://something.com', 'http://something.com/ws'],
-    ['http://[::]', 'https://something.com', 'https://something.com/ws'],
-    ['http://example.com', 'http://something.com', 'http://example.com/ws'],
-    ['https://example.com', 'http://something.com', 'https://example.com/ws'],
-  ];
-
-  samples2.forEach(([scriptSrc, loc, expected]) => {
-    jest.doMock(
-      '../../../client-src/utils/getCurrentScriptSource.js',
-      () => () => scriptSrc
-    );
-
-    const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
-
-    test(`should return socket ${expected} for script source ${scriptSrc} and location ${loc}`, () => {
-      // eslint-disable-next-line no-undefined
-      expect(createSocketUrl(undefined, loc).toString()).toEqual(expected);
-    });
-
-    jest.resetModules();
-  });
-
-  const samples3 = [
-    // script source,       location,                output socket URL
-    ['?http://example.com', 'https://something.com', 'https://example.com/ws'],
-    ['?http://127.0.0.1', 'https://something.com', 'http://127.0.0.1/ws'],
-    ['?http://0.0.0.0', 'https://something.com', 'https://something.com/ws'],
-    ['?http://0.0.0.0', 'http://something.com', 'http://something.com/ws'],
-    ['?http://[::]', 'https://something.com', 'https://something.com/ws'],
+    // __resourceQuery, location and socket URL
+    ['?http://example.com', 'http://example.com', 'http://example.com/ws'],
     ['?http://example.com', 'http://something.com', 'http://example.com/ws'],
-    ['?https://example.com', 'http://something.com', 'https://example.com/ws'],
+    [null, 'http://example.com', 'http://example.com/ws'],
+    ['?https://example.com', 'https://example.com', 'https://example.com/ws'],
+    [null, 'https://example.com', 'https://example.com/ws'],
     [
-      '?https://example.com?host=asdf',
-      'http://something.com',
-      'https://asdf/ws',
+      '?http://example.com&port=8080',
+      'http://example.com:8080',
+      'http://example.com:8080/ws',
     ],
     [
-      '?https://example.com?port=34',
-      'http://something.com',
-      'https://example.com:34/ws',
+      '?http://example.com:0',
+      'http://example.com:8080',
+      'http://example.com:8080/ws',
     ],
+    [null, 'http://example.com:8080', 'http://example.com:8080/ws'],
     [
-      '?https://example.com?path=xxx',
-      'http://something.com',
-      'https://example.com/xxx',
-    ],
-    [
-      '?http://0.0.0.0:8096&port=8097',
-      'http://localhost',
-      'http://localhost:8097/ws',
-    ],
-    [
-      '?http://example.com:8096&port=location',
-      'http://something.com',
+      '?http://example.com/path/foo.js',
+      'http://example.com/foo/bar',
       'http://example.com/ws',
     ],
+    [null, 'http://example.com/foo/bar', 'http://example.com/ws'],
     [
-      '?http://0.0.0.0:8096&port=location',
-      'http://localhost:3000',
-      'http://localhost:3000/ws',
+      '?http://user:password@localhost/',
+      'http://user:password@localhost/',
+      'http://user:password@localhost/ws',
     ],
+    [
+      null,
+      'http://user:password@localhost/',
+      'http://user:password@localhost/ws',
+    ],
+    [
+      '?http://user:password@localhost:8080/',
+      'http://user:password@localhost/',
+      'http://user:password@localhost:8080/ws',
+    ],
+    [
+      null,
+      'http://user:password@localhost:8080/',
+      'http://user:password@localhost:8080/ws',
+    ],
+    ['?http://0.0.0.0', 'http://127.0.0.1', 'http://127.0.0.1/ws'],
+    ['?http://0.0.0.0', 'http://192.168.0.1', 'http://192.168.0.1/ws'],
+    ['?http://0.0.0.0', 'https://192.168.0.1', 'https://192.168.0.1/ws'],
+    ['?http://0.0.0.0', 'https://example.com', 'https://example.com/ws'],
+    [
+      '?http://0.0.0.0',
+      'https://example.com:8080',
+      'https://example.com:8080/ws',
+    ],
+    [
+      '?http://0.0.0.0&port=9090',
+      'https://example.com',
+      'https://example.com:9090/ws',
+    ],
+    [
+      '?http://0.0.0.0&port=9090',
+      'https://example.com:8080',
+      'https://example.com:9090/ws',
+    ],
+    ['?http://localhost', 'http://localhost', 'http://localhost/ws'],
+    [
+      '?http://localhost:8080',
+      'http://localhost:8080',
+      'http://localhost:8080/ws',
+    ],
+    [
+      '?https://localhost:8080',
+      'https://localhost:8080',
+      'https://localhost:8080/ws',
+    ],
+    [null, 'https://localhost:8080', 'https://localhost:8080/ws'],
+    ['?http://127.0.0.1', 'http://something.com', 'http://127.0.0.1/ws'],
+    ['?http://127.0.0.1', 'https://something.com', 'http://127.0.0.1/ws'],
+    ['?https://127.0.0.1', 'http://something.com', 'https://127.0.0.1/ws'],
+    [
+      '?https://example.com&host=example.com',
+      'http://something.com',
+      'https://example.com/ws',
+    ],
+    [
+      '?https://example.com&path=custom',
+      'http://something.com',
+      'https://example.com/custom',
+    ],
+    [
+      '?https://example.com&path=/custom',
+      'http://something.com',
+      'https://example.com/custom',
+    ],
+    ['?http://[::]', 'http://something.com', 'http://something.com/ws'],
+    ['?http://[::]', 'https://something.com', 'https://something.com/ws'],
+    ['?http://[::1]:8080/', 'http://[::1]:8080/', 'http://[::1]:8080/ws'],
+    ['?https://[::1]:8080/', 'http://[::1]:8080/', 'https://[::1]:8080/ws'],
+    [null, 'http://[::1]:8080/', 'http://[::1]:8080/ws'],
+    [null, 'https://[::1]:8080/', 'https://[::1]:8080/ws'],
   ];
-  samples3.forEach(([scriptSrc, loc, expected]) => {
-    test(`should return socket ${expected} for query ${scriptSrc} and location ${loc}`, () => {
-      const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
 
-      expect(createSocketUrl(scriptSrc, loc).toString()).toEqual(expected);
+  samples.forEach(([__resourceQuery, location, expected]) => {
+    jest.doMock('../../../client-src/utils/getCurrentScriptSource', () => () =>
+      location
+    );
+
+    const createSocketUrl = require('../../../client-src/utils/createSocketUrl');
+    const parseURL = require('../../../client-src/utils/parseURL');
+
+    test.only(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
+      const selfLocation = new URL(location);
+
+      delete window.location;
+
+      window.location = selfLocation;
+
+      const parsedURL = parseURL(__resourceQuery);
+
+      expect(createSocketUrl(parsedURL)).toBe(expected);
     });
+
+    jest.resetModules();
   });
 });
