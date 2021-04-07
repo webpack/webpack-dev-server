@@ -47,7 +47,9 @@ describe('CLI', () => {
     testBin('--bonjour')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
@@ -58,7 +60,9 @@ describe('CLI', () => {
     testBin('--no-bonjour')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
@@ -87,7 +91,9 @@ describe('CLI', () => {
     testBin('--http2')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
@@ -98,7 +104,9 @@ describe('CLI', () => {
     testBin('--no-http2')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
@@ -109,7 +117,9 @@ describe('CLI', () => {
     testBin('--https')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
@@ -120,7 +130,9 @@ describe('CLI', () => {
     testBin('--no-https')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
@@ -131,7 +143,9 @@ describe('CLI', () => {
     testBin('--history-api-fallback --no-color')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
@@ -142,7 +156,9 @@ describe('CLI', () => {
     testBin('--no-history-api-fallback')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
 
         done();
       })
