@@ -73,10 +73,12 @@ function normalizeStderr(stderr, options = {}) {
       /On Your Network \(IPv4\)/.test(item)
     );
 
+    const protocol = options.https ? 'https' : 'http';
+
     normalizedStderr.splice(
       ipv4MessageIndex + 1,
       0,
-      '<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/'
+      `<i> [webpack-dev-server] On Your Network (IPv6): ${protocol}://[<network-ip-v6>]:<port>/`
     );
 
     normalizedStderr = normalizedStderr.join('\n');
