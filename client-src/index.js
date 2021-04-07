@@ -2,7 +2,9 @@
 
 /* global __resourceQuery WorkerGlobalScope */
 
+const webpackHotLog = require('webpack/hot/log');
 const stripAnsi = require('./modules/strip-ansi');
+const parseURL = require('./utils/parseURL');
 const socket = require('./socket');
 const overlay = require('./overlay');
 const { log, setLogLevel } = require('./utils/log');
@@ -14,7 +16,7 @@ const status = {
   isUnloading: false,
   currentHash: '',
 };
-const options = {
+const defaultOptions = {
   hot: false,
   hotReload: true,
   liveReload: false,
@@ -23,7 +25,19 @@ const options = {
   useErrorOverlay: false,
   useProgress: false,
 };
-const socketUrl = createSocketUrl(__resourceQuery);
+const parsedResourceQuery = parseURL(__resourceQuery);
+const options = Object.assign(defaultOptions, parsedResourceQuery.query);
+const socketURL = createSocketUrl(parsedResourceQuery);
+
+function setAllLogLevel(level) {
+  // This is needed because the HMR logger operate separately from dev server logger
+  webpackHotLog.setLogLevel(level);
+  setLogLevel(level);
+}
+
+if (options.logging) {
+  setAllLogLevel(options.logging);
+}
 
 self.addEventListener('beforeunload', () => {
   status.isUnloading = true;
@@ -68,17 +82,7 @@ const onSocketMessage = {
 
     sendMessage('StillOk');
   },
-  logging: function logging(level) {
-    // this is needed because the HMR logger operate separately from
-    // dev server logger
-    const hotCtx = require.context('webpack/hot', false, /^\.\/log$/);
-
-    if (hotCtx.keys().indexOf('./log') !== -1) {
-      hotCtx('./log').setLogLevel(level);
-    }
-
-    setLogLevel(level);
-  },
+  logging: setAllLogLevel,
   overlay(value) {
     if (typeof document !== 'undefined') {
       if (typeof value === 'boolean') {
@@ -172,4 +176,4 @@ const onSocketMessage = {
   },
 };
 
-socket(socketUrl, onSocketMessage);
+socket(socketURL, onSocketMessage);

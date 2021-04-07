@@ -1,58 +1,27 @@
 'use strict';
 
 const url = require('url');
-const getCurrentScriptSource = require('./getCurrentScriptSource');
 
-function createSocketUrl(resourceQuery, currentLocation) {
-  let urlParts;
-
-  if (typeof resourceQuery === 'string' && resourceQuery !== '') {
-    // If this bundle is inlined, use the resource query to get the correct url.
-    // format is like `?http://0.0.0.0:8096&port=8097&host=localhost`
-    urlParts = url.parse(
-      resourceQuery
-        // strip leading `?` from query string to get a valid URL
-        .substr(1)
-        // replace first `&` with `?` to have a valid query string
-        .replace('&', '?'),
-      true
-    );
-  } else {
-    // Else, get the url from the <script> this file was called with.
-    const scriptHost = getCurrentScriptSource();
-    urlParts = url.parse(scriptHost || '/', true, true);
-  }
-
-  // Use parameter to allow passing location in unit tests
-  if (typeof currentLocation === 'string' && currentLocation !== '') {
-    currentLocation = url.parse(currentLocation);
-  } else {
-    currentLocation = self.location;
-  }
-
-  return getSocketUrl(urlParts, currentLocation);
-}
-
-/*
- * Gets socket URL based on Script Source/Location
- * (scriptSrc: URL, location: URL) -> URL
- */
-function getSocketUrl(urlParts, loc) {
-  const { auth, query } = urlParts;
-  let { hostname, protocol, port } = urlParts;
+function createSocketUrl(parsedURL) {
+  const { auth, query } = parsedURL;
+  let { hostname, protocol, port } = parsedURL;
 
   const isInaddrAny = hostname === '0.0.0.0' || hostname === '::';
 
   if (!port || port === '0') {
-    port = loc.port;
+    port = self.location.port;
   }
 
   // check ipv4 and ipv6 `all hostname`
   // why do we need this check?
   // hostname n/a for file protocol (example, when using electron, ionic)
   // see: https://github.com/webpack/webpack-dev-server/pull/384
-  if (isInaddrAny && loc.hostname && loc.protocol.indexOf('http') === 0) {
-    hostname = loc.hostname;
+  if (
+    isInaddrAny &&
+    self.location.hostname &&
+    self.location.protocol.indexOf('http') === 0
+  ) {
+    hostname = self.location.hostname;
   }
 
   // `hostname` can be empty when the script path is relative. In that case, specifying
@@ -62,9 +31,9 @@ function getSocketUrl(urlParts, loc) {
   if (
     hostname &&
     hostname !== '127.0.0.1' &&
-    (loc.protocol === 'https:' || isInaddrAny)
+    (self.location.protocol === 'https:' || isInaddrAny)
   ) {
-    protocol = loc.protocol;
+    protocol = self.location.protocol;
   }
 
   // all of these sock url params are optionally passed in through
@@ -75,7 +44,7 @@ function getSocketUrl(urlParts, loc) {
   let portOption = query.port || port;
 
   if (portOption === 'location') {
-    portOption = loc.port;
+    portOption = self.location.port;
   }
 
   // In case the host is a raw IPv6 address, it can be enclosed in

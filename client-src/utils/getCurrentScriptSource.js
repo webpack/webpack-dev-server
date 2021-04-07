@@ -6,6 +6,7 @@ function getCurrentScriptSource() {
   if (document.currentScript) {
     return document.currentScript.getAttribute('src');
   }
+
   // Fall back to getting all scripts in the document.
   const scriptElements = document.scripts || [];
   const currentScript = scriptElements[scriptElements.length - 1];
@@ -13,6 +14,7 @@ function getCurrentScriptSource() {
   if (currentScript) {
     return currentScript.getAttribute('src');
   }
+
   // Fail as there was no script to use.
   throw new Error('[webpack-dev-server] Failed to get current script source.');
 }
