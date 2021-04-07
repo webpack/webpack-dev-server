@@ -15,6 +15,7 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('webpack/hot/dev-server.js');
+
         done();
       })
       .catch(done);
@@ -25,6 +26,7 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
+
         done();
       })
       .catch(done);
@@ -35,6 +37,7 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(output.stdout).toContain('/hot/only-dev-server');
+
         done();
       })
       .catch(done);
@@ -44,7 +47,8 @@ describe('CLI', () => {
     testBin('--bonjour')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('Bonjour');
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -54,7 +58,8 @@ describe('CLI', () => {
     testBin('--no-bonjour')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain('Bonjour');
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -82,8 +87,8 @@ describe('CLI', () => {
     testBin('--http2')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('Project is running at');
-        expect(/https:\/\//.test(output.stderr)).toEqual(true);
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -93,8 +98,8 @@ describe('CLI', () => {
     testBin('--no-http2')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(/https:\/\//.test(output.stderr)).toEqual(false);
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -104,8 +109,8 @@ describe('CLI', () => {
     testBin('--https')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain('Project is running at');
-        expect(/https:\/\//.test(output.stderr)).toEqual(true);
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -115,8 +120,8 @@ describe('CLI', () => {
     testBin('--no-https')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(/https:\/\//.test(output.stderr)).toEqual(false);
-        expect(/http:\/\/localhost:[0-9]+/.test(output.stderr)).toEqual(true);
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -126,7 +131,8 @@ describe('CLI', () => {
     testBin('--history-api-fallback --no-color')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).toContain(`404s will fallback to '/index.html'`);
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -136,9 +142,8 @@ describe('CLI', () => {
     testBin('--no-history-api-fallback')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stderr).not.toContain(
-          `404s will fallback to '/index.html'`
-        );
+        expect(normalizeStderr(output.stderr)).toMatchSnapshot();
+
         done();
       })
       .catch(done);
@@ -147,6 +152,7 @@ describe('CLI', () => {
   it('--host and --port are unspecified', (done) => {
     testBin('')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
           'stderr'
         );
@@ -159,6 +165,7 @@ describe('CLI', () => {
   it('--host 0.0.0.0 (IPv4)', (done) => {
     testBin('--host 0.0.0.0')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
           'stderr'
         );
@@ -171,6 +178,7 @@ describe('CLI', () => {
   it('--host :: (IPv6)', (done) => {
     testBin('--host ::')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
           'stderr'
         );
@@ -183,6 +191,7 @@ describe('CLI', () => {
   it('--host ::1 (IPv6)', (done) => {
     testBin('--host ::1')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -193,6 +202,7 @@ describe('CLI', () => {
   it('--host localhost', (done) => {
     testBin('--host localhost')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -203,6 +213,7 @@ describe('CLI', () => {
   it('--host 127.0.0.1 (IPv4)', (done) => {
     testBin('--host 127.0.0.1')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -213,6 +224,7 @@ describe('CLI', () => {
   it('--host 0:0:0:0:0:FFFF:7F00:0001 (IPv6)', (done) => {
     testBin('--host 0:0:0:0:0:FFFF:7F00:0001')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -223,6 +235,7 @@ describe('CLI', () => {
   it(`--host <IPv4>`, (done) => {
     testBin(`--host ${localIPv4}`)
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -233,6 +246,7 @@ describe('CLI', () => {
   it.skip(`--host <IPv6>`, (done) => {
     testBin(`--host ${localIPv6}`)
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -243,6 +257,7 @@ describe('CLI', () => {
   it('--host <local-ip>', (done) => {
     testBin('--host local-ip')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -253,6 +268,7 @@ describe('CLI', () => {
   it('--host <local-ipv4>', (done) => {
     testBin('--host local-ipv4')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
@@ -263,6 +279,7 @@ describe('CLI', () => {
   it('--host localhost --port 9999', (done) => {
     testBin('--host localhost --port 9999')
       .then((output) => {
+        expect(output.exitCode).toEqual(0);
         expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
 
         done();
