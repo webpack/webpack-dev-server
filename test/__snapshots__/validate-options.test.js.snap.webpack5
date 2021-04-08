@@ -215,10 +215,41 @@ exports[`options validate should throw an error on the "open" option with '[]' v
  - configuration.open should be an non-empty array."
 `;
 
+exports[`options validate should throw an error on the "open" option with '{"app":true}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.open should be one of these:
+   boolean | non-empty string | object { target?, app? } | [non-empty string | object { target?, app? }, ...] (should not have fewer than 1 item)
+   -> Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
+   Details:
+    * configuration.open.app should be one of these:
+      non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+      -> Open specified browser.
+      Details:
+       * configuration.open.app should be a non-empty string.
+       * configuration.open.app should be an array:
+         [non-empty string, ...] (should not have fewer than 1 item)"
+`;
+
 exports[`options validate should throw an error on the "open" option with '{"foo":"bar"}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.open has an unknown property 'foo'. These properties are valid:
    object { target?, app? }"
+`;
+
+exports[`options validate should throw an error on the "open" option with '{"target":90}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.open should be one of these:
+   boolean | non-empty string | object { target?, app? } | [non-empty string | object { target?, app? }, ...] (should not have fewer than 1 item)
+   -> Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
+   Details:
+    * configuration.open.target should be one of these:
+      boolean | non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+      -> Open specified route in browser.
+      Details:
+       * configuration.open.target should be a boolean.
+       * configuration.open.target should be a non-empty string.
+       * configuration.open.target should be an array:
+         [non-empty string, ...] (should not have fewer than 1 item)"
 `;
 
 exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
@@ -270,6 +301,36 @@ exports[`options validate should throw an error on the "public" option with 'fal
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be an non-empty string."
+`;
+
+exports[`options validate should throw an error on the "static" option with '{"publicPath":false}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.static should be one of these:
+   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   Details:
+    * configuration.static.publicPath should be one of these:
+      non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+      -> The bundled files will be available in the browser under this path.
+      Details:
+       * configuration.static.publicPath should be a non-empty string.
+       * configuration.static.publicPath should be an array:
+         [non-empty string, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options validate should throw an error on the "static" option with '{"serveIndex":"true"}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.static should be one of these:
+   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   Details:
+    * configuration.static.serveIndex should be one of these:
+      boolean | object { … }
+      -> Tells dev-server to use serveIndex middleware when enabled.
+      Details:
+       * configuration.static.serveIndex should be a boolean.
+       * configuration.static.serveIndex should be an object:
+         object { … }"
 `;
 
 exports[`options validate should throw an error on the "static" option with '0' value 1`] = `
