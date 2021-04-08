@@ -1,6 +1,6 @@
 'use strict';
 
-describe('getUrlOptions', () => {
+describe("'parseURL' function", () => {
   const samples = [
     'test',
     '/',

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getUrlOptions should return the url when __resourceQuery is '/' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is '/' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -17,7 +17,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'file://filename' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'file://filename' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -34,7 +34,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'http://0.0.0.0' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'http://0.0.0.0' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -51,7 +51,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'http://127.0.0.1' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'http://127.0.0.1' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -68,7 +68,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'http://user:pass@[::]:8080' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'http://user:pass@[::]:8080' 1`] = `
 Url {
   "auth": "user:pass",
   "hash": null,
@@ -85,7 +85,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'http://user:password@localhost/' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'http://user:password@localhost/' 1`] = `
 Url {
   "auth": "user:password",
   "hash": null,
@@ -102,7 +102,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'https://example.com' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'https://example.com' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -119,7 +119,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'https://example.com/path' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'https://example.com/path' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -136,7 +136,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'https://example.com/path/foo.js' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'https://example.com/path/foo.js' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -153,7 +153,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'https://localhost:123' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'https://localhost:123' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -170,7 +170,7 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'test' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'test' 1`] = `
 Url {
   "auth": null,
   "hash": null,
@@ -187,115 +187,13 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when __resourceQuery is 'undefined' 1`] = `
+exports[`'parseURL' function should return the url when __resourceQuery is 'undefined' 1`] = `
 Url {
   "auth": null,
-  "hash": null,
-  "host": null,
-  "hostname": null,
-  "href": "/",
-  "path": "/",
-  "pathname": "/",
-  "port": null,
-  "protocol": null,
-  "query": Object {},
-  "search": null,
-  "slashes": null,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is '/' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": null,
-  "hostname": null,
-  "href": "/",
-  "path": "/",
-  "pathname": "/",
-  "port": null,
-  "protocol": null,
-  "query": Object {},
-  "search": null,
-  "slashes": null,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is 'file://filename' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": "filename",
-  "hostname": "filename",
-  "href": "file://filename/",
-  "path": "/",
-  "pathname": "/",
-  "port": null,
-  "protocol": "file:",
-  "query": Object {},
-  "search": null,
-  "slashes": true,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is 'http://0.0.0.0' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": "0.0.0.0",
-  "hostname": "0.0.0.0",
-  "href": "http://0.0.0.0/",
-  "path": "/",
-  "pathname": "/",
-  "port": null,
-  "protocol": "http:",
-  "query": Object {},
-  "search": null,
-  "slashes": true,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is 'http://127.0.0.1' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": "127.0.0.1",
-  "hostname": "127.0.0.1",
-  "href": "http://127.0.0.1/",
-  "path": "/",
-  "pathname": "/",
-  "port": null,
-  "protocol": "http:",
-  "query": Object {},
-  "search": null,
-  "slashes": true,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is 'http://user:pass@[::]:8080' 1`] = `
-Url {
-  "auth": "user:pass",
-  "hash": null,
-  "host": "[::]:8080",
-  "hostname": "::",
-  "href": "http://user:pass@[::]:8080/",
-  "path": "/",
-  "pathname": "/",
-  "port": "8080",
-  "protocol": "http:",
-  "query": Object {},
-  "search": null,
-  "slashes": true,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is 'http://user:password@localhost/' 1`] = `
-Url {
-  "auth": "user:password",
   "hash": null,
   "host": "localhost",
   "hostname": "localhost",
-  "href": "http://user:password@localhost/",
+  "href": "http://localhost/",
   "path": "/",
   "pathname": "/",
   "port": null,
@@ -306,104 +204,41 @@ Url {
 }
 `;
 
-exports[`getUrlOptions should return the url when the current script source is 'https://example.com' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": "example.com",
-  "hostname": "example.com",
-  "href": "https://example.com/",
-  "path": "/",
-  "pathname": "/",
-  "port": null,
-  "protocol": "https:",
-  "query": Object {},
-  "search": null,
-  "slashes": true,
-}
-`;
+exports[`'parseURL' function should return the url when the current script source is '/' 1`] = `"http://localhost/"`;
 
-exports[`getUrlOptions should return the url when the current script source is 'https://example.com/path' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": "example.com",
-  "hostname": "example.com",
-  "href": "https://example.com/path",
-  "path": "/path",
-  "pathname": "/path",
-  "port": null,
-  "protocol": "https:",
-  "query": Object {},
-  "search": null,
-  "slashes": true,
-}
-`;
+exports[`'parseURL' function should return the url when the current script source is 'file://filename' 1`] = `"file://filename/"`;
 
-exports[`getUrlOptions should return the url when the current script source is 'https://example.com/path/foo.js' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": "example.com",
-  "hostname": "example.com",
-  "href": "https://example.com/path/foo.js",
-  "path": "/path/foo.js",
-  "pathname": "/path/foo.js",
-  "port": null,
-  "protocol": "https:",
-  "query": Object {},
-  "search": null,
-  "slashes": true,
-}
-`;
+exports[`'parseURL' function should return the url when the current script source is 'http://0.0.0.0' 1`] = `"http://0.0.0.0/"`;
 
-exports[`getUrlOptions should return the url when the current script source is 'https://localhost:123' 1`] = `
+exports[`'parseURL' function should return the url when the current script source is 'http://127.0.0.1' 1`] = `"http://127.0.0.1/"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'http://user:pass@[::]:8080' 1`] = `"http://user:pass@[::]:8080/"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'http://user:password@localhost/' 1`] = `"http://user:password@localhost/"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'https://example.com' 1`] = `"https://example.com/"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'https://example.com/path' 1`] = `"https://example.com/path"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'https://example.com/path/foo.js' 1`] = `"https://example.com/path/foo.js"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'https://localhost:123' 1`] = `"https://localhost:123/"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'test' 1`] = `"http://localhost/test"`;
+
+exports[`'parseURL' function should return the url when the current script source is 'undefined' 1`] = `
 Url {
   "auth": null,
   "hash": null,
-  "host": "localhost:123",
+  "host": "localhost",
   "hostname": "localhost",
-  "href": "https://localhost:123/",
+  "href": "http://localhost/",
   "path": "/",
   "pathname": "/",
-  "port": "123",
-  "protocol": "https:",
+  "port": null,
+  "protocol": "http:",
   "query": Object {},
   "search": null,
   "slashes": true,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is 'test' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": null,
-  "hostname": null,
-  "href": "test",
-  "path": "test",
-  "pathname": "test",
-  "port": null,
-  "protocol": null,
-  "query": Object {},
-  "search": null,
-  "slashes": null,
-}
-`;
-
-exports[`getUrlOptions should return the url when the current script source is 'undefined' 1`] = `
-Url {
-  "auth": null,
-  "hash": null,
-  "host": null,
-  "hostname": null,
-  "href": "/",
-  "path": "/",
-  "pathname": "/",
-  "port": null,
-  "protocol": null,
-  "query": Object {},
-  "search": null,
-  "slashes": null,
 }
 `;

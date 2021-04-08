@@ -7,11 +7,9 @@ module.exports = class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
 
-    const wsUrl = url.replace(/^(?:http|chrome-extension|file)/i, 'ws');
-
-    this.client = new WebSocket(wsUrl);
-    this.client.onerror = (err) => {
-      log.error(err);
+    this.client = new WebSocket(url);
+    this.client.onerror = (error) => {
+      log.error(error);
     };
   }
 

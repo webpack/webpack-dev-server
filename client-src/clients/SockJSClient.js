@@ -8,11 +8,12 @@ module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
 
-    const sockUrl = url.replace(/^(?:chrome-extension|file)/i, 'http');
-
-    this.sock = new SockJS(sockUrl);
-    this.sock.onerror = (err) => {
-      log.error(err);
+    // SockJS requires `http` and `https` protocols
+    this.sock = new SockJS(
+      url.replace(/^ws:/i, 'http://').replace(/^wss:/i, 'https://')
+    );
+    this.sock.onerror = (error) => {
+      log.error(error);
     };
   }
 

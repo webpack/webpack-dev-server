@@ -10,7 +10,7 @@ const overlay = require('./overlay');
 const { log, setLogLevel } = require('./utils/log');
 const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
-const createSocketUrl = require('./utils/createSocketUrl');
+const createSocketURL = require('./utils/createSocketURL');
 
 const status = {
   isUnloading: false,
@@ -27,7 +27,7 @@ const defaultOptions = {
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
 const options = Object.assign(defaultOptions, parsedResourceQuery.query);
-const socketURL = createSocketUrl(parsedResourceQuery);
+const socketURL = createSocketURL(parsedResourceQuery);
 
 function setAllLogLevel(level) {
   // This is needed because the HMR logger operate separately from dev server logger

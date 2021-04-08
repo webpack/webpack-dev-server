@@ -7,11 +7,17 @@ function getCurrentScriptSource() {
     return document.currentScript.getAttribute('src');
   }
 
-  // Fall back to getting all scripts in the document.
+  // Fallback to getting all scripts running in the document.
   const scriptElements = document.scripts || [];
-  const currentScript = scriptElements[scriptElements.length - 1];
+  const scriptElementsWithSrc = Array.prototype.filter.call(
+    scriptElements,
+    (element) => element.getAttribute('src')
+  );
 
-  if (currentScript) {
+  if (scriptElementsWithSrc.length > 0) {
+    const currentScript =
+      scriptElementsWithSrc[scriptElementsWithSrc.length - 1];
+
     return currentScript.getAttribute('src');
   }
 
