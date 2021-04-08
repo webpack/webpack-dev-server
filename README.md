@@ -55,7 +55,7 @@ The easiest way to use it is with the [webpack CLI](https://webpack.js.org/api/c
 `webpack.config.js` is, run:
 
 ```console
-node_modules/.bin/webpack serve
+npx webpack serve
 ```
 
 Following options are available with `webpack serve`:
@@ -142,7 +142,7 @@ script as such:
 And run the following in your terminal/console:
 
 ```console
-npm run start:dev
+npm run serve
 ```
 
 NPM will automagically reference the binary in `node_modules` for you, and
