@@ -8,7 +8,8 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
 
 exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.host should be a string."
+ - configuration.client.host should be a string.
+   -> Tells clients connected to devServer to use the provided host."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"logging":"silent"}' value 1`] = `
@@ -27,6 +28,7 @@ exports[`options validate should throw an error on the "client" option with '{"n
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.needClientEntry should be one of these:
    boolean | function
+   -> Tells devServer to inject a client entry.
    Details:
     * configuration.client.needClientEntry should be a boolean.
     * configuration.client.needClientEntry should be an instance of function."
@@ -36,6 +38,7 @@ exports[`options validate should throw an error on the "client" option with '{"n
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.needHotEntry should be one of these:
    boolean | function
+   -> Tells devServer to inject a Hot Module Replacement entry.
    Details:
     * configuration.client.needHotEntry should be a boolean.
     * configuration.client.needHotEntry should be an instance of function."
@@ -47,23 +50,27 @@ exports[`options validate should throw an error on the "client" option with '{"o
    boolean | object { errors?, warnings?, … }
    Details:
     * configuration.client.overlay should be a boolean.
+      -> Show a full-screen overlay in the browser when there are compiler errors or warnings.
     * configuration.client.overlay should be an object:
       object { errors?, warnings?, … }"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":{"errors":""}}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.overlay.errors should be a boolean."
+ - configuration.client.overlay.errors should be a boolean.
+   -> Show a full-screen overlay in the browser when there are compiler errors."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":{"warnings":""}}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.overlay.warnings should be a boolean."
+ - configuration.client.overlay.warnings should be a boolean.
+   -> Show a full-screen overlay in the browser when there are compiler warnings."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.progress should be a boolean."
+ - configuration.client.progress should be a boolean.
+   -> Print compilation progress in percentage in the browser."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
