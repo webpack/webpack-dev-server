@@ -25,8 +25,30 @@ const defaultOptions = {
   useErrorOverlay: false,
   useProgress: false,
 };
-const parsedResourceQuery = parseURL(__resourceQuery);
-const options = Object.assign(defaultOptions, parsedResourceQuery.query);
+const parsedResourceQuery = parseURL();
+
+let options = defaultOptions;
+
+// Handle Node.js legacy format and `new URL()`
+if (parsedResourceQuery.query) {
+  options = Object.assign(options, parsedResourceQuery.query);
+} else if (parsedResourceQuery.searchParams) {
+  const paramsToObject = (entries) => {
+    const result = {};
+
+    for (const [key, value] of entries) {
+      result[key] = value;
+    }
+
+    return result;
+  };
+
+  options = Object.assign(
+    options,
+    paramsToObject(parsedResourceQuery.searchParams.entries())
+  );
+}
+
 const socketURL = createSocketURL(parsedResourceQuery);
 
 function setAllLogLevel(level) {
