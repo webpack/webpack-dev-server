@@ -143,10 +143,12 @@
       "type": "object",
       "properties": {
         "host": {
-          "type": "string"
+          "type": "string",
+          "description": "Tells clients connected to devServer to use the provided host."
         },
         "path": {
-          "type": "string"
+          "type": "string",
+          "description": "Tells clients connected to devServer to use the provided port."
         },
         "port": {
           "anyOf": [
@@ -159,27 +161,33 @@
             {
               "type": "null"
             }
-          ]
+          ],
+          "description": "Tells clients connected to devServer to use the provided path to connect."
         },
         "logging": {
-          "enum": ["none", "error", "warn", "info", "log", "verbose"]
+          "enum": ["none", "error", "warn", "info", "log", "verbose"],
+          "decription": "Log level in the browser."
         },
         "progress": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Print compilation progress in percentage in the browser."
         },
         "overlay": {
           "anyOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "Show a full-screen overlay in the browser when there are compiler errors or warnings."
             },
             {
               "type": "object",
               "properties": {
                 "errors": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "Show a full-screen overlay in the browser when there are compiler errors."
                 },
                 "warnings": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "Show a full-screen overlay in the browser when there are compiler warnings."
                 }
               }
             }
@@ -193,7 +201,8 @@
             {
               "instanceof": "Function"
             }
-          ]
+          ],
+          "description": "Tells devServer to inject a client."
         },
         "needHotEntry": {
           "anyOf": [
@@ -203,7 +212,8 @@
             {
               "instanceof": "Function"
             }
-          ]
+          ],
+          "description": "Tells devServer to inject a Hot Module Replacement entry."
         }
       },
       "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
