@@ -134,7 +134,7 @@ script as such:
 ```json
 {
   "scripts": {
-    "serve": "webpack serve"
+    "start:dev": "webpack serve"
   }
 }
 ```
