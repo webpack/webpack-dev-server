@@ -32,6 +32,10 @@ function createSocketURL(parsedURL) {
     hostname = self.location.hostname;
   }
 
+  if (!hostname && protocol === 'file:') {
+    hostname = 'localhost';
+  }
+
   // `hostname` can be empty when the script path is relative. In that case, specifying a protocol would result in an invalid URL.
   // When https is used in the app, secure websockets are always necessary because the browser doesn't accept non-secure websockets.
   if (hostname && isInAddrAny && self.location.protocol === 'https:') {

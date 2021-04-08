@@ -111,18 +111,20 @@ describe("'createSocketURL' function ", () => {
     ['?https://[::1]:8080/', 'http://[::1]:8080/', 'wss://[::1]:8080/ws'],
     [null, 'http://[::1]:8080/', 'ws://[::1]:8080/ws'],
     [null, 'https://[::1]:8080/', 'wss://[::1]:8080/ws'],
-    [null, 'file:///home/user/project/index.html', 'ws:/ws'],
+    [null, 'file:///home/user/project/index.html', 'ws://localhost/ws'],
+    [null, 'chrome-extension://localhost/', 'ws://localhost/ws'],
+    [null, 'file://localhost/', 'ws://localhost/ws'],
   ];
 
   samples.forEach(([__resourceQuery, location, expected]) => {
     jest.doMock('../../../client-src/utils/getCurrentScriptSource', () => () =>
-      location
+      new URL('./entry.js', location).toString()
     );
 
     const createSocketURL = require('../../../client-src/utils/createSocketURL');
     const parseURL = require('../../../client-src/utils/parseURL');
 
-    test.only(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
+    test(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
       const selfLocation = new URL(location);
 
       delete window.location;

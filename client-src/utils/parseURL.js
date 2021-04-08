@@ -29,7 +29,7 @@ function parseURL(resourceQuery) {
         // is to allow parsing of path-relative or protocol-relative URLs,
         // and will have no effect if `scriptSource` is a fully valid URL.
         scriptSourceURL = new URL(scriptSource, self.location.href);
-      } catch (e) {
+      } catch (error) {
         // URL parsing failed, do nothing.
         // We will still proceed to see if we can recover using `resourceQuery`
       }
