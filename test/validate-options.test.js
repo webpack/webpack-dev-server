@@ -220,7 +220,7 @@ const tests = {
       { target: ['foo', 'bar'], app: ['google-chrome', '--incognito'] },
       {},
     ],
-    failure: ['', [], { foo: 'bar' }],
+    failure: ['', [], { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
     success: ['', 0, null],
@@ -267,7 +267,17 @@ const tests = {
         },
       ],
     ],
-    failure: [0, null, ''],
+    failure: [
+      0,
+      null,
+      '',
+      {
+        publicPath: false,
+      },
+      {
+        serveIndex: 'true',
+      },
+    ],
   },
   transportMode: {
     success: [
