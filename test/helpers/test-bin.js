@@ -65,6 +65,18 @@ function normalizeStderr(stderr, options = {}) {
 
   normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ':<port>/');
 
+  if (options.https) {
+    // We have deprecation warning on windows in some cases
+    normalizedStderr = normalizedStderr.split('\n');
+
+    normalizedStderr = normalizedStderr.filter(
+      (item) =>
+        !/DeprecationWarning: The legacy HTTP parser is deprecated/g.test(item)
+    );
+
+    normalizedStderr = normalizedStderr.join('\n');
+  }
+
   if (options.ipv6 && !networkIPv6) {
     // Github Actions doesnt' support IPv6 on ubuntu in some cases
     normalizedStderr = normalizedStderr.split('\n');
@@ -73,10 +85,12 @@ function normalizeStderr(stderr, options = {}) {
       /On Your Network \(IPv4\)/.test(item)
     );
 
+    const protocol = options.https ? 'https' : 'http';
+
     normalizedStderr.splice(
       ipv4MessageIndex + 1,
       0,
-      '<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/'
+      `<i> [webpack-dev-server] On Your Network (IPv6): ${protocol}://[<network-ip-v6>]:<port>/`
     );
 
     normalizedStderr = normalizedStderr.join('\n');
