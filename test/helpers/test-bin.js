@@ -65,6 +65,18 @@ function normalizeStderr(stderr, options = {}) {
 
   normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ':<port>/');
 
+  if (options.https) {
+    // We have deprecation warning on windows in some cases
+    normalizedStderr = normalizedStderr.split('\n');
+
+    normalizedStderr = normalizedStderr.filter(
+      (item) =>
+        !/DeprecationWarning: The legacy HTTP parser is deprecated/g.test(item)
+    );
+
+    normalizedStderr = normalizedStderr.join('\n');
+  }
+
   if (options.ipv6 && !networkIPv6) {
     // Github Actions doesnt' support IPv6 on ubuntu in some cases
     normalizedStderr = normalizedStderr.split('\n');
