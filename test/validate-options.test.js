@@ -30,13 +30,13 @@ const tests = {
     success: [
       {},
       {
-        host: '',
+        webSocketHost: '',
       },
       {
-        path: '',
+        webSocketPath: '',
       },
       {
-        port: '',
+        webSocketPort: '',
       },
       {
         logging: 'none',
@@ -57,20 +57,20 @@ const tests = {
         logging: 'verbose',
       },
       {
-        host: '',
-        path: '',
-        port: 8080,
+        webSocketHost: '',
+        webSocketPath: '',
+        webSocketPort: 8080,
         logging: 'none',
       },
       {
-        host: '',
-        path: '',
-        port: '',
+        webSocketHost: '',
+        webSocketPath: '',
+        webSocketPort: '',
       },
       {
-        host: '',
-        path: '',
-        port: null,
+        webSocketHost: '',
+        webSocketPath: '',
+        webSocketPort: null,
       },
       {
         progress: false,
@@ -109,9 +109,9 @@ const tests = {
         unknownOption: true,
       },
       {
-        host: true,
-        path: '',
-        port: 8080,
+        webSocketHost: true,
+        webSocketPath: '',
+        webSocketPort: 8080,
       },
       {
         logging: 'whoops!',
