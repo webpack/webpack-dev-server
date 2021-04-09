@@ -147,7 +147,7 @@ const tests = {
     success: [false, true],
     failure: [''],
   },
-  dev: {
+  devMiddleware: {
     success: [{}],
     failure: [''],
   },
