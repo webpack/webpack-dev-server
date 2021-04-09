@@ -89,6 +89,7 @@ function createSocketURL(parsedURL) {
     hostname: socketURLHostname,
     port: socketURLPort,
     pathname: socketURLPathname,
+    slashes: true,
   });
 }
 

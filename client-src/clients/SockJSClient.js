@@ -10,7 +10,7 @@ module.exports = class SockJSClient extends BaseClient {
 
     // SockJS requires `http` and `https` protocols
     this.sock = new SockJS(
-      url.replace(/^ws:/i, 'http://').replace(/^wss:/i, 'https://')
+      url.replace(/^ws:/i, 'http:').replace(/^wss:/i, 'https:')
     );
     this.sock.onerror = (error) => {
       log.error(error);
