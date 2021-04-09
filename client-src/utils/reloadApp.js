@@ -44,7 +44,9 @@ function reloadApp(
 
   function applyReload(rootWindow, intervalId) {
     clearInterval(intervalId);
+
     log.info('App updated. Reloading...');
+
     rootWindow.location.reload();
   }
 }

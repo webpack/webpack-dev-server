@@ -1,6 +1,6 @@
 'use strict';
 
-describe('log', () => {
+describe("'log' function", () => {
   let logMock;
   let setLogLevel;
 

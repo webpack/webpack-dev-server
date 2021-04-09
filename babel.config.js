@@ -14,6 +14,7 @@ module.exports = (api) => {
         },
       ],
     ],
+    plugins: ['@babel/plugin-transform-object-assign'],
     env: {
       test: {
         plugins: ['@babel/plugin-transform-runtime'],

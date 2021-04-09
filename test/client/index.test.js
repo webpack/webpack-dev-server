@@ -20,6 +20,7 @@ describe('index', () => {
         warn: jest.fn(),
         error: jest.fn(),
       },
+      setLogLevel: jest.fn(),
     });
     log = require('../../client-src/utils/log');
 
@@ -42,8 +43,17 @@ describe('index', () => {
     jest.setMock('../../client-src/utils/sendMessage.js', jest.fn());
     sendMessage = require('../../client-src/utils/sendMessage');
 
+    // getUrlOptions
+    jest.setMock('../../client-src/utils/parseURL.js', () => {
+      return {
+        query: {
+          logging: 'info',
+        },
+      };
+    });
+
     // createSocketUrl
-    jest.setMock('../../client-src/utils/createSocketUrl.js', () => 'mock-url');
+    jest.setMock('../../client-src/utils/createSocketURL.js', () => 'mock-url');
 
     // issue: https://github.com/jsdom/jsdom/issues/2112
     delete window.location;
@@ -99,11 +109,6 @@ describe('index', () => {
     onSocketMessage.overlay(true);
     onSocketMessage['still-ok']();
     expect(overlay.clear).toBeCalled();
-  });
-
-  // TODO: need to mock require.context
-  test.skip("should run onSocketMessage['logging']", () => {
-    onSocketMessage.logging();
   });
 
   test("should run onSocketMessage.progress and onSocketMessage['progress-update']", () => {
@@ -229,5 +234,9 @@ describe('index', () => {
     onSocketMessage.close();
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  test('should update log level if options is passed', () => {
+    expect(log.setLogLevel.mock.calls[0][0]).toMatchSnapshot();
   });
 });

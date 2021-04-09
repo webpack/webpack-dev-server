@@ -2,7 +2,7 @@
 
 const sendMessage = require('../../../client-src/utils/sendMessage');
 
-describe('sendMessage', () => {
+describe("'sendMessage' function", () => {
   afterEach(() => {
     jest.resetAllMocks();
   });

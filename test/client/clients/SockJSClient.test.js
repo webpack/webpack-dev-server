@@ -74,21 +74,6 @@ describe('SockJSClient', () => {
         done();
       }, 3000);
     });
-
-    it('should change the protocol from chrome-extension to http', (done) => {
-      const client = new SockJSClient('chrome-extension://localhost');
-
-      expect(client.sock.url).toEqual('http://localhost');
-
-      done();
-    });
-
-    it('should change the protocol from file to http', (done) => {
-      const client = new SockJSClient('file://localhost');
-      expect(client.sock.url).toEqual('http://localhost');
-
-      done();
-    });
   });
 
   afterAll((done) => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`log should set log level via setLogLevel 1`] = `
+exports[`'log' function should set log level via setLogLevel 1`] = `
 Array [
   Array [
     Object {

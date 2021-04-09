@@ -9,7 +9,10 @@ const BaseClient = require('../../../client/clients/BaseClient');
 module.exports = class SockJSClient extends BaseClient {
   constructor(url) {
     super();
-    this.sock = new SockJS(url);
+
+    this.sock = new SockJS(
+      url.replace(/^ws:/i, 'http://').replace(/^wss:/i, 'https://')
+    );
   }
 
   static getClientPath(options) {

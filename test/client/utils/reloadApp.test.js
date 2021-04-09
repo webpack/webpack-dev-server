@@ -1,6 +1,6 @@
 'use strict';
 
-describe('reloadApp', () => {
+describe("'reloadApp' function", () => {
   let reloadApp;
   let log;
   let locationValue;
