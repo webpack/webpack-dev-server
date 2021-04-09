@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
   entry: join(__dirname, 'foo.js'),
   devServer: {
-    dev: {
+    devMiddleware: {
       publicPath: '/foo/bar',
     },
   },

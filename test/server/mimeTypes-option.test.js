@@ -14,7 +14,7 @@ describe('mimeTypes option', () => {
       server = testServer.start(
         config,
         {
-          dev: {
+          devMiddleware: {
             mimeTypes: {
               js: 'application/octet-stream',
             },
@@ -44,7 +44,7 @@ describe('mimeTypes option', () => {
       server = testServer.start(
         config,
         {
-          dev: {
+          devMiddleware: {
             mimeTypes: {
               custom: 'text/html',
             },
