@@ -97,7 +97,7 @@ exports[`options validate should throw an error on the "devMiddleware" option wi
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.devMiddleware should be an object:
    object { … }
-   -> The bundled files will be available in the browser under this path. https://webpack.js.org/configuration/dev-server/#devserverdev-"
+   -> Provide options to webpack-dev-middleware which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
 `;
 
 exports[`options validate should throw an error on the "firewall" option with '' value 1`] = `
