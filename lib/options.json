@@ -229,7 +229,7 @@
     },
     "devMiddleware": {
       "type": "object",
-      "description": "The bundled files will be available in the browser under this path. https://webpack.js.org/configuration/dev-server/#devserverdev-"
+      "description": "Provide options to webpack-dev-middleware which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
     },
     "firewall": {
       "anyOf": [
