@@ -227,7 +227,7 @@
       "type": "boolean",
       "description": "Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
     },
-    "dev": {
+    "devMiddleware": {
       "type": "object",
       "description": "The bundled files will be available in the browser under this path. https://webpack.js.org/configuration/dev-server/#devserverdev-"
     },
