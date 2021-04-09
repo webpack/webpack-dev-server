@@ -32,10 +32,6 @@ function createSocketURL(parsedURL) {
     hostname = self.location.hostname;
   }
 
-  if (!hostname && protocol === 'file:') {
-    hostname = 'localhost';
-  }
-
   // `hostname` can be empty when the script path is relative. In that case, specifying a protocol would result in an invalid URL.
   // When https is used in the app, secure websockets are always necessary because the browser doesn't accept non-secure websockets.
   if (hostname && isInAddrAny && self.location.protocol === 'https:') {
@@ -70,10 +66,11 @@ function createSocketURL(parsedURL) {
   //
   // All of these sock url params are optionally passed in through resourceQuery,
   // so we need to fall back to the default if they are not provided
-  const socketURLHostname = (getURLSearchParam('host') || hostname).replace(
-    /^\[(.*)\]$/,
-    '$1'
-  );
+  const socketURLHostname = (
+    getURLSearchParam('host') ||
+    hostname ||
+    'localhost'
+  ).replace(/^\[(.*)\]$/, '$1');
 
   if (!port || port === '0') {
     port = self.location.port;

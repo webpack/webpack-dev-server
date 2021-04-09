@@ -53,7 +53,7 @@ describe('index', () => {
     });
 
     // createSocketUrl
-    jest.setMock('../../client-src/utils/createSocketUrl.js', () => 'mock-url');
+    jest.setMock('../../client-src/utils/createSocketURL.js', () => 'mock-url');
 
     // issue: https://github.com/jsdom/jsdom/issues/2112
     delete window.location;

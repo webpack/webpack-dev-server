@@ -25,13 +25,12 @@ const defaultOptions = {
   useErrorOverlay: false,
   useProgress: false,
 };
-const parsedResourceQuery = parseURL();
-
-let options = defaultOptions;
+const parsedResourceQuery = parseURL(__resourceQuery);
+const options = defaultOptions;
 
 // Handle Node.js legacy format and `new URL()`
 if (parsedResourceQuery.query) {
-  options = Object.assign(options, parsedResourceQuery.query);
+  Object.assign(options, parsedResourceQuery.query);
 } else if (parsedResourceQuery.searchParams) {
   const paramsToObject = (entries) => {
     const result = {};
@@ -43,7 +42,7 @@ if (parsedResourceQuery.query) {
     return result;
   };
 
-  options = Object.assign(
+  Object.assign(
     options,
     paramsToObject(parsedResourceQuery.searchParams.entries())
   );
