@@ -41,6 +41,61 @@ Once it is done, you can modify any file locally. In the `examples/` directory y
 
 If you are modifying a file in the `client/` directory, be sure to run `npm run build:client` after it. This will recompile the files.
 
+## Commit message
+
+Our commit messages format follows the [angular.js commits format](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits).
+
+We don't use the scope. The template of a commit would look like this:
+
+### Commit Message Format
+
+Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
+format that includes a **type** and a **subject**:
+
+```
+<type>: <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+This is the list of _type_ of commits that we accept:
+
+- **build** : Changes that affect the build system or external dependencies (example scopes: typescript, webpack, npm).
+- **chore** : Updating deps, docs, linting, etc.
+- **ci** : Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+- **docs** : Documentation only changes.
+- **feat** : A new feature.
+- **fix** : A bug fix.
+- **perf** : A code change that improves performance.
+- **refactor** : A code change that neither fixes a bug nor adds a feature.
+- **revert** : Reverts the previous commit.
+- **style** : Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
+- **test** : Adding missing tests or correcting existing tests.
+
+The **header** is mandatory.
+
+Any line of the commit message cannot be longer 100 characters. This allows the message to be easier
+to read on GitHub as well as in several git tools.
+
+For more information about what each part of the template mean, head up to the documentation in the
+[angular repo](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits).
+
+### Example commit message
+
+```
+feat: improve output for IPv4 and IPv6
+```
+
+Mention breaking changes explicitly:
+
+```
+refactor: remove stdin option
+
+BREAKING CHANGE: stdin option was removed
+```
+
 ## Testing a Pull Request
 
 Pull requests often need some real-world testing.
