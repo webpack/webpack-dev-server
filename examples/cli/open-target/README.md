@@ -6,19 +6,19 @@ Open browser:
 npm run webpack-dev-server -- --open-target
 ```
 
-Open specific page
+Open specific page in browser:
 
 ```
 npm run webpack-dev-server -- --open-target /example.html#page1
 ```
 
-Open firefox:
+Open specific browser:
 
 ```
 npm run webpack-dev-server -- --open-app firefox
 ```
 
-Open specific page with frefox
+Open specific page with specific browser:
 
 ```
 npm run webpack-dev-server -- --open-target example.html#page1 --open-app firefox
