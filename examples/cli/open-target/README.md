@@ -1,4 +1,4 @@
-# CLI: Open Taget Option
+# CLI: Open Target Option
 
 Open browser:
 
@@ -18,7 +18,7 @@ Open specific browser:
 npm run webpack-dev-server -- --open-app firefox
 ```
 
-Open specific page with specific browser:
+Open specific page in specific browser:
 
 ```
 npm run webpack-dev-server -- --open-target example.html#page1 --open-app firefox
