@@ -1,7 +1,27 @@
-# CLI: Open Page Option
+# CLI: Open Taget Option
 
-```console
-npm run webpack-dev-server -- --open-target example.html#page1
+Open browser:
+
+```
+npm run webpack-dev-server -- --open-target
+```
+
+Open specific page
+
+```
+npm run webpack-dev-server -- --open-target /example.html#page1
+```
+
+Open firefox:
+
+```
+npm run webpack-dev-server -- --open-app firefox
+```
+
+Open specific page with frefox
+
+```
+npm run webpack-dev-server -- --open-target example.html#page1 --open-app firefox
 ```
 
 Some applications may consist of multiple pages. During development it may
@@ -11,4 +31,4 @@ as the argument to the `open-target` option.
 ## What Should Happen
 
 The script should open `http://localhost:8080/example.html#page1` in your
-default browser. You should see the text on the page itself change to read `Success!`.
+default/specified browser. You should see the text on the page itself change to read `Success!`.

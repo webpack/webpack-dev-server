@@ -1,4 +1,4 @@
-# CLI: Open Page Option (Multiple)
+# CLI: Open Target Option (Multiple)
 
 ```console
 npm run webpack-dev-server -- --open-target example1.html --open-target example2.html
