@@ -6,6 +6,7 @@ module.exports = [
   {
     mode: 'development',
     context: __dirname,
+    stats: 'none',
     entry: './foo.js',
     output: {
       path: __dirname,
@@ -30,6 +31,7 @@ module.exports = [
   {
     mode: 'development',
     context: __dirname,
+    stats: 'none',
     entry: './bar.js',
     output: {
       path: path.join(__dirname, 'named'),
@@ -37,7 +39,6 @@ module.exports = [
       publicPath: '/bundle2/',
     },
     name: 'named',
-    stats: 'none',
     infrastructureLogging: {
       level: 'warn',
     },
