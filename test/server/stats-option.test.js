@@ -6,6 +6,9 @@ const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['stats-option'];
 
 describe('stats option', () => {
+  beforeAll(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
   it(`should works with difference stats values (contains 'hash', 'assets', 'warnings' and 'errors')`, () => {
     const allStats = [
       {},

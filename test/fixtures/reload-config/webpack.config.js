@@ -4,6 +4,7 @@ module.exports = {
   mode: 'development',
   context: __dirname,
   entry: './foo.js',
+  stats: 'none',
   output: {
     path: '/',
   },
