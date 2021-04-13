@@ -87,6 +87,21 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'client-socket-url',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Allows to set WebSocket server URL.',
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.overlay = opts.clientSocketUrl;
+        delete opts.clientSocketUrl;
+      },
+    },
+    {
       name: 'client-progress',
       type: Boolean,
       configs: [
@@ -121,6 +136,22 @@ module.exports = {
         opts.client = opts.client || {};
         opts.client.overlay = opts.clientOverlay;
         delete opts.clientOverlay;
+      },
+    },
+    {
+      name: 'client-logging',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description:
+        'Log level in the browser (none, error, warn, info, log, verbose).',
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.logging = opts.clientLogging;
+        delete opts.clientLogging;
       },
     },
     {
@@ -190,22 +221,6 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'client-logging',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'Log level in the browser (none, error, warn, info, log, verbose).',
-      processor(opts) {
-        opts.client = opts.client || {};
-        opts.client.logging = opts.clientLogging;
-        delete opts.clientLogging;
-      },
-    },
-    {
       name: 'history-api-fallback',
       type: Boolean,
       configs: [
@@ -229,16 +244,6 @@ module.exports = {
       description: 'Enable gzip compression.',
       negatedDescription: 'Disable gzip compression.',
       negative: true,
-    },
-    {
-      name: 'public',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'The public hostname/ip address of the server.',
     },
     {
       name: 'firewall',

@@ -148,7 +148,7 @@
       "properties": {
         "socketUrl": {
           "type": "string",
-          "description": "Allows to set websocket URL. When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserversocketurl",
+          "description": "Allows to set WebSocket server URL. When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserversocketurl",
           "minLength": 1
         },
         "logging": {
