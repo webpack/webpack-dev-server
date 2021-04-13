@@ -16,6 +16,7 @@ describe('updateCompiler', () => {
 
     it('should apply plugins without HMR', () => {
       updateCompiler(compiler, {
+        client: {},
         transportMode: {
           server: 'sockjs',
           client: 'sockjs',
@@ -59,6 +60,7 @@ describe('updateCompiler', () => {
 
     it('should apply plugins', () => {
       updateCompiler(compiler, {
+        client: {},
         transportMode: {
           server: 'sockjs',
           client: 'sockjs',
@@ -104,6 +106,7 @@ describe('updateCompiler', () => {
 
     it('should apply plugins', () => {
       updateCompiler(compiler, {
+        client: {},
         transportMode: {
           server: 'sockjs',
           client: 'sockjs',
@@ -152,6 +155,7 @@ describe('updateCompiler', () => {
 
     it('should apply plugins', () => {
       updateCompiler(multiCompiler, {
+        client: {},
         transportMode: {
           server: 'sockjs',
           client: 'sockjs',

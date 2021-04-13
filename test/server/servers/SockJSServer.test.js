@@ -22,11 +22,6 @@ describe('SockJSServer', () => {
           log: () => {},
           debug: () => {},
         },
-        options: {
-          client: {
-            path: '/ws',
-          },
-        },
         server,
       });
 

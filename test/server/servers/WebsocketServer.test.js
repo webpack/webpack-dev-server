@@ -17,11 +17,6 @@ describe('WebsocketServer', () => {
     server = http.createServer(app);
     server.listen(port, 'localhost', () => {
       socketServer = new WebsocketServer({
-        options: {
-          client: {
-            path: '/ws-server',
-          },
-        },
         server,
         wsHeartbeatInterval: 800,
       });
@@ -44,7 +39,7 @@ describe('WebsocketServer', () => {
     });
 
     // eslint-disable-next-line new-cap
-    const client = new ws(`http://localhost:${port}/ws-server`);
+    const client = new ws(`http://localhost:${port}/ws`);
 
     client.onmessage = (e) => {
       data.push(e.data);
@@ -76,7 +71,7 @@ describe('WebsocketServer', () => {
     });
 
     // eslint-disable-next-line new-cap
-    const client = new ws(`http://localhost:${port}/ws-server`);
+    const client = new ws(`http://localhost:${port}/ws`);
 
     setTimeout(() => {
       // the client closes itself, the server does not close it
@@ -101,7 +96,7 @@ describe('WebsocketServer', () => {
     });
 
     // eslint-disable-next-line new-cap, no-unused-vars
-    const client = new ws(`http://localhost:${port}/ws-server`);
+    const client = new ws(`http://localhost:${port}/ws`);
 
     setTimeout(() => {
       expect(receivedClientClose).toBeTruthy();

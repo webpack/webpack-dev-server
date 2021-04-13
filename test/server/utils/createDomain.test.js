@@ -3,7 +3,7 @@
 const webpack = require('webpack');
 const Server = require('../../../lib/Server');
 const createDomain = require('../../../lib/utils/createDomain');
-const [port1, port2] = require('../../ports-map').createDomain;
+const [port1] = require('../../ports-map').createDomain;
 const config = require('./../../fixtures/simple-config/webpack.config');
 
 describe('createDomain', () => {
@@ -15,7 +15,9 @@ describe('createDomain', () => {
   });
 
   afterEach((done) => {
-    server.close(done);
+    if (server) {
+      server.close(done);
+    }
   });
 
   const tests = [
@@ -25,74 +27,70 @@ describe('createDomain', () => {
         host: 'localhost',
         port: port1,
       },
-      expected: [
-        `http://localhost:${port1}`,
-        `http://127.0.0.1:${port1}`,
-        `http://[::1]:${port1}`,
-      ],
+      expected: ['ws://0.0.0.0:0/ws'],
     },
     {
-      name: 'no host option',
+      name: 'default with https',
       options: {
-        port: port1,
-      },
-      expected: [`http://0.0.0.0:${port1}`, `http://[::]:${port1}`],
-    },
-    {
-      name: 'https',
-      options: {
+        https: true,
         host: 'localhost',
         port: port1,
-        https: true,
       },
-      expected: [
-        `https://localhost:${port1}`,
-        `https://127.0.0.1:${port1}`,
-        `https://[::1]:${port1}`,
-      ],
+      expected: ['wss://0.0.0.0:0/ws'],
       timeout: 60000,
     },
     {
-      name: 'override with public',
+      name: 'override with webSocketUrl',
       options: {
+        client: {
+          webSocketUrl: 'ws://myhost.test:8090/custom',
+        },
         host: 'localhost',
         port: port1,
-        public: 'myhost.test',
       },
-      expected: ['http://myhost.test'],
+      expected: ['ws://myhost.test:8090/custom'],
     },
     {
-      name: 'override with public (port)',
+      name: 'override with webSocketUrl #2',
       options: {
+        client: {
+          webSocketUrl: 'http://myhost.test:8090/custom',
+        },
         host: 'localhost',
         port: port1,
-        public: `myhost.test:${port2}`,
       },
-      expected: [`http://myhost.test:${port2}`],
+      expected: ['http://myhost.test:8090/custom'],
     },
     {
-      name: 'override with public (protocol)',
+      name: 'override using webSocketUrl without protocol',
       options: {
+        https: false,
+        client: {
+          webSocketUrl: 'myhost.test:8090/custom',
+        },
         host: 'localhost',
         port: port1,
-        public: 'https://myhost.test',
       },
-      expected: ['https://myhost.test'],
+      expected: ['ws://myhost.test:8090/custom'],
     },
     {
-      name: 'override with public (protocol + port)',
+      name: 'override with webSocketUrl without protocol and https',
       options: {
+        https: true,
+        client: {
+          webSocketUrl: 'myhost.test:8090/custom',
+        },
         host: 'localhost',
         port: port1,
-        public: `https://myhost.test:${port2}`,
       },
-      expected: [`https://myhost.test:${port2}`],
+      expected: ['wss://myhost.test:8090/custom'],
     },
   ];
 
   tests.forEach((test) => {
     it(`test createDomain '${test.name}'`, (done) => {
       const { options, expected } = test;
+
       options.static = false;
 
       server = new Server(compiler, options);
@@ -102,7 +100,7 @@ describe('createDomain', () => {
           done(err);
         }
 
-        const domain = createDomain(options, server.server);
+        const domain = createDomain(options);
 
         if (!expected.includes(domain)) {
           done(`generated domain ${domain} doesn't match expected ${expected}`);

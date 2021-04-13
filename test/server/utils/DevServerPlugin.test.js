@@ -25,6 +25,7 @@ describe('DevServerPlugin util', () => {
     };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      client: {},
       transportMode: {
         server: 'sockjs',
         client: 'sockjs',
@@ -32,7 +33,9 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
+
     getEntries(compiler).then((entries) => {
       expect(typeof entries).toEqual('function');
 
@@ -72,6 +75,7 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
 
     const devServerOptions = {
+      client: {},
       transportMode: {
         server: 'sockjs',
         client: 'sockjs',
@@ -79,7 +83,9 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
+
     getEntries(compiler).then((entries) => {
       expect(typeof entries).toEqual('function');
 
@@ -110,6 +116,7 @@ describe('DevServerPlugin util', () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      client: {},
       transportMode: {
         server: 'sockjs',
         client: 'sockjs',
@@ -117,6 +124,7 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
 
     expect('plugins' in webpackOptions).toBeFalsy();
@@ -126,6 +134,7 @@ describe('DevServerPlugin util', () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      client: {},
       transportMode: {
         server: 'sockjs',
         client: 'sockjs',
@@ -133,6 +142,7 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
 
     expect(webpackOptions.plugins).toEqual([]);
@@ -146,6 +156,7 @@ describe('DevServerPlugin util', () => {
     });
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      client: {},
       transportMode: {
         server: 'sockjs',
         client: 'sockjs',
@@ -153,6 +164,7 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
 
     expect(webpackOptions.plugins).toEqual([existingPlugin1, existingPlugin2]);
@@ -165,6 +177,7 @@ describe('DevServerPlugin util', () => {
     });
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      client: {},
       hot: true,
       transportMode: {
         server: 'sockjs',
@@ -173,6 +186,7 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
 
     expect(webpackOptions.plugins).toEqual([
@@ -187,6 +201,7 @@ describe('DevServerPlugin util', () => {
       const webpackOptions = Object.assign({}, config);
       const compiler = webpack(webpackOptions);
       const devServerOptions = {
+        client: {},
         hot: true,
         transportMode: {
           server: 'sockjs',
@@ -195,8 +210,10 @@ describe('DevServerPlugin util', () => {
       };
 
       const plugin = new DevServerPlugin(devServerOptions);
+
       plugin.apply(compiler);
       plugin.apply(compiler);
+
       const entries = await getEntries(compiler);
 
       expect(entries.length).toEqual(3);
@@ -204,6 +221,7 @@ describe('DevServerPlugin util', () => {
       const result = entries.filter((entry) =>
         normalize(entry).includes('webpack/hot/dev-server')
       );
+
       expect(result.length).toEqual(1);
     }
   );
@@ -212,6 +230,7 @@ describe('DevServerPlugin util', () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      client: {},
       transportMode: {
         server: 'sockjs',
         client: 'sockjs',
@@ -219,7 +238,9 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
+
     const entries = await getEntries(compiler);
 
     expect(typeof entries === 'function').toBe(true);

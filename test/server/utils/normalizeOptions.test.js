@@ -74,8 +74,7 @@ describe('normalizeOptions', () => {
       multiCompiler: false,
       options: {
         client: {
-          host: 'my.host',
-          port: 9000,
+          webSocketUrl: 'ws://my.host:9000',
         },
       },
       optionsResults: null,
@@ -85,17 +84,7 @@ describe('normalizeOptions', () => {
       multiCompiler: false,
       options: {
         client: {
-          path: '/custom/path/',
-        },
-      },
-      optionsResults: null,
-    },
-    {
-      title: 'client path without leading/ending slashes',
-      multiCompiler: false,
-      options: {
-        client: {
-          path: 'custom/path',
+          webSocketUrl: 'ws://my.host:9000/custom/path',
         },
       },
       optionsResults: null,
