@@ -78,11 +78,13 @@ describe('reload', () => {
         } page refresh`, (done) => {
           runBrowser().then(({ page, browser }) => {
             let refreshed = false;
+
             page.waitForNavigation({ waitUntil: 'load' }).then(() => {
               page
                 .evaluate(() => {
                   const body = document.body;
                   const bgColor = getComputedStyle(body)['background-color'];
+
                   return bgColor;
                 })
                 .then((color) => {

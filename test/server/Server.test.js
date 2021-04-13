@@ -34,6 +34,7 @@ describe('Server', () => {
           (compilation) => {
             const mainDeps = compilation.entries.get('main').dependencies;
             const globalDeps = compilation.globalEntry.dependencies;
+
             entries = globalDeps
               .concat(mainDeps)
               .map((dep) => relative('.', dep.request).split(sep));
@@ -59,6 +60,7 @@ describe('Server', () => {
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
         expect(entries).toMatchSnapshot();
+
         server.close(done);
       });
 
@@ -85,13 +87,15 @@ describe('Server', () => {
     });
   });
 
-  it('test server error reporting', () => {
+  it('test server error reporting', (done) => {
     const compiler = webpack(config);
     const server = new Server(compiler, baseDevConfig);
 
     const emitError = () => server.server.emit('error', new Error('Error !!!'));
 
     expect(emitError).toThrowError();
+
+    server.close(done);
   });
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
@@ -144,7 +148,9 @@ describe('Server', () => {
 
     it('should always allow any host if options.firewall is disabled', () => {
       const options = {
-        public: 'test.host:80',
+        client: {
+          webSocketUrl: 'test.host:80',
+        },
         firewall: false,
       };
 
@@ -160,28 +166,23 @@ describe('Server', () => {
     });
 
     it('should allow any valid options.public when host is localhost', () => {
-      const options = {
-        public: 'test.host:80',
-      };
       const headers = {
         host: 'localhost',
       };
-      server = new Server(compiler, options);
+
+      server = new Server(compiler, {});
+
       if (!server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
 
     it('should allow any valid options.public when host is 127.0.0.1', () => {
-      const options = {
-        public: 'test.host:80',
-      };
-
       const headers = {
         host: '127.0.0.1',
       };
 
-      server = new Server(compiler, options);
+      server = new Server(compiler, {});
 
       if (!server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
@@ -189,8 +190,6 @@ describe('Server', () => {
     });
 
     it('should allow access for every requests using an IP', () => {
-      const options = {};
-
       const tests = [
         '192.168.1.123',
         '192.168.1.2:8080',
@@ -200,7 +199,7 @@ describe('Server', () => {
         '[ad42::1de2:54c2:c2fa:1234]:8080',
       ];
 
-      server = new Server(compiler, options);
+      server = new Server(compiler, {});
 
       tests.forEach((test) => {
         const headers = { host: test };
@@ -211,31 +210,14 @@ describe('Server', () => {
       });
     });
 
-    it("should not allow hostnames that don't match options.public", () => {
-      const options = {
-        public: 'test.host:80',
-      };
-
+    it('should not allow other hostnames', () => {
       const headers = {
         host: 'test.hostname:80',
       };
 
-      server = new Server(compiler, options);
+      server = new Server(compiler, {});
 
       if (server.checkHost(headers)) {
-        throw new Error("Validation didn't fail");
-      }
-    });
-
-    it('should allow urls with scheme for checking origin', () => {
-      const options = {
-        public: 'test.host:80',
-      };
-      const headers = {
-        origin: 'https://test.host',
-      };
-      server = new Server(compiler, options);
-      if (!server.checkOrigin(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -244,9 +226,11 @@ describe('Server', () => {
       it('should allow hosts in firewall', () => {
         const tests = ['test.host', 'test2.host', 'test3.host'];
         const options = { firewall: tests };
+
         server = new Server(compiler, options);
         tests.forEach((test) => {
           const headers = { host: test };
+
           if (!server.checkHost(headers)) {
             throw new Error("Validation didn't fail");
           }
@@ -255,7 +239,9 @@ describe('Server', () => {
 
       it('should allow hosts that pass a wildcard in firewall', () => {
         const options = { firewall: ['.example.com'] };
+
         server = new Server(compiler, options);
+
         const tests = [
           'www.example.com',
           'subdomain.example.com',
@@ -266,6 +252,7 @@ describe('Server', () => {
         ];
         tests.forEach((test) => {
           const headers = { host: test };
+
           if (!server.checkHost(headers)) {
             throw new Error("Validation didn't fail");
           }
@@ -281,6 +268,7 @@ describe('Server', () => {
         const server = new Server(compiler, baseDevConfig);
 
         server.invalidate();
+
         expect(server.middleware.context.callbacks.length).toEqual(1);
 
         compiler.hooks.done.tap('webpack-dev-server', () => {

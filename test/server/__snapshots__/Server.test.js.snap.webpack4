@@ -4,8 +4,9 @@ exports[`Server DevServerPlugin add hot option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?http:",
-    "0.0.0.0",
+    "index.js?ws:",
+    "0.0.0.0:0",
+    "ws",
   ],
   Array [
     "node_modules",
@@ -23,8 +24,9 @@ exports[`Server DevServerPlugin add hot-only option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?http:",
-    "0.0.0.0",
+    "index.js?ws:",
+    "0.0.0.0:0",
+    "ws",
   ],
   Array [
     "node_modules",

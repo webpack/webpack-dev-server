@@ -28,45 +28,12 @@ describe('client option', () => {
       req = request(`http://localhost:${port}`);
     });
 
-    it('defaults to a path', () => {
-      expect(
-        server.options.client.path.match(/\/[a-z0-9\-/]+[^/]$/)
-      ).toBeTruthy();
-    });
-
     it('overlay true by default', () => {
       expect(server.options.client.overlay).toBe(true);
     });
 
     it('responds with a 200', (done) => {
       req.get('/ws').expect(200, done);
-    });
-  });
-
-  describe('path option', () => {
-    const path = '/foo/test/bar';
-
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
-        {
-          transportMode: 'sockjs',
-          client: {
-            path: '/foo/test/bar/',
-          },
-          port,
-        },
-        done
-      );
-      req = request(`http://localhost:${port}`);
-    });
-
-    it('sets the sock path correctly and strips leading and trailing /s', () => {
-      expect(server.options.client.path).toEqual(path);
-    });
-
-    it('responds with a 200 second', (done) => {
-      req.get(path).expect(200, done);
     });
   });
 

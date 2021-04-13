@@ -104,7 +104,7 @@ describe('ws client proxy', () => {
       host: '0.0.0.0',
       firewall: false,
       hot: true,
-      public: 'myhost',
+      client: { webSocketUrl: 'myhost' },
     };
     testServer.startAwaitingCompilation(config, options, done);
   });
@@ -132,6 +132,7 @@ describe('ws client proxy', () => {
     it('requests websocket through the proxy with proper port number', (done) => {
       runBrowser().then(({ page, browser }) => {
         const client = page._client;
+
         client.on('Network.webSocketCreated', (evt) => {
           page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
             browser.close().then(() => {
@@ -140,6 +141,7 @@ describe('ws client proxy', () => {
             });
           });
         });
+
         page.goto(`http://localhost:${port2}/main`);
       });
     });
@@ -152,9 +154,8 @@ describe('sockjs public and client path', () => {
       transportMode: 'sockjs',
       port: port2,
       host: '0.0.0.0',
-      public: 'myhost.test',
       client: {
-        path: '/foo/test/bar/',
+        webSocketUrl: 'ws://myhost.test/foo/test/bar/',
       },
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -192,8 +193,7 @@ describe('sockjs client path and port', () => {
       port: port2,
       host: '0.0.0.0',
       client: {
-        path: '/foo/test/bar/',
-        port: port3,
+        webSocketUrl: `0.0.0.0:${port3}/foo/test/bar/`,
       },
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -235,7 +235,7 @@ describe('sockjs client port, no path', () => {
       port: port2,
       host: '0.0.0.0',
       client: {
-        port: port3,
+        webSocketUrl: `0.0.0.0:${port3}`,
       },
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -271,7 +271,7 @@ describe('sockjs client host', () => {
       port: port2,
       host: '0.0.0.0',
       client: {
-        host: 'myhost.test',
+        webSocketUrl: 'http://myhost.test',
       },
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -307,9 +307,7 @@ describe('ws client host, port, and path', () => {
       port: port2,
       host: '0.0.0.0',
       client: {
-        host: 'myhost',
-        port: port3,
-        path: '/foo/test/bar/',
+        webSocketUrl: `ws://myhost:${port3}/foo/test/bar/`,
       },
     };
     testServer.startAwaitingCompilation(config, options, done);
@@ -325,6 +323,7 @@ describe('ws client host, port, and path', () => {
     it('uses correct host, port, and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         const client = page._client;
+
         client.on('Network.webSocketCreated', (evt) => {
           page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
             browser.close().then(() => {
@@ -333,6 +332,7 @@ describe('ws client host, port, and path', () => {
             });
           });
         });
+
         page.goto(`http://localhost:${port2}/main`);
       });
     });
