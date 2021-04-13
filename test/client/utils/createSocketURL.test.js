@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 describe("'createSocketURL' function ", () => {
   const samples = [
     // __resourceQuery, location and socket URL
@@ -9,9 +11,14 @@ describe("'createSocketURL' function ", () => {
     ['?https://example.com', 'https://example.com', 'wss://example.com/ws'],
     [null, 'https://example.com', 'wss://example.com/ws'],
     [
-      '?http://example.com&port=8080',
+      '?http://example.com:8080',
       'http://example.com:8080',
       'ws://example.com:8080/ws',
+    ],
+    [
+      '?http://example.com:9090',
+      'http://example.com:8080',
+      'ws://example.com:9090/ws',
     ],
     [
       '?http://example.com:0',
@@ -20,9 +27,9 @@ describe("'createSocketURL' function ", () => {
     ],
     [null, 'http://example.com:8080', 'ws://example.com:8080/ws'],
     [
-      '?http://example.com/path/foo.js',
+      '?http://example.com/custom-path',
       'http://example.com/foo/bar',
-      'ws://example.com/ws',
+      'ws://example.com/custom-path',
     ],
     [null, 'http://example.com/foo/bar', 'ws://example.com/ws'],
     [
@@ -61,12 +68,12 @@ describe("'createSocketURL' function ", () => {
       'wss://example.com:8080/ws',
     ],
     [
-      '?http://0.0.0.0&port=9090',
+      '?http://0.0.0.0:9090',
       'https://example.com',
       'wss://example.com:9090/ws',
     ],
     [
-      '?http://0.0.0.0&port=9090',
+      '?http://0.0.0.0:9090',
       'https://example.com:8080',
       'wss://example.com:9090/ws',
     ],
@@ -96,12 +103,7 @@ describe("'createSocketURL' function ", () => {
       'wss://example.com/ws',
     ],
     [
-      '?https://example.com&path=custom',
-      'http://something.com',
-      'wss://example.com/custom',
-    ],
-    [
-      '?https://example.com&path=/custom',
+      '?https://example.com/custom',
       'http://something.com',
       'wss://example.com/custom',
     ],
@@ -114,12 +116,17 @@ describe("'createSocketURL' function ", () => {
     [null, 'file:///home/user/project/index.html', 'ws://localhost/ws'],
     [null, 'chrome-extension://localhost/', 'ws://localhost/ws'],
     [null, 'file://localhost/', 'ws://localhost/ws'],
+    [null, 'file:///', 'ws://localhost/ws'],
   ];
 
   samples.forEach(([__resourceQuery, location, expected]) => {
     jest.doMock('../../../client-src/utils/getCurrentScriptSource', () => () =>
       new URL('./entry.js', location).toString()
     );
+
+    const urlPkg = require.resolve('url/package.json');
+
+    jest.doMock('url', () => jest.requireActual(path.dirname(urlPkg)));
 
     const createSocketURL = require('../../../client-src/utils/createSocketURL');
     const parseURL = require('../../../client-src/utils/parseURL');

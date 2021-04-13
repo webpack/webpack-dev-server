@@ -35,10 +35,13 @@ function parseURL(resourceQuery) {
       }
 
       if (scriptSourceURL) {
+        scriptSourceURL.pathname = '/';
+
         options = scriptSourceURL;
       }
     } else {
       options = url.parse(self.location.href, true, true);
+      options.pathname = '/';
     }
   }
 

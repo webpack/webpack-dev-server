@@ -218,13 +218,13 @@ exports[`'parseURL' function should return the url when the current script sourc
 
 exports[`'parseURL' function should return the url when the current script source is 'https://example.com' 1`] = `"https://example.com/"`;
 
-exports[`'parseURL' function should return the url when the current script source is 'https://example.com/path' 1`] = `"https://example.com/path"`;
+exports[`'parseURL' function should return the url when the current script source is 'https://example.com/path' 1`] = `"https://example.com/"`;
 
-exports[`'parseURL' function should return the url when the current script source is 'https://example.com/path/foo.js' 1`] = `"https://example.com/path/foo.js"`;
+exports[`'parseURL' function should return the url when the current script source is 'https://example.com/path/foo.js' 1`] = `"https://example.com/"`;
 
 exports[`'parseURL' function should return the url when the current script source is 'https://localhost:123' 1`] = `"https://localhost:123/"`;
 
-exports[`'parseURL' function should return the url when the current script source is 'test' 1`] = `"http://localhost/test"`;
+exports[`'parseURL' function should return the url when the current script source is 'test' 1`] = `"http://localhost/"`;
 
 exports[`'parseURL' function should return the url when the current script source is 'undefined' 1`] = `
 Url {
