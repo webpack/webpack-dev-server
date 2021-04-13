@@ -67,29 +67,29 @@ exports[`options validate should throw an error on the "client" option with '{"p
    -> Print compilation progress in percentage in the browser."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"socketUrl":""}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.socketUrl should be an non-empty string.
-   -> Allows to set websocket URL. When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserversocketurl"
-`;
-
-exports[`options validate should throw an error on the "client" option with '{"socketUrl":false}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.socketUrl should be a non-empty string.
-   -> Allows to set websocket URL. When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserversocketurl"
-`;
-
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-   object { socketUrl?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
+   object { webSocketUrl?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketUrl":""}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.webSocketUrl should be an non-empty string.
+   -> Allows to set WebSocket server URL. When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserversocketurl"
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketUrl":false}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.webSocketUrl should be a non-empty string.
+   -> Allows to set WebSocket server URL. When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserversocketurl"
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client should be an object:
-   object { socketUrl?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
+   object { webSocketUrl?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 

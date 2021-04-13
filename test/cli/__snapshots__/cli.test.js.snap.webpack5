@@ -18,79 +18,6 @@ exports[`CLI --history-api-fallback 1`] = `
 <i> [webpack-dev-server] 404s will fallback to '/index.html'"
 `;
 
-exports[`CLI --host :: (IPv6): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host ::1 (IPv6): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://[::1]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host <IPv4>: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host <local-ip>: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host <local-ipv4>: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host 0.0.0.0 (IPv4): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host 0:0:0:0:0:FFFF:7F00:0001 (IPv6): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] On Your Network (IPv4): http://127.0.0.1:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[::ffff:127.0.0.1]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host 127.0.0.1 (IPv4): stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://127.0.0.1:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host and --port are unspecified: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host localhost --port 9999: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://127.0.0.1:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI --host localhost: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://127.0.0.1:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
 exports[`CLI --http2 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
@@ -145,83 +72,86 @@ exports[`CLI should generate correct cli flags 1`] = `
 Run the webpack dev server.
 
 Options:
-  -c, --config <value...>    Provide path to a webpack configuration file e.g.
-                             ./webpack.config.js.
-  --config-name <value...>   Name of the configuration to use.
-  -m, --merge                Merge two or more configurations using
-                             'webpack-merge'.
-  --env <value...>           Environment passed to the configuration when it is
-                             a function.
-  --node-env <value>         Sets process.env.NODE_ENV to the specified value.
-  --progress [value]         Print compilation progress during build.
-  -j, --json [value]         Prints result as JSON or store it in a file.
-  -d, --devtool <value>      Determine source maps to use.
-  --no-devtool               Do not generate source maps.
-  --entry <value...>         The entry point(s) of your application e.g.
-                             ./src/main.js.
-  --mode <value>             Defines the mode to pass to webpack.
-  --name <value>             Name of the configuration. Used when loading
-                             multiple configurations.
-  -o, --output-path <value>  Output location of the file generated by webpack
-                             e.g. ./dist/.
-  --stats [value]            It instructs webpack on how to treat the stats
-                             e.g. verbose.
-  --no-stats                 Disable stats output.
-  -t, --target <value...>    Sets the build target e.g. node.
-  --no-target                Negative 'target' option.
-  --watch-options-stdin      Stop watching when stdin stream has ended.
-  --no-watch-options-stdin   Do not stop watching when stdin stream has ended.
-  --host <value>             The hostname/ip address the server will bind to.
-  --port <value>             The port server will listen to.
-  --static [value...]        A directory to serve static content from.
-  --no-static                Negative 'static' option.
-  --live-reload              Enables live reloading on changing files.
-  --no-live-reload           Disables live reloading on changing files.
-  --https                    Use HTTPS protocol.
-  --no-https                 Do not use HTTPS protocol.
-  --http2                    Use HTTP/2, must be used with HTTPS.
-  --no-http2                 Do not use HTTP/2.
-  --bonjour                  Broadcasts the server via ZeroConf networking on
-                             start.
-  --no-bonjour               Do not broadcast the server via ZeroConf
-                             networking on start.
-  --client-progress          Print compilation progress in percentage in the
-                             browser.
-  --no-client-progress       Do not print compilation progress in percentage in
-                             the browser.
-  --client-overlay           Show a full-screen overlay in the browser when
-                             there are compiler errors or warnings.
-  --no-client-overlay        Do not show a full-screen overlay in the browser
-                             when there are compiler errors or warnings.
-  --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
-  --no-setup-exit-signals    Do not close and exit the process on SIGNIT and
-                             SIGTERM.
-  --open [value...]          Open the default browser.
-  --no-open                  Do not open the default browser.
-  --open-app <value>         Open specified browser.
-  --open-target [value...]   Open specified route in browser.
-  --no-open-target           Do not open specified route in browser.
-  --client-logging <value>   Log level in the browser (none, error, warn, info,
-                             log, verbose).
-  --history-api-fallback     Fallback to /index.html for Single Page
-                             Applications.
-  --no-history-api-fallback  Do not fallback to /index.html for Single Page
-                             Applications.
-  --compress                 Enable gzip compression.
-  --no-compress              Disable gzip compression.
-  --public <value>           The public hostname/ip address of the server.
-  --firewall [value...]      Enable firewall or set hosts that are allowed to
-                             access the dev server.
-  --no-firewall              Disable firewall.
-  --watch-files <value...>   Watch static files for file changes.
+  -c, --config <value...>      Provide path to a webpack configuration file
+                               e.g. ./webpack.config.js.
+  --config-name <value...>     Name of the configuration to use.
+  -m, --merge                  Merge two or more configurations using
+                               'webpack-merge'.
+  --env <value...>             Environment passed to the configuration when it
+                               is a function.
+  --node-env <value>           Sets process.env.NODE_ENV to the specified
+                               value.
+  --progress [value]           Print compilation progress during build.
+  -j, --json [value]           Prints result as JSON or store it in a file.
+  -d, --devtool <value>        Determine source maps to use.
+  --no-devtool                 Do not generate source maps.
+  --entry <value...>           The entry point(s) of your application e.g.
+                               ./src/main.js.
+  --mode <value>               Defines the mode to pass to webpack.
+  --name <value>               Name of the configuration. Used when loading
+                               multiple configurations.
+  -o, --output-path <value>    Output location of the file generated by webpack
+                               e.g. ./dist/.
+  --stats [value]              It instructs webpack on how to treat the stats
+                               e.g. verbose.
+  --no-stats                   Disable stats output.
+  -t, --target <value...>      Sets the build target e.g. node.
+  --no-target                  Negative 'target' option.
+  --watch-options-stdin        Stop watching when stdin stream has ended.
+  --no-watch-options-stdin     Do not stop watching when stdin stream has
+                               ended.
+  --host <value>               The hostname/ip address the server will bind to.
+  --port <value>               The port server will listen to.
+  --static [value...]          A directory to serve static content from.
+  --no-static                  Negative 'static' option.
+  --live-reload                Enables live reloading on changing files.
+  --no-live-reload             Disables live reloading on changing files.
+  --https                      Use HTTPS protocol.
+  --no-https                   Do not use HTTPS protocol.
+  --http2                      Use HTTP/2, must be used with HTTPS.
+  --no-http2                   Do not use HTTP/2.
+  --bonjour                    Broadcasts the server via ZeroConf networking on
+                               start.
+  --no-bonjour                 Do not broadcast the server via ZeroConf
+                               networking on start.
+  --client-socket-url <value>  Allows to set WebSocket server URL.
+  --client-progress            Print compilation progress in percentage in the
+                               browser.
+  --no-client-progress         Do not print compilation progress in percentage
+                               in the browser.
+  --client-overlay             Show a full-screen overlay in the browser when
+                               there are compiler errors or warnings.
+  --no-client-overlay          Do not show a full-screen overlay in the browser
+                               when there are compiler errors or warnings.
+  --client-logging <value>     Log level in the browser (none, error, warn,
+                               info, log, verbose).
+  --setup-exit-signals         Close and exit the process on SIGINT and
+                               SIGTERM.
+  --no-setup-exit-signals      Do not close and exit the process on SIGNIT and
+                               SIGTERM.
+  --open [value...]            Open the default browser.
+  --no-open                    Do not open the default browser.
+  --open-app <value>           Open specified browser.
+  --open-target [value...]     Open specified route in browser.
+  --no-open-target             Do not open specified route in browser.
+  --history-api-fallback       Fallback to /index.html for Single Page
+                               Applications.
+  --no-history-api-fallback    Do not fallback to /index.html for Single Page
+                               Applications.
+  --compress                   Enable gzip compression.
+  --no-compress                Disable gzip compression.
+  --firewall [value...]        Enable firewall or set hosts that are allowed to
+                               access the dev server.
+  --no-firewall                Disable firewall.
+  --watch-files <value...>     Watch static files for file changes.
 
 Global options:
-  --color                    Enable colors on console.
-  --no-color                 Disable colors on console.
-  -v, --version              Output the version number of 'webpack',
-                             'webpack-cli' and 'webpack-dev-server' and
-                             commands.
-  -h, --help [verbose]       Display help for commands and options.
+  --color                      Enable colors on console.
+  --no-color                   Disable colors on console.
+  -v, --version                Output the version number of 'webpack',
+                               'webpack-cli' and 'webpack-dev-server' and
+                               commands.
+  -h, --help [verbose]         Display help for commands and options.
 
 To see list of all supported commands and options run 'webpack --help=verbose'.
 

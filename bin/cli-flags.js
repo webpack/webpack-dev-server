@@ -87,7 +87,7 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'client-socket-url',
+      name: 'client-web-socket-url',
       type: String,
       configs: [
         {
@@ -97,8 +97,8 @@ module.exports = {
       description: 'Allows to set WebSocket server URL.',
       processor(opts) {
         opts.client = opts.client || {};
-        opts.client.overlay = opts.clientSocketUrl;
-        delete opts.clientSocketUrl;
+        opts.client.webSocketUrl = opts.clientWebSocketUrl;
+        delete opts.clientWebSocketUrl;
       },
     },
     {

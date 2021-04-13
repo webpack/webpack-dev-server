@@ -48,10 +48,10 @@ const tests = {
         logging: 'verbose',
       },
       {
-        socketUrl: 'ws://0.0.0.0:0/custom',
+        webSocketUrl: 'ws://0.0.0.0:0/custom',
       },
       {
-        socketUrl: 'wss://127.0.0.1:8081/custom',
+        webSocketUrl: 'wss://127.0.0.1:8081/custom',
       },
       {
         progress: false,
@@ -90,10 +90,10 @@ const tests = {
         unknownOption: true,
       },
       {
-        socketUrl: '',
+        webSocketUrl: '',
       },
       {
-        socketUrl: false,
+        webSocketUrl: false,
       },
       {
         logging: 'whoops!',

@@ -69,15 +69,6 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('--client-progress', (done) => {
-    testBin('--client-progress')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        done();
-      })
-      .catch(done);
-  });
-
   it('--no-client-progress', (done) => {
     testBin('--no-client-progress')
       .then((output) => {
@@ -393,6 +384,15 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--client-progress', (done) => {
+    testBin('--client-progress')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--client-overlay', (done) => {
     testBin('--client-overlay')
       .then((output) => {
@@ -413,6 +413,15 @@ describe('CLI', () => {
 
   it('--client-logging', (done) => {
     testBin('--client-logging verbose')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it.only('--client-web-socket-url', (done) => {
+    testBin('--client-web-socket-url ws://0.0.0.0:0/ws')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         done();
