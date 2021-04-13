@@ -146,27 +146,10 @@
     "client": {
       "type": "object",
       "properties": {
-        "host": {
+        "socketUrl": {
           "type": "string",
-          "description": "Tells clients connected to devServer to use the provided host."
-        },
-        "path": {
-          "type": "string",
-          "description": "Tells clients connected to devServer to use the provided port."
-        },
-        "port": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Tells clients connected to devServer to use the provided path to connect."
+          "description": "Allows to set websocket URL. When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserverpublic",
+          "minItems": 1
         },
         "logging": {
           "enum": ["none", "error", "warn", "info", "log", "verbose"],
@@ -426,10 +409,6 @@
         }
       ],
       "description": "Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy"
-    },
-    "public": {
-      "type": "string",
-      "description": "When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserverpublic"
     },
     "setupExitSignals": {
       "type": "boolean",
