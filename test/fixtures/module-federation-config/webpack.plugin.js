@@ -6,6 +6,7 @@ const ModuleFederationPlugin = require('webpack').container
 module.exports = {
   mode: 'development',
   target: 'node',
+  stats: 'none',
   context: __dirname,
   entry: ['./entry1.js'],
   plugins: [
