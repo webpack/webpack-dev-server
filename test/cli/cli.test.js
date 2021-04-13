@@ -420,7 +420,7 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it.only('--client-web-socket-url', (done) => {
+  it('--client-web-socket-url', (done) => {
     testBin('--client-web-socket-url ws://0.0.0.0:0/ws')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
