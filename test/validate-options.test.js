@@ -30,15 +30,6 @@ const tests = {
     success: [
       {},
       {
-        host: '',
-      },
-      {
-        path: '',
-      },
-      {
-        port: '',
-      },
-      {
         logging: 'none',
       },
       {
@@ -57,20 +48,10 @@ const tests = {
         logging: 'verbose',
       },
       {
-        host: '',
-        path: '',
-        port: 8080,
-        logging: 'none',
+        socketUrl: 'ws://0.0.0.0:0/custom',
       },
       {
-        host: '',
-        path: '',
-        port: '',
-      },
-      {
-        host: '',
-        path: '',
-        port: null,
+        socketUrl: 'wss://127.0.0.1:8081/custom',
       },
       {
         progress: false,
@@ -109,9 +90,10 @@ const tests = {
         unknownOption: true,
       },
       {
-        host: true,
-        path: '',
-        port: 8080,
+        socketUrl: '',
+      },
+      {
+        socketUrl: false,
       },
       {
         logging: 'whoops!',
@@ -233,10 +215,6 @@ const tests = {
       },
     ],
     failure: [[], () => {}, false],
-  },
-  public: {
-    success: ['', 'foo', 'auto'],
-    failure: [false],
   },
   static: {
     success: [
