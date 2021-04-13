@@ -78,7 +78,7 @@
     "core-js": "^3.10.1",
     "css-loader": "^5.2.1",
     "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-config-webpack": "^1.2.5",
     "eslint-plugin-import": "^2.22.1",
     "execa": "^5.0.0",
