@@ -30,7 +30,7 @@ function createSocketURL(parsedURL) {
     protocol = self.location.protocol;
   }
 
-  const socketURLProtocol = protocol.replace(
+  const socketURLProtocol = (protocol || 'ws:').replace(
     /^(?:http|.+-extension|file)/i,
     'ws'
   );
