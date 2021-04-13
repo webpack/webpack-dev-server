@@ -69,4 +69,46 @@ describe('client option', () => {
       req.get(path).expect(200, done);
     });
   });
+
+  describe('configure client entry', () => {
+    it('disables client entry', (done) => {
+      server = testServer.start(
+        config,
+        {
+          client: {
+            needClientEntry: false,
+          },
+          port,
+        },
+        () => {
+          request(server.app)
+            .get('/main.js')
+            .then((res) => {
+              expect(res.text).not.toMatch(/client\/index\.js/);
+            })
+            .then(done, done);
+        }
+      );
+    });
+
+    it('disables hot entry', (done) => {
+      server = testServer.start(
+        config,
+        {
+          client: {
+            needHotEntry: false,
+          },
+          port,
+        },
+        () => {
+          request(server.app)
+            .get('/main.js')
+            .then((res) => {
+              expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
+            })
+            .then(done, done);
+        }
+      );
+    });
+  });
 });
