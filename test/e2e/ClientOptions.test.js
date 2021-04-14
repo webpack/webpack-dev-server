@@ -12,6 +12,7 @@ const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 describe('sockjs client proxy', () => {
   function startProxy(port, cb) {
     const proxy = express();
+
     proxy.use(
       '/',
       createProxyMiddleware({
@@ -21,6 +22,7 @@ describe('sockjs client proxy', () => {
         logLevel: 'warn',
       })
     );
+
     return proxy.listen(port, cb);
   }
 
@@ -33,6 +35,7 @@ describe('sockjs client proxy', () => {
       firewall: false,
       hot: true,
     };
+
     testServer.startAwaitingCompilation(config, options, done);
   });
 
@@ -54,11 +57,13 @@ describe('sockjs client proxy', () => {
 
     it('responds with a 200 on proxy port', (done) => {
       const req = request(`http://localhost:${port2}`);
+
       req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
     });
 
     it('responds with a 200 on non-proxy port', (done) => {
       const req = request(`http://localhost:${port1}`);
+
       req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
     });
 
@@ -70,12 +75,14 @@ describe('sockjs client proxy', () => {
             page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
               browser.close().then(() => {
                 expect(requestObj.url()).toContain(
-                  `http://localhost:${port2}/ws`
+                  `http://localhost:${port1}/ws`
                 );
+
                 done();
               });
             });
           });
+
         page.goto(`http://localhost:${port2}/main`);
       });
     });
@@ -85,6 +92,7 @@ describe('sockjs client proxy', () => {
 describe('ws client proxy', () => {
   function startProxy(port, cb) {
     const proxy = express();
+
     proxy.use(
       '/',
       createProxyMiddleware({
@@ -93,6 +101,7 @@ describe('ws client proxy', () => {
         changeOrigin: true,
       })
     );
+
     return proxy.listen(port, cb);
   }
 
@@ -106,6 +115,7 @@ describe('ws client proxy', () => {
       hot: true,
       public: 'myhost',
     };
+
     testServer.startAwaitingCompilation(config, options, done);
   });
 
@@ -132,14 +142,17 @@ describe('ws client proxy', () => {
     it('requests websocket through the proxy with proper port number', (done) => {
       runBrowser().then(({ page, browser }) => {
         const client = page._client;
+
         client.on('Network.webSocketCreated', (evt) => {
           page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
             browser.close().then(() => {
-              expect(evt.url).toContain(`ws://myhost:${port2}/ws`);
+              expect(evt.url).toContain(`ws://myhost:${port1}/ws`);
+
               done();
             });
           });
         });
+
         page.goto(`http://localhost:${port2}/main`);
       });
     });
@@ -157,6 +170,7 @@ describe('sockjs public and client path', () => {
         path: '/foo/test/bar/',
       },
     };
+
     testServer.startAwaitingCompilation(config, options, done);
   });
 
@@ -175,10 +189,12 @@ describe('sockjs public and client path', () => {
                 expect(requestObj.url()).toContain(
                   `http://myhost.test:${port2}/foo/test/bar`
                 );
+
                 done();
               });
             });
           });
+
         page.goto(`http://localhost:${port2}/main`);
       });
     });
@@ -196,6 +212,7 @@ describe('sockjs client path and port', () => {
         port: port3,
       },
     };
+
     testServer.startAwaitingCompilation(config, options, done);
   });
 
@@ -214,6 +231,7 @@ describe('sockjs client path and port', () => {
                 expect(requestObj.url()).toContain(
                   `http://localhost:${port3}/foo/test/bar`
                 );
+
                 done();
               });
             });
@@ -238,6 +256,7 @@ describe('sockjs client port, no path', () => {
         port: port3,
       },
     };
+
     testServer.startAwaitingCompilation(config, options, done);
   });
 
@@ -254,10 +273,12 @@ describe('sockjs client port, no path', () => {
                 expect(requestObj.url()).toContain(
                   `http://localhost:${port3}/ws`
                 );
+
                 done();
               });
             });
           });
+
         page.goto(`http://localhost:${port2}/main`);
       });
     });
@@ -290,10 +311,12 @@ describe('sockjs client host', () => {
                 expect(requestObj.url()).toContain(
                   `http://myhost.test:${port2}/ws`
                 );
+
                 done();
               });
             });
           });
+
         page.goto(`http://localhost:${port2}/main`);
       });
     });
@@ -312,6 +335,7 @@ describe('ws client host, port, and path', () => {
         path: '/foo/test/bar/',
       },
     };
+
     testServer.startAwaitingCompilation(config, options, done);
   });
 
@@ -325,10 +349,12 @@ describe('ws client host, port, and path', () => {
     it('uses correct host, port, and path', (done) => {
       runBrowser().then(({ page, browser }) => {
         const client = page._client;
+
         client.on('Network.webSocketCreated', (evt) => {
           page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
             browser.close().then(() => {
               expect(evt.url).toContain(`ws://myhost:${port3}/foo/test/bar`);
+
               done();
             });
           });

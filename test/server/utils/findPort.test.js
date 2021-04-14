@@ -31,10 +31,18 @@ describe('findPort', () => {
       (p, _, i) =>
         p.then(
           () =>
-            new Promise((resolve) => {
+            new Promise((resolve, reject) => {
               const server = http.createServer();
+
               dummyServers.push(server);
-              server.listen(8080 + i, resolve);
+
+              server.listen(8080 + i, () => {
+                resolve();
+              });
+
+              server.on('error', (error) => {
+                reject(error);
+              });
             })
         ),
       Promise.resolve()
