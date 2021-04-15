@@ -7,7 +7,4 @@ const { setup } = require('../../util');
 module.exports = setup({
   context: __dirname,
   entry: './app.js',
-  client: {
-    progress: true,
-  },
 });
