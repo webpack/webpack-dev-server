@@ -676,7 +676,7 @@ describe('"open" option', () => {
           wait: false,
         });
         expect(loggerWarnSpy).toHaveBeenCalledWith(
-          'Unable to open "http://localhost:8117/" page. If you are running in a headless environment, please do not use the "--open" flag or the "open" option.'
+          'Unable to open "http://localhost:8117/" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".'
         );
 
         loggerWarnSpy.mockRestore();
@@ -705,7 +705,7 @@ describe('"open" option', () => {
           wait: false,
         });
         expect(loggerWarnSpy).toHaveBeenCalledWith(
-          'Unable to open "http://localhost:8117/index.html" page. If you are running in a headless environment, please do not use the "--open" flag or the "open" option.'
+          'Unable to open "http://localhost:8117/index.html" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".'
         );
 
         loggerWarnSpy.mockRestore();
@@ -738,7 +738,7 @@ describe('"open" option', () => {
           wait: false,
         });
         expect(loggerWarnSpy).toHaveBeenCalledWith(
-          'Unable to open "http://localhost:8117/index.html" page in "google-chrome" app. If you are running in a headless environment, please do not use the "--open" flag or the "open" option.'
+          'Unable to open "http://localhost:8117/index.html" page in "google-chrome" app. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".'
         );
 
         loggerWarnSpy.mockRestore();
@@ -771,7 +771,7 @@ describe('"open" option', () => {
           wait: false,
         });
         expect(loggerWarnSpy).toHaveBeenCalledWith(
-          'Unable to open "http://localhost:8117/index.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "--open" flag or the "open" option.'
+          'Unable to open "http://localhost:8117/index.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".'
         );
 
         loggerWarnSpy.mockRestore();
@@ -817,11 +817,11 @@ describe('"open" option', () => {
         );
         expect(loggerWarnSpy).toHaveBeenNthCalledWith(
           1,
-          'Unable to open "http://localhost:8117/first.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "--open" flag or the "open" option.'
+          'Unable to open "http://localhost:8117/first.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".'
         );
         expect(loggerWarnSpy).toHaveBeenNthCalledWith(
           2,
-          'Unable to open "http://localhost:8117/second.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "--open" flag or the "open" option.'
+          'Unable to open "http://localhost:8117/second.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".'
         );
 
         loggerWarnSpy.mockRestore();
