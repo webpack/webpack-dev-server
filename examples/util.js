@@ -2,8 +2,8 @@
 
 /* eslint-disable import/no-extraneous-dependencies */
 
-const fs = require('fs');
 const path = require('path');
+const fs = require('graceful-fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const marked = require('marked');
 

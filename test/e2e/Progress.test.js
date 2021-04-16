@@ -3,8 +3,8 @@
 /* eslint-disable
   no-undef
 */
-const fs = require('fs');
 const { resolve } = require('path');
+const fs = require('graceful-fs');
 const reloadConfig = require('../fixtures/reload-config-2/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').Progress;

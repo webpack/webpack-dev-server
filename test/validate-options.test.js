@@ -1,7 +1,7 @@
 'use strict';
 
-const { readFileSync } = require('fs');
 const { join } = require('path');
+const { readFileSync } = require('graceful-fs');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');

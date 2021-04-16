@@ -7,8 +7,8 @@
 /* eslint-disable
   no-undef
 */
-const fs = require('fs');
 const { resolve } = require('path');
+const fs = require('graceful-fs');
 const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
