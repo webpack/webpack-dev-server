@@ -5,7 +5,7 @@ const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
 const port = require('../ports-map').bonjour;
 
-describe.skip('bonjour option', () => {
+describe('bonjour option', () => {
   let server;
   const mockPublish = jest.fn();
   const mockUnpublishAll = jest.fn();

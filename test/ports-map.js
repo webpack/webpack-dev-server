@@ -13,7 +13,6 @@ const portsList = {
   Server: 1,
   routes: 1,
   createDomain: 2,
-  bonjour: 1,
   'onAfterSetupMiddleware-option': 1,
   'onBeforeSetupMiddleware-option': 1,
   'compress-option': 1,
@@ -46,6 +45,7 @@ const portsList = {
   ModuleFederation: 1,
   'setupExitSignals-option': 1,
   'watchFiles-option': 1,
+  bonjour: 1,
 };
 
 let startPort = 8089;
