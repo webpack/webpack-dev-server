@@ -76,7 +76,7 @@
     "babel-loader": "^8.2.2",
     "body-parser": "^1.19.0",
     "core-js": "^3.10.1",
-    "css-loader": "^5.2.2",
+    "css-loader": "^5.2.3",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-config-webpack": "^1.2.5",
