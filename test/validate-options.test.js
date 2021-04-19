@@ -23,7 +23,7 @@ const tests = {
     failure: [false],
   },
   bonjour: {
-    success: [false, true],
+    success: [false, true, { type: 'https' }],
     failure: [''],
   },
   client: {

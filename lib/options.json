@@ -140,7 +140,14 @@
   },
   "properties": {
     "bonjour": {
-      "type": "boolean",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object"
+        }
+      ],
       "description": "Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
     },
     "client": {

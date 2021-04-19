@@ -2,8 +2,13 @@
 
 exports[`options validate should throw an error on the "bonjour" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.bonjour should be a boolean.
-   -> Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
+ - configuration.bonjour should be one of these:
+   boolean | object { … }
+   -> Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
+   Details:
+    * configuration.bonjour should be a boolean.
+    * configuration.bonjour should be an object:
+      object { … }"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `
