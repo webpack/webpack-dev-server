@@ -13,6 +13,7 @@ const portsList = {
   Server: 1,
   routes: 1,
   createDomain: 2,
+  bonjour: 1,
   'onAfterSetupMiddleware-option': 1,
   'onBeforeSetupMiddleware-option': 1,
   'compress-option': 1,
