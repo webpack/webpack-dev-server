@@ -5,6 +5,7 @@ const tcpPortUsed = require('tcp-port-used');
 const { version } = require('webpack');
 const ports = require('./test/ports-map');
 
+// eslint-disable-next-line no-console
 console.log(`\n Running tests for webpack @${version} \n`);
 
 async function validatePorts() {
