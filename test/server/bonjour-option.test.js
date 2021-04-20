@@ -19,31 +19,97 @@ describe('bonjour option', () => {
     });
   });
 
-  beforeEach((done) => {
-    server = testServer.start(
-      config,
-      {
-        bonjour: true,
-        port,
-      },
-      done
-    );
-  });
-
-  afterEach((done) => {
+  afterEach(() => {
     mockPublish.mockReset();
     mockUnpublishAll.mockReset();
-    server.close(done);
   });
 
-  it('should call bonjour with correct params', () => {
-    expect(mockPublish).toHaveBeenCalledTimes(1);
-    expect(mockPublish).toHaveBeenCalledWith({
-      name: `Webpack Dev Server ${os.hostname()}:${port}`,
-      port,
-      type: 'http',
-      subtypes: ['webpack'],
+  describe('http', () => {
+    beforeEach((done) => {
+      server = testServer.start(
+        config,
+        {
+          bonjour: true,
+          port,
+        },
+        done
+      );
     });
-    expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+
+    afterEach((done) => {
+      server.close(done);
+    });
+
+    it('should call bonjour with correct params', () => {
+      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish).toHaveBeenCalledWith({
+        name: `Webpack Dev Server ${os.hostname()}:${port}`,
+        port,
+        type: 'http',
+        subtypes: ['webpack'],
+      });
+      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('https option', () => {
+    beforeEach((done) => {
+      server = testServer.start(
+        config,
+        {
+          bonjour: true,
+          port,
+          https: true,
+        },
+        done
+      );
+    });
+
+    afterEach((done) => {
+      server.close(done);
+    });
+
+    it('bonjour should use https when passed in option', () => {
+      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish).toHaveBeenCalledWith({
+        name: `Webpack Dev Server ${os.hostname()}:${port}`,
+        port,
+        type: 'https',
+        subtypes: ['webpack'],
+      });
+      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('bonjour object', () => {
+    beforeEach((done) => {
+      server = testServer.start(
+        config,
+        {
+          bonjour: {
+            type: 'https',
+            protocol: 'udp',
+          },
+          port,
+        },
+        done
+      );
+    });
+
+    afterEach((done) => {
+      server.close(done);
+    });
+
+    it('applies bonjour options', () => {
+      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish).toHaveBeenCalledWith({
+        name: `Webpack Dev Server ${os.hostname()}:${port}`,
+        port,
+        type: 'https',
+        protocol: 'udp',
+        subtypes: ['webpack'],
+      });
+      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+    });
   });
 });
