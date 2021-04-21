@@ -1,43 +1,41 @@
 'use strict';
 
 module.exports = {
-  devServer: [
-    {
-      name: 'host',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'The hostname/ip address the server will bind to.',
-    },
-    {
-      name: 'port',
-      type: Number,
-      configs: [
-        {
-          type: 'number',
-        },
-      ],
-      description: 'The port server will listen to.',
-    },
-    {
-      name: 'static',
-      type: [String, Boolean],
-      configs: [
-        {
-          type: 'string',
-        },
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'A directory to serve static content from.',
-      multiple: true,
-      negative: true,
-    },
-    {
+  host: {
+    name: 'host',
+    type: String,
+    configs: [
+      {
+        type: 'string',
+      },
+    ],
+    description: 'The hostname/ip address the server will bind to.',
+  },
+  port: {
+    name: 'port',
+    type: Number,
+    configs: [
+      {
+        type: 'number',
+      },
+    ]
+  },
+  static: {
+    name: 'static',
+    type: [String, Boolean],
+    configs: [
+      {
+        type: 'string',
+      },
+      {
+        type: 'boolean',
+      },
+    ],
+    description: 'A directory to serve static content from.',
+    multiple: true,
+    negative: true,
+  },
+  'static-directory': {
       name: 'static-directory',
       type: String,
       configs: [
@@ -52,7 +50,7 @@ module.exports = {
         delete opts.staticDirectory;
       },
     },
-    {
+    'static-public-path': {
       name: 'static-public-path',
       type: String,
       configs: [
@@ -69,7 +67,7 @@ module.exports = {
         delete opts.staticPublicPath;
       },
     },
-    {
+    'static-serve-index': {
       name: 'static-serve-index',
       type: Boolean,
       configs: [
@@ -87,7 +85,7 @@ module.exports = {
         delete opts.staticServeIndex;
       },
     },
-    {
+    'static-watch': {
       name: 'static-watch',
       type: Boolean,
       configs: [
@@ -104,7 +102,7 @@ module.exports = {
         delete opts.staticWatch;
       },
     },
-    {
+    'live-reload': {
       name: 'live-reload',
       type: Boolean,
       configs: [
@@ -116,7 +114,7 @@ module.exports = {
       negatedDescription: 'Disables live reloading on changing files.',
       negative: true,
     },
-    {
+    https: {
       name: 'https',
       type: Boolean,
       configs: [
@@ -128,7 +126,7 @@ module.exports = {
       negatedDescription: 'Do not use HTTPS protocol.',
       negative: true,
     },
-    {
+    'https-passphrase': {
       name: 'https-passphrase',
       type: String,
       configs: [
@@ -143,7 +141,7 @@ module.exports = {
         delete opts.httpsPassphrase;
       },
     },
-    {
+    'https-key': {
       name: 'https-key',
       type: String,
       configs: [
@@ -158,7 +156,7 @@ module.exports = {
         delete opts.httpsKey;
       },
     },
-    {
+    'https-pfx': {
       name: 'https-pfx',
       type: String,
       configs: [
@@ -173,7 +171,7 @@ module.exports = {
         delete opts.httpsPfx;
       },
     },
-    {
+    'https-cert': {
       name: 'https-cert',
       type: String,
       configs: [
@@ -188,7 +186,7 @@ module.exports = {
         delete opts.httpsCert;
       },
     },
-    {
+    'https-cacert': {
       name: 'https-cacert',
       type: String,
       configs: [
@@ -203,7 +201,7 @@ module.exports = {
         delete opts.httpsCacert;
       },
     },
-    {
+    'https-request-cert': {
       name: 'https-request-cert',
       type: Boolean,
       configs: [
@@ -219,199 +217,198 @@ module.exports = {
         delete opts.httpsRequestCert;
       },
     },
-    {
-      name: 'http2',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Use HTTP/2, must be used with HTTPS.',
-      negatedDescription: 'Do not use HTTP/2.',
-      negative: true,
-    },
-    {
-      name: 'bonjour',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Broadcasts the server via ZeroConf networking on start.',
-      negatedDescription:
-        'Do not broadcast the server via ZeroConf networking on start.',
-      negative: true,
-    },
-    {
-      name: 'client-progress',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Print compilation progress in percentage in the browser.',
-      negatedDescription:
-        'Do not print compilation progress in percentage in the browser.',
-      negative: true,
-      processor(opts) {
-        opts.client = opts.client || {};
-        opts.client.progress = opts.clientProgress;
-        delete opts.clientProgress;
+  http2: {
+    name: 'http2',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
-    },
-    {
-      name: 'client-overlay',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description:
-        'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
-      negatedDescription:
-        'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
-      negative: true,
-      processor(opts) {
-        opts.client = opts.client || {};
-        opts.client.overlay = opts.clientOverlay;
-        delete opts.clientOverlay;
+    ],
+    description: 'Use HTTP/2, must be used with HTTPS.',
+    negatedDescription: 'Do not use HTTP/2.',
+    negative: true,
+  },
+  bonjour: {
+    name: 'bonjour',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
-    },
-    // TODO remove in the next major release in favor `--open-target`
-    {
-      name: 'open',
-      type: [Boolean, String],
-      multiple: true,
-      configs: [
-        {
-          type: 'boolean',
-        },
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open the default browser.',
-      negatedDescription: 'Do not open the default browser.',
-      negative: true,
-    },
-    {
-      name: 'open-app',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open specified browser.',
-      processor(opts) {
-        opts.open = opts.open || {};
-        opts.open.app = opts.openApp.split(' ');
-        delete opts.openApp;
+    ],
+    description: 'Broadcasts the server via ZeroConf networking on start.',
+    negatedDescription:
+      'Do not broadcast the server via ZeroConf networking on start.',
+    negative: true,
+  },
+  'client-progress': {
+    name: 'client-progress',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
+    ],
+    description: 'Print compilation progress in percentage in the browser.',
+    negatedDescription:
+      'Do not print compilation progress in percentage in the browser.',
+    negative: true,
+    processor(opts) {
+      opts.client = opts.client || {};
+      opts.client.progress = opts.clientProgress;
+      delete opts.clientProgress;
     },
-    {
-      name: 'open-target',
-      type: String,
-      configs: [
-        {
-          type: 'boolean',
-        },
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open specified route in browser.',
-      processor(opts) {
-        opts.open = opts.open || {};
-        opts.open.target = opts.openTarget;
-        delete opts.openTarget;
+  },
+  'client-overlay': {
+    name: 'client-overlay',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
-      negatedDescription: 'Do not open specified route in browser.',
-      multiple: true,
-      negative: true,
+    ],
+    description:
+      'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
+    negatedDescription:
+      'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
+    negative: true,
+    processor(opts) {
+      opts.client = opts.client || {};
+      opts.client.overlay = opts.clientOverlay;
+      delete opts.clientOverlay;
     },
-    {
-      name: 'client-logging',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'Log level in the browser (none, error, warn, info, log, verbose).',
-      processor(opts) {
-        opts.client = opts.client || {};
-        opts.client.logging = opts.clientLogging;
-        delete opts.clientLogging;
+  },
+  // TODO remove in the next major release in favor `--open-target`
+  open: {
+    name: 'open',
+    type: [Boolean, String],
+    multiple: true,
+    configs: [
+      {
+        type: 'boolean',
       },
+      {
+        type: 'string',
+      },
+    ],
+    description: 'Open the default browser.',
+    negatedDescription: 'Do not open the default browser.',
+    negative: true,
+  },
+  'open-app': {
+    name: 'open-app',
+    type: String,
+    configs: [
+      {
+        type: 'string',
+      },
+    ],
+    description: 'Open specified browser.',
+    processor(opts) {
+      opts.open = opts.open || {};
+      opts.open.app = opts.openApp.split(' ');
+      delete opts.openApp;
     },
-    {
-      name: 'history-api-fallback',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Fallback to /index.html for Single Page Applications.',
-      negatedDescription:
-        'Do not fallback to /index.html for Single Page Applications.',
-      negative: true,
+  },
+  'open-target': {
+    name: 'open-target',
+    type: [Boolean, String],
+    configs: [
+      {
+        type: 'boolean',
+      },
+      {
+        type: 'string',
+      },
+    ],
+    description: 'Open specified route in browser.',
+    processor(opts) {
+      opts.open = opts.open || {};
+      opts.open.target = opts.openTarget;
+      delete opts.openTarget;
     },
-    {
-      name: 'compress',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Enable gzip compression.',
-      negatedDescription: 'Disable gzip compression.',
-      negative: true,
+    negatedDescription: 'Do not open specified route in browser.',
+    multiple: true,
+    negative: true,
+  },
+  'client-logging': {
+    name: 'client-logging',
+    type: String,
+    configs: [
+      {
+        type: 'string',
+      },
+    ],
+    description:
+      'Log level in the browser (none, error, warn, info, log, verbose).',
+    processor(opts) {
+      opts.client = opts.client || {};
+      opts.client.logging = opts.clientLogging;
+      delete opts.clientLogging;
     },
-    {
-      name: 'public',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'The public hostname/ip address of the server.',
-    },
-    {
-      name: 'firewall',
-      type: [Boolean, String],
-      configs: [
-        {
-          type: 'boolean',
-        },
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'Enable firewall or set hosts that are allowed to access the dev server.',
-      negatedDescription: 'Disable firewall.',
-      multiple: true,
-      negative: true,
-    },
-    {
-      name: 'watch-files',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Watch static files for file changes.',
-      multiple: true,
-    },
-  ],
+  },
+  'history-api-fallback': {
+    name: 'history-api-fallback',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
+      },
+    ],
+    description: 'Fallback to /index.html for Single Page Applications.',
+    negatedDescription:
+      'Do not fallback to /index.html for Single Page Applications.',
+    negative: true,
+  },
+  compress: {
+    name: 'compress',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
+      },
+    ],
+    description: 'Enable gzip compression.',
+    negatedDescription: 'Disable gzip compression.',
+    negative: true,
+  },
+  public: {
+    name: 'public',
+    type: String,
+    configs: [
+      {
+        type: 'string',
+      },
+    ],
+    description: 'The public hostname/ip address of the server.',
+  },
+  firewall: {
+    name: 'firewall',
+    type: [Boolean, String],
+    configs: [
+      {
+        type: 'boolean',
+      },
+      {
+        type: 'string',
+      },
+    ],
+    description:
+      'Enable firewall or set hosts that are allowed to access the dev server.',
+    negatedDescription: 'Disable firewall.',
+    multiple: true,
+    negative: true,
+  },
+  'watch-files': {
+    name: 'watch-files',
+    type: String,
+    configs: [
+      {
+        type: 'string',
+      },
+    ],
+    description: 'Watch static files for file changes.',
+    multiple: true,
+  },
 };
