@@ -112,4 +112,37 @@ describe('bonjour option', () => {
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
     });
   });
+
+  describe('bonjour object and https', () => {
+    beforeEach((done) => {
+      server = testServer.start(
+        config,
+        {
+          bonjour: {
+            type: 'http',
+            protocol: 'udp',
+          },
+          https: true,
+          port,
+        },
+        done
+      );
+    });
+
+    afterEach((done) => {
+      server.close(done);
+    });
+
+    it('prefers bonjour options over devServer.https', () => {
+      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish).toHaveBeenCalledWith({
+        name: `Webpack Dev Server ${os.hostname()}:${port}`,
+        port,
+        type: 'http',
+        protocol: 'udp',
+        subtypes: ['webpack'],
+      });
+      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+    });
+  });
 });
