@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const internalIp = require('internal-ip');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
@@ -8,6 +9,266 @@ const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
+
+describe.only('sockjs client proxy, different hostnames and different ports', () => {
+  const devServerHost = '127.0.0.1';
+  const devServerPort = port1;
+  const proxyHost = internalIp.v4.sync();
+  const proxyPort = port2;
+
+  function startProxy(cb) {
+    const proxy = express();
+
+    proxy.use(
+      '/',
+      createProxyMiddleware({
+        target: `http://${devServerHost}`,
+        ws: true,
+        changeOrigin: true,
+        logLevel: 'warn',
+      })
+    );
+
+    return proxy.listen(proxyPort, proxyHost, cb);
+  }
+
+  beforeAll((done) => {
+    const options = {
+      transportMode: 'sockjs',
+      port: devServerPort,
+      host: devServerHost,
+      firewall: false,
+      hot: true,
+    };
+
+    testServer.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(testServer.close);
+
+  // [HPM] Proxy created: /  ->  http://localhost:{port1}
+  describe('behind a proxy', () => {
+    let proxy;
+
+    beforeAll((done) => {
+      proxy = startProxy(() => {
+        done();
+      });
+    });
+
+    afterAll((done) => {
+      proxy.close(() => {
+        done();
+      });
+    });
+
+    it('responds with a 200 code on proxy', (done) => {
+      const req = request(`http://${proxyHost}:${proxyPort}`);
+
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
+    });
+
+    it('responds with a 200 code on non-proxy', (done) => {
+      const req = request(`http://${devServerHost}:${devServerPort}`);
+
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
+    });
+
+    it('requests websocket through the proxy', (done) => {
+      runBrowser().then(async ({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
+          .then((requestObj) => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(requestObj.url()).toContain(
+                  `http://${proxyHost}:${proxyPort}/ws`
+                );
+
+                done();
+              });
+            });
+          });
+
+        console.log(`http://${proxyHost}:${proxyPort}/main`);
+
+        page.goto(`http://${proxyHost}:${proxyPort}/main`);
+      });
+    });
+  });
+});
+
+describe('sockjs client proxy, different hostnames and same ports', () => {
+  const devServerHost = '127.0.0.1';
+  const devServerPort = port1;
+  const proxyHost = internalIp.v4.sync();
+  const proxyPort = port1;
+
+  function startProxy(cb) {
+    const proxy = express();
+
+    proxy.use(
+      '/',
+      createProxyMiddleware({
+        target: `http://${devServerHost}:${devServerPort}`,
+        ws: true,
+        changeOrigin: true,
+        logLevel: 'warn',
+      })
+    );
+
+    return proxy.listen(proxyPort, proxyHost, cb);
+  }
+
+  beforeAll((done) => {
+    const options = {
+      transportMode: 'sockjs',
+      port: devServerPort,
+      host: devServerHost,
+      firewall: false,
+      hot: true,
+    };
+
+    testServer.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(testServer.close);
+
+  // [HPM] Proxy created: /  ->  http://localhost:{port1}
+  describe('behind a proxy', () => {
+    let proxy;
+
+    beforeAll((done) => {
+      proxy = startProxy(() => {
+        done();
+      });
+    });
+
+    afterAll((done) => {
+      proxy.close(() => {
+        done();
+      });
+    });
+
+    it('responds with a 200 code on proxy', (done) => {
+      const req = request(`http://${proxyHost}:${proxyPort}`);
+
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
+    });
+
+    it('responds with a 200 code on non-proxy', (done) => {
+      const req = request(`http://${devServerHost}:${devServerPort}`);
+
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
+    });
+
+    it('requests websocket through the proxy', (done) => {
+      runBrowser().then(async ({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
+          .then((requestObj) => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(requestObj.url()).toContain(
+                  `http://${proxyHost}:${proxyPort}/ws`
+                );
+
+                done();
+              });
+            });
+          });
+
+        page.goto(`http://${proxyHost}:${proxyPort}/main`);
+      });
+    });
+  });
+});
+
+describe('sockjs client proxy, same hostnames and different ports', () => {
+  const devServerHost = '127.0.0.1';
+  const devServerPort = port1;
+  const proxyHost = devServerHost;
+  const proxyPort = port2;
+
+  function startProxy(cb) {
+    const proxy = express();
+
+    proxy.use(
+      '/',
+      createProxyMiddleware({
+        target: `http://${devServerHost}:${devServerPort}`,
+        ws: true,
+        changeOrigin: true,
+        logLevel: 'warn',
+      })
+    );
+
+    return proxy.listen(proxyPort, proxyHost, cb);
+  }
+
+  beforeAll((done) => {
+    const options = {
+      transportMode: 'sockjs',
+      port: devServerPort,
+      host: devServerHost,
+      firewall: false,
+      hot: true,
+    };
+
+    testServer.startAwaitingCompilation(config, options, done);
+  });
+
+  afterAll(testServer.close);
+
+  // [HPM] Proxy created: /  ->  http://localhost:{port1}
+  describe('behind a proxy', () => {
+    let proxy;
+
+    beforeAll((done) => {
+      proxy = startProxy(() => {
+        done();
+      });
+    });
+
+    afterAll((done) => {
+      proxy.close(() => {
+        done();
+      });
+    });
+
+    it('responds with a 200 code on proxy', (done) => {
+      const req = request(`http://${proxyHost}:${proxyPort}`);
+
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
+    });
+
+    it('responds with a 200 code on non-proxy', (done) => {
+      const req = request(`http://${devServerHost}:${devServerPort}`);
+
+      req.get('/ws').expect(200, 'Welcome to SockJS!\n', done);
+    });
+
+    it('requests websocket through the proxy', (done) => {
+      runBrowser().then(async ({ page, browser }) => {
+        page
+          .waitForRequest((requestObj) => requestObj.url().match(/ws/))
+          .then((requestObj) => {
+            page.waitForTimeout(beforeBrowserCloseDelay).then(() => {
+              browser.close().then(() => {
+                expect(requestObj.url()).toContain(
+                  `http://${proxyHost}:${devServerPort}/ws`
+                );
+
+                done();
+              });
+            });
+          });
+
+        page.goto(`http://${proxyHost}:${proxyPort}/main`);
+      });
+    });
+  });
+});
 
 describe('sockjs client proxy', () => {
   function startProxy(port, cb) {
