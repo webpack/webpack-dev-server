@@ -37,9 +37,14 @@ const runCommand = (command, args) => {
  */
 const isInstalled = (packageName) => {
   try {
-    require.resolve(packageName);
+    // Importing here as done in runCommand()
+    const { execSync } = require('child_process');
+    const { resolve } = require('path');
+    const { statSync } = require('fs');
 
-    return true;
+    const rootPath = execSync('npm root', { encoding: 'utf8' }).trimEnd();
+    const packageStats = statSync(resolve(rootPath, `./${packageName}`));
+    return packageStats.isDirectory();
   } catch (err) {
     return false;
   }
