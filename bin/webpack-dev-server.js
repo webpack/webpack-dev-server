@@ -39,12 +39,19 @@ const isInstalled = (packageName) => {
   try {
     // Importing here as done in runCommand()
     const { execSync } = require('child_process');
-    const { resolve } = require('path');
-    const { statSync } = require('fs');
 
-    const rootPath = execSync('npm root', { encoding: 'utf8' }).trimEnd();
-    const packageStats = statSync(resolve(rootPath, `./${packageName}`));
-    return packageStats.isDirectory();
+    const command = `
+    try {
+      console.log(require.resolve('${packageName}'));
+    } catch (err) {
+      console.log('Not Found');
+    }`;
+
+    const rootPath = execSync(`node -e "${command}"`, {
+      encoding: 'utf8',
+    }).trimEnd();
+
+    return rootPath !== 'Not Found';
   } catch (err) {
     return false;
   }
