@@ -8,8 +8,11 @@ module.exports = setup({
   context: __dirname,
   entry: './app.js',
   devServer: {
-    proxy: {
-      '/api': 'http://127.0.0.1:50545',
-    },
+    proxy: [
+      {
+        context: '/api',
+        target: 'http://127.0.0.1:50545',
+      },
+    ],
   },
 });
