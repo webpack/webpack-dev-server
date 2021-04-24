@@ -8,8 +8,9 @@ module.exports = setup({
   context: __dirname,
   entry: './app.js',
   devServer: {
-    proxy: {
-      '/api': {
+    proxy: [
+      {
+        context: '/api',
         target: 'http://jsonplaceholder.typicode.com/',
         changeOrigin: true,
         pathRewrite: {
@@ -21,6 +22,6 @@ module.exports = setup({
           }
         },
       },
-    },
+    ],
   },
 });
