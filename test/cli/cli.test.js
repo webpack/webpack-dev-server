@@ -56,6 +56,19 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--bonjour and --https', (done) => {
+    testBin('--bonjour --https')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true, https: true })
+        ).toMatchSnapshot();
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--no-bonjour', (done) => {
     testBin('--no-bonjour')
       .then((output) => {
