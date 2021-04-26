@@ -124,6 +124,41 @@ module.exports = {
       },
     },
     {
+      name: 'client-need-client-entry',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Tell devServer to inject a client entry.',
+      negatedDescription: 'Do not tell devServer to inject a client entry.',
+      negative: true,
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.needClientEntry = opts.clientNeedClientEntry;
+        delete opts.clientNeedClientEntry;
+      },
+    },
+    {
+      name: 'client-need-hot-entry',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Tell devServer to inject a Hot Module Replacement entry.',
+      negatedDescription:
+        'Do not tell devServer to inject a Hot Module Replacement entry.',
+      negative: true,
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.needHotEntry = opts.clientNeedHotEntry;
+        delete opts.clientNeedHotEntry;
+      },
+    },
+    {
       name: 'setup-exit-signals',
       type: Boolean,
       configs: [

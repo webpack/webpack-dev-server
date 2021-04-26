@@ -100,6 +100,50 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--client-need-client-entry', (done) => {
+    testBin('--client-need-client-entry --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).toContain('client/index.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-client-need-client-entry', (done) => {
+    testBin('--no-client-need-client-entry --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).not.toContain('client/index.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--client-need-hot-entry', (done) => {
+    testBin('--client-need-hot-entry --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).toContain('webpack/hot/dev-server.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-client-need-hot-entry', (done) => {
+    testBin('--no-client-need-hot-entry --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--http2', (done) => {
     testBin('--http2')
       .then((output) => {
