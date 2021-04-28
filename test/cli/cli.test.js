@@ -460,32 +460,12 @@ describe('CLI', () => {
       .catch(done);
   });
 
-  it('should log public path', (done) => {
-    testBin(
-      '--no-color',
-      path.resolve(__dirname, '../fixtures/dev-public-path/webpack.config.js')
-    )
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        done();
-      })
-      .catch((err) => {
-        // for windows
-        expect(err.stderr).toContain(
-          "webpack output is served from '/foo/bar' URL"
-        );
-        expect(err.stdout).toContain('main.js');
-        done();
-      });
-  });
-
   it('should log static', (done) => {
     testBin(
       '--no-color',
       path.resolve(__dirname, '../fixtures/static/webpack.config.js')
     )
       .then((output) => {
-        console.log(output);
         expect(output.exitCode).toEqual(0);
         done();
       })
