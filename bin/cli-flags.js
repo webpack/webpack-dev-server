@@ -123,19 +123,6 @@ module.exports = {
         delete opts.clientOverlay;
       },
     },
-    {
-      name: 'setup-exit-signals',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Close and exit the process on SIGINT and SIGTERM.',
-      negatedDescription:
-        'Do not close and exit the process on SIGNIT and SIGTERM.',
-      negative: true,
-    },
     // TODO remove in the next major release in favor `--open-target`
     {
       name: 'open',

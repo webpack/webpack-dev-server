@@ -99,8 +99,6 @@ Options:
   --no-client-progress       Do not print compilation progress in percentage in the browser.
   --client-overlay           Show a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay        Do not show a full-screen overlay in the browser when there are compiler errors or warnings.
-  --setup-exit-signals       Close and exit the process on SIGINT and SIGTERM.
-  --no-setup-exit-signals    Do not close and exit the process on SIGNIT and SIGTERM.
   --open [value...]          Open the default browser.
   --no-open                  Do not open the default browser.
   --open-app <value>         Open specified browser.
