@@ -10,9 +10,7 @@ exports[`CLI --bonjour 1`] = `
 `;
 
 exports[`CLI --bonjour and --https 1`] = `
-"<i> [webpack-dev-server] SSL Certificate is more than 30 days old. Removing.
-<i> [webpack-dev-server] Generating SSL Certificate
-<i> [webpack-dev-server] Project is running at:
+"<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<network-ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): https://[<network-ip-v6>]:<port>/
@@ -189,14 +187,16 @@ Options:
   --port <value>                   The port server will listen to.
   --static [value...]              A directory to serve static content from.
   --no-static                      Negative 'static' option.
-  --static-directory <value...>
+  --static-directory <value>       Directory for static contents.
   --static-public-path <value...>  The bundled files will be available in the
                                    browser under this path.
   --static-serve-index             Tells dev-server to use serveIndex
-                                   middleware when enabled.
-  --no-static-serve-index          Negative 'static-serve-index' option.
-  --static-watch                   Watch for static content directory.
-  --no-static-watch                Negative 'static-watch' option.
+                                   middleware.
+  --no-static-serve-index          Do not tell dev-server to use serveIndex
+                                   middleware.
+  --static-watch                   Watch for files in static content directory.
+  --no-static-watch                Do not watch for files in static content
+                                   directory.
   --live-reload                    Enables live reloading on changing files.
   --no-live-reload                 Disables live reloading on changing files.
   --https                          Use HTTPS protocol.

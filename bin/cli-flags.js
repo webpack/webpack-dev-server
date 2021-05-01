@@ -45,8 +45,7 @@ module.exports = {
           type: 'string',
         },
       ],
-      description: '',
-      multiple: true,
+      description: 'Directory for static contents.',
       processor(opts) {
         opts.static = opts.static || {};
         opts.static.directory = opts.staticDirectory;
@@ -78,8 +77,9 @@ module.exports = {
           type: 'boolean',
         },
       ],
-      description:
-        'Tells dev-server to use serveIndex middleware when enabled.',
+      description: 'Tells dev-server to use serveIndex middleware.',
+      negatedDescription:
+        'Do not tell dev-server to use serveIndex middleware.',
       negative: true,
       processor(opts) {
         opts.static = opts.static || {};
@@ -95,7 +95,8 @@ module.exports = {
           type: 'boolean',
         },
       ],
-      description: 'Watch for static content directory.',
+      description: 'Watch for files in static content directory.',
+      negatedDescription: 'Do not watch for files in static content directory.',
       negative: true,
       processor(opts) {
         opts.static = opts.static || {};
