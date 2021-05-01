@@ -88,6 +88,22 @@ module.exports = {
       },
     },
     {
+      name: 'static-watch',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Watch for static content directory.',
+      negative: true,
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.watch = opts.staticWatch;
+        delete opts.staticWatch;
+      },
+    },
+    {
       name: 'live-reload',
       type: Boolean,
       configs: [
