@@ -460,6 +460,79 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--static', (done) => {
+    testBin('--static')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--static <value>', (done) => {
+    testBin(
+      `--static ${path.resolve(
+        __dirname,
+        '../fixtures/static/webpack.config.js'
+      )}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--static-directory', (done) => {
+    testBin(
+      `--static-directory ${path.resolve(
+        __dirname,
+        '../fixtures/static/webpack.config.js'
+      )}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--static-serve-index', (done) => {
+    testBin('--static-serve-index')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-static-serve-index', (done) => {
+    testBin('--no-static-serve-index')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--static-watch', (done) => {
+    testBin('--static-watch')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-static-watch', (done) => {
+    testBin('--static-watch')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('should log static', (done) => {
     testBin(
       '--no-color',

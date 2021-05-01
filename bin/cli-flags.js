@@ -38,6 +38,73 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'static-directory',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Directory for static contents.',
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.directory = opts.staticDirectory;
+        delete opts.staticDirectory;
+      },
+    },
+    {
+      name: 'static-public-path',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description:
+        'The bundled files will be available in the browser under this path.',
+      multiple: true,
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.publicPath = opts.staticPublicPath;
+        delete opts.staticPublicPath;
+      },
+    },
+    {
+      name: 'static-serve-index',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Tells dev-server to use serveIndex middleware.',
+      negatedDescription:
+        'Do not tell dev-server to use serveIndex middleware.',
+      negative: true,
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.serveIndex = opts.staticServeIndex;
+        delete opts.staticServeIndex;
+      },
+    },
+    {
+      name: 'static-watch',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Watch for files in static content directory.',
+      negatedDescription: 'Do not watch for files in static content directory.',
+      negative: true,
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.watch = opts.staticWatch;
+        delete opts.staticWatch;
+      },
+    },
+    {
       name: 'live-reload',
       type: Boolean,
       configs: [
