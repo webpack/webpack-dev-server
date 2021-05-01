@@ -38,6 +38,56 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'static-directory',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: '',
+      multiple: true,
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.directory = opts.staticDirectory;
+        delete opts.staticDirectory;
+      },
+    },
+    {
+      name: 'static-public-path',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description:
+        'The bundled files will be available in the browser under this path.',
+      multiple: true,
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.publicPath = opts.staticPublicPath;
+        delete opts.staticPublicPath;
+      },
+    },
+    {
+      name: 'static-serve-index',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description:
+        'Tells dev-server to use serveIndex middleware when enabled.',
+      negative: true,
+      processor(opts) {
+        opts.static = opts.static || {};
+        opts.static.serveIndex = opts.staticServeIndex;
+        delete opts.staticServeIndex;
+      },
+    },
+    {
       name: 'live-reload',
       type: Boolean,
       configs: [
