@@ -180,7 +180,7 @@ const tests = {
       false,
       true,
       {
-        ca: join(httpsCertificateDirectory, 'ca.pem'),
+        cacert: join(httpsCertificateDirectory, 'ca.pem'),
         key: join(httpsCertificateDirectory, 'server.key'),
         pfx: join(httpsCertificateDirectory, 'server.pfx'),
         cert: join(httpsCertificateDirectory, 'server.crt'),
@@ -188,7 +188,7 @@ const tests = {
         passphrase: 'webpack-dev-server',
       },
       {
-        ca: readFileSync(join(httpsCertificateDirectory, 'ca.pem')),
+        cacert: readFileSync(join(httpsCertificateDirectory, 'ca.pem')),
         pfx: readFileSync(join(httpsCertificateDirectory, 'server.pfx')),
         key: readFileSync(join(httpsCertificateDirectory, 'server.key')),
         cert: readFileSync(join(httpsCertificateDirectory, 'server.crt')),

@@ -178,18 +178,18 @@ exports[`options validate should throw an error on the "http2" option with '' va
 exports[`options validate should throw an error on the "https" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https should be one of these:
-   boolean | object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }
+   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
    -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * configuration.https should be a boolean.
     * configuration.https should be an object:
-      object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }"
+      object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"foo":"bar"}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https has an unknown property 'foo'. These properties are valid:
-   object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }"
+   object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
 `;
 
 exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
