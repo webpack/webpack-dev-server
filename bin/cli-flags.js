@@ -129,6 +129,51 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'https-key',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL key.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.key = opts.httpsKey;
+        delete opts.httpsKey;
+      },
+    },
+    {
+      name: 'https-pfx',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL pfx file.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.pfx = opts.httpsPfx;
+        delete opts.httpsPfx;
+      },
+    },
+    {
+      name: 'https-cert',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL certificate.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.cert = opts.httpsCert;
+        delete opts.httpsCert;
+      },
+    },
+    {
       name: 'http2',
       type: Boolean,
       configs: [
