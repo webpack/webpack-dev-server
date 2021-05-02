@@ -129,6 +129,21 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'https-passphrase',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Passphrase for a pfx file.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.key = opts.httpsKey;
+        delete opts.httpsKey;
+      },
+    },
+    {
       name: 'https-key',
       type: String,
       configs: [
