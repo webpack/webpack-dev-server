@@ -139,8 +139,8 @@ module.exports = {
       description: 'Passphrase for a pfx file.',
       processor(opts) {
         opts.https = opts.https || {};
-        opts.https.key = opts.httpsKey;
-        delete opts.httpsKey;
+        opts.https.passphrase = opts.httpsPassphrase;
+        delete opts.httpsPassphrase;
       },
     },
     {
