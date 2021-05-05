@@ -277,6 +277,12 @@ const tests = {
       {
         serveIndex: 'true',
       },
+      {
+        directory: false,
+      },
+      {
+        watch: 10,
+      },
     ],
   },
   transportMode: {

@@ -7,7 +7,8 @@
       "properties": {
         "directory": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "description": "Directory for static contents."
         },
         "staticOptions": {
           "type": "object",
@@ -48,9 +49,11 @@
               "type": "boolean"
             },
             {
-              "type": "object"
+              "type": "object",
+              "description": "options for watch, you can find at https://github.com/paulmillr/chokidar"
             }
-          ]
+          ],
+          "description": "Watch for files in static content directory."
         }
       }
     },
