@@ -139,6 +139,32 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--https-request-cert', (done) => {
+    testBin('--https-request-cert')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true, https: true })
+        ).toMatchSnapshot();
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-https-request-cert', (done) => {
+    testBin('--no-https-request-cert')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--no-https', (done) => {
     testBin('--no-https')
       .then((output) => {
