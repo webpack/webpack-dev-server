@@ -212,6 +212,7 @@ module.exports = {
         },
       ],
       description: 'Request for an SSL certificate.',
+      negatedDescription: 'Do not request for an SSL certificate.',
       processor(opts) {
         opts.https = opts.https || {};
         opts.https.requestCert = opts.httpsRequestCert;
