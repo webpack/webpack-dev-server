@@ -45,7 +45,7 @@ describe('https option', () => {
     afterAll(testServer.close);
   });
 
-  describe('as an object when ca, pfx, key and cert are buffer', () => {
+  describe('as an object when cacert, pfx, key and cert are buffer', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
@@ -55,7 +55,9 @@ describe('https option', () => {
             watch: false,
           },
           https: {
-            ca: fs.readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
+            cacert: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'ca.pem')
+            ),
             pfx: fs.readFileSync(
               path.join(httpsCertificateDirectory, 'server.pfx')
             ),
@@ -79,14 +81,14 @@ describe('https option', () => {
     });
   });
 
-  describe('as an object when ca, pfx, key and cert are paths', () => {
+  describe('as an object when cacert, pfx, key and cert are paths', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
         {
           static: contentBasePublic,
           https: {
-            ca: path.join(httpsCertificateDirectory, 'ca.pem'),
+            cacert: path.join(httpsCertificateDirectory, 'ca.pem'),
             pfx: path.join(httpsCertificateDirectory, 'server.pfx'),
             key: path.join(httpsCertificateDirectory, 'server.key'),
             cert: path.join(httpsCertificateDirectory, 'server.crt'),
@@ -104,7 +106,7 @@ describe('https option', () => {
     });
   });
 
-  describe('as an object when ca, pfx, key and cert are symlinks', () => {
+  describe('as an object when cacert, pfx, key and cert are symlinks', () => {
     if (skipTestOnWindows('Symlinks are not supported on Windows')) {
       return;
     }
@@ -118,7 +120,7 @@ describe('https option', () => {
             watch: false,
           },
           https: {
-            ca: path.join(httpsCertificateDirectory, 'ca-symlink.pem'),
+            cacert: path.join(httpsCertificateDirectory, 'ca-symlink.pem'),
             pfx: path.join(httpsCertificateDirectory, 'server-symlink.pfx'),
             key: path.join(httpsCertificateDirectory, 'server-symlink.key'),
             cert: path.join(httpsCertificateDirectory, 'server-symlink.crt'),
@@ -138,7 +140,7 @@ describe('https option', () => {
     afterAll(testServer.close);
   });
 
-  describe('as an object when ca, pfx, key and cert are raw strings', () => {
+  describe('as an object when cacert, pfx, key and cert are raw strings', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
@@ -148,7 +150,7 @@ describe('https option', () => {
             watch: false,
           },
           https: {
-            ca: fs
+            cacert: fs
               .readFileSync(path.join(httpsCertificateDirectory, 'ca.pem'))
               .toString(),
             // pfx can't be string because it is binary format
@@ -186,7 +188,9 @@ describe('https option', () => {
           },
           https: {
             requestCert: true,
-            ca: fs.readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
+            cacert: fs.readFileSync(
+              path.join(httpsCertificateDirectory, 'ca.pem')
+            ),
             pfx: fs.readFileSync(
               path.join(httpsCertificateDirectory, 'server.pfx')
             ),
