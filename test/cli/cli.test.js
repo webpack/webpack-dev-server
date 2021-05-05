@@ -9,6 +9,11 @@ const { testBin, normalizeStderr } = require('../helpers/test-bin');
 const localIPv4 = internalIp.v4.sync();
 const localIPv6 = internalIp.v6.sync();
 
+const httpsCertificateDirectory = path.resolve(
+  __dirname,
+  '../fixtures/https-certificate'
+);
+
 describe('CLI', () => {
   it('--hot', (done) => {
     testBin('--hot --stats=detailed')
@@ -128,6 +133,27 @@ describe('CLI', () => {
 
   it('--https', (done) => {
     testBin('--https')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true, https: true })
+        ).toMatchSnapshot();
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('https options', (done) => {
+    const pfxFile = path.join(httpsCertificateDirectory, 'server.pfx');
+    const key = path.join(httpsCertificateDirectory, 'server.key');
+    const cert = path.join(httpsCertificateDirectory, 'server.crt');
+    const cacert = path.join(httpsCertificateDirectory, 'ca.pem');
+    const passphrase = 'webpack-dev-server';
+
+    testBin(
+      `--https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cert ${cert} --https-cacert ${cacert}`
+    )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(
