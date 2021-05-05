@@ -357,7 +357,7 @@ exports[`options validate should throw an error on the "static" option with '{"w
        * configuration.static.watch should be a boolean.
        * configuration.static.watch should be an object:
          object { … }
-         -> options for watch, you can find at https://github.com/paulmillr/chokidar"
+         -> options for watch, description available at https://github.com/paulmillr/chokidar#api"
 `;
 
 exports[`options validate should throw an error on the "static" option with '0' value 1`] = `

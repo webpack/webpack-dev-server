@@ -50,7 +50,7 @@
             },
             {
               "type": "object",
-              "description": "options for watch, you can find at https://github.com/paulmillr/chokidar"
+              "description": "options for watch, description available at https://github.com/paulmillr/chokidar#api"
             }
           ],
           "description": "Watch for files in static content directory."
