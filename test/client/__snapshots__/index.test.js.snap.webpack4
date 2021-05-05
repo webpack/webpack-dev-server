@@ -49,9 +49,8 @@ Object {
   "initial": false,
   "liveReload": false,
   "logging": "info",
-  "useErrorOverlay": false,
-  "useProgress": false,
-  "useWarningOverlay": false,
+  "overlay": false,
+  "progress": false,
 }
 `;
 
