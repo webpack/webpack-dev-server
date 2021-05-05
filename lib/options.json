@@ -312,7 +312,7 @@
             "requestCert": {
               "type": "boolean"
             },
-            "ca": {
+            "cacert": {
               "anyOf": [
                 {
                   "type": "string"
