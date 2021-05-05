@@ -189,6 +189,36 @@ module.exports = {
       },
     },
     {
+      name: 'https-cacert',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL CA certificate.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.cacert = opts.httpsCacert;
+        delete opts.httpsCacert;
+      },
+    },
+    {
+      name: 'https-request-cert',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Request for an SSL certificate.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.requestCert = opts.httpsRequestCert;
+        delete opts.httpsRequestCert;
+      },
+    },
+    {
       name: 'http2',
       type: Boolean,
       configs: [
