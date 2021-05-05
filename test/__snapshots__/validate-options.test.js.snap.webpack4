@@ -178,18 +178,18 @@ exports[`options validate should throw an error on the "http2" option with '' va
 exports[`options validate should throw an error on the "https" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https should be one of these:
-   boolean | object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }
+   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
    -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * configuration.https should be a boolean.
     * configuration.https should be an object:
-      object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }"
+      object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"foo":"bar"}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https has an unknown property 'foo'. These properties are valid:
-   object { passphrase?, requestCert?, ca?, key?, pfx?, cert? }"
+   object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
 `;
 
 exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
@@ -308,6 +308,12 @@ exports[`options validate should throw an error on the "static" option with '' v
  - configuration.static should be an non-empty string."
 `;
 
+exports[`options validate should throw an error on the "static" option with '{"directory":false}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.static.directory should be a non-empty string.
+   -> Directory for static contents."
+`;
+
 exports[`options validate should throw an error on the "static" option with '{"publicPath":false}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
@@ -336,6 +342,22 @@ exports[`options validate should throw an error on the "static" option with '{"s
        * configuration.static.serveIndex should be a boolean.
        * configuration.static.serveIndex should be an object:
          object { … }"
+`;
+
+exports[`options validate should throw an error on the "static" option with '{"watch":10}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.static should be one of these:
+   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   Details:
+    * configuration.static.watch should be one of these:
+      boolean | object { … }
+      -> Watch for files in static content directory.
+      Details:
+       * configuration.static.watch should be a boolean.
+       * configuration.static.watch should be an object:
+         object { … }
+         -> options for watch, you can find at https://github.com/paulmillr/chokidar"
 `;
 
 exports[`options validate should throw an error on the "static" option with '0' value 1`] = `

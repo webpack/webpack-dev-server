@@ -1,4 +1,4 @@
-# CLI: Watch Content Base
+# CLI: Static
 
 ## Watching a single directory
 
@@ -27,6 +27,12 @@ module.exports = {
 
 ```console
 npm run webpack-dev-server -- --open
+```
+
+or via CLI only:
+
+```console
+npm run webpack-dev-server -- --static assets --static css --open
 ```
 
 ### What Should Happen
