@@ -307,10 +307,12 @@
           "additionalProperties": false,
           "properties": {
             "passphrase": {
-              "type": "string"
+              "type": "string",
+              "description": "Passphrase for a pfx file."
             },
             "requestCert": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "Request for an SSL certificate."
             },
             "cacert": {
               "anyOf": [
@@ -320,7 +322,8 @@
                 {
                   "instanceof": "Buffer"
                 }
-              ]
+              ],
+              "description": "Path to an SSL CA certificate."
             },
             "key": {
               "anyOf": [
@@ -330,7 +333,8 @@
                 {
                   "instanceof": "Buffer"
                 }
-              ]
+              ],
+              "description": "Path to an SSL key."
             },
             "pfx": {
               "anyOf": [
@@ -340,7 +344,8 @@
                 {
                   "instanceof": "Buffer"
                 }
-              ]
+              ],
+              "description": "Path to an SSL pfx file."
             },
             "cert": {
               "anyOf": [
@@ -350,7 +355,8 @@
                 {
                   "instanceof": "Buffer"
                 }
-              ]
+              ],
+              "description": "Path to an SSL certificate."
             }
           }
         }
