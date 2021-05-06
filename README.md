@@ -97,6 +97,13 @@ Options:
   --no-live-reload                 Disables live reloading on changing files.
   --https                          Use HTTPS protocol.
   --no-https                       Do not use HTTPS protocol.
+  --https-passphrase <value>       Passphrase for a pfx file.
+  --https-key <value>              Path to an SSL key.
+  --https-pfx <value>              Path to an SSL pfx file.
+  --https-cert <value>             Path to an SSL certificate.
+  --https-cacert <value>           Path to an SSL CA certificate.
+  --https-request-cert             Request for an SSL certificate.
+  --no-https-request-cert          Do not request for an SSL certificate.
   --http2                          Use HTTP/2, must be used with HTTPS.
   --no-http2                       Do not use HTTP/2.
   --bonjour                        Broadcasts the server via ZeroConf networking on start.
