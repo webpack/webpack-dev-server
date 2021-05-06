@@ -173,7 +173,7 @@ exports[`CLI https options 1`] = `
 `;
 
 exports[`CLI should generate correct cli flags 1`] = `
-"Usage: webpack serve|s [entries...] [options]
+"Usage: webpack serve|server|s [entries...] [options]
 
 Run the webpack dev server.
 
