@@ -61,7 +61,7 @@ npx webpack serve
 Following options are available with `webpack serve`:
 
 ```
-Usage: webpack serve|s [entries...] [options]
+Usage: webpack serve|server|s [entries...] [options]
 
 Options:
   -c, --config <value...>          Provide path to a webpack configuration file e.g. ./webpack.config.js.
