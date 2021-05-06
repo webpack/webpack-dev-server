@@ -195,6 +195,7 @@ Options:
                                    webpack e.g. ./dist/.
   -t, --target <value>             Sets the build target e.g. node.
   -d, --devtool <value>            Determine source maps to use.
+  --no-devtool                     Do not generate source maps.
   --mode <value>                   Defines the mode to pass to webpack.
   --name <value>                   Name of the configuration. Used when loading
                                    multiple configurations.
