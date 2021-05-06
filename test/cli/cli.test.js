@@ -183,7 +183,7 @@ describe('CLI', () => {
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(
-          normalizeStderr(output.stderr, { ipv6: true })
+          normalizeStderr(output.stderr, { ipv6: true, https: true })
         ).toMatchSnapshot();
 
         done();
