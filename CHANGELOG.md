@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file. See [standa
 * the `dev` option was renamed to `devMiddleware`
 * the `client.overlay` option is `true` by default and show warnings by default
 * use server port for websocket connection by default, if you proxied `webpack-dev-server`, please update `webpack-cli` to `v4.7.0` ([#3185](https://github.com/webpack/webpack-dev-server/issues/3185)) ([0c3f817](https://github.com/webpack/webpack-dev-server/commit/0c3f8178bc80d7272246fe810964561ae747ec49))
+* minimum supported Node.js version is `12.13.0`
 
 ### Features
 
