@@ -9,13 +9,7 @@ function sendMsg(type, data) {
     (typeof WorkerGlobalScope === 'undefined' ||
       !(self instanceof WorkerGlobalScope))
   ) {
-    self.postMessage(
-      {
-        type: `webpack${type}`,
-        data,
-      },
-      '*'
-    );
+    self.postMessage({ type: `webpack${type}`, data }, '*');
   }
 }
 

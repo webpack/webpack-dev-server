@@ -21,9 +21,8 @@ const defaultOptions = {
   hotReload: true,
   liveReload: false,
   initial: true,
-  useWarningOverlay: false,
-  useErrorOverlay: false,
-  useProgress: false,
+  progress: false,
+  overlay: false,
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
 const options = defaultOptions;
@@ -84,8 +83,8 @@ const onSocketMessage = {
   invalid() {
     log.info('App updated. Recompiling...');
 
-    // fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
-    if (options.useWarningOverlay || options.useErrorOverlay) {
+    // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
+    if (options.overlay) {
       overlay.clear();
     }
 
@@ -94,43 +93,37 @@ const onSocketMessage = {
   hash(hash) {
     status.currentHash = hash;
   },
-  'still-ok': function stillOk() {
-    log.info('Nothing changed.');
-
-    if (options.useWarningOverlay || options.useErrorOverlay) {
-      overlay.clear();
-    }
-
-    sendMessage('StillOk');
-  },
   logging: setAllLogLevel,
   overlay(value) {
-    if (typeof document !== 'undefined') {
-      if (typeof value === 'boolean') {
-        options.useWarningOverlay = false;
-        options.useErrorOverlay = value;
-      } else if (value) {
-        options.useWarningOverlay = value.warnings;
-        options.useErrorOverlay = value.errors;
-      }
+    if (typeof document === 'undefined') {
+      return;
     }
+
+    options.overlay = value;
   },
   progress(progress) {
-    if (typeof document !== 'undefined') {
-      options.useProgress = progress;
-    }
+    options.progress = progress;
   },
   'progress-update': function progressUpdate(data) {
-    if (options.useProgress) {
+    if (options.progress) {
       log.info(`${data.percent}% - ${data.msg}.`);
     }
 
     sendMessage('Progress', data);
   },
+  'still-ok': function stillOk() {
+    log.info('Nothing changed.');
+
+    if (options.overlay) {
+      overlay.clear();
+    }
+
+    sendMessage('StillOk');
+  },
   ok() {
     sendMessage('Ok');
 
-    if (options.useWarningOverlay || options.useErrorOverlay) {
+    if (options.overlay) {
       overlay.clear();
     }
 
@@ -158,7 +151,12 @@ const onSocketMessage = {
       log.warn(strippedWarnings[i]);
     }
 
-    if (options.useWarningOverlay) {
+    const needShowOverlay =
+      typeof options.overlay === 'boolean'
+        ? options.overlay
+        : options.overlay && options.overlay.warnings;
+
+    if (needShowOverlay) {
       overlay.showMessage(warnings);
     }
 
@@ -181,7 +179,12 @@ const onSocketMessage = {
       log.error(strippedErrors[i]);
     }
 
-    if (options.useErrorOverlay) {
+    const needShowOverlay =
+      typeof options.overlay === 'boolean'
+        ? options.overlay
+        : options.overlay && options.overlay.errors;
+
+    if (needShowOverlay) {
       overlay.showMessage(errors);
     }
 
