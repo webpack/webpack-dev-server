@@ -228,11 +228,7 @@
               "type": "null"
             }
           ],
-          "description": "Tells clients connected to devServer to use the provided port."
-        },
-        "path": {
-          "type": "string",
-          "description": "Tells clients connected to devServer to use the provided port."
+          "description": "Tells clients connected to devServer to use the provided path to connect."
         },
         "logging": {
           "enum": ["none", "error", "warn", "info", "log", "verbose"],
