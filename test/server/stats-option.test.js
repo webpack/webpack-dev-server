@@ -32,6 +32,7 @@ describe('stats option', () => {
               const server = createServer(compiler, {
                 static: false,
                 port,
+                host: 'localhost',
               });
 
               compiler.hooks.done.tap('webpack-dev-server', (s) => {
@@ -59,6 +60,7 @@ describe('stats option', () => {
     const server = createServer(compiler, {
       static: false,
       port,
+      host: 'localhost',
     });
 
     compiler.hooks.done.tap('webpack-dev-server', (s) => {

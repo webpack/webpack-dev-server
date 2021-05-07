@@ -27,11 +27,8 @@ function startFullSetup(config, options, done) {
     console.warn('Using the default port for testing is not recommended');
     port = 8080;
   }
-  const host = Object.prototype.hasOwnProperty.call(options, 'host')
-    ? options.host
-    : 'localhost';
 
-  server.listen(port, host, (err) => {
+  server.listen(port, options.host, (err) => {
     if (err && done) {
       return done(err);
     }

@@ -16,6 +16,7 @@ jest.mock('sockjs/lib/transport');
 
 const baseDevConfig = {
   port,
+  host: 'localhost',
   static: false,
 };
 
@@ -158,6 +159,52 @@ describe('Server', () => {
 
       compiler.run(() => {});
       server.listen(port, 'localhost');
+    });
+  });
+
+  describe('listen', () => {
+    let compiler;
+    let server;
+
+    beforeAll(() => {
+      compiler = webpack(config);
+    });
+
+    it('should listen and not throw error', (done) => {
+      const options = {
+        host: 'localhost',
+        port,
+      };
+
+      server = new Server(compiler, options);
+
+      expect(() => server.listen(port, 'localhost')).not.toThrowError();
+      server.close(done);
+    });
+
+    it('should work and listen', (done) => {
+      const options = {
+        host: 'localhost',
+      };
+
+      server = new Server(compiler, options);
+
+      expect(() => server.listen(9000)).not.toThrowError();
+      server.close(done);
+    });
+
+    it('should throw an error', (done) => {
+      const options = {
+        host: '192.160.21.34',
+        port,
+      };
+
+      server = new Server(compiler, options);
+
+      expect(() => server.listen(port, 'localhost')).toThrowError(
+        'The host specified in options is different from the host passed as an argument.'
+      );
+      server.close(done);
     });
   });
 

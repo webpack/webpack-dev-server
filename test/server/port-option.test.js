@@ -25,6 +25,7 @@ describe('port', () => {
             watch: false,
           },
           port,
+          host: 'localhost',
         },
         done
       );
@@ -57,6 +58,7 @@ describe('port', () => {
           },
           // eslint-disable-next-line no-undefined
           port: undefined,
+          host: 'localhost',
         },
         done
       );
@@ -88,6 +90,7 @@ describe('port', () => {
             watch: false,
           },
           port: 'auto',
+          host: 'localhost',
         },
         done
       );
@@ -119,6 +122,7 @@ describe('port', () => {
             watch: false,
           },
           port: '33333',
+          host: 'localhost',
         },
         done
       );
@@ -149,6 +153,7 @@ describe('port', () => {
             watch: false,
           },
           port: '33333',
+          host: 'localhost',
         },
         done
       );
