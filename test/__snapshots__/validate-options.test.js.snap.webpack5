@@ -8,7 +8,8 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
    Details:
     * configuration.bonjour should be a boolean.
     * configuration.bonjour should be an object:
-      object { … }"
+      object { … }
+      -> Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `

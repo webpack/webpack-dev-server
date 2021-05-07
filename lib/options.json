@@ -148,7 +148,8 @@
           "type": "boolean"
         },
         {
-          "type": "object"
+          "type": "object",
+          "description": "Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
         }
       ],
       "description": "Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
