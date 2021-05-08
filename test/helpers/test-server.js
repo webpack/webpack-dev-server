@@ -18,7 +18,7 @@ function startFullSetup(config, options, done) {
 
   const compiler = webpack(config);
 
-  server = new Server(compiler, options);
+  server = new Server(options).apply(compiler);
 
   let port;
   if (Object.prototype.hasOwnProperty.call(options, 'port')) {
