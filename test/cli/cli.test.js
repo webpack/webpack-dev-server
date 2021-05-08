@@ -9,7 +9,7 @@ const { testBin, normalizeStderr } = require('../helpers/test-bin');
 const localIPv4 = internalIp.v4.sync();
 const localIPv6 = internalIp.v6.sync();
 
-describe('CLI', () => {
+describe.skip('CLI', () => {
   it('--hot', (done) => {
     testBin('--hot --stats=detailed')
       .then((output) => {
