@@ -95,7 +95,8 @@ describe('createDomain', () => {
       const { options, expected } = test;
       options.static = false;
 
-      server = new Server(compiler, options);
+      server = new Server(options);
+      server.apply(compiler);
 
       server.listen(options.port, options.host, (err) => {
         if (err) {

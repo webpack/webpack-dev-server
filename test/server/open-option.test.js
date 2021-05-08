@@ -469,13 +469,14 @@ describe('"open" option', () => {
 
   it("should work with object and with the 'target' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: 'index.html',
       },
       port,
       static: false,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -493,13 +494,14 @@ describe('"open" option', () => {
 
   it("should work with object and with multiple values of the 'target' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: ['first.html', 'second.html'],
       },
       port,
       static: false,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -528,13 +530,14 @@ describe('"open" option', () => {
 
   it("should work with object and with the 'app' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         app: 'google-chrome',
       },
       port,
       static: false,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -553,13 +556,14 @@ describe('"open" option', () => {
 
   it("should work with object and with the 'app' option with arguments", (done) => {
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         app: ['google-chrome', '--incognito'],
       },
       port,
       static: false,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -578,7 +582,7 @@ describe('"open" option', () => {
 
   it('should work with object with "target" and "app" options', (done) => {
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: 'index.html',
         app: 'google-chrome',
@@ -586,6 +590,7 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -604,7 +609,7 @@ describe('"open" option', () => {
 
   it("should work with object, with multiple value of the 'target' option and with the 'app' option with arguments", (done) => {
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: ['first.html', 'second.html'],
         app: ['google-chrome', '--incognito'],
@@ -612,6 +617,7 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -642,7 +648,7 @@ describe('"open" option', () => {
 
   it("should work with object, with multiple value of the 'target' option (relative and absolute URLs) and with the 'app' option with arguments", (done) => {
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: ['first.html', 'http://localhost:8117/second.html'],
         app: ['google-chrome', '--incognito'],
@@ -650,6 +656,7 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -682,11 +689,13 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: true,
       port,
       static: false,
     });
+    server.apply(compiler);
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -711,11 +720,13 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: 'index.html',
       port,
       static: false,
     });
+    server.apply(compiler);
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -740,7 +751,7 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: 'index.html',
         app: 'google-chrome',
@@ -748,6 +759,8 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+    server.apply(compiler);
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -773,7 +786,7 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: 'index.html',
         app: ['google-chrome', '--incognito', '--new-window'],
@@ -781,6 +794,8 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+    server.apply(compiler);
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -806,7 +821,7 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server(compiler, {
+    const server = new Server({
       open: {
         target: ['first.html', 'http://localhost:8117/second.html'],
         app: ['google-chrome', '--incognito', '--new-window'],
@@ -814,6 +829,8 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+    server.apply(compiler);
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {

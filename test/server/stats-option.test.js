@@ -27,10 +27,11 @@ describe('stats option', () => {
           () =>
             new Promise((resolve) => {
               const compiler = webpack(Object.assign({}, config, { stats }));
-              const server = new Server(compiler, {
+              const server = new Server({
                 static: false,
                 port,
               });
+              server.apply(compiler);
 
               compiler.hooks.done.tap('webpack-dev-server', (s) => {
                 expect(
@@ -54,10 +55,11 @@ describe('stats option', () => {
         stats: { warningsFilter: 'test' },
       })
     );
-    const server = new Server(compiler, {
+    const server = new Server({
       static: false,
       port,
     });
+    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', (s) => {
       s.compilation.warnings = ['test', 'another warning'];
