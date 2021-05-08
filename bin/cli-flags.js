@@ -129,6 +129,97 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'https-passphrase',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Passphrase for a pfx file.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.passphrase = opts.httpsPassphrase;
+        delete opts.httpsPassphrase;
+      },
+    },
+    {
+      name: 'https-key',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL key.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.key = opts.httpsKey;
+        delete opts.httpsKey;
+      },
+    },
+    {
+      name: 'https-pfx',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL pfx file.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.pfx = opts.httpsPfx;
+        delete opts.httpsPfx;
+      },
+    },
+    {
+      name: 'https-cert',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL certificate.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.cert = opts.httpsCert;
+        delete opts.httpsCert;
+      },
+    },
+    {
+      name: 'https-cacert',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description: 'Path to an SSL CA certificate.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.cacert = opts.httpsCacert;
+        delete opts.httpsCacert;
+      },
+    },
+    {
+      name: 'https-request-cert',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Request for an SSL certificate.',
+      negatedDescription: 'Do not request for an SSL certificate.',
+      processor(opts) {
+        opts.https = opts.https || {};
+        opts.https.requestCert = opts.httpsRequestCert;
+        delete opts.httpsRequestCert;
+      },
+    },
+    {
       name: 'http2',
       type: Boolean,
       configs: [

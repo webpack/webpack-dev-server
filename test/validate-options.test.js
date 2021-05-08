@@ -200,6 +200,24 @@ const tests = {
       {
         foo: 'bar',
       },
+      {
+        key: 10,
+      },
+      {
+        cert: true,
+      },
+      {
+        cacert: true,
+      },
+      {
+        passphrase: false,
+      },
+      {
+        pfx: 10,
+      },
+      {
+        requestCert: 'test',
+      },
     ],
   },
   onListening: {

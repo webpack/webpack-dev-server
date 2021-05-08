@@ -8,7 +8,8 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
    Details:
     * configuration.bonjour should be a boolean.
     * configuration.bonjour should be an object:
-      object { … }"
+      object { … }
+      -> Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `
@@ -186,10 +187,78 @@ exports[`options validate should throw an error on the "https" option with '' va
       object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
 `;
 
+exports[`options validate should throw an error on the "https" option with '{"cacert":true}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.https should be one of these:
+   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   Details:
+    * configuration.https.cacert should be one of these:
+      string | Buffer
+      -> Path to an SSL CA certificate.
+      Details:
+       * configuration.https.cacert should be a string.
+       * configuration.https.cacert should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "https" option with '{"cert":true}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.https should be one of these:
+   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   Details:
+    * configuration.https.cert should be one of these:
+      string | Buffer
+      -> Path to an SSL certificate.
+      Details:
+       * configuration.https.cert should be a string.
+       * configuration.https.cert should be an instance of Buffer."
+`;
+
 exports[`options validate should throw an error on the "https" option with '{"foo":"bar"}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.https has an unknown property 'foo'. These properties are valid:
    object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
+`;
+
+exports[`options validate should throw an error on the "https" option with '{"key":10}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.https should be one of these:
+   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   Details:
+    * configuration.https.key should be one of these:
+      string | Buffer
+      -> Path to an SSL key.
+      Details:
+       * configuration.https.key should be a string.
+       * configuration.https.key should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "https" option with '{"passphrase":false}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.https.passphrase should be a string.
+   -> Passphrase for a pfx file."
+`;
+
+exports[`options validate should throw an error on the "https" option with '{"pfx":10}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.https should be one of these:
+   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   Details:
+    * configuration.https.pfx should be one of these:
+      string | Buffer
+      -> Path to an SSL pfx file.
+      Details:
+       * configuration.https.pfx should be a string.
+       * configuration.https.pfx should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "https" option with '{"requestCert":"test"}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.https.requestCert should be a boolean.
+   -> Request for an SSL certificate."
 `;
 
 exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `

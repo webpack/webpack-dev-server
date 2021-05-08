@@ -305,6 +305,7 @@ describe('proxy option', () => {
     let responseMessage;
 
     const transportModes = ['sockjs', 'ws'];
+
     transportModes.forEach((transportMode) => {
       describe(`with transportMode: ${transportMode}`, () => {
         beforeAll((done) => {
@@ -510,6 +511,220 @@ describe('proxy option', () => {
 
     it('respects a proxy option', (done) => {
       req.get('/proxy1').expect(200, 'from proxy1', done);
+    });
+  });
+
+  describe('should work and respect `logProvider` and `logLevel` options', () => {
+    let server;
+    let req;
+    let closeProxyServers;
+    let customLogProvider;
+
+    beforeAll((done) => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+
+      closeProxyServers = startProxyServers();
+      server = testServer.start(
+        config,
+        {
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
+          proxy: {
+            '/my-path': {
+              target: 'http://unknown:1234',
+              logProvider: () => customLogProvider,
+              logLevel: 'error',
+            },
+          },
+          port: port3,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        closeProxyServers(done);
+      });
+    });
+
+    describe('target', () => {
+      it('respects a proxy option when a request path is matched', (done) => {
+        req.get('/my-path').expect(504, () => {
+          expect(customLogProvider.error).toHaveBeenCalledTimes(1);
+
+          done();
+        });
+      });
+    });
+  });
+
+  describe('should work and respect the `logLevel` option with `silent` value', () => {
+    let server;
+    let req;
+    let closeProxyServers;
+    let customLogProvider;
+
+    beforeAll((done) => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+
+      closeProxyServers = startProxyServers();
+      server = testServer.start(
+        config,
+        {
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
+          proxy: {
+            '/my-path': {
+              target: 'http://unknown:1234',
+              logProvider: () => customLogProvider,
+              logLevel: 'silent',
+            },
+          },
+          port: port3,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        closeProxyServers(done);
+      });
+    });
+
+    describe('target', () => {
+      it('respects a proxy option when a request path is matched', (done) => {
+        req.get('/my-path').expect(504, () => {
+          expect(customLogProvider.error).toHaveBeenCalledTimes(0);
+
+          done();
+        });
+      });
+    });
+  });
+
+  describe('should work and respect the `infrastructureLogging.level` option', () => {
+    let server;
+    let req;
+    let closeProxyServers;
+    let customLogProvider;
+
+    beforeAll((done) => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+
+      closeProxyServers = startProxyServers();
+      server = testServer.start(
+        { ...config, infrastructureLogging: { level: 'error' } },
+        {
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
+          proxy: {
+            '/my-path': {
+              target: 'http://unknown:1234',
+              logProvider: () => customLogProvider,
+            },
+          },
+          port: port3,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        closeProxyServers(done);
+      });
+    });
+
+    describe('target', () => {
+      it('respects a proxy option when a request path is matched', (done) => {
+        req.get('/my-path').expect(504, () => {
+          expect(customLogProvider.error).toHaveBeenCalledTimes(1);
+
+          done();
+        });
+      });
+    });
+  });
+
+  describe('should work and respect the `infrastructureLogging.level` option with `none` value', () => {
+    let server;
+    let req;
+    let closeProxyServers;
+    let customLogProvider;
+
+    beforeAll((done) => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+
+      closeProxyServers = startProxyServers();
+      server = testServer.start(
+        { ...config, infrastructureLogging: { level: 'none' } },
+        {
+          static: {
+            directory: contentBase,
+            watch: false,
+          },
+          proxy: {
+            '/my-path': {
+              target: 'http://unknown:1234',
+              logProvider: () => customLogProvider,
+            },
+          },
+          port: port3,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll((done) => {
+      testServer.close(() => {
+        closeProxyServers(done);
+      });
+    });
+
+    describe('target', () => {
+      it('respects a proxy option when a request path is matched', (done) => {
+        req.get('/my-path').expect(504, () => {
+          expect(customLogProvider.error).toHaveBeenCalledTimes(0);
+
+          done();
+        });
+      });
     });
   });
 });

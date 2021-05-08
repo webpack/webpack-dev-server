@@ -5,8 +5,7 @@
   camelcase
 */
 
-// this WebsocketClient is here as a default fallback,
-//  in case the client is not injected
+// this WebsocketClient is here as a default fallback, in case the client is not injected
 const Client =
   typeof __webpack_dev_server_client__ !== 'undefined'
     ? __webpack_dev_server_client__
@@ -47,9 +46,10 @@ const socket = function initSocket(url, handlers) {
   });
 
   client.onMessage((data) => {
-    const msg = JSON.parse(data);
-    if (handlers[msg.type]) {
-      handlers[msg.type](msg.data);
+    const message = JSON.parse(data);
+
+    if (handlers[message.type]) {
+      handlers[message.type](message.data);
     }
   });
 };

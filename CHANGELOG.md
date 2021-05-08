@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-beta.3](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2021-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* the `https.ca` option was removed in favor the `https.cacert` option
+* the `dev` option was renamed to `devMiddleware`
+* the `client.overlay` option is `true` by default and show warnings by default
+* use server port for websocket connection by default, if you proxied `webpack-dev-server`, please update `webpack-cli` to `v4.7.0` ([#3185](https://github.com/webpack/webpack-dev-server/issues/3185)) ([0c3f817](https://github.com/webpack/webpack-dev-server/commit/0c3f8178bc80d7272246fe810964561ae747ec49))
+* minimum supported Node.js version is `12.13.0`
+
+### Features
+
+* added `https.cacert` ([#3240](https://github.com/webpack/webpack-dev-server/issues/3240)) ([b212a2c](https://github.com/webpack/webpack-dev-server/commit/b212a2ce73c3e58f3450708801c8b413ca65fb5b))
+* added more CLI options, please run `webpack server --help` to look at them ([#3238](https://github.com/webpack/webpack-dev-server/issues/3238)) ([469e558](https://github.com/webpack/webpack-dev-server/commit/469e558d1d772006a1057954331ccecd34dfdefa))
+* support `bonjour` options ([#3202](https://github.com/webpack/webpack-dev-server/issues/3202)) ([5534583](https://github.com/webpack/webpack-dev-server/commit/55345836c2d8e22e45c2150a8f003019d8a0bd56))
+
+### Bug Fixes
+
+* improve warning message for `open` ([#3191](https://github.com/webpack/webpack-dev-server/issues/3191)) ([d473fd9](https://github.com/webpack/webpack-dev-server/commit/d473fd9a55334efd8d349aa2b37c64b395dea025))
+* respect the `client.logging` option for HMR logging ([#3159](https://github.com/webpack/webpack-dev-server/issues/3159)) ([6f3c6ba](https://github.com/webpack/webpack-dev-server/commit/6f3c6bacb1b7f6eae95e5b688dc22b5a42628360))
+* respect `client.needClientEntry` and `client.needHotEntry` options ([#3178](https://github.com/webpack/webpack-dev-server/issues/3178)) ([a2b6db9](https://github.com/webpack/webpack-dev-server/commit/a2b6db9417eb289a488584e8b244fcedc416ac56))
+* overlay with warnings ([#3215](https://github.com/webpack/webpack-dev-server/issues/3215)) ([7e18161](https://github.com/webpack/webpack-dev-server/commit/7e181618ba7a8ce995bf39ded00a789a9714a14b))
+* help description for options
+* error description for options
+* improve warning message for the `open` option
+
 ## [4.0.0-beta.2](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2021-04-06)
 
 

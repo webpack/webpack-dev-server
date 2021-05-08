@@ -27,6 +27,7 @@ ansiHTML.setColors(colors);
 
 function createOverlayIframe(onIframeLoad) {
   const iframe = document.createElement('iframe');
+
   iframe.id = 'webpack-dev-server-client-overlay';
   iframe.src = 'about:blank';
   iframe.style.position = 'fixed';
@@ -39,11 +40,13 @@ function createOverlayIframe(onIframeLoad) {
   iframe.style.border = 'none';
   iframe.style.zIndex = 9999999999;
   iframe.onload = onIframeLoad;
+
   return iframe;
 }
 
 function addOverlayDivTo(iframe) {
   const div = iframe.contentDocument.createElement('div');
+
   div.id = 'webpack-dev-server-client-overlay-div';
   div.style.position = 'fixed';
   div.style.boxSizing = 'border-box';
@@ -61,7 +64,9 @@ function addOverlayDivTo(iframe) {
   div.style.lineHeight = '1.2';
   div.style.whiteSpace = 'pre-wrap';
   div.style.overflow = 'auto';
+
   iframe.contentDocument.body.appendChild(div);
+
   return div;
 }
 
@@ -103,6 +108,7 @@ function clear() {
 
   // Clean up and reset internal state.
   document.body.removeChild(overlayIframe);
+
   overlayDiv = null;
   overlayIframe = null;
   lastOnOverlayDivReady = null;
