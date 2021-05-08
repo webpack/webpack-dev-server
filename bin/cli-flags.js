@@ -19,6 +19,7 @@ module.exports = {
         type: 'number',
       },
     ],
+    description: 'The port server will listen to.',
   },
   static: {
     name: 'static',
