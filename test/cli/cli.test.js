@@ -14,7 +14,7 @@ const httpsCertificateDirectory = path.resolve(
   '../fixtures/https-certificate'
 );
 
-describe.skip('CLI', () => {
+describe('CLI', () => {
   it('--hot', (done) => {
     testBin('--hot --stats=detailed')
       .then((output) => {
