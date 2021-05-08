@@ -18,7 +18,7 @@ module.exports = {
       {
         type: 'number',
       },
-    ]
+    ],
   },
   static: {
     name: 'static',
@@ -36,187 +36,186 @@ module.exports = {
     negative: true,
   },
   'static-directory': {
-      name: 'static-directory',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Directory for static contents.',
-      processor(opts) {
-        opts.static = opts.static || {};
-        opts.static.directory = opts.staticDirectory;
-        delete opts.staticDirectory;
+    name: 'static-directory',
+    type: String,
+    configs: [
+      {
+        type: 'string',
       },
+    ],
+    description: 'Directory for static contents.',
+    processor(opts) {
+      opts.static = opts.static || {};
+      opts.static.directory = opts.staticDirectory;
+      delete opts.staticDirectory;
     },
-    'static-public-path': {
-      name: 'static-public-path',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'The bundled files will be available in the browser under this path.',
-      multiple: true,
-      processor(opts) {
-        opts.static = opts.static || {};
-        opts.static.publicPath = opts.staticPublicPath;
-        delete opts.staticPublicPath;
+  },
+  'static-public-path': {
+    name: 'static-public-path',
+    type: String,
+    configs: [
+      {
+        type: 'string',
       },
+    ],
+    description:
+      'The bundled files will be available in the browser under this path.',
+    multiple: true,
+    processor(opts) {
+      opts.static = opts.static || {};
+      opts.static.publicPath = opts.staticPublicPath;
+      delete opts.staticPublicPath;
     },
-    'static-serve-index': {
-      name: 'static-serve-index',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Tells dev-server to use serveIndex middleware.',
-      negatedDescription:
-        'Do not tell dev-server to use serveIndex middleware.',
-      negative: true,
-      processor(opts) {
-        opts.static = opts.static || {};
-        opts.static.serveIndex = opts.staticServeIndex;
-        delete opts.staticServeIndex;
+  },
+  'static-serve-index': {
+    name: 'static-serve-index',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
+    ],
+    description: 'Tells dev-server to use serveIndex middleware.',
+    negatedDescription: 'Do not tell dev-server to use serveIndex middleware.',
+    negative: true,
+    processor(opts) {
+      opts.static = opts.static || {};
+      opts.static.serveIndex = opts.staticServeIndex;
+      delete opts.staticServeIndex;
     },
-    'static-watch': {
-      name: 'static-watch',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Watch for files in static content directory.',
-      negatedDescription: 'Do not watch for files in static content directory.',
-      negative: true,
-      processor(opts) {
-        opts.static = opts.static || {};
-        opts.static.watch = opts.staticWatch;
-        delete opts.staticWatch;
+  },
+  'static-watch': {
+    name: 'static-watch',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
+    ],
+    description: 'Watch for files in static content directory.',
+    negatedDescription: 'Do not watch for files in static content directory.',
+    negative: true,
+    processor(opts) {
+      opts.static = opts.static || {};
+      opts.static.watch = opts.staticWatch;
+      delete opts.staticWatch;
     },
-    'live-reload': {
-      name: 'live-reload',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Enables live reloading on changing files.',
-      negatedDescription: 'Disables live reloading on changing files.',
-      negative: true,
-    },
-    https: {
-      name: 'https',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Use HTTPS protocol.',
-      negatedDescription: 'Do not use HTTPS protocol.',
-      negative: true,
-    },
-    'https-passphrase': {
-      name: 'https-passphrase',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Passphrase for a pfx file.',
-      processor(opts) {
-        opts.https = opts.https || {};
-        opts.https.passphrase = opts.httpsPassphrase;
-        delete opts.httpsPassphrase;
+  },
+  'live-reload': {
+    name: 'live-reload',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
-    },
-    'https-key': {
-      name: 'https-key',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL key.',
-      processor(opts) {
-        opts.https = opts.https || {};
-        opts.https.key = opts.httpsKey;
-        delete opts.httpsKey;
+    ],
+    description: 'Enables live reloading on changing files.',
+    negatedDescription: 'Disables live reloading on changing files.',
+    negative: true,
+  },
+  https: {
+    name: 'https',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
       },
-    },
-    'https-pfx': {
-      name: 'https-pfx',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL pfx file.',
-      processor(opts) {
-        opts.https = opts.https || {};
-        opts.https.pfx = opts.httpsPfx;
-        delete opts.httpsPfx;
+    ],
+    description: 'Use HTTPS protocol.',
+    negatedDescription: 'Do not use HTTPS protocol.',
+    negative: true,
+  },
+  'https-passphrase': {
+    name: 'https-passphrase',
+    type: String,
+    configs: [
+      {
+        type: 'string',
       },
+    ],
+    description: 'Passphrase for a pfx file.',
+    processor(opts) {
+      opts.https = opts.https || {};
+      opts.https.passphrase = opts.httpsPassphrase;
+      delete opts.httpsPassphrase;
     },
-    'https-cert': {
-      name: 'https-cert',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL certificate.',
-      processor(opts) {
-        opts.https = opts.https || {};
-        opts.https.cert = opts.httpsCert;
-        delete opts.httpsCert;
+  },
+  'https-key': {
+    name: 'https-key',
+    type: String,
+    configs: [
+      {
+        type: 'string',
       },
+    ],
+    description: 'Path to an SSL key.',
+    processor(opts) {
+      opts.https = opts.https || {};
+      opts.https.key = opts.httpsKey;
+      delete opts.httpsKey;
     },
-    'https-cacert': {
-      name: 'https-cacert',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL CA certificate.',
-      processor(opts) {
-        opts.https = opts.https || {};
-        opts.https.cacert = opts.httpsCacert;
-        delete opts.httpsCacert;
+  },
+  'https-pfx': {
+    name: 'https-pfx',
+    type: String,
+    configs: [
+      {
+        type: 'string',
       },
+    ],
+    description: 'Path to an SSL pfx file.',
+    processor(opts) {
+      opts.https = opts.https || {};
+      opts.https.pfx = opts.httpsPfx;
+      delete opts.httpsPfx;
     },
-    'https-request-cert': {
-      name: 'https-request-cert',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Request for an SSL certificate.',
-      negatedDescription: 'Do not request for an SSL certificate.',
-      processor(opts) {
-        opts.https = opts.https || {};
-        opts.https.requestCert = opts.httpsRequestCert;
-        delete opts.httpsRequestCert;
+  },
+  'https-cert': {
+    name: 'https-cert',
+    type: String,
+    configs: [
+      {
+        type: 'string',
       },
+    ],
+    description: 'Path to an SSL certificate.',
+    processor(opts) {
+      opts.https = opts.https || {};
+      opts.https.cert = opts.httpsCert;
+      delete opts.httpsCert;
     },
+  },
+  'https-cacert': {
+    name: 'https-cacert',
+    type: String,
+    configs: [
+      {
+        type: 'string',
+      },
+    ],
+    description: 'Path to an SSL CA certificate.',
+    processor(opts) {
+      opts.https = opts.https || {};
+      opts.https.cacert = opts.httpsCacert;
+      delete opts.httpsCacert;
+    },
+  },
+  'https-request-cert': {
+    name: 'https-request-cert',
+    type: Boolean,
+    configs: [
+      {
+        type: 'boolean',
+      },
+    ],
+    description: 'Request for an SSL certificate.',
+    negatedDescription: 'Do not request for an SSL certificate.',
+    processor(opts) {
+      opts.https = opts.https || {};
+      opts.https.requestCert = opts.httpsRequestCert;
+      delete opts.httpsRequestCert;
+    },
+  },
   http2: {
     name: 'http2',
     type: Boolean,
