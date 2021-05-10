@@ -1,10 +1,12 @@
-'use strict';
+
 
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
-const ansiHTML = require('ansi-html');
-const { encode } = require('html-entities');
+// eslint-disable-next-line import/no-extraneous-dependencies
+import ansiHTML from 'ansi-html';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { encode } from 'html-entities';
 
 const colors = {
   reset: ['transparent', 'transparent'],
@@ -125,7 +127,7 @@ function showMessage(messages) {
   });
 }
 
-module.exports = {
+export default {
   clear,
   showMessage,
 };

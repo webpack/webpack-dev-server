@@ -1,4 +1,4 @@
-'use strict';
+
 
 /* global __webpack_dev_server_client__ */
 /* eslint-disable
@@ -54,4 +54,4 @@ const socket = function initSocket(url, handlers) {
   });
 };
 
-module.exports = socket;
+export default socket;

@@ -1,16 +1,17 @@
-'use strict';
+
 
 /* global __resourceQuery WorkerGlobalScope */
 
-const webpackHotLog = require('webpack/hot/log');
-const stripAnsi = require('./modules/strip-ansi');
-const parseURL = require('./utils/parseURL');
-const socket = require('./socket');
-const overlay = require('./overlay');
-const { log, setLogLevel } = require('./utils/log');
-const sendMessage = require('./utils/sendMessage');
-const reloadApp = require('./utils/reloadApp');
-const createSocketURL = require('./utils/createSocketURL');
+// eslint-disable-next-line import/no-extraneous-dependencies
+import webpackHotLog from 'webpack/hot/log';
+import stripAnsi from './modules/strip-ansi';
+import parseURL from './utils/parseURL';
+import socket from './socket';
+import overlay from './overlay';
+import { log, setLogLevel } from './utils/log';
+import sendMessage from './utils/sendMessage';
+import reloadApp from './utils/reloadApp';
+import createSocketURL from './utils/createSocketURL';
 
 const status = {
   isUnloading: false,

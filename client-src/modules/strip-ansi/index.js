@@ -1,3 +1,4 @@
-'use strict';
 
-module.exports = require('strip-ansi');
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+export * from 'strip-ansi';

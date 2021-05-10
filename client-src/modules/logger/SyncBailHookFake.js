@@ -1,10 +1,10 @@
-'use strict';
+
 
 /**
  * Client stub for tapable SyncBailHook
  */
-module.exports = function clientTapableSyncBailHook() {
+export default function clientTapableSyncBailHook() {
   return {
     call() {},
   };
-};
+}

@@ -1,8 +1,10 @@
-'use strict';
 
-const path = require('path');
-const webpack = require('webpack');
-const { merge } = require('webpack-merge');
+
+import path from 'path';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import webpack from 'webpack';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { merge } from 'webpack-merge';
 
 const baseForModules = {
   devtool: false,
@@ -26,7 +28,7 @@ const baseForModules = {
   },
 };
 
-module.exports = [
+export default [
   merge(baseForModules, {
     entry: path.join(__dirname, 'modules/logger/index.js'),
     output: {

@@ -1,6 +1,6 @@
-'use strict';
 
-const url = require('url');
+
+import url from 'url';
 
 // We handle legacy API that is Node.js specific, and a newer API that implements the same WHATWG URL Standard used by web browsers
 // Please look at https://nodejs.org/api/url.html#url_url_strings_and_url_objects
@@ -93,4 +93,4 @@ function createSocketURL(parsedURL) {
   });
 }
 
-module.exports = createSocketURL;
+export default createSocketURL;

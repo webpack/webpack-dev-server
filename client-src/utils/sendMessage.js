@@ -1,4 +1,4 @@
-'use strict';
+
 
 /* global __resourceQuery WorkerGlobalScope */
 
@@ -13,4 +13,4 @@ function sendMsg(type, data) {
   }
 }
 
-module.exports = sendMsg;
+export default sendMsg;
