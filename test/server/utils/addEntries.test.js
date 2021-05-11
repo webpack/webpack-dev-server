@@ -307,9 +307,11 @@ describe('addEntries util', () => {
       Object.assign({}, config),
       Object.assign({ target: 'web' }, config),
       Object.assign({ target: 'webworker' }, config),
+      Object.assign({ target: ['web', 'webworker'] }, config),
+      Object.assign({ target: ['web', 'es5'] }, config),
       Object.assign({ target: 'electron-renderer' }, config),
       Object.assign({ target: 'node-webkit' }, config),
-      Object.assign({ target: 'node' }, config) /* index:5 */,
+      Object.assign({ target: 'node' }, config) /* index:7 */,
     ];
 
     const devServerOptions = {};
@@ -318,7 +320,7 @@ describe('addEntries util', () => {
 
     // eslint-disable-next-line no-shadow
     webpackOptions.forEach((webpackOptions, index) => {
-      const expectInline = index !== 5; /* all but the node target */
+      const expectInline = index !== 7; /* all but the node target */
 
       expect(webpackOptions.entry.length).toEqual(expectInline ? 2 : 1);
 
