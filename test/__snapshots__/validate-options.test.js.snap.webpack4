@@ -122,11 +122,26 @@ exports[`options validate should throw an error on the "firewall" option with '[
  - configuration.firewall should be an non-empty array."
 `;
 
+exports[`options validate should throw an error on the "headers" option with '1' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.headers should be one of these:
+   object { … } | function
+   -> Adds headers to all responses. https://webpack.js.org/configuration/dev-server/#devserverheaders
+   Details:
+    * configuration.headers should be an object:
+      object { … }
+    * configuration.headers should be an instance of function."
+`;
+
 exports[`options validate should throw an error on the "headers" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.headers should be an object:
-   object { … }
-   -> Adds headers to all responses. https://webpack.js.org/configuration/dev-server/#devserverheaders"
+ - configuration.headers should be one of these:
+   object { … } | function
+   -> Adds headers to all responses. https://webpack.js.org/configuration/dev-server/#devserverheaders
+   Details:
+    * configuration.headers should be an object:
+      object { … }
+    * configuration.headers should be an instance of function."
 `;
 
 exports[`options validate should throw an error on the "historyApiFallback" option with '' value 1`] = `

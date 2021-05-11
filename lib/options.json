@@ -258,7 +258,14 @@
       "description": "Defines routes which are enabled by default, on by default and allows localhost. https://webpack.js.org/configuration/dev-server/#devserverfirewall"
     },
     "headers": {
-      "type": "object",
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ],
       "description": "Adds headers to all responses. https://webpack.js.org/configuration/dev-server/#devserverheaders"
     },
     "historyApiFallback": {
