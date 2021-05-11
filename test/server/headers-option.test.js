@@ -46,11 +46,7 @@ describe('headers option', () => {
 
     it('GET request with headers as an array', (done) => {
       // https://github.com/webpack/webpack-dev-server/pull/1650#discussion_r254217027
-      const expected = ['v7', 'v8', 'v9'].includes(
-        process.version.split('.')[0]
-      )
-        ? 'key1=value1,key2=value2'
-        : 'key1=value1, key2=value2';
+      const expected = 'key1=value1, key2=value2';
       req.get('/main').expect('X-Bar', expected).expect(200, done);
     });
   });
@@ -74,11 +70,7 @@ describe('headers option', () => {
 
     it('GET request with headers as a function', (done) => {
       // https://github.com/webpack/webpack-dev-server/pull/1650#discussion_r254217027
-      const expected = ['v7', 'v8', 'v9'].includes(
-        process.version.split('.')[0]
-      )
-        ? 'key1=value1,key2=value2'
-        : 'key1=value1, key2=value2';
+      const expected = 'key1=value1, key2=value2';
       req.get('/main').expect('X-Bar', expected).expect(200, done);
     });
   });
