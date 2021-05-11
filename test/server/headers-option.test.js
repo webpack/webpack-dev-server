@@ -60,7 +60,9 @@ describe('headers option', () => {
       server = testServer.start(
         config,
         {
-          headers: () => {return { 'X-Bar': ['key1=value1', 'key2=value2'] }},
+          headers: () => {
+            return { 'X-Bar': ['key1=value1', 'key2=value2'] };
+          },
           port,
         },
         done
