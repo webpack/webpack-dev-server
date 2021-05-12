@@ -38,7 +38,7 @@ Array [
 ]
 `;
 
-exports[`Server DevServerPlugin should create and run server with old parameters order 1`] = `
+exports[`Server DevServerPlugin should create and run server with old parameters order: oldparam 1`] = `
 Array [
   Array [
     "client",

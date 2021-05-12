@@ -75,7 +75,7 @@ describe('Server', () => {
       getEntries(server);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
-        expect(entries).toMatchSnapshot();
+        expect(entries).toMatchSnapshot('oldparam');
         server.close(done);
       });
 
