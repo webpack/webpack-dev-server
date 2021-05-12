@@ -67,6 +67,21 @@ describe('Server', () => {
       compiler.run(() => {});
     });
 
+    // TODO: remove this after plugin support is published
+    it('should create and run server with old parameters order', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, baseDevConfig);
+
+      getEntries(server);
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
+        server.close(done);
+      });
+
+      compiler.run(() => {});
+    });
+
     it('add hot-only option', (done) => {
       const compiler = webpack(config);
       const server = createServer(
