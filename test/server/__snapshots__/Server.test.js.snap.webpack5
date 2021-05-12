@@ -37,3 +37,22 @@ Array [
   ],
 ]
 `;
+
+exports[`Server DevServerPlugin should create and run server with old parameters order 1`] = `
+Array [
+  Array [
+    "client",
+    "index.js?http:",
+    "0.0.0.0&port=8100",
+  ],
+  Array [
+    "node_modules",
+    "webpack",
+    "hot",
+    "dev-server.js",
+  ],
+  Array [
+    "foo.js",
+  ],
+]
+`;
