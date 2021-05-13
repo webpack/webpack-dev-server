@@ -137,6 +137,7 @@ const onSocketMessage = {
 
     reloadApp(options, status);
   },
+  // TODO: remove in v5 in favor of 'static-changed'
   'content-changed': function contentChanged() {
     log.info('Content base changed. Reloading...');
 
