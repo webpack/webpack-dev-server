@@ -337,7 +337,8 @@ describe('transportMode', () => {
             mockWarn.mockRestore();
 
             let foundWarning = false;
-            const regExp = /transportMode\.server implementation must pass headers to the callback of onConnection\(f\)/;
+            const regExp =
+              /transportMode\.server implementation must pass headers to the callback of onConnection\(f\)/;
             calls.every((call) => {
               if (regExp.test(call)) {
                 foundWarning = true;
