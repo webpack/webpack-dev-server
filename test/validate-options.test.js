@@ -406,7 +406,7 @@ describe('options', () => {
         let thrownError;
 
         try {
-          server = new Server(compiler, { [key]: value });
+          server = new Server({ [key]: value }, compiler);
         } catch (error) {
           thrownError = error;
         }
