@@ -140,14 +140,31 @@
       },
       "additionalProperties": false
     },
-    "TransportModeEnum": {
+    "WebSocketServerEnum": {
       "enum": ["sockjs", "ws"]
     },
-    "TransportModeByTypeObject": {
+    "WebSocketServerString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "WebSocketServerFunction": {
+      "instanceof": "Function"
+    },
+    "WebSocketServerObject": {
       "type": "object",
       "properties": {
         "type": {
-          "type": "string"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/WebSocketServerEnum"
+            },
+            {
+              "$ref": "#/definitions/WebSocketServerString"
+            },
+            {
+              "$ref": "#/definitions/WebSocketServerFunction"
+            }
+          ]
         },
         "options": {
           "type": "object",
@@ -156,33 +173,12 @@
       },
       "additionalProperties": false
     },
-    "TransportModeObject": {
-      "properties": {
-        "client": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/definitions/TransportModeByTypeObject"
-            }
-          ]
-        },
-        "server": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "instanceof": "Function"
-            },
-            {
-              "$ref": "#/definitions/TransportModeByTypeObject"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+    "ClientTransportEnum": {
+      "enum": ["sockjs", "ws"]
+    },
+    "ClientTransportString": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "properties": {
@@ -201,6 +197,17 @@
     "client": {
       "type": "object",
       "properties": {
+        "transport": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ClientTransportEnum"
+            },
+            {
+              "$ref": "#/definitions/ClientTransportString"
+            }
+          ],
+          "description": "Allows to set custom transport to communicate with server."
+        },
         "host": {
           "type": "string",
           "description": "Tells clients connected to devServer to use the provided host."
@@ -221,6 +228,10 @@
               "type": "null"
             }
           ],
+          "description": "Tells clients connected to devServer to use the provided port."
+        },
+        "path": {
+          "type": "string",
           "description": "Tells clients connected to devServer to use the provided port."
         },
         "logging": {
@@ -277,6 +288,23 @@
       },
       "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
       "additionalProperties": false
+    },
+    "webSocketServer": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/WebSocketServerEnum"
+        },
+        {
+          "$ref": "#/definitions/WebSocketServerString"
+        },
+        {
+          "$ref": "#/definitions/WebSocketServerFunction"
+        },
+        {
+          "$ref": "#/definitions/WebSocketServerObject"
+        }
+      ],
+      "description": "Allows to set web socket server and options."
     },
     "compress": {
       "type": "boolean",
@@ -530,17 +558,6 @@
         }
       ],
       "description": "It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic"
-    },
-    "transportMode": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TransportModeEnum"
-        },
-        {
-          "$ref": "#/definitions/TransportModeObject"
-        }
-      ],
-      "description": "This option allows us either to choose the current devServer transport mode for client/server individually or to provide custom client/server implementation. https://webpack.js.org/configuration/dev-server/#devservertransportmode"
     },
     "watchFiles": {
       "anyOf": [
