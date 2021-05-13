@@ -185,6 +185,13 @@ describe('index', () => {
     expect(self.location.reload).toBeCalled();
   });
 
+  test("should run onSocketMessage['static-changed']", () => {
+    onSocketMessage['static-changed']();
+
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(self.location.reload).toBeCalled();
+  });
+
   test('should run onSocketMessage.warnings', () => {
     {
       const res = onSocketMessage.warnings([

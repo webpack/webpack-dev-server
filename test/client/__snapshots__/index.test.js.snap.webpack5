@@ -82,6 +82,8 @@ Array [
 
 exports[`index should run onSocketMessage['content-changed'] 1`] = `"Content base changed. Reloading..."`;
 
+exports[`index should run onSocketMessage['static-changed'] 1`] = `"Contents from static directory were changed. Reloading..."`;
+
 exports[`index should run onSocketMessage['still-ok'] 1`] = `"Nothing changed."`;
 
 exports[`index should run onSocketMessage['still-ok'] 2`] = `"StillOk"`;
@@ -103,6 +105,7 @@ Array [
     "overlay": [Function],
     "progress": [Function],
     "progress-update": [Function],
+    "static-changed": [Function],
     "still-ok": [Function],
     "warnings": [Function],
   },

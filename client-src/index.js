@@ -142,6 +142,11 @@ const onSocketMessage = {
 
     self.location.reload();
   },
+  'static-changed': function staticChanged() {
+    log.info('Contents from static directory were changed. Reloading...');
+
+    self.location.reload();
+  },
   warnings(warnings) {
     log.warn('Warnings while compiling.');
 
