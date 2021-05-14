@@ -105,6 +105,50 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--client-hot-entry', (done) => {
+    testBin('--client-hot-entry --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).toContain('webpack/hot/dev-server.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-client-hot-entry', (done) => {
+    testBin('--no-client-hot-entry --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should not inject HMR entry "--client-hot-entry" and "--no-hot"', (done) => {
+    testBin('--client-hot-entry --no-hot --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should not inject HMR entry with "--no-client-hot-entry" and "--hot"', (done) => {
+    testBin('--no-client-hot-entry --hot --stats=detailed')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(output.stdout).not.toContain('webpack/hot/dev-server.js');
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--http2', (done) => {
     testBin('--http2')
       .then((output) => {
