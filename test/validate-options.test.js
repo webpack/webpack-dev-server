@@ -99,7 +99,7 @@ const tests = {
         needClientEntry: true,
       },
       {
-        needHotEntry: true,
+        hotEntry: true,
       },
       {
         transport: 'sockjs',
@@ -144,7 +144,7 @@ const tests = {
         needClientEntry: [''],
       },
       {
-        needHotEntry: [''],
+        hotEntry: [''],
       },
       {
         path: true,
