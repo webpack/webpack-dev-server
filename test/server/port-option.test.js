@@ -78,7 +78,7 @@ describe('port', () => {
     afterAll(testServer.close);
   });
 
-  describe('is null', () => {
+  describe('is auto', () => {
     beforeAll((done) => {
       server = testServer.start(
         config,
@@ -87,7 +87,7 @@ describe('port', () => {
             directory: staticDirectory,
             watch: false,
           },
-          port: null,
+          port: 'auto',
         },
         done
       );
