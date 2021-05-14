@@ -92,7 +92,7 @@ describe('DevServer', () => {
       .catch(done);
   });
 
-  it.only('should "/ws" web socket path by default', (done) => {
+  it('should "/ws" web socket path by default', (done) => {
     testBin(null, './test/fixtures/dev-server/client-default-path-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
