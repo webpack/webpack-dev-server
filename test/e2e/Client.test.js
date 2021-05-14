@@ -106,8 +106,9 @@ describe('reload', () => {
                         page
                           .evaluate(() => {
                             const body = document.body;
-                            const bgColor =
-                              getComputedStyle(body)['background-color'];
+                            const bgColor = getComputedStyle(body)[
+                              'background-color'
+                            ];
 
                             return bgColor;
                           })
