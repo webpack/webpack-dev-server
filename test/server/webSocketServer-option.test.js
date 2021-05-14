@@ -11,7 +11,7 @@ const config = require('../fixtures/simple-config/webpack.config');
 const BaseServer = require('../../lib/servers/BaseServer');
 const port = require('../ports-map')['transportMode-option'];
 
-describe('transportMode', () => {
+describe('webServerSocket', () => {
   describe('server', () => {
     let mockedTestServer;
     let testServer;
@@ -22,34 +22,39 @@ describe('transportMode', () => {
     const serverModes = [
       {
         title: 'as a string ("sockjs")',
-        transportMode: 'sockjs',
+        client: {
+          transport: 'sockjs',
+        },
+        webSocketServer: 'sockjs',
       },
       {
         title: 'as a path ("sockjs")',
-        transportMode: {
-          server: require.resolve('../../lib/servers/SockJSServer'),
+        client: {
+          transport: 'sockjs',
         },
+        webSocketServer: require.resolve('../../lib/servers/SockJSServer'),
       },
       {
         title: 'as a string ("ws")',
-        transportMode: 'ws',
+        client: {
+          transport: 'ws',
+        },
+        webSocketServer: 'ws',
       },
       {
         title: 'as a path ("ws")',
-        transportMode: {
-          server: require.resolve('../../lib/servers/WebsocketServer'),
+        client: {
+          transport: 'ws',
         },
-      },
-      {
-        title: 'as a class (custom implementation)',
-        transportMode: {
-          server: class CustomServer {},
-        },
+        webSocketServer: require.resolve('../../lib/servers/WebsocketServer'),
       },
       {
         title: 'as a nonexistent path',
-        transportMode: {
-          server: '/bad/path/to/implementation',
+        client: {
+          transport: 'ws',
+        },
+        webSocketServer: {
+          type: '/bad/path/to/implementation',
         },
       },
     ];
@@ -80,7 +85,8 @@ describe('transportMode', () => {
           mockedTestServer.start(
             config,
             {
-              transportMode: data.transportMode,
+              client: data.client,
+              webSocketServer: data.webSocketServer,
               port,
             },
             () => {
@@ -91,14 +97,14 @@ describe('transportMode', () => {
                 getSocketServerImplementation.mock.calls[0].length
               ).toEqual(1);
 
-              if (typeof data.transportMode === 'string') {
+              if (typeof data.client.transport === 'string') {
                 expect(
-                  getSocketServerImplementation.mock.calls[0][0].transportMode
+                  getSocketServerImplementation.mock.calls[0][0].client
                 ).toMatchSnapshot();
               } else {
                 expect(
-                  getSocketServerImplementation.mock.calls[0][0].transportMode
-                ).toEqual(data.transportMode);
+                  getSocketServerImplementation.mock.calls[0][0].client
+                ).toEqual(data.client);
               }
 
               done();
@@ -125,9 +131,10 @@ describe('transportMode', () => {
           server = testServer.start(
             config,
             {
-              transportMode: {
-                server: 'sockjs',
+              client: {
+                transport: 'sockjs',
               },
+              webSocketServer: 'sockjs',
               port,
             },
             done
@@ -145,8 +152,11 @@ describe('transportMode', () => {
           server = testServer.start(
             config,
             {
-              transportMode: {
-                server: require.resolve('../../lib/servers/SockJSServer'),
+              client: {
+                transport: 'sockjs',
+              },
+              webSocketServer: {
+                type: require.resolve('../../lib/servers/SockJSServer'),
               },
               port,
             },
@@ -165,8 +175,11 @@ describe('transportMode', () => {
           server = testServer.start(
             config,
             {
-              transportMode: {
-                server: SockJSServer,
+              client: {
+                transport: 'sockjs',
+              },
+              webSocketServer: {
+                type: SockJSServer,
               },
               port,
             },
@@ -187,8 +200,11 @@ describe('transportMode', () => {
             config,
             {
               port,
-              transportMode: {
-                server: class MySockJSServer extends BaseServer {
+              client: {
+                transport: 'sockjs',
+              },
+              webSocketServer: {
+                type: class MySockJSServer extends BaseServer {
                   constructor(serv) {
                     super(serv);
                     this.socket = sockjs.createServer({
@@ -247,14 +263,19 @@ describe('transportMode', () => {
             server = testServer.start(
               config,
               {
-                transportMode: {
-                  server: '/bad/path/to/implementation',
+                client: {
+                  transport: 'ws',
+                },
+                webSocketServer: {
+                  type: '/bad/path/to/implementation',
                 },
                 port,
               },
               () => {}
             );
-          }).toThrow(/transportMode\.server must be a string/);
+          }).toThrow(
+            /webSocketServer \(webSocketServer.type\) must be a string/
+          );
         });
       });
 
@@ -265,8 +286,14 @@ describe('transportMode', () => {
             config,
             {
               port,
-              transportMode: {
-                server: class MySockJSServer extends BaseServer {
+              client: {
+                transport: 'sockjs',
+                host: 'localhost',
+                port,
+                path: 'ws',
+              },
+              webSocketServer: {
+                type: class MySockJSServer extends BaseServer {
                   constructor(serv) {
                     super(serv);
                     this.socket = sockjs.createServer({
@@ -282,8 +309,19 @@ describe('transportMode', () => {
                       },
                     });
 
+                    const getPrefix = (options) => {
+                      if (typeof options.prefix !== 'undefined') {
+                        return options.prefix;
+                      }
+
+                      return options.path;
+                    };
+
                     this.socket.installHandlers(this.server.server, {
-                      prefix: this.server.options.client.path,
+                      ...this.server.options.webSocketServer.options,
+                      prefix: getPrefix(
+                        this.server.options.webSocketServer.options
+                      ),
                     });
                   }
 
@@ -360,8 +398,14 @@ describe('transportMode', () => {
             config,
             {
               port,
-              transportMode: {
-                server: class MySockJSServer extends BaseServer {
+              client: {
+                transport: 'sockjs',
+                host: 'localhost',
+                port,
+                path: 'ws',
+              },
+              webSocketServer: {
+                type: class MySockJSServer extends BaseServer {
                   constructor(serv) {
                     super(serv);
                     this.socket = sockjs.createServer({
@@ -379,8 +423,19 @@ describe('transportMode', () => {
                       },
                     });
 
+                    const getPrefix = (options) => {
+                      if (typeof options.prefix !== 'undefined') {
+                        return options.prefix;
+                      }
+
+                      return options.path;
+                    };
+
                     this.socket.installHandlers(this.server.server, {
-                      prefix: this.server.options.client.path,
+                      ...this.server.options.webSocketServer.options,
+                      prefix: getPrefix(
+                        this.server.options.webSocketServer.options
+                      ),
                     });
                   }
 
@@ -522,110 +577,6 @@ describe('transportMode', () => {
         expect(mockServerInstance.onConnectionClose.mock.calls.length).toEqual(
           0
         );
-      });
-    });
-  });
-
-  describe('client', () => {
-    let mockedTestServer;
-    let testServer;
-    let getSocketClientPath;
-
-    const clientModes = [
-      {
-        title: 'as a string ("sockjs")',
-        transportMode: 'sockjs',
-        shouldThrow: false,
-      },
-      {
-        title: 'as a path ("sockjs")',
-        transportMode: {
-          client: require.resolve('../../client-src/clients/SockJSClient'),
-        },
-        shouldThrow: false,
-      },
-      {
-        title: 'as a nonexistent path',
-        transportMode: {
-          client: '/bad/path/to/implementation',
-        },
-        shouldThrow: true,
-      },
-    ];
-
-    describe('is passed to getSocketClientPath correctly', () => {
-      beforeEach(() => {
-        jest.mock('../../lib/utils/getSocketClientPath');
-        getSocketClientPath = require('../../lib/utils/getSocketClientPath');
-      });
-
-      afterEach((done) => {
-        jest.resetAllMocks();
-        jest.resetModules();
-
-        mockedTestServer.close(done);
-      });
-
-      clientModes.forEach((data) => {
-        it(data.title, (done) => {
-          mockedTestServer = require('../helpers/test-server');
-          mockedTestServer.start(
-            config,
-            {
-              transportMode: data.transportMode,
-              port,
-            },
-            () => {
-              expect(getSocketClientPath.mock.calls.length).toEqual(1);
-              expect(getSocketClientPath.mock.calls[0].length).toEqual(1);
-              if (typeof data.transportMode === 'string') {
-                expect(
-                  getSocketClientPath.mock.calls[0][0].transportMode
-                ).toMatchSnapshot();
-              } else {
-                expect(
-                  getSocketClientPath.mock.calls[0][0].transportMode
-                ).toEqual(data.transportMode);
-              }
-
-              done();
-            }
-          );
-        });
-      });
-    });
-
-    describe('passed to server', () => {
-      beforeAll(() => {
-        jest.unmock('../../lib/utils/getSocketClientPath');
-        testServer = require('../helpers/test-server');
-      });
-
-      afterEach((done) => {
-        testServer.close(done);
-      });
-
-      clientModes.forEach((data) => {
-        it(`${data.title} ${
-          data.shouldThrow ? 'should throw' : 'should not throw'
-        }`, (done) => {
-          const res = () => {
-            testServer.start(
-              config,
-              {
-                transportMode: data.transportMode,
-                port,
-              },
-              done
-            );
-          };
-          if (data.shouldThrow) {
-            expect(res).toThrow(/transportMode\.client must be a string/);
-            done();
-          } else {
-            expect(res).not.toThrow();
-          }
-        });
       });
     });
   });

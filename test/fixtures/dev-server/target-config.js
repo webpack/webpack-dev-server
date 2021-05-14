@@ -15,11 +15,8 @@ module.exports = {
   },
   devServer: {
     client: {
+      transport: 'sockjs',
       path: '/custom/path',
-    },
-    transportMode: {
-      server: 'sockjs',
-      client: 'sockjs',
     },
   },
   plugins: [ExitOnDonePlugin],

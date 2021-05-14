@@ -15,25 +15,17 @@ describe('transportMode client', () => {
       title: 'sockjs',
       options: {
         hot: false,
-        transportMode: 'sockjs',
+        client: {
+          transport: 'sockjs',
+        },
       },
     },
     {
       title: 'ws',
       options: {
         hot: false,
-        transportMode: 'ws',
-      },
-    },
-    {
-      title: 'custom client',
-      options: {
-        hot: false,
-        transportMode: {
-          server: 'sockjs',
-          client: require.resolve(
-            '../fixtures/custom-client/CustomSockJSClient'
-          ),
+        client: {
+          transport: 'ws',
         },
       },
     },

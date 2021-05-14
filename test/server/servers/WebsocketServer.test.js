@@ -18,8 +18,10 @@ describe('WebsocketServer', () => {
     server.listen(port, 'localhost', () => {
       socketServer = new WebsocketServer({
         options: {
-          client: {
-            path: '/ws-server',
+          webSocketServer: {
+            options: {
+              path: '/ws-server',
+            },
           },
         },
         server,

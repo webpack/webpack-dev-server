@@ -8,13 +8,13 @@ const sockjsClientPath = require.resolve(
 const baseClientPath = require.resolve('../../../client/clients/BaseClient');
 
 describe('getSocketClientPath', () => {
-  it("should work with transportMode.client: 'sockjs'", () => {
+  it("should work with client.transport: 'sockjs'", () => {
     let result;
 
     expect(() => {
       result = getSocketClientPath({
-        transportMode: {
-          client: 'sockjs',
+        client: {
+          transport: 'sockjs',
         },
       });
     }).not.toThrow();
@@ -22,13 +22,13 @@ describe('getSocketClientPath', () => {
     expect(result).toEqual(sockjsClientPath);
   });
 
-  it('should work with transportMode.client: SockJSClient full path', () => {
+  it('should work with client.transport: SockJSClient full path', () => {
     let result;
 
     expect(() => {
       result = getSocketClientPath({
-        transportMode: {
-          client: sockjsClientPath,
+        client: {
+          transport: sockjsClientPath,
         },
       });
     }).not.toThrow();
@@ -36,31 +36,31 @@ describe('getSocketClientPath', () => {
     expect(result).toEqual(sockjsClientPath);
   });
 
-  it('should throw with transportMode.client: bad path', () => {
+  it('should throw with client.transport: bad path', () => {
     expect(() => {
       getSocketClientPath({
-        transportMode: {
-          client: '/bad/path/to/implementation',
+        client: {
+          transport: '/bad/path/to/implementation',
         },
       });
-    }).toThrow(/transportMode\.client must be a string/);
+    }).toThrow(/client.transport must be a string/);
   });
 
   it('should throw with transportMode.client: bad type', () => {
     expect(() => {
       getSocketClientPath({
-        transportMode: {
-          client: 1,
+        client: {
+          transport: 1,
         },
       });
-    }).toThrow(/transportMode\.client must be a string/);
+    }).toThrow(/client.transport must be a string/);
   });
 
-  it('should throw with transportMode.client: unimplemented client', () => {
+  it('should throw with client.transport: unimplemented client', () => {
     expect(() => {
       getSocketClientPath({
-        transportMode: {
-          client: baseClientPath,
+        client: {
+          transport: baseClientPath,
         },
       });
     }).toThrow('Client needs implementation');

@@ -316,7 +316,9 @@ describe('proxy option', () => {
                 directory: contentBase,
                 watch: false,
               },
-              transportMode,
+              client: {
+                transport: transportMode,
+              },
               proxy: [
                 {
                   context: '/',

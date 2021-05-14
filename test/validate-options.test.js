@@ -5,7 +5,6 @@ const { readFileSync } = require('graceful-fs');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
-const SockJSServer = require('../lib/servers/SockJSServer');
 const config = require('./fixtures/simple-config/webpack.config');
 
 const httpsCertificateDirectory = join(
@@ -102,6 +101,12 @@ const tests = {
       {
         needHotEntry: true,
       },
+      {
+        transport: 'sockjs',
+      },
+      {
+        transport: require.resolve('../client/clients/SockJSClient'),
+      },
     ],
     failure: [
       'whoops!',
@@ -147,6 +152,9 @@ const tests = {
       {
         port: true,
       },
+      {
+        transport: true,
+      }
     ],
   },
   compress: {
@@ -309,41 +317,26 @@ const tests = {
       },
     ],
   },
-  transportMode: {
+  webSocketServer: {
     success: [
       'ws',
       'sockjs',
       {
-        server: 'sockjs',
-      },
-      {
-        server: require.resolve('../lib/servers/SockJSServer'),
-      },
-      {
-        server: SockJSServer,
-      },
-      {
-        client: 'sockjs',
-      },
-      {
-        client: require.resolve('../client/clients/SockJSClient'),
-      },
-      {
-        server: SockJSServer,
-        client: require.resolve('../client/clients/SockJSClient'),
+        type: 'ws',
+        options: {
+          path: '/ws',
+        },
       },
     ],
     failure: [
       'nonexistent-implementation',
       null,
+      false,
       {
         notAnOption: true,
       },
       {
-        server: false,
-      },
-      {
-        client: () => {},
+        type: true,
       },
     ],
   },

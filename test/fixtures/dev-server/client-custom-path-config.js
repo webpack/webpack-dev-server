@@ -9,11 +9,8 @@ module.exports = {
   entry: resolve(__dirname, './foo.js'),
   devServer: {
     client: {
+      transport: 'sockjs',
       path: '/custom/path',
-    },
-    transportMode: {
-      server: 'sockjs',
-      client: 'sockjs',
     },
   },
   plugins: [ExitOnDonePlugin],
