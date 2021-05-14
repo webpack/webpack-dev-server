@@ -152,6 +152,9 @@ const tests = {
       {
         port: true,
       },
+      {
+        transport: true,
+      },
     ],
   },
   compress: {
