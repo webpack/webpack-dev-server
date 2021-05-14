@@ -110,22 +110,14 @@ exports[`options validate should throw an error on the "client" option with '{"t
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-<<<<<<< HEAD
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
-=======
-   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
->>>>>>> test: updates
+   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client should be an object:
-<<<<<<< HEAD
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
-=======
-   object { host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
->>>>>>> test: updates
+   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
