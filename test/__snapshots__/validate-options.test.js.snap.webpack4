@@ -561,7 +561,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
       object { type?, options? }"
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with 'nonexistent-implementation' value 1`] = `"Error: client.transport must be a string denoting a default implementation (e.g. 'sockjs', 'ws') or a full path to a JS file which exports a class extending BaseClient (webpack-dev-server/client-src/clients/BaseClient.js) via require.resolve(...)"`;
+exports[`options validate should throw an error on the "webSocketServer" option with 'nonexistent-implementation' value 1`] = `"Error: When you use custom web socket implementation you must explicitly specify client.transport. client.transport must be a string denoting a default implementation (e.g. 'sockjs', 'ws') or a full path to a JS file which exports a class extending BaseClient (webpack-dev-server/client-src/clients/BaseClient.js) via require.resolve(...)"`;
 
 exports[`options validate should throw an error on the "webSocketServer" option with 'null' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.

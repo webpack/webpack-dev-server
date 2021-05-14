@@ -29,7 +29,7 @@ describe('reload', () => {
     {
       title: 'hot with transportMode.client sockjs',
       options: {
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       },
       shouldRefresh: false,
     },
