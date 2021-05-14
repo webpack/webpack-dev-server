@@ -301,7 +301,7 @@ describe('proxy option', () => {
 
   describe('should handles external websocket upgrade', () => {
     let ws;
-    let wsServer;
+    let webSocketServer;
     let responseMessage;
 
     const transportModes = ['sockjs', 'ws'];
@@ -329,8 +329,8 @@ describe('proxy option', () => {
             done
           );
 
-          wsServer = new WebSocketServer({ port: port4 });
-          wsServer.on('connection', (server) => {
+          webSocketServer = new WebSocketServer({ port: port4 });
+          webSocketServer.on('connection', (server) => {
             server.on('message', (message) => {
               server.send(message);
             });
@@ -353,7 +353,7 @@ describe('proxy option', () => {
         });
 
         afterAll((done) => {
-          wsServer.close();
+          webSocketServer.close();
           testServer.close(done);
         });
       });
