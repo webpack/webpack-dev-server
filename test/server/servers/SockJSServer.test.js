@@ -23,8 +23,10 @@ describe('SockJSServer', () => {
           debug: () => {},
         },
         options: {
-          client: {
-            path: '/ws',
+          webSocketServer: {
+            options: {
+              path: '/ws',
+            },
           },
         },
         server,

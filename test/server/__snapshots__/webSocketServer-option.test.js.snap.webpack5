@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`webServerSocket server is passed to getSocketServerImplementation correctly as a nonexistent path 1`] = `
+Object {
+  "overlay": true,
+  "transport": "ws",
+}
+`;
+
+exports[`webServerSocket server is passed to getSocketServerImplementation correctly as a path ("sockjs") 1`] = `
+Object {
+  "overlay": true,
+  "transport": "sockjs",
+}
+`;
+
+exports[`webServerSocket server is passed to getSocketServerImplementation correctly as a path ("ws") 1`] = `
+Object {
+  "overlay": true,
+  "transport": "ws",
+}
+`;
+
+exports[`webServerSocket server is passed to getSocketServerImplementation correctly as a string ("sockjs") 1`] = `
+Object {
+  "overlay": true,
+  "transport": "sockjs",
+}
+`;
+
+exports[`webServerSocket server is passed to getSocketServerImplementation correctly as a string ("ws") 1`] = `
+Object {
+  "overlay": true,
+  "transport": "ws",
+}
+`;
+
+exports[`webServerSocket server passed to server with a bad host header results in an error 1`] = `
+Array [
+  "close",
+]
+`;
+
+exports[`webServerSocket server passed to server without a header results in an error 1`] = `
+Array [
+  "close",
+]
+`;
+
+exports[`webServerSocket server server should close client with bad headers 1`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`webServerSocket server server should close client with bad headers 2`] = `
+Array [
+  Array [
+    Object {
+      "foo": "bar",
+    },
+    "{\\"type\\":\\"error\\",\\"data\\":\\"Invalid Host/Origin header\\"}",
+  ],
+]
+`;
+
+exports[`webServerSocket server server should close client with bad headers 3`] = `
+Array [
+  Array [
+    Object {
+      "foo": "bar",
+    },
+  ],
+]
+`;
+
+exports[`webServerSocket server server should use server implementation correctly 1`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+]
+`;
+
+exports[`webServerSocket server server should use server implementation correctly 2`] = `
+Array [
+  Array [
+    [Function],
+  ],
+]
+`;
+
+exports[`webServerSocket server server should use server implementation correctly 3`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+  "{\\"type\\":\\"hot\\"}",
+]
+`;
+
+exports[`webServerSocket server server should use server implementation correctly 4`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+  "{\\"type\\":\\"liveReload\\"}",
+]
+`;
+
+exports[`webServerSocket server server should use server implementation correctly 5`] = `
+Array [
+  Object {
+    "foo": "bar",
+  },
+  "{\\"type\\":\\"ok\\"}",
+]
+`;
+
+exports[`webServerSocket server server should use server implementation correctly 6`] = `
+Array [
+  Array [
+    Object {
+      "foo": "bar",
+    },
+    [Function],
+  ],
+]
+`;

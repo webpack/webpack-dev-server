@@ -9,15 +9,15 @@ Object {
 
 exports[`transportMode server is passed to getSocketServerImplementation correctly as a string ("sockjs") 1`] = `
 Object {
-  "client": "sockjs",
-  "server": "sockjs",
+  "overlay": true,
+  "transport": "sockjs",
 }
 `;
 
 exports[`transportMode server is passed to getSocketServerImplementation correctly as a string ("ws") 1`] = `
 Object {
-  "client": "ws",
-  "server": "ws",
+  "overlay": true,
+  "transport": "ws",
 }
 `;
 

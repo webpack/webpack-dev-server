@@ -12,9 +12,8 @@ module.exports = {
     bar: resolve(__dirname, './bar.js'),
   },
   devServer: {
-    transportMode: {
-      server: 'sockjs',
-      client: 'sockjs',
+    client: {
+      transport: 'sockjs',
     },
   },
   plugins: [ExitOnDonePlugin],

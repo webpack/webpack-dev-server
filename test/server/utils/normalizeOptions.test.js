@@ -13,58 +13,58 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'transportMode sockjs string',
+      title: 'client.transport sockjs string',
       multiCompiler: false,
       options: {
-        transportMode: 'sockjs',
-      },
-      optionsResults: null,
-    },
-    {
-      title: 'transportMode ws string',
-      multiCompiler: false,
-      options: {
-        transportMode: 'ws',
-      },
-      optionsResults: null,
-    },
-    {
-      title: 'transportMode ws object',
-      multiCompiler: false,
-      options: {
-        transportMode: {
-          server: 'ws',
-          client: 'ws',
+        client: {
+          transport: 'sockjs',
         },
       },
       optionsResults: null,
     },
     {
-      title: 'transportMode custom server path',
+      title: 'client.transport ws string',
       multiCompiler: false,
       options: {
-        transportMode: {
-          server: '/path/to/custom/server/',
+        client: {
+          transport: 'ws',
         },
       },
       optionsResults: null,
     },
     {
-      title: 'transportMode custom server class',
+      title: 'client.transport ws string and webSocketServer ws string',
       multiCompiler: false,
       options: {
-        transportMode: {
-          server: class CustomServerImplementation {},
+        client: {
+          transport: 'ws',
         },
+        webSocketServer: 'ws',
       },
       optionsResults: null,
     },
     {
-      title: 'transportMode custom client path',
+      title: 'webSocketServer custom server path',
       multiCompiler: false,
       options: {
-        transportMode: {
-          client: '/path/to/custom/client/',
+        webSocketServer: '/path/to/custom/server/',
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'webSocketServer custom server class',
+      multiCompiler: false,
+      options: {
+        webSocketServer: class CustomServerImplementation {},
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'client custom transport path',
+      multiCompiler: false,
+      options: {
+        client: {
+          transport: '/path/to/custom/client/',
         },
       },
       optionsResults: null,

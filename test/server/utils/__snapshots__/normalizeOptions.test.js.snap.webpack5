@@ -1,11 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`normalizeOptions client custom transport path should set correct options 1`] = `
+Object {
+  "client": Object {
+    "overlay": true,
+    "transport": "/path/to/custom/client/",
+  },
+  "devMiddleware": Object {},
+  "firewall": true,
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
 exports[`normalizeOptions client host and port should set correct options 1`] = `
 Object {
   "client": Object {
     "host": "my.host",
     "overlay": true,
-    "path": "/ws",
     "port": 9000,
   },
   "devMiddleware": Object {},
@@ -26,9 +58,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -37,7 +71,7 @@ exports[`normalizeOptions client path should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/custom/path",
+    "path": "/custom/path/",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -57,9 +91,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -68,7 +104,7 @@ exports[`normalizeOptions client path without leading/ending slashes should set 
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/custom/path",
+    "path": "custom/path",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -88,9 +124,110 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport sockjs string should set correct options 1`] = `
+Object {
+  "client": Object {
+    "overlay": true,
+    "transport": "sockjs",
+  },
+  "devMiddleware": Object {},
+  "firewall": true,
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string and webSocketServer ws string should set correct options 1`] = `
+Object {
+  "client": Object {
+    "overlay": true,
+    "transport": "ws",
+  },
+  "devMiddleware": Object {},
+  "firewall": true,
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string should set correct options 1`] = `
+Object {
+  "client": Object {
+    "overlay": true,
+    "transport": "ws",
+  },
+  "devMiddleware": Object {},
+  "firewall": true,
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -99,7 +236,6 @@ exports[`normalizeOptions dev is set should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {
     "serverSideRender": true,
@@ -121,9 +257,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -132,7 +270,6 @@ exports[`normalizeOptions firewall is set should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": false,
@@ -152,9 +289,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -163,7 +302,6 @@ exports[`normalizeOptions hot is false should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -183,9 +321,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -194,7 +334,6 @@ exports[`normalizeOptions hot is only should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -214,9 +353,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -225,7 +366,6 @@ exports[`normalizeOptions hot is true should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -245,9 +385,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -256,7 +398,6 @@ exports[`normalizeOptions liveReload is false should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -276,9 +417,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -287,7 +430,6 @@ exports[`normalizeOptions liveReload is true should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -307,9 +449,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -318,7 +462,6 @@ exports[`normalizeOptions multi compiler watchOptions is set should set correct 
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -340,9 +483,11 @@ Object {
       },
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -351,7 +496,6 @@ exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -371,9 +515,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -382,7 +528,6 @@ exports[`normalizeOptions single compiler watchOptions is object should set corr
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -404,9 +549,11 @@ Object {
       },
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -415,7 +562,6 @@ exports[`normalizeOptions single compiler watchOptions is object with static wat
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -437,9 +583,11 @@ Object {
       },
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -448,7 +596,6 @@ exports[`normalizeOptions single compiler watchOptions is object with static wat
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -470,9 +617,11 @@ Object {
       },
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -481,7 +630,6 @@ exports[`normalizeOptions single compiler watchOptions is object with watch fals
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -501,9 +649,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -512,7 +662,6 @@ exports[`normalizeOptions static is an array of static objects should set correc
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -543,9 +692,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -554,7 +705,6 @@ exports[`normalizeOptions static is an array of strings and static objects shoul
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -585,9 +735,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -596,7 +748,6 @@ exports[`normalizeOptions static is an array of strings should set correct optio
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -627,9 +778,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -638,7 +791,6 @@ exports[`normalizeOptions static is an object should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -658,9 +810,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -669,7 +823,6 @@ exports[`normalizeOptions static is false should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -677,9 +830,11 @@ Object {
   "liveReload": true,
   "setupExitSignals": true,
   "static": false,
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -688,7 +843,6 @@ exports[`normalizeOptions static is string should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -708,9 +862,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -719,7 +875,6 @@ exports[`normalizeOptions static is true should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -739,9 +894,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -750,7 +907,6 @@ exports[`normalizeOptions static publicPath is a string should set correct optio
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -770,9 +926,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -781,7 +939,6 @@ exports[`normalizeOptions static publicPath is an array should set correct optio
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -802,9 +959,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -813,7 +972,6 @@ exports[`normalizeOptions static serveIndex is an object should set correct opti
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -833,9 +991,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -844,7 +1004,6 @@ exports[`normalizeOptions static serveIndex is false should set correct options 
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -862,9 +1021,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -873,7 +1034,6 @@ exports[`normalizeOptions static serveIndex is true should set correct options 1
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -893,9 +1053,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -904,7 +1066,6 @@ exports[`normalizeOptions static watch is an object should set correct options 1
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -926,9 +1087,11 @@ Object {
       },
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -937,7 +1100,6 @@ exports[`normalizeOptions static watch is false should set correct options 1`] =
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -957,9 +1119,11 @@ Object {
       "watch": false,
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
@@ -968,7 +1132,6 @@ exports[`normalizeOptions static watch is true should set correct options 1`] = 
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -988,18 +1151,19 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
   },
 }
 `;
 
-exports[`normalizeOptions transportMode custom client path should set correct options 1`] = `
+exports[`normalizeOptions webSocketServer custom server class should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -1019,18 +1183,19 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "/path/to/custom/client/",
-    "server": "ws",
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": [Function],
   },
 }
 `;
 
-exports[`normalizeOptions transportMode custom server class should set correct options 1`] = `
+exports[`normalizeOptions webSocketServer custom server path should set correct options 1`] = `
 Object {
   "client": Object {
     "overlay": true,
-    "path": "/ws",
   },
   "devMiddleware": Object {},
   "firewall": true,
@@ -1050,133 +1215,11 @@ Object {
       "watch": Object {},
     },
   ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": [Function],
-  },
-}
-`;
-
-exports[`normalizeOptions transportMode custom server path should set correct options 1`] = `
-Object {
-  "client": Object {
-    "overlay": true,
-    "path": "/ws",
-  },
-  "devMiddleware": Object {},
-  "firewall": true,
-  "hot": true,
-  "liveReload": true,
-  "setupExitSignals": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
     },
-  ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "/path/to/custom/server/",
-  },
-}
-`;
-
-exports[`normalizeOptions transportMode sockjs string should set correct options 1`] = `
-Object {
-  "client": Object {
-    "overlay": true,
-    "path": "/ws",
-  },
-  "devMiddleware": Object {},
-  "firewall": true,
-  "hot": true,
-  "liveReload": true,
-  "setupExitSignals": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
-    },
-  ],
-  "transportMode": Object {
-    "client": "sockjs",
-    "server": "sockjs",
-  },
-}
-`;
-
-exports[`normalizeOptions transportMode ws object should set correct options 1`] = `
-Object {
-  "client": Object {
-    "overlay": true,
-    "path": "/ws",
-  },
-  "devMiddleware": Object {},
-  "firewall": true,
-  "hot": true,
-  "liveReload": true,
-  "setupExitSignals": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
-    },
-  ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
-  },
-}
-`;
-
-exports[`normalizeOptions transportMode ws string should set correct options 1`] = `
-Object {
-  "client": Object {
-    "overlay": true,
-    "path": "/ws",
-  },
-  "devMiddleware": Object {},
-  "firewall": true,
-  "hot": true,
-  "liveReload": true,
-  "setupExitSignals": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
-    },
-  ],
-  "transportMode": Object {
-    "client": "ws",
-    "server": "ws",
+    "type": "/path/to/custom/server/",
   },
 }
 `;
