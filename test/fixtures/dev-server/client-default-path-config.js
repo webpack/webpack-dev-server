@@ -10,9 +10,6 @@ module.exports = {
   devServer: {
     webSocketServer: {
       type: 'ws',
-      options: {
-        path: '/ws',
-      },
     },
   },
   plugins: [ExitOnDonePlugin],
