@@ -270,7 +270,7 @@
           ],
           "description": "Tells devServer to inject a client entry."
         },
-        "needHotEntry": {
+        "hotEntry": {
           "anyOf": [
             {
               "type": "boolean"
