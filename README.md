@@ -108,6 +108,8 @@ Options:
   --no-http2                       Do not use HTTP/2.
   --bonjour                        Broadcasts the server via ZeroConf networking on start.
   --no-bonjour                     Do not broadcast the server via ZeroConf networking on start.
+  --client-hot-entry               Tell devServer to inject a Hot Module Replacement entry.
+  --no-client-hot-entry            Do not tell devServer to inject a Hot Module Replacement entry.
   --client-progress                Print compilation progress in percentage in the browser.
   --no-client-progress             Do not print compilation progress in percentage in the browser.
   --client-overlay                 Show a full-screen overlay in the browser when there are compiler errors or warnings.
