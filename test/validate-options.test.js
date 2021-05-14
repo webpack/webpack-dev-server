@@ -327,6 +327,16 @@ const tests = {
           path: '/ws',
         },
       },
+      {
+        options: {
+          host: '127.0.0.1',
+          port: 8090,
+          path: '/ws',
+        },
+      },
+      {
+        type: 'ws',
+      },
     ],
     failure: [
       'nonexistent-implementation',

@@ -212,6 +212,10 @@
           "type": "string",
           "description": "Tells clients connected to devServer to use the provided host."
         },
+        "path": {
+          "type": "string",
+          "description": "Tells clients connected to devServer to use the provided path to connect."
+        },
         "port": {
           "anyOf": [
             {
@@ -224,14 +228,6 @@
               "type": "null"
             }
           ],
-          "description": "Tells clients connected to devServer to use the provided path to connect."
-        },
-        "path": {
-          "type": "string",
-          "description": "Tells clients connected to devServer to use the provided port."
-        },
-        "path": {
-          "type": "string",
           "description": "Tells clients connected to devServer to use the provided path to connect."
         },
         "logging": {
