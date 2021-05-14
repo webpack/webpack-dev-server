@@ -8,10 +8,7 @@ module.exports = {
   stats: 'detailed',
   entry: resolve(__dirname, './foo.js'),
   devServer: {
-    client: {
-      transport: 'sockjs',
-      path: '/custom/path',
-    },
+    webSocketServer: 'ws',
   },
   plugins: [ExitOnDonePlugin],
 };

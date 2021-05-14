@@ -16,6 +16,7 @@ describe('getSocketClientPath', () => {
         client: {
           transport: 'sockjs',
         },
+        webSocketServer: 'sockjs',
       });
     }).not.toThrow();
 
@@ -30,6 +31,7 @@ describe('getSocketClientPath', () => {
         client: {
           transport: sockjsClientPath,
         },
+        webSocketServer: 'sockjs',
       });
     }).not.toThrow();
 
@@ -42,6 +44,7 @@ describe('getSocketClientPath', () => {
         client: {
           transport: '/bad/path/to/implementation',
         },
+        webSocketServer: 'sockjs',
       });
     }).toThrow(/client.transport must be a string/);
   });
@@ -52,6 +55,7 @@ describe('getSocketClientPath', () => {
         client: {
           transport: 1,
         },
+        webSocketServer: 'sockjs',
       });
     }).toThrow(/client.transport must be a string/);
   });
@@ -62,6 +66,7 @@ describe('getSocketClientPath', () => {
         client: {
           transport: baseClientPath,
         },
+        webSocketServer: 'sockjs',
       });
     }).toThrow('Client needs implementation');
   });

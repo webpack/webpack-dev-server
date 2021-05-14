@@ -304,10 +304,10 @@ describe('proxy option', () => {
     let webSocketServer;
     let responseMessage;
 
-    const transportModes = ['sockjs', 'ws'];
+    const webSocketServerTypes = ['sockjs', 'ws'];
 
-    transportModes.forEach((transportMode) => {
-      describe(`with transportMode: ${transportMode}`, () => {
+    webSocketServerTypes.forEach((webSocketServerType) => {
+      describe(`with webSocketServerType: ${webSocketServerType}`, () => {
         beforeAll((done) => {
           testServer.start(
             config,
@@ -316,9 +316,7 @@ describe('proxy option', () => {
                 directory: contentBase,
                 watch: false,
               },
-              client: {
-                transport: transportMode,
-              },
+              webSocketServer: webSocketServerType,
               proxy: [
                 {
                   context: '/',

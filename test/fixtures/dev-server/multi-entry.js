@@ -12,9 +12,7 @@ module.exports = {
     bar: resolve(__dirname, './bar.js'),
   },
   devServer: {
-    client: {
-      transport: 'sockjs',
-    },
+    webSocketServer: 'ws',
   },
   plugins: [ExitOnDonePlugin],
 };

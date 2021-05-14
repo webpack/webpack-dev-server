@@ -14,10 +14,7 @@ module.exports = {
     workerChunkLoading: false,
   },
   devServer: {
-    client: {
-      transport: 'sockjs',
-      path: '/custom/path',
-    },
+    webSocketServer: 'ws',
   },
   plugins: [ExitOnDonePlugin],
 };
