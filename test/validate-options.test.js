@@ -156,8 +156,8 @@ const tests = {
     failure: ['', []],
   },
   headers: {
-    success: [{}, { foo: 'bar' }],
-    failure: [false],
+    success: [{}, { foo: 'bar' }, () => {}],
+    failure: [false, 1],
   },
   historyApiFallback: {
     success: [{}, true],
@@ -406,8 +406,7 @@ describe('options', () => {
         let thrownError;
 
         try {
-          server = new Server({ [key]: value });
-          server.apply(compiler);
+          server = new Server({ [key]: value }, compiler);
         } catch (error) {
           thrownError = error;
         }

@@ -5,6 +5,8 @@ const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['stats-option'];
 
+const createServer = (compiler, options) => new Server(options, compiler);
+
 describe('stats option', () => {
   beforeAll(() => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
@@ -27,11 +29,10 @@ describe('stats option', () => {
           () =>
             new Promise((resolve) => {
               const compiler = webpack(Object.assign({}, config, { stats }));
-              const server = new Server({
+              const server = createServer(compiler, {
                 static: false,
                 port,
               });
-              server.apply(compiler);
 
               compiler.hooks.done.tap('webpack-dev-server', (s) => {
                 expect(
@@ -55,11 +56,10 @@ describe('stats option', () => {
         stats: { warningsFilter: 'test' },
       })
     );
-    const server = new Server({
+    const server = createServer(compiler, {
       static: false,
       port,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', (s) => {
       s.compilation.warnings = ['test', 'another warning'];

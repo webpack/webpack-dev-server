@@ -18,6 +18,8 @@ open.mockImplementation(() => {
 const internalIPv4 = internalIp.v4.sync();
 // const internalIPv6 = internalIp.v6.sync();
 
+const createServer = (compiler, options) => new Server(options, compiler);
+
 describe('"open" option', () => {
   afterEach(() => {
     open.mockClear();
@@ -25,12 +27,11 @@ describe('"open" option', () => {
 
   it('should work with unspecified host', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -48,13 +49,12 @@ describe('"open" option', () => {
 
   it("should work with the 'https' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       https: true,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -72,12 +72,11 @@ describe('"open" option', () => {
 
   it("should work with '0.0.0.0' host", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -95,12 +94,11 @@ describe('"open" option', () => {
 
   it("should work with '::' host", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -118,12 +116,11 @@ describe('"open" option', () => {
 
   it("should work with 'localhost' host", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -141,13 +138,11 @@ describe('"open" option', () => {
 
   it("should work with '127.0.0.1' host", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -165,12 +160,11 @@ describe('"open" option', () => {
 
   it("should work with '::1' host", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -188,12 +182,11 @@ describe('"open" option', () => {
 
   it(`should work with '${internalIPv4}' host`, (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -213,13 +206,12 @@ describe('"open" option', () => {
   // if (internalIPv6) {
   //   it(`should work with '${internalIPv6}' host`, (done) => {
   //     const compiler = webpack(config);
-  //     const server = new Server({
+  //     const server = createServer(compiler, {
   //       open: true,
   //       port,
   //       static: false,
   //     });
-  //    server.apply(compiler);
-  //
+  //  //
   //     compiler.hooks.done.tap('webpack-dev-server', () => {
   //       server.close(() => {
   //         expect(open).toHaveBeenCalledWith(`http://[${internalIPv6}]:8117/`, {
@@ -237,12 +229,11 @@ describe('"open" option', () => {
 
   it('should work with boolean', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -260,12 +251,11 @@ describe('"open" option', () => {
 
   it("should work with boolean but don't close with 'false' value", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: false,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -281,12 +271,11 @@ describe('"open" option', () => {
 
   it('should work with relative string', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: 'index.html',
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -304,12 +293,11 @@ describe('"open" option', () => {
 
   it('should work with relative string starting with "/"', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: '/index.html',
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -327,12 +315,11 @@ describe('"open" option', () => {
 
   it('should work with absolute string', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: 'http://localhost:8117/index.html',
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -350,12 +337,11 @@ describe('"open" option', () => {
 
   it('should work with multiple relative strings', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: ['first.html', 'second.html'],
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -384,7 +370,7 @@ describe('"open" option', () => {
 
   it('should work with multiple absolute strings', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: [
         'http://localhost:8117/first.html',
         'http://localhost:8117/second.html',
@@ -392,7 +378,6 @@ describe('"open" option', () => {
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -421,12 +406,11 @@ describe('"open" option', () => {
 
   it('should work with empty object', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {},
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -444,14 +428,13 @@ describe('"open" option', () => {
 
   it("should work with object and with the boolean value of 'target' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: true,
       },
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -469,14 +452,13 @@ describe('"open" option', () => {
 
   it("should work with object and with the 'target' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: 'index.html',
       },
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -494,14 +476,13 @@ describe('"open" option', () => {
 
   it("should work with object and with multiple values of the 'target' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: ['first.html', 'second.html'],
       },
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -530,14 +511,13 @@ describe('"open" option', () => {
 
   it("should work with object and with the 'app' option", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         app: 'google-chrome',
       },
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -556,14 +536,13 @@ describe('"open" option', () => {
 
   it("should work with object and with the 'app' option with arguments", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         app: ['google-chrome', '--incognito'],
       },
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -582,7 +561,7 @@ describe('"open" option', () => {
 
   it('should work with object with "target" and "app" options', (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: 'index.html',
         app: 'google-chrome',
@@ -590,7 +569,6 @@ describe('"open" option', () => {
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -609,7 +587,7 @@ describe('"open" option', () => {
 
   it("should work with object, with multiple value of the 'target' option and with the 'app' option with arguments", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: ['first.html', 'second.html'],
         app: ['google-chrome', '--incognito'],
@@ -617,7 +595,6 @@ describe('"open" option', () => {
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -648,7 +625,7 @@ describe('"open" option', () => {
 
   it("should work with object, with multiple value of the 'target' option (relative and absolute URLs) and with the 'app' option with arguments", (done) => {
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: ['first.html', 'http://localhost:8117/second.html'],
         app: ['google-chrome', '--incognito'],
@@ -656,7 +633,6 @@ describe('"open" option', () => {
       port,
       static: false,
     });
-    server.apply(compiler);
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
@@ -689,12 +665,11 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: true,
       port,
       static: false,
     });
-    server.apply(compiler);
 
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
@@ -720,12 +695,11 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: 'index.html',
       port,
       static: false,
     });
-    server.apply(compiler);
 
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
@@ -751,7 +725,7 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: 'index.html',
         app: 'google-chrome',
@@ -759,7 +733,6 @@ describe('"open" option', () => {
       port,
       static: false,
     });
-    server.apply(compiler);
 
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
@@ -786,7 +759,7 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: 'index.html',
         app: ['google-chrome', '--incognito', '--new-window'],
@@ -794,7 +767,6 @@ describe('"open" option', () => {
       port,
       static: false,
     });
-    server.apply(compiler);
 
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
@@ -821,7 +793,7 @@ describe('"open" option', () => {
     open.mockImplementation(() => Promise.reject());
 
     const compiler = webpack(config);
-    const server = new Server({
+    const server = createServer(compiler, {
       open: {
         target: ['first.html', 'http://localhost:8117/second.html'],
         app: ['google-chrome', '--incognito', '--new-window'],
@@ -829,7 +801,6 @@ describe('"open" option', () => {
       port,
       static: false,
     });
-    server.apply(compiler);
 
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 

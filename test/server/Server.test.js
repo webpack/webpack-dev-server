@@ -15,6 +15,8 @@ const baseDevConfig = {
   static: false,
 };
 
+const createServer = (compiler, options) => new Server(options, compiler);
+
 describe('Server', () => {
   describe('sockjs', () => {
     it('add decorateConnection', () => {
@@ -48,13 +50,12 @@ describe('Server', () => {
 
     it('add hot option', (done) => {
       const compiler = webpack(config);
-      const server = new Server(
+      const server = createServer(
+        compiler,
         Object.assign({}, baseDevConfig, {
           hot: true,
         })
       );
-
-      server.apply(compiler);
 
       getEntries(server);
 
@@ -66,14 +67,41 @@ describe('Server', () => {
       compiler.run(() => {});
     });
 
+    // TODO: remove this after plugin support is published
+    it('should create and run server with old parameters order', (done) => {
+      const compiler = webpack(config);
+      const server = new Server(compiler, baseDevConfig);
+
+      getEntries(server);
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot('oldparam');
+        server.close(done);
+      });
+
+      compiler.run(() => {});
+    });
+
+    // TODO: remove this after plugin support is published
+    it('should create and run server with MultiCompiler with old parameters order', (done) => {
+      const compiler = webpack([config, config]);
+      const server = new Server(compiler, baseDevConfig);
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        server.close(done);
+      });
+
+      compiler.run(() => {});
+    });
+
     it('add hot-only option', (done) => {
       const compiler = webpack(config);
-      const server = new Server(
+      const server = createServer(
+        compiler,
         Object.assign({}, baseDevConfig, {
           hot: 'only',
         })
       );
-      server.apply(compiler);
 
       getEntries(server);
 
@@ -88,8 +116,7 @@ describe('Server', () => {
 
   it('test server error reporting', () => {
     const compiler = webpack(config);
-    const server = new Server(baseDevConfig);
-    server.apply(compiler);
+    const server = createServer(compiler, baseDevConfig);
 
     const emitError = () => server.server.emit('error', new Error('Error !!!'));
 
@@ -116,8 +143,7 @@ describe('Server', () => {
       });
 
       const compiler = webpack(config);
-      const server = new Server(baseDevConfig);
-      server.apply(compiler);
+      const server = createServer(compiler, baseDevConfig);
 
       compiler.hooks.done.tap('webpack-dev-server', (s) => {
         const output = server.getStats(s);
@@ -155,8 +181,7 @@ describe('Server', () => {
         host: 'bad.host',
       };
 
-      server = new Server(options);
-      server.apply(compiler);
+      server = createServer(compiler, options);
 
       if (!server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
@@ -170,9 +195,7 @@ describe('Server', () => {
       const headers = {
         host: 'localhost',
       };
-      server = new Server(options);
-      server.apply(compiler);
-
+      server = createServer(compiler, options);
       if (!server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
       }
@@ -187,8 +210,7 @@ describe('Server', () => {
         host: '127.0.0.1',
       };
 
-      server = new Server(options);
-      server.apply(compiler);
+      server = createServer(compiler, options);
 
       if (!server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
@@ -207,8 +229,7 @@ describe('Server', () => {
         '[ad42::1de2:54c2:c2fa:1234]:8080',
       ];
 
-      server = new Server(options);
-      server.apply(compiler);
+      server = createServer(compiler, options);
 
       tests.forEach((test) => {
         const headers = { host: test };
@@ -228,8 +249,7 @@ describe('Server', () => {
         host: 'test.hostname:80',
       };
 
-      server = new Server(options);
-      server.apply(compiler);
+      server = createServer(compiler, options);
 
       if (server.checkHost(headers)) {
         throw new Error("Validation didn't fail");
@@ -243,10 +263,7 @@ describe('Server', () => {
       const headers = {
         origin: 'https://test.host',
       };
-
-      server = new Server(options);
-      server.apply(compiler);
-
+      server = createServer(compiler, options);
       if (!server.checkOrigin(headers)) {
         throw new Error("Validation didn't fail");
       }
@@ -256,8 +273,7 @@ describe('Server', () => {
       it('should allow hosts in firewall', () => {
         const tests = ['test.host', 'test2.host', 'test3.host'];
         const options = { firewall: tests };
-        server = new Server(options);
-        server.apply(compiler);
+        server = createServer(compiler, options);
         tests.forEach((test) => {
           const headers = { host: test };
           if (!server.checkHost(headers)) {
@@ -268,8 +284,7 @@ describe('Server', () => {
 
       it('should allow hosts that pass a wildcard in firewall', () => {
         const options = { firewall: ['.example.com'] };
-        server = new Server(options);
-        server.apply(compiler);
+        server = createServer(compiler, options);
         const tests = [
           'www.example.com',
           'subdomain.example.com',
@@ -292,8 +307,8 @@ describe('Server', () => {
     describe('Testing callback functions on calling invalidate without callback', () => {
       it('should use default `noop` callback', (done) => {
         const compiler = webpack(config);
-        const server = new Server(baseDevConfig);
-        server.apply(compiler);
+        const server = createServer(compiler, baseDevConfig);
+
         server.invalidate();
         expect(server.middleware.context.callbacks.length).toEqual(1);
 
@@ -309,8 +324,8 @@ describe('Server', () => {
       it('should use `callback` function', (done) => {
         const compiler = webpack(config);
         const callback = jest.fn();
-        const server = new Server(baseDevConfig);
-        server.apply(compiler);
+        const server = createServer(compiler, baseDevConfig);
+
         server.invalidate(callback);
 
         expect(server.middleware.context.callbacks[0]).toBe(callback);
