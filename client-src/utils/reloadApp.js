@@ -1,6 +1,4 @@
-'use strict';
-
-const { log } = require('./log');
+import { log } from './log';
 
 function reloadApp(
   { hotReload, hot, liveReload },
@@ -13,6 +11,7 @@ function reloadApp(
   if (hot) {
     log.info('App hot update...');
 
+    // eslint-disable-next-line import/no-extraneous-dependencies
     const hotEmitter = require('webpack/hot/emitter');
 
     hotEmitter.emit('webpackHotUpdate', currentHash);
@@ -51,4 +50,4 @@ function reloadApp(
   }
 }
 
-module.exports = reloadApp;
+export default reloadApp;

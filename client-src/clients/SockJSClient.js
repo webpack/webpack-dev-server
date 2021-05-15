@@ -1,10 +1,8 @@
-'use strict';
+import SockJS from '../modules/sockjs-client';
+import { log } from '../utils/log';
+import BaseClient from './BaseClient';
 
-const SockJS = require('../modules/sockjs-client');
-const { log } = require('../utils/log');
-const BaseClient = require('./BaseClient');
-
-module.exports = class SockJSClient extends BaseClient {
+class SockJSClient extends BaseClient {
   constructor(url) {
     super();
 
@@ -36,4 +34,6 @@ module.exports = class SockJSClient extends BaseClient {
       f(e.data);
     };
   }
-};
+}
+
+export default SockJSClient;

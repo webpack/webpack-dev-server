@@ -1,9 +1,7 @@
-'use strict';
+import { log } from '../utils/log';
+import BaseClient from './BaseClient';
 
-const { log } = require('../utils/log');
-const BaseClient = require('./BaseClient');
-
-module.exports = class WebsocketClient extends BaseClient {
+class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
 
@@ -32,4 +30,6 @@ module.exports = class WebsocketClient extends BaseClient {
       f(e.data);
     };
   }
-};
+}
+
+export default WebsocketClient;
