@@ -69,7 +69,7 @@ const tests = {
       {
         host: '',
         path: '',
-        port: null,
+        port: 'auto',
       },
       {
         progress: false,
@@ -255,8 +255,8 @@ const tests = {
     failure: ['', [], { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
-    success: ['', 0, null],
-    failure: [false],
+    success: ['', 0, 'auto'],
+    failure: [false, null],
   },
   proxy: {
     success: [
