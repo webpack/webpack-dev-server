@@ -163,7 +163,7 @@
         },
         "path": {
           "type": "string",
-          "description": "Tells clients connected to devServer to use the provided port."
+          "description": "Tells clients connected to devServer to use the provided path to connect."
         },
         "port": {
           "anyOf": [
@@ -177,7 +177,7 @@
               "type": "null"
             }
           ],
-          "description": "Tells clients connected to devServer to use the provided path to connect."
+          "description": "Tells clients connected to devServer to use the provided port."
         },
         "logging": {
           "enum": ["none", "error", "warn", "info", "log", "verbose"],

@@ -141,6 +141,12 @@ const tests = {
       {
         needHotEntry: [''],
       },
+      {
+        path: true,
+      },
+      {
+        port: true,
+      },
     ],
   },
   compress: {
