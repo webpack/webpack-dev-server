@@ -94,11 +94,13 @@ describe('webSocketServer', () => {
                   isStandardWebSocketServerImplementation
                     ? getSocketServerImplementation.mock.calls[0][0]
                         .webSocketServer.type
-                    : path.relative(
-                        process.cwd(),
-                        getSocketServerImplementation.mock.calls[0][0]
-                          .webSocketServer.type
-                      )
+                    : path
+                        .relative(
+                          process.cwd(),
+                          getSocketServerImplementation.mock.calls[0][0]
+                            .webSocketServer.type
+                        )
+                        .replace(/\\/g, '/')
                 ).toMatchSnapshot();
               } else {
                 expect(
