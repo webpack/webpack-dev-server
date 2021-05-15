@@ -82,12 +82,12 @@ exports[`options validate should throw an error on the "client" option with '{"p
 exports[`options validate should throw an error on the "client" option with '{"port":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.port should be one of these:
-   number | string | null
+   number | string | \\"auto\\"
    -> Tells clients connected to devServer to use the provided port.
    Details:
     * configuration.client.port should be a number.
     * configuration.client.port should be a string.
-    * configuration.client.port should be a null."
+    * configuration.client.port should be \\"auto\\"."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
@@ -361,12 +361,23 @@ exports[`options validate should throw an error on the "open" option with '{"tar
 exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.port should be one of these:
-   number | string | null
+   number | string | \\"auto\\"
    -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * configuration.port should be a number.
     * configuration.port should be a string.
-    * configuration.port should be a null."
+    * configuration.port should be \\"auto\\"."
+`;
+
+exports[`options validate should throw an error on the "port" option with 'null' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.port should be one of these:
+   number | string | \\"auto\\"
+   -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
+   Details:
+    * configuration.port should be a number.
+    * configuration.port should be a string.
+    * configuration.port should be \\"auto\\"."
 `;
 
 exports[`options validate should throw an error on the "proxy" option with '[]' value 1`] = `
