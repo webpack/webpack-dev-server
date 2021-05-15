@@ -139,6 +139,46 @@
         }
       },
       "additionalProperties": false
+    },
+    "WebSocketServerEnum": {
+      "enum": ["sockjs", "ws"]
+    },
+    "WebSocketServerString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "WebSocketServerFunction": {
+      "instanceof": "Function"
+    },
+    "WebSocketServerObject": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/WebSocketServerEnum"
+            },
+            {
+              "$ref": "#/definitions/WebSocketServerString"
+            },
+            {
+              "$ref": "#/definitions/WebSocketServerFunction"
+            }
+          ]
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "ClientTransportEnum": {
+      "enum": ["sockjs", "ws"]
+    },
+    "ClientTransportString": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "properties": {
@@ -157,6 +197,17 @@
     "client": {
       "type": "object",
       "properties": {
+        "transport": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ClientTransportEnum"
+            },
+            {
+              "$ref": "#/definitions/ClientTransportString"
+            }
+          ],
+          "description": "Allows to set custom transport to communicate with server."
+        },
         "host": {
           "type": "string",
           "description": "Tells clients connected to devServer to use the provided host."
@@ -177,7 +228,7 @@
               "enum": ["auto"]
             }
           ],
-          "description": "Tells clients connected to devServer to use the provided port."
+          "description": "Tells clients connected to devServer to use the provided path to connect."
         },
         "logging": {
           "enum": ["none", "error", "warn", "info", "log", "verbose"],
@@ -233,6 +284,23 @@
       },
       "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
       "additionalProperties": false
+    },
+    "webSocketServer": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/WebSocketServerEnum"
+        },
+        {
+          "$ref": "#/definitions/WebSocketServerString"
+        },
+        {
+          "$ref": "#/definitions/WebSocketServerFunction"
+        },
+        {
+          "$ref": "#/definitions/WebSocketServerObject"
+        }
+      ],
+      "description": "Allows to set web socket server and options."
     },
     "compress": {
       "type": "boolean",
@@ -486,33 +554,6 @@
         }
       ],
       "description": "It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic"
-    },
-    "transportMode": {
-      "anyOf": [
-        {
-          "type": "object",
-          "properties": {
-            "client": {
-              "type": "string"
-            },
-            "server": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "instanceof": "Function"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
-        },
-        {
-          "enum": ["sockjs", "ws"]
-        }
-      ],
-      "description": "This option allows us either to choose the current devServer transport mode for client/server individually or to provide custom client/server implementation. https://webpack.js.org/configuration/dev-server/#devservertransportmode"
     },
     "watchFiles": {
       "anyOf": [

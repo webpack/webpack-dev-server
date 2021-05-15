@@ -5,13 +5,13 @@ const SockJSServer = require('../../../lib/servers/SockJSServer');
 const WebsocketServer = require('../../../lib/servers/WebsocketServer');
 
 describe('getSocketServerImplementation util', () => {
-  it("should work with string transportMode.server ('sockjs')", () => {
+  it("should work with string webSocketServer.type ('sockjs')", () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        transportMode: {
-          server: 'sockjs',
+        webSocketServer: {
+          type: 'sockjs',
         },
       });
     }).not.toThrow();
@@ -19,13 +19,13 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should work with transportMode.server (SockJSServer class)', () => {
+  it('should work with webSocketServer.type (SockJSServer class)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        transportMode: {
-          server: SockJSServer,
+        webSocketServer: {
+          type: SockJSServer,
         },
       });
     }).not.toThrow();
@@ -33,13 +33,13 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it('should work with transportMode.server (SockJSServer full path)', () => {
+  it('should work with webSocketServer.type (SockJSServer full path)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        transportMode: {
-          server: require.resolve('../../../lib/servers/SockJSServer'),
+        webSocketServer: {
+          type: require.resolve('../../../lib/servers/SockJSServer'),
         },
       });
     }).not.toThrow();
@@ -47,13 +47,13 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(SockJSServer);
   });
 
-  it("should work with string transportMode.server ('ws')", () => {
+  it("should work with string webSocketServer.type ('ws')", () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        transportMode: {
-          server: 'ws',
+        webSocketServer: {
+          type: 'ws',
         },
       });
     }).not.toThrow();
@@ -61,13 +61,13 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(WebsocketServer);
   });
 
-  it('should work with transportMode.server (WebsocketServer class)', () => {
+  it('should work with webSocketServer.type (WebsocketServer class)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        transportMode: {
-          server: WebsocketServer,
+        webSocketServer: {
+          type: WebsocketServer,
         },
       });
     }).not.toThrow();
@@ -75,13 +75,13 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(WebsocketServer);
   });
 
-  it('should work with transportMode.server (WebsocketServer full path)', () => {
+  it('should work with webSocketServer.type (WebsocketServer full path)', () => {
     let result;
 
     expect(() => {
       result = getSocketServerImplementation({
-        transportMode: {
-          server: require.resolve('../../../lib/servers/WebsocketServer'),
+        webSocketServer: {
+          type: require.resolve('../../../lib/servers/WebsocketServer'),
         },
       });
     }).not.toThrow();
@@ -89,13 +89,15 @@ describe('getSocketServerImplementation util', () => {
     expect(result).toEqual(WebsocketServer);
   });
 
-  it('should throw with transportMode.server (bad path)', () => {
+  it('should throw with webSocketServer.type (bad path)', () => {
     expect(() => {
       getSocketServerImplementation({
-        transportMode: {
-          server: '/bad/path/to/implementation',
+        webSocketServer: {
+          type: '/bad/path/to/implementation',
         },
       });
-    }).toThrow(/transportMode.server must be a string/);
+    }).toThrowError(
+      /webSocketServer \(webSocketServer.type\) must be a string/
+    );
   });
 });

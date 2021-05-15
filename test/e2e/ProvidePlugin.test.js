@@ -8,7 +8,7 @@ const port = require('../ports-map').ProvidePlugin;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('ProvidePlugin', () => {
-  describe('default transportMode.client (ws)', () => {
+  describe('default client.transport (ws)', () => {
     beforeAll((done) => {
       const options = {
         port,
@@ -40,12 +40,14 @@ describe('ProvidePlugin', () => {
     });
   });
 
-  describe('with transportMode.client sockjs', () => {
+  describe('with client.transport sockjs', () => {
     beforeAll((done) => {
       const options = {
         port,
         host: '0.0.0.0',
-        transportMode: 'sockjs',
+        client: {
+          transport: 'sockjs',
+        },
       };
       testServer.startAwaitingCompilation(sockjsConfig, options, done);
     });

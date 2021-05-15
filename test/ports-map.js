@@ -29,7 +29,7 @@ const portsList = {
   'open-option': 1,
   'port-option': 1,
   'proxy-option': 4,
-  'transportMode-option': 1,
+  'webSocketServer-option': 1,
   'client-option': 1,
   'stats-option': 1,
   ProvidePlugin: 1,

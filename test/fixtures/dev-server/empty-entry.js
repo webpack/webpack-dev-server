@@ -7,10 +7,7 @@ module.exports = {
   stats: { orphanModules: true, preset: 'detailed' },
   entry: {},
   devServer: {
-    transportMode: {
-      server: 'sockjs',
-      client: 'sockjs',
-    },
+    webSocketServer: 'ws',
   },
   plugins: [ExitOnDonePlugin],
 };

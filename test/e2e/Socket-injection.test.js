@@ -12,7 +12,11 @@ const port = require('../ports-map').SocketInjection;
 const config = require('../fixtures/client-config/webpack.config');
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
-const transportModeWSValidOptions = [{}, { transportMode: 'ws' }];
+const transportModeWSValidOptions = [
+  {},
+  { webSocketServer: 'ws' },
+  { webSocketServer: { type: 'ws' } },
+];
 
 describe('ws websocket client injection', () => {
   for (const wsOption of transportModeWSValidOptions) {
@@ -271,7 +275,7 @@ describe('sockjs websocket client injection', () => {
     beforeAll((done) => {
       const options = {
         port,
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       };
       server = testServer.start(config, options, done);
       req = request(`http://localhost:${port}`);
@@ -289,7 +293,7 @@ describe('sockjs websocket client injection', () => {
       const options = {
         port,
         liveReload: true,
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       };
       server = testServer.start(config, options, done);
       req = request(`http://localhost:${port}`);
@@ -307,7 +311,7 @@ describe('sockjs websocket client injection', () => {
       const options = {
         port,
         liveReload: false,
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       };
       server = testServer.start(config, options, done);
       req = request(`http://localhost:${port}`);
@@ -325,7 +329,7 @@ describe('sockjs websocket client injection', () => {
       const options = {
         port,
         hot: true,
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       };
       server = testServer.start(config, options, done);
       req = request(`http://localhost:${port}`);
@@ -344,7 +348,7 @@ describe('sockjs websocket client injection', () => {
         port,
         hot: true,
         liveReload: false,
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       };
       server = testServer.start(config, options, done);
       req = request(`http://localhost:${port}`);
@@ -363,7 +367,7 @@ describe('sockjs websocket client injection', () => {
         port,
         hot: false,
         liveReload: true,
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       };
       server = testServer.start(config, options, done);
       req = request(`http://localhost:${port}`);
@@ -382,7 +386,7 @@ describe('sockjs websocket client injection', () => {
         port,
         hot: false,
         liveReload: false,
-        transportMode: 'sockjs',
+        webSocketServer: 'sockjs',
       };
       server = testServer.start(config, options, done);
       req = request(`http://localhost:${port}`);

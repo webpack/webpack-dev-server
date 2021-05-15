@@ -9,14 +9,15 @@ const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
-const transportModes = ['ws', 'sockjs'];
+const webSocketServerTypes = ['ws', 'sockjs'];
 
-for (const transportMode of transportModes) {
-  const websocketUrlProtocol = transportMode === 'ws' ? 'ws' : 'http';
+for (const webSocketServerType of webSocketServerTypes) {
+  const websocketUrlProtocol = webSocketServerType === 'ws' ? 'ws' : 'http';
+
   // Using Chrome DevTools protocol directly for now:
   // TODO refactor, we should wait ws connection to specific location then wait it will be finished success and run callback
   const waitForTest = (browser, page, filter, callback) => {
-    if (transportMode === 'sockjs') {
+    if (webSocketServerType === 'sockjs') {
       return page
         .waitForRequest((requestObj) => requestObj.url().match(filter))
         .then((requestObj) => {
@@ -37,7 +38,7 @@ for (const transportMode of transportModes) {
     });
   };
 
-  describe(`should work behind proxy, when hostnames are same and ports are different (${transportMode})`, () => {
+  describe(`should work behind proxy, when hostnames are same and ports are different (${webSocketServerType})`, () => {
     const devServerHost = '127.0.0.1';
     const devServerPort = port1;
     const proxyHost = devServerHost;
@@ -61,7 +62,7 @@ for (const transportMode of transportModes) {
 
     beforeAll((done) => {
       const options = {
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: devServerPort,
         host: devServerHost,
         firewall: false,
@@ -104,7 +105,7 @@ for (const transportMode of transportModes) {
     });
   });
 
-  describe(`should work behind proxy, when hostnames are different and ports are same (${transportMode})`, () => {
+  describe(`should work behind proxy, when hostnames are different and ports are same (${webSocketServerType})`, () => {
     const devServerHost = '127.0.0.1';
     const devServerPort = port1;
     const proxyHost = internalIp.v4.sync();
@@ -128,7 +129,7 @@ for (const transportMode of transportModes) {
 
     beforeAll((done) => {
       const options = {
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: devServerPort,
         host: devServerHost,
         firewall: false,
@@ -171,7 +172,7 @@ for (const transportMode of transportModes) {
     });
   });
 
-  describe(`should work behind proxy, when hostnames are different and ports are different (${transportMode})`, () => {
+  describe(`should work behind proxy, when hostnames are different and ports are different (${webSocketServerType})`, () => {
     const devServerHost = '127.0.0.1';
     const devServerPort = port1;
     const proxyHost = internalIp.v4.sync();
@@ -196,7 +197,7 @@ for (const transportMode of transportModes) {
     beforeAll((done) => {
       const options = {
         client: { host: devServerHost },
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: devServerPort,
         host: devServerHost,
         firewall: false,
@@ -243,7 +244,7 @@ for (const transportMode of transportModes) {
   describe('should work with custom client port and path', () => {
     beforeAll((done) => {
       const options = {
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
         client: {
@@ -277,7 +278,7 @@ for (const transportMode of transportModes) {
   describe('should work with custom client port and without path', () => {
     beforeAll((done) => {
       const options = {
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
         client: {
@@ -310,7 +311,7 @@ for (const transportMode of transportModes) {
   describe('should work with custom client', () => {
     beforeAll((done) => {
       const options = {
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
         client: {
@@ -342,7 +343,7 @@ for (const transportMode of transportModes) {
   describe('should work with custom client host, port, and path', () => {
     beforeAll((done) => {
       const options = {
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
         client: {
@@ -377,7 +378,7 @@ for (const transportMode of transportModes) {
   describe('should work with the "public" option and custom client path', () => {
     beforeAll((done) => {
       const options = {
-        transportMode,
+        webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
         public: 'myhost.test',
@@ -414,10 +415,10 @@ describe('Client console.log', () => {
     port: port2,
     host: '0.0.0.0',
   };
-  const transportModesForClientLog = [
+  const webSocketServerTypesLog = [
     {},
-    { transportMode: 'sockjs' },
-    { transportMode: 'ws' },
+    { webSocketServer: 'sockjs' },
+    { webSocketServer: 'ws' },
   ];
 
   const cases = [
@@ -462,10 +463,10 @@ describe('Client console.log', () => {
     },
   ];
 
-  transportModesForClientLog.forEach(async (mode) => {
+  webSocketServerTypesLog.forEach(async (mode) => {
     cases.forEach(async ({ title, options }) => {
       title += ` (${
-        Object.keys(mode).length ? mode.transportMode : 'default'
+        Object.keys(mode).length ? mode.webSocketServer : 'default'
       })`;
 
       options = { ...mode, ...options };
