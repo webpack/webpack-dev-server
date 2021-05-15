@@ -225,7 +225,7 @@
               "type": "string"
             },
             {
-              "type": "null"
+              "enum": ["auto"]
             }
           ],
           "description": "Tells clients connected to devServer to use the provided path to connect."
@@ -492,7 +492,7 @@
           "type": "string"
         },
         {
-          "type": "null"
+          "enum": ["auto"]
         }
       ],
       "description": "Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport"
