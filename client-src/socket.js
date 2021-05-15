@@ -1,5 +1,3 @@
-
-
 /* global __webpack_dev_server_client__ */
 /* eslint-disable
   camelcase

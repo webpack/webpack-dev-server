@@ -1,10 +1,8 @@
-
-
 import SockJS from '../modules/sockjs-client';
 import { log } from '../utils/log';
 import BaseClient from './BaseClient';
 
-export default class SockJSClient extends BaseClient {
+class SockJSClient extends BaseClient {
   constructor(url) {
     super();
 
@@ -37,3 +35,5 @@ export default class SockJSClient extends BaseClient {
     };
   }
 }
+
+export default SockJSClient;

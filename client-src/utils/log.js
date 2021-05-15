@@ -1,5 +1,3 @@
-
-
 import logger from '../modules/logger';
 
 const name = 'webpack-dev-server';

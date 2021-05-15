@@ -1,5 +1,3 @@
-
-
 import url from 'url';
 import getCurrentScriptSource from './getCurrentScriptSource';
 

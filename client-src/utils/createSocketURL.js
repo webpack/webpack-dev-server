@@ -1,5 +1,3 @@
-
-
 import url from 'url';
 
 // We handle legacy API that is Node.js specific, and a newer API that implements the same WHATWG URL Standard used by web browsers

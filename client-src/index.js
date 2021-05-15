@@ -1,5 +1,3 @@
-
-
 /* global __resourceQuery WorkerGlobalScope */
 
 // eslint-disable-next-line import/no-extraneous-dependencies

@@ -1,9 +1,7 @@
-
-
 import { log } from '../utils/log';
 import BaseClient from './BaseClient';
 
-export default class WebsocketClient extends BaseClient {
+class WebsocketClient extends BaseClient {
   constructor(url) {
     super();
 
@@ -33,3 +31,5 @@ export default class WebsocketClient extends BaseClient {
     };
   }
 }
+
+export default WebsocketClient;

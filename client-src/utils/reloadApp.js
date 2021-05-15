@@ -1,5 +1,3 @@
-
-
 import { log } from './log';
 
 function reloadApp(

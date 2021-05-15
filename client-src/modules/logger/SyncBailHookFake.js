@@ -1,5 +1,3 @@
-
-
 /**
  * Client stub for tapable SyncBailHook
  */

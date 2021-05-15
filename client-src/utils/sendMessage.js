@@ -1,5 +1,3 @@
-
-
 /* global __resourceQuery WorkerGlobalScope */
 
 // Send messages to the outside, so plugins can consume it.
