@@ -18,6 +18,16 @@ exports[`options validate should throw an error on the "client" option with '{"h
    -> Tells clients connected to devServer to use the provided host."
 `;
 
+exports[`options validate should throw an error on the "client" option with '{"hotEntry":[""]}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.hotEntry should be one of these:
+   boolean | function
+   -> Tells devServer to inject a Hot Module Replacement entry.
+   Details:
+    * configuration.client.hotEntry should be a boolean.
+    * configuration.client.hotEntry should be an instance of function."
+`;
+
 exports[`options validate should throw an error on the "client" option with '{"logging":"silent"}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.logging should be one of these:
@@ -38,16 +48,6 @@ exports[`options validate should throw an error on the "client" option with '{"n
    Details:
     * configuration.client.needClientEntry should be a boolean.
     * configuration.client.needClientEntry should be an instance of function."
-`;
-
-exports[`options validate should throw an error on the "client" option with '{"needHotEntry":[""]}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.needHotEntry should be one of these:
-   boolean | function
-   -> Tells devServer to inject a Hot Module Replacement entry.
-   Details:
-    * configuration.client.needHotEntry should be a boolean.
-    * configuration.client.needHotEntry should be an instance of function."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
@@ -110,14 +110,14 @@ exports[`options validate should throw an error on the "client" option with '{"t
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
+   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client should be an object:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, needHotEntry? }
+   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 

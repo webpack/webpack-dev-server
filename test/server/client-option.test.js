@@ -96,7 +96,7 @@ describe('client option', () => {
         config,
         {
           client: {
-            needHotEntry: false,
+            hotEntry: false,
           },
           port,
         },
