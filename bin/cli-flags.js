@@ -245,6 +245,18 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'client',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Enable client.',
+      negatedDescription: 'Disable client.',
+      negative: true,
+    },
+    {
       name: 'client-hot-entry',
       type: Boolean,
       configs: [
