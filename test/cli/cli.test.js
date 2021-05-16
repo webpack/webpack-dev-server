@@ -87,6 +87,24 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--client', (done) => {
+    testBin('--client')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--no-client', (done) => {
+    testBin('--no-client')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--client-progress', (done) => {
     testBin('--client-progress')
       .then((output) => {
