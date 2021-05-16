@@ -283,8 +283,7 @@
           "$ref": "#/definitions/ClientFunction"
         }
       ],
-      "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
-      "additionalProperties": false
+      "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
     },
     "webSocketServer": {
       "anyOf": [
