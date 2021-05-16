@@ -27,7 +27,9 @@ const tests = {
   },
   client: {
     success: [
+      true,
       {},
+      () => {},
       {
         host: '',
       },
@@ -96,9 +98,6 @@ const tests = {
         },
       },
       {
-        needClientEntry: true,
-      },
-      {
         hotEntry: true,
       },
       {
@@ -141,10 +140,7 @@ const tests = {
         },
       },
       {
-        needClientEntry: [''],
-      },
-      {
-        hotEntry: [''],
+        hotEntry: '',
       },
       {
         path: true,

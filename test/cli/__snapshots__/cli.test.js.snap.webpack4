@@ -237,6 +237,8 @@ Options:
                                    networking on start.
   --no-bonjour                     Do not broadcast the server via ZeroConf
                                    networking on start.
+  --client                         Enable client.
+  --no-client                      Disable client.
   --client-hot-entry               Tell devServer to inject a Hot Module
                                    Replacement entry.
   --no-client-hot-entry            Do not tell devServer to inject a Hot Module

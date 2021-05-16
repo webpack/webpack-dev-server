@@ -18,6 +18,12 @@ exports[`options validate should throw an error on the "client" option with '{"h
    -> Tells clients connected to devServer to use the provided host."
 `;
 
+exports[`options validate should throw an error on the "client" option with '{"hotEntry":""}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.hotEntry should be a boolean.
+   -> Tells devServer to inject a Hot Module Replacement entry."
+`;
+
 exports[`options validate should throw an error on the "client" option with '{"hotEntry":[""]}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.hotEntry should be one of these:
