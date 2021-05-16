@@ -4,7 +4,6 @@ const { relative, sep } = require('path');
 const http = require('http');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
-const portfinder = require('portfinder');
 const getFreePort = require('../../lib/Server').getFreePort;
 // TODO(@anshumanv) - Remove this test in next major
 const findPort = require('../../lib/utils/findPort');
@@ -417,8 +416,8 @@ describe('Server', () => {
     it('should returns the port when the port is specified', () => {
       process.env.DEFAULT_PORT_RETRY = 5;
 
-      return getFreePort(8082).then((port) => {
-        expect(port).toEqual(8082);
+      return getFreePort(8082).then((freePort) => {
+        expect(freePort).toEqual(8082);
       });
     });
 
@@ -429,8 +428,8 @@ describe('Server', () => {
 
       return createDummyServers(retryCount)
         .then(() => getFreePort(null))
-        .then((port) => {
-          expect(port).toEqual(8080 + retryCount);
+        .then((freePort) => {
+          expect(freePort).toEqual(8080 + retryCount);
         });
     });
 
@@ -443,8 +442,8 @@ describe('Server', () => {
         createDummyServers(retryCount)
           // eslint-disable-next-line no-undefined
           .then(() => getFreePort(undefined))
-          .then((port) => {
-            expect(port).toEqual(8080 + retryCount);
+          .then((freePort) => {
+            expect(freePort).toEqual(8080 + retryCount);
           })
       );
     });
@@ -456,8 +455,8 @@ describe('Server', () => {
 
       return createDummyServers(retryCount)
         .then(() => getFreePort())
-        .then((port) => {
-          expect(port).toEqual(8080 + retryCount);
+        .then((freePort) => {
+          expect(freePort).toEqual(8080 + retryCount);
         });
     });
 
@@ -468,8 +467,8 @@ describe('Server', () => {
 
       return createDummyServers(retryCount)
         .then(() => getFreePort())
-        .then((port) => {
-          expect(port).toEqual(8080 + retryCount);
+        .then((freePort) => {
+          expect(freePort).toEqual(8080 + retryCount);
         });
     });
 
@@ -481,17 +480,17 @@ describe('Server', () => {
 
       return createDummyServers(busyPorts)
         .then(() => getFreePort())
-        .then((port) => {
-          expect(port).toEqual(8080 + busyPorts.length);
+        .then((freePort) => {
+          expect(freePort).toEqual(8080 + busyPorts.length);
         });
     });
 
     it("should throws the error when the port isn't found", () => {
       expect.assertions(1);
 
-      const spy = jest
-        .spyOn(portfinder, 'getPort')
-        .mockImplementation((callback) => callback(new Error('busy')));
+      jest.mock('portfinder', () => {return {
+        getPort: (callback) => callback(new Error('busy')),
+      }});
 
       const retryCount = 1;
 
@@ -501,16 +500,14 @@ describe('Server', () => {
         .then(() => getFreePort())
         .catch((err) => {
           expect(err.message).toMatchSnapshot();
-
-          spy.mockRestore();
         });
     });
 
     it('should work with findPort util', () => {
       process.env.DEFAULT_PORT_RETRY = 5;
 
-      return findPort(8082).then((port) => {
-        expect(port).toEqual(8082);
+      return findPort(8082).then((freePort) => {
+        expect(freePort).toEqual(8082);
       });
     });
   });
