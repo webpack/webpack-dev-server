@@ -4,7 +4,6 @@ const { relative, sep } = require('path');
 const http = require('http');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
-const getFreePort = require('../../lib/Server').getFreePort;
 // TODO(@anshumanv) - Remove this test in next major
 const findPort = require('../../lib/utils/findPort');
 const Server = require('../../lib/Server');
@@ -12,6 +11,7 @@ const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').Server;
 const isWebpack5 = require('../helpers/isWebpack5');
 
+const getFreePort = Server.getFreePort;
 jest.mock('sockjs/lib/transport');
 
 const baseDevConfig = {
@@ -488,9 +488,11 @@ describe('Server', () => {
     it("should throws the error when the port isn't found", () => {
       expect.assertions(1);
 
-      jest.mock('portfinder', () => {return {
-        getPort: (callback) => callback(new Error('busy')),
-      }});
+      jest.mock('portfinder', () => {
+        return {
+          getPort: (callback) => callback(new Error('busy')),
+        };
+      });
 
       const retryCount = 1;
 
