@@ -59,3 +59,5 @@ Array [
   ],
 ]
 `;
+
+exports[`Server getFreePort should throws the error when the port isn't found 1`] = `"busy"`;
