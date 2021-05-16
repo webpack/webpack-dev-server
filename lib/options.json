@@ -173,28 +173,13 @@
       },
       "additionalProperties": false
     },
-    "ClientTransportEnum": {
-      "enum": ["sockjs", "ws"]
+    "ClientBoolean": {
+      "type": "boolean"
     },
-    "ClientTransportString": {
-      "type": "string",
-      "minLength": 1
-    }
-  },
-  "properties": {
-    "bonjour": {
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "object",
-          "description": "Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
-        }
-      ],
-      "description": "Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
+    "ClientFunction": {
+      "instanceof": "Function"
     },
-    "client": {
+    "ClientObject": {
       "type": "object",
       "properties": {
         "transport": {
@@ -259,29 +244,45 @@
             }
           ]
         },
-        "needClientEntry": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "instanceof": "Function"
-            }
-          ],
-          "description": "Tells devServer to inject a client entry."
-        },
         "hotEntry": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "instanceof": "Function"
-            }
-          ],
+          "type": "boolean",
           "description": "Tells devServer to inject a Hot Module Replacement entry."
         }
-      },
+      }
+    },
+    "ClientTransportEnum": {
+      "enum": ["sockjs", "ws"]
+    },
+    "ClientTransportString": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "properties": {
+    "bonjour": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "description": "Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
+        }
+      ],
+      "description": "Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
+    },
+    "client": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ClientBoolean"
+        },
+        {
+          "$ref": "#/definitions/ClientObject"
+        },
+        {
+          "$ref": "#/definitions/ClientFunction"
+        }
+      ],
       "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
       "additionalProperties": false
     },
