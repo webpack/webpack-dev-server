@@ -5,7 +5,6 @@ const { readFileSync } = require('graceful-fs');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
-const SockJSServer = require('../lib/servers/SockJSServer');
 const config = require('./fixtures/simple-config/webpack.config');
 
 const httpsCertificateDirectory = join(
@@ -70,7 +69,7 @@ const tests = {
       {
         host: '',
         path: '',
-        port: null,
+        port: 'auto',
       },
       {
         progress: false,
@@ -100,7 +99,13 @@ const tests = {
         needClientEntry: true,
       },
       {
-        needHotEntry: true,
+        hotEntry: true,
+      },
+      {
+        transport: 'sockjs',
+      },
+      {
+        transport: require.resolve('../client/clients/SockJSClient'),
       },
     ],
     failure: [
@@ -139,13 +144,16 @@ const tests = {
         needClientEntry: [''],
       },
       {
-        needHotEntry: [''],
+        hotEntry: [''],
       },
       {
         path: true,
       },
       {
         port: true,
+      },
+      {
+        transport: true,
       },
     ],
   },
@@ -247,8 +255,8 @@ const tests = {
     failure: ['', [], { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
-    success: ['', 0, null],
-    failure: [false],
+    success: ['', 0, 'auto'],
+    failure: [false, null],
   },
   proxy: {
     success: [
@@ -309,41 +317,36 @@ const tests = {
       },
     ],
   },
-  transportMode: {
+  webSocketServer: {
     success: [
       'ws',
       'sockjs',
       {
-        server: 'sockjs',
+        type: 'ws',
+        options: {
+          path: '/ws',
+        },
       },
       {
-        server: require.resolve('../lib/servers/SockJSServer'),
+        options: {
+          host: '127.0.0.1',
+          port: 8090,
+          path: '/ws',
+        },
       },
       {
-        server: SockJSServer,
-      },
-      {
-        client: 'sockjs',
-      },
-      {
-        client: require.resolve('../client/clients/SockJSClient'),
-      },
-      {
-        server: SockJSServer,
-        client: require.resolve('../client/clients/SockJSClient'),
+        type: 'ws',
       },
     ],
     failure: [
       'nonexistent-implementation',
       null,
+      false,
       {
         notAnOption: true,
       },
       {
-        server: false,
-      },
-      {
-        client: () => {},
+        type: true,
       },
     ],
   },

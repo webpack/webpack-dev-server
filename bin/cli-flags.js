@@ -245,6 +245,24 @@ module.exports = {
       negative: true,
     },
     {
+      name: 'client-hot-entry',
+      type: Boolean,
+      configs: [
+        {
+          type: 'boolean',
+        },
+      ],
+      description: 'Tell devServer to inject a Hot Module Replacement entry.',
+      negatedDescription:
+        'Do not tell devServer to inject a Hot Module Replacement entry.',
+      negative: true,
+      processor(opts) {
+        opts.client = opts.client || {};
+        opts.client.hotEntry = opts.clientHotEntry;
+        delete opts.clientHotEntry;
+      },
+    },
+    {
       name: 'client-progress',
       type: Boolean,
       configs: [

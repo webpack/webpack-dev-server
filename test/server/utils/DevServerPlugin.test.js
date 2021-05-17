@@ -25,9 +25,14 @@ describe('DevServerPlugin util', () => {
     };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
+      client: {
+        transport: 'sockjs',
+      },
+      webSocketServer: {
+        type: 'sockjs',
+        options: {
+          host: '0.0.0.0',
+        },
       },
     };
 
@@ -72,9 +77,14 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
 
     const devServerOptions = {
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
+      client: {
+        transport: 'sockjs',
+      },
+      webSocketServer: {
+        type: 'sockjs',
+        options: {
+          host: '0.0.0.0',
+        },
       },
     };
 
@@ -110,9 +120,14 @@ describe('DevServerPlugin util', () => {
     const webpackOptions = Object.assign({}, config);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
+      client: {
+        transport: 'sockjs',
+      },
+      webSocketServer: {
+        type: 'sockjs',
+        options: {
+          host: '0.0.0.0',
+        },
       },
     };
 
@@ -126,9 +141,14 @@ describe('DevServerPlugin util', () => {
     const webpackOptions = Object.assign({}, config, { plugins: [] });
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
+      client: {
+        transport: 'sockjs',
+      },
+      webSocketServer: {
+        type: 'sockjs',
+        options: {
+          host: '0.0.0.0',
+        },
       },
     };
 
@@ -146,9 +166,14 @@ describe('DevServerPlugin util', () => {
     });
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
+      client: {
+        transport: 'sockjs',
+      },
+      webSocketServer: {
+        type: 'sockjs',
+        options: {
+          host: '0.0.0.0',
+        },
       },
     };
 
@@ -166,9 +191,14 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       hot: true,
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
+      client: {
+        transport: 'sockjs',
+      },
+      webSocketServer: {
+        type: 'sockjs',
+        options: {
+          host: '0.0.0.0',
+        },
       },
     };
 
@@ -188,9 +218,14 @@ describe('DevServerPlugin util', () => {
       const compiler = webpack(webpackOptions);
       const devServerOptions = {
         hot: true,
-        transportMode: {
-          server: 'sockjs',
-          client: 'sockjs',
+        client: {
+          transport: 'sockjs',
+        },
+        webSocketServer: {
+          type: 'sockjs',
+          options: {
+            host: '0.0.0.0',
+          },
         },
       };
 
@@ -212,9 +247,14 @@ describe('DevServerPlugin util', () => {
     const webpackOptions = Object.assign({}, configEntryAsFunction);
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
-      transportMode: {
-        server: 'sockjs',
-        client: 'sockjs',
+      client: {
+        transport: 'sockjs',
+      },
+      webSocketServer: {
+        type: 'sockjs',
+        options: {
+          host: '0.0.0.0',
+        },
       },
     };
 
