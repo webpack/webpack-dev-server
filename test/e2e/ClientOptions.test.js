@@ -196,7 +196,7 @@ for (const webSocketServerType of webSocketServerTypes) {
 
     beforeAll((done) => {
       const options = {
-        client: { host: devServerHost },
+        webSocketUrl: { host: devServerHost },
         webSocketServer: webSocketServerType,
         port: devServerPort,
         host: devServerHost,
@@ -247,7 +247,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        client: {
+        webSocketUrl: {
           path: '/foo/test/bar/',
           port: port3,
         },
@@ -281,7 +281,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        client: {
+        webSocketUrl: {
           port: port3,
         },
       };
@@ -314,7 +314,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        client: {
+        webSocketUrl: {
           host: 'myhost.test',
         },
       };
@@ -346,7 +346,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        client: {
+        webSocketUrl: {
           host: 'myhost',
           port: port3,
           path: '/foo/test/bar/',
@@ -382,7 +382,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         port: port2,
         host: '0.0.0.0',
         public: 'myhost.test',
-        client: {
+        webSocketUrl: {
           path: '/foo/test/bar/',
         },
       };
