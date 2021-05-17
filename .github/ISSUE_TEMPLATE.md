@@ -6,14 +6,6 @@
   General questions, how-to questions, and support requests will be closed.
 -->
 
-- Operating System:
-- Node Version:
-- NPM Version:
-- webpack Version:
-- webpack-dev-server Version:
-- webpack-cli Version:
-- Browser:
-
 <!--
   Please place an x, no spaces, in all [ ] that apply
   Please note that we are NOT accepting FEATURE requests at this time.
@@ -45,6 +37,8 @@
 ```js
 // additional code, remove if not needed.
 ```
+
+### Please paste the results of `webpack-cli info` here, and mention other relevant information
 
 ### Expected Behavior
 
