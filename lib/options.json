@@ -179,6 +179,13 @@
     "ClientFunction": {
       "instanceof": "Function"
     },
+    "ClientTransportEnum": {
+      "enum": ["sockjs", "ws"]
+    },
+    "ClientTransportString": {
+      "type": "string",
+      "minLength": 1
+    },
     "ClientObject": {
       "type": "object",
       "properties": {
@@ -249,13 +256,6 @@
           "description": "Tells devServer to inject a Hot Module Replacement entry."
         }
       }
-    },
-    "ClientTransportEnum": {
-      "enum": ["sockjs", "ws"]
-    },
-    "ClientTransportString": {
-      "type": "string",
-      "minLength": 1
     }
   },
   "properties": {

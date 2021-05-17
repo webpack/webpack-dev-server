@@ -220,6 +220,7 @@ describe('DevServerPlugin util', () => {
         hot: true,
         client: {
           transport: 'sockjs',
+          hotEntry: true,
         },
         webSocketServer: {
           type: 'sockjs',

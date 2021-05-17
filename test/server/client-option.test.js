@@ -71,13 +71,30 @@ describe('client option', () => {
   });
 
   describe('configure client entry', () => {
-    it('disables client entry', (done) => {
+    it('enables client entry and hot entry', (done) => {
       server = testServer.start(
         config,
         {
-          client: {
-            needClientEntry: false,
-          },
+          client: true,
+          port,
+        },
+        () => {
+          request(server.app)
+            .get('/main.js')
+            .then((res) => {
+              expect(res.text).toMatch(/client\/index\.js/);
+              expect(res.text).toMatch(/webpack\/hot\/dev-server\.js/);
+            })
+            .then(done, done);
+        }
+      );
+    });
+
+    it('disables client entry and hot entry', (done) => {
+      server = testServer.start(
+        config,
+        {
+          client: false,
           port,
         },
         () => {
@@ -85,6 +102,45 @@ describe('client option', () => {
             .get('/main.js')
             .then((res) => {
               expect(res.text).not.toMatch(/client\/index\.js/);
+              expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
+            })
+            .then(done, done);
+        }
+      );
+    });
+
+    it('enables hot entry with client.hotEntry', (done) => {
+      server = testServer.start(
+        config,
+        {
+          client: {
+            hotEntry: true,
+          },
+          port,
+        },
+        () => {
+          request(server.app)
+            .get('/main.js')
+            .then((res) => {
+              expect(res.text).toMatch(/webpack\/hot\/dev-server\.js/);
+            })
+            .then(done, done);
+        }
+      );
+    });
+
+    it('enables hot entry when options.hot is true', (done) => {
+      server = testServer.start(
+        config,
+        {
+          hot: true,
+          port,
+        },
+        () => {
+          request(server.app)
+            .get('/main.js')
+            .then((res) => {
+              expect(res.text).toMatch(/webpack\/hot\/dev-server\.js/);
             })
             .then(done, done);
         }
