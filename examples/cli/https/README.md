@@ -7,7 +7,7 @@ You may choose to wish to run `webpack-dev-server` on `https`.
 Use HTTPS protocol.
 
 ```console
-npx webpack serve --open --https
+npx webpack serve --open-target --https
 ```
 
 ## https options
@@ -21,7 +21,7 @@ Customize `https` configuration with the following options:
 - `--https-passphrase`: Passphrase for a pfx file.
 
 ```console
-npx webpack serve --open --https-key ./ssl/server.key --https-pfx ./ssl/server.pfx --https-cert ./ssl/server.crt --https-cacert ./ssl/ca.pem --https-passphrase webpack-dev-server
+npx webpack serve --open-target --https-key ./ssl/server.key --https-pfx ./ssl/server.pfx --https-cert ./ssl/server.crt --https-cacert ./ssl/ca.pem --https-passphrase webpack-dev-server
 ```
 
 ## What Should Happen

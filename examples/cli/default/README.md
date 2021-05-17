@@ -3,13 +3,13 @@
 This example demonstrates how to use `webpack-dev-server`.
 
 ```console
-npm run webpack-dev-server -- --open
+npm run webpack-dev-server -- --open-target
 ```
 
 To run your app using an alternative config, use:
 
 ```console
-npm run webpack-dev-server -- --open --config alternative.config.js
+npm run webpack-dev-server -- --open-target --config alternative.config.js
 ```
 
 ## What Should Happen

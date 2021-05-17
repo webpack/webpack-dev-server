@@ -6,7 +6,7 @@ application is running, without a full reload of the page.
 To run this example, run this command in your console or terminal:
 
 ```console
-npm run webpack-dev-server -- --open --hot
+npm run webpack-dev-server -- --open-target --hot
 ```
 
 ## What Should Happen

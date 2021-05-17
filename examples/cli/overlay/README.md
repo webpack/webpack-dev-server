@@ -1,7 +1,7 @@
 # CLI: --client-overlay option
 
 ```shell
-npm run webpack-dev-server -- --open --client-overlay
+npm run webpack-dev-server -- --open-target --client-overlay
 ```
 
 ## What Should Happen
