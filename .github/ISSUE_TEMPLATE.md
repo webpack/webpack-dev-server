@@ -11,6 +11,7 @@
 - NPM Version:
 - webpack Version:
 - webpack-dev-server Version:
+- webpack-cli Version:
 - Browser:
 
 <!--
