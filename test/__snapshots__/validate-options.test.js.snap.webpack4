@@ -18,14 +18,10 @@ exports[`options validate should throw an error on the "client" option with '{"h
    -> Tells clients connected to devServer to use the provided host."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"hotEntry":[""]}' value 1`] = `
+exports[`options validate should throw an error on the "client" option with '{"hotEntry":""}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.hotEntry should be one of these:
-   boolean | function
-   -> Tells devServer to inject a Hot Module Replacement entry.
-   Details:
-    * configuration.client.hotEntry should be a boolean.
-    * configuration.client.hotEntry should be an instance of function."
+ - configuration.client.hotEntry should be a boolean.
+   -> Tells devServer to inject a Hot Module Replacement entry."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"logging":"silent"}' value 1`] = `
@@ -40,25 +36,19 @@ exports[`options validate should throw an error on the "client" option with '{"l
    \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\""
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"needClientEntry":[""]}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.needClientEntry should be one of these:
-   boolean | function
-   -> Tells devServer to inject a client entry.
-   Details:
-    * configuration.client.needClientEntry should be a boolean.
-    * configuration.client.needClientEntry should be an instance of function."
-`;
-
 exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.overlay should be one of these:
-   boolean | object { errors?, warnings?, … }
+ - configuration.client should be one of these:
+   boolean | object { transport?, host?, path?, port?, logging?, progress?, overlay?, hotEntry?, … } | function
+   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
-    * configuration.client.overlay should be a boolean.
-      -> Show a full-screen overlay in the browser when there are compiler errors or warnings.
-    * configuration.client.overlay should be an object:
-      object { errors?, warnings?, … }"
+    * configuration.client.overlay should be one of these:
+      boolean | object { errors?, warnings?, … }
+      Details:
+       * configuration.client.overlay should be a boolean.
+         -> Show a full-screen overlay in the browser when there are compiler errors or warnings.
+       * configuration.client.overlay should be an object:
+         object { errors?, warnings?, … }"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":{"errors":""}}' value 1`] = `
@@ -81,13 +71,17 @@ exports[`options validate should throw an error on the "client" option with '{"p
 
 exports[`options validate should throw an error on the "client" option with '{"port":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.port should be one of these:
-   number | string | \\"auto\\"
-   -> Tells clients connected to devServer to use the provided path to connect.
+ - configuration.client should be one of these:
+   boolean | object { transport?, host?, path?, port?, logging?, progress?, overlay?, hotEntry?, … } | function
+   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
-    * configuration.client.port should be a number.
-    * configuration.client.port should be a string.
-    * configuration.client.port should be \\"auto\\"."
+    * configuration.client.port should be one of these:
+      number | string | \\"auto\\"
+      -> Tells clients connected to devServer to use the provided path to connect.
+      Details:
+       * configuration.client.port should be a number.
+       * configuration.client.port should be a string.
+       * configuration.client.port should be \\"auto\\"."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
@@ -98,27 +92,29 @@ exports[`options validate should throw an error on the "client" option with '{"p
 
 exports[`options validate should throw an error on the "client" option with '{"transport":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.transport should be one of these:
-   \\"sockjs\\" | \\"ws\\" | non-empty string
-   -> Allows to set custom transport to communicate with server.
+ - configuration.client should be one of these:
+   boolean | object { transport?, host?, path?, port?, logging?, progress?, overlay?, hotEntry?, … } | function
+   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * configuration.client.transport should be one of these:
-      \\"sockjs\\" | \\"ws\\"
-    * configuration.client.transport should be a non-empty string."
-`;
-
-exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
-   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
+      \\"sockjs\\" | \\"ws\\" | non-empty string
+      -> Allows to set custom transport to communicate with server.
+      Details:
+       * configuration.client.transport should be one of these:
+         \\"sockjs\\" | \\"ws\\"
+       * configuration.client.transport should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client should be an object:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
-   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
+ - configuration.client should be one of these:
+   boolean | object { transport?, host?, path?, port?, logging?, progress?, overlay?, hotEntry?, … } | function
+   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient
+   Details:
+    * configuration.client should be a boolean.
+    * configuration.client should be an object:
+      object { transport?, host?, path?, port?, logging?, progress?, overlay?, hotEntry?, … }
+    * configuration.client should be an instance of function."
 `;
 
 exports[`options validate should throw an error on the "compress" option with '' value 1`] = `

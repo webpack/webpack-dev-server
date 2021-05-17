@@ -110,9 +110,6 @@ const tests = {
     failure: [
       'whoops!',
       {
-        unknownOption: true,
-      },
-      {
         host: true,
         path: '',
         port: 8080,
