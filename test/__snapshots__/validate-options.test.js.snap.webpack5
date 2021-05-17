@@ -12,12 +12,6 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
       -> Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.host should be a string.
-   -> Tells clients connected to devServer to use the provided host."
-`;
-
 exports[`options validate should throw an error on the "client" option with '{"hotEntry":[""]}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.hotEntry should be one of these:
@@ -73,23 +67,6 @@ exports[`options validate should throw an error on the "client" option with '{"o
    -> Show a full-screen overlay in the browser when there are compiler warnings."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"path":true}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.path should be a string.
-   -> Tells clients connected to devServer to use the provided path to connect."
-`;
-
-exports[`options validate should throw an error on the "client" option with '{"port":true}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.port should be one of these:
-   number | string | \\"auto\\"
-   -> Tells clients connected to devServer to use the provided port.
-   Details:
-    * configuration.client.port should be a number.
-    * configuration.client.port should be a string.
-    * configuration.client.port should be \\"auto\\"."
-`;
-
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.progress should be a boolean.
@@ -110,14 +87,14 @@ exports[`options validate should throw an error on the "client" option with '{"t
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
+   object { transport?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client should be an object:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
+   object { transport?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
@@ -586,4 +563,30 @@ exports[`options validate should throw an error on the "webSocketServer" option 
     * configuration.webSocketServer should be an instance of function.
     * configuration.webSocketServer should be an object:
       object { type?, options? }"
+`;
+
+exports[`options validate should throw an error on the "webSocketURL" option with '{"host":true,"path":"","port":8080}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.webSocketURL.host should be a string.
+   -> Tells clients connected to devServer to use the provided host."
+`;
+
+exports[`options validate should throw an error on the "webSocketURL" option with '{"path":true}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.webSocketURL.path should be a string.
+   -> Tells clients connected to devServer to use the provided path to connect."
+`;
+
+exports[`options validate should throw an error on the "webSocketURL" option with '{"port":true}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.webSocketURL should be one of these:
+   string | object { host?, path?, port?, … }
+   Details:
+    * configuration.webSocketURL.port should be one of these:
+      number | string | \\"auto\\"
+      -> Tells clients connected to devServer to use the provided path to connect.
+      Details:
+       * configuration.webSocketURL.port should be a number.
+       * configuration.webSocketURL.port should be a string.
+       * configuration.webSocketURL.port should be \\"auto\\"."
 `;

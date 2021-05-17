@@ -29,15 +29,6 @@ const tests = {
     success: [
       {},
       {
-        host: '',
-      },
-      {
-        path: '',
-      },
-      {
-        port: '',
-      },
-      {
         logging: 'none',
       },
       {
@@ -54,22 +45,6 @@ const tests = {
       },
       {
         logging: 'verbose',
-      },
-      {
-        host: '',
-        path: '',
-        port: 8080,
-        logging: 'none',
-      },
-      {
-        host: '',
-        path: '',
-        port: '',
-      },
-      {
-        host: '',
-        path: '',
-        port: 'auto',
       },
       {
         progress: false,
@@ -114,11 +89,6 @@ const tests = {
         unknownOption: true,
       },
       {
-        host: true,
-        path: '',
-        port: 8080,
-      },
-      {
         logging: 'whoops!',
       },
       {
@@ -145,12 +115,6 @@ const tests = {
       },
       {
         hotEntry: [''],
-      },
-      {
-        path: true,
-      },
-      {
-        port: true,
       },
       {
         transport: true,
@@ -317,6 +281,42 @@ const tests = {
       },
       {
         watch: 10,
+      },
+    ],
+  },
+  webSocketURL: {
+    success: [
+      {
+        host: '',
+      },
+      {
+        path: '',
+      },
+      {
+        port: '',
+      },
+      {
+        host: '',
+        path: '',
+        port: '',
+      },
+      {
+        host: '',
+        path: '',
+        port: 'auto',
+      },
+    ],
+    failure: [
+      {
+        host: true,
+        path: '',
+        port: 8080,
+      },
+      {
+        path: true,
+      },
+      {
+        port: true,
       },
     ],
   },

@@ -229,28 +229,6 @@
           ],
           "description": "Allows to set custom transport to communicate with server."
         },
-        "host": {
-          "type": "string",
-          "description": "Tells clients connected to devServer to use the provided host."
-        },
-        "path": {
-          "type": "string",
-          "description": "Tells clients connected to devServer to use the provided path to connect."
-        },
-        "port": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "enum": ["auto"]
-            }
-          ],
-          "description": "Tells clients connected to devServer to use the provided port."
-        },
         "logging": {
           "enum": ["none", "error", "warn", "info", "log", "verbose"],
           "decription": "Log level in the browser."
@@ -305,6 +283,40 @@
       },
       "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
       "additionalProperties": false
+    },
+    "webSocketURL": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "host": {
+              "type": "string",
+              "description": "Tells clients connected to devServer to use the provided host."
+            },
+            "path": {
+              "type": "string",
+              "description": "Tells clients connected to devServer to use the provided path to connect."
+            },
+            "port": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": ["auto"]
+                }
+              ],
+              "description": "Tells clients connected to devServer to use the provided path to connect."
+            }
+          }
+        }
+      ]
     },
     "webSocketServer": {
       "anyOf": [
