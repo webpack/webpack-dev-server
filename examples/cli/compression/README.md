@@ -10,7 +10,7 @@ It is enabled by default.
 To run this example, run this command in your console or terminal:
 
 ```console
-npm run webpack-dev-server -- --open --compress
+npm run webpack-dev-server -- --open-target --compress
 ```
 
 ### What should happen

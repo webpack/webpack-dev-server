@@ -3,7 +3,7 @@
 ## Watching a single directory
 
 ```console
-npm run webpack-dev-server -- --static assets --open
+npm run webpack-dev-server -- --static assets --open-target
 ```
 
 ### What Should Happen
@@ -26,13 +26,13 @@ module.exports = {
 ```
 
 ```console
-npm run webpack-dev-server -- --open
+npm run webpack-dev-server -- --open-target
 ```
 
 or via CLI only:
 
 ```console
-npm run webpack-dev-server -- --static assets --static css --open
+npm run webpack-dev-server -- --static assets --static css --open-target
 ```
 
 ### What Should Happen

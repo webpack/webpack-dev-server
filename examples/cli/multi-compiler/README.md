@@ -3,7 +3,7 @@
 `webpack-dev-server` should be able to compile multiple webpack configs.
 
 ```shell
-npm run webpack-dev-server -- --open
+npm run webpack-dev-server -- --open-target
 ```
 
 ## What Should Happen

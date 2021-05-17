@@ -1,7 +1,7 @@
 # CLI: Webpack `node` Option
 
 ```shell
-npm run webpack-dev-server -- --open
+npm run webpack-dev-server -- --open-target
 ```
 
 ## What should happen
