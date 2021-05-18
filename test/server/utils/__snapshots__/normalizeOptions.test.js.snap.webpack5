@@ -38,10 +38,8 @@ Object {
 exports[`normalizeOptions client host and port should set correct options 1`] = `
 Object {
   "client": Object {
-    "host": "my.host",
     "hotEntry": true,
     "overlay": true,
-    "port": 9000,
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -67,6 +65,10 @@ Object {
       "path": "/ws",
     },
     "type": "ws",
+  },
+  "webSocketURL": Object {
+    "host": "my.host",
+    "port": 9000,
   },
 }
 `;
@@ -76,7 +78,6 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
-    "path": "/custom/path/",
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -102,6 +103,9 @@ Object {
       "path": "/ws",
     },
     "type": "ws",
+  },
+  "webSocketURL": Object {
+    "path": "/custom/path/",
   },
 }
 `;
@@ -111,7 +115,6 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
-    "path": "custom/path",
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -137,6 +140,9 @@ Object {
       "path": "/ws",
     },
     "type": "ws",
+  },
+  "webSocketURL": Object {
+    "path": "custom/path",
   },
 }
 `;

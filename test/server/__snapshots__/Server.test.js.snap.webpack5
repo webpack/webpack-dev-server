@@ -5,8 +5,7 @@ Array [
   Array [
     "client",
     "index.js?http:",
-    "0.0.0.0&path=",
-    "ws&port=8100",
+    "0.0.0.0",
   ],
   Array [
     "node_modules",
@@ -25,8 +24,7 @@ Array [
   Array [
     "client",
     "index.js?http:",
-    "0.0.0.0&path=",
-    "ws&port=8100",
+    "0.0.0.0",
   ],
   Array [
     "node_modules",
@@ -45,8 +43,7 @@ Array [
   Array [
     "client",
     "index.js?http:",
-    "0.0.0.0&path=",
-    "ws&port=8100",
+    "0.0.0.0",
   ],
   Array [
     "node_modules",
