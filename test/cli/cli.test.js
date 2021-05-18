@@ -213,18 +213,17 @@ describe('CLI', () => {
   it('https and other related options', (done) => {
     const pfxFile = path.join(httpsCertificateDirectory, 'server.pfx');
     const key = path.join(httpsCertificateDirectory, 'server.key');
-    const cacert = path.join(httpsCertificateDirectory, 'ca.pem');
+    const cert = path.join(httpsCertificateDirectory, 'server.crt');
     const passphrase = 'webpack-dev-server';
 
     testBin(
-      `--https --https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cacert ${cacert}`
+      `--https --https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cert ${cert}`
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         expect(
           normalizeStderr(output.stderr, { ipv6: true, https: true })
         ).toMatchSnapshot();
-
         done();
       })
       .catch(done);
