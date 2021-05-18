@@ -209,6 +209,27 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  // For https://github.com/webpack/webpack-dev-server/issues/3306
+  it('https and other related options', (done) => {
+    const pfxFile = path.join(httpsCertificateDirectory, 'server.pfx');
+    const key = path.join(httpsCertificateDirectory, 'server.key');
+    const cacert = path.join(httpsCertificateDirectory, 'ca.pem');
+    const passphrase = 'webpack-dev-server';
+
+    testBin(
+      `--https --https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cacert ${cacert}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true, https: true })
+        ).toMatchSnapshot();
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--https-request-cert', (done) => {
     testBin('--https-request-cert')
       .then((output) => {

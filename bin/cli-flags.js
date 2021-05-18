@@ -138,7 +138,7 @@ module.exports = {
       ],
       description: 'Passphrase for a pfx file.',
       processor(opts) {
-        opts.https = opts.https || {};
+        opts.https = typeof opts.https === 'object' ? opts.https : {};
         opts.https.passphrase = opts.httpsPassphrase;
         delete opts.httpsPassphrase;
       },
@@ -153,7 +153,7 @@ module.exports = {
       ],
       description: 'Path to an SSL key.',
       processor(opts) {
-        opts.https = opts.https || {};
+        opts.https = typeof opts.https === 'object' ? opts.https : {};
         opts.https.key = opts.httpsKey;
         delete opts.httpsKey;
       },
@@ -168,7 +168,7 @@ module.exports = {
       ],
       description: 'Path to an SSL pfx file.',
       processor(opts) {
-        opts.https = opts.https || {};
+        opts.https = typeof opts.https === 'object' ? opts.https : {};
         opts.https.pfx = opts.httpsPfx;
         delete opts.httpsPfx;
       },
@@ -183,7 +183,7 @@ module.exports = {
       ],
       description: 'Path to an SSL certificate.',
       processor(opts) {
-        opts.https = opts.https || {};
+        opts.https = typeof opts.https === 'object' ? opts.https : {};
         opts.https.cert = opts.httpsCert;
         delete opts.httpsCert;
       },
@@ -198,7 +198,7 @@ module.exports = {
       ],
       description: 'Path to an SSL CA certificate.',
       processor(opts) {
-        opts.https = opts.https || {};
+        opts.https = typeof opts.https === 'object' ? opts.https : {};
         opts.https.cacert = opts.httpsCacert;
         delete opts.httpsCacert;
       },
@@ -214,7 +214,7 @@ module.exports = {
       description: 'Request for an SSL certificate.',
       negatedDescription: 'Do not request for an SSL certificate.',
       processor(opts) {
-        opts.https = opts.https || {};
+        opts.https = typeof opts.https === 'object' ? opts.https : {};
         opts.https.requestCert = opts.httpsRequestCert;
         delete opts.httpsRequestCert;
       },
