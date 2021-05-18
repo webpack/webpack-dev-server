@@ -250,8 +250,8 @@ for (const webSocketServerType of webSocketServerTypes) {
         port: port2,
         host: '0.0.0.0',
         webSocketURL: {
-          host: '0.0.0.0',
-          port: port2,
+          path: '/foo/test/bar/',
+          port: port3,
         },
       };
 
