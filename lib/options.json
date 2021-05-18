@@ -17,16 +17,16 @@
         "publicPath": {
           "anyOf": [
             {
-              "type": "string",
-              "minLength": 1
-            },
-            {
               "type": "array",
               "items": {
                 "type": "string",
                 "minLength": 1
               },
               "minItems": 1
+            },
+            {
+              "type": "string",
+              "minLength": 1
             }
           ],
           "description": "The bundled files will be available in the browser under this path."
@@ -75,19 +75,19 @@
         "target": {
           "anyOf": [
             {
-              "type": "boolean"
-            },
-            {
-              "type": "string",
-              "minLength": 1
-            },
-            {
               "type": "array",
               "items": {
                 "type": "string",
                 "minLength": 1
               },
               "minItems": 1
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "minLength": 1
             }
           ],
           "description": "Open specified route in browser."
@@ -95,16 +95,16 @@
         "app": {
           "anyOf": [
             {
-              "type": "string",
-              "minLength": 1
-            },
-            {
               "type": "array",
               "items": {
                 "type": "string",
                 "minLength": 1
               },
               "minItems": 1
+            },
+            {
+              "type": "string",
+              "minLength": 1
             }
           ],
           "description": "Open specified browser."
@@ -121,15 +121,15 @@
         "paths": {
           "anyOf": [
             {
-              "type": "string",
-              "minLength": 1
-            },
-            {
               "type": "array",
               "items": {
                 "type": "string",
                 "minLength": 1
               }
+            },
+            {
+              "type": "string",
+              "minLength": 1
             }
           ]
         },
@@ -458,15 +458,6 @@
     "open": {
       "anyOf": [
         {
-          "$ref": "#/definitions/OpenBoolean"
-        },
-        {
-          "$ref": "#/definitions/OpenString"
-        },
-        {
-          "$ref": "#/definitions/OpenObject"
-        },
-        {
           "type": "array",
           "items": {
             "anyOf": [
@@ -479,6 +470,15 @@
             ]
           },
           "minItems": 1
+        },
+        {
+          "$ref": "#/definitions/OpenBoolean"
+        },
+        {
+          "$ref": "#/definitions/OpenString"
+        },
+        {
+          "$ref": "#/definitions/OpenObject"
         }
       ],
       "description": "Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen"
@@ -530,15 +530,6 @@
     "static": {
       "anyOf": [
         {
-          "type": "boolean"
-        },
-        {
-          "$ref": "#/definitions/StaticString"
-        },
-        {
-          "$ref": "#/definitions/StaticObject"
-        },
-        {
           "type": "array",
           "items": {
             "anyOf": [
@@ -551,18 +542,21 @@
             ]
           },
           "minItems": 1
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/StaticString"
+        },
+        {
+          "$ref": "#/definitions/StaticObject"
         }
       ],
       "description": "It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic"
     },
     "watchFiles": {
       "anyOf": [
-        {
-          "$ref": "#/definitions/WatchFilesString"
-        },
-        {
-          "$ref": "#/definitions/WatchFilesObject"
-        },
         {
           "type": "array",
           "items": {
@@ -575,6 +569,12 @@
               }
             ]
           }
+        },
+        {
+          "$ref": "#/definitions/WatchFilesString"
+        },
+        {
+          "$ref": "#/definitions/WatchFilesObject"
         }
       ],
       "description": "List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles"
