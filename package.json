@@ -56,7 +56,7 @@
     "serve-index": "^1.9.1",
     "sockjs": "^0.3.21",
     "spdy": "^4.0.2",
-    "strip-ansi": "^7.0.0",
+    "strip-ansi": "^6.0.0",
     "url": "^0.11.0",
     "webpack-dev-middleware": "^4.3.0",
     "ws": "^7.4.5"
