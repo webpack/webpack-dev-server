@@ -220,6 +220,42 @@ describe('Server', () => {
       });
     });
 
+    it('should work and using "port" from arguments and "host" from options', (done) => {
+      const options = {
+        host: '127.0.0.1',
+      };
+
+      server = new Server(options, compiler);
+
+      // eslint-disable-next-line no-undefined
+      server.listen(port, undefined, () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should work and using "port" from options and "port" from arguments', (done) => {
+      const options = {
+        port,
+      };
+
+      server = new Server(options, compiler);
+
+      // eslint-disable-next-line no-undefined
+      server.listen(undefined, '127.0.0.1', () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
     it('should log warning when the "port" and "host" options from options different from arguments', (done) => {
       const options = {
         host: '127.0.0.2',
