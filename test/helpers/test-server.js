@@ -21,6 +21,7 @@ function startFullSetup(config, options, done) {
   server = new Server(options, compiler);
 
   let port;
+
   if (Object.prototype.hasOwnProperty.call(options, 'port')) {
     port = options.port;
   } else {
@@ -28,9 +29,17 @@ function startFullSetup(config, options, done) {
     port = 8080;
   }
 
-  server.listen(port, options.host, (err) => {
-    if (err && done) {
-      return done(err);
+  let host;
+
+  if (Object.prototype.hasOwnProperty.call(options, 'host')) {
+    host = options.host;
+  } else {
+    host = 'localhost';
+  }
+
+  server.listen(port, host, (error) => {
+    if (error && done) {
+      return done(error);
     }
 
     if (done) {

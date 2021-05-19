@@ -170,41 +170,83 @@ describe('Server', () => {
       compiler = webpack(config);
     });
 
-    it('should listen and not throw error', (done) => {
+    it('should work and using "port" and "host" from options', (done) => {
       const options = {
         host: 'localhost',
         port,
       };
 
-      server = new Server(compiler, options);
+      server = new Server(options, compiler);
 
-      expect(() => server.listen(port, 'localhost')).not.toThrowError();
-      server.close(done);
+      // eslint-disable-next-line no-undefined
+      server.listen(undefined, undefined, () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
     });
 
-    it('should work and listen', (done) => {
+    it('should work and using "port" and "host" from arguments', (done) => {
+      server = new Server({}, compiler);
+
+      server.listen(port, '127.0.0.1', () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should work and using the same "port" and "host" from options and arguments', (done) => {
       const options = {
         host: 'localhost',
-      };
-
-      server = new Server(compiler, options);
-
-      expect(() => server.listen(9000)).not.toThrowError();
-      server.close(done);
-    });
-
-    it('should throw an error', (done) => {
-      const options = {
-        host: '192.160.21.34',
         port,
       };
 
+      server = new Server(options, compiler);
+
+      server.listen(options.port, options.host, () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should log warning when the "port" and "host" options from options different from arguments', (done) => {
+      const options = {
+        host: '127.0.0.2',
+        port: '9999',
+      };
+
       server = new Server(compiler, options);
 
-      expect(() => server.listen(port, 'localhost')).toThrowError(
-        'The host specified in options is different from the host passed as an argument.'
-      );
-      server.close(done);
+      const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
+
+      server.listen(port, '127.0.0.1', () => {
+        const info = server.server.address();
+
+        expect(loggerWarnSpy).toHaveBeenNthCalledWith(
+          1,
+          'The "port" specified in options is different from the port passed as an argument. Will be used from arguments.'
+        );
+        expect(loggerWarnSpy).toHaveBeenNthCalledWith(
+          2,
+          'The "host" specified in options is different from the host passed as an argument. Will be used from arguments.'
+        );
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        loggerWarnSpy.mockRestore();
+        server.close(done);
+      });
     });
   });
 

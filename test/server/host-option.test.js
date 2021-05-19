@@ -35,7 +35,7 @@ describe('host option', () => {
     it('server address', () => {
       const address = server.server.address();
 
-      expect(address.address).toBe('::');
+      expect(address.address).toBe('127.0.0.1');
       expect(address.port).toBe(port);
     });
 
