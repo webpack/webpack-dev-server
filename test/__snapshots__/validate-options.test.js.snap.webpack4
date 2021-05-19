@@ -339,11 +339,11 @@ exports[`options validate should throw an error on the "open" option with '{"app
    -> Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
    Details:
     * configuration.open.app should be one of these:
-      [non-empty string, ...] (should not have fewer than 1 item) | non-empty string
+      object { name?, arguments? } | non-empty string
       -> Open specified browser.
       Details:
-       * configuration.open.app should be an array:
-         [non-empty string, ...] (should not have fewer than 1 item)
+       * configuration.open.app should be an object:
+         object { name?, arguments? }
        * configuration.open.app should be a non-empty string."
 `;
 

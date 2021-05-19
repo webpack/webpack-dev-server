@@ -95,8 +95,8 @@
         "app": {
           "anyOf": [
             {
-              "additionalProperties": true,
               "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "name": {
                   "anyOf": [
