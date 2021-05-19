@@ -165,7 +165,7 @@ describe('Server', () => {
     let compiler;
     let server;
 
-    beforeAll(() => {
+    beforeEach(() => {
       compiler = webpack(config);
     });
 
