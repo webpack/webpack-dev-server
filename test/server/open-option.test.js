@@ -75,6 +75,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: '0.0.0.0',
       static: false,
     });
 
@@ -97,6 +98,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: '::',
       static: false,
     });
 
@@ -119,6 +121,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -141,6 +144,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: '127.0.0.1',
       static: false,
     });
 
@@ -163,6 +167,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: '::1',
       static: false,
     });
 
@@ -185,6 +190,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: internalIPv4,
       static: false,
     });
 
@@ -232,6 +238,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -254,6 +261,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: false,
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -274,6 +282,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: 'index.html',
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -296,6 +305,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: '/index.html',
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -318,6 +328,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: 'http://localhost:8117/index.html',
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -340,6 +351,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: ['first.html', 'second.html'],
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -376,6 +388,7 @@ describe('"open" option', () => {
         'http://localhost:8117/second.html',
       ],
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -409,6 +422,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: {},
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -433,6 +447,7 @@ describe('"open" option', () => {
         target: true,
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -457,6 +472,7 @@ describe('"open" option', () => {
         target: 'index.html',
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -481,6 +497,7 @@ describe('"open" option', () => {
         target: ['first.html', 'second.html'],
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -516,6 +533,7 @@ describe('"open" option', () => {
         app: 'google-chrome',
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -541,6 +559,7 @@ describe('"open" option', () => {
         app: ['google-chrome', '--incognito'],
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -567,6 +586,7 @@ describe('"open" option', () => {
         app: 'google-chrome',
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -593,6 +613,7 @@ describe('"open" option', () => {
         app: ['google-chrome', '--incognito'],
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -631,6 +652,7 @@ describe('"open" option', () => {
         app: ['google-chrome', '--incognito'],
       },
       port,
+      host: 'localhost',
       static: false,
     });
 
@@ -668,6 +690,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: true,
       port,
+      host: 'localhost',
       static: false,
     });
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');

@@ -16,6 +16,7 @@ jest.mock('sockjs/lib/transport');
 
 const baseDevConfig = {
   port,
+  host: 'localhost',
   static: false,
 };
 
@@ -158,6 +159,130 @@ describe('Server', () => {
 
       compiler.run(() => {});
       server.listen(port, 'localhost');
+    });
+  });
+
+  describe('listen', () => {
+    let compiler;
+    let server;
+
+    beforeAll(() => {
+      compiler = webpack(config);
+    });
+
+    it('should work and using "port" and "host" from options', (done) => {
+      const options = {
+        host: 'localhost',
+        port,
+      };
+
+      server = new Server(options, compiler);
+
+      // eslint-disable-next-line no-undefined
+      server.listen(undefined, undefined, () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should work and using "port" and "host" from arguments', (done) => {
+      server = new Server({}, compiler);
+
+      server.listen(port, '127.0.0.1', () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should work and using the same "port" and "host" from options and arguments', (done) => {
+      const options = {
+        host: 'localhost',
+        port,
+      };
+
+      server = new Server(options, compiler);
+
+      server.listen(options.port, options.host, () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should work and using "port" from arguments and "host" from options', (done) => {
+      const options = {
+        host: '127.0.0.1',
+      };
+
+      server = new Server(options, compiler);
+
+      // eslint-disable-next-line no-undefined
+      server.listen(port, undefined, () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should work and using "port" from options and "port" from arguments', (done) => {
+      const options = {
+        port,
+      };
+
+      server = new Server(options, compiler);
+
+      // eslint-disable-next-line no-undefined
+      server.listen(undefined, '127.0.0.1', () => {
+        const info = server.server.address();
+
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        server.close(done);
+      });
+    });
+
+    it('should log warning when the "port" and "host" options from options different from arguments', (done) => {
+      const options = {
+        host: '127.0.0.2',
+        port: '9999',
+      };
+
+      server = new Server(compiler, options);
+
+      const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
+
+      server.listen(port, '127.0.0.1', () => {
+        const info = server.server.address();
+
+        expect(loggerWarnSpy).toHaveBeenNthCalledWith(
+          1,
+          'The "port" specified in options is different from the port passed as an argument. Will be used from arguments.'
+        );
+        expect(loggerWarnSpy).toHaveBeenNthCalledWith(
+          2,
+          'The "host" specified in options is different from the host passed as an argument. Will be used from arguments.'
+        );
+        expect(info.address).toBe('127.0.0.1');
+        expect(info.port).toBe(port);
+
+        loggerWarnSpy.mockRestore();
+        server.close(done);
+      });
     });
   });
 

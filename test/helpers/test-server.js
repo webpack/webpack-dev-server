@@ -21,19 +21,25 @@ function startFullSetup(config, options, done) {
   server = new Server(options, compiler);
 
   let port;
+
   if (Object.prototype.hasOwnProperty.call(options, 'port')) {
     port = options.port;
   } else {
     console.warn('Using the default port for testing is not recommended');
     port = 8080;
   }
-  const host = Object.prototype.hasOwnProperty.call(options, 'host')
-    ? options.host
-    : 'localhost';
 
-  server.listen(port, host, (err) => {
-    if (err && done) {
-      return done(err);
+  let host;
+
+  if (Object.prototype.hasOwnProperty.call(options, 'host')) {
+    host = options.host;
+  } else {
+    host = 'localhost';
+  }
+
+  server.listen(port, host, (error) => {
+    if (error && done) {
+      return done(error);
     }
 
     if (done) {
