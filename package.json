@@ -88,7 +88,7 @@
     "jest": "^26.6.3",
     "jest-circus": "^26.6.3",
     "less": "^4.1.1",
-    "less-loader": "^9.0.0",
+    "less-loader": "^7.3.0",
     "lint-staged": "^11.0.0",
     "marked": "^2.0.3",
     "memfs": "^3.2.2",
