@@ -22,6 +22,14 @@ Array [
 ]
 `;
 
+exports[`transportMode client unspecified port on browser client logs correctly 1`] = `
+Array [
+  "Hey.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Disconnected!",
+]
+`;
+
 exports[`transportMode client ws on browser client logs correctly 1`] = `
 Array [
   "Hey.",
