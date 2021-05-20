@@ -83,7 +83,7 @@ exports[`options validate should throw an error on the "client" option with '{"p
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.port should be one of these:
    number | string | \\"auto\\"
-   -> Tells clients connected to devServer to use the provided path to connect.
+   -> Tells clients connected to devServer to use the provided port.
    Details:
     * configuration.client.port should be a number.
     * configuration.client.port should be a string.
