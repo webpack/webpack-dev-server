@@ -540,7 +540,7 @@ describe('"open" option', () => {
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
         expect(open).toHaveBeenCalledWith('http://localhost:8117/', {
-          app: 'google-chrome',
+          app: { name: 'google-chrome' },
           wait: false,
         });
 
@@ -552,11 +552,11 @@ describe('"open" option', () => {
     server.listen(port, 'localhost');
   });
 
-  it("should work with object and with the 'app' option with arguments", (done) => {
+  it("should work with object and with the 'app' and 'arguments' options", (done) => {
     const compiler = webpack(config);
     const server = createServer(compiler, {
       open: {
-        app: ['google-chrome', '--incognito'],
+        app: { name: 'google-chrome', arguments: ['--incognito'] },
       },
       port,
       host: 'localhost',
@@ -566,7 +566,7 @@ describe('"open" option', () => {
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
         expect(open).toHaveBeenCalledWith('http://localhost:8117/', {
-          app: ['google-chrome', '--incognito'],
+          app: { name: 'google-chrome', arguments: ['--incognito'] },
           wait: false,
         });
 
@@ -593,7 +593,7 @@ describe('"open" option', () => {
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
         expect(open).toHaveBeenCalledWith('http://localhost:8117/index.html', {
-          app: 'google-chrome',
+          app: { name: 'google-chrome' },
           wait: false,
         });
 
@@ -605,12 +605,12 @@ describe('"open" option', () => {
     server.listen(port, 'localhost');
   });
 
-  it("should work with object, with multiple value of the 'target' option and with the 'app' option with arguments", (done) => {
+  it("should work with object, with multiple value of the 'target' option and with the 'app' and 'arguments' options", (done) => {
     const compiler = webpack(config);
     const server = createServer(compiler, {
       open: {
         target: ['first.html', 'second.html'],
-        app: ['google-chrome', '--incognito'],
+        app: { name: 'google-chrome', arguments: ['--incognito'] },
       },
       port,
       host: 'localhost',
@@ -624,7 +624,7 @@ describe('"open" option', () => {
           'http://localhost:8117/first.html',
           {
             wait: false,
-            app: ['google-chrome', '--incognito'],
+            app: { name: 'google-chrome', arguments: ['--incognito'] },
           }
         );
         expect(open).toHaveBeenNthCalledWith(
@@ -632,7 +632,7 @@ describe('"open" option', () => {
           'http://localhost:8117/second.html',
           {
             wait: false,
-            app: ['google-chrome', '--incognito'],
+            app: { name: 'google-chrome', arguments: ['--incognito'] },
           }
         );
 
@@ -649,7 +649,7 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: {
         target: ['first.html', 'http://localhost:8117/second.html'],
-        app: ['google-chrome', '--incognito'],
+        app: { name: 'google-chrome', arguments: ['--incognito'] },
       },
       port,
       host: 'localhost',
@@ -663,7 +663,7 @@ describe('"open" option', () => {
           'http://localhost:8117/first.html',
           {
             wait: false,
-            app: ['google-chrome', '--incognito'],
+            app: { name: 'google-chrome', arguments: ['--incognito'] },
           }
         );
         expect(open).toHaveBeenNthCalledWith(
@@ -671,7 +671,7 @@ describe('"open" option', () => {
           'http://localhost:8117/second.html',
           {
             wait: false,
-            app: ['google-chrome', '--incognito'],
+            app: { name: 'google-chrome', arguments: ['--incognito'] },
           }
         );
 
@@ -759,7 +759,7 @@ describe('"open" option', () => {
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
         expect(open).toHaveBeenCalledWith('http://localhost:8117/index.html', {
-          app: 'google-chrome',
+          app: { name: 'google-chrome' },
           wait: false,
         });
         expect(loggerWarnSpy).toHaveBeenCalledWith(
@@ -782,7 +782,10 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: {
         target: 'index.html',
-        app: ['google-chrome', '--incognito', '--new-window'],
+        app: {
+          name: 'google-chrome',
+          arguments: ['--incognito', '--new-window'],
+        },
       },
       port,
       static: false,
@@ -792,7 +795,10 @@ describe('"open" option', () => {
     compiler.hooks.done.tap('webpack-dev-server', () => {
       server.close(() => {
         expect(open).toHaveBeenCalledWith('http://localhost:8117/index.html', {
-          app: ['google-chrome', '--incognito', '--new-window'],
+          app: {
+            name: 'google-chrome',
+            arguments: ['--incognito', '--new-window'],
+          },
           wait: false,
         });
         expect(loggerWarnSpy).toHaveBeenCalledWith(
@@ -815,7 +821,10 @@ describe('"open" option', () => {
     const server = createServer(compiler, {
       open: {
         target: ['first.html', 'http://localhost:8117/second.html'],
-        app: ['google-chrome', '--incognito', '--new-window'],
+        app: {
+          name: 'google-chrome',
+          arguments: ['--incognito', '--new-window'],
+        },
       },
       port,
       static: false,
@@ -829,7 +838,10 @@ describe('"open" option', () => {
           'http://localhost:8117/first.html',
           {
             wait: false,
-            app: ['google-chrome', '--incognito', '--new-window'],
+            app: {
+              name: 'google-chrome',
+              arguments: ['--incognito', '--new-window'],
+            },
           }
         );
         expect(open).toHaveBeenNthCalledWith(
@@ -837,7 +849,10 @@ describe('"open" option', () => {
           'http://localhost:8117/second.html',
           {
             wait: false,
-            app: ['google-chrome', '--incognito', '--new-window'],
+            app: {
+              name: 'google-chrome',
+              arguments: ['--incognito', '--new-window'],
+            },
           }
         );
         expect(loggerWarnSpy).toHaveBeenNthCalledWith(

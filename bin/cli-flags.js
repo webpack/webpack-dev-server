@@ -299,7 +299,6 @@ module.exports = {
         delete opts.clientOverlay;
       },
     },
-    // TODO remove in the next major release in favor `--open-target`
     {
       name: 'open',
       type: [Boolean, String],
@@ -327,7 +326,7 @@ module.exports = {
       description: 'Open specified browser.',
       processor(opts) {
         opts.open = opts.open || {};
-        opts.open.app = opts.openApp.split(' ');
+        opts.open.app = opts.openApp;
         delete opts.openApp;
       },
     },
