@@ -209,6 +209,26 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  // For https://github.com/webpack/webpack-dev-server/issues/3306
+  it('https and other related options', (done) => {
+    const pfxFile = path.join(httpsCertificateDirectory, 'server.pfx');
+    const key = path.join(httpsCertificateDirectory, 'server.key');
+    const cert = path.join(httpsCertificateDirectory, 'server.crt');
+    const passphrase = 'webpack-dev-server';
+
+    testBin(
+      `--https --https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cert ${cert}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true, https: true })
+        ).toMatchSnapshot();
+        done();
+      })
+      .catch(done);
+  });
+
   it('--https-request-cert', (done) => {
     testBin('--https-request-cert')
       .then((output) => {
@@ -484,6 +504,15 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it(' --open --open-target index.html', (done) => {
+    testBin('--open --open-target index.html')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--open-target /first.html second.html', (done) => {
     testBin('--open-target /first.html second.html')
       .then((output) => {
@@ -495,6 +524,15 @@ describe('CLI', () => {
 
   it('--open-target /index.html --open-app google-chrome', (done) => {
     testBin('--open-target /index.html --open-app google-chrome')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open --open-target /index.html --open-app google-chrome', (done) => {
+    testBin('--open --open-target /index.html --open-app google-chrome')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         done();
@@ -582,6 +620,20 @@ describe('CLI', () => {
   it('--static-directory', (done) => {
     testBin(
       `--static-directory ${path.resolve(
+        __dirname,
+        '../fixtures/static/webpack.config.js'
+      )}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--static --static-directory', (done) => {
+    testBin(
+      `--static --static-directory ${path.resolve(
         __dirname,
         '../fixtures/static/webpack.config.js'
       )}`

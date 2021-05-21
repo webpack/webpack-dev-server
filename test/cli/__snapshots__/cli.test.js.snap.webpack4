@@ -164,6 +164,14 @@ exports[`CLI --no-https-request-cert 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
+exports[`CLI https and other related options 1`] = `
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: https://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): https://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): https://[<network-ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
 exports[`CLI https options 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
@@ -250,13 +258,13 @@ Options:
   --no-client-overlay              Do not show a full-screen overlay in the
                                    browser when there are compiler errors or
                                    warnings.
+  --client-logging <value>         Log level in the browser (none, error, warn,
+                                   info, log, verbose).
   --open [value...]                Open the default browser.
   --no-open                        Do not open the default browser.
   --open-app <value>               Open specified browser.
   --open-target [value...]         Open specified route in browser.
   --no-open-target                 Do not open specified route in browser.
-  --client-logging <value>         Log level in the browser (none, error, warn,
-                                   info, log, verbose).
   --history-api-fallback           Fallback to /index.html for Single Page
                                    Applications.
   --no-history-api-fallback        Do not fallback to /index.html for Single
