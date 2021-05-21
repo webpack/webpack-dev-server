@@ -16,7 +16,10 @@ const basicConfigPath = path.resolve(
 
 function testBin(testArgs, configPath) {
   const cwd = process.cwd();
-  const env = process.env.NODE_ENV;
+  const env = {
+    WEBPACK_CLI_HELP_WIDTH: 2048,
+    NODE_ENV: process.env.NODE_ENV,
+  };
 
   if (!configPath) {
     configPath = basicConfigPath;

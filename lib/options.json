@@ -569,7 +569,10 @@
     },
     "setupExitSignals": {
       "type": "boolean",
-      "description": "It takes a boolean and if true (default on CLI), the server will close and exit the process on SIGINT and SIGTERM. https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals"
+      "description": "It takes a boolean and if true (default on CLI), the server will close and exit the process on SIGINT and SIGTERM. https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals",
+      "cli": {
+        "exclude": true
+      }
     },
     "static": {
       "anyOf": [
