@@ -1,5 +1,7 @@
 'use strict';
 
+const normalizeOption = (option) => (typeof option === 'object' ? option : {});
+
 module.exports = {
   devServer: [
     {
@@ -47,7 +49,7 @@ module.exports = {
       ],
       description: 'Directory for static contents.',
       processor(opts) {
-        opts.static = opts.static || {};
+        opts.static = normalizeOption(opts.static);
         opts.static.directory = opts.staticDirectory;
         delete opts.staticDirectory;
       },
@@ -64,7 +66,7 @@ module.exports = {
         'The bundled files will be available in the browser under this path.',
       multiple: true,
       processor(opts) {
-        opts.static = opts.static || {};
+        opts.static = normalizeOption(opts.static);
         opts.static.publicPath = opts.staticPublicPath;
         delete opts.staticPublicPath;
       },
@@ -82,7 +84,7 @@ module.exports = {
         'Do not tell dev-server to use serveIndex middleware.',
       negative: true,
       processor(opts) {
-        opts.static = opts.static || {};
+        opts.static = normalizeOption(opts.static);
         opts.static.serveIndex = opts.staticServeIndex;
         delete opts.staticServeIndex;
       },
@@ -99,7 +101,7 @@ module.exports = {
       negatedDescription: 'Do not watch for files in static content directory.',
       negative: true,
       processor(opts) {
-        opts.static = opts.static || {};
+        opts.static = normalizeOption(opts.static);
         opts.static.watch = opts.staticWatch;
         delete opts.staticWatch;
       },
@@ -138,7 +140,7 @@ module.exports = {
       ],
       description: 'Passphrase for a pfx file.',
       processor(opts) {
-        opts.https = typeof opts.https === 'object' ? opts.https : {};
+        opts.https = normalizeOption(opts.https);
         opts.https.passphrase = opts.httpsPassphrase;
         delete opts.httpsPassphrase;
       },
@@ -153,7 +155,7 @@ module.exports = {
       ],
       description: 'Path to an SSL key.',
       processor(opts) {
-        opts.https = typeof opts.https === 'object' ? opts.https : {};
+        opts.https = normalizeOption(opts.https);
         opts.https.key = opts.httpsKey;
         delete opts.httpsKey;
       },
@@ -168,7 +170,7 @@ module.exports = {
       ],
       description: 'Path to an SSL pfx file.',
       processor(opts) {
-        opts.https = typeof opts.https === 'object' ? opts.https : {};
+        opts.https = normalizeOption(opts.https);
         opts.https.pfx = opts.httpsPfx;
         delete opts.httpsPfx;
       },
@@ -183,7 +185,7 @@ module.exports = {
       ],
       description: 'Path to an SSL certificate.',
       processor(opts) {
-        opts.https = typeof opts.https === 'object' ? opts.https : {};
+        opts.https = normalizeOption(opts.https);
         opts.https.cert = opts.httpsCert;
         delete opts.httpsCert;
       },
@@ -198,7 +200,7 @@ module.exports = {
       ],
       description: 'Path to an SSL CA certificate.',
       processor(opts) {
-        opts.https = typeof opts.https === 'object' ? opts.https : {};
+        opts.https = normalizeOption(opts.https);
         opts.https.cacert = opts.httpsCacert;
         delete opts.httpsCacert;
       },
@@ -214,7 +216,7 @@ module.exports = {
       description: 'Request for an SSL certificate.',
       negatedDescription: 'Do not request for an SSL certificate.',
       processor(opts) {
-        opts.https = typeof opts.https === 'object' ? opts.https : {};
+        opts.https = normalizeOption(opts.https);
         opts.https.requestCert = opts.httpsRequestCert;
         delete opts.httpsRequestCert;
       },
@@ -257,7 +259,7 @@ module.exports = {
         'Do not tell devServer to inject a Hot Module Replacement entry.',
       negative: true,
       processor(opts) {
-        opts.client = opts.client || {};
+        opts.client = normalizeOption(opts.client);
         opts.client.hotEntry = opts.clientHotEntry;
         delete opts.clientHotEntry;
       },
@@ -275,7 +277,7 @@ module.exports = {
         'Do not print compilation progress in percentage in the browser.',
       negative: true,
       processor(opts) {
-        opts.client = opts.client || {};
+        opts.client = normalizeOption(opts.client);
         opts.client.progress = opts.clientProgress;
         delete opts.clientProgress;
       },
@@ -294,9 +296,25 @@ module.exports = {
         'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
       negative: true,
       processor(opts) {
-        opts.client = opts.client || {};
+        opts.client = normalizeOption(opts.client);
         opts.client.overlay = opts.clientOverlay;
         delete opts.clientOverlay;
+      },
+    },
+    {
+      name: 'client-logging',
+      type: String,
+      configs: [
+        {
+          type: 'string',
+        },
+      ],
+      description:
+        'Log level in the browser (none, error, warn, info, log, verbose).',
+      processor(opts) {
+        opts.client = normalizeOption(opts.client);
+        opts.client.logging = opts.clientLogging;
+        delete opts.clientLogging;
       },
     },
     {
@@ -325,7 +343,7 @@ module.exports = {
       ],
       description: 'Open specified browser.',
       processor(opts) {
-        opts.open = opts.open || {};
+        opts.open = normalizeOption(opts.open);
         opts.open.app = opts.openApp;
         delete opts.openApp;
       },
@@ -343,29 +361,13 @@ module.exports = {
       ],
       description: 'Open specified route in browser.',
       processor(opts) {
-        opts.open = opts.open || {};
+        opts.open = normalizeOption(opts.open);
         opts.open.target = opts.openTarget;
         delete opts.openTarget;
       },
       negatedDescription: 'Do not open specified route in browser.',
       multiple: true,
       negative: true,
-    },
-    {
-      name: 'client-logging',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'Log level in the browser (none, error, warn, info, log, verbose).',
-      processor(opts) {
-        opts.client = opts.client || {};
-        opts.client.logging = opts.clientLogging;
-        delete opts.clientLogging;
-      },
     },
     {
       name: 'history-api-fallback',
