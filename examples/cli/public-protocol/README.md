@@ -1,7 +1,7 @@
 # CLI: Public Option Protocol
 
 ```console
-npm run webpack-dev-server
+npx webpack serve
 ```
 
 _NOTE: replace `<insert local ip>` with your local IP Address._

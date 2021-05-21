@@ -10,7 +10,7 @@ It is enabled by default.
 To run this example, run this command in your console or terminal:
 
 ```console
-npm run webpack-dev-server -- --open-target --compress
+npx webpack serve --open-target --compress
 ```
 
 ### What should happen
@@ -25,7 +25,7 @@ npm run webpack-dev-server -- --open-target --compress
 To run this example, run this command in your console or terminal:
 
 ```console
-npm run webpack-dev-server -- --open --no-compress
+npx webpack serve --open --no-compress
 ```
 
 ### What should happen

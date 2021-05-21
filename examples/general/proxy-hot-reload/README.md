@@ -1,7 +1,7 @@
 # General: Proxy Hot Reload
 
 ```shell
-npm run webpack-dev-server -- --open
+npx webpack serve --open-target
 ```
 
 Enables hot reloading for proxy config. If function is provided instead of

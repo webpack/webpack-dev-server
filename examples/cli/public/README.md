@@ -1,7 +1,7 @@
 # CLI: Public Option
 
 ```console
-npm run webpack-dev-server -- --open-target --host 0.0.0.0 --public <insert local ip>:8080
+npx webpack serve --open-target --host 0.0.0.0 --public <insert local ip>:8080
 ```
 
 _NOTE: replace `<insert local ip>` with your local IP Address._
