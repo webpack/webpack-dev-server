@@ -304,12 +304,6 @@
               "anyOf": [
                 {
                   "type": "number"
-                },
-                {
-                  "type": "string"
-                },
-                {
-                  "enum": ["auto"]
                 }
               ],
               "description": "Tells clients connected to devServer to use the provided path to connect."

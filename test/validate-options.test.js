@@ -293,17 +293,16 @@ const tests = {
         path: '',
       },
       {
-        port: '',
+        port: 8080,
       },
       {
         host: '',
         path: '',
-        port: '',
       },
       {
         host: '',
         path: '',
-        port: 'auto',
+        port: 8080,
       },
     ],
     failure: [
@@ -317,6 +316,9 @@ const tests = {
       },
       {
         port: true,
+      },
+      {
+        port: '',
       },
     ],
   },
