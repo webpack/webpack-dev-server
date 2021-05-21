@@ -504,6 +504,15 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it(' --open --open-target index.html', (done) => {
+    testBin('--open --open-target index.html')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--open-target /first.html second.html', (done) => {
     testBin('--open-target /first.html second.html')
       .then((output) => {
@@ -515,6 +524,15 @@ describe('CLI', () => {
 
   it('--open-target /index.html --open-app google-chrome', (done) => {
     testBin('--open-target /index.html --open-app google-chrome')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open --open-target /index.html --open-app google-chrome', (done) => {
+    testBin('--open --open-target /index.html --open-app google-chrome')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         done();
@@ -602,6 +620,20 @@ describe('CLI', () => {
   it('--static-directory', (done) => {
     testBin(
       `--static-directory ${path.resolve(
+        __dirname,
+        '../fixtures/static/webpack.config.js'
+      )}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--static --static-directory', (done) => {
+    testBin(
+      `--static --static-directory ${path.resolve(
         __dirname,
         '../fixtures/static/webpack.config.js'
       )}`
