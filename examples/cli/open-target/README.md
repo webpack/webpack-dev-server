@@ -3,25 +3,25 @@
 Open browser:
 
 ```
-npm run webpack-dev-server -- --open-target
+npx webpack serve --open-target
 ```
 
 Open specific page in browser:
 
 ```
-npm run webpack-dev-server -- --open-target /example.html#page1
+npx webpack serve --open-target /example.html#page1
 ```
 
 Open specific browser:
 
 ```
-npm run webpack-dev-server -- --open-app firefox
+npx webpack serve --open-app firefox
 ```
 
 Open specific page in specific browser:
 
 ```
-npm run webpack-dev-server -- --open-target example.html#page1 --open-app firefox
+npx webpack serve --open-target example.html#page1 --open-app firefox
 ```
 
 Some applications may consist of multiple pages. During development it may

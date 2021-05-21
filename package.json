@@ -29,7 +29,6 @@
     "pretest": "npm run lint",
     "prepare": "npm run build:client && husky install",
     "build:client": "rimraf ./client/* && babel client-src/ --out-dir client/ --ignore \"webpack.config.js\" && webpack --config client/webpack.config.js",
-    "webpack-dev-server": "node examples/run-example.js",
     "release": "standard-version"
   },
   "dependencies": {

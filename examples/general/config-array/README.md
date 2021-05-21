@@ -3,7 +3,7 @@
 This example demonstrates using a `webpack` config containing an array of configs.
 
 ```console
-npm run webpack-dev-server -- --open
+npx webpack serve --open-target
 ```
 
 ## What Should Happen

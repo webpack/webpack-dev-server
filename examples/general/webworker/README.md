@@ -3,7 +3,7 @@
 This example demonstrates using a WebWorker within an app run by `webpack-dev-server`.
 
 ```console
-npm run webpack-dev-server
+npx webpack serve
 ```
 
 ## What should happen
