@@ -789,7 +789,7 @@ describe('CLI', () => {
   it('should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
     const cwd = path.resolve(__dirname, '../fixtures/cli');
-    const cp = execa('node', [cliPath, '----watch-options-stdin'], { cwd });
+    const cp = execa('node', [cliPath, '--watch-options-stdin'], { cwd });
 
     let killed = false;
 
