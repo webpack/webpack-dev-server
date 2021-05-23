@@ -41,7 +41,10 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
-    "webSocketURL": Object {},
+    "webSocketURL": Object {
+      "host": "my.host",
+      "port": 9000,
+    },
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -67,10 +70,6 @@ Object {
       "path": "/ws",
     },
     "type": "ws",
-  },
-  "webSocketURL": Object {
-    "host": "my.host",
-    "port": 9000,
   },
 }
 `;
@@ -80,7 +79,9 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
-    "webSocketURL": Object {},
+    "webSocketURL": Object {
+      "path": "/custom/path/",
+    },
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -106,9 +107,6 @@ Object {
       "path": "/ws",
     },
     "type": "ws",
-  },
-  "webSocketURL": Object {
-    "path": "/custom/path/",
   },
 }
 `;
@@ -118,7 +116,9 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
-    "webSocketURL": Object {},
+    "webSocketURL": Object {
+      "path": "custom/path",
+    },
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -144,9 +144,6 @@ Object {
       "path": "/ws",
     },
     "type": "ws",
-  },
-  "webSocketURL": Object {
-    "path": "custom/path",
   },
 }
 `;

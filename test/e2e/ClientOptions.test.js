@@ -196,8 +196,10 @@ for (const webSocketServerType of webSocketServerTypes) {
 
     beforeAll((done) => {
       const options = {
-        webSocketURL: {
-          host: devServerHost,
+        client: {
+          webSocketURL: {
+            host: devServerHost,
+          },
         },
         port: devServerPort,
         host: devServerHost,
@@ -249,9 +251,11 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        webSocketURL: {
-          path: '/foo/test/bar/',
-          port: port3,
+        client: {
+          webSocketURL: {
+            path: '/foo/test/bar/',
+            port: port3,
+          },
         },
       };
 
@@ -283,8 +287,10 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        webSocketURL: {
-          port: port3,
+        client: {
+          webSocketURL: {
+            port: port3,
+          },
         },
       };
 
@@ -316,8 +322,10 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        webSocketURL: {
-          host: 'myhost.test',
+        client: {
+          webSocketURL: {
+            host: 'myhost.test',
+          },
         },
       };
       testServer.startAwaitingCompilation(config, options, done);
@@ -348,10 +356,12 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
-        webSocketURL: {
-          host: 'myhost',
-          port: port3,
-          path: '/foo/test/bar/',
+        client: {
+          webSocketURL: {
+            host: 'myhost',
+            port: port3,
+            path: '/foo/test/bar/',
+          },
         },
       };
 
@@ -384,8 +394,10 @@ for (const webSocketServerType of webSocketServerTypes) {
         port: port2,
         host: '0.0.0.0',
         public: 'myhost.test',
-        webSocketURL: {
-          path: '/foo/test/bar/',
+        client: {
+          webSocketURL: {
+            path: '/foo/test/bar/',
+          },
         },
       };
 
