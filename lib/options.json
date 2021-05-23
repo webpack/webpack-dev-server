@@ -275,6 +275,10 @@
                 "warnings": {
                   "type": "boolean",
                   "description": "Show a full-screen overlay in the browser when there are compiler warnings."
+                },
+                "console": {
+                  "type": "boolean",
+                  "description": "Log compiler errors/warnings on the console."
                 }
               }
             }
