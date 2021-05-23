@@ -6,6 +6,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "transport": "/path/to/custom/client/",
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -40,6 +41,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -78,6 +80,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -115,6 +118,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -153,6 +157,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "transport": "sockjs",
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -188,6 +193,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "transport": "ws",
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -223,6 +229,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "transport": "ws",
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -257,6 +264,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {
@@ -293,6 +301,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -327,6 +336,7 @@ Object {
   "client": Object {
     "hotEntry": false,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -361,6 +371,7 @@ Object {
   "client": Object {
     "hotEntry": "only",
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -395,6 +406,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -429,6 +441,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -463,6 +476,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -497,6 +511,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -533,6 +548,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -567,6 +583,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -603,6 +620,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -639,6 +657,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -675,6 +694,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -709,6 +729,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -754,6 +775,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -799,6 +821,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -844,6 +867,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -878,6 +902,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -900,6 +925,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -934,6 +960,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -968,6 +995,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1002,6 +1030,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1037,6 +1066,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1071,6 +1101,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1103,6 +1134,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1137,6 +1169,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1173,6 +1206,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1207,6 +1241,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1241,6 +1276,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
@@ -1275,6 +1311,7 @@ Object {
   "client": Object {
     "hotEntry": true,
     "overlay": true,
+    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},

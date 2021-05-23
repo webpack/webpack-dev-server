@@ -279,38 +279,38 @@
             }
           ],
           "description": "Tells devServer to inject a Hot Module Replacement entry."
+        },
+        "webSocketURL": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "host": {
+                  "type": "string",
+                  "description": "Tells clients connected to devServer to use the provided host."
+                },
+                "path": {
+                  "type": "string",
+                  "description": "Tells clients connected to devServer to use the provided path to connect."
+                },
+                "port": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "description": "Tells clients connected to devServer to use the provided path to connect."
+                }
+              }
+            }
+          ]
         }
       },
       "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
       "additionalProperties": false
-    },
-    "webSocketURL": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "host": {
-              "type": "string",
-              "description": "Tells clients connected to devServer to use the provided host."
-            },
-            "path": {
-              "type": "string",
-              "description": "Tells clients connected to devServer to use the provided path to connect."
-            },
-            "port": {
-              "anyOf": [
-                {
-                  "type": "number"
-                }
-              ],
-              "description": "Tells clients connected to devServer to use the provided path to connect."
-            }
-          }
-        }
-      ]
     },
     "webSocketServer": {
       "anyOf": [

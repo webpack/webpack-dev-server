@@ -38,7 +38,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   };
 
-  describe(`should work behind proxy, when hostnames are same and ports are different (${webSocketServerType})`, () => {
+  describe.only(`should work behind proxy, when hostnames are same and ports are different (${webSocketServerType})`, () => {
     const devServerHost = '127.0.0.1';
     const devServerPort = port1;
     const proxyHost = devServerHost;

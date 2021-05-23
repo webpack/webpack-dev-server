@@ -82,6 +82,21 @@ const tests = {
       {
         transport: require.resolve('../client/clients/SockJSClient'),
       },
+      {
+        webSocketURL: { host: '' },
+      },
+      {
+        webSocketURL: { path: '' },
+      },
+      {
+        webSocketURL: { port: 8080 },
+      },
+      {
+        webSocketURL: { host: '', path: '' },
+      },
+      {
+        webSocketURL: { host: '', path: '', port: 8080 },
+      },
     ],
     failure: [
       'whoops!',
@@ -118,6 +133,18 @@ const tests = {
       },
       {
         transport: true,
+      },
+      {
+        webSocketURL: { host: true, path: '', port: 8080 },
+      },
+      {
+        webSocketURL: { path: true },
+      },
+      {
+        webSocketURL: { port: true },
+      },
+      {
+        webSocketURL: { port: '' },
       },
     ],
   },
@@ -281,44 +308,6 @@ const tests = {
       },
       {
         watch: 10,
-      },
-    ],
-  },
-  webSocketURL: {
-    success: [
-      {
-        host: '',
-      },
-      {
-        path: '',
-      },
-      {
-        port: 8080,
-      },
-      {
-        host: '',
-        path: '',
-      },
-      {
-        host: '',
-        path: '',
-        port: 8080,
-      },
-    ],
-    failure: [
-      {
-        host: true,
-        path: '',
-        port: 8080,
-      },
-      {
-        path: true,
-      },
-      {
-        port: true,
-      },
-      {
-        port: '',
       },
     ],
   },
