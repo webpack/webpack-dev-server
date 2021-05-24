@@ -116,6 +116,7 @@ describe('index', () => {
     onSocketMessage['progress-update']({
       msg: 'mock-msg',
       percent: '12',
+      pluginName: 'mock-plugin',
     });
     expect(log.log.info).not.toBeCalled();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
@@ -124,6 +125,7 @@ describe('index', () => {
     onSocketMessage['progress-update']({
       msg: 'mock-msg',
       percent: '12',
+      pluginName: 'mock-plugin',
     });
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
