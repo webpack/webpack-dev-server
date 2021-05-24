@@ -287,6 +287,7 @@
             },
             {
               "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "host": {
                   "type": "string",
@@ -302,7 +303,7 @@
                       "type": "number"
                     }
                   ],
-                  "description": "Tells clients connected to devServer to use the provided path to connect."
+                  "description": "Tells clients connected to devServer to use the provided port."
                 }
               }
             }
