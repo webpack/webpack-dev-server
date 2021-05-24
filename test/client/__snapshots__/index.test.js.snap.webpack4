@@ -58,6 +58,10 @@ exports[`index should run onSocketMessage.progress and onSocketMessage['progress
 
 exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] 2`] = `"12% - mock-msg."`;
 
+exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] and log plugin name 1`] = `"Progress"`;
+
+exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] and log plugin name 2`] = `"[mock-plugin] 12% - mock-msg."`;
+
 exports[`index should run onSocketMessage.warnings 1`] = `"Warnings while compiling."`;
 
 exports[`index should run onSocketMessage.warnings 2`] = `"Warnings"`;
