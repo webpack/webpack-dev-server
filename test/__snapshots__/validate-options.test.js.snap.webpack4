@@ -106,19 +106,19 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":""}}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.webSocketURL should be one of these:
-   string | object { host?, path?, port?, … }
+   string | object { host?, path?, port? }
    Details:
     * configuration.client.webSocketURL.port should be a number.
-      -> Tells clients connected to devServer to use the provided path to connect."
+      -> Tells clients connected to devServer to use the provided port."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.webSocketURL should be one of these:
-   string | object { host?, path?, port?, … }
+   string | object { host?, path?, port? }
    Details:
     * configuration.client.webSocketURL.port should be a number.
-      -> Tells clients connected to devServer to use the provided path to connect."
+      -> Tells clients connected to devServer to use the provided port."
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
