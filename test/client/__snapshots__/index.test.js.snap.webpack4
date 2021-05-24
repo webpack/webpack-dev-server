@@ -82,9 +82,11 @@ Array [
 
 exports[`index should run onSocketMessage['content-changed'] 1`] = `"Content from static directory was changed. Reloading..."`;
 
+exports[`index should run onSocketMessage['content-changed'](file) 1`] = `"\\"/public/assets/index.html\\" from static directory was changed. Reloading..."`;
+
 exports[`index should run onSocketMessage['static-changed'] 1`] = `"Content from static directory was changed. Reloading..."`;
 
-exports[`index should run onSocketMessage['static-changed'](file) 1`] = `"/static/assets/index.html from static directory was changed. Reloading..."`;
+exports[`index should run onSocketMessage['static-changed'](file) 1`] = `"\\"/static/assets/index.html\\" from static directory was changed. Reloading..."`;
 
 exports[`index should run onSocketMessage['still-ok'] 1`] = `"Nothing changed."`;
 

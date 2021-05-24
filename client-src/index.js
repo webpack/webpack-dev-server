@@ -140,14 +140,18 @@ const onSocketMessage = {
   // TODO: remove in v5 in favor of 'static-changed'
   'content-changed': function contentChanged(file) {
     log.info(
-      `${file || 'Content'} from static directory was changed. Reloading...`
+      `${
+        file ? `"${file}"` : 'Content'
+      } from static directory was changed. Reloading...`
     );
 
     self.location.reload();
   },
   'static-changed': function staticChanged(file) {
     log.info(
-      `${file || 'Content'} from static directory was changed. Reloading...`
+      `${
+        file ? `"${file}"` : 'Content'
+      } from static directory was changed. Reloading...`
     );
 
     self.location.reload();
