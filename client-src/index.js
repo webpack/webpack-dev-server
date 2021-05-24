@@ -137,8 +137,22 @@ const onSocketMessage = {
 
     reloadApp(options, status);
   },
-  'content-changed': function contentChanged() {
-    log.info('Content base changed. Reloading...');
+  // TODO: remove in v5 in favor of 'static-changed'
+  'content-changed': function contentChanged(file) {
+    log.info(
+      `${
+        file ? `"${file}"` : 'Content'
+      } from static directory was changed. Reloading...`
+    );
+
+    self.location.reload();
+  },
+  'static-changed': function staticChanged(file) {
+    log.info(
+      `${
+        file ? `"${file}"` : 'Content'
+      } from static directory was changed. Reloading...`
+    );
 
     self.location.reload();
   },
