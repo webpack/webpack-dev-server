@@ -106,7 +106,11 @@ const onSocketMessage = {
   },
   'progress-update': function progressUpdate(data) {
     if (options.progress) {
-      log.info(`${data.percent}% - ${data.msg}.`);
+      log.info(
+        `${data.pluginName ? `[${data.pluginName}] ` : ''}${data.percent}% - ${
+          data.msg
+        }.`
+      );
     }
 
     sendMessage('Progress', data);

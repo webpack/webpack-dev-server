@@ -128,6 +128,25 @@ describe('index', () => {
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
 
+  test("should run onSocketMessage.progress and onSocketMessage['progress-update'] and log plugin name", () => {
+    onSocketMessage.progress(false);
+    onSocketMessage['progress-update']({
+      msg: 'mock-msg',
+      percent: '12',
+      pluginName: 'mock-plugin',
+    });
+    expect(log.log.info).not.toBeCalled();
+    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+
+    onSocketMessage.progress(true);
+    onSocketMessage['progress-update']({
+      msg: 'mock-msg',
+      percent: '12',
+      pluginName: 'mock-plugin',
+    });
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+  });
+
   test('should run onSocketMessage.overlay with an argument is Object', () => {
     onSocketMessage.overlay({
       warnings: true,
