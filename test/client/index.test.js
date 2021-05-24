@@ -192,6 +192,13 @@ describe('index', () => {
     expect(self.location.reload).toBeCalled();
   });
 
+  test("should run onSocketMessage['static-changed'](file)", () => {
+    onSocketMessage['static-changed']('/static/assets/index.html');
+
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(self.location.reload).toBeCalled();
+  });
+
   test('should run onSocketMessage.warnings', () => {
     {
       const res = onSocketMessage.warnings([
