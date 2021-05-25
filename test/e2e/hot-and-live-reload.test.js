@@ -59,9 +59,9 @@ describe('reload', () => {
         const options = Object.assign(
           {},
           {
-            static: false,
-            port,
             host: '0.0.0.0',
+            port,
+            static: false,
           },
           mode.options
         );
@@ -95,7 +95,6 @@ describe('reload', () => {
                 .then((color) => {
                   page.setRequestInterception(true).then(() => {
                     page.on('request', (req) => {
-                      console.log(req.url());
                       if (
                         req.isNavigationRequest() &&
                         req.frame() === page.mainFrame() &&

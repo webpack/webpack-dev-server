@@ -8,6 +8,7 @@ const portsList = {
   SockJSServer: 1,
   Client: 1,
   ClientOptions: 3,
+  logging: 1,
   MultiCompiler: 1,
   UniversalCompiler: 1,
   Server: 1,
