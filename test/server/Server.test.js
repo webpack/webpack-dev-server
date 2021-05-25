@@ -12,6 +12,7 @@ const port = require('../ports-map').Server;
 const isWebpack5 = require('../helpers/isWebpack5');
 
 const getFreePort = Server.getFreePort;
+
 jest.mock('sockjs/lib/transport');
 
 const baseDevConfig = {
