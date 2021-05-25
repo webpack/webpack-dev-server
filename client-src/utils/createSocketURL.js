@@ -72,7 +72,11 @@ function createSocketURL(parsedURL) {
   // If path is provided it'll be passed in via the resourceQuery as a
   // query param so it has to be parsed out of the querystring in order for the
   // client to open the socket to the correct location.
-  const socketURLPathname = parsedURL.pathname || '/ws';
+  let socketURLPathname = '/ws';
+
+  if (parsedURL.pathname && !parsedURL.fromCurrentScript) {
+    socketURLPathname = parsedURL.pathname;
+  }
 
   return url.format({
     protocol: socketURLProtocol,

@@ -175,7 +175,7 @@ const tests = {
     failure: [''],
   },
   host: {
-    success: ['', 'localhost', null],
+    success: ['', 'localhost', '::', '::1', null],
     failure: [false],
   },
   hot: {

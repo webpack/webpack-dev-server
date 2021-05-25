@@ -41,9 +41,11 @@ function parseURL(resourceQuery) {
 
       if (scriptSourceURL) {
         options = scriptSourceURL;
+        options.fromCurrentScript = true;
       }
     } else {
       options = url.parse(self.location.href, true, true);
+      options.fromCurrentScript = true;
     }
   }
 
