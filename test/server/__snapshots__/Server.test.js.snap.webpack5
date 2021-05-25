@@ -4,9 +4,7 @@ exports[`Server DevServerPlugin add hot option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?http:",
-    "0.0.0.0&path=",
-    "ws&port=8100",
+    "index.js?ws%3A%2F%2Flocalhost%3A8100%2Fws",
   ],
   Array [
     "node_modules",
@@ -24,9 +22,7 @@ exports[`Server DevServerPlugin add hot-only option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?http:",
-    "0.0.0.0&path=",
-    "ws&port=8100",
+    "index.js?ws%3A%2F%2Flocalhost%3A8100%2Fws",
   ],
   Array [
     "node_modules",
@@ -44,9 +40,7 @@ exports[`Server DevServerPlugin should create and run server with old parameters
 Array [
   Array [
     "client",
-    "index.js?http:",
-    "0.0.0.0&path=",
-    "ws&port=8100",
+    "index.js?ws%3A%2F%2Flocalhost%3A8100%2Fws",
   ],
   Array [
     "node_modules",

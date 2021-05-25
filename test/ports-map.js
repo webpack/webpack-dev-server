@@ -12,7 +12,6 @@ const portsList = {
   UniversalCompiler: 1,
   Server: 1,
   routes: 1,
-  createDomain: 2,
   'onAfterSetupMiddleware-option': 1,
   'onBeforeSetupMiddleware-option': 1,
   'compress-option': 1,

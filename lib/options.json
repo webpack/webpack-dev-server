@@ -283,7 +283,8 @@
         "webSocketURL": {
           "anyOf": [
             {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             {
               "type": "object",
@@ -291,23 +292,21 @@
               "properties": {
                 "host": {
                   "type": "string",
+                  "minLength": 1,
                   "description": "Tells clients connected to devServer to use the provided host."
+                },
+                "port": {
+                  "type": "number",
+                  "description": "Tells clients connected to devServer to use the provided port."
                 },
                 "path": {
                   "type": "string",
                   "description": "Tells clients connected to devServer to use the provided path to connect."
-                },
-                "port": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    }
-                  ],
-                  "description": "Tells clients connected to devServer to use the provided port."
                 }
               }
             }
-          ]
+          ],
+          "description": "When using dev server and you're proxying dev-server, the client script does not always know where to connect to."
         }
       },
       "description": "Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient",
@@ -546,10 +545,6 @@
         }
       ],
       "description": "Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy"
-    },
-    "public": {
-      "type": "string",
-      "description": "When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserverpublic"
     },
     "setupExitSignals": {
       "type": "boolean",

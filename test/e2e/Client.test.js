@@ -27,9 +27,16 @@ describe('reload', () => {
       shouldRefresh: false,
     },
     {
-      title: 'hot with transportMode.client sockjs',
+      title: 'hot with sockjs websocket server',
       options: {
         webSocketServer: 'sockjs',
+      },
+      shouldRefresh: false,
+    },
+    {
+      title: 'hot with ws websocket server',
+      options: {
+        webSocketServer: 'ws',
       },
       shouldRefresh: false,
     },
@@ -88,6 +95,7 @@ describe('reload', () => {
                 .then((color) => {
                   page.setRequestInterception(true).then(() => {
                     page.on('request', (req) => {
+                      console.log(req.url());
                       if (
                         req.isNavigationRequest() &&
                         req.frame() === page.mainFrame() &&
@@ -95,6 +103,7 @@ describe('reload', () => {
                       ) {
                         refreshed = true;
                       }
+
                       req.continue();
                     });
                     page.waitForTimeout(reloadReadyDelay).then(() => {

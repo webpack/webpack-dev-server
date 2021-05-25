@@ -303,7 +303,7 @@ describe('Server', () => {
     it('should always allow any host if options.firewall is disabled', () => {
       const options = {
         client: {
-          webSocketURL: 'test.host:80',
+          webSocketURL: 'ws://test.host:80',
         },
         firewall: false,
       };
@@ -319,10 +319,10 @@ describe('Server', () => {
       }
     });
 
-    it('should allow any valid options.public when host is localhost', () => {
+    it('should allow any valid options.client.webSocketURL when host is localhost', () => {
       const options = {
         client: {
-          webSocketURL: 'test.host:80',
+          webSocketURL: 'ws://test.host:80',
         },
       };
       const headers = {
@@ -334,10 +334,10 @@ describe('Server', () => {
       }
     });
 
-    it('should allow any valid options.public when host is 127.0.0.1', () => {
+    it('should allow any valid options.client.webSocketURL when host is 127.0.0.1', () => {
       const options = {
         client: {
-          webSocketURL: 'test.host:80',
+          webSocketURL: 'ws://test.host:80',
         },
       };
 
@@ -375,10 +375,10 @@ describe('Server', () => {
       });
     });
 
-    it("should not allow hostnames that don't match options.public", () => {
+    it("should not allow hostnames that don't match options.client.webSocketURL", () => {
       const options = {
         client: {
-          webSocketURL: 'test.host:80',
+          webSocketURL: 'ws://test.host:80',
         },
       };
 
@@ -393,16 +393,37 @@ describe('Server', () => {
       }
     });
 
-    it('should allow urls with scheme for checking origin', () => {
+    it('should allow urls with scheme for checking origin when the "option.client.webSocketURL" is string', () => {
       const options = {
         client: {
-          webSocketURL: 'test.host:80',
+          webSocketURL: 'ws://test.host:80',
         },
       };
       const headers = {
         origin: 'https://test.host',
       };
+
       server = createServer(compiler, options);
+
+      if (!server.checkOrigin(headers)) {
+        throw new Error("Validation didn't fail");
+      }
+    });
+
+    it('should allow urls with scheme for checking origin when the "option.client.webSocketURL" is object', () => {
+      const options = {
+        client: {
+          webSocketURL: {
+            host: 'test.host',
+          },
+        },
+      };
+      const headers = {
+        origin: 'https://test.host',
+      };
+
+      server = createServer(compiler, options);
+
       if (!server.checkOrigin(headers)) {
         throw new Error("Validation didn't fail");
       }

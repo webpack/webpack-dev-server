@@ -10,7 +10,7 @@ module.exports = setup({
   devServer: {
     host: '0.0.0.0',
     client: {
-      webSocketURL: 'https://localhost:8080',
+      webSocketURL: 'ws://localhost:8080',
     },
     firewall: false,
   },

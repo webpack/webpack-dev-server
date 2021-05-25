@@ -93,7 +93,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         runBrowser().then(async ({ page, browser }) => {
           waitForTest(browser, page, /ws/, (websocketUrl) => {
             expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://${proxyHost}:${devServerPort}/ws`
+              `${websocketUrlProtocol}://${devServerHost}:${devServerPort}/ws`
             );
 
             done();
@@ -160,7 +160,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         runBrowser().then(async ({ page, browser }) => {
           waitForTest(browser, page, /ws/, (websocketUrl) => {
             expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://${proxyHost}:${proxyPort}/ws`
+              `${websocketUrlProtocol}://${devServerHost}:${devServerPort}/ws`
             );
 
             done();
@@ -281,7 +281,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with custom client port and without path', () => {
+  describe('should work with custom client port', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: webSocketServerType,
@@ -316,7 +316,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with custom client', () => {
+  describe('should work with custom client host', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: webSocketServerType,
@@ -387,14 +387,14 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with the "public" option and custom client path', () => {
+  describe('should work with the "client.webSocketURL" option and custom client path', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: webSocketServerType,
         port: port2,
         host: '0.0.0.0',
         client: {
-          webSocketURL: `myhost.test:${port2}/foo/test/bar/`,
+          webSocketURL: `ws://myhost.test:${port2}/foo/test/bar/`,
         },
       };
 

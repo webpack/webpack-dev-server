@@ -7,14 +7,6 @@ const url = require('url');
 function createSocketURL(parsedURL) {
   let { auth, hostname, protocol, port } = parsedURL;
 
-  const getURLSearchParam = (name) => {
-    if (parsedURL.searchParams) {
-      return parsedURL.searchParams.get(name);
-    }
-
-    return parsedURL.query && parsedURL.query[name];
-  };
-
   // Node.js module parses it as `::`
   // `new URL(urlString, [baseURLstring])` parses it as '[::]'
   const isInAddrAny =
@@ -66,22 +58,21 @@ function createSocketURL(parsedURL) {
   //
   // All of these sock url params are optionally passed in through resourceQuery,
   // so we need to fall back to the default if they are not provided
-  const socketURLHostname = (
-    getURLSearchParam('host') ||
-    hostname ||
-    'localhost'
-  ).replace(/^\[(.*)\]$/, '$1');
+  const socketURLHostname = (hostname || 'localhost').replace(
+    /^\[(.*)\]$/,
+    '$1'
+  );
 
   if (!port || port === '0') {
     port = self.location.port;
   }
 
-  const socketURLPort = getURLSearchParam('port') || port;
+  const socketURLPort = port;
 
   // If path is provided it'll be passed in via the resourceQuery as a
   // query param so it has to be parsed out of the querystring in order for the
   // client to open the socket to the correct location.
-  const socketURLPathname = getURLSearchParam('path') || '/ws';
+  const socketURLPathname = parsedURL.pathname || '/ws';
 
   return url.format({
     protocol: socketURLProtocol,
