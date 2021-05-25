@@ -57,7 +57,9 @@ describe('createDomain', () => {
       options: {
         host: 'localhost',
         port: port1,
-        public: 'myhost.test',
+        client: {
+          webSocketURL: 'myhost.test',
+        },
       },
       expected: ['http://myhost.test'],
     },
@@ -75,7 +77,9 @@ describe('createDomain', () => {
       options: {
         host: 'localhost',
         port: port1,
-        public: 'https://myhost.test',
+        client: {
+          webSocketURL: 'https://myhost.test',
+        },
       },
       expected: ['https://myhost.test'],
     },

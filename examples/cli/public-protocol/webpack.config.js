@@ -9,7 +9,9 @@ module.exports = setup({
   entry: './app.js',
   devServer: {
     host: '0.0.0.0',
-    public: 'https://localhost:8080',
+    client: {
+      webSocketURL: 'https://localhost:8080',
+    },
     firewall: false,
   },
 });
