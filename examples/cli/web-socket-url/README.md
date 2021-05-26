@@ -1,4 +1,4 @@
-# CLI: webSocketURL Option Protocol
+# CLI: Web Socket URL Option Protocol
 
 ```console
 npx webpack serve
