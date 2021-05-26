@@ -190,6 +190,7 @@ Url {
 exports[`'parseURL' function should return the url when __resourceQuery is 'undefined' 1`] = `
 Url {
   "auth": null,
+  "fromCurrentScript": true,
   "hash": null,
   "host": "localhost",
   "hostname": "localhost",
@@ -229,6 +230,7 @@ exports[`'parseURL' function should return the url when the current script sourc
 exports[`'parseURL' function should return the url when the current script source is 'undefined' 1`] = `
 Url {
   "auth": null,
+  "fromCurrentScript": true,
   "hash": null,
   "host": "localhost",
   "hostname": "localhost",

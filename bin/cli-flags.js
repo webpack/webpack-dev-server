@@ -395,16 +395,6 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'public',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'The public hostname/ip address of the server.',
-    },
-    {
       name: 'firewall',
       type: [Boolean, String],
       configs: [

@@ -96,7 +96,7 @@ describe('DevServer', () => {
     testBin(null, './test/fixtures/dev-server/client-default-path-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('&path=/ws');
+        expect(output.stdout).toContain('ws%3A%2F%2F0.0.0.0%2Fws');
         done();
       })
       .catch(done);
@@ -106,7 +106,7 @@ describe('DevServer', () => {
     testBin(null, './test/fixtures/dev-server/client-custom-path-config.js')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        expect(output.stdout).toContain('&path=/custom/path');
+        expect(output.stdout).toContain('ws%3A%2F%2F0.0.0.0%2Fcustom%2Fpath');
         done();
       })
       .catch(done);
