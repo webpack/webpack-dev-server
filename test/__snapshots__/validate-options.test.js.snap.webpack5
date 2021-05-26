@@ -190,14 +190,22 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
       object { … }"
 `;
 
+exports[`options validate should throw an error on the "host" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.host should be an non-empty string.
+   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
+`;
+
 exports[`options validate should throw an error on the "host" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.host should be one of these:
-   string | null
-   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost
-   Details:
-    * configuration.host should be a string.
-    * configuration.host should be a null."
+ - configuration.host should be a non-empty string.
+   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
+`;
+
+exports[`options validate should throw an error on the "host" option with 'null' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.host should be a non-empty string.
+   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
 `;
 
 exports[`options validate should throw an error on the "hot" option with '' value 1`] = `
