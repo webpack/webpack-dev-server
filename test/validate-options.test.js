@@ -29,15 +29,6 @@ const tests = {
     success: [
       {},
       {
-        host: '',
-      },
-      {
-        path: '',
-      },
-      {
-        port: '',
-      },
-      {
         logging: 'none',
       },
       {
@@ -54,22 +45,6 @@ const tests = {
       },
       {
         logging: 'verbose',
-      },
-      {
-        host: '',
-        path: '',
-        port: 8080,
-        logging: 'none',
-      },
-      {
-        host: '',
-        path: '',
-        port: '',
-      },
-      {
-        host: '',
-        path: '',
-        port: 'auto',
       },
       {
         progress: false,
@@ -107,16 +82,29 @@ const tests = {
       {
         transport: require.resolve('../client/clients/SockJSClient'),
       },
+      {
+        webSocketURL: 'ws://localhost:8080',
+      },
+      {
+        webSocketURL: { host: 'localhost' },
+      },
+      {
+        webSocketURL: { port: 8080 },
+      },
+      {
+        webSocketURL: { path: '' },
+      },
+      {
+        webSocketURL: { path: '/my-path/' },
+      },
+      {
+        webSocketURL: { host: 'localhost', port: 8080, path: '/my-path/' },
+      },
     ],
     failure: [
       'whoops!',
       {
         unknownOption: true,
-      },
-      {
-        host: true,
-        path: '',
-        port: 8080,
       },
       {
         logging: 'whoops!',
@@ -147,13 +135,22 @@ const tests = {
         hotEntry: [''],
       },
       {
-        path: true,
-      },
-      {
-        port: true,
-      },
-      {
         transport: true,
+      },
+      {
+        webSocketURL: { host: true, path: '', port: 8080 },
+      },
+      {
+        webSocketURL: { path: true },
+      },
+      {
+        webSocketURL: { port: true },
+      },
+      {
+        webSocketURL: { host: '' },
+      },
+      {
+        webSocketURL: { port: '' },
       },
     ],
   },
@@ -178,7 +175,7 @@ const tests = {
     failure: [''],
   },
   host: {
-    success: ['', 'localhost', null],
+    success: ['', 'localhost', '::', '::1', null],
     failure: [false],
   },
   hot: {
@@ -268,10 +265,6 @@ const tests = {
       },
     ],
     failure: [[], () => {}, false],
-  },
-  public: {
-    success: ['', 'foo', 'auto'],
-    failure: [false],
   },
   static: {
     success: [

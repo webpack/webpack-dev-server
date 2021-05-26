@@ -723,7 +723,10 @@ describe('CLI', () => {
 
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = path.resolve(__dirname, '../../examples/cli/public');
+    const examplePath = path.resolve(
+      __dirname,
+      '../../examples/cli/web-socket-url'
+    );
     const cp = execa('node', [cliPath], { cwd: examplePath });
 
     cp.stdout.on('data', (data) => {
@@ -765,7 +768,10 @@ describe('CLI', () => {
 
   it('should exit the process when stdin ends if --watch-options-stdin', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = path.resolve(__dirname, '../../examples/cli/public');
+    const examplePath = path.resolve(
+      __dirname,
+      '../../examples/cli/web-socket-url'
+    );
     const cp = execa('node', [cliPath, '--watch-options-stdin'], {
       cwd: examplePath,
     });

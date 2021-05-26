@@ -27,6 +27,7 @@ describe('DevServerPlugin util', () => {
     const devServerOptions = {
       client: {
         transport: 'sockjs',
+        webSocketURL: {},
       },
       webSocketServer: {
         type: 'sockjs',
@@ -79,6 +80,7 @@ describe('DevServerPlugin util', () => {
     const devServerOptions = {
       client: {
         transport: 'sockjs',
+        webSocketURL: {},
       },
       webSocketServer: {
         type: 'sockjs',
@@ -122,6 +124,7 @@ describe('DevServerPlugin util', () => {
     const devServerOptions = {
       client: {
         transport: 'sockjs',
+        webSocketURL: {},
       },
       webSocketServer: {
         type: 'sockjs',
@@ -143,6 +146,7 @@ describe('DevServerPlugin util', () => {
     const devServerOptions = {
       client: {
         transport: 'sockjs',
+        webSocketURL: {},
       },
       webSocketServer: {
         type: 'sockjs',
@@ -168,6 +172,7 @@ describe('DevServerPlugin util', () => {
     const devServerOptions = {
       client: {
         transport: 'sockjs',
+        webSocketURL: {},
       },
       webSocketServer: {
         type: 'sockjs',
@@ -193,6 +198,7 @@ describe('DevServerPlugin util', () => {
       hot: true,
       client: {
         transport: 'sockjs',
+        webSocketURL: {},
       },
       webSocketServer: {
         type: 'sockjs',
@@ -220,6 +226,7 @@ describe('DevServerPlugin util', () => {
         hot: true,
         client: {
           transport: 'sockjs',
+          webSocketURL: {},
         },
         webSocketServer: {
           type: 'sockjs',
@@ -249,6 +256,7 @@ describe('DevServerPlugin util', () => {
     const devServerOptions = {
       client: {
         transport: 'sockjs',
+        webSocketURL: {},
       },
       webSocketServer: {
         type: 'sockjs',

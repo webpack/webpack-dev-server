@@ -1,45 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Client console.log client logging is none (default) 1`] = `
+exports[`logging client logging is none (default) 1`] = `
 Array [
   "Hey.",
 ]
 `;
 
-exports[`Client console.log client logging is none (sockjs) 1`] = `
+exports[`logging client logging is none (sockjs) 1`] = `
 Array [
   "Hey.",
 ]
 `;
 
-exports[`Client console.log client logging is none (ws) 1`] = `
+exports[`logging client logging is none (ws) 1`] = `
 Array [
   "Hey.",
 ]
 `;
 
-exports[`Client console.log hot disabled (default) 1`] = `
-Array [
-  "Hey.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`Client console.log hot disabled (sockjs) 1`] = `
+exports[`logging hot disabled (default) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
-exports[`Client console.log hot disabled (ws) 1`] = `
+exports[`logging hot disabled (sockjs) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
-exports[`Client console.log hot enabled (default) 1`] = `
+exports[`logging hot disabled (ws) 1`] = `
+Array [
+  "Hey.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging hot enabled (default) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
@@ -48,7 +48,7 @@ Array [
 ]
 `;
 
-exports[`Client console.log hot enabled (sockjs) 1`] = `
+exports[`logging hot enabled (sockjs) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
@@ -57,7 +57,7 @@ Array [
 ]
 `;
 
-exports[`Client console.log hot enabled (ws) 1`] = `
+exports[`logging hot enabled (ws) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
@@ -66,18 +66,18 @@ Array [
 ]
 `;
 
-exports[`Client console.log liveReload & hot are disabled (default) 1`] = `
+exports[`logging liveReload & hot are disabled (default) 1`] = `
 Array [
   "Hey.",
-  "WebSocket connection to 'ws://localhost:8096/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
-  "WebSocket connection to 'ws://localhost:8096/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
+  "WebSocket connection to 'ws://localhost:8098/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
+  "WebSocket connection to 'ws://localhost:8098/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] JSHandle@object",
   "[webpack-dev-server] JSHandle@object",
 ]
 `;
 
-exports[`Client console.log liveReload & hot are disabled (sockjs) 1`] = `
+exports[`logging liveReload & hot are disabled (sockjs) 1`] = `
 Array [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
@@ -86,18 +86,18 @@ Array [
 ]
 `;
 
-exports[`Client console.log liveReload & hot are disabled (ws) 1`] = `
+exports[`logging liveReload & hot are disabled (ws) 1`] = `
 Array [
   "Hey.",
-  "WebSocket connection to 'ws://localhost:8096/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
-  "WebSocket connection to 'ws://localhost:8096/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
+  "WebSocket connection to 'ws://localhost:8098/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
+  "WebSocket connection to 'ws://localhost:8098/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] JSHandle@object",
   "[webpack-dev-server] JSHandle@object",
 ]
 `;
 
-exports[`Client console.log liveReload disabled (default) 1`] = `
+exports[`logging liveReload disabled (default) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
@@ -105,7 +105,7 @@ Array [
 ]
 `;
 
-exports[`Client console.log liveReload disabled (sockjs) 1`] = `
+exports[`logging liveReload disabled (sockjs) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
@@ -113,7 +113,7 @@ Array [
 ]
 `;
 
-exports[`Client console.log liveReload disabled (ws) 1`] = `
+exports[`logging liveReload disabled (ws) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
@@ -121,16 +121,7 @@ Array [
 ]
 `;
 
-exports[`Client console.log liveReload enabled (default) 1`] = `
-Array [
-  "Hey.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`Client console.log liveReload enabled (sockjs) 1`] = `
+exports[`logging liveReload enabled (default) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
@@ -139,7 +130,16 @@ Array [
 ]
 `;
 
-exports[`Client console.log liveReload enabled (ws) 1`] = `
+exports[`logging liveReload enabled (sockjs) 1`] = `
+Array [
+  "Hey.",
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging liveReload enabled (ws) 1`] = `
 Array [
   "Hey.",
   "[HMR] Waiting for update signal from WDS...",
