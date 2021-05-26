@@ -404,7 +404,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     afterAll(testServer.close);
 
     describe('browser client', () => {
-      it('uses the correct public hostname and path', (done) => {
+      it('uses the correct webSocketURL hostname and path', (done) => {
         runBrowser().then(({ page, browser }) => {
           waitForTest(browser, page, /foo\/test\/bar/, (websocketUrl) => {
             expect(websocketUrl).toContain(
