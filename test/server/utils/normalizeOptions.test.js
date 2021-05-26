@@ -398,10 +398,10 @@ describe('normalizeOptions', () => {
       ],
     },
     {
-      title: 'firewall is set',
+      title: 'allowedHosts is set',
       multiCompiler: false,
       options: {
-        firewall: false,
+        allowedHosts: true,
       },
       optionsResults: null,
     },

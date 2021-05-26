@@ -1,16 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`normalizeOptions allowedHosts is set should set correct options 1`] = `
+Object {
+  "allowedHosts": true,
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
 exports[`normalizeOptions client custom transport path should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
     "transport": "/path/to/custom/client/",
-    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -38,17 +71,15 @@ Object {
 
 exports[`normalizeOptions client host and port should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
+    "host": "my.host",
     "hotEntry": true,
     "overlay": true,
-    "webSocketURL": Object {
-      "host": "my.host",
-      "port": 9000,
-    },
+    "port": 9000,
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -76,16 +107,14 @@ Object {
 
 exports[`normalizeOptions client path should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
-    "webSocketURL": Object {
-      "path": "/custom/path/",
-    },
+    "path": "/custom/path/",
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -113,16 +142,14 @@ Object {
 
 exports[`normalizeOptions client path without leading/ending slashes should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
-    "webSocketURL": Object {
-      "path": "custom/path",
-    },
+    "path": "custom/path",
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -150,15 +177,14 @@ Object {
 
 exports[`normalizeOptions client.transport sockjs string should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
     "transport": "sockjs",
-    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -186,6 +212,7 @@ Object {
 
 exports[`normalizeOptions client.transport ws string and webSocketServer ws string should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -194,7 +221,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -222,15 +248,14 @@ Object {
 
 exports[`normalizeOptions client.transport ws string should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
     "transport": "ws",
-    "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -258,6 +283,7 @@ Object {
 
 exports[`normalizeOptions dev is set should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -267,42 +293,6 @@ Object {
   "devMiddleware": Object {
     "serverSideRender": true,
   },
-  "firewall": true,
-  "hot": true,
-  "liveReload": true,
-  "setupExitSignals": true,
-  "static": Array [
-    Object {
-      "directory": "CWD",
-      "publicPath": Array [
-        "/",
-      ],
-      "serveIndex": Object {
-        "icons": true,
-      },
-      "staticOptions": Object {},
-      "watch": Object {},
-    },
-  ],
-  "webSocketServer": Object {
-    "options": Object {
-      "path": "/ws",
-    },
-    "type": "ws",
-  },
-}
-`;
-
-exports[`normalizeOptions firewall is set should set correct options 1`] = `
-Object {
-  "client": Object {
-    "hotEntry": true,
-    "overlay": true,
-    "webSocketURL": Object {},
-  },
-  "compress": true,
-  "devMiddleware": Object {},
-  "firewall": false,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -330,6 +320,7 @@ Object {
 
 exports[`normalizeOptions hot is false should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": false,
     "overlay": true,
@@ -337,7 +328,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": false,
   "liveReload": true,
   "setupExitSignals": true,
@@ -365,6 +355,7 @@ Object {
 
 exports[`normalizeOptions hot is only should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": "only",
     "overlay": true,
@@ -372,7 +363,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": "only",
   "liveReload": true,
   "setupExitSignals": true,
@@ -400,6 +390,7 @@ Object {
 
 exports[`normalizeOptions hot is true should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -407,7 +398,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -435,6 +425,7 @@ Object {
 
 exports[`normalizeOptions liveReload is false should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -442,7 +433,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": false,
   "setupExitSignals": true,
@@ -470,6 +460,7 @@ Object {
 
 exports[`normalizeOptions liveReload is true should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -477,7 +468,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -505,6 +495,7 @@ Object {
 
 exports[`normalizeOptions multi compiler watchOptions is set should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -512,7 +503,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -542,6 +532,7 @@ Object {
 
 exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -549,7 +540,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -577,6 +567,7 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -584,7 +575,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -614,6 +604,7 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object with static watch overriding it should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -621,7 +612,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -651,6 +641,7 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object with static watch true should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -658,7 +649,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -688,6 +678,7 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object with watch false should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -695,7 +686,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -723,6 +713,7 @@ Object {
 
 exports[`normalizeOptions static is an array of static objects should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -730,7 +721,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -769,6 +759,7 @@ Object {
 
 exports[`normalizeOptions static is an array of strings and static objects should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -776,7 +767,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -815,6 +805,7 @@ Object {
 
 exports[`normalizeOptions static is an array of strings should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -822,7 +813,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -861,6 +851,7 @@ Object {
 
 exports[`normalizeOptions static is an object should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -868,7 +859,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -896,6 +886,7 @@ Object {
 
 exports[`normalizeOptions static is false should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -903,7 +894,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -919,6 +909,7 @@ Object {
 
 exports[`normalizeOptions static is string should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -926,7 +917,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -954,6 +944,7 @@ Object {
 
 exports[`normalizeOptions static is true should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -961,7 +952,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -989,6 +979,7 @@ Object {
 
 exports[`normalizeOptions static publicPath is a string should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -996,7 +987,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1024,6 +1014,7 @@ Object {
 
 exports[`normalizeOptions static publicPath is an array should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1031,7 +1022,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1060,6 +1050,7 @@ Object {
 
 exports[`normalizeOptions static serveIndex is an object should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1067,7 +1058,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1095,6 +1085,7 @@ Object {
 
 exports[`normalizeOptions static serveIndex is false should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1102,7 +1093,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1128,6 +1118,7 @@ Object {
 
 exports[`normalizeOptions static serveIndex is true should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1135,7 +1126,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1163,6 +1153,7 @@ Object {
 
 exports[`normalizeOptions static watch is an object should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1170,7 +1161,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1200,6 +1190,7 @@ Object {
 
 exports[`normalizeOptions static watch is false should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1207,7 +1198,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1235,6 +1225,7 @@ Object {
 
 exports[`normalizeOptions static watch is true should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1242,7 +1233,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1270,6 +1260,7 @@ Object {
 
 exports[`normalizeOptions webSocketServer custom server class should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1277,7 +1268,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,
@@ -1305,6 +1295,7 @@ Object {
 
 exports[`normalizeOptions webSocketServer custom server path should set correct options 1`] = `
 Object {
+  "allowedHosts": false,
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1312,7 +1303,6 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
-  "firewall": true,
   "hot": true,
   "liveReload": true,
   "setupExitSignals": true,

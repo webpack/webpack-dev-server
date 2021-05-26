@@ -301,12 +301,12 @@ describe('Server', () => {
       });
     });
 
-    it('should always allow any host if options.firewall is disabled', () => {
+    it('should always allow any host if options.allowedHosts is enabled', () => {
       const options = {
         client: {
           webSocketURL: 'ws://test.host:80',
         },
-        firewall: false,
+        allowedHosts: true,
       };
 
       const headers = {
@@ -430,10 +430,10 @@ describe('Server', () => {
       }
     });
 
-    describe('firewall', () => {
-      it('should allow hosts in firewall', () => {
+    describe('allowedHosts', () => {
+      it('should allow hosts in allowedHosts', () => {
         const tests = ['test.host', 'test2.host', 'test3.host'];
-        const options = { firewall: tests };
+        const options = { allowedHosts: tests };
         server = createServer(compiler, options);
         tests.forEach((test) => {
           const headers = { host: test };
@@ -443,8 +443,8 @@ describe('Server', () => {
         });
       });
 
-      it('should allow hosts that pass a wildcard in firewall', () => {
-        const options = { firewall: ['.example.com'] };
+      it('should allow hosts that pass a wildcard in allowedHosts', () => {
+        const options = { allowedHosts: ['.example.com'] };
         server = createServer(compiler, options);
         const tests = [
           'www.example.com',

@@ -12,6 +12,6 @@ module.exports = setup({
     client: {
       webSocketURL: 'ws://localhost:8080',
     },
-    firewall: false,
+    allowedHosts: true,
   },
 });

@@ -395,7 +395,7 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'firewall',
+      name: 'allowed-hosts',
       type: [Boolean, String],
       configs: [
         {
@@ -405,9 +405,8 @@ module.exports = {
           type: 'string',
         },
       ],
-      description:
-        'Enable firewall or set hosts that are allowed to access the dev server.',
-      negatedDescription: 'Disable firewall.',
+      description: 'Set hosts that are allowed to access the dev server.',
+      negatedDescription: 'Allow any host to access dev server.',
       multiple: true,
       negative: true,
     },
