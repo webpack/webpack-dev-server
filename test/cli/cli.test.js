@@ -674,7 +674,7 @@ describe('CLI', () => {
     });
 
     it('--allowed-hosts string', (done) => {
-      testBin('--allowed-hosts', 'testhost.com')
+      testBin(['--allowed-hosts', 'testhost.com'])
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           done();
@@ -683,12 +683,12 @@ describe('CLI', () => {
     });
 
     it('--allowed-hosts multiple', (done) => {
-      testBin(
+      testBin([
         '--allowed-hosts',
         'testhost.com',
         '--allowed-hosts',
-        'testhost1.com'
-      )
+        'testhost1.com',
+      ])
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           done();
