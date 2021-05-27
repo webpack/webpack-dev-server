@@ -399,16 +399,11 @@ module.exports = {
       type: [Boolean, String],
       configs: [
         {
-          type: 'boolean',
-        },
-        {
           type: 'string',
         },
       ],
       description: 'Set hosts that are allowed to access the dev server.',
-      negatedDescription: 'Allow any host to access dev server.',
       multiple: true,
-      negative: true,
     },
     {
       name: 'watch-files',

@@ -340,7 +340,7 @@
     "allowedHosts": {
       "anyOf": [
         {
-          "type": "boolean"
+          "enum": ["auto", "all"]
         },
         {
           "type": "string"

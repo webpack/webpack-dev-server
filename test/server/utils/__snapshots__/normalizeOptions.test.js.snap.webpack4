@@ -2,7 +2,9 @@
 
 exports[`normalizeOptions allowedHosts is set should set correct options 1`] = `
 Object {
-  "allowedHosts": true,
+  "allowedHosts": Array [
+    "all",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -37,7 +39,9 @@ Object {
 
 exports[`normalizeOptions client custom transport path should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -73,7 +77,9 @@ Object {
 
 exports[`normalizeOptions client host and port should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -111,7 +117,9 @@ Object {
 
 exports[`normalizeOptions client path should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -148,7 +156,9 @@ Object {
 
 exports[`normalizeOptions client path without leading/ending slashes should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -185,7 +195,9 @@ Object {
 
 exports[`normalizeOptions client.transport sockjs string should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -221,7 +233,9 @@ Object {
 
 exports[`normalizeOptions client.transport ws string and webSocketServer ws string should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -257,7 +271,9 @@ Object {
 
 exports[`normalizeOptions client.transport ws string should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -293,7 +309,9 @@ Object {
 
 exports[`normalizeOptions dev is set should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -330,7 +348,9 @@ Object {
 
 exports[`normalizeOptions hot is false should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": false,
     "overlay": true,
@@ -365,7 +385,9 @@ Object {
 
 exports[`normalizeOptions hot is only should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": "only",
     "overlay": true,
@@ -400,7 +422,9 @@ Object {
 
 exports[`normalizeOptions hot is true should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -435,7 +459,9 @@ Object {
 
 exports[`normalizeOptions liveReload is false should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -470,7 +496,9 @@ Object {
 
 exports[`normalizeOptions liveReload is true should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -505,7 +533,9 @@ Object {
 
 exports[`normalizeOptions multi compiler watchOptions is set should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -542,7 +572,9 @@ Object {
 
 exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -577,7 +609,9 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -614,7 +648,9 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object with static watch overriding it should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -651,7 +687,9 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object with static watch true should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -688,7 +726,9 @@ Object {
 
 exports[`normalizeOptions single compiler watchOptions is object with watch false should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -723,7 +763,9 @@ Object {
 
 exports[`normalizeOptions static is an array of static objects should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -769,7 +811,9 @@ Object {
 
 exports[`normalizeOptions static is an array of strings and static objects should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -815,7 +859,9 @@ Object {
 
 exports[`normalizeOptions static is an array of strings should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -861,7 +907,9 @@ Object {
 
 exports[`normalizeOptions static is an object should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -896,7 +944,9 @@ Object {
 
 exports[`normalizeOptions static is false should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -919,7 +969,9 @@ Object {
 
 exports[`normalizeOptions static is string should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -954,7 +1006,9 @@ Object {
 
 exports[`normalizeOptions static is true should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -989,7 +1043,9 @@ Object {
 
 exports[`normalizeOptions static publicPath is a string should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1024,7 +1080,9 @@ Object {
 
 exports[`normalizeOptions static publicPath is an array should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1060,7 +1118,9 @@ Object {
 
 exports[`normalizeOptions static serveIndex is an object should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1095,7 +1155,9 @@ Object {
 
 exports[`normalizeOptions static serveIndex is false should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1128,7 +1190,9 @@ Object {
 
 exports[`normalizeOptions static serveIndex is true should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1163,7 +1227,9 @@ Object {
 
 exports[`normalizeOptions static watch is an object should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1200,7 +1266,9 @@ Object {
 
 exports[`normalizeOptions static watch is false should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1235,7 +1303,9 @@ Object {
 
 exports[`normalizeOptions static watch is true should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1270,7 +1340,9 @@ Object {
 
 exports[`normalizeOptions webSocketServer custom server class should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,
@@ -1305,7 +1377,9 @@ Object {
 
 exports[`normalizeOptions webSocketServer custom server path should set correct options 1`] = `
 Object {
-  "allowedHosts": false,
+  "allowedHosts": Array [
+    "auto",
+  ],
   "client": Object {
     "hotEntry": true,
     "overlay": true,

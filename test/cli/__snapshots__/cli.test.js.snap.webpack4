@@ -273,7 +273,6 @@ Options:
   --no-compress                    Disable gzip compression.
   --allowed-hosts [value...]       Set hosts that are allowed to access the dev
                                    server.
-  --no-allowed-hosts               Allow any host to access dev server.
   --watch-files <value...>         Watch static files for file changes.
 
 Global options:

@@ -401,7 +401,7 @@ describe('normalizeOptions', () => {
       title: 'allowedHosts is set',
       multiCompiler: false,
       options: {
-        allowedHosts: true,
+        allowedHosts: 'all',
       },
       optionsResults: null,
     },

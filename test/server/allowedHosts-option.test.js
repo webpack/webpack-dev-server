@@ -25,7 +25,7 @@ describe('allowedHosts', () => {
       client: {
         webSocketURL: 'ws://test.host:80',
       },
-      allowedHosts: true,
+      allowedHosts: 'all',
     };
 
     const headers = {

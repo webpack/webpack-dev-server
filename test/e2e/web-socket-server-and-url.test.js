@@ -65,7 +65,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: devServerPort,
         host: devServerHost,
-        allowedHosts: true,
+        allowedHosts: 'all',
         hot: true,
       };
 
@@ -132,7 +132,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: devServerPort,
         host: devServerHost,
-        allowedHosts: true,
+        allowedHosts: 'all',
         hot: true,
       };
 
@@ -204,7 +204,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         port: devServerPort,
         host: devServerHost,
         webSocketServer: webSocketServerType,
-        allowedHosts: true,
+        allowedHosts: 'all',
         hot: true,
         static: true,
       };

@@ -655,8 +655,8 @@ describe('CLI', () => {
   });
 
   describe('allowed-hosts', () => {
-    it('--allowed-hosts', (done) => {
-      testBin('--allowed-hosts')
+    it('--allowed-hosts auto', (done) => {
+      testBin(['--allowed-hosts', 'auto'])
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           done();
@@ -664,8 +664,8 @@ describe('CLI', () => {
         .catch(done);
     });
 
-    it('--no-allowed-hosts', (done) => {
-      testBin('--no-allowed-hosts')
+    it('--allowed-hosts all', (done) => {
+      testBin(['--allowed-hosts', 'all'])
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           done();

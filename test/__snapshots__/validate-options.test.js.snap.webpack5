@@ -1,17 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`options validate should throw an error on the "allowedHosts" option with '[]' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.allowedHosts should be an non-empty array."
-`;
-
 exports[`options validate should throw an error on the "allowedHosts" option with '123' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.allowedHosts should be one of these:
-   boolean | string | [string, ...] (should not have fewer than 1 item)
+   \\"auto\\" | \\"all\\" | string | [string, ...] (should not have fewer than 1 item)
    -> Defines routes which are enabled by default, on by default and allows localhost. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
    Details:
-    * configuration.allowedHosts should be a boolean.
+    * configuration.allowedHosts should be one of these:
+      \\"auto\\" | \\"all\\"
+    * configuration.allowedHosts should be a string.
+    * configuration.allowedHosts should be an array:
+      [string, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options validate should throw an error on the "allowedHosts" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.allowedHosts should be one of these:
+   \\"auto\\" | \\"all\\" | string | [string, ...] (should not have fewer than 1 item)
+   -> Defines routes which are enabled by default, on by default and allows localhost. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   Details:
+    * configuration.allowedHosts should be one of these:
+      \\"auto\\" | \\"all\\"
+    * configuration.allowedHosts should be a string.
+    * configuration.allowedHosts should be an array:
+      [string, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options validate should throw an error on the "allowedHosts" option with 'true' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.allowedHosts should be one of these:
+   \\"auto\\" | \\"all\\" | string | [string, ...] (should not have fewer than 1 item)
+   -> Defines routes which are enabled by default, on by default and allows localhost. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   Details:
+    * configuration.allowedHosts should be one of these:
+      \\"auto\\" | \\"all\\"
     * configuration.allowedHosts should be a string.
     * configuration.allowedHosts should be an array:
       [string, ...] (should not have fewer than 1 item)"
