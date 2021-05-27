@@ -296,7 +296,15 @@
                   "description": "Tells clients connected to devServer to use the provided host."
                 },
                 "port": {
-                  "type": "number",
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ],
                   "description": "Tells clients connected to devServer to use the provided port."
                 },
                 "path": {

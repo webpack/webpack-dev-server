@@ -316,6 +316,41 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
+  describe('should work with custom client port as string', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            port: `${port3}`,
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('uses correct port and path', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:${port3}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
   describe('should work with custom client host', () => {
     beforeAll((done) => {
       const options = {
