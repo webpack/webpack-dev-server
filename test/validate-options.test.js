@@ -163,7 +163,7 @@ const tests = {
     failure: [''],
   },
   allowedHosts: {
-    success: ['auto', 'all', [''], ''],
+    success: ['auto', 'all', ['foo'], 'bar'],
     failure: [true, false, 123],
   },
   headers: {

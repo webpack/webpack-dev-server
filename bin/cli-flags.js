@@ -396,7 +396,7 @@ module.exports = {
     },
     {
       name: 'allowed-hosts',
-      type: [Boolean, String],
+      type: String,
       configs: [
         {
           type: 'string',
