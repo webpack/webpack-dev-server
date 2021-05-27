@@ -14,13 +14,13 @@
     "node": ">= 12.13.0"
   },
   "scripts": {
-    "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css}\" --list-different",
+    "fmt:check": "prettier \"{**/*,*}.{js,json,md,yml,css,ts}\" --list-different",
     "lint:js": "eslint . --cache",
-    "lint": "npm-run-all -l -p \"lint:**\"",
     "lint:type": "tsc --noEmit",
-    "fix:prettier": "npm run lint:prettier -- --write",
+    "lint": "npm-run-all lint:js lint:type fmt:check",
+    "fmt": "npm run fmt:check -- --write",
     "fix:js": "npm run lint:js -- --fix",
-    "fix": "npm-run-all fix:js fix:prettier",
+    "fix": "npm-run-all fix:js fmt",
     "commitlint": "commitlint --from=master",
     "test:only": "jest --forceExit",
     "test:coverage": "npm run test:only -- --coverage",
