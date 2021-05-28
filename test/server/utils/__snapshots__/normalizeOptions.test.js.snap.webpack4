@@ -1,4 +1,4 @@
-git// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`normalizeOptions allowedHosts is set should set correct options 1`] = `
 Object {
@@ -72,6 +72,44 @@ Object {
 `;
 
 exports[`normalizeOptions client host and port should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+    "webSocketURL": Object {
+      "host": "my.host",
+      "port": 9000,
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client host and string port should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
@@ -219,12 +257,6 @@ Object {
 }
 `;
 
-<<<<<<< HEAD
-exports[`normalizeOptions client.transport ws string and webSocketServer ws string should set correct options 1`] = `
-=======
-<<<<<<< HEAD
-exports[`normalizeOptions client.transport ws string should set correct options 1`] = `
-=======
 exports[`normalizeOptions client.transport ws string and webSocketServer object should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
@@ -302,8 +334,6 @@ Object {
 `;
 
 exports[`normalizeOptions client.transport ws string and webSocketServer ws string should set correct options 1`] = `
->>>>>>> 8b6c9cf... fix: normalize port
->>>>>>> feat: allow string value for `port`
 Object {
   "allowedHosts": "auto",
   "client": Object {
