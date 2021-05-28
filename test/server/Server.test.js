@@ -301,25 +301,6 @@ describe('Server', () => {
       });
     });
 
-    it('should always allow any host if options.firewall is disabled', () => {
-      const options = {
-        client: {
-          webSocketURL: 'ws://test.host:80',
-        },
-        firewall: false,
-      };
-
-      const headers = {
-        host: 'bad.host',
-      };
-
-      server = createServer(compiler, options);
-
-      if (!server.checkHost(headers)) {
-        throw new Error("Validation didn't fail");
-      }
-    });
-
     it('should allow any valid options.client.webSocketURL when host is localhost', () => {
       const options = {
         client: {
@@ -428,39 +409,6 @@ describe('Server', () => {
       if (!server.checkOrigin(headers)) {
         throw new Error("Validation didn't fail");
       }
-    });
-
-    describe('firewall', () => {
-      it('should allow hosts in firewall', () => {
-        const tests = ['test.host', 'test2.host', 'test3.host'];
-        const options = { firewall: tests };
-        server = createServer(compiler, options);
-        tests.forEach((test) => {
-          const headers = { host: test };
-          if (!server.checkHost(headers)) {
-            throw new Error("Validation didn't fail");
-          }
-        });
-      });
-
-      it('should allow hosts that pass a wildcard in firewall', () => {
-        const options = { firewall: ['.example.com'] };
-        server = createServer(compiler, options);
-        const tests = [
-          'www.example.com',
-          'subdomain.example.com',
-          'example.com',
-          'subsubcomain.subdomain.example.com',
-          'example.com:80',
-          'subdomain.example.com:80',
-        ];
-        tests.forEach((test) => {
-          const headers = { host: test };
-          if (!server.checkHost(headers)) {
-            throw new Error("Validation didn't fail");
-          }
-        });
-      });
     });
   });
 

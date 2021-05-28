@@ -654,6 +654,49 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  describe('allowed-hosts', () => {
+    it('--allowed-hosts auto', (done) => {
+      testBin(['--allowed-hosts', 'auto'])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--allowed-hosts all', (done) => {
+      testBin(['--allowed-hosts', 'all'])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--allowed-hosts string', (done) => {
+      testBin(['--allowed-hosts', 'testhost.com'])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--allowed-hosts multiple', (done) => {
+      testBin([
+        '--allowed-hosts',
+        'testhost.com',
+        '--allowed-hosts',
+        'testhost1.com',
+      ])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+  });
+
   it('--no-static-serve-index', (done) => {
     testBin('--no-static-serve-index')
       .then((output) => {

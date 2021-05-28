@@ -395,21 +395,15 @@ module.exports = {
       negative: true,
     },
     {
-      name: 'firewall',
-      type: [Boolean, String],
+      name: 'allowed-hosts',
+      type: String,
       configs: [
-        {
-          type: 'boolean',
-        },
         {
           type: 'string',
         },
       ],
-      description:
-        'Enable firewall or set hosts that are allowed to access the dev server.',
-      negatedDescription: 'Disable firewall.',
+      description: 'Set hosts that are allowed to access the dev server.',
       multiple: true,
-      negative: true,
     },
     {
       name: 'watch-files',

@@ -337,20 +337,25 @@
       "type": "object",
       "description": "Provide options to webpack-dev-middleware which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
     },
-    "firewall": {
+    "allowedHosts": {
       "anyOf": [
         {
-          "type": "boolean"
+          "enum": ["auto", "all"]
+        },
+        {
+          "type": "string",
+          "minLength": 1
         },
         {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "minItems": 1
         }
       ],
-      "description": "Defines routes which are enabled by default, on by default and allows localhost. https://webpack.js.org/configuration/dev-server/#devserverfirewall"
+      "description": "Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts"
     },
     "headers": {
       "anyOf": [

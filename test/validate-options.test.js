@@ -162,9 +162,9 @@ const tests = {
     success: [{}],
     failure: [''],
   },
-  firewall: {
-    success: [true, false, ['']],
-    failure: ['', []],
+  allowedHosts: {
+    success: ['auto', 'all', ['foo'], 'bar'],
+    failure: [true, false, 123],
   },
   headers: {
     success: [{}, { foo: 'bar' }, () => {}],
