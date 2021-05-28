@@ -109,6 +109,44 @@ Object {
 }
 `;
 
+exports[`normalizeOptions client host and string port should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+    "webSocketURL": Object {
+      "host": "my.host",
+      "port": 9000,
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
 exports[`normalizeOptions client path should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
@@ -213,6 +251,82 @@ Object {
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string and webSocketServer object should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+    "transport": "ws",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "host": "myhost",
+      "path": "/ws",
+      "port": 8080,
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string and webSocketServer object with port as string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+    "transport": "ws",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "host": "myhost",
+      "path": "/ws",
+      "port": 8080,
     },
     "type": "ws",
   },
@@ -552,6 +666,42 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions port string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "port": 9000,
   "setupExitSignals": true,
   "static": Array [
     Object {

@@ -92,6 +92,9 @@ const tests = {
         webSocketURL: { port: 8080 },
       },
       {
+        webSocketURL: { port: '8080' },
+      },
+      {
         webSocketURL: { path: '' },
       },
       {
