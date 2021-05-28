@@ -124,8 +124,7 @@ Options:
   --no-history-api-fallback        Do not fallback to /index.html for Single Page Applications.
   --compress                       Enable gzip compression.
   --no-compress                    Disable gzip compression.
-  --firewall [value...]            Enable firewall or set hosts that are allowed to access the dev server.
-  --no-firewall                    Disable firewall.
+  --allowed-hosts <value...>       Set hosts that are allowed to access the dev server.
   --watch-files <value...>         Watch static files for file changes.
 
 Global options:
