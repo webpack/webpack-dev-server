@@ -25,7 +25,7 @@ describe('WebsocketServer', () => {
           },
         },
         server,
-        wsHeartbeatInterval: 800,
+        webSocketHeartbeatInterval: 800,
       });
       done();
     });
