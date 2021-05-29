@@ -359,46 +359,6 @@ module.exports = {
     simpleType: 'boolean',
     multiple: false,
   },
-  firewall: {
-    configs: [
-      {
-        type: 'boolean',
-        multiple: false,
-        description:
-          'Defines routes which are enabled by default, on by default and allows localhost.',
-        path: 'firewall',
-      },
-      {
-        type: 'string',
-        multiple: true,
-        description:
-          'Defines routes which are enabled by default, on by default and allows localhost.',
-        path: 'firewall[]',
-      },
-    ],
-    description:
-      'Defines routes which are enabled by default, on by default and allows localhost.',
-    negatedDescription: 'Disable firewall.',
-    simpleType: 'string',
-    multiple: true,
-  },
-  'firewall-reset': {
-    configs: [
-      {
-        type: 'reset',
-        multiple: false,
-        description: 'Clear all items provided in firewall configuration.',
-        path: 'firewall',
-      },
-    ],
-    description: 'Clear all items provided in firewall configuration.',
-    simpleType: 'boolean',
-    multiple: false,
-    processor(opts) {
-      opts.firewall = opts.firewall || [];
-      delete opts.firewallReset;
-    },
-  },
   'history-api-fallback': {
     configs: [
       {

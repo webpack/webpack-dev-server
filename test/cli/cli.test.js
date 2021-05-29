@@ -6,6 +6,7 @@ const internalIp = require('internal-ip');
 const stripAnsi = require('strip-ansi');
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
+const isMacOS = process.platform === 'darwin';
 const localIPv4 = internalIp.v4.sync();
 const localIPv6 = internalIp.v6.sync();
 
@@ -93,44 +94,45 @@ describe('CLI', () => {
     });
   });
 
-  describe('bonjour option', () => {});
-  it('--bonjour', (done) => {
-    testBin('--bonjour')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(
-          normalizeStderr(output.stderr, { ipv6: true })
-        ).toMatchSnapshot();
+  describe('bonjour option', () => {
+    it('--bonjour', (done) => {
+      testBin('--bonjour')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot();
 
-        done();
-      })
-      .catch(done);
-  });
+          done();
+        })
+        .catch(done);
+    });
 
-  it('--bonjour and --https', (done) => {
-    testBin('--bonjour --https')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(
-          normalizeStderr(output.stderr, { ipv6: true, https: true })
-        ).toMatchSnapshot();
+    it('--bonjour and --https', (done) => {
+      testBin('--bonjour --https')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true, https: true })
+          ).toMatchSnapshot();
 
-        done();
-      })
-      .catch(done);
-  });
+          done();
+        })
+        .catch(done);
+    });
 
-  it('--no-bonjour', (done) => {
-    testBin('--no-bonjour')
-      .then((output) => {
-        expect(output.exitCode).toEqual(0);
-        expect(
-          normalizeStderr(output.stderr, { ipv6: true })
-        ).toMatchSnapshot();
+    it('--no-bonjour', (done) => {
+      testBin('--no-bonjour')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot();
 
-        done();
-      })
-      .catch(done);
+          done();
+        })
+        .catch(done);
+    });
   });
 
   describe('client option', () => {
@@ -915,19 +917,11 @@ describe('CLI', () => {
     });
   });
 
-  it('should generate correct cli flags', (done) => {
-    const isMacOS = process.platform === 'darwin';
-
+  (isMacOS ? it.skip : it)('should generate correct cli flags', (done) => {
     testBin('--help')
       .then((output) => {
-        // TODO: find a fix, skip for MacOS
-        if (isMacOS) {
-          expect(output.exitCode).toBe(0);
-          done();
-        } else {
-          expect(stripAnsi(output.stdout)).toMatchSnapshot();
-          done();
-        }
+        expect(stripAnsi(output.stdout)).toMatchSnapshot();
+        done();
       })
       .catch(done);
   });
@@ -937,76 +931,57 @@ describe('CLI', () => {
       testBin('--static')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
     });
 
     it('--static <value>', (done) => {
-      testBin(
-        `--static ${path.resolve(
-          __dirname,
-          '../fixtures/static/webpack.config.js'
-        )}`
-      )
+      testBin('--static new-static')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
     });
 
     it('--static-reset', (done) => {
-      testBin(
-        `--static-reset --static ${path.resolve(
-          __dirname,
-          '../fixtures/static/webpack.config.js'
-        )}`
-      )
+      testBin('--static-reset --static new-static-after-reset')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
     });
 
     it('--static-reset --static-directory <value>', (done) => {
-      testBin(
-        `--static-reset --static-directory ${path.resolve(
-          __dirname,
-          '../fixtures/static/webpack.config.js'
-        )}`
-      )
+      testBin('--static-reset --static-directory new-static-directory')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
     });
 
     it('--static-directory', (done) => {
-      testBin(
-        `--static-directory ${path.resolve(
-          __dirname,
-          '../fixtures/static/webpack.config.js'
-        )}`
-      )
+      testBin('--static-directory static-dir')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
     });
 
     it('--static --static-directory', (done) => {
-      testBin(
-        `--static --static-directory ${path.resolve(
-          __dirname,
-          '../fixtures/static/webpack.config.js'
-        )}`
-      )
+      testBin('--static --static-directory static-dir')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1016,6 +991,7 @@ describe('CLI', () => {
       testBin('--static-public-path /public')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1025,6 +1001,7 @@ describe('CLI', () => {
       testBin('--static-public-path-reset --static-public-path /new-public')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1034,6 +1011,7 @@ describe('CLI', () => {
       testBin('--static-serve-index')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1043,6 +1021,7 @@ describe('CLI', () => {
       testBin('--no-static-serve-index')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1052,6 +1031,7 @@ describe('CLI', () => {
       testBin('--static-watch')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1061,33 +1041,10 @@ describe('CLI', () => {
       testBin('--static-watch')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
-    });
-
-    it('should log static', (done) => {
-      testBin(
-        '--no-color',
-        path.resolve(__dirname, '../fixtures/static/webpack.config.js')
-      )
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          done();
-        })
-        .catch((err) => {
-          const staticDirectory = path.resolve(
-            __dirname,
-            '../fixtures/static/static'
-          );
-
-          // for windows
-          expect(err.stderr).toContain(
-            `Content not from webpack is served from '${staticDirectory}' directory`
-          );
-          expect(err.stdout).toContain('main.js');
-          done();
-        });
     });
   });
 
@@ -1101,6 +1058,7 @@ describe('CLI', () => {
       testBin(`--watch-files ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1115,6 +1073,7 @@ describe('CLI', () => {
       testBin(`--watch-files-reset --watch-files ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1129,6 +1088,7 @@ describe('CLI', () => {
       testBin(`--watch-files-reset --watch-files-paths ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1143,6 +1103,7 @@ describe('CLI', () => {
       testBin(`--watch-files-paths ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1157,6 +1118,7 @@ describe('CLI', () => {
       testBin(`--watch-files-paths-reset --watch-files-paths ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
+          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
