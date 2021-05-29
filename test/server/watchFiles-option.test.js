@@ -2,6 +2,7 @@
 
 const path = require('path');
 const fs = require('graceful-fs');
+const chokidar = require('chokidar');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
 const port = require('../ports-map')['watchFiles-option'];
@@ -277,6 +278,8 @@ describe("'watchFiles' option", () => {
   describe('should work with options', () => {
     const file = path.join(watchDir, 'assets/example.txt');
 
+    const chokidarMock = jest.spyOn(chokidar, 'watch');
+
     beforeAll((done) => {
       server = testServer.start(
         config,
@@ -285,6 +288,7 @@ describe("'watchFiles' option", () => {
             paths: file,
             options: {
               usePolling: true,
+              interval: 400,
             },
           },
           port,
@@ -296,6 +300,21 @@ describe("'watchFiles' option", () => {
     afterAll((done) => {
       testServer.close(done);
       fs.truncateSync(file);
+    });
+
+    it('should pass correct options to chokidar config', () => {
+      expect(chokidarMock).toHaveBeenCalledWith(file, {
+        ignoreInitial: true,
+        persistent: true,
+        followSymlinks: false,
+        atomic: false,
+        alwaysStat: true,
+        ignorePermissionErrors: true,
+        // eslint-disable-next-line no-undefined
+        ignored: undefined,
+        usePolling: true,
+        interval: 400,
+      });
     });
 
     it('should reload on file content changed', (done) => {
