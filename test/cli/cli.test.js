@@ -931,7 +931,9 @@ describe('CLI', () => {
       testBin('--static')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -941,7 +943,9 @@ describe('CLI', () => {
       testBin('--static new-static')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -951,7 +955,9 @@ describe('CLI', () => {
       testBin('--static-reset --static new-static-after-reset')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -961,7 +967,9 @@ describe('CLI', () => {
       testBin('--static-reset --static-directory new-static-directory')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -971,7 +979,9 @@ describe('CLI', () => {
       testBin('--static-directory static-dir')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -981,7 +991,9 @@ describe('CLI', () => {
       testBin('--static --static-directory static-dir')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -991,7 +1003,9 @@ describe('CLI', () => {
       testBin('--static-public-path /public')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1001,7 +1015,9 @@ describe('CLI', () => {
       testBin('--static-public-path-reset --static-public-path /new-public')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1011,7 +1027,9 @@ describe('CLI', () => {
       testBin('--static-serve-index')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1021,7 +1039,9 @@ describe('CLI', () => {
       testBin('--no-static-serve-index')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1031,7 +1051,9 @@ describe('CLI', () => {
       testBin('--static-watch')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1041,7 +1063,9 @@ describe('CLI', () => {
       testBin('--static-watch')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1058,7 +1082,9 @@ describe('CLI', () => {
       testBin(`--watch-files ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1073,7 +1099,9 @@ describe('CLI', () => {
       testBin(`--watch-files-reset --watch-files ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1088,7 +1116,9 @@ describe('CLI', () => {
       testBin(`--watch-files-reset --watch-files-paths ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1103,7 +1133,9 @@ describe('CLI', () => {
       testBin(`--watch-files-paths ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
@@ -1118,7 +1150,9 @@ describe('CLI', () => {
       testBin(`--watch-files-paths-reset --watch-files-paths ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
-          expect(normalizeStderr(output.stderr)).toMatchSnapshot('stderr');
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
           done();
         })
         .catch(done);
