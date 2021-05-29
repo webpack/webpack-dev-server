@@ -50,8 +50,7 @@ describe('DevServer', () => {
     )
       .then((output) => {
         expect(output.exitCode).toEqual(0);
-        // TODO need to fix
-        // expect(output.stdout).toContain('foo.js');
+        expect(output.stdout).toContain('foo.js');
         done();
       })
       .catch(done);
