@@ -327,7 +327,7 @@ describe("'watchFiles' option", () => {
         });
 
         it('should pass correct options to chokidar config', () => {
-          expect(chokidarMock.mock.calls[0]).toMatchSnapshot();
+          expect(chokidarMock.mock.calls[0][1]).toMatchSnapshot();
         });
 
         it('should reload on file content changed', (done) => {
