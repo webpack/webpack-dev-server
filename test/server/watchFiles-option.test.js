@@ -2,6 +2,7 @@
 
 const path = require('path');
 const fs = require('graceful-fs');
+const chokidar = require('chokidar');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
 const port = require('../ports-map')['watchFiles-option'];
@@ -277,38 +278,71 @@ describe("'watchFiles' option", () => {
   describe('should work with options', () => {
     const file = path.join(watchDir, 'assets/example.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          watchFiles: {
-            paths: file,
-            options: {
-              usePolling: true,
+    const chokidarMock = jest.spyOn(chokidar, 'watch');
+
+    const optionCases = [
+      {
+        poll: true,
+      },
+      {
+        poll: 200,
+      },
+      {
+        usePolling: true,
+      },
+      {
+        usePolling: false,
+      },
+      {
+        usePolling: false,
+        poll: true,
+      },
+      {
+        usePolling: true,
+        interval: 200,
+        poll: 400,
+      },
+    ];
+
+    optionCases.forEach((optionCase) => {
+      describe(JSON.stringify(optionCase), () => {
+        beforeAll((done) => {
+          chokidarMock.mockClear();
+          server = testServer.start(
+            config,
+            {
+              watchFiles: {
+                paths: file,
+                options: optionCase,
+              },
+              port,
             },
-          },
-          port,
-        },
-        done
-      );
-    });
+            done
+          );
+        });
 
-    afterAll((done) => {
-      testServer.close(done);
-      fs.truncateSync(file);
-    });
+        afterAll((done) => {
+          testServer.close(done);
+          fs.truncateSync(file);
+        });
 
-    it('should reload on file content changed', (done) => {
-      server.staticWatchers[0].on('change', (changedPath) => {
-        expect(changedPath).toBe(file);
+        it('should pass correct options to chokidar config', () => {
+          expect(chokidarMock.mock.calls[0][1]).toMatchSnapshot();
+        });
 
-        done();
+        it('should reload on file content changed', (done) => {
+          server.staticWatchers[0].on('change', (changedPath) => {
+            expect(changedPath).toBe(file);
+
+            done();
+          });
+
+          // change file content
+          setTimeout(() => {
+            fs.writeFileSync(file, 'Kurosaki Ichigo', 'utf8');
+          }, 1000);
+        });
       });
-
-      // change file content
-      setTimeout(() => {
-        fs.writeFileSync(file, 'Kurosaki Ichigo', 'utf8');
-      }, 1000);
     });
   });
 });
