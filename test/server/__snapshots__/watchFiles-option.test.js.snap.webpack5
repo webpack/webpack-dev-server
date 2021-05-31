@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`'watchFiles' option should work with options {"poll":200} should pass correct options to chokidar config 1`] = `
+Array [
+  "/Users/anshumanv/Code/GitHub/webpack-dev-server/test/fixtures/contentbase-config/public/assets/example.txt",
+  Object {
+    "alwaysStat": true,
+    "atomic": false,
+    "followSymlinks": false,
+    "ignoreInitial": true,
+    "ignorePermissionErrors": true,
+    "ignored": undefined,
+    "interval": 200,
+    "persistent": true,
+    "usePolling": true,
+  },
+]
+`;
+
+exports[`'watchFiles' option should work with options {"poll":true} should pass correct options to chokidar config 1`] = `
+Array [
+  "/Users/anshumanv/Code/GitHub/webpack-dev-server/test/fixtures/contentbase-config/public/assets/example.txt",
+  Object {
+    "alwaysStat": true,
+    "atomic": false,
+    "followSymlinks": false,
+    "ignoreInitial": true,
+    "ignorePermissionErrors": true,
+    "ignored": undefined,
+    "interval": undefined,
+    "persistent": true,
+    "usePolling": true,
+  },
+]
+`;
+
+exports[`'watchFiles' option should work with options {"usePolling":false,"poll":true} should pass correct options to chokidar config 1`] = `
+Array [
+  "/Users/anshumanv/Code/GitHub/webpack-dev-server/test/fixtures/contentbase-config/public/assets/example.txt",
+  Object {
+    "alwaysStat": true,
+    "atomic": false,
+    "followSymlinks": false,
+    "ignoreInitial": true,
+    "ignorePermissionErrors": true,
+    "ignored": undefined,
+    "interval": undefined,
+    "persistent": true,
+    "usePolling": false,
+  },
+]
+`;
+
+exports[`'watchFiles' option should work with options {"usePolling":false} should pass correct options to chokidar config 1`] = `
+Array [
+  "/Users/anshumanv/Code/GitHub/webpack-dev-server/test/fixtures/contentbase-config/public/assets/example.txt",
+  Object {
+    "alwaysStat": true,
+    "atomic": false,
+    "followSymlinks": false,
+    "ignoreInitial": true,
+    "ignorePermissionErrors": true,
+    "ignored": undefined,
+    "interval": undefined,
+    "persistent": true,
+    "usePolling": false,
+  },
+]
+`;
+
+exports[`'watchFiles' option should work with options {"usePolling":true,"interval":200,"poll":400} should pass correct options to chokidar config 1`] = `
+Array [
+  "/Users/anshumanv/Code/GitHub/webpack-dev-server/test/fixtures/contentbase-config/public/assets/example.txt",
+  Object {
+    "alwaysStat": true,
+    "atomic": false,
+    "followSymlinks": false,
+    "ignoreInitial": true,
+    "ignorePermissionErrors": true,
+    "ignored": undefined,
+    "interval": 200,
+    "persistent": true,
+    "usePolling": true,
+  },
+]
+`;
+
+exports[`'watchFiles' option should work with options {"usePolling":true} should pass correct options to chokidar config 1`] = `
+Array [
+  "/Users/anshumanv/Code/GitHub/webpack-dev-server/test/fixtures/contentbase-config/public/assets/example.txt",
+  Object {
+    "alwaysStat": true,
+    "atomic": false,
+    "followSymlinks": false,
+    "ignoreInitial": true,
+    "ignorePermissionErrors": true,
+    "ignored": undefined,
+    "interval": undefined,
+    "persistent": true,
+    "usePolling": true,
+  },
+]
+`;
