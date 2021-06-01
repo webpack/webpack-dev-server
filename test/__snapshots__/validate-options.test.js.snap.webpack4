@@ -414,25 +414,30 @@ exports[`options validate should throw an error on the "open" option with '{"tar
        * configuration.open.target should be a non-empty string."
 `;
 
+exports[`options validate should throw an error on the "port" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.port should be an non-empty string."
+`;
+
 exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.port should be one of these:
-   number | string | \\"auto\\"
+   number | non-empty string | \\"auto\\"
    -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * configuration.port should be a number.
-    * configuration.port should be a string.
+    * configuration.port should be a non-empty string.
     * configuration.port should be \\"auto\\"."
 `;
 
 exports[`options validate should throw an error on the "port" option with 'null' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.port should be one of these:
-   number | string | \\"auto\\"
+   number | non-empty string | \\"auto\\"
    -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * configuration.port should be a number.
-    * configuration.port should be a string.
+    * configuration.port should be a non-empty string.
     * configuration.port should be \\"auto\\"."
 `;
 
