@@ -156,7 +156,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.webSocketURL should be one of these:
-   non-empty string | object { host?, port?, path? }
+   non-empty string | object { protocol?, host?, port?, path? }
    -> When using dev server and you're proxying dev-server, the client script does not always know where to connect to.
    Details:
     * configuration.client.webSocketURL.port should be one of these:

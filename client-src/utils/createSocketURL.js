@@ -24,8 +24,12 @@ function createSocketURL(parsedURL) {
     hostname = self.location.hostname;
   }
 
+  if (protocol === 'auto:') {
+    protocol = self.location.protocol;
+  }
+
   // `hostname` can be empty when the script path is relative. In that case, specifying a protocol would result in an invalid URL.
-  // When https is used in the app, secure websockets are always necessary because the browser doesn't accept non-secure websockets.
+  // When https is used in the app, secure web sockets are always necessary because the browser doesn't accept non-secure web sockets.
   if (hostname && isInAddrAny && self.location.protocol === 'https:') {
     protocol = self.location.protocol;
   }

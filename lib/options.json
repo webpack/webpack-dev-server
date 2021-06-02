@@ -290,6 +290,18 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "protocol": {
+                  "anyOf": [
+                    {
+                      "enum": ["auto"]
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ],
+                  "description": "Tells clients connected to devServer to use the provided protocol."
+                },
                 "host": {
                   "type": "string",
                   "minLength": 1,

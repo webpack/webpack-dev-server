@@ -245,7 +245,216 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with custom client port and path', () => {
+  describe('should work with the "client.webSocketURL.protocol" option', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            protocol: 'ws:',
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:${port2}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work with the "client.webSocketURL.protocol" option using "auto:" value', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            protocol: 'auto:',
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:${port2}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws"', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            protocol: 'http:',
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:${port2}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work with the "client.webSocketURL.host" option', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            host: 'myhost.test',
+          },
+        },
+      };
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://myhost.test:${port2}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work with the "client.webSocketURL.port" option', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            port: port3,
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:${port3}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work with the "client.webSocketURL.port" option as "string"', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            port: `${port3}`,
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:${port3}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work with "client.webSocketURL.port" and "client.webSocketURL.path" options', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: webSocketServerType,
@@ -265,7 +474,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     afterAll(testServer.close);
 
     describe('browser client', () => {
-      it('uses correct port and path', (done) => {
+      it('should work', (done) => {
         runBrowser().then(({ page, browser }) => {
           waitForTest(browser, page, /foo\/test\/bar/, (websocketUrl) => {
             expect(websocketUrl).toContain(
@@ -281,77 +490,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with custom client port', () => {
-    beforeAll((done) => {
-      const options = {
-        webSocketServer: webSocketServerType,
-        port: port2,
-        host: '0.0.0.0',
-        client: {
-          webSocketURL: {
-            port: port3,
-          },
-        },
-      };
-
-      testServer.startAwaitingCompilation(config, options, done);
-    });
-
-    afterAll(testServer.close);
-
-    describe('browser client', () => {
-      it('uses correct port and path', (done) => {
-        runBrowser().then(({ page, browser }) => {
-          waitForTest(browser, page, /ws/, (websocketUrl) => {
-            expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://localhost:${port3}/ws`
-            );
-
-            done();
-          });
-
-          page.goto(`http://localhost:${port2}/main`);
-        });
-      });
-    });
-  });
-
-  describe('should work with custom client port as string', () => {
-    beforeAll((done) => {
-      const options = {
-        webSocketServer: webSocketServerType,
-        port: port2,
-        host: '0.0.0.0',
-        client: {
-          webSocketURL: {
-            port: `${port3}`,
-          },
-        },
-      };
-
-      testServer.startAwaitingCompilation(config, options, done);
-    });
-
-    afterAll(testServer.close);
-
-    describe('browser client', () => {
-      it('uses correct port and path', (done) => {
-        runBrowser().then(({ page, browser }) => {
-          waitForTest(browser, page, /ws/, (websocketUrl) => {
-            expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://localhost:${port3}/ws`
-            );
-
-            done();
-          });
-
-          page.goto(`http://localhost:${port2}/main`);
-        });
-      });
-    });
-  });
-
-  describe('should work with custom client.webSocketURL.port and webSocketServer.options.port both as string', () => {
+  describe('should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: {
@@ -376,7 +515,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     afterAll(testServer.close);
 
     describe('browser client', () => {
-      it('uses correct port and path', (done) => {
+      it('should work', (done) => {
         runBrowser().then(({ page, browser }) => {
           waitForTest(browser, page, /ws/, (websocketUrl) => {
             expect(websocketUrl).toContain(
@@ -392,41 +531,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with custom client host', () => {
-    beforeAll((done) => {
-      const options = {
-        webSocketServer: webSocketServerType,
-        port: port2,
-        host: '0.0.0.0',
-        client: {
-          webSocketURL: {
-            host: 'myhost.test',
-          },
-        },
-      };
-      testServer.startAwaitingCompilation(config, options, done);
-    });
-
-    afterAll(testServer.close);
-
-    describe('browser client', () => {
-      it('uses correct host', (done) => {
-        runBrowser().then(({ page, browser }) => {
-          waitForTest(browser, page, /ws/, (websocketUrl) => {
-            expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://myhost.test:${port2}/ws`
-            );
-
-            done();
-          });
-
-          page.goto(`http://localhost:${port2}/main`);
-        });
-      });
-    });
-  });
-
-  describe('should work with custom client host, port, and path', () => {
+  describe('should work with "client.webSocketURL.host", "webSocketServer.options.port" and "webSocketServer.options.path" options', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: webSocketServerType,
@@ -463,7 +568,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with the "client.webSocketURL" option and custom client path', () => {
+  describe('should work with the "client.webSocketURL" option as "string"', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: webSocketServerType,
@@ -480,7 +585,7 @@ for (const webSocketServerType of webSocketServerTypes) {
     afterAll(testServer.close);
 
     describe('browser client', () => {
-      it('uses the correct webSocketURL hostname and path', (done) => {
+      it('should work', (done) => {
         runBrowser().then(({ page, browser }) => {
           waitForTest(browser, page, /foo\/test\/bar/, (websocketUrl) => {
             expect(websocketUrl).toContain(
