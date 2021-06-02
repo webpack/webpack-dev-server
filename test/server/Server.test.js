@@ -287,7 +287,7 @@ describe('Server', () => {
     });
   });
 
-  describe('checkHost', () => {
+  describe('checkHostHeader', () => {
     let compiler;
     let server;
 
@@ -311,7 +311,7 @@ describe('Server', () => {
         host: 'localhost',
       };
       server = createServer(compiler, options);
-      if (!server.checkHost(headers)) {
+      if (!server.checkHostHeader(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -329,7 +329,7 @@ describe('Server', () => {
 
       server = createServer(compiler, options);
 
-      if (!server.checkHost(headers)) {
+      if (!server.checkHostHeader(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -351,7 +351,7 @@ describe('Server', () => {
       tests.forEach((test) => {
         const headers = { host: test };
 
-        if (!server.checkHost(headers)) {
+        if (!server.checkHostHeader(headers)) {
           throw new Error("Validation didn't pass");
         }
       });
@@ -370,7 +370,7 @@ describe('Server', () => {
 
       server = createServer(compiler, options);
 
-      if (server.checkHost(headers)) {
+      if (server.checkHostHeader(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -387,7 +387,7 @@ describe('Server', () => {
 
       server = createServer(compiler, options);
 
-      if (!server.checkOrigin(headers)) {
+      if (!server.checkOriginHeader(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -406,7 +406,7 @@ describe('Server', () => {
 
       server = createServer(compiler, options);
 
-      if (!server.checkOrigin(headers)) {
+      if (!server.checkOriginHeader(headers)) {
         throw new Error("Validation didn't fail");
       }
     });
