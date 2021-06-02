@@ -432,6 +432,32 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--port is string', (done) => {
+    testBin(`--port "8080"`)
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it(`--port is auto`, (done) => {
+    testBin(`--port auto`)
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--open', (done) => {
     testBin('--open')
       .then((output) => {

@@ -16,10 +16,17 @@ module.exports = {
     },
     {
       name: 'port',
-      type: Number,
+      type: [Number, String],
       configs: [
         {
           type: 'number',
+        },
+        {
+          type: 'string',
+        },
+        {
+          type: 'enum',
+          values: ['auto'],
         },
       ],
       description: 'The port server will listen to.',
