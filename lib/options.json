@@ -55,7 +55,8 @@
           ],
           "description": "Watch for files in static content directory."
         }
-      }
+      },
+      "required": ["directory"]
     },
     "StaticString": {
       "type": "string",
@@ -138,6 +139,9 @@
     },
     "WatchFilesObject": {
       "type": "object",
+      "cli": {
+        "exclude": true
+      },
       "properties": {
         "paths": {
           "anyOf": [
@@ -159,7 +163,8 @@
           "additionalProperties": true
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": ["paths"]
     },
     "WebSocketServerEnum": {
       "enum": ["sockjs", "ws"]
@@ -173,6 +178,9 @@
     },
     "WebSocketServerObject": {
       "type": "object",
+      "cli": {
+        "exclude": true
+      },
       "properties": {
         "type": {
           "anyOf": [
@@ -515,8 +523,7 @@
                 "$ref": "#/definitions/OpenObject"
               }
             ]
-          },
-          "minItems": 1
+          }
         },
         {
           "$ref": "#/definitions/OpenBoolean"
@@ -587,8 +594,7 @@
                 "$ref": "#/definitions/StaticObject"
               }
             ]
-          },
-          "minItems": 1
+          }
         },
         {
           "type": "boolean"
