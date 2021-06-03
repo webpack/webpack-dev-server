@@ -1,9 +1,12 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const execa = require('execa');
 const internalIp = require('internal-ip');
 const stripAnsi = require('strip-ansi');
+const schema = require('../../lib/options.json');
+const cliOptions = require('../../bin/cli-flags');
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
 const isMacOS = process.platform === 'darwin';
@@ -16,6 +19,39 @@ const httpsCertificateDirectory = path.resolve(
 );
 
 describe('CLI', () => {
+  describe('options', () => {
+    (webpack.version.startsWith('5') ? it : it.skip)(
+      'should be same as in schema',
+      () => {
+        const cliOptionsFromWebpack = webpack.cli.getArguments(schema);
+
+        const normalizedCliOptions = {};
+
+        for (const [name, options] of Object.entries(cliOptions)) {
+          delete options.processor;
+          // Only webpack-cli supports it
+          // TODO send PR to webpack
+          delete options.negatedDescription;
+
+          normalizedCliOptions[name] = options;
+        }
+
+        expect(normalizedCliOptions).toStrictEqual(cliOptionsFromWebpack);
+      }
+    );
+  });
+
+  describe('help', () => {
+    (isMacOS ? it.skip : it)('should generate correct cli flags', (done) => {
+      testBin('--help')
+        .then((output) => {
+          expect(stripAnsi(output.stdout)).toMatchSnapshot();
+          done();
+        })
+        .catch(done);
+    });
+  });
+
   describe('hot option', () => {
     it('--hot', (done) => {
       testBin('--hot --stats=detailed')
@@ -310,6 +346,15 @@ describe('CLI', () => {
         .catch(done);
     });
 
+    it('--client-web-socket-url-protocol', (done) => {
+      testBin('--client-web-socket-url-protocol "ws:"')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+
     it('--client-web-socket-url-host', (done) => {
       testBin('--client-web-socket-url-host 0.0.0.0')
         .then((output) => {
@@ -527,20 +572,7 @@ describe('CLI', () => {
     });
   });
 
-  describe('host and port options', () => {
-    it('--host and --port are unspecified', (done) => {
-      testBin('')
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          expect(
-            normalizeStderr(output.stderr, { ipv6: true })
-          ).toMatchSnapshot('stderr');
-
-          done();
-        })
-        .catch(done);
-    });
-
+  describe('host option', () => {
     it('--host 0.0.0.0 (IPv4)', (done) => {
       testBin('--host 0.0.0.0')
         .then((output) => {
@@ -654,6 +686,49 @@ describe('CLI', () => {
         })
         .catch(done);
     });
+  });
+
+  describe('port option', () => {
+    it('--port is string', (done) => {
+      testBin(`--port "8080"`)
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
+
+          done();
+        })
+        .catch(done);
+    });
+
+    it(`--port is auto`, (done) => {
+      testBin(`--port auto`)
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
+
+          done();
+        })
+        .catch(done);
+    });
+  });
+
+  describe('host and port options', () => {
+    it('--host and --port are unspecified', (done) => {
+      testBin('')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
+
+          done();
+        })
+        .catch(done);
+    });
 
     it('--host localhost --port 9999', (done) => {
       testBin('--host localhost --port 9999')
@@ -665,32 +740,6 @@ describe('CLI', () => {
         })
         .catch(done);
     });
-
-      it('--port is string', (done) => {
-          testBin(`--port "8080"`)
-              .then((output) => {
-                  expect(output.exitCode).toEqual(0);
-                  expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
-                      'stderr'
-                  );
-
-                  done();
-              })
-              .catch(done);
-      });
-
-      it(`--port is auto`, (done) => {
-          testBin(`--port auto`)
-              .then((output) => {
-                  expect(output.exitCode).toEqual(0);
-                  expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
-                      'stderr'
-                  );
-
-                  done();
-              })
-              .catch(done);
-      });
   });
 
   describe('liveReload option', () => {
@@ -917,15 +966,6 @@ describe('CLI', () => {
     });
   });
 
-  (isMacOS ? it.skip : it)('should generate correct cli flags', (done) => {
-    testBin('--help')
-      .then((output) => {
-        expect(stripAnsi(output.stdout)).toMatchSnapshot();
-        done();
-      })
-      .catch(done);
-  });
-
   describe('static option', () => {
     it('--static', (done) => {
       testBin('--static')
@@ -941,6 +981,18 @@ describe('CLI', () => {
 
     it('--static <value>', (done) => {
       testBin('--static new-static')
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--static <value> --static <other-value>', (done) => {
+      testBin('--static new-static --static other-static')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(
@@ -1073,13 +1125,36 @@ describe('CLI', () => {
   });
 
   describe('watchFiles option', () => {
-    it('--watch-files', (done) => {
+    it('--watch-files <value>', (done) => {
       const watchDirectory = path.resolve(
         __dirname,
         '../fixtures/static/static'
       );
 
       testBin(`--watch-files ${watchDirectory}`)
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          expect(
+            normalizeStderr(output.stderr, { ipv6: true })
+          ).toMatchSnapshot('stderr');
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--watch-files <value> --watch-files <other-value>', (done) => {
+      const watchDirectory = path.resolve(
+        __dirname,
+        '../fixtures/static/static'
+      );
+      const watchOtherDirectory = path.resolve(
+        __dirname,
+        '../fixtures/static/simple-config'
+      );
+
+      testBin(
+        `--watch-files ${watchDirectory} --watch-files ${watchOtherDirectory}`
+      )
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(

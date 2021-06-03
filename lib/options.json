@@ -360,19 +360,19 @@
     "allowedHosts": {
       "anyOf": [
         {
-          "enum": ["auto", "all"]
-        },
-        {
-          "type": "string",
-          "minLength": 1
-        },
-        {
           "type": "array",
           "items": {
             "type": "string",
             "minLength": 1
           },
           "minItems": 1
+        },
+        {
+          "enum": ["auto", "all"]
+        },
+        {
+          "type": "string",
+          "minLength": 1
         }
       ],
       "description": "Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts"
