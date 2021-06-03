@@ -347,7 +347,7 @@ describe('CLI', () => {
     });
 
     it('--client-web-socket-url-protocol', (done) => {
-      testBin('--client-web-socket-url-protocol "ws:"')
+      testBin('--client-web-socket-url-protocol ws:')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           done();
