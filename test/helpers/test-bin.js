@@ -58,11 +58,11 @@ function normalizeStderr(stderr, options = {}) {
 
   // normalize node warnings
   normalizedStderr = normalizedStderr.replace(
-    /.*DeprecationWarning.*(\n\n)/gm,
+    /.*DeprecationWarning.*(\n)*/gm,
     ''
   );
   normalizedStderr = normalizedStderr.replace(
-    '(Use `node --trace-deprecation ...` to show where the warning was created)',
+    /.*Use `node --trace-deprecation ...` to show where the warning was created.*(\n)*/gm,
     ''
   );
 
