@@ -57,7 +57,10 @@ function normalizeStderr(stderr, options = {}) {
   const networkIPv6 = internalIp.v6.sync();
 
   // normalize node warnings
-  normalizedStderr = normalizedStderr.replace(/.*DeprecationWarning.*/gm, '');
+  normalizedStderr = normalizedStderr.replace(
+    /.*DeprecationWarning.(\n\n)*/gm,
+    ''
+  );
   normalizedStderr = normalizedStderr.replace(
     '(Use `node --trace-deprecation ...` to show where the warning was created)',
     ''
