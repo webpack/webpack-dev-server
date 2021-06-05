@@ -69,7 +69,7 @@ Options:
   -m, --merge                      Merge two or more configurations using 'webpack-merge'.
   --env <value...>                 Environment passed to the configuration when it is a function.
   --node-env <value>               Sets process.env.NODE_ENV to the specified value.
-  --progress [value]               Print compilation progress during build.
+  --progress [value]               Print compilation progress during a build.
   -j, --json [value]               Prints result as JSON or store it in a file.
   -d, --devtool <value>            Determine source maps to use.
   --no-devtool                     Do not generate source maps.
@@ -128,13 +128,13 @@ Options:
   --watch-files <value...>         Watch static files for file changes.
 
 Global options:
-  --color                          Enable colors on console.
-  --no-color                       Disable colors on console.
+  --color                          Enable colors on a console.
+  --no-color                       Disable colors on a console.
   -v, --version                    Output the version number of 'webpack', 'webpack-cli' and 'webpack-dev-server' and commands.
   -h, --help [verbose]             Display help for commands and options.
 ```
 
-_**Note**: For more information on above options explore this [link](https://webpack.js.org/configuration/dev-server/)._
+_**Note**: For more information on the above options explore this [link](https://webpack.js.org/configuration/dev-server/)._
 
 ### With NPM Scripts
 
@@ -142,7 +142,7 @@ NPM package.json scripts are a convenient and useful means to run locally instal
 binaries without having to be concerned about their full paths. Simply define a
 script as such:
 
-```json
+```JSON
 {
   "scripts": {
     "serve": "webpack serve"
@@ -176,7 +176,7 @@ state, the project only officially supports the _last two versions of major
 browsers_. We simply don't have the resources to support every whacky
 browser out there.
 
-If you find a bug with an obscure / old browser, we would actively welcome a
+If you find a bug with an obscure/old browser, we would actively welcome a
 Pull Request to resolve the bug.
 
 ## Support
@@ -184,7 +184,7 @@ Pull Request to resolve the bug.
 We do our best to keep Issues in the repository focused on bugs, features, and
 needed modifications to the code for the module. Because of that, we ask users
 with general support, "how-to", or "why isn't this working" questions to try one
-of the other support channels that are available.
+of the other available support channels.
 
 Your first-stop-shop for support for webpack-dev-server should be the excellent
 [documentation][docs-url] for the module. If you see an opportunity for improvement
@@ -200,7 +200,7 @@ question. Remember; It's always much easier to answer questions that include you
 If you're twitter-savvy you can tweet [#webpack][hash-url] with your question
 and someone should be able to reach out and lend a hand.
 
-If you have discovered a :bug:, have a feature suggestion, or would like to see
+If you have discovered a :bug: have a feature suggestion, or would like to see
 a modification, please feel free to create an issue on Github. _Note: The issue
 template isn't optional, so please be sure not to remove it, and please fill it
 out completely._
