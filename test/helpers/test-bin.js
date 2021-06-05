@@ -58,7 +58,7 @@ function normalizeStderr(stderr, options = {}) {
 
   // normalize node warnings
   normalizedStderr = normalizedStderr.replace(
-    /.*DeprecationWarning.(\n\n)*/gm,
+    /.*DeprecationWarning.*(\n\n)/gm,
     ''
   );
   normalizedStderr = normalizedStderr.replace(
