@@ -57,10 +57,7 @@ function normalizeStderr(stderr, options = {}) {
   const networkIPv6 = internalIp.v6.sync();
 
   // normalize node warnings
-  normalizedStderr = normalizedStderr.replace(
-    "(node:3658) [DEP0111] DeprecationWarning: Access to process.binding('http_parser') is deprecated.",
-    ''
-  );
+  normalizedStderr = normalizedStderr.replace(/.*DeprecationWarning.*/gm, '');
   normalizedStderr = normalizedStderr.replace(
     '(Use `node --trace-deprecation ...` to show where the warning was created)',
     ''
