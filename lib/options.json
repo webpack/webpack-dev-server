@@ -394,7 +394,8 @@
           "type": "boolean"
         },
         {
-          "type": "object"
+          "type": "object",
+          "description": "Options for `historyApiFallback`, description available at https://github.com/bripkens/connect-history-api-fallback#options"
         }
       ],
       "description": "When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback"
