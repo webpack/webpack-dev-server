@@ -217,7 +217,8 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
    Details:
     * configuration.historyApiFallback should be a boolean.
     * configuration.historyApiFallback should be an object:
-      object { … }"
+      object { … }
+      -> Options for \`historyApiFallback\`, description available at https://github.com/bripkens/connect-history-api-fallback#options"
 `;
 
 exports[`options validate should throw an error on the "host" option with '' value 1`] = `
