@@ -1,12 +1,12 @@
-# CLI: Public Option Protocol
+# CLI: Web Socket URL Option Protocol
 
 ```console
-npm run webpack-dev-server
+npx webpack serve
 ```
 
 _NOTE: replace `<insert local ip>` with your local IP Address._
 
-You're now able to explicitly define the protocol used with the `public` option
+You're now able to explicitly define the protocol used with the `client.webSocketURL` option
 (have a look to the config provided in `webpack.config.js`).
 
 ## What Should Happen

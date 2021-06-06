@@ -94,4 +94,54 @@ describe('transportMode client', () => {
       });
     });
   });
+
+  describe('unspecified port', () => {
+    beforeAll((done) => {
+      const options = {
+        host: '0.0.0.0',
+        hot: false,
+        client: { transport: 'sockjs' },
+        webSocketServer: 'sockjs',
+      };
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    describe('on browser client', () => {
+      it('logs correctly', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          const res = [];
+          page.goto(`http://localhost:8080/main`);
+          page.on('console', ({ _text }) => {
+            res.push(_text);
+          });
+
+          page.waitForTimeout(initConsoleDelay).then(() => {
+            testServer.close(() => {
+              // make sure the client gets the close message
+              page.waitForTimeout(awaitServerCloseDelay).then(() => {
+                browser.close().then(() => {
+                  for (let i = res.length - 1; i >= 0; i--) {
+                    if (res[i] === '[webpack-dev-server] Disconnected!') {
+                      break;
+                    } else if (
+                      res[i] === 'close' ||
+                      res[i].includes('net::ERR_CONNECTION_REFUSED') ||
+                      // this indicates a WebSocket Error object that was logged
+                      res[i].includes('JSHandle@object')
+                    ) {
+                      // remove additional logging for the now failing connection,
+                      // since this could be a variable number of error messages
+                      res.splice(i, 1);
+                    }
+                  }
+                  expect(res).toMatchSnapshot();
+                  done();
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
 });

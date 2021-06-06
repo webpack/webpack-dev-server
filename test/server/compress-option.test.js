@@ -14,7 +14,7 @@ describe('compress option', () => {
   let server;
   let req;
 
-  describe('not specify', () => {
+  describe('enabled by default when not specified', () => {
     beforeAll((done) => {
       server = testServer.start(config, { port }, done);
       req = request(server.app);
@@ -23,14 +23,7 @@ describe('compress option', () => {
     afterAll(testServer.close);
 
     it('request to bundle file', (done) => {
-      req
-        .get('/main.js')
-        .expect((res) => {
-          if (res.header['content-encoding']) {
-            throw new Error('Expected `content-encoding` header is undefined.');
-          }
-        })
-        .expect(200, done);
+      req.get('/main.js').expect('Content-Encoding', 'gzip').expect(200, done);
     });
   });
 

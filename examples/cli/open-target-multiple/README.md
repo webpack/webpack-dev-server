@@ -1,7 +1,7 @@
 # CLI: Open Target Option (Multiple)
 
 ```console
-npm run webpack-dev-server -- --open-target example1.html --open-target example2.html
+npx webpack serve --open-target example1.html --open-target example2.html
 ```
 
 Some applications may consist of multiple pages. During development it may

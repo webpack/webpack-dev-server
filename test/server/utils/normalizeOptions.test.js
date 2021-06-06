@@ -13,6 +13,14 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
+      title: 'port string',
+      multiCompiler: false,
+      options: {
+        port: '9000',
+      },
+      optionsResults: null,
+    },
+    {
       title: 'client.transport sockjs string',
       multiCompiler: false,
       options: {
@@ -60,6 +68,43 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
+      title: 'client.transport ws string and webSocketServer object',
+      multiCompiler: false,
+      options: {
+        client: {
+          transport: 'ws',
+        },
+        webSocketServer: {
+          type: 'ws',
+          options: {
+            host: 'myhost',
+            port: 8080,
+            path: '/ws',
+          },
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title:
+        'client.transport ws string and webSocketServer object with port as string',
+      multiCompiler: false,
+      options: {
+        client: {
+          transport: 'ws',
+        },
+        webSocketServer: {
+          type: 'ws',
+          options: {
+            host: 'myhost',
+            port: '8080',
+            path: '/ws',
+          },
+        },
+      },
+      optionsResults: null,
+    },
+    {
       title: 'client custom transport path',
       multiCompiler: false,
       options: {
@@ -74,8 +119,23 @@ describe('normalizeOptions', () => {
       multiCompiler: false,
       options: {
         client: {
-          host: 'my.host',
-          port: 9000,
+          webSocketURL: {
+            host: 'my.host',
+            port: 9000,
+          },
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: 'client host and string port',
+      multiCompiler: false,
+      options: {
+        client: {
+          webSocketURL: {
+            host: 'my.host',
+            port: '9000',
+          },
         },
       },
       optionsResults: null,
@@ -85,7 +145,9 @@ describe('normalizeOptions', () => {
       multiCompiler: false,
       options: {
         client: {
-          path: '/custom/path/',
+          webSocketURL: {
+            path: '/custom/path/',
+          },
         },
       },
       optionsResults: null,
@@ -95,7 +157,9 @@ describe('normalizeOptions', () => {
       multiCompiler: false,
       options: {
         client: {
-          path: 'custom/path',
+          webSocketURL: {
+            path: 'custom/path',
+          },
         },
       },
       optionsResults: null,
@@ -392,10 +456,10 @@ describe('normalizeOptions', () => {
       ],
     },
     {
-      title: 'firewall is set',
+      title: 'allowedHosts is set',
       multiCompiler: false,
       options: {
-        firewall: false,
+        allowedHosts: 'all',
       },
       optionsResults: null,
     },

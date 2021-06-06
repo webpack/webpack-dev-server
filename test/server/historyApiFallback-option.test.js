@@ -178,6 +178,102 @@ describe('historyApiFallback option', () => {
     });
   });
 
+  describe('as object with the "verbose" option', () => {
+    let consoleSpy;
+
+    beforeAll((done) => {
+      consoleSpy = jest.spyOn(global.console, 'log');
+
+      server = testServer.start(
+        config,
+        {
+          historyApiFallback: {
+            index: '/bar.html',
+            verbose: true,
+          },
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll(() => {
+      consoleSpy.mockRestore();
+    });
+
+    it('request to directory and log', (done) => {
+      req
+        .get('/foo')
+        .accept('html')
+        .expect(200, /Foobar/, (error) => {
+          if (error) {
+            done(error);
+
+            return;
+          }
+
+          expect(consoleSpy).toHaveBeenCalledWith(
+            'Rewriting',
+            'GET',
+            '/foo',
+            'to',
+            '/bar.html'
+          );
+
+          done();
+        });
+    });
+  });
+
+  describe('as object with the "logger" option', () => {
+    let consoleSpy;
+
+    beforeAll((done) => {
+      consoleSpy = jest.spyOn(global.console, 'log');
+
+      server = testServer.start(
+        config,
+        {
+          historyApiFallback: {
+            index: '/bar.html',
+            logger: consoleSpy,
+          },
+          port,
+        },
+        done
+      );
+      req = request(server.app);
+    });
+
+    afterAll(() => {
+      consoleSpy.mockRestore();
+    });
+
+    it('request to directory and log', (done) => {
+      req
+        .get('/foo')
+        .accept('html')
+        .expect(200, /Foobar/, (error) => {
+          if (error) {
+            done(error);
+
+            return;
+          }
+
+          expect(consoleSpy).toHaveBeenCalledWith(
+            'Rewriting',
+            'GET',
+            '/foo',
+            'to',
+            '/bar.html'
+          );
+
+          done();
+        });
+    });
+  });
+
   describe('in-memory files', () => {
     beforeAll((done) => {
       server = testServer.start(

@@ -27,9 +27,16 @@ describe('reload', () => {
       shouldRefresh: false,
     },
     {
-      title: 'hot with transportMode.client sockjs',
+      title: 'hot with sockjs websocket server',
       options: {
         webSocketServer: 'sockjs',
+      },
+      shouldRefresh: false,
+    },
+    {
+      title: 'hot with ws websocket server',
+      options: {
+        webSocketServer: 'ws',
       },
       shouldRefresh: false,
     },
@@ -52,9 +59,9 @@ describe('reload', () => {
         const options = Object.assign(
           {},
           {
-            static: false,
-            port,
             host: '0.0.0.0',
+            port,
+            static: false,
           },
           mode.options
         );
@@ -95,6 +102,7 @@ describe('reload', () => {
                       ) {
                         refreshed = true;
                       }
+
                       req.continue();
                     });
                     page.waitForTimeout(reloadReadyDelay).then(() => {

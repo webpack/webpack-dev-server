@@ -29,15 +29,6 @@ const tests = {
     success: [
       {},
       {
-        host: '',
-      },
-      {
-        path: '',
-      },
-      {
-        port: '',
-      },
-      {
         logging: 'none',
       },
       {
@@ -54,22 +45,6 @@ const tests = {
       },
       {
         logging: 'verbose',
-      },
-      {
-        host: '',
-        path: '',
-        port: 8080,
-        logging: 'none',
-      },
-      {
-        host: '',
-        path: '',
-        port: '',
-      },
-      {
-        host: '',
-        path: '',
-        port: 'auto',
       },
       {
         progress: false,
@@ -107,16 +82,32 @@ const tests = {
       {
         transport: require.resolve('../client/clients/SockJSClient'),
       },
+      {
+        webSocketURL: 'ws://localhost:8080',
+      },
+      {
+        webSocketURL: { host: 'localhost' },
+      },
+      {
+        webSocketURL: { port: 8080 },
+      },
+      {
+        webSocketURL: { port: '8080' },
+      },
+      {
+        webSocketURL: { path: '' },
+      },
+      {
+        webSocketURL: { path: '/my-path/' },
+      },
+      {
+        webSocketURL: { host: 'localhost', port: 8080, path: '/my-path/' },
+      },
     ],
     failure: [
       'whoops!',
       {
         unknownOption: true,
-      },
-      {
-        host: true,
-        path: '',
-        port: 8080,
       },
       {
         logging: 'whoops!',
@@ -147,13 +138,22 @@ const tests = {
         hotEntry: [''],
       },
       {
-        path: true,
-      },
-      {
-        port: true,
-      },
-      {
         transport: true,
+      },
+      {
+        webSocketURL: { host: true, path: '', port: 8080 },
+      },
+      {
+        webSocketURL: { path: true },
+      },
+      {
+        webSocketURL: { port: true },
+      },
+      {
+        webSocketURL: { host: '' },
+      },
+      {
+        webSocketURL: { port: '' },
       },
     ],
   },
@@ -165,9 +165,9 @@ const tests = {
     success: [{}],
     failure: [''],
   },
-  firewall: {
-    success: [true, false, ['']],
-    failure: ['', []],
+  allowedHosts: {
+    success: ['auto', 'all', ['foo'], 'bar'],
+    failure: [true, false, 123],
   },
   headers: {
     success: [{}, { foo: 'bar' }, () => {}],
@@ -178,8 +178,8 @@ const tests = {
     failure: [''],
   },
   host: {
-    success: ['', 'localhost', null],
-    failure: [false],
+    success: ['localhost', '::', '::1'],
+    failure: [false, '', null],
   },
   hot: {
     success: [true, 'only'],
@@ -247,16 +247,19 @@ const tests = {
       { target: 'foo' },
       { target: ['foo', 'bar'] },
       { app: 'google-chrome' },
-      { app: ['google-chrome', '--incognito'] },
+      { app: { name: 'google-chrome', arguments: ['--incognito'] } },
       { target: 'foo', app: 'google-chrome' },
-      { target: ['foo', 'bar'], app: ['google-chrome', '--incognito'] },
+      {
+        target: ['foo', 'bar'],
+        app: { name: 'google-chrome', arguments: ['--incognito'] },
+      },
       {},
     ],
     failure: ['', [], { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
-    success: ['', 0, 'auto'],
-    failure: [false, null],
+    success: ['8080', 8080, 'auto'],
+    failure: [false, null, ''],
   },
   proxy: {
     success: [
@@ -265,10 +268,6 @@ const tests = {
       },
     ],
     failure: [[], () => {}, false],
-  },
-  public: {
-    success: ['', 'foo', 'auto'],
-    failure: [false],
   },
   static: {
     success: [

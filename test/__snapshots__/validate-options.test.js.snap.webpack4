@@ -1,5 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`options validate should throw an error on the "allowedHosts" option with '123' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.allowedHosts should be one of these:
+   \\"auto\\" | \\"all\\" | non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+   -> Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   Details:
+    * configuration.allowedHosts should be one of these:
+      \\"auto\\" | \\"all\\"
+    * configuration.allowedHosts should be a non-empty string.
+    * configuration.allowedHosts should be an array:
+      [non-empty string, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options validate should throw an error on the "allowedHosts" option with 'false' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.allowedHosts should be one of these:
+   \\"auto\\" | \\"all\\" | non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+   -> Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   Details:
+    * configuration.allowedHosts should be one of these:
+      \\"auto\\" | \\"all\\"
+    * configuration.allowedHosts should be a non-empty string.
+    * configuration.allowedHosts should be an array:
+      [non-empty string, ...] (should not have fewer than 1 item)"
+`;
+
+exports[`options validate should throw an error on the "allowedHosts" option with 'true' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.allowedHosts should be one of these:
+   \\"auto\\" | \\"all\\" | non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+   -> Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   Details:
+    * configuration.allowedHosts should be one of these:
+      \\"auto\\" | \\"all\\"
+    * configuration.allowedHosts should be a non-empty string.
+    * configuration.allowedHosts should be an array:
+      [non-empty string, ...] (should not have fewer than 1 item)"
+`;
+
 exports[`options validate should throw an error on the "bonjour" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.bonjour should be one of these:
@@ -10,12 +49,6 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
     * configuration.bonjour should be an object:
       object { … }
       -> Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
-`;
-
-exports[`options validate should throw an error on the "client" option with '{"host":true,"path":"","port":8080}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.host should be a string.
-   -> Tells clients connected to devServer to use the provided host."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"hotEntry":[""]}' value 1`] = `
@@ -73,23 +106,6 @@ exports[`options validate should throw an error on the "client" option with '{"o
    -> Show a full-screen overlay in the browser when there are compiler warnings."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"path":true}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.path should be a string.
-   -> Tells clients connected to devServer to use the provided path to connect."
-`;
-
-exports[`options validate should throw an error on the "client" option with '{"port":true}' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.client.port should be one of these:
-   number | string | \\"auto\\"
-   -> Tells clients connected to devServer to use the provided path to connect.
-   Details:
-    * configuration.client.port should be a number.
-    * configuration.client.port should be a string.
-    * configuration.client.port should be \\"auto\\"."
-`;
-
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client.progress should be a boolean.
@@ -110,14 +126,51 @@ exports[`options validate should throw an error on the "client" option with '{"t
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client has an unknown property 'unknownOption'. These properties are valid:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
+   object { transport?, logging?, progress?, overlay?, needClientEntry?, hotEntry?, webSocketURL? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"host":""}}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.webSocketURL.host should be an non-empty string.
+   -> Tells clients connected to devServer to use the provided host."
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"host":true,"path":"","port":8080}}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.webSocketURL.host should be a non-empty string.
+   -> Tells clients connected to devServer to use the provided host."
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"path":true}}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.webSocketURL.path should be a string.
+   -> Tells clients connected to devServer to use the provided path to connect."
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":""}}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.webSocketURL.port should be an non-empty string."
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.client.webSocketURL should be one of these:
+   non-empty string | object { protocol?, host?, port?, path? }
+   -> When using dev server and you're proxying dev-server, the client script does not always know where to connect to.
+   Details:
+    * configuration.client.webSocketURL.port should be one of these:
+      number | non-empty string
+      -> Tells clients connected to devServer to use the provided port.
+      Details:
+       * configuration.client.webSocketURL.port should be a number.
+       * configuration.client.webSocketURL.port should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.client should be an object:
-   object { transport?, host?, path?, port?, logging?, progress?, overlay?, needClientEntry?, hotEntry? }
+   object { transport?, logging?, progress?, overlay?, needClientEntry?, hotEntry?, webSocketURL? }
    -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
@@ -132,22 +185,6 @@ exports[`options validate should throw an error on the "devMiddleware" option wi
  - configuration.devMiddleware should be an object:
    object { … }
    -> Provide options to webpack-dev-middleware which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
-`;
-
-exports[`options validate should throw an error on the "firewall" option with '' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.firewall should be one of these:
-   boolean | [string, ...] (should not have fewer than 1 item)
-   -> Defines routes which are enabled by default, on by default and allows localhost. https://webpack.js.org/configuration/dev-server/#devserverfirewall
-   Details:
-    * configuration.firewall should be a boolean.
-    * configuration.firewall should be an array:
-      [string, ...] (should not have fewer than 1 item)"
-`;
-
-exports[`options validate should throw an error on the "firewall" option with '[]' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.firewall should be an non-empty array."
 `;
 
 exports[`options validate should throw an error on the "headers" option with '1' value 1`] = `
@@ -180,17 +217,26 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
    Details:
     * configuration.historyApiFallback should be a boolean.
     * configuration.historyApiFallback should be an object:
-      object { … }"
+      object { … }
+      -> Options for \`historyApiFallback\`, description available at https://github.com/bripkens/connect-history-api-fallback#options"
+`;
+
+exports[`options validate should throw an error on the "host" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.host should be an non-empty string.
+   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
 `;
 
 exports[`options validate should throw an error on the "host" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.host should be one of these:
-   string | null
-   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost
-   Details:
-    * configuration.host should be a string.
-    * configuration.host should be a null."
+ - configuration.host should be a non-empty string.
+   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
+`;
+
+exports[`options validate should throw an error on the "host" option with 'null' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.host should be a non-empty string.
+   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
 `;
 
 exports[`options validate should throw an error on the "hot" option with '' value 1`] = `
@@ -335,16 +381,16 @@ exports[`options validate should throw an error on the "open" option with '[]' v
 exports[`options validate should throw an error on the "open" option with '{"app":true}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.open should be one of these:
-   boolean | non-empty string | object { target?, app? } | [non-empty string | object { target?, app? }, ...] (should not have fewer than 1 item)
+   [non-empty string | object { target?, app? }, ...] (should not have fewer than 1 item) | boolean | non-empty string | object { target?, app? }
    -> Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
    Details:
     * configuration.open.app should be one of these:
-      non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+      object { name?, arguments? } | non-empty string
       -> Open specified browser.
       Details:
-       * configuration.open.app should be a non-empty string.
-       * configuration.open.app should be an array:
-         [non-empty string, ...] (should not have fewer than 1 item)"
+       * configuration.open.app should be an object:
+         object { name?, arguments? }
+       * configuration.open.app should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "open" option with '{"foo":"bar"}' value 1`] = `
@@ -356,38 +402,43 @@ exports[`options validate should throw an error on the "open" option with '{"foo
 exports[`options validate should throw an error on the "open" option with '{"target":90}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.open should be one of these:
-   boolean | non-empty string | object { target?, app? } | [non-empty string | object { target?, app? }, ...] (should not have fewer than 1 item)
+   [non-empty string | object { target?, app? }, ...] (should not have fewer than 1 item) | boolean | non-empty string | object { target?, app? }
    -> Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
    Details:
     * configuration.open.target should be one of these:
-      boolean | non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+      [non-empty string, ...] (should not have fewer than 1 item) | boolean | non-empty string
       -> Open specified route in browser.
       Details:
-       * configuration.open.target should be a boolean.
-       * configuration.open.target should be a non-empty string.
        * configuration.open.target should be an array:
-         [non-empty string, ...] (should not have fewer than 1 item)"
+         [non-empty string, ...] (should not have fewer than 1 item)
+       * configuration.open.target should be a boolean.
+       * configuration.open.target should be a non-empty string."
+`;
+
+exports[`options validate should throw an error on the "port" option with '' value 1`] = `
+"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
+ - configuration.port should be an non-empty string."
 `;
 
 exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.port should be one of these:
-   number | string | \\"auto\\"
+   number | non-empty string | \\"auto\\"
    -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * configuration.port should be a number.
-    * configuration.port should be a string.
+    * configuration.port should be a non-empty string.
     * configuration.port should be \\"auto\\"."
 `;
 
 exports[`options validate should throw an error on the "port" option with 'null' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.port should be one of these:
-   number | string | \\"auto\\"
+   number | non-empty string | \\"auto\\"
    -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * configuration.port should be a number.
-    * configuration.port should be a string.
+    * configuration.port should be a non-empty string.
     * configuration.port should be \\"auto\\"."
 `;
 
@@ -420,12 +471,6 @@ exports[`options validate should throw an error on the "proxy" option with 'func
       [object { … } | function, ...] (should not have fewer than 1 item)"
 `;
 
-exports[`options validate should throw an error on the "public" option with 'false' value 1`] = `
-"ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
- - configuration.public should be a string.
-   -> When using dev server and you're proxying dev-server, the client script does not always know where to connect to. It will try to guess the URL of the server based on window.location, but if that fails you'll need to use this. https://webpack.js.org/configuration/dev-server/#devserverpublic"
-`;
-
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be an non-empty string."
@@ -440,22 +485,22 @@ exports[`options validate should throw an error on the "static" option with '{"d
 exports[`options validate should throw an error on the "static" option with '{"publicPath":false}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item) | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static.publicPath should be one of these:
-      non-empty string | [non-empty string, ...] (should not have fewer than 1 item)
+      [non-empty string, ...] (should not have fewer than 1 item) | non-empty string
       -> The bundled files will be available in the browser under this path.
       Details:
-       * configuration.static.publicPath should be a non-empty string.
        * configuration.static.publicPath should be an array:
-         [non-empty string, ...] (should not have fewer than 1 item)"
+         [non-empty string, ...] (should not have fewer than 1 item)
+       * configuration.static.publicPath should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "static" option with '{"serveIndex":"true"}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item) | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static.serveIndex should be one of these:
@@ -470,7 +515,7 @@ exports[`options validate should throw an error on the "static" option with '{"s
 exports[`options validate should throw an error on the "static" option with '{"watch":10}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item) | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static.watch should be one of these:
@@ -486,55 +531,55 @@ exports[`options validate should throw an error on the "static" option with '{"w
 exports[`options validate should throw an error on the "static" option with '0' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item) | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
+    * configuration.static should be an array:
+      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
     * configuration.static should be a boolean.
     * configuration.static should be a non-empty string.
     * configuration.static should be an object:
-      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-    * configuration.static should be an array:
-      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)"
+      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
 exports[`options validate should throw an error on the "static" option with 'null' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? } | [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item) | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
+    * configuration.static should be an array:
+      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)
     * configuration.static should be a boolean.
     * configuration.static should be a non-empty string.
     * configuration.static should be an object:
-      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-    * configuration.static should be an array:
-      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] (should not have fewer than 1 item)"
+      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
 exports[`options validate should throw an error on the "watchFiles" option with '123' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.watchFiles should be one of these:
-   non-empty string | object { paths?, options? } | [non-empty string | object { paths?, options? }, ...]
+   [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
    -> List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
    Details:
+    * configuration.watchFiles should be an array:
+      [non-empty string | object { paths?, options? }, ...]
     * configuration.watchFiles should be a non-empty string.
     * configuration.watchFiles should be an object:
-      object { paths?, options? }
-    * configuration.watchFiles should be an array:
-      [non-empty string | object { paths?, options? }, ...]"
+      object { paths?, options? }"
 `;
 
 exports[`options validate should throw an error on the "watchFiles" option with 'false' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.watchFiles should be one of these:
-   non-empty string | object { paths?, options? } | [non-empty string | object { paths?, options? }, ...]
+   [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
    -> List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
    Details:
+    * configuration.watchFiles should be an array:
+      [non-empty string | object { paths?, options? }, ...]
     * configuration.watchFiles should be a non-empty string.
     * configuration.watchFiles should be an object:
-      object { paths?, options? }
-    * configuration.watchFiles should be an array:
-      [non-empty string | object { paths?, options? }, ...]"
+      object { paths?, options? }"
 `;
 
 exports[`options validate should throw an error on the "webSocketServer" option with '{"notAnOption":true}' value 1`] = `

@@ -209,6 +209,26 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  // For https://github.com/webpack/webpack-dev-server/issues/3306
+  it('https and other related options', (done) => {
+    const pfxFile = path.join(httpsCertificateDirectory, 'server.pfx');
+    const key = path.join(httpsCertificateDirectory, 'server.key');
+    const cert = path.join(httpsCertificateDirectory, 'server.crt');
+    const passphrase = 'webpack-dev-server';
+
+    testBin(
+      `--https --https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cert ${cert}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true, https: true })
+        ).toMatchSnapshot();
+        done();
+      })
+      .catch(done);
+  });
+
   it('--https-request-cert', (done) => {
     testBin('--https-request-cert')
       .then((output) => {
@@ -412,6 +432,32 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--port is string', (done) => {
+    testBin(`--port "8080"`)
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it(`--port is auto`, (done) => {
+    testBin(`--port auto`)
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(normalizeStderr(output.stderr, { ipv6: true })).toMatchSnapshot(
+          'stderr'
+        );
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('--open', (done) => {
     testBin('--open')
       .then((output) => {
@@ -484,6 +530,15 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it(' --open --open-target index.html', (done) => {
+    testBin('--open --open-target index.html')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--open-target /first.html second.html', (done) => {
     testBin('--open-target /first.html second.html')
       .then((output) => {
@@ -495,6 +550,15 @@ describe('CLI', () => {
 
   it('--open-target /index.html --open-app google-chrome', (done) => {
     testBin('--open-target /index.html --open-app google-chrome')
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('--open --open-target /index.html --open-app google-chrome', (done) => {
+    testBin('--open --open-target /index.html --open-app google-chrome')
       .then((output) => {
         expect(output.exitCode).toEqual(0);
         done();
@@ -593,6 +657,20 @@ describe('CLI', () => {
       .catch(done);
   });
 
+  it('--static --static-directory', (done) => {
+    testBin(
+      `--static --static-directory ${path.resolve(
+        __dirname,
+        '../fixtures/static/webpack.config.js'
+      )}`
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        done();
+      })
+      .catch(done);
+  });
+
   it('--static-serve-index', (done) => {
     testBin('--static-serve-index')
       .then((output) => {
@@ -600,6 +678,49 @@ describe('CLI', () => {
         done();
       })
       .catch(done);
+  });
+
+  describe('allowed-hosts', () => {
+    it('--allowed-hosts auto', (done) => {
+      testBin(['--allowed-hosts', 'auto'])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--allowed-hosts all', (done) => {
+      testBin(['--allowed-hosts', 'all'])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--allowed-hosts string', (done) => {
+      testBin(['--allowed-hosts', 'testhost.com'])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
+
+    it('--allowed-hosts multiple', (done) => {
+      testBin([
+        '--allowed-hosts',
+        'testhost.com',
+        '--allowed-hosts',
+        'testhost1.com',
+      ])
+        .then((output) => {
+          expect(output.exitCode).toEqual(0);
+          done();
+        })
+        .catch(done);
+    });
   });
 
   it('--no-static-serve-index', (done) => {
@@ -671,7 +792,10 @@ describe('CLI', () => {
 
   it('should exit the process when SIGINT is detected', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = path.resolve(__dirname, '../../examples/cli/public');
+    const examplePath = path.resolve(
+      __dirname,
+      '../../examples/cli/web-socket-url'
+    );
     const cp = execa('node', [cliPath], { cwd: examplePath });
 
     cp.stdout.on('data', (data) => {
@@ -713,7 +837,10 @@ describe('CLI', () => {
 
   it('should exit the process when stdin ends if --watch-options-stdin', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
-    const examplePath = path.resolve(__dirname, '../../examples/cli/public');
+    const examplePath = path.resolve(
+      __dirname,
+      '../../examples/cli/web-socket-url'
+    );
     const cp = execa('node', [cliPath, '--watch-options-stdin'], {
       cwd: examplePath,
     });
@@ -737,7 +864,7 @@ describe('CLI', () => {
   it('should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done', (done) => {
     const cliPath = path.resolve(__dirname, '../../bin/webpack-dev-server.js');
     const cwd = path.resolve(__dirname, '../fixtures/cli');
-    const cp = execa('node', [cliPath, '----watch-options-stdin'], { cwd });
+    const cp = execa('node', [cliPath, '--watch-options-stdin'], { cwd });
 
     let killed = false;
 

@@ -114,19 +114,17 @@ Options:
   --no-client-progress             Do not print compilation progress in percentage in the browser.
   --client-overlay                 Show a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay              Do not show a full-screen overlay in the browser when there are compiler errors or warnings.
+  --client-logging <value>         Log level in the browser (none, error, warn, info, log, verbose).
   --open [value...]                Open the default browser.
   --no-open                        Do not open the default browser.
   --open-app <value>               Open specified browser.
   --open-target [value...]         Open specified route in browser.
   --no-open-target                 Do not open specified route in browser.
-  --client-logging <value>         Log level in the browser (none, error, warn, info, log, verbose).
   --history-api-fallback           Fallback to /index.html for Single Page Applications.
   --no-history-api-fallback        Do not fallback to /index.html for Single Page Applications.
   --compress                       Enable gzip compression.
   --no-compress                    Disable gzip compression.
-  --public <value>                 The public hostname/ip address of the server.
-  --firewall [value...]            Enable firewall or set hosts that are allowed to access the dev server.
-  --no-firewall                    Disable firewall.
+  --allowed-hosts <value...>       Set hosts that are allowed to access the dev server.
   --watch-files <value...>         Watch static files for file changes.
 
 Global options:

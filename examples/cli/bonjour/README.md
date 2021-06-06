@@ -6,7 +6,7 @@ is started.
 To run this example, run this command in your console or terminal:
 
 ```console
-npm run webpack-dev-server -- --bonjour
+npx webpack serve --bonjour
 ```
 
 ## What Should Happen
@@ -33,7 +33,7 @@ module.exports = {
 ```
 
 ```console
-npm run webpack-dev-server -- --config webpack.config.js
+npx webpack serve --config webpack.config.js
 ```
 
 ## What Should Happen

@@ -164,6 +164,31 @@ exports[`CLI --no-https-request-cert 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
+exports[`CLI --port is auto: stderr 1`] = `
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
+exports[`CLI --port is string: stderr 1`] = `
+"<w> [webpack-dev-server] The \\"port\\" specified in options is different from the port passed as an argument. Will be used from arguments.
+<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
+exports[`CLI https and other related options 1`] = `
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: https://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): https://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): https://[<network-ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
 exports[`CLI https options 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
@@ -250,24 +275,21 @@ Options:
   --no-client-overlay              Do not show a full-screen overlay in the
                                    browser when there are compiler errors or
                                    warnings.
+  --client-logging <value>         Log level in the browser (none, error, warn,
+                                   info, log, verbose).
   --open [value...]                Open the default browser.
   --no-open                        Do not open the default browser.
   --open-app <value>               Open specified browser.
   --open-target [value...]         Open specified route in browser.
   --no-open-target                 Do not open specified route in browser.
-  --client-logging <value>         Log level in the browser (none, error, warn,
-                                   info, log, verbose).
   --history-api-fallback           Fallback to /index.html for Single Page
                                    Applications.
   --no-history-api-fallback        Do not fallback to /index.html for Single
                                    Page Applications.
   --compress                       Enable gzip compression.
   --no-compress                    Disable gzip compression.
-  --public <value>                 The public hostname/ip address of the
+  --allowed-hosts <value...>       Set hosts that are allowed to access the dev
                                    server.
-  --firewall [value...]            Enable firewall or set hosts that are
-                                   allowed to access the dev server.
-  --no-firewall                    Disable firewall.
   --watch-files <value...>         Watch static files for file changes.
 
 Global options:
