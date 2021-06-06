@@ -51,6 +51,19 @@ npx webpack serve --open-target --port 5000 --host local-ipv6
 
 ## port
 
+### specific port
+
+Tell the server to connect to a specific port with the following:
+
+```console
+npx webpack serve --open-target --port 9000
+```
+
+#### What Should Happen
+
+1. The script should open `http://localhost:9000/` in your default browser.
+2. You should see the text on the page itself change to read `Success!`.
+
 ### auto
 
 Specifying `auto` as `port` will try to connect the server to the default port `8080` and if not available it will automatically search for another free port.
