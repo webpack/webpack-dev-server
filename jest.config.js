@@ -8,6 +8,7 @@ module.exports = {
     '<rootDir>/test/',
     '<rootDir>/client/',
   ],
+  testPathIgnorePatterns: ['<rootDir>/bin/this/process-arguments.js'],
   moduleFileExtensions: ['js', 'json'],
   testMatch: ['**/test/**/*.test.js'],
   snapshotResolver: '<rootDir>/test/helpers/snapshotResolver.js',
