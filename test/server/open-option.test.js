@@ -222,7 +222,7 @@ describe('"open" option', () => {
   //       port,
   //       static: false,
   //     });
-  //
+  //  //
   //     compiler.hooks.done.tap('webpack-dev-server', () => {
   //       server.close(() => {
   //         expect(open).toHaveBeenCalledWith(`http://[${internalIPv6}]:8117/`, {
@@ -713,6 +713,7 @@ describe('"open" option', () => {
       open: true,
       static: false,
     });
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -742,6 +743,7 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -777,6 +779,7 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -816,6 +819,7 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
@@ -858,6 +862,7 @@ describe('"open" option', () => {
       port,
       static: false,
     });
+
     const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
 
     compiler.hooks.done.tap('webpack-dev-server', () => {
