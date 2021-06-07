@@ -55,8 +55,7 @@
           ],
           "description": "Watch for files in static content directory."
         }
-      },
-      "required": ["directory"]
+      }
     },
     "StaticString": {
       "type": "string",

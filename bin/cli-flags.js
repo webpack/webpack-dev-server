@@ -295,26 +295,6 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
-  'web-socket-server-type': {
-    configs: [
-      {
-        type: 'enum',
-        values: ['sockjs', 'ws'],
-        multiple: false,
-        description: 'Allows to set web socket server and options.',
-        path: 'webSocketServer.type',
-      },
-      {
-        type: 'string',
-        multiple: false,
-        description: 'Allows to set web socket server and options.',
-        path: 'webSocketServer.type',
-      },
-    ],
-    description: 'Allows to set web socket server and options.',
-    simpleType: 'string',
-    multiple: false,
-  },
   compress: {
     configs: [
       {
@@ -799,28 +779,6 @@ module.exports = {
     simpleType: 'string',
     multiple: true,
   },
-  'watch-files-paths': {
-    configs: [
-      {
-        type: 'string',
-        multiple: true,
-        description:
-          'List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
-        path: 'watchFiles[].paths',
-      },
-      {
-        type: 'string',
-        multiple: true,
-        description:
-          'List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
-        path: 'watchFiles.paths[]',
-      },
-    ],
-    description:
-      'List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
-    simpleType: 'string',
-    multiple: true,
-  },
   'watch-files-reset': {
     configs: [
       {
@@ -829,21 +787,6 @@ module.exports = {
         description:
           'Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
         path: 'watchFiles',
-      },
-    ],
-    description:
-      'Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
-    simpleType: 'boolean',
-    multiple: false,
-  },
-  'watch-files-paths-reset': {
-    configs: [
-      {
-        type: 'reset',
-        multiple: false,
-        description:
-          'Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
-        path: 'watchFiles.paths',
       },
     ],
     description:

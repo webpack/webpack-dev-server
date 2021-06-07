@@ -28,7 +28,6 @@ describe('CLI', () => {
         const normalizedCliOptions = {};
 
         for (const [name, options] of Object.entries(cliOptions)) {
-          delete options.processor;
           // Only webpack-cli supports it
           // TODO send PR to webpack
           delete options.negatedDescription;
@@ -401,24 +400,6 @@ describe('CLI', () => {
         })
         .catch(done);
     });
-
-    it('--web-socket-server-type sockjs', (done) => {
-      testBin('--web-socket-server-type sockjs')
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          done();
-        })
-        .catch(done);
-    });
-
-    it('--web-socket-server-type ws', (done) => {
-      testBin('--web-socket-server-type ws')
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          done();
-        })
-        .catch(done);
-    });
   });
 
   describe('http2 option', () => {
@@ -492,7 +473,7 @@ describe('CLI', () => {
       const passphrase = 'webpack-dev-server';
 
       testBin(
-        `--https --https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cert ${cert}`
+        `--https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cert ${cert}`
       )
         .then((output) => {
           expect(output.exitCode).toEqual(0);
@@ -889,8 +870,8 @@ describe('CLI', () => {
         .catch(done);
     });
 
-    it(' --open --open-target index.html', (done) => {
-      testBin('--open --open-target index.html')
+    it('--open-target index.html', (done) => {
+      testBin('--open-target index.html')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           done();
@@ -925,8 +906,8 @@ describe('CLI', () => {
         .catch(done);
     });
 
-    it('--open --open-target /index.html --open-app google-chrome', (done) => {
-      testBin('--open --open-target /index.html --open-app google-chrome')
+    it('--open-target /index.html --open-app google-chrome', (done) => {
+      testBin('--open-target /index.html --open-app google-chrome')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           done();
@@ -934,9 +915,9 @@ describe('CLI', () => {
         .catch(done);
     });
 
-    it('--open --open-target /index.html --open-app google-chrome --open-app-name google-chrome', (done) => {
+    it('--open-target /index.html --open-app google-chrome --open-app-name google-chrome', (done) => {
       testBin(
-        '--open --open-target /index.html --open-app google-chrome --open-app-name google-chrome'
+        '--open-target /index.html --open-app google-chrome --open-app-name google-chrome'
       )
         .then((output) => {
           expect(output.exitCode).toEqual(0);
@@ -1039,8 +1020,8 @@ describe('CLI', () => {
         .catch(done);
     });
 
-    it('--static --static-directory', (done) => {
-      testBin('--static --static-directory static-dir')
+    it('--static-directory', (done) => {
+      testBin('--static-directory static-dir')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(
@@ -1112,7 +1093,7 @@ describe('CLI', () => {
     });
 
     it('--no-static-watch', (done) => {
-      testBin('--static-watch')
+      testBin('--no-static-watch')
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(
@@ -1172,57 +1153,6 @@ describe('CLI', () => {
       );
 
       testBin(`--watch-files-reset --watch-files ${watchDirectory}`)
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          expect(
-            normalizeStderr(output.stderr, { ipv6: true })
-          ).toMatchSnapshot('stderr');
-          done();
-        })
-        .catch(done);
-    });
-
-    it('--watch-files-reset --watch-files-paths <value>', (done) => {
-      const watchDirectory = path.resolve(
-        __dirname,
-        '../fixtures/static/static'
-      );
-
-      testBin(`--watch-files-reset --watch-files-paths ${watchDirectory}`)
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          expect(
-            normalizeStderr(output.stderr, { ipv6: true })
-          ).toMatchSnapshot('stderr');
-          done();
-        })
-        .catch(done);
-    });
-
-    it('--watch-files-paths', (done) => {
-      const watchDirectory = path.resolve(
-        __dirname,
-        '../fixtures/static/static'
-      );
-
-      testBin(`--watch-files-paths ${watchDirectory}`)
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          expect(
-            normalizeStderr(output.stderr, { ipv6: true })
-          ).toMatchSnapshot('stderr');
-          done();
-        })
-        .catch(done);
-    });
-
-    it('--watch-files-paths-reset', (done) => {
-      const watchDirectory = path.resolve(
-        __dirname,
-        '../fixtures/static/static'
-      );
-
-      testBin(`--watch-files-paths-reset --watch-files-paths ${watchDirectory}`)
         .then((output) => {
           expect(output.exitCode).toEqual(0);
           expect(

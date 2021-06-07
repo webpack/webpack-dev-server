@@ -73,7 +73,6 @@ Options:
   --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
   --client-web-socket-url-path <value>      Tells clients connected to devServer to use the provided path to connect.
   --web-socket-server <value>               Allows to set web socket server and options.
-  --web-socket-server-type <value>          Allows to set web socket server and options.
   --compress                                Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress
   --no-compress                             Negative 'compress' option.
   --allowed-hosts <value...>                Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
@@ -117,9 +116,7 @@ Options:
   --static-reset                            Clear all items provided in configuration. It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
   --static-public-path-reset                Clear all items provided in configuration. The bundled files will be available in the browser under this path.
   --watch-files <value...>                  List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
-  --watch-files-paths <value...>            List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
   --watch-files-reset                       Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
-  --watch-files-paths-reset                 Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
 
 Global options:
   --color                                   Enable colors on console.
@@ -337,14 +334,6 @@ exports[`CLI static option --static <value>: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from 'new-static' directory"
 `;
 
-exports[`CLI static option --static --static-directory: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
 exports[`CLI static option --static: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
@@ -354,6 +343,14 @@ exports[`CLI static option --static: stderr 1`] = `
 `;
 
 exports[`CLI static option --static-directory: stderr 1`] = `
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from 'static-dir' directory"
+`;
+
+exports[`CLI static option --static-directory: stderr 2`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -418,30 +415,6 @@ exports[`CLI watchFiles option --watch-files <value> --watch-files <other-value>
 `;
 
 exports[`CLI watchFiles option --watch-files <value>: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI watchFiles option --watch-files-paths: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI watchFiles option --watch-files-paths-reset: stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
-exports[`CLI watchFiles option --watch-files-reset --watch-files-paths <value>: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
