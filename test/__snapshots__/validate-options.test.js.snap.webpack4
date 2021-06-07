@@ -480,7 +480,7 @@ exports[`options validate should throw an error on the "static" option with '{"d
 exports[`options validate should throw an error on the "static" option with '{"publicPath":false}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   [non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static.publicPath should be one of these:
@@ -495,7 +495,7 @@ exports[`options validate should throw an error on the "static" option with '{"p
 exports[`options validate should throw an error on the "static" option with '{"serveIndex":"true"}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   [non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static.serveIndex should be one of these:
@@ -510,7 +510,7 @@ exports[`options validate should throw an error on the "static" option with '{"s
 exports[`options validate should throw an error on the "static" option with '{"watch":10}' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   [non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static.watch should be one of these:
@@ -526,29 +526,29 @@ exports[`options validate should throw an error on the "static" option with '{"w
 exports[`options validate should throw an error on the "static" option with '0' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   [non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static should be an array:
-      [non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
+      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
     * configuration.static should be a boolean.
     * configuration.static should be a non-empty string.
     * configuration.static should be an object:
-      object { directory, staticOptions?, publicPath?, serveIndex?, watch? }"
+      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
 exports[`options validate should throw an error on the "static" option with 'null' value 1`] = `
 "ValidationError: Invalid configuration object. Object has been initialized using a configuration object that does not match the API schema.
  - configuration.static should be one of these:
-   [non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
    -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * configuration.static should be an array:
-      [non-empty string | object { directory, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
+      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
     * configuration.static should be a boolean.
     * configuration.static should be a non-empty string.
     * configuration.static should be an object:
-      object { directory, staticOptions?, publicPath?, serveIndex?, watch? }"
+      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
 exports[`options validate should throw an error on the "watchFiles" option with '123' value 1`] = `
