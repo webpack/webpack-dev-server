@@ -1,6 +1,5 @@
 {
   "title": "Dev Server options",
-  "description": "Options object as provided by the user.",
   "type": "object",
   "definitions": {
     "AllowedHosts": {
