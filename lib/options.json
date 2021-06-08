@@ -138,6 +138,9 @@
     },
     "WatchFilesObject": {
       "type": "object",
+      "cli": {
+        "exclude": true
+      },
       "properties": {
         "paths": {
           "anyOf": [
@@ -159,7 +162,8 @@
           "additionalProperties": true
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": ["paths"]
     },
     "WebSocketServerEnum": {
       "enum": ["sockjs", "ws"]
@@ -173,6 +177,9 @@
     },
     "WebSocketServerObject": {
       "type": "object",
+      "cli": {
+        "exclude": true
+      },
       "properties": {
         "type": {
           "anyOf": [
@@ -360,19 +367,19 @@
     "allowedHosts": {
       "anyOf": [
         {
-          "enum": ["auto", "all"]
-        },
-        {
-          "type": "string",
-          "minLength": 1
-        },
-        {
           "type": "array",
           "items": {
             "type": "string",
             "minLength": 1
           },
           "minItems": 1
+        },
+        {
+          "enum": ["auto", "all"]
+        },
+        {
+          "type": "string",
+          "minLength": 1
         }
       ],
       "description": "Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts"
@@ -515,8 +522,7 @@
                 "$ref": "#/definitions/OpenObject"
               }
             ]
-          },
-          "minItems": 1
+          }
         },
         {
           "$ref": "#/definitions/OpenBoolean"
@@ -569,7 +575,10 @@
     },
     "setupExitSignals": {
       "type": "boolean",
-      "description": "It takes a boolean and if true (default on CLI), the server will close and exit the process on SIGINT and SIGTERM. https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals"
+      "description": "It takes a boolean and if true (default on CLI), the server will close and exit the process on SIGINT and SIGTERM. https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals",
+      "cli": {
+        "exclude": true
+      }
     },
     "static": {
       "anyOf": [
@@ -584,8 +593,7 @@
                 "$ref": "#/definitions/StaticObject"
               }
             ]
-          },
-          "minItems": 1
+          }
         },
         {
           "type": "boolean"

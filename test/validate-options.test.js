@@ -242,6 +242,7 @@ const tests = {
     success: [
       true,
       'foo',
+      [],
       ['foo', 'bar'],
       { target: true },
       { target: 'foo' },
@@ -255,7 +256,7 @@ const tests = {
       },
       {},
     ],
-    failure: ['', [], { foo: 'bar' }, { target: 90 }, { app: true }],
+    failure: ['', { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
     success: ['8080', 8080, 'auto'],

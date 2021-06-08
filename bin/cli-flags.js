@@ -1,427 +1,797 @@
 'use strict';
 
-const normalizeOption = (option) => (typeof option === 'object' ? option : {});
-
 module.exports = {
-  devServer: [
-    {
-      name: 'host',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'The hostname/ip address the server will bind to.',
-    },
-    {
-      name: 'port',
-      type: [Number, String],
-      configs: [
-        {
-          type: 'number',
-        },
-        {
-          type: 'string',
-        },
-        {
-          type: 'enum',
-          values: ['auto'],
-        },
-      ],
-      description: 'The port server will listen to.',
-    },
-    {
-      name: 'static',
-      type: [String, Boolean],
-      configs: [
-        {
-          type: 'string',
-        },
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'A directory to serve static content from.',
-      multiple: true,
-      negative: true,
-    },
-    {
-      name: 'static-directory',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Directory for static contents.',
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.directory = opts.staticDirectory;
-        delete opts.staticDirectory;
+  'allowed-hosts': {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description:
+          "Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
+        path: 'allowedHosts[]',
       },
-    },
-    {
-      name: 'static-public-path',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'The bundled files will be available in the browser under this path.',
-      multiple: true,
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.publicPath = opts.staticPublicPath;
-        delete opts.staticPublicPath;
+      {
+        description:
+          "Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
+        multiple: false,
+        path: 'allowedHosts',
+        type: 'enum',
+        values: ['auto', 'all'],
       },
-    },
-    {
-      name: 'static-serve-index',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Tells dev-server to use serveIndex middleware.',
-      negatedDescription:
-        'Do not tell dev-server to use serveIndex middleware.',
-      negative: true,
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.serveIndex = opts.staticServeIndex;
-        delete opts.staticServeIndex;
+    ],
+    description:
+      "Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
+    multiple: true,
+    simpleType: 'string',
+  },
+  'allowed-hosts-reset': {
+    configs: [
+      {
+        type: 'reset',
+        multiple: false,
+        description:
+          "Clear all items provided in configuration. Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
+        path: 'allowedHosts',
       },
-    },
-    {
-      name: 'static-watch',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Watch for files in static content directory.',
-      negatedDescription: 'Do not watch for files in static content directory.',
-      negative: true,
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.watch = opts.staticWatch;
-        delete opts.staticWatch;
+    ],
+    description:
+      "Clear all items provided in configuration. Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  bonjour: {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour',
+        path: 'bonjour',
       },
-    },
-    {
-      name: 'live-reload',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Enables live reloading on changing files.',
-      negatedDescription: 'Disables live reloading on changing files.',
-      negative: true,
-    },
-    {
-      name: 'https',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Use HTTPS protocol.',
-      negatedDescription: 'Do not use HTTPS protocol.',
-      negative: true,
-    },
-    {
-      name: 'https-passphrase',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Passphrase for a pfx file.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.passphrase = opts.httpsPassphrase;
-        delete opts.httpsPassphrase;
+    ],
+    description:
+      'Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour',
+    negatedDescription:
+      'Do not broadcast the server via ZeroConf networking on start.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'client-transport': {
+    configs: [
+      {
+        type: 'enum',
+        values: ['sockjs', 'ws'],
+        multiple: false,
+        description:
+          'Allows to set custom transport to communicate with server.',
+        path: 'client.transport',
       },
-    },
-    {
-      name: 'https-key',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL key.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.key = opts.httpsKey;
-        delete opts.httpsKey;
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Allows to set custom transport to communicate with server.',
+        path: 'client.transport',
       },
-    },
-    {
-      name: 'https-pfx',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL pfx file.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.pfx = opts.httpsPfx;
-        delete opts.httpsPfx;
+    ],
+    description: 'Allows to set custom transport to communicate with server.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'client-logging': {
+    configs: [
+      {
+        type: 'enum',
+        values: ['none', 'error', 'warn', 'info', 'log', 'verbose'],
+        multiple: false,
+        description:
+          'Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient',
+        path: 'client.logging',
       },
-    },
-    {
-      name: 'https-cert',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL certificate.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.cert = opts.httpsCert;
-        delete opts.httpsCert;
+    ],
+    description:
+      'Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'client-progress': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description: 'Print compilation progress in percentage in the browser.',
+        path: 'client.progress',
       },
-    },
-    {
-      name: 'https-cacert',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL CA certificate.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.cacert = opts.httpsCacert;
-        delete opts.httpsCacert;
+    ],
+    description: 'Print compilation progress in percentage in the browser.',
+    negatedDescription:
+      'Do not print compilation progress in percentage in the browser.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'client-overlay': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
+        path: 'client.overlay',
       },
-    },
-    {
-      name: 'https-request-cert',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Request for an SSL certificate.',
-      negatedDescription: 'Do not request for an SSL certificate.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.requestCert = opts.httpsRequestCert;
-        delete opts.httpsRequestCert;
+    ],
+    description:
+      'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
+    negatedDescription:
+      'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'client-overlay-errors': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Show a full-screen overlay in the browser when there are compiler errors.',
+        path: 'client.overlay.errors',
       },
-    },
-    {
-      name: 'http2',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Use HTTP/2, must be used with HTTPS.',
-      negatedDescription: 'Do not use HTTP/2.',
-      negative: true,
-    },
-    {
-      name: 'bonjour',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Broadcasts the server via ZeroConf networking on start.',
-      negatedDescription:
-        'Do not broadcast the server via ZeroConf networking on start.',
-      negative: true,
-    },
-    {
-      name: 'client-hot-entry',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Tell devServer to inject a Hot Module Replacement entry.',
-      negatedDescription:
-        'Do not tell devServer to inject a Hot Module Replacement entry.',
-      negative: true,
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.hotEntry = opts.clientHotEntry;
-        delete opts.clientHotEntry;
+    ],
+    description:
+      'Show a full-screen overlay in the browser when there are compiler errors.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'client-overlay-warnings': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Show a full-screen overlay in the browser when there are compiler warnings.',
+        path: 'client.overlay.warnings',
       },
-    },
-    {
-      name: 'client-progress',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Print compilation progress in percentage in the browser.',
-      negatedDescription:
-        'Do not print compilation progress in percentage in the browser.',
-      negative: true,
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.progress = opts.clientProgress;
-        delete opts.clientProgress;
+    ],
+    description:
+      'Show a full-screen overlay in the browser when there are compiler warnings.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'client-need-client-entry': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description: 'Tells devServer to inject a client entry.',
+        path: 'client.needClientEntry',
       },
-    },
-    {
-      name: 'client-overlay',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description:
-        'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
-      negatedDescription:
-        'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
-      negative: true,
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.overlay = opts.clientOverlay;
-        delete opts.clientOverlay;
+    ],
+    description: 'Tells devServer to inject a client entry.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'client-hot-entry': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Tells devServer to inject a Hot Module Replacement entry.',
+        path: 'client.hotEntry',
       },
-    },
-    {
-      name: 'client-logging',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'Log level in the browser (none, error, warn, info, log, verbose).',
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.logging = opts.clientLogging;
-        delete opts.clientLogging;
+    ],
+    description: 'Tells devServer to inject a Hot Module Replacement entry.',
+    negatedDescription:
+      'Do not tell devServer to inject a Hot Module Replacement entry.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'client-web-socket-url': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          "When using dev server and you're proxying dev-server, the client script does not always know where to connect to.",
+        path: 'client.webSocketURL',
       },
-    },
-    {
-      name: 'open',
-      type: [Boolean, String],
-      multiple: true,
-      configs: [
-        {
-          type: 'boolean',
-        },
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open the default browser.',
-      negatedDescription: 'Do not open the default browser.',
-      negative: true,
-    },
-    {
-      name: 'open-app',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open specified browser.',
-      processor(opts) {
-        opts.open = normalizeOption(opts.open);
-        opts.open.app = opts.openApp;
-        delete opts.openApp;
+    ],
+    description:
+      "When using dev server and you're proxying dev-server, the client script does not always know where to connect to.",
+    simpleType: 'string',
+    multiple: false,
+  },
+  'client-web-socket-url-host': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Tells clients connected to devServer to use the provided host.',
+        path: 'client.webSocketURL.host',
       },
-    },
-    {
-      name: 'open-target',
-      type: String,
-      configs: [
-        {
-          type: 'boolean',
-        },
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open specified route in browser.',
-      processor(opts) {
-        opts.open = normalizeOption(opts.open);
-        opts.open.target = opts.openTarget;
-        delete opts.openTarget;
+    ],
+    description:
+      'Tells clients connected to devServer to use the provided host.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'client-web-socket-url-port': {
+    configs: [
+      {
+        type: 'number',
+        multiple: false,
+        description:
+          'Tells clients connected to devServer to use the provided port.',
+        path: 'client.webSocketURL.port',
       },
-      negatedDescription: 'Do not open specified route in browser.',
-      multiple: true,
-      negative: true,
-    },
-    {
-      name: 'history-api-fallback',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Fallback to /index.html for Single Page Applications.',
-      negatedDescription:
-        'Do not fallback to /index.html for Single Page Applications.',
-      negative: true,
-    },
-    {
-      name: 'compress',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Enable gzip compression.',
-      negatedDescription: 'Disable gzip compression.',
-      negative: true,
-    },
-    {
-      name: 'allowed-hosts',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Set hosts that are allowed to access the dev server.',
-      multiple: true,
-    },
-    {
-      name: 'watch-files',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Watch static files for file changes.',
-      multiple: true,
-    },
-  ],
+      {
+        description:
+          'Tells clients connected to devServer to use the provided port.',
+        multiple: false,
+        path: 'client.webSocketURL.port',
+        type: 'string',
+      },
+    ],
+    description:
+      'Tells clients connected to devServer to use the provided port.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'client-web-socket-url-path': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Tells clients connected to devServer to use the provided path to connect.',
+        path: 'client.webSocketURL.path',
+      },
+    ],
+    description:
+      'Tells clients connected to devServer to use the provided path to connect.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'client-web-socket-url-protocol': {
+    configs: [
+      {
+        description:
+          'Tells clients connected to devServer to use the provided protocol.',
+        multiple: false,
+        path: 'client.webSocketURL.protocol',
+        type: 'enum',
+        values: ['auto'],
+      },
+      {
+        description:
+          'Tells clients connected to devServer to use the provided protocol.',
+        multiple: false,
+        path: 'client.webSocketURL.protocol',
+        type: 'string',
+      },
+    ],
+    description:
+      'Tells clients connected to devServer to use the provided protocol.',
+    multiple: false,
+    simpleType: 'string',
+  },
+  'web-socket-server': {
+    configs: [
+      {
+        type: 'enum',
+        values: ['sockjs', 'ws'],
+        multiple: false,
+        description: 'Allows to set web socket server and options.',
+        path: 'webSocketServer',
+      },
+      {
+        type: 'string',
+        multiple: false,
+        description: 'Allows to set web socket server and options.',
+        path: 'webSocketServer',
+      },
+    ],
+    description: 'Allows to set web socket server and options.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  compress: {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress',
+        path: 'compress',
+      },
+    ],
+    description:
+      'Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress',
+    negatedDescription: 'Disable gzip compression.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'history-api-fallback': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback',
+        path: 'historyApiFallback',
+      },
+    ],
+    description:
+      'When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  host: {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost',
+        path: 'host',
+      },
+    ],
+    description:
+      'Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost',
+    simpleType: 'string',
+    multiple: false,
+  },
+  hot: {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          "Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot",
+        path: 'hot',
+      },
+      {
+        type: 'enum',
+        values: ['only'],
+        multiple: false,
+        description:
+          "Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot",
+        path: 'hot',
+      },
+    ],
+    description:
+      "Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot",
+    negatedDescription: "Disable webpack's Hot Module Replacement feature.",
+    simpleType: 'string',
+    multiple: false,
+  },
+  http2: {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Serve over HTTP/2 using spdy. https://webpack.js.org/configuration/dev-server/#devserverhttp2',
+        path: 'http2',
+      },
+    ],
+    description:
+      'Serve over HTTP/2 using spdy. https://webpack.js.org/configuration/dev-server/#devserverhttp2',
+    negatedDescription: 'Do not use HTTP/2.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  https: {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps',
+        path: 'https',
+      },
+    ],
+    description:
+      'By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps',
+    negatedDescription: 'Do not use HTTPS protocol.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'https-passphrase': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description: 'Passphrase for a pfx file.',
+        path: 'https.passphrase',
+      },
+    ],
+    description: 'Passphrase for a pfx file.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'https-request-cert': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description: 'Request for an SSL certificate.',
+        path: 'https.requestCert',
+      },
+    ],
+    description: 'Request for an SSL certificate.',
+    negatedDescription: 'Do not request for an SSL certificate.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'https-cacert': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description: 'Path to an SSL CA certificate.',
+        path: 'https.cacert',
+      },
+    ],
+    description: 'Path to an SSL CA certificate.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'https-key': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description: 'Path to an SSL key.',
+        path: 'https.key',
+      },
+    ],
+    description: 'Path to an SSL key.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'https-pfx': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description: 'Path to an SSL pfx file.',
+        path: 'https.pfx',
+      },
+    ],
+    description: 'Path to an SSL pfx file.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'https-cert': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description: 'Path to an SSL certificate.',
+        path: 'https.cert',
+      },
+    ],
+    description: 'Path to an SSL certificate.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'live-reload': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'By default, the dev-server will reload/refresh the page when file changes are detected. https://webpack.js.org/configuration/dev-server/#devserverlivereload',
+        path: 'liveReload',
+      },
+    ],
+    description:
+      'By default, the dev-server will reload/refresh the page when file changes are detected. https://webpack.js.org/configuration/dev-server/#devserverlivereload',
+    negatedDescription: 'Disables live reloading on changing files.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  open: {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description:
+          'Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen',
+        path: 'open[]',
+      },
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen',
+        path: 'open',
+      },
+    ],
+    description:
+      'Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen',
+    negatedDescription: 'Do not open the default browser.',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'open-target': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: true,
+        description: 'Open specified route in browser.',
+        path: 'open[].target',
+      },
+      {
+        type: 'string',
+        multiple: true,
+        description: 'Open specified route in browser.',
+        path: 'open[].target',
+      },
+      {
+        type: 'string',
+        multiple: true,
+        description: 'Open specified route in browser.',
+        path: 'open.target[]',
+      },
+    ],
+    description: 'Open specified route in browser.',
+    negatedDescription: 'Do not open specified route in browser.',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'open-app-name': {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description: 'Open specified browser.',
+        path: 'open[].app.name',
+      },
+      {
+        type: 'string',
+        multiple: true,
+        description: 'Open specified browser.',
+        path: 'open.app.name[]',
+      },
+    ],
+    description: 'Open specified browser.',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'open-app': {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description: 'Open specified browser.',
+        path: 'open[].app',
+      },
+    ],
+    description: 'Open specified browser.',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'open-reset': {
+    configs: [
+      {
+        type: 'reset',
+        multiple: false,
+        description:
+          'Clear all items provided in configuration. Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen',
+        path: 'open',
+      },
+    ],
+    description:
+      'Clear all items provided in configuration. Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'open-target-reset': {
+    configs: [
+      {
+        type: 'reset',
+        multiple: false,
+        description:
+          'Clear all items provided in configuration. Open specified route in browser.',
+        path: 'open.target',
+      },
+    ],
+    description:
+      'Clear all items provided in configuration. Open specified route in browser.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'open-app-name-reset': {
+    configs: [
+      {
+        type: 'reset',
+        multiple: false,
+        description:
+          'Clear all items provided in configuration. Open specified browser.',
+        path: 'open.app.name',
+      },
+    ],
+    description:
+      'Clear all items provided in configuration. Open specified browser.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  port: {
+    configs: [
+      {
+        type: 'number',
+        multiple: false,
+        description:
+          'Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport',
+        path: 'port',
+      },
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport',
+        path: 'port',
+      },
+      {
+        type: 'enum',
+        values: ['auto'],
+        multiple: false,
+        description:
+          'Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport',
+        path: 'port',
+      },
+    ],
+    description:
+      'Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport',
+    simpleType: 'string',
+    multiple: false,
+  },
+  static: {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description:
+          'It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic',
+        path: 'static[]',
+      },
+      {
+        type: 'boolean',
+        multiple: false,
+        description:
+          'It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic',
+        path: 'static',
+      },
+    ],
+    description:
+      'It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'static-directory': {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description: 'Directory for static contents.',
+        path: 'static[].directory',
+      },
+    ],
+    description: 'Directory for static contents.',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'static-public-path': {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description:
+          'The bundled files will be available in the browser under this path.',
+        path: 'static[].publicPath',
+      },
+      {
+        type: 'string',
+        multiple: true,
+        description:
+          'The bundled files will be available in the browser under this path.',
+        path: 'static.publicPath[]',
+      },
+    ],
+    description:
+      'The bundled files will be available in the browser under this path.',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'static-serve-index': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: true,
+        description:
+          'Tells dev-server to use serveIndex middleware when enabled.',
+        path: 'static[].serveIndex',
+      },
+    ],
+    description: 'Tells dev-server to use serveIndex middleware when enabled.',
+    negatedDescription: 'Do not tell dev-server to use serveIndex middleware.',
+    simpleType: 'boolean',
+    multiple: true,
+  },
+  'static-watch': {
+    configs: [
+      {
+        type: 'boolean',
+        multiple: true,
+        description: 'Watch for files in static content directory.',
+        path: 'static[].watch',
+      },
+    ],
+    description: 'Watch for files in static content directory.',
+    negatedDescription: 'Do not watch for files in static content directory.',
+    simpleType: 'boolean',
+    multiple: true,
+  },
+  'static-reset': {
+    configs: [
+      {
+        type: 'reset',
+        multiple: false,
+        description:
+          'Clear all items provided in configuration. It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic',
+        path: 'static',
+      },
+    ],
+    description:
+      'Clear all items provided in configuration. It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'static-public-path-reset': {
+    configs: [
+      {
+        type: 'reset',
+        multiple: false,
+        description:
+          'Clear all items provided in configuration. The bundled files will be available in the browser under this path.',
+        path: 'static.publicPath',
+      },
+    ],
+    description:
+      'Clear all items provided in configuration. The bundled files will be available in the browser under this path.',
+    simpleType: 'boolean',
+    multiple: false,
+  },
+  'watch-files': {
+    configs: [
+      {
+        type: 'string',
+        multiple: true,
+        description:
+          'List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
+        path: 'watchFiles[]',
+      },
+    ],
+    description:
+      'List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
+    simpleType: 'string',
+    multiple: true,
+  },
+  'watch-files-reset': {
+    configs: [
+      {
+        type: 'reset',
+        multiple: false,
+        description:
+          'Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
+        path: 'watchFiles',
+      },
+    ],
+    description:
+      'Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
+    simpleType: 'boolean',
+    multiple: false,
+  },
 };
