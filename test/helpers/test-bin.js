@@ -1,9 +1,10 @@
 'use strict';
 
 const path = require('path');
-const execa = require('execa');
-const stripAnsi = require('strip-ansi');
 const internalIp = require('internal-ip');
+const execa = require('execa');
+// TODO Migrate on `import().then()` after update jest and migrate on ECMA modules in future
+const stripAnsi = require('../../client/modules/strip-ansi/index');
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -39,6 +40,12 @@ function testBin(testArgs, configPath) {
   }
 
   return execa('node', args, { cwd, env, timeout: 10000 });
+}
+
+function normalizeStdout(stdout) {
+  const normalizedStderr = stripAnsi(stdout);
+
+  return normalizedStderr;
 }
 
 function normalizeStderr(stderr, options = {}) {
@@ -112,4 +119,4 @@ function normalizeStderr(stderr, options = {}) {
   return normalizedStderr;
 }
 
-module.exports = { normalizeStderr, testBin };
+module.exports = { testBin, normalizeStderr, normalizeStdout };

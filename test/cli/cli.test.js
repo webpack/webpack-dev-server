@@ -4,10 +4,13 @@ const path = require('path');
 const webpack = require('webpack');
 const execa = require('execa');
 const internalIp = require('internal-ip');
-const stripAnsi = require('strip-ansi');
 const schema = require('../../lib/options.json');
 const cliOptions = require('../../bin/cli-flags');
-const { testBin, normalizeStderr } = require('../helpers/test-bin');
+const {
+  testBin,
+  normalizeStderr,
+  normalizeStdout,
+} = require('../helpers/test-bin');
 
 const isMacOS = process.platform === 'darwin';
 const localIPv4 = internalIp.v4.sync();
@@ -44,7 +47,7 @@ describe('CLI', () => {
     (isMacOS ? it.skip : it)('should generate correct cli flags', (done) => {
       testBin('--help')
         .then((output) => {
-          expect(stripAnsi(output.stdout)).toMatchSnapshot();
+          expect(normalizeStdout(output.stdout)).toMatchSnapshot();
           done();
         })
         .catch(done);

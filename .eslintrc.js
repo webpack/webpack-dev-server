@@ -4,7 +4,7 @@ module.exports = {
   extends: ['webpack', 'prettier'],
   parserOptions: {
     sourceType: 'script',
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
   },
   env: {
     node: true,

@@ -10,7 +10,8 @@ exports[`CLI bonjour option --bonjour 1`] = `
 `;
 
 exports[`CLI bonjour option --bonjour and --https 1`] = `
-"<i> [webpack-dev-server] Project is running at:
+"<i> [webpack-dev-server] Generating SSL Certificate
+<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<network-ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): https://[<network-ip-v6>]:<port>/
