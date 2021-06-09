@@ -7,20 +7,21 @@
         {
           "type": "array",
           "items": {
-            "type": "string",
-            "minLength": 1
-          },
-          "minItems": 1
+            "$ref": "#/definitions/AllowedHostsItem"
+          }
         },
         {
           "enum": ["auto", "all"]
         },
         {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/definitions/AllowedHostsItem"
         }
       ],
       "description": "Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts"
+    },
+    "AllowedHostsItem": {
+      "type": "string",
+      "minLength": 1
     },
     "Bonjour": {
       "anyOf": [
@@ -356,17 +357,14 @@
             {
               "type": "array",
               "items": {
-                "type": "string",
-                "minLength": 1
-              },
-              "minItems": 1
+                "type": "string"
+              }
             },
             {
               "type": "boolean"
             },
             {
-              "type": "string",
-              "minLength": 1
+              "type": "string"
             }
           ],
           "description": "Open specified page in browser."
@@ -397,8 +395,7 @@
                   "items": {
                     "type": "string",
                     "minLength": 1
-                  },
-                  "minItems": 1
+                  }
                 }
               }
             },
@@ -446,8 +443,7 @@
                 "instanceof": "Function"
               }
             ]
-          },
-          "minItems": 1
+          }
         }
       ],
       "description": "Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy"
@@ -504,14 +500,12 @@
             {
               "type": "array",
               "items": {
-                "type": "string",
-                "minLength": 1
+                "type": "string"
               },
               "minItems": 1
             },
             {
-              "type": "string",
-              "minLength": 1
+              "type": "string"
             }
           ],
           "description": "The bundled files will be available in the browser under this path."
