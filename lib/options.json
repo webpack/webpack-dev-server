@@ -116,17 +116,15 @@
       "type": "boolean"
     },
     "ClientTransport": {
-      "transport": {
-        "anyOf": [
-          {
-            "$ref": "#/definitions/ClientTransportEnum"
-          },
-          {
-            "$ref": "#/definitions/ClientTransportString"
-          }
-        ],
-        "description": "Allows to set custom transport to communicate with dev server."
-      }
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ClientTransportEnum"
+        },
+        {
+          "$ref": "#/definitions/ClientTransportString"
+        }
+      ],
+      "description": "Allows to set custom transport to communicate with dev server."
     },
     "ClientTransportEnum": {
       "enum": ["sockjs", "ws"]
