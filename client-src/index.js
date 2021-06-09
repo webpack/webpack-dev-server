@@ -174,8 +174,17 @@ const onSocketMessage = {
         ? options.overlay
         : options.overlay && options.overlay.warnings;
 
+    const shouldLog =
+      typeof options.overlay === 'boolean'
+        ? options.overlay
+        : options.overlay && options.overlay.console;
+
     if (needShowOverlay) {
       overlay.showMessage(warnings);
+    }
+
+    if (shouldLog) {
+      log.warn(warnings);
     }
 
     if (options.initial) {
@@ -202,8 +211,17 @@ const onSocketMessage = {
         ? options.overlay
         : options.overlay && options.overlay.errors;
 
+    const shouldLog =
+      typeof options.overlay === 'boolean'
+        ? options.overlay
+        : options.overlay && options.overlay.console;
+
     if (needShowOverlay) {
       overlay.showMessage(errors);
+    }
+
+    if (shouldLog) {
+      log.error(errors);
     }
 
     options.initial = false;

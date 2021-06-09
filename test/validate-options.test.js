@@ -67,6 +67,17 @@ const tests = {
       },
       {
         overlay: {
+          console: true,
+        },
+      },
+      {
+        overlay: {
+          errors: true,
+          console: true,
+        },
+      },
+      {
+        overlay: {
           arbitrary: '',
         },
       },
@@ -129,6 +140,11 @@ const tests = {
       {
         overlay: {
           warnings: '',
+        },
+      },
+      {
+        overlay: {
+          console: '',
         },
       },
       {
