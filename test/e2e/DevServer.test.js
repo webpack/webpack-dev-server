@@ -1,6 +1,6 @@
 'use strict';
 
-const { testBin } = require('../helpers/test-bin');
+const { testBin, normalizeStderr } = require('../helpers/test-bin');
 const isWebpack5 = require('../helpers/isWebpack5');
 
 describe('DevServer', () => {
@@ -123,4 +123,20 @@ describe('DevServer', () => {
         .catch(done);
     }
   );
+
+  it('should show a warning for live reloading with non-web target', (done) => {
+    testBin(
+      '--target node --live-reload',
+      './test/fixtures/dev-server/default-config.js'
+    )
+      .then((output) => {
+        expect(output.exitCode).toEqual(0);
+        expect(
+          normalizeStderr(output.stderr, { ipv6: true })
+        ).toMatchSnapshot();
+
+        done();
+      })
+      .catch(done);
+  });
 });
