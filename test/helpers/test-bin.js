@@ -14,7 +14,7 @@ const basicConfigPath = path.resolve(
   '../fixtures/cli/webpack.config.js'
 );
 
-const testBin = async (testArgs, configPath) => {
+const testBin = (testArgs, configPath) => {
   const cwd = process.cwd();
   const env = {
     WEBPACK_CLI_HELP_WIDTH: 2048,
@@ -41,7 +41,7 @@ const testBin = async (testArgs, configPath) => {
   return execa('node', args, { cwd, env, timeout: 10000 });
 };
 
-function normalizeStderr(stderr, options = {}) {
+const normalizeStderr = (stderr, options = {}) => {
   let normalizedStderr = stripAnsi(stderr);
 
   normalizedStderr = normalizedStderr
@@ -110,6 +110,6 @@ function normalizeStderr(stderr, options = {}) {
   }
 
   return normalizedStderr;
-}
+};
 
 module.exports = { normalizeStderr, testBin };
