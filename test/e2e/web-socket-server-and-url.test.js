@@ -460,11 +460,6 @@ for (const webSocketServerType of webSocketServerTypes) {
         webSocketServer: webSocketServerType,
         port: 'auto',
         host: '0.0.0.0',
-        client: {
-          webSocketURL: {
-            port: port2,
-          },
-        },
       };
       testServer.startAwaitingCompilation(config, options, done);
     });
@@ -476,7 +471,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         runBrowser().then(({ page, browser }) => {
           waitForTest(browser, page, /ws/, (websocketUrl) => {
             expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://localhost:${port2}/ws`
+              `${websocketUrlProtocol}://localhost:8080/ws`
             );
 
             done();
@@ -488,52 +483,12 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
-  describe('should work with the "port" option is 80', () => {
-    beforeAll((done) => {
-      const options = {
-        webSocketServer: webSocketServerType,
-        port: 80,
-        host: '0.0.0.0',
-        client: {
-          webSocketURL: {
-            port: port2,
-          },
-        },
-      };
-
-      testServer.startAwaitingCompilation(config, options, done);
-    });
-
-    afterAll(testServer.close);
-
-    describe('browser client', () => {
-      it('should work', (done) => {
-        runBrowser().then(({ page, browser }) => {
-          waitForTest(browser, page, /ws/, (websocketUrl) => {
-            expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://localhost:${port2}/ws`
-            );
-
-            done();
-          });
-
-          page.goto(`http://localhost:80/main`);
-        });
-      });
-    });
-  });
-
   describe('should work when "host" option is IPv4', () => {
     beforeAll((done) => {
       const options = {
         webSocketServer: webSocketServerType,
         port: port3,
         host: internalIp.v4.sync(),
-        client: {
-          webSocketURL: {
-            port: port2,
-          },
-        },
       };
       testServer.startAwaitingCompilation(config, options, done);
     });
@@ -545,7 +500,7 @@ for (const webSocketServerType of webSocketServerTypes) {
         runBrowser().then(({ page, browser }) => {
           waitForTest(browser, page, /ws/, (websocketUrl) => {
             expect(websocketUrl).toContain(
-              `${websocketUrlProtocol}://${internalIp.v4.sync()}:${port2}/ws`
+              `${websocketUrlProtocol}://${internalIp.v4.sync()}:${port3}/ws`
             );
 
             done();
