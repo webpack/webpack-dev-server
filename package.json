@@ -38,7 +38,6 @@
     "connect-history-api-fallback": "^1.6.0",
     "del": "^6.0.0",
     "express": "^4.17.1",
-    "find-cache-dir": "^3.3.1",
     "graceful-fs": "^4.2.6",
     "html-entities": "^2.3.2",
     "http-proxy-middleware": "^2.0.0",
