@@ -118,7 +118,16 @@ exports[`options validate should throw an error on the "client" option with '{"p
    -> Prints compilation progress in percentage in the browser."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"transport":true}' value 1`] = `"Error: client.transport must be a string denoting a default implementation (e.g. 'sockjs', 'ws') or a full path to a JS file which exports a class extending BaseClient (webpack-dev-server/client-src/clients/BaseClient.js) via require.resolve(...)"`;
+exports[`options validate should throw an error on the "client" option with '{"transport":true}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.client.transport should be one of these:
+   \\"sockjs\\" | \\"ws\\" | non-empty string
+   -> Allows to set custom transport to communicate with dev server.
+   Details:
+    * options.client.transport should be one of these:
+      \\"sockjs\\" | \\"ws\\"
+    * options.client.transport should be a non-empty string."
+`;
 
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
@@ -154,7 +163,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL should be one of these:
    non-empty string | object { host?, path?, port?, protocol? }
-   -> Allows to specify URL to web socket server (useful when you're proxying dev-server and client script does not always know where to connect to).
+   -> Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
    Details:
     * options.client.webSocketURL.port should be one of these:
       number | non-empty string
@@ -174,7 +183,7 @@ exports[`options validate should throw an error on the "client" option with 'who
 exports[`options validate should throw an error on the "compress" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.compress should be a boolean.
-   -> Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
+   -> Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
 `;
 
 exports[`options validate should throw an error on the "devMiddleware" option with '' value 1`] = `
@@ -399,7 +408,7 @@ exports[`options validate should throw an error on the "open" option with '{"tar
    Details:
     * options.open.target should be one of these:
       [string, ...] | boolean | string
-      -> Open specified page in browser.
+      -> Opens specified page in browser.
       Details:
        * options.open.target should be an array:
          [string, ...]
@@ -477,7 +486,7 @@ exports[`options validate should throw an error on the "static" option with '{"p
    Details:
     * options.static.publicPath should be one of these:
       [string, ...] (should not have fewer than 1 item) | string
-      -> The bundled files will be available in the browser under this path.
+      -> The static files will be available in the browser under this public path.
       Details:
        * options.static.publicPath should be an array:
          [string, ...] (should not have fewer than 1 item)
@@ -492,7 +501,7 @@ exports[`options validate should throw an error on the "static" option with '{"s
    Details:
     * options.static.serveIndex should be one of these:
       boolean | object { … }
-      -> Tells dev-server to use serveIndex middleware when enabled.
+      -> Tells dev server to use serveIndex middleware when enabled.
       Details:
        * options.static.serveIndex should be a boolean.
        * options.static.serveIndex should be an object:
@@ -507,12 +516,12 @@ exports[`options validate should throw an error on the "static" option with '{"w
    Details:
     * options.static.watch should be one of these:
       boolean | object { … }
-      -> Watch for files in static content directory.
+      -> Watches for files in static content directory.
       Details:
        * options.static.watch should be a boolean.
        * options.static.watch should be an object:
          object { … }
-         -> options for watch, description available at https://github.com/paulmillr/chokidar#api"
+         -> Options for watch, description available at https://github.com/paulmillr/chokidar#api"
 `;
 
 exports[`options validate should throw an error on the "static" option with '0' value 1`] = `

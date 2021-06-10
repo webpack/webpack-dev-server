@@ -51,39 +51,39 @@ Options:
   --no-target                               Negative 'target' option.
   --watch-options-stdin                     Stop watching when stdin stream has ended.
   --no-watch-options-stdin                  Do not stop watching when stdin stream has ended.
-  --allowed-hosts <value...>                Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
-  --allowed-hosts-reset                     Clear all items provided in configuration. Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
-  --bonjour                                 Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
+  --allowed-hosts <value...>                Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+  --allowed-hosts-reset                     Clear all items provided in configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+  --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
   --no-bonjour                              Negative 'bonjour' option.
-  --client-transport <value>                Allows to set custom transport to communicate with server.
-  --client-logging <value>                  Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient
-  --client-progress                         Print compilation progress in percentage in the browser.
-  --no-client-progress                      Negative 'client-progress' option.
-  --client-overlay                          Show a full-screen overlay in the browser when there are compiler errors or warnings.
-  --no-client-overlay                       Negative 'client-overlay' option.
-  --client-overlay-errors                   Show a full-screen overlay in the browser when there are compiler errors.
-  --no-client-overlay-errors                Negative 'client-overlay-errors' option.
-  --client-overlay-warnings                 Show a full-screen overlay in the browser when there are compiler warnings.
-  --no-client-overlay-warnings              Negative 'client-overlay-warnings' option.
-  --client-need-client-entry                Tells devServer to inject a client entry.
-  --no-client-need-client-entry             Negative 'client-need-client-entry' option.
-  --client-hot-entry                        Tells devServer to inject a Hot Module Replacement entry.
+  --client-hot-entry                        Injects a Hot Module Replacement entry.
   --no-client-hot-entry                     Negative 'client-hot-entry' option.
-  --client-web-socket-url <value>           When using dev server and you're proxying dev-server, the client script does not always know where to connect to.
-  --client-web-socket-url-protocol <value>  Tells clients connected to devServer to use the provided protocol.
+  --client-logging <value>                  Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient
+  --client-need-client-entry                Inject a client entry.
+  --no-client-need-client-entry             Negative 'client-need-client-entry' option.
+  --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
+  --no-client-overlay                       Negative 'client-overlay' option.
+  --client-overlay-errors                   Enables a full-screen overlay in the browser when there are compiler errors.
+  --no-client-overlay-errors                Negative 'client-overlay-errors' option.
+  --client-overlay-warnings                 Enables a full-screen overlay in the browser when there are compiler warnings.
+  --no-client-overlay-warnings              Negative 'client-overlay-warnings' option.
+  --client-progress                         Prints compilation progress in percentage in the browser.
+  --no-client-progress                      Negative 'client-progress' option.
+  --client-transport <value>                Allows to set custom transport to communicate with dev server.
+  --client-web-socket-url <value>           Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
   --client-web-socket-url-host <value>      Tells clients connected to devServer to use the provided host.
-  --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
   --client-web-socket-url-path <value>      Tells clients connected to devServer to use the provided path to connect.
-  --compress                                Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress
+  --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
+  --client-web-socket-url-protocol <value>  Tells clients connected to devServer to use the provided protocol.
+  --compress                                Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress
   --no-compress                             Negative 'compress' option.
-  --history-api-fallback                    When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
+  --history-api-fallback                    Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
   --no-history-api-fallback                 Negative 'history-api-fallback' option.
-  --host <value>                            Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost
-  --hot [value]                             Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot
+  --host <value>                            Allows to specify a hostname to use. https://webpack.js.org/configuration/dev-server/#devserverhost
+  --hot [value]                             Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot
   --no-hot                                  Negative 'hot' option.
-  --http2                                   Serve over HTTP/2 using spdy. https://webpack.js.org/configuration/dev-server/#devserverhttp2
+  --http2                                   Allows to serve over HTTP/2 using SPDY. https://webpack.js.org/configuration/dev-server/#devserverhttp2
   --no-http2                                Negative 'http2' option.
-  --https                                   By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+  --https                                   Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). https://webpack.js.org/configuration/dev-server/#devserverhttps
   --no-https                                Negative 'https' option.
   --https-passphrase <value>                Passphrase for a pfx file.
   --https-request-cert                      Request for an SSL certificate.
@@ -92,31 +92,31 @@ Options:
   --https-key <value>                       Path to an SSL key.
   --https-pfx <value>                       Path to an SSL pfx file.
   --https-cert <value>                      Path to an SSL certificate.
-  --live-reload                             By default, the dev-server will reload/refresh the page when file changes are detected. https://webpack.js.org/configuration/dev-server/#devserverlivereload
+  --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default). https://webpack.js.org/configuration/dev-server/#devserverlivereload
   --no-live-reload                          Negative 'live-reload' option.
-  --open [value...]                         Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
+  --open [value...]                         Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen
   --no-open                                 Negative 'open' option.
-  --open-target [value...]                  Open specified route in browser.
+  --open-target [value...]                  Opens specified page in browser.
   --no-open-target                          Negative 'open-target' option.
   --open-app-name <value...>                Open specified browser.
   --open-app <value...>                     Open specified browser.
-  --open-reset                              Clear all items provided in configuration. Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
-  --open-target-reset                       Clear all items provided in configuration. Open specified route in browser.
+  --open-reset                              Clear all items provided in configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen
+  --open-target-reset                       Clear all items provided in configuration. Opens specified page in browser.
   --open-app-name-reset                     Clear all items provided in configuration. Open specified browser.
-  --port <value>                            Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
-  --static [value...]                       It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+  --port <value>                            Allows to specify a port to use. https://webpack.js.org/configuration/dev-server/#devserverport
+  --static [value...]                       Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
   --no-static                               Negative 'static' option.
   --static-directory <value...>             Directory for static contents.
-  --static-public-path <value...>           The bundled files will be available in the browser under this path.
-  --static-serve-index                      Tells dev-server to use serveIndex middleware when enabled.
+  --static-public-path <value...>           The static files will be available in the browser under this public path.
+  --static-serve-index                      Tells dev server to use serveIndex middleware when enabled.
   --no-static-serve-index                   Negative 'static-serve-index' option.
-  --static-watch                            Watch for files in static content directory.
+  --static-watch                            Watches for files in static content directory.
   --no-static-watch                         Negative 'static-watch' option.
-  --static-reset                            Clear all items provided in configuration. It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
-  --static-public-path-reset                Clear all items provided in configuration. The bundled files will be available in the browser under this path.
-  --watch-files <value...>                  List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
-  --watch-files-reset                       Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
-  --web-socket-server <value>               Allows to set web socket server and options.
+  --static-reset                            Clear all items provided in configuration. Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
+  --static-public-path-reset                Clear all items provided in configuration. The static files will be available in the browser under this public path.
+  --watch-files <value...>                  Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
+  --watch-files-reset                       Clear all items provided in configuration. Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
+  --web-socket-server <value>               Allows to set web socket server and options (by default 'ws'). https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
 
 Global options:
   --color                                   Enable colors on console.

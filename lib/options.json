@@ -134,7 +134,7 @@
       "minLength": 1
     },
     "ClientWebSocketURL": {
-      "description": "Allows to specify URL to web socket server (useful when you're proxying dev-server and client script does not always know where to connect to).",
+      "description": "Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).",
       "anyOf": [
         {
           "type": "string",
@@ -183,7 +183,7 @@
     },
     "Compress": {
       "type": "boolean",
-      "description": "Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
+      "description": "Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
     },
     "DevMiddleware": {
       "description": "Provide options to 'webpack-dev-middleware' which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware",
@@ -365,7 +365,7 @@
               "type": "string"
             }
           ],
-          "description": "Open specified page in browser."
+          "description": "Opens specified page in browser."
         },
         "app": {
           "anyOf": [
@@ -506,7 +506,7 @@
               "type": "string"
             }
           ],
-          "description": "The bundled files will be available in the browser under this path."
+          "description": "The static files will be available in the browser under this public path."
         },
         "serveIndex": {
           "anyOf": [
@@ -518,7 +518,7 @@
               "additionalProperties": true
             }
           ],
-          "description": "Tells dev-server to use serveIndex middleware when enabled."
+          "description": "Tells dev server to use serveIndex middleware when enabled."
         },
         "watch": {
           "anyOf": [
@@ -527,10 +527,10 @@
             },
             {
               "type": "object",
-              "description": "options for watch, description available at https://github.com/paulmillr/chokidar#api"
+              "description": "Options for watch, description available at https://github.com/paulmillr/chokidar#api"
             }
           ],
-          "description": "Watch for files in static content directory."
+          "description": "Watches for files in static content directory."
         }
       }
     },
