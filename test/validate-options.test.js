@@ -57,17 +57,12 @@ const tests = {
       },
       {
         overlay: {
-          error: true,
+          errors: true,
         },
       },
       {
         overlay: {
           warnings: true,
-        },
-      },
-      {
-        overlay: {
-          arbitrary: '',
         },
       },
       {
@@ -129,6 +124,11 @@ const tests = {
       {
         overlay: {
           warnings: '',
+        },
+      },
+      {
+        overlay: {
+          arbitrary: '',
         },
       },
       {
@@ -264,11 +264,17 @@ const tests = {
   },
   proxy: {
     success: [
+      [
+        {
+          context: ['/auth', '/api'],
+          target: 'http://localhost:3000',
+        },
+      ],
       {
         '/api': 'http://localhost:3000',
       },
     ],
-    failure: [[], () => {}, false],
+    failure: [() => {}, false],
   },
   static: {
     success: [
