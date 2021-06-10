@@ -51,6 +51,8 @@ Options:
   --no-target                               Negative 'target' option.
   --watch-options-stdin                     Stop watching when stdin stream has ended.
   --no-watch-options-stdin                  Do not stop watching when stdin stream has ended.
+  --allowed-hosts <value...>                Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+  --allowed-hosts-reset                     Clear all items provided in configuration. Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
   --bonjour                                 Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
   --no-bonjour                              Negative 'bonjour' option.
   --client-transport <value>                Allows to set custom transport to communicate with server.
@@ -72,11 +74,8 @@ Options:
   --client-web-socket-url-host <value>      Tells clients connected to devServer to use the provided host.
   --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
   --client-web-socket-url-path <value>      Tells clients connected to devServer to use the provided path to connect.
-  --web-socket-server <value>               Allows to set web socket server and options.
   --compress                                Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress
   --no-compress                             Negative 'compress' option.
-  --allowed-hosts <value...>                Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
-  --allowed-hosts-reset                     Clear all items provided in configuration. Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
   --history-api-fallback                    When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
   --no-history-api-fallback                 Negative 'history-api-fallback' option.
   --host <value>                            Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost
@@ -117,6 +116,7 @@ Options:
   --static-public-path-reset                Clear all items provided in configuration. The bundled files will be available in the browser under this path.
   --watch-files <value...>                  List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
   --watch-files-reset                       Clear all items provided in configuration. List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
+  --web-socket-server <value>               Allows to set web socket server and options.
 
 Global options:
   --color                                   Enable colors on console.
