@@ -113,7 +113,6 @@ describe('logging', () => {
 
         await browser.close();
 
-        // Order doesn't matter, maybe we should improve that in future
         expect(
           consoleMessages.map((message) => message.text())
         ).toMatchSnapshot();
