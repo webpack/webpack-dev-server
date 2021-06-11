@@ -11,7 +11,7 @@ const contentBasePublic = path.resolve(
   '../fixtures/contentbase-config/public'
 );
 
-describe('liveReload option', () => {
+describe.skip('liveReload option', () => {
   let server;
 
   describe('Test disabling live reloading', () => {

@@ -13,7 +13,7 @@ const BaseServer = require('../../lib/servers/BaseServer');
 const port = require('../ports-map')['webSocketServer-option'];
 
 describe('webSocketServer', () => {
-  describe.only('server', () => {
+  describe('server', () => {
     let mockedTestServer;
     let testServer;
     let server;
@@ -266,7 +266,7 @@ describe('webSocketServer', () => {
         });
       });
 
-      describe('without a header', () => {
+      describe.skip('without a header', () => {
         let mockWarn;
 
         beforeAll((done) => {
@@ -367,7 +367,7 @@ describe('webSocketServer', () => {
         });
       });
 
-      describe('with a bad host header', () => {
+      describe.skip('with a bad host header', () => {
         beforeAll((done) => {
           server = testServer.start(
             config,
@@ -451,6 +451,7 @@ describe('webSocketServer', () => {
 
       beforeEach((done) => {
         jest.mock('../../lib/servers/WebsocketServer');
+
         mockedTestServer = require('../helpers/test-server');
         MockWebsocketServer = require('../../lib/servers/WebsocketServer');
 
@@ -465,6 +466,7 @@ describe('webSocketServer', () => {
 
       afterEach((done) => {
         mockedTestServer.close(done);
+
         jest.resetAllMocks();
         jest.resetModules();
 

@@ -11,7 +11,6 @@ module.exports = {
   testPathIgnorePatterns: ['<rootDir>/bin/this/process-arguments.js'],
   moduleFileExtensions: ['js', 'json'],
   testMatch: ['**/test/**/*.test.js'],
-  testEnvironment: 'jsdom',
   snapshotResolver: '<rootDir>/test/helpers/snapshotResolver.js',
   setupFilesAfterEnv: ['<rootDir>/setupTest.js'],
   globalSetup: '<rootDir>/globalSetupTest.js',
