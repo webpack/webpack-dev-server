@@ -4,7 +4,6 @@ const testServer = require('../helpers/test-server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').logging;
-const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('logging', () => {
   const baseOptions = {
@@ -50,6 +49,13 @@ describe('logging', () => {
       },
     },
     {
+      title: 'liveReload & hot are enabled',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
       title: 'client logging is none',
       options: {
         client: {
@@ -60,34 +66,40 @@ describe('logging', () => {
   ];
 
   webSocketServerTypesLog.forEach(async (mode) => {
-    cases.forEach(async ({ title, options }) => {
+    cases.forEach(({ title, options }) => {
       title += ` (${
         Object.keys(mode).length ? mode.webSocketServer : 'default'
       })`;
 
       options = { ...mode, ...options };
 
-      const testOptions = Object.assign({}, baseOptions, options);
-
       it(title, (done) => {
-        testServer.startAwaitingCompilation(config, testOptions, async () => {
-          const res = [];
-          const { page, browser } = await runBrowser();
+        testServer.startAwaitingCompilation(
+          config,
+          Object.assign({}, baseOptions, options),
+          async () => {
+            const { page, browser } = await runBrowser();
 
-          page.goto(`http://localhost:${port}/main`);
-          page.on('console', ({ _text }) => {
-            res.push(_text);
-          });
+            const consoleMessages = [];
 
-          // wait for load before closing the browser
-          await page.waitForNavigation({ waitUntil: 'load' });
-          await page.waitForTimeout(beforeBrowserCloseDelay);
-          await browser.close();
+            page.on('console', (message) => {
+              consoleMessages.push(message);
+            });
 
-          // Order doesn't matter, maybe we should improve that in future
-          await expect(res.sort()).toMatchSnapshot();
-          await testServer.close(done);
-        });
+            await page.goto(`http://localhost:${port}/main`, {
+              waitUntil: 'networkidle0',
+            });
+
+            await browser.close();
+
+            // Order doesn't matter, maybe we should improve that in future
+            expect(
+              consoleMessages.map((message) => message.text())
+            ).toMatchSnapshot();
+
+            await testServer.close(done);
+          }
+        );
       });
     });
   });
