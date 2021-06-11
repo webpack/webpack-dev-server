@@ -25,11 +25,13 @@ function runBrowser(config) {
       })
       .then((launchedBrowser) => {
         browser = launchedBrowser;
+
         return browser.newPage();
       })
       .then((newPage) => {
         page = newPage;
         page.emulate(options);
+
         resolve({ page, browser });
       })
       .catch(reject);

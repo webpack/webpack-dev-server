@@ -6,6 +6,7 @@ const portsList = {
   cli: 2,
   sockJSClient: 1,
   SockJSServer: 1,
+  'hot-and-live-reload': 1,
   Client: 1,
   ClientOptions: 3,
   logging: 1,

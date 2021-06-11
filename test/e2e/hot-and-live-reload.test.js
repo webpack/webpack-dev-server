@@ -7,45 +7,66 @@
 /* eslint-disable
   no-undef
 */
-const { resolve } = require('path');
+const path = require('path');
 const fs = require('graceful-fs');
 const testServer = require('../helpers/test-server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map').Client;
-const {
-  reloadReadyDelay,
-  completeReloadDelay,
-} = require('../helpers/puppeteer-constants');
+const port = require('../ports-map')['hot-and-live-reload'];
 
-const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
+const cssFilePath = path.resolve(
+  __dirname,
+  '../fixtures/reload-config/main.css'
+);
 
-describe('reload', () => {
+describe('hot and live reload', () => {
   const modes = [
     {
-      title: 'hot with default transportMode.client (ws)',
-      shouldRefresh: false,
+      title:
+        'should with default web socket server ("ws") and refresh content using hot module replacement',
     },
     {
-      title: 'hot with sockjs websocket server',
+      title:
+        'should with "sockjs" web socket server and refresh content using hot module replacement',
       options: {
         webSocketServer: 'sockjs',
       },
-      shouldRefresh: false,
     },
     {
-      title: 'hot with ws websocket server',
+      title:
+        'should with "ws" web socket server and refresh content using hot module replacement',
       options: {
         webSocketServer: 'ws',
       },
-      shouldRefresh: false,
     },
     {
-      title: 'reload without hot',
+      title: 'should work and refresh content using live reload',
       options: {
+        liveReload: true,
         hot: false,
       },
-      shouldRefresh: true,
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        liveReload: false,
+        hot: true,
+      },
+    },
+    {
+      title:
+        'should work and refresh content using hot module replacement when hot and live reload enabled',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
+      title: 'should not refresh content when hot and no live reload disabled',
+      options: {
+        hot: false,
+        liveReload: false,
+      },
     },
   ];
 
@@ -66,78 +87,97 @@ describe('reload', () => {
           mode.options
         );
 
-        // we need a delay between file writing and the start
-        // of the compilation due to a bug in webpack@4, as not doing
-        // so results in the done hook being called repeatedly
-        setTimeout(() => {
-          testServer.startAwaitingCompilation(reloadConfig, options, done);
-        }, 2000);
+        testServer.startAwaitingCompilation(reloadConfig, options, done);
       });
 
       afterAll((done) => {
         fs.unlinkSync(cssFilePath);
+
         testServer.close(done);
       });
 
-      describe('on browser client', () => {
-        it(`should reload ${
-          mode.shouldRefresh ? 'with' : 'without'
-        } page refresh`, (done) => {
-          runBrowser().then(({ page, browser }) => {
-            let refreshed = false;
-            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-              page
-                .evaluate(() => {
-                  const body = document.body;
-                  const bgColor = getComputedStyle(body)['background-color'];
-                  return bgColor;
-                })
-                .then((color) => {
-                  page.setRequestInterception(true).then(() => {
-                    page.on('request', (req) => {
-                      if (
-                        req.isNavigationRequest() &&
-                        req.frame() === page.mainFrame() &&
-                        req.url() === `http://localhost:${port}/main`
-                      ) {
-                        refreshed = true;
-                      }
+      it('should work', async () => {
+        const { page, browser } = await runBrowser();
 
-                      req.continue();
-                    });
-                    page.waitForTimeout(reloadReadyDelay).then(() => {
-                      fs.writeFileSync(
-                        cssFilePath,
-                        'body { background-color: rgb(255, 0, 0); }'
-                      );
-                      page.waitForTimeout(completeReloadDelay).then(() => {
-                        page
-                          .evaluate(() => {
-                            const body = document.body;
-                            const bgColor =
-                              getComputedStyle(body)['background-color'];
+        const consoleMessages = [];
+        const pageErrors = [];
+        const requests = [];
 
-                            return bgColor;
-                          })
-                          .then((color2) => {
-                            expect(color).toEqual('rgb(0, 0, 255)');
-                            expect(color2).toEqual('rgb(255, 0, 0)');
-                            expect(refreshed).toEqual(mode.shouldRefresh);
+        let doHotUpdate = false;
 
-                            return browser.close();
-                          })
-                          .then(() => {
-                            done();
-                          });
-                      });
-                    });
-                  });
-                });
-            });
+        page
+          .on('console', (message) => consoleMessages.push(message))
+          .on('pageerror', (error) => pageErrors.push(error))
+          .on('request', (request) => {
+            if (/\.hot-update\.json$/.test(request.url())) {
+              doHotUpdate = true;
+            }
 
-            page.goto(`http://localhost:${port}/main`);
+            requests.push(request);
           });
+
+        await page.goto(`http://localhost:${port}/main`, {
+          waitUntil: 'domcontentloaded',
         });
+
+        const backgroundColorBefore = await page.evaluate(() => {
+          const body = document.body;
+
+          return getComputedStyle(body)['background-color'];
+        });
+
+        expect(backgroundColorBefore).toEqual('rgb(0, 0, 255)');
+
+        fs.writeFileSync(
+          cssFilePath,
+          'body { background-color: rgb(255, 0, 0); }'
+        );
+
+        let doNothing = false;
+
+        const hot =
+          mode.options && typeof mode.options.hot !== 'undefined'
+            ? mode.options.hot
+            : true;
+        const liveReload =
+          mode.options && typeof mode.options.liveReload !== 'undefined'
+            ? mode.options.liveReload
+            : true;
+
+        if ((hot && liveReload) || (hot && !liveReload)) {
+          await new Promise((resolve) => {
+            const timer = setInterval(() => {
+              if (doHotUpdate) {
+                clearInterval(timer);
+
+                resolve();
+              }
+            }, 100);
+          });
+        } else if (liveReload) {
+          await page.waitForNavigation();
+        } else {
+          doNothing = true;
+        }
+
+        const backgroundColorAfter = await page.evaluate(() => {
+          const body = document.body;
+
+          return getComputedStyle(body)['background-color'];
+        });
+
+        if (doNothing) {
+          expect(backgroundColorAfter).toEqual('rgb(0, 0, 255)');
+        } else {
+          expect(backgroundColorAfter).toEqual('rgb(255, 0, 0)');
+        }
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot('console messages');
+        expect(pageErrors).toMatchSnapshot('page errors');
+
+        await browser.close();
       });
     });
   });
