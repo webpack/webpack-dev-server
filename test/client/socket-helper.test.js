@@ -12,6 +12,7 @@ describe('socket', () => {
     const WebsocketClient = require('../../client/clients/WebsocketClient');
 
     const mockHandler = jest.fn();
+
     socket('my.url', {
       example: mockHandler,
     });
