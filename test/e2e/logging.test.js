@@ -1,15 +1,12 @@
 'use strict';
 
-const testServer = require('../helpers/test-server');
+const webpack = require('webpack');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').logging;
 
 describe('logging', () => {
-  const baseOptions = {
-    host: '0.0.0.0',
-    port,
-  };
   const webSocketServerTypesLog = [
     {},
     { webSocketServer: 'sockjs' },
@@ -65,7 +62,7 @@ describe('logging', () => {
     },
   ];
 
-  webSocketServerTypesLog.forEach(async (mode) => {
+  webSocketServerTypesLog.forEach((mode) => {
     cases.forEach(({ title, options }) => {
       title += ` (${
         Object.keys(mode).length ? mode.webSocketServer : 'default'
@@ -73,33 +70,59 @@ describe('logging', () => {
 
       options = { ...mode, ...options };
 
-      it(title, (done) => {
-        testServer.startAwaitingCompilation(
-          config,
-          Object.assign({}, baseOptions, options),
-          async () => {
-            const { page, browser } = await runBrowser();
-
-            const consoleMessages = [];
-
-            page.on('console', (message) => {
-              consoleMessages.push(message);
-            });
-
-            await page.goto(`http://localhost:${port}/main`, {
-              waitUntil: 'networkidle0',
-            });
-
-            await browser.close();
-
-            // Order doesn't matter, maybe we should improve that in future
-            expect(
-              consoleMessages.map((message) => message.text())
-            ).toMatchSnapshot();
-
-            await testServer.close(done);
-          }
+      it(title, async () => {
+        const compiler = webpack(config);
+        const devServerOptions = Object.assign(
+          {},
+          {
+            host: '0.0.0.0',
+            port,
+            static: false,
+          },
+          options
         );
+        const server = new Server(devServerOptions, compiler);
+
+        await new Promise((resolve, reject) => {
+          server.listen(
+            devServerOptions.port,
+            devServerOptions.host,
+            (error) => {
+              if (error) {
+                reject(error);
+
+                return;
+              }
+
+              resolve();
+            }
+          );
+        });
+
+        const { page, browser } = await runBrowser();
+
+        const consoleMessages = [];
+
+        page.on('console', (message) => {
+          consoleMessages.push(message);
+        });
+
+        await page.goto(`http://localhost:${port}/main`, {
+          waitUntil: 'networkidle0',
+        });
+
+        await browser.close();
+
+        // Order doesn't matter, maybe we should improve that in future
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot();
+
+        await new Promise((resolve) => {
+          server.close(() => {
+            resolve();
+          });
+        });
       });
     });
   });
