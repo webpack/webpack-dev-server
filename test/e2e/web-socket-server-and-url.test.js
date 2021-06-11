@@ -454,6 +454,99 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
+  describe('should work when "port" option is "auto"', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: 'auto',
+        host: '0.0.0.0',
+      };
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:8080/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:8080/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work when "host" option is IPv4', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port3,
+        host: internalIp.v4.sync(),
+      };
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://${internalIp.v4.sync()}:${port3}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://${internalIp.v4.sync()}:${port3}/main`);
+        });
+      });
+    });
+  });
+
+  describe('should work with the "client.webSocketURL.port" option is 0', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            port: 0,
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+              `${websocketUrlProtocol}://localhost:${port2}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
   describe('should work with "client.webSocketURL.port" and "client.webSocketURL.path" options', () => {
     beforeAll((done) => {
       const options = {
