@@ -21,27 +21,27 @@ describe('hot and live reload', () => {
   const modes = [
     {
       title:
-        'should with default web socket server ("ws") and refresh content using hot module replacement',
+        'should work with default web socket server ("ws") and refresh content using hot module replacement',
     },
+    // Default web socket serve ("ws")
     {
-      title:
-        'should with "sockjs" web socket server and refresh content using hot module replacement',
+      title: 'should work and refresh content using hot module replacement',
       options: {
-        webSocketServer: 'sockjs',
+        hot: true,
       },
     },
     {
-      title:
-        'should with "ws" web socket server and refresh content using hot module replacement',
+      title: 'should work and refresh content using hot module replacement',
       options: {
         webSocketServer: 'ws',
+        liveReload: true,
       },
     },
     {
-      title: 'should work and refresh content using live reload',
+      title: 'should not refresh content when hot and no live reload disabled',
       options: {
-        liveReload: true,
         hot: false,
+        liveReload: false,
       },
     },
     {
@@ -52,6 +52,13 @@ describe('hot and live reload', () => {
       },
     },
     {
+      title: 'should work and refresh content using live reload',
+      options: {
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
       title:
         'should work and refresh content using hot module replacement when hot and live reload enabled',
       options: {
@@ -59,11 +66,100 @@ describe('hot and live reload', () => {
         hot: true,
       },
     },
+    // "ws" web socket serve
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'ws',
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: true,
+      },
+    },
     {
       title: 'should not refresh content when hot and no live reload disabled',
       options: {
+        webSocketServer: 'ws',
         hot: false,
         liveReload: false,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: false,
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using live reload',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
+      title:
+        'should work and refresh content using hot module replacement when hot and live reload enabled',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: true,
+        hot: true,
+      },
+    },
+    // "sockjs" web socket serve
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'sockjs',
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'sockjs',
+        liveReload: true,
+      },
+    },
+    {
+      title: 'should not refresh content when hot and no live reload disabled',
+      options: {
+        webSocketServer: 'sockjs',
+        hot: false,
+        liveReload: false,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'sockjs',
+        liveReload: false,
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using live reload',
+      options: {
+        webSocketServer: 'sockjs',
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
+      title:
+        'should work and refresh content using hot module replacement when hot and live reload enabled',
+      options: {
+        webSocketServer: 'sockjs',
+        liveReload: true,
+        hot: true,
       },
     },
   ];
