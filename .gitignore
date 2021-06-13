@@ -10,6 +10,7 @@ coverage
 node_modules
 .vscode
 yarn.lock
+yarn-error.log
 
 .eslintcache
 
