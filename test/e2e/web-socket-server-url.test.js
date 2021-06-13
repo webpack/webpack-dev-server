@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const request = require('supertest');
 const internalIp = require('internal-ip');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const testServer = require('../helpers/test-server');
@@ -9,6 +10,8 @@ const runBrowser = require('../helpers/run-browser');
 const [port1, port2, port3] = require('../ports-map').ClientOptions;
 const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
+// TODO test on `undefined`
+// TODO check always 200 code
 const webSocketServerTypes = ['ws', 'sockjs'];
 
 for (const webSocketServerType of webSocketServerTypes) {
@@ -419,6 +422,43 @@ for (const webSocketServerType of webSocketServerTypes) {
     });
   });
 
+  // TODO implement
+  // TODO using `request` to check on 200 (in other tests too)
+  describe('should work with the "client.webSocketURL.path" option', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: {
+            port: port3,
+          },
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /ws/, (websocketUrl) => {
+            expect(websocketUrl).toContain(
+                `${websocketUrlProtocol}://localhost:${port3}/ws`
+            );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+
   describe('should work with the "client.webSocketURL.port" option as "string"', () => {
     beforeAll((done) => {
       const options = {
@@ -684,6 +724,40 @@ for (const webSocketServerType of webSocketServerTypes) {
             expect(websocketUrl).toContain(
               `${websocketUrlProtocol}://myhost.test:${port2}/foo/test/bar`
             );
+
+            done();
+          });
+
+          page.goto(`http://localhost:${port2}/main`);
+        });
+      });
+    });
+  });
+  
+  // TODO no request and no websocket server when hot and liveRealod disables
+
+  // TODO improve test and check code
+  describe('should work and throw an error on invalid web socket URL', () => {
+    beforeAll((done) => {
+      const options = {
+        webSocketServer: webSocketServerType,
+        port: port2,
+        host: '0.0.0.0',
+        client: {
+          webSocketURL: `ws://unknown.unknown/unknown`,
+        },
+      };
+
+      testServer.startAwaitingCompilation(config, options, done);
+    });
+
+    afterAll(testServer.close);
+
+    describe('browser client', () => {
+      it('should work', (done) => {
+        runBrowser().then(({ page, browser }) => {
+          waitForTest(browser, page, /\/unknown\/$/, (websocketUrl) => {
+            expect(websocketUrl).toContain(`ws://unknown.unknown:${port2}/unknown`);
 
             done();
           });
