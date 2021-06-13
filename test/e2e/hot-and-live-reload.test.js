@@ -20,6 +20,7 @@ const cssFilePath = path.resolve(
     '../fixtures/reload-config/main.css'
 );
 
+// TODO no request and no websocket server when hot and liveRealod disables
 describe('hot and live reload', () => {
     // "sockjs" client cannot add additional headers
     const modes = [
