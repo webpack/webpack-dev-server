@@ -5,7 +5,10 @@
 'use strict';
 
 const path = require('path');
+const WebSocket = require('ws');
+const SockJS = require('sockjs-client');
 const webpack = require('webpack');
+const request = require('supertest');
 const fs = require('graceful-fs');
 const Server = require('../../lib/Server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
@@ -17,8 +20,8 @@ const cssFilePath = path.resolve(
   '../fixtures/reload-config/main.css'
 );
 
-// TODO no request and no websocket server when hot and liveRealod disables
 describe('hot and live reload', () => {
+  // "sockjs" client cannot add additional headers
   const modes = [
     {
       title:
@@ -34,7 +37,6 @@ describe('hot and live reload', () => {
     {
       title: 'should work and refresh content using hot module replacement',
       options: {
-        webSocketServer: 'ws',
         liveReload: true,
       },
     },
@@ -119,6 +121,8 @@ describe('hot and live reload', () => {
     {
       title: 'should work and refresh content using hot module replacement',
       options: {
+        allowedHosts: 'all',
+
         webSocketServer: 'sockjs',
         hot: true,
       },
@@ -126,6 +130,8 @@ describe('hot and live reload', () => {
     {
       title: 'should work and refresh content using hot module replacement',
       options: {
+        allowedHosts: 'all',
+
         webSocketServer: 'sockjs',
         liveReload: true,
       },
@@ -133,6 +139,8 @@ describe('hot and live reload', () => {
     {
       title: 'should not refresh content when hot and no live reload disabled',
       options: {
+        allowedHosts: 'all',
+
         webSocketServer: 'sockjs',
         hot: false,
         liveReload: false,
@@ -141,6 +149,8 @@ describe('hot and live reload', () => {
     {
       title: 'should work and refresh content using hot module replacement',
       options: {
+        allowedHosts: 'all',
+
         webSocketServer: 'sockjs',
         liveReload: false,
         hot: true,
@@ -149,6 +159,8 @@ describe('hot and live reload', () => {
     {
       title: 'should work and refresh content using live reload',
       options: {
+        allowedHosts: 'all',
+
         webSocketServer: 'sockjs',
         liveReload: true,
         hot: false,
@@ -158,6 +170,8 @@ describe('hot and live reload', () => {
       title:
         'should work and refresh content using hot module replacement when hot and live reload enabled',
       options: {
+        allowedHosts: 'all',
+
         webSocketServer: 'sockjs',
         liveReload: true,
         hot: true,
@@ -195,6 +209,125 @@ describe('hot and live reload', () => {
         });
       });
 
+      await new Promise((resolve, reject) => {
+        request(`http://127.0.0.1:${devServerOptions.port}`)
+          .get('/main')
+          .expect(200, (error) => {
+            if (error) {
+              reject(error);
+
+              return;
+            }
+
+            resolve();
+          });
+      });
+
+      const hot =
+        mode.options && typeof mode.options.hot !== 'undefined'
+          ? mode.options.hot
+          : true;
+      const liveReload =
+        mode.options && typeof mode.options.liveReload !== 'undefined'
+          ? mode.options.liveReload
+          : true;
+
+      await new Promise((resolve) => {
+        const webSocketServer =
+          mode.options && typeof mode.options.webSocketServer !== 'undefined'
+            ? mode.options.webSocketServer
+            : 'ws';
+
+        const webSocketServerLaunched = hot || liveReload;
+
+        if (webSocketServer === 'ws') {
+          const ws = new WebSocket(
+            `ws://127.0.0.1:${devServerOptions.port}/ws`,
+            {
+              headers: {
+                host: `127.0.0.1:${devServerOptions.port}`,
+                origin: `http://127.0.0.1:${devServerOptions.port}`,
+              },
+            }
+          );
+
+          let opened = false;
+          let received = false;
+          let errored = false;
+
+          ws.on('error', (error) => {
+            if (webSocketServerLaunched) {
+              errored = true;
+            } else if (!webSocketServerLaunched && /404/.test(error)) {
+              errored = true;
+
+              ws.close();
+            }
+          });
+
+          ws.on('open', () => {
+            opened = true;
+          });
+
+          ws.on('message', (data) => {
+            const message = JSON.parse(data);
+
+            if (message.type === 'ok') {
+              received = true;
+
+              ws.close();
+            }
+          });
+
+          ws.on('close', () => {
+            if (webSocketServerLaunched && opened && received && !errored) {
+              resolve();
+            } else if (!webSocketServerLaunched && errored) {
+              resolve();
+            }
+          });
+        } else {
+          const sockjs = new SockJS(
+            `http://127.0.0.1:${devServerOptions.port}/ws`
+          );
+
+          let opened = false;
+          let received = false;
+          let errored = false;
+
+          sockjs.onerror = (error) => {
+            console.log(error);
+            errored = true;
+          };
+
+          sockjs.onopen = () => {
+            opened = true;
+          };
+
+          sockjs.onmessage = ({ data }) => {
+            const message = JSON.parse(data);
+
+            if (message.type === 'ok') {
+              received = true;
+
+              sockjs.close();
+            }
+          };
+
+          sockjs.onclose = (event) => {
+            if (webSocketServerLaunched && opened && received && !errored) {
+              resolve();
+            } else if (
+              !webSocketServerLaunched &&
+              event &&
+              event.reason === 'Cannot connect to server'
+            ) {
+              resolve();
+            }
+          };
+        }
+      });
+
       const { page, browser } = await runBrowser();
 
       const consoleMessages = [];
@@ -205,8 +338,8 @@ describe('hot and live reload', () => {
       page
         .on('console', (message) => consoleMessages.push(message))
         .on('pageerror', (error) => pageErrors.push(error))
-        .on('request', (request) => {
-          if (/\.hot-update\.json$/.test(request.url())) {
+        .on('request', (requestObj) => {
+          if (/\.hot-update\.json$/.test(requestObj.url())) {
             doneHotUpdate = true;
           }
         });
@@ -229,15 +362,6 @@ describe('hot and live reload', () => {
       );
 
       let doNothing = false;
-
-      const hot =
-        mode.options && typeof mode.options.hot !== 'undefined'
-          ? mode.options.hot
-          : true;
-      const liveReload =
-        mode.options && typeof mode.options.liveReload !== 'undefined'
-          ? mode.options.liveReload
-          : true;
 
       if ((hot && liveReload) || (hot && !liveReload)) {
         await new Promise((resolve) => {
