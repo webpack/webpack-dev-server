@@ -116,13 +116,23 @@ function clear() {
 
 // Compilation with errors (e.g. syntax error or missing modules).
 function showMessage(messages) {
-  document.clearOverlay = clear;
   ensureOverlayDivExists((div) => {
     // Make it look similar to our terminal.
     const errorMessage = messages[0].message || messages[0];
     const text = ansiHTML(encode(errorMessage));
-
-    div.innerHTML = `<span style="color: #${colors.red}"><button onclick="document.clearOverlay()">clear</button>Failed to compile.</span><br><br>${text}`;
+    const closeButton = document.createElement('button');
+    closeButton.innerText = 'X';
+    closeButton.style.background = 'transparent';
+    closeButton.style.border = 'none';
+    closeButton.style.fontSize = '20px';
+    closeButton.style.fontWeight = 'bold';
+    closeButton.style.color = 'white';
+    closeButton.style.cursor = 'pointer';
+    closeButton.addEventListener('click', () => {
+      clear();
+    });
+    div.innerHTML = `<span style="color: #${colors.red}">Failed to compile.</span><br><br>${text}`;
+    div.insertBefore(closeButton, div.firstChild);
   });
 }
 
