@@ -1112,7 +1112,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port3,
+        port: port2,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1159,14 +1159,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port3}/main`, {
+      await page.goto(`http://127.0.0.1:${port2}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port3}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
