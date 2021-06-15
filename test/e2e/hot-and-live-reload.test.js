@@ -336,8 +336,12 @@ describe('hot and live reload', () => {
       let doneHotUpdate = false;
 
       page
-        .on('console', (message) => consoleMessages.push(message))
-        .on('pageerror', (error) => pageErrors.push(error))
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        })
         .on('request', (requestObj) => {
           if (/\.hot-update\.json$/.test(requestObj.url())) {
             doneHotUpdate = true;

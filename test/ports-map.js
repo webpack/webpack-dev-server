@@ -8,7 +8,7 @@ const portsList = {
   SockJSServer: 1,
   'hot-and-live-reload': 1,
   Client: 1,
-  ClientOptions: 3,
+  ClientOptions: 4,
   logging: 1,
   MultiCompiler: 1,
   UniversalCompiler: 1,
