@@ -51,7 +51,9 @@ const socketURL = createSocketURL(parsedResourceQuery);
 
 function setAllLogLevel(level) {
   // This is needed because the HMR logger operate separately from dev server logger
-  webpackHotLog.setLogLevel(level);
+  webpackHotLog.setLogLevel(
+    level === 'verbose' || level === 'log' ? 'info' : level
+  );
   setLogLevel(level);
 }
 
