@@ -1,16 +1,12 @@
 'use strict';
 
-const testServer = require('../helpers/test-server');
+const webpack = require('webpack');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').logging;
-const { beforeBrowserCloseDelay } = require('../helpers/puppeteer-constants');
 
 describe('logging', () => {
-  const baseOptions = {
-    host: '0.0.0.0',
-    port,
-  };
   const webSocketServerTypesLog = [
     {},
     { webSocketServer: 'sockjs' },
@@ -50,6 +46,13 @@ describe('logging', () => {
       },
     },
     {
+      title: 'liveReload & hot are enabled',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
       title: 'client logging is none',
       options: {
         client: {
@@ -59,34 +62,65 @@ describe('logging', () => {
     },
   ];
 
-  webSocketServerTypesLog.forEach(async (mode) => {
-    cases.forEach(async ({ title, options }) => {
+  webSocketServerTypesLog.forEach((mode) => {
+    cases.forEach(({ title, options }) => {
       title += ` (${
         Object.keys(mode).length ? mode.webSocketServer : 'default'
       })`;
 
       options = { ...mode, ...options };
 
-      const testOptions = Object.assign({}, baseOptions, options);
+      it(title, async () => {
+        const compiler = webpack(config);
+        const devServerOptions = Object.assign(
+          {},
+          {
+            host: '0.0.0.0',
+            port,
+            static: false,
+          },
+          options
+        );
+        const server = new Server(devServerOptions, compiler);
 
-      it(title, (done) => {
-        testServer.startAwaitingCompilation(config, testOptions, async () => {
-          const res = [];
-          const { page, browser } = await runBrowser();
+        await new Promise((resolve, reject) => {
+          server.listen(
+            devServerOptions.port,
+            devServerOptions.host,
+            (error) => {
+              if (error) {
+                reject(error);
 
-          page.goto(`http://localhost:${port}/main`);
-          page.on('console', ({ _text }) => {
-            res.push(_text);
+                return;
+              }
+
+              resolve();
+            }
+          );
+        });
+
+        const { page, browser } = await runBrowser();
+
+        const consoleMessages = [];
+
+        page.on('console', (message) => {
+          consoleMessages.push(message);
+        });
+
+        await page.goto(`http://localhost:${port}/main`, {
+          waitUntil: 'networkidle0',
+        });
+
+        await browser.close();
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot();
+
+        await new Promise((resolve) => {
+          server.close(() => {
+            resolve();
           });
-
-          // wait for load before closing the browser
-          await page.waitForNavigation({ waitUntil: 'load' });
-          await page.waitForTimeout(beforeBrowserCloseDelay);
-          await browser.close();
-
-          // Order doesn't matter, maybe we should improve that in future
-          await expect(res.sort()).toMatchSnapshot();
-          await testServer.close(done);
         });
       });
     });
