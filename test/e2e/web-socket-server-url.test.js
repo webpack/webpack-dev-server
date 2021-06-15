@@ -1108,7 +1108,7 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            path: '/ws/',
+            path: '/ws',
           },
         },
         webSocketServer,

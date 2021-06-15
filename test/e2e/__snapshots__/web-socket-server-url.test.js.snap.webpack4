@@ -4,7 +4,6 @@ exports[`web socket server URL should not work and output disconnect wrong web s
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
   "[webpack-dev-server] Disconnected!",
 ]
 `;
@@ -15,9 +14,6 @@ exports[`web socket server URL should not work and output disconnect wrong web s
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "WebSocket connection to 'ws://unknown.unknown:8097/unknown' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
-  "[webpack-dev-server] JSHandle@object",
-  "[webpack-dev-server] Disconnected!",
 ]
 `;
 
@@ -276,6 +272,8 @@ exports[`web socket server URL should work with the "client.webSocketURL.path" o
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
