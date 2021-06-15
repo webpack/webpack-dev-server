@@ -378,7 +378,9 @@ describe('hot and live reload', () => {
           }, 100);
         });
       } else if (liveReload) {
-        await page.waitForNavigation();
+        await page.waitForNavigation({
+          waitUntil: 'networkidle0',
+        });
       } else {
         doNothing = true;
       }
