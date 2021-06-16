@@ -127,6 +127,8 @@ describe('Server', () => {
     const emitError = () => server.server.emit('error', new Error('Error !!!'));
 
     expect(emitError).toThrowError();
+
+    server.close();
   });
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724

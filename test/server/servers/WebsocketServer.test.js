@@ -41,7 +41,7 @@ describe('WebsocketServer', () => {
       socketServer.send(connection, 'hello world');
       setTimeout(() => {
         // the server closes the connection with the client
-        socketServer.close(connection);
+        socketServer.closeConnection(connection);
       }, 1000);
     });
 

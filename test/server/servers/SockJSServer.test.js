@@ -48,7 +48,7 @@ describe('SockJSServer', () => {
           socketServer.send(connection, 'hello world');
           setTimeout(() => {
             // the server closes the connection with the client
-            socketServer.close(connection);
+            socketServer.closeConnection(connection);
           }, 1000);
         });
 
@@ -97,7 +97,7 @@ describe('SockJSServer', () => {
         socketServer.onConnection(cb);
 
         expect(() => {
-          socketServer.socket.emit('connection', null);
+          socketServer.implementation.emit('connection', null);
         }).not.toThrow();
         expect(cb.mock.calls[0]).toEqual([null, null]);
       });
@@ -149,7 +149,7 @@ describe('SockJSServer', () => {
           socketServer.send(connection, 'hello world');
           setTimeout(() => {
             // the server closes the connection with the client
-            socketServer.close(connection);
+            socketServer.closeConnection(connection);
           }, 1000);
         });
 
@@ -198,7 +198,7 @@ describe('SockJSServer', () => {
         socketServer.onConnection(cb);
 
         expect(() => {
-          socketServer.socket.emit('connection', null);
+          socketServer.implementation.emit('connection', null);
         }).not.toThrow();
         expect(cb.mock.calls[0]).toEqual([null, null]);
       });
