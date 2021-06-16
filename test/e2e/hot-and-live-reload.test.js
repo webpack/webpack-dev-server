@@ -4,139 +4,411 @@
 
 'use strict';
 
-/* eslint-disable
-  no-undef
-*/
-const { resolve } = require('path');
+const path = require('path');
+const WebSocket = require('ws');
+const SockJS = require('sockjs-client');
+const webpack = require('webpack');
+const request = require('supertest');
 const fs = require('graceful-fs');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const reloadConfig = require('../fixtures/reload-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map').Client;
-const {
-  reloadReadyDelay,
-  completeReloadDelay,
-} = require('../helpers/puppeteer-constants');
+const port = require('../ports-map')['hot-and-live-reload'];
 
-const cssFilePath = resolve(__dirname, '../fixtures/reload-config/main.css');
+const cssFilePath = path.resolve(
+  __dirname,
+  '../fixtures/reload-config/main.css'
+);
 
-describe('reload', () => {
+describe('hot and live reload', () => {
+  // "sockjs" client cannot add additional headers
   const modes = [
     {
-      title: 'hot with default transportMode.client (ws)',
-      shouldRefresh: false,
+      title:
+        'should work with default web socket server ("ws") and refresh content using hot module replacement',
     },
+    // Default web socket serve ("ws")
     {
-      title: 'hot with sockjs websocket server',
+      title: 'should work and refresh content using hot module replacement',
       options: {
-        webSocketServer: 'sockjs',
+        hot: true,
       },
-      shouldRefresh: false,
     },
     {
-      title: 'hot with ws websocket server',
+      title: 'should work and refresh content using hot module replacement',
       options: {
-        webSocketServer: 'ws',
+        liveReload: true,
       },
-      shouldRefresh: false,
     },
     {
-      title: 'reload without hot',
+      title: 'should not refresh content when hot and no live reload disabled',
       options: {
         hot: false,
+        liveReload: false,
       },
-      shouldRefresh: true,
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        liveReload: false,
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using live reload',
+      options: {
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
+      title:
+        'should work and refresh content using hot module replacement when hot and live reload enabled',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
+    // "ws" web socket serve
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'ws',
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: true,
+      },
+    },
+    {
+      title: 'should not refresh content when hot and no live reload disabled',
+      options: {
+        webSocketServer: 'ws',
+        hot: false,
+        liveReload: false,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: false,
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using live reload',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
+      title:
+        'should work and refresh content using hot module replacement when hot and live reload enabled',
+      options: {
+        webSocketServer: 'ws',
+        liveReload: true,
+        hot: true,
+      },
+    },
+    // "sockjs" web socket serve
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        allowedHosts: 'all',
+
+        webSocketServer: 'sockjs',
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        allowedHosts: 'all',
+
+        webSocketServer: 'sockjs',
+        liveReload: true,
+      },
+    },
+    {
+      title: 'should not refresh content when hot and no live reload disabled',
+      options: {
+        allowedHosts: 'all',
+
+        webSocketServer: 'sockjs',
+        hot: false,
+        liveReload: false,
+      },
+    },
+    {
+      title: 'should work and refresh content using hot module replacement',
+      options: {
+        allowedHosts: 'all',
+
+        webSocketServer: 'sockjs',
+        liveReload: false,
+        hot: true,
+      },
+    },
+    {
+      title: 'should work and refresh content using live reload',
+      options: {
+        allowedHosts: 'all',
+
+        webSocketServer: 'sockjs',
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
+      title:
+        'should work and refresh content using hot module replacement when hot and live reload enabled',
+      options: {
+        allowedHosts: 'all',
+
+        webSocketServer: 'sockjs',
+        liveReload: true,
+        hot: true,
+      },
     },
   ];
 
   modes.forEach((mode) => {
-    describe(mode.title, () => {
-      beforeAll((done) => {
-        fs.writeFileSync(
-          cssFilePath,
-          'body { background-color: rgb(0, 0, 255); }'
-        );
-        const options = Object.assign(
-          {},
-          {
-            host: '0.0.0.0',
-            port,
-            static: false,
-          },
-          mode.options
-        );
+    it(mode.title, async () => {
+      fs.writeFileSync(
+        cssFilePath,
+        'body { background-color: rgb(0, 0, 255); }'
+      );
 
-        // we need a delay between file writing and the start
-        // of the compilation due to a bug in webpack@4, as not doing
-        // so results in the done hook being called repeatedly
-        setTimeout(() => {
-          testServer.startAwaitingCompilation(reloadConfig, options, done);
-        }, 2000);
+      const compiler = webpack(reloadConfig);
+      const devServerOptions = Object.assign(
+        {},
+        {
+          host: '0.0.0.0',
+          port,
+        },
+        mode.options
+      );
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
       });
 
-      afterAll((done) => {
-        fs.unlinkSync(cssFilePath);
-        testServer.close(done);
-      });
+      await new Promise((resolve, reject) => {
+        request(`http://127.0.0.1:${devServerOptions.port}`)
+          .get('/main')
+          .expect(200, (error) => {
+            if (error) {
+              reject(error);
 
-      describe('on browser client', () => {
-        it(`should reload ${
-          mode.shouldRefresh ? 'with' : 'without'
-        } page refresh`, (done) => {
-          runBrowser().then(({ page, browser }) => {
-            let refreshed = false;
-            page.waitForNavigation({ waitUntil: 'load' }).then(() => {
-              page
-                .evaluate(() => {
-                  const body = document.body;
-                  const bgColor = getComputedStyle(body)['background-color'];
-                  return bgColor;
-                })
-                .then((color) => {
-                  page.setRequestInterception(true).then(() => {
-                    page.on('request', (req) => {
-                      if (
-                        req.isNavigationRequest() &&
-                        req.frame() === page.mainFrame() &&
-                        req.url() === `http://localhost:${port}/main`
-                      ) {
-                        refreshed = true;
-                      }
+              return;
+            }
 
-                      req.continue();
-                    });
-                    page.waitForTimeout(reloadReadyDelay).then(() => {
-                      fs.writeFileSync(
-                        cssFilePath,
-                        'body { background-color: rgb(255, 0, 0); }'
-                      );
-                      page.waitForTimeout(completeReloadDelay).then(() => {
-                        page
-                          .evaluate(() => {
-                            const body = document.body;
-                            const bgColor =
-                              getComputedStyle(body)['background-color'];
-
-                            return bgColor;
-                          })
-                          .then((color2) => {
-                            expect(color).toEqual('rgb(0, 0, 255)');
-                            expect(color2).toEqual('rgb(255, 0, 0)');
-                            expect(refreshed).toEqual(mode.shouldRefresh);
-
-                            return browser.close();
-                          })
-                          .then(() => {
-                            done();
-                          });
-                      });
-                    });
-                  });
-                });
-            });
-
-            page.goto(`http://localhost:${port}/main`);
+            resolve();
           });
+      });
+
+      const hot =
+        mode.options && typeof mode.options.hot !== 'undefined'
+          ? mode.options.hot
+          : true;
+      const liveReload =
+        mode.options && typeof mode.options.liveReload !== 'undefined'
+          ? mode.options.liveReload
+          : true;
+
+      await new Promise((resolve) => {
+        const webSocketServer =
+          mode.options && typeof mode.options.webSocketServer !== 'undefined'
+            ? mode.options.webSocketServer
+            : 'ws';
+
+        const webSocketServerLaunched = hot || liveReload;
+
+        if (webSocketServer === 'ws') {
+          const ws = new WebSocket(
+            `ws://127.0.0.1:${devServerOptions.port}/ws`,
+            {
+              headers: {
+                host: `127.0.0.1:${devServerOptions.port}`,
+                origin: `http://127.0.0.1:${devServerOptions.port}`,
+              },
+            }
+          );
+
+          let opened = false;
+          let received = false;
+          let errored = false;
+
+          ws.on('error', (error) => {
+            if (webSocketServerLaunched) {
+              errored = true;
+            } else if (!webSocketServerLaunched && /404/.test(error)) {
+              errored = true;
+
+              ws.close();
+            }
+          });
+
+          ws.on('open', () => {
+            opened = true;
+          });
+
+          ws.on('message', (data) => {
+            const message = JSON.parse(data);
+
+            if (message.type === 'ok') {
+              received = true;
+
+              ws.close();
+            }
+          });
+
+          ws.on('close', () => {
+            if (webSocketServerLaunched && opened && received && !errored) {
+              resolve();
+            } else if (!webSocketServerLaunched && errored) {
+              resolve();
+            }
+          });
+        } else {
+          const sockjs = new SockJS(
+            `http://127.0.0.1:${devServerOptions.port}/ws`
+          );
+
+          let opened = false;
+          let received = false;
+          let errored = false;
+
+          sockjs.onerror = (error) => {
+            console.log(error);
+            errored = true;
+          };
+
+          sockjs.onopen = () => {
+            opened = true;
+          };
+
+          sockjs.onmessage = ({ data }) => {
+            const message = JSON.parse(data);
+
+            if (message.type === 'ok') {
+              received = true;
+
+              sockjs.close();
+            }
+          };
+
+          sockjs.onclose = (event) => {
+            if (webSocketServerLaunched && opened && received && !errored) {
+              resolve();
+            } else if (
+              !webSocketServerLaunched &&
+              event &&
+              event.reason === 'Cannot connect to server'
+            ) {
+              resolve();
+            }
+          };
+        }
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const consoleMessages = [];
+      const pageErrors = [];
+
+      let doneHotUpdate = false;
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        })
+        .on('request', (requestObj) => {
+          if (/\.hot-update\.json$/.test(requestObj.url())) {
+            doneHotUpdate = true;
+          }
+        });
+
+      await page.goto(`http://localhost:${port}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const backgroundColorBefore = await page.evaluate(() => {
+        const body = document.body;
+
+        return getComputedStyle(body)['background-color'];
+      });
+
+      expect(backgroundColorBefore).toEqual('rgb(0, 0, 255)');
+
+      fs.writeFileSync(
+        cssFilePath,
+        'body { background-color: rgb(255, 0, 0); }'
+      );
+
+      let doNothing = false;
+
+      if ((hot && liveReload) || (hot && !liveReload)) {
+        await new Promise((resolve) => {
+          const timer = setInterval(() => {
+            if (doneHotUpdate) {
+              clearInterval(timer);
+
+              resolve();
+            }
+          }, 100);
+        });
+      } else if (liveReload) {
+        await page.waitForNavigation({
+          waitUntil: 'networkidle0',
+        });
+      } else {
+        doNothing = true;
+      }
+
+      const backgroundColorAfter = await page.evaluate(() => {
+        const body = document.body;
+
+        return getComputedStyle(body)['background-color'];
+      });
+
+      if (doNothing) {
+        expect(backgroundColorAfter).toEqual('rgb(0, 0, 255)');
+      } else {
+        expect(backgroundColorAfter).toEqual('rgb(255, 0, 0)');
+      }
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      fs.unlinkSync(cssFilePath);
+
+      await browser.close();
+
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
         });
       });
     });
