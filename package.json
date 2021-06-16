@@ -83,7 +83,6 @@
     "html-webpack-plugin": "^4.5.2",
     "husky": "^6.0.0",
     "jest": "^26.6.3",
-    "jest-circus": "^26.6.3",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
     "lint-staged": "^11.0.0",
