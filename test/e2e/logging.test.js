@@ -65,7 +65,7 @@ describe('logging', () => {
   webSocketServerTypesLog.forEach((mode) => {
     cases.forEach(({ title, options }) => {
       title += ` (${
-          Object.keys(mode).length ? mode.webSocketServer : 'default'
+        Object.keys(mode).length ? mode.webSocketServer : 'default'
       })`;
 
       options = { ...mode, ...options };
@@ -73,29 +73,29 @@ describe('logging', () => {
       it(title, async () => {
         const compiler = webpack(config);
         const devServerOptions = Object.assign(
-            {},
-            {
-              host: '0.0.0.0',
-              port,
-              static: false,
-            },
-            options
+          {},
+          {
+            host: '0.0.0.0',
+            port,
+            static: false,
+          },
+          options
         );
         const server = new Server(devServerOptions, compiler);
 
         await new Promise((resolve, reject) => {
           server.listen(
-              devServerOptions.port,
-              devServerOptions.host,
-              (error) => {
-                if (error) {
-                  reject(error);
+            devServerOptions.port,
+            devServerOptions.host,
+            (error) => {
+              if (error) {
+                reject(error);
 
-                  return;
-                }
-
-                resolve();
+                return;
               }
+
+              resolve();
+            }
           );
         });
 
@@ -114,7 +114,7 @@ describe('logging', () => {
         await browser.close();
 
         expect(
-            consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text())
         ).toMatchSnapshot();
 
         await new Promise((resolve) => {
