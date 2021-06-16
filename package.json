@@ -21,7 +21,7 @@
     "fix:js": "npm run lint:js -- --fix",
     "fix": "npm-run-all fix:js fmt",
     "commitlint": "commitlint --from=master",
-    "test:only": "jest --forceExit",
+    "test:only": "jest",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
     "test": "npm run test:coverage",
