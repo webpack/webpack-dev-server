@@ -134,7 +134,7 @@ describe("'watchFiles' option", () => {
     });
 
     it('should reload on file content changed', (done) => {
-      server.staticWatchers[0].on('change', (changedPath) => {
+      server.staticWatchers[0].once('change', (changedPath) => {
         expect(changedPath).toBe(nonExistFile);
 
         done();
