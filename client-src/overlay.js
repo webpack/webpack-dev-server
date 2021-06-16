@@ -74,6 +74,7 @@ function ensureOverlayDivExists(onOverlayDivReady) {
   if (overlayDiv) {
     // Everything is ready, call the callback right away.
     onOverlayDivReady(overlayDiv);
+
     return;
   }
 
@@ -117,22 +118,39 @@ function clear() {
 // Compilation with errors (e.g. syntax error or missing modules).
 function showMessage(messages) {
   ensureOverlayDivExists((div) => {
+    const headerElement = document.createElement('span');
+
+    headerElement.innerText = 'Failed to compile.';
+    headerElement.style.color = `#${colors.red}`;
+
+    const closeButtonElement = document.createElement('button');
+
+    closeButtonElement.innerText = 'X';
+    closeButtonElement.style.background = 'transparent';
+    closeButtonElement.style.border = 'none';
+    closeButtonElement.style.fontSize = '20px';
+    closeButtonElement.style.fontWeight = 'bold';
+    closeButtonElement.style.color = 'white';
+    closeButtonElement.style.cursor = 'pointer';
+    closeButtonElement.style.cssFloat = 'right';
+    closeButtonElement.style.styleFloat = 'right';
+    closeButtonElement.addEventListener('click', () => {
+      clear();
+    });
+
+    const breakElementFirst = document.createElement('br');
+    const breakElementSecond = document.createElement('br');
+
     // Make it look similar to our terminal.
     const errorMessage = messages[0].message || messages[0];
     const text = ansiHTML(encode(errorMessage));
-    const closeButton = document.createElement('button');
-    closeButton.innerText = 'X';
-    closeButton.style.background = 'transparent';
-    closeButton.style.border = 'none';
-    closeButton.style.fontSize = '20px';
-    closeButton.style.fontWeight = 'bold';
-    closeButton.style.color = 'white';
-    closeButton.style.cursor = 'pointer';
-    closeButton.addEventListener('click', () => {
-      clear();
-    });
-    div.innerHTML = `<span style="color: #${colors.red}">Failed to compile.</span><br><br>${text}`;
-    div.insertBefore(closeButton, div.firstChild);
+    const messageTextNode = document.createTextNode(text);
+
+    div.appendChild(headerElement);
+    div.appendChild(closeButtonElement);
+    div.appendChild(breakElementFirst);
+    div.appendChild(breakElementSecond);
+    div.appendChild(messageTextNode);
   });
 }
 
