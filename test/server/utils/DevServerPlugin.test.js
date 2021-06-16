@@ -25,6 +25,7 @@ describe('DevServerPlugin util', () => {
     };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      hot: true,
       client: {
         transport: 'sockjs',
         webSocketURL: {},
@@ -38,7 +39,9 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
+
     getEntries(compiler).then((entries) => {
       expect(typeof entries).toEqual('function');
 
@@ -52,11 +55,11 @@ describe('DevServerPlugin util', () => {
               expect(entrySecondRun.main.import.length).toEqual(1);
               expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
             } else {
-              expect(entryFirstRun.length).toEqual(2);
-              expect(entryFirstRun[1]).toEqual('./src-1.js');
+              expect(entryFirstRun.length).toEqual(3);
+              expect(entryFirstRun[2]).toEqual('./src-1.js');
 
-              expect(entrySecondRun.length).toEqual(2);
-              expect(entrySecondRun[1]).toEqual('./src-2.js');
+              expect(entrySecondRun.length).toEqual(3);
+              expect(entrySecondRun[2]).toEqual('./src-2.js');
             }
             done();
           })
@@ -78,6 +81,7 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
 
     const devServerOptions = {
+      hot: true,
       client: {
         transport: 'sockjs',
         webSocketURL: {},
@@ -105,11 +109,11 @@ describe('DevServerPlugin util', () => {
               expect(entrySecondRun.main.import.length).toEqual(1);
               expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
             } else {
-              expect(entryFirstRun.length).toEqual(2);
-              expect(entryFirstRun[1]).toEqual('./src-1.js');
+              expect(entryFirstRun.length).toEqual(3);
+              expect(entryFirstRun[2]).toEqual('./src-1.js');
 
-              expect(entrySecondRun.length).toEqual(2);
-              expect(entrySecondRun[1]).toEqual('./src-2.js');
+              expect(entrySecondRun.length).toEqual(3);
+              expect(entrySecondRun[2]).toEqual('./src-2.js');
             }
             done();
           })

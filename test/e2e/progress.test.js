@@ -51,8 +51,8 @@ describe('progress', () => {
       .on('console', (message) => {
         consoleMessages.push(message);
       })
-      .on('request', (request) => {
-        if (/\.hot-update\.json$/.test(request.url())) {
+      .on('request', (requestObj) => {
+        if (/\.hot-update\.(json|js)$/.test(requestObj.url())) {
           doHotUpdate = true;
         }
       });
@@ -76,7 +76,7 @@ describe('progress', () => {
     await browser.close();
 
     const progressConsoleMessage = consoleMessages.filter((message) =>
-      /^\[webpack-dev-server\] \[[a-zA-Z]+\] [0-9]{1,3}% - /.test(
+      /^\[webpack-dev-server\] (\[[a-zA-Z]+\] )?[0-9]{1,3}% - /.test(
         message.text()
       )
     );
