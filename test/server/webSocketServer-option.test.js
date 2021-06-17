@@ -277,7 +277,7 @@ describe('webSocketServer', () => {
         });
       });
 
-      describe('without a header', () => {
+      describe.skip('without a header', () => {
         let mockWarn;
 
         beforeAll((done) => {
@@ -389,7 +389,7 @@ describe('webSocketServer', () => {
         });
       });
 
-      describe('with a bad host header', () => {
+      describe.skip('with a bad host header', () => {
         beforeAll((done) => {
           server = testServer.start(
             config,

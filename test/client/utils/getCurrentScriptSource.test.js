@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
 const getCurrentScriptSource = require('../../../client-src/utils/getCurrentScriptSource');
