@@ -1,42 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logging should work and do not log messages about hot and live reloading is enabled (default) (sockjs) (ws) 1`] = `
-Array [
-  "Hey.",
-]
-`;
-
-exports[`logging should work and do not log messages about hot and live reloading is enabled (default) (sockjs) 1`] = `
-Array [
-  "Hey.",
-]
-`;
-
 exports[`logging should work and do not log messages about hot and live reloading is enabled (default) 1`] = `
 Array [
   "Hey.",
 ]
 `;
 
-exports[`logging should work and log errors by default (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and do not log messages about hot and live reloading is enabled (sockjs) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
-exports[`logging should work and log errors by default (default) (sockjs) 1`] = `
+exports[`logging should work and do not log messages about hot and live reloading is enabled (ws) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
@@ -51,17 +29,25 @@ Array [
 ]
 `;
 
-exports[`logging should work and log message about live reloading is enabled (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and log errors by default (sockjs) 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
-exports[`logging should work and log message about live reloading is enabled (default) (sockjs) 1`] = `
+exports[`logging should work and log errors by default (ws) 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
@@ -72,56 +58,16 @@ Array [
 ]
 `;
 
-exports[`logging should work and log messages about hot and live reloading is enabled (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and log message about live reloading is enabled (sockjs) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
-exports[`logging should work and log messages about hot and live reloading is enabled (default) (sockjs) (ws) 2`] = `
+exports[`logging should work and log message about live reloading is enabled (ws) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`logging should work and log messages about hot and live reloading is enabled (default) (sockjs) (ws) 3`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`logging should work and log messages about hot and live reloading is enabled (default) (sockjs) 1`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`logging should work and log messages about hot and live reloading is enabled (default) (sockjs) 2`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`logging should work and log messages about hot and live reloading is enabled (default) (sockjs) 3`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
@@ -153,19 +99,57 @@ Array [
 ]
 `;
 
-exports[`logging should work and log messages about hot is enabled (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and log messages about hot and live reloading is enabled (sockjs) 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
-exports[`logging should work and log messages about hot is enabled (default) (sockjs) 1`] = `
+exports[`logging should work and log messages about hot and live reloading is enabled (sockjs) 2`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work and log messages about hot and live reloading is enabled (sockjs) 3`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work and log messages about hot and live reloading is enabled (ws) 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work and log messages about hot and live reloading is enabled (ws) 2`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work and log messages about hot and live reloading is enabled (ws) 3`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -177,19 +161,19 @@ Array [
 ]
 `;
 
-exports[`logging should work and log only error (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and log messages about hot is enabled (sockjs) 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
 ]
 `;
 
-exports[`logging should work and log only error (default) (sockjs) 1`] = `
+exports[`logging should work and log messages about hot is enabled (ws) 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
 ]
 `;
 
@@ -201,23 +185,61 @@ Array [
 ]
 `;
 
-exports[`logging should work and log warning and errors (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and log only error (sockjs) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
   "[webpack-dev-server] Error from compilation",
-  "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] Warning from compilation",
 ]
 `;
 
-exports[`logging should work and log warning and errors (default) (sockjs) 1`] = `
+exports[`logging should work and log only error (ws) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
   "[webpack-dev-server] Error from compilation",
-  "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] Warning from compilation",
+]
+`;
+
+exports[`logging should work and log static changes (default) 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] \\"<cwd>/test/fixtures/client-config/static/foo.txt\\" from static directory was changed. Reloading...",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work and log static changes (sockjs) 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] \\"<cwd>/test/fixtures/client-config/static/foo.txt\\" from static directory was changed. Reloading...",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work and log static changes (ws) 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] \\"<cwd>/test/fixtures/client-config/static/foo.txt\\" from static directory was changed. Reloading...",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -231,23 +253,21 @@ Array [
 ]
 `;
 
-exports[`logging should work and log warnings by default (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and log warning and errors (sockjs) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] Error from compilation",
   "[webpack-dev-server] Warnings while compiling.",
   "[webpack-dev-server] Warning from compilation",
 ]
 `;
 
-exports[`logging should work and log warnings by default (default) (sockjs) 1`] = `
+exports[`logging should work and log warning and errors (ws) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] Error from compilation",
   "[webpack-dev-server] Warnings while compiling.",
   "[webpack-dev-server] Warning from compilation",
 ]
@@ -264,21 +284,25 @@ Array [
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "info" (default) (sockjs) (ws) 1`] = `
+exports[`logging should work and log warnings by default (sockjs) 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Warnings while compiling.",
+  "[webpack-dev-server] Warning from compilation",
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "info" (default) (sockjs) 1`] = `
+exports[`logging should work and log warnings by default (ws) 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] Warnings while compiling.",
+  "[webpack-dev-server] Warning from compilation",
 ]
 `;
 
@@ -291,7 +315,7 @@ Array [
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "log" (default) (sockjs) (ws) 1`] = `
+exports[`logging should work when the "client.logging" is "info" (sockjs) 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -300,7 +324,7 @@ Array [
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "log" (default) (sockjs) 1`] = `
+exports[`logging should work when the "client.logging" is "info" (ws) 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -318,15 +342,21 @@ Array [
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "none" (default) (sockjs) (ws) 1`] = `
+exports[`logging should work when the "client.logging" is "log" (sockjs) 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "none" (default) (sockjs) 1`] = `
+exports[`logging should work when the "client.logging" is "log" (ws) 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -336,25 +366,37 @@ Array [
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "verbose" (default) (sockjs) (ws) 1`] = `
+exports[`logging should work when the "client.logging" is "none" (sockjs) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
-exports[`logging should work when the "client.logging" is "verbose" (default) (sockjs) 1`] = `
+exports[`logging should work when the "client.logging" is "none" (ws) 1`] = `
 Array [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
 exports[`logging should work when the "client.logging" is "verbose" (default) 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work when the "client.logging" is "verbose" (sockjs) 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`logging should work when the "client.logging" is "verbose" (ws) 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",

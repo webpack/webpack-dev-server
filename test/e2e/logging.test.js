@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
 const webpack = require('webpack');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/client-config/webpack.config');
@@ -7,7 +9,7 @@ const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').logging;
 
 describe('logging', () => {
-  const webSocketServerTypesLog = [
+  const webSocketServers = [
     {},
     { webSocketServer: 'sockjs' },
     { webSocketServer: 'ws' },
@@ -174,23 +176,25 @@ describe('logging', () => {
         },
       },
     },
-    // TODO static logging
+    {
+      title: 'should work and log static changes',
+      devServerOptions: {
+        static: path.resolve(__dirname, '../fixtures/client-config/static'),
+      },
+    },
   ];
 
-  webSocketServerTypesLog.forEach((mode) => {
+  webSocketServers.forEach((webSocketServer) => {
     cases.forEach((testCase) => {
-      testCase.title += ` (${
-        Object.keys(mode).length ? mode.webSocketServer : 'default'
-      })`;
-
-      it(testCase.title, async () => {
+      it(`${testCase.title} (${
+        webSocketServer.webSocketServer || 'default'
+      })`, async () => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
         const devServerOptions = Object.assign(
           {},
           {
             host: '0.0.0.0',
             port,
-            static: false,
           },
           testCase.devServerOptions
         );
@@ -224,8 +228,26 @@ describe('logging', () => {
           waitUntil: 'networkidle0',
         });
 
+        if (testCase.devServerOptions && testCase.devServerOptions.static) {
+          fs.writeFileSync(
+            path.join(testCase.devServerOptions.static, './foo.txt'),
+            'Text'
+          );
+
+          await page.waitForNavigation({
+            waitUntil: 'networkidle0',
+          });
+        }
+
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) =>
+            message
+              .text()
+              .replace(
+                new RegExp(process.cwd().replace(/\\/g, '/'), 'g'),
+                '<cwd>'
+              )
+          )
         ).toMatchSnapshot();
 
         await browser.close();
