@@ -34,8 +34,8 @@ describe('index', () => {
 
     // overlay
     jest.setMock('../../client-src/overlay.js', {
-      clear: jest.fn(),
-      showMessage: jest.fn(),
+      hide: jest.fn(),
+      show: jest.fn(),
     });
     overlay = require('../../client-src/overlay');
 
@@ -91,28 +91,16 @@ describe('index', () => {
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
 
-  test('should run onSocketMessage.invalid', () => {
-    onSocketMessage.invalid();
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
-    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-    expect(overlay.clear).not.toBeCalled();
-
-    // change flags
-    onSocketMessage.overlay(true);
-    onSocketMessage.invalid();
-    expect(overlay.clear).toBeCalled();
-  });
-
   test("should run onSocketMessage['still-ok']", () => {
     onSocketMessage['still-ok']();
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-    expect(overlay.clear).not.toBeCalled();
+    expect(overlay.hide).not.toBeCalled();
 
     // change flags
     onSocketMessage.overlay(true);
     onSocketMessage['still-ok']();
-    expect(overlay.clear).toBeCalled();
+    expect(overlay.hide).toBeCalled();
   });
 
   test("should run onSocketMessage.progress and onSocketMessage['progress-update']", () => {
@@ -149,17 +137,6 @@ describe('index', () => {
       pluginName: 'mock-plugin',
     });
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
-  });
-
-  test('should run onSocketMessage.overlay with an argument is Object', () => {
-    onSocketMessage.overlay({
-      warnings: true,
-      errors: true,
-    });
-
-    // check if flags have changed
-    onSocketMessage.invalid();
-    expect(overlay.clear).toBeCalled();
   });
 
   test('should run onSocketMessage.ok', () => {
@@ -233,24 +210,9 @@ describe('index', () => {
       // eslint-disable-next-line no-undefined
       expect(res).toEqual(undefined);
 
-      expect(overlay.showMessage).toBeCalled();
+      expect(overlay.show).toBeCalled();
       expect(reloadApp).toBeCalled();
     }
-  });
-
-  test('should run onSocketMessage.errors', () => {
-    onSocketMessage.errors(['error1', '\u001B[4error2\u001B[0m', 'error3']);
-
-    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
-    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-    expect(log.log.error.mock.calls.splice(1)).toMatchSnapshot();
-
-    // change flags
-    onSocketMessage.overlay({
-      errors: true,
-    });
-    onSocketMessage.errors([]);
-    expect(overlay.showMessage).toBeCalled();
   });
 
   test('should run onSocketMessage.error', () => {

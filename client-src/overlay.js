@@ -21,7 +21,7 @@ const colors = {
 
 let iframeContainerElement;
 let containerElement;
-const onLoadQueue = [];
+let onLoadQueue = [];
 
 ansiHTML.setColors(colors);
 
@@ -88,6 +88,7 @@ function createContainer() {
     onLoadQueue.forEach((onLoad) => {
       onLoad(containerElement);
     });
+    onLoadQueue = [];
 
     iframeContainerElement.onload = null;
   };
@@ -122,6 +123,7 @@ function hide() {
   document.body.removeChild(iframeContainerElement);
 
   iframeContainerElement = null;
+  containerElement = null;
 }
 
 // Compilation with errors (e.g. syntax error or missing modules).
