@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`overlay should run clear 1`] = `"<div id=\\"webpack-dev-server-client-overlay-div\\" style=\\"position: fixed; box-sizing: border-box; left: 0px; top: 0px; right: 0px; bottom: 0px; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); color: rgb(232, 232, 232); font-family: Menlo, Consolas, monospace; font-size: large; padding: 2rem; line-height: 1.2; white-space: pre-wrap; overflow: auto;\\"><button style=\\"background: transparent; font-size: 20px; font-weight: bold; color: white; cursor: pointer;\\"></button><span style=\\"color: #E36049\\">Failed to compile.</span><br><br>test!</div>"`;
-
-exports[`overlay should run clear 2`] = `""`;
-
-exports[`overlay should run showMessage 1`] = `""`;
-
-exports[`overlay should run showMessage 2`] = `"<div id=\\"webpack-dev-server-client-overlay-div\\" style=\\"position: fixed; box-sizing: border-box; left: 0px; top: 0px; right: 0px; bottom: 0px; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); color: rgb(232, 232, 232); font-family: Menlo, Consolas, monospace; font-size: large; padding: 2rem; line-height: 1.2; white-space: pre-wrap; overflow: auto;\\"><button style=\\"background: transparent; font-size: 20px; font-weight: bold; color: white; cursor: pointer;\\"></button><span style=\\"color: #E36049\\">Failed to compile.</span><br><br>test!</div>"`;
