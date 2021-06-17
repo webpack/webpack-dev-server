@@ -154,6 +154,14 @@
               "description": "Tells clients connected to devServer to use the provided path to connect.",
               "type": "string"
             },
+            "username": {
+              "description": "Tells clients connected to devServer to use the provided username to connect.",
+              "type": "string"
+            },
+            "password": {
+              "description": "Tells clients connected to devServer to use the provided password to connect.",
+              "type": "string"
+            },
             "port": {
               "description": "Tells clients connected to devServer to use the provided port.",
               "anyOf": [

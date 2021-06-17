@@ -98,6 +98,9 @@ const tests = {
       {
         webSocketURL: { host: 'localhost', port: 8080, path: '/my-path/' },
       },
+      {
+        webSocketURL: { username: 'zoro', password: 'roronoa' },
+      },
     ],
     failure: [
       'whoops!',
@@ -154,6 +157,9 @@ const tests = {
       },
       {
         webSocketURL: { port: '' },
+      },
+      {
+        webSocketURL: { username: 123, password: 976 },
       },
     ],
   },
