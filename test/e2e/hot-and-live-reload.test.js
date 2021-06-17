@@ -20,6 +20,8 @@ const cssFilePath = path.resolve(
   '../fixtures/reload-config/main.css'
 );
 
+jest.setTimeout(240000);
+
 describe('hot and live reload', () => {
   // "sockjs" client cannot add additional headers
   const modes = [
