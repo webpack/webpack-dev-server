@@ -10,6 +10,7 @@ const portsList = {
   Client: 1,
   ClientOptions: 4,
   logging: 1,
+  overlay: 1,
   MultiCompiler: 1,
   UniversalCompiler: 1,
   Server: 1,
