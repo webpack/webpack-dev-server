@@ -1252,7 +1252,7 @@ describe('web socket server URL', () => {
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port5}/ws`
+        `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port5}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'

@@ -436,3 +436,25 @@ Array [
 `;
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("ws"): page errors 1`] = `Array []`;
