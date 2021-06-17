@@ -1,13 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`options validate should throw an error on the "allowedHosts" option with '[""]' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.allowedHosts[0] should be an non-empty string."
+`;
+
+exports[`options validate should throw an error on the "allowedHosts" option with '[]' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.allowedHosts should be an non-empty array."
+`;
+
 exports[`options validate should throw an error on the "allowedHosts" option with '123' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
-   [non-empty string, ...] | \\"auto\\" | \\"all\\" | non-empty string
+   [non-empty string, ...] (should not have fewer than 1 item) | \\"auto\\" | \\"all\\" | non-empty string
    -> Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
    Details:
     * options.allowedHosts should be an array:
-      [non-empty string, ...]
+      [non-empty string, ...] (should not have fewer than 1 item)
     * options.allowedHosts should be one of these:
       \\"auto\\" | \\"all\\"
     * options.allowedHosts should be a non-empty string."
@@ -16,11 +26,11 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
 exports[`options validate should throw an error on the "allowedHosts" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
-   [non-empty string, ...] | \\"auto\\" | \\"all\\" | non-empty string
+   [non-empty string, ...] (should not have fewer than 1 item) | \\"auto\\" | \\"all\\" | non-empty string
    -> Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
    Details:
     * options.allowedHosts should be an array:
-      [non-empty string, ...]
+      [non-empty string, ...] (should not have fewer than 1 item)
     * options.allowedHosts should be one of these:
       \\"auto\\" | \\"all\\"
     * options.allowedHosts should be a non-empty string."
@@ -29,11 +39,11 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
 exports[`options validate should throw an error on the "allowedHosts" option with 'true' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
-   [non-empty string, ...] | \\"auto\\" | \\"all\\" | non-empty string
+   [non-empty string, ...] (should not have fewer than 1 item) | \\"auto\\" | \\"all\\" | non-empty string
    -> Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
    Details:
     * options.allowedHosts should be an array:
-      [non-empty string, ...]
+      [non-empty string, ...] (should not have fewer than 1 item)
     * options.allowedHosts should be one of these:
       \\"auto\\" | \\"all\\"
     * options.allowedHosts should be a non-empty string."

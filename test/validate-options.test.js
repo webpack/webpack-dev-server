@@ -167,7 +167,7 @@ const tests = {
   },
   allowedHosts: {
     success: ['auto', 'all', ['foo'], 'bar'],
-    failure: [true, false, 123],
+    failure: [true, false, 123, [], ['']],
   },
   headers: {
     success: [{}, { foo: 'bar' }, () => {}],
