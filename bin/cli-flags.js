@@ -275,6 +275,36 @@ module.exports = {
     multiple: false,
     simpleType: 'string',
   },
+  'client-web-socket-url-username': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Tells clients connected to devServer to use the provided username to authenticate.',
+        path: 'client.webSocketURL.username',
+      },
+    ],
+    description:
+      'Tells clients connected to devServer to use the provided username to authenticate.',
+    simpleType: 'string',
+    multiple: false,
+  },
+  'client-web-socket-url-password': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Tells clients connected to devServer to use the provided password to authenticate.',
+        path: 'client.webSocketURL.password',
+      },
+    ],
+    description:
+      'Tells clients connected to devServer to use the provided password to authenticate.',
+    simpleType: 'string',
+    multiple: false,
+  },
   'web-socket-server': {
     configs: [
       {
