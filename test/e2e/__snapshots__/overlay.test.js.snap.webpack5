@@ -20,7 +20,7 @@ exports[`overlay should not open initially, then open on an error and allow to c
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -33,10 +33,14 @@ exports[`overlay should not open initially, then open on an error and allow to c
       \\"
     >
       X</button
-    ><br /><br />Module parse failed: Unterminated template (1:1) You may need
-    an appropriate loader to handle this file type, currently no loaders are
-    configured to process this file. See https://webpack.js.org/concepts#loaders
-    &amp;gt; \`;
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Module
+      parse failed: Unterminated template (1:1) You may need an appropriate
+      loader to handle this file type, currently no loaders are configured to
+      process this file. See https://webpack.js.org/concepts#loaders &amp;gt;
+      \`;<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -95,7 +99,7 @@ exports[`overlay should not open initially, then open on an error, then close on
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -108,10 +112,14 @@ exports[`overlay should not open initially, then open on an error, then close on
       \\"
     >
       X</button
-    ><br /><br />Module parse failed: Unterminated template (1:1) You may need
-    an appropriate loader to handle this file type, currently no loaders are
-    configured to process this file. See https://webpack.js.org/concepts#loaders
-    &amp;gt; \`;
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Module
+      parse failed: Unterminated template (1:1) You may need an appropriate
+      loader to handle this file type, currently no loaders are configured to
+      process this file. See https://webpack.js.org/concepts#loaders &amp;gt;
+      \`;<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -178,7 +186,7 @@ exports[`overlay should not open on an error when "client.overlay.errors" is "fa
 "
 `;
 
-exports[`overlay should open on a warning and error for initial compilation and prefer error to show: overlay html 1`] = `
+exports[`overlay should open on a warning and error for initial compilation: overlay html 1`] = `
 "<body>
   <div
     id=\\"webpack-dev-server-client-overlay-div\\"
@@ -198,7 +206,7 @@ exports[`overlay should open on a warning and error for initial compilation and 
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -211,27 +219,33 @@ exports[`overlay should open on a warning and error for initial compilation and 
       \\"
     >
       X</button
-    ><br /><br />Warning from compilation<span style=\\"color: rgb(227, 96, 73)\\"
-      >Failed to compile.</span
-    ><button
-      style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
-      \\"
-    >
-      X</button
-    ><br /><br />Error from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
+      from compilation<br /><br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
+      from compilation<br /><br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
+      compilation<br /><br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
+      compilation<br /><br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
+      compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
 `;
 
-exports[`overlay should open on a warning and error for initial compilation and prefer error to show: page html 1`] = `
+exports[`overlay should open on a warning and error for initial compilation: page html 1`] = `
 "<body>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
   <iframe
@@ -270,7 +284,7 @@ exports[`overlay should open on a warning for initial compilation: overlay html 
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -283,7 +297,11 @@ exports[`overlay should open on a warning for initial compilation: overlay html 
       \\"
     >
       X</button
-    ><br /><br />Warning from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
+      from compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -328,7 +346,7 @@ exports[`overlay should open on a warning when "client.overlay" is "true": overl
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -341,7 +359,11 @@ exports[`overlay should open on a warning when "client.overlay" is "true": overl
       \\"
     >
       X</button
-    ><br /><br />Warning from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
+      from compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -386,7 +408,7 @@ exports[`overlay should open on a warning when "client.overlay.errors" is "true"
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -399,7 +421,11 @@ exports[`overlay should open on a warning when "client.overlay.errors" is "true"
       \\"
     >
       X</button
-    ><br /><br />Warning from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
+      from compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -444,7 +470,7 @@ exports[`overlay should open on a warning when "client.overlay.warnings" is "tru
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -457,7 +483,11 @@ exports[`overlay should open on a warning when "client.overlay.warnings" is "tru
       \\"
     >
       X</button
-    ><br /><br />Warning from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
+      from compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -502,7 +532,7 @@ exports[`overlay should open on an error for initial compilation: overlay html 1
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -515,7 +545,11 @@ exports[`overlay should open on an error for initial compilation: overlay html 1
       \\"
     >
       X</button
-    ><br /><br />Error from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
+      compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -560,7 +594,7 @@ exports[`overlay should open on an error when "client.overlay" is "true": overla
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -573,7 +607,11 @@ exports[`overlay should open on an error when "client.overlay" is "true": overla
       \\"
     >
       X</button
-    ><br /><br />Error from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
+      compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -618,7 +656,7 @@ exports[`overlay should open on an error when "client.overlay.errors" is "true":
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -631,7 +669,11 @@ exports[`overlay should open on an error when "client.overlay.errors" is "true":
       \\"
     >
       X</button
-    ><br /><br />Error from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
+      compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "
@@ -676,7 +718,7 @@ exports[`overlay should open on an error when "client.overlay.warnings" is "true
       overflow: auto;
     \\"
   >
-    <span style=\\"color: rgb(227, 96, 73)\\">Failed to compile.</span
+    <span>Compiled with problems:</span
     ><button
       style=\\"
         background: transparent;
@@ -689,7 +731,11 @@ exports[`overlay should open on an error when "client.overlay.warnings" is "true
       \\"
     >
       X</button
-    ><br /><br />Warning from compilation
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
+      from compilation<br /><br /><br />
+    </div>
   </div>
 </body>
 "

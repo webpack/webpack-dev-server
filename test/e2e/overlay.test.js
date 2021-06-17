@@ -142,11 +142,19 @@ describe('overlay', () => {
     });
   });
 
-  // TODO fix me
-  it('should open on a warning and error for initial compilation and prefer error to show', async () => {
+  // TODO test on invalid
+
+  // TODO test on `still-ok`
+
+  // TODO test on `ok`
+
+  it('should open on a warning and error for initial compilation', async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
+    new WarningPlugin().apply(compiler);
+    new ErrorPlugin().apply(compiler);
+    new ErrorPlugin().apply(compiler);
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = Object.assign(
