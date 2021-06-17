@@ -223,7 +223,7 @@ describe('webSocketServer', () => {
                 }
 
                 close(callback) {
-                  [...this.server.sockets].forEach((socket) => {
+                  [...this.server.webSocketConnections].forEach((socket) => {
                     this.closeConnection(socket);
                   });
 
@@ -314,7 +314,7 @@ describe('webSocketServer', () => {
                 }
 
                 close(callback) {
-                  [...this.server.sockets].forEach((socket) => {
+                  [...this.server.webSocketConnections].forEach((socket) => {
                     this.closeConnection(socket);
                   });
 
@@ -424,7 +424,7 @@ describe('webSocketServer', () => {
                 }
 
                 close(callback) {
-                  [...this.server.sockets].forEach((socket) => {
+                  [...this.server.webSocketConnections].forEach((socket) => {
                     this.closeConnection(socket);
                   });
 
@@ -515,13 +515,13 @@ describe('webSocketServer', () => {
           origin: `http://localhost:${port}`,
         });
 
-        expect(server.sockets.length).toEqual(1);
-        expect(server.sockets).toMatchSnapshot();
+        expect(server.webSocketConnections.length).toEqual(1);
+        expect(server.webSocketConnections).toMatchSnapshot();
 
         // this simulates a client leaving the server
         mockServerInstance.onConnectionClose.mock.calls[0][1](connectionObj);
 
-        expect(server.sockets.length).toEqual(0);
+        expect(server.webSocketConnections.length).toEqual(0);
 
         // check that the dev server was passed to the socket server implementation constructor
         expect(MockWebsocketServer.mock.calls[0].length).toEqual(1);
@@ -556,7 +556,7 @@ describe('webSocketServer', () => {
             host: null,
           }
         );
-        expect(server.sockets.length).toEqual(0);
+        expect(server.webSocketConnections.length).toEqual(0);
         expect(MockWebsocketServer.mock.calls[0].length).toEqual(1);
         expect(MockWebsocketServer.mock.calls[0][0].options.port).toEqual(port);
         expect(mockServerInstance.onConnection.mock.calls).toMatchSnapshot();
