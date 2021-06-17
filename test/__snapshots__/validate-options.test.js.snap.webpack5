@@ -190,9 +190,9 @@ exports[`options validate should throw an error on the "client" option with '{"w
    -> Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
    Details:
     * options.client.webSocketURL.username should be a string.
-      -> Tells clients connected to devServer to use the provided username to connect.
+      -> Tells clients connected to devServer to use the provided username to authenticate.
     * options.client.webSocketURL.password should be a string.
-      -> Tells clients connected to devServer to use the provided password to connect."
+      -> Tells clients connected to devServer to use the provided password to authenticate."
 `;
 
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
