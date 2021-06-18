@@ -154,10 +154,6 @@
               "description": "Tells clients connected to devServer to use the provided path to connect.",
               "type": "string"
             },
-            "username": {
-              "description": "Tells clients connected to devServer to use the provided username to authenticate.",
-              "type": "string"
-            },
             "password": {
               "description": "Tells clients connected to devServer to use the provided password to authenticate.",
               "type": "string"
@@ -185,6 +181,10 @@
                   "minLength": 1
                 }
               ]
+            },
+            "username": {
+              "description": "Tells clients connected to devServer to use the provided username to authenticate.",
+              "type": "string"
             }
           }
         }
