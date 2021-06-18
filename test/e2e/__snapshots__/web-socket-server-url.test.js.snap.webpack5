@@ -2,6 +2,7 @@
 
 exports[`web socket server URL should not work and output disconnect wrong web socket URL ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2Funknown.unknown%2Funknown",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
@@ -13,6 +14,7 @@ exports[`web socket server URL should not work and output disconnect wrong web s
 
 exports[`web socket server URL should not work and output disconnect wrong web socket URL ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2Funknown.unknown%2Funknown",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "WebSocket connection to 'ws://unknown.unknown:<port>/unknown' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
@@ -23,7 +25,11 @@ Array [
 
 exports[`web socket server URL should not work and output disconnect wrong web socket URL ("ws"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work and throw an error on invalid web socket URL ("sockjs"): console messages 1`] = `Array []`;
+exports[`web socket server URL should work and throw an error on invalid web socket URL ("sockjs"): console messages 1`] = `
+Array [
+  "?unknown%3A%2F%2Funknown.unknown%2Funknown",
+]
+`;
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("sockjs"): page errors 1`] = `
 Array [
@@ -31,7 +37,11 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): console messages 1`] = `Array []`;
+exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): console messages 1`] = `
+Array [
+  "?unknown%3A%2F%2Funknown.unknown%2Funknown",
+]
+`;
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): page errors 1`] = `
 Array [
@@ -41,6 +51,7 @@ Array [
 
 exports[`web socket server URL should work behind proxy, when hostnames are different and ports are different ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "The website requested a subresource from a network that it could only access because of its users' privileged network position. These requests expose non-public devices and servers to the internet, increasing the risk of a cross-site request forgery (CSRF) attack, and/or information leakage. To mitigate these risks, Chrome deprecates requests to non-public subresources when initiated from non-secure contexts, and will start blocking them in Chrome 92 (July 2021). See https://chromestatus.com/feature/5436853517811712 for more details.",
@@ -53,6 +64,7 @@ exports[`web socket server URL should work behind proxy, when hostnames are diff
 
 exports[`web socket server URL should work behind proxy, when hostnames are different and ports are different ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -64,6 +76,7 @@ exports[`web socket server URL should work behind proxy, when hostnames are diff
 
 exports[`web socket server URL should work behind proxy, when hostnames are different and ports are same ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "The website requested a subresource from a network that it could only access because of its users' privileged network position. These requests expose non-public devices and servers to the internet, increasing the risk of a cross-site request forgery (CSRF) attack, and/or information leakage. To mitigate these risks, Chrome deprecates requests to non-public subresources when initiated from non-secure contexts, and will start blocking them in Chrome 92 (July 2021). See https://chromestatus.com/feature/5436853517811712 for more details.",
@@ -76,6 +89,7 @@ exports[`web socket server URL should work behind proxy, when hostnames are diff
 
 exports[`web socket server URL should work behind proxy, when hostnames are different and ports are same ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -87,6 +101,7 @@ exports[`web socket server URL should work behind proxy, when hostnames are diff
 
 exports[`web socket server URL should work behind proxy, when hostnames are same and ports are different ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -98,6 +113,7 @@ exports[`web socket server URL should work behind proxy, when hostnames are same
 
 exports[`web socket server URL should work behind proxy, when hostnames are same and ports are different ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -109,6 +125,7 @@ exports[`web socket server URL should work behind proxy, when hostnames are same
 
 exports[`web socket server URL should work when "host" option is IPv4 ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F192.168.0.5%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -120,6 +137,7 @@ exports[`web socket server URL should work when "host" option is IPv4 ("sockjs")
 
 exports[`web socket server URL should work when "host" option is IPv4 ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F192.168.0.5%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -129,30 +147,9 @@ Array [
 
 exports[`web socket server URL should work when "host" option is IPv4 ("ws"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work when "port" option is "auto" ("sockjs"): console messages 1`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`web socket server URL should work when "port" option is "auto" ("sockjs"): page errors 1`] = `Array []`;
-
-exports[`web socket server URL should work when "port" option is "auto" ("ws"): console messages 1`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`web socket server URL should work when "port" option is "auto" ("ws"): page errors 1`] = `Array []`;
-
 exports[`web socket server URL should work with "client.webSocketURL.*" options ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -164,6 +161,7 @@ exports[`web socket server URL should work with "client.webSocketURL.*" options 
 
 exports[`web socket server URL should work with "client.webSocketURL.*" options ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -175,6 +173,7 @@ exports[`web socket server URL should work with "client.webSocketURL.*" options 
 
 exports[`web socket server URL should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -186,6 +185,7 @@ exports[`web socket server URL should work with "client.webSocketURL.port" and "
 
 exports[`web socket server URL should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8100%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -197,6 +197,7 @@ exports[`web socket server URL should work with "client.webSocketURL.port" and "
 
 exports[`web socket server URL should work with the "client.webSocketURL" option as "string" ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -208,6 +209,7 @@ exports[`web socket server URL should work with the "client.webSocketURL" option
 
 exports[`web socket server URL should work with the "client.webSocketURL" option as "string" ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -219,6 +221,7 @@ exports[`web socket server URL should work with the "client.webSocketURL" option
 
 exports[`web socket server URL should work with the "client.webSocketURL.host" option ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -230,6 +233,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.host" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.host" option ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F127.0.0.1%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -241,6 +245,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.host" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -252,6 +257,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.host" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -263,6 +269,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.host" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.password" option ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F%3Achuntaro%400.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -274,6 +281,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.passwor
 
 exports[`web socket server URL should work with the "client.webSocketURL.password" option ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F%3Achuntaro%400.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -285,6 +293,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.passwor
 
 exports[`web socket server URL should work with the "client.webSocketURL.path" option ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -296,6 +305,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.path" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.path" option ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -307,6 +317,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.path" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.path" option and custom web socket server "path" ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fcustom-ws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -318,6 +329,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.path" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.path" option and custom web socket server "path" ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fcustom-ws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -329,6 +341,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.path" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -340,6 +353,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.port" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -351,6 +365,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.port" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option as string ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -362,6 +377,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.port" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option as string ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -373,6 +389,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.port" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option using "0" value ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -384,6 +401,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.port" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option using "0" value ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -395,6 +413,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.port" o
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -406,6 +425,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -417,6 +437,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "auto:" value ("sockjs"): console messages 1`] = `
 Array [
+  "?auto%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -428,6 +449,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "auto:" value ("ws"): console messages 1`] = `
 Array [
+  "?auto%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -439,6 +461,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("sockjs"): console messages 1`] = `
 Array [
+  "?http%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -450,6 +473,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("ws"): console messages 1`] = `
 Array [
+  "?http%3A%2F%2F0.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -461,6 +485,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 
 exports[`web socket server URL should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2Fzenitsu%3Achuntaro%400.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -472,6 +497,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.usernam
 
 exports[`web socket server URL should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2Fzenitsu%3Achuntaro%400.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -483,6 +509,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.usernam
 
 exports[`web socket server URL should work with the "client.webSocketURL.username" option ("sockjs"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2Fzenitsu%400.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -494,6 +521,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.usernam
 
 exports[`web socket server URL should work with the "client.webSocketURL.username" option ("ws"): console messages 1`] = `
 Array [
+  "?ws%3A%2F%2Fzenitsu%400.0.0.0%3A8099%2Fws",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
