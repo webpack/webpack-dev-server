@@ -22,7 +22,7 @@ const cssFilePath = path.resolve(
 
 jest.setTimeout(240000);
 
-describe('hot and live reload', () => {
+describe.skip('hot and live reload', () => {
   // "sockjs" client cannot add additional headers
   const modes = [
     {
