@@ -1532,7 +1532,7 @@ describe('web socket server URL', () => {
       });
     });
 
-    it.skip(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
+    it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,

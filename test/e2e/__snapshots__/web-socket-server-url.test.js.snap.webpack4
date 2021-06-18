@@ -129,6 +129,28 @@ Array [
 
 exports[`web socket server URL should work when "host" option is IPv4 ("ws"): page errors 1`] = `Array []`;
 
+exports[`web socket server URL should work when "port" option is "auto" ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work when "port" option is "auto" ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work when "port" option is "auto" ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work when "port" option is "auto" ("ws"): page errors 1`] = `Array []`;
+
 exports[`web socket server URL should work with "client.webSocketURL.*" options ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",

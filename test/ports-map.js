@@ -3,7 +3,8 @@
 // important: new port mappings must be added to the bottom of this list
 const listOfTests = {
   // CLI tests
-  cli: 1,
+  'cli-basic': 1,
+  'cli-port-option': 1,
   // e2e tests
   bundle: 1,
   'sockjs-client': 1,
