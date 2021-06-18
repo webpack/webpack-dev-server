@@ -87,7 +87,7 @@ const onSocketMessage = {
 
     // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.overlay) {
-      overlay.clear();
+      overlay.hide();
     }
 
     sendMessage('Invalid');
@@ -121,7 +121,7 @@ const onSocketMessage = {
     log.info('Nothing changed.');
 
     if (options.overlay) {
-      overlay.clear();
+      overlay.hide();
     }
 
     sendMessage('StillOk');
@@ -130,7 +130,7 @@ const onSocketMessage = {
     sendMessage('Ok');
 
     if (options.overlay) {
-      overlay.clear();
+      overlay.hide();
     }
 
     if (options.initial) {
@@ -177,7 +177,7 @@ const onSocketMessage = {
         : options.overlay && options.overlay.warnings;
 
     if (needShowOverlay) {
-      overlay.showMessage(warnings);
+      overlay.show(warnings, 'warnings');
     }
 
     if (options.initial) {
@@ -205,7 +205,7 @@ const onSocketMessage = {
         : options.overlay && options.overlay.errors;
 
     if (needShowOverlay) {
-      overlay.showMessage(errors);
+      overlay.show(errors, 'errors');
     }
 
     options.initial = false;

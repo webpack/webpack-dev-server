@@ -243,6 +243,7 @@ describe('logging', () => {
           consoleMessages.map((message) =>
             message
               .text()
+              .replace(/\\/g, '/')
               .replace(
                 new RegExp(process.cwd().replace(/\\/g, '/'), 'g'),
                 '<cwd>'

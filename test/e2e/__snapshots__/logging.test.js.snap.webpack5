@@ -246,30 +246,30 @@ Array [
 exports[`logging should work and log warning and errors (default) 1`] = `
 Array [
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
   "[webpack-dev-server] Warnings while compiling.",
   "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
 exports[`logging should work and log warning and errors (sockjs) 1`] = `
 Array [
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
   "[webpack-dev-server] Warnings while compiling.",
   "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
 exports[`logging should work and log warning and errors (ws) 1`] = `
 Array [
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
   "[webpack-dev-server] Warnings while compiling.",
   "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
