@@ -2,7 +2,7 @@
 
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
-describe('http2 option', () => {
+describe('"http2" CLI option', () => {
   it('--http2', async () => {
     const { exitCode, stderr } = await testBin(['--http2']);
 

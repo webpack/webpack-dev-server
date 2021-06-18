@@ -3,7 +3,7 @@
 const path = require('path');
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
-describe('watchFiles option', () => {
+describe('"watchFiles" CLI option', () => {
   it('--watch-files <value>', async () => {
     const watchDirectory = path.resolve(__dirname, '../fixtures/static/static');
 

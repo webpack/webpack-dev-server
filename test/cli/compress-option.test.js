@@ -2,7 +2,7 @@
 
 const { testBin } = require('../helpers/test-bin');
 
-describe('compress option', () => {
+describe('"compress" CLI option', () => {
   it('--compress', async () => {
     const { exitCode } = await testBin('--compress');
 

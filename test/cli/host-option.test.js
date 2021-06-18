@@ -6,7 +6,7 @@ const { testBin, normalizeStderr } = require('../helpers/test-bin');
 const localIPv4 = internalIp.v4.sync();
 const localIPv6 = internalIp.v6.sync();
 
-describe('host option', () => {
+describe('"host" CLI option', () => {
   it('--host 0.0.0.0 (IPv4)', async () => {
     const { exitCode, stderr } = await testBin(['--host', '0.0.0.0']);
 

@@ -2,7 +2,7 @@
 
 const { testBin } = require('../helpers/test-bin');
 
-describe('liveReload option', () => {
+describe('"liveReload" CLI option', () => {
   it('--live-reload', async () => {
     const { exitCode } = await testBin(['--live-reload']);
 

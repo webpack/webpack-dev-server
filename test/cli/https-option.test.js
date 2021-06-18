@@ -8,7 +8,7 @@ const httpsCertificateDirectory = path.resolve(
   '../fixtures/https-certificate'
 );
 
-describe('https option', () => {
+describe('"https" CLI option', () => {
   it('--https', async () => {
     const { exitCode, stderr } = await testBin(['--https']);
 

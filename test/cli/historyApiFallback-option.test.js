@@ -2,7 +2,7 @@
 
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
-describe('historyApiFallback option', () => {
+describe('"historyApiFallback" CLI option', () => {
   it('--history-api-fallback', async () => {
     const { exitCode, stderr } = await testBin(['--history-api-fallback']);
 

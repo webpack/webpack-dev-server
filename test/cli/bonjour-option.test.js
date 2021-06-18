@@ -2,7 +2,7 @@
 
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
-describe('bonjour option', () => {
+describe('"bonjour" CLI option', () => {
   it('--bonjour', async () => {
     const { exitCode, stderr } = await testBin(['--bonjour']);
 

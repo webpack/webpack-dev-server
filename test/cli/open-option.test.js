@@ -2,7 +2,7 @@
 
 const { testBin } = require('../helpers/test-bin');
 
-describe('open option', () => {
+describe('"open" CLI option', () => {
   it('--open', async () => {
     const { exitCode } = await testBin(['--open']);
 

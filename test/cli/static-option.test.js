@@ -2,7 +2,7 @@
 
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
-describe('static option', () => {
+describe('"static" CLI option', () => {
   it('--static', async () => {
     const { exitCode, stderr } = await testBin('--static');
 

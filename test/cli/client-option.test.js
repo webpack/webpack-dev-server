@@ -2,7 +2,7 @@
 
 const { testBin } = require('../helpers/test-bin');
 
-describe('client option', () => {
+describe('"client" CLI option', () => {
   it('--client-transport sockjs', async () => {
     const { exitCode } = await testBin(['--client-transport', 'sockjs']);
 
@@ -168,5 +168,25 @@ describe('client option', () => {
     const { exitCode } = await testBin(['--client-web-socket-url-port', 8080]);
 
     expect(exitCode).toEqual(0);
+  });
+
+  it('should add "/ws" web socket path by default', async () => {
+    const { exitCode, stdout } = await testBin(
+      null,
+      './test/fixtures/dev-server/client-default-path-config.js'
+    );
+
+    expect(exitCode).toEqual(0);
+    expect(stdout).toContain('ws%3A%2F%2F0.0.0.0%2Fws');
+  });
+
+  it('should use "client.webSocketURL.path" from configuration', async () => {
+    const { exitCode, stdout } = await testBin(
+      null,
+      './test/fixtures/dev-server/client-custom-path-config.js'
+    );
+
+    expect(exitCode).toEqual(0);
+    expect(stdout).toContain('ws%3A%2F%2F0.0.0.0%2Fcustom%2Fpath');
   });
 });

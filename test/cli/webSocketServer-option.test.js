@@ -2,7 +2,7 @@
 
 const { testBin } = require('../helpers/test-bin');
 
-describe('webSocketServer option', () => {
+describe('"webSocketServer" CLI option', () => {
   it('--web-socket-server sockjs', async () => {
     const { exitCode } = await testBin(['--web-socket-server', 'sockjs']);
 

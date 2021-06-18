@@ -2,7 +2,7 @@
 
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
-describe('port option', () => {
+describe('"port" CLI option', () => {
   it('--port is string', async () => {
     const { exitCode, stderr } = await testBin(['--port', '8080']);
 
