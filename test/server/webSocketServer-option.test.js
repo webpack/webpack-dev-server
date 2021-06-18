@@ -10,7 +10,7 @@ const SockJS = require('sockjs-client/dist/sockjs');
 const SockJSServer = require('../../lib/servers/SockJSServer');
 const config = require('../fixtures/simple-config/webpack.config');
 const BaseServer = require('../../lib/servers/BaseServer');
-const port = require('../ports-map')['webSocketServer-option'];
+const port = require('../ports-map')['web-socket-server-option'];
 
 describe('webSocketServer', () => {
   describe('server', () => {

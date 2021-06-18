@@ -7,8 +7,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
-const [port1, port2, port3, port4, port5] =
-  require('../ports-map').ClientOptions;
+const [port1, port2] = require('../ports-map')['web-socket-server-url'];
 
 const webSocketServers = ['ws', 'sockjs'];
 
@@ -348,7 +347,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -395,14 +394,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://localhost:${port2}/main`, {
+      await page.goto(`http://localhost:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://localhost:${port2}/ws`
+        `${websocketURLProtocol}://localhost:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -432,7 +431,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -479,14 +478,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://localhost:${port2}/main`, {
+      await page.goto(`http://localhost:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://localhost:${port2}/ws`
+        `${websocketURLProtocol}://localhost:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -516,7 +515,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -563,14 +562,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://localhost:${port2}/main`, {
+      await page.goto(`http://localhost:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://localhost:${port2}/ws`
+        `${websocketURLProtocol}://localhost:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -600,7 +599,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -647,14 +646,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port2}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -684,7 +683,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -731,14 +730,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port2}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -764,11 +763,11 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            port: port3,
+            port: port1,
           },
         },
         webSocketServer,
-        port: port3,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -815,14 +814,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port3}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port3}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -848,11 +847,11 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            port: 'port3',
+            port: `${port1}`,
           },
         },
         webSocketServer,
-        port: port3,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -899,14 +898,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port3}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port3}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -935,14 +934,14 @@ describe('web socket server URL', () => {
           options: {
             host: '0.0.0.0',
             // "sockjs" doesn't support external server
-            port: webSocketServer === 'sockjs' ? `${port2}` : `${port4}`,
+            port: webSocketServer === 'sockjs' ? `${port1}` : `${port2}`,
           },
         },
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         client: {
           webSocketURL: {
-            port: webSocketServer === 'sockjs' ? `${port2}` : `${port4}`,
+            port: webSocketServer === 'sockjs' ? `${port1}` : `${port2}`,
           },
         },
         allowedHosts: 'all',
@@ -990,7 +989,7 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port2}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
@@ -998,8 +997,8 @@ describe('web socket server URL', () => {
 
       expect(webSocketRequest.url).toContain(
         webSocketServer === 'sockjs'
-          ? `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
-          : `${websocketURLProtocol}://127.0.0.1:${port4}/ws`
+          ? `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+          : `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1029,7 +1028,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port3,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1076,14 +1075,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port3}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port3}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1113,7 +1112,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1160,14 +1159,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port2}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1197,7 +1196,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port5,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1244,14 +1243,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port5}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://zenitsu@127.0.0.1:${port5}/ws`
+        `${websocketURLProtocol}://zenitsu@127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1281,7 +1280,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port5,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1328,7 +1327,7 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port5}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
@@ -1337,8 +1336,8 @@ describe('web socket server URL', () => {
       expect(webSocketRequest.url).toContain(
         // "sockjs" has bug with parsing URL
         webSocketServer === 'ws'
-          ? `${websocketURLProtocol}://:chuntaro@127.0.0.1:${port5}/ws`
-          : `${websocketURLProtocol}://127.0.0.1:${port5}/ws`
+          ? `${websocketURLProtocol}://:chuntaro@127.0.0.1:${port1}/ws`
+          : `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1369,7 +1368,7 @@ describe('web socket server URL', () => {
           },
         },
         webSocketServer,
-        port: port5,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1416,14 +1415,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port5}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port5}/ws`
+        `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1458,7 +1457,7 @@ describe('web socket server URL', () => {
             path: '/custom-ws',
           },
         },
-        port: port3,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1505,14 +1504,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port3}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port3}/custom-ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1615,7 +1614,7 @@ describe('web socket server URL', () => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
-        port: port3,
+        port: port1,
         host: internalIp.v4.sync(),
       };
       const server = new Server(devServerOptions, compiler);
@@ -1661,14 +1660,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://${internalIp.v4.sync()}:${port3}/main`, {
+      await page.goto(`http://${internalIp.v4.sync()}:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${internalIp.v4.sync()}:${port3}/ws`
+        `${websocketURLProtocol}://${internalIp.v4.sync()}:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1696,12 +1695,12 @@ describe('web socket server URL', () => {
           webSocketURL: {
             protocol: 'ws:',
             host: '127.0.0.1',
-            port: port2,
+            port: port1,
             path: '/ws',
           },
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1748,14 +1747,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port2}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1780,10 +1779,10 @@ describe('web socket server URL', () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
-          webSocketURL: `ws://127.0.0.1:${port2}/ws`,
+          webSocketURL: `ws://127.0.0.1:${port1}/ws`,
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1830,14 +1829,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port2}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1865,7 +1864,7 @@ describe('web socket server URL', () => {
           webSocketURL: 'unknown://unknown.unknown/unknown',
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1896,7 +1895,7 @@ describe('web socket server URL', () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://localhost:${port2}/main`, {
+      await page.goto(`http://localhost:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
@@ -1928,7 +1927,7 @@ describe('web socket server URL', () => {
           webSocketURL: 'ws://unknown.unknown/unknown',
         },
         webSocketServer,
-        port: port2,
+        port: port1,
         host: '0.0.0.0',
         allowedHosts: 'all',
       };
@@ -1959,13 +1958,15 @@ describe('web socket server URL', () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://localhost:${port2}/main`, {
+      await page.goto(`http://localhost:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
-      );
+      expect(
+        consoleMessages.map((message) =>
+          message.text().replace(/:[\d]+/g, ':<port>')
+        )
+      ).toMatchSnapshot('console messages');
       expect(
         pageErrors.map((pageError) => pageError.message.split('\n')[0])
       ).toMatchSnapshot('page errors');

@@ -17,7 +17,9 @@ async function validatePorts() {
 
     arr.forEach((port) => {
       const check = tcpPortUsed.check(port, 'localhost').then((inUse) => {
-        if (inUse) throw new Error(`${port} has already used. [${key}]`);
+        if (inUse) {
+          throw new Error(`${port} has already used. [${key}]`);
+        }
       });
 
       samples.push(check);

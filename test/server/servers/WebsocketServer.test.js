@@ -8,7 +8,7 @@ const http = require('http');
 const express = require('express');
 const ws = require('ws');
 const WebsocketServer = require('../../../lib/servers/WebsocketServer');
-const port = require('../../ports-map').WebsocketServer;
+const port = require('../../ports-map')['web-socket-server'];
 
 describe('WebsocketServer', () => {
   let socketServer;

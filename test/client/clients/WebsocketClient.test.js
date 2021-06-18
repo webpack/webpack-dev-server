@@ -7,7 +7,7 @@
 const http = require('http');
 const express = require('express');
 const ws = require('ws');
-const port = require('../../ports-map').WebsocketClient;
+const port = require('../../ports-map')['web-socket-client'];
 
 jest.setMock('../../../client-src/utils/log', {
   log: {

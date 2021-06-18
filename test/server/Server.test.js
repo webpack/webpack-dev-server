@@ -8,7 +8,7 @@ const sockjs = require('sockjs/lib/transport');
 const findPort = require('../../lib/utils/findPort');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map').Server;
+const port = require('../ports-map').server;
 const isWebpack5 = require('../helpers/isWebpack5');
 
 const getFreePort = Server.getFreePort;

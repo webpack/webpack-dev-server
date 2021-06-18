@@ -148,7 +148,7 @@ describe('port', () => {
             directory: staticDirectory,
             watch: false,
           },
-          port: '33333',
+          port: 33333,
         },
         done
       );
