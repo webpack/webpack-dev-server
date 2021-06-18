@@ -200,7 +200,7 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
-  'client-web-socket-url-host': {
+  'client-web-socket-url-hostname': {
     configs: [
       {
         type: 'string',
