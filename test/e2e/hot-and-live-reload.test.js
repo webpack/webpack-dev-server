@@ -20,24 +20,23 @@ const cssFilePath = path.resolve(
   '../fixtures/reload-config/main.css'
 );
 
-jest.setTimeout(240000);
-
-describe.skip('hot and live reload', () => {
+describe('hot and live reload', () => {
   // "sockjs" client cannot add additional headers
   const modes = [
     {
-      title:
-        'should work with default web socket server ("ws") and refresh content using hot module replacement',
+      title: 'should work and refresh content using hot module replacement',
     },
     // Default web socket serve ("ws")
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when hot enabled',
       options: {
         hot: true,
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload enabled',
       options: {
         liveReload: true,
       },
@@ -50,7 +49,8 @@ describe.skip('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload disabled and hot enabled',
       options: {
         liveReload: false,
         hot: true,
@@ -65,7 +65,7 @@ describe.skip('hot and live reload', () => {
     },
     {
       title:
-        'should work and refresh content using hot module replacement when hot and live reload enabled',
+        'should work and refresh content using hot module replacement when live reload enabled and hot disabled',
       options: {
         liveReload: true,
         hot: true,
@@ -73,14 +73,16 @@ describe.skip('hot and live reload', () => {
     },
     // "ws" web socket serve
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when hot enabled',
       options: {
         webSocketServer: 'ws',
         hot: true,
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload enabled',
       options: {
         webSocketServer: 'ws',
         liveReload: true,
@@ -95,7 +97,8 @@ describe.skip('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload disabled and hot enabled',
       options: {
         webSocketServer: 'ws',
         liveReload: false,
@@ -103,7 +106,8 @@ describe.skip('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using live reload',
+      title:
+        'should work and refresh content using live reload when live reload enabled and hot disabled',
       options: {
         webSocketServer: 'ws',
         liveReload: true,
@@ -112,7 +116,7 @@ describe.skip('hot and live reload', () => {
     },
     {
       title:
-        'should work and refresh content using hot module replacement when hot and live reload enabled',
+        'should work and refresh content using hot module replacement when live reload and hot enabled',
       options: {
         webSocketServer: 'ws',
         liveReload: true,
@@ -120,69 +124,75 @@ describe.skip('hot and live reload', () => {
       },
     },
     // "sockjs" web socket serve
-    {
-      title: 'should work and refresh content using hot module replacement',
-      options: {
-        allowedHosts: 'all',
-
-        webSocketServer: 'sockjs',
-        hot: true,
-      },
-    },
-    {
-      title: 'should work and refresh content using hot module replacement',
-      options: {
-        allowedHosts: 'all',
-
-        webSocketServer: 'sockjs',
-        liveReload: true,
-      },
-    },
-    {
-      title: 'should not refresh content when hot and no live reload disabled',
-      options: {
-        allowedHosts: 'all',
-
-        webSocketServer: 'sockjs',
-        hot: false,
-        liveReload: false,
-      },
-    },
-    {
-      title: 'should work and refresh content using hot module replacement',
-      options: {
-        allowedHosts: 'all',
-
-        webSocketServer: 'sockjs',
-        liveReload: false,
-        hot: true,
-      },
-    },
-    {
-      title: 'should work and refresh content using live reload',
-      options: {
-        allowedHosts: 'all',
-
-        webSocketServer: 'sockjs',
-        liveReload: true,
-        hot: false,
-      },
-    },
-    {
-      title:
-        'should work and refresh content using hot module replacement when hot and live reload enabled',
-      options: {
-        allowedHosts: 'all',
-
-        webSocketServer: 'sockjs',
-        liveReload: true,
-        hot: true,
-      },
-    },
+    // {
+    //   title: 'should work and refresh content using hot module replacement when hot enabled',
+    //   options: {
+    //     allowedHosts: 'all',
+    //
+    //     webSocketServer: 'sockjs',
+    //     hot: true,
+    //   },
+    // },
+    // {
+    //   title: 'should work and refresh content using hot module replacement when live reload enabled',
+    //   options: {
+    //     allowedHosts: 'all',
+    //
+    //     webSocketServer: 'sockjs',
+    //     liveReload: true,
+    //   },
+    // },
+    // {
+    //   title: 'should not refresh content when hot and no live reload disabled',
+    //   options: {
+    //     allowedHosts: 'all',
+    //
+    //     webSocketServer: 'sockjs',
+    //     hot: false,
+    //     liveReload: false,
+    //   },
+    // },
+    // {
+    //   title: 'should work and refresh content using hot module replacement when live reload disabled and hot enabled',
+    //   options: {
+    //     allowedHosts: 'all',
+    //
+    //     webSocketServer: 'sockjs',
+    //     liveReload: false,
+    //     hot: true,
+    //   },
+    // },
+    // {
+    //   title: 'should work and refresh content using live reload when live reload disabled and hot enabled',
+    //   options: {
+    //     allowedHosts: 'all',
+    //
+    //     webSocketServer: 'sockjs',
+    //     liveReload: true,
+    //     hot: false,
+    //   },
+    // },
+    // {
+    //   title:
+    //     'should work and refresh content using hot module replacement when live reload and hot enabled',
+    //   options: {
+    //     allowedHosts: 'all',
+    //
+    //     webSocketServer: 'sockjs',
+    //     liveReload: true,
+    //     hot: true,
+    //   },
+    // },
   ];
 
   modes.forEach((mode) => {
-    it(mode.title, async () => {
+    const webSocketServerTitle =
+      mode.options && mode.options.webSocketServer
+        ? mode.options.webSocketServer
+        : 'default';
+
+    it(`${mode.title} (${webSocketServerTitle})`, async () => {
+      process.stdout.write(`START ${mode.title} (${webSocketServerTitle})\n`);
       fs.writeFileSync(
         cssFilePath,
         'body { background-color: rgb(0, 0, 255); }'
@@ -407,12 +417,15 @@ describe.skip('hot and live reload', () => {
       fs.unlinkSync(cssFilePath);
 
       await browser.close();
-
       await new Promise((resolve) => {
         server.close(() => {
           resolve();
         });
       });
+
+      process.stdout.write(
+        `FINISHED ${mode.title} (${webSocketServerTitle})\n`
+      );
     });
   });
 });
