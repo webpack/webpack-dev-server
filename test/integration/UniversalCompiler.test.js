@@ -3,7 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/universal-compiler-config/webpack.config');
-const port = require('../ports-map').UniversalCompiler;
+const port = require('../ports-map')['universal-compiler'];
 
 describe('universal compiler', () => {
   let server;

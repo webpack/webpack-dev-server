@@ -3,7 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['onAfterSetupMiddleware-option'];
+const port = require('../ports-map')['on-after-setup-middleware-option'];
 
 describe('onAfterSetupMiddleware option', () => {
   let server;

@@ -8,6 +8,7 @@ const schema = require('../../lib/options.json');
 const cliOptions = require('../../bin/cli-flags');
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 const isWebpack5 = require('../helpers/isWebpack5');
+const port = require('../ports-map')['cli-basic'];
 
 const isMacOS = process.platform === 'darwin';
 const webpack5Test = isWebpack5 ? it : it.skip;
@@ -48,12 +49,12 @@ describe('basic', () => {
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');
     });
 
-    it('should work using "--host localhost --port 9999"', async () => {
+    it('should work using "--host localhost --port <port>"', async () => {
       const { exitCode, stderr } = await testBin([
         '--host',
         'localhost',
         '--port',
-        9999,
+        port,
       ]);
 
       expect(exitCode).toEqual(0);

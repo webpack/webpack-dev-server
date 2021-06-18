@@ -8,10 +8,8 @@ const sockjs = require('sockjs/lib/transport');
 const findPort = require('../../lib/utils/findPort');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map').Server;
+const port = require('../ports-map').server;
 const isWebpack5 = require('../helpers/isWebpack5');
-
-const getFreePort = Server.getFreePort;
 
 jest.mock('sockjs/lib/transport');
 
@@ -475,11 +473,12 @@ describe('Server', () => {
     });
   });
 
-  describe('getFreePort', () => {
+  describe('Server.getFreePort', () => {
     let dummyServers = [];
 
     afterEach(() => {
-      delete process.env.DEFAULT_PORT_RETRY;
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
+      delete process.env.WEBPACK_DEV_SERVER_PORT_RETRY;
 
       return dummyServers
         .reduce(
@@ -498,6 +497,8 @@ describe('Server', () => {
     });
 
     function createDummyServers(n) {
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 60000;
+
       return (Array.isArray(n) ? n : [...new Array(n)]).reduce(
         (p, _, i) =>
           p.then(
@@ -507,7 +508,7 @@ describe('Server', () => {
 
                 dummyServers.push(server);
 
-                server.listen(8080 + i, () => {
+                server.listen(60000 + i, '0.0.0.0', () => {
                   resolve();
                 });
 
@@ -521,9 +522,9 @@ describe('Server', () => {
     }
 
     it('should returns the port when the port is specified', () => {
-      process.env.DEFAULT_PORT_RETRY = 5;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
 
-      return getFreePort(8082).then((freePort) => {
+      return Server.getFreePort(8082).then((freePort) => {
         expect(freePort).toEqual(8082);
       });
     });
@@ -531,68 +532,67 @@ describe('Server', () => {
     it('should returns the port when the port is null', () => {
       const retryCount = 2;
 
-      process.env.DEFAULT_PORT_RETRY = 2;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 2;
 
       return createDummyServers(retryCount)
-        .then(() => getFreePort(null))
+        .then(() => Server.getFreePort(null))
         .then((freePort) => {
-          expect(freePort).toEqual(8080 + retryCount);
+          expect(freePort).toEqual(60000 + retryCount);
         });
     });
 
     it('should returns the port when the port is undefined', () => {
-      const retryCount = 2;
+      const retryCount = 3;
 
-      process.env.DEFAULT_PORT_RETRY = 2;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 3;
 
       return (
         createDummyServers(retryCount)
           // eslint-disable-next-line no-undefined
-          .then(() => getFreePort(undefined))
+          .then(() => Server.getFreePort(undefined))
           .then((freePort) => {
-            expect(freePort).toEqual(8080 + retryCount);
+            expect(freePort).toEqual(60000 + retryCount);
           })
       );
     });
 
     it('should retry finding the port for up to defaultPortRetry times (number)', () => {
-      const retryCount = 3;
+      const retryCount = 4;
 
-      process.env.DEFAULT_PORT_RETRY = retryCount;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       return createDummyServers(retryCount)
-        .then(() => getFreePort())
+        .then(() => Server.getFreePort())
         .then((freePort) => {
-          expect(freePort).toEqual(8080 + retryCount);
+          expect(freePort).toEqual(60000 + retryCount);
         });
     });
 
     it('should retry finding the port for up to defaultPortRetry times (string)', () => {
-      const retryCount = 3;
+      const retryCount = 5;
 
-      process.env.DEFAULT_PORT_RETRY = `${retryCount}`;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = `${retryCount}`;
 
       return createDummyServers(retryCount)
-        .then(() => getFreePort())
+        .then(() => Server.getFreePort())
         .then((freePort) => {
-          expect(freePort).toEqual(8080 + retryCount);
+          expect(freePort).toEqual(60000 + retryCount);
         });
     });
 
-    // TODO: fix me, Flaky on CI
-    it.skip('should retry finding the port when serial ports are busy', () => {
-      const busyPorts = [8080, 8081, 8082, 8083];
+    it('should retry finding the port when serial ports are busy', () => {
+      const busyPorts = [60000, 60001, 60002, 60003, 60004, 60005, 60006];
 
-      process.env.DEFAULT_PORT_RETRY = 3;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 6;
 
       return createDummyServers(busyPorts)
-        .then(() => getFreePort())
+        .then(() => Server.getFreePort())
         .then((freePort) => {
-          expect(freePort).toEqual(8080 + busyPorts.length);
+          expect(freePort).toEqual(60000 + busyPorts.length);
         });
     });
 
-    it("should throws the error when the port isn't found", () => {
+    it("should throws the error when the port isn't found", async () => {
       expect.assertions(1);
 
       jest.mock('portfinder', () => {
@@ -601,19 +601,17 @@ describe('Server', () => {
         };
       });
 
-      const retryCount = 1;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
 
-      process.env.DEFAULT_PORT_RETRY = 0;
-
-      return createDummyServers(retryCount)
-        .then(() => getFreePort())
-        .catch((err) => {
-          expect(err.message).toMatchSnapshot();
-        });
+      try {
+        await Server.getFreePort();
+      } catch (error) {
+        expect(error.message).toMatchSnapshot();
+      }
     });
 
     it('should work with findPort util', () => {
-      process.env.DEFAULT_PORT_RETRY = 5;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 5;
 
       return findPort(8082).then((freePort) => {
         expect(freePort).toEqual(8082);

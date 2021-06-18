@@ -7,7 +7,7 @@ const sockjsConfig = require('../fixtures/provide-plugin-sockjs-config/webpack.c
 const wsConfig = require('../fixtures/provide-plugin-ws-config/webpack.config');
 const customConfig = require('../fixtures/provide-plugin-custom/webpack.config');
 const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map').ProvidePlugin;
+const port = require('../ports-map')['web-socket-server-and-transport.test'];
 
 describe('web socket server and transport', () => {
   it('should use default transport ("ws")', async () => {

@@ -20,24 +20,23 @@ const cssFilePath = path.resolve(
   '../fixtures/reload-config/main.css'
 );
 
-jest.setTimeout(240000);
-
 describe('hot and live reload', () => {
   // "sockjs" client cannot add additional headers
   const modes = [
     {
-      title:
-        'should work with default web socket server ("ws") and refresh content using hot module replacement',
+      title: 'should work and refresh content using hot module replacement',
     },
     // Default web socket serve ("ws")
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when hot enabled',
       options: {
         hot: true,
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload enabled',
       options: {
         liveReload: true,
       },
@@ -50,7 +49,8 @@ describe('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload disabled and hot enabled',
       options: {
         liveReload: false,
         hot: true,
@@ -65,7 +65,7 @@ describe('hot and live reload', () => {
     },
     {
       title:
-        'should work and refresh content using hot module replacement when hot and live reload enabled',
+        'should work and refresh content using hot module replacement when live reload enabled and hot disabled',
       options: {
         liveReload: true,
         hot: true,
@@ -73,14 +73,16 @@ describe('hot and live reload', () => {
     },
     // "ws" web socket serve
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when hot enabled',
       options: {
         webSocketServer: 'ws',
         hot: true,
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload enabled',
       options: {
         webSocketServer: 'ws',
         liveReload: true,
@@ -95,7 +97,8 @@ describe('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload disabled and hot enabled',
       options: {
         webSocketServer: 'ws',
         liveReload: false,
@@ -103,7 +106,8 @@ describe('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using live reload',
+      title:
+        'should work and refresh content using live reload when live reload enabled and hot disabled',
       options: {
         webSocketServer: 'ws',
         liveReload: true,
@@ -112,7 +116,7 @@ describe('hot and live reload', () => {
     },
     {
       title:
-        'should work and refresh content using hot module replacement when hot and live reload enabled',
+        'should work and refresh content using hot module replacement when live reload and hot enabled',
       options: {
         webSocketServer: 'ws',
         liveReload: true,
@@ -121,7 +125,8 @@ describe('hot and live reload', () => {
     },
     // "sockjs" web socket serve
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when hot enabled',
       options: {
         allowedHosts: 'all',
 
@@ -130,7 +135,8 @@ describe('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload enabled',
       options: {
         allowedHosts: 'all',
 
@@ -149,7 +155,8 @@ describe('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using hot module replacement',
+      title:
+        'should work and refresh content using hot module replacement when live reload disabled and hot enabled',
       options: {
         allowedHosts: 'all',
 
@@ -159,7 +166,8 @@ describe('hot and live reload', () => {
       },
     },
     {
-      title: 'should work and refresh content using live reload',
+      title:
+        'should work and refresh content using live reload when live reload disabled and hot enabled',
       options: {
         allowedHosts: 'all',
 
@@ -170,7 +178,7 @@ describe('hot and live reload', () => {
     },
     {
       title:
-        'should work and refresh content using hot module replacement when hot and live reload enabled',
+        'should work and refresh content using hot module replacement when live reload and hot enabled',
       options: {
         allowedHosts: 'all',
 
@@ -182,7 +190,12 @@ describe('hot and live reload', () => {
   ];
 
   modes.forEach((mode) => {
-    it(mode.title, async () => {
+    const webSocketServerTitle =
+      mode.options && mode.options.webSocketServer
+        ? mode.options.webSocketServer
+        : 'default';
+
+    it(`${mode.title} (${webSocketServerTitle})`, async () => {
       fs.writeFileSync(
         cssFilePath,
         'body { background-color: rgb(0, 0, 255); }'
@@ -297,8 +310,7 @@ describe('hot and live reload', () => {
           let received = false;
           let errored = false;
 
-          sockjs.onerror = (error) => {
-            console.log(error);
+          sockjs.onerror = () => {
             errored = true;
           };
 
@@ -370,15 +382,13 @@ describe('hot and live reload', () => {
       let doNothing = false;
 
       if ((hot && liveReload) || (hot && !liveReload)) {
-        await new Promise((resolve) => {
-          const timer = setInterval(() => {
-            if (doneHotUpdate) {
-              clearInterval(timer);
+        await page.waitForFunction(
+          () =>
+            getComputedStyle(document.body)['background-color'] ===
+            'rgb(255, 0, 0)'
+        );
 
-              resolve();
-            }
-          }, 100);
-        });
+        expect(doneHotUpdate).toBe(true);
       } else if (liveReload) {
         await page.waitForNavigation({
           waitUntil: 'networkidle0',
@@ -407,7 +417,6 @@ describe('hot and live reload', () => {
       fs.unlinkSync(cssFilePath);
 
       await browser.close();
-
       await new Promise((resolve) => {
         server.close(() => {
           resolve();

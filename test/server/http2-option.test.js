@@ -38,6 +38,7 @@ describe('http2 option', () => {
       const client = http2.connect(`https://localhost:${port}`, {
         rejectUnauthorized: false,
       });
+
       client.on('error', (err) => console.error(err));
 
       const http2Req = client.request({ ':path': '/' });
@@ -47,7 +48,9 @@ describe('http2 option', () => {
       });
 
       http2Req.setEncoding('utf8');
+
       let data = '';
+
       http2Req.on('data', (chunk) => {
         data += chunk;
       });

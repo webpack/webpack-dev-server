@@ -3,7 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/mime-types-config/webpack.config');
-const port = require('../ports-map')['mineTypes-option'];
+const port = require('../ports-map')['mine-types-option'];
 
 describe('mimeTypes option', () => {
   describe('as an object with a remapped type', () => {

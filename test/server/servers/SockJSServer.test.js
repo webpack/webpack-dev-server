@@ -8,7 +8,7 @@ const http = require('http');
 const express = require('express');
 const SockJS = require('sockjs-client/dist/sockjs');
 const SockJSServer = require('../../../lib/servers/SockJSServer');
-const port = require('../../ports-map').SockJSServer;
+const port = require('../../ports-map')['sockjs-server'];
 
 describe('SockJSServer', () => {
   describe("should work with the 'path' option", () => {
