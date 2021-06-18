@@ -211,7 +211,7 @@ module.exports = {
       },
     ],
     description:
-      'Tells clients connected to devServer to use the provided host.',
+      'Tells clients connected to devServer to use the provided hostname.',
     simpleType: 'string',
     multiple: false,
   },
