@@ -40,7 +40,7 @@ describe('CLI', () => {
     );
   });
 
-  describe('help', () => {
+  describe.only('help', () => {
     (isMacOS ? it.skip : it)('should generate correct cli flags', async () => {
       const { exitCode, stdout } = await testBin(['--help']);
 
