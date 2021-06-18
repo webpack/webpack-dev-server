@@ -35,7 +35,7 @@ const listOfTests = {
   'open-option': 1,
   'port-option': 1,
   'proxy-option': 4,
-  Server: 1,
+  server: 1,
   'setup-exit-signals-option': 1,
   'static-directory-option': 1,
   'static-public-path-option': 1,
@@ -64,7 +64,7 @@ module.exports = new Proxy(ports, {
   get(target, name) {
     if (!target[name]) {
       throw new Error(
-        'Requested port(s) for tests not found, please update "test/ports-map.js".'
+        `Requested "${name}" port(s) for tests not found, please update "test/ports-map.js".`
       );
     }
 
