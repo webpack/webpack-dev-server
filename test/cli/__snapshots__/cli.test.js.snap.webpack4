@@ -73,6 +73,8 @@ Options:
   --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
   --client-web-socket-url-path <value>      Tells clients connected to devServer to use the provided path to connect.
   --client-web-socket-url-protocol <value>  Tells clients connected to devServer to use the provided protocol.
+  --client-web-socket-url-username <value>  Tells clients connected to devServer to use the provided username to authenticate.
+  --client-web-socket-url-password <value>  Tells clients connected to devServer to use the provided password to authenticate.
   --web-socket-server <value>               Allows to set web socket server and options (by default 'ws'). https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
   --compress                                Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress
   --no-compress                             Disables gzip compression for everything served.
