@@ -307,6 +307,7 @@
           "minLength": 1
         },
         {
+          "type": "boolean",
           "enum": [true]
         }
       ],

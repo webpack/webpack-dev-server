@@ -480,6 +480,29 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
+  'ipc-socket': {
+    configs: [
+      {
+        type: 'string',
+        multiple: false,
+        description:
+          'Listen to a unix socket. https://webpack.js.org/configuration/dev-server/#devserverunixsocket',
+        path: 'ipcSocket',
+      },
+      {
+        type: 'enum',
+        values: [true],
+        multiple: false,
+        description:
+          'Listen to a unix socket. https://webpack.js.org/configuration/dev-server/#devserverunixsocket',
+        path: 'ipcSocket',
+      },
+    ],
+    description:
+      'Listen to a unix socket. https://webpack.js.org/configuration/dev-server/#devserverunixsocket',
+    simpleType: 'string',
+    multiple: false,
+  },
   'live-reload': {
     configs: [
       {
