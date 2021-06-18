@@ -76,6 +76,10 @@ const normalizeStderr = (stderr, options = {}) => {
     );
   }
 
+  normalizedStderr = normalizedStderr.replace(
+    new RegExp('.+wait until bundle finished.+', 'g'),
+    ''
+  );
   normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ':<port>/');
 
   if (options.https) {
