@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CLI basic --host localhost --port 9999: stderr 1`] = `
+exports[`basic basic should work using "--host localhost --port 9999": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://127.0.0.1:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`CLI basic should work: stderr 1`] = `
+exports[`basic basic should work: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -14,7 +14,7 @@ exports[`CLI basic should work: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`CLI help should generate correct cli flags 1`] = `
+exports[`basic should output help should generate correct cli flags 1`] = `
 "Usage: webpack serve|server|s [entries...] [options]
 
 Run the webpack dev server.

@@ -3,7 +3,7 @@
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
 
 describe('"http2" CLI option', () => {
-  it('--http2', async () => {
+  it('should work using "--http2"', async () => {
     const { exitCode, stderr } = await testBin(['--http2']);
 
     expect(exitCode).toEqual(0);
@@ -12,7 +12,7 @@ describe('"http2" CLI option', () => {
     ).toMatchSnapshot();
   });
 
-  it('--no-http2', async () => {
+  it('should work using "--no-http2"', async () => {
     const { exitCode, stderr } = await testBin(['--no-http2']);
 
     expect(exitCode).toEqual(0);

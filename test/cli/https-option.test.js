@@ -9,7 +9,7 @@ const httpsCertificateDirectory = path.resolve(
 );
 
 describe('"https" CLI option', () => {
-  it('--https', async () => {
+  it('should work using "--https"', async () => {
     const { exitCode, stderr } = await testBin(['--https']);
 
     expect(exitCode).toEqual(0);
@@ -18,7 +18,7 @@ describe('"https" CLI option', () => {
     ).toMatchSnapshot();
   });
 
-  it('https options', async () => {
+  it('should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path> --https-cacert <path>"', async () => {
     const pfxFile = path.join(httpsCertificateDirectory, 'server.pfx');
     const key = path.join(httpsCertificateDirectory, 'server.key');
     const cert = path.join(httpsCertificateDirectory, 'server.crt');
@@ -36,7 +36,7 @@ describe('"https" CLI option', () => {
   });
 
   // For https://github.com/webpack/webpack-dev-server/issues/3306
-  it('https and other related options', async () => {
+  it('should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path>"', async () => {
     const pfxFile = path.join(httpsCertificateDirectory, 'server.pfx');
     const key = path.join(httpsCertificateDirectory, 'server.key');
     const cert = path.join(httpsCertificateDirectory, 'server.crt');
@@ -52,7 +52,7 @@ describe('"https" CLI option', () => {
     ).toMatchSnapshot();
   });
 
-  it('--https-request-cert', async () => {
+  it('should work using "--https-request-cert"', async () => {
     const { exitCode, stderr } = await testBin(['--https-request-cert']);
 
     expect(exitCode).toEqual(0);
@@ -61,7 +61,7 @@ describe('"https" CLI option', () => {
     ).toMatchSnapshot();
   });
 
-  it('--no-https-request-cert', async () => {
+  it('should work using "--no-https-request-cert"', async () => {
     const { exitCode, stderr } = await testBin(['--no-https-request-cert']);
 
     expect(exitCode).toEqual(0);
@@ -70,7 +70,7 @@ describe('"https" CLI option', () => {
     ).toMatchSnapshot();
   });
 
-  it('--no-https', async () => {
+  it('should work using "--no-https"', async () => {
     const { exitCode, stderr } = await testBin(['--no-https']);
 
     expect(exitCode).toEqual(0);

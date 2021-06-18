@@ -13,7 +13,7 @@ const isMacOS = process.platform === 'darwin';
 const webpack5Test = isWebpack5 ? it : it.skip;
 
 describe('basic', () => {
-  describe('options', () => {
+  describe('should validate CLI options', () => {
     webpack5Test('should be same as in schema', () => {
       const cliOptionsFromWebpack = webpack.cli.getArguments(schema);
 
@@ -31,7 +31,7 @@ describe('basic', () => {
     });
   });
 
-  describe('help', () => {
+  describe('should output help', () => {
     (isMacOS ? it.skip : it)('should generate correct cli flags', async () => {
       const { exitCode, stdout } = await testBin(['--help']);
 
@@ -48,7 +48,7 @@ describe('basic', () => {
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');
     });
 
-    it('--host localhost --port 9999', async () => {
+    it('should work using "--host localhost --port 9999"', async () => {
       const { exitCode, stderr } = await testBin([
         '--host',
         'localhost',
