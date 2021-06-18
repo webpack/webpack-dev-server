@@ -145,8 +145,8 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "host": {
-              "description": "Tells clients connected to devServer to use the provided host.",
+            "hostname": {
+              "description": "Tells clients connected to devServer to use the provided hostname.",
               "type": "string",
               "minLength": 1
             },

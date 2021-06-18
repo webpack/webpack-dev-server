@@ -81,7 +81,7 @@ const tests = {
         webSocketURL: 'ws://localhost:8080',
       },
       {
-        webSocketURL: { host: 'localhost' },
+        webSocketURL: { hostname: 'localhost' },
       },
       {
         webSocketURL: { port: 8080 },
@@ -96,7 +96,7 @@ const tests = {
         webSocketURL: { path: '/my-path/' },
       },
       {
-        webSocketURL: { host: 'localhost', port: 8080, path: '/my-path/' },
+        webSocketURL: { hostname: 'localhost', port: 8080, path: '/my-path/' },
       },
       {
         webSocketURL: { username: 'zoro', password: 'roronoa' },
@@ -144,7 +144,7 @@ const tests = {
         transport: true,
       },
       {
-        webSocketURL: { host: true, path: '', port: 8080 },
+        webSocketURL: { hostname: true, path: '', port: 8080 },
       },
       {
         webSocketURL: { path: true },
@@ -153,7 +153,7 @@ const tests = {
         webSocketURL: { port: true },
       },
       {
-        webSocketURL: { host: '' },
+        webSocketURL: { hostname: '' },
       },
       {
         webSocketURL: { port: '' },

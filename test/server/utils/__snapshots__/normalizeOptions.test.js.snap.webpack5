@@ -78,7 +78,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "webSocketURL": Object {
-      "host": "my.host",
+      "hostname": "my.host",
       "port": 9000,
     },
   },
@@ -116,7 +116,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "webSocketURL": Object {
-      "host": "my.host",
+      "hostname": "my.host",
       "port": 9000,
     },
   },
