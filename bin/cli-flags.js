@@ -206,8 +206,8 @@ module.exports = {
         type: 'string',
         multiple: false,
         description:
-          'Tells clients connected to devServer to use the provided host.',
-        path: 'client.webSocketURL.host',
+          'Tells clients connected to devServer to use the provided hostname.',
+        path: 'client.webSocketURL.hostname',
       },
     ],
     description:
