@@ -234,6 +234,10 @@ const tests = {
       },
     ],
   },
+  ipcSocket: {
+    success: [true, '/tmp/webpack-dev-server.socket'],
+    failure: ['', false],
+  },
   onListening: {
     success: [() => {}],
     failure: [''],

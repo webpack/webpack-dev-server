@@ -366,6 +366,21 @@ exports[`options validate should throw an error on the "https" option with '{"re
    -> Request for an SSL certificate."
 `;
 
+exports[`options validate should throw an error on the "ipcSocket" option with '' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.ipcSocket should be an non-empty string."
+`;
+
+exports[`options validate should throw an error on the "ipcSocket" option with 'false' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.ipcSocket should be one of these:
+   non-empty string | true
+   -> Listen to a unix socket. https://webpack.js.org/configuration/dev-server/#devserverunixsocket
+   Details:
+    * options.ipcSocket should be a non-empty string.
+    * options.ipcSocket should be true."
+`;
+
 exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onAfterSetupMiddleware should be an instance of function.
