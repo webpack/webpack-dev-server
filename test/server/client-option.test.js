@@ -71,7 +71,7 @@ describe('client option', () => {
   });
 
   describe('configure client entry', () => {
-    it('disables client entry', async () => {
+    it('disables client entry', (done) => {
       server = testServer.start(
         config,
         {
@@ -80,14 +80,15 @@ describe('client option', () => {
           },
           port,
         },
-        () => {
-          const res = request(server.app).get('/main.js');
+        async () => {
+          const res = await request(server.app).get('/main.js');
           expect(res.text).not.toMatch(/client\/index\.js/);
+          done();
         }
       );
     });
 
-    it('disables hot entry', async () => {
+    it('disables hot entry', (done) => {
       server = testServer.start(
         config,
         {
@@ -96,9 +97,10 @@ describe('client option', () => {
           },
           port,
         },
-        () => {
-          const res = request(server.app).get('/main.js');
+        async () => {
+          const res = await request(server.app).get('/main.js');
           expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
+          done();
         }
       );
     });
