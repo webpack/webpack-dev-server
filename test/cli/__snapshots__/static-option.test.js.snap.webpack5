@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`static option --no-static-serve-index: stderr 1`] = `
+exports[`"static" CLI option should work using "--no-static-serve-index": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -8,7 +8,7 @@ exports[`static option --no-static-serve-index: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`static option --no-static-watch: stderr 1`] = `
+exports[`"static" CLI option should work using "--no-static-watch": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -16,7 +16,7 @@ exports[`static option --no-static-watch: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`static option --static <value> --static <other-value>: stderr 1`] = `
+exports[`"static" CLI option should work using "--static new-static --static other-static": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -24,7 +24,7 @@ exports[`static option --static <value> --static <other-value>: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from 'new-static, other-static' directory"
 `;
 
-exports[`static option --static <value>: stderr 1`] = `
+exports[`"static" CLI option should work using "--static new-static": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -32,7 +32,7 @@ exports[`static option --static <value>: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from 'new-static' directory"
 `;
 
-exports[`static option --static: stderr 1`] = `
+exports[`"static" CLI option should work using "--static": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -40,7 +40,7 @@ exports[`static option --static: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`static option --static-directory: stderr 1`] = `
+exports[`"static" CLI option should work using "--static-directory static-dir": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -48,7 +48,7 @@ exports[`static option --static-directory: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from 'static-dir' directory"
 `;
 
-exports[`static option --static-public-path: stderr 1`] = `
+exports[`"static" CLI option should work using "--static-public-path /public": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -56,16 +56,15 @@ exports[`static option --static-public-path: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`static option --static-public-path-reset: stderr 1`] = `
+exports[`"static" CLI option should work using "--static-public-path-reset": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
-"
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`static option --static-reset --static-directory <value>: stderr 1`] = `
+exports[`"static" CLI option should work using "--static-reset --static-directory new-static-directory": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -73,7 +72,7 @@ exports[`static option --static-reset --static-directory <value>: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from 'new-static-directory' directory"
 `;
 
-exports[`static option --static-reset: stderr 1`] = `
+exports[`"static" CLI option should work using "--static-reset": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -81,7 +80,7 @@ exports[`static option --static-reset: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from 'new-static-after-reset' directory"
 `;
 
-exports[`static option --static-serve-index: stderr 1`] = `
+exports[`"static" CLI option should work using "--static-serve-index": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -89,7 +88,7 @@ exports[`static option --static-serve-index: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`static option --static-watch: stderr 1`] = `
+exports[`"static" CLI option should work using "--static-watch": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/

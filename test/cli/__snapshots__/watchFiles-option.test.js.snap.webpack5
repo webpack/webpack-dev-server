@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`watchFiles option --watch-files <value> --watch-files <other-value>: stderr 1`] = `
+exports[`"watchFiles" CLI option should work using "--watch-files <value> --watch-files <other-value>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -8,7 +8,7 @@ exports[`watchFiles option --watch-files <value> --watch-files <other-value>: st
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`watchFiles option --watch-files <value>: stderr 1`] = `
+exports[`"watchFiles" CLI option should work using "--watch-files <value>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -16,7 +16,7 @@ exports[`watchFiles option --watch-files <value>: stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`watchFiles option --watch-files-reset: stderr 1`] = `
+exports[`"watchFiles" CLI option should work using "--watch-files-reset --watch-files <static>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/

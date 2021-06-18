@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`historyApiFallback option --history-api-fallback 1`] = `
+exports[`"historyApiFallback" CLI option should work using "--history-api-fallback" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
@@ -9,7 +9,7 @@ exports[`historyApiFallback option --history-api-fallback 1`] = `
 <i> [webpack-dev-server] 404s will fallback to '/index.html'"
 `;
 
-exports[`historyApiFallback option --no-history-api-fallback 1`] = `
+exports[`"historyApiFallback" CLI option should work using "--no-history-api-fallback" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
