@@ -54,4 +54,4 @@ Array [
 ]
 `;
 
-exports[`Server getFreePort should throws the error when the port isn't found 1`] = `"listen EADDRINUSE: address already in use :::8080"`;
+exports[`Server Server.getFreePort should throws the error when the port isn't found 1`] = `"busy"`;
