@@ -61,20 +61,20 @@ describe('basic', () => {
       expect(normalizeStderr(stderr)).toMatchSnapshot('stderr');
     });
 
-    it('should accept the promise function of webpack.config.js', (done) => {
-      testBin(
-        false,
-        path.resolve(__dirname, '../fixtures/promise-config/webpack.config.js')
-      )
-        .then((output) => {
-          expect(output.exitCode).toEqual(0);
-          done();
-        })
-        .catch((err) => {
-          // for windows
-          expect(err.stdout).toContain('main.js');
-          done();
-        });
+    it('should accept the promise function of webpack.config.js', async () => {
+      try {
+        const { exitCode } = await testBin(
+          false,
+          path.resolve(
+            __dirname,
+            '../fixtures/promise-config/webpack.config.js'
+          )
+        );
+        expect(exitCode).toEqual(0);
+      } catch (err) {
+        // for windows
+        expect(err.stdout).toContain('main.js');
+      }
     });
 
     it('should exit the process when SIGINT is detected', (done) => {

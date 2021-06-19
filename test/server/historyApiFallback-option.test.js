@@ -27,8 +27,11 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('request to directory', (done) => {
-      req.get('/foo').accept('html').expect(200, /Heyyy/, done);
+    it('request to directory', async () => {
+      const res = await req.get('/foo').accept('html');
+      expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyyy');
     });
   });
 
@@ -47,11 +50,10 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('request to directory', (done) => {
-      req
-        .get('/foo')
-        .accept('html')
-        .expect(200, /Foobar/, done);
+    it('request to directory', async () => {
+      const res = await req.get('/foo').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Foobar');
     });
   });
 
@@ -74,33 +76,22 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('historyApiFallback should take preference above directory index', (done) => {
-      req
-        .get('/')
-        .accept('html')
-        .expect(200, /Foobar/, done);
+    it('historyApiFallback should take preference above directory index', async () => {
+      const res = await req.get('/foo').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Foobar');
     });
 
-    it('request to directory', (done) => {
-      req
-        .get('/foo')
-        .accept('html')
-        .expect(200, /Foobar/, done);
+    it('request to directory', async () => {
+      const res = await req.get('/foo').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Foobar');
     });
 
-    it('static file should take preference above historyApiFallback', (done) => {
-      req
-        .get('/random-file')
-        .accept('html')
-        .end((err, res) => {
-          if (err) {
-            done(err);
-          }
-
-          expect(res.body.toString().trim()).toEqual('Random file');
-
-          done();
-        });
+    it('static file should take preference above historyApiFallback', async () => {
+      const res = await req.get('/random-file').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.body.toString().trim()).toEqual('Random file');
     });
   });
 
@@ -120,11 +111,10 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('historyApiFallback should work and ignore static content', (done) => {
-      req
-        .get('/index.html')
-        .accept('html')
-        .expect(200, /In-memory file/, done);
+    it('historyApiFallback should work and ignore static content', async () => {
+      const res = await req.get('/index.html').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('In-memory file');
     });
   });
 
@@ -156,25 +146,22 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('historyApiFallback respect rewrites for index', (done) => {
-      req
-        .get('/')
-        .accept('html')
-        .expect(200, /Foobar/, done);
+    it('historyApiFallback respect rewrites for index', async () => {
+      const res = await req.get('/').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Foobar');
     });
 
-    it('historyApiFallback respect rewrites and shows index for unknown urls', (done) => {
-      req
-        .get('/acme')
-        .accept('html')
-        .expect(200, /Foobar/, done);
+    it('historyApiFallback respect rewrites and shows index for unknown urls', async () => {
+      const res = await req.get('/acme').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Foobar');
     });
 
-    it('historyApiFallback respect any other specified rewrites', (done) => {
-      req
-        .get('/other')
-        .accept('html')
-        .expect(200, /Other file/, done);
+    it('historyApiFallback respect any other specified rewrites', async () => {
+      const res = await req.get('/other').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Other file');
     });
   });
 
@@ -202,27 +189,17 @@ describe('historyApiFallback option', () => {
       consoleSpy.mockRestore();
     });
 
-    it('request to directory and log', (done) => {
-      req
-        .get('/foo')
-        .accept('html')
-        .expect(200, /Foobar/, (error) => {
-          if (error) {
-            done(error);
-
-            return;
-          }
-
-          expect(consoleSpy).toHaveBeenCalledWith(
-            'Rewriting',
-            'GET',
-            '/foo',
-            'to',
-            '/bar.html'
-          );
-
-          done();
-        });
+    it('request to directory and log', async () => {
+      const res = await req.get('/foo').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Foobar');
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Rewriting',
+        'GET',
+        '/foo',
+        'to',
+        '/bar.html'
+      );
     });
   });
 
@@ -250,27 +227,17 @@ describe('historyApiFallback option', () => {
       consoleSpy.mockRestore();
     });
 
-    it('request to directory and log', (done) => {
-      req
-        .get('/foo')
-        .accept('html')
-        .expect(200, /Foobar/, (error) => {
-          if (error) {
-            done(error);
-
-            return;
-          }
-
-          expect(consoleSpy).toHaveBeenCalledWith(
-            'Rewriting',
-            'GET',
-            '/foo',
-            'to',
-            '/bar.html'
-          );
-
-          done();
-        });
+    it('request to directory and log', async () => {
+      const res = await req.get('/foo').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Foobar');
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Rewriting',
+        'GET',
+        '/foo',
+        'to',
+        '/bar.html'
+      );
     });
   });
 
@@ -291,11 +258,10 @@ describe('historyApiFallback option', () => {
       req = request(server.app);
     });
 
-    it('should take precedence over static files', (done) => {
-      req
-        .get('/foo')
-        .accept('html')
-        .expect(200, /In-memory file/, done);
+    it('should take precedence over static files', async () => {
+      const res = await req.get('/foo').accept('html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('In-memory file');
     });
   });
 });

@@ -21,8 +21,10 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
 
-    it('should include hot script in the bundle', (done) => {
-      req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/, done);
+    it('should include hot script in the bundle', async () => {
+      const res = await req.get('/main.js');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('webpack/hot/dev-server.js');
     });
   });
 
@@ -38,10 +40,10 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
 
-    it('should include hot-only script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200, /webpack\/hot\/only-dev-server\.js/, done);
+    it('should include hot-only script in the bundle', async () => {
+      const res = await req.get('/main.js');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('webpack/hot/only-dev-server.js');
     });
   });
 
@@ -60,8 +62,10 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
 
-    it('should include hot script in the bundle', (done) => {
-      req.get('/main.js').expect(200, /webpack\/hot\/dev-server\.js/, done);
+    it('should include hot script in the bundle', async () => {
+      const res = await req.get('/main.js');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('webpack/hot/dev-server.js');
     });
   });
 

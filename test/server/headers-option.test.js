@@ -24,8 +24,10 @@ describe('headers option', () => {
 
     afterAll(testServer.close);
 
-    it('GET request with headers', (done) => {
-      req.get('/main').expect('X-Foo', '1').expect(200, done);
+    it('GET request with headers', async () => {
+      const res = await req.get('/main.js');
+      expect(res.headers['x-foo']).toEqual('1');
+      expect(res.status).toEqual(200);
     });
   });
 
@@ -44,10 +46,12 @@ describe('headers option', () => {
 
     afterAll(testServer.close);
 
-    it('GET request with headers as an array', (done) => {
+    it('GET request with headers as an array', async () => {
       // https://github.com/webpack/webpack-dev-server/pull/1650#discussion_r254217027
       const expected = 'key1=value1, key2=value2';
-      req.get('/main').expect('X-Bar', expected).expect(200, done);
+      const res = await req.get('/main.js');
+      expect(res.headers['x-bar']).toEqual(expected);
+      expect(res.status).toEqual(200);
     });
   });
 
@@ -68,10 +72,12 @@ describe('headers option', () => {
 
     afterAll(testServer.close);
 
-    it('GET request with headers as a function', (done) => {
+    it('GET request with headers as a function', async () => {
       // https://github.com/webpack/webpack-dev-server/pull/1650#discussion_r254217027
       const expected = 'key1=value1, key2=value2';
-      req.get('/main').expect('X-Bar', expected).expect(200, done);
+      const res = await req.get('/main.js');
+      expect(res.headers['x-bar']).toEqual(expected);
+      expect(res.status).toEqual(200);
     });
   });
 
@@ -93,8 +99,10 @@ describe('headers option', () => {
 
     afterAll(testServer.close);
 
-    it('GET request with headers', (done) => {
-      req.get('/main.js').expect('X-Foo', '2').expect(200, done);
+    it('GET request with headers', async () => {
+      const res = await req.get('/main.js');
+      expect(res.headers['x-foo']).toEqual('2');
+      expect(res.status).toEqual(200);
     });
   });
 });
