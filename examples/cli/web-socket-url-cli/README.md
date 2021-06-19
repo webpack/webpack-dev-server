@@ -1,14 +1,14 @@
 # CLI: Web Socket URL
 
 ```console
-npx webpack serve --open-target --host 0.0.0.0 --web-socket-url <insert-host>:8080
+npx webpack serve --open-target --host 0.0.0.0 --client-web-socket-url ws://<insert-host>:8080
 ```
 
-_NOTE: replace `<insert local ip>` with your local IP Address._
+_NOTE: replace `<insert-host>` with your local IP Address._
 
 In order to make the server publicly accessible the client needs to know with
 what host to connect to the server. If `--host 0.0.0.0` is given, the client
-would try to connect to `0.0.0.0`. With the `--web-socket-url` options it is possible to
+would try to connect to `0.0.0.0`. With the `--client-web-socket-url` options it is possible to
 override this.
 
 ## What Should Happen

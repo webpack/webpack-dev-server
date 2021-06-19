@@ -18,89 +18,67 @@ describe('routes util', () => {
 
     afterAll(testServer.close);
 
-    it('should handles GET request to sockjs bundle', (done) => {
-      req.get('/__webpack_dev_server__/sockjs.bundle.js').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('application/javascript');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handles GET request to sockjs bundle', async () => {
+      const res = await req.get('/__webpack_dev_server__/sockjs.bundle.js');
+      expect(res.headers['content-type']).toEqual('application/javascript');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle HEAD request to sockjs bundle', (done) => {
-      req.head('/__webpack_dev_server__/sockjs.bundle.js').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('application/javascript');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle HEAD request to sockjs bundle', async () => {
+      const res = await req.head('/__webpack_dev_server__/sockjs.bundle.js');
+      expect(res.headers['content-type']).toEqual('application/javascript');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle GET request to invalidate endpoint', (done) => {
-      req.get('/webpack-dev-server/invalidate').then(({ res }) => {
-        expect(res.headers['content-type']).not.toEqual('text/html');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle GET request to invalidate endpoint', async () => {
+      const res = await req.get('/webpack-dev-server/invalidate');
+      expect(res.headers['content-type']).not.toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle GET request to live html', (done) => {
-      req.get('/webpack-dev-server/').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('text/html');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle GET request to live html', async () => {
+      const res = await req.get('/webpack-dev-server/');
+      expect(res.headers['content-type']).toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle HEAD request to live html', (done) => {
-      req.head('/webpack-dev-server/').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('text/html');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle HEAD request to live html', async () => {
+      const res = await req.head('/webpack-dev-server/');
+      expect(res.headers['content-type']).toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle GET request to directory index', (done) => {
-      req.get('/webpack-dev-server').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('text/html');
-        expect(res.statusCode).toEqual(200);
-        expect(res.text).toMatchSnapshot();
-        done();
-      });
+    it('should handle GET request to directory index', async () => {
+      const res = await req.get('/webpack-dev-server');
+      expect(res.headers['content-type']).toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
+      expect(res.text).toMatchSnapshot();
     });
 
-    it('should handle HEAD request to directory index', (done) => {
-      req.head('/webpack-dev-server').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('text/html');
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle HEAD request to directory index', async () => {
+      const res = await req.head('/webpack-dev-server');
+      expect(res.headers['content-type']).toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle GET request to magic html', (done) => {
-      req.get('/main').then(({ res }) => {
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle GET request to magic async html', async () => {
+      const res = await req.get('/main');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle HEAD request to magic html', (done) => {
-      req.head('/main').then(({ res }) => {
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle HEAD request to magic async html', async () => {
+      const res = await req.head('/main');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle GET request to main chunk', (done) => {
-      req.get('/main.js').then(({ res }) => {
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle GET request to main async chunk', async () => {
+      const res = await req.get('/main.js');
+      expect(res.statusCode).toEqual(200);
     });
 
-    it('should handle HEAD request to main chunk', (done) => {
-      req.head('/main.js').then(({ res }) => {
-        expect(res.statusCode).toEqual(200);
-        done();
-      });
+    it('should handle HEAD request to main async chunk', async () => {
+      const res = await req.head('/main.js');
+      expect(res.statusCode).toEqual(200);
     });
   });
 
@@ -112,13 +90,11 @@ describe('routes util', () => {
 
     afterAll(testServer.close);
 
-    it('should handle GET request to directory index and list all middleware directories', (done) => {
-      req.get('/webpack-dev-server').then(({ res }) => {
-        expect(res.headers['content-type']).toEqual('text/html');
-        expect(res.statusCode).toEqual(200);
-        expect(res.text).toMatchSnapshot();
-        done();
-      });
+    it('should handle GET request to directory index and list all middleware directories', async () => {
+      const res = await req.get('/webpack-dev-server');
+      expect(res.headers['content-type']).toEqual('text/html');
+      expect(res.statusCode).toEqual(200);
+      expect(res.text).toMatchSnapshot();
     });
   });
 });

@@ -1,10 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`options validate should throw an error on the "allowedHosts" option with '[""]' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.allowedHosts[0] should be an non-empty string."
+`;
+
+exports[`options validate should throw an error on the "allowedHosts" option with '[]' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.allowedHosts should be an non-empty array."
+`;
+
 exports[`options validate should throw an error on the "allowedHosts" option with '123' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
    [non-empty string, ...] (should not have fewer than 1 item) | \\"auto\\" | \\"all\\" | non-empty string
-   -> Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   -> Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
    Details:
     * options.allowedHosts should be an array:
       [non-empty string, ...] (should not have fewer than 1 item)
@@ -17,7 +27,7 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
    [non-empty string, ...] (should not have fewer than 1 item) | \\"auto\\" | \\"all\\" | non-empty string
-   -> Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   -> Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
    Details:
     * options.allowedHosts should be an array:
       [non-empty string, ...] (should not have fewer than 1 item)
@@ -30,7 +40,7 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
    [non-empty string, ...] (should not have fewer than 1 item) | \\"auto\\" | \\"all\\" | non-empty string
-   -> Defines routes which are enabled by default, on by default and allows localhost/value from the 'host' option/value from the 'client.webSocketURL' option. https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+   -> Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
    Details:
     * options.allowedHosts should be an array:
       [non-empty string, ...] (should not have fewer than 1 item)
@@ -43,7 +53,7 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.bonjour should be one of these:
    boolean | object { … }
-   -> Broadcasts the server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
+   -> Allows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
    Details:
     * options.bonjour should be a boolean.
     * options.bonjour should be an object:
@@ -55,7 +65,7 @@ exports[`options validate should throw an error on the "client" option with '{"h
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.hotEntry should be one of these:
    boolean | function
-   -> Tells devServer to inject a Hot Module Replacement entry.
+   -> Injects a Hot Module Replacement entry.
    Details:
     * options.client.hotEntry should be a boolean.
     * options.client.hotEntry should be an instance of function."
@@ -77,7 +87,7 @@ exports[`options validate should throw an error on the "client" option with '{"n
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.needClientEntry should be one of these:
    boolean | function
-   -> Tells devServer to inject a client entry.
+   -> Inject a client entry.
    Details:
     * options.client.needClientEntry should be a boolean.
     * options.client.needClientEntry should be an instance of function."
@@ -86,37 +96,43 @@ exports[`options validate should throw an error on the "client" option with '{"n
 exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.overlay should be one of these:
-   boolean | object { errors?, warnings?, … }
+   boolean | object { errors?, warnings? }
    Details:
     * options.client.overlay should be a boolean.
-      -> Show a full-screen overlay in the browser when there are compiler errors or warnings.
+      -> Enables a full-screen overlay in the browser when there are compiler errors or warnings.
     * options.client.overlay should be an object:
-      object { errors?, warnings?, … }"
+      object { errors?, warnings? }"
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"overlay":{"arbitrary":""}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.client.overlay has an unknown property 'arbitrary'. These properties are valid:
+   object { errors?, warnings? }"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":{"errors":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.overlay.errors should be a boolean.
-   -> Show a full-screen overlay in the browser when there are compiler errors."
+   -> Enables a full-screen overlay in the browser when there are compiler errors."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":{"warnings":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.overlay.warnings should be a boolean.
-   -> Show a full-screen overlay in the browser when there are compiler warnings."
+   -> Enables a full-screen overlay in the browser when there are compiler warnings."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.progress should be a boolean.
-   -> Print compilation progress in percentage in the browser."
+   -> Prints compilation progress in percentage in the browser."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"transport":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.transport should be one of these:
    \\"sockjs\\" | \\"ws\\" | non-empty string
-   -> Allows to set custom transport to communicate with server.
+   -> Allows to set custom transport to communicate with dev server.
    Details:
     * options.client.transport should be one of these:
       \\"sockjs\\" | \\"ws\\"
@@ -126,8 +142,8 @@ exports[`options validate should throw an error on the "client" option with '{"t
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client has an unknown property 'unknownOption'. These properties are valid:
-   object { transport?, logging?, progress?, overlay?, needClientEntry?, hotEntry?, webSocketURL? }
-   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
+   object { hotEntry?, logging?, needClientEntry?, overlay?, progress?, transport?, webSocketURL? }
+   -> Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"host":""}}' value 1`] = `
@@ -156,8 +172,8 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL should be one of these:
-   non-empty string | object { protocol?, host?, port?, path? }
-   -> When using dev server and you're proxying dev-server, the client script does not always know where to connect to.
+   non-empty string | object { host?, path?, password?, port?, protocol?, username? }
+   -> Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
    Details:
     * options.client.webSocketURL.port should be one of these:
       number | non-empty string
@@ -167,31 +183,43 @@ exports[`options validate should throw an error on the "client" option with '{"w
        * options.client.webSocketURL.port should be a non-empty string."
 `;
 
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"username":123,"password":976}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.client.webSocketURL should be one of these:
+   non-empty string | object { host?, path?, password?, port?, protocol?, username? }
+   -> Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
+   Details:
+    * options.client.webSocketURL.password should be a string.
+      -> Tells clients connected to devServer to use the provided password to authenticate.
+    * options.client.webSocketURL.username should be a string.
+      -> Tells clients connected to devServer to use the provided username to authenticate."
+`;
+
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be an object:
-   object { transport?, logging?, progress?, overlay?, needClientEntry?, hotEntry?, webSocketURL? }
-   -> Specifies client properties. https://webpack.js.org/configuration/dev-server/#devserverclient"
+   object { hotEntry?, logging?, needClientEntry?, overlay?, progress?, transport?, webSocketURL? }
+   -> Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient"
 `;
 
 exports[`options validate should throw an error on the "compress" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.compress should be a boolean.
-   -> Enable gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
+   -> Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
 `;
 
 exports[`options validate should throw an error on the "devMiddleware" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.devMiddleware should be an object:
    object { … }
-   -> Provide options to webpack-dev-middleware which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
+   -> Provide options to 'webpack-dev-middleware' which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
 `;
 
 exports[`options validate should throw an error on the "headers" option with '1' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
    object { … } | function
-   -> Adds headers to all responses. https://webpack.js.org/configuration/dev-server/#devserverheaders
+   -> Allows to set custom headers on response. https://webpack.js.org/configuration/dev-server/#devserverheaders
    Details:
     * options.headers should be an object:
       object { … }
@@ -202,7 +230,7 @@ exports[`options validate should throw an error on the "headers" option with 'fa
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
    object { … } | function
-   -> Adds headers to all responses. https://webpack.js.org/configuration/dev-server/#devserverheaders
+   -> Allows to set custom headers on response. https://webpack.js.org/configuration/dev-server/#devserverheaders
    Details:
     * options.headers should be an object:
       object { … }
@@ -213,7 +241,7 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.historyApiFallback should be one of these:
    boolean | object { … }
-   -> When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
+   -> Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
    Details:
     * options.historyApiFallback should be a boolean.
     * options.historyApiFallback should be an object:
@@ -224,26 +252,26 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
 exports[`options validate should throw an error on the "host" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.host should be an non-empty string.
-   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
+   -> Allows to specify a hostname to use. https://webpack.js.org/configuration/dev-server/#devserverhost"
 `;
 
 exports[`options validate should throw an error on the "host" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.host should be a non-empty string.
-   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
+   -> Allows to specify a hostname to use. https://webpack.js.org/configuration/dev-server/#devserverhost"
 `;
 
 exports[`options validate should throw an error on the "host" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.host should be a non-empty string.
-   -> Specify a host to use. If you want your server to be accessible externally. https://webpack.js.org/configuration/dev-server/#devserverhost"
+   -> Allows to specify a hostname to use. https://webpack.js.org/configuration/dev-server/#devserverhost"
 `;
 
 exports[`options validate should throw an error on the "hot" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.hot should be one of these:
    boolean | \\"only\\"
-   -> Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot
+   -> Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot
    Details:
     * options.hot should be a boolean.
     * options.hot should be \\"only\\"."
@@ -253,7 +281,7 @@ exports[`options validate should throw an error on the "hot" option with 'foo' v
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.hot should be one of these:
    boolean | \\"only\\"
-   -> Enable webpack's Hot Module Replacement feature. https://webpack.js.org/configuration/dev-server/#devserverhot
+   -> Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot
    Details:
     * options.hot should be a boolean.
     * options.hot should be \\"only\\"."
@@ -262,14 +290,14 @@ exports[`options validate should throw an error on the "hot" option with 'foo' v
 exports[`options validate should throw an error on the "http2" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.http2 should be a boolean.
-   -> Serve over HTTP/2 using spdy. https://webpack.js.org/configuration/dev-server/#devserverhttp2"
+   -> Allows to serve over HTTP/2 using SPDY. https://webpack.js.org/configuration/dev-server/#devserverhttp2"
 `;
 
 exports[`options validate should throw an error on the "https" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
    boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
-   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https should be a boolean.
     * options.https should be an object:
@@ -280,7 +308,7 @@ exports[`options validate should throw an error on the "https" option with '{"ca
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
    boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
-   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.cacert should be one of these:
       string | Buffer
@@ -294,7 +322,7 @@ exports[`options validate should throw an error on the "https" option with '{"ce
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
    boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
-   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.cert should be one of these:
       string | Buffer
@@ -314,7 +342,7 @@ exports[`options validate should throw an error on the "https" option with '{"ke
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
    boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
-   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.key should be one of these:
       string | Buffer
@@ -334,7 +362,7 @@ exports[`options validate should throw an error on the "https" option with '{"pf
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
    boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
-   -> By default, dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. https://webpack.js.org/configuration/dev-server/#devserverhttps
+   -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.pfx should be one of these:
       string | Buffer
@@ -353,19 +381,19 @@ exports[`options validate should throw an error on the "https" option with '{"re
 exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onAfterSetupMiddleware should be an instance of function.
-   -> Provides the ability to execute custom middleware after all other middleware internally within the server. https://webpack.js.org/configuration/dev-server/#devserverafter"
+   -> Provides the ability to execute a custom function and apply custom middleware(s) after all other middlewares. https://webpack.js.org/configuration/dev-server/#devserveronaftersetupmiddleware"
 `;
 
 exports[`options validate should throw an error on the "onBeforeSetupMiddleware" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onBeforeSetupMiddleware should be an instance of function.
-   -> Provides the ability to execute custom middleware prior to all other middleware internally within the server. https://webpack.js.org/configuration/dev-server/#devserverbefore"
+   -> Provides the ability to execute a custom function and apply custom middleware(s) prior to all other middlewares. https://webpack.js.org/configuration/dev-server/#devserveronbeforesetupmiddleware"
 `;
 
 exports[`options validate should throw an error on the "onListening" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onListening should be an instance of function.
-   -> Provides an option to execute a custom function when webpack-dev-server starts listening for connections on a port. https://webpack.js.org/configuration/dev-server/#onlistening"
+   -> Provides the ability to execute a custom function when dev server starts listening. https://webpack.js.org/configuration/dev-server/#devserveronlistening"
 `;
 
 exports[`options validate should throw an error on the "open" option with '' value 1`] = `
@@ -377,7 +405,7 @@ exports[`options validate should throw an error on the "open" option with '{"app
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.open should be one of these:
    [non-empty string | object { target?, app? }, ...] | boolean | non-empty string | object { target?, app? }
-   -> Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
+   -> Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen
    Details:
     * options.open.app should be one of these:
       object { name?, arguments? } | non-empty string
@@ -398,16 +426,16 @@ exports[`options validate should throw an error on the "open" option with '{"tar
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.open should be one of these:
    [non-empty string | object { target?, app? }, ...] | boolean | non-empty string | object { target?, app? }
-   -> Tells dev-server to open the browser after server had been started. Set it to true to open your default browser. https://webpack.js.org/configuration/dev-server/#devserveropen
+   -> Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen
    Details:
     * options.open.target should be one of these:
-      [non-empty string, ...] (should not have fewer than 1 item) | boolean | non-empty string
-      -> Open specified route in browser.
+      [string, ...] | boolean | string
+      -> Opens specified page in browser.
       Details:
        * options.open.target should be an array:
-         [non-empty string, ...] (should not have fewer than 1 item)
+         [string, ...]
        * options.open.target should be a boolean.
-       * options.open.target should be a non-empty string."
+       * options.open.target should be a string."
 `;
 
 exports[`options validate should throw an error on the "port" option with '' value 1`] = `
@@ -419,7 +447,7 @@ exports[`options validate should throw an error on the "port" option with 'false
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be one of these:
    number | non-empty string | \\"auto\\"
-   -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
+   -> Allows to specify a port to use. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * options.port should be a number.
     * options.port should be a non-empty string.
@@ -430,40 +458,35 @@ exports[`options validate should throw an error on the "port" option with 'null'
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be one of these:
    number | non-empty string | \\"auto\\"
-   -> Specify a port number to listen for requests on. https://webpack.js.org/configuration/dev-server/#devserverport
+   -> Allows to specify a port to use. https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
     * options.port should be a number.
     * options.port should be a non-empty string.
     * options.port should be \\"auto\\"."
 `;
 
-exports[`options validate should throw an error on the "proxy" option with '[]' value 1`] = `
-"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.proxy should be an non-empty array."
-`;
-
 exports[`options validate should throw an error on the "proxy" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.proxy should be one of these:
-   object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
-   -> Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy
+   object { … } | [object { … } | function, ...]
+   -> Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy
    Details:
     * options.proxy should be an object:
       object { … }
     * options.proxy should be an array:
-      [object { … } | function, ...] (should not have fewer than 1 item)"
+      [object { … } | function, ...]"
 `;
 
 exports[`options validate should throw an error on the "proxy" option with 'function () {}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.proxy should be one of these:
-   object { … } | [object { … } | function, ...] (should not have fewer than 1 item)
-   -> Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy
+   object { … } | [object { … } | function, ...]
+   -> Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy
    Details:
     * options.proxy should be an object:
       object { … }
     * options.proxy should be an array:
-      [object { … } | function, ...] (should not have fewer than 1 item)"
+      [object { … } | function, ...]"
 `;
 
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
@@ -481,26 +504,26 @@ exports[`options validate should throw an error on the "static" option with '{"p
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   -> Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static.publicPath should be one of these:
-      [non-empty string, ...] (should not have fewer than 1 item) | non-empty string
-      -> The bundled files will be available in the browser under this path.
+      [string, ...] (should not have fewer than 1 item) | string
+      -> The static files will be available in the browser under this public path.
       Details:
        * options.static.publicPath should be an array:
-         [non-empty string, ...] (should not have fewer than 1 item)
-       * options.static.publicPath should be a non-empty string."
+         [string, ...] (should not have fewer than 1 item)
+       * options.static.publicPath should be a string."
 `;
 
 exports[`options validate should throw an error on the "static" option with '{"serveIndex":"true"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   -> Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static.serveIndex should be one of these:
       boolean | object { … }
-      -> Tells dev-server to use serveIndex middleware when enabled.
+      -> Tells dev server to use serveIndex middleware when enabled.
       Details:
        * options.static.serveIndex should be a boolean.
        * options.static.serveIndex should be an object:
@@ -511,23 +534,23 @@ exports[`options validate should throw an error on the "static" option with '{"w
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   -> Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static.watch should be one of these:
       boolean | object { … }
-      -> Watch for files in static content directory.
+      -> Watches for files in static content directory.
       Details:
        * options.static.watch should be a boolean.
        * options.static.watch should be an object:
          object { … }
-         -> options for watch, description available at https://github.com/paulmillr/chokidar#api"
+         -> Options for watch, description available at https://github.com/paulmillr/chokidar#api"
 `;
 
 exports[`options validate should throw an error on the "static" option with '0' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   -> Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static should be an array:
       [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
@@ -541,7 +564,7 @@ exports[`options validate should throw an error on the "static" option with 'nul
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
-   -> It is possible to configure advanced options for serving static files from directory. See the Express documentation for the possible options. https://webpack.js.org/configuration/dev-server/#devserverstatic
+   -> Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static should be an array:
       [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
@@ -555,7 +578,7 @@ exports[`options validate should throw an error on the "watchFiles" option with 
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles should be one of these:
    [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
-   -> List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
+   -> Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
    Details:
     * options.watchFiles should be an array:
       [non-empty string | object { paths?, options? }, ...]
@@ -568,7 +591,7 @@ exports[`options validate should throw an error on the "watchFiles" option with 
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles should be one of these:
    [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
-   -> List of files to watch for file changes and serve. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
+   -> Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
    Details:
     * options.watchFiles should be an array:
       [non-empty string | object { paths?, options? }, ...]
@@ -587,7 +610,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
    \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
-   -> Allows to set web socket server and options.
+   -> Allows to set web socket server and options (by default 'ws'). https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
    Details:
     * options.webSocketServer.type should be one of these:
       \\"sockjs\\" | \\"ws\\" | non-empty string | function
@@ -602,7 +625,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
    \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
-   -> Allows to set web socket server and options.
+   -> Allows to set web socket server and options (by default 'ws'). https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
    Details:
     * options.webSocketServer should be one of these:
       \\"sockjs\\" | \\"ws\\"
@@ -612,13 +635,13 @@ exports[`options validate should throw an error on the "webSocketServer" option 
       object { type?, options? }"
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with 'nonexistent-implementation' value 1`] = `"Error: When you use custom web socket implementation you must explicitly specify client.transport. client.transport must be a string denoting a default implementation (e.g. 'sockjs', 'ws') or a full path to a JS file which exports a class extending BaseClient (webpack-dev-server/client-src/clients/BaseClient.js) via require.resolve(...)"`;
+exports[`options validate should throw an error on the "webSocketServer" option with 'nonexistent-implementation' value 1`] = `"Error: When you use custom web socket implementation you must explicitly specify client.transport. client.transport must be a string denoting a default implementation (e.g. 'sockjs', 'ws') or a full path to a JS file via require.resolve(...) which exports a class "`;
 
 exports[`options validate should throw an error on the "webSocketServer" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
    \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
-   -> Allows to set web socket server and options.
+   -> Allows to set web socket server and options (by default 'ws'). https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
    Details:
     * options.webSocketServer should be one of these:
       \\"sockjs\\" | \\"ws\\"

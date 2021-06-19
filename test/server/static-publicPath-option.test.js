@@ -4,7 +4,7 @@ const path = require('path');
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
-const port = require('../ports-map')['static-publicPath-option'];
+const port = require('../ports-map')['static-public-path-option'];
 
 const staticDirectory = path.resolve(
   __dirname,

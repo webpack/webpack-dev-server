@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`web socket server and transport should use "sockjs" transport 1`] = `Array []`;
+
+exports[`web socket server and transport should use "sockjs" transport and "sockjs" web socket server 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use "ws" transport 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use "ws" transport and "ws" web socket server 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use custom transport and "sockjs" web socket server 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "open",
+  "hot",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "liveReload",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "overlay",
+  "hash",
+  "ok",
+]
+`;
+
+exports[`web socket server and transport should use default transport ("ws") 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;

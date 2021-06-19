@@ -4,10 +4,8 @@
 npx webpack serve
 ```
 
-_NOTE: replace `<insert local ip>` with your local IP Address._
-
 You're now able to explicitly define the protocol used with the `client.webSocketURL` option
-(have a look to the config provided in `webpack.config.js`).
+(have a look at the config provided in `webpack.config.js`).
 
 ## What Should Happen
 

@@ -6,7 +6,7 @@ const testServer = require('../helpers/test-server');
 const simpleConfig = require('../fixtures/module-federation-config/webpack.config');
 const objectEntryConfig = require('../fixtures/module-federation-config/webpack.object-entry.config');
 const multiConfig = require('../fixtures/module-federation-config/webpack.multi.config');
-const port = require('../ports-map').ModuleFederation;
+const port = require('../ports-map')['module-federation'];
 const isWebpack5 = require('../helpers/isWebpack5');
 
 let pluginConfig;

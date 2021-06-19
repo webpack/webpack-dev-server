@@ -1,9 +1,13 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
 const http = require('http');
 const express = require('express');
 const sockjs = require('sockjs');
-const port = require('../../ports-map').sockJSClient;
+const port = require('../../ports-map')['sockjs-client'];
 
 jest.setMock('../../../client-src/utils/log', {
   log: {

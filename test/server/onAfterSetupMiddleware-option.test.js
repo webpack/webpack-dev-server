@@ -3,7 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['onAfterSetupMiddleware-option'];
+const port = require('../ports-map')['on-after-setup-middleware-option'];
 
 describe('onAfterSetupMiddleware option', () => {
   let server;
@@ -39,21 +39,17 @@ describe('onAfterSetupMiddleware option', () => {
 
   afterAll(testServer.close);
 
-  it('should handle after route', () =>
-    req
-      .get('/after/some/path')
-      .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect(200)
-      .then((response) => {
-        expect(response.text).toBe('after');
-      }));
+  it('should handle after route', async () => {
+    const res = await req.get('/after/some/path');
+    expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
+    expect(res.status).toEqual(200);
+    expect(res.text).toBe('after');
+  });
 
-  it('should handle POST requests to after route', () =>
-    req
-      .post('/after/some/path')
-      .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect(200)
-      .then((response) => {
-        expect(response.text).toBe('after POST');
-      }));
+  it('should handle POST requests to after route', async () => {
+    const res = await req.post('/after/some/path');
+    expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
+    expect(res.status).toEqual(200);
+    expect(res.text).toBe('after POST');
+  });
 });

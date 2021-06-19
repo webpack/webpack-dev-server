@@ -2,7 +2,7 @@
 
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['onListening-option'];
+const port = require('../ports-map')['on-listening-option'];
 
 describe('onListening option', () => {
   let onListeningIsRunning = false;

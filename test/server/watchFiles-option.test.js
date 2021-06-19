@@ -5,7 +5,7 @@ const fs = require('graceful-fs');
 const chokidar = require('chokidar');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
-const port = require('../ports-map')['watchFiles-option'];
+const port = require('../ports-map')['watch-files-option'];
 
 const watchDir = path.resolve(
   __dirname,
@@ -134,7 +134,7 @@ describe("'watchFiles' option", () => {
     });
 
     it('should reload on file content changed', (done) => {
-      server.staticWatchers[0].on('change', (changedPath) => {
+      server.staticWatchers[0].once('change', (changedPath) => {
         expect(changedPath).toBe(nonExistFile);
 
         done();

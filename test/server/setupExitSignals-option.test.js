@@ -2,7 +2,7 @@
 
 const config = require('../fixtures/simple-config/webpack.config');
 const testServer = require('../helpers/test-server');
-const port = require('../ports-map')['setupExitSignals-option'];
+const port = require('../ports-map')['setup-exit-signals-option'];
 
 describe('setupExitSignals option', () => {
   let server;

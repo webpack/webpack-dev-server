@@ -58,6 +58,7 @@ function startAwaitingCompilationFullSetup(config, options, done) {
 
   const ready = () => {
     readyCount += 1;
+
     if (readyCount === 2) {
       done();
     }

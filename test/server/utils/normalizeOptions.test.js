@@ -153,6 +153,19 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
+      title: 'username and password',
+      multiCompiler: false,
+      options: {
+        client: {
+          webSocketURL: {
+            username: 'zenitsu',
+            password: 'chuntaro',
+          },
+        },
+      },
+      optionsResults: null,
+    },
+    {
       title: 'client path without leading/ending slashes',
       multiCompiler: false,
       options: {

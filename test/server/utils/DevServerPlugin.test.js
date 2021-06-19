@@ -14,7 +14,7 @@ describe('DevServerPlugin util', () => {
     return compiler.options.entry;
   }
 
-  it('should preserves dynamic entry points', (done) => {
+  it('should preserves dynamic entry points', async () => {
     let i = 0;
     const webpackOptions = {
       // simulate dynamic entry
@@ -25,6 +25,7 @@ describe('DevServerPlugin util', () => {
     };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
+      hot: true,
       client: {
         transport: 'sockjs',
         webSocketURL: {},
@@ -38,34 +39,30 @@ describe('DevServerPlugin util', () => {
     };
 
     const plugin = new DevServerPlugin(devServerOptions);
+
     plugin.apply(compiler);
-    getEntries(compiler).then((entries) => {
-      expect(typeof entries).toEqual('function');
 
-      entries()
-        .then((entryFirstRun) =>
-          entries().then((entrySecondRun) => {
-            if (isWebpack5) {
-              expect(entryFirstRun.main.import.length).toEqual(1);
-              expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
+    const entries = await getEntries(compiler);
+    expect(typeof entries).toEqual('function');
 
-              expect(entrySecondRun.main.import.length).toEqual(1);
-              expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
-            } else {
-              expect(entryFirstRun.length).toEqual(2);
-              expect(entryFirstRun[1]).toEqual('./src-1.js');
+    const entryFirstRun = await entries();
+    const entrySecondRun = await entries();
+    if (isWebpack5) {
+      expect(entryFirstRun.main.import.length).toEqual(1);
+      expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
 
-              expect(entrySecondRun.length).toEqual(2);
-              expect(entrySecondRun[1]).toEqual('./src-2.js');
-            }
-            done();
-          })
-        )
-        .catch(done);
-    });
+      expect(entrySecondRun.main.import.length).toEqual(1);
+      expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
+    } else {
+      expect(entryFirstRun.length).toEqual(3);
+      expect(entryFirstRun[2]).toEqual('./src-1.js');
+
+      expect(entrySecondRun.length).toEqual(3);
+      expect(entrySecondRun[2]).toEqual('./src-2.js');
+    }
   });
 
-  it('should preserves asynchronous dynamic entry points', (done) => {
+  it('should preserves asynchronous dynamic entry points', async () => {
     let i = 0;
     const webpackOptions = {
       // simulate async dynamic entry
@@ -78,6 +75,7 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
 
     const devServerOptions = {
+      hot: true,
       client: {
         transport: 'sockjs',
         webSocketURL: {},
@@ -92,30 +90,25 @@ describe('DevServerPlugin util', () => {
 
     const plugin = new DevServerPlugin(devServerOptions);
     plugin.apply(compiler);
-    getEntries(compiler).then((entries) => {
-      expect(typeof entries).toEqual('function');
 
-      entries()
-        .then((entryFirstRun) =>
-          entries().then((entrySecondRun) => {
-            if (isWebpack5) {
-              expect(entryFirstRun.main.import.length).toEqual(1);
-              expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
+    const entries = await getEntries(compiler);
+    expect(typeof entries).toEqual('function');
 
-              expect(entrySecondRun.main.import.length).toEqual(1);
-              expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
-            } else {
-              expect(entryFirstRun.length).toEqual(2);
-              expect(entryFirstRun[1]).toEqual('./src-1.js');
+    const entryFirstRun = await entries();
+    const entrySecondRun = await entries();
+    if (isWebpack5) {
+      expect(entryFirstRun.main.import.length).toEqual(1);
+      expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
 
-              expect(entrySecondRun.length).toEqual(2);
-              expect(entrySecondRun[1]).toEqual('./src-2.js');
-            }
-            done();
-          })
-        )
-        .catch(done);
-    });
+      expect(entrySecondRun.main.import.length).toEqual(1);
+      expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
+    } else {
+      expect(entryFirstRun.length).toEqual(3);
+      expect(entryFirstRun[2]).toEqual('./src-1.js');
+
+      expect(entrySecondRun.length).toEqual(3);
+      expect(entrySecondRun[2]).toEqual('./src-2.js');
+    }
   });
 
   it("should doesn't add the HMR plugin if not hot and no plugins", () => {

@@ -1,21 +1,13 @@
 'use strict';
 
 const { log } = require('../utils/log');
-const BaseClient = require('./BaseClient');
 
-module.exports = class WebsocketClient extends BaseClient {
+module.exports = class WebsocketClient {
   constructor(url) {
-    super();
-
     this.client = new WebSocket(url);
     this.client.onerror = (error) => {
       log.error(error);
     };
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  static getClientPath(options) {
-    return require.resolve('./WebsocketClient');
   }
 
   onOpen(f) {
