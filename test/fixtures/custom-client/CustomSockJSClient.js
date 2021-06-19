@@ -4,19 +4,12 @@
   no-unused-vars
 */
 const SockJS = require('sockjs-client/dist/sockjs');
-const BaseClient = require('../../../client/clients/BaseClient');
 
-module.exports = class SockJSClient extends BaseClient {
+module.exports = class SockJSClient {
   constructor(url) {
-    super();
-
     this.sock = new SockJS(
       url.replace(/^ws:/i, 'http://').replace(/^wss:/i, 'https://')
     );
-  }
-
-  static getClientPath(options) {
-    return require.resolve('./CustomSockJSClient');
   }
 
   onOpen(f) {

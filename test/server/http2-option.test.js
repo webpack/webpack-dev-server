@@ -38,6 +38,7 @@ describe('http2 option', () => {
       const client = http2.connect(`https://localhost:${port}`, {
         rejectUnauthorized: false,
       });
+
       client.on('error', (err) => console.error(err));
 
       const http2Req = client.request({ ':path': '/' });
@@ -47,7 +48,9 @@ describe('http2 option', () => {
       });
 
       http2Req.setEncoding('utf8');
+
       let data = '';
+
       http2Req.on('data', (chunk) => {
         data += chunk;
       });
@@ -103,14 +106,11 @@ describe('http2 option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req
-        .get('/')
-        .expect(200, /Heyo/)
-        .then(({ res }) => {
-          expect(res.httpVersion).not.toEqual('2.0');
-          done();
-        });
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
+      expect(res.res.httpVersion).not.toEqual('2.0');
     });
 
     afterAll(testServer.close);

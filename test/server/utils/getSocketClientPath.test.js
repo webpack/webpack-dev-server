@@ -5,7 +5,6 @@ const getSocketClientPath = require('../../../lib/utils/getSocketClientPath');
 const sockjsClientPath = require.resolve(
   '../../../client/clients/SockJSClient'
 );
-const baseClientPath = require.resolve('../../../client/clients/BaseClient');
 
 describe('getSocketClientPath', () => {
   it("should work with client.transport: 'sockjs'", () => {
@@ -64,10 +63,12 @@ describe('getSocketClientPath', () => {
     expect(() => {
       getSocketClientPath({
         client: {
-          transport: baseClientPath,
+          transport: 'foo',
         },
         webSocketServer: 'sockjs',
       });
-    }).toThrow('Client needs implementation');
+    }).toThrow(
+      'When you use custom web socket implementation you must explicitly specify client.transport'
+    );
   });
 });

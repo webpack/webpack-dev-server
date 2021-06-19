@@ -3,7 +3,7 @@
 const request = require('supertest');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/multi-compiler-config/webpack.config');
-const port = require('../ports-map').MultiCompiler;
+const port = require('../ports-map')['multi-compiler'];
 
 describe('multi compiler', () => {
   let server;
@@ -16,7 +16,6 @@ describe('multi compiler', () => {
 
   afterAll(testServer.close);
 
-  // TODO: this is a very basic test, optimally it should test multiple configs etc.
   it('should handle GET request to bundle', (done) => {
     req
       .get('/main.js')

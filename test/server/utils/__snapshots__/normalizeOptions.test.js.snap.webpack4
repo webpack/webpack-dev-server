@@ -1418,6 +1418,44 @@ Object {
 }
 `;
 
+exports[`normalizeOptions username and password should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+    "webSocketURL": Object {
+      "password": "chuntaro",
+      "username": "zenitsu",
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
 exports[`normalizeOptions webSocketServer custom server class should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",

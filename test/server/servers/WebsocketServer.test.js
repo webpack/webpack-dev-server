@@ -1,10 +1,14 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
 const http = require('http');
 const express = require('express');
 const ws = require('ws');
 const WebsocketServer = require('../../../lib/servers/WebsocketServer');
-const port = require('../../ports-map').WebsocketServer;
+const port = require('../../ports-map')['web-socket-server'];
 
 describe('WebsocketServer', () => {
   let socketServer;
@@ -41,7 +45,7 @@ describe('WebsocketServer', () => {
       socketServer.send(connection, 'hello world');
       setTimeout(() => {
         // the server closes the connection with the client
-        socketServer.close(connection);
+        socketServer.closeConnection(connection);
       }, 1000);
     });
 

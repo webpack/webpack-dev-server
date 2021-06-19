@@ -57,17 +57,12 @@ const tests = {
       },
       {
         overlay: {
-          error: true,
+          errors: true,
         },
       },
       {
         overlay: {
           warnings: true,
-        },
-      },
-      {
-        overlay: {
-          arbitrary: '',
         },
       },
       {
@@ -103,6 +98,9 @@ const tests = {
       {
         webSocketURL: { host: 'localhost', port: 8080, path: '/my-path/' },
       },
+      {
+        webSocketURL: { username: 'zoro', password: 'roronoa' },
+      },
     ],
     failure: [
       'whoops!',
@@ -132,6 +130,11 @@ const tests = {
         },
       },
       {
+        overlay: {
+          arbitrary: '',
+        },
+      },
+      {
         needClientEntry: [''],
       },
       {
@@ -155,6 +158,9 @@ const tests = {
       {
         webSocketURL: { port: '' },
       },
+      {
+        webSocketURL: { username: 123, password: 976 },
+      },
     ],
   },
   compress: {
@@ -167,7 +173,7 @@ const tests = {
   },
   allowedHosts: {
     success: ['auto', 'all', ['foo'], 'bar'],
-    failure: [true, false, 123],
+    failure: [true, false, 123, [], ['']],
   },
   headers: {
     success: [{}, { foo: 'bar' }, () => {}],
@@ -264,11 +270,17 @@ const tests = {
   },
   proxy: {
     success: [
+      [
+        {
+          context: ['/auth', '/api'],
+          target: 'http://localhost:3000',
+        },
+      ],
       {
         '/api': 'http://localhost:3000',
       },
     ],
-    failure: [[], () => {}, false],
+    failure: [() => {}, false],
   },
   static: {
     success: [

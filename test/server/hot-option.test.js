@@ -77,14 +77,10 @@ describe('hot option', () => {
 
     afterAll(testServer.close);
 
-    it('should NOT include hot script in the bundle', (done) => {
-      req
-        .get('/main.js')
-        .expect(200)
-        .then(({ text }) => {
-          expect(text).not.toMatch(/webpack\/hot\/dev-server\.js/);
-          done();
-        });
+    it('should NOT include hot script in the bundle', async () => {
+      const res = await req.get('/main.js');
+      expect(res.status).toEqual(200);
+      expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
     });
   });
 
