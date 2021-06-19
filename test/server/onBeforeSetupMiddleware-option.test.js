@@ -35,12 +35,10 @@ describe('onBeforeSetupMiddleware option', () => {
 
   afterAll(testServer.close);
 
-  it('should handle before route', () =>
-    req
-      .get('/before/some/path')
-      .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect(200)
-      .then((response) => {
-        expect(response.text).toBe('before');
-      }));
+  it('should handle before route', async () => {
+    const res = await req.get('/before/some/path');
+    expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
+    expect(res.status).toEqual(200);
+    expect(res.text).toBe('before');
+  });
 });

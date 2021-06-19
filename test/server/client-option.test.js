@@ -80,13 +80,10 @@ describe('client option', () => {
           },
           port,
         },
-        () => {
-          request(server.app)
-            .get('/main.js')
-            .then((res) => {
-              expect(res.text).not.toMatch(/client\/index\.js/);
-            })
-            .then(done, done);
+        async () => {
+          const res = await request(server.app).get('/main.js');
+          expect(res.text).not.toMatch(/client\/index\.js/);
+          done();
         }
       );
     });
@@ -100,13 +97,10 @@ describe('client option', () => {
           },
           port,
         },
-        () => {
-          request(server.app)
-            .get('/main.js')
-            .then((res) => {
-              expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
-            })
-            .then(done, done);
+        async () => {
+          const res = await request(server.app).get('/main.js');
+          expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
+          done();
         }
       );
     });
