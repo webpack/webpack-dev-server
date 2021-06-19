@@ -42,12 +42,16 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it('Request to index', (done) => {
-      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
 
-    it('Request to other file', (done) => {
-      req.get(`${staticPublicPath}/other.html`).expect(200, /Other html/, done);
+    it('Request to other file', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/other.html`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Other html');
     });
   });
 
@@ -75,12 +79,15 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it("shouldn't list the files inside the assets folder (404)", (done) => {
-      req.get(`${staticPublicPath}/assets/`).expect(404, done);
+    it("shouldn't list the files inside the assets folder (404)", async () => {
+      const { status } = await req.get(`${staticPublicPath}/assets/`);
+      expect(status).toEqual(404);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get(`${staticPublicPath}/bar/`).expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/bar/`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
   });
 
@@ -108,12 +115,15 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get(`${staticPublicPath}/assets/`).expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      const { status } = await req.get(`${staticPublicPath}/assets/`);
+      expect(status).toEqual(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get(`${staticPublicPath}/bar/`).expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/bar/`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
   });
 
@@ -140,12 +150,15 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get(`${staticPublicPath}/assets/`).expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      const { status } = await req.get(`${staticPublicPath}/assets/`);
+      expect(status).toEqual(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get(`${staticPublicPath}/bar/`).expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/bar/`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
   });
 
@@ -177,12 +190,16 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it('Request to first directory', (done) => {
-      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
+    it('Request to first directory', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
 
-    it('Request to second directory', (done) => {
-      req.get(`${staticPublicPath}/foo.html`).expect(200, /Foo!/, done);
+    it('Request to second directory', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/foo.html`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Foo!');
     });
   });
 
@@ -209,8 +226,9 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it('Request to page', (done) => {
-      req.get(`${staticPublicPath}/index.html`).expect(200, done);
+    it('Request to page', async () => {
+      const { status } = await req.get(`${staticPublicPath}/index.html`);
+      expect(status).toEqual(200);
     });
   });
 
@@ -264,28 +282,34 @@ describe('static.publicPath option', () => {
       testServer.close(done);
     });
 
-    it('GET request', (done) => {
-      req.get(`${staticPublicPath}/`).expect(200, done);
+    it('GET request', async () => {
+      const { status } = await req.get(`${staticPublicPath}/`);
+      expect(status).toEqual(200);
     });
 
-    it('HEAD request', (done) => {
-      req.head(`${staticPublicPath}/`).expect(200, done);
+    it('HEAD request', async () => {
+      const { status } = await req.head(`${staticPublicPath}/`);
+      expect(status).toEqual(200);
     });
 
-    it('POST request', (done) => {
-      req.post(`${staticPublicPath}/`).expect(404, done);
+    it('POST request', async () => {
+      const { status } = await req.post(`${staticPublicPath}/`);
+      expect(status).toEqual(404);
     });
 
-    it('PUT request', (done) => {
-      req.put(`${staticPublicPath}/`).expect(404, done);
+    it('PUT request', async () => {
+      const { status } = await req.put(`${staticPublicPath}/`);
+      expect(status).toEqual(404);
     });
 
-    it('DELETE request', (done) => {
-      req.delete(`${staticPublicPath}/`).expect(404, done);
+    it('DELETE request', async () => {
+      const { status } = await req.delete(`${staticPublicPath}/`);
+      expect(status).toEqual(404);
     });
 
-    it('PATCH request', (done) => {
-      req.patch(`${staticPublicPath}/`).expect(404, done);
+    it('PATCH request', async () => {
+      const { status } = await req.patch(`${staticPublicPath}/`);
+      expect(status).toEqual(404);
     });
   });
 
@@ -319,16 +343,24 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it('Request the first path to index', (done) => {
-      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
+    it('Request the first path to index', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
 
-    it('Request the first path to other file', (done) => {
-      req.get(`${staticPublicPath}/other.html`).expect(200, /Other html/, done);
+    it('Request the first path to other file', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/other.html`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Other html');
     });
 
-    it('Request the second path to foo', (done) => {
-      req.get(`${otherStaticPublicPath}/foo.html`).expect(200, /Foo!/, done);
+    it('Request the second path to foo', async () => {
+      const { status, text } = await req.get(
+        `${otherStaticPublicPath}/foo.html`
+      );
+      expect(status).toEqual(200);
+      expect(text).toContain('Foo!');
     });
   });
 
@@ -362,20 +394,28 @@ describe('static.publicPath option', () => {
       });
     });
 
-    it('Request the first path to index', (done) => {
-      req.get(`${staticPublicPath}/`).expect(200, /Heyo/, done);
+    it('Request the first path to index', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
 
-    it('Request the first path to other file', (done) => {
-      req.get(`${staticPublicPath}/other.html`).expect(200, /Other html/, done);
+    it('Request the first path to other file', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/other.html`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Other html');
     });
 
-    it('Request the first path to foo', (done) => {
-      req.get(`${staticPublicPath}/foo.html`).expect(200, /Foo!/, done);
+    it('Request the first path to foo', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/foo.html`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Foo!');
     });
 
-    it('Request the second path to foo', (done) => {
-      req.get(`${otherStaticPublicPath}/foo.html`).expect(200, /Foo!/, done);
+    it('Request the second path to foo', async () => {
+      const { status, text } = await req.get(`${staticPublicPath}/foo.html`);
+      expect(status).toEqual(200);
+      expect(text).toContain('Foo!');
     });
   });
 });
