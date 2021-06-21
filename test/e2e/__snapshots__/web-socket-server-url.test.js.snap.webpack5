@@ -283,7 +283,7 @@ Array [
 
 exports[`web socket server URL should work with the "client.webSocketURL.password" option ("ws"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option ("sockjs"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -292,9 +292,9 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option ("sockjs"): page errors 1`] = `Array []`;
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option ("sockjs"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option ("ws"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option ("ws"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -303,9 +303,9 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option ("ws"): page errors 1`] = `Array []`;
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option ("ws"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option and custom web socket server "path" ("sockjs"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -314,9 +314,9 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option and custom web socket server "path" ("sockjs"): page errors 1`] = `Array []`;
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("sockjs"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option and custom web socket server "path" ("ws"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("ws"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -325,7 +325,7 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.path" option and custom web socket server "path" ("ws"): page errors 1`] = `Array []`;
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("ws"): page errors 1`] = `Array []`;
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option ("sockjs"): console messages 1`] = `
 Array [

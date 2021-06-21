@@ -146,7 +146,7 @@ describe('normalizeOptions', () => {
       options: {
         client: {
           webSocketURL: {
-            path: '/custom/path/',
+            pathname: '/custom/path/',
           },
         },
       },
@@ -171,7 +171,7 @@ describe('normalizeOptions', () => {
       options: {
         client: {
           webSocketURL: {
-            path: 'custom/path',
+            pathname: 'custom/path',
           },
         },
       },
