@@ -142,8 +142,9 @@ describe('webSocketServer', () => {
           req = request(`http://localhost:${port}`);
         });
 
-        it('sockjs path responds with a 200', (done) => {
-          req.get('/ws').expect(200, done);
+        it('sockjs path responds with a 200', async () => {
+          const res = await req.get('/ws');
+          expect(res.status).toEqual(200);
         });
       });
 
@@ -163,8 +164,9 @@ describe('webSocketServer', () => {
           req = request(`http://localhost:${port}`);
         });
 
-        it('sockjs path responds with a 200', (done) => {
-          req.get('/ws').expect(200, done);
+        it('sockjs path responds with a 200', async () => {
+          const res = await req.get('/ws');
+          expect(res.status).toEqual(200);
         });
       });
 
@@ -182,8 +184,9 @@ describe('webSocketServer', () => {
           req = request(`http://localhost:${port}`);
         });
 
-        it('sockjs path responds with a 200', (done) => {
-          req.get('/ws').expect(200, done);
+        it('sockjs path responds with a 200', async () => {
+          const res = await req.get('/ws');
+          expect(res.status).toEqual(200);
         });
       });
 

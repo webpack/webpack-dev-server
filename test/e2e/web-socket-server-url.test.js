@@ -258,7 +258,7 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            host: devServerHost,
+            hostname: devServerHost,
           },
         },
         webSocketServer,
@@ -595,7 +595,7 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            host: '127.0.0.1',
+            hostname: '127.0.0.1',
           },
         },
         webSocketServer,
@@ -679,7 +679,7 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            host: '0.0.0.0',
+            hostname: '0.0.0.0',
           },
         },
         webSocketServer,
@@ -1103,12 +1103,12 @@ describe('web socket server URL', () => {
       });
     });
 
-    it(`should work with the "client.webSocketURL.path" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
           webSocketURL: {
-            path: '/ws',
+            pathname: '/ws',
           },
         },
         webSocketServer,
@@ -1443,12 +1443,12 @@ describe('web socket server URL', () => {
       });
     });
 
-    it(`should work with the "client.webSocketURL.path" option and custom web socket server "path" ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
           webSocketURL: {
-            path: '/custom-ws',
+            pathname: '/custom-ws',
           },
         },
         webSocketServer: {
@@ -1694,9 +1694,9 @@ describe('web socket server URL', () => {
         client: {
           webSocketURL: {
             protocol: 'ws:',
-            host: '127.0.0.1',
+            hostname: '127.0.0.1',
             port: port1,
-            path: '/ws',
+            pathname: '/ws',
           },
         },
         webSocketServer,

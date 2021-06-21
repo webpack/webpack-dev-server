@@ -38,8 +38,10 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
     });
 
     afterAll(testServer.close);
@@ -76,8 +78,10 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
     });
   });
 
@@ -101,8 +105,10 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
     });
   });
 
@@ -133,8 +139,10 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
     });
 
     afterAll(testServer.close);
@@ -172,8 +180,10 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
     });
   });
 
@@ -209,8 +219,10 @@ describe('https option', () => {
       req = request(server.app);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
     });
   });
 

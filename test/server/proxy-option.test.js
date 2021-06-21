@@ -138,36 +138,49 @@ describe('proxy option', () => {
     });
 
     describe('target', () => {
-      it('respects a proxy option when a request path is matched', (done) => {
-        req.get('/proxy1').expect(200, 'from proxy1', done);
+      it('respects a proxy option when a request path is matched', async () => {
+        const res = await req.get('/proxy1');
+        expect(res.status).toEqual(200);
+        expect(res.text).toContain('from proxy1');
       });
     });
 
     describe('pathRewrite', () => {
-      it('respects a pathRewrite option', (done) => {
-        req.get('/api/proxy2').expect(200, 'from proxy2', done);
+      it('respects a pathRewrite option', async () => {
+        const res = await req.get('/api/proxy2');
+        expect(res.status).toEqual(200);
+        expect(res.text).toContain('from proxy2');
       });
     });
 
     describe('bypass', () => {
-      it('can rewrite a request path', (done) => {
-        req.get('/foo/bar.html').expect(200, /Hello/, done);
+      it('can rewrite a request path', async () => {
+        const res = await req.get('/foo/bar.html');
+        expect(res.status).toEqual(200);
+        expect(res.text).toContain('Hello');
       });
 
-      it('can rewrite a request path regardless of the target defined a bypass option', (done) => {
-        req.get('/baz/hoge.html').expect(200, /Hello/, done);
+      it('can rewrite a request path regardless of the target defined a bypass option', async () => {
+        const res = await req.get('/baz/hoge.html');
+        expect(res.status).toEqual(200);
+        expect(res.text).toContain('Hello');
       });
 
-      it('should pass through a proxy when a bypass function returns null', (done) => {
-        req.get('/foo.js').expect(200, /Hey/, done);
+      it('should pass through a proxy when a bypass function returns null', async () => {
+        const res = await req.get('/foo.js');
+        expect(res.status).toEqual(200);
+        expect(res.text).toContain('Hey');
       });
 
-      it('should not pass through a proxy when a bypass function returns false', (done) => {
-        req.get('/proxyfalse').expect(404, done);
+      it('should not pass through a proxy when a bypass function returns false', async () => {
+        const res = await req.get('/proxyfalse');
+        expect(res.status).toEqual(404);
       });
 
-      it('should wait if bypass returns promise', (done) => {
-        req.get('/proxy/async').expect(200, 'proxy async response', done);
+      it('should wait if bypass returns promise', async () => {
+        const res = await req.get('/proxy/async');
+        expect(res.status).toEqual(200);
+        expect(res.text).toContain('proxy async response');
       });
     });
   });
@@ -200,8 +213,10 @@ describe('proxy option', () => {
       });
     });
 
-    it('respects a proxy option', (done) => {
-      req.get('/proxy1').expect(200, 'from proxy1', done);
+    it('respects a proxy option', async () => {
+      const res = await req.get('/proxy1');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('from proxy1');
     });
   });
 
@@ -233,12 +248,16 @@ describe('proxy option', () => {
       });
     });
 
-    it('respects a proxy option', (done) => {
-      req.get('/proxy1').expect(200, 'from proxy1', done);
+    it('respects a proxy option', async () => {
+      const res = await req.get('/proxy1');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('from proxy1');
     });
 
-    it('respects a proxy option of function', (done) => {
-      req.get('/api/proxy2').expect(200, 'from proxy2', done);
+    it('respects a proxy option of function', async () => {
+      const res = await req.get('/api/proxy2');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('from proxy2');
     });
 
     it('should allow req, res, and next', async () => {
@@ -290,12 +309,16 @@ describe('proxy option', () => {
       });
     });
 
-    it('respects proxy1 option', (done) => {
-      req.get('/proxy1').expect(200, 'from proxy', done);
+    it('respects proxy1 option', async () => {
+      const res = await req.get('/proxy1');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('from proxy');
     });
 
-    it('respects proxy2 option', (done) => {
-      req.get('/proxy2').expect(200, 'from proxy', done);
+    it('respects proxy2 option', async () => {
+      const res = await req.get('/proxy2');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('from proxy');
     });
   });
 
@@ -439,40 +462,45 @@ describe('proxy option', () => {
       });
     });
 
-    it('errors', (done) => {
-      req.get('/%').expect(500, 'error from proxy', done);
+    it('errors', async () => {
+      const res = await req.get('/%');
+      expect(res.status).toEqual(500);
+      expect(res.text).toContain('error from proxy');
     });
 
-    it('GET method', (done) => {
-      req.get('/get').expect(200, 'GET method from proxy', done);
+    it('GET method', async () => {
+      const res = await req.get('/get');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('GET method from proxy');
     });
 
-    it('HEAD method', (done) => {
-      req.head('/head').expect(200, done);
+    it('HEAD method', async () => {
+      const res = await req.head('/head');
+      expect(res.status).toEqual(200);
     });
 
-    it('POST method (application/x-www-form-urlencoded)', (done) => {
-      req
-        .post('/post-x-www-form-urlencoded')
-        .send('id=1')
-        .expect(200, 'POST method from proxy (id: 1)', done);
+    it('POST method (application/x-www-form-urlencoded)', async () => {
+      const res = await req.post('/post-x-www-form-urlencoded').send('id=1');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('POST method from proxy (id: 1)');
     });
 
-    it('POST method (application/json)', (done) => {
-      req
+    it('POST method (application/json)', async () => {
+      const res = await req
         .post('/post-application-json')
         .send({ id: '1' })
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(
-          200,
-          JSON.stringify({ answer: 'POST method from proxy (id: 1)' }),
-          done
-        );
+        .set('Accept', 'application/json');
+      expect(res.status).toEqual(200);
+      expect(res.headers['content-type']).toEqual(
+        'application/json; charset=utf-8'
+      );
+      expect(res.text).toContain('POST method from proxy (id: 1)');
     });
 
-    it('DELETE method', (done) => {
-      req.delete('/delete').expect(200, 'DELETE method from proxy', done);
+    it('DELETE method', async () => {
+      const res = await req.delete('/delete');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('DELETE method from proxy');
     });
   });
 
@@ -509,8 +537,10 @@ describe('proxy option', () => {
       });
     });
 
-    it('respects a proxy option', (done) => {
-      req.get('/proxy1').expect(200, 'from proxy1', done);
+    it('respects a proxy option', async () => {
+      const res = await req.get('/proxy1');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('from proxy1');
     });
   });
 

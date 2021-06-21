@@ -149,17 +149,20 @@ describe('"client" CLI option', () => {
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--client-web-socket-url-host"', async () => {
+  it('should work using "--client-web-socket-url-hostname"', async () => {
     const { exitCode } = await testBin([
-      '--client-web-socket-url-host',
+      '--client-web-socket-url-hostname',
       '0.0.0.0',
     ]);
 
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--client-web-socket-url-path"', async () => {
-    const { exitCode } = await testBin(['--client-web-socket-url-path', '/ws']);
+  it('should work using "--client-web-socket-url-pathname"', async () => {
+    const { exitCode } = await testBin([
+      '--client-web-socket-url-pathname',
+      '/ws',
+    ]);
 
     expect(exitCode).toEqual(0);
   });
@@ -180,7 +183,7 @@ describe('"client" CLI option', () => {
     expect(stdout).toContain('ws%3A%2F%2F0.0.0.0%2Fws');
   });
 
-  it('should use "client.webSocketURL.path" from configuration', async () => {
+  it('should use "client.webSocketURL.pathname" from configuration', async () => {
     const { exitCode, stdout } = await testBin(
       null,
       './test/fixtures/dev-server/client-custom-path-config.js'

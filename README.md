@@ -108,8 +108,8 @@ Options:
   --client-transport <value>                Allows to set custom transport to communicate with dev server.
   --client-web-socket-url <value>           Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not
                                             always know where to connect to).
-  --client-web-socket-url-host <value>      Tells clients connected to devServer to use the provided host.
-  --client-web-socket-url-path <value>      Tells clients connected to devServer to use the provided path to connect.
+  --client-web-socket-url-hostname <value>  Tells clients connected to devServer to use the provided host.
+  --client-web-socket-url-pathname <value>  Tells clients connected to devServer to use the provided path to connect.
   --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
   --client-web-socket-url-protocol <value>  Tells clients connected to devServer to use the provided protocol.
   --compress                                Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress

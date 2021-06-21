@@ -16,10 +16,11 @@ describe('multi compiler', () => {
 
   afterAll(testServer.close);
 
-  it('should handle GET request to bundle', (done) => {
-    req
-      .get('/main.js')
-      .expect('Content-Type', 'application/javascript; charset=utf-8')
-      .expect(200, done);
+  it('should handle GET request to bundle', async () => {
+    const res = await req.get('/main.js');
+    expect(res.headers['content-type']).toEqual(
+      'application/javascript; charset=utf-8'
+    );
+    expect(res.status).toEqual(200);
   });
 });

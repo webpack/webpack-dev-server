@@ -35,8 +35,9 @@ describe('client option', () => {
       expect(server.options.client.overlay).toBe(true);
     });
 
-    it('responds with a 200', (done) => {
-      req.get('/ws').expect(200, done);
+    it('responds with a 200', async () => {
+      const res = await req.get('/ws');
+      expect(res.status).toEqual(200);
     });
   });
 
@@ -65,8 +66,9 @@ describe('client option', () => {
       req = request(`http://localhost:${port}`);
     });
 
-    it('responds with a 200 second', (done) => {
-      req.get(path).expect(200, done);
+    it('responds with a 200 second', async () => {
+      const res = await req.get(path);
+      expect(res.status).toEqual(200);
     });
   });
 

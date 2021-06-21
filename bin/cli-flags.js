@@ -200,18 +200,18 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
-  'client-web-socket-url-host': {
+  'client-web-socket-url-hostname': {
     configs: [
       {
         type: 'string',
         multiple: false,
         description:
-          'Tells clients connected to devServer to use the provided host.',
-        path: 'client.webSocketURL.host',
+          'Tells clients connected to devServer to use the provided hostname.',
+        path: 'client.webSocketURL.hostname',
       },
     ],
     description:
-      'Tells clients connected to devServer to use the provided host.',
+      'Tells clients connected to devServer to use the provided hostname.',
     simpleType: 'string',
     multiple: false,
   },
@@ -237,14 +237,14 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
-  'client-web-socket-url-path': {
+  'client-web-socket-url-pathname': {
     configs: [
       {
         type: 'string',
         multiple: false,
         description:
           'Tells clients connected to devServer to use the provided path to connect.',
-        path: 'client.webSocketURL.path',
+        path: 'client.webSocketURL.pathname',
       },
     ],
     description:
