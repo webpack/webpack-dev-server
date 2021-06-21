@@ -21,27 +21,6 @@ describe('web socket server URL', () => {
       const proxyHost = devServerHost;
       const proxyPort = port2;
 
-      function startProxy(callback) {
-        const app = express();
-        app.use(
-          '/',
-          createProxyMiddleware({
-            target: `http://${devServerHost}:${devServerPort}`,
-            ws: true,
-            changeOrigin: true,
-            logLevel: 'warn',
-          })
-        );
-
-        return app.listen(proxyPort, proxyHost, callback);
-      }
-
-      const proxy = await new Promise((resolve) => {
-        const proxyCreated = startProxy(() => {
-          resolve(proxyCreated);
-        });
-      });
-
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -60,6 +39,27 @@ describe('web socket server URL', () => {
           }
 
           resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
         });
       });
 
@@ -127,27 +127,6 @@ describe('web socket server URL', () => {
       const proxyHost = internalIp.v4.sync();
       const proxyPort = port1;
 
-      function startProxy(callback) {
-        const app = express();
-        app.use(
-          '/',
-          createProxyMiddleware({
-            target: `http://${devServerHost}:${devServerPort}`,
-            ws: true,
-            changeOrigin: true,
-            logLevel: 'warn',
-          })
-        );
-
-        return app.listen(proxyPort, proxyHost, callback);
-      }
-
-      const proxy = await new Promise((resolve) => {
-        const proxyCreated = startProxy(() => {
-          resolve(proxyCreated);
-        });
-      });
-
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -166,6 +145,27 @@ describe('web socket server URL', () => {
           }
 
           resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
         });
       });
 
@@ -233,27 +233,6 @@ describe('web socket server URL', () => {
       const proxyHost = internalIp.v4.sync();
       const proxyPort = port2;
 
-      function startProxy(callback) {
-        const app = express();
-        app.use(
-          '/',
-          createProxyMiddleware({
-            target: `http://${devServerHost}:${devServerPort}`,
-            ws: true,
-            changeOrigin: true,
-            logLevel: 'warn',
-          })
-        );
-
-        return app.listen(proxyPort, proxyHost, callback);
-      }
-
-      const proxy = await new Promise((resolve) => {
-        const proxyCreated = startProxy(() => {
-          resolve(proxyCreated);
-        });
-      });
-
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -277,6 +256,27 @@ describe('web socket server URL', () => {
           }
 
           resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
         });
       });
 
@@ -324,6 +324,7 @@ describe('web socket server URL', () => {
       expect(pageErrors).toMatchSnapshot('page errors');
 
       proxy.close();
+
       await browser.close();
       await new Promise((resolve, reject) => {
         server.close((error) => {
@@ -336,6 +337,119 @@ describe('web socket server URL', () => {
           resolve();
         });
       });
+    });
+
+    it(`should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("${webSocketServer}")`, async () => {
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 40000;
+
+      const proxyHost = internalIp.v4.sync();
+      const proxyPort = port2;
+
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: 'auto',
+        host: 'local-ip',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const resolvedHost = server.options.host;
+      const resolvedPort = server.options.port;
+
+      function startProxy(callback) {
+        const app = express();
+
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${resolvedHost}:${resolvedPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://${resolvedHost}:${resolvedPort}/ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      proxy.close();
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
 
     it(`should work with the "client.webSocketURL.protocol" option ("${webSocketServer}")`, async () => {
@@ -1770,6 +1884,8 @@ describe('web socket server URL', () => {
     });
 
     it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 50000;
+
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -1847,6 +1963,8 @@ describe('web socket server URL', () => {
           resolve();
         });
       });
+
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
 
     it(`should work with "client.webSocketURL.*" options ("${webSocketServer}")`, async () => {
