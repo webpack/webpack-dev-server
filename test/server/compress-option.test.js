@@ -22,8 +22,10 @@ describe('compress option', () => {
 
     afterAll(testServer.close);
 
-    it('request to bundle file', (done) => {
-      req.get('/main.js').expect('Content-Encoding', 'gzip').expect(200, done);
+    it('request to bundle file', async () => {
+      const res = await req.get('/main.js');
+      expect(res.headers['content-encoding']).toEqual('gzip');
+      expect(res.status).toEqual(200);
     });
   });
 
@@ -42,8 +44,10 @@ describe('compress option', () => {
 
     afterAll(testServer.close);
 
-    it('request to bundle file', (done) => {
-      req.get('/main.js').expect('Content-Encoding', 'gzip').expect(200, done);
+    it('request to bundle file', async () => {
+      const res = await req.get('/main.js');
+      expect(res.headers['content-encoding']).toEqual('gzip');
+      expect(res.status).toEqual(200);
     });
   });
 
@@ -62,15 +66,11 @@ describe('compress option', () => {
 
     afterAll(testServer.close);
 
-    it('request to bundle file', (done) => {
-      req
-        .get('/main.js')
-        .expect((res) => {
-          if (res.header['content-encoding']) {
-            throw new Error('Expected `content-encoding` header is undefined.');
-          }
-        })
-        .expect(200, done);
+    it('request to bundle file', async () => {
+      const res = await req.get('/main.js');
+      // eslint-disable-next-line no-undefined
+      expect(res.headers['content-encoding']).toEqual(undefined);
+      expect(res.status).toEqual(200);
     });
   });
 });

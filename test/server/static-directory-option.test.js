@@ -44,12 +44,16 @@ describe('static.directory option', () => {
       fs.truncateSync(nestedFile);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const res = await req.get('/');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Heyo');
     });
 
-    it('Request to other file', (done) => {
-      req.get('/other.html').expect(200, /Other html/, done);
+    it('Request to other file', async () => {
+      const res = await req.get('/other.html');
+      expect(res.status).toEqual(200);
+      expect(res.text).toContain('Other html');
     });
 
     it('Watches folder recursively', (done) => {
@@ -106,12 +110,15 @@ describe('static.directory option', () => {
       });
     });
 
-    it("shouldn't list the files inside the assets folder (404)", (done) => {
-      req.get('/assets/').expect(404, done);
+    it("shouldn't list the files inside the assets folder (404)", async () => {
+      const { status } = await req.get('/assets/');
+      expect(status).toEqual(404);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const { status, text } = await req.get('/bar/');
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
   });
 
@@ -138,12 +145,15 @@ describe('static.directory option', () => {
       });
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get('/assets/').expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      const { status } = await req.get('/assets/');
+      expect(status).toEqual(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const { status, text } = await req.get('/bar/');
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
   });
 
@@ -169,12 +179,15 @@ describe('static.directory option', () => {
       });
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get('/assets/').expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      const { status } = await req.get('/assets/');
+      expect(status).toEqual(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const { status, text } = await req.get('/bar/');
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
   });
 
@@ -197,12 +210,16 @@ describe('static.directory option', () => {
       });
     });
 
-    it('Request to first directory', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to first directory', async () => {
+      const { status, text } = await req.get('/');
+      expect(status).toEqual(200);
+      expect(text).toContain('Heyo');
     });
 
-    it('Request to second directory', (done) => {
-      req.get('/foo.html').expect(200, /Foo!/, done);
+    it('Request to second directory', async () => {
+      const { status, text } = await req.get('/foo.html');
+      expect(status).toEqual(200);
+      expect(text).toContain('Foo!');
     });
   });
 
@@ -309,8 +326,9 @@ describe('static.directory option', () => {
       });
     });
 
-    it('Request to page', (done) => {
-      req.get('/index.html').expect(200, done);
+    it('Request to page', async () => {
+      const { status } = await req.get('/index.html');
+      expect(status).toEqual(200);
     });
   });
 

@@ -28,11 +28,10 @@ describe('mimeTypes option', () => {
 
     afterAll(testServer.close);
 
-    it('requests file with different js mime type', (done) => {
-      req
-        .get('/main.js')
-        .expect('Content-Type', 'application/octet-stream')
-        .expect(200, done);
+    it('requests file with different js mime type', async () => {
+      const res = await req.get('/main.js');
+      expect(res.status).toEqual(200);
+      expect(res.headers['content-type']).toEqual('application/octet-stream');
     });
   });
 
@@ -58,11 +57,10 @@ describe('mimeTypes option', () => {
 
     afterAll(testServer.close);
 
-    it('requests file with custom mime type', (done) => {
-      req
-        .get('/file.custom')
-        .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(200, done);
+    it('requests file with custom mime type', async () => {
+      const res = await req.get('/file.custom');
+      expect(res.status).toEqual(200);
+      expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
     });
   });
 });
