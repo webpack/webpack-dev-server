@@ -1103,7 +1103,7 @@ describe('web socket server URL', () => {
       });
     });
 
-    it(`should work with the "client.webSocketURL.path" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1443,7 +1443,7 @@ describe('web socket server URL', () => {
       });
     });
 
-    it(`should work with the "client.webSocketURL.path" option and custom web socket server "path" ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {

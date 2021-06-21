@@ -160,7 +160,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"path":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.client.webSocketURL.path should be a string.
+ - options.client.webSocketURL.pathname should be a string.
    -> Tells clients connected to devServer to use the provided path to connect."
 `;
 

@@ -180,7 +180,7 @@ describe('"client" CLI option', () => {
     expect(stdout).toContain('ws%3A%2F%2F0.0.0.0%2Fws');
   });
 
-  it('should use "client.webSocketURL.path" from configuration', async () => {
+  it('should use "client.webSocketURL.pathname" from configuration', async () => {
     const { exitCode, stdout } = await testBin(
       null,
       './test/fixtures/dev-server/client-custom-path-config.js'

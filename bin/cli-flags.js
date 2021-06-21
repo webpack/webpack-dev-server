@@ -237,14 +237,14 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
-  'client-web-socket-url-path': {
+  'client-web-socket-url-pathname': {
     configs: [
       {
         type: 'string',
         multiple: false,
         description:
           'Tells clients connected to devServer to use the provided path to connect.',
-        path: 'client.webSocketURL.path',
+        path: 'client.webSocketURL.pathname',
       },
     ],
     description:
