@@ -396,7 +396,7 @@ describe('Server', () => {
       const options = {
         client: {
           webSocketURL: {
-            host: 'test.host',
+            hostname: 'test.host',
           },
         },
       };

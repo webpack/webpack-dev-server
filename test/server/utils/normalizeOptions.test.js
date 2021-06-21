@@ -120,7 +120,7 @@ describe('normalizeOptions', () => {
       options: {
         client: {
           webSocketURL: {
-            host: 'my.host',
+            hostname: 'my.host',
             port: 9000,
           },
         },
@@ -133,7 +133,7 @@ describe('normalizeOptions', () => {
       options: {
         client: {
           webSocketURL: {
-            host: 'my.host',
+            hostname: 'my.host',
             port: '9000',
           },
         },

@@ -149,9 +149,9 @@ describe('"client" CLI option', () => {
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--client-web-socket-url-host"', async () => {
+  it('should work using "--client-web-socket-url-hostname"', async () => {
     const { exitCode } = await testBin([
-      '--client-web-socket-url-host',
+      '--client-web-socket-url-hostname',
       '0.0.0.0',
     ]);
 
