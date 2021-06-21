@@ -1454,7 +1454,7 @@ describe('web socket server URL', () => {
         webSocketServer: {
           type: webSocketServer,
           options: {
-            pathname: '/custom-ws',
+            path: '/custom-ws',
           },
         },
         port: port1,

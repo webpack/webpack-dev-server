@@ -158,8 +158,11 @@ describe('"client" CLI option', () => {
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--client-web-socket-url-path"', async () => {
-    const { exitCode } = await testBin(['--client-web-socket-url-path', '/ws']);
+  it('should work using "--client-web-socket-url-pathname"', async () => {
+    const { exitCode } = await testBin([
+      '--client-web-socket-url-pathname',
+      '/ws',
+    ]);
 
     expect(exitCode).toEqual(0);
   });
