@@ -1108,7 +1108,7 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            path: '/ws',
+            pathname: '/ws',
           },
         },
         webSocketServer,
@@ -1448,13 +1448,13 @@ describe('web socket server URL', () => {
       const devServerOptions = {
         client: {
           webSocketURL: {
-            path: '/custom-ws',
+            pathname: '/custom-ws',
           },
         },
         webSocketServer: {
           type: webSocketServer,
           options: {
-            path: '/custom-ws',
+            pathname: '/custom-ws',
           },
         },
         port: port1,
@@ -1696,7 +1696,7 @@ describe('web socket server URL', () => {
             protocol: 'ws:',
             hostname: '127.0.0.1',
             port: port1,
-            path: '/ws',
+            pathname: '/ws',
           },
         },
         webSocketServer,
