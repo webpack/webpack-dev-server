@@ -50,7 +50,7 @@ describe('"port" option', () => {
     it('Request to index', async () => {
       const response = await req.get('/');
 
-      expect(response.status).toEqual(200);
+      expect(response.statusCode).toEqual(200);
     });
   });
 
@@ -100,7 +100,7 @@ describe('"port" option', () => {
     it('Request to index', async () => {
       const response = await req.get('/');
 
-      expect(response.status).toEqual(200);
+      expect(response.statusCode).toEqual(200);
     });
   });
 
@@ -149,7 +149,7 @@ describe('"port" option', () => {
     it('Request to index', async () => {
       const response = await req.get('/');
 
-      expect(response.status).toEqual(200);
+      expect(response.statusCode).toEqual(200);
     });
   });
 
@@ -197,7 +197,7 @@ describe('"port" option', () => {
     it('Request to index', async () => {
       const response = await req.get('/');
 
-      expect(response.status).toEqual(200);
+      expect(response.statusCode).toEqual(200);
     });
   });
 
@@ -245,7 +245,7 @@ describe('"port" option', () => {
     it('Request to index', async () => {
       const response = await req.get('/');
 
-      expect(response.status).toEqual(200);
+      expect(response.statusCode).toEqual(200);
     });
   });
 });
