@@ -15,9 +15,11 @@ describe('allowedHosts', () => {
     compiler = webpack(config);
   });
 
-  afterEach((done) => {
-    server.close(() => {
-      done();
+  afterEach(async () => {
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
     });
   });
 
