@@ -226,7 +226,7 @@ describe('webSocketServer', () => {
                 }
 
                 close(callback) {
-                  [...this.server.webSocketConnections].forEach((socket) => {
+                  [...this.webSocketConnections].forEach((socket) => {
                     this.closeConnection(socket);
                   });
 
@@ -317,7 +317,7 @@ describe('webSocketServer', () => {
                 }
 
                 close(callback) {
-                  [...this.server.webSocketConnections].forEach((socket) => {
+                  [...this.webSocketConnections].forEach((socket) => {
                     this.closeConnection(socket);
                   });
 
@@ -427,7 +427,7 @@ describe('webSocketServer', () => {
                 }
 
                 close(callback) {
-                  [...this.server.webSocketConnections].forEach((socket) => {
+                  [...this.webSocketConnections].forEach((socket) => {
                     this.closeConnection(socket);
                   });
 
