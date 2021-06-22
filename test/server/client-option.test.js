@@ -1,24 +1,20 @@
 'use strict';
 
+const webpack = require('webpack');
 const request = require('supertest');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
-const testServer = require('../helpers/test-server');
 const port = require('../ports-map')['client-option'];
 
 describe('client option', () => {
   let server;
   let req;
 
-  afterEach((done) => {
-    testServer.close(done);
-    req = null;
-    server = null;
-  });
-
   describe('default behavior', () => {
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           client: {
             transport: 'sockjs',
@@ -26,9 +22,30 @@ describe('client option', () => {
           webSocketServer: 'sockjs',
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(`http://localhost:${port}`);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('overlay true by default', () => {
@@ -36,17 +53,19 @@ describe('client option', () => {
     });
 
     it('responds with a 200', async () => {
-      const res = await req.get('/ws');
-      expect(res.status).toEqual(200);
+      const response = await req.get('/ws');
+
+      expect(response.statusCode).toEqual(200);
     });
   });
 
   describe('path option', () => {
     const path = '/foo/test/bar';
 
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           client: {
             transport: 'sockjs',
@@ -61,50 +80,110 @@ describe('client option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(`http://localhost:${port}`);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('responds with a 200 second', async () => {
-      const res = await req.get(path);
-      expect(res.status).toEqual(200);
+      const response = await req.get(path);
+
+      expect(response.statusCode).toEqual(200);
     });
   });
 
   describe('configure client entry', () => {
-    it('disables client entry', (done) => {
-      server = testServer.start(
-        config,
+    it('disables client entry', async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           client: {
             needClientEntry: false,
           },
           port,
         },
-        async () => {
-          const res = await request(server.app).get('/main.js');
-          expect(res.text).not.toMatch(/client\/index\.js/);
-          done();
-        }
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const res = await request(server.app).get('/main.js');
+
+      expect(res.text).not.toMatch(/client\/index\.js/);
+
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
-    it('disables hot entry', (done) => {
-      server = testServer.start(
-        config,
+    it('disables hot entry', async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           client: {
             hotEntry: false,
           },
           port,
         },
-        async () => {
-          const res = await request(server.app).get('/main.js');
-          expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
-          done();
-        }
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const res = await request(server.app).get('/main.js');
+
+      expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
+
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
   });
 
@@ -141,30 +220,49 @@ describe('client option', () => {
         jest.unmock('../../lib/utils/getSocketClientPath');
       });
 
-      afterEach((done) => {
-        testServer.close(done);
-      });
-
       clientModes.forEach((data) => {
         it(`${data.title} ${
           data.shouldThrow ? 'should throw' : 'should not throw'
-        }`, (done) => {
-          const res = () => {
-            testServer.start(
-              config,
-              {
-                client: data.client,
-                port,
-              },
-              done
-            );
-          };
-          if (data.shouldThrow) {
-            expect(res).toThrow(/client\.transport must be a string/);
-            done();
-          } else {
-            expect(res).not.toThrow();
+        }`, async () => {
+          const compiler = webpack(config);
+
+          server = new Server(
+            {
+              client: data.client,
+              port,
+            },
+            compiler
+          );
+
+          let thrownError;
+
+          try {
+            await new Promise((resolve, reject) => {
+              server.listen(port, '127.0.0.1', (error) => {
+                if (error) {
+                  reject(error);
+
+                  return;
+                }
+
+                resolve();
+              });
+            });
+          } catch (error) {
+            thrownError = error;
           }
+
+          if (data.shouldThrow) {
+            expect(thrownError.message).toMatch(
+              /client\.transport must be a string/
+            );
+          }
+
+          await new Promise((resolve) => {
+            server.close(() => {
+              resolve();
+            });
+          });
         });
       });
     });
