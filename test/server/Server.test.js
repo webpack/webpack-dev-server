@@ -19,8 +19,6 @@ const baseDevConfig = {
   static: false,
 };
 
-const createServer = (compiler, options) => new Server(options, compiler);
-
 describe('Server', () => {
   describe('sockjs', () => {
     it('add decorateConnection', () => {
@@ -40,6 +38,7 @@ describe('Server', () => {
           (compilation) => {
             const mainDeps = compilation.entries.get('main').dependencies;
             const globalDeps = compilation.globalEntry.dependencies;
+
             entries = globalDeps
               .concat(mainDeps)
               .map((dep) => relative('.', dep.request).split(sep));
@@ -54,21 +53,42 @@ describe('Server', () => {
 
     it('add hot option', (done) => {
       const compiler = webpack(config);
-      const server = createServer(
-        compiler,
-        Object.assign({}, baseDevConfig, {
-          hot: true,
-        })
-      );
-
-      getEntries(server);
+      const server = new Server({ ...baseDevConfig, hot: true }, compiler);
 
       compiler.hooks.done.tap('webpack-dev-server', () => {
         expect(entries).toMatchSnapshot();
+
+        server.close(() => {
+          done();
+        });
+      });
+
+      server.listen(port, 'localhost', (error) => {
+        if (error) {
+          throw error;
+        }
+
+        getEntries(server);
+      });
+    });
+
+    it('add hot-only option', (done) => {
+      const compiler = webpack(config);
+      const server = new Server({ ...baseDevConfig, hot: 'only' }, compiler);
+
+      compiler.hooks.done.tap('webpack-dev-server', () => {
+        expect(entries).toMatchSnapshot();
+
         server.close(done);
       });
 
-      compiler.run(() => {});
+      server.listen(port, 'localhost', (error) => {
+        if (error) {
+          throw error;
+        }
+
+        getEntries(server);
+      });
     });
 
     // TODO: remove this after plugin support is published
@@ -76,51 +96,25 @@ describe('Server', () => {
       const compiler = webpack(config);
       const server = new Server(compiler, baseDevConfig);
 
-      getEntries(server);
-
       compiler.hooks.done.tap('webpack-dev-server', () => {
         expect(entries).toMatchSnapshot('oldparam');
+
         server.close(done);
       });
 
-      compiler.run(() => {});
-    });
+      server.listen(port, 'localhost', (error) => {
+        if (error) {
+          throw error;
+        }
 
-    // TODO: remove this after plugin support is published
-    it('should create and run server with MultiCompiler with old parameters order', (done) => {
-      const compiler = webpack([config, config]);
-      const server = new Server(compiler, baseDevConfig);
-
-      compiler.hooks.done.tap('webpack-dev-server', () => {
-        server.close(done);
+        getEntries(server);
       });
-
-      compiler.run(() => {});
-    });
-
-    it('add hot-only option', (done) => {
-      const compiler = webpack(config);
-      const server = createServer(
-        compiler,
-        Object.assign({}, baseDevConfig, {
-          hot: 'only',
-        })
-      );
-
-      getEntries(server);
-
-      compiler.hooks.done.tap('webpack-dev-server', () => {
-        expect(entries).toMatchSnapshot();
-        server.close(done);
-      });
-
-      compiler.run(() => {});
     });
   });
 
   it('test server error reporting', () => {
     const compiler = webpack(config);
-    const server = createServer(compiler, baseDevConfig);
+    const server = new Server(baseDevConfig, compiler);
 
     const emitError = () => server.server.emit('error', new Error('Error !!!'));
 
@@ -149,7 +143,7 @@ describe('Server', () => {
       });
 
       const compiler = webpack(config);
-      const server = createServer(compiler, baseDevConfig);
+      const server = new Server(baseDevConfig, compiler);
 
       compiler.hooks.done.tap('webpack-dev-server', (s) => {
         const output = server.getStats(s);
@@ -158,7 +152,6 @@ describe('Server', () => {
         server.close(done);
       });
 
-      compiler.run(() => {});
       server.listen(port, 'localhost');
     });
   });
@@ -310,7 +303,9 @@ describe('Server', () => {
       const headers = {
         host: 'localhost',
       };
-      server = createServer(compiler, options);
+
+      server = new Server(options, compiler);
+
       if (!server.checkHostHeader(headers)) {
         throw new Error("Validation didn't fail");
       }
@@ -327,7 +322,7 @@ describe('Server', () => {
         host: '127.0.0.1',
       };
 
-      server = createServer(compiler, options);
+      server = new Server(options, compiler);
 
       if (!server.checkHostHeader(headers)) {
         throw new Error("Validation didn't fail");
@@ -346,7 +341,7 @@ describe('Server', () => {
         '[ad42::1de2:54c2:c2fa:1234]:8080',
       ];
 
-      server = createServer(compiler, options);
+      server = new Server(options, compiler);
 
       tests.forEach((test) => {
         const headers = { host: test };
@@ -368,7 +363,7 @@ describe('Server', () => {
         host: 'test.hostname:80',
       };
 
-      server = createServer(compiler, options);
+      server = new Server(options, compiler);
 
       if (server.checkHostHeader(headers)) {
         throw new Error("Validation didn't fail");
@@ -385,7 +380,7 @@ describe('Server', () => {
         origin: 'https://test.host',
       };
 
-      server = createServer(compiler, options);
+      server = new Server(options, compiler);
 
       if (!server.checkOriginHeader(headers)) {
         throw new Error("Validation didn't fail");
@@ -404,7 +399,7 @@ describe('Server', () => {
         origin: 'https://test.host',
       };
 
-      server = createServer(compiler, options);
+      server = new Server(options, compiler);
 
       if (!server.checkOriginHeader(headers)) {
         throw new Error("Validation didn't fail");
@@ -416,16 +411,21 @@ describe('Server', () => {
     describe('Testing callback functions on calling invalidate without callback', () => {
       it('should use default `noop` callback', (done) => {
         const compiler = webpack(config);
-        const server = createServer(compiler, baseDevConfig);
-
-        server.invalidate();
-        expect(server.middleware.context.callbacks.length).toEqual(1);
+        const server = new Server(baseDevConfig, compiler);
 
         compiler.hooks.done.tap('webpack-dev-server', () => {
           server.close(done);
         });
 
-        compiler.run(() => {});
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            throw error;
+          }
+
+          server.invalidate();
+
+          expect(server.middleware.context.callbacks.length).toEqual(1);
+        });
       });
     });
 
@@ -433,17 +433,21 @@ describe('Server', () => {
       it('should use `callback` function', (done) => {
         const compiler = webpack(config);
         const callback = jest.fn();
-        const server = createServer(compiler, baseDevConfig);
-
-        server.invalidate(callback);
-
-        expect(server.middleware.context.callbacks[0]).toBe(callback);
+        const server = new Server(baseDevConfig, compiler);
 
         compiler.hooks.done.tap('webpack-dev-server', () => {
           server.close(done);
         });
 
-        compiler.run(() => {});
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            throw error;
+          }
+
+          server.invalidate(callback);
+
+          expect(server.middleware.context.callbacks[0]).toBe(callback);
+        });
       });
     });
   });
