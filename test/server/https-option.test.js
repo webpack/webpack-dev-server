@@ -3,7 +3,8 @@
 const path = require('path');
 const fs = require('graceful-fs');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const webpack = require('webpack');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/contentbase-config/webpack.config');
 const { skipTestOnWindows } = require('../helpers/conditional-test');
 const port = require('../ports-map')['https-option'];
@@ -22,9 +23,10 @@ describe('https option', () => {
   let req;
 
   describe('as a boolean', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: contentBasePublic,
@@ -33,24 +35,45 @@ describe('https option', () => {
           https: true,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '::', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
-    afterAll(testServer.close);
+    it('Request to index', async () => {
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
+    });
   });
 
   describe('as an object when cacert, pfx, key and cert are buffer', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: contentBasePublic,
@@ -73,22 +96,45 @@ describe('https option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '::', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
   });
 
   describe('as an object when cacert, pfx, key and cert are paths', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: contentBasePublic,
           https: {
@@ -100,15 +146,37 @@ describe('https option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '::', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
   });
 
@@ -117,9 +185,10 @@ describe('https option', () => {
       return;
     }
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: contentBasePublic,
@@ -134,24 +203,45 @@ describe('https option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '::', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
-    afterAll(testServer.close);
+    it('Request to index', async () => {
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
+    });
   });
 
   describe('as an object when cacert, pfx, key and cert are raw strings', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: contentBasePublic,
@@ -175,22 +265,45 @@ describe('https option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '::', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
   });
 
   describe('should support the "requestCert" option', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: contentBasePublic,
@@ -214,17 +327,37 @@ describe('https option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '::', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
   });
-
-  afterEach(testServer.close);
 });
