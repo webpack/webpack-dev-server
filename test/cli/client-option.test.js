@@ -172,24 +172,4 @@ describe('"client" CLI option', () => {
 
     expect(exitCode).toEqual(0);
   });
-
-  it('should add "/ws" web socket path by default', async () => {
-    const { exitCode, stdout } = await testBin(
-      null,
-      './test/fixtures/dev-server/client-default-path-config.js'
-    );
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).toContain('ws%3A%2F%2F0.0.0.0%3A8080%2Fws');
-  });
-
-  it('should use "client.webSocketURL.pathname" from configuration', async () => {
-    const { exitCode, stdout } = await testBin(
-      null,
-      './test/fixtures/dev-server/client-custom-path-config.js'
-    );
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).toContain('ws%3A%2F%2F0.0.0.0%3A8080%2Fcustom%2Fpath');
-  });
 });
