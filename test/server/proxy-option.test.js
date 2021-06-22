@@ -993,6 +993,8 @@ describe('proxy option', () => {
       it('respects a proxy option when a request path is matched', async () => {
         const response = await req.get('/my-path');
 
+        console.log(response);
+
         expect(response.statusCode).toBe(504);
         expect(customLogProvider.error).toHaveBeenCalledTimes(0);
       });
