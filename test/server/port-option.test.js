@@ -1,10 +1,16 @@
 'use strict';
 
+const path = require('path');
 const webpack = require('webpack');
 const request = require('supertest');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['port-option'];
+
+const staticDirectory = path.resolve(
+  __dirname,
+  '../fixtures/contentbase-config'
+);
 
 describe('"port" option', () => {
   let server = null;
@@ -14,7 +20,16 @@ describe('"port" option', () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
-      server = new Server({ port }, compiler);
+      server = new Server(
+        {
+          port,
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
+        },
+        compiler
+      );
 
       await new Promise((resolve, reject) => {
         server.listen(port, '127.0.0.1', (error) => {
@@ -47,7 +62,7 @@ describe('"port" option', () => {
       expect(address.port).toBeDefined();
     });
 
-    it('Request to index', async () => {
+    it('then Request to index', async () => {
       const response = await req.get('/');
 
       expect(response.statusCode).toEqual(200);
@@ -62,6 +77,10 @@ describe('"port" option', () => {
         {
           // eslint-disable-next-line no-undefined
           port: undefined,
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
         },
         compiler
       );
@@ -111,6 +130,10 @@ describe('"port" option', () => {
       server = new Server(
         {
           port: 'auto',
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
         },
         compiler
       );
@@ -160,6 +183,10 @@ describe('"port" option', () => {
       server = new Server(
         {
           port: '33333',
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
         },
         compiler
       );
@@ -208,6 +235,10 @@ describe('"port" option', () => {
       server = new Server(
         {
           port: 33333,
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
         },
         compiler
       );
