@@ -154,7 +154,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "webSocketURL": Object {
-      "path": "/custom/path/",
+      "pathname": "/custom/path/",
     },
   },
   "compress": true,
@@ -191,7 +191,7 @@ Object {
     "hotEntry": true,
     "overlay": true,
     "webSocketURL": Object {
-      "path": "custom/path",
+      "pathname": "custom/path",
     },
   },
   "compress": true,

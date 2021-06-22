@@ -152,15 +152,15 @@ exports[`options validate should throw an error on the "client" option with '{"w
    -> Tells clients connected to devServer to use the provided hostname."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"hostname":true,"path":"","port":8080}}' value 1`] = `
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"hostname":true,"pathname":"","port":8080}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL.hostname should be a non-empty string.
    -> Tells clients connected to devServer to use the provided hostname."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"path":true}}' value 1`] = `
+exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"pathname":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.client.webSocketURL.path should be a string.
+ - options.client.webSocketURL.pathname should be a string.
    -> Tells clients connected to devServer to use the provided path to connect."
 `;
 
@@ -172,7 +172,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL should be one of these:
-   non-empty string | object { hostname?, path?, password?, port?, protocol?, username? }
+   non-empty string | object { hostname?, pathname?, password?, port?, protocol?, username? }
    -> Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
    Details:
     * options.client.webSocketURL.port should be one of these:
@@ -186,7 +186,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"username":123,"password":976}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL should be one of these:
-   non-empty string | object { hostname?, path?, password?, port?, protocol?, username? }
+   non-empty string | object { hostname?, pathname?, password?, port?, protocol?, username? }
    -> Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
    Details:
     * options.client.webSocketURL.password should be a string.
