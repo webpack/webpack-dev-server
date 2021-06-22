@@ -3,10 +3,11 @@
 /* eslint-disable
   class-methods-use-this
 */
-const path = require('path');
 const request = require('supertest');
+const webpack = require('webpack');
 const sockjs = require('sockjs');
 const SockJS = require('sockjs-client/dist/sockjs');
+const Server = require('../../lib/Server');
 const SockJSServer = require('../../lib/servers/SockJSServer');
 const config = require('../fixtures/simple-config/webpack.config');
 const BaseServer = require('../../lib/servers/BaseServer');
@@ -18,101 +19,65 @@ describe('webSocketServer', () => {
     let testServer;
     let server;
     let req;
-    let getSocketServerImplementation;
 
     const serverModes = [
       {
         title: 'as a string ("sockjs")',
         webSocketServer: 'sockjs',
+        expected: 'SockJSServer',
       },
       {
         title: 'as a path ("sockjs")',
         client: { transport: 'sockjs' },
         webSocketServer: require.resolve('../../lib/servers/SockJSServer'),
+        expected: 'SockJSServer',
       },
       {
         title: 'as a string ("ws")',
         webSocketServer: 'ws',
+        expected: 'WebsocketServer',
       },
       {
         title: 'as a path ("ws")',
         client: { transport: 'ws' },
         webSocketServer: require.resolve('../../lib/servers/WebsocketServer'),
-      },
-      {
-        title: 'as a class (custom implementation)',
-        client: { transport: 'ws' },
-        webSocketServer: class CustomServer {},
+        expected: 'WebsocketServer',
       },
     ];
 
     describe('is passed to getSocketServerImplementation correctly', () => {
-      beforeEach(() => {
-        jest.mock('../../lib/utils/getSocketServerImplementation');
-
-        getSocketServerImplementation = require('../../lib/utils/getSocketServerImplementation');
-        getSocketServerImplementation.mockImplementation(
-          () =>
-            class MockServer {
-              // eslint-disable-next-line no-empty-function
-              onConnection() {}
-              close() {}
-            }
-        );
-      });
-
-      afterEach((done) => {
-        jest.resetAllMocks();
-        jest.resetModules();
-
-        mockedTestServer.close(done);
-      });
-
       serverModes.forEach((data) => {
-        it(data.title, (done) => {
-          mockedTestServer = require('../helpers/test-server');
-          mockedTestServer.start(
-            config,
+        it(data.title, async () => {
+          const compiler = webpack(config);
+
+          server = new Server(
             {
               client: data.client,
               webSocketServer: data.webSocketServer,
               port,
             },
-            () => {
-              expect(getSocketServerImplementation.mock.calls.length).toEqual(
-                1
-              );
-              expect(
-                getSocketServerImplementation.mock.calls[0].length
-              ).toEqual(1);
+            compiler
+          );
 
-              if (typeof data.webSocketServer === 'string') {
-                const isStandardWebSocketServerImplementation =
-                  data.webSocketServer === 'ws' ||
-                  data.webSocketServer === 'sockjs';
+          await new Promise((resolve, reject) => {
+            server.listen(port, '127.0.0.1', (error) => {
+              if (error) {
+                reject(error);
 
-                expect(
-                  isStandardWebSocketServerImplementation
-                    ? getSocketServerImplementation.mock.calls[0][0]
-                        .webSocketServer.type
-                    : path
-                        .relative(
-                          process.cwd(),
-                          getSocketServerImplementation.mock.calls[0][0]
-                            .webSocketServer.type
-                        )
-                        .replace(/\\/g, '/')
-                ).toMatchSnapshot();
-              } else {
-                expect(
-                  getSocketServerImplementation.mock.calls[0][0].webSocketServer
-                    .type
-                ).toEqual(data.webSocketServer);
+                return;
               }
 
-              done();
-            }
-          );
+              resolve();
+            });
+          });
+
+          expect(server.webSocketServer.constructor.name).toBe(data.expected);
+
+          await new Promise((resolve) => {
+            server.close(() => {
+              resolve();
+            });
+          });
         });
       });
     });
@@ -263,20 +228,45 @@ describe('webSocketServer', () => {
       });
 
       describe('as a path with nonexistent path', () => {
-        it('should throw an error', () => {
-          expect(() => {
-            server = testServer.start(
-              config,
-              {
-                client: { transport: 'ws' },
-                webSocketServer: '/bad/path/to/implementation',
-                port,
-              },
-              () => {}
-            );
-          }).toThrow(
+        it('should throw an error', async () => {
+          const compiler = webpack(config);
+
+          server = new Server(
+            {
+              client: { transport: 'ws' },
+              webSocketServer: '/bad/path/to/implementation',
+              port,
+            },
+            compiler
+          );
+
+          let thrownError;
+
+          try {
+            await new Promise((resolve, reject) => {
+              server.listen(port, '127.0.0.1', (error) => {
+                if (error) {
+                  reject(error);
+
+                  return;
+                }
+
+                resolve();
+              });
+            });
+          } catch (error) {
+            thrownError = error;
+          }
+
+          expect(thrownError.message).toMatch(
             /webSocketServer \(webSocketServer\.type\) must be a string/
           );
+
+          await new Promise((resolve) => {
+            server.close(() => {
+              resolve();
+            });
+          });
         });
       });
 

@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`webSocketServer server is passed to getSocketServerImplementation correctly as a path ("sockjs") 1`] = `"lib/servers/SockJSServer.js"`;
-
-exports[`webSocketServer server is passed to getSocketServerImplementation correctly as a path ("ws") 1`] = `"lib/servers/WebsocketServer.js"`;
-
-exports[`webSocketServer server is passed to getSocketServerImplementation correctly as a string ("sockjs") 1`] = `"sockjs"`;
-
-exports[`webSocketServer server is passed to getSocketServerImplementation correctly as a string ("ws") 1`] = `"ws"`;
-
 exports[`webSocketServer server passed to server with a bad host header results in an error 1`] = `
 Array [
   "open",
