@@ -30,12 +30,12 @@ module.exports = {
         type: 'reset',
         multiple: false,
         description:
-          "Clear all items provided in configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
+          "Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
         path: 'allowedHosts',
       },
     ],
     description:
-      "Clear all items provided in configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
+      "Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts",
     simpleType: 'boolean',
     multiple: false,
   },
@@ -614,12 +614,12 @@ module.exports = {
         type: 'reset',
         multiple: false,
         description:
-          'Clear all items provided in configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen',
+          "Clear all items provided in 'open' configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen",
         path: 'open',
       },
     ],
     description:
-      'Clear all items provided in configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen',
+      "Clear all items provided in 'open' configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen",
     simpleType: 'boolean',
     multiple: false,
   },
@@ -629,12 +629,12 @@ module.exports = {
         type: 'reset',
         multiple: false,
         description:
-          'Clear all items provided in configuration. Opens specified page in browser.',
+          "Clear all items provided in 'open.target' configuration. Opens specified page in browser.",
         path: 'open.target',
       },
     ],
     description:
-      'Clear all items provided in configuration. Opens specified page in browser.',
+      "Clear all items provided in 'open.target' configuration. Opens specified page in browser.",
     simpleType: 'boolean',
     multiple: false,
   },
@@ -644,12 +644,12 @@ module.exports = {
         type: 'reset',
         multiple: false,
         description:
-          'Clear all items provided in configuration. Open specified browser.',
+          "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
         path: 'open.app.name',
       },
     ],
     description:
-      'Clear all items provided in configuration. Open specified browser.',
+      "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
     simpleType: 'boolean',
     multiple: false,
   },
@@ -776,12 +776,12 @@ module.exports = {
         type: 'reset',
         multiple: false,
         description:
-          "Clear all items provided in configuration. Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic",
+          "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic",
         path: 'static',
       },
     ],
     description:
-      "Clear all items provided in configuration. Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic",
+      "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic",
     simpleType: 'boolean',
     multiple: false,
   },
@@ -791,12 +791,12 @@ module.exports = {
         type: 'reset',
         multiple: false,
         description:
-          'Clear all items provided in configuration. The static files will be available in the browser under this public path.',
+          "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
         path: 'static.publicPath',
       },
     ],
     description:
-      'Clear all items provided in configuration. The static files will be available in the browser under this public path.',
+      "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
     simpleType: 'boolean',
     multiple: false,
   },
@@ -821,12 +821,12 @@ module.exports = {
         type: 'reset',
         multiple: false,
         description:
-          'Clear all items provided in configuration. Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
+          "Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles",
         path: 'watchFiles',
       },
     ],
     description:
-      'Clear all items provided in configuration. Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles',
+      "Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles",
     simpleType: 'boolean',
     multiple: false,
   },
