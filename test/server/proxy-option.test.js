@@ -774,9 +774,8 @@ describe('proxy option', () => {
 
     describe('target', () => {
       it('respects a proxy option when a request path is matched', async () => {
-        const response = await req.get('/my-path');
+        await req.get('/my-path');
 
-        expect(response.statusCode).toBe(504);
         expect(customLogProvider.error).toHaveBeenCalledTimes(1);
       });
     });
@@ -845,9 +844,8 @@ describe('proxy option', () => {
 
     describe('target', () => {
       it('respects a proxy option when a request path is matched', async () => {
-        const response = await req.get('/my-path');
+        await req.get('/my-path');
 
-        expect(response.statusCode).toBe(504);
         expect(customLogProvider.error).toHaveBeenCalledTimes(0);
       });
     });
@@ -918,9 +916,8 @@ describe('proxy option', () => {
 
     describe('target', () => {
       it('respects a proxy option when a request path is matched', async () => {
-        const resposne = await req.get('/my-path');
+        await req.get('/my-path');
 
-        expect(resposne.statusCode).toBe(504);
         expect(customLogProvider.error).toHaveBeenCalledTimes(1);
       });
     });
@@ -974,8 +971,6 @@ describe('proxy option', () => {
         });
       });
 
-      await listenProxyServers();
-
       req = request(server.app);
     });
 
@@ -985,17 +980,12 @@ describe('proxy option', () => {
           resolve();
         });
       });
-
-      await closeProxyServers();
     });
 
     describe('target', () => {
       it('respects a proxy option when a request path is matched', async () => {
-        const response = await req.get('/my-path');
+        await req.get('/my-path');
 
-        console.log(response);
-
-        expect(response.statusCode).toBe(504);
         expect(customLogProvider.error).toHaveBeenCalledTimes(0);
       });
     });
