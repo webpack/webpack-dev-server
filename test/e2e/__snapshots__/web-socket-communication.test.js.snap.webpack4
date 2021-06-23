@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`heartbeat should work using "ws" web socket server 1`] = `
+exports[`web socket communication should work and do heartbeat using "ws" web socket server 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
