@@ -65,7 +65,10 @@ describe('stats', () => {
         stats: { warningsFilter: /Warning from compilation/ },
       },
     },
-    {
+  ];
+
+  if (webpack.version.startsWith('5')) {
+    cases.push({
       title: 'should work and respect the "ignoreWarnings" option',
       webpackOptions: {
         plugins: [
@@ -84,8 +87,8 @@ describe('stats', () => {
         ],
         ignoreWarnings: [/Warning from compilation/],
       },
-    },
-  ];
+    });
+  }
 
   cases.forEach((testCase) => {
     it(testCase.title, async () => {
