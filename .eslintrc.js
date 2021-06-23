@@ -2,6 +2,7 @@
 
 module.exports = {
   extends: ['webpack', 'prettier'],
+  parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'script',
     ecmaVersion: 2018,

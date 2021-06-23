@@ -371,7 +371,7 @@ Array [
 
 exports[`web socket server URL should work with the "client.webSocketURL.pathname" option ("ws"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("sockjs"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -380,9 +380,9 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("sockjs"): page errors 1`] = `Array []`;
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("sockjs"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("ws"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("ws"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -391,7 +391,95 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("ws"): page errors 1`] = `Array []`;
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "prefix" for compatibility with "sockjs" ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "prefix" for compatibility with "sockjs" ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "prefix" for compatibility with "sockjs" ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the "client.webSocketURL.pathname" option and the custom web socket server "prefix" for compatibility with "sockjs" ("ws"): page errors 1`] = `Array []`;
 
 exports[`web socket server URL should work with the "client.webSocketURL.port" option ("sockjs"): console messages 1`] = `
 Array [
@@ -568,3 +656,47 @@ Array [
 `;
 
 exports[`web socket server URL should work with the "client.webSocketURL.username" option ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the custom web socket server "path" ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the custom web socket server "path" ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the custom web socket server "path" ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the custom web socket server "path" ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the custom web socket server "path" using empty value ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the custom web socket server "path" using empty value ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with the custom web socket server "path" using empty value ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with the custom web socket server "path" using empty value ("ws"): page errors 1`] = `Array []`;
