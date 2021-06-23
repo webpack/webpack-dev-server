@@ -1,6 +1,7 @@
 'use strict';
 
 const os = require('os');
+const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const webpack = require('webpack');
@@ -16,7 +17,11 @@ describe('web socket server URL', () => {
   for (const webSocketServer of webSocketServers) {
     const websocketURLProtocol = webSocketServer === 'ws' ? 'ws' : 'http';
 
+    const ipc = path.resolve(os.tmpdir(), 'webpack-dev-server.socket');
+
     it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
+      fs.unlinkSync(ipc);
+
       const devServerHost = '127.0.0.1';
       const proxyHost = devServerHost;
       const proxyPort = port1;
@@ -125,10 +130,11 @@ describe('web socket server URL', () => {
     });
 
     it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
+      fs.unlinkSync(ipc);
+
       const devServerHost = '127.0.0.1';
       const proxyHost = devServerHost;
       const proxyPort = port1;
-      const ipc = path.resolve(os.tmpdir(), 'webpack-dev-server.socket');
 
       const compiler = webpack(config);
       const devServerOptions = {
