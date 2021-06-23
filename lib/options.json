@@ -308,7 +308,19 @@
       ],
       "description": "Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot"
     },
-
+    "IPC": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "boolean",
+          "enum": [true]
+        }
+      ],
+      "description": "Listen to a unix socket. https://webpack.js.org/configuration/dev-server/#devserveripc"
+    },
     "LiveReload": {
       "type": "boolean",
       "description": "Enables reload/refresh the page(s) when file changes are detected (enabled by default). https://webpack.js.org/configuration/dev-server/#devserverlivereload"
@@ -691,6 +703,9 @@
     },
     "https": {
       "$ref": "#/definitions/HTTPS"
+    },
+    "ipc": {
+      "$ref": "#/definitions/IPC"
     },
     "liveReload": {
       "$ref": "#/definitions/LiveReload"
