@@ -46,6 +46,7 @@ const listOfTests = {
   'sockjs-server': 1,
   'web-socket-server': 1,
   routes: 1,
+  'web-socket-heartbeat': 1,
 };
 
 let startPort = 8089;
