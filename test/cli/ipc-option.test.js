@@ -13,7 +13,11 @@ describe('"ipc" CLI option', () => {
   });
 
   it('should work using "--ipc=<string>"', async () => {
-    const ipc = path.resolve(os.tmpdir(), 'webpack-dev-server.socket');
+    const isWindows = process.platform === 'win32';
+    const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
+    const pipePrefix = isWindows ? '\\\\.\\pipe\\' : localRelative;
+    const pipeName = `webpack-dev-server.cli.sock`;
+    const ipc = path.join(pipePrefix, pipeName);
 
     const { exitCode, stderr } = await testBin(['--ipc', ipc]);
 
