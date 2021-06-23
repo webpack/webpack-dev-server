@@ -87,6 +87,78 @@ module.exports = {
 };
 ```
 
+## `contentBase`/`contentBasePublicPath`/`serveIndex`/`watchContentBase`/`watchOptions`
+
+Tell the server where to serve content from. This is only necessary if you want to serve static files.
+
+- `contentBase` was removed in favor of `static.directory`.
+- `contentBasePublicPath` was removed in favor of `static.publicPath`.
+- `serveIndex` was removed in favor of `static.serveIndex`.
+- `watchContentBase` and `watchOptions` were removed in favor of `static.watch`.
+
+### webpack-dev-server v3:
+
+```js
+module.exports = {
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    contentBasePublicPath: '/serve-content-base-at-this-url',
+    serveIndex: true,
+    watchContentBase: true,
+    watchOptions: {
+      poll: true,
+    },
+  },
+};
+```
+
+### webpack-dev-server v4:
+
+```js
+module.exports = {
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'static'),
+      staticOptions: {},
+      // Don't be confused with `devMiddleware.publicPath`, it is `publicPath` for static directory
+      // Can be:
+      // publicPath: ['/static-public-path-one/', '/static-public-path-two/'],
+      publicPath: '/static-public-path/',
+      // Can be:
+      // serveIndex: {} (options for the `serveIndex` option you can find https://github.com/expressjs/serve-index)
+      serveIndex: true,
+      // Can be:
+      // watch: {} (options for the `watch` option you can find https://github.com/paulmillr/chokidar)
+      watch: true,
+    },
+  },
+};
+```
+
+## `disableHostCheck`
+
+This option bypasses host checking. It was removed in favor `allowedHosts: 'all'`.
+
+### webpack-dev-server v3:
+
+```js
+module.exports = {
+  devServer: {
+    disableHostCheck: true,
+  },
+};
+```
+
+### webpack-dev-server v4:
+
+```js
+module.exports = {
+  devServer: {
+    allowedHosts: 'all',
+  },
+};
+```
+
 ## `https` related options
 
 The `key`, `cert`, `pfx`, `pfx-passphrase`, `cacert`, and `requestCert` options were moved to `https` options, please use `https.{key|cert|pfx|passphrase|requestCert|cacert}`
@@ -148,6 +220,113 @@ module.exports = {
   },
 };
 ```
+
+## `openPage`
+
+Specify a page to navigate to when opening the browser.
+
+### webpack-dev-server v3:
+
+```js
+module.exports = {
+  devServer: {
+    openPage: '/my-page',
+  },
+};
+```
+
+### webpack-dev-server v4:
+
+```js
+module.exports = {
+  devServer: {
+    open: ['/my-page'],
+  },
+};
+```
+
+## `quiet` and `noInfo`
+
+`quiet` and `noInfo` were removed in favor built-in logger and can be reconfigured using [infrastructureLogging](https://webpack.js.org/configuration/other-options/#infrastructurelogging)
+
+## `useLocalIp`
+
+This option lets the browser open with your local IP. It was removed in favor of `host: 'local-ip'/'local-ipv4'/'local-ipv6'`.
+
+### webpack-dev-server v3:
+
+```js
+module.exports = {
+  devServer: {
+    useLocalIp: true,
+  },
+};
+```
+
+### webpack-dev-server v4:
+
+```js
+module.exports = {
+  devServer: {
+    host: 'local-ip',
+  },
+};
+```
+
+## `transportMode`
+
+This option allows us either to choose the current `devServer` transport mode for client/server individually or to provide custom client/server implementation.
+
+- `transportMode.client` was removed in favor of `client.transport`.
+- `transportMode.server` was removed in favor of `webSocketServer`.
+
+### webpack-dev-server v3:
+
+```js
+// Example 1
+module.exports = {
+  transportMode: {
+    client: 'ws',
+    server: 'ws',
+  },
+};
+
+// Example 2
+module.exports = {
+  transportMode: {
+    client: require.resolve('./CustomClient'),
+    server: require.resolve('./CustomServer'),
+  },
+};
+```
+
+### webpack-dev-server v4:
+
+```js
+// Example 1
+module.exports = {
+  devServer: {
+    client: {
+      transport: 'ws',
+    },
+    webSocketServer: 'ws',
+  },
+};
+
+// Example 2
+module.exports = {
+  devServer: {
+    client: {
+      transport: require.resolve('./CustomClient'),
+    },
+    webSocketServer: require.resolve('./CustomServer'),
+  },
+};
+```
+
+## `warn`
+
+`warn` was removed in favor of [ignoreWarnings](https://webpack.js.org/configuration/other-options/#ignorewarnings).
 
 ## `webpack-dev-middleware` options
 
