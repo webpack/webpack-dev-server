@@ -48,6 +48,7 @@ const listOfTests = {
   routes: 1,
   'web-socket-heartbeat': 1,
   ipc: 1,
+  stats: 1,
 };
 
 let startPort = 8089;

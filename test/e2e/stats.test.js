@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map').logging;
+const port = require('../ports-map').stats;
 
 global.console.log = jest.fn();
 
