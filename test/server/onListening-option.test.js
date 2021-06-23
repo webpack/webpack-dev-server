@@ -1,15 +1,18 @@
 'use strict';
 
-const testServer = require('../helpers/test-server');
+const webpack = require('webpack');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['on-listening-option'];
 
 describe('onListening option', () => {
+  let server;
   let onListeningIsRunning = false;
 
-  beforeAll((done) => {
-    testServer.start(
-      config,
+  beforeAll(async () => {
+    const compiler = webpack(config);
+
+    server = new Server(
       {
         onListening: (devServer) => {
           if (!devServer) {
@@ -20,11 +23,29 @@ describe('onListening option', () => {
         },
         port,
       },
-      done
+      compiler
     );
+
+    await new Promise((resolve, reject) => {
+      server.listen(port, '127.0.0.1', (error) => {
+        if (error) {
+          reject(error);
+
+          return;
+        }
+
+        resolve();
+      });
+    });
   });
 
-  afterAll(testServer.close);
+  afterAll(async () => {
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
+    });
+  });
 
   it('should runs onListening callback', () => {
     expect(onListeningIsRunning).toBe(true);

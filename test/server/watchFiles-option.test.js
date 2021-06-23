@@ -1,9 +1,10 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const fs = require('graceful-fs');
 const chokidar = require('chokidar');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/contentbase-config/webpack.config');
 const port = require('../ports-map')['watch-files-option'];
 
@@ -18,19 +19,37 @@ describe("'watchFiles' option", () => {
   describe('should work with string and path to file', () => {
     const file = path.join(watchDir, 'assets/example.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           watchFiles: file,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
     });
 
-    afterAll((done) => {
-      testServer.close(done);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+
       fs.truncateSync(file);
     });
 
@@ -51,19 +70,37 @@ describe("'watchFiles' option", () => {
   describe('should work with string and path to dir', () => {
     const file = path.join(watchDir, 'assets/example.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           watchFiles: watchDir,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
     });
 
-    afterAll((done) => {
-      testServer.close(done);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+
       fs.truncateSync(file);
     });
 
@@ -84,19 +121,37 @@ describe("'watchFiles' option", () => {
   describe('should work with string and glob', () => {
     const file = path.join(watchDir, 'assets/example.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           watchFiles: `${watchDir}/**/*`,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
     });
 
-    afterAll((done) => {
-      testServer.close(done);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+
       fs.truncateSync(file);
     });
 
@@ -117,19 +172,37 @@ describe("'watchFiles' option", () => {
   describe('should work not crash on non exist file', () => {
     const nonExistFile = path.join(watchDir, 'assets/non-exist.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           watchFiles: nonExistFile,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
     });
 
-    afterAll((done) => {
-      testServer.close(done);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+
       fs.truncateSync(nonExistFile);
     });
 
@@ -150,19 +223,37 @@ describe("'watchFiles' option", () => {
   describe('should work with object with single path', () => {
     const file = path.join(watchDir, 'assets/example.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           watchFiles: { paths: file },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
     });
 
-    afterAll((done) => {
-      testServer.close(done);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+
       fs.truncateSync(file);
     });
 
@@ -184,19 +275,37 @@ describe("'watchFiles' option", () => {
     const file = path.join(watchDir, 'assets/example.txt');
     const other = path.join(watchDir, 'assets/other.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           watchFiles: { paths: [file, other] },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
     });
 
-    afterAll((done) => {
-      testServer.close(done);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+
       fs.truncateSync(file);
     });
 
@@ -227,19 +336,37 @@ describe("'watchFiles' option", () => {
     const file = path.join(watchDir, 'assets/example.txt');
     const other = path.join(watchDir, 'assets/other.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           watchFiles: [{ paths: [file] }, other],
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
     });
 
-    afterAll((done) => {
-      testServer.close(done);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+
       fs.truncateSync(file);
       fs.truncateSync(other);
     });
@@ -306,10 +433,12 @@ describe("'watchFiles' option", () => {
 
     optionCases.forEach((optionCase) => {
       describe(JSON.stringify(optionCase), () => {
-        beforeAll((done) => {
+        beforeAll(async () => {
           chokidarMock.mockClear();
-          server = testServer.start(
-            config,
+
+          const compiler = webpack(config);
+
+          server = new Server(
             {
               watchFiles: {
                 paths: file,
@@ -317,12 +446,29 @@ describe("'watchFiles' option", () => {
               },
               port,
             },
-            done
+            compiler
           );
+
+          await new Promise((resolve, reject) => {
+            server.listen(port, '127.0.0.1', (error) => {
+              if (error) {
+                reject(error);
+
+                return;
+              }
+
+              resolve();
+            });
+          });
         });
 
-        afterAll((done) => {
-          testServer.close(done);
+        afterAll(async () => {
+          await new Promise((resolve) => {
+            server.close(() => {
+              resolve();
+            });
+          });
+
           fs.truncateSync(file);
         });
 
