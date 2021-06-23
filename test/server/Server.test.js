@@ -526,7 +526,9 @@ describe('Server', () => {
     }
 
     it('should returns the port when the port is specified', async () => {
-      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
+      const retryCount = 1;
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       const freePort = await Server.getFreePort(8082);
       expect(freePort).toEqual(8082);
@@ -535,7 +537,7 @@ describe('Server', () => {
     it('should returns the port when the port is null', async () => {
       const retryCount = 2;
 
-      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 2;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
       const freePort = await Server.getFreePort(null);
@@ -545,7 +547,7 @@ describe('Server', () => {
     it('should returns the port when the port is undefined', async () => {
       const retryCount = 3;
 
-      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 3;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
       // eslint-disable-next-line no-undefined
@@ -554,7 +556,7 @@ describe('Server', () => {
     });
 
     it('should retry finding the port for up to defaultPortRetry times (number)', async () => {
-      const retryCount = 3;
+      const retryCount = 4;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
@@ -564,9 +566,9 @@ describe('Server', () => {
     });
 
     it('should retry finding the port for up to defaultPortRetry times (string)', async () => {
-      const retryCount = 3;
+      const retryCount = 5;
 
-      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = `${retryCount}`;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
       const freePort = await Server.getFreePort();
@@ -575,7 +577,7 @@ describe('Server', () => {
 
     // TODO: fix me, Flaky on CI
     it('should retry finding the port when serial ports are busy', async () => {
-      const busyPorts = [60000, 60001, 60002, 60003, 60004, 60005, 60006];
+      const busyPorts = [60000, 60001, 60002, 60003, 60004, 60005];
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 6;
 
