@@ -20,7 +20,11 @@ describe('web socket server URL', () => {
     const ipc = path.resolve(os.tmpdir(), 'webpack-dev-server.socket');
 
     it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
-      fs.unlinkSync(ipc);
+      try {
+        fs.unlinkSync(ipc);
+      } catch (_error) {
+        // Ignore
+      }
 
       const devServerHost = '127.0.0.1';
       const proxyHost = devServerHost;
@@ -130,7 +134,11 @@ describe('web socket server URL', () => {
     });
 
     it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
-      fs.unlinkSync(ipc);
+      try {
+        fs.unlinkSync(ipc);
+      } catch (_error) {
+        // Ignore
+      }
 
       const devServerHost = '127.0.0.1';
       const proxyHost = devServerHost;
