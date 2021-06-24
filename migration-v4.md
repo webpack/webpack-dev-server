@@ -6,7 +6,7 @@ This document serves as a migration guide for `webpack-dev-server@4.0.0`.
 
 Provides the ability to execute custom middleware after/prior to all other middleware internally within the server.
 
-`before` and `after` were removed in favor `onBeforeSetupMiddleware` and `onAfterSetupMiddleware`:
+- `before` and `after` were removed in favor `onBeforeSetupMiddleware` and `onAfterSetupMiddleware`.
 
 ### webpack-dev-server v3:
 
@@ -44,7 +44,15 @@ module.exports = {
 
 ## `client` options
 
-The `sockHost`, `sockPath`, `sockPort`, `clientLogLevel`, `injectClient`, `injectHot`, `overlay`, and `progress` options were moved to `client` option:
+- The `sockHost`, `sockPath`, `sockPort`, `clientLogLevel`, `injectClient`, `injectHot`, `overlay`, and `progress` options were moved to `client` option.
+
+- `sockHost`, `sockPath` and `sockPort` was merged into `webSocketURL`.
+
+- `overlay` is now `true` by default.
+
+- `injectHot` was removed in favor of `needHotEntry`.
+
+- `injectClient` was removed in favor of `needClientEntry`.
 
 ### webpack-dev-server v3:
 
@@ -86,6 +94,10 @@ module.exports = {
   },
 };
 ```
+
+## `compress`
+
+- `compress` is now `true` by default.
 
 ## `contentBase`/`contentBasePublicPath`/`serveIndex`/`watchContentBase`/`watchOptions`
 
@@ -159,6 +171,10 @@ module.exports = {
 };
 ```
 
+## `filename` annd `lazy`
+
+- `filename` and `lazy` were removed in favor [experiments.lazyCompilation](https://webpack.js.org/configuration/experiments/#experimentslazycompilation)
+
 ## `https` related options
 
 The `key`, `cert`, `pfx`, `pfx-passphrase`, `cacert`, and `requestCert` options were moved to `https` options, please use `https.{key|cert|pfx|passphrase|requestCert|cacert}`
@@ -197,9 +213,12 @@ module.exports = {
 };
 ```
 
-## `hotOnly`
+## `hot` and `hotOnly`
 
 Enables Hot Module Replacement without page refresh as a fallback in case of build failures.
+
+- `hot` is now `true` by default.
+- `hotOnly` was removed in favor of `hot: 'only'`.
 
 ### webpack-dev-server v3:
 
@@ -220,6 +239,14 @@ module.exports = {
   },
 };
 ```
+
+## `inline`
+
+- `inline` was removed without replacement.
+
+## `log`, `logLevel`, and `logTime`
+
+- `log`, `logLevel`, and `logTime` were removed without replacement. Now we use built-in logger.
 
 ## `openPage`
 
@@ -245,13 +272,39 @@ module.exports = {
 };
 ```
 
+## `public`
+
+- `public` was removed in favor of `client.webSocketURL`.
+
+```js
+module.exports = {
+  devServer: {
+    public: 'ws://localhost:8080',
+  },
+};
+```
+
+### webpack-dev-server v4:
+
+```js
+module.exports = {
+  devServer: {
+    client: {
+      webSocketURL: 'ws://localhost:8080',
+    },
+  },
+};
+```
+
 ## `quiet` and `noInfo`
 
 `quiet` and `noInfo` were removed in favor built-in logger and can be reconfigured using [infrastructureLogging](https://webpack.js.org/configuration/other-options/#infrastructurelogging)
 
 ## `useLocalIp`
 
-This option lets the browser open with your local IP. It was removed in favor of `host: 'local-ip'/'local-ipv4'/'local-ipv6'`.
+This option lets the browser open with your local IP.
+
+- `useLocalIp` was removed in favor of `host: 'local-ip'/'local-ipv4'/'local-ipv6'`.
 
 ### webpack-dev-server v3:
 
