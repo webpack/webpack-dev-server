@@ -52,7 +52,10 @@ const normalizeStderr = (stderr, options = {}) => {
   normalizedStderr = normalizedStderr
     .replace(/\\/g, '/')
     .replace(new RegExp(process.cwd().replace(/\\/g, '/'), 'g'), '<cwd>')
-    .replace(new RegExp(pipeRoot.replace(/\\/g, '/'), 'g'), '<pipe-root>');
+    .replace(
+      new RegExp(pipeRoot.replace(/\\/g, '/'), 'g'),
+      `<pipe-root>${isWindows ? '/' : ''}`
+    );
 
   const networkIPv4 = internalIp.v4.sync();
 
