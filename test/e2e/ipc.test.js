@@ -131,9 +131,9 @@ describe('web socket server URL', () => {
       });
     });
 
-    it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
+    it.only(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
       const isWindows = process.platform === 'win32';
-      const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
+      const localRelative = path.relative(process.cwd(), `${process.cwd()}/`);
       const pipePrefix = isWindows ? '\\\\.\\pipe\\' : localRelative;
       const pipeName = `webpack-dev-server.${process.pid}-1.sock`;
       const ipc = path.join(pipePrefix, pipeName);
