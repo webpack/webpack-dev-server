@@ -11,7 +11,7 @@ const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
 const port1 = require('../ports-map').ipc;
 
-const webSocketServers = ['ws'];
+const webSocketServers = ['ws', 'sockjs'];
 
 describe('web socket server URL', () => {
   for (const webSocketServer of webSocketServers) {
@@ -29,6 +29,12 @@ describe('web socket server URL', () => {
         ipc: true,
       };
       const server = new Server(devServerOptions, compiler);
+
+      // Avoid racing between CLI test and this test
+      server.options.ipc = server.options.ipc.replace(
+        /webpack-dev-server/,
+        `webpack-dev-server.${process.pid}-1`
+      );
 
       await new Promise((resolve, reject) => {
         server.listen((error) => {
