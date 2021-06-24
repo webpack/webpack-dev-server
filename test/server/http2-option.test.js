@@ -2,36 +2,56 @@
 
 const path = require('path');
 const http2 = require('http2');
+const webpack = require('webpack');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/contentbase-config/webpack.config');
 const port = require('../ports-map')['http2-option'];
 
-const contentBasePublic = path.resolve(
+const staticDirectory = path.resolve(
   __dirname,
   '../fixtures/contentbase-config/public'
 );
 
-describe('http2 option', () => {
+describe('"http2" option', () => {
   let server;
   let req;
 
   describe('http2 works with https', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          static: {
-            directory: contentBasePublic,
-            watch: false,
-          },
+          static: staticDirectory,
           https: true,
           http2: true,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('confirm http2 client can connect', (done) => {
@@ -60,61 +80,95 @@ describe('http2 option', () => {
       });
       http2Req.end();
     });
-
-    afterAll(testServer.close);
   });
 
   describe('server works with http2 option, but without https option', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          static: {
-            directory: contentBasePublic,
-            watch: false,
-          },
+          static: staticDirectory,
           http2: true,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
-    afterAll(testServer.close);
+    it('Request to index', async () => {
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
+    });
   });
 
   describe('https without http2 disables HTTP/2', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          static: {
-            directory: contentBasePublic,
-            watch: false,
-          },
+          static: staticDirectory,
           https: true,
           http2: false,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyo');
-      expect(res.res.httpVersion).not.toEqual('2.0');
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
-    afterAll(testServer.close);
+    it('Request to index', async () => {
+      const response = await req.get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyo');
+      expect(response.res.httpVersion).not.toEqual('2.0');
+    });
   });
 });

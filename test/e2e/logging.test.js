@@ -10,9 +10,8 @@ const port = require('../ports-map').logging;
 
 describe('logging', () => {
   const webSocketServers = [
-    {},
-    { webSocketServer: 'sockjs' },
     { webSocketServer: 'ws' },
+    { webSocketServer: 'sockjs' },
   ];
 
   const cases = [

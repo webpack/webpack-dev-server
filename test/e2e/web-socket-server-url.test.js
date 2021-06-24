@@ -21,27 +21,6 @@ describe('web socket server URL', () => {
       const proxyHost = devServerHost;
       const proxyPort = port2;
 
-      function startProxy(callback) {
-        const app = express();
-        app.use(
-          '/',
-          createProxyMiddleware({
-            target: `http://${devServerHost}:${devServerPort}`,
-            ws: true,
-            changeOrigin: true,
-            logLevel: 'warn',
-          })
-        );
-
-        return app.listen(proxyPort, proxyHost, callback);
-      }
-
-      const proxy = await new Promise((resolve) => {
-        const proxyCreated = startProxy(() => {
-          resolve(proxyCreated);
-        });
-      });
-
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -60,6 +39,27 @@ describe('web socket server URL', () => {
           }
 
           resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
         });
       });
 
@@ -127,27 +127,6 @@ describe('web socket server URL', () => {
       const proxyHost = internalIp.v4.sync();
       const proxyPort = port1;
 
-      function startProxy(callback) {
-        const app = express();
-        app.use(
-          '/',
-          createProxyMiddleware({
-            target: `http://${devServerHost}:${devServerPort}`,
-            ws: true,
-            changeOrigin: true,
-            logLevel: 'warn',
-          })
-        );
-
-        return app.listen(proxyPort, proxyHost, callback);
-      }
-
-      const proxy = await new Promise((resolve) => {
-        const proxyCreated = startProxy(() => {
-          resolve(proxyCreated);
-        });
-      });
-
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -166,6 +145,27 @@ describe('web socket server URL', () => {
           }
 
           resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
         });
       });
 
@@ -233,27 +233,6 @@ describe('web socket server URL', () => {
       const proxyHost = internalIp.v4.sync();
       const proxyPort = port2;
 
-      function startProxy(callback) {
-        const app = express();
-        app.use(
-          '/',
-          createProxyMiddleware({
-            target: `http://${devServerHost}:${devServerPort}`,
-            ws: true,
-            changeOrigin: true,
-            logLevel: 'warn',
-          })
-        );
-
-        return app.listen(proxyPort, proxyHost, callback);
-      }
-
-      const proxy = await new Promise((resolve) => {
-        const proxyCreated = startProxy(() => {
-          resolve(proxyCreated);
-        });
-      });
-
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -277,6 +256,27 @@ describe('web socket server URL', () => {
           }
 
           resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
         });
       });
 
@@ -324,6 +324,7 @@ describe('web socket server URL', () => {
       expect(pageErrors).toMatchSnapshot('page errors');
 
       proxy.close();
+
       await browser.close();
       await new Promise((resolve, reject) => {
         server.close((error) => {
@@ -336,6 +337,119 @@ describe('web socket server URL', () => {
           resolve();
         });
       });
+    });
+
+    it(`should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("${webSocketServer}")`, async () => {
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 40000;
+
+      const proxyHost = internalIp.v4.sync();
+      const proxyPort = port2;
+
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: 'auto',
+        host: 'local-ip',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const resolvedHost = server.options.host;
+      const resolvedPort = server.options.port;
+
+      function startProxy(callback) {
+        const app = express();
+
+        app.use(
+          '/',
+          createProxyMiddleware({
+            target: `http://${resolvedHost}:${resolvedPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: 'warn',
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://${resolvedHost}:${resolvedPort}/ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      proxy.close();
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
 
     it(`should work with the "client.webSocketURL.protocol" option ("${webSocketServer}")`, async () => {
@@ -1443,7 +1557,267 @@ describe('web socket server URL', () => {
       });
     });
 
-    it(`should work with the "client.webSocketURL.pathname" option and custom web socket server "path" ("${webSocketServer}")`, async () => {
+    it(`should work with the custom web socket server "path" ("${webSocketServer}")`, async () => {
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer: {
+          type: webSocketServer,
+          options: {
+            path: '/custom-ws/foo/bar',
+          },
+        },
+        port: port1,
+        host: '0.0.0.0',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/custom-ws\/foo\/bar/.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    // Only works for "ws" server
+    it(`should work with the custom web socket server "path" using empty value ("${webSocketServer}")`, async () => {
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer: {
+          type: webSocketServer,
+          options: {
+            path: webSocketServer === 'ws' ? '' : '/custom-ws',
+          },
+        },
+        port: port1,
+        host: '0.0.0.0',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/custom-ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        webSocketServer === 'ws'
+          ? `${websocketURLProtocol}://127.0.0.1:${port1}`
+          : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("${webSocketServer}")`, async () => {
+      const compiler = webpack(config);
+      const devServerOptions = {
+        client: {
+          webSocketURL: {
+            pathname: '/custom-ws/foo/bar',
+          },
+        },
+        webSocketServer: {
+          type: webSocketServer,
+          options: {
+            path: '/custom-ws/foo/bar',
+          },
+        },
+        port: port1,
+        host: '0.0.0.0',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/custom-ws\/foo\/bar/.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1532,12 +1906,24 @@ describe('web socket server URL', () => {
       });
     });
 
-    it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
+    // Only works for "ws" server, "sockjs" adds "/" be default, because need do requests like "/custom-ws/info?t=1624462615772"
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
-        webSocketServer,
-        port: 'auto',
+        client: {
+          webSocketURL: {
+            pathname: webSocketServer === 'ws' ? '/custom-ws/' : '/custom-ws',
+          },
+        },
+        webSocketServer: {
+          type: webSocketServer,
+          options: {
+            path: webSocketServer === 'ws' ? '/custom-ws/' : '/custom-ws',
+          },
+        },
+        port: port1,
         host: '0.0.0.0',
+        allowedHosts: 'all',
       };
       const server = new Server(devServerOptions, compiler);
 
@@ -1576,20 +1962,203 @@ describe('web socket server URL', () => {
         });
       } else {
         page.on('request', (request) => {
-          if (/\/ws\//.test(request.url())) {
+          if (/\/custom-ws\//.test(request.url())) {
             webSocketRequests.push({ url: request.url() });
           }
         });
       }
 
-      await page.goto(`http://127.0.0.1:8080/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:8080/ws`
+        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    // Only works for "ws" server
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("${webSocketServer}")`, async () => {
+      const compiler = webpack(config);
+      const devServerOptions = {
+        client: {
+          webSocketURL: {
+            pathname: webSocketServer === 'ws' ? '' : '/custom-ws',
+          },
+        },
+        webSocketServer: {
+          type: webSocketServer,
+          options: {
+            path: webSocketServer === 'ws' ? '' : '/custom-ws',
+          },
+        },
+        port: port1,
+        host: '0.0.0.0',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/custom-ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        webSocketServer === 'ws'
+          ? `${websocketURLProtocol}://127.0.0.1:${port1}`
+          : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    // Only works for "sockjs" server
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "prefix" for compatibility with "sockjs" ("${webSocketServer}")`, async () => {
+      const compiler = webpack(config);
+      const devServerOptions = {
+        client: {
+          webSocketURL: {
+            pathname: '/custom-ws',
+          },
+        },
+        webSocketServer: {
+          type: webSocketServer,
+          options:
+            webSocketServer === 'ws'
+              ? { path: '/custom-ws' }
+              : { prefix: '/custom-ws' },
+        },
+        port: port1,
+        host: '0.0.0.0',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/custom-ws/.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1611,11 +2180,12 @@ describe('web socket server URL', () => {
     });
 
     it(`should work when "host" option is IPv4 ("${webSocketServer}")`, async () => {
+      const hostname = internalIp.v4.sync();
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
         port: port1,
-        host: internalIp.v4.sync(),
+        host: hostname,
       };
       const server = new Server(devServerOptions, compiler);
 
@@ -1660,14 +2230,14 @@ describe('web socket server URL', () => {
         });
       }
 
-      await page.goto(`http://${internalIp.v4.sync()}:${port1}/main`, {
+      await page.goto(`http://${hostname}:${port1}/main`, {
         waitUntil: 'networkidle0',
       });
 
       const webSocketRequest = webSocketRequests[0];
 
       expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${internalIp.v4.sync()}:${port1}/ws`
+        `${websocketURLProtocol}://${hostname}:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
@@ -1686,6 +2256,248 @@ describe('web socket server URL', () => {
           resolve();
         });
       });
+    });
+
+    it(`should work when "host" option is "local-ip" ("${webSocketServer}")`, async () => {
+      const hostname = internalIp.v4.sync();
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: port1,
+        host: 'local-ip',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://${hostname}:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://${hostname}:${port1}/ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    it(`should work when "host" option is "local-ipv4" ("${webSocketServer}")`, async () => {
+      const hostname = internalIp.v4.sync();
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: port1,
+        host: 'local-ipv4',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://${hostname}:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://${hostname}:${port1}/ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 50000;
+
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: 'auto',
+        host: '0.0.0.0',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const resolvedFreePort = server.options.port;
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (request) => {
+          webSocketRequests.push(request);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://127.0.0.1:${resolvedFreePort}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://127.0.0.1:${resolvedFreePort}/ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
 
     it(`should work with "client.webSocketURL.*" options ("${webSocketServer}")`, async () => {

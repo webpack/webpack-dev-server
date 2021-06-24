@@ -355,7 +355,6 @@ const tests = {
       },
     ],
     failure: [
-      'nonexistent-implementation',
       null,
       false,
       {
@@ -425,13 +424,15 @@ describe('options', () => {
     function createTestCase(type, key, value) {
       it(`should ${
         type === 'success' ? 'successfully validate' : 'throw an error on'
-      } the "${key}" option with '${stringifyValue(value)}' value`, (done) => {
-        let compiler = webpack(config);
-        let server;
+      } the "${key}" option with '${stringifyValue(
+        value
+      )}' value`, async () => {
+        const compiler = webpack(config);
         let thrownError;
 
         try {
-          server = new Server({ [key]: value }, compiler);
+          // eslint-disable-next-line no-new
+          new Server({ [key]: value }, compiler);
         } catch (error) {
           thrownError = error;
         }
@@ -441,17 +442,6 @@ describe('options', () => {
         } else {
           expect(thrownError).not.toBeUndefined();
           expect(thrownError.toString()).toMatchSnapshot();
-        }
-
-        if (server) {
-          server.close(() => {
-            compiler = null;
-            server = null;
-
-            done();
-          });
-        } else {
-          done();
         }
       });
     }

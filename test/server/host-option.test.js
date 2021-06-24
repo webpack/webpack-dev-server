@@ -1,25 +1,28 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const request = require('supertest');
 const internalIp = require('internal-ip');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
-const testServer = require('../helpers/test-server');
 const port = require('../ports-map')['host-option'];
 
 const staticDirectory = path.resolve(
   __dirname,
   '../fixtures/contentbase-config'
 );
+const internalIPv4 = internalIp.v4.sync();
 
 describe('host option', () => {
   let server = null;
   let req = null;
 
   describe('is not be specified', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -27,9 +30,30 @@ describe('host option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('server address', () => {
@@ -40,17 +64,17 @@ describe('host option', () => {
     });
 
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-    });
+      const response = await req.get('/');
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
   describe('is undefined', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -60,9 +84,30 @@ describe('host option', () => {
           host: undefined,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '::', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('server address', () => {
@@ -73,17 +118,17 @@ describe('host option', () => {
     });
 
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-    });
+      const response = await req.get('/');
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
   describe('is 127.0.0.1 (IPv4)', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -92,9 +137,30 @@ describe('host option', () => {
           host: '127.0.0.1',
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('server address', () => {
@@ -105,17 +171,17 @@ describe('host option', () => {
     });
 
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-    });
+      const response = await req.get('/');
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
   describe('is localhost', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -124,9 +190,30 @@ describe('host option', () => {
           host: 'localhost',
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('server address', () => {
@@ -137,17 +224,17 @@ describe('host option', () => {
     });
 
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-    });
+      const response = await req.get('/');
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
   describe('is 0.0.0.0', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -156,9 +243,30 @@ describe('host option', () => {
           host: '0.0.0.0',
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '0.0.0.0', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('server address', () => {
@@ -169,17 +277,17 @@ describe('host option', () => {
     });
 
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-    });
+      const response = await req.get('/');
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
   describe('is local-ip', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -188,31 +296,51 @@ describe('host option', () => {
           host: 'local-ip',
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, internalIPv4, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('server address', () => {
       const address = server.server.address();
-      const networkIP = internalIp.v4.sync();
 
-      expect(address.address).toBe(networkIP);
+      expect(address.address).toBe(internalIPv4);
       expect(address.port).toBe(port);
     });
 
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-    });
+      const response = await req.get('/');
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
   describe('is local-ipv4', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -221,24 +349,43 @@ describe('host option', () => {
           host: 'local-ipv4',
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, internalIPv4, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('server address', () => {
       const address = server.server.address();
-      const networkIP = internalIp.v4.sync();
 
-      expect(address.address).toBe(networkIP);
+      expect(address.address).toBe(internalIPv4);
       expect(address.port).toBe(port);
     });
 
     it('Request to index', async () => {
-      const res = await req.get('/');
-      expect(res.status).toEqual(200);
-    });
+      const response = await req.get('/');
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 });

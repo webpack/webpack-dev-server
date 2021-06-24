@@ -1,8 +1,9 @@
 'use strict';
 
+const webpack = require('webpack');
 const acorn = require('acorn');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').bundle;
 const isWebpack5 = require('../helpers/isWebpack5');
@@ -12,16 +13,36 @@ describe('bundle', () => {
     let server;
     let req;
 
-    beforeAll((done) => {
-      server = testServer.start(
-        { ...config, target: isWebpack5 ? ['es5', 'web'] : 'web' },
-        { port },
-        done
-      );
+    beforeAll(async () => {
+      const compiler = webpack({
+        ...config,
+        target: isWebpack5 ? ['es5', 'web'] : 'web',
+      });
+
+      server = new Server({ port }, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll(testServer.close);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
 
     it('should get full user bundle and parse with ES5', async () => {
       const { text } = await req

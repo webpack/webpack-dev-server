@@ -1,8 +1,9 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/historyapifallback-config/webpack.config');
 const config2 = require('../fixtures/historyapifallback-2-config/webpack.config');
 const config3 = require('../fixtures/historyapifallback-3-config/webpack.config');
@@ -12,55 +13,102 @@ describe('historyApiFallback option', () => {
   let server;
   let req;
 
-  afterEach(testServer.close);
-
   describe('as boolean', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           historyApiFallback: true,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('request to directory', async () => {
-      const res = await req.get('/foo').accept('html');
-      expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Heyyy');
+      const response = await req.get('/foo').accept('html');
+
+      expect(response.headers['content-type']).toEqual(
+        'text/html; charset=utf-8'
+      );
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Heyyy');
     });
   });
 
   describe('as object', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           historyApiFallback: {
             index: '/bar.html',
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('request to directory', async () => {
-      const res = await req.get('/foo').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Foobar');
+      const response = await req.get('/foo').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Foobar');
     });
   });
 
   describe('as object with static', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config2,
+    beforeAll(async () => {
+      const compiler = webpack(config2);
+
+      server = new Server(
         {
           static: path.resolve(
             __dirname,
@@ -71,34 +119,59 @@ describe('historyApiFallback option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('historyApiFallback should take preference above directory index', async () => {
-      const res = await req.get('/foo').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Foobar');
+      const response = await req.get('/foo').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Foobar');
     });
 
     it('request to directory', async () => {
-      const res = await req.get('/foo').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Foobar');
+      const response = await req.get('/foo').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Foobar');
     });
 
     it('static file should take preference above historyApiFallback', async () => {
-      const res = await req.get('/random-file').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.body.toString().trim()).toEqual('Random file');
+      const response = await req.get('/random-file').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.body.toString().trim()).toEqual('Random file');
     });
   });
 
   describe('as object with static set to false', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config3,
+    beforeAll(async () => {
+      const compiler = webpack(config3);
+
+      server = new Server(
         {
           static: false,
           historyApiFallback: {
@@ -106,22 +179,45 @@ describe('historyApiFallback option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('historyApiFallback should work and ignore static content', async () => {
-      const res = await req.get('/index.html').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('In-memory file');
+      const response = await req.get('/index.html').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('In-memory file');
     });
   });
 
   describe('as object with static and rewrites', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config2,
+    beforeAll(async () => {
+      const compiler = webpack(config2);
+
+      server = new Server(
         {
           port,
           static: path.resolve(
@@ -141,38 +237,63 @@ describe('historyApiFallback option', () => {
             ],
           },
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('historyApiFallback respect rewrites for index', async () => {
-      const res = await req.get('/').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Foobar');
+      const response = await req.get('/').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Foobar');
     });
 
     it('historyApiFallback respect rewrites and shows index for unknown urls', async () => {
-      const res = await req.get('/acme').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Foobar');
+      const response = await req.get('/acme').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Foobar');
     });
 
     it('historyApiFallback respect any other specified rewrites', async () => {
-      const res = await req.get('/other').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Other file');
+      const response = await req.get('/other').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Other file');
     });
   });
 
   describe('as object with the "verbose" option', () => {
     let consoleSpy;
 
-    beforeAll((done) => {
+    beforeAll(async () => {
       consoleSpy = jest.spyOn(global.console, 'log');
 
-      server = testServer.start(
-        config,
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           historyApiFallback: {
             index: '/bar.html',
@@ -180,19 +301,39 @@ describe('historyApiFallback option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll(() => {
+    afterAll(async () => {
       consoleSpy.mockRestore();
+
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('request to directory and log', async () => {
-      const res = await req.get('/foo').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Foobar');
+      const response = await req.get('/foo').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Foobar');
       expect(consoleSpy).toHaveBeenCalledWith(
         'Rewriting',
         'GET',
@@ -206,11 +347,12 @@ describe('historyApiFallback option', () => {
   describe('as object with the "logger" option', () => {
     let consoleSpy;
 
-    beforeAll((done) => {
+    beforeAll(async () => {
       consoleSpy = jest.spyOn(global.console, 'log');
 
-      server = testServer.start(
-        config,
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           historyApiFallback: {
             index: '/bar.html',
@@ -218,19 +360,39 @@ describe('historyApiFallback option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll(() => {
+    afterAll(async () => {
       consoleSpy.mockRestore();
+
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
     });
 
     it('request to directory and log', async () => {
-      const res = await req.get('/foo').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('Foobar');
+      const response = await req.get('/foo').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('Foobar');
       expect(consoleSpy).toHaveBeenCalledWith(
         'Rewriting',
         'GET',
@@ -242,9 +404,10 @@ describe('historyApiFallback option', () => {
   });
 
   describe('in-memory files', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config3,
+    beforeAll(async () => {
+      const compiler = webpack(config3);
+
+      server = new Server(
         {
           static: path.resolve(
             __dirname,
@@ -253,15 +416,37 @@ describe('historyApiFallback option', () => {
           historyApiFallback: true,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
+
     it('should take precedence over static files', async () => {
-      const res = await req.get('/foo').accept('html');
-      expect(res.status).toEqual(200);
-      expect(res.text).toContain('In-memory file');
+      const response = await req.get('/foo').accept('html');
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain('In-memory file');
     });
   });
 });

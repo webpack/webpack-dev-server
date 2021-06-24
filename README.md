@@ -83,18 +83,15 @@ Options:
   --no-target                               Negative 'target' option.
   --watch-options-stdin                     Stop watching when stdin stream has ended.
   --no-watch-options-stdin                  Do not stop watching when stdin stream has ended.
-  --allowed-hosts <value...>                Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev
-                                            server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
-  --allowed-hosts-reset                     Clear all items provided in configuration. Allows to enumerate the hosts from which access to the dev server are
-                                            allowed (useful when you are proxying dev server, by default is 'auto').
+  --allowed-hosts <value...>                Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
                                             https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
-  --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start.
-                                            https://webpack.js.org/configuration/dev-server/#devserverbonjour
+  --allowed-hosts-reset                     Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful
+                                            when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
+  --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
   --no-bonjour                              Negative 'bonjour' option.
   --client-hot-entry                        Injects a Hot Module Replacement entry.
   --no-client-hot-entry                     Negative 'client-hot-entry' option.
-  --client-logging <value>                  Allows to specify options for client script in the browser.
-                                            https://webpack.js.org/configuration/dev-server/#devserverclient
+  --client-logging <value>                  Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient
   --client-need-client-entry                Inject a client entry.
   --no-client-need-client-entry             Negative 'client-need-client-entry' option.
   --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
@@ -106,17 +103,17 @@ Options:
   --client-progress                         Prints compilation progress in percentage in the browser.
   --no-client-progress                      Negative 'client-progress' option.
   --client-transport <value>                Allows to set custom transport to communicate with dev server.
-  --client-web-socket-url <value>           Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not
-                                            always know where to connect to).
-  --client-web-socket-url-hostname <value>  Tells clients connected to devServer to use the provided host.
+  --client-web-socket-url <value>           Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
+  --client-web-socket-url-hostname <value>  Tells clients connected to devServer to use the provided hostname.
   --client-web-socket-url-pathname <value>  Tells clients connected to devServer to use the provided path to connect.
+  --client-web-socket-url-password <value>  Tells clients connected to devServer to use the provided password to authenticate.
   --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
   --client-web-socket-url-protocol <value>  Tells clients connected to devServer to use the provided protocol.
+  --client-web-socket-url-username <value>  Tells clients connected to devServer to use the provided username to authenticate.
   --compress                                Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress
   --no-compress                             Negative 'compress' option.
-  --history-api-fallback                    Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page
-                                            Applications that utilise the HTML5 History API.
-                                            https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
+  --history-api-fallback                    Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5
+                                            History API. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback
   --no-history-api-fallback                 Negative 'history-api-fallback' option.
   --host <value>                            Allows to specify a hostname to use. https://webpack.js.org/configuration/dev-server/#devserverhost
   --hot [value]                             Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot
@@ -136,18 +133,17 @@ Options:
   --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default).
                                             https://webpack.js.org/configuration/dev-server/#devserverlivereload
   --no-live-reload                          Negative 'live-reload' option.
-  --open [value...]                         Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to
-                                            open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen
+  --open [value...]                         Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).
+                                            https://webpack.js.org/configuration/dev-server/#devserveropen
   --no-open                                 Negative 'open' option.
   --open-target [value...]                  Opens specified page in browser.
   --no-open-target                          Negative 'open-target' option.
   --open-app-name <value...>                Open specified browser.
   --open-app <value...>                     Open specified browser.
-  --open-reset                              Clear all items provided in configuration. Allows to configure dev server to open the browser(s) and page(s) after
-                                            server had been started (set it to true to open your default browser).
-                                            https://webpack.js.org/configuration/dev-server/#devserveropen
-  --open-target-reset                       Clear all items provided in configuration. Opens specified page in browser.
-  --open-app-name-reset                     Clear all items provided in configuration. Open specified browser.
+  --open-reset                              Clear all items provided in 'open' configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started
+                                            (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen
+  --open-target-reset                       Clear all items provided in 'open.target' configuration. Opens specified page in browser.
+  --open-app-name-reset                     Clear all items provided in 'open.app.name' configuration. Open specified browser.
   --port <value>                            Allows to specify a port to use. https://webpack.js.org/configuration/dev-server/#devserverport
   --static [value...]                       Allows to configure options for serving static files from directory (by default 'public' directory).
                                             https://webpack.js.org/configuration/dev-server/#devserverstatic
@@ -158,16 +154,13 @@ Options:
   --no-static-serve-index                   Negative 'static-serve-index' option.
   --static-watch                            Watches for files in static content directory.
   --no-static-watch                         Negative 'static-watch' option.
-  --static-reset                            Clear all items provided in configuration. Allows to configure options for serving static files from directory (by
-                                            default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
-  --static-public-path-reset                Clear all items provided in configuration. The static files will be available in the browser under this public
-                                            path.
-  --watch-files <value...>                  Allows to configure list of globs/directories/files to watch for file changes.
+  --static-reset                            Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public'
+                                            directory). https://webpack.js.org/configuration/dev-server/#devserverstatic
+  --static-public-path-reset                Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.
+  --watch-files <value...>                  Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
+  --watch-files-reset                       Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes.
                                             https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
-  --watch-files-reset                       Clear all items provided in configuration. Allows to configure list of globs/directories/files to watch for file
-                                            changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
-  --web-socket-server <value>               Allows to set web socket server and options (by default 'ws').
-                                            https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
+  --web-socket-server <value>               Allows to set web socket server and options (by default 'ws'). https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
 
 Global options:
   --color                                   Enable colors on console.

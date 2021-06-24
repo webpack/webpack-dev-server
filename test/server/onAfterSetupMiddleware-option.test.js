@@ -1,7 +1,8 @@
 'use strict';
 
+const webpack = require('webpack');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map')['on-after-setup-middleware-option'];
 
@@ -9,47 +10,73 @@ describe('onAfterSetupMiddleware option', () => {
   let server;
   let req;
 
-  beforeAll((done) => {
-    server = testServer.start(
-      config,
+  beforeAll(async () => {
+    const compiler = webpack(config);
+
+    server = new Server(
       {
-        onAfterSetupMiddleware: ({ app, compiler }) => {
-          if (!app) {
+        onAfterSetupMiddleware: (self) => {
+          if (!self.app) {
             throw new Error('app is not defined');
           }
 
-          if (!compiler) {
+          if (!self.compiler) {
             throw new Error('compiler is not defined');
           }
 
-          app.get('/after/some/path', (_, response) => {
+          self.app.get('/after/some/path', (_, response) => {
             response.send('after');
           });
 
-          app.post('/after/some/path', (_, response) => {
+          self.app.post('/after/some/path', (_, response) => {
             response.send('after POST');
           });
         },
         port,
       },
-      done
+      compiler
     );
+
+    await new Promise((resolve, reject) => {
+      server.listen(port, '127.0.0.1', (error) => {
+        if (error) {
+          reject(error);
+
+          return;
+        }
+
+        resolve();
+      });
+    });
+
     req = request(server.app);
   });
 
-  afterAll(testServer.close);
+  afterAll(async () => {
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
+    });
+  });
 
   it('should handle after route', async () => {
-    const res = await req.get('/after/some/path');
-    expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
-    expect(res.status).toEqual(200);
-    expect(res.text).toBe('after');
+    const response = await req.get('/after/some/path');
+
+    expect(response.headers['content-type']).toEqual(
+      'text/html; charset=utf-8'
+    );
+    expect(response.status).toEqual(200);
+    expect(response.text).toBe('after');
   });
 
   it('should handle POST requests to after route', async () => {
-    const res = await req.post('/after/some/path');
-    expect(res.headers['content-type']).toEqual('text/html; charset=utf-8');
-    expect(res.status).toEqual(200);
-    expect(res.text).toBe('after POST');
+    const response = await req.post('/after/some/path');
+
+    expect(response.headers['content-type']).toEqual(
+      'text/html; charset=utf-8'
+    );
+    expect(response.status).toEqual(200);
+    expect(response.text).toBe('after POST');
   });
 });
