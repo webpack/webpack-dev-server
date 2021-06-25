@@ -49,6 +49,21 @@ const listOfTests = {
   'web-socket-communication': 1,
   ipc: 1,
   stats: 1,
+  'cli-allowed-hosts': 1,
+  'cli-bonjour': 1,
+  'cli-client': 1,
+  'cli-colors': 1,
+  'cli-compress': 1,
+  'cli-history-api-fallback': 1,
+  'cli-host': 1,
+  'cli-hot': 1,
+  'cli-http2': 1,
+  'cli-https': 1,
+  'cli-live-reload': 1,
+  'cli-open': 1,
+  'cli-static': 1,
+  'cli-watch-files': 1,
+  'cli-web-socket-server': 1,
 };
 
 let startPort = 8089;
