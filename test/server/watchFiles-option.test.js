@@ -173,7 +173,11 @@ describe("'watchFiles' option", () => {
     const nonExistFile = path.join(watchDir, 'assets/non-exist.txt');
 
     beforeAll(async () => {
-      fs.unlinkSync(nonExistFile);
+      try {
+        fs.unlinkSync(nonExistFile);
+      } catch (error) {
+        // ignore
+      }
 
       const compiler = webpack(config);
 
