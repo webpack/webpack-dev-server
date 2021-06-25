@@ -45,17 +45,10 @@ const testBin = (testArgs, configPath) => {
 const normalizeStderr = (stderr, options = {}) => {
   let normalizedStderr = stripAnsi(stderr);
 
-  const isWindows = process.platform === 'win32';
-  const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
-  const pipeRoot = isWindows ? '\\\\.\\pipe\\' : localRelative;
-
   normalizedStderr = normalizedStderr
     .replace(/\\/g, '/')
     .replace(new RegExp(process.cwd().replace(/\\/g, '/'), 'g'), '<cwd>')
-    .replace(
-      new RegExp(pipeRoot.replace(/\\/g, '/'), 'g'),
-      `<pipe-root>${isWindows ? '/' : ''}`
-    );
+    .replace(new RegExp(os.tmpdir().replace(/\\/g, '/'), 'g'), '<tmp>');
 
   const networkIPv4 = internalIp.v4.sync();
 

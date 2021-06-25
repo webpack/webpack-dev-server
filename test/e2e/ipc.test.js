@@ -33,7 +33,7 @@ describe('web socket server URL', () => {
       // Avoid racing between CLI test and this test
       server.options.ipc = server.options.ipc.replace(
         /webpack-dev-server/,
-        `webpack-dev-server.${process.pid}-1`
+        `webpack-dev-server.${process.pid}-0`
       );
 
       await new Promise((resolve, reject) => {
@@ -131,7 +131,7 @@ describe('web socket server URL', () => {
       });
     });
 
-    it.only(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
       const isWindows = process.platform === 'win32';
       const pipePrefix = isWindows ? '\\\\.\\pipe\\' : os.tmpdir();
       const pipeName = `webpack-dev-server.${process.pid}-1.sock`;

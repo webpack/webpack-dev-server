@@ -2,4 +2,4 @@
 
 process.env.CHOKIDAR_USEPOLLING = true;
 
-jest.setTimeout(10000);
+jest.setTimeout(90000);

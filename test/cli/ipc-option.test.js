@@ -14,8 +14,7 @@ describe('"ipc" CLI option', () => {
 
   it('should work using "--ipc=<string>"', async () => {
     const isWindows = process.platform === 'win32';
-    const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
-    const pipePrefix = isWindows ? '\\\\.\\pipe\\' : localRelative;
+    const pipePrefix = isWindows ? '\\\\.\\pipe\\' : os.tmpdir();
     const pipeName = `webpack-dev-server.cli.sock`;
     const ipc = path.join(pipePrefix, pipeName);
 

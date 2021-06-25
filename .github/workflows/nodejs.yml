@@ -105,7 +105,7 @@ jobs:
           npm link webpack-dev-server
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
-        run: node_modules/.bin/jest test/e2e/ipc.test.js --ci
+        run: npm run test:coverage -- --ci
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v1
