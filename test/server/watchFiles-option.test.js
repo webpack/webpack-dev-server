@@ -173,6 +173,8 @@ describe("'watchFiles' option", () => {
     const nonExistFile = path.join(watchDir, 'assets/non-exist.txt');
 
     beforeAll(async () => {
+      fs.unlinkSync(nonExistFile);
+
       const compiler = webpack(config);
 
       server = new Server(
@@ -213,9 +215,14 @@ describe("'watchFiles' option", () => {
         done();
       });
 
-      // change file content
+      // create file content
       setTimeout(() => {
         fs.writeFileSync(nonExistFile, 'Kurosaki Ichigo', 'utf8');
+
+        // change file content
+        setTimeout(() => {
+          fs.writeFileSync(nonExistFile, 'Kurosaki Ichigo', 'utf8');
+        }, 1000);
       }, 1000);
     });
   });
