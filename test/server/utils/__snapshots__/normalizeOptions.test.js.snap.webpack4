@@ -288,7 +288,7 @@ Object {
     "options": Object {
       "host": "myhost",
       "path": "/ws",
-      "port": 8080,
+      "port": 9999,
     },
     "type": "ws",
   },

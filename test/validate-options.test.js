@@ -274,7 +274,7 @@ const tests = {
     failure: ['', { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
-    success: ['8080', 8080, 'auto'],
+    success: ['20000', 20001, 'auto'],
     failure: [false, null, ''],
   },
   proxy: {
