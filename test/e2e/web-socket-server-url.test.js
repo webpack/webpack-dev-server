@@ -1389,9 +1389,13 @@ describe('web socket server URL', () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
-          webSocketURL: {
-            password: 'chuntaro',
-          },
+          webSocketURL:
+            webSocketServer === 'ws'
+              ? {
+                  username: 'foo',
+                  password: 'chuntaro',
+                }
+              : {},
         },
         webSocketServer,
         port: port1,
@@ -1450,7 +1454,7 @@ describe('web socket server URL', () => {
       expect(webSocketRequest.url).toContain(
         // "sockjs" has bug with parsing URL
         webSocketServer === 'ws'
-          ? `${websocketURLProtocol}://:chuntaro@127.0.0.1:${port1}/ws`
+          ? `${websocketURLProtocol}://foo:chuntaro@127.0.0.1:${port1}/ws`
           : `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(

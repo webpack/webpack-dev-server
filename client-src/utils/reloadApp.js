@@ -2,11 +2,8 @@
 
 const { log } = require('./log');
 
-function reloadApp(
-  { hotReload, hot, liveReload },
-  { isUnloading, currentHash }
-) {
-  if (isUnloading || !hotReload) {
+function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
+  if (isUnloading) {
     return;
   }
 
