@@ -12,42 +12,19 @@ const sendMessage = require('./utils/sendMessage');
 const reloadApp = require('./utils/reloadApp');
 const createSocketURL = require('./utils/createSocketURL');
 
-const status = {
-  isUnloading: false,
-  currentHash: '',
-};
-const defaultOptions = {
+const status = { isUnloading: false, currentHash: '' };
+const options = {
   hot: false,
-  hotReload: true,
   liveReload: false,
   initial: true,
   progress: false,
   overlay: false,
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
-const options = defaultOptions;
 
-// Handle Node.js legacy format and `new URL()`
-if (parsedResourceQuery.query) {
-  Object.assign(options, parsedResourceQuery.query);
-} else if (parsedResourceQuery.searchParams) {
-  const paramsToObject = (entries) => {
-    const result = {};
-
-    for (const [key, value] of entries) {
-      result[key] = value;
-    }
-
-    return result;
-  };
-
-  Object.assign(
-    options,
-    paramsToObject(parsedResourceQuery.searchParams.entries())
-  );
+if (parsedResourceQuery.logging) {
+  options.logging = parsedResourceQuery.logging;
 }
-
-const socketURL = createSocketURL(parsedResourceQuery);
 
 function setAllLogLevel(level) {
   // This is needed because the HMR logger operate separately from dev server logger
@@ -64,12 +41,6 @@ if (options.logging) {
 self.addEventListener('beforeunload', () => {
   status.isUnloading = true;
 });
-
-if (typeof window !== 'undefined') {
-  const qs = window.location.search.toLowerCase();
-
-  options.hotReload = qs.indexOf('hotreload=false') === -1;
-}
 
 const onSocketMessage = {
   hot() {
@@ -219,5 +190,7 @@ const onSocketMessage = {
     sendMessage('Close');
   },
 };
+
+const socketURL = createSocketURL(parsedResourceQuery);
 
 socket(socketURL, onSocketMessage);
