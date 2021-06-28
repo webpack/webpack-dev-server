@@ -130,6 +130,7 @@ Options:
   --https-key <value>                       Path to an SSL key.
   --https-pfx <value>                       Path to an SSL pfx file.
   --https-cert <value>                      Path to an SSL certificate.
+  --ipc [value]                             Listen to a unix socket. https://webpack.js.org/configuration/dev-server/#devserveripc
   --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default).
                                             https://webpack.js.org/configuration/dev-server/#devserverlivereload
   --no-live-reload                          Negative 'live-reload' option.

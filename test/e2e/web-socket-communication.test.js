@@ -6,7 +6,7 @@ const Server = require('../../lib/Server');
 const WebsocketServer = require('../../lib/servers/WebsocketServer');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map')['web-socket-heartbeat'];
+const port = require('../ports-map')['web-socket-communication'];
 
 describe('web socket communication', () => {
   const webSocketServers = ['ws', 'sockjs'];

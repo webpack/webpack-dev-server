@@ -78,7 +78,7 @@ describe('normalizeOptions', () => {
           type: 'ws',
           options: {
             host: 'myhost',
-            port: 8080,
+            port: 9999,
             path: '/ws',
           },
         },

@@ -1,5 +1,6 @@
 'use strict';
 
+const os = require('os');
 const path = require('path');
 const execa = require('execa');
 const stripAnsi = require('strip-ansi');
@@ -46,7 +47,9 @@ const normalizeStderr = (stderr, options = {}) => {
 
   normalizedStderr = normalizedStderr
     .replace(/\\/g, '/')
-    .replace(new RegExp(process.cwd().replace(/\\/g, '/'), 'g'), '<cwd>');
+    .replace(new RegExp(process.cwd().replace(/\\/g, '/'), 'g'), '<cwd>')
+    .replace(new RegExp(os.tmpdir().replace(/\\/g, '/'), 'g'), '<tmp>')
+    .replace(new RegExp('\\\\.\\pipe'.replace(/\\/g, '/'), 'g'), '<tmp>');
 
   const networkIPv4 = internalIp.v4.sync();
 

@@ -1,13 +1,14 @@
 'use strict';
 
-const { join } = require('path');
+const os = require('os');
+const path = require('path');
 const { readFileSync } = require('graceful-fs');
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require('memfs');
 const Server = require('../lib/Server');
 const config = require('./fixtures/simple-config/webpack.config');
 
-const httpsCertificateDirectory = join(
+const httpsCertificateDirectory = path.join(
   __dirname,
   './fixtures/https-certificate'
 );
@@ -204,18 +205,18 @@ const tests = {
       false,
       true,
       {
-        cacert: join(httpsCertificateDirectory, 'ca.pem'),
-        key: join(httpsCertificateDirectory, 'server.key'),
-        pfx: join(httpsCertificateDirectory, 'server.pfx'),
-        cert: join(httpsCertificateDirectory, 'server.crt'),
+        cacert: path.join(httpsCertificateDirectory, 'ca.pem'),
+        key: path.join(httpsCertificateDirectory, 'server.key'),
+        pfx: path.join(httpsCertificateDirectory, 'server.pfx'),
+        cert: path.join(httpsCertificateDirectory, 'server.crt'),
         requestCert: true,
         passphrase: 'webpack-dev-server',
       },
       {
-        cacert: readFileSync(join(httpsCertificateDirectory, 'ca.pem')),
-        pfx: readFileSync(join(httpsCertificateDirectory, 'server.pfx')),
-        key: readFileSync(join(httpsCertificateDirectory, 'server.key')),
-        cert: readFileSync(join(httpsCertificateDirectory, 'server.crt')),
+        cacert: readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
+        pfx: readFileSync(path.join(httpsCertificateDirectory, 'server.pfx')),
+        key: readFileSync(path.join(httpsCertificateDirectory, 'server.key')),
+        cert: readFileSync(path.join(httpsCertificateDirectory, 'server.crt')),
         passphrase: 'webpack-dev-server',
       },
     ],
@@ -244,6 +245,10 @@ const tests = {
       },
     ],
   },
+  ipc: {
+    success: [true, path.resolve(os.tmpdir(), 'webpack-dev-server.socket')],
+    failure: [false, {}],
+  },
   onListening: {
     success: [() => {}],
     failure: [''],
@@ -269,7 +274,7 @@ const tests = {
     failure: ['', { foo: 'bar' }, { target: 90 }, { app: true }],
   },
   port: {
-    success: ['8080', 8080, 'auto'],
+    success: ['20000', 20001, 'auto'],
     failure: [false, null, ''],
   },
   proxy: {
@@ -450,7 +455,7 @@ describe('options', () => {
 
     // We need to patch memfs
     // https://github.com/webpack/webpack-dev-middleware#fs
-    memfs.join = join;
+    memfs.join = path.join;
 
     for (const [key, values] of Object.entries(tests)) {
       for (const type of Object.keys(values)) {

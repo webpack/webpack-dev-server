@@ -2,6 +2,7 @@
 
 const path = require('path');
 const { testBin, normalizeStderr } = require('../helpers/test-bin');
+const port = require('../ports-map')['cli-watch-files'];
 
 describe('"watchFiles" CLI option', () => {
   it('should work using "--watch-files <value>"', async () => {
@@ -10,6 +11,8 @@ describe('"watchFiles" CLI option', () => {
     const { exitCode, stderr } = await testBin([
       '--watch-files',
       watchDirectory,
+      '--port',
+      port,
     ]);
 
     expect(exitCode).toEqual(0);
@@ -28,6 +31,8 @@ describe('"watchFiles" CLI option', () => {
       watchDirectory,
       '--watch-files',
       watchOtherDirectory,
+      '--port',
+      port,
     ]);
 
     expect(exitCode).toEqual(0);
@@ -41,6 +46,8 @@ describe('"watchFiles" CLI option', () => {
       '--watch-files-reset',
       '--watch-files',
       watchDirectory,
+      '--port',
+      port,
     ]);
 
     expect(exitCode).toEqual(0);
