@@ -216,10 +216,6 @@ describe('client option', () => {
     ];
 
     describe('passed to server', () => {
-      beforeAll(() => {
-        jest.unmock('../../lib/utils/getSocketClientPath');
-      });
-
       clientModes.forEach((data) => {
         it(`${data.title} ${
           data.shouldThrow ? 'should throw' : 'should not throw'

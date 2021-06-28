@@ -265,4 +265,86 @@ describe('DevServerPlugin util', () => {
 
     expect(typeof entries === 'function').toBe(true);
   });
+
+  // 'npm run prepare' must be done for this test to pass
+  const sockjsClientPath = require.resolve(
+    '../../../client/clients/SockJSClient'
+  );
+
+  describe('getWebsocketTransport', () => {
+    it("should work with client.transport: 'sockjs'", () => {
+      let result;
+
+      expect(() => {
+        const devServerPlugin = new DevServerPlugin({
+          client: {
+            transport: 'sockjs',
+          },
+          webSocketServer: 'sockjs',
+        });
+
+        result = devServerPlugin.getWebsocketTransport();
+      }).not.toThrow();
+
+      expect(result).toEqual(sockjsClientPath);
+    });
+
+    it('should work with client.transport: SockJSClient full path', () => {
+      let result;
+
+      expect(() => {
+        const devServerPlugin = new DevServerPlugin({
+          client: {
+            transport: sockjsClientPath,
+          },
+          webSocketServer: 'sockjs',
+        });
+
+        result = devServerPlugin.getWebsocketTransport();
+      }).not.toThrow();
+
+      expect(result).toEqual(sockjsClientPath);
+    });
+
+    it('should throw with client.transport: bad path', () => {
+      expect(() => {
+        const devServerPlugin = new DevServerPlugin({
+          client: {
+            transport: '/bad/path/to/implementation',
+          },
+          webSocketServer: 'sockjs',
+        });
+
+        devServerPlugin.getWebsocketTransport();
+      }).toThrow(/client.transport must be a string/);
+    });
+
+    it('should throw with transportMode.client: bad type', () => {
+      expect(() => {
+        const devServerPlugin = new DevServerPlugin({
+          client: {
+            transport: 1,
+          },
+          webSocketServer: 'sockjs',
+        });
+
+        devServerPlugin.getWebsocketTransport();
+      }).toThrow(/client.transport must be a string/);
+    });
+
+    it('should throw with client.transport: unimplemented client', () => {
+      expect(() => {
+        const devServerPlugin = new DevServerPlugin({
+          client: {
+            transport: 'foo',
+          },
+          webSocketServer: 'sockjs',
+        });
+
+        devServerPlugin.getWebsocketTransport();
+      }).toThrow(
+        'When you use custom web socket implementation you must explicitly specify client.transport'
+      );
+    });
+  });
 });
