@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const DevServerPlugin = require('../../../lib/utils/DevServerPlugin');
 const isWebpack5 = require('../../helpers/isWebpack5');
 const config = require('../../fixtures/simple-config/webpack.config');
-const configEntryAsFunction = require('../../fixtures/entry-as-function/webpack.config');
 
 const normalize = (entry) => entry.split(path.sep).join('/');
 
@@ -13,103 +12,6 @@ describe('DevServerPlugin util', () => {
   async function getEntries(compiler) {
     return compiler.options.entry;
   }
-
-  it('should preserves dynamic entry points', async () => {
-    let i = 0;
-    const webpackOptions = {
-      // simulate dynamic entry
-      entry: () => {
-        i += 1;
-        return `./src-${i}.js`;
-      },
-    };
-    const compiler = webpack(webpackOptions);
-    const devServerOptions = {
-      hot: true,
-      client: {
-        transport: 'sockjs',
-        webSocketURL: {},
-      },
-      webSocketServer: {
-        type: 'sockjs',
-        options: {
-          host: '0.0.0.0',
-        },
-      },
-    };
-
-    const plugin = new DevServerPlugin(devServerOptions);
-
-    plugin.apply(compiler);
-
-    const entries = await getEntries(compiler);
-    expect(typeof entries).toEqual('function');
-
-    const entryFirstRun = await entries();
-    const entrySecondRun = await entries();
-    if (isWebpack5) {
-      expect(entryFirstRun.main.import.length).toEqual(1);
-      expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
-
-      expect(entrySecondRun.main.import.length).toEqual(1);
-      expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
-    } else {
-      expect(entryFirstRun.length).toEqual(3);
-      expect(entryFirstRun[2]).toEqual('./src-1.js');
-
-      expect(entrySecondRun.length).toEqual(3);
-      expect(entrySecondRun[2]).toEqual('./src-2.js');
-    }
-  });
-
-  it('should preserves asynchronous dynamic entry points', async () => {
-    let i = 0;
-    const webpackOptions = {
-      // simulate async dynamic entry
-      entry: () =>
-        new Promise((resolve) => {
-          i += 1;
-          resolve(`./src-${i}.js`);
-        }),
-    };
-    const compiler = webpack(webpackOptions);
-
-    const devServerOptions = {
-      hot: true,
-      client: {
-        transport: 'sockjs',
-        webSocketURL: {},
-      },
-      webSocketServer: {
-        type: 'sockjs',
-        options: {
-          host: '0.0.0.0',
-        },
-      },
-    };
-
-    const plugin = new DevServerPlugin(devServerOptions);
-    plugin.apply(compiler);
-
-    const entries = await getEntries(compiler);
-    expect(typeof entries).toEqual('function');
-
-    const entryFirstRun = await entries();
-    const entrySecondRun = await entries();
-    if (isWebpack5) {
-      expect(entryFirstRun.main.import.length).toEqual(1);
-      expect(entryFirstRun.main.import[0]).toEqual('./src-1.js');
-
-      expect(entrySecondRun.main.import.length).toEqual(1);
-      expect(entrySecondRun.main.import[0]).toEqual('./src-2.js');
-    } else {
-      expect(entryFirstRun.length).toEqual(3);
-      expect(entryFirstRun[2]).toEqual('./src-1.js');
-
-      expect(entrySecondRun.length).toEqual(3);
-      expect(entrySecondRun[2]).toEqual('./src-2.js');
-    }
-  });
 
   it("should doesn't add the HMR plugin if not hot and no plugins", () => {
     const webpackOptions = { ...config };
@@ -232,8 +134,10 @@ describe('DevServerPlugin util', () => {
       };
 
       const plugin = new DevServerPlugin(devServerOptions);
+
       plugin.apply(compiler);
       plugin.apply(compiler);
+
       const entries = await getEntries(compiler);
 
       expect(entries.length).toEqual(3);
@@ -244,29 +148,6 @@ describe('DevServerPlugin util', () => {
       expect(result.length).toEqual(1);
     }
   );
-
-  it('should supports entry as Function', async () => {
-    const webpackOptions = { ...configEntryAsFunction };
-    const compiler = webpack(webpackOptions);
-    const devServerOptions = {
-      client: {
-        transport: 'sockjs',
-        webSocketURL: {},
-      },
-      webSocketServer: {
-        type: 'sockjs',
-        options: {
-          host: '0.0.0.0',
-        },
-      },
-    };
-
-    const plugin = new DevServerPlugin(devServerOptions);
-    plugin.apply(compiler);
-    const entries = await getEntries(compiler);
-
-    expect(typeof entries === 'function').toBe(true);
-  });
 
   // 'npm run prepare' must be done for this test to pass
   const sockjsClientPath = require.resolve(
