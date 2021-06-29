@@ -4,30 +4,48 @@ const webpack = require('webpack');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/client-config/webpack.config');
 const runBrowser = require('../helpers/run-browser');
+const isWebpack5 = require('../helpers/isWebpack5');
 const port = require('../ports-map').target;
 
 describe('target', () => {
-  const isWebpack5 = true;
-
-  const targets = [
-    isWebpack5 ? false : 'node',
-    isWebpack5 ? 'browserslist:defaults' : 'web',
-    'web',
-    'webworker',
-    'node',
-    'async-node',
-    'electron-main',
-    'electron-preload',
-    'electron-renderer',
-    isWebpack5 ? 'nwjs' : 'node-webkit',
-    'node-webkit',
-    isWebpack5 ? 'es5' : 'web',
-    isWebpack5 ? ['web', 'es5'] : 'web',
-  ];
+  const targets = isWebpack5
+    ? [
+        false,
+        'browserslist:defaults',
+        'web',
+        'webworker',
+        'node',
+        'async-node',
+        'electron-main',
+        'electron-preload',
+        'electron-renderer',
+        'nwjs',
+        'node-webkit',
+        'es5',
+        ['web', 'es5'],
+      ]
+    : [
+        'web',
+        'webworker',
+        'node',
+        'async-node',
+        'electron-main',
+        'electron-preload',
+        'electron-renderer',
+        'node-webkit',
+      ];
 
   for (const target of targets) {
     it(`should work using "${target}" target`, async () => {
-      const compiler = webpack({ ...config, target });
+      const compiler = webpack({
+        ...config,
+        target,
+        ...(target === false || target === 'es5'
+          ? {
+              output: { chunkFormat: 'array-push', path: '/' },
+            }
+          : {}),
+      });
       const devServerOptions = {
         host: '127.0.0.1',
         port,
