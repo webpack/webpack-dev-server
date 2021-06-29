@@ -50,9 +50,7 @@ describe('index', () => {
     // getUrlOptions
     jest.setMock('../../client-src/utils/parseURL.js', () => {
       return {
-        query: {
-          logging: 'info',
-        },
+        logging: 'info',
       };
     });
 
