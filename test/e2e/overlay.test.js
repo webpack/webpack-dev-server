@@ -39,13 +39,10 @@ describe('overlay', () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -93,13 +90,10 @@ describe('overlay', () => {
 
     new ErrorPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -151,13 +145,10 @@ describe('overlay', () => {
     new ErrorPlugin().apply(compiler);
     new ErrorPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -202,13 +193,10 @@ describe('overlay', () => {
 
   it('should not show initially, then show on an error, then hide on fix', async () => {
     const compiler = webpack(config);
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -286,13 +274,10 @@ describe('overlay', () => {
 
   it('should not show initially, then show on an error, then show other error, then hide on fix', async () => {
     const compiler = webpack(config);
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -390,13 +375,10 @@ describe('overlay', () => {
 
   it('should not show initially, then show on an error and allow to close', async () => {
     const compiler = webpack(config);
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -485,16 +467,13 @@ describe('overlay', () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: false,
-        },
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: false,
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -536,18 +515,15 @@ describe('overlay', () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: {
-            warnings: false,
-          },
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: {
+          warnings: false,
         },
-      }
-    );
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -589,16 +565,13 @@ describe('overlay', () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: true,
-        },
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: true,
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -646,18 +619,15 @@ describe('overlay', () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: {
-            warnings: true,
-          },
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: {
+          warnings: true,
         },
-      }
-    );
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -705,18 +675,15 @@ describe('overlay', () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: {
-            errors: true,
-          },
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: {
+          errors: true,
         },
-      }
-    );
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -764,16 +731,13 @@ describe('overlay', () => {
 
     new ErrorPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: false,
-        },
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: false,
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -815,18 +779,15 @@ describe('overlay', () => {
 
     new ErrorPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: {
-            errors: false,
-          },
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: {
+          errors: false,
         },
-      }
-    );
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -868,16 +829,13 @@ describe('overlay', () => {
 
     new ErrorPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: true,
-        },
-      }
-    );
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: true,
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -925,18 +883,15 @@ describe('overlay', () => {
 
     new ErrorPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: {
-            errors: true,
-          },
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: {
+          errors: true,
         },
-      }
-    );
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -984,18 +939,15 @@ describe('overlay', () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '0.0.0.0',
-        port,
-        client: {
-          overlay: {
-            warnings: true,
-          },
+    const devServerOptions = {
+      host: '0.0.0.0',
+      port,
+      client: {
+        overlay: {
+          warnings: true,
         },
-      }
-    );
+      },
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {

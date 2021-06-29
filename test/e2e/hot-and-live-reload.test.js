@@ -202,14 +202,11 @@ describe('hot and live reload', () => {
       );
 
       const compiler = webpack(reloadConfig);
-      const devServerOptions = Object.assign(
-        {},
-        {
-          host: '0.0.0.0',
-          port,
-        },
-        mode.options
-      );
+      const devServerOptions = {
+        host: '0.0.0.0',
+        port,
+        ...mode.options,
+      };
       const server = new Server(devServerOptions, compiler);
 
       await new Promise((resolve, reject) => {
