@@ -119,9 +119,7 @@ describe('client option', () => {
 
       server = new Server(
         {
-          client: {
-            needClientEntry: false,
-          },
+          client: false,
           port,
         },
         compiler
@@ -155,9 +153,7 @@ describe('client option', () => {
 
       server = new Server(
         {
-          client: {
-            hotEntry: false,
-          },
+          hot: false,
           port,
         },
         compiler

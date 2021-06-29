@@ -43,11 +43,8 @@ Options:
   --allowed-hosts-reset                     Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
   --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
   --no-bonjour                              Negative 'bonjour' option.
-  --client-hot-entry                        Injects a Hot Module Replacement entry.
-  --no-client-hot-entry                     Negative 'client-hot-entry' option.
-  --client-logging <value>                  Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient
-  --client-need-client-entry                Inject a client entry.
-  --no-client-need-client-entry             Negative 'client-need-client-entry' option.
+  --no-client                               Negative 'client' option.
+  --client-logging <value>                  Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
   --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay                       Negative 'client-overlay' option.
   --client-overlay-errors                   Enables a full-screen overlay in the browser when there are compiler errors.
