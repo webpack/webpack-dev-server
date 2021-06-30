@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   stats: 'detailed',
   entry: resolve(__dirname, './foo.js'),
-  target: ['web', 'webworker'],
+  target: ['web'],
   output: {
     chunkLoading: false,
     wasmLoading: false,
