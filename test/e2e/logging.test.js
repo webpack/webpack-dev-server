@@ -189,14 +189,11 @@ describe('logging', () => {
         webSocketServer.webSocketServer || 'default'
       })`, async () => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
-        const devServerOptions = Object.assign(
-          {},
-          {
-            host: '0.0.0.0',
-            port,
-          },
-          testCase.devServerOptions
-        );
+        const devServerOptions = {
+          host: '0.0.0.0',
+          port,
+          ...testCase.devServerOptions,
+        };
         const server = new Server(devServerOptions, compiler);
 
         await new Promise((resolve, reject) => {

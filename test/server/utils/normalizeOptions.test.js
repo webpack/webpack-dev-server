@@ -486,18 +486,17 @@ describe('normalizeOptions', () => {
         if (data.multiCompiler) {
           webpackConfig = require('../../fixtures/multi-compiler-config/webpack.config');
           if (Array.isArray(data.webpackConfig)) {
-            webpackConfig = data.webpackConfig.map((config, index) =>
-              Object.assign({}, webpackConfig[index], config)
-            );
+            webpackConfig = data.webpackConfig.map((config, index) => {
+              return { ...webpackConfig[index], ...config };
+            });
           }
         } else {
           webpackConfig = require('../../fixtures/simple-config/webpack.config');
           if (data.webpackConfig) {
-            webpackConfig = Object.assign(
-              {},
-              webpackConfig,
-              data.webpackConfig
-            );
+            webpackConfig = {
+              ...webpackConfig,
+              ...data.webpackConfig,
+            };
           }
         }
 

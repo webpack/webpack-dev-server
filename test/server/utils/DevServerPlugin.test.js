@@ -112,7 +112,7 @@ describe('DevServerPlugin util', () => {
   });
 
   it("should doesn't add the HMR plugin if not hot and no plugins", () => {
-    const webpackOptions = Object.assign({}, config);
+    const webpackOptions = { ...config };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       client: {
@@ -134,7 +134,7 @@ describe('DevServerPlugin util', () => {
   });
 
   it("should doesn't add the HMR plugin if not hot and empty plugins", () => {
-    const webpackOptions = Object.assign({}, config, { plugins: [] });
+    const webpackOptions = { ...config, plugins: [] };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       client: {
@@ -158,9 +158,10 @@ describe('DevServerPlugin util', () => {
   it("should doesn't add the HMR plugin if not hot and some plugins", () => {
     const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
     const existingPlugin2 = new webpack.DefinePlugin({ foo: 'bar' });
-    const webpackOptions = Object.assign({}, config, {
+    const webpackOptions = {
+      ...config,
       plugins: [existingPlugin1, existingPlugin2],
-    });
+    };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       client: {
@@ -183,9 +184,10 @@ describe('DevServerPlugin util', () => {
 
   it("should doesn't add the HMR plugin again if it's already there", () => {
     const existingPlugin = new webpack.BannerPlugin('bruce');
-    const webpackOptions = Object.assign({}, config, {
+    const webpackOptions = {
+      ...config,
       plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin],
-    });
+    };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       hot: true,
@@ -213,7 +215,7 @@ describe('DevServerPlugin util', () => {
   (isWebpack5 ? it.skip : it)(
     'should can prevent duplicate entries from successive calls',
     async () => {
-      const webpackOptions = Object.assign({}, config);
+      const webpackOptions = { ...config };
       const compiler = webpack(webpackOptions);
       const devServerOptions = {
         hot: true,
@@ -244,7 +246,7 @@ describe('DevServerPlugin util', () => {
   );
 
   it('should supports entry as Function', async () => {
-    const webpackOptions = Object.assign({}, configEntryAsFunction);
+    const webpackOptions = { ...configEntryAsFunction };
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       client: {

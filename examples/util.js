@@ -23,7 +23,7 @@ module.exports = {
       }
     }
 
-    const result = Object.assign(defaults, config);
+    const result = { ...defaults, ...config };
     const onBeforeSetupMiddleware = ({ app }) => {
       app.get('/.assets/*', (req, res) => {
         const filename = path.join(__dirname, '/', req.path);
@@ -87,7 +87,7 @@ module.exports = {
     };
 
     if (result.output) {
-      Object.assign(result.output, output);
+      result.output = { ...result.output, ...output };
     } else {
       result.output = output;
     }

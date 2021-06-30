@@ -16,14 +16,11 @@ describe('web socket communication', () => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
-      const devServerOptions = Object.assign(
-        {},
-        {
-          host: '127.0.0.1',
-          port,
-          webSocketServer: websocketServer,
-        }
-      );
+      const devServerOptions = {
+        host: '127.0.0.1',
+        port,
+        webSocketServer: websocketServer,
+      };
       const server = new Server(devServerOptions, compiler);
 
       await new Promise((resolve, reject) => {
@@ -99,14 +96,11 @@ describe('web socket communication', () => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
-      const devServerOptions = Object.assign(
-        {},
-        {
-          host: '127.0.0.1',
-          port,
-          webSocketServer: websocketServer,
-        }
-      );
+      const devServerOptions = {
+        host: '127.0.0.1',
+        port,
+        webSocketServer: websocketServer,
+      };
       const server = new Server(devServerOptions, compiler);
 
       await new Promise((resolve, reject) => {
@@ -169,14 +163,11 @@ describe('web socket communication', () => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
-      const devServerOptions = Object.assign(
-        {},
-        {
-          host: '127.0.0.1',
-          port,
-          webSocketServer: websocketServer,
-        }
-      );
+      const devServerOptions = {
+        host: '127.0.0.1',
+        port,
+        webSocketServer: websocketServer,
+      };
       const server = new Server(devServerOptions, compiler);
 
       await new Promise((resolve, reject) => {
@@ -260,14 +251,11 @@ describe('web socket communication', () => {
     WebsocketServer.heartbeatInterval = 100;
 
     const compiler = webpack(config);
-    const devServerOptions = Object.assign(
-      {},
-      {
-        host: '127.0.0.1',
-        port,
-        webSocketServer: 'ws',
-      }
-    );
+    const devServerOptions = {
+      host: '127.0.0.1',
+      port,
+      webSocketServer: 'ws',
+    };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {

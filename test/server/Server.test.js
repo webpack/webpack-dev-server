@@ -135,11 +135,7 @@ describe('Server', () => {
 
         expect(typeof mime.types).toEqual('undefined');
 
-        return Object.assign(data, {
-          static: Object.assign(st, {
-            mime,
-          }),
-        });
+        return { ...data, static: { ...st, mime } };
       });
 
       const compiler = webpack(config);

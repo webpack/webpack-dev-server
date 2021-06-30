@@ -93,13 +93,10 @@ describe('stats', () => {
   cases.forEach((testCase) => {
     it(testCase.title, async () => {
       const compiler = webpack({ ...config, ...testCase.webpackOptions });
-      const devServerOptions = Object.assign(
-        {},
-        {
-          host: '127.0.0.1',
-          port,
-        }
-      );
+      const devServerOptions = {
+        host: '127.0.0.1',
+        port,
+      };
       const server = new Server(devServerOptions, compiler);
 
       await new Promise((resolve, reject) => {
