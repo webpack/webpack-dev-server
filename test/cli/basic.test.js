@@ -42,7 +42,7 @@ describe('basic', () => {
   });
 
   describe('basic', () => {
-    it.only('should work', async () => {
+    it('should work', async () => {
       const { exitCode, stderr } = await testBin([
         // Ideally it should be empty to test without arguments, unfortunately it takes 8080 port and other test can failed
         '--port',
