@@ -8,6 +8,26 @@ const runBrowser = require('../helpers/run-browser');
 const port = require('../ports-map').entry;
 const isWebpack5 = require('../helpers/isWebpack5');
 
+const HOT_ENABLED_MESSAGE =
+  '[webpack-dev-server] Hot Module Replacement enabled.';
+const LIVE_RELOAD_ENABLED_MESSAGE =
+  '[webpack-dev-server] Hot Module Replacement enabled.';
+
+const waitForConsoleLogFinished = async (consoleLogs) => {
+  await new Promise((resolve) => {
+    const interval = setInterval(() => {
+      if (
+        consoleLogs.includes(HOT_ENABLED_MESSAGE) &&
+        consoleLogs.includes(LIVE_RELOAD_ENABLED_MESSAGE)
+      ) {
+        clearInterval(interval);
+
+        resolve();
+      }
+    }, 0);
+  });
+};
+
 describe('entry', () => {
   const entryFirst = path.resolve(
     __dirname,
@@ -346,7 +366,7 @@ describe('entry', () => {
 
     page
       .on('console', (message) => {
-        consoleMessages.push(message);
+        consoleMessages.push(message.text());
       })
       .on('pageerror', (error) => {
         pageErrors.push(error);
@@ -357,11 +377,9 @@ describe('entry', () => {
     });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/runtime.js` });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
-    await page.waitForFunction(() => window.fooChunkLoaded);
+    await waitForConsoleLogFinished(consoleMessages);
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      'console messages'
-    );
+    expect(consoleMessages).toMatchSnapshot('console messages');
     expect(pageErrors).toMatchSnapshot('page errors');
 
     await browser.close();
@@ -410,13 +428,12 @@ describe('entry', () => {
     });
 
     const { page, browser } = await runBrowser();
-
     const pageErrors = [];
     const consoleMessages = [];
 
     page
       .on('console', (message) => {
-        consoleMessages.push(message);
+        consoleMessages.push(message.text());
       })
       .on('pageerror', (error) => {
         pageErrors.push(error);
@@ -427,11 +444,9 @@ describe('entry', () => {
     });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/runtime.js` });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
-    await page.waitForFunction(() => window.barChunkLoaded);
+    await waitForConsoleLogFinished(consoleMessages);
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      'console messages'
-    );
+    expect(consoleMessages).toMatchSnapshot('console messages');
     expect(pageErrors).toMatchSnapshot('page errors');
 
     await browser.close();
@@ -486,7 +501,7 @@ describe('entry', () => {
 
       page
         .on('console', (message) => {
-          consoleMessages.push(message);
+          consoleMessages.push(message.text());
         })
         .on('pageerror', (error) => {
           pageErrors.push(error);
@@ -497,11 +512,9 @@ describe('entry', () => {
       });
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
-      await page.waitForFunction(() => window.fooChunkLoaded);
+      await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
-      );
+      expect(consoleMessages).toMatchSnapshot('console messages');
       expect(pageErrors).toMatchSnapshot('page errors');
 
       await browser.close();
