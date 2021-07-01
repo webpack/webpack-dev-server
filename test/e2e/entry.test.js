@@ -357,6 +357,7 @@ describe('entry', () => {
     });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/runtime.js` });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
+    await page.waitForFunction(() => window.fooChunkLoaded);
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       'console messages'
@@ -426,6 +427,7 @@ describe('entry', () => {
     });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/runtime.js` });
     await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
+    await page.waitForFunction(() => window.barChunkLoaded);
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       'console messages'
@@ -452,7 +454,7 @@ describe('entry', () => {
       const compiler = webpack({
         ...config,
         entry: {
-          main: {
+          foo: {
             import: entryFirst,
             dependOn: 'bar',
           },
@@ -494,7 +496,8 @@ describe('entry', () => {
         waitUntil: 'networkidle0',
       });
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
-      await page.addScriptTag({ url: `http://127.0.0.1:${port}/main.js` });
+      await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
+      await page.waitForFunction(() => window.fooChunkLoaded);
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'

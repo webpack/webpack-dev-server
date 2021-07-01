@@ -26,23 +26,36 @@ module.exports = {
     {
       apply(compiler) {
         const pluginName = 'html-generator-plugin-test';
+        const filename = 'test.html';
 
         compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-          const { RawSource } = compiler.webpack.sources;
+          if (compiler.webpack) {
+            const { RawSource } = compiler.webpack.sources;
 
-          compilation.hooks.processAssets.tap(
-            {
-              name: pluginName,
-              stage:
-                compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
-            },
-            () => {
-              const filename = 'test.html';
-              const source = new RawSource(HTMLContent);
+            compilation.hooks.processAssets.tap(
+              {
+                name: pluginName,
+                stage:
+                  compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
+              },
+              () => {
+                const source = new RawSource(HTMLContent);
 
-              compilation.emitAsset(filename, source);
-            }
-          );
+                compilation.emitAsset(filename, source);
+              }
+            );
+          } else {
+            compilation.hooks.additionalAssets.tap(pluginName, () => {
+              compilation.emitAsset(filename, {
+                source() {
+                  return HTMLContent;
+                },
+                size() {
+                  return HTMLContent.length;
+                },
+              });
+            });
+          }
         });
       },
     },
