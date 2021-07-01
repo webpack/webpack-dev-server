@@ -47,10 +47,10 @@ exports[`entry should work with multiple entries #2: page errors 1`] = `Array []
 exports[`entry should work with multiple entries and "dependOn": console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
   "Bar.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
+  "Hey.",
 ]
 `;
 
