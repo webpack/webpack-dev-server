@@ -137,8 +137,7 @@ Options:
   --open [value...]                         Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).
                                             https://webpack.js.org/configuration/dev-server/#devserveropen
   --no-open                                 Negative 'open' option.
-  --open-target [value...]                  Opens specified page in browser.
-  --no-open-target                          Negative 'open-target' option.
+  --open-target <value...>                  Opens specified page in browser.
   --open-app-name <value...>                Open specified browser.
   --open-app <value...>                     Open specified browser.
   --open-reset                              Clear all items provided in 'open' configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started

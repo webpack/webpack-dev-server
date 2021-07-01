@@ -9,10 +9,10 @@ describe('"watchFiles" CLI option', () => {
     const watchDirectory = path.resolve(__dirname, '../fixtures/static/static');
 
     const { exitCode, stderr } = await testBin([
-      '--watch-files',
-      watchDirectory,
       '--port',
       port,
+      '--watch-files',
+      watchDirectory,
     ]);
 
     expect(exitCode).toEqual(0);
@@ -27,12 +27,12 @@ describe('"watchFiles" CLI option', () => {
     );
 
     const { exitCode, stderr } = await testBin([
+      '--port',
+      port,
       '--watch-files',
       watchDirectory,
       '--watch-files',
       watchOtherDirectory,
-      '--port',
-      port,
     ]);
 
     expect(exitCode).toEqual(0);
@@ -43,11 +43,11 @@ describe('"watchFiles" CLI option', () => {
     const watchDirectory = path.resolve(__dirname, '../fixtures/static/static');
 
     const { exitCode, stderr } = await testBin([
+      '--port',
+      port,
       '--watch-files-reset',
       '--watch-files',
       watchDirectory,
-      '--port',
-      port,
     ]);
 
     expect(exitCode).toEqual(0);

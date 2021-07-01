@@ -15,12 +15,12 @@ const colorsEnabled = require.resolve(
 
 describe('colors', () => {
   it('should work use colors by default', async () => {
-    const { exitCode, stderr, stdout } = await testBin(
+    const { exitCode, stderr, stdout } = await testBin([
+      '--port',
+      port,
       '--color',
       colorsDefaultStats,
-      '--port',
-      port
-    );
+    ]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');
@@ -29,9 +29,9 @@ describe('colors', () => {
 
   it('should work use colors using "--color"', async () => {
     const { exitCode, stderr, stdout } = await testBin([
-      '--color',
       '--port',
       port,
+      '--color',
     ]);
 
     expect(exitCode).toEqual(0);
@@ -41,9 +41,9 @@ describe('colors', () => {
 
   it('should work do not use colors using "--no-color"', async () => {
     const { exitCode, stderr, stdout } = await testBin([
-      '--no-color',
       '--port',
       port,
+      '--no-color',
     ]);
 
     expect(exitCode).toEqual(0);
@@ -52,10 +52,12 @@ describe('colors', () => {
   });
 
   it('should work use colors using configuration with enabled colors', async () => {
-    const { exitCode, stderr, stdout } = await testBin(
-      ['--port', port],
-      colorsEnabled
-    );
+    const { exitCode, stderr, stdout } = await testBin([
+      '--port',
+      port,
+      '--config',
+      colorsEnabled,
+    ]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');
@@ -63,10 +65,12 @@ describe('colors', () => {
   });
 
   it('should work and do not use colors using configuration with disabled colors', async () => {
-    const { exitCode, stderr, stdout } = await testBin(
-      ['--port', port],
-      colorsDisabled
-    );
+    const { exitCode, stderr, stdout } = await testBin([
+      '--port',
+      port,
+      '--config',
+      colorsDisabled,
+    ]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');

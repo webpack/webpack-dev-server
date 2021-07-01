@@ -5,7 +5,7 @@ const port = require('../ports-map')['cli-bonjour'];
 
 describe('"bonjour" CLI option', () => {
   it('should work using "--bonjour"', async () => {
-    const { exitCode, stderr } = await testBin(['--bonjour', '--port', port]);
+    const { exitCode, stderr } = await testBin(['--port', port, '--bonjour']);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
@@ -13,10 +13,10 @@ describe('"bonjour" CLI option', () => {
 
   it('should work using "--bonjour and --https"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--bonjour',
-      '--https',
       '--port',
       port,
+      '--bonjour',
+      '--https',
     ]);
 
     expect(exitCode).toEqual(0);
@@ -27,9 +27,9 @@ describe('"bonjour" CLI option', () => {
 
   it('should work using "--no-bonjour"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--no-bonjour',
       '--port',
       port,
+      '--no-bonjour',
     ]);
 
     expect(exitCode).toEqual(0);
