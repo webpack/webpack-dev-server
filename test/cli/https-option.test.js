@@ -11,7 +11,7 @@ const httpsCertificateDirectory = path.resolve(
 
 describe('"https" CLI option', () => {
   it('should work using "--https"', async () => {
-    const { exitCode, stderr } = await testBin(['--https', '--port', port]);
+    const { exitCode, stderr } = await testBin(['--port', port, '--https']);
 
     expect(exitCode).toEqual(0);
     expect(
@@ -26,9 +26,20 @@ describe('"https" CLI option', () => {
     const cacert = path.join(httpsCertificateDirectory, 'ca.pem');
     const passphrase = 'webpack-dev-server';
 
-    const { exitCode, stderr } = await testBin(
-      `--https-key ${key} --https-pfx ${pfxFile} --https-passphrase ${passphrase} --https-cert ${cert} --https-cacert ${cacert}`
-    );
+    const { exitCode, stderr } = await testBin([
+      '--port',
+      port,
+      '--https-key',
+      key,
+      '--https-pfx',
+      pfxFile,
+      '--https-passphrase',
+      passphrase,
+      '--https-cert',
+      cert,
+      '--https-cacert',
+      cacert,
+    ]);
 
     expect(exitCode).toEqual(0);
     expect(
@@ -44,6 +55,8 @@ describe('"https" CLI option', () => {
     const passphrase = 'webpack-dev-server';
 
     const { exitCode, stderr } = await testBin([
+      '--port',
+      port,
       '--https-key',
       key,
       '--https-pfx',
@@ -52,8 +65,6 @@ describe('"https" CLI option', () => {
       passphrase,
       '--https-cert',
       cert,
-      '--port',
-      port,
     ]);
 
     expect(exitCode).toEqual(0);
@@ -64,9 +75,9 @@ describe('"https" CLI option', () => {
 
   it('should work using "--https-request-cert"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--https-request-cert',
       '--port',
       port,
+      '--https-request-cert',
     ]);
 
     expect(exitCode).toEqual(0);
@@ -77,9 +88,9 @@ describe('"https" CLI option', () => {
 
   it('should work using "--no-https-request-cert"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--no-https-request-cert',
       '--port',
       port,
+      '--no-https-request-cert',
     ]);
 
     expect(exitCode).toEqual(0);
@@ -89,7 +100,7 @@ describe('"https" CLI option', () => {
   });
 
   it('should work using "--no-https"', async () => {
-    const { exitCode, stderr } = await testBin(['--no-https', '--port', port]);
+    const { exitCode, stderr } = await testBin(['--port', port, '--no-https']);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();

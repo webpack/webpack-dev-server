@@ -15,28 +15,27 @@ const basicConfigPath = path.resolve(
   '../fixtures/cli/webpack.config.js'
 );
 
-const testBin = (testArgs, configPath) => {
+const testBin = (testArgs = []) => {
   const cwd = process.cwd();
   const env = {
     WEBPACK_CLI_HELP_WIDTH: 2048,
     NODE_ENV: process.env.NODE_ENV,
   };
 
-  if (!configPath) {
-    configPath = basicConfigPath;
-  }
-
-  if (!testArgs) {
-    testArgs = [];
-  } else if (typeof testArgs === 'string') {
+  if (typeof testArgs === 'string') {
     testArgs = testArgs.split(' ');
   }
 
   let args;
+
   if (testArgs.includes('--help')) {
-    args = [webpackDevServerPath].concat(testArgs);
+    args = [webpackDevServerPath, ...testArgs];
   } else {
-    args = [webpackDevServerPath, '--config', configPath].concat(testArgs);
+    const configOptions = testArgs.includes('--config')
+      ? []
+      : ['--config', basicConfigPath];
+
+    args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
   return execa('node', args, { cwd, env, timeout: 10000 });

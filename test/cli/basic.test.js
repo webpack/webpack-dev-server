@@ -43,7 +43,11 @@ describe('basic', () => {
 
   describe('basic', () => {
     it('should work', async () => {
-      const { exitCode, stderr } = await testBin('');
+      const { exitCode, stderr } = await testBin([
+        // Ideally it should be empty to test without arguments, unfortunately it takes 8080 port and other test can failed
+        '--port',
+        port,
+      ]);
 
       expect(exitCode).toEqual(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');
@@ -51,10 +55,10 @@ describe('basic', () => {
 
     it('should work using "--host localhost --port <port>"', async () => {
       const { exitCode, stderr } = await testBin([
-        '--host',
-        'localhost',
         '--port',
         port,
+        '--host',
+        'localhost',
       ]);
 
       expect(exitCode).toEqual(0);
@@ -63,15 +67,15 @@ describe('basic', () => {
 
     it('should accept the promise function of webpack.config.js', async () => {
       try {
-        const { exitCode } = await testBin(
-          false,
+        const { exitCode } = await testBin([
+          '--config',
           path.resolve(
             __dirname,
             '../fixtures/promise-config/webpack.config.js'
           ),
           '--port',
-          port
-        );
+          port,
+        ]);
         expect(exitCode).toEqual(0);
       } catch (err) {
         // for windows
@@ -88,7 +92,7 @@ describe('basic', () => {
         __dirname,
         '../../examples/cli/web-socket-url'
       );
-      const cp = execa('node', [cliPath, '--port', port], { cwd: examplePath });
+      const cp = execa('node', ['--port', port, cliPath], { cwd: examplePath });
 
       cp.stdout.on('data', (data) => {
         const bits = data.toString();
@@ -111,7 +115,7 @@ describe('basic', () => {
         '../../bin/webpack-dev-server.js'
       );
       const cwd = path.resolve(__dirname, '../fixtures/cli');
-      const cp = execa('node', [cliPath, '--port', port], { cwd });
+      const cp = execa('node', ['--port', port, cliPath], { cwd });
 
       let killed = false;
 
@@ -141,7 +145,7 @@ describe('basic', () => {
       );
       const cp = execa(
         'node',
-        [cliPath, '--watch-options-stdin', '--port', port],
+        [cliPath, '--port', port, '--watch-options-stdin'],
         {
           cwd: examplePath,
         }
@@ -171,7 +175,7 @@ describe('basic', () => {
       const cwd = path.resolve(__dirname, '../fixtures/cli');
       const cp = execa(
         'node',
-        [cliPath, '--watch-options-stdin', '--port', port],
+        [cliPath, '--port', port, '--watch-options-stdin'],
         { cwd }
       );
 
@@ -194,12 +198,12 @@ describe('basic', () => {
     });
 
     it('should add dev server entry points to a single entry point', async () => {
-      const { exitCode, stdout } = await testBin(
-        null,
-        './test/fixtures/dev-server/default-config.js',
+      const { exitCode, stdout } = await testBin([
         '--port',
-        port
-      );
+        port,
+        '--config',
+        './test/fixtures/dev-server/default-config.js',
+      ]);
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain('client/index.js?');
@@ -208,12 +212,14 @@ describe('basic', () => {
     webpack5Test(
       'should add dev server entry points to a multi entry point object',
       async () => {
-        const { exitCode, stdout } = await testBin(
-          '--stats=verbose',
-          './test/fixtures/dev-server/multi-entry.js',
+        const { exitCode, stdout } = await testBin([
           '--port',
-          port
-        );
+          port,
+          '--config',
+          './test/fixtures/dev-server/multi-entry.js',
+          '--stats',
+          'verbose',
+        ]);
 
         expect(exitCode).toEqual(0);
         expect(stdout).toContain('client/index.js?');
@@ -224,12 +230,12 @@ describe('basic', () => {
     webpack5Test(
       'should add dev server entry points to an empty entry object',
       async () => {
-        const { exitCode, stdout } = await testBin(
-          null,
-          './test/fixtures/dev-server/empty-entry.js',
+        const { exitCode, stdout } = await testBin([
           '--port',
-          port
-        );
+          port,
+          '--config',
+          './test/fixtures/dev-server/empty-entry.js',
+        ]);
 
         expect(exitCode).toEqual(0);
         expect(stdout).toContain('client/index.js?');
@@ -237,24 +243,26 @@ describe('basic', () => {
     );
 
     webpack5Test('should supports entry as descriptor', async () => {
-      const { exitCode, stdout } = await testBin(
-        '--stats=detailed',
-        './test/fixtures/entry-as-descriptor/webpack.config',
+      const { exitCode, stdout } = await testBin([
         '--port',
-        port
-      );
+        port,
+        '--config',
+        './test/fixtures/entry-as-descriptor/webpack.config',
+        '--stats',
+        'detailed',
+      ]);
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain('foo.js');
     });
 
     it('should only prepends dev server entry points to "web" target', async () => {
-      const { exitCode, stdout } = await testBin(
-        '--target web',
-        './test/fixtures/dev-server/default-config.js',
+      const { exitCode, stdout } = await testBin([
         '--port',
-        port
-      );
+        port,
+        '--target',
+        'web',
+      ]);
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain('client/index.js?');
@@ -262,12 +270,12 @@ describe('basic', () => {
     });
 
     it('should not prepend dev server entry points to "node" target', async () => {
-      const { exitCode, stdout } = await testBin(
-        '--target node',
-        './test/fixtures/dev-server/default-config.js',
+      const { exitCode, stdout } = await testBin([
         '--port',
-        port
-      );
+        port,
+        '--target',
+        'node',
+      ]);
 
       expect(exitCode).toEqual(0);
       expect(stdout).not.toContain('client/index.js?');
@@ -275,12 +283,13 @@ describe('basic', () => {
     });
 
     it('should prepends the hot runtime to "node" target as well', async () => {
-      const { exitCode, stdout } = await testBin(
-        '--target node --hot',
-        './test/fixtures/dev-server/default-config.js',
+      const { exitCode, stdout } = await testBin([
         '--port',
-        port
-      );
+        port,
+        '--target',
+        'node',
+        '--hot',
+      ]);
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain('webpack/hot/dev-server');
@@ -289,12 +298,12 @@ describe('basic', () => {
     webpack5Test(
       'should prepend dev server entry points depending on targetProperties',
       async () => {
-        const { exitCode, stdout } = await testBin(
-          null,
-          './test/fixtures/dev-server/target-config.js',
+        const { exitCode, stdout } = await testBin([
           '--port',
-          port
-        );
+          port,
+          '--config',
+          './test/fixtures/dev-server/target-config.js',
+        ]);
 
         expect(exitCode).toEqual(0);
         expect(stdout).toContain('client/index.js');

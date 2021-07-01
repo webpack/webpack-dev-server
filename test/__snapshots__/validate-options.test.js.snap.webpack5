@@ -450,12 +450,11 @@ exports[`options validate should throw an error on the "open" option with '{"tar
    -> Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen
    Details:
     * options.open.target should be one of these:
-      [string, ...] | boolean | string
+      [string, ...] | string
       -> Opens specified page in browser.
       Details:
        * options.open.target should be an array:
          [string, ...]
-       * options.open.target should be a boolean.
        * options.open.target should be a string."
 `;
 

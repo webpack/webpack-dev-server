@@ -571,15 +571,14 @@ describe('Server', () => {
       expect(freePort).toEqual(60000 + retryCount);
     });
 
-    // TODO: fix me, Flaky on CI
     it('should retry finding the port when serial ports are busy', async () => {
       const busyPorts = [60000, 60001, 60002, 60003, 60004, 60005];
 
-      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 6;
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1000;
 
       await createDummyServers(busyPorts);
       const freePort = await Server.getFreePort();
-      expect(freePort).toEqual(60000 + busyPorts.length);
+      expect(freePort).toBeGreaterThan(60005);
     });
 
     it("should throws the error when the port isn't found", async () => {

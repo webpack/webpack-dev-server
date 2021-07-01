@@ -5,7 +5,7 @@ const port = require('../ports-map')['cli-http2'];
 
 describe('"http2" CLI option', () => {
   it('should work using "--http2"', async () => {
-    const { exitCode, stderr } = await testBin(['--http2', '--port', port]);
+    const { exitCode, stderr } = await testBin(['--port', port, '--http2']);
 
     expect(exitCode).toEqual(0);
     expect(
@@ -14,7 +14,7 @@ describe('"http2" CLI option', () => {
   });
 
   it('should work using "--no-http2"', async () => {
-    const { exitCode, stderr } = await testBin(['--no-http2', '--port', port]);
+    const { exitCode, stderr } = await testBin(['--port', port, '--no-http2']);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
