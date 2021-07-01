@@ -12,6 +12,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -48,6 +49,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -86,6 +88,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -124,6 +127,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -161,6 +165,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -198,6 +203,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -234,6 +240,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -270,6 +277,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -308,6 +316,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -346,6 +355,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -382,6 +392,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -419,6 +430,7 @@ Object {
   },
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -454,6 +466,7 @@ Object {
   "devMiddleware": Object {},
   "hot": false,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -489,6 +502,7 @@ Object {
   "devMiddleware": Object {},
   "hot": "only",
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -524,6 +538,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -559,6 +574,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": false,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -594,6 +610,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -629,6 +646,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -666,6 +684,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -701,6 +720,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "port": 9000,
   "setupExitSignals": true,
   "static": Array [
@@ -737,6 +757,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -774,6 +795,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -811,6 +833,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -848,6 +871,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -883,6 +907,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -929,6 +954,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -975,6 +1001,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1021,6 +1048,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1056,6 +1084,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": false,
   "webSocketServer": Object {
@@ -1079,6 +1108,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1114,6 +1144,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1149,6 +1180,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1184,6 +1216,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1220,6 +1253,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1255,6 +1289,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1288,6 +1323,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1323,6 +1359,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1360,6 +1397,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1395,6 +1433,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1433,6 +1472,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1468,6 +1508,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
@@ -1503,6 +1544,7 @@ Object {
   "devMiddleware": Object {},
   "hot": true,
   "liveReload": true,
+  "open": Array [],
   "setupExitSignals": true,
   "static": Array [
     Object {
