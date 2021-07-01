@@ -127,16 +127,4 @@ describe('"host" CLI option', () => {
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr)).toMatchSnapshot('stderr');
   });
-
-  it('should work using "--host local-ipv6"', async () => {
-    const { exitCode, stderr } = await testBin([
-      '--port',
-      port,
-      '--host',
-      'local-ipv6',
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');
-  });
 });
