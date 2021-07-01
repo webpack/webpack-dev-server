@@ -42,8 +42,12 @@ describe('basic', () => {
   });
 
   describe('basic', () => {
-    it('should work', async () => {
-      const { exitCode, stderr } = await testBin('');
+    it.only('should work', async () => {
+      const { exitCode, stderr } = await testBin([
+        // Ideally it should be empty to test without arguments, unfortunately it takes 8080 port and other test can failed
+        '--port',
+        port,
+      ]);
 
       expect(exitCode).toEqual(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot('stderr');
