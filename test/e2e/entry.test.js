@@ -24,7 +24,7 @@ const waitForConsoleLogFinished = async (consoleLogs) => {
 
         resolve();
       }
-    }, 0);
+    }, 100);
   });
 };
 
