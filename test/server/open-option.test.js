@@ -493,32 +493,6 @@ describe('"open" option', () => {
     server.listen(port, host);
   });
 
-  it("should work with object and with the boolean value of 'target' option", (done) => {
-    const host = 'localhost';
-    server = new Server(
-      {
-        host,
-        port,
-        open: {
-          target: true,
-        },
-      },
-      compiler
-    );
-
-    compiler.hooks.done.tap('webpack-dev-server', () => {
-      server.close(() => {
-        expect(open).toHaveBeenCalledWith(`http://${host}:${port}/`, {
-          wait: false,
-        });
-
-        done();
-      });
-    });
-
-    server.listen(port, host);
-  });
-
   it("should work with object and with the 'target' option", (done) => {
     const host = 'localhost';
     server = new Server(
@@ -772,7 +746,7 @@ describe('"open" option', () => {
     server.listen(port, host);
   });
 
-  it.only('should work with <url> pattern in multiple open options', (done) => {
+  it('should work with <url> pattern in multiple open options', (done) => {
     const host = 'localhost';
     server = new Server(
       {
@@ -785,6 +759,43 @@ describe('"open" option', () => {
           },
           {
             target: '<url>',
+            app: 'firefox',
+          },
+        ],
+      },
+      compiler
+    );
+
+    compiler.hooks.done.tap('webpack-dev-server', () => {
+      server.close(() => {
+        expect(open).toHaveBeenCalledWith(`http://${host}:${port}/`, {
+          app: { name: 'google-chrome' },
+          wait: false,
+        });
+
+        expect(open).toHaveBeenCalledWith(`http://${host}:${port}/`, {
+          app: { name: 'firefox' },
+          wait: false,
+        });
+
+        done();
+      });
+    });
+
+    server.listen(port, host);
+  });
+
+  it('should work with multiple open options without target', (done) => {
+    const host = 'localhost';
+    server = new Server(
+      {
+        host,
+        port,
+        open: [
+          {
+            app: 'google-chrome',
+          },
+          {
             app: 'firefox',
           },
         ],

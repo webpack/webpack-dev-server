@@ -576,12 +576,6 @@ module.exports = {
   'open-target': {
     configs: [
       {
-        type: 'boolean',
-        multiple: true,
-        description: 'Opens specified page in browser.',
-        path: 'open[].target',
-      },
-      {
         type: 'string',
         multiple: true,
         description: 'Opens specified page in browser.',
