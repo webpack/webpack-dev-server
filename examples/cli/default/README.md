@@ -9,7 +9,7 @@ npx webpack serve --open-target
 To run your app using an alternative config, use:
 
 ```console
-npx webpack serve --open-target --config alternative.config.js
+npx webpack serve --open-target <url> --config alternative.config.js
 ```
 
 ## What Should Happen

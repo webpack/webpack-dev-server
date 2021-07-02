@@ -8,7 +8,7 @@ application is running, without a full reload of the page.
 To run this example, run this command in your console or terminal:
 
 ```console
-npx webpack serve --open-target --hot
+npx webpack serve --open-target <url> --hot
 ```
 
 ## What Should Happen

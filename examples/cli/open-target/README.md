@@ -1,9 +1,9 @@
 # CLI: Open Target Option
 
-Open browser:
+Open default generated URL in browser:
 
 ```
-npx webpack serve --open-target
+npx webpack serve --open-target <url>
 ```
 
 Open specific page in browser:

@@ -1,7 +1,7 @@
 # CLI: Progress Option
 
 ```shell
-npx webpack serve --open-target --client-progress
+npx webpack serve --open-target default generated URL in different browsers --client-progress
 ```
 
 ## What Should Happen
