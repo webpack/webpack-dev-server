@@ -78,30 +78,6 @@ describe('"client" CLI option', () => {
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--client-need-client-entry"', async () => {
-    const { exitCode, stdout } = await testBin([
-      '--port',
-      port,
-      '--client-need-client-entry',
-      '--stats=detailed',
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).toContain('client/index.js');
-  });
-
-  it('should work using "--no-client-need-client-entry"', async () => {
-    const { exitCode, stdout } = await testBin([
-      '--port',
-      port,
-      '--no-client-need-client-entry',
-      '--stats=detailed',
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).not.toContain('client/index.js');
-  });
-
   it('should work using "--client-logging"', async () => {
     const { exitCode } = await testBin([
       '--port',
@@ -127,60 +103,6 @@ describe('"client" CLI option', () => {
     ]);
 
     expect(exitCode).toEqual(0);
-  });
-
-  it('should work using "--client-hot-entry"', async () => {
-    const { exitCode, stdout } = await testBin([
-      '--port',
-      port,
-      '--client-hot-entry',
-      '--stats',
-      'detailed',
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).toContain('webpack/hot/dev-server.js');
-  });
-
-  it('should work using "--no-client-hot-entry"', async () => {
-    const { exitCode, stdout } = await testBin([
-      '--port',
-      port,
-      '--no-client-hot-entry',
-      '--stats',
-      'detailed',
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).not.toContain('webpack/hot/dev-server.js');
-  });
-
-  it('should not inject HMR entry using "--client-hot-entry --no-hot"', async () => {
-    const { exitCode, stdout } = await testBin([
-      '--port',
-      port,
-      '--client-hot-entry',
-      '--no-hot',
-      '--stats',
-      'detailed',
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).not.toContain('webpack/hot/dev-server.js');
-  });
-
-  it('should not inject HMR entry using "--no-client-hot-entry --hot"', async () => {
-    const { exitCode, stdout } = await testBin([
-      '--port',
-      port,
-      '--no-client-hot-entry',
-      '--hot',
-      '--stats',
-      'detailed',
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(stdout).not.toContain('webpack/hot/dev-server.js');
   });
 
   it('should work using "--client-web-socket-url"', async () => {
