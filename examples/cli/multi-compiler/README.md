@@ -3,7 +3,7 @@
 `webpack-dev-server` should be able to compile multiple webpack configs.
 
 ```shell
-npx webpack serve --open-target
+npx webpack serve --open-target <url>
 ```
 
 ## What Should Happen

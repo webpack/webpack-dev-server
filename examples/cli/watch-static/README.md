@@ -3,7 +3,7 @@
 ## Watching a single directory
 
 ```console
-npx webpack serve --static assets --open-target
+npx webpack serve --static assets --open-target <url>
 ```
 
 ### What Should Happen
@@ -26,13 +26,13 @@ module.exports = {
 ```
 
 ```console
-npx webpack serve --open-target
+npx webpack serve --open-target <url>
 ```
 
 or via CLI only:
 
 ```console
-npx webpack serve --static assets --static css --open-target
+npx webpack serve --static assets --static css --open-target <url>
 ```
 
 ### What Should Happen
