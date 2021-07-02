@@ -4,8 +4,6 @@ const { relative, sep } = require('path');
 const http = require('http');
 const webpack = require('webpack');
 const sockjs = require('sockjs/lib/transport');
-// TODO(@anshumanv) - Remove this test in next major
-const findPort = require('../../lib/utils/findPort');
 const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').server;
@@ -597,13 +595,6 @@ describe('Server', () => {
       } catch (err) {
         expect(err.message).toMatchSnapshot();
       }
-    });
-
-    it('should work with findPort util', async () => {
-      process.env.DEFAULT_PORT_RETRY = 5;
-
-      const freePort = await findPort(8082);
-      expect(freePort).toEqual(8082);
     });
   });
 });
