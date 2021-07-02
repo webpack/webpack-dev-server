@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`allowedHosts should work with allowedHosts 'all': console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowedHosts should work with allowedHosts 'all': page errors 1`] = `Array []`;
+
+exports[`allowedHosts should work with allowedHosts 'auto': console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowedHosts should work with allowedHosts 'auto': page errors 1`] = `Array []`;
+
+exports[`allowedHosts should work with allowedHosts array of hosts: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowedHosts should work with allowedHosts array of hosts: page errors 1`] = `Array []`;
+
+exports[`allowedHosts should work with allowedHosts string: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowedHosts should work with allowedHosts string: page errors 1`] = `Array []`;
