@@ -15,7 +15,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -63,7 +62,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       webSocketServer: 'ws',
     };
     const server = new Server(devServerOptions, compiler);
@@ -112,7 +110,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       webSocketServer: {
         type: 'ws',
       },
@@ -163,7 +160,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(sockjsConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       webSocketServer: 'sockjs',
     };
     const server = new Server(devServerOptions, compiler);
@@ -212,7 +208,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(sockjsConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       webSocketServer: {
         type: 'sockjs',
       },
@@ -263,7 +258,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'ws',
       },
@@ -315,7 +309,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'ws',
       },
@@ -369,7 +362,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'ws',
       },
@@ -421,7 +413,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'ws',
       },
@@ -475,7 +466,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       webSocketServer: {
         type: '/bad/path/to/implementation',
       },
@@ -506,7 +496,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(sockjsConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'sockjs',
       },
@@ -557,7 +546,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(wsConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'ws',
       },
@@ -608,7 +596,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(sockjsConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'sockjs',
       },
@@ -660,7 +647,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(wsConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: 'ws',
       },
@@ -712,7 +698,6 @@ describe('web socket server and transport', () => {
     const compiler = webpack(customConfig);
     const devServerOptions = {
       port,
-      host: '0.0.0.0',
       client: {
         transport: require.resolve(
           '../fixtures/custom-client/CustomSockJSClient'
