@@ -2,10 +2,10 @@
 
 const webpack = require('webpack');
 const request = require('supertest');
-const Server = require('../../../lib/Server');
-const config = require('../../fixtures/simple-config/webpack.config');
-const multiConfig = require('../../fixtures/multi-public-path-config/webpack.config');
-const port = require('../../ports-map').routes;
+const Server = require('../../lib/Server');
+const config = require('../fixtures/simple-config/webpack.config');
+const multiConfig = require('../fixtures/multi-public-path-config/webpack.config');
+const port = require('../ports-map').routes;
 
 describe('routes util', () => {
   let server;

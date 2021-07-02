@@ -261,6 +261,28 @@ Array [
 
 exports[`web socket server URL should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("ws"): page errors 1`] = `Array []`;
 
+exports[`web socket server URL should work with default "/ws" value of the "client.webSocketURL.pathname" option ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with default "/ws" value of the "client.webSocketURL.pathname" option ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with default "/ws" value of the "client.webSocketURL.pathname" option ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with default "/ws" value of the "client.webSocketURL.pathname" option ("ws"): page errors 1`] = `Array []`;
+
 exports[`web socket server URL should work with the "client.webSocketURL" option as "string" ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",

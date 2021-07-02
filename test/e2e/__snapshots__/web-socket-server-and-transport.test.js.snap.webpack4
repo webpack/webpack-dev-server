@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`web socket server and transport should use "sockjs" transport 1`] = `Array []`;
+exports[`web socket server and transport should throw an error on wrong path 1`] = `"When you use custom web socket implementation you must explicitly specify client.transport. client.transport must be a string denoting a default implementation (e.g. 'sockjs', 'ws') or a full path to a JS file via require.resolve(...) which exports a class "`;
 
 exports[`web socket server and transport should use "sockjs" transport and "sockjs" web socket server 1`] = `
 Array [
@@ -10,7 +10,17 @@ Array [
 ]
 `;
 
-exports[`web socket server and transport should use "ws" transport 1`] = `
+exports[`web socket server and transport should use "sockjs" transport, when web socket server is not specify 1`] = `Array []`;
+
+exports[`web socket server and transport should use "sockjs" web socket server when specify "sockjs" value 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use "sockjs" web socket server when specify "sockjs" value using object 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -19,6 +29,30 @@ Array [
 `;
 
 exports[`web socket server and transport should use "ws" transport and "ws" web socket server 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use "ws" transport, when web socket server is not specify 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use "ws" web socket server when specify "ws" value 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use "ws" web socket server when specify "ws" value using object 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -40,7 +74,39 @@ Array [
 ]
 `;
 
-exports[`web socket server and transport should use default transport ("ws") 1`] = `
+exports[`web socket server and transport should use custom web socket server when specify class 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use custom web socket server when specify class using object 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use custom web socket server when specify path to class 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use custom web socket server when specify path to class using object 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server and transport should use default web socket server ("ws") 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",

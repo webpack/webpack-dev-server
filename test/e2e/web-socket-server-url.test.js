@@ -1301,6 +1301,85 @@ describe('web socket server URL', () => {
       });
     });
 
+    it(`should work with default "/ws" value of the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: port1,
+        host: '0.0.0.0',
+        allowedHosts: 'all',
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on('console', (message) => {
+          consoleMessages.push(message);
+        })
+        .on('pageerror', (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === 'ws') {
+        const client = page._client;
+
+        client.on('Network.webSocketCreated', (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on('request', (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`http://127.0.0.1:${port1}/main`, {
+        waitUntil: 'networkidle0',
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      expect(webSocketRequest.url).toContain(
+        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+      );
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        'console messages'
+      );
+      expect(pageErrors).toMatchSnapshot('page errors');
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
     it(`should work with the "client.webSocketURL.username" option ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
