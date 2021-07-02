@@ -11,6 +11,10 @@ global.console.log = jest.fn();
 describe('stats', () => {
   const cases = [
     {
+      title: 'should work when "stats" is not specified',
+      webpackOptions: {},
+    },
+    {
       title: 'should work using "{}" value for the "stats" option',
       webpackOptions: {
         stats: {},
@@ -41,6 +45,17 @@ describe('stats', () => {
       webpackOptions: {
         stats: {
           assets: false,
+        },
+      },
+    },
+    {
+      title:
+        'should work using "{ assets: false }" value for the "stats" option',
+      webpackOptions: {
+        stats: {
+          colors: {
+            green: '\u001b[32m',
+          },
         },
       },
     },

@@ -18,6 +18,15 @@ Array [
 ]
 `;
 
+exports[`stats should work using "{ assets: false }" value for the "stats" option 2`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
 exports[`stats should work using "{ warningsFilter: 'test' }" value for the "stats" option 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
@@ -55,6 +64,15 @@ Array [
 `;
 
 exports[`stats should work using "undefined" value for the "stats" option 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`stats should work when "stats" is not specified 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
