@@ -3,13 +3,13 @@
 This example demonstrates how to use `webpack-dev-server`.
 
 ```console
-npx webpack serve --open-target
+npx webpack serve --open
 ```
 
 To run your app using an alternative config, use:
 
 ```console
-npx webpack serve --open-target <url> --config alternative.config.js
+npx webpack serve --open --config alternative.config.js
 ```
 
 ## What Should Happen

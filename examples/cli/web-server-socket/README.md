@@ -7,7 +7,7 @@ To create a custom server implementation.
 This mode uses [SockJS-node](https://github.com/sockjs/sockjs-node) as a server.
 
 ```console
-npx webpack serve --web-socket-server sockjs --open-target <url>
+npx webpack serve --web-socket-server sockjs --open
 ```
 
 ## ws
@@ -15,7 +15,7 @@ npx webpack serve --web-socket-server sockjs --open-target <url>
 This mode uses [ws](https://github.com/websockets/ws) as a server.
 
 ```console
-npx webpack serve --web-socket-server ws --open-target <url>
+npx webpack serve --web-socket-server ws --open
 ```
 
 ### What Should Happen
