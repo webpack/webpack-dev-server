@@ -5,7 +5,7 @@ support in `webpack-dev-server`, effectively asking the server to fallback to
 `index.html` in the event that a requested resource cannot be found.
 
 ```shell
-npx webpack serve --open-target <url> --history-api-fallback
+npx webpack serve --open --history-api-fallback
 ```
 
 _Note: some URLs don't work by default. For example; if the url contains a dot.

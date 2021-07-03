@@ -1,7 +1,7 @@
 # CLI: --client-overlay option
 
 ```shell
-npx webpack serve --open-target <url> --client-overlay
+npx webpack serve --open --client-overlay
 ```
 
 ## What Should Happen

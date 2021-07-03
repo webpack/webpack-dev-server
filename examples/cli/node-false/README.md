@@ -1,7 +1,7 @@
 # CLI: Webpack `node` Option
 
 ```shell
-npx webpack serve --open-target <url>
+npx webpack serve --open
 ```
 
 ## What should happen

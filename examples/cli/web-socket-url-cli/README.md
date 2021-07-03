@@ -1,7 +1,7 @@
 # CLI: Web Socket URL
 
 ```console
-npx webpack serve --open-target <url> --host 0.0.0.0 --client-web-socket-url ws://<insert-host>:8080
+npx webpack serve --open --host 0.0.0.0 --client-web-socket-url ws://<insert-host>:8080
 ```
 
 _NOTE: replace `<insert-host>` with your local IP Address._

@@ -10,7 +10,7 @@ It is enabled by default.
 To run this example, run this command in your console or terminal:
 
 ```console
-npx webpack serve --open-target <url> --compress
+npx webpack serve --open --compress
 ```
 
 ### What should happen

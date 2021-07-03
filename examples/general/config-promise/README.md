@@ -4,7 +4,7 @@ This example demonstrates using `webpack-dev-server` with a `webpack` config tha
 returns a `Promise`.
 
 ```console
-npx webpack serve --open-target
+npx webpack serve --open
 ```
 
 ## What Should Happen

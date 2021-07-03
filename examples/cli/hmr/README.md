@@ -8,7 +8,7 @@ application is running, without a full reload of the page.
 To run this example, run this command in your console or terminal:
 
 ```console
-npx webpack serve --open-target <url> --hot
+npx webpack serve --open --hot
 ```
 
 ## What Should Happen
@@ -36,7 +36,7 @@ You should also see the text on the page itself change to match your edits in
 Enables Hot Module Replacement without page refresh as a fallback in case of build failures.
 
 ```console
-npx webpack serve --open-target --hot only
+npx webpack serve --open --hot only
 ```
 
 ## What Should Happen
