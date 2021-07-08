@@ -31,10 +31,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use Node.js ${{ env.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ env.node-version }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Use latest NPM
         run: sudo npm i -g npm
@@ -46,7 +46,7 @@ jobs:
         run: npm run lint
 
       - name: Security audit
-        run: npm audit
+        run: npm audit --production
 
       - name: Check commit message
         uses: wagoid/commitlint-github-action@v1
@@ -57,7 +57,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [12.x, 14.x, 16.x]
         webpack-version: [4, latest]
 
     runs-on: ${{ matrix.os }}
@@ -78,10 +78,25 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: npm i -g npm
 
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+
+      - name: Cache Node.js modules
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-${{ matrix.webpack-version }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.webpack-version }}-node-
+
       - name: Install dependencies
         run: npm ci
 
       - name: Install webpack ${{ matrix.webpack-version }}
+        if: matrix.webpack-version == '4'
         run: npm i webpack@${{ matrix.webpack-version }}
 
       - name: Link webpack-dev-server

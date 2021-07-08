@@ -1,50 +1,64 @@
 'use strict';
 
+const webpack = require('webpack');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/universal-compiler-config/webpack.config');
-const port = require('../ports-map').UniversalCompiler;
+const port = require('../ports-map')['universal-compiler'];
 
 describe('universal compiler', () => {
   let server;
   let req;
 
-  beforeAll((done) => {
-    server = testServer.start(config, { port }, done);
+  beforeAll(async () => {
+    const compiler = webpack(config);
+
+    server = new Server({ port }, compiler);
+
+    await new Promise((resolve, reject) => {
+      server.listen(port, '127.0.0.1', (error) => {
+        if (error) {
+          reject(error);
+
+          return;
+        }
+
+        resolve();
+      });
+    });
+
     req = request(server.app);
   });
 
-  afterAll(testServer.close);
-
-  it('client bundle should have the inlined the client runtime', (done) => {
-    req
-      .get('/client.js')
-      .expect('Content-Type', 'application/javascript; charset=utf-8')
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.text).toContain('Hello from the client');
-        expect(res.text).toContain('WebsocketClient');
-        done();
+  afterAll(async () => {
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
       });
+    });
   });
 
-  it('server bundle should NOT have the inlined the client runtime', (done) => {
+  it('client bundle should have the inlined the client runtime', async () => {
+    const response = await req.get('/client.js');
+
+    expect(response.headers['content-type']).toEqual(
+      'application/javascript; charset=utf-8'
+    );
+    expect(response.status).toEqual(200);
+    expect(response.text).toContain('Hello from the client');
+    expect(response.text).toContain('WebsocketClient');
+  });
+
+  it('server bundle should NOT have the inlined the client runtime', async () => {
     // we wouldn't normally request a server bundle
     // but we'll do it here to check the contents
-    req
-      .get('/server.js')
-      .expect('Content-Type', 'application/javascript; charset=utf-8')
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.text).toContain('Hello from the server');
-        expect(res.text).not.toContain('WebsocketClient');
-        done();
-      });
+    const response = await req.get('/server.js');
+
+    expect(response.headers['content-type']).toEqual(
+      'application/javascript; charset=utf-8'
+    );
+    expect(response.status).toEqual(200);
+    expect(response.text).toContain('Hello from the server');
+    expect(response.text).not.toContain('WebsocketClient');
   });
 });

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
 describe('socket', () => {
@@ -8,10 +12,11 @@ describe('socket', () => {
 
   it('should default to WebsocketClient when no __webpack_dev_server_client__ set', () => {
     jest.mock('../../client/clients/WebsocketClient');
-    const socket = require('../../client/default/socket');
+    const socket = require('../../client/socket');
     const WebsocketClient = require('../../client/clients/WebsocketClient');
 
     const mockHandler = jest.fn();
+
     socket('my.url', {
       example: mockHandler,
     });
@@ -36,7 +41,7 @@ describe('socket', () => {
 
   it('should use __webpack_dev_server_client__ when set', () => {
     jest.mock('../../client/clients/WebsocketClient');
-    const socket = require('../../client/default/socket');
+    const socket = require('../../client/socket');
     global.__webpack_dev_server_client__ = require('../../client/clients/WebsocketClient');
 
     const mockHandler = jest.fn();

@@ -18,22 +18,28 @@ function startFullSetup(config, options, done) {
 
   const compiler = webpack(config);
 
-  server = new Server(compiler, options);
+  server = new Server(options, compiler);
 
   let port;
+
   if (Object.prototype.hasOwnProperty.call(options, 'port')) {
     port = options.port;
   } else {
     console.warn('Using the default port for testing is not recommended');
     port = 8080;
   }
-  const host = Object.prototype.hasOwnProperty.call(options, 'host')
-    ? options.host
-    : 'localhost';
 
-  server.listen(port, host, (err) => {
-    if (err && done) {
-      return done(err);
+  let host;
+
+  if (Object.prototype.hasOwnProperty.call(options, 'host')) {
+    host = options.host;
+  } else {
+    host = 'localhost';
+  }
+
+  server.listen(port, host, (error) => {
+    if (error && done) {
+      return done(error);
     }
 
     if (done) {
@@ -49,8 +55,10 @@ function startFullSetup(config, options, done) {
 
 function startAwaitingCompilationFullSetup(config, options, done) {
   let readyCount = 0;
+
   const ready = () => {
     readyCount += 1;
+
     if (readyCount === 2) {
       done();
     }

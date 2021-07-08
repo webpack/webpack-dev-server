@@ -1,38 +1,61 @@
 'use strict';
 
+const webpack = require('webpack');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/mime-types-config/webpack.config');
-const port = require('../ports-map')['mineTypes-option'];
+const port = require('../ports-map')['mine-types-option'];
 
-describe('mimeTypes option', () => {
+describe('"mimeTypes" option', () => {
   describe('as an object with a remapped type', () => {
     let server;
     let req;
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          dev: {
+          devMiddleware: {
             mimeTypes: {
               js: 'application/octet-stream',
             },
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll(testServer.close);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
 
-    it('requests file with different js mime type', (done) => {
-      req
-        .get('/main.js')
-        .expect('Content-Type', 'application/octet-stream')
-        .expect(200, done);
+    it('requests file with different js mime type', async () => {
+      const response = await req.get('/main.js');
+
+      expect(response.status).toEqual(200);
+      expect(response.headers['content-type']).toEqual(
+        'application/octet-stream'
+      );
     });
   });
 
@@ -40,29 +63,51 @@ describe('mimeTypes option', () => {
     let server;
     let req;
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          dev: {
+          devMiddleware: {
             mimeTypes: {
               custom: 'text/html',
             },
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll(testServer.close);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
 
-    it('requests file with custom mime type', (done) => {
-      req
-        .get('/file.custom')
-        .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(200, done);
+    it('requests file with custom mime type', async () => {
+      const response = await req.get('/file.custom');
+
+      expect(response.status).toEqual(200);
+      expect(response.headers['content-type']).toEqual(
+        'text/html; charset=utf-8'
+      );
     });
   });
 });

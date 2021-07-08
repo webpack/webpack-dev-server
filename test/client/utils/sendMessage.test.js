@@ -1,10 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
-/* global self */
+const sendMessage = require('../../../client-src/utils/sendMessage');
 
-const sendMessage = require('../../../client-src/default/utils/sendMessage');
-
-describe('sendMessage', () => {
+describe("'sendMessage' function", () => {
   afterEach(() => {
     jest.resetAllMocks();
   });

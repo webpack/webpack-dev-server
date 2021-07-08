@@ -1,4 +1,5 @@
 /client
+/dist
 !/test/client
 coverage
 node_modules

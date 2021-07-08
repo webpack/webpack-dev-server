@@ -6,13 +6,6 @@
   General questions, how-to questions, and support requests will be closed.
 -->
 
-- Operating System:
-- Node Version:
-- NPM Version:
-- webpack Version:
-- webpack-dev-server Version:
-- Browser:
-
 <!--
   Please place an x, no spaces, in all [ ] that apply
   Please note that we are NOT accepting FEATURE requests at this time.
@@ -45,10 +38,14 @@
 // additional code, remove if not needed.
 ```
 
+### Please paste the results of `webpack-cli info` here, and mention other relevant information
+
 ### Expected Behavior
 
 ### Actual Behavior
 
 ### For Bugs; How can we reproduce the behavior?
+
+<!-- See https://stackoverflow.com/help/minimal-reproducible-example for information on how to create good reproductions -->
 
 ### For Features; What is the motivation and/or use-case for the feature?

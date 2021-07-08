@@ -2,7 +2,11 @@
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const tcpPortUsed = require('tcp-port-used');
+const { version } = require('webpack');
 const ports = require('./test/ports-map');
+
+// eslint-disable-next-line no-console
+console.log(`\n Running tests for webpack @${version} \n`);
 
 async function validatePorts() {
   const samples = [];
@@ -13,7 +17,9 @@ async function validatePorts() {
 
     arr.forEach((port) => {
       const check = tcpPortUsed.check(port, 'localhost').then((inUse) => {
-        if (inUse) throw new Error(`${port} has already used. [${key}]`);
+        if (inUse) {
+          throw new Error(`${port} has already used. [${key}]`);
+        }
       });
 
       samples.push(check);

@@ -3,11 +3,13 @@
 module.exports = {
   testURL: 'http://localhost/',
   collectCoverage: false,
-  coveragePathIgnorePatterns: ['test', '<rootDir>/node_modules'],
-  moduleFileExtensions: ['js', 'json'],
-  testMatch: ['**/test/**/*.test.js'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/test/',
+    '<rootDir>/client/',
+  ],
+  testPathIgnorePatterns: ['<rootDir>/bin/this/process-arguments.js'],
+  snapshotResolver: '<rootDir>/test/helpers/snapshotResolver.js',
   setupFilesAfterEnv: ['<rootDir>/setupTest.js'],
   globalSetup: '<rootDir>/globalSetupTest.js',
-  testRunner: 'jest-circus/runner',
-  testSequencer: '<rootDir>/test/testSequencer.js',
 };

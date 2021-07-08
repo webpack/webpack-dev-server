@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Server DevServerPlugin add hot option 1`] = `
+Array [
+  Array [
+    "client",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws",
+  ],
+  Array [
+    "node_modules",
+    "webpack",
+    "hot",
+    "dev-server.js",
+  ],
+  Array [
+    "foo.js",
+  ],
+]
+`;
+
+exports[`Server DevServerPlugin add hot-only option 1`] = `
+Array [
+  Array [
+    "client",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws",
+  ],
+  Array [
+    "node_modules",
+    "webpack",
+    "hot",
+    "only-dev-server.js",
+  ],
+  Array [
+    "foo.js",
+  ],
+]
+`;
+
+exports[`Server DevServerPlugin should create and run server with old parameters order: oldparam 1`] = `
+Array [
+  Array [
+    "client",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws",
+  ],
+  Array [
+    "node_modules",
+    "webpack",
+    "hot",
+    "dev-server.js",
+  ],
+  Array [
+    "foo.js",
+  ],
+]
+`;
+
+exports[`Server Server.getFreePort should throws the error when the port isn't found 1`] = `"busy"`;

@@ -2,8 +2,8 @@
 
 /* eslint-disable import/no-extraneous-dependencies */
 
-const fs = require('fs');
 const path = require('path');
+const fs = require('graceful-fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const marked = require('marked');
 
@@ -23,7 +23,7 @@ module.exports = {
       }
     }
 
-    const result = Object.assign(defaults, config);
+    const result = { ...defaults, ...config };
     const onBeforeSetupMiddleware = ({ app }) => {
       app.get('/.assets/*', (req, res) => {
         const filename = path.join(__dirname, '/', req.path);
@@ -87,7 +87,7 @@ module.exports = {
     };
 
     if (result.output) {
-      Object.assign(result.output, output);
+      result.output = { ...result.output, ...output };
     } else {
       result.output = output;
     }

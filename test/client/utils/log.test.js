@@ -1,6 +1,10 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
-describe('log', () => {
+describe("'log' function", () => {
   let logMock;
   let setLogLevel;
 
@@ -11,7 +15,7 @@ describe('log', () => {
     });
     logMock = require('webpack/lib/logging/runtime');
 
-    setLogLevel = require('../../../client-src/default/utils/log').setLogLevel;
+    setLogLevel = require('../../../client-src/utils/log').setLogLevel;
   });
 
   afterEach(() => {

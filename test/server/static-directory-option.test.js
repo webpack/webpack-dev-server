@@ -1,20 +1,20 @@
 'use strict';
 
 const path = require('path');
-const fs = require('fs');
+const fs = require('graceful-fs');
+const webpack = require('webpack');
 const request = require('supertest');
+const Server = require('../../lib/Server');
 const testServer = require('../helpers/test-server');
 const config = require('../fixtures/contentbase-config/webpack.config');
 const port = require('../ports-map')['static-directory-option'];
 
-const publicDirectory = path.resolve(
+const staticDirectory = path.resolve(
   __dirname,
-  '../fixtures/contentbase-config/public'
+  '../fixtures/contentbase-config'
 );
-const otherPublicDirectory = path.resolve(
-  __dirname,
-  '../fixtures/contentbase-config/other'
-);
+const publicDirectory = path.resolve(staticDirectory, 'public');
+const otherPublicDirectory = path.resolve(staticDirectory, 'other');
 
 describe('static.directory option', () => {
   let server;
@@ -23,9 +23,10 @@ describe('static.directory option', () => {
   describe('to directory', () => {
     const nestedFile = path.resolve(publicDirectory, 'assets/example.txt');
 
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: publicDirectory,
@@ -33,25 +34,46 @@ describe('static.directory option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
       });
 
       fs.truncateSync(nestedFile);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to index', async () => {
+      const response = await req.get('/');
+
+      expect(response.statusCode).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
 
-    it('Request to other file', (done) => {
-      req.get('/other.html').expect(200, /Other html/, done);
+    it('Request to other file', async () => {
+      const response = await req.get('/other.html');
+
+      expect(response.statusCode).toEqual(200);
+      expect(response.text).toContain('Other html');
     });
 
     it('Watches folder recursively', (done) => {
@@ -69,12 +91,14 @@ describe('static.directory option', () => {
 
     it('watch node_modules', (done) => {
       const filePath = path.join(publicDirectory, 'node_modules', 'index.html');
+
       fs.writeFileSync(filePath, 'foo', 'utf8');
 
       // chokidar emitted a change,
       // meaning it watched the file correctly
       server.staticWatchers[0].on('change', () => {
         fs.unlinkSync(filePath);
+
         done();
       });
 
@@ -86,9 +110,10 @@ describe('static.directory option', () => {
   });
 
   describe('test listing files in folders without index.html using the option static.serveIndex:false', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: publicDirectory,
@@ -97,30 +122,51 @@ describe('static.directory option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
       });
     });
 
-    it("shouldn't list the files inside the assets folder (404)", (done) => {
-      req.get('/assets/').expect(404, done);
+    it("shouldn't list the files inside the assets folder (404)", async () => {
+      const response = await req.get('/assets/');
+
+      expect(response.statusCode).toEqual(404);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const response = await req.get('/bar/');
+
+      expect(response.statusCode).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
   });
 
   describe('test listing files in folders without index.html using the option static.serveIndex:true', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: publicDirectory,
@@ -129,30 +175,51 @@ describe('static.directory option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
       });
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get('/assets/').expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      const response = await req.get('/assets/');
+
+      expect(response.statusCode).toEqual(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const response = await req.get('/bar/');
+
+      expect(response.statusCode).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
   });
 
   describe('test listing files in folders without index.html using the option static.serveIndex default (true)', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: publicDirectory,
@@ -160,51 +227,93 @@ describe('static.directory option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
       });
     });
 
-    it('should list the files inside the assets folder (200)', (done) => {
-      req.get('/assets/').expect(200, done);
+    it('should list the files inside the assets folder (200)', async () => {
+      const response = await req.get('/assets/');
+
+      expect(response.statusCode).toEqual(200);
     });
 
-    it('should show Heyo. because bar has index.html inside it (200)', (done) => {
-      req.get('/bar/').expect(200, /Heyo/, done);
+    it('should show Heyo. because bar has index.html inside it (200)', async () => {
+      const response = await req.get('/bar/');
+
+      expect(response.statusCode).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
   });
 
   describe('to directories', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: [publicDirectory, otherPublicDirectory],
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
       });
     });
 
-    it('Request to first directory', (done) => {
-      req.get('/').expect(200, /Heyo/, done);
+    it('Request to first directory', async () => {
+      const response = await req.get('/');
+
+      expect(response.statusCode).toEqual(200);
+      expect(response.text).toContain('Heyo');
     });
 
-    it('Request to second directory', (done) => {
-      req.get('/foo.html').expect(200, /Foo!/, done);
+    it('Request to second directory', async () => {
+      const response = await req.get('/foo.html');
+
+      expect(response.statusCode).toEqual(200);
+      expect(response.text).toContain('Foo!');
     });
   });
 
@@ -214,6 +323,7 @@ describe('static.directory option', () => {
         done();
       });
     });
+
     it('Should throw exception (external url)', (done) => {
       try {
         // eslint-disable-next-line no-unused-vars
@@ -229,6 +339,7 @@ describe('static.directory option', () => {
         done();
       }
     });
+
     it('Should not throw exception (local path with lower case first character)', (done) => {
       testServer.start(
         config,
@@ -244,6 +355,7 @@ describe('static.directory option', () => {
         done
       );
     });
+
     it("Should not throw exception (local path with lower case first character & has '-')", (done) => {
       testServer.start(
         config,
@@ -257,6 +369,7 @@ describe('static.directory option', () => {
         done
       );
     });
+
     it("Should not throw exception (local path with upper case first character & has '-')", (done) => {
       testServer.start(
         config,
@@ -289,80 +402,95 @@ describe('static.directory option', () => {
   });
 
   describe('default to PWD', () => {
-    beforeAll((done) => {
-      jest.spyOn(process, 'cwd').mockImplementation(() => publicDirectory);
+    beforeAll(async () => {
+      jest
+        .spyOn(process, 'cwd')
+        .mockImplementation(() => path.resolve(staticDirectory));
 
-      server = testServer.start(
-        config,
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          static: null,
+          // eslint-disable-next-line no-undefined
+          static: undefined,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
       });
     });
 
-    it('Request to page', (done) => {
-      req.get('/other.html').expect(200, done);
+    it('Request to page', async () => {
+      const response = await req.get('/index.html');
+
+      expect(response.statusCode).toEqual(200);
     });
   });
 
   describe('disable', () => {
-    beforeAll((done) => {
+    beforeAll(async () => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
       jest.spyOn(process, 'cwd').mockImplementation(() => publicDirectory);
 
-      server = testServer.start(
-        config,
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: false,
           port,
         },
-        done
+        compiler
       );
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
       });
     });
 
-    it('Request to page', (done) => {
-      req.get('/other.html').expect(404, done);
-    });
-  });
+    it('Request to page', async () => {
+      const response = await req.get('/other.html');
 
-  describe('Content type', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
-        {
-          static: [publicDirectory],
-          port,
-        },
-        done
-      );
-      req = request(server.app);
-    });
-
-    afterAll((done) => {
-      testServer.close(() => {
-        done();
-      });
-    });
-
-    it('Request foo.wasm', (done) => {
-      req.get('/foo.wasm').expect('Content-Type', 'application/wasm', done);
+      expect(response.statusCode).toBe(404);
     });
   });
 });

@@ -1,44 +1,48 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const webpack = require('webpack');
 const acorn = require('acorn');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/simple-config/webpack.config');
 const port = require('../ports-map').bundle;
 const isWebpack5 = require('../helpers/isWebpack5');
 
 describe('bundle', () => {
-  // the ES5 check test for the bundle will not work on webpack@5,
-  // because webpack@5 bundle output uses some ES6 syntax that can
-  // only be avoided with babel-loader
-  const runBundleTest = isWebpack5 ? describe.skip : describe;
-
-  runBundleTest('index.bundle.js bundled output', () => {
-    it('should parse with ES5', () => {
-      const bundleStr = fs.readFileSync(
-        path.resolve(__dirname, '../../client/default/index.bundle.js'),
-        'utf8'
-      );
-      expect(() => {
-        acorn.parse(bundleStr, {
-          ecmaVersion: 5,
-        });
-      }).not.toThrow();
-    });
-  });
-
-  runBundleTest('main.js bundled output', () => {
+  describe('main.js bundled output', () => {
     let server;
     let req;
 
-    beforeAll((done) => {
-      server = testServer.start(config, { port }, done);
+    beforeAll(async () => {
+      const compiler = webpack({
+        ...config,
+        target: isWebpack5 ? ['es5', 'web'] : 'web',
+      });
+
+      server = new Server({ port }, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(port, '127.0.0.1', (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
       req = request(server.app);
     });
 
-    afterAll(testServer.close);
+    afterAll(async () => {
+      await new Promise((resolve) => {
+        server.close(() => {
+          resolve();
+        });
+      });
+    });
 
     it('should get full user bundle and parse with ES5', async () => {
       const { text } = await req
@@ -48,6 +52,7 @@ describe('bundle', () => {
 
       expect(() => {
         let evalStep = 0;
+
         acorn.parse(text, {
           ecmaVersion: 5,
           onToken: (token) => {

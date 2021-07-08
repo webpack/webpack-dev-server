@@ -3,6 +3,7 @@
 module.exports = {
   mode: 'development',
   target: 'node',
+  stats: 'none',
   context: __dirname,
   entry: {
     foo: './entry1.js',

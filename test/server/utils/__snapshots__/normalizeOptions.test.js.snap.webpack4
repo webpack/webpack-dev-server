@@ -1,0 +1,1569 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normalizeOptions allowedHosts is set should set correct options 1`] = `
+Object {
+  "allowedHosts": "all",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client custom transport path should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "transport": "/path/to/custom/client/",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client host and port should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {
+      "hostname": "my.host",
+      "port": 9000,
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client host and string port should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {
+      "hostname": "my.host",
+      "port": 9000,
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client path should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {
+      "pathname": "/custom/path/",
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client path without leading/ending slashes should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {
+      "pathname": "custom/path",
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport sockjs string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "transport": "sockjs",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string and webSocketServer object should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "transport": "ws",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "host": "myhost",
+      "path": "/ws",
+      "port": 9999,
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string and webSocketServer object with port as string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "transport": "ws",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "host": "myhost",
+      "path": "/ws",
+      "port": 8080,
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string and webSocketServer ws string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "transport": "ws",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions client.transport ws string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "transport": "ws",
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions dev is set should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {
+    "serverSideRender": true,
+  },
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions hot is false should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": false,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": false,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions hot is only should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": "only",
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": "only",
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions hot is true should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": true,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions liveReload is false should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": false,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions liveReload is true should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions multi compiler watchOptions is set should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "aggregateTimeout": 300,
+      },
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions no options should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions port string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "port": 9000,
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "aggregateTimeout": 300,
+      },
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object with static watch overriding it should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "poll": 500,
+      },
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object with static watch true should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "aggregateTimeout": 300,
+      },
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions single compiler watchOptions is object with watch false should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is an array of static objects should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "/static/path1",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/static/public/path",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is an array of strings and static objects should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "/static/path1",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/static/public/path/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is an array of strings should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "/static/path1",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+    Object {
+      "directory": "/static/path2",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is an object should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "/static/path",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is false should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": false,
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "/static/path",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static is true should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static publicPath is a string should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/static/public/path/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static publicPath is an array should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/static/public/path1/",
+        "/static/public/path2/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static serveIndex is an object should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": false,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static serveIndex is false should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": false,
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static serveIndex is true should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static watch is an object should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {
+        "poll": 500,
+      },
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static watch is false should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": false,
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions static watch is true should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions username and password should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {
+      "password": "chuntaro",
+      "username": "zenitsu",
+    },
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalizeOptions webSocketServer custom server class should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": [Function],
+  },
+}
+`;
+
+exports[`normalizeOptions webSocketServer custom server path should set correct options 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "client": Object {
+    "hotEntry": undefined,
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "CWD",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "/path/to/custom/server/",
+  },
+}
+`;

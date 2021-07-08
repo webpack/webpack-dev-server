@@ -6,7 +6,7 @@ This example demonstrates a user case whereby the app proxies all urls that star
 `http://jsonplaceholder.typicode.com/users`.
 
 ```console
-npm run webpack-dev-server -- --open
+npx webpack serve --open
 ```
 
 ## What should happen

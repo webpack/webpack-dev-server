@@ -3,7 +3,7 @@
 This example demonstrates using a `webpack` config containing a `target: web` config and `target:node` config.
 
 ```console
-npm run webpack-dev-server -- --open
+npx webpack serve --open
 ```
 
 ## What Should Happen

@@ -1,11 +1,12 @@
 'use strict';
 
-const ModuleFederationPlugin = require('webpack').container
-  .ModuleFederationPlugin;
+const ModuleFederationPlugin =
+  require('webpack').container.ModuleFederationPlugin;
 
 module.exports = {
   mode: 'development',
   target: 'node',
+  stats: 'none',
   context: __dirname,
   entry: ['./entry1.js'],
   plugins: [

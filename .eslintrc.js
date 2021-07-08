@@ -2,13 +2,14 @@
 
 module.exports = {
   extends: ['webpack', 'prettier'],
-  globals: {
-    document: true,
-    window: true,
-  },
+  parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'script',
-    ecmaVersion: 10,
+    ecmaVersion: 2018,
+  },
+  env: {
+    node: true,
+    es6: true,
   },
   rules: {
     curly: 'error',
@@ -22,9 +23,27 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['client-src/**/*.js'],
+      env: {
+        browser: true,
+      },
+    },
+    {
       files: ['test/**/*.js'],
       rules: {
         'no-console': 'off',
+      },
+    },
+    {
+      files: [
+        'test/client/**/*.js',
+        'test/e2e/**/*.js',
+        'test/fixtures/**/*.js',
+        'test/server/liveReload-option.test.js',
+      ],
+      env: {
+        browser: true,
+        node: true,
       },
     },
     {

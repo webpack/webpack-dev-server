@@ -1,5 +1,7 @@
 'use strict';
 
+const ExitOnDonePlugin = require('../../helpers/ExitOnDonePlugin');
+
 module.exports = {
   mode: 'development',
   context: __dirname,
@@ -8,19 +10,7 @@ module.exports = {
       import: './foo.js',
     },
   },
-  plugins: [
-    {
-      apply(compiler) {
-        compiler.hooks.done.tap('webpack-dev-server', (stats) => {
-          let exitCode = 0;
-          if (stats.hasErrors()) {
-            exitCode = 1;
-          }
-          setTimeout(() => process.exit(exitCode));
-        });
-      },
-    },
-  ],
+  plugins: [ExitOnDonePlugin],
   infrastructureLogging: {
     level: 'warn',
   },

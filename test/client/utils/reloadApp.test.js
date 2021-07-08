@@ -1,8 +1,10 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
-/* global self */
-
-describe('reloadApp', () => {
+describe("'reloadApp' function", () => {
   let reloadApp;
   let log;
   let locationValue;
@@ -25,7 +27,7 @@ describe('reloadApp', () => {
       };
     });
 
-    reloadApp = require('../../../client-src/default/utils/reloadApp');
+    reloadApp = require('../../../client-src/utils/reloadApp');
   });
 
   afterEach(() => {

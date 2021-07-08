@@ -2,6 +2,128 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-beta.3](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2021-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* the `https.ca` option was removed in favor the `https.cacert` option
+* the `dev` option was renamed to `devMiddleware`
+* the `client.overlay` option is `true` by default and show warnings by default
+* use server port for websocket connection by default, if you proxied `webpack-dev-server`, please update `webpack-cli` to `v4.7.0` ([#3185](https://github.com/webpack/webpack-dev-server/issues/3185)) ([0c3f817](https://github.com/webpack/webpack-dev-server/commit/0c3f8178bc80d7272246fe810964561ae747ec49))
+* minimum supported Node.js version is `12.13.0`
+
+### Features
+
+* added `https.cacert` ([#3240](https://github.com/webpack/webpack-dev-server/issues/3240)) ([b212a2c](https://github.com/webpack/webpack-dev-server/commit/b212a2ce73c3e58f3450708801c8b413ca65fb5b))
+* added more CLI options, please run `webpack server --help` to look at them ([#3238](https://github.com/webpack/webpack-dev-server/issues/3238)) ([469e558](https://github.com/webpack/webpack-dev-server/commit/469e558d1d772006a1057954331ccecd34dfdefa))
+* support `bonjour` options ([#3202](https://github.com/webpack/webpack-dev-server/issues/3202)) ([5534583](https://github.com/webpack/webpack-dev-server/commit/55345836c2d8e22e45c2150a8f003019d8a0bd56))
+
+### Bug Fixes
+
+* improve warning message for `open` ([#3191](https://github.com/webpack/webpack-dev-server/issues/3191)) ([d473fd9](https://github.com/webpack/webpack-dev-server/commit/d473fd9a55334efd8d349aa2b37c64b395dea025))
+* respect the `client.logging` option for HMR logging ([#3159](https://github.com/webpack/webpack-dev-server/issues/3159)) ([6f3c6ba](https://github.com/webpack/webpack-dev-server/commit/6f3c6bacb1b7f6eae95e5b688dc22b5a42628360))
+* respect `client.needClientEntry` and `client.needHotEntry` options ([#3178](https://github.com/webpack/webpack-dev-server/issues/3178)) ([a2b6db9](https://github.com/webpack/webpack-dev-server/commit/a2b6db9417eb289a488584e8b244fcedc416ac56))
+* overlay with warnings ([#3215](https://github.com/webpack/webpack-dev-server/issues/3215)) ([7e18161](https://github.com/webpack/webpack-dev-server/commit/7e181618ba7a8ce995bf39ded00a789a9714a14b))
+* help description for options
+* error description for options
+* improve warning message for the `open` option
+
+## [4.0.0-beta.2](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2021-04-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* the `openPage` option and the `--open-page` CLI option were removed in favor `{ open: ['/my-page', '/my-other-page/'] }` for Node.js API and `--open-target [URL]` (without `[URL]` dev server will open a browser using the `host` option value) and `--open-app <browser>` for CLI
+* the `useLocalIp` option was removed in favor `{ host: 'local-ip' }`, alternative you can provide values: `local-ipv4` for IPv4 and `local-ipv6` for IPv6
+* `stdin` option was removed in favor `--watch-options-stdin`
+* `injectClient` and `injectHot` was removed in favor `client.needClientEntry` and `client.needHotEntry`
+
+### Features
+
+* added the `watchFiles` option, now you can reload server on file changes, for example `{ watchFiles: ['src/**/*.php', 'public/**/*'] }` ([#3136](https://github.com/webpack/webpack-dev-server/issues/3136)) ([d73213a](https://github.com/webpack/webpack-dev-server/commit/d73213ab04b9cae38364a0c68dfc3bdfd8df227f))
+* added more CLI options, please run `webpack server --help` ([#3148](https://github.com/webpack/webpack-dev-server/issues/3148)) ([03a2b27](https://github.com/webpack/webpack-dev-server/commit/03a2b27011098b6b98b3d20c4c46a949c4f05355))
+* enable overlay by default ([#3108](https://github.com/webpack/webpack-dev-server/issues/3108)) ([5e05e48](https://github.com/webpack/webpack-dev-server/commit/5e05e48a56232038c1341f2c0deae3d35a1add47))
+* you can specify multiple targets and browsers for the `open` option, i.e. `{ open: { target: ['/my-page', '/my-other-page'], app: ['google-chrome', '--incognito'] } }` ([e3c2683](https://github.com/webpack/webpack-dev-server/commit/e3c26835fae88a478baad477d537bd0ff1424db9))
+
+
+### Bug Fixes
+
+* `/webpack-dev-server` url shows list of files ([#3101](https://github.com/webpack/webpack-dev-server/issues/3101)) ([b3374c3](https://github.com/webpack/webpack-dev-server/commit/b3374c3ec2e07e4ba41e4ef40beaff5b9da2eccc))
+* dev server client compatibility with `IE11`/`IE10`/`IE9` ([#3129](https://github.com/webpack/webpack-dev-server/issues/3129)) ([1e3e656](https://github.com/webpack/webpack-dev-server/commit/1e3e656b5871456a483401f829a4dd4e67d48863))
+
+  * For `IE11`/`IE10` you need polyfill `fetch()` and `Promise`, example:
+  
+  ```js
+  module.exports = {
+    entry: {
+      entry: [
+        'whatwg-fetch', 
+        'core-js/features/promise', 
+        './entry.js'
+      ],
+    },
+  };
+  ```
+  
+  * For `IE9` you need polyfill `fetch()` and `Promise` and use `sockjs` for communications (because `WebSocket` is not supported), example:
+  
+  ```js
+  module.exports = {
+    entry: {
+      entry: [
+        'whatwg-fetch', 
+        'core-js/features/promise', 
+        './entry.js'
+      ],
+    },
+    devServer: {
+      transportMode: 'sockjs',
+    },
+  };
+  ```
+  
+  IE8 is not supported
+
+* hostname resolving ([#3128](https://github.com/webpack/webpack-dev-server/issues/3128)) ([cd39491](https://github.com/webpack/webpack-dev-server/commit/cd39491ea395c985f2014dfc03379db5c894f711))
+* improve CLI options ([#3151](https://github.com/webpack/webpack-dev-server/issues/3151)) ([09fa827](https://github.com/webpack/webpack-dev-server/commit/09fa827c0abbce271fa70f3553b004ff64d16b32))
+* output description on invalid options ([#3154](https://github.com/webpack/webpack-dev-server/issues/3154)) ([2e02978](https://github.com/webpack/webpack-dev-server/commit/2e02978f921ebdbda020f746f35c86048de9b2ee))
+* prefer to open the `host` option ([#3115](https://github.com/webpack/webpack-dev-server/issues/3115)) ([7e525eb](https://github.com/webpack/webpack-dev-server/commit/7e525ebe35201996d047d14af05709b0b082ae7a))
+* reduce number of `dependencies`
+
+## [4.0.0-beta.1](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2021-03-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* `--hot-only` option was removed
+* default value of the `static` option is `path.resolve(process.cwd(), 'public')`, previously `path.resolve(process.cwd(), 'static')`
+* the `overlay` option was moved into the `client` option
+
+### Features
+
+* add more negative flags - `--no-https`, `--no-http2`, `--no-compress` and `--no-history-api-fallback` ([#3070](https://github.com/webpack/webpack-dev-server/issues/3070)) ([ebc966f](https://github.com/webpack/webpack-dev-server/commit/ebc966f398c38c23c6d36b4be47f303ddfd29e7d))
+* allow `Boolean` type for the `--firewall` option ([#3041](https://github.com/webpack/webpack-dev-server/issues/3041)) ([6711c1d](https://github.com/webpack/webpack-dev-server/commit/6711c1dd175820d781eac0cad6287582e8def950))
+* improve output for localhost and fix open ([#2892](https://github.com/webpack/webpack-dev-server/issues/2892)) ([9e65c24](https://github.com/webpack/webpack-dev-server/commit/9e65c24214666241334b89c9e070f4d03bb0f317))
+* improve output for IPv4 and IPv6 ([#3092](https://github.com/webpack/webpack-dev-server/issues/3092)) ([f362665](https://github.com/webpack/webpack-dev-server/commit/f3626654f7af58c159971b4059a741c25ce58249))
+
+
+### Bug Fixes
+
+* allow to open browser with `--open-page` ([#3032](https://github.com/webpack/webpack-dev-server/issues/3032)) ([581ee07](https://github.com/webpack/webpack-dev-server/commit/581ee07b0c511cabb6c531d8a680fdcdfafbc003))
+* content security policy issue in client log ([2de2e01](https://github.com/webpack/webpack-dev-server/commit/2de2e010005f0424f872950abf6155b4aa9a1963))
+* empty and multiple entries support ([#2920](https://github.com/webpack/webpack-dev-server/issues/2920)) ([45f6592](https://github.com/webpack/webpack-dev-server/commit/45f65923ac808d77a70b3fd695cf3deeab0b6585))
+* improve descriptions for CLI options ([#3021](https://github.com/webpack/webpack-dev-server/issues/3021)) ([7d339d4](https://github.com/webpack/webpack-dev-server/commit/7d339d40a74842cbeae0b9c8ef20147af3a0f468))
+* improve descriptions for negative flags ([#3029](https://github.com/webpack/webpack-dev-server/issues/3029)) ([2e2190a](https://github.com/webpack/webpack-dev-server/commit/2e2190a4c54ddebafc729857e5650772635a50ec))
+* multi compiler mode with proxy ([#2905](https://github.com/webpack/webpack-dev-server/issues/2905)) ([247a92b](https://github.com/webpack/webpack-dev-server/commit/247a92b90c105a2e29432de4de8a32d147139c42))
+* remove double brackets from the ws url when using raw IPv6 address ([#2951](https://github.com/webpack/webpack-dev-server/issues/2951)) ([2ec8160](https://github.com/webpack/webpack-dev-server/commit/2ec81605127cec82fae5064dd59da2798a628e02))
+* show correct url in output status ([#3013](https://github.com/webpack/webpack-dev-server/issues/3013)) ([06b3d91](https://github.com/webpack/webpack-dev-server/commit/06b3d91918ed87c2b18f8df0ae4b6a5edee06137))
+* show detailed error in overlay ([ba01b05](https://github.com/webpack/webpack-dev-server/commit/ba01b051d3455d99fa88a8dd3279e74e420b2f42))
+* support `file:` and `chrome-extension:` protocols in client ([#2954](https://github.com/webpack/webpack-dev-server/issues/2954)) ([163bdce](https://github.com/webpack/webpack-dev-server/commit/163bdce5f067dd5bd1ed138b764657f8465586eb))
+* warnings in overlay ([#3054](https://github.com/webpack/webpack-dev-server/issues/3054)) ([6144c8d](https://github.com/webpack/webpack-dev-server/commit/6144c8dabd144413d4e86bfb0cd9d82d7363fb9d))
+* webpack-cli installation message ([#2955](https://github.com/webpack/webpack-dev-server/issues/2955)) ([b9ce07f](https://github.com/webpack/webpack-dev-server/commit/b9ce07fd83a53a1047c2f0f1f49d511aef2f7b29))
+
+
 ## [4.0.0-beta.0](https://github.com/webpack/webpack-dev-server/compare/v3.11.0...v4.0.0-beta.0) (2020-11-27)
 
 ### ⚠ BREAKING CHANGES

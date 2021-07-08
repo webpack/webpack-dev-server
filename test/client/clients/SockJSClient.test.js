@@ -1,11 +1,15 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
 const http = require('http');
 const express = require('express');
 const sockjs = require('sockjs');
-const port = require('../../ports-map').sockJSClient;
+const port = require('../../ports-map')['sockjs-client'];
 
-jest.setMock('../../../client-src/default/utils/log', {
+jest.setMock('../../../client-src/utils/log', {
   log: {
     error: jest.fn(),
   },
@@ -13,10 +17,10 @@ jest.setMock('../../../client-src/default/utils/log', {
 
 describe('SockJSClient', () => {
   const SockJSClient = require('../../../client-src/clients/SockJSClient');
-  const { log } = require('../../../client-src/default/utils/log');
+  const { log } = require('../../../client-src/utils/log');
   let consoleMock;
   let socketServer;
-  let listeningApp;
+  let server;
 
   beforeAll((done) => {
     consoleMock = jest.spyOn(console, 'log').mockImplementation();
@@ -24,10 +28,10 @@ describe('SockJSClient', () => {
     // eslint-disable-next-line new-cap
     const app = new express();
 
-    listeningApp = http.createServer(app);
-    listeningApp.listen(port, 'localhost', () => {
+    server = http.createServer(app);
+    server.listen(port, 'localhost', () => {
       socketServer = sockjs.createServer();
-      socketServer.installHandlers(listeningApp, {
+      socketServer.installHandlers(server, {
         prefix: '/ws',
       });
       done();
@@ -62,6 +66,7 @@ describe('SockJSClient', () => {
       });
 
       const testError = new Error('test');
+
       client.sock.onerror(testError);
 
       expect(log.error.mock.calls.length).toEqual(1);
@@ -69,13 +74,14 @@ describe('SockJSClient', () => {
 
       setTimeout(() => {
         expect(data).toMatchSnapshot();
+
         done();
       }, 3000);
     });
   });
 
   afterAll((done) => {
-    listeningApp.close(() => {
+    server.close(() => {
       done();
     });
   });

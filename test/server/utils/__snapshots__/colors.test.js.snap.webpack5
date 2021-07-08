@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`colors error should disable color 1`] = `"test"`;
+
+exports[`colors error should enable color 1`] = `"[1m[31mtest[39m[22m"`;
+
+exports[`colors info should disable color 1`] = `"test"`;
+
+exports[`colors info should enable color 1`] = `"[1m[34mtest[39m[22m"`;

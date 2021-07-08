@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`'getCurrentScriptSource' function should fail when 'document.currentScript' doesn't exist and no 'script' tags 1`] = `[Error: [webpack-dev-server] Failed to get current script source.]`;
+
+exports[`'getCurrentScriptSource' function should fail when 'document.scripts' doesn't exist and no scripts 1`] = `[Error: [webpack-dev-server] Failed to get current script source.]`;
+
+exports[`'getCurrentScriptSource' function should fail when no scripts with the 'scr' attribute 1`] = `[Error: [webpack-dev-server] Failed to get current script source.]`;

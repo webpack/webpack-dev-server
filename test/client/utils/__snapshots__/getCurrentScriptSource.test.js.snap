@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`getCurrentScriptSource should fail when script source doesn't exist 1`] = `[Error: [webpack-dev-server] Failed to get current script source.]`;

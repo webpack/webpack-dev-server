@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WebsocketClient client should open, receive message, and close 1`] = `
+Array [
+  "open",
+  "hello world",
+  "close",
+]
+`;

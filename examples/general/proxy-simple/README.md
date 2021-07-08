@@ -1,7 +1,7 @@
 # General: Simple Proxy
 
 ```console
-npm run webpack-dev-server -- --open
+npx webpack serve --open
 ```
 
 In `webpack.config.js` there is a very simple configuration for a proxy. Note that this only works when proxying to a direct ip address. See the proxy-advanced example if you want to proxy to a domain.

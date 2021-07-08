@@ -1,26 +1,49 @@
 'use strict';
 
+const webpack = require('webpack');
 const request = require('supertest');
-const testServer = require('../helpers/test-server');
+const Server = require('../../lib/Server');
 const config = require('../fixtures/multi-compiler-config/webpack.config');
-const port = require('../ports-map').MultiCompiler;
+const port = require('../ports-map')['multi-compiler'];
 
 describe('multi compiler', () => {
   let server;
   let req;
 
-  beforeAll((done) => {
-    server = testServer.start(config, { port }, done);
+  beforeAll(async () => {
+    const compiler = webpack(config);
+
+    server = new Server({ port }, compiler);
+
+    await new Promise((resolve, reject) => {
+      server.listen(port, '127.0.0.1', (error) => {
+        if (error) {
+          reject(error);
+
+          return;
+        }
+
+        resolve();
+      });
+    });
+
     req = request(server.app);
   });
 
-  afterAll(testServer.close);
+  afterAll(async () => {
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
+    });
+  });
 
-  // TODO: this is a very basic test, optimally it should test multiple configs etc.
-  it('should handle GET request to bundle', (done) => {
-    req
-      .get('/main.js')
-      .expect('Content-Type', 'application/javascript; charset=utf-8')
-      .expect(200, done);
+  it('should handle GET request to bundle', async () => {
+    const response = await req.get('/main.js');
+
+    expect(response.headers['content-type']).toEqual(
+      'application/javascript; charset=utf-8'
+    );
+    expect(response.status).toEqual(200);
   });
 });

@@ -1,24 +1,17 @@
 'use strict';
 
-const SockJS = require('sockjs-client/dist/sockjs');
-const { log } = require('../default/utils/log');
-const BaseClient = require('./BaseClient');
+const SockJS = require('../modules/sockjs-client');
+const { log } = require('../utils/log');
 
-module.exports = class SockJSClient extends (
-  BaseClient
-) {
+module.exports = class SockJSClient {
   constructor(url) {
-    super();
-    this.sock = new SockJS(url);
-
-    this.sock.onerror = (err) => {
-      log.error(err);
+    // SockJS requires `http` and `https` protocols
+    this.sock = new SockJS(
+      url.replace(/^ws:/i, 'http:').replace(/^wss:/i, 'https:')
+    );
+    this.sock.onerror = (error) => {
+      log.error(error);
     };
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  static getClientPath(options) {
-    return require.resolve('./SockJSClient');
   }
 
   onOpen(f) {

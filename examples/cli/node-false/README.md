@@ -1,7 +1,7 @@
 # CLI: Webpack `node` Option
 
 ```shell
-npm run webpack-dev-server -- --open
+npx webpack serve --open
 ```
 
 ## What should happen

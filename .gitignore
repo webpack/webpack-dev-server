@@ -10,9 +10,11 @@ coverage
 node_modules
 .vscode
 yarn.lock
+yarn-error.log
 
 .eslintcache
 
+test/fixtures/contentbase-config/public/assets/non-exist.txt
 test/fixtures/reload-config/main.css
 test/fixtures/reload-config-2/main.css
 !/test/fixtures/contentbase-config/public/node_modules

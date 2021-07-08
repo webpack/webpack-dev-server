@@ -1,7 +1,7 @@
 # CLI: Progress Option
 
 ```shell
-npm run webpack-dev-server -- --open
+npx webpack serve --open --client-progress
 ```
 
 ## What Should Happen
