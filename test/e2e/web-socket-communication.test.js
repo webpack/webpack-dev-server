@@ -66,7 +66,7 @@ describe('web socket communication', () => {
 
       await new Promise((resolve) => {
         const interval = setInterval(() => {
-          if (server.webSocketConnections.length === 0) {
+          if (server.webSocketServer.clients.size === 0) {
             clearInterval(interval);
             resolve();
           }
@@ -140,7 +140,7 @@ describe('web socket communication', () => {
         }, 200);
       });
 
-      expect(server.webSocketConnections).toHaveLength(0);
+      expect(server.webSocketServer.clients.size).toBe(0);
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         'console messages'
       );
