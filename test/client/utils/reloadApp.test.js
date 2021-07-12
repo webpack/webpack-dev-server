@@ -15,7 +15,7 @@ describe("'reloadApp' function", () => {
     self.postMessage = jest.fn();
 
     Object.defineProperty(window, 'location', {
-      value: { reload: jest.fn() },
+      value: { reload: jest.fn(), search: '' },
     });
 
     jest.mock('webpack/lib/logging/runtime');
