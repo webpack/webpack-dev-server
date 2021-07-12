@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`web socket server and transport should allow to disable default client 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+]
+`;
+
 exports[`web socket server and transport should throw an error on wrong path 1`] = `"When you use custom web socket implementation you must explicitly specify client.transport. client.transport must be a string denoting a default implementation (e.g. 'sockjs', 'ws') or a full path to a JS file via require.resolve(...) which exports a class "`;
 
 exports[`web socket server and transport should use "sockjs" transport and "sockjs" web socket server 1`] = `

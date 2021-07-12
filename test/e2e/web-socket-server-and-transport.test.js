@@ -358,6 +358,49 @@ describe('web socket server and transport', () => {
     });
   });
 
+  it.only('should allow to disable default client', async () => {
+    const compiler = webpack(defaultConfig);
+    const devServerOptions = {
+      port,
+      client: false,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await new Promise((resolve, reject) => {
+      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+        if (error) {
+          reject(error);
+
+          return;
+        }
+
+        resolve();
+      });
+    });
+
+    const { page, browser } = await runBrowser();
+
+    const consoleMessages = [];
+
+    page.on('console', (message) => {
+      consoleMessages.push(message);
+    });
+
+    await page.goto(`http://localhost:${port}/main`, {
+      waitUntil: 'networkidle0',
+    });
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
+
+    await browser.close();
+
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
+    });
+  });
+
   it('should use custom web socket server when specify path to class', async () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
