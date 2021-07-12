@@ -215,6 +215,51 @@ describe('hot and live reload', () => {
         hot: true,
       },
     },
+    {
+      title: 'should work with manual client setup',
+      webpackOptions: {
+        entry: [
+          require.resolve('../../client-src/index.js'),
+          require.resolve('../fixtures/reload-config/foo.js'),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: true,
+        hot: true,
+      },
+    },
+    // TODO we still output logs from webpack, need to improve this
+    {
+      title:
+        'should work with manual client setup and allow to disable hot module replacement',
+      webpackOptions: {
+        entry: [
+          `${require.resolve('../../client-src/index.js')}?hot=false`,
+          require.resolve('../fixtures/reload-config/foo.js'),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
+      title:
+        'should work with manual client setup and allow to disable live reload',
+      webpackOptions: {
+        entry: [
+          `${require.resolve('../../client-src/index.js')}?live-reload=false`,
+          require.resolve('../fixtures/reload-config/foo.js'),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: true,
+        hot: false,
+      },
+    },
   ];
 
   modes.forEach((mode) => {
@@ -229,7 +274,8 @@ describe('hot and live reload', () => {
         'body { background-color: rgb(0, 0, 255); }'
       );
 
-      const compiler = webpack(reloadConfig);
+      const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
+      const compiler = webpack(webpackOptions);
       const devServerOptions = {
         host: '0.0.0.0',
         port,
@@ -407,10 +453,31 @@ describe('hot and live reload', () => {
       let doNothing = false;
 
       const query = mode.query || '';
-      const allowToHotModuleReplacement =
-        query.indexOf('webpack-dev-server-hot=false') === -1;
-      const allowToLiveReload =
-        query.indexOf('webpack-dev-server-live-reload=false') === -1;
+      let allowToHotModuleReplacement = true;
+
+      if (query.indexOf('webpack-dev-server-hot=false') !== -1) {
+        allowToHotModuleReplacement = false;
+      }
+
+      if (
+        Array.isArray(webpackOptions.entry) &&
+        webpackOptions.entry.map((item) => item.includes('hot=false'))
+      ) {
+        allowToHotModuleReplacement = false;
+      }
+
+      let allowToLiveReload = true;
+
+      if (query.indexOf('webpack-dev-server-live-reload=false') !== -1) {
+        allowToLiveReload = false;
+      }
+
+      if (
+        Array.isArray(webpackOptions.entry) &&
+        webpackOptions.entry.map((item) => item.includes('live-reload=false'))
+      ) {
+        allowToLiveReload = false;
+      }
 
       if (
         allowToHotModuleReplacement &&
