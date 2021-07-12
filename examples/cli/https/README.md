@@ -19,6 +19,7 @@ Customize `https` configuration with the following options:
 - `--https-cert`: Path to an SSL certificate.
 - `--https-cacert`: Path to an SSL CA certificate.
 - `--https-passphrase`: Passphrase for a pfx file.
+- `--https-request-cert`: Request for an SSL certificate.
 
 ```console
 npx webpack serve --open --https-key ./ssl/server.key --https-pfx ./ssl/server.pfx --https-cert ./ssl/server.crt --https-cacert ./ssl/ca.pem --https-passphrase webpack-dev-server
