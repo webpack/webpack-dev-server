@@ -306,7 +306,10 @@
           "enum": ["only"]
         }
       ],
-      "description": "Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot"
+      "description": "Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot",
+      "cli": {
+        "exclude": true
+      }
     },
     "IPC": {
       "anyOf": [

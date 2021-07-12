@@ -374,30 +374,6 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
-  hot: {
-    configs: [
-      {
-        type: 'boolean',
-        multiple: false,
-        description:
-          'Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot',
-        path: 'hot',
-      },
-      {
-        type: 'enum',
-        values: ['only'],
-        multiple: false,
-        description:
-          'Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot',
-        path: 'hot',
-      },
-    ],
-    description:
-      'Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot',
-    negatedDescription: 'Disables Hot Module Replacement.',
-    simpleType: 'string',
-    multiple: false,
-  },
   http2: {
     configs: [
       {
