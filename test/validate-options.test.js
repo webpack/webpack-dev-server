@@ -67,12 +67,6 @@ const tests = {
         },
       },
       {
-        needClientEntry: true,
-      },
-      {
-        hotEntry: true,
-      },
-      {
         transport: 'sockjs',
       },
       {
@@ -138,12 +132,6 @@ const tests = {
         overlay: {
           arbitrary: '',
         },
-      },
-      {
-        needClientEntry: [''],
-      },
-      {
-        hotEntry: [''],
       },
       {
         transport: true,

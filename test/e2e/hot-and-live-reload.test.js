@@ -187,6 +187,79 @@ describe('hot and live reload', () => {
         hot: true,
       },
     },
+    {
+      title:
+        'should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false"',
+      query: '?webpack-dev-server-hot=false',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
+      title:
+        'should work and allow to disable live reload using the "webpack-dev-server-live-reload=false"',
+      query: '?webpack-dev-server-live-reload=false',
+      options: {
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
+      title:
+        'should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-live-reload=false"',
+      query:
+        '?webpack-dev-server-hot=false&webpack-dev-server-live-reload=false',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
+      title: 'should work with manual client setup',
+      webpackOptions: {
+        entry: [
+          require.resolve('../../client-src/index.js'),
+          require.resolve('../fixtures/reload-config/foo.js'),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: true,
+        hot: true,
+      },
+    },
+    // TODO we still output logs from webpack, need to improve this
+    {
+      title:
+        'should work with manual client setup and allow to disable hot module replacement',
+      webpackOptions: {
+        entry: [
+          `${require.resolve('../../client-src/index.js')}?hot=false`,
+          require.resolve('../fixtures/reload-config/foo.js'),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
+      title:
+        'should work with manual client setup and allow to disable live reload',
+      webpackOptions: {
+        entry: [
+          `${require.resolve('../../client-src/index.js')}?live-reload=false`,
+          require.resolve('../fixtures/reload-config/foo.js'),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: true,
+        hot: false,
+      },
+    },
   ];
 
   modes.forEach((mode) => {
@@ -201,7 +274,8 @@ describe('hot and live reload', () => {
         'body { background-color: rgb(0, 0, 255); }'
       );
 
-      const compiler = webpack(reloadConfig);
+      const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
+      const compiler = webpack(webpackOptions);
       const devServerOptions = {
         host: '0.0.0.0',
         port,
@@ -359,7 +433,7 @@ describe('hot and live reload', () => {
           }
         });
 
-      await page.goto(`http://localhost:${port}/main`, {
+      await page.goto(`http://localhost:${port}/main${mode.query || ''}`, {
         waitUntil: 'networkidle0',
       });
 
@@ -378,7 +452,37 @@ describe('hot and live reload', () => {
 
       let doNothing = false;
 
-      if ((hot && liveReload) || (hot && !liveReload)) {
+      const query = mode.query || '';
+      let allowToHotModuleReplacement = true;
+
+      if (query.indexOf('webpack-dev-server-hot=false') !== -1) {
+        allowToHotModuleReplacement = false;
+      }
+
+      if (
+        Array.isArray(webpackOptions.entry) &&
+        webpackOptions.entry.map((item) => item.includes('hot=false'))
+      ) {
+        allowToHotModuleReplacement = false;
+      }
+
+      let allowToLiveReload = true;
+
+      if (query.indexOf('webpack-dev-server-live-reload=false') !== -1) {
+        allowToLiveReload = false;
+      }
+
+      if (
+        Array.isArray(webpackOptions.entry) &&
+        webpackOptions.entry.map((item) => item.includes('live-reload=false'))
+      ) {
+        allowToLiveReload = false;
+      }
+
+      if (
+        allowToHotModuleReplacement &&
+        ((hot && liveReload) || (hot && !liveReload))
+      ) {
         await page.waitForFunction(
           () =>
             getComputedStyle(document.body)['background-color'] ===
@@ -386,7 +490,7 @@ describe('hot and live reload', () => {
         );
 
         expect(doneHotUpdate).toBe(true);
-      } else if (liveReload) {
+      } else if (liveReload && allowToLiveReload) {
         await page.waitForNavigation({
           waitUntil: 'networkidle0',
         });

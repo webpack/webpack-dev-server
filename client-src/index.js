@@ -44,11 +44,19 @@ self.addEventListener('beforeunload', () => {
 
 const onSocketMessage = {
   hot() {
+    if (parsedResourceQuery.hot === 'false') {
+      return;
+    }
+
     options.hot = true;
 
     log.info('Hot Module Replacement enabled.');
   },
   liveReload() {
+    if (parsedResourceQuery['live-reload'] === 'false') {
+      return;
+    }
+
     options.liveReload = true;
 
     log.info('Live Reloading enabled.');

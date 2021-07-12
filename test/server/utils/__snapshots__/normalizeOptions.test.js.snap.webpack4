@@ -4,7 +4,6 @@ exports[`normalizeOptions allowedHosts is set should set correct options 1`] = `
 Object {
   "allowedHosts": "all",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -40,7 +39,6 @@ exports[`normalizeOptions client custom transport path should set correct option
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "transport": "/path/to/custom/client/",
     "webSocketURL": Object {},
@@ -77,7 +75,6 @@ exports[`normalizeOptions client host and port should set correct options 1`] = 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {
       "hostname": "my.host",
@@ -116,7 +113,6 @@ exports[`normalizeOptions client host and string port should set correct options
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {
       "hostname": "my.host",
@@ -155,7 +151,6 @@ exports[`normalizeOptions client path should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {
       "pathname": "/custom/path/",
@@ -193,7 +188,6 @@ exports[`normalizeOptions client path without leading/ending slashes should set 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {
       "pathname": "custom/path",
@@ -231,7 +225,6 @@ exports[`normalizeOptions client.transport sockjs string should set correct opti
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "transport": "sockjs",
     "webSocketURL": Object {},
@@ -268,7 +261,6 @@ exports[`normalizeOptions client.transport ws string and webSocketServer object 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "transport": "ws",
     "webSocketURL": Object {},
@@ -307,7 +299,6 @@ exports[`normalizeOptions client.transport ws string and webSocketServer object 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "transport": "ws",
     "webSocketURL": Object {},
@@ -346,7 +337,6 @@ exports[`normalizeOptions client.transport ws string and webSocketServer ws stri
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "transport": "ws",
     "webSocketURL": Object {},
@@ -383,7 +373,6 @@ exports[`normalizeOptions client.transport ws string should set correct options 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "transport": "ws",
     "webSocketURL": Object {},
@@ -420,7 +409,6 @@ exports[`normalizeOptions dev is set should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -458,7 +446,6 @@ exports[`normalizeOptions hot is false should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": false,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -494,7 +481,6 @@ exports[`normalizeOptions hot is only should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": "only",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -530,7 +516,6 @@ exports[`normalizeOptions hot is true should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": true,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -566,7 +551,6 @@ exports[`normalizeOptions liveReload is false should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -602,7 +586,6 @@ exports[`normalizeOptions liveReload is true should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -638,7 +621,6 @@ exports[`normalizeOptions multi compiler watchOptions is set should set correct 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -676,7 +658,6 @@ exports[`normalizeOptions no options should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -712,7 +693,6 @@ exports[`normalizeOptions port string should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -749,7 +729,6 @@ exports[`normalizeOptions single compiler watchOptions is object should set corr
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -787,7 +766,6 @@ exports[`normalizeOptions single compiler watchOptions is object with static wat
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -825,7 +803,6 @@ exports[`normalizeOptions single compiler watchOptions is object with static wat
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -863,7 +840,6 @@ exports[`normalizeOptions single compiler watchOptions is object with watch fals
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -899,7 +875,6 @@ exports[`normalizeOptions static is an array of static objects should set correc
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -946,7 +921,6 @@ exports[`normalizeOptions static is an array of strings and static objects shoul
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -993,7 +967,6 @@ exports[`normalizeOptions static is an array of strings should set correct optio
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1040,7 +1013,6 @@ exports[`normalizeOptions static is an object should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1076,7 +1048,6 @@ exports[`normalizeOptions static is false should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1100,7 +1071,6 @@ exports[`normalizeOptions static is string should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1136,7 +1106,6 @@ exports[`normalizeOptions static is true should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1172,7 +1141,6 @@ exports[`normalizeOptions static publicPath is a string should set correct optio
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1208,7 +1176,6 @@ exports[`normalizeOptions static publicPath is an array should set correct optio
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1245,7 +1212,6 @@ exports[`normalizeOptions static serveIndex is an object should set correct opti
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1281,7 +1247,6 @@ exports[`normalizeOptions static serveIndex is false should set correct options 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1315,7 +1280,6 @@ exports[`normalizeOptions static serveIndex is true should set correct options 1
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1351,7 +1315,6 @@ exports[`normalizeOptions static watch is an object should set correct options 1
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1389,7 +1352,6 @@ exports[`normalizeOptions static watch is false should set correct options 1`] =
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1425,7 +1387,6 @@ exports[`normalizeOptions static watch is true should set correct options 1`] = 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1461,7 +1422,6 @@ exports[`normalizeOptions username and password should set correct options 1`] =
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {
       "password": "chuntaro",
@@ -1500,7 +1460,6 @@ exports[`normalizeOptions webSocketServer custom server class should set correct
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1536,7 +1495,6 @@ exports[`normalizeOptions webSocketServer custom server path should set correct 
 Object {
   "allowedHosts": "auto",
   "client": Object {
-    "hotEntry": undefined,
     "overlay": true,
     "webSocketURL": Object {},
   },

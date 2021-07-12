@@ -79,6 +79,22 @@ module.exports = {
     simpleType: 'string',
     multiple: false,
   },
+  client: {
+    configs: [
+      {
+        description:
+          'Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient',
+        multiple: false,
+        path: 'client',
+        type: 'enum',
+        values: [false],
+      },
+    ],
+    description:
+      'Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient',
+    multiple: false,
+    simpleType: 'boolean',
+  },
   'client-logging': {
     configs: [
       {
@@ -86,12 +102,12 @@ module.exports = {
         values: ['none', 'error', 'warn', 'info', 'log', 'verbose'],
         multiple: false,
         description:
-          'Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient',
+          'Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient',
         path: 'client.logging',
       },
     ],
     description:
-      'Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient',
+      'Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient',
     simpleType: 'string',
     multiple: false,
   },
@@ -155,33 +171,6 @@ module.exports = {
     ],
     description:
       'Enables a full-screen overlay in the browser when there are compiler warnings.',
-    simpleType: 'boolean',
-    multiple: false,
-  },
-  'client-need-client-entry': {
-    configs: [
-      {
-        type: 'boolean',
-        multiple: false,
-        description: 'Inject a client entry.',
-        path: 'client.needClientEntry',
-      },
-    ],
-    description: 'Inject a client entry.',
-    simpleType: 'boolean',
-    multiple: false,
-  },
-  'client-hot-entry': {
-    configs: [
-      {
-        type: 'boolean',
-        multiple: false,
-        description: 'Injects a Hot Module Replacement entry.',
-        path: 'client.hotEntry',
-      },
-    ],
-    description: 'Injects a Hot Module Replacement entry.',
-    negatedDescription: 'Does not injects a Hot Module Replacement entry.',
     simpleType: 'boolean',
     multiple: false,
   },

@@ -37,58 +37,37 @@
       "description": "Allows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
     },
     "Client": {
-      "type": "object",
-      "description": "Allows to specify options for client script in the browser. https://webpack.js.org/configuration/dev-server/#devserverclient",
-      "additionalProperties": false,
-      "properties": {
-        "hotEntry": {
-          "$ref": "#/definitions/ClientHotEntry"
-        },
-        "logging": {
-          "$ref": "#/definitions/ClientLogging"
-        },
-        "needClientEntry": {
-          "$ref": "#/definitions/ClientNeedClientEntry"
-        },
-        "overlay": {
-          "$ref": "#/definitions/ClientOverlay"
-        },
-        "progress": {
-          "$ref": "#/definitions/ClientProgress"
-        },
-        "transport": {
-          "$ref": "#/definitions/ClientTransport"
-        },
-        "webSocketURL": {
-          "$ref": "#/definitions/ClientWebSocketURL"
-        }
-      }
-    },
-    "ClientHotEntry": {
-      "description": "Injects a Hot Module Replacement entry.",
+      "description": "Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient",
       "anyOf": [
         {
-          "type": "boolean"
+          "enum": [false]
         },
         {
-          "instanceof": "Function"
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logging": {
+              "$ref": "#/definitions/ClientLogging"
+            },
+            "overlay": {
+              "$ref": "#/definitions/ClientOverlay"
+            },
+            "progress": {
+              "$ref": "#/definitions/ClientProgress"
+            },
+            "transport": {
+              "$ref": "#/definitions/ClientTransport"
+            },
+            "webSocketURL": {
+              "$ref": "#/definitions/ClientWebSocketURL"
+            }
+          }
         }
       ]
     },
     "ClientLogging": {
       "enum": ["none", "error", "warn", "info", "log", "verbose"],
       "decription": "Allows to set log level in the browser."
-    },
-    "ClientNeedClientEntry": {
-      "description": "Inject a client entry.",
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "instanceof": "Function"
-        }
-      ]
     },
     "ClientOverlay": {
       "anyOf": [
