@@ -7,7 +7,20 @@ function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
     return;
   }
 
-  if (hot) {
+  function applyReload(rootWindow, intervalId) {
+    clearInterval(intervalId);
+
+    log.info('App updated. Reloading...');
+
+    rootWindow.location.reload();
+  }
+
+  const search = self.location.search.toLowerCase();
+  const allowToHot = search.indexOf('webpack-dev-server-hot=false') === -1;
+  const allowToLiveReload =
+    search.indexOf('webpack-dev-server-live-reload=false') === -1;
+
+  if (hot && allowToHot) {
     log.info('App hot update...');
 
     const hotEmitter = require('webpack/hot/emitter');
@@ -20,7 +33,7 @@ function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
     }
   }
   // allow refreshing the page only if liveReload isn't disabled
-  else if (liveReload) {
+  else if (liveReload && allowToLiveReload) {
     let rootWindow = self;
 
     // use parent window for reload (in case we're in an iframe with no valid src)
@@ -37,14 +50,6 @@ function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
         }
       }
     });
-  }
-
-  function applyReload(rootWindow, intervalId) {
-    clearInterval(intervalId);
-
-    log.info('App updated. Reloading...');
-
-    rootWindow.location.reload();
   }
 }
 

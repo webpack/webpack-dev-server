@@ -187,6 +187,34 @@ describe('hot and live reload', () => {
         hot: true,
       },
     },
+    {
+      title:
+        'should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false"',
+      query: '?webpack-dev-server-hot=false',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
+    {
+      title:
+        'should work and allow to disable live reload using the "webpack-dev-server-live-reload=false"',
+      query: '?webpack-dev-server-live-reload=false',
+      options: {
+        liveReload: true,
+        hot: false,
+      },
+    },
+    {
+      title:
+        'should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-live-reload=false"',
+      query:
+        '?webpack-dev-server-hot=false&webpack-dev-server-live-reload=false',
+      options: {
+        liveReload: true,
+        hot: true,
+      },
+    },
   ];
 
   modes.forEach((mode) => {
@@ -359,7 +387,7 @@ describe('hot and live reload', () => {
           }
         });
 
-      await page.goto(`http://localhost:${port}/main`, {
+      await page.goto(`http://localhost:${port}/main${mode.query || ''}`, {
         waitUntil: 'networkidle0',
       });
 
@@ -378,7 +406,16 @@ describe('hot and live reload', () => {
 
       let doNothing = false;
 
-      if ((hot && liveReload) || (hot && !liveReload)) {
+      const query = mode.query || '';
+      const allowToHotModuleReplacement =
+        query.indexOf('webpack-dev-server-hot=false') === -1;
+      const allowToLiveReload =
+        query.indexOf('webpack-dev-server-live-reload=false') === -1;
+
+      if (
+        allowToHotModuleReplacement &&
+        ((hot && liveReload) || (hot && !liveReload))
+      ) {
         await page.waitForFunction(
           () =>
             getComputedStyle(document.body)['background-color'] ===
@@ -386,7 +423,7 @@ describe('hot and live reload', () => {
         );
 
         expect(doneHotUpdate).toBe(true);
-      } else if (liveReload) {
+      } else if (liveReload && allowToLiveReload) {
         await page.waitForNavigation({
           waitUntil: 'networkidle0',
         });
