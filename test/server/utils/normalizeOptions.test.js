@@ -21,31 +21,32 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'client.transport sockjs string',
+      title: 'client.webSocketTransport sockjs string',
       multiCompiler: false,
       options: {
         client: {
-          transport: 'sockjs',
+          webSocketTransport: 'sockjs',
         },
       },
       optionsResults: null,
     },
     {
-      title: 'client.transport ws string',
+      title: 'client.webSocketTransport ws string',
       multiCompiler: false,
       options: {
         client: {
-          transport: 'ws',
+          webSocketTransport: 'ws',
         },
       },
       optionsResults: null,
     },
     {
-      title: 'client.transport ws string and webSocketServer ws string',
+      title:
+        'client.webSocketTransport ws string and webSocketServer ws string',
       multiCompiler: false,
       options: {
         client: {
-          transport: 'ws',
+          webSocketTransport: 'ws',
         },
         webSocketServer: 'ws',
       },
@@ -68,11 +69,11 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'client.transport ws string and webSocketServer object',
+      title: 'client.webSocketTransport ws string and webSocketServer object',
       multiCompiler: false,
       options: {
         client: {
-          transport: 'ws',
+          webSocketTransport: 'ws',
         },
         webSocketServer: {
           type: 'ws',
@@ -87,11 +88,11 @@ describe('normalizeOptions', () => {
     },
     {
       title:
-        'client.transport ws string and webSocketServer object with port as string',
+        'client.webSocketTransport ws string and webSocketServer object with port as string',
       multiCompiler: false,
       options: {
         client: {
-          transport: 'ws',
+          webSocketTransport: 'ws',
         },
         webSocketServer: {
           type: 'ws',
@@ -105,11 +106,11 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'client custom transport path',
+      title: 'client custom webSocketTransport path',
       multiCompiler: false,
       options: {
         client: {
-          transport: '/path/to/custom/client/',
+          webSocketTransport: '/path/to/custom/client/',
         },
       },
       optionsResults: null,

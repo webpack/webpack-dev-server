@@ -35,12 +35,12 @@ Object {
 }
 `;
 
-exports[`normalizeOptions client custom transport path should set correct options 1`] = `
+exports[`normalizeOptions client custom webSocketTransport path should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
     "overlay": true,
-    "transport": "/path/to/custom/client/",
+    "webSocketTransport": "/path/to/custom/client/",
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -221,12 +221,12 @@ Object {
 }
 `;
 
-exports[`normalizeOptions client.transport sockjs string should set correct options 1`] = `
+exports[`normalizeOptions client.webSocketTransport sockjs string should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
     "overlay": true,
-    "transport": "sockjs",
+    "webSocketTransport": "sockjs",
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -257,12 +257,12 @@ Object {
 }
 `;
 
-exports[`normalizeOptions client.transport ws string and webSocketServer object should set correct options 1`] = `
+exports[`normalizeOptions client.webSocketTransport ws string and webSocketServer object should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
     "overlay": true,
-    "transport": "ws",
+    "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -295,12 +295,12 @@ Object {
 }
 `;
 
-exports[`normalizeOptions client.transport ws string and webSocketServer object with port as string should set correct options 1`] = `
+exports[`normalizeOptions client.webSocketTransport ws string and webSocketServer object with port as string should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
     "overlay": true,
-    "transport": "ws",
+    "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -333,12 +333,12 @@ Object {
 }
 `;
 
-exports[`normalizeOptions client.transport ws string and webSocketServer ws string should set correct options 1`] = `
+exports[`normalizeOptions client.webSocketTransport ws string and webSocketServer ws string should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
     "overlay": true,
-    "transport": "ws",
+    "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -369,12 +369,12 @@ Object {
 }
 `;
 
-exports[`normalizeOptions client.transport ws string should set correct options 1`] = `
+exports[`normalizeOptions client.webSocketTransport ws string should set correct options 1`] = `
 Object {
   "allowedHosts": "auto",
   "client": Object {
     "overlay": true,
-    "transport": "ws",
+    "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
   "compress": true,

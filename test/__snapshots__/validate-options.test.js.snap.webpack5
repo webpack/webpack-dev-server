@@ -76,7 +76,7 @@ exports[`options validate should throw an error on the "client" option with '{"l
 exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, transport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * options.client.overlay should be one of these:
@@ -112,25 +112,25 @@ exports[`options validate should throw an error on the "client" option with '{"p
    -> Prints compilation progress in percentage in the browser."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"transport":true}' value 1`] = `
-"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, transport?, webSocketURL? }
-   -> Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
-   Details:
-    * options.client.transport should be one of these:
-      \\"sockjs\\" | \\"ws\\" | non-empty string
-      -> Allows to set custom transport to communicate with dev server.
-      Details:
-       * options.client.transport should be one of these:
-         \\"sockjs\\" | \\"ws\\"
-       * options.client.transport should be a non-empty string."
-`;
-
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client has an unknown property 'unknownOption'. These properties are valid:
-   object { logging?, overlay?, progress?, transport?, webSocketURL? }"
+   object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }"
+`;
+
+exports[`options validate should throw an error on the "client" option with '{"webSocketTransport":true}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.client should be one of these:
+   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
+   -> Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
+   Details:
+    * options.client.webSocketTransport should be one of these:
+      \\"sockjs\\" | \\"ws\\" | non-empty string
+      -> Allows to set custom transport to communicate with dev server.
+      Details:
+       * options.client.webSocketTransport should be one of these:
+         \\"sockjs\\" | \\"ws\\"
+       * options.client.webSocketTransport should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"hostname":""}}' value 1`] = `
@@ -159,7 +159,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, transport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * options.client.webSocketURL.port should be one of these:
@@ -173,7 +173,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"username":123,"password":976}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, transport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * options.client.webSocketURL.password should be a string.
@@ -185,12 +185,12 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, transport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * options.client should be false.
     * options.client should be an object:
-      object { logging?, overlay?, progress?, transport?, webSocketURL? }"
+      object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }"
 `;
 
 exports[`options validate should throw an error on the "compress" option with '' value 1`] = `

@@ -17,7 +17,7 @@ describe('client option', () => {
       server = new Server(
         {
           client: {
-            transport: 'sockjs',
+            webSocketTransport: 'sockjs',
           },
           webSocketServer: 'sockjs',
           port,
@@ -68,7 +68,7 @@ describe('client option', () => {
       server = new Server(
         {
           client: {
-            transport: 'sockjs',
+            webSocketTransport: 'sockjs',
           },
           webSocketServer: {
             type: 'sockjs',
@@ -183,12 +183,12 @@ describe('client option', () => {
     });
   });
 
-  describe('transport', () => {
+  describe('webSocketTransport', () => {
     const clientModes = [
       {
         title: 'as a string ("sockjs")',
         client: {
-          transport: 'sockjs',
+          webSocketTransport: 'sockjs',
         },
         webSocketServer: 'sockjs',
         shouldThrow: false,
@@ -196,7 +196,9 @@ describe('client option', () => {
       {
         title: 'as a path ("sockjs")',
         client: {
-          transport: require.resolve('../../client-src/clients/SockJSClient'),
+          webSocketTransport: require.resolve(
+            '../../client-src/clients/SockJSClient'
+          ),
         },
         webSocketServer: 'sockjs',
         shouldThrow: false,
@@ -204,7 +206,7 @@ describe('client option', () => {
       {
         title: 'as a nonexistent path',
         client: {
-          transport: '/bad/path/to/implementation',
+          webSocketTransport: '/bad/path/to/implementation',
         },
         webSocketServer: 'sockjs',
         shouldThrow: true,
@@ -246,7 +248,7 @@ describe('client option', () => {
 
           if (data.shouldThrow) {
             expect(thrownError.message).toMatch(
-              /client\.transport must be a string/
+              /client\.webSocketTransport must be a string/
             );
           }
 

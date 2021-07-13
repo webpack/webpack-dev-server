@@ -33,7 +33,7 @@ describe('webSocketServer', () => {
             config,
             {
               port,
-              client: { transport: 'sockjs' },
+              client: { webSocketTransport: 'sockjs' },
               webSocketServer: class MySockJSServer extends BaseServer {
                 constructor(serv) {
                   super(serv);
@@ -143,7 +143,7 @@ describe('webSocketServer', () => {
             config,
             {
               port,
-              client: { transport: 'sockjs' },
+              client: { webSocketTransport: 'sockjs' },
               webSocketServer: class MySockJSServer extends BaseServer {
                 constructor(serv) {
                   super(serv);

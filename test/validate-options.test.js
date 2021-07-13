@@ -67,10 +67,10 @@ const tests = {
         },
       },
       {
-        transport: 'sockjs',
+        webSocketTransport: 'sockjs',
       },
       {
-        transport: require.resolve('../client/clients/SockJSClient'),
+        webSocketTransport: require.resolve('../client/clients/SockJSClient'),
       },
       {
         webSocketURL: 'ws://localhost:8080',
@@ -134,7 +134,7 @@ const tests = {
         },
       },
       {
-        transport: true,
+        webSocketTransport: true,
       },
       {
         webSocketURL: { hostname: true, pathname: '', port: 8080 },
