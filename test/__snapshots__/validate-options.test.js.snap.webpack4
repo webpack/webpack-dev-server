@@ -2,12 +2,12 @@
 
 exports[`options validate should throw an error on the "allowedHosts" option with '[""]' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.allowedHosts[0] should be an non-empty string."
+ - options.allowedHosts[0] should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "allowedHosts" option with '[]' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.allowedHosts should be an non-empty array."
+ - options.allowedHosts should be a non-empty array."
 `;
 
 exports[`options validate should throw an error on the "allowedHosts" option with '123' value 1`] = `
@@ -135,7 +135,7 @@ exports[`options validate should throw an error on the "client" option with '{"u
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"hostname":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.client.webSocketURL.hostname should be an non-empty string.
+ - options.client.webSocketURL.hostname should be a non-empty string.
    -> Tells clients connected to devServer to use the provided hostname."
 `;
 
@@ -153,7 +153,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.client.webSocketURL.port should be an non-empty string."
+ - options.client.webSocketURL.port should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
@@ -242,7 +242,7 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
 
 exports[`options validate should throw an error on the "host" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.host should be an non-empty string.
+ - options.host should be a non-empty string.
    -> Allows to specify a hostname to use. https://webpack.js.org/configuration/dev-server/#devserverhost"
 `;
 
@@ -410,7 +410,7 @@ exports[`options validate should throw an error on the "onListening" option with
 
 exports[`options validate should throw an error on the "open" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.open should be an non-empty string."
+ - options.open should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "open" option with '{"app":true}' value 1`] = `
@@ -451,7 +451,7 @@ exports[`options validate should throw an error on the "open" option with '{"tar
 
 exports[`options validate should throw an error on the "port" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.port should be an non-empty string."
+ - options.port should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
@@ -502,7 +502,7 @@ exports[`options validate should throw an error on the "proxy" option with 'func
 
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.static should be an non-empty string."
+ - options.static should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "static" option with '{"directory":false}' value 1`] = `
