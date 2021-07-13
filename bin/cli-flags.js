@@ -64,14 +64,14 @@ module.exports = {
         multiple: false,
         description:
           'Allows to set custom web socket transport to communicate with dev server.',
-        path: 'client.transport',
+        path: 'client.webSocketTransport',
       },
       {
         type: 'string',
         multiple: false,
         description:
           'Allows to set custom web socket transport to communicate with dev server.',
-        path: 'client.transport',
+        path: 'client.webSocketTransport',
       },
     ],
     description:
