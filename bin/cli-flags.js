@@ -56,26 +56,26 @@ module.exports = {
     simpleType: 'boolean',
     multiple: false,
   },
-  'client-transport': {
+  'client-web-socket-transport': {
     configs: [
       {
         type: 'enum',
         values: ['sockjs', 'ws'],
         multiple: false,
         description:
-          'Allows to set custom transport to communicate with dev server.',
+          'Allows to set custom web socket transport to communicate with dev server.',
         path: 'client.transport',
       },
       {
         type: 'string',
         multiple: false,
         description:
-          'Allows to set custom transport to communicate with dev server.',
+          'Allows to set custom web socket transport to communicate with dev server.',
         path: 'client.transport',
       },
     ],
     description:
-      'Allows to set custom transport to communicate with dev server.',
+      'Allows to set custom web socket transport to communicate with dev server.',
     simpleType: 'string',
     multiple: false,
   },

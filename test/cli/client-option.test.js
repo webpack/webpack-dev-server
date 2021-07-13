@@ -4,22 +4,22 @@ const { testBin } = require('../helpers/test-bin');
 const port = require('../ports-map')['cli-client'];
 
 describe('"client" CLI option', () => {
-  it('should work using "--client-transport sockjs"', async () => {
+  it('should work using "--client-web-socket-transport sockjs"', async () => {
     const { exitCode } = await testBin([
       '--port',
       port,
-      '--client-transport',
+      '--client-web-socket-transport',
       'sockjs',
     ]);
 
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--client-transport ws"', async () => {
+  it('should work using "--client-web-socket-transport ws"', async () => {
     const { exitCode } = await testBin([
       '--port',
       port,
-      '--client-transport',
+      '--client-web-socket-transport',
       'ws',
     ]);
 

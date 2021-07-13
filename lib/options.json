@@ -104,7 +104,7 @@
           "$ref": "#/definitions/ClientWebSocketTransportString"
         }
       ],
-      "description": "Allows to set custom transport to communicate with dev server."
+      "description": "Allows to set custom web socket transport to communicate with dev server."
     },
     "ClientWebSocketTransportEnum": {
       "enum": ["sockjs", "ws"]

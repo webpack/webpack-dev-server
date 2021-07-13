@@ -126,7 +126,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
    Details:
     * options.client.webSocketTransport should be one of these:
       \\"sockjs\\" | \\"ws\\" | non-empty string
-      -> Allows to set custom transport to communicate with dev server.
+      -> Allows to set custom web socket transport to communicate with dev server.
       Details:
        * options.client.webSocketTransport should be one of these:
          \\"sockjs\\" | \\"ws\\"
