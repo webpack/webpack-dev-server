@@ -42,6 +42,7 @@ Options:
   --allowed-hosts-reset                     Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts
   --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
   --no-bonjour                              Disallows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour
+  --client-web-socket-transport <value>     Allows to set custom web socket transport to communicate with dev server.
   --no-client                               Negative 'client' option.
   --client-logging <value>                  Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient
   --client-progress                         Prints compilation progress in percentage in the browser.
@@ -52,7 +53,6 @@ Options:
   --no-client-overlay-errors                Negative 'client-overlay-errors' option.
   --client-overlay-warnings                 Enables a full-screen overlay in the browser when there are compiler warnings.
   --no-client-overlay-warnings              Negative 'client-overlay-warnings' option.
-  --client-web-socket-transport <value>     Allows to set custom web socket transport to communicate with dev server.
   --client-web-socket-url <value>           Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
   --client-web-socket-url-hostname <value>  Tells clients connected to devServer to use the provided hostname.
   --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.
