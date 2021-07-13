@@ -55,8 +55,8 @@
             "progress": {
               "$ref": "#/definitions/ClientProgress"
             },
-            "transport": {
-              "$ref": "#/definitions/ClientTransport"
+            "webSocketTransport": {
+              "$ref": "#/definitions/ClientWebSocketTransport"
             },
             "webSocketURL": {
               "$ref": "#/definitions/ClientWebSocketURL"
@@ -95,21 +95,21 @@
       "description": "Prints compilation progress in percentage in the browser.",
       "type": "boolean"
     },
-    "ClientTransport": {
+    "ClientWebSocketTransport": {
       "anyOf": [
         {
-          "$ref": "#/definitions/ClientTransportEnum"
+          "$ref": "#/definitions/ClientWebSocketTransportEnum"
         },
         {
-          "$ref": "#/definitions/ClientTransportString"
+          "$ref": "#/definitions/ClientWebSocketTransportString"
         }
       ],
-      "description": "Allows to set custom transport to communicate with dev server."
+      "description": "Allows to set custom web socket transport to communicate with dev server."
     },
-    "ClientTransportEnum": {
+    "ClientWebSocketTransportEnum": {
       "enum": ["sockjs", "ws"]
     },
-    "ClientTransportString": {
+    "ClientWebSocketTransportString": {
       "type": "string",
       "minLength": 1
     },
