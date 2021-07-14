@@ -102,11 +102,12 @@ module.exports = {
         values: ['none', 'error', 'warn', 'info', 'log', 'verbose'],
         multiple: false,
         description:
-          'Allows to specify options for client script in the browser.',
+          'Allows to specify options for client script in the browser or disable client script.',
         path: 'client.logging',
       },
     ],
-    description: 'Allows to specify options for client script in the browser.',
+    description:
+      'Allows to specify options for client script in the browser or disable client script.',
     simpleType: 'string',
     multiple: false,
   },
