@@ -18,7 +18,8 @@
           "$ref": "#/definitions/AllowedHostsItem"
         }
       ],
-      "description": "Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto'). https://webpack.js.org/configuration/dev-server/#devserverallowedhosts"
+      "description": "Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverallowedhosts"
     },
     "AllowedHostsItem": {
       "type": "string",
@@ -31,13 +32,16 @@
         },
         {
           "type": "object",
-          "description": "Options for bonjour, description available at https://github.com/watson/bonjour#initializing"
+          "description": "Options for bonjour.",
+          "link": "https://github.com/watson/bonjour#initializing"
         }
       ],
-      "description": "Allows to broadcasts dev server via ZeroConf networking on start. https://webpack.js.org/configuration/dev-server/#devserverbonjour"
+      "description": "Allows to broadcasts dev server via ZeroConf networking on start.",
+      "link": " https://webpack.js.org/configuration/dev-server/#devserverbonjour"
     },
     "Client": {
-      "description": "Allows to specify options for client script in the browser or disable client script. https://webpack.js.org/configuration/dev-server/#devserverclient",
+      "description": "Allows to specify options for client script in the browser or disable client script.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverclient",
       "anyOf": [
         {
           "enum": [false]
@@ -171,16 +175,19 @@
     },
     "Compress": {
       "type": "boolean",
-      "description": "Enables gzip compression for everything served. https://webpack.js.org/configuration/dev-server/#devservercompress"
+      "description": "Enables gzip compression for everything served.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devservercompress"
     },
     "DevMiddleware": {
-      "description": "Provide options to 'webpack-dev-middleware' which handles webpack assets. https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware",
+      "description": "Provide options to 'webpack-dev-middleware' which handles webpack assets.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware",
       "type": "object",
       "additionalProperties": true
     },
     "HTTP2": {
       "type": "boolean",
-      "description": "Allows to serve over HTTP/2 using SPDY. https://webpack.js.org/configuration/dev-server/#devserverhttp2"
+      "description": "Allows to serve over HTTP/2 using SPDY.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhttp2"
     },
     "HTTPS": {
       "anyOf": [
@@ -246,7 +253,8 @@
           }
         }
       ],
-      "description": "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). https://webpack.js.org/configuration/dev-server/#devserverhttps"
+      "description": "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhttps"
     },
     "Headers": {
       "anyOf": [
@@ -257,7 +265,8 @@
           "instanceof": "Function"
         }
       ],
-      "description": "Allows to set custom headers on response. https://webpack.js.org/configuration/dev-server/#devserverheaders"
+      "description": "Allows to set custom headers on response.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverheaders"
     },
     "HistoryApiFallback": {
       "anyOf": [
@@ -266,15 +275,18 @@
         },
         {
           "type": "object",
-          "description": "Options for `historyApiFallback`, description available at https://github.com/bripkens/connect-history-api-fallback#options"
+          "description": "Options for `historyApiFallback`.",
+          "link": "https://github.com/bripkens/connect-history-api-fallback#options"
         }
       ],
-      "description": "Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API. https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback"
+      "description": "Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback"
     },
     "Host": {
       "type": "string",
       "minLength": 1,
-      "description": "Allows to specify a hostname to use. https://webpack.js.org/configuration/dev-server/#devserverhost"
+      "description": "Allows to specify a hostname to use.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhost"
     },
     "Hot": {
       "anyOf": [
@@ -285,7 +297,8 @@
           "enum": ["only"]
         }
       ],
-      "description": "Enables Hot Module Replacement. https://webpack.js.org/configuration/dev-server/#devserverhot"
+      "description": "Enables Hot Module Replacement.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhot"
     },
     "IPC": {
       "anyOf": [
@@ -298,23 +311,28 @@
           "enum": [true]
         }
       ],
-      "description": "Listen to a unix socket. https://webpack.js.org/configuration/dev-server/#devserveripc"
+      "description": "Listen to a unix socket.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserveripc"
     },
     "LiveReload": {
       "type": "boolean",
-      "description": "Enables reload/refresh the page(s) when file changes are detected (enabled by default). https://webpack.js.org/configuration/dev-server/#devserverlivereload"
+      "description": "Enables reload/refresh the page(s) when file changes are detected (enabled by default).",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverlivereload"
     },
     "OnAfterSetupMiddleware": {
       "instanceof": "Function",
-      "description": "Provides the ability to execute a custom function and apply custom middleware(s) after all other middlewares. https://webpack.js.org/configuration/dev-server/#devserveronaftersetupmiddleware"
+      "description": "Provides the ability to execute a custom function and apply custom middleware(s) after all other middlewares.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserveronaftersetupmiddleware"
     },
     "OnBeforeSetupMiddleware": {
       "instanceof": "Function",
-      "description": "Provides the ability to execute a custom function and apply custom middleware(s) prior to all other middlewares. https://webpack.js.org/configuration/dev-server/#devserveronbeforesetupmiddleware"
+      "description": "Provides the ability to execute a custom function and apply custom middleware(s) prior to all other middlewares.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserveronbeforesetupmiddleware"
     },
     "OnListening": {
       "instanceof": "Function",
-      "description": "Provides the ability to execute a custom function when dev server starts listening. https://webpack.js.org/configuration/dev-server/#devserveronlistening"
+      "description": "Provides the ability to execute a custom function when dev server starts listening.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserveronlistening"
     },
     "Open": {
       "anyOf": [
@@ -341,7 +359,8 @@
           "$ref": "#/definitions/OpenObject"
         }
       ],
-      "description": "Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser). https://webpack.js.org/configuration/dev-server/#devserveropen"
+      "description": "Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserveropen"
     },
     "OpenBoolean": {
       "type": "boolean"
@@ -420,7 +439,8 @@
           "enum": ["auto"]
         }
       ],
-      "description": "Allows to specify a port to use. https://webpack.js.org/configuration/dev-server/#devserverport"
+      "description": "Allows to specify a port to use.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverport"
     },
     "Proxy": {
       "anyOf": [
@@ -441,11 +461,13 @@
           }
         }
       ],
-      "description": "Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain. https://webpack.js.org/configuration/dev-server/#devserverproxy"
+      "description": "Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverproxy"
     },
     "SetupExitSignals": {
       "type": "boolean",
-      "description": "Allows to close dev server and exit the process on SIGINT and SIGTERM signals (enabled by default for CLI). https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals",
+      "description": "Allows to close dev server and exit the process on SIGINT and SIGTERM signals (enabled by default for CLI).",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserversetupexitsignals",
       "cli": {
         "exclude": true
       }
@@ -475,7 +497,8 @@
           "$ref": "#/definitions/StaticObject"
         }
       ],
-      "description": "Allows to configure options for serving static files from directory (by default 'public' directory). https://webpack.js.org/configuration/dev-server/#devserverstatic"
+      "description": "Allows to configure options for serving static files from directory (by default 'public' directory).",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverstatic"
     },
     "StaticObject": {
       "type": "object",
@@ -524,7 +547,8 @@
             },
             {
               "type": "object",
-              "description": "Options for watch, description available at https://github.com/paulmillr/chokidar#api"
+              "description": "Options for watch.",
+              "link": "https://github.com/paulmillr/chokidar#api"
             }
           ],
           "description": "Watches for files in static content directory."
@@ -557,7 +581,8 @@
           "$ref": "#/definitions/WatchFilesObject"
         }
       ],
-      "description": "Allows to configure list of globs/directories/files to watch for file changes. https://webpack.js.org/configuration/dev-server/#devserverwatchfiles"
+      "description": "Allows to configure list of globs/directories/files to watch for file changes.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverwatchfiles"
     },
     "WatchFilesObject": {
       "cli": {
@@ -606,7 +631,8 @@
           "$ref": "#/definitions/WebSocketServerObject"
         }
       ],
-      "description": "Allows to set web socket server and options (by default 'ws'). https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver"
+      "description": "Allows to set web socket server and options (by default 'ws').",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver"
     },
     "WebSocketServerEnum": {
       "enum": ["sockjs", "ws"]
