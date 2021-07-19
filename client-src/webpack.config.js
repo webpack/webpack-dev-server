@@ -48,6 +48,10 @@ module.exports = [
       ],
     },
     plugins: [
+      new webpack.DefinePlugin({
+        Symbol:
+          '(typeof Symbol !== "undefined" ? Symbol : function (i) { return i; })',
+      }),
       new webpack.NormalModuleReplacementPlugin(
         /^tapable\/lib\/SyncBailHook/,
         path.join(__dirname, 'modules/logger/SyncBailHookFake.js')
