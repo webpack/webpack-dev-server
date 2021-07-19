@@ -212,7 +212,7 @@ describe('hot and live reload', () => {
     },
     {
       title:
-        'should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-live-reload=false"',
+        'should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-hot=false&webpack-dev-server-live-reload=false"',
       query:
         '?webpack-dev-server-hot=false&webpack-dev-server-live-reload=false',
       options: {
