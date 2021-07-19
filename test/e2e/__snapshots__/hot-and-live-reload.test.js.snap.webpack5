@@ -1,14 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): console messages 1`] = `Array []`;
+exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): console messages 1`] = `
+Array [
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): page errors 1`] = `Array []`;
 
-exports[`hot and live reload should not refresh content when hot and no live reload disabled (sockjs): console messages 1`] = `Array []`;
+exports[`hot and live reload should not refresh content when hot and no live reload disabled (sockjs): console messages 1`] = `
+Array [
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (sockjs): page errors 1`] = `Array []`;
 
-exports[`hot and live reload should not refresh content when hot and no live reload disabled (ws): console messages 1`] = `Array []`;
+exports[`hot and live reload should not refresh content when hot and no live reload disabled (ws): console messages 1`] = `
+Array [
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (ws): page errors 1`] = `Array []`;
 
@@ -46,6 +58,17 @@ Array [
 `;
 
 exports[`hot and live reload should work and allow to disable live reload using the "webpack-dev-server-live-reload=false" (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work and do nothing when web socket server disabled (default): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "WebSocket connection to 'ws://localhost:8095/ws' failed: Error during WebSocket handshake: Unexpected response code: 404",
+  "[webpack-dev-server] JSHandle@object",
+  "[webpack-dev-server] Disconnected!",
+]
+`;
+
+exports[`hot and live reload should work and do nothing when web socket server disabled (default): page errors 1`] = `Array []`;
 
 exports[`hot and live reload should work and refresh content using hot module replacement (default): console messages 1`] = `
 Array [

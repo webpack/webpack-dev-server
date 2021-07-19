@@ -284,10 +284,11 @@ describe('hot and live reload', () => {
 
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
+      const testDevServerOptions = mode.options || {};
       const devServerOptions = {
         host: '0.0.0.0',
         port,
-        ...mode.options,
+        ...testDevServerOptions,
       };
       const server = new Server(devServerOptions, compiler);
 
@@ -318,22 +319,21 @@ describe('hot and live reload', () => {
       });
 
       const hot =
-        mode.options && typeof mode.options.hot !== 'undefined'
-          ? mode.options.hot
+        typeof testDevServerOptions.hot !== 'undefined'
+          ? testDevServerOptions.hot
           : true;
       const liveReload =
-        mode.options && typeof mode.options.liveReload !== 'undefined'
-          ? mode.options.liveReload
+        typeof testDevServerOptions.liveReload !== 'undefined'
+          ? testDevServerOptions.liveReload
           : true;
       const webSocketServerLaunched =
-        mode.options && mode.options.webSocketServer !== false;
+        testDevServerOptions.webSocketServer !== false;
 
       await new Promise((resolve) => {
         const webSocketTransport =
-          mode.options &&
-          typeof mode.options.webSocketServer !== 'undefined' &&
-          mode.options.webSocketServer !== false
-            ? mode.options.webSocketServer
+          typeof testDevServerOptions.webSocketServer !== 'undefined' &&
+          testDevServerOptions.webSocketServer !== false
+            ? testDevServerOptions.webSocketServer
             : 'ws';
 
         if (webSocketTransport === 'ws') {
