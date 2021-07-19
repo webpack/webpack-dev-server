@@ -159,6 +159,7 @@ Options:
   --watch-files-reset                       Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files
                                             to watch for file changes.
   --web-socket-server <value>               Allows to set web socket server and options (by default 'ws').
+  --no-web-socket-server                    Negative 'web-socket-server' option.
 
 Global options:
   --color                                   Enable colors on console.

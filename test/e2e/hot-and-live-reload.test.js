@@ -28,6 +28,12 @@ describe('hot and live reload', () => {
     {
       title: 'should work and refresh content using hot module replacement',
     },
+    {
+      title: 'should work and do nothing when web socket server disabled',
+      options: {
+        webSocketServer: false,
+      },
+    },
     // Default web socket serve ("ws")
     {
       title:
@@ -45,7 +51,6 @@ describe('hot and live reload', () => {
     },
     {
       title: 'should not refresh content when hot and no live reload disabled',
-      noWebSocketServer: true,
       options: {
         hot: false,
         liveReload: false,
@@ -93,7 +98,6 @@ describe('hot and live reload', () => {
     },
     {
       title: 'should not refresh content when hot and no live reload disabled',
-      noWebSocketServer: true,
       options: {
         webSocketServer: 'ws',
         hot: false,
@@ -150,7 +154,6 @@ describe('hot and live reload', () => {
     },
     {
       title: 'should not refresh content when hot and no live reload disabled',
-      noWebSocketServer: true,
       options: {
         allowedHosts: 'all',
 
@@ -281,10 +284,11 @@ describe('hot and live reload', () => {
 
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
+      const testDevServerOptions = mode.options || {};
       const devServerOptions = {
         host: '0.0.0.0',
         port,
-        ...mode.options,
+        ...testDevServerOptions,
       };
       const server = new Server(devServerOptions, compiler);
 
@@ -315,23 +319,24 @@ describe('hot and live reload', () => {
       });
 
       const hot =
-        mode.options && typeof mode.options.hot !== 'undefined'
-          ? mode.options.hot
+        typeof testDevServerOptions.hot !== 'undefined'
+          ? testDevServerOptions.hot
           : true;
       const liveReload =
-        mode.options && typeof mode.options.liveReload !== 'undefined'
-          ? mode.options.liveReload
+        typeof testDevServerOptions.liveReload !== 'undefined'
+          ? testDevServerOptions.liveReload
           : true;
+      const webSocketServerLaunched =
+        testDevServerOptions.webSocketServer !== false;
 
       await new Promise((resolve) => {
-        const webSocketServer =
-          mode.options && typeof mode.options.webSocketServer !== 'undefined'
-            ? mode.options.webSocketServer
+        const webSocketTransport =
+          typeof testDevServerOptions.webSocketServer !== 'undefined' &&
+          testDevServerOptions.webSocketServer !== false
+            ? testDevServerOptions.webSocketServer
             : 'ws';
 
-        const webSocketServerLaunched = hot || liveReload;
-
-        if (webSocketServer === 'ws') {
+        if (webSocketTransport === 'ws') {
           const ws = new WebSocket(
             `ws://127.0.0.1:${devServerOptions.port}/ws`,
             {
@@ -347,13 +352,13 @@ describe('hot and live reload', () => {
           let errored = false;
 
           ws.on('error', (error) => {
-            if (webSocketServerLaunched) {
+            if (!webSocketServerLaunched && /404/.test(error)) {
               errored = true;
-            } else if (!webSocketServerLaunched && /404/.test(error)) {
+            } else {
               errored = true;
-
-              ws.close();
             }
+
+            ws.close();
           });
 
           ws.on('open', () => {
@@ -371,7 +376,7 @@ describe('hot and live reload', () => {
           });
 
           ws.on('close', () => {
-            if (webSocketServerLaunched && opened && received && !errored) {
+            if (opened && received && !errored) {
               resolve();
             } else if (!webSocketServerLaunched && errored) {
               resolve();
@@ -405,13 +410,9 @@ describe('hot and live reload', () => {
           };
 
           sockjs.onclose = (event) => {
-            if (webSocketServerLaunched && opened && received && !errored) {
+            if (opened && received && !errored) {
               resolve();
-            } else if (
-              !webSocketServerLaunched &&
-              event &&
-              event.reason === 'Cannot connect to server'
-            ) {
+            } else if (event && event.reason === 'Cannot connect to server') {
               resolve();
             }
           };
@@ -485,6 +486,7 @@ describe('hot and live reload', () => {
       }
 
       if (
+        webSocketServerLaunched &&
         allowToHotModuleReplacement &&
         ((hot && liveReload) || (hot && !liveReload))
       ) {
@@ -495,12 +497,12 @@ describe('hot and live reload', () => {
         );
 
         expect(doneHotUpdate).toBe(true);
-      } else if (liveReload && allowToLiveReload) {
+      } else if (webSocketServerLaunched && liveReload && allowToLiveReload) {
         await page.waitForNavigation({
           waitUntil: 'networkidle0',
         });
       } else {
-        if (!mode.noWebSocketServer) {
+        if (webSocketServerLaunched) {
           await new Promise((resolve) => {
             const interval = setInterval(() => {
               if (consoleMessages.includes(INVALID_MESSAGE)) {

@@ -61,6 +61,7 @@ Options:
   --client-web-socket-url-username <value>  Tells clients connected to devServer to use the provided username to authenticate.
   --client-web-socket-url-password <value>  Tells clients connected to devServer to use the provided password to authenticate.
   --web-socket-server <value>               Allows to set web socket server and options (by default 'ws').
+  --no-web-socket-server                    Negative 'web-socket-server' option.
   --compress                                Enables gzip compression for everything served.
   --no-compress                             Disables gzip compression for everything served.
   --history-api-fallback                    Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API.

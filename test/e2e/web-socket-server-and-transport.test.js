@@ -463,6 +463,8 @@ describe('web socket server and transport', () => {
   });
 
   it('should throw an error on wrong path', async () => {
+    expect.assertions(1);
+
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -472,24 +474,27 @@ describe('web socket server and transport', () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await expect(
-      async () =>
-        new Promise((resolve, reject) => {
-          server.listen(
-            devServerOptions.port,
-            devServerOptions.host,
-            (error) => {
-              if (error) {
-                reject(error);
+    try {
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
 
-                return;
-              }
+            return;
+          }
 
-              resolve();
-            }
-          );
-        })
-    ).rejects.toThrowErrorMatchingSnapshot();
+          resolve();
+        });
+      });
+    } catch (error) {
+      expect(error.message).toMatchSnapshot();
+    }
+
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
+    });
   });
 
   it('should use "sockjs" transport, when web socket server is not specify', async () => {

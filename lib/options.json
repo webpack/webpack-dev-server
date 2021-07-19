@@ -635,7 +635,7 @@
       "link": "https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver"
     },
     "WebSocketServerEnum": {
-      "enum": ["sockjs", "ws"]
+      "enum": [false, "sockjs", "ws"]
     },
     "WebSocketServerFunction": {
       "instanceof": "Function"
