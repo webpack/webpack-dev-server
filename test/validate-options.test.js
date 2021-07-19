@@ -331,6 +331,7 @@ const tests = {
   },
   webSocketServer: {
     success: [
+      false,
       'ws',
       'sockjs',
       {
@@ -352,7 +353,7 @@ const tests = {
     ],
     failure: [
       null,
-      false,
+      true,
       {
         notAnOption: true,
       },

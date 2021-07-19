@@ -666,43 +666,43 @@ exports[`options validate should throw an error on the "webSocketServer" option 
 exports[`options validate should throw an error on the "webSocketServer" option with '{"type":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
-   \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
+   false | \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
    -> Allows to set web socket server and options (by default 'ws').
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
    Details:
     * options.webSocketServer.type should be one of these:
-      \\"sockjs\\" | \\"ws\\" | non-empty string | function
+      false | \\"sockjs\\" | \\"ws\\" | non-empty string | function
       Details:
        * options.webSocketServer.type should be one of these:
-         \\"sockjs\\" | \\"ws\\"
+         false | \\"sockjs\\" | \\"ws\\"
        * options.webSocketServer.type should be a non-empty string.
        * options.webSocketServer.type should be an instance of function."
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with 'false' value 1`] = `
+exports[`options validate should throw an error on the "webSocketServer" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
-   \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
+   false | \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
    -> Allows to set web socket server and options (by default 'ws').
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
    Details:
     * options.webSocketServer should be one of these:
-      \\"sockjs\\" | \\"ws\\"
+      false | \\"sockjs\\" | \\"ws\\"
     * options.webSocketServer should be a non-empty string.
     * options.webSocketServer should be an instance of function.
     * options.webSocketServer should be an object:
       object { type?, options? }"
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with 'null' value 1`] = `
+exports[`options validate should throw an error on the "webSocketServer" option with 'true' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
-   \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
+   false | \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
    -> Allows to set web socket server and options (by default 'ws').
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
    Details:
     * options.webSocketServer should be one of these:
-      \\"sockjs\\" | \\"ws\\"
+      false | \\"sockjs\\" | \\"ws\\"
     * options.webSocketServer should be a non-empty string.
     * options.webSocketServer should be an instance of function.
     * options.webSocketServer should be an object:
