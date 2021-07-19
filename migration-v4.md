@@ -128,7 +128,7 @@ module.exports = {
 - `filename` and `lazy` options were removed in favor [experiments.lazyCompilation](https://webpack.js.org/configuration/experiments/#experimentslazycompilation)
 - the `inline` (`iframe` live mode) option was removed without replacement
 - `log`, `logLevel`, `logTime`, `quiet`, `noInfo` and `reporter` options were removed without replacement, [now we use built-in logger](https://webpack.js.org/configuration/other-options/#infrastructurelogging)
-- the `useLocalIp` option was removed in favor of `host: 'local-ip'/'local-ipv4'/'local-ipv6'`.
+- the `useLocalIp` option was removed in favor of `host: 'local-ip'/'local-ipv4'/'local-ipv6'`
 
 v3:
 
@@ -151,8 +151,8 @@ module.exports = {
 ```
 
 - `host`/`port` options can't be `null` or empty string, please use `host: 'local-ip'` or `port: "auto"`
-- the `warn` option was removed in favor of [ignoreWarnings](https://webpack.js.org/configuration/other-options/#ignorewarnings).
-- `fs`, `index`, `mimeTypes`, `publicPath`, `serverSideRender`, `stats` and `writeToDisk` (related to [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware)) were moved to `devMiddleware` option.
+- the `warn` option was removed in favor of [ignoreWarnings](https://webpack.js.org/configuration/other-options/#ignorewarnings)
+- `fs`, `index`, `mimeTypes`, `publicPath`, `serverSideRender`, `stats` and `writeToDisk` (related to [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware)) were moved to `devMiddleware` option
 
 v3:
 
@@ -336,7 +336,7 @@ module.exports = {
 };
 ```
 
-- the `disableHostCheck` option was removed in favor `allowedHosts: 'all'`.
+- the `disableHostCheck` option was removed in favor `allowedHosts: 'all'`
 
 v3:
 
@@ -358,7 +358,7 @@ module.exports = {
 };
 ```
 
-- the `openPage` option was removed in favor the `open` option
+- `open` and `openPage` options were union in favor the `open` option
 
 v3:
 
@@ -382,16 +382,27 @@ module.exports = {
 };
 ```
 
-- `transportMode.client`/`transportMode.server` options were removed in favor `client.webSocketTransport` and `webSocketServer`
+```js
+module.exports = {
+  devServer: {
+    open: {
+      target: ['first.html', `http://localhost:8080/second.html`],
+      app: {
+        name: 'google-chrome',
+        arguments: ['--incognito', '--new-window'],
+      },
+    },
+  },
+};
+```
+
+- `transportMode` (i.e. `transportMode.client`/`transportMode.server` options) were removed in favor `client.webSocketTransport` and `webSocketServer`
 
 v3:
 
 ```js
 module.exports = {
-  transportMode: {
-    client: 'ws',
-    server: 'ws',
-  },
+  transportMode: 'ws',
 };
 ```
 
@@ -409,9 +420,7 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    client: {
-      webSocketTransport: 'ws',
-    },
+    // webSocketServer: 'sockjs',
     webSocketServer: 'ws',
   },
 };
@@ -445,6 +454,9 @@ module.exports = {
 - support `bonjour` options
 - the `headers` option can be `Function` type
 - overlay can be closed in browser
+- the `allowedHosts` option can be `auto` or custom string with your domain (i.e. default value)
+- the `static` option can be disabled using `static: false`
+- the `profile` option were in favor [`ProfilingPlugin`](https://webpack.js.org/plugins/profiling-plugin/)
 
 ### Bug Fixes
 
@@ -486,4 +498,4 @@ There are a lot of other bug fixes.
   };
   ```
 
-  IE8 is not supported
+  IE8 is not supported, sorry
