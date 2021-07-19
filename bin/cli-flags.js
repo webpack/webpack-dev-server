@@ -298,7 +298,7 @@ module.exports = {
     configs: [
       {
         type: 'enum',
-        values: ['sockjs', 'ws'],
+        values: [false, 'sockjs', 'ws'],
         multiple: false,
         description:
           "Allows to set web socket server and options (by default 'ws').",
