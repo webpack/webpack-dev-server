@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const WebSocket = require('ws');
-const Server = require('../../lib/Server');
-const WebsocketServer = require('../../lib/servers/WebsocketServer');
-const config = require('../fixtures/client-config/webpack.config');
-const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map')['web-socket-communication'];
+const webpack = require("webpack");
+const WebSocket = require("ws");
+const Server = require("../../lib/Server");
+const WebsocketServer = require("../../lib/servers/WebsocketServer");
+const config = require("../fixtures/client-config/webpack.config");
+const runBrowser = require("../helpers/run-browser");
+const port = require("../ports-map")["web-socket-communication"];
 
-describe('web socket communication', () => {
-  const webSocketServers = ['ws', 'sockjs'];
+describe("web socket communication", () => {
+  const webSocketServers = ["ws", "sockjs"];
 
   webSocketServers.forEach((websocketServer) => {
     it(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async () => {
@@ -17,7 +17,7 @@ describe('web socket communication', () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: '127.0.0.1',
+        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
@@ -41,15 +41,15 @@ describe('web socket communication', () => {
       const consoleMessages = [];
 
       page
-        .on('console', (message) => {
+        .on("console", (message) => {
           consoleMessages.push(message);
         })
-        .on('pageerror', (error) => {
+        .on("pageerror", (error) => {
           pageErrors.push(error);
         });
 
       await page.goto(`http://127.0.0.1:${port}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       await new Promise((resolve, reject) => {
@@ -74,9 +74,9 @@ describe('web socket communication', () => {
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
+        "console messages"
       );
-      expect(pageErrors).toMatchSnapshot('page errors');
+      expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
       await new Promise((resolve, reject) => {
@@ -97,7 +97,7 @@ describe('web socket communication', () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: '127.0.0.1',
+        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
@@ -121,15 +121,15 @@ describe('web socket communication', () => {
       const consoleMessages = [];
 
       page
-        .on('console', (message) => {
+        .on("console", (message) => {
           consoleMessages.push(message);
         })
-        .on('pageerror', (error) => {
+        .on("pageerror", (error) => {
           pageErrors.push(error);
         });
 
       await page.goto(`http://127.0.0.1:${port}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
       await browser.close();
 
@@ -142,9 +142,9 @@ describe('web socket communication', () => {
 
       expect(server.webSocketServer.clients.size).toBe(0);
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
+        "console messages"
       );
-      expect(pageErrors).toMatchSnapshot('page errors');
+      expect(pageErrors).toMatchSnapshot("page errors");
 
       await new Promise((resolve, reject) => {
         server.close((error) => {
@@ -164,7 +164,7 @@ describe('web socket communication', () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: '127.0.0.1',
+        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
@@ -188,15 +188,15 @@ describe('web socket communication', () => {
       const consoleMessages = [];
 
       page
-        .on('console', (message) => {
+        .on("console", (message) => {
           consoleMessages.push(message);
         })
-        .on('pageerror', (error) => {
+        .on("pageerror", (error) => {
           pageErrors.push(error);
         });
 
       await page.goto(`http://127.0.0.1:${port}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       await new Promise((resolve, reject) => {
@@ -224,13 +224,13 @@ describe('web socket communication', () => {
       });
 
       await page.waitForNavigation({
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
+        "console messages"
       );
-      expect(pageErrors).toMatchSnapshot('page errors');
+      expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
       await new Promise((resolve, reject) => {
@@ -252,9 +252,9 @@ describe('web socket communication', () => {
 
     const compiler = webpack(config);
     const devServerOptions = {
-      host: '127.0.0.1',
+      host: "127.0.0.1",
       port,
-      webSocketServer: 'ws',
+      webSocketServer: "ws",
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -283,29 +283,29 @@ describe('web socket communication', () => {
       let opened = false;
       let received = false;
 
-      ws.on('open', () => {
+      ws.on("open", () => {
         opened = true;
       });
 
-      ws.on('error', (error) => {
+      ws.on("error", (error) => {
         reject(error);
       });
 
-      ws.on('ping', () => {
+      ws.on("ping", () => {
         if (opened && received) {
           ws.close();
         }
       });
 
-      ws.on('message', (data) => {
+      ws.on("message", (data) => {
         const message = JSON.parse(data);
 
-        if (message.type === 'ok') {
+        if (message.type === "ok") {
           received = true;
         }
       });
 
-      ws.on('close', () => {
+      ws.on("close", () => {
         resolve();
       });
     });

@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
-const { resolve } = require('path');
-const ExitOnDonePlugin = require('../../helpers/ExitOnDonePlugin');
+const { resolve } = require("path");
+const ExitOnDonePlugin = require("../../helpers/ExitOnDonePlugin");
 
 module.exports = {
-  mode: 'development',
-  stats: 'detailed',
+  mode: "development",
+  stats: "detailed",
   context: __dirname,
   entry: {
-    foo: resolve(__dirname, './foo.js'),
-    bar: resolve(__dirname, './bar.js'),
+    foo: resolve(__dirname, "./foo.js"),
+    bar: resolve(__dirname, "./bar.js"),
   },
   devServer: {
-    webSocketServer: 'ws',
+    webSocketServer: "ws",
   },
   plugins: [ExitOnDonePlugin],
 };

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /* global __webpack_dev_server_client__ */
 /* eslint-disable
@@ -7,10 +7,10 @@
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
 const Client =
-  typeof __webpack_dev_server_client__ !== 'undefined'
+  typeof __webpack_dev_server_client__ !== "undefined"
     ? __webpack_dev_server_client__
     : // eslint-disable-next-line import/no-unresolved
-      require('./clients/WebsocketClient');
+      require("./clients/WebsocketClient");
 
 let retries = 0;
 let client = null;

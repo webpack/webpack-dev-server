@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['on-listening-option'];
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/simple-config/webpack.config");
+const port = require("../ports-map")["on-listening-option"];
 
-describe('onListening option', () => {
+describe("onListening option", () => {
   let server;
   let onListeningIsRunning = false;
 
@@ -16,7 +16,7 @@ describe('onListening option', () => {
       {
         onListening: (devServer) => {
           if (!devServer) {
-            throw new Error('webpack-dev-server is not defined');
+            throw new Error("webpack-dev-server is not defined");
           }
 
           onListeningIsRunning = true;
@@ -27,7 +27,7 @@ describe('onListening option', () => {
     );
 
     await new Promise((resolve, reject) => {
-      server.listen(port, '127.0.0.1', (error) => {
+      server.listen(port, "127.0.0.1", (error) => {
         if (error) {
           reject(error);
 
@@ -47,7 +47,7 @@ describe('onListening option', () => {
     });
   });
 
-  it('should runs onListening callback', () => {
+  it("should runs onListening callback", () => {
     expect(onListeningIsRunning).toBe(true);
   });
 });

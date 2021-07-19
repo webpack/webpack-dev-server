@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-require('./example');
+require("./example");
 
 if (module.hot) {
   module.hot.accept((err) => {
     if (err) {
-      console.error('Cannot apply HMR update.', err);
+      console.error("Cannot apply HMR update.", err);
     }
   });
 }

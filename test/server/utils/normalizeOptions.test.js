@@ -1,67 +1,67 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const webpack = require('webpack');
-const normalizeOptions = require('../../../lib/utils/normalizeOptions');
+const path = require("path");
+const webpack = require("webpack");
+const normalizeOptions = require("../../../lib/utils/normalizeOptions");
 
-describe('normalizeOptions', () => {
+describe("normalizeOptions", () => {
   const cases = [
     {
-      title: 'no options',
+      title: "no options",
       multiCompiler: false,
       options: {},
       optionsResults: null,
     },
     {
-      title: 'port string',
+      title: "port string",
       multiCompiler: false,
       options: {
-        port: '9000',
+        port: "9000",
       },
       optionsResults: null,
     },
     {
-      title: 'client.webSocketTransport sockjs string',
+      title: "client.webSocketTransport sockjs string",
       multiCompiler: false,
       options: {
         client: {
-          webSocketTransport: 'sockjs',
+          webSocketTransport: "sockjs",
         },
       },
       optionsResults: null,
     },
     {
-      title: 'client.webSocketTransport ws string',
+      title: "client.webSocketTransport ws string",
       multiCompiler: false,
       options: {
         client: {
-          webSocketTransport: 'ws',
+          webSocketTransport: "ws",
         },
       },
       optionsResults: null,
     },
     {
       title:
-        'client.webSocketTransport ws string and webSocketServer ws string',
+        "client.webSocketTransport ws string and webSocketServer ws string",
       multiCompiler: false,
       options: {
         client: {
-          webSocketTransport: 'ws',
+          webSocketTransport: "ws",
         },
-        webSocketServer: 'ws',
+        webSocketServer: "ws",
       },
       optionsResults: null,
     },
     {
-      title: 'webSocketServer custom server path',
+      title: "webSocketServer custom server path",
       multiCompiler: false,
       options: {
-        webSocketServer: '/path/to/custom/server/',
+        webSocketServer: "/path/to/custom/server/",
       },
       optionsResults: null,
     },
     {
-      title: 'webSocketServer custom server class',
+      title: "webSocketServer custom server class",
       multiCompiler: false,
       options: {
         webSocketServer: class CustomServerImplementation {},
@@ -69,18 +69,18 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'client.webSocketTransport ws string and webSocketServer object',
+      title: "client.webSocketTransport ws string and webSocketServer object",
       multiCompiler: false,
       options: {
         client: {
-          webSocketTransport: 'ws',
+          webSocketTransport: "ws",
         },
         webSocketServer: {
-          type: 'ws',
+          type: "ws",
           options: {
-            host: 'myhost',
+            host: "myhost",
             port: 9999,
-            path: '/ws',
+            path: "/ws",
           },
         },
       },
@@ -88,40 +88,40 @@ describe('normalizeOptions', () => {
     },
     {
       title:
-        'client.webSocketTransport ws string and webSocketServer object with port as string',
+        "client.webSocketTransport ws string and webSocketServer object with port as string",
       multiCompiler: false,
       options: {
         client: {
-          webSocketTransport: 'ws',
+          webSocketTransport: "ws",
         },
         webSocketServer: {
-          type: 'ws',
+          type: "ws",
           options: {
-            host: 'myhost',
-            port: '8080',
-            path: '/ws',
+            host: "myhost",
+            port: "8080",
+            path: "/ws",
           },
         },
       },
       optionsResults: null,
     },
     {
-      title: 'client custom webSocketTransport path',
+      title: "client custom webSocketTransport path",
       multiCompiler: false,
       options: {
         client: {
-          webSocketTransport: '/path/to/custom/client/',
+          webSocketTransport: "/path/to/custom/client/",
         },
       },
       optionsResults: null,
     },
     {
-      title: 'client host and port',
+      title: "client host and port",
       multiCompiler: false,
       options: {
         client: {
           webSocketURL: {
-            hostname: 'my.host',
+            hostname: "my.host",
             port: 9000,
           },
         },
@@ -129,57 +129,57 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'client host and string port',
+      title: "client host and string port",
       multiCompiler: false,
       options: {
         client: {
           webSocketURL: {
-            hostname: 'my.host',
-            port: '9000',
+            hostname: "my.host",
+            port: "9000",
           },
         },
       },
       optionsResults: null,
     },
     {
-      title: 'client path',
+      title: "client path",
       multiCompiler: false,
       options: {
         client: {
           webSocketURL: {
-            pathname: '/custom/path/',
+            pathname: "/custom/path/",
           },
         },
       },
       optionsResults: null,
     },
     {
-      title: 'username and password',
+      title: "username and password",
       multiCompiler: false,
       options: {
         client: {
           webSocketURL: {
-            username: 'zenitsu',
-            password: 'chuntaro',
+            username: "zenitsu",
+            password: "chuntaro",
           },
         },
       },
       optionsResults: null,
     },
     {
-      title: 'client path without leading/ending slashes',
+      title: "client path without leading/ending slashes",
       multiCompiler: false,
       options: {
         client: {
           webSocketURL: {
-            pathname: 'custom/path',
+            pathname: "custom/path",
           },
         },
       },
       optionsResults: null,
     },
     {
-      title: 'liveReload is true',
+      title: "liveReload is true",
       multiCompiler: false,
       options: {
         liveReload: true,
@@ -187,7 +187,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'liveReload is false',
+      title: "liveReload is false",
       multiCompiler: false,
       options: {
         liveReload: false,
@@ -195,7 +195,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'hot is true',
+      title: "hot is true",
       multiCompiler: false,
       options: {
         hot: true,
@@ -203,7 +203,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'hot is false',
+      title: "hot is false",
       multiCompiler: false,
       options: {
         hot: false,
@@ -211,15 +211,15 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'hot is only',
+      title: "hot is only",
       multiCompiler: false,
       options: {
-        hot: 'only',
+        hot: "only",
       },
       optionsResults: null,
     },
     {
-      title: 'dev is set',
+      title: "dev is set",
       multiCompiler: false,
       options: {
         devMiddleware: {
@@ -229,7 +229,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static is true',
+      title: "static is true",
       multiCompiler: false,
       options: {
         static: true,
@@ -237,7 +237,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static is false',
+      title: "static is false",
       multiCompiler: false,
       options: {
         static: false,
@@ -245,92 +245,92 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static is string',
+      title: "static is string",
       multiCompiler: false,
       options: {
-        static: '/static/path',
+        static: "/static/path",
       },
       optionsResults: null,
     },
     {
-      title: 'static is an array of strings',
+      title: "static is an array of strings",
       multiCompiler: false,
       options: {
-        static: ['/static/path1', '/static/path2'],
+        static: ["/static/path1", "/static/path2"],
       },
       optionsResults: null,
     },
     {
-      title: 'static is an array of static objects',
+      title: "static is an array of static objects",
       multiCompiler: false,
       options: {
         static: [
           {
-            directory: '/static/path1',
+            directory: "/static/path1",
           },
           {
-            publicPath: '/static/public/path',
+            publicPath: "/static/public/path",
           },
         ],
       },
       optionsResults: null,
     },
     {
-      title: 'static is an array of strings and static objects',
+      title: "static is an array of strings and static objects",
       multiCompiler: false,
       options: {
         static: [
-          '/static/path1',
+          "/static/path1",
           {
-            publicPath: '/static/public/path/',
+            publicPath: "/static/public/path/",
           },
         ],
       },
       optionsResults: null,
     },
     {
-      title: 'static is an object',
+      title: "static is an object",
       multiCompiler: false,
       options: {
         static: {
-          directory: '/static/path',
+          directory: "/static/path",
         },
       },
       optionsResults: null,
     },
     {
-      title: 'static directory is an absolute url and throws error',
+      title: "static directory is an absolute url and throws error",
       multiCompiler: false,
       options: {
         static: {
-          directory: 'http://localhost:8080',
+          directory: "http://localhost:8080",
         },
       },
       optionsResults: null,
-      throws: 'Using a URL as static.directory is not supported',
+      throws: "Using a URL as static.directory is not supported",
     },
     {
-      title: 'static publicPath is a string',
+      title: "static publicPath is a string",
       multiCompiler: false,
       options: {
         static: {
-          publicPath: '/static/public/path/',
-        },
-      },
-      optionsResults: null,
-    },
-    {
-      title: 'static publicPath is an array',
-      multiCompiler: false,
-      options: {
-        static: {
-          publicPath: ['/static/public/path1/', '/static/public/path2/'],
+          publicPath: "/static/public/path/",
         },
       },
       optionsResults: null,
     },
     {
-      title: 'static watch is false',
+      title: "static publicPath is an array",
+      multiCompiler: false,
+      options: {
+        static: {
+          publicPath: ["/static/public/path1/", "/static/public/path2/"],
+        },
+      },
+      optionsResults: null,
+    },
+    {
+      title: "static watch is false",
       multiCompiler: false,
       options: {
         static: {
@@ -340,7 +340,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static watch is true',
+      title: "static watch is true",
       multiCompiler: false,
       options: {
         static: {
@@ -350,7 +350,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static watch is an object',
+      title: "static watch is an object",
       multiCompiler: false,
       options: {
         static: {
@@ -362,7 +362,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static serveIndex is false',
+      title: "static serveIndex is false",
       multiCompiler: false,
       options: {
         static: {
@@ -372,7 +372,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static serveIndex is true',
+      title: "static serveIndex is true",
       multiCompiler: false,
       options: {
         static: {
@@ -382,7 +382,7 @@ describe('normalizeOptions', () => {
       optionsResults: null,
     },
     {
-      title: 'static serveIndex is an object',
+      title: "static serveIndex is an object",
       multiCompiler: false,
       options: {
         static: {
@@ -395,7 +395,7 @@ describe('normalizeOptions', () => {
     },
 
     {
-      title: 'single compiler watchOptions is object',
+      title: "single compiler watchOptions is object",
       multiCompiler: false,
       options: {},
       optionsResults: null,
@@ -407,7 +407,7 @@ describe('normalizeOptions', () => {
       },
     },
     {
-      title: 'single compiler watchOptions is object with watch false',
+      title: "single compiler watchOptions is object with watch false",
       multiCompiler: false,
       options: {},
       optionsResults: null,
@@ -419,7 +419,7 @@ describe('normalizeOptions', () => {
       },
     },
     {
-      title: 'single compiler watchOptions is object with static watch true',
+      title: "single compiler watchOptions is object with static watch true",
       multiCompiler: false,
       options: {
         static: {
@@ -436,7 +436,7 @@ describe('normalizeOptions', () => {
     },
     {
       title:
-        'single compiler watchOptions is object with static watch overriding it',
+        "single compiler watchOptions is object with static watch overriding it",
       multiCompiler: false,
       options: {
         static: {
@@ -454,7 +454,7 @@ describe('normalizeOptions', () => {
       },
     },
     {
-      title: 'multi compiler watchOptions is set',
+      title: "multi compiler watchOptions is set",
       multiCompiler: true,
       options: {},
       optionsResults: null,
@@ -470,10 +470,10 @@ describe('normalizeOptions', () => {
       ],
     },
     {
-      title: 'allowedHosts is set',
+      title: "allowedHosts is set",
       multiCompiler: false,
       options: {
-        allowedHosts: 'all',
+        allowedHosts: "all",
       },
       optionsResults: null,
     },
@@ -485,14 +485,14 @@ describe('normalizeOptions', () => {
       beforeAll(() => {
         let webpackConfig;
         if (data.multiCompiler) {
-          webpackConfig = require('../../fixtures/multi-compiler-config/webpack.config');
+          webpackConfig = require("../../fixtures/multi-compiler-config/webpack.config");
           if (Array.isArray(data.webpackConfig)) {
             webpackConfig = data.webpackConfig.map((config, index) => {
               return { ...webpackConfig[index], ...config };
             });
           }
         } else {
-          webpackConfig = require('../../fixtures/simple-config/webpack.config');
+          webpackConfig = require("../../fixtures/simple-config/webpack.config");
           if (data.webpackConfig) {
             webpackConfig = {
               ...webpackConfig,
@@ -504,7 +504,7 @@ describe('normalizeOptions', () => {
         compiler = webpack(webpackConfig);
       });
 
-      it('should set correct options', () => {
+      it("should set correct options", () => {
         const originalContentBase = data.options.contentBase;
         if (data.throws) {
           expect(() => {
@@ -526,10 +526,10 @@ describe('normalizeOptions', () => {
 
           if (data.options.static) {
             data.options.static.forEach((staticOpts) => {
-              if (staticOpts.directory === path.join(process.cwd(), 'public')) {
+              if (staticOpts.directory === path.join(process.cwd(), "public")) {
                 // give an indication in the snapshot that this is the
                 // current working directory
-                staticOpts.directory = 'CWD';
+                staticOpts.directory = "CWD";
               }
             });
           }

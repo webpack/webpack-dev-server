@@ -2,22 +2,22 @@
  * @jest-environment jsdom
  */
 
-'use strict';
+"use strict";
 
-const http = require('http');
-const express = require('express');
-const ws = require('ws');
-const port = require('../../ports-map')['web-socket-client'];
+const http = require("http");
+const express = require("express");
+const ws = require("ws");
+const port = require("../../ports-map")["web-socket-client"];
 
-jest.setMock('../../../client-src/utils/log', {
+jest.setMock("../../../client-src/utils/log", {
   log: {
     error: jest.fn(),
   },
 });
 
-describe('WebsocketClient', () => {
-  const WebsocketClient = require('../../../client-src/clients/WebsocketClient');
-  const { log } = require('../../../client-src/utils/log');
+describe("WebsocketClient", () => {
+  const WebsocketClient = require("../../../client-src/clients/WebsocketClient");
+  const { log } = require("../../../client-src/utils/log");
 
   let socketServer;
   let server;
@@ -27,19 +27,19 @@ describe('WebsocketClient', () => {
     const app = new express();
 
     server = http.createServer(app);
-    server.listen(port, 'localhost', () => {
+    server.listen(port, "localhost", () => {
       socketServer = new ws.Server({
         server,
-        path: '/ws-server',
+        path: "/ws-server",
       });
       done();
     });
   });
 
-  describe('client', () => {
-    it('should open, receive message, and close', (done) => {
-      socketServer.on('connection', (connection) => {
-        connection.send('hello world');
+  describe("client", () => {
+    it("should open, receive message, and close", (done) => {
+      socketServer.on("connection", (connection) => {
+        connection.send("hello world");
 
         setTimeout(() => {
           connection.close();
@@ -50,16 +50,16 @@ describe('WebsocketClient', () => {
       const data = [];
 
       client.onOpen(() => {
-        data.push('open');
+        data.push("open");
       });
       client.onClose(() => {
-        data.push('close');
+        data.push("close");
       });
       client.onMessage((msg) => {
         data.push(msg);
       });
 
-      const testError = new Error('test');
+      const testError = new Error("test");
 
       client.client.onerror(testError);
 

@@ -1,24 +1,24 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const request = require('supertest');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/client-config/webpack.config');
-const multiCompilerConfig = require('../fixtures/multi-compiler-config/webpack.config');
-const port = require('../ports-map')['hot-option'];
+const webpack = require("webpack");
+const request = require("supertest");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/client-config/webpack.config");
+const multiCompilerConfig = require("../fixtures/multi-compiler-config/webpack.config");
+const port = require("../ports-map")["hot-option"];
 
-describe('hot option', () => {
+describe("hot option", () => {
   let server;
   let req;
 
-  describe('simple hot config entries', () => {
+  describe("simple hot config entries", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
       server = new Server({ port }, compiler);
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -40,28 +40,28 @@ describe('hot option', () => {
       });
     });
 
-    it('should include hot script in the bundle', async () => {
-      const response = await req.get('/main.js');
+    it("should include hot script in the bundle", async () => {
+      const response = await req.get("/main.js");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('webpack/hot/dev-server.js');
+      expect(response.text).toContain("webpack/hot/dev-server.js");
     });
   });
 
-  describe('simple hot-only config entries', () => {
+  describe("simple hot-only config entries", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
       server = new Server(
         {
           port,
-          hot: 'only',
+          hot: "only",
         },
         compiler
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -83,22 +83,22 @@ describe('hot option', () => {
       });
     });
 
-    it('should include hot-only script in the bundle', async () => {
-      const response = await req.get('/main.js');
+    it("should include hot-only script in the bundle", async () => {
+      const response = await req.get("/main.js");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('webpack/hot/only-dev-server.js');
+      expect(response.text).toContain("webpack/hot/only-dev-server.js");
     });
   });
 
-  describe('multi compiler hot config entries', () => {
+  describe("multi compiler hot config entries", () => {
     beforeAll(async () => {
       const compiler = webpack(multiCompilerConfig);
 
       server = new Server({ port }, compiler);
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -120,22 +120,22 @@ describe('hot option', () => {
       });
     });
 
-    it('should include hot script in the bundle', async () => {
-      const response = await req.get('/main.js');
+    it("should include hot script in the bundle", async () => {
+      const response = await req.get("/main.js");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('webpack/hot/dev-server.js');
+      expect(response.text).toContain("webpack/hot/dev-server.js");
     });
   });
 
-  describe('hot disabled entries', () => {
+  describe("hot disabled entries", () => {
     beforeAll(async () => {
       const compiler = webpack(multiCompilerConfig);
 
       server = new Server({ port, hot: false }, compiler);
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -157,8 +157,8 @@ describe('hot option', () => {
       });
     });
 
-    it('should NOT include hot script in the bundle', async () => {
-      const response = await req.get('/main.js');
+    it("should NOT include hot script in the bundle", async () => {
+      const response = await req.get("/main.js");
 
       expect(response.status).toEqual(200);
       expect(response.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
@@ -168,14 +168,14 @@ describe('hot option', () => {
   // the following cases check to make sure that the HMR
   // plugin is actually added
 
-  describe('simple hot config HMR plugin', () => {
-    it('should register the HMR plugin before compilation is complete', async () => {
+  describe("simple hot config HMR plugin", () => {
+    it("should register the HMR plugin before compilation is complete", async () => {
       let pluginFound = false;
       const compiler = webpack(config);
 
       compiler.hooks.compilation.intercept({
         register: (tapInfo) => {
-          if (tapInfo.name === 'HotModuleReplacementPlugin') {
+          if (tapInfo.name === "HotModuleReplacementPlugin") {
             pluginFound = true;
           }
 
@@ -186,7 +186,7 @@ describe('hot option', () => {
       const serverInTest = new Server({ port }, compiler);
 
       await new Promise((resolve, reject) => {
-        serverInTest.listen(port, '127.0.0.1', (error) => {
+        serverInTest.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -207,14 +207,14 @@ describe('hot option', () => {
     });
   });
 
-  describe('multi compiler hot config HMR plugin', () => {
-    it('should register the HMR plugin before compilation is complete', async () => {
+  describe("multi compiler hot config HMR plugin", () => {
+    it("should register the HMR plugin before compilation is complete", async () => {
       let pluginFound = false;
       const compiler = webpack(multiCompilerConfig);
 
       compiler.compilers[0].hooks.compilation.intercept({
         register: (tapInfo) => {
-          if (tapInfo.name === 'HotModuleReplacementPlugin') {
+          if (tapInfo.name === "HotModuleReplacementPlugin") {
             pluginFound = true;
           }
 
@@ -225,7 +225,7 @@ describe('hot option', () => {
       const serverInTest = new Server({ port }, compiler);
 
       await new Promise((resolve, reject) => {
-        serverInTest.listen(port, '127.0.0.1', (error) => {
+        serverInTest.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -246,14 +246,14 @@ describe('hot option', () => {
     });
   });
 
-  describe('hot disabled HMR plugin', () => {
-    it('should NOT register the HMR plugin before compilation is complete', async () => {
+  describe("hot disabled HMR plugin", () => {
+    it("should NOT register the HMR plugin before compilation is complete", async () => {
       let pluginFound = false;
       const compiler = webpack(config);
 
       compiler.hooks.compilation.intercept({
         register: (tapInfo) => {
-          if (tapInfo.name === 'HotModuleReplacementPlugin') {
+          if (tapInfo.name === "HotModuleReplacementPlugin") {
             pluginFound = true;
           }
 
@@ -264,7 +264,7 @@ describe('hot option', () => {
       const serverInTest = new Server({ port, hot: false }, compiler);
 
       await new Promise((resolve, reject) => {
-        serverInTest.listen(port, '127.0.0.1', (error) => {
+        serverInTest.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 

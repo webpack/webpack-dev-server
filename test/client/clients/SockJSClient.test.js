@@ -2,37 +2,37 @@
  * @jest-environment jsdom
  */
 
-'use strict';
+"use strict";
 
-const http = require('http');
-const express = require('express');
-const sockjs = require('sockjs');
-const port = require('../../ports-map')['sockjs-client'];
+const http = require("http");
+const express = require("express");
+const sockjs = require("sockjs");
+const port = require("../../ports-map")["sockjs-client"];
 
-jest.setMock('../../../client-src/utils/log', {
+jest.setMock("../../../client-src/utils/log", {
   log: {
     error: jest.fn(),
   },
 });
 
-describe('SockJSClient', () => {
-  const SockJSClient = require('../../../client-src/clients/SockJSClient');
-  const { log } = require('../../../client-src/utils/log');
+describe("SockJSClient", () => {
+  const SockJSClient = require("../../../client-src/clients/SockJSClient");
+  const { log } = require("../../../client-src/utils/log");
   let consoleMock;
   let socketServer;
   let server;
 
   beforeAll((done) => {
-    consoleMock = jest.spyOn(console, 'log').mockImplementation();
+    consoleMock = jest.spyOn(console, "log").mockImplementation();
 
     // eslint-disable-next-line new-cap
     const app = new express();
 
     server = http.createServer(app);
-    server.listen(port, 'localhost', () => {
+    server.listen(port, "localhost", () => {
       socketServer = sockjs.createServer();
       socketServer.installHandlers(server, {
-        prefix: '/ws',
+        prefix: "/ws",
       });
       done();
     });
@@ -42,10 +42,10 @@ describe('SockJSClient', () => {
     consoleMock.mockRestore();
   });
 
-  describe('client', () => {
-    it('should open, receive message, and close', (done) => {
-      socketServer.on('connection', (connection) => {
-        connection.write('hello world');
+  describe("client", () => {
+    it("should open, receive message, and close", (done) => {
+      socketServer.on("connection", (connection) => {
+        connection.write("hello world");
 
         setTimeout(() => {
           connection.close();
@@ -56,16 +56,16 @@ describe('SockJSClient', () => {
       const data = [];
 
       client.onOpen(() => {
-        data.push('open');
+        data.push("open");
       });
       client.onClose(() => {
-        data.push('close');
+        data.push("close");
       });
       client.onMessage((msg) => {
         data.push(msg);
       });
 
-      const testError = new Error('test');
+      const testError = new Error("test");
 
       client.sock.onerror(testError);
 

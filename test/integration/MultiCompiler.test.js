@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const request = require('supertest');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/multi-compiler-config/webpack.config');
-const port = require('../ports-map')['multi-compiler'];
+const webpack = require("webpack");
+const request = require("supertest");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/multi-compiler-config/webpack.config");
+const port = require("../ports-map")["multi-compiler"];
 
-describe('multi compiler', () => {
+describe("multi compiler", () => {
   let server;
   let req;
 
@@ -16,7 +16,7 @@ describe('multi compiler', () => {
     server = new Server({ port }, compiler);
 
     await new Promise((resolve, reject) => {
-      server.listen(port, '127.0.0.1', (error) => {
+      server.listen(port, "127.0.0.1", (error) => {
         if (error) {
           reject(error);
 
@@ -38,11 +38,11 @@ describe('multi compiler', () => {
     });
   });
 
-  it('should handle GET request to bundle', async () => {
-    const response = await req.get('/main.js');
+  it("should handle GET request to bundle", async () => {
+    const response = await req.get("/main.js");
 
-    expect(response.headers['content-type']).toEqual(
-      'application/javascript; charset=utf-8'
+    expect(response.headers["content-type"]).toEqual(
+      "application/javascript; charset=utf-8"
     );
     expect(response.status).toEqual(200);
   });

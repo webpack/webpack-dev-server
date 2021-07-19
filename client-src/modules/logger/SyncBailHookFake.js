@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Client stub for tapable SyncBailHook

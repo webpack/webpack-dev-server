@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const HTMLContent = `
 <!doctype html>
@@ -12,21 +12,21 @@ const HTMLContent = `
 `;
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
   context: __dirname,
-  stats: 'none',
-  entry: './foo.js',
+  stats: "none",
+  entry: "./foo.js",
   output: {
-    path: '/',
+    path: "/",
   },
   infrastructureLogging: {
-    level: 'warn',
+    level: "warn",
   },
   plugins: [
     {
       apply(compiler) {
-        const pluginName = 'html-generator-plugin-test';
-        const filename = 'test.html';
+        const pluginName = "html-generator-plugin-test";
+        const filename = "test.html";
 
         compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
           if (compiler.webpack) {

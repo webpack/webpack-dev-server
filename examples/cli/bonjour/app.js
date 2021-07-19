@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
-const target = document.querySelector('#target');
+const target = document.querySelector("#target");
 
-target.innerHTML = 'Please check your Zeroconf service.';
+target.innerHTML = "Please check your Zeroconf service.";

@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-console.log('webpack-dev-server/server');
+console.log("webpack-dev-server/server");

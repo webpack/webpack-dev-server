@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
 
 let server;
 
@@ -9,7 +9,7 @@ let server;
 // (both the server and the compiler)
 function startFullSetup(config, options, done) {
   // disable watching by default for tests
-  if (typeof options.static === 'undefined') {
+  if (typeof options.static === "undefined") {
     options.static = false;
   } else if (options.static === null) {
     // this provides a way of using the default static value
@@ -22,19 +22,19 @@ function startFullSetup(config, options, done) {
 
   let port;
 
-  if (Object.prototype.hasOwnProperty.call(options, 'port')) {
+  if (Object.prototype.hasOwnProperty.call(options, "port")) {
     port = options.port;
   } else {
-    console.warn('Using the default port for testing is not recommended');
+    console.warn("Using the default port for testing is not recommended");
     port = 8080;
   }
 
   let host;
 
-  if (Object.prototype.hasOwnProperty.call(options, 'host')) {
+  if (Object.prototype.hasOwnProperty.call(options, "host")) {
     host = options.host;
   } else {
-    host = 'localhost';
+    host = "localhost";
   }
 
   server.listen(port, host, (error) => {
@@ -68,7 +68,7 @@ function startAwaitingCompilationFullSetup(config, options, done) {
 
   // wait for compilation, since dev server can start before this
   // https://github.com/webpack/webpack-dev-server/issues/847
-  fullSetup.compiler.hooks.done.tap('done', ready);
+  fullSetup.compiler.hooks.done.tap("done", ready);
 
   return fullSetup;
 }

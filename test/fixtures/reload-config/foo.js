@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // eslint-disable-next-line import/no-unresolved
-require('./main.css');
+require("./main.css");

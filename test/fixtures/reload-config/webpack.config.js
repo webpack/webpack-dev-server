@@ -1,23 +1,23 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
   context: __dirname,
-  entry: './foo.js',
-  stats: 'none',
+  entry: "./foo.js",
+  stats: "none",
   output: {
-    path: '/',
+    path: "/",
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
       },
     ],
   },
   infrastructureLogging: {
-    level: 'warn',
+    level: "warn",
   },
   node: false,
 };

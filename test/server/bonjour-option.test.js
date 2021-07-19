@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
-const os = require('os');
-const config = require('../fixtures/simple-config/webpack.config');
-const testServer = require('../helpers/test-server');
-const port = require('../ports-map').bonjour;
+const os = require("os");
+const config = require("../fixtures/simple-config/webpack.config");
+const testServer = require("../helpers/test-server");
+const port = require("../ports-map").bonjour;
 
-describe('bonjour option', () => {
+describe("bonjour option", () => {
   let server;
   const mockPublish = jest.fn();
   const mockUnpublishAll = jest.fn();
 
   beforeAll(() => {
-    jest.mock('bonjour', () => () => {
+    jest.mock("bonjour", () => () => {
       return {
         publish: mockPublish,
         unpublishAll: mockUnpublishAll,
@@ -24,7 +24,7 @@ describe('bonjour option', () => {
     mockUnpublishAll.mockReset();
   });
 
-  describe('http', () => {
+  describe("http", () => {
     beforeEach((done) => {
       server = testServer.start(
         config,
@@ -40,19 +40,19 @@ describe('bonjour option', () => {
       server.close(done);
     });
 
-    it('should call bonjour with correct params', () => {
+    it("should call bonjour with correct params", () => {
       expect(mockPublish).toHaveBeenCalledTimes(1);
       expect(mockPublish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
-        type: 'http',
-        subtypes: ['webpack'],
+        type: "http",
+        subtypes: ["webpack"],
       });
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
     });
   });
 
-  describe('https option', () => {
+  describe("https option", () => {
     beforeEach((done) => {
       server = testServer.start(
         config,
@@ -69,26 +69,26 @@ describe('bonjour option', () => {
       server.close(done);
     });
 
-    it('bonjour should use https when passed in option', () => {
+    it("bonjour should use https when passed in option", () => {
       expect(mockPublish).toHaveBeenCalledTimes(1);
       expect(mockPublish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
-        type: 'https',
-        subtypes: ['webpack'],
+        type: "https",
+        subtypes: ["webpack"],
       });
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
     });
   });
 
-  describe('bonjour object', () => {
+  describe("bonjour object", () => {
     beforeEach((done) => {
       server = testServer.start(
         config,
         {
           bonjour: {
-            type: 'https',
-            protocol: 'udp',
+            type: "https",
+            protocol: "udp",
           },
           port,
         },
@@ -100,27 +100,27 @@ describe('bonjour option', () => {
       server.close(done);
     });
 
-    it('applies bonjour options', () => {
+    it("applies bonjour options", () => {
       expect(mockPublish).toHaveBeenCalledTimes(1);
       expect(mockPublish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
-        type: 'https',
-        protocol: 'udp',
-        subtypes: ['webpack'],
+        type: "https",
+        protocol: "udp",
+        subtypes: ["webpack"],
       });
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
     });
   });
 
-  describe('bonjour object and https', () => {
+  describe("bonjour object and https", () => {
     beforeEach((done) => {
       server = testServer.start(
         config,
         {
           bonjour: {
-            type: 'http',
-            protocol: 'udp',
+            type: "http",
+            protocol: "udp",
           },
           https: true,
           port,
@@ -133,14 +133,14 @@ describe('bonjour option', () => {
       server.close(done);
     });
 
-    it('prefers bonjour options over devServer.https', () => {
+    it("prefers bonjour options over devServer.https", () => {
       expect(mockPublish).toHaveBeenCalledTimes(1);
       expect(mockPublish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
-        type: 'http',
-        protocol: 'udp',
-        subtypes: ['webpack'],
+        type: "http",
+        protocol: "udp",
+        subtypes: ["webpack"],
       });
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
     });

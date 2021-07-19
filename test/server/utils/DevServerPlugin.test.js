@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const webpack = require('webpack');
-const DevServerPlugin = require('../../../lib/utils/DevServerPlugin');
-const isWebpack5 = require('../../helpers/isWebpack5');
-const config = require('../../fixtures/simple-config/webpack.config');
+const path = require("path");
+const webpack = require("webpack");
+const DevServerPlugin = require("../../../lib/utils/DevServerPlugin");
+const isWebpack5 = require("../../helpers/isWebpack5");
+const config = require("../../fixtures/simple-config/webpack.config");
 
-const normalize = (entry) => entry.split(path.sep).join('/');
+const normalize = (entry) => entry.split(path.sep).join("/");
 
-describe('DevServerPlugin util', () => {
+describe("DevServerPlugin util", () => {
   async function getEntries(compiler) {
     return compiler.options.entry;
   }
@@ -18,13 +18,13 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       client: {
-        webSocketTransport: 'sockjs',
+        webSocketTransport: "sockjs",
         webSocketURL: {},
       },
       webSocketServer: {
-        type: 'sockjs',
+        type: "sockjs",
         options: {
-          host: '0.0.0.0',
+          host: "0.0.0.0",
         },
       },
     };
@@ -32,7 +32,7 @@ describe('DevServerPlugin util', () => {
     const plugin = new DevServerPlugin(devServerOptions);
     plugin.apply(compiler);
 
-    expect('plugins' in webpackOptions).toBeFalsy();
+    expect("plugins" in webpackOptions).toBeFalsy();
   });
 
   it("should doesn't add the HMR plugin if not hot and empty plugins", () => {
@@ -40,13 +40,13 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       client: {
-        webSocketTransport: 'sockjs',
+        webSocketTransport: "sockjs",
         webSocketURL: {},
       },
       webSocketServer: {
-        type: 'sockjs',
+        type: "sockjs",
         options: {
-          host: '0.0.0.0',
+          host: "0.0.0.0",
         },
       },
     };
@@ -58,8 +58,8 @@ describe('DevServerPlugin util', () => {
   });
 
   it("should doesn't add the HMR plugin if not hot and some plugins", () => {
-    const existingPlugin1 = new webpack.BannerPlugin('happy birthday');
-    const existingPlugin2 = new webpack.DefinePlugin({ foo: 'bar' });
+    const existingPlugin1 = new webpack.BannerPlugin("happy birthday");
+    const existingPlugin2 = new webpack.DefinePlugin({ foo: "bar" });
     const webpackOptions = {
       ...config,
       plugins: [existingPlugin1, existingPlugin2],
@@ -67,13 +67,13 @@ describe('DevServerPlugin util', () => {
     const compiler = webpack(webpackOptions);
     const devServerOptions = {
       client: {
-        webSocketTransport: 'sockjs',
+        webSocketTransport: "sockjs",
         webSocketURL: {},
       },
       webSocketServer: {
-        type: 'sockjs',
+        type: "sockjs",
         options: {
-          host: '0.0.0.0',
+          host: "0.0.0.0",
         },
       },
     };
@@ -85,7 +85,7 @@ describe('DevServerPlugin util', () => {
   });
 
   it("should doesn't add the HMR plugin again if it's already there", () => {
-    const existingPlugin = new webpack.BannerPlugin('bruce');
+    const existingPlugin = new webpack.BannerPlugin("bruce");
     const webpackOptions = {
       ...config,
       plugins: [new webpack.HotModuleReplacementPlugin(), existingPlugin],
@@ -94,13 +94,13 @@ describe('DevServerPlugin util', () => {
     const devServerOptions = {
       hot: true,
       client: {
-        webSocketTransport: 'sockjs',
+        webSocketTransport: "sockjs",
         webSocketURL: {},
       },
       webSocketServer: {
-        type: 'sockjs',
+        type: "sockjs",
         options: {
-          host: '0.0.0.0',
+          host: "0.0.0.0",
         },
       },
     };
@@ -115,20 +115,20 @@ describe('DevServerPlugin util', () => {
   });
 
   (isWebpack5 ? it.skip : it)(
-    'should can prevent duplicate entries from successive calls',
+    "should can prevent duplicate entries from successive calls",
     async () => {
       const webpackOptions = { ...config };
       const compiler = webpack(webpackOptions);
       const devServerOptions = {
         hot: true,
         client: {
-          webSocketTransport: 'sockjs',
+          webSocketTransport: "sockjs",
           webSocketURL: {},
         },
         webSocketServer: {
-          type: 'sockjs',
+          type: "sockjs",
           options: {
-            host: '0.0.0.0',
+            host: "0.0.0.0",
           },
         },
       };
@@ -143,7 +143,7 @@ describe('DevServerPlugin util', () => {
       expect(entries.length).toEqual(3);
 
       const result = entries.filter((entry) =>
-        normalize(entry).includes('webpack/hot/dev-server')
+        normalize(entry).includes("webpack/hot/dev-server")
       );
       expect(result.length).toEqual(1);
     }
@@ -151,19 +151,19 @@ describe('DevServerPlugin util', () => {
 
   // 'npm run prepare' must be done for this test to pass
   const sockjsClientPath = require.resolve(
-    '../../../client/clients/SockJSClient'
+    "../../../client/clients/SockJSClient"
   );
 
-  describe('getWebsocketTransport', () => {
+  describe("getWebsocketTransport", () => {
     it("should work with client.webSocketTransport: 'sockjs'", () => {
       let result;
 
       expect(() => {
         const devServerPlugin = new DevServerPlugin({
           client: {
-            webSocketTransport: 'sockjs',
+            webSocketTransport: "sockjs",
           },
-          webSocketServer: 'sockjs',
+          webSocketServer: "sockjs",
         });
 
         result = devServerPlugin.getWebsocketTransport();
@@ -172,7 +172,7 @@ describe('DevServerPlugin util', () => {
       expect(result).toEqual(sockjsClientPath);
     });
 
-    it('should work with client.webSocketTransport: SockJSClient full path', () => {
+    it("should work with client.webSocketTransport: SockJSClient full path", () => {
       let result;
 
       expect(() => {
@@ -180,7 +180,7 @@ describe('DevServerPlugin util', () => {
           client: {
             webSocketTransport: sockjsClientPath,
           },
-          webSocketServer: 'sockjs',
+          webSocketServer: "sockjs",
         });
 
         result = devServerPlugin.getWebsocketTransport();
@@ -189,44 +189,44 @@ describe('DevServerPlugin util', () => {
       expect(result).toEqual(sockjsClientPath);
     });
 
-    it('should throw with client.webSocketTransport: bad path', () => {
+    it("should throw with client.webSocketTransport: bad path", () => {
       expect(() => {
         const devServerPlugin = new DevServerPlugin({
           client: {
-            webSocketTransport: '/bad/path/to/implementation',
+            webSocketTransport: "/bad/path/to/implementation",
           },
-          webSocketServer: 'sockjs',
+          webSocketServer: "sockjs",
         });
 
         devServerPlugin.getWebsocketTransport();
       }).toThrow(/client.webSocketTransport must be a string/);
     });
 
-    it('should throw with webSocketTransportMode.client: bad type', () => {
+    it("should throw with webSocketTransportMode.client: bad type", () => {
       expect(() => {
         const devServerPlugin = new DevServerPlugin({
           client: {
             webSocketTransport: 1,
           },
-          webSocketServer: 'sockjs',
+          webSocketServer: "sockjs",
         });
 
         devServerPlugin.getWebsocketTransport();
       }).toThrow(/client.webSocketTransport must be a string/);
     });
 
-    it('should throw with client.webSocketTransport: unimplemented client', () => {
+    it("should throw with client.webSocketTransport: unimplemented client", () => {
       expect(() => {
         const devServerPlugin = new DevServerPlugin({
           client: {
-            webSocketTransport: 'foo',
+            webSocketTransport: "foo",
           },
-          webSocketServer: 'sockjs',
+          webSocketServer: "sockjs",
         });
 
         devServerPlugin.getWebsocketTransport();
       }).toThrow(
-        'When you use custom web socket implementation you must explicitly specify client.webSocketTransport'
+        "When you use custom web socket implementation you must explicitly specify client.webSocketTransport"
       );
     });
   });

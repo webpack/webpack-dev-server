@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const target = document.querySelector('#target');
+const target = document.querySelector("#target");
 
-target.classList.add('pass');
-target.innerHTML = 'Success!';
+target.classList.add("pass");
+target.innerHTML = "Success!";

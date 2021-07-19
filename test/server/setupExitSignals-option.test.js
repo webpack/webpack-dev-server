@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['setup-exit-signals-option'];
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/simple-config/webpack.config");
+const port = require("../ports-map")["setup-exit-signals-option"];
 
-describe('setupExitSignals option', () => {
+describe("setupExitSignals option", () => {
   let server;
   let exitSpy;
   let killSpy;
   let stdinResumeSpy;
-  const signals = ['SIGINT', 'SIGTERM'];
+  const signals = ["SIGINT", "SIGTERM"];
 
   beforeEach(async () => {
     const compiler = webpack(config);
@@ -24,7 +24,7 @@ describe('setupExitSignals option', () => {
     );
 
     await new Promise((resolve, reject) => {
-      server.listen(port, '127.0.0.1', (error) => {
+      server.listen(port, "127.0.0.1", (error) => {
         if (error) {
           reject(error);
 
@@ -35,11 +35,11 @@ describe('setupExitSignals option', () => {
       });
     });
 
-    exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
     stdinResumeSpy = jest
-      .spyOn(process.stdin, 'resume')
+      .spyOn(process.stdin, "resume")
       .mockImplementation(() => {});
-    killSpy = jest.spyOn(server.server, 'kill');
+    killSpy = jest.spyOn(server.server, "kill");
   });
 
   afterEach(async () => {
@@ -48,7 +48,7 @@ describe('setupExitSignals option', () => {
     signals.forEach((signal) => {
       process.removeAllListeners(signal);
     });
-    process.stdin.removeAllListeners('end');
+    process.stdin.removeAllListeners("end");
 
     await new Promise((resolve) => {
       server.close(() => {
@@ -57,7 +57,7 @@ describe('setupExitSignals option', () => {
     });
   });
 
-  it.each(signals)('should close and exit on %s', (signal, done) => {
+  it.each(signals)("should close and exit on %s", (signal, done) => {
     process.emit(signal);
     process.nextTick(() => {
       expect(killSpy.mock.calls.length).toEqual(1);
