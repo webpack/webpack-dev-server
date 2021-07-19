@@ -20,6 +20,8 @@ const cssFilePath = path.resolve(
   '../fixtures/reload-config/main.css'
 );
 
+const INVALID_MESSAGE = '[webpack-dev-server] App updated. Recompiling...';
+
 describe('hot and live reload', () => {
   // "sockjs" client cannot add additional headers
   const modes = [
@@ -43,6 +45,7 @@ describe('hot and live reload', () => {
     },
     {
       title: 'should not refresh content when hot and no live reload disabled',
+      noWebSocketServer: true,
       options: {
         hot: false,
         liveReload: false,
@@ -90,6 +93,7 @@ describe('hot and live reload', () => {
     },
     {
       title: 'should not refresh content when hot and no live reload disabled',
+      noWebSocketServer: true,
       options: {
         webSocketServer: 'ws',
         hot: false,
@@ -146,6 +150,7 @@ describe('hot and live reload', () => {
     },
     {
       title: 'should not refresh content when hot and no live reload disabled',
+      noWebSocketServer: true,
       options: {
         allowedHosts: 'all',
 
@@ -207,7 +212,7 @@ describe('hot and live reload', () => {
     },
     {
       title:
-        'should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-live-reload=false"',
+        'should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-hot=false&webpack-dev-server-live-reload=false"',
       query:
         '?webpack-dev-server-hot=false&webpack-dev-server-live-reload=false',
       options: {
@@ -422,7 +427,7 @@ describe('hot and live reload', () => {
 
       page
         .on('console', (message) => {
-          consoleMessages.push(message);
+          consoleMessages.push(message.text());
         })
         .on('pageerror', (error) => {
           pageErrors.push(error);
@@ -495,6 +500,18 @@ describe('hot and live reload', () => {
           waitUntil: 'networkidle0',
         });
       } else {
+        if (!mode.noWebSocketServer) {
+          await new Promise((resolve) => {
+            const interval = setInterval(() => {
+              if (consoleMessages.includes(INVALID_MESSAGE)) {
+                clearInterval(interval);
+
+                resolve();
+              }
+            }, 100);
+          });
+        }
+
         doNothing = true;
       }
 
@@ -510,9 +527,7 @@ describe('hot and live reload', () => {
         expect(backgroundColorAfter).toEqual('rgb(255, 0, 0)');
       }
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
-      );
+      expect(consoleMessages).toMatchSnapshot('console messages');
       expect(pageErrors).toMatchSnapshot('page errors');
 
       fs.unlinkSync(cssFilePath);
