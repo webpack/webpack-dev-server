@@ -3,7 +3,7 @@
 const os = require('os');
 const path = require('path');
 const execa = require('execa');
-const stripAnsi = require('strip-ansi');
+const stripAnsi = require('strip-ansi-v6');
 const internalIp = require('internal-ip');
 
 const webpackDevServerPath = path.resolve(
