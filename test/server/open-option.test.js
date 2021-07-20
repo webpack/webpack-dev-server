@@ -825,6 +825,17 @@ describe('"open" option', () => {
   it("should log warning when can't open", (done) => {
     open.mockImplementation(() => Promise.reject());
 
+    const loggerWarnSpy = jest.fn();
+    const getInfrastructureLoggerSpy = jest
+      .spyOn(compiler, "getInfrastructureLogger")
+      .mockImplementation(() => {
+        return {
+          warn: loggerWarnSpy,
+          info: () => {},
+          log: () => {},
+        };
+      });
+
     server = new Server(
       {
         port,
@@ -832,7 +843,6 @@ describe('"open" option', () => {
       },
       compiler
     );
-    const loggerWarnSpy = jest.spyOn(server.logger, "warn");
 
     compiler.hooks.done.tap("webpack-dev-server", () => {
       server.close(() => {
@@ -843,6 +853,7 @@ describe('"open" option', () => {
           `Unable to open "http://localhost:${port}/" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
         );
 
+        getInfrastructureLoggerSpy.mockRestore();
         loggerWarnSpy.mockRestore();
         done();
       });
@@ -854,6 +865,17 @@ describe('"open" option', () => {
   it("should log warning when can't open with string", (done) => {
     open.mockImplementation(() => Promise.reject());
 
+    const loggerWarnSpy = jest.fn();
+    const getInfrastructureLoggerSpy = jest
+      .spyOn(compiler, "getInfrastructureLogger")
+      .mockImplementation(() => {
+        return {
+          warn: loggerWarnSpy,
+          info: () => {},
+          log: () => {},
+        };
+      });
+
     server = new Server(
       {
         open: "index.html",
@@ -861,7 +883,6 @@ describe('"open" option', () => {
       },
       compiler
     );
-    const loggerWarnSpy = jest.spyOn(server.logger, "warn");
 
     compiler.hooks.done.tap("webpack-dev-server", () => {
       server.close(() => {
@@ -875,6 +896,7 @@ describe('"open" option', () => {
           `Unable to open "http://localhost:${port}/index.html" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
         );
 
+        getInfrastructureLoggerSpy.mockRestore();
         loggerWarnSpy.mockRestore();
         done();
       });
@@ -886,6 +908,17 @@ describe('"open" option', () => {
   it("should log warning when can't open with object", (done) => {
     open.mockImplementation(() => Promise.reject());
 
+    const loggerWarnSpy = jest.fn();
+    const getInfrastructureLoggerSpy = jest
+      .spyOn(compiler, "getInfrastructureLogger")
+      .mockImplementation(() => {
+        return {
+          warn: loggerWarnSpy,
+          info: () => {},
+          log: () => {},
+        };
+      });
+
     server = new Server(
       {
         open: {
@@ -896,7 +929,6 @@ describe('"open" option', () => {
       },
       compiler
     );
-    const loggerWarnSpy = jest.spyOn(server.logger, "warn");
 
     compiler.hooks.done.tap("webpack-dev-server", () => {
       server.close(() => {
@@ -912,6 +944,7 @@ describe('"open" option', () => {
         );
 
         loggerWarnSpy.mockRestore();
+        getInfrastructureLoggerSpy.mockRestore();
         done();
       });
     });
@@ -921,6 +954,17 @@ describe('"open" option', () => {
 
   it("should log warning when can't open with object with the 'app' option with arguments", (done) => {
     open.mockImplementation(() => Promise.reject());
+
+    const loggerWarnSpy = jest.fn();
+    const getInfrastructureLoggerSpy = jest
+      .spyOn(compiler, "getInfrastructureLogger")
+      .mockImplementation(() => {
+        return {
+          warn: loggerWarnSpy,
+          info: () => {},
+          log: () => {},
+        };
+      });
 
     server = new Server(
       {
@@ -935,7 +979,6 @@ describe('"open" option', () => {
       },
       compiler
     );
-    const loggerWarnSpy = jest.spyOn(server.logger, "warn");
 
     compiler.hooks.done.tap("webpack-dev-server", () => {
       server.close(() => {
@@ -953,6 +996,7 @@ describe('"open" option', () => {
           `Unable to open "http://localhost:${port}/index.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
         );
 
+        getInfrastructureLoggerSpy.mockRestore();
         loggerWarnSpy.mockRestore();
         done();
       });
@@ -963,6 +1007,17 @@ describe('"open" option', () => {
 
   it("should log warning when can't open with object with the 'app' option with arguments", (done) => {
     open.mockImplementation(() => Promise.reject());
+
+    const loggerWarnSpy = jest.fn();
+    const getInfrastructureLoggerSpy = jest
+      .spyOn(compiler, "getInfrastructureLogger")
+      .mockImplementation(() => {
+        return {
+          warn: loggerWarnSpy,
+          info: () => {},
+          log: () => {},
+        };
+      });
 
     server = new Server(
       {
@@ -977,7 +1032,6 @@ describe('"open" option', () => {
       },
       compiler
     );
-    const loggerWarnSpy = jest.spyOn(server.logger, "warn");
 
     compiler.hooks.done.tap("webpack-dev-server", () => {
       server.close(() => {
@@ -1012,6 +1066,7 @@ describe('"open" option', () => {
           `Unable to open "http://localhost:${port}/second.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
         );
 
+        getInfrastructureLoggerSpy.mockRestore();
         loggerWarnSpy.mockRestore();
         done();
       });
