@@ -248,7 +248,7 @@ module.exports = {
     client: {
       // Can be `string`:
       //
-      // webSocketURL: 'ws://0.0.0.0/ws'
+      // webSocketURL: 'ws://0.0.0.0:8080/ws'
       webSocketURL: {
         hostname: "0.0.0.0",
         pathname: "/ws",
