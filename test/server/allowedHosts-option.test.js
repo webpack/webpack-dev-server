@@ -54,7 +54,7 @@ describe("allowedHosts", () => {
     }
   });
 
-  it("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", () => {
+  it.skip("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", () => {
     const options = {
       allowedHosts: "auto",
       client: {
