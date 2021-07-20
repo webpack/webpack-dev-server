@@ -4,8 +4,8 @@ This document serves as a migration guide for `webpack-dev-server@4.0.0`.
 
 ### ⚠ BREAKING CHANGES
 
-- minimum supported `Node.js` version is `12.13.0`
-- the `hotOnly` option was removed, if you need hot only mode, use `{ hot: 'only' }` value
+- Minimum supported `Node.js` version is `12.13.0`.
+- The `hotOnly` option was removed, if you need hot only mode, use `{ hot: 'only' }` value.
 
 v3:
 
@@ -27,9 +27,9 @@ module.exports = {
 };
 ```
 
-- default web socket server is [`ws`](https://github.com/websockets/ws) (IE9 is no supported web socket, please use `{ webSocketServer: 'sockjs' }`)
-- the `setup` option was removed without replacement
-- the `before` option was renamed to `onBeforeSetupMiddleware` and changed arguments
+- Default web socket server is [`ws`](https://github.com/websockets/ws) (IE9 does not support web socket, please use `{ webSocketServer: 'sockjs' }`).
+- The `setup` option was removed without replacement.
+- The `before` option was renamed to `onBeforeSetupMiddleware` and changed arguments.
 
 v3:
 
@@ -59,7 +59,7 @@ module.exports = {
 };
 ```
 
-- the `after` option was renamed to `onAfterSetupMiddleware` and changed arguments
+- The `after` option was renamed to `onAfterSetupMiddleware` and changed arguments.
 
 v3:
 
@@ -89,8 +89,8 @@ module.exports = {
 };
 ```
 
-- the `features` option was removed in favor `onBeforeSetupMiddleware` and `onAfterSetupMiddleware` options
-- the `key`, `cert`, `pfx`, `pfx-passphrase`, `cacert` and `requestCert` options were moved to `https` options, please use `https.{key|cert|pfx|passphrase|requestCert|cacert}`
+- The `features` option was removed in favor `onBeforeSetupMiddleware` and `onAfterSetupMiddleware` options.
+- The `key`, `cert`, `pfx`, `pfx-passphrase`, `cacert`, and `requestCert` options were moved to `https` options, please use `https.{key|cert|pfx|passphrase|requestCert|cacert}`.
 
 v3:
 
@@ -124,11 +124,11 @@ module.exports = {
 };
 ```
 
-- the `compress` option is `true` by default
-- `filename` and `lazy` options were removed in favor [experiments.lazyCompilation](https://webpack.js.org/configuration/experiments/#experimentslazycompilation)
-- the `inline` (`iframe` live mode) option was removed without replacement
-- `log`, `logLevel`, `logTime`, `quiet`, `noInfo` and `reporter` options were removed without replacement, [now we use built-in logger](https://webpack.js.org/configuration/other-options/#infrastructurelogging)
-- the `useLocalIp` option was removed in favor of `host: 'local-ip'/'local-ipv4'/'local-ipv6'`
+- The `compress` option is now `true` by default.
+- `filename` and `lazy` options were removed in favor [experiments.lazyCompilation](https://webpack.js.org/configuration/experiments/#experimentslazycompilation).
+- The `inline` (`iframe` live mode) option was removed without replacement.
+- `log`, `logLevel`, `logTime`, `quiet`, `noInfo`, and `reporter` options were removed without replacement, [now we use built-in logger](https://webpack.js.org/configuration/other-options/#infrastructurelogging).
+- The `useLocalIp` option was removed in favor of `host: 'local-ip'/'local-ipv4'/'local-ipv6'`.
 
 v3:
 
@@ -150,9 +150,9 @@ module.exports = {
 };
 ```
 
-- `host`/`port` options can't be `null` or empty string, please use `host: 'local-ip'` or `port: "auto"`
+- `host`/`port` options can't be `null` or empty string, please use `host: 'local-ip'` or `port: 'auto'`.
 - the `warn` option was removed in favor of [ignoreWarnings](https://webpack.js.org/configuration/other-options/#ignorewarnings)
-- `fs`, `index`, `mimeTypes`, `publicPath`, `serverSideRender`, `stats` and `writeToDisk` (related to [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware)) were moved to `devMiddleware` option
+- `fs`, `index`, `mimeTypes`, `publicPath`, `serverSideRender`, `stats`, and `writeToDisk` (related to [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware)) were moved to `devMiddleware` option.
 
 v3:
 
@@ -184,7 +184,7 @@ module.exports = {
 };
 ```
 
-- `progress`/`overlay`/`clientLogLevel` option were moved to the `client` option,
+- `progress`/`overlay`/`clientLogLevel` option were moved to the `client` option:
 
 v3:
 
@@ -218,7 +218,7 @@ module.exports = {
 };
 ```
 
-- `public`, `sockHost`, `sockPath` and `sockPort` options were removed in favor `client.webSocketURL` option
+- `public`, `sockHost`, `sockPath`, and `sockPort` options were removed in favor `client.webSocketURL` option:
 
 v3:
 
@@ -272,7 +272,7 @@ module.exports = {
 ```
 
 - `client.overlay` (previously the `overlay` option ) is now `true` by default.
-- `contentBase`/`contentBasePublicPath`/`serveIndex`/`watchContentBase`/`watchOptions`/`staticOptions` options were moved to `static` option
+- `contentBase`/`contentBasePublicPath`/`serveIndex`/`watchContentBase`/`watchOptions`/`staticOptions` options were moved to `static` option:
 
 v3:
 
@@ -313,8 +313,8 @@ module.exports = {
 };
 ```
 
-- default value of the `static` option is `path.resolve(process.cwd(), 'public')` directory and enabled by default
-- the `socket` option was named to `ipc` (also supports `string` type, i.e. path to unix socket)
+- Default value of the `static` option is `path.resolve(process.cwd(), 'public')` directory and enabled by default.
+- The `socket` option was renamed to `ipc` (also supports `string` type, i.e. path to unix socket):
 
 v3:
 
@@ -336,7 +336,7 @@ module.exports = {
 };
 ```
 
-- the `disableHostCheck` option was removed in favor `allowedHosts: 'all'`
+- The `disableHostCheck` option was removed in favor `allowedHosts: 'all'`:
 
 v3:
 
@@ -358,7 +358,7 @@ module.exports = {
 };
 ```
 
-- `open` and `openPage` options were union in favor the `open` option
+- `open` and `openPage` options were unionized in favor of the `open` option:
 
 v3:
 
@@ -396,7 +396,7 @@ module.exports = {
 };
 ```
 
-- `transportMode` (i.e. `transportMode.client`/`transportMode.server` options) were removed in favor `client.webSocketTransport` and `webSocketServer`
+- `transportMode` (i.e. `transportMode.client`/`transportMode.server` options) were removed in favor of `client.webSocketTransport` and `webSocketServer`:
 
 v3:
 
@@ -437,43 +437,43 @@ module.exports = {
 };
 ```
 
-- (`webpack-dev-middleware`)[https://github.com/webpack/webpack-dev-middleware] was update to v5
-- all options can be set via CLI, don't forget if you need to override option from configuration(s) you should use `reset` flag, i.e. `--static-reset --static my-directory`
-- many CLI options were renamed in favor of the above changed, please use `webpack serve --help` to get list of them
-- the `stdin` option was removed in favor `--watch-options-stdin`
-- `injectClient` and `injectHot` were removed in favor manual setup entries
-- the `sockWrite` public method was renamed to `sendMessage`
+- (`webpack-dev-middleware`)[https://github.com/webpack/webpack-dev-middleware] was update to v5.
+- All options can be set via CLI, don't forget if you need to override option from configuration(s) you should use `reset` flag, i.e. `--static-reset --static my-directory`
+- Many CLI options were renamed in favor of the above change, please use `webpack serve --help` to get a list of them.
+- The `stdin` option was removed in favor of `--watch-options-stdin`.
+- `injectClient` and `injectHot` were removed in favor of manual setup entries.
+- The `sockWrite` public method was renamed to `sendMessage`.
+- The `profile` option was removed in favor [`ProfilingPlugin`](https://webpack.js.org/plugins/profiling-plugin/).
 
 ### Features
 
-- added the `setupExitSignals` option, it takes a boolean and if true (default on CLI), the server will close and exit the process on SIGINT and SIGTERM
-- print a warning if the `host`/`port` option and the `host`/`port` argument passed to `server.listen()` are different
-- allowed to disable web socket server using `webSocketServer: false`
-- added the `watchFiles` option, now you can reload server on file changes, for example `{ watchFiles: ["src/**/*.php", "public/**/*"] }`
-- you can specify multiple targets and browsers for the open option, i.e. `{ open: { target: ['/my-page', '/my-other-page'], app: ['google-chrome', '--incognito'] } }`, also you can use `{ open: { target: '<url>', app: ['google-chrome', '--incognito'] } }` to open default URL in multiple browsers
-- support `bonjour` options
-- the `headers` option can be `Function` type
-- overlay can be closed in browser
-- the `allowedHosts` option can be `auto` or custom string with your domain (i.e. default value)
-- the `static` option can be disabled using `static: false`
-- the `profile` option were in favor [`ProfilingPlugin`](https://webpack.js.org/plugins/profiling-plugin/)
+- Added the `setupExitSignals` option, it takes a boolean and if `true` (default on CLI), the server will close and exit the process on `SIGINT` and `SIGTERM`.
+- Print a warning if the `host`/`port` option and the `host`/`port` argument passed to `server.listen()` are different.
+- Allowed to disable web socket server using `webSocketServer: false`.
+- Added the `watchFiles` option, now you can reload server on file changes, for example `{ watchFiles: ["src/**/*.php", "public/**/*"] }`.
+- You can specify multiple targets and browsers for the open option, i.e. `{ open: { target: ['/my-page', '/my-other-page'], app: ['google-chrome', '--incognito'] } }`, also you can use `{ open: { target: '<url>', app: ['google-chrome', '--incognito'] } }` to open default URL in multiple browsers.
+- Support [`bonjour`](https://www.npmjs.com/package/bonjour#publishing) options.
+- The `headers` option can be `Function` type.
+- Overlay can be closed in browser.
+- The `allowedHosts` option can be `auto` or custom string with your domain (i.e. default value).
+- The `static` option can be disabled using `static: false`.
 
 ### Bug Fixes
 
-- `publicPath: auto` is now working out of box
-- no problems with the `target` option anymore, you can remove workaround (i.e. `target: 'web'` for webpack v5)
-- fix `webpack-dev-server` binary, i.e. `webpack server` and `webpack-dev-server` will work identically
-- empty and multiple entries support
-- IPv6 supported
-- `chokidar` was updated
-- respect the `client.logging` option for HMR logging
-- show plugin name in progress log
+- `publicPath: auto` is now working out of box.
+- No problems with the `target` option anymore, you can remove workaround (i.e. `target: 'web'` for webpack v5).
+- Fix `webpack-dev-server` binary, i.e. `webpack server` and `webpack-dev-server` will work identically.
+- Empty and multiple entries support.
+- IPv6 supported.
+- `chokidar` was updated.
+- Respect the `client.logging` option for HMR logging.
+- Show plugin name in progress log.
 
 There are a lot of other bug fixes.
 
 ### Notes
 
-- compatibility with `IE11`/`IE10`/`IE9`
+- Compatibility with `IE11`/`IE10`/`IE9`:
 
   - For `IE11`/`IE10` you need polyfill `fetch()` and `Promise`, example:
 
