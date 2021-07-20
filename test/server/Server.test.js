@@ -608,10 +608,12 @@ describe("Server", () => {
 
           if (optionsForSnapshot.static.length > 0) {
             optionsForSnapshot.static.forEach((i) => {
-              i.directory = i.directory.replace(
-                new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
-                "<cwd>"
-              );
+              i.directory = i.directory
+                .replace(/\\/g, "/")
+                .replace(
+                  new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+                  "<cwd>"
+                );
             });
           }
 
