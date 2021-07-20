@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
 // 'npm run prepare' must be run for this to work during testing
-const WebsocketClient = require('../../../client/clients/WebsocketClient');
+const WebsocketClient = require("../../../client/clients/WebsocketClient");
 
 window.expectedClient = WebsocketClient;
 // eslint-disable-next-line camelcase, no-undef

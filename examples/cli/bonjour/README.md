@@ -24,9 +24,9 @@ module.exports = {
   /* ... */
   devServer: {
     bonjour: {
-      name: 'webpack-dev-server',
-      type: 'https',
-      subtype: 'webpack',
+      name: "webpack-dev-server",
+      type: "https",
+      subtype: "webpack",
     },
   },
 };

@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-const { testBin, normalizeStderr } = require('../helpers/test-bin');
-const port = require('../ports-map')['cli-bonjour'];
+const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const port = require("../ports-map")["cli-bonjour"];
 
 describe('"bonjour" CLI option', () => {
   it('should work using "--bonjour"', async () => {
-    const { exitCode, stderr } = await testBin(['--port', port, '--bonjour']);
+    const { exitCode, stderr } = await testBin(["--port", port, "--bonjour"]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
@@ -13,10 +13,10 @@ describe('"bonjour" CLI option', () => {
 
   it('should work using "--bonjour and --https"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--port',
+      "--port",
       port,
-      '--bonjour',
-      '--https',
+      "--bonjour",
+      "--https",
     ]);
 
     expect(exitCode).toEqual(0);
@@ -27,9 +27,9 @@ describe('"bonjour" CLI option', () => {
 
   it('should work using "--no-bonjour"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--port',
+      "--port",
       port,
-      '--no-bonjour',
+      "--no-bonjour",
     ]);
 
     expect(exitCode).toEqual(0);

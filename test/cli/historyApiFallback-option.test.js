@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-const { testBin, normalizeStderr } = require('../helpers/test-bin');
-const port = require('../ports-map')['cli-history-api-fallback'];
+const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const port = require("../ports-map")["cli-history-api-fallback"];
 
 describe('"historyApiFallback" CLI option', () => {
   it('should work using "--history-api-fallback"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--port',
+      "--port",
       port,
-      '--history-api-fallback',
+      "--history-api-fallback",
     ]);
 
     expect(exitCode).toEqual(0);
@@ -17,9 +17,9 @@ describe('"historyApiFallback" CLI option', () => {
 
   it('should work using "--no-history-api-fallback"', async () => {
     const { exitCode, stderr } = await testBin([
-      '--port',
+      "--port",
       port,
-      '--no-history-api-fallback',
+      "--no-history-api-fallback",
     ]);
 
     expect(exitCode).toEqual(0);

@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-require('./style.less');
+require("./style.less");
 
-const target = document.querySelector('#target');
+const target = document.querySelector("#target");
 
-target.classList.add('pass');
-target.innerHTML = 'Success!';
+target.classList.add("pass");
+target.innerHTML = "Success!";
 
-const img = document.createElement('img');
-img.src = '/svg.svg';
-img.style = 'width: 200px;';
+const img = document.createElement("img");
+img.src = "/svg.svg";
+img.style = "width: 200px;";
 
 document.body.appendChild(img);
 

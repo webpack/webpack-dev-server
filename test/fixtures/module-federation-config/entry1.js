@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-module.exports = 'entry1';
+module.exports = "entry1";

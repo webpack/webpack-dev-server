@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const { log } = require('../utils/log');
+const { log } = require("../utils/log");
 
 module.exports = class WebsocketClient {
   constructor(url) {

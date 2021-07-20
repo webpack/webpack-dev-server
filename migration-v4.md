@@ -22,7 +22,7 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    hot: 'only',
+    hot: "only",
   },
 };
 ```
@@ -37,8 +37,8 @@ v3:
 module.exports = {
   devServer: {
     before: function (app, server, compiler) {
-      app.get('/some/path', function (req, res) {
-        res.json({ custom: 'response' });
+      app.get("/some/path", function (req, res) {
+        res.json({ custom: "response" });
       });
     },
   },
@@ -51,8 +51,8 @@ v4:
 module.exports = {
   devServer: {
     onBeforeSetupMiddleware: function (devServer) {
-      devServer.app.get('/some/path', function (req, res) {
-        res.json({ custom: 'response' });
+      devServer.app.get("/some/path", function (req, res) {
+        res.json({ custom: "response" });
       });
     },
   },
@@ -67,8 +67,8 @@ v3:
 module.exports = {
   devServer: {
     after: function (app, server, compiler) {
-      app.get('/some/path', function (req, res) {
-        res.json({ custom: 'response' });
+      app.get("/some/path", function (req, res) {
+        res.json({ custom: "response" });
       });
     },
   },
@@ -81,8 +81,8 @@ v4:
 module.exports = {
   devServer: {
     onAfterSetupMiddleware: function (devServer) {
-      devServer.app.get('/some/path', function (req, res) {
-        res.json({ custom: 'response' });
+      devServer.app.get("/some/path", function (req, res) {
+        res.json({ custom: "response" });
       });
     },
   },
@@ -97,11 +97,11 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    ca: './server.pem',
-    pfx: './server.pfx',
-    key: './server.key',
-    cert: './server.crt',
-    pfxPassphrase: 'webpack-dev-server',
+    ca: "./server.pem",
+    pfx: "./server.pfx",
+    key: "./server.key",
+    cert: "./server.crt",
+    pfxPassphrase: "webpack-dev-server",
     requestCert: true,
   },
 };
@@ -113,11 +113,11 @@ v4:
 module.exports = {
   devServer: {
     https: {
-      cacert: './server.pem',
-      pfx: './server.pfx',
-      key: './server.key',
-      cert: './server.crt',
-      passphrase: 'webpack-dev-server',
+      cacert: "./server.pem",
+      pfx: "./server.pfx",
+      key: "./server.key",
+      cert: "./server.crt",
+      passphrase: "webpack-dev-server",
       requestCert: true,
     },
   },
@@ -145,7 +145,7 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    host: 'local-ip',
+    host: "local-ip",
   },
 };
 ```
@@ -160,8 +160,8 @@ v3:
 module.exports = {
   devServer: {
     index: true,
-    mimeTypes: { 'text/html': ['phtml'] },
-    publicPath: '/publicPathForDevServe',
+    mimeTypes: { "text/html": ["phtml"] },
+    publicPath: "/publicPathForDevServe",
     serverSideRender: true,
     writeToDisk: true,
   },
@@ -175,8 +175,8 @@ module.exports = {
   devServer: {
     devMiddleware: {
       index: true,
-      mimeTypes: { 'text/html': ['phtml'] },
-      publicPath: '/publicPathForDevServe',
+      mimeTypes: { "text/html": ["phtml"] },
+      publicPath: "/publicPathForDevServe",
       serverSideRender: true,
       writeToDisk: true,
     },
@@ -191,7 +191,7 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    clientLogLevel: 'info',
+    clientLogLevel: "info",
     overlay: true,
     progress: true,
   },
@@ -204,7 +204,7 @@ v4:
 module.exports = {
   devServer: {
     client: {
-      logging: 'info',
+      logging: "info",
       // Can be used only for `errors`/`warnings`
       //
       // overlay: {
@@ -225,7 +225,7 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    public: 'ws://localhost:8080',
+    public: "ws://localhost:8080",
   },
 };
 ```
@@ -233,8 +233,8 @@ module.exports = {
 ```js
 module.exports = {
   devServer: {
-    sockHost: '0.0.0.0',
-    sockPath: '/ws',
+    sockHost: "0.0.0.0",
+    sockPath: "/ws",
     sockPort: 8080,
   },
 };
@@ -250,8 +250,8 @@ module.exports = {
       //
       // webSocketURL: 'ws://0.0.0.0/ws'
       webSocketURL: {
-        hostname: '0.0.0.0',
-        pathname: '/ws',
+        hostname: "0.0.0.0",
+        pathname: "/ws",
         port: 8080,
       },
     },
@@ -265,7 +265,7 @@ If you need to set custom `path` to dev server web socket server, please use:
 module.exports = {
   devServer: {
     webSocketServer: {
-      path: '/my/custom/path/to/web/socket/server',
+      path: "/my/custom/path/to/web/socket/server",
     },
   },
 };
@@ -279,8 +279,8 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
-    contentBasePublicPath: '/serve-content-base-at-this-url',
+    contentBase: path.join(__dirname, "public"),
+    contentBasePublicPath: "/serve-content-base-at-this-url",
     serveIndex: true,
     watchContentBase: true,
     watchOptions: {
@@ -296,12 +296,12 @@ v4:
 module.exports = {
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'static'),
+      directory: path.resolve(__dirname, "static"),
       staticOptions: {},
       // Don't be confused with `devMiddleware.publicPath`, it is `publicPath` for static directory
       // Can be:
       // publicPath: ['/static-public-path-one/', '/static-public-path-two/'],
-      publicPath: '/static-public-path/',
+      publicPath: "/static-public-path/",
       // Can be:
       // serveIndex: {} (options for the `serveIndex` option you can find https://github.com/expressjs/serve-index)
       serveIndex: true,
@@ -353,7 +353,7 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    allowedHosts: 'all',
+    allowedHosts: "all",
   },
 };
 ```
@@ -386,10 +386,10 @@ module.exports = {
 module.exports = {
   devServer: {
     open: {
-      target: ['first.html', `http://localhost:8080/second.html`],
+      target: ["first.html", `http://localhost:8080/second.html`],
       app: {
-        name: 'google-chrome',
-        arguments: ['--incognito', '--new-window'],
+        name: "google-chrome",
+        arguments: ["--incognito", "--new-window"],
       },
     },
   },
@@ -402,15 +402,15 @@ v3:
 
 ```js
 module.exports = {
-  transportMode: 'ws',
+  transportMode: "ws",
 };
 ```
 
 ```js
 module.exports = {
   transportMode: {
-    client: require.resolve('./CustomClient'),
-    server: require.resolve('./CustomServer'),
+    client: require.resolve("./CustomClient"),
+    server: require.resolve("./CustomServer"),
   },
 };
 ```
@@ -421,7 +421,7 @@ v4:
 module.exports = {
   devServer: {
     // webSocketServer: 'sockjs',
-    webSocketServer: 'ws',
+    webSocketServer: "ws",
   },
 };
 ```
@@ -430,9 +430,9 @@ module.exports = {
 module.exports = {
   devServer: {
     client: {
-      webSocketTransport: require.resolve('./CustomClient'),
+      webSocketTransport: require.resolve("./CustomClient"),
     },
-    webSocketServer: require.resolve('./CustomServer'),
+    webSocketServer: require.resolve("./CustomServer"),
   },
 };
 ```
@@ -480,7 +480,7 @@ There are a lot of other bug fixes.
   ```js
   module.exports = {
     entry: {
-      entry: ['whatwg-fetch', 'core-js/features/promise', './entry.js'],
+      entry: ["whatwg-fetch", "core-js/features/promise", "./entry.js"],
     },
   };
   ```
@@ -490,10 +490,10 @@ There are a lot of other bug fixes.
   ```js
   module.exports = {
     entry: {
-      entry: ['whatwg-fetch', 'core-js/features/promise', './entry.js'],
+      entry: ["whatwg-fetch", "core-js/features/promise", "./entry.js"],
     },
     devServer: {
-      webSocketServer: 'sockjs',
+      webSocketServer: "sockjs",
     },
   };
   ```

@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-console.log('I am bar');
+console.log("I am bar");

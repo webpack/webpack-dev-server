@@ -1,24 +1,24 @@
-'use strict';
+"use strict";
 
-const os = require('os');
-const net = require('net');
-const path = require('path');
-const http = require('http');
-const webpack = require('webpack');
-const httpProxy = require('http-proxy');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/client-config/webpack.config');
-const runBrowser = require('../helpers/run-browser');
-const port1 = require('../ports-map').ipc;
+const os = require("os");
+const net = require("net");
+const path = require("path");
+const http = require("http");
+const webpack = require("webpack");
+const httpProxy = require("http-proxy");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/client-config/webpack.config");
+const runBrowser = require("../helpers/run-browser");
+const port1 = require("../ports-map").ipc;
 
-const webSocketServers = ['ws', 'sockjs'];
+const webSocketServers = ["ws", "sockjs"];
 
-describe('web socket server URL', () => {
+describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
-    const websocketURLProtocol = webSocketServer === 'ws' ? 'ws' : 'http';
+    const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
 
     it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
-      const devServerHost = '127.0.0.1';
+      const devServerHost = "127.0.0.1";
       const proxyHost = devServerHost;
       const proxyPort = port1;
 
@@ -59,7 +59,7 @@ describe('web socket server URL', () => {
           proxy.web(request, response);
         });
 
-        proxyServer.on('upgrade', (request, socket, head) => {
+        proxyServer.on("upgrade", (request, socket, head) => {
           proxy.ws(request, socket, head);
         });
 
@@ -78,23 +78,23 @@ describe('web socket server URL', () => {
       const consoleMessages = [];
 
       page
-        .on('console', (message) => {
+        .on("console", (message) => {
           consoleMessages.push(message);
         })
-        .on('pageerror', (error) => {
+        .on("pageerror", (error) => {
           pageErrors.push(error);
         });
 
       const webSocketRequests = [];
 
-      if (webSocketServer === 'ws') {
+      if (webSocketServer === "ws") {
         const client = page._client;
 
-        client.on('Network.webSocketCreated', (test) => {
+        client.on("Network.webSocketCreated", (test) => {
           webSocketRequests.push(test);
         });
       } else {
-        page.on('request', (request) => {
+        page.on("request", (request) => {
           if (/\/ws\//.test(request.url())) {
             webSocketRequests.push({ url: request.url() });
           }
@@ -102,7 +102,7 @@ describe('web socket server URL', () => {
       }
 
       await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       const webSocketRequest = webSocketRequests[0];
@@ -111,9 +111,9 @@ describe('web socket server URL', () => {
         `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
+        "console messages"
       );
-      expect(pageErrors).toMatchSnapshot('page errors');
+      expect(pageErrors).toMatchSnapshot("page errors");
 
       proxy.close();
 
@@ -132,12 +132,12 @@ describe('web socket server URL', () => {
     });
 
     it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
-      const isWindows = process.platform === 'win32';
-      const pipePrefix = isWindows ? '\\\\.\\pipe\\' : os.tmpdir();
+      const isWindows = process.platform === "win32";
+      const pipePrefix = isWindows ? "\\\\.\\pipe\\" : os.tmpdir();
       const pipeName = `webpack-dev-server.${process.pid}-1.sock`;
       const ipc = path.join(pipePrefix, pipeName);
 
-      const devServerHost = '127.0.0.1';
+      const devServerHost = "127.0.0.1";
       const proxyHost = devServerHost;
       const proxyPort = port1;
 
@@ -172,7 +172,7 @@ describe('web socket server URL', () => {
           proxy.web(request, response);
         });
 
-        proxyServer.on('upgrade', (request, socket, head) => {
+        proxyServer.on("upgrade", (request, socket, head) => {
           proxy.ws(request, socket, head);
         });
 
@@ -191,23 +191,23 @@ describe('web socket server URL', () => {
       const consoleMessages = [];
 
       page
-        .on('console', (message) => {
+        .on("console", (message) => {
           consoleMessages.push(message);
         })
-        .on('pageerror', (error) => {
+        .on("pageerror", (error) => {
           pageErrors.push(error);
         });
 
       const webSocketRequests = [];
 
-      if (webSocketServer === 'ws') {
+      if (webSocketServer === "ws") {
         const client = page._client;
 
-        client.on('Network.webSocketCreated', (test) => {
+        client.on("Network.webSocketCreated", (test) => {
           webSocketRequests.push(test);
         });
       } else {
-        page.on('request', (request) => {
+        page.on("request", (request) => {
           if (/\/ws\//.test(request.url())) {
             webSocketRequests.push({ url: request.url() });
           }
@@ -215,7 +215,7 @@ describe('web socket server URL', () => {
       }
 
       await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       const webSocketRequest = webSocketRequests[0];
@@ -224,9 +224,9 @@ describe('web socket server URL', () => {
         `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
+        "console messages"
       );
-      expect(pageErrors).toMatchSnapshot('page errors');
+      expect(pageErrors).toMatchSnapshot("page errors");
 
       proxy.close();
 
@@ -246,16 +246,16 @@ describe('web socket server URL', () => {
 
     // TODO un skip after implement new API
     it.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async () => {
-      const isWindows = process.platform === 'win32';
+      const isWindows = process.platform === "win32";
       const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
-      const pipePrefix = isWindows ? '\\\\.\\pipe\\' : localRelative;
+      const pipePrefix = isWindows ? "\\\\.\\pipe\\" : localRelative;
       const pipeName = `webpack-dev-server.${process.pid}-2.sock`;
       const ipc = path.join(pipePrefix, pipeName);
 
       const ipcServer = await new Promise((resolve, reject) => {
         const server = net.Server();
 
-        server.on('error', (error) => {
+        server.on("error", (error) => {
           reject(error);
         });
 
@@ -264,7 +264,7 @@ describe('web socket server URL', () => {
         });
       });
 
-      const devServerHost = '127.0.0.1';
+      const devServerHost = "127.0.0.1";
       const proxyHost = devServerHost;
       const proxyPort = port1;
 
@@ -299,14 +299,14 @@ describe('web socket server URL', () => {
           proxy.web(request, response);
         });
 
-        proxyServer.on('upgrade', (request, socket, head) => {
+        proxyServer.on("upgrade", (request, socket, head) => {
           proxy.ws(request, socket, head);
         });
 
         return proxyServer.listen(proxyPort, proxyHost, callback);
       }
 
-      console.log('HERE');
+      console.log("HERE");
       const proxy = await new Promise((resolve) => {
         const proxyCreated = startProxy(() => {
           resolve(proxyCreated);
@@ -319,23 +319,23 @@ describe('web socket server URL', () => {
       const consoleMessages = [];
 
       page
-        .on('console', (message) => {
+        .on("console", (message) => {
           consoleMessages.push(message);
         })
-        .on('pageerror', (error) => {
+        .on("pageerror", (error) => {
           pageErrors.push(error);
         });
 
       const webSocketRequests = [];
 
-      if (webSocketServer === 'ws') {
+      if (webSocketServer === "ws") {
         const client = page._client;
 
-        client.on('Network.webSocketCreated', (test) => {
+        client.on("Network.webSocketCreated", (test) => {
           webSocketRequests.push(test);
         });
       } else {
-        page.on('request', (request) => {
+        page.on("request", (request) => {
           if (/\/ws\//.test(request.url())) {
             webSocketRequests.push({ url: request.url() });
           }
@@ -344,7 +344,7 @@ describe('web socket server URL', () => {
 
       console.log(`http://${proxyHost}:${proxyPort}/main`);
       await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       const webSocketRequest = webSocketRequests[0];
@@ -353,9 +353,9 @@ describe('web socket server URL', () => {
         `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
       );
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
+        "console messages"
       );
-      expect(pageErrors).toMatchSnapshot('page errors');
+      expect(pageErrors).toMatchSnapshot("page errors");
 
       proxy.close();
 

@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
 const path = document.location.pathname;
-const target = document.querySelector('#target');
-const style = document.createElement('style');
+const target = document.querySelector("#target");
+const style = document.createElement("style");
 const css = `table {
     border-radius: 0.3rem;
     border: 0.1rem solid #474747;
@@ -36,26 +36,26 @@ document.head.appendChild(style);
 target.innerHTML = `Current Path: <code>${path}</code>`;
 
 document.addEventListener(
-  'DOMContentLoaded',
+  "DOMContentLoaded",
   () => {
-    if (document.querySelector('#files')) {
+    if (document.querySelector("#files")) {
       return;
     }
 
     const tests = [
-      { url: '/', name: 'index', re: /^<!doctype html>/i },
-      { url: '/test', name: 'non-existent path', re: /^<!doctype html>/i },
-      { url: '/file.txt', name: 'existing path', re: /^file/ },
+      { url: "/", name: "index", re: /^<!doctype html>/i },
+      { url: "/test", name: "non-existent path", re: /^<!doctype html>/i },
+      { url: "/file.txt", name: "existing path", re: /^file/ },
     ];
-    const table = document.createElement('table');
-    const tbody = document.createElement('tbody');
+    const table = document.createElement("table");
+    const tbody = document.createElement("tbody");
 
-    table.id = 'files';
+    table.id = "files";
     table.appendChild(tbody);
     target.parentNode.appendChild(table);
 
     tests.forEach((test) => {
-      const tr = document.createElement('tr');
+      const tr = document.createElement("tr");
       tbody.appendChild(tr);
       check(test.url, test.re, (res) => {
         tr.innerHTML = `<td>${test.name}</td>`;
@@ -69,9 +69,9 @@ document.addEventListener(
 
 function check(url, re, cb) {
   const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', () => {
-    cb(re.test(xhr.responseText) ? 'pass' : 'fail');
+  xhr.addEventListener("load", () => {
+    cb(re.test(xhr.responseText) ? "pass" : "fail");
   });
-  xhr.open('GET', url);
+  xhr.open("GET", url);
   xhr.send();
 }

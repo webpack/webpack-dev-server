@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
-const WebsocketServer = require('../../lib/servers/WebsocketServer');
-const defaultConfig = require('../fixtures/provide-plugin-default/webpack.config');
-const sockjsConfig = require('../fixtures/provide-plugin-sockjs-config/webpack.config');
-const wsConfig = require('../fixtures/provide-plugin-ws-config/webpack.config');
-const customConfig = require('../fixtures/provide-plugin-custom/webpack.config');
-const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map')['web-socket-server-and-transport'];
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
+const WebsocketServer = require("../../lib/servers/WebsocketServer");
+const defaultConfig = require("../fixtures/provide-plugin-default/webpack.config");
+const sockjsConfig = require("../fixtures/provide-plugin-sockjs-config/webpack.config");
+const wsConfig = require("../fixtures/provide-plugin-ws-config/webpack.config");
+const customConfig = require("../fixtures/provide-plugin-custom/webpack.config");
+const runBrowser = require("../helpers/run-browser");
+const port = require("../ports-map")["web-socket-server-and-transport"];
 
-describe('web socket server and transport', () => {
+describe("web socket server and transport", () => {
   it('should use default web socket server ("ws")', async () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
@@ -34,12 +34,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -62,7 +62,7 @@ describe('web socket server and transport', () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
-      webSocketServer: 'ws',
+      webSocketServer: "ws",
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -82,12 +82,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -111,7 +111,7 @@ describe('web socket server and transport', () => {
     const devServerOptions = {
       port,
       webSocketServer: {
-        type: 'ws',
+        type: "ws",
       },
     };
     const server = new Server(devServerOptions, compiler);
@@ -132,12 +132,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -160,7 +160,7 @@ describe('web socket server and transport', () => {
     const compiler = webpack(sockjsConfig);
     const devServerOptions = {
       port,
-      webSocketServer: 'sockjs',
+      webSocketServer: "sockjs",
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -180,12 +180,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -209,7 +209,7 @@ describe('web socket server and transport', () => {
     const devServerOptions = {
       port,
       webSocketServer: {
-        type: 'sockjs',
+        type: "sockjs",
       },
     };
     const server = new Server(devServerOptions, compiler);
@@ -230,12 +230,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -254,12 +254,12 @@ describe('web socket server and transport', () => {
     });
   });
 
-  it('should use custom web socket server when specify class', async () => {
+  it("should use custom web socket server when specify class", async () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'ws',
+        webSocketTransport: "ws",
       },
       webSocketServer: WebsocketServer,
     };
@@ -281,12 +281,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -305,12 +305,12 @@ describe('web socket server and transport', () => {
     });
   });
 
-  it('should use custom web socket server when specify class using object', async () => {
+  it("should use custom web socket server when specify class using object", async () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'ws',
+        webSocketTransport: "ws",
       },
       webSocketServer: {
         type: WebsocketServer,
@@ -334,12 +334,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -358,14 +358,14 @@ describe('web socket server and transport', () => {
     });
   });
 
-  it('should use custom web socket server when specify path to class', async () => {
+  it("should use custom web socket server when specify path to class", async () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'ws',
+        webSocketTransport: "ws",
       },
-      webSocketServer: require.resolve('../../lib/servers/WebsocketServer'),
+      webSocketServer: require.resolve("../../lib/servers/WebsocketServer"),
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -385,12 +385,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -409,15 +409,15 @@ describe('web socket server and transport', () => {
     });
   });
 
-  it('should use custom web socket server when specify path to class using object', async () => {
+  it("should use custom web socket server when specify path to class using object", async () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'ws',
+        webSocketTransport: "ws",
       },
       webSocketServer: {
-        type: require.resolve('../../lib/servers/WebsocketServer'),
+        type: require.resolve("../../lib/servers/WebsocketServer"),
       },
     };
     const server = new Server(devServerOptions, compiler);
@@ -438,12 +438,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -462,14 +462,14 @@ describe('web socket server and transport', () => {
     });
   });
 
-  it('should throw an error on wrong path', async () => {
+  it("should throw an error on wrong path", async () => {
     expect.assertions(1);
 
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
       webSocketServer: {
-        type: '/bad/path/to/implementation',
+        type: "/bad/path/to/implementation",
       },
     };
     const server = new Server(devServerOptions, compiler);
@@ -502,7 +502,7 @@ describe('web socket server and transport', () => {
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'sockjs',
+        webSocketTransport: "sockjs",
       },
     };
     const server = new Server(devServerOptions, compiler);
@@ -523,12 +523,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main.js`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -552,7 +552,7 @@ describe('web socket server and transport', () => {
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'ws',
+        webSocketTransport: "ws",
       },
     };
     const server = new Server(devServerOptions, compiler);
@@ -573,12 +573,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -602,9 +602,9 @@ describe('web socket server and transport', () => {
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'sockjs',
+        webSocketTransport: "sockjs",
       },
-      webSocketServer: 'sockjs',
+      webSocketServer: "sockjs",
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -624,12 +624,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -653,9 +653,9 @@ describe('web socket server and transport', () => {
     const devServerOptions = {
       port,
       client: {
-        webSocketTransport: 'ws',
+        webSocketTransport: "ws",
       },
-      webSocketServer: 'ws',
+      webSocketServer: "ws",
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -675,12 +675,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(
@@ -705,10 +705,10 @@ describe('web socket server and transport', () => {
       port,
       client: {
         webSocketTransport: require.resolve(
-          '../fixtures/custom-client/CustomSockJSClient'
+          "../fixtures/custom-client/CustomSockJSClient"
         ),
       },
-      webSocketServer: 'sockjs',
+      webSocketServer: "sockjs",
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -728,12 +728,12 @@ describe('web socket server and transport', () => {
 
     const consoleMessages = [];
 
-    page.on('console', (message) => {
+    page.on("console", (message) => {
       consoleMessages.push(message);
     });
 
     await page.goto(`http://localhost:${port}/main`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
 
     const isCorrectTransport = await page.evaluate(

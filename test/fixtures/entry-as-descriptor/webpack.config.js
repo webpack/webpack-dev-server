@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
-const ExitOnDonePlugin = require('../../helpers/ExitOnDonePlugin');
+const ExitOnDonePlugin = require("../../helpers/ExitOnDonePlugin");
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
   context: __dirname,
   entry: {
     main: {
-      import: './foo.js',
+      import: "./foo.js",
     },
   },
   plugins: [ExitOnDonePlugin],
   infrastructureLogging: {
-    level: 'warn',
+    level: "warn",
   },
 };

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const path = require('path');
+const path = require("path");
 
 // Based on https://github.com/webpack/webpack/blob/master/lib/cli.js
 // Please do not modify it
@@ -12,13 +12,13 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
     return { value: config };
   }
 
-  const parts = schemaPath.split('.');
+  const parts = schemaPath.split(".");
   const property = parts.pop();
   let current = config;
   let i = 0;
 
   for (const part of parts) {
-    const isArray = part.endsWith('[]');
+    const isArray = part.endsWith("[]");
     const name = isArray ? part.slice(0, -2) : part;
     let value = current[name];
 
@@ -31,8 +31,8 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
       } else if (!Array.isArray(value)) {
         return {
           problem: {
-            type: 'unexpected-non-array-in-path',
-            path: parts.slice(0, i).join('.'),
+            type: "unexpected-non-array-in-path",
+            path: parts.slice(0, i).join("."),
           },
         };
       } else {
@@ -52,11 +52,11 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
         // eslint-disable-next-line no-undefined
         if (value[x] === undefined) {
           value[x] = {};
-        } else if (value[x] === null || typeof value[x] !== 'object') {
+        } else if (value[x] === null || typeof value[x] !== "object") {
           return {
             problem: {
-              type: 'unexpected-non-object-in-path',
-              path: parts.slice(0, i).join('.'),
+              type: "unexpected-non-object-in-path",
+              path: parts.slice(0, i).join("."),
             },
           };
         }
@@ -67,11 +67,11 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
     } else if (value === undefined) {
       // eslint-disable-next-line no-multi-assign
       value = current[name] = {};
-    } else if (value === null || typeof value !== 'object') {
+    } else if (value === null || typeof value !== "object") {
       return {
         problem: {
-          type: 'unexpected-non-object-in-path',
-          path: parts.slice(0, i).join('.'),
+          type: "unexpected-non-object-in-path",
+          path: parts.slice(0, i).join("."),
         },
       };
     }
@@ -83,7 +83,7 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
 
   const value = current[property];
 
-  if (property.endsWith('[]')) {
+  if (property.endsWith("[]")) {
     const name = property.slice(0, -2);
     // eslint-disable-next-line no-shadow
     const value = current[name];
@@ -121,10 +121,10 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
     // eslint-disable-next-line no-undefined
     if (value[x] === undefined) {
       value[x] = {};
-    } else if (value[x] === null || typeof value[x] !== 'object') {
+    } else if (value[x] === null || typeof value[x] !== "object") {
       return {
         problem: {
-          type: 'unexpected-non-object-in-path',
+          type: "unexpected-non-object-in-path",
           path: schemaPath,
         },
       };
@@ -143,47 +143,47 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
 const parseValueForArgumentConfig = (argConfig, value) => {
   // eslint-disable-next-line default-case
   switch (argConfig.type) {
-    case 'string':
-      if (typeof value === 'string') {
+    case "string":
+      if (typeof value === "string") {
         return value;
       }
       break;
-    case 'path':
-      if (typeof value === 'string') {
+    case "path":
+      if (typeof value === "string") {
         return path.resolve(value);
       }
       break;
-    case 'number':
-      if (typeof value === 'number') {
+    case "number":
+      if (typeof value === "number") {
         return value;
       }
 
-      if (typeof value === 'string' && /^[+-]?\d*(\.\d*)[eE]\d+$/) {
+      if (typeof value === "string" && /^[+-]?\d*(\.\d*)[eE]\d+$/) {
         const n = +value;
         if (!isNaN(n)) return n;
       }
 
       break;
-    case 'boolean':
-      if (typeof value === 'boolean') {
+    case "boolean":
+      if (typeof value === "boolean") {
         return value;
       }
 
-      if (value === 'true') {
+      if (value === "true") {
         return true;
       }
 
-      if (value === 'false') {
+      if (value === "false") {
         return false;
       }
 
       break;
-    case 'RegExp':
+    case "RegExp":
       if (value instanceof RegExp) {
         return value;
       }
 
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         // cspell:word yugi
         const match = /^\/(.*)\/([yugi]*)$/.exec(value);
 
@@ -193,7 +193,7 @@ const parseValueForArgumentConfig = (argConfig, value) => {
       }
 
       break;
-    case 'enum':
+    case "enum":
       if (argConfig.values.includes(value)) {
         return value;
       }
@@ -203,7 +203,7 @@ const parseValueForArgumentConfig = (argConfig, value) => {
       }
 
       break;
-    case 'reset':
+    case "reset":
       if (value === true) {
         return [];
       }
@@ -216,14 +216,14 @@ const getExpectedValue = (argConfig) => {
   switch (argConfig.type) {
     default:
       return argConfig.type;
-    case 'boolean':
-      return 'true | false';
-    case 'RegExp':
-      return 'regular expression (example: /ab?c*/)';
-    case 'enum':
-      return argConfig.values.map((v) => `${v}`).join(' | ');
-    case 'reset':
-      return 'true (will reset the previous value to an empty array)';
+    case "boolean":
+      return "true | false";
+    case "RegExp":
+      return "regular expression (example: /ab?c*/)";
+    case "enum":
+      return argConfig.values.map((v) => `${v}`).join(" | ");
+    case "reset":
+      return "true (will reset the previous value to an empty array)";
   }
 };
 
@@ -247,7 +247,7 @@ const processArgumentConfig = (argConfig, config, value, index) => {
   // eslint-disable-next-line no-undefined
   if (index !== undefined && !argConfig.multiple) {
     return {
-      type: 'multiple-values-unexpected',
+      type: "multiple-values-unexpected",
       path: argConfig.path,
     };
   }
@@ -257,7 +257,7 @@ const processArgumentConfig = (argConfig, config, value, index) => {
   // eslint-disable-next-line no-undefined
   if (parsed === undefined) {
     return {
-      type: 'invalid-value',
+      type: "invalid-value",
       path: argConfig.path,
       expected: getExpectedValue(argConfig),
     };
@@ -280,8 +280,8 @@ const processArguments = (args, config, values) => {
 
     if (!arg) {
       problems.push({
-        type: 'unknown-argument',
-        path: '',
+        type: "unknown-argument",
+        path: "",
         argument: key,
       });
 

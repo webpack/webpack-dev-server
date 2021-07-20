@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-console.log('Hello from the server');
+console.log("Hello from the server");

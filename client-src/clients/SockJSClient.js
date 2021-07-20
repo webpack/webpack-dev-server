@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
-const SockJS = require('../modules/sockjs-client');
-const { log } = require('../utils/log');
+const SockJS = require("../modules/sockjs-client");
+const { log } = require("../utils/log");
 
 module.exports = class SockJSClient {
   constructor(url) {
     // SockJS requires `http` and `https` protocols
     this.sock = new SockJS(
-      url.replace(/^ws:/i, 'http:').replace(/^wss:/i, 'https:')
+      url.replace(/^ws:/i, "http:").replace(/^wss:/i, "https:")
     );
     this.sock.onerror = (error) => {
       log.error(error);

@@ -20,7 +20,7 @@ npx webpack serve --static assets --open
 module.exports = {
   /* ... */
   devServer: {
-    static: ['assets', 'css'],
+    static: ["assets", "css"],
   },
 };
 ```

@@ -1,59 +1,59 @@
-'use strict';
+"use strict";
 
-const { relative, sep } = require('path');
-const http = require('http');
-const webpack = require('webpack');
-const sockjs = require('sockjs/lib/transport');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map').server;
-const isWebpack5 = require('../helpers/isWebpack5');
+const { relative, sep } = require("path");
+const http = require("http");
+const webpack = require("webpack");
+const sockjs = require("sockjs/lib/transport");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/simple-config/webpack.config");
+const port = require("../ports-map").server;
+const isWebpack5 = require("../helpers/isWebpack5");
 
-jest.mock('sockjs/lib/transport');
+jest.mock("sockjs/lib/transport");
 
 const baseDevConfig = {
   port,
-  host: 'localhost',
+  host: "localhost",
   static: false,
 };
 
-describe('Server', () => {
-  describe('sockjs', () => {
-    it('add decorateConnection', () => {
+describe("Server", () => {
+  describe("sockjs", () => {
+    it("add decorateConnection", () => {
       expect(typeof sockjs.Session.prototype.decorateConnection).toEqual(
-        'function'
+        "function"
       );
     });
   });
 
-  describe('DevServerPlugin', () => {
+  describe("DevServerPlugin", () => {
     let entries;
 
     function getEntries(server) {
       if (isWebpack5) {
         server.middleware.context.compiler.hooks.afterEmit.tap(
-          'webpack-dev-server',
+          "webpack-dev-server",
           (compilation) => {
-            const mainDeps = compilation.entries.get('main').dependencies;
+            const mainDeps = compilation.entries.get("main").dependencies;
             const globalDeps = compilation.globalEntry.dependencies;
 
             entries = globalDeps
               .concat(mainDeps)
-              .map((dep) => relative('.', dep.request).split(sep));
+              .map((dep) => relative(".", dep.request).split(sep));
           }
         );
       } else {
         entries = server.middleware.context.compiler.options.entry.map((p) =>
-          relative('.', p).split(sep)
+          relative(".", p).split(sep)
         );
       }
     }
 
-    it('add hot option', (done) => {
+    it("add hot option", (done) => {
       const compiler = webpack(config);
       const server = new Server({ ...baseDevConfig, hot: true }, compiler);
 
-      compiler.hooks.done.tap('webpack-dev-server', () => {
+      compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot();
 
         server.close(() => {
@@ -61,7 +61,7 @@ describe('Server', () => {
         });
       });
 
-      server.listen(port, 'localhost', (error) => {
+      server.listen(port, "localhost", (error) => {
         if (error) {
           throw error;
         }
@@ -70,17 +70,17 @@ describe('Server', () => {
       });
     });
 
-    it('add hot-only option', (done) => {
+    it("add hot-only option", (done) => {
       const compiler = webpack(config);
-      const server = new Server({ ...baseDevConfig, hot: 'only' }, compiler);
+      const server = new Server({ ...baseDevConfig, hot: "only" }, compiler);
 
-      compiler.hooks.done.tap('webpack-dev-server', () => {
+      compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot();
 
         server.close(done);
       });
 
-      server.listen(port, 'localhost', (error) => {
+      server.listen(port, "localhost", (error) => {
         if (error) {
           throw error;
         }
@@ -90,17 +90,17 @@ describe('Server', () => {
     });
 
     // TODO: remove this after plugin support is published
-    it('should create and run server with old parameters order', (done) => {
+    it("should create and run server with old parameters order", (done) => {
       const compiler = webpack(config);
       const server = new Server(compiler, baseDevConfig);
 
-      compiler.hooks.done.tap('webpack-dev-server', () => {
-        expect(entries).toMatchSnapshot('oldparam');
+      compiler.hooks.done.tap("webpack-dev-server", () => {
+        expect(entries).toMatchSnapshot("oldparam");
 
         server.close(done);
       });
 
-      server.listen(port, 'localhost', (error) => {
+      server.listen(port, "localhost", (error) => {
         if (error) {
           throw error;
         }
@@ -110,11 +110,11 @@ describe('Server', () => {
     });
   });
 
-  it('test server error reporting', () => {
+  it("test server error reporting", () => {
     const compiler = webpack(config);
     const server = new Server(baseDevConfig, compiler);
 
-    const emitError = () => server.server.emit('error', new Error('Error !!!'));
+    const emitError = () => server.server.emit("error", new Error("Error !!!"));
 
     expect(emitError).toThrowError();
 
@@ -122,16 +122,16 @@ describe('Server', () => {
   });
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
-  describe('express.static.mime.types', () => {
+  describe("express.static.mime.types", () => {
     it("should success even if mime.types doesn't exist", (done) => {
-      jest.mock('express', () => {
-        const data = jest.requireActual('express');
+      jest.mock("express", () => {
+        const data = jest.requireActual("express");
         const { static: st } = data;
         const { mime } = st;
 
         delete mime.types;
 
-        expect(typeof mime.types).toEqual('undefined');
+        expect(typeof mime.types).toEqual("undefined");
 
         return { ...data, static: { ...st, mime } };
       });
@@ -139,18 +139,18 @@ describe('Server', () => {
       const compiler = webpack(config);
       const server = new Server(baseDevConfig, compiler);
 
-      compiler.hooks.done.tap('webpack-dev-server', (s) => {
+      compiler.hooks.done.tap("webpack-dev-server", (s) => {
         const output = server.getStats(s);
         expect(output.errors.length).toEqual(0);
 
         server.close(done);
       });
 
-      server.listen(port, 'localhost');
+      server.listen(port, "localhost");
     });
   });
 
-  describe('listen', () => {
+  describe("listen", () => {
     let compiler;
     let server;
 
@@ -160,7 +160,7 @@ describe('Server', () => {
 
     it('should work and using "port" and "host" from options', (done) => {
       const options = {
-        host: 'localhost',
+        host: "localhost",
         port,
       };
 
@@ -170,7 +170,7 @@ describe('Server', () => {
       server.listen(undefined, undefined, () => {
         const info = server.server.address();
 
-        expect(info.address).toBe('127.0.0.1');
+        expect(info.address).toBe("127.0.0.1");
         expect(info.port).toBe(port);
 
         server.close(done);
@@ -180,10 +180,10 @@ describe('Server', () => {
     it('should work and using "port" and "host" from arguments', (done) => {
       server = new Server({}, compiler);
 
-      server.listen(port, '127.0.0.1', () => {
+      server.listen(port, "127.0.0.1", () => {
         const info = server.server.address();
 
-        expect(info.address).toBe('127.0.0.1');
+        expect(info.address).toBe("127.0.0.1");
         expect(info.port).toBe(port);
 
         server.close(done);
@@ -192,7 +192,7 @@ describe('Server', () => {
 
     it('should work and using the same "port" and "host" from options and arguments', (done) => {
       const options = {
-        host: 'localhost',
+        host: "localhost",
         port,
       };
 
@@ -201,7 +201,7 @@ describe('Server', () => {
       server.listen(options.port, options.host, () => {
         const info = server.server.address();
 
-        expect(info.address).toBe('127.0.0.1');
+        expect(info.address).toBe("127.0.0.1");
         expect(info.port).toBe(port);
 
         server.close(done);
@@ -210,7 +210,7 @@ describe('Server', () => {
 
     it('should work and using "port" from arguments and "host" from options', (done) => {
       const options = {
-        host: '127.0.0.1',
+        host: "127.0.0.1",
       };
 
       server = new Server(options, compiler);
@@ -219,7 +219,7 @@ describe('Server', () => {
       server.listen(port, undefined, () => {
         const info = server.server.address();
 
-        expect(info.address).toBe('127.0.0.1');
+        expect(info.address).toBe("127.0.0.1");
         expect(info.port).toBe(port);
 
         server.close(done);
@@ -234,10 +234,10 @@ describe('Server', () => {
       server = new Server(options, compiler);
 
       // eslint-disable-next-line no-undefined
-      server.listen(undefined, '127.0.0.1', () => {
+      server.listen(undefined, "127.0.0.1", () => {
         const info = server.server.address();
 
-        expect(info.address).toBe('127.0.0.1');
+        expect(info.address).toBe("127.0.0.1");
         expect(info.port).toBe(port);
 
         server.close(done);
@@ -246,15 +246,15 @@ describe('Server', () => {
 
     it('should log warning when the "port" and "host" options from options different from arguments', (done) => {
       const options = {
-        host: '127.0.0.2',
-        port: '9999',
+        host: "127.0.0.2",
+        port: "9999",
       };
 
       server = new Server(compiler, options);
 
-      const loggerWarnSpy = jest.spyOn(server.logger, 'warn');
+      const loggerWarnSpy = jest.spyOn(server.logger, "warn");
 
-      server.listen(port, '127.0.0.1', () => {
+      server.listen(port, "127.0.0.1", () => {
         const info = server.server.address();
 
         expect(loggerWarnSpy).toHaveBeenNthCalledWith(
@@ -265,7 +265,7 @@ describe('Server', () => {
           2,
           'The "host" specified in options is different from the host passed as an argument. Will be used from arguments.'
         );
-        expect(info.address).toBe('127.0.0.1');
+        expect(info.address).toBe("127.0.0.1");
         expect(info.port).toBe(port);
 
         loggerWarnSpy.mockRestore();
@@ -274,7 +274,7 @@ describe('Server', () => {
     });
   });
 
-  describe('checkHostHeader', () => {
+  describe("checkHostHeader", () => {
     let compiler;
     let server;
 
@@ -288,14 +288,14 @@ describe('Server', () => {
       });
     });
 
-    it('should allow any valid options.client.webSocketURL when host is localhost', () => {
+    it("should allow any valid options.client.webSocketURL when host is localhost", () => {
       const options = {
         client: {
-          webSocketURL: 'ws://test.host:80',
+          webSocketURL: "ws://test.host:80",
         },
       };
       const headers = {
-        host: 'localhost',
+        host: "localhost",
       };
 
       server = new Server(options, compiler);
@@ -305,15 +305,15 @@ describe('Server', () => {
       }
     });
 
-    it('should allow any valid options.client.webSocketURL when host is 127.0.0.1', () => {
+    it("should allow any valid options.client.webSocketURL when host is 127.0.0.1", () => {
       const options = {
         client: {
-          webSocketURL: 'ws://test.host:80',
+          webSocketURL: "ws://test.host:80",
         },
       };
 
       const headers = {
-        host: '127.0.0.1',
+        host: "127.0.0.1",
       };
 
       server = new Server(options, compiler);
@@ -323,16 +323,16 @@ describe('Server', () => {
       }
     });
 
-    it('should allow access for every requests using an IP', () => {
+    it("should allow access for every requests using an IP", () => {
       const options = {};
 
       const tests = [
-        '192.168.1.123',
-        '192.168.1.2:8080',
-        '[::1]',
-        '[::1]:8080',
-        '[ad42::1de2:54c2:c2fa:1234]',
-        '[ad42::1de2:54c2:c2fa:1234]:8080',
+        "192.168.1.123",
+        "192.168.1.2:8080",
+        "[::1]",
+        "[::1]:8080",
+        "[ad42::1de2:54c2:c2fa:1234]",
+        "[ad42::1de2:54c2:c2fa:1234]:8080",
       ];
 
       server = new Server(options, compiler);
@@ -349,12 +349,12 @@ describe('Server', () => {
     it("should not allow hostnames that don't match options.client.webSocketURL", () => {
       const options = {
         client: {
-          webSocketURL: 'ws://test.host:80',
+          webSocketURL: "ws://test.host:80",
         },
       };
 
       const headers = {
-        host: 'test.hostname:80',
+        host: "test.hostname:80",
       };
 
       server = new Server(options, compiler);
@@ -367,11 +367,11 @@ describe('Server', () => {
     it('should allow urls with scheme for checking origin when the "option.client.webSocketURL" is string', () => {
       const options = {
         client: {
-          webSocketURL: 'ws://test.host:80',
+          webSocketURL: "ws://test.host:80",
         },
       };
       const headers = {
-        origin: 'https://test.host',
+        origin: "https://test.host",
       };
 
       server = new Server(options, compiler);
@@ -385,12 +385,12 @@ describe('Server', () => {
       const options = {
         client: {
           webSocketURL: {
-            hostname: 'test.host',
+            hostname: "test.host",
           },
         },
       };
       const headers = {
-        origin: 'https://test.host',
+        origin: "https://test.host",
       };
 
       server = new Server(options, compiler);
@@ -401,17 +401,17 @@ describe('Server', () => {
     });
   });
 
-  describe('Invalidate Callback', () => {
-    describe('Testing callback functions on calling invalidate without callback', () => {
-      it('should use default `noop` callback', (done) => {
+  describe("Invalidate Callback", () => {
+    describe("Testing callback functions on calling invalidate without callback", () => {
+      it("should use default `noop` callback", (done) => {
         const compiler = webpack(config);
         const server = new Server(baseDevConfig, compiler);
 
-        compiler.hooks.done.tap('webpack-dev-server', () => {
+        compiler.hooks.done.tap("webpack-dev-server", () => {
           server.close(done);
         });
 
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             throw error;
           }
@@ -423,17 +423,17 @@ describe('Server', () => {
       });
     });
 
-    describe('Testing callback functions on calling invalidate with callback', () => {
-      it('should use `callback` function', (done) => {
+    describe("Testing callback functions on calling invalidate with callback", () => {
+      it("should use `callback` function", (done) => {
         const compiler = webpack(config);
         const callback = jest.fn();
         const server = new Server(baseDevConfig, compiler);
 
-        compiler.hooks.done.tap('webpack-dev-server', () => {
+        compiler.hooks.done.tap("webpack-dev-server", () => {
           server.close(done);
         });
 
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             throw error;
           }
@@ -446,7 +446,7 @@ describe('Server', () => {
     });
   });
 
-  describe('WEBPACK_SERVE environment variable', () => {
+  describe("WEBPACK_SERVE environment variable", () => {
     const OLD_ENV = process.env;
 
     beforeEach(() => {
@@ -462,16 +462,16 @@ describe('Server', () => {
       process.env = OLD_ENV;
     });
 
-    it('should be present', () => {
+    it("should be present", () => {
       expect(process.env.WEBPACK_SERVE).toBeUndefined();
 
-      require('../../lib/Server');
+      require("../../lib/Server");
 
       expect(process.env.WEBPACK_SERVE).toBe(true);
     });
   });
 
-  describe('Server.getFreePort', () => {
+  describe("Server.getFreePort", () => {
     let dummyServers = [];
 
     afterEach(() => {
@@ -506,11 +506,11 @@ describe('Server', () => {
 
                 dummyServers.push(server);
 
-                server.listen(60000 + i, '0.0.0.0', () => {
+                server.listen(60000 + i, "0.0.0.0", () => {
                   resolve();
                 });
 
-                server.on('error', (error) => {
+                server.on("error", (error) => {
                   reject(error);
                 });
               })
@@ -519,7 +519,7 @@ describe('Server', () => {
       );
     }
 
-    it('should returns the port when the port is specified', async () => {
+    it("should returns the port when the port is specified", async () => {
       const retryCount = 1;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -528,7 +528,7 @@ describe('Server', () => {
       expect(freePort).toEqual(8082);
     });
 
-    it('should returns the port when the port is null', async () => {
+    it("should returns the port when the port is null", async () => {
       const retryCount = 2;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -538,7 +538,7 @@ describe('Server', () => {
       expect(freePort).toEqual(60000 + retryCount);
     });
 
-    it('should returns the port when the port is undefined', async () => {
+    it("should returns the port when the port is undefined", async () => {
       const retryCount = 3;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -549,7 +549,7 @@ describe('Server', () => {
       expect(freePort).toEqual(60000 + retryCount);
     });
 
-    it('should retry finding the port for up to defaultPortRetry times (number)', async () => {
+    it("should retry finding the port for up to defaultPortRetry times (number)", async () => {
       const retryCount = 4;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -559,7 +559,7 @@ describe('Server', () => {
       expect(freePort).toEqual(60000 + retryCount);
     });
 
-    it('should retry finding the port for up to defaultPortRetry times (string)', async () => {
+    it("should retry finding the port for up to defaultPortRetry times (string)", async () => {
       const retryCount = 5;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -569,7 +569,7 @@ describe('Server', () => {
       expect(freePort).toEqual(60000 + retryCount);
     });
 
-    it('should retry finding the port when serial ports are busy', async () => {
+    it("should retry finding the port when serial ports are busy", async () => {
       const busyPorts = [60000, 60001, 60002, 60003, 60004, 60005];
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1000;
@@ -582,9 +582,9 @@ describe('Server', () => {
     it("should throws the error when the port isn't found", async () => {
       expect.assertions(1);
 
-      jest.mock('portfinder', () => {
+      jest.mock("portfinder", () => {
         return {
-          getPort: (callback) => callback(new Error('busy')),
+          getPort: (callback) => callback(new Error("busy")),
         };
       });
 

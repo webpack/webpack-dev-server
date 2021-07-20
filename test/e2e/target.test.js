@@ -1,38 +1,38 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/client-config/webpack.config');
-const runBrowser = require('../helpers/run-browser');
-const isWebpack5 = require('../helpers/isWebpack5');
-const port = require('../ports-map').target;
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/client-config/webpack.config");
+const runBrowser = require("../helpers/run-browser");
+const isWebpack5 = require("../helpers/isWebpack5");
+const port = require("../ports-map").target;
 
-describe('target', () => {
+describe("target", () => {
   const targets = isWebpack5
     ? [
         false,
-        'browserslist:defaults',
-        'web',
-        'webworker',
-        'node',
-        'async-node',
-        'electron-main',
-        'electron-preload',
-        'electron-renderer',
-        'nwjs',
-        'node-webkit',
-        'es5',
-        ['web', 'es5'],
+        "browserslist:defaults",
+        "web",
+        "webworker",
+        "node",
+        "async-node",
+        "electron-main",
+        "electron-preload",
+        "electron-renderer",
+        "nwjs",
+        "node-webkit",
+        "es5",
+        ["web", "es5"],
       ]
     : [
-        'web',
-        'webworker',
-        'node',
-        'async-node',
-        'electron-main',
-        'electron-preload',
-        'electron-renderer',
-        'node-webkit',
+        "web",
+        "webworker",
+        "node",
+        "async-node",
+        "electron-main",
+        "electron-preload",
+        "electron-renderer",
+        "node-webkit",
       ];
 
   for (const target of targets) {
@@ -40,20 +40,20 @@ describe('target', () => {
       const compiler = webpack({
         ...config,
         target,
-        ...(target === false || target === 'es5'
+        ...(target === false || target === "es5"
           ? {
-              output: { chunkFormat: 'array-push', path: '/' },
+              output: { chunkFormat: "array-push", path: "/" },
             }
           : {}),
       });
       const devServerOptions = {
-        host: '127.0.0.1',
+        host: "127.0.0.1",
         port,
       };
       const server = new Server(devServerOptions, compiler);
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -70,29 +70,29 @@ describe('target', () => {
       const consoleMessages = [];
 
       page
-        .on('console', (message) => {
+        .on("console", (message) => {
           consoleMessages.push(message);
         })
-        .on('pageerror', (error) => {
+        .on("pageerror", (error) => {
           pageErrors.push(error);
         });
 
       await page.goto(`http://127.0.0.1:${port}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        'console messages'
+        "console messages"
       );
 
       if (
-        target === 'node' ||
-        target === 'async-node' ||
-        target === 'electron-main' ||
-        target === 'electron-preload' ||
-        target === 'electron-renderer' ||
-        target === 'nwjs' ||
-        target === 'node-webkit'
+        target === "node" ||
+        target === "async-node" ||
+        target === "electron-main" ||
+        target === "electron-preload" ||
+        target === "electron-renderer" ||
+        target === "nwjs" ||
+        target === "node-webkit"
       ) {
         const hasRequireOrGlobalError =
           pageErrors.filter((pageError) =>
@@ -101,7 +101,7 @@ describe('target', () => {
 
         expect(hasRequireOrGlobalError).toBe(true);
       } else {
-        expect(pageErrors).toMatchSnapshot('page errors');
+        expect(pageErrors).toMatchSnapshot("page errors");
       }
 
       await browser.close();

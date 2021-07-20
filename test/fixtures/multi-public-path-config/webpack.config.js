@@ -1,58 +1,58 @@
-'use strict';
+"use strict";
 
-const path = require('path');
+const path = require("path");
 
 module.exports = [
   {
-    mode: 'development',
+    mode: "development",
     context: __dirname,
-    stats: 'none',
-    entry: './foo.js',
+    stats: "none",
+    entry: "./foo.js",
     output: {
       path: __dirname,
-      filename: 'foo.js',
-      publicPath: '/bundle1/',
+      filename: "foo.js",
+      publicPath: "/bundle1/",
     },
     infrastructureLogging: {
-      level: 'warn',
+      level: "warn",
     },
     module: {
       rules: [
         {
           test: /\.html$/,
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
-            name: 'path/to/file.html',
+            name: "path/to/file.html",
           },
         },
       ],
     },
   },
   {
-    mode: 'development',
+    mode: "development",
     context: __dirname,
-    stats: 'none',
-    entry: './bar.js',
+    stats: "none",
+    entry: "./bar.js",
     output: {
-      path: path.join(__dirname, 'named'),
-      filename: 'bar.js',
-      publicPath: '/bundle2/',
+      path: path.join(__dirname, "named"),
+      filename: "bar.js",
+      publicPath: "/bundle2/",
     },
-    name: 'named',
+    name: "named",
     infrastructureLogging: {
-      level: 'warn',
+      level: "warn",
     },
   },
   {
-    mode: 'development',
+    mode: "development",
     context: __dirname,
-    entry: './bar.js',
+    entry: "./bar.js",
     output: {
-      path: path.join(__dirname, 'dist'),
-      filename: 'bar.js',
-      publicPath: 'auto',
+      path: path.join(__dirname, "dist"),
+      filename: "bar.js",
+      publicPath: "auto",
     },
-    name: 'other',
+    name: "other",
     stats: false,
   },
 ];

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 process.env.CHOKIDAR_USEPOLLING = true;
 

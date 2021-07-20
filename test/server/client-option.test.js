@@ -1,32 +1,32 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const request = require('supertest');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/simple-config/webpack.config');
-const port = require('../ports-map')['client-option'];
+const webpack = require("webpack");
+const request = require("supertest");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/simple-config/webpack.config");
+const port = require("../ports-map")["client-option"];
 
-describe('client option', () => {
+describe("client option", () => {
   let server;
   let req;
 
-  describe('default behavior', () => {
+  describe("default behavior", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
       server = new Server(
         {
           client: {
-            webSocketTransport: 'sockjs',
+            webSocketTransport: "sockjs",
           },
-          webSocketServer: 'sockjs',
+          webSocketServer: "sockjs",
           port,
         },
         compiler
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -48,19 +48,19 @@ describe('client option', () => {
       });
     });
 
-    it('overlay true by default', () => {
+    it("overlay true by default", () => {
       expect(server.options.client.overlay).toBe(true);
     });
 
-    it('responds with a 200', async () => {
-      const response = await req.get('/ws');
+    it("responds with a 200", async () => {
+      const response = await req.get("/ws");
 
       expect(response.statusCode).toEqual(200);
     });
   });
 
-  describe('path option', () => {
-    const path = '/foo/test/bar';
+  describe("path option", () => {
+    const path = "/foo/test/bar";
 
     beforeAll(async () => {
       const compiler = webpack(config);
@@ -68,14 +68,14 @@ describe('client option', () => {
       server = new Server(
         {
           client: {
-            webSocketTransport: 'sockjs',
+            webSocketTransport: "sockjs",
           },
           webSocketServer: {
-            type: 'sockjs',
+            type: "sockjs",
             options: {
-              host: 'localhost',
+              host: "localhost",
               port,
-              path: '/foo/test/bar',
+              path: "/foo/test/bar",
             },
           },
           port,
@@ -84,7 +84,7 @@ describe('client option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -106,15 +106,15 @@ describe('client option', () => {
       });
     });
 
-    it('responds with a 200 second', async () => {
+    it("responds with a 200 second", async () => {
       const response = await req.get(path);
 
       expect(response.statusCode).toEqual(200);
     });
   });
 
-  describe('configure client entry', () => {
-    it('disables client entry', async () => {
+  describe("configure client entry", () => {
+    it("disables client entry", async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -126,7 +126,7 @@ describe('client option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -137,7 +137,7 @@ describe('client option', () => {
         });
       });
 
-      const res = await request(server.app).get('/main.js');
+      const res = await request(server.app).get("/main.js");
 
       expect(res.text).not.toMatch(/client\/index\.js/);
 
@@ -148,7 +148,7 @@ describe('client option', () => {
       });
     });
 
-    it('disables hot entry', async () => {
+    it("disables hot entry", async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -160,7 +160,7 @@ describe('client option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '127.0.0.1', (error) => {
+        server.listen(port, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -171,7 +171,7 @@ describe('client option', () => {
         });
       });
 
-      const res = await request(server.app).get('/main.js');
+      const res = await request(server.app).get("/main.js");
 
       expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
 
@@ -183,40 +183,40 @@ describe('client option', () => {
     });
   });
 
-  describe('webSocketTransport', () => {
+  describe("webSocketTransport", () => {
     const clientModes = [
       {
         title: 'as a string ("sockjs")',
         client: {
-          webSocketTransport: 'sockjs',
+          webSocketTransport: "sockjs",
         },
-        webSocketServer: 'sockjs',
+        webSocketServer: "sockjs",
         shouldThrow: false,
       },
       {
         title: 'as a path ("sockjs")',
         client: {
           webSocketTransport: require.resolve(
-            '../../client-src/clients/SockJSClient'
+            "../../client-src/clients/SockJSClient"
           ),
         },
-        webSocketServer: 'sockjs',
+        webSocketServer: "sockjs",
         shouldThrow: false,
       },
       {
-        title: 'as a nonexistent path',
+        title: "as a nonexistent path",
         client: {
-          webSocketTransport: '/bad/path/to/implementation',
+          webSocketTransport: "/bad/path/to/implementation",
         },
-        webSocketServer: 'sockjs',
+        webSocketServer: "sockjs",
         shouldThrow: true,
       },
     ];
 
-    describe('passed to server', () => {
+    describe("passed to server", () => {
       clientModes.forEach((data) => {
         it(`${data.title} ${
-          data.shouldThrow ? 'should throw' : 'should not throw'
+          data.shouldThrow ? "should throw" : "should not throw"
         }`, async () => {
           const compiler = webpack(config);
 
@@ -232,7 +232,7 @@ describe('client option', () => {
 
           try {
             await new Promise((resolve, reject) => {
-              server.listen(port, '127.0.0.1', (error) => {
+              server.listen(port, "127.0.0.1", (error) => {
                 if (error) {
                   reject(error);
 

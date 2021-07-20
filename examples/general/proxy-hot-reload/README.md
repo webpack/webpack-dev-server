@@ -18,9 +18,9 @@ While the server is running, open `proxy-config.js` and replace the following:
 
 ```js
 module.exports = {
-  target: 'http://jsonplaceholder.typicode.com/',
+  target: "http://jsonplaceholder.typicode.com/",
   pathRewrite: {
-    '^/api': '',
+    "^/api": "",
   },
 };
 ```
@@ -29,7 +29,7 @@ with:
 
 ```js
 module.exports = {
-  target: 'http://reqres.in/',
+  target: "http://reqres.in/",
 };
 ```
 

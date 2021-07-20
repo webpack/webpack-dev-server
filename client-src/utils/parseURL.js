@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const url = require('url');
-const getCurrentScriptSource = require('./getCurrentScriptSource');
+const url = require("url");
+const getCurrentScriptSource = require("./getCurrentScriptSource");
 
 function parseURL(resourceQuery) {
   let options = {};
 
-  if (typeof resourceQuery === 'string' && resourceQuery !== '') {
-    const searchParams = resourceQuery.substr(1).split('&');
+  if (typeof resourceQuery === "string" && resourceQuery !== "") {
+    const searchParams = resourceQuery.substr(1).split("&");
 
     for (let i = 0; i < searchParams.length; i++) {
-      const pair = searchParams[i].split('=');
+      const pair = searchParams[i].split("=");
 
       options[pair[0]] = decodeURIComponent(pair[1]);
     }

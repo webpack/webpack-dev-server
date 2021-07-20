@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
   context: __dirname,
-  entry: './foo.js',
+  entry: "./foo.js",
   output: {
-    path: '/',
+    path: "/",
   },
   infrastructureLogging: {
-    level: 'warn',
+    level: "warn",
   },
 };

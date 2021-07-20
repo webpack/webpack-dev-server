@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  extends: ['webpack', 'prettier'],
-  parser: '@babel/eslint-parser',
+  extends: ["webpack", "prettier"],
+  parser: "@babel/eslint-parser",
   parserOptions: {
-    sourceType: 'script',
+    sourceType: "script",
     ecmaVersion: 2018,
   },
   env: {
@@ -12,34 +12,34 @@ module.exports = {
     es6: true,
   },
   rules: {
-    curly: 'error',
-    'consistent-return': 'off',
-    'no-param-reassign': 'off',
-    'no-underscore-dangle': 'off',
-    'prefer-destructuring': ['error', { object: false, array: false }],
-    'prefer-rest-params': 'off',
-    strict: ['error', 'safe'],
-    'global-require': 'off',
+    curly: "error",
+    "consistent-return": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "prefer-destructuring": ["error", { object: false, array: false }],
+    "prefer-rest-params": "off",
+    strict: ["error", "safe"],
+    "global-require": "off",
   },
   overrides: [
     {
-      files: ['client-src/**/*.js'],
+      files: ["client-src/**/*.js"],
       env: {
         browser: true,
       },
     },
     {
-      files: ['test/**/*.js'],
+      files: ["test/**/*.js"],
       rules: {
-        'no-console': 'off',
+        "no-console": "off",
       },
     },
     {
       files: [
-        'test/client/**/*.js',
-        'test/e2e/**/*.js',
-        'test/fixtures/**/*.js',
-        'test/server/liveReload-option.test.js',
+        "test/client/**/*.js",
+        "test/e2e/**/*.js",
+        "test/fixtures/**/*.js",
+        "test/server/liveReload-option.test.js",
       ],
       env: {
         browser: true,
@@ -47,12 +47,12 @@ module.exports = {
       },
     },
     {
-      files: ['examples/**/*.js'],
+      files: ["examples/**/*.js"],
       env: {
         browser: true,
       },
       rules: {
-        'no-console': 'off',
+        "no-console": "off",
       },
     },
   ],

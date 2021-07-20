@@ -1,48 +1,48 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const request = require('supertest');
-const express = require('express');
-const bodyParser = require('body-parser');
-const WebSocket = require('ws');
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/proxy-config/webpack.config');
-const [port1, port2, port3, port4] = require('../ports-map')['proxy-option'];
+const path = require("path");
+const request = require("supertest");
+const express = require("express");
+const bodyParser = require("body-parser");
+const WebSocket = require("ws");
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/proxy-config/webpack.config");
+const [port1, port2, port3, port4] = require("../ports-map")["proxy-option"];
 
 const WebSocketServer = WebSocket.Server;
-const staticDirectory = path.resolve(__dirname, '../fixtures/proxy-config');
+const staticDirectory = path.resolve(__dirname, "../fixtures/proxy-config");
 
 const proxyOptionPathsAsProperties = {
-  '/proxy1': {
+  "/proxy1": {
     target: `http://localhost:${port1}`,
   },
-  '/api/proxy2': {
+  "/api/proxy2": {
     target: `http://localhost:${port2}`,
-    pathRewrite: { '^/api': '' },
+    pathRewrite: { "^/api": "" },
   },
-  '/foo': {
+  "/foo": {
     bypass(req) {
       if (/\.html$/.test(req.path)) {
-        return '/index.html';
+        return "/index.html";
       }
 
       return null;
     },
   },
-  '/proxyfalse': {
+  "/proxyfalse": {
     bypass(req) {
       if (/\/proxyfalse$/.test(req.path)) {
         return false;
       }
     },
   },
-  '/proxy/async': {
+  "/proxy/async": {
     bypass(req, res) {
       if (/\/proxy\/async$/.test(req.path)) {
         return new Promise((resolve) => {
           setTimeout(() => {
-            res.end('proxy async response');
+            res.end("proxy async response");
             resolve(true);
           }, 10);
         });
@@ -57,12 +57,12 @@ const proxyOption = {
 };
 
 const proxyOptionOfArray = [
-  { context: '/proxy1', target: proxyOption.target },
+  { context: "/proxy1", target: proxyOption.target },
   function proxy(req, res, next) {
     return {
-      context: '/api/proxy2',
+      context: "/api/proxy2",
       target: `http://localhost:${port2}`,
-      pathRewrite: { '^/api': '' },
+      pathRewrite: { "^/api": "" },
       bypass: () => {
         if (req && req.query.foo) {
           res.end(`foo+${next.name}+${typeof next}`);
@@ -73,7 +73,7 @@ const proxyOptionOfArray = [
   },
 ];
 
-describe('proxy option', () => {
+describe("proxy option", () => {
   let proxyServer1;
   let proxyServer2;
 
@@ -81,14 +81,14 @@ describe('proxy option', () => {
     const proxyApp1 = express();
     const proxyApp2 = express();
 
-    proxyApp1.get('/proxy1', (req, res) => {
-      res.send('from proxy1');
+    proxyApp1.get("/proxy1", (req, res) => {
+      res.send("from proxy1");
     });
-    proxyApp1.get('/api', (req, res) => {
-      res.send('api response from proxy1');
+    proxyApp1.get("/api", (req, res) => {
+      res.send("api response from proxy1");
     });
-    proxyApp2.get('/proxy2', (req, res) => {
-      res.send('from proxy2');
+    proxyApp2.get("/proxy2", (req, res) => {
+      res.send("from proxy2");
     });
 
     await new Promise((resolve) => {
@@ -118,7 +118,7 @@ describe('proxy option', () => {
     });
   }
 
-  describe('as an object of paths with properties', () => {
+  describe("as an object of paths with properties", () => {
     let server;
     let req;
 
@@ -138,7 +138,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -164,62 +164,62 @@ describe('proxy option', () => {
       await closeProxyServers();
     });
 
-    describe('target', () => {
-      it('respects a proxy option when a request path is matched', async () => {
-        const response = await req.get('/proxy1');
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        const response = await req.get("/proxy1");
 
         expect(response.status).toEqual(200);
-        expect(response.text).toContain('from proxy1');
+        expect(response.text).toContain("from proxy1");
       });
     });
 
-    describe('pathRewrite', () => {
-      it('respects a pathRewrite option', async () => {
-        const response = await req.get('/api/proxy2');
+    describe("pathRewrite", () => {
+      it("respects a pathRewrite option", async () => {
+        const response = await req.get("/api/proxy2");
 
         expect(response.status).toEqual(200);
-        expect(response.text).toContain('from proxy2');
+        expect(response.text).toContain("from proxy2");
       });
     });
 
-    describe('bypass', () => {
-      it('can rewrite a request path', async () => {
-        const response = await req.get('/foo/bar.html');
+    describe("bypass", () => {
+      it("can rewrite a request path", async () => {
+        const response = await req.get("/foo/bar.html");
 
         expect(response.status).toEqual(200);
-        expect(response.text).toContain('Hello');
+        expect(response.text).toContain("Hello");
       });
 
-      it('can rewrite a request path regardless of the target defined a bypass option', async () => {
-        const response = await req.get('/baz/hoge.html');
+      it("can rewrite a request path regardless of the target defined a bypass option", async () => {
+        const response = await req.get("/baz/hoge.html");
 
         expect(response.status).toEqual(200);
-        expect(response.text).toContain('Hello');
+        expect(response.text).toContain("Hello");
       });
 
-      it('should pass through a proxy when a bypass function returns null', async () => {
-        const response = await req.get('/foo.js');
+      it("should pass through a proxy when a bypass function returns null", async () => {
+        const response = await req.get("/foo.js");
 
         expect(response.status).toEqual(200);
-        expect(response.text).toContain('Hey');
+        expect(response.text).toContain("Hey");
       });
 
-      it('should not pass through a proxy when a bypass function returns false', async () => {
-        const response = await req.get('/proxyfalse');
+      it("should not pass through a proxy when a bypass function returns false", async () => {
+        const response = await req.get("/proxyfalse");
 
         expect(response.status).toEqual(404);
       });
 
-      it('should wait if bypass returns promise', async () => {
-        const response = await req.get('/proxy/async');
+      it("should wait if bypass returns promise", async () => {
+        const response = await req.get("/proxy/async");
 
         expect(response.status).toEqual(200);
-        expect(response.text).toContain('proxy async response');
+        expect(response.text).toContain("proxy async response");
       });
     });
   });
 
-  describe('as an option is an object', () => {
+  describe("as an option is an object", () => {
     let server;
     let req;
 
@@ -239,7 +239,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -265,15 +265,15 @@ describe('proxy option', () => {
       await closeProxyServers();
     });
 
-    it('respects a proxy option', async () => {
-      const response = await req.get('/proxy1');
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('from proxy1');
+      expect(response.text).toContain("from proxy1");
     });
   });
 
-  describe('as an array', () => {
+  describe("as an array", () => {
     let server;
     let req;
 
@@ -293,7 +293,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -319,29 +319,29 @@ describe('proxy option', () => {
       await closeProxyServers();
     });
 
-    it('respects a proxy option', async () => {
-      const response = await req.get('/proxy1');
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('from proxy1');
+      expect(response.text).toContain("from proxy1");
     });
 
-    it('respects a proxy option of function', async () => {
-      const response = await req.get('/api/proxy2');
+    it("respects a proxy option of function", async () => {
+      const response = await req.get("/api/proxy2");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('from proxy2');
+      expect(response.text).toContain("from proxy2");
     });
 
-    it('should allow req, res, and next', async () => {
-      const response = await req.get('/api/proxy2?foo=true');
+    it("should allow req, res, and next", async () => {
+      const response = await req.get("/api/proxy2?foo=true");
 
       expect(response.statusCode).toEqual(200);
-      expect(response.text).toEqual('foo+next+function');
+      expect(response.text).toEqual("foo+next+function");
     });
   });
 
-  describe('should sharing a proxy option', () => {
+  describe("should sharing a proxy option", () => {
     let server;
     let req;
     let listener;
@@ -360,8 +360,8 @@ describe('proxy option', () => {
             watch: false,
           },
           proxy: {
-            '/proxy1': proxyTarget,
-            '/proxy2': proxyTarget,
+            "/proxy1": proxyTarget,
+            "/proxy2": proxyTarget,
           },
           port: port3,
         },
@@ -369,7 +369,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -382,8 +382,8 @@ describe('proxy option', () => {
 
       const proxy = express();
 
-      proxy.get('*', (proxyReq, res) => {
-        res.send('from proxy');
+      proxy.get("*", (proxyReq, res) => {
+        res.send("from proxy");
       });
 
       listener = proxy.listen(port1);
@@ -405,28 +405,28 @@ describe('proxy option', () => {
       });
     });
 
-    it('respects proxy1 option', async () => {
-      const response = await req.get('/proxy1');
+    it("respects proxy1 option", async () => {
+      const response = await req.get("/proxy1");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('from proxy');
+      expect(response.text).toContain("from proxy");
     });
 
-    it('respects proxy2 option', async () => {
-      const response = await req.get('/proxy2');
+    it("respects proxy2 option", async () => {
+      const response = await req.get("/proxy2");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('from proxy');
+      expect(response.text).toContain("from proxy");
     });
   });
 
-  describe('should handles external websocket upgrade', () => {
+  describe("should handles external websocket upgrade", () => {
     let ws;
     let server;
     let webSocketServer;
     let responseMessage;
 
-    const webSocketServerTypes = ['sockjs', 'ws'];
+    const webSocketServerTypes = ["sockjs", "ws"];
 
     webSocketServerTypes.forEach((webSocketServerType) => {
       describe(`with webSocketServerType: ${webSocketServerType}`, () => {
@@ -442,7 +442,7 @@ describe('proxy option', () => {
               webSocketServer: webSocketServerType,
               proxy: [
                 {
-                  context: '/',
+                  context: "/",
                   target: `http://localhost:${port4}`,
                   ws: true,
                 },
@@ -453,7 +453,7 @@ describe('proxy option', () => {
           );
 
           await new Promise((resolve, reject) => {
-            server.listen(port3, '127.0.0.1', (error) => {
+            server.listen(port3, "127.0.0.1", (error) => {
               if (error) {
                 reject(error);
 
@@ -465,8 +465,8 @@ describe('proxy option', () => {
           });
 
           webSocketServer = new WebSocketServer({ port: port4 });
-          webSocketServer.on('connection', (connection) => {
-            connection.on('message', (message) => {
+          webSocketServer.on("connection", (connection) => {
+            connection.on("message", (message) => {
               connection.send(message);
             });
           });
@@ -475,18 +475,18 @@ describe('proxy option', () => {
         beforeEach((done) => {
           ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
 
-          ws.on('message', (message) => {
+          ws.on("message", (message) => {
             responseMessage = message;
             done();
           });
 
-          ws.on('open', () => {
-            ws.send('foo');
+          ws.on("open", () => {
+            ws.send("foo");
           });
         });
 
-        it('Should receive response', () => {
-          expect(responseMessage).toEqual('foo');
+        it("Should receive response", () => {
+          expect(responseMessage).toEqual("foo");
         });
 
         afterAll(async () => {
@@ -502,7 +502,7 @@ describe('proxy option', () => {
     });
   });
 
-  describe('should supports http methods', () => {
+  describe("should supports http methods", () => {
     let server;
     let req;
     let listener;
@@ -520,7 +520,7 @@ describe('proxy option', () => {
             watch: false,
           },
           proxy: {
-            '**': proxyTarget,
+            "**": proxyTarget,
           },
           port: port3,
         },
@@ -528,7 +528,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -549,7 +549,7 @@ describe('proxy option', () => {
 
       // This forces Express to try to decode URLs, which is needed for the test
       // associated with the middleware below.
-      proxy.all('*', (_req, res, next) => {
+      proxy.all("*", (_req, res, next) => {
         next();
       });
       // We must define all 4 params in order for this to be detected as an
@@ -557,31 +557,31 @@ describe('proxy option', () => {
       // eslint-disable-next-line no-unused-vars
       proxy.use((error, proxyReq, res, next) => {
         res.status(500);
-        res.send('error from proxy');
+        res.send("error from proxy");
       });
 
-      proxy.get('/get', (proxyReq, res) => {
-        res.send('GET method from proxy');
+      proxy.get("/get", (proxyReq, res) => {
+        res.send("GET method from proxy");
       });
 
-      proxy.head('/head', (proxyReq, res) => {
-        res.send('HEAD method from proxy');
+      proxy.head("/head", (proxyReq, res) => {
+        res.send("HEAD method from proxy");
       });
 
-      proxy.post('/post-x-www-form-urlencoded', (proxyReq, res) => {
+      proxy.post("/post-x-www-form-urlencoded", (proxyReq, res) => {
         const id = proxyReq.body.id;
 
         res.status(200).send(`POST method from proxy (id: ${id})`);
       });
 
-      proxy.post('/post-application-json', (proxyReq, res) => {
+      proxy.post("/post-application-json", (proxyReq, res) => {
         const id = proxyReq.body.id;
 
         res.status(200).send({ answer: `POST method from proxy (id: ${id})` });
       });
 
-      proxy.delete('/delete', (proxyReq, res) => {
-        res.send('DELETE method from proxy');
+      proxy.delete("/delete", (proxyReq, res) => {
+        res.send("DELETE method from proxy");
       });
 
       listener = proxy.listen(port1);
@@ -602,57 +602,57 @@ describe('proxy option', () => {
       });
     });
 
-    it('errors', async () => {
-      const response = await req.get('/%');
+    it("errors", async () => {
+      const response = await req.get("/%");
 
       expect(response.status).toEqual(500);
-      expect(response.text).toContain('error from proxy');
+      expect(response.text).toContain("error from proxy");
     });
 
-    it('GET method', async () => {
-      const response = await req.get('/get');
+    it("GET method", async () => {
+      const response = await req.get("/get");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('GET method from proxy');
+      expect(response.text).toContain("GET method from proxy");
     });
 
-    it('HEAD method', async () => {
-      const response = await req.head('/head');
+    it("HEAD method", async () => {
+      const response = await req.head("/head");
 
       expect(response.status).toEqual(200);
     });
 
-    it('POST method (application/x-www-form-urlencoded)', async () => {
+    it("POST method (application/x-www-form-urlencoded)", async () => {
       const response = await req
-        .post('/post-x-www-form-urlencoded')
-        .send('id=1');
+        .post("/post-x-www-form-urlencoded")
+        .send("id=1");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('POST method from proxy (id: 1)');
+      expect(response.text).toContain("POST method from proxy (id: 1)");
     });
 
-    it('POST method (application/json)', async () => {
+    it("POST method (application/json)", async () => {
       const response = await req
-        .post('/post-application-json')
-        .send({ id: '1' })
-        .set('Accept', 'application/json');
+        .post("/post-application-json")
+        .send({ id: "1" })
+        .set("Accept", "application/json");
 
       expect(response.status).toEqual(200);
-      expect(response.headers['content-type']).toEqual(
-        'application/json; charset=utf-8'
+      expect(response.headers["content-type"]).toEqual(
+        "application/json; charset=utf-8"
       );
-      expect(response.text).toContain('POST method from proxy (id: 1)');
+      expect(response.text).toContain("POST method from proxy (id: 1)");
     });
 
-    it('DELETE method', async () => {
-      const response = await req.delete('/delete');
+    it("DELETE method", async () => {
+      const response = await req.delete("/delete");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('DELETE method from proxy');
+      expect(response.text).toContain("DELETE method from proxy");
     });
   });
 
-  describe('should work in multi compiler mode', () => {
+  describe("should work in multi compiler mode", () => {
     let server;
     let req;
 
@@ -666,7 +666,7 @@ describe('proxy option', () => {
             watch: false,
           },
           proxy: {
-            '*': {
+            "*": {
               context: () => true,
               target: `http://localhost:${port1}`,
             },
@@ -677,7 +677,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -703,15 +703,15 @@ describe('proxy option', () => {
       await closeProxyServers();
     });
 
-    it('respects a proxy option', async () => {
-      const response = await req.get('/proxy1');
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('from proxy1');
+      expect(response.text).toContain("from proxy1");
     });
   });
 
-  describe('should work and respect `logProvider` and `logLevel` options', () => {
+  describe("should work and respect `logProvider` and `logLevel` options", () => {
     let server;
     let req;
     let customLogProvider;
@@ -734,10 +734,10 @@ describe('proxy option', () => {
             watch: false,
           },
           proxy: {
-            '/my-path': {
-              target: 'http://unknown:1234',
+            "/my-path": {
+              target: "http://unknown:1234",
               logProvider: () => customLogProvider,
-              logLevel: 'error',
+              logLevel: "error",
             },
           },
           port: port3,
@@ -746,7 +746,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -772,16 +772,16 @@ describe('proxy option', () => {
       await closeProxyServers();
     });
 
-    describe('target', () => {
-      it('respects a proxy option when a request path is matched', async () => {
-        await req.get('/my-path');
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        await req.get("/my-path");
 
         expect(customLogProvider.error).toHaveBeenCalledTimes(1);
       });
     });
   });
 
-  describe('should work and respect the `logLevel` option with `silent` value', () => {
+  describe("should work and respect the `logLevel` option with `silent` value", () => {
     let server;
     let req;
     let customLogProvider;
@@ -804,10 +804,10 @@ describe('proxy option', () => {
             watch: false,
           },
           proxy: {
-            '/my-path': {
-              target: 'http://unknown:1234',
+            "/my-path": {
+              target: "http://unknown:1234",
               logProvider: () => customLogProvider,
-              logLevel: 'silent',
+              logLevel: "silent",
             },
           },
           port: port3,
@@ -816,7 +816,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -842,16 +842,16 @@ describe('proxy option', () => {
       await closeProxyServers();
     });
 
-    describe('target', () => {
-      it('respects a proxy option when a request path is matched', async () => {
-        await req.get('/my-path');
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        await req.get("/my-path");
 
         expect(customLogProvider.error).toHaveBeenCalledTimes(0);
       });
     });
   });
 
-  describe('should work and respect the `infrastructureLogging.level` option', () => {
+  describe("should work and respect the `infrastructureLogging.level` option", () => {
     let server;
     let req;
     let customLogProvider;
@@ -867,7 +867,7 @@ describe('proxy option', () => {
 
       const compiler = webpack({
         ...config,
-        infrastructureLogging: { level: 'error' },
+        infrastructureLogging: { level: "error" },
       });
 
       server = new Server(
@@ -877,8 +877,8 @@ describe('proxy option', () => {
             watch: false,
           },
           proxy: {
-            '/my-path': {
-              target: 'http://unknown:1234',
+            "/my-path": {
+              target: "http://unknown:1234",
               logProvider: () => customLogProvider,
             },
           },
@@ -888,7 +888,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -914,16 +914,16 @@ describe('proxy option', () => {
       await closeProxyServers();
     });
 
-    describe('target', () => {
-      it('respects a proxy option when a request path is matched', async () => {
-        await req.get('/my-path');
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        await req.get("/my-path");
 
         expect(customLogProvider.error).toHaveBeenCalledTimes(1);
       });
     });
   });
 
-  describe('should work and respect the `infrastructureLogging.level` option with `none` value', () => {
+  describe("should work and respect the `infrastructureLogging.level` option with `none` value", () => {
     let server;
     let req;
     let customLogProvider;
@@ -939,7 +939,7 @@ describe('proxy option', () => {
 
       const compiler = webpack({
         ...config,
-        infrastructureLogging: { level: 'none' },
+        infrastructureLogging: { level: "none" },
       });
 
       server = new Server(
@@ -949,8 +949,8 @@ describe('proxy option', () => {
             watch: false,
           },
           proxy: {
-            '/my-path': {
-              target: 'http://unknown:1234',
+            "/my-path": {
+              target: "http://unknown:1234",
               logProvider: () => customLogProvider,
             },
           },
@@ -960,7 +960,7 @@ describe('proxy option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port3, '127.0.0.1', (error) => {
+        server.listen(port3, "127.0.0.1", (error) => {
           if (error) {
             reject(error);
 
@@ -982,9 +982,9 @@ describe('proxy option', () => {
       });
     });
 
-    describe('target', () => {
-      it('respects a proxy option when a request path is matched', async () => {
-        await req.get('/my-path');
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        await req.get("/my-path");
 
         expect(customLogProvider.error).toHaveBeenCalledTimes(0);
       });

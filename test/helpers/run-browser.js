@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const puppeteer = require('puppeteer');
-const { puppeteerArgs } = require('./puppeteer-constants');
+const puppeteer = require("puppeteer");
+const { puppeteerArgs } = require("./puppeteer-constants");
 
 function runBrowser(config) {
   const options = {
@@ -9,7 +9,7 @@ function runBrowser(config) {
       width: 500,
       height: 500,
     },
-    userAgent: '',
+    userAgent: "",
     ...config,
   };
 

@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const os = require('os');
-const path = require('path');
-const { readFileSync } = require('graceful-fs');
-const webpack = require('webpack');
-const { createFsFromVolume, Volume } = require('memfs');
-const Server = require('../lib/Server');
-const config = require('./fixtures/simple-config/webpack.config');
+const os = require("os");
+const path = require("path");
+const { readFileSync } = require("graceful-fs");
+const webpack = require("webpack");
+const { createFsFromVolume, Volume } = require("memfs");
+const Server = require("../lib/Server");
+const config = require("./fixtures/simple-config/webpack.config");
 
 const httpsCertificateDirectory = path.join(
   __dirname,
-  './fixtures/https-certificate'
+  "./fixtures/https-certificate"
 );
 
 const tests = {
@@ -23,29 +23,29 @@ const tests = {
     failure: [false],
   },
   bonjour: {
-    success: [false, true, { type: 'https' }],
-    failure: [''],
+    success: [false, true, { type: "https" }],
+    failure: [""],
   },
   client: {
     success: [
       {},
       {
-        logging: 'none',
+        logging: "none",
       },
       {
-        logging: 'error',
+        logging: "error",
       },
       {
-        logging: 'warn',
+        logging: "warn",
       },
       {
-        logging: 'info',
+        logging: "info",
       },
       {
-        logging: 'log',
+        logging: "log",
       },
       {
-        logging: 'verbose',
+        logging: "verbose",
       },
       {
         progress: false,
@@ -67,77 +67,77 @@ const tests = {
         },
       },
       {
-        webSocketTransport: 'sockjs',
+        webSocketTransport: "sockjs",
       },
       {
-        webSocketTransport: require.resolve('../client/clients/SockJSClient'),
+        webSocketTransport: require.resolve("../client/clients/SockJSClient"),
       },
       {
-        webSocketURL: 'ws://localhost:8080',
+        webSocketURL: "ws://localhost:8080",
       },
       {
-        webSocketURL: { hostname: 'localhost' },
+        webSocketURL: { hostname: "localhost" },
       },
       {
         webSocketURL: { port: 8080 },
       },
       {
-        webSocketURL: { port: '8080' },
+        webSocketURL: { port: "8080" },
       },
       {
-        webSocketURL: { pathname: '' },
+        webSocketURL: { pathname: "" },
       },
       {
-        webSocketURL: { pathname: '/my-path/' },
+        webSocketURL: { pathname: "/my-path/" },
       },
       {
         webSocketURL: {
-          hostname: 'localhost',
+          hostname: "localhost",
           port: 8080,
-          pathname: '/my-path/',
+          pathname: "/my-path/",
         },
       },
       {
-        webSocketURL: { username: 'zoro', password: 'roronoa' },
+        webSocketURL: { username: "zoro", password: "roronoa" },
       },
     ],
     failure: [
-      'whoops!',
+      "whoops!",
       {
         unknownOption: true,
       },
       {
-        logging: 'whoops!',
+        logging: "whoops!",
       },
       {
-        logging: 'silent',
+        logging: "silent",
       },
       {
-        progress: '',
+        progress: "",
       },
       {
-        overlay: '',
+        overlay: "",
       },
       {
         overlay: {
-          errors: '',
+          errors: "",
         },
       },
       {
         overlay: {
-          warnings: '',
+          warnings: "",
         },
       },
       {
         overlay: {
-          arbitrary: '',
+          arbitrary: "",
         },
       },
       {
         webSocketTransport: true,
       },
       {
-        webSocketURL: { hostname: true, pathname: '', port: 8080 },
+        webSocketURL: { hostname: true, pathname: "", port: 8080 },
       },
       {
         webSocketURL: { pathname: true },
@@ -146,10 +146,10 @@ const tests = {
         webSocketURL: { port: true },
       },
       {
-        webSocketURL: { hostname: '' },
+        webSocketURL: { hostname: "" },
       },
       {
-        webSocketURL: { port: '' },
+        webSocketURL: { port: "" },
       },
       {
         webSocketURL: { username: 123, password: 976 },
@@ -158,60 +158,60 @@ const tests = {
   },
   compress: {
     success: [false, true],
-    failure: [''],
+    failure: [""],
   },
   devMiddleware: {
     success: [{}],
-    failure: [''],
+    failure: [""],
   },
   allowedHosts: {
-    success: ['auto', 'all', ['foo'], 'bar'],
-    failure: [true, false, 123, [], ['']],
+    success: ["auto", "all", ["foo"], "bar"],
+    failure: [true, false, 123, [], [""]],
   },
   headers: {
-    success: [{}, { foo: 'bar' }, () => {}],
+    success: [{}, { foo: "bar" }, () => {}],
     failure: [false, 1],
   },
   historyApiFallback: {
     success: [{}, true],
-    failure: [''],
+    failure: [""],
   },
   host: {
-    success: ['localhost', '::', '::1'],
-    failure: [false, '', null],
+    success: ["localhost", "::", "::1"],
+    failure: [false, "", null],
   },
   hot: {
-    success: [true, 'only'],
-    failure: ['', 'foo'],
+    success: [true, "only"],
+    failure: ["", "foo"],
   },
   http2: {
     success: [false, true],
-    failure: [''],
+    failure: [""],
   },
   https: {
     success: [
       false,
       true,
       {
-        cacert: path.join(httpsCertificateDirectory, 'ca.pem'),
-        key: path.join(httpsCertificateDirectory, 'server.key'),
-        pfx: path.join(httpsCertificateDirectory, 'server.pfx'),
-        cert: path.join(httpsCertificateDirectory, 'server.crt'),
+        cacert: path.join(httpsCertificateDirectory, "ca.pem"),
+        key: path.join(httpsCertificateDirectory, "server.key"),
+        pfx: path.join(httpsCertificateDirectory, "server.pfx"),
+        cert: path.join(httpsCertificateDirectory, "server.crt"),
         requestCert: true,
-        passphrase: 'webpack-dev-server',
+        passphrase: "webpack-dev-server",
       },
       {
-        cacert: readFileSync(path.join(httpsCertificateDirectory, 'ca.pem')),
-        pfx: readFileSync(path.join(httpsCertificateDirectory, 'server.pfx')),
-        key: readFileSync(path.join(httpsCertificateDirectory, 'server.key')),
-        cert: readFileSync(path.join(httpsCertificateDirectory, 'server.crt')),
-        passphrase: 'webpack-dev-server',
+        cacert: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+        pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
+        key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+        cert: readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+        passphrase: "webpack-dev-server",
       },
     ],
     failure: [
-      '',
+      "",
       {
-        foo: 'bar',
+        foo: "bar",
       },
       {
         key: 10,
@@ -229,83 +229,83 @@ const tests = {
         pfx: 10,
       },
       {
-        requestCert: 'test',
+        requestCert: "test",
       },
     ],
   },
   ipc: {
-    success: [true, path.resolve(os.tmpdir(), 'webpack-dev-server.socket')],
+    success: [true, path.resolve(os.tmpdir(), "webpack-dev-server.socket")],
     failure: [false, {}],
   },
   onListening: {
     success: [() => {}],
-    failure: [''],
+    failure: [""],
   },
   open: {
     success: [
       true,
-      'foo',
+      "foo",
       [],
-      ['foo', 'bar'],
-      [{ app: 'google-chrome' }],
-      [{ app: 'google-chrome' }, { app: 'firefox' }],
-      [{ target: 'foo', app: 'google-chrome' }, { app: 'firefox' }],
-      [{ target: ['foo', 'bar'], app: 'google-chrome' }, { app: 'firefox' }],
-      { target: 'foo' },
-      { target: ['foo', 'bar'] },
-      { app: 'google-chrome' },
-      { app: { name: 'google-chrome', arguments: ['--incognito'] } },
-      { target: 'foo', app: 'google-chrome' },
+      ["foo", "bar"],
+      [{ app: "google-chrome" }],
+      [{ app: "google-chrome" }, { app: "firefox" }],
+      [{ target: "foo", app: "google-chrome" }, { app: "firefox" }],
+      [{ target: ["foo", "bar"], app: "google-chrome" }, { app: "firefox" }],
+      { target: "foo" },
+      { target: ["foo", "bar"] },
+      { app: "google-chrome" },
+      { app: { name: "google-chrome", arguments: ["--incognito"] } },
+      { target: "foo", app: "google-chrome" },
       {
-        target: ['foo', 'bar'],
-        app: { name: 'google-chrome', arguments: ['--incognito'] },
+        target: ["foo", "bar"],
+        app: { name: "google-chrome", arguments: ["--incognito"] },
       },
       {},
     ],
-    failure: ['', { foo: 'bar' }, { target: 90 }, { app: true }],
+    failure: ["", { foo: "bar" }, { target: 90 }, { app: true }],
   },
   port: {
-    success: ['20000', 20001, 'auto'],
-    failure: [false, null, ''],
+    success: ["20000", 20001, "auto"],
+    failure: [false, null, ""],
   },
   proxy: {
     success: [
       [
         {
-          context: ['/auth', '/api'],
-          target: 'http://localhost:3000',
+          context: ["/auth", "/api"],
+          target: "http://localhost:3000",
         },
       ],
       {
-        '/api': 'http://localhost:3000',
+        "/api": "http://localhost:3000",
       },
     ],
     failure: [() => {}, false],
   },
   static: {
     success: [
-      'path',
+      "path",
       false,
       {
-        directory: 'path',
+        directory: "path",
         staticOptions: {},
-        publicPath: '/',
+        publicPath: "/",
         serveIndex: true,
         watch: true,
       },
       {
-        directory: 'path',
+        directory: "path",
         staticOptions: {},
-        publicPath: ['/public1/', '/public2/'],
+        publicPath: ["/public1/", "/public2/"],
         serveIndex: {},
         watch: {},
       },
       [
-        'path1',
+        "path1",
         {
-          directory: 'path2',
+          directory: "path2",
           staticOptions: {},
-          publicPath: '/',
+          publicPath: "/",
           serveIndex: true,
           watch: true,
         },
@@ -314,12 +314,12 @@ const tests = {
     failure: [
       0,
       null,
-      '',
+      "",
       {
         publicPath: false,
       },
       {
-        serveIndex: 'true',
+        serveIndex: "true",
       },
       {
         directory: false,
@@ -332,23 +332,23 @@ const tests = {
   webSocketServer: {
     success: [
       false,
-      'ws',
-      'sockjs',
+      "ws",
+      "sockjs",
       {
-        type: 'ws',
+        type: "ws",
         options: {
-          path: '/ws',
+          path: "/ws",
         },
       },
       {
         options: {
-          host: '127.0.0.1',
+          host: "127.0.0.1",
           port: 8090,
-          path: '/ws',
+          path: "/ws",
         },
       },
       {
-        type: 'ws',
+        type: "ws",
       },
     ],
     failure: [
@@ -364,50 +364,50 @@ const tests = {
   },
   watchFiles: {
     success: [
-      'dir',
-      ['one-dir', 'two-dir'],
-      { paths: ['dir'] },
-      { paths: ['dir'], options: { usePolling: true } },
-      [{ paths: ['one-dir'] }, 'two-dir'],
+      "dir",
+      ["one-dir", "two-dir"],
+      { paths: ["dir"] },
+      { paths: ["dir"], options: { usePolling: true } },
+      [{ paths: ["one-dir"] }, "two-dir"],
     ],
     failure: [false, 123],
   },
 };
 
-describe('options', () => {
+describe("options", () => {
   jest.setTimeout(20000);
 
   let consoleMock;
 
   beforeAll(() => {
-    consoleMock = jest.spyOn(console, 'warn').mockImplementation();
+    consoleMock = jest.spyOn(console, "warn").mockImplementation();
   });
 
   afterAll(() => {
     consoleMock.mockRestore();
   });
 
-  describe('validate', () => {
+  describe("validate", () => {
     function stringifyValue(value) {
       if (
         Array.isArray(value) ||
-        (value && typeof value === 'object' && value.constructor === Object)
+        (value && typeof value === "object" && value.constructor === Object)
       ) {
         return JSON.stringify(value, (_key, replacedValue) => {
           if (
             replacedValue &&
             replacedValue.type &&
-            replacedValue.type === 'Buffer'
+            replacedValue.type === "Buffer"
           ) {
-            return '<Buffer>';
+            return "<Buffer>";
           }
 
-          if (typeof replacedValue === 'string') {
+          if (typeof replacedValue === "string") {
             replacedValue = replacedValue
-              .replace(/\\/g, '/')
+              .replace(/\\/g, "/")
               .replace(
-                new RegExp(process.cwd().replace(/\\/g, '/'), 'g'),
-                '<cwd>'
+                new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+                "<cwd>"
               );
           }
 
@@ -420,7 +420,7 @@ describe('options', () => {
 
     function createTestCase(type, key, value) {
       it(`should ${
-        type === 'success' ? 'successfully validate' : 'throw an error on'
+        type === "success" ? "successfully validate" : "throw an error on"
       } the "${key}" option with '${stringifyValue(
         value
       )}' value`, async () => {
@@ -434,7 +434,7 @@ describe('options', () => {
           thrownError = error;
         }
 
-        if (type === 'success') {
+        if (type === "success") {
           expect(thrownError).toBeUndefined();
         } else {
           expect(thrownError).not.toBeUndefined();

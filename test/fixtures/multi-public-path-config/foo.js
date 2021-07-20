@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-require('./test.html');
+require("./test.html");

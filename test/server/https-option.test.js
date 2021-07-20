@@ -1,28 +1,28 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const fs = require('graceful-fs');
-const request = require('supertest');
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/contentbase-config/webpack.config');
-const { skipTestOnWindows } = require('../helpers/conditional-test');
-const port = require('../ports-map')['https-option'];
+const path = require("path");
+const fs = require("graceful-fs");
+const request = require("supertest");
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/contentbase-config/webpack.config");
+const { skipTestOnWindows } = require("../helpers/conditional-test");
+const port = require("../ports-map")["https-option"];
 
 const httpsCertificateDirectory = path.resolve(
   __dirname,
-  '../fixtures/https-certificate'
+  "../fixtures/https-certificate"
 );
 const contentBasePublic = path.resolve(
   __dirname,
-  '../fixtures/contentbase-config/public'
+  "../fixtures/contentbase-config/public"
 );
 
-describe('https option', () => {
+describe("https option", () => {
   let server;
   let req;
 
-  describe('as a boolean', () => {
+  describe("as a boolean", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
@@ -39,7 +39,7 @@ describe('https option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '::', (error) => {
+        server.listen(port, "::", (error) => {
           if (error) {
             reject(error);
 
@@ -61,15 +61,15 @@ describe('https option', () => {
       });
     });
 
-    it('Request to index', async () => {
-      const response = await req.get('/');
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('Heyo');
+      expect(response.text).toContain("Heyo");
     });
   });
 
-  describe('as an object when cacert, pfx, key and cert are buffer', () => {
+  describe("as an object when cacert, pfx, key and cert are buffer", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
@@ -81,18 +81,18 @@ describe('https option', () => {
           },
           https: {
             cacert: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'ca.pem')
+              path.join(httpsCertificateDirectory, "ca.pem")
             ),
             pfx: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'server.pfx')
+              path.join(httpsCertificateDirectory, "server.pfx")
             ),
             key: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'server.key')
+              path.join(httpsCertificateDirectory, "server.key")
             ),
             cert: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'server.crt')
+              path.join(httpsCertificateDirectory, "server.crt")
             ),
-            passphrase: 'webpack-dev-server',
+            passphrase: "webpack-dev-server",
           },
           port,
         },
@@ -100,7 +100,7 @@ describe('https option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '::', (error) => {
+        server.listen(port, "::", (error) => {
           if (error) {
             reject(error);
 
@@ -122,15 +122,15 @@ describe('https option', () => {
       });
     });
 
-    it('Request to index', async () => {
-      const response = await req.get('/');
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('Heyo');
+      expect(response.text).toContain("Heyo");
     });
   });
 
-  describe('as an object when cacert, pfx, key and cert are paths', () => {
+  describe("as an object when cacert, pfx, key and cert are paths", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
@@ -138,11 +138,11 @@ describe('https option', () => {
         {
           static: contentBasePublic,
           https: {
-            cacert: path.join(httpsCertificateDirectory, 'ca.pem'),
-            pfx: path.join(httpsCertificateDirectory, 'server.pfx'),
-            key: path.join(httpsCertificateDirectory, 'server.key'),
-            cert: path.join(httpsCertificateDirectory, 'server.crt'),
-            passphrase: 'webpack-dev-server',
+            cacert: path.join(httpsCertificateDirectory, "ca.pem"),
+            pfx: path.join(httpsCertificateDirectory, "server.pfx"),
+            key: path.join(httpsCertificateDirectory, "server.key"),
+            cert: path.join(httpsCertificateDirectory, "server.crt"),
+            passphrase: "webpack-dev-server",
           },
           port,
         },
@@ -150,7 +150,7 @@ describe('https option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '::', (error) => {
+        server.listen(port, "::", (error) => {
           if (error) {
             reject(error);
 
@@ -172,16 +172,16 @@ describe('https option', () => {
       });
     });
 
-    it('Request to index', async () => {
-      const response = await req.get('/');
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('Heyo');
+      expect(response.text).toContain("Heyo");
     });
   });
 
-  describe('as an object when cacert, pfx, key and cert are symlinks', () => {
-    if (skipTestOnWindows('Symlinks are not supported on Windows')) {
+  describe("as an object when cacert, pfx, key and cert are symlinks", () => {
+    if (skipTestOnWindows("Symlinks are not supported on Windows")) {
       return;
     }
 
@@ -195,11 +195,11 @@ describe('https option', () => {
             watch: false,
           },
           https: {
-            cacert: path.join(httpsCertificateDirectory, 'ca-symlink.pem'),
-            pfx: path.join(httpsCertificateDirectory, 'server-symlink.pfx'),
-            key: path.join(httpsCertificateDirectory, 'server-symlink.key'),
-            cert: path.join(httpsCertificateDirectory, 'server-symlink.crt'),
-            passphrase: 'webpack-dev-server',
+            cacert: path.join(httpsCertificateDirectory, "ca-symlink.pem"),
+            pfx: path.join(httpsCertificateDirectory, "server-symlink.pfx"),
+            key: path.join(httpsCertificateDirectory, "server-symlink.key"),
+            cert: path.join(httpsCertificateDirectory, "server-symlink.crt"),
+            passphrase: "webpack-dev-server",
           },
           port,
         },
@@ -207,7 +207,7 @@ describe('https option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '::', (error) => {
+        server.listen(port, "::", (error) => {
           if (error) {
             reject(error);
 
@@ -229,15 +229,15 @@ describe('https option', () => {
       });
     });
 
-    it('Request to index', async () => {
-      const response = await req.get('/');
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('Heyo');
+      expect(response.text).toContain("Heyo");
     });
   });
 
-  describe('as an object when cacert, pfx, key and cert are raw strings', () => {
+  describe("as an object when cacert, pfx, key and cert are raw strings", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
 
@@ -249,19 +249,19 @@ describe('https option', () => {
           },
           https: {
             cacert: fs
-              .readFileSync(path.join(httpsCertificateDirectory, 'ca.pem'))
+              .readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))
               .toString(),
             // pfx can't be string because it is binary format
             pfx: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'server.pfx')
+              path.join(httpsCertificateDirectory, "server.pfx")
             ),
             key: fs
-              .readFileSync(path.join(httpsCertificateDirectory, 'server.key'))
+              .readFileSync(path.join(httpsCertificateDirectory, "server.key"))
               .toString(),
             cert: fs
-              .readFileSync(path.join(httpsCertificateDirectory, 'server.crt'))
+              .readFileSync(path.join(httpsCertificateDirectory, "server.crt"))
               .toString(),
-            passphrase: 'webpack-dev-server',
+            passphrase: "webpack-dev-server",
           },
           port,
         },
@@ -269,7 +269,7 @@ describe('https option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '::', (error) => {
+        server.listen(port, "::", (error) => {
           if (error) {
             reject(error);
 
@@ -291,11 +291,11 @@ describe('https option', () => {
       });
     });
 
-    it('Request to index', async () => {
-      const response = await req.get('/');
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('Heyo');
+      expect(response.text).toContain("Heyo");
     });
   });
 
@@ -312,18 +312,18 @@ describe('https option', () => {
           https: {
             requestCert: true,
             cacert: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'ca.pem')
+              path.join(httpsCertificateDirectory, "ca.pem")
             ),
             pfx: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'server.pfx')
+              path.join(httpsCertificateDirectory, "server.pfx")
             ),
             key: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'server.key')
+              path.join(httpsCertificateDirectory, "server.key")
             ),
             cert: fs.readFileSync(
-              path.join(httpsCertificateDirectory, 'server.crt')
+              path.join(httpsCertificateDirectory, "server.crt")
             ),
-            passphrase: 'webpack-dev-server',
+            passphrase: "webpack-dev-server",
           },
           port,
         },
@@ -331,7 +331,7 @@ describe('https option', () => {
       );
 
       await new Promise((resolve, reject) => {
-        server.listen(port, '::', (error) => {
+        server.listen(port, "::", (error) => {
           if (error) {
             reject(error);
 
@@ -353,11 +353,11 @@ describe('https option', () => {
       });
     });
 
-    it('Request to index', async () => {
-      const response = await req.get('/');
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
       expect(response.status).toEqual(200);
-      expect(response.text).toContain('Heyo');
+      expect(response.text).toContain("Heyo");
     });
   });
 });
