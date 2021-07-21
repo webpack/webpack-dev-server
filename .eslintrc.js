@@ -26,7 +26,7 @@ module.exports = {
       files: ["client-src/**/*.js"],
       excludedFiles: [
         "client-src/webpack.config.js",
-        "client-src/modules/SyncBailHookFake.js",
+        "client-src/modules/logger/SyncBailHookFake.js",
       ],
       parserOptions: {
         sourceType: "module",
