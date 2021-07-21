@@ -5,12 +5,13 @@
   camelcase
 */
 
+import WebsocketClient from "./clients/WebsocketClient.js";
+
 // this WebsocketClient is here as a default fallback, in case the client is not injected
 const Client =
   typeof __webpack_dev_server_client__ !== "undefined"
     ? __webpack_dev_server_client__
-    : // eslint-disable-next-line import/no-unresolved
-      require("./clients/WebsocketClient");
+    : WebsocketClient;
 
 let retries = 0;
 let client = null;
@@ -54,4 +55,4 @@ const socket = function initSocket(url, handlers) {
   });
 };
 
-module.exports = socket;
+export default socket;

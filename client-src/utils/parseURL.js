@@ -1,7 +1,5 @@
-"use strict";
-
-const url = require("url");
-const getCurrentScriptSource = require("./getCurrentScriptSource");
+import url from "url";
+import getCurrentScriptSource from "./getCurrentScriptSource.js";
 
 function parseURL(resourceQuery) {
   let options = {};
@@ -44,4 +42,4 @@ function parseURL(resourceQuery) {
   return options;
 }
 
-module.exports = parseURL;
+export default parseURL;

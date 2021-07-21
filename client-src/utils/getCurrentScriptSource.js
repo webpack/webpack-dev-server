@@ -1,5 +1,3 @@
-"use strict";
-
 function getCurrentScriptSource() {
   // `document.currentScript` is the most accurate way to find the current script,
   // but is not supported in all browsers.
@@ -25,4 +23,4 @@ function getCurrentScriptSource() {
   throw new Error("[webpack-dev-server] Failed to get current script source.");
 }
 
-module.exports = getCurrentScriptSource;
+export default getCurrentScriptSource;

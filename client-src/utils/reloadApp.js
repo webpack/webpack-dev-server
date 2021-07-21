@@ -1,6 +1,4 @@
-"use strict";
-
-const { log } = require("./log");
+import { log } from "./log.js";
 
 function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
   if (isUnloading) {
@@ -53,4 +51,4 @@ function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
   }
 }
 
-module.exports = reloadApp;
+export default reloadApp;

@@ -1,8 +1,6 @@
-"use strict";
+import { log } from "../utils/log.js";
 
-const { log } = require("../utils/log");
-
-module.exports = class WebsocketClient {
+export default class WebsocketClient {
   constructor(url) {
     this.client = new WebSocket(url);
     this.client.onerror = (error) => {

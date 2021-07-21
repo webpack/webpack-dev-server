@@ -2,15 +2,15 @@
 
 /* global __resourceQuery WorkerGlobalScope */
 
-const webpackHotLog = require("webpack/hot/log");
-const stripAnsi = require("./modules/strip-ansi");
-const parseURL = require("./utils/parseURL");
-const socket = require("./socket");
-const overlay = require("./overlay");
-const { log, setLogLevel } = require("./utils/log");
-const sendMessage = require("./utils/sendMessage");
-const reloadApp = require("./utils/reloadApp");
-const createSocketURL = require("./utils/createSocketURL");
+import webpackHotLog from "webpack/hot/log.js";
+import stripAnsi from "./modules/strip-ansi/index.js";
+import parseURL from "./utils/parseURL.js";
+import socket from "./socket.js";
+import { show, hide } from "./overlay.js";
+import { log, setLogLevel } from "./utils/log.js";
+import sendMessage from "./utils/sendMessage.js";
+import reloadApp from "./utils/reloadApp.js";
+import createSocketURL from "./utils/createSocketURL.js";
 
 const status = { isUnloading: false, currentHash: "" };
 const options = {
@@ -66,7 +66,7 @@ const onSocketMessage = {
 
     // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.overlay) {
-      overlay.hide();
+      hide();
     }
 
     sendMessage("Invalid");
@@ -100,7 +100,7 @@ const onSocketMessage = {
     log.info("Nothing changed.");
 
     if (options.overlay) {
-      overlay.hide();
+      hide();
     }
 
     sendMessage("StillOk");
@@ -109,7 +109,7 @@ const onSocketMessage = {
     sendMessage("Ok");
 
     if (options.overlay) {
-      overlay.hide();
+      hide();
     }
 
     if (options.initial) {
@@ -156,7 +156,7 @@ const onSocketMessage = {
         : options.overlay && options.overlay.warnings;
 
     if (needShowOverlay) {
-      overlay.show(warnings, "warnings");
+      show(warnings, "warnings");
     }
 
     if (options.initial) {
@@ -184,7 +184,7 @@ const onSocketMessage = {
         : options.overlay && options.overlay.errors;
 
     if (needShowOverlay) {
-      overlay.show(errors, "errors");
+      show(errors, "errors");
     }
 
     options.initial = false;
