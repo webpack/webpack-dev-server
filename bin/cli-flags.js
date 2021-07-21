@@ -349,10 +349,17 @@ module.exports = {
   host: {
     configs: [
       {
-        type: "string",
-        multiple: false,
         description: "Allows to specify a hostname to use.",
+        multiple: false,
         path: "host",
+        type: "enum",
+        values: ["local-ip", "local-ipv4", "local-ipv6"],
+      },
+      {
+        description: "Allows to specify a hostname to use.",
+        multiple: false,
+        path: "host",
+        type: "string",
       },
     ],
     description: "Allows to specify a hostname to use.",

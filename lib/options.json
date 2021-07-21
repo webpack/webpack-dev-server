@@ -283,10 +283,17 @@
       "link": "https://webpack.js.org/configuration/dev-server/#devserverhistoryapifallback"
     },
     "Host": {
-      "type": "string",
-      "minLength": 1,
       "description": "Allows to specify a hostname to use.",
-      "link": "https://webpack.js.org/configuration/dev-server/#devserverhost"
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhost",
+      "anyOf": [
+        {
+          "enum": ["local-ip", "local-ipv4", "local-ipv6"]
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
     },
     "Hot": {
       "anyOf": [
