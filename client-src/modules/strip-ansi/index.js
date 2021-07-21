@@ -1,3 +1,1 @@
-"use strict";
-
-module.exports = require("strip-ansi").default;
+export { default } from "strip-ansi";

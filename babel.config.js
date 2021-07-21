@@ -10,12 +10,17 @@ module.exports = (api) => {
         {
           modules: false,
           targets: {
-            "esmodules": true,
+            esmodules: true,
             node: "0.12",
           },
         },
       ],
     ],
     plugins: ["@babel/plugin-transform-object-assign"],
+    env: {
+      test: {
+        plugins: ["@babel/plugin-transform-runtime"],
+      },
+    },
   };
 };

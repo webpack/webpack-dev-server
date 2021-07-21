@@ -1,16 +1,13 @@
-"use strict";
-
 /* global __webpack_dev_server_client__ */
-/* eslint-disable
-  camelcase
-*/
 
 import WebsocketClient from "./clients/WebsocketClient.js";
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
 const Client =
+  // eslint-disable-next-line camelcase
   typeof __webpack_dev_server_client__ !== "undefined"
-    ? __webpack_dev_server_client__
+    ? // eslint-disable-next-line camelcase
+      __webpack_dev_server_client__
     : WebsocketClient;
 
 let retries = 0;

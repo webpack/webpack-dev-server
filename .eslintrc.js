@@ -24,8 +24,16 @@ module.exports = {
   overrides: [
     {
       files: ["client-src/**/*.js"],
+      excludedFiles: ["client-src/webpack.config.js"],
+      parserOptions: {
+        sourceType: "module",
+        allowImportExportEverywhere: true,
+      },
       env: {
         browser: true,
+      },
+      rules: {
+        "import/extensions": ["error", "always"],
       },
     },
     {

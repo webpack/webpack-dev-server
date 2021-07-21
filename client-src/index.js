@@ -1,6 +1,4 @@
-"use strict";
-
-/* global __resourceQuery WorkerGlobalScope */
+/* global __resourceQuery */
 
 import webpackHotLog from "webpack/hot/log.js";
 import stripAnsi from "./modules/strip-ansi/index.js";

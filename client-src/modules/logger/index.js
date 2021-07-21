@@ -1,3 +1,1 @@
-"use strict";
-
-module.exports = require("webpack/lib/logging/runtime");
+export { default } from "webpack/lib/logging/runtime.js";

@@ -1,3 +1,4 @@
+import hotEmitter from "webpack/hot/emitter.js";
 import { log } from "./log.js";
 
 function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
@@ -20,8 +21,6 @@ function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
 
   if (hot && allowToHot) {
     log.info("App hot update...");
-
-    const hotEmitter = require("webpack/hot/emitter");
 
     hotEmitter.emit("webpackHotUpdate", currentHash);
 
