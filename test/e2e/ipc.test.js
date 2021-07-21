@@ -30,12 +30,6 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      // Avoid racing between CLI test and this test
-      server.options.ipc = server.options.ipc.replace(
-        /webpack-dev-server/,
-        `webpack-dev-server.${process.pid}-0`
-      );
-
       await new Promise((resolve, reject) => {
         server.listen((error) => {
           if (error) {
