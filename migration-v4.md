@@ -248,7 +248,8 @@ module.exports = {
     client: {
       // Can be `string`:
       //
-      // webSocketURL: 'ws://0.0.0.0/ws'
+      // To get protocol/hostname/port from browser
+      // webSocketURL: 'auto://0.0.0.0:0/ws'
       webSocketURL: {
         hostname: "0.0.0.0",
         pathname: "/ws",
