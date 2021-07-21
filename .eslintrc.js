@@ -24,7 +24,10 @@ module.exports = {
   overrides: [
     {
       files: ["client-src/**/*.js"],
-      excludedFiles: ["client-src/webpack.config.js"],
+      excludedFiles: [
+        "client-src/webpack.config.js",
+        "client-src/modules/SyncBailHookFake.js",
+      ],
       parserOptions: {
         sourceType: "module",
         allowImportExportEverywhere: true,
