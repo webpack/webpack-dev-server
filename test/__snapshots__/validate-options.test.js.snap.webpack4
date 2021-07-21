@@ -258,23 +258,31 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
 
 exports[`options validate should throw an error on the "host" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.host should be a non-empty string.
-   -> Allows to specify a hostname to use.
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhost"
+ - options.host should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "host" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.host should be a non-empty string.
+ - options.host should be one of these:
+   \\"local-ip\\" | \\"local-ipv4\\" | \\"local-ipv6\\" | non-empty string
    -> Allows to specify a hostname to use.
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhost"
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhost
+   Details:
+    * options.host should be one of these:
+      \\"local-ip\\" | \\"local-ipv4\\" | \\"local-ipv6\\"
+    * options.host should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "host" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.host should be a non-empty string.
+ - options.host should be one of these:
+   \\"local-ip\\" | \\"local-ipv4\\" | \\"local-ipv6\\" | non-empty string
    -> Allows to specify a hostname to use.
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhost"
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhost
+   Details:
+    * options.host should be one of these:
+      \\"local-ip\\" | \\"local-ipv4\\" | \\"local-ipv6\\"
+    * options.host should be a non-empty string."
 `;
 
 exports[`options validate should throw an error on the "hot" option with '' value 1`] = `
