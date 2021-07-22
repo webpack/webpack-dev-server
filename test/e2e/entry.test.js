@@ -40,7 +40,7 @@ describe("entry", () => {
 
   const itOnlyWebpack5 = isWebpack5 ? it : it.skip;
 
-  it.only("should work with single entry", async () => {
+  it("should work with single entry", async () => {
     const compiler = webpack({ ...config, entry: entryFirst });
     const devServerOptions = {
       host: "127.0.0.1",
@@ -73,7 +73,6 @@ describe("entry", () => {
         pageErrors.push(error);
       });
 
-    console.log(`http://127.0.0.1:${port}/main`);
     await page.goto(`http://127.0.0.1:${port}/main`, {
       waitUntil: "networkidle0",
     });
