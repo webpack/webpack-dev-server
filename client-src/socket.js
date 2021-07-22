@@ -1,14 +1,18 @@
 /* global __webpack_dev_server_client__ */
 
-import WebsocketClient from "./clients/WebsocketClient.js";
+import WebSocketClient from "./clients/WebSocketClient.js";
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
+/* eslint-disable camelcase */
 const Client =
-  // eslint-disable-next-line camelcase
+  // eslint-disable-next-line camelcase, no-nested-ternary
   typeof __webpack_dev_server_client__ !== "undefined"
     ? // eslint-disable-next-line camelcase
-      __webpack_dev_server_client__
-    : WebsocketClient;
+      typeof __webpack_dev_server_client__.default !== "undefined"
+      ? __webpack_dev_server_client__.default
+      : __webpack_dev_server_client__
+    : WebSocketClient;
+/* eslint-enable camelcase */
 
 let retries = 0;
 let client = null;

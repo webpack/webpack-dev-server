@@ -16,8 +16,8 @@ jest.setMock("../../../client-src/utils/log", {
 });
 
 describe("WebsocketClient", () => {
-  const WebsocketClient =
-    require("../../../client-src/clients/WebsocketClient").default;
+  const WebSocketClient =
+    require("../../../client-src/clients/WebSocketClient").default;
   const { log } = require("../../../client-src/utils/log");
 
   let socketServer;
@@ -47,7 +47,7 @@ describe("WebsocketClient", () => {
         }, 1000);
       });
 
-      const client = new WebsocketClient(`ws://localhost:${port}/ws-server`);
+      const client = new WebSocketClient(`ws://localhost:${port}/ws-server`);
       const data = [];
 
       client.onOpen(() => {

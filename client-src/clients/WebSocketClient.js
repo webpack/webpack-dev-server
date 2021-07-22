@@ -1,6 +1,6 @@
 import { log } from "../utils/log.js";
 
-export default class WebsocketClient {
+export default class WebSocketClient {
   constructor(url) {
     this.client = new WebSocket(url);
     this.client.onerror = (error) => {
