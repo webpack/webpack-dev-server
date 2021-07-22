@@ -4,7 +4,7 @@
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
 const ansiHTML = require("ansi-html");
-const { encode } = require("html-entities");
+const { encode, decode } = require("html-entities");
 
 const colors = {
   reset: ["transparent", "transparent"],
@@ -138,7 +138,7 @@ function show(messages, type) {
 
       // Make it look similar to our terminal.
       const errorMessage = message.message || messages[0];
-      const text = ansiHTML(encode(errorMessage));
+      const text = decode(ansiHTML(encode(errorMessage)), { level: "html5" });
       const messageTextNode = document.createTextNode(text);
 
       entryElement.appendChild(typeElement);
