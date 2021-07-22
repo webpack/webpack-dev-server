@@ -6,4 +6,4 @@ const WebsocketClient =
 
 window.expectedClient = WebsocketClient;
 // eslint-disable-next-line camelcase, no-undef
-window.injectedClient = __webpack_dev_server_client__;
+window.injectedClient = __webpack_dev_server_client__.default;
