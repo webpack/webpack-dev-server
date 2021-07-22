@@ -104,6 +104,9 @@ jobs:
           npm link --ignore-scripts # do not build the client again
           npm link webpack-dev-server
 
+      - name: Debug
+        run: cat ./client/modules/logger/index.js
+
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci
 
