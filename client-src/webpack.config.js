@@ -7,13 +7,15 @@ const { merge } = require("webpack-merge");
 const baseForModules = {
   devtool: false,
   mode: "production",
-  experiments: {
-    outputModule: true,
-  },
+  // TODO enable this in future after fix bug with `eval` in webpack
+  // experiments: {
+  //   outputModule: true,
+  // },
   output: {
     path: path.resolve(__dirname, "../client/modules"),
     library: {
-      type: "module",
+      // type: "module",
+      type: "commonjs",
     },
   },
   optimization: {
@@ -40,21 +42,21 @@ module.exports = [
     output: {
       filename: "logger/index.js",
     },
-    // module: {
-    //   rules: [
-    //     {
-    //       test: /\.js$/,
-    //       use: [
-    //         {
-    //           loader: "babel-loader",
-    //           options: {
-    //             plugins: ["@babel/plugin-transform-object-assign"],
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                plugins: ["@babel/plugin-transform-object-assign"],
+              },
+            },
+          ],
+        },
+      ],
+    },
     plugins: [
       new webpack.DefinePlugin({
         Symbol:
@@ -76,6 +78,9 @@ module.exports = [
     entry: path.join(__dirname, "modules/sockjs-client/index.js"),
     output: {
       filename: "sockjs-client/index.js",
+      library: "SockJS",
+      libraryTarget: "umd",
+      globalObject: "(typeof self !== 'undefined' ? self : this)",
     },
   }),
 ];
