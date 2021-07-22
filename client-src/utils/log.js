@@ -1,5 +1,7 @@
 import logger from "../modules/logger/index.js";
 
+console.log(logger);
+
 const name = "webpack-dev-server";
 // default level is set on the client side, so it does not need
 // to be set by the CLI or API

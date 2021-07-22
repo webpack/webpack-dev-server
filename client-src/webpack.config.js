@@ -7,9 +7,14 @@ const { merge } = require("webpack-merge");
 const baseForModules = {
   devtool: false,
   mode: "development",
+  experiments: {
+    outputModule: true,
+  },
   output: {
     path: path.resolve(__dirname, "../client/modules"),
-    libraryTarget: "commonjs2",
+    library: {
+      type: "module",
+    },
   },
   target: webpack.webpack ? ["web", "es5"] : "web",
   module: {
@@ -68,9 +73,6 @@ module.exports = [
     entry: path.join(__dirname, "modules/sockjs-client/index.js"),
     output: {
       filename: "sockjs-client/index.js",
-      library: "SockJS",
-      libraryTarget: "umd",
-      globalObject: "(typeof self !== 'undefined' ? self : this)",
     },
   }),
 ];
