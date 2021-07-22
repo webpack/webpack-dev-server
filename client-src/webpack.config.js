@@ -6,7 +6,7 @@ const { merge } = require("webpack-merge");
 
 const baseForModules = {
   devtool: false,
-  mode: "development",
+  mode: "production",
   experiments: {
     outputModule: true,
   },
@@ -15,6 +15,9 @@ const baseForModules = {
     library: {
       type: "module",
     },
+  },
+  optimization: {
+    minimize: false,
   },
   target: webpack.webpack ? ["web", "es5"] : "web",
   module: {
@@ -37,21 +40,21 @@ module.exports = [
     output: {
       filename: "logger/index.js",
     },
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          use: [
-            {
-              loader: "babel-loader",
-              options: {
-                plugins: ["@babel/plugin-transform-object-assign"],
-              },
-            },
-          ],
-        },
-      ],
-    },
+    // module: {
+    //   rules: [
+    //     {
+    //       test: /\.js$/,
+    //       use: [
+    //         {
+    //           loader: "babel-loader",
+    //           options: {
+    //             plugins: ["@babel/plugin-transform-object-assign"],
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
     plugins: [
       new webpack.DefinePlugin({
         Symbol:
