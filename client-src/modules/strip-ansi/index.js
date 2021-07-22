@@ -1,1 +1,3 @@
-export { default } from "strip-ansi";
+import stripAnsi from "strip-ansi";
+
+export default stripAnsi;

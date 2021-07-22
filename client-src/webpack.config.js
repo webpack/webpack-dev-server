@@ -4,19 +4,25 @@ const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 
+const library = webpack.webpack
+  ? {
+      library: {
+        // type: "module",
+        type: "commonjs",
+      },
+    }
+  : { libraryTarget: "commonjs", libraryExport: "default" };
+
 const baseForModules = {
   devtool: false,
-  mode: "production",
+  mode: "development",
   // TODO enable this in future after fix bug with `eval` in webpack
   // experiments: {
   //   outputModule: true,
   // },
   output: {
     path: path.resolve(__dirname, "../client/modules"),
-    library: {
-      // type: "module",
-      type: "commonjs",
-    },
+    ...library,
   },
   optimization: {
     minimize: false,
