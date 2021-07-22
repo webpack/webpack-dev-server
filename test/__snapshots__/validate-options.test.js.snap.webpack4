@@ -512,7 +512,7 @@ exports[`options validate should throw an error on the "port" option with 'null'
     * options.port should be \\"auto\\"."
 `;
 
-exports[`options validate should throw an error on the "proxy" option with 'false' value 1`] = `
+exports[`options validate should throw an error on the "proxy" option with '() => {}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.proxy should be one of these:
    object { … } | [object { … } | function, ...]
@@ -525,7 +525,7 @@ exports[`options validate should throw an error on the "proxy" option with 'fals
       [object { … } | function, ...]"
 `;
 
-exports[`options validate should throw an error on the "proxy" option with 'function () {}' value 1`] = `
+exports[`options validate should throw an error on the "proxy" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.proxy should be one of these:
    object { … } | [object { … } | function, ...]

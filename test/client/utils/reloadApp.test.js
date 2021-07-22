@@ -27,7 +27,7 @@ describe("'reloadApp' function", () => {
       };
     });
 
-    reloadApp = require("../../../client-src/utils/reloadApp");
+    reloadApp = require("../../../client-src/utils/reloadApp").default;
   });
 
   afterEach(() => {

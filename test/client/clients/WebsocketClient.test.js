@@ -16,7 +16,8 @@ jest.setMock("../../../client-src/utils/log", {
 });
 
 describe("WebsocketClient", () => {
-  const WebsocketClient = require("../../../client-src/clients/WebsocketClient");
+  const WebsocketClient =
+    require("../../../client-src/clients/WebsocketClient").default;
   const { log } = require("../../../client-src/utils/log");
 
   let socketServer;

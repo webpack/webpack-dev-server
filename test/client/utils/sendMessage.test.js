@@ -4,7 +4,7 @@
 
 "use strict";
 
-const sendMessage = require("../../../client-src/utils/sendMessage");
+const sendMessage = require("../../../client-src/utils/sendMessage").default;
 
 describe("'sendMessage' function", () => {
   afterEach(() => {
