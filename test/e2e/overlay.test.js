@@ -13,9 +13,11 @@ class ErrorPlugin {
   // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     compiler.hooks.thisCompilation.tap(
-      "warnings-webpack-plugin",
+      "errors-webpack-plugin",
       (compilation) => {
-        compilation.errors.push(new Error("Error from compilation"));
+        compilation.errors.push(
+          new Error("Error from compilation. Can't find 'test' module.")
+        );
       }
     );
   }

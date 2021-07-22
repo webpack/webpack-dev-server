@@ -370,15 +370,15 @@ exports[`overlay should show on a warning and error for initial compilation: ove
     </div>
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
@@ -688,7 +688,7 @@ exports[`overlay should show on an error for initial compilation: overlay html 1
     ><br /><br />
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
@@ -750,7 +750,7 @@ exports[`overlay should show on an error when "client.overlay" is "true": overla
     ><br /><br />
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
@@ -812,7 +812,7 @@ exports[`overlay should show on an error when "client.overlay.errors" is "true":
     ><br /><br />
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
