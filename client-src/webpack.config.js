@@ -11,7 +11,7 @@ const library = webpack.webpack
         type: "commonjs",
       },
     }
-  : { libraryTarget: "commonjs", libraryExport: "default" };
+  : { libraryTarget: "umd" };
 
 const baseForModules = {
   devtool: false,
