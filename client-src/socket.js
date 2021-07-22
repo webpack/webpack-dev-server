@@ -1,16 +1,18 @@
-"use strict";
-
 /* global __webpack_dev_server_client__ */
-/* eslint-disable
-  camelcase
-*/
+
+import WebSocketClient from "./clients/WebSocketClient.js";
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
+/* eslint-disable camelcase */
 const Client =
+  // eslint-disable-next-line camelcase, no-nested-ternary
   typeof __webpack_dev_server_client__ !== "undefined"
-    ? __webpack_dev_server_client__
-    : // eslint-disable-next-line import/no-unresolved
-      require("./clients/WebsocketClient");
+    ? // eslint-disable-next-line camelcase
+      typeof __webpack_dev_server_client__.default !== "undefined"
+      ? __webpack_dev_server_client__.default
+      : __webpack_dev_server_client__
+    : WebSocketClient;
+/* eslint-enable camelcase */
 
 let retries = 0;
 let client = null;
@@ -54,4 +56,4 @@ const socket = function initSocket(url, handlers) {
   });
 };
 
-module.exports = socket;
+export default socket;

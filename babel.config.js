@@ -8,7 +8,9 @@ module.exports = (api) => {
       [
         "@babel/preset-env",
         {
+          modules: false,
           targets: {
+            esmodules: true,
             node: "0.12",
           },
         },
@@ -17,6 +19,16 @@ module.exports = (api) => {
     plugins: ["@babel/plugin-transform-object-assign"],
     env: {
       test: {
+        presets: [
+          [
+            "@babel/preset-env",
+            {
+              targets: {
+                node: "12.13.0",
+              },
+            },
+          ],
+        ],
         plugins: ["@babel/plugin-transform-runtime"],
       },
     },

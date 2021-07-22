@@ -12,6 +12,7 @@ const HTMLContent = `
 `;
 
 module.exports = {
+  devtool: "eval-nosources-cheap-source-map",
   mode: "development",
   context: __dirname,
   stats: "none",

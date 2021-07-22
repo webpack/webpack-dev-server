@@ -108,8 +108,9 @@ describe("'createSocketURL' function ", () => {
       () => () => new URL("./entry.js", location).toString()
     );
 
-    const createSocketURL = require("../../../client-src/utils/createSocketURL");
-    const parseURL = require("../../../client-src/utils/parseURL");
+    const createSocketURL =
+      require("../../../client-src/utils/createSocketURL").default;
+    const parseURL = require("../../../client-src/utils/parseURL").default;
 
     test(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
       const selfLocation = new URL(location);
