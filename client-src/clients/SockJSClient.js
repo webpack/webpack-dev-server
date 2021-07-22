@@ -26,4 +26,4 @@ export default class SockJSClient {
       f(e.data);
     };
   }
-};
+}

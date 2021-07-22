@@ -22,4 +22,4 @@ export default class WebsocketClient {
       f(e.data);
     };
   }
-};
+}
