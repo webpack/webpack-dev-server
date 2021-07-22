@@ -326,6 +326,72 @@ exports[`overlay should not show on an error when "client.overlay.errors" is "fa
 "
 `;
 
+exports[`overlay should show on a warning and error for initial compilation and protects against xss: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span
+      ><br /><br />&lt;strong&gt;strong&lt;/strong&gt;<br /><br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span
+      ><br /><br />&lt;strong&gt;strong&lt;/strong&gt;<br /><br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show on a warning and error for initial compilation and protects against xss: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
 exports[`overlay should show on a warning and error for initial compilation: overlay html 1`] = `
 "<body>
   <div
