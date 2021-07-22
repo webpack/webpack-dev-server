@@ -39,7 +39,7 @@ exports[`overlay should not show initially, then show on an error and allow to c
       1:1 Module parse failed: Unterminated template (1:1) You may need an
       appropriate loader to handle this file type, currently no loaders are
       configured to process this file. See
-      https://webpack.js.org/concepts#loaders &amp;gt; \`;<br /><br /><br />
+      https://webpack.js.org/concepts#loaders &gt; \`;<br /><br /><br />
     </div>
   </div>
 </body>
@@ -118,7 +118,7 @@ exports[`overlay should not show initially, then show on an error, then hide on 
       1:1 Module parse failed: Unterminated template (1:1) You may need an
       appropriate loader to handle this file type, currently no loaders are
       configured to process this file. See
-      https://webpack.js.org/concepts#loaders &amp;gt; \`;<br /><br /><br />
+      https://webpack.js.org/concepts#loaders &gt; \`;<br /><br /><br />
     </div>
   </div>
 </body>
@@ -197,7 +197,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
       1:1 Module parse failed: Unterminated template (1:1) You may need an
       appropriate loader to handle this file type, currently no loaders are
       configured to process this file. See
-      https://webpack.js.org/concepts#loaders &amp;gt; \`;<br /><br /><br />
+      https://webpack.js.org/concepts#loaders &gt; \`;<br /><br /><br />
     </div>
   </div>
 </body>
@@ -243,7 +243,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
       1:1 Module parse failed: Unterminated template (1:1) You may need an
       appropriate loader to handle this file type, currently no loaders are
       configured to process this file. See
-      https://webpack.js.org/concepts#loaders &amp;gt; \`;a<br /><br /><br />
+      https://webpack.js.org/concepts#loaders &gt; \`;a<br /><br /><br />
     </div>
   </div>
 </body>
@@ -374,15 +374,15 @@ exports[`overlay should show on a warning and error for initial compilation: ove
     </div>
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
@@ -692,7 +692,7 @@ exports[`overlay should show on an error for initial compilation: overlay html 1
     ><br /><br />
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
@@ -754,7 +754,7 @@ exports[`overlay should show on an error when "client.overlay" is "true": overla
     ><br /><br />
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
@@ -816,7 +816,7 @@ exports[`overlay should show on an error when "client.overlay.errors" is "true":
     ><br /><br />
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation<br /><br /><br />
+      compilation. Can't find 'test' module.<br /><br /><br />
     </div>
   </div>
 </body>
