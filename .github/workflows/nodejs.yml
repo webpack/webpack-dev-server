@@ -107,7 +107,7 @@ jobs:
 
       - name: Link webpack-dev-server
         run: |
-          npm link webpack-dev-server --ignore-scripts # do not build the client again
+          npm link --ignore-scripts # do not build the client again
 
       - name: Debug2
         run: cat ./client/modules/logger/index.js
