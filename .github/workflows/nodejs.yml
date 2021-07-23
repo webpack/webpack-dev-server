@@ -69,7 +69,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Use latest NPM on ubuntu/macos
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
