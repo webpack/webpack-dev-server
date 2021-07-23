@@ -33,7 +33,7 @@ describe("allowedHosts", () => {
 
     server = createServer(compiler, options);
 
-    if (!server.checkHostHeader(headers)) {
+    if (!server.checkHeader(headers, "host")) {
       throw new Error("Validation didn't fail");
     }
   });
@@ -49,7 +49,7 @@ describe("allowedHosts", () => {
 
     server = createServer(compiler, options);
 
-    if (!server.checkHostHeader(headers)) {
+    if (!server.checkHeader(headers, "host")) {
       throw new Error("Validation didn't fail");
     }
   });
@@ -67,7 +67,7 @@ describe("allowedHosts", () => {
 
     server = createServer(compiler, options);
 
-    if (!server.checkHostHeader(headers)) {
+    if (!server.checkHeader(headers, "host")) {
       throw new Error("Validation didn't fail");
     }
   });
@@ -82,7 +82,7 @@ describe("allowedHosts", () => {
 
     server = createServer(compiler, options);
 
-    if (!server.checkHostHeader(headers)) {
+    if (!server.checkHeader(headers, "host")) {
       throw new Error("Validation didn't fail");
     }
   });
@@ -95,7 +95,7 @@ describe("allowedHosts", () => {
     tests.forEach((test) => {
       const headers = { host: test };
 
-      if (!server.checkHostHeader(headers)) {
+      if (!server.checkHeader(headers, "host")) {
         throw new Error("Validation didn't fail");
       }
     });
@@ -118,7 +118,7 @@ describe("allowedHosts", () => {
     tests.forEach((test) => {
       const headers = { host: test };
 
-      if (!server.checkHostHeader(headers)) {
+      if (!server.checkHeader(headers, "host")) {
         throw new Error("Validation didn't fail");
       }
     });
