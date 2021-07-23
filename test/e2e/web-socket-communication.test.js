@@ -8,6 +8,8 @@ const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["web-socket-communication"];
 
+jest.setTimeout(60000);
+
 describe("web socket communication", () => {
   const webSocketServers = ["ws", "sockjs"];
 
@@ -224,6 +226,7 @@ describe("web socket communication", () => {
       });
 
       await page.waitForNavigation({
+        timeout: 60000,
         waitUntil: "networkidle0",
       });
 
