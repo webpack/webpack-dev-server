@@ -107,8 +107,10 @@ jobs:
 
       - name: Link webpack-dev-server
         run: |
-          SKIP_BUILD_CLIENT=true npm link --ignore-scripts
-          SKIP_BUILD_CLIENT=true npm link webpack-dev-server --ignore-scripts
+          npm config set ignore-scripts false
+          npm link --ignore-scripts
+          npm link webpack-dev-server --ignore-scripts
+          npm config set ignore-scripts true
 
       - name: Debug2
         run: cat ./client/modules/logger/index.js
