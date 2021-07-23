@@ -500,13 +500,13 @@ There are a lot of other bug fixes.
   ```
 
   IE8 is not supported, sorry
-  
--  Change in **Node.js API**:
 
-    - If you're using dev-server through the Node.js API, the options in devServer will be ignored. Pass the options as a first parameter instead:
+- Change in **Node.js API**:
 
-    ```js
-    new WebpackDevServer(compiler, {...})
-    ```
+  - If you're using dev-server through the Node.js API, the options in devServer will be ignored. Pass the options as a first parameter instead:
 
-    - [See here](https://github.com/webpack/webpack-dev-server/tree/master/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.
+  ```js
+  new WebpackDevServer(compiler, {...})
+  ```
+
+  - [See here](https://github.com/webpack/webpack-dev-server/tree/master/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.
