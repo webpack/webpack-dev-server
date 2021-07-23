@@ -10,24 +10,33 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").overlay;
 
 class ErrorPlugin {
+  constructor(message) {
+    this.message =
+      message || "Error from compilation. Can't find 'test' module.";
+  }
+
   // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     compiler.hooks.thisCompilation.tap(
-      "warnings-webpack-plugin",
+      "errors-webpack-plugin",
       (compilation) => {
-        compilation.errors.push(new Error("Error from compilation"));
+        compilation.errors.push(new Error(this.message));
       }
     );
   }
 }
 
 class WarningPlugin {
+  constructor(message) {
+    this.message = message || "Warning from compilation";
+  }
+
   // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     compiler.hooks.thisCompilation.tap(
       "warnings-webpack-plugin",
       (compilation) => {
-        compilation.warnings.push(new Error("Warning from compilation"));
+        compilation.warnings.push(new Error(this.message));
       }
     );
   }
@@ -144,6 +153,58 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
     new ErrorPlugin().apply(compiler);
     new ErrorPlugin().apply(compiler);
+
+    const devServerOptions = {
+      host: "0.0.0.0",
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await new Promise((resolve, reject) => {
+      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+        if (error) {
+          reject(error);
+
+          return;
+        }
+
+        resolve();
+      });
+    });
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
+    });
+  });
+
+  it("should show on a warning and error for initial compilation and protects against xss", async () => {
+    const compiler = webpack(config);
+
+    new WarningPlugin("<strong>strong</strong>").apply(compiler);
+    new ErrorPlugin("<strong>strong</strong>").apply(compiler);
 
     const devServerOptions = {
       host: "0.0.0.0",
