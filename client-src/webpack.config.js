@@ -4,12 +4,6 @@ const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 
-// Do not build client on webpack v4, please use webpack v5 to build client
-// Workaround for `npm`, because `npm link --ignore-scripts` still run `prepare` script
-if (!webpack.webpack) {
-  process.exit(0);
-}
-
 const library = webpack.webpack
   ? {
       library: {
