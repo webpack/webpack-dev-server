@@ -107,16 +107,10 @@ jobs:
 
       - name: Link webpack-dev-server
         run: |
-          npm link --ignore-scripts
+          SKIP_BUILD_CLIENT=true npm link --ignore-scripts
+          SKIP_BUILD_CLIENT=true npm link webpack-dev-server --ignore-scripts
 
       - name: Debug2
-        run: cat ./client/modules/logger/index.js
-
-      - name: Link webpack-dev-server
-        run: |
-          npm link webpack-dev-server --ignore-scripts
-
-      - name: Debug3
         run: cat ./client/modules/logger/index.js
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}

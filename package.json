@@ -22,7 +22,7 @@
     "fix": "npm-run-all fix:js fmt",
     "commitlint": "commitlint --from=master",
     "build": "npm-run-all build:client",
-    "build:client": "rimraf ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
+    "build:client": "[ -z \"$SKIP_BUILD_CLIENT\" ] || exit 0 && rimraf ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
     "test:only": "jest",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
