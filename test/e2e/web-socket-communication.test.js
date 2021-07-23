@@ -226,6 +226,7 @@ describe("web socket communication", () => {
       });
 
       await page.waitForNavigation({
+        timeout: 60000,
         waitUntil: "networkidle0",
       });
 
