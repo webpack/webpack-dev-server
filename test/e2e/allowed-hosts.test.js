@@ -672,7 +672,202 @@ describe("allowed hosts", () => {
       });
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the mutliple custom hostname values ("${webSocketServer}")`, async () => {
+    it(`should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("${webSocketServer}")`, async () => {
+      const devServerHost = "127.0.0.1";
+      const devServerPort = port1;
+      const proxyHost = devServerHost;
+      const proxyPort = port2;
+
+      const compiler = webpack(config);
+      const devServerOptions = {
+        client: {
+          webSocketURL: {
+            port: port2,
+          },
+        },
+        webSocketServer,
+        port: devServerPort,
+        host: devServerHost,
+        allowedHosts: ".my-test-origin.com",
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+
+        app.use(
+          "/",
+          createProxyMiddleware({
+            // Emulation
+            onProxyReqWs: (proxyReq) => {
+              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            },
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: "warn",
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      proxy.close();
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    it(`should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async () => {
+      const devServerHost = "127.0.0.1";
+      const devServerPort = port1;
+      const proxyHost = devServerHost;
+      const proxyPort = port2;
+
+      const compiler = webpack(config);
+      const devServerOptions = {
+        client: {
+          webSocketURL: {
+            port: port2,
+          },
+        },
+        webSocketServer,
+        port: devServerPort,
+        host: devServerHost,
+        allowedHosts: ".my-test-origin.com",
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await new Promise((resolve, reject) => {
+        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+
+      function startProxy(callback) {
+        const app = express();
+
+        app.use(
+          "/",
+          createProxyMiddleware({
+            // Emulation
+            onProxyReqWs: (proxyReq) => {
+              proxyReq.setHeader(
+                "origin",
+                "http://foo.bar.baz.my-test-origin.com/"
+              );
+            },
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: "warn",
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      proxy.close();
+
+      await browser.close();
+      await new Promise((resolve, reject) => {
+        server.close((error) => {
+          if (error) {
+            reject(error);
+
+            return;
+          }
+
+          resolve();
+        });
+      });
+    });
+
+    it(`should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("${webSocketServer}")`, async () => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;

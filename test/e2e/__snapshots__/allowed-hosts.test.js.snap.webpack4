@@ -88,7 +88,7 @@ Array [
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value ("ws"): page errors 1`] = `Array []`;
 
-exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the mutliple custom hostname values ("sockjs"): console messages 1`] = `
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -97,9 +97,9 @@ Array [
 ]
 `;
 
-exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the mutliple custom hostname values ("sockjs"): page errors 1`] = `Array []`;
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("sockjs"): page errors 1`] = `Array []`;
 
-exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the mutliple custom hostname values ("ws"): console messages 1`] = `
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("ws"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -108,7 +108,51 @@ Array [
 ]
 `;
 
-exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the mutliple custom hostname values ("ws"): page errors 1`] = `Array []`;
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("ws"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("ws"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("ws"): page errors 1`] = `Array []`;
 
 exports[`allowed hosts should connect web socket client using localhost to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 Array [
