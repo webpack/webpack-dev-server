@@ -61,12 +61,14 @@ Object {
   "allowedHosts": Array [
     "all",
   ],
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -86,6 +88,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -98,12 +101,14 @@ Object {
 exports[`Server normalizeOptions allowedHosts is string 1`] = `
 Object {
   "allowedHosts": "all",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -123,6 +128,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -135,6 +141,7 @@ Object {
 exports[`Server normalizeOptions client custom webSocketTransport path 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketTransport": "/path/to/custom/client/",
@@ -142,6 +149,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -161,6 +169,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -173,6 +182,7 @@ Object {
 exports[`Server normalizeOptions client host and port 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {
@@ -182,6 +192,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -201,6 +212,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -213,6 +225,7 @@ Object {
 exports[`Server normalizeOptions client host and string port 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {
@@ -222,6 +235,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -241,6 +255,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -253,6 +268,7 @@ Object {
 exports[`Server normalizeOptions client path 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {
@@ -261,6 +277,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -280,6 +297,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -292,6 +310,7 @@ Object {
 exports[`Server normalizeOptions client path without leading/ending slashes 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {
@@ -300,6 +319,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -319,6 +339,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -331,6 +352,7 @@ Object {
 exports[`Server normalizeOptions client.webSocketTransport sockjs string 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketTransport": "sockjs",
@@ -338,6 +360,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -357,6 +380,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -369,6 +393,7 @@ Object {
 exports[`Server normalizeOptions client.webSocketTransport ws string 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketTransport": "ws",
@@ -376,6 +401,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -395,6 +421,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -407,6 +434,7 @@ Object {
 exports[`Server normalizeOptions client.webSocketTransport ws string and webSocketServer object 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketTransport": "ws",
@@ -414,6 +442,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -433,6 +462,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "host": "127.0.0.1",
@@ -448,6 +478,7 @@ Object {
 exports[`Server normalizeOptions client.webSocketTransport ws string and webSocketServer object with port as string 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketTransport": "ws",
@@ -455,6 +486,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -474,6 +506,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "host": "127.0.0.1",
@@ -489,6 +522,7 @@ Object {
 exports[`Server normalizeOptions client.webSocketTransport ws string and webSocketServer ws string 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketTransport": "ws",
@@ -496,6 +530,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -515,6 +550,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -527,6 +563,7 @@ Object {
 exports[`Server normalizeOptions dev is set 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
@@ -535,6 +572,7 @@ Object {
   "devMiddleware": Object {
     "serverSideRender": true,
   },
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -554,6 +592,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -566,12 +605,14 @@ Object {
 exports[`Server normalizeOptions hot is false 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": false,
   "liveReload": true,
@@ -591,6 +632,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -603,12 +645,14 @@ Object {
 exports[`Server normalizeOptions hot is only 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": "only",
   "liveReload": true,
@@ -628,6 +672,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -640,12 +685,14 @@ Object {
 exports[`Server normalizeOptions hot is true 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -665,6 +712,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -677,12 +725,14 @@ Object {
 exports[`Server normalizeOptions liveReload is false 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": false,
@@ -702,6 +752,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -714,12 +765,14 @@ Object {
 exports[`Server normalizeOptions liveReload is true 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -739,6 +792,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -751,12 +805,14 @@ Object {
 exports[`Server normalizeOptions multi compiler watchOptions is set 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -778,6 +834,7 @@ Object {
       },
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -790,12 +847,14 @@ Object {
 exports[`Server normalizeOptions no options 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -815,6 +874,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -827,12 +887,14 @@ Object {
 exports[`Server normalizeOptions port string 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -852,6 +914,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -864,12 +927,14 @@ Object {
 exports[`Server normalizeOptions single compiler watchOptions is object 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -891,6 +956,7 @@ Object {
       },
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -903,12 +969,14 @@ Object {
 exports[`Server normalizeOptions single compiler watchOptions is object with static watch overriding it 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -930,6 +998,7 @@ Object {
       },
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -942,12 +1011,14 @@ Object {
 exports[`Server normalizeOptions single compiler watchOptions is object with static watch true 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -969,6 +1040,7 @@ Object {
       },
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -981,12 +1053,14 @@ Object {
 exports[`Server normalizeOptions single compiler watchOptions is object with watch false 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1006,6 +1080,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1018,12 +1093,14 @@ Object {
 exports[`Server normalizeOptions static is an array of static objects 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1054,6 +1131,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1066,12 +1144,14 @@ Object {
 exports[`Server normalizeOptions static is an array of strings 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1102,6 +1182,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1114,12 +1195,14 @@ Object {
 exports[`Server normalizeOptions static is an array of strings and static objects 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1150,6 +1233,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1162,12 +1246,14 @@ Object {
 exports[`Server normalizeOptions static is an object 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1187,6 +1273,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1199,12 +1286,14 @@ Object {
 exports[`Server normalizeOptions static is false 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1212,6 +1301,7 @@ Object {
   "port": "<auto>",
   "setupExitSignals": true,
   "static": false,
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1224,12 +1314,14 @@ Object {
 exports[`Server normalizeOptions static is string 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1249,6 +1341,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1261,12 +1354,14 @@ Object {
 exports[`Server normalizeOptions static is true 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1286,6 +1381,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1298,12 +1394,14 @@ Object {
 exports[`Server normalizeOptions static publicPath is a string 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1323,6 +1421,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1335,12 +1434,14 @@ Object {
 exports[`Server normalizeOptions static publicPath is an array 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1361,6 +1462,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1373,12 +1475,14 @@ Object {
 exports[`Server normalizeOptions static serveIndex is an object 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1398,6 +1502,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1410,12 +1515,14 @@ Object {
 exports[`Server normalizeOptions static serveIndex is false 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1433,6 +1540,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1445,12 +1553,14 @@ Object {
 exports[`Server normalizeOptions static serveIndex is true 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1470,6 +1580,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1482,12 +1593,14 @@ Object {
 exports[`Server normalizeOptions static watch is an object 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1509,6 +1622,7 @@ Object {
       },
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1521,12 +1635,14 @@ Object {
 exports[`Server normalizeOptions static watch is false 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1546,6 +1662,7 @@ Object {
       "watch": false,
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1558,12 +1675,14 @@ Object {
 exports[`Server normalizeOptions static watch is true 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1583,6 +1702,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1595,6 +1715,7 @@ Object {
 exports[`Server normalizeOptions username and password 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {
@@ -1604,6 +1725,7 @@ Object {
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1623,6 +1745,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1635,12 +1758,14 @@ Object {
 exports[`Server normalizeOptions webSocketServer custom server class 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1660,6 +1785,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
@@ -1672,12 +1798,14 @@ Object {
 exports[`Server normalizeOptions webSocketServer custom server path 1`] = `
 Object {
   "allowedHosts": "auto",
+  "bonjour": false,
   "client": Object {
     "overlay": true,
     "webSocketURL": Object {},
   },
   "compress": true,
   "devMiddleware": Object {},
+  "historyApiFallback": false,
   "host": "127.0.0.1",
   "hot": true,
   "liveReload": true,
@@ -1697,6 +1825,7 @@ Object {
       "watch": Object {},
     },
   ],
+  "watchFiles": Array [],
   "webSocketServer": Object {
     "options": Object {
       "path": "/ws",
