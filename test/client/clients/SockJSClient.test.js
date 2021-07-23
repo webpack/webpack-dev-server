@@ -16,7 +16,8 @@ jest.setMock("../../../client-src/utils/log", {
 });
 
 describe("SockJSClient", () => {
-  const SockJSClient = require("../../../client-src/clients/SockJSClient");
+  const SockJSClient =
+    require("../../../client-src/clients/SockJSClient").default;
   const { log } = require("../../../client-src/utils/log");
   let consoleMock;
   let socketServer;

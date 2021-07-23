@@ -4,7 +4,8 @@
 
 "use strict";
 
-const getCurrentScriptSource = require("../../../client-src/utils/getCurrentScriptSource");
+const getCurrentScriptSource =
+  require("../../../client-src/utils/getCurrentScriptSource").default;
 
 describe("'getCurrentScriptSource' function", () => {
   afterEach(() => {

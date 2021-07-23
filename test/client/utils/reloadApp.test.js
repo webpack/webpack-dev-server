@@ -19,6 +19,7 @@ describe("'reloadApp' function", () => {
     });
 
     jest.mock("webpack/lib/logging/runtime");
+    jest.mock("webpack/hot/emitter.js");
 
     log = require("webpack/lib/logging/runtime");
     log.getLogger.mockImplementation(() => {
@@ -27,7 +28,7 @@ describe("'reloadApp' function", () => {
       };
     });
 
-    reloadApp = require("../../../client-src/utils/reloadApp");
+    reloadApp = require("../../../client-src/utils/reloadApp").default;
   });
 
   afterEach(() => {
@@ -48,8 +49,8 @@ describe("'reloadApp' function", () => {
   });
 
   test("should run hot", () => {
-    jest.mock("webpack/hot/emitter");
     const emitter = require("webpack/hot/emitter");
+
     emitter.emit = jest.fn();
 
     reloadApp(

@@ -1,5 +1,3 @@
-"use strict";
-
 /* global __resourceQuery WorkerGlobalScope */
 
 // Send messages to the outside, so plugins can consume it.
@@ -13,4 +11,4 @@ function sendMsg(type, data) {
   }
 }
 
-module.exports = sendMsg;
+export default sendMsg;
