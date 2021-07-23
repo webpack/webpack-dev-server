@@ -107,10 +107,10 @@ jobs:
 
       - name: Link webpack-dev-server
         run: |
-          npm config set ignore-scripts false
+          npm config set ignore-scripts true
           npm link --ignore-scripts
           npm link webpack-dev-server --ignore-scripts
-          npm config set ignore-scripts true
+          npm config set ignore-scripts false
 
       - name: Debug2
         run: cat ./client/modules/logger/index.js
