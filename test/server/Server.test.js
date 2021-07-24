@@ -820,41 +820,6 @@ describe("Server", () => {
       });
     });
 
-    it("should allow any valid options.client.webSocketURL when host is localhost", () => {
-      const options = {
-        client: {
-          webSocketURL: "ws://test.host:80",
-        },
-      };
-      const headers = {
-        host: "localhost",
-      };
-
-      server = new Server(options, compiler);
-
-      if (!server.checkHostHeader(headers)) {
-        throw new Error("Validation didn't fail");
-      }
-    });
-
-    it("should allow any valid options.client.webSocketURL when host is 127.0.0.1", () => {
-      const options = {
-        client: {
-          webSocketURL: "ws://test.host:80",
-        },
-      };
-
-      const headers = {
-        host: "127.0.0.1",
-      };
-
-      server = new Server(options, compiler);
-
-      if (!server.checkHostHeader(headers)) {
-        throw new Error("Validation didn't fail");
-      }
-    });
-
     it("should allow access for every requests using an IP", () => {
       const options = {};
 
@@ -872,45 +837,10 @@ describe("Server", () => {
       tests.forEach((test) => {
         const headers = { host: test };
 
-        if (!server.checkHostHeader(headers)) {
+        if (!server.checkHeader(headers, "host")) {
           throw new Error("Validation didn't pass");
         }
       });
-    });
-
-    it("should not allow hostnames that don't match options.client.webSocketURL", () => {
-      const options = {
-        client: {
-          webSocketURL: "ws://test.host:80",
-        },
-      };
-
-      const headers = {
-        host: "test.hostname:80",
-      };
-
-      server = new Server(options, compiler);
-
-      if (server.checkHostHeader(headers)) {
-        throw new Error("Validation didn't fail");
-      }
-    });
-
-    it.skip('should allow urls with scheme for checking origin when the "option.client.webSocketURL" is string', () => {
-      const options = {
-        client: {
-          webSocketURL: "ws://test.host:80",
-        },
-      };
-      const headers = {
-        origin: "https://test.host",
-      };
-
-      server = new Server(options, compiler);
-
-      if (!server.checkOriginHeader(headers)) {
-        throw new Error("Validation didn't fail");
-      }
     });
 
     it('should allow urls with scheme for checking origin when the "option.client.webSocketURL" is object', () => {
@@ -927,7 +857,7 @@ describe("Server", () => {
 
       server = new Server(options, compiler);
 
-      if (!server.checkOriginHeader(headers)) {
+      if (!server.checkHeader(headers, "origin")) {
         throw new Error("Validation didn't fail");
       }
     });

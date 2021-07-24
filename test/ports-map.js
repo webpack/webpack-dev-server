@@ -66,6 +66,7 @@ const listOfTests = {
   "cli-web-socket-server": 1,
   target: 1,
   entry: 1,
+  "allowed-hosts": 2,
 };
 
 let startPort = 8089;
