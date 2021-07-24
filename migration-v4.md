@@ -505,8 +505,16 @@ There are a lot of other bug fixes.
 
   - If you're using dev-server through the Node.js API, the options in devServer will be ignored. Pass the options as a first parameter instead:
 
+  v3:
+
   ```js
   new WebpackDevServer(compiler, {...})
+  ```
+
+  v4:
+
+  ```js
+  new WebpackDevServer({...}, compiler)
   ```
 
   - [See here](https://github.com/webpack/webpack-dev-server/tree/master/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.
