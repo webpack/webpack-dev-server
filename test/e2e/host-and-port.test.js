@@ -12,9 +12,7 @@ describe("host and port", () => {
 
   for (const host of hosts) {
     it(`should work using "${host}" host and port as number`, async () => {
-      const compiler = webpack({
-        ...config,
-      });
+      const compiler = webpack(config);
       const devServerOptions = {
         host,
         port,
@@ -28,7 +26,7 @@ describe("host and port", () => {
       }
 
       await new Promise((resolve, reject) => {
-        server.listen(port, hostname, (error) => {
+        server.listen(port, host, (error) => {
           if (error) {
             reject(error);
 
@@ -77,9 +75,7 @@ describe("host and port", () => {
     });
 
     it(`should work using "${host}" host and port as string`, async () => {
-      const compiler = webpack({
-        ...config,
-      });
+      const compiler = webpack(config);
       const devServerOptions = {
         host,
         port: `${port}`,
@@ -93,7 +89,7 @@ describe("host and port", () => {
       }
 
       await new Promise((resolve, reject) => {
-        server.listen(port, hostname, (error) => {
+        server.listen(port, host, (error) => {
           if (error) {
             reject(error);
 
