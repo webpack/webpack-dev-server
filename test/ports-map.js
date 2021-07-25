@@ -15,7 +15,6 @@ const listOfTests = {
   progress: 1,
   "web-socket-server-and-transport": 1,
   "web-socket-server-url": 2,
-  "host-and-port": 1,
   // integration tests
   "module-federation": 1,
   "multi-compiler": 1,
@@ -68,6 +67,7 @@ const listOfTests = {
   target: 1,
   entry: 1,
   "allowed-hosts": 2,
+  "host-and-port": 1,
 };
 
 let startPort = 8089;
