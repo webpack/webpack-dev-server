@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`host and port should work using "0.0.0.0" host: console messages 1`] = `
+exports[`host and port should work using "0.0.0.0" host and port as number: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -9,9 +9,9 @@ Array [
 ]
 `;
 
-exports[`host and port should work using "0.0.0.0" host: page errors 1`] = `Array []`;
+exports[`host and port should work using "0.0.0.0" host and port as number: page errors 1`] = `Array []`;
 
-exports[`host and port should work using "127.0.0.1" host: console messages 1`] = `
+exports[`host and port should work using "0.0.0.0" host and port as string: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -20,9 +20,9 @@ Array [
 ]
 `;
 
-exports[`host and port should work using "127.0.0.1" host: page errors 1`] = `Array []`;
+exports[`host and port should work using "0.0.0.0" host and port as string: page errors 1`] = `Array []`;
 
-exports[`host and port should work using "local-ip" host: console messages 1`] = `
+exports[`host and port should work using "127.0.0.1" host and port as number: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -31,9 +31,9 @@ Array [
 ]
 `;
 
-exports[`host and port should work using "local-ip" host: page errors 1`] = `Array []`;
+exports[`host and port should work using "127.0.0.1" host and port as number: page errors 1`] = `Array []`;
 
-exports[`host and port should work using "local-ipv4" host: console messages 1`] = `
+exports[`host and port should work using "127.0.0.1" host and port as string: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -42,9 +42,9 @@ Array [
 ]
 `;
 
-exports[`host and port should work using "local-ipv4" host: page errors 1`] = `Array []`;
+exports[`host and port should work using "127.0.0.1" host and port as string: page errors 1`] = `Array []`;
 
-exports[`host and port should work using "localhost" host: console messages 1`] = `
+exports[`host and port should work using "local-ip" host and port as number: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -53,4 +53,59 @@ Array [
 ]
 `;
 
-exports[`host and port should work using "localhost" host: page errors 1`] = `Array []`;
+exports[`host and port should work using "local-ip" host and port as number: page errors 1`] = `Array []`;
+
+exports[`host and port should work using "local-ip" host and port as string: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`host and port should work using "local-ip" host and port as string: page errors 1`] = `Array []`;
+
+exports[`host and port should work using "local-ipv4" host and port as number: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`host and port should work using "local-ipv4" host and port as number: page errors 1`] = `Array []`;
+
+exports[`host and port should work using "local-ipv4" host and port as string: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`host and port should work using "local-ipv4" host and port as string: page errors 1`] = `Array []`;
+
+exports[`host and port should work using "localhost" host and port as number: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`host and port should work using "localhost" host and port as number: page errors 1`] = `Array []`;
+
+exports[`host and port should work using "localhost" host and port as string: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`host and port should work using "localhost" host and port as string: page errors 1`] = `Array []`;
