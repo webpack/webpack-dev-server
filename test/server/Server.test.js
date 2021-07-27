@@ -93,14 +93,13 @@ describe("Server", () => {
     // TODO: remove this after plugin support is published
     it("should create and run server with old parameters order and log deprecation warning", (done) => {
       const compiler = webpack(config);
-      const processSpy = jest.spyOn(process, "emitWarning");
+      const util = require("util");
+      const utilSpy = jest.spyOn(util, "deprecate");
 
       const server = new Server(compiler, baseDevConfig);
 
-      expect(processSpy).toHaveBeenCalledWith(
-        "Using 'compiler' as the first argument is deprecated. Please use 'options' as the first argument and 'compiler' as the second argument.",
-        "DeprecationWarning",
-        "DEP_WEBPACK_DEV_SERVER_API"
+      expect(utilSpy.mock.calls[0][1]).toBe(
+        "Using 'compiler' as the first argument is deprecated. Please use 'options' as the first argument and 'compiler' as the second argument."
       );
 
       compiler.hooks.done.tap("webpack-dev-server", () => {
@@ -117,7 +116,7 @@ describe("Server", () => {
         getEntries(server);
       });
 
-      processSpy.mockRestore();
+      utilSpy.mockRestore();
     });
   });
 
