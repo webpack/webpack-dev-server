@@ -108,16 +108,12 @@ jobs:
       - name: Link webpack-dev-server
         run: |
           cp -R client tmp-client
-          cat ./client/modules/logger/index.js
           cat ./tmp-client/modules/logger/index.js
           npm link --ignore-scripts
-          cat ./client/modules/logger/index.js
           cat ./tmp-client/modules/logger/index.js
           npm link webpack-dev-server --ignore-scripts
-          cat ./client/modules/logger/index.js
           cat ./tmp-client/modules/logger/index.js
           cp -R tmp-client client
-          cat ./client/modules/logger/index.js
           cat ./tmp-client/modules/logger/index.js
 
       - name: Debug2
