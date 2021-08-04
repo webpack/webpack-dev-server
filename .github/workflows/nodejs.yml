@@ -110,7 +110,7 @@ jobs:
           cp -R client tmp-client
           npm link --ignore-scripts
           npm link webpack-dev-server --ignore-scripts
-          cp -R tmp-client/* client
+          cp -R -f tmp-client/* client
 
       - name: Debug2
         run: cat ./tmp-client/modules/logger/index.js
