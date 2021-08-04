@@ -49,7 +49,7 @@ jobs:
         run: npm audit --production
 
       - name: Check commit message
-        uses: wagoid/commitlint-github-action@v1
+        uses: wagoid/commitlint-github-action@v4
 
   test:
     name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }}
