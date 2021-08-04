@@ -161,7 +161,7 @@ describe("web socket communication", () => {
       });
     });
 
-    it.only(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
+    it(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
