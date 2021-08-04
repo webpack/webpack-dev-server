@@ -110,7 +110,7 @@ jobs:
           cp -R client tmp-client
           npm link --ignore-scripts
           npm link webpack-dev-server --ignore-scripts
-          rm -r --force client
+          rm -r client
           cp -R tmp-client client
 
       - name: Debug2
