@@ -95,15 +95,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Debug
-        run: cat ./client/modules/logger/index.js
-
       - name: Install webpack ${{ matrix.webpack-version }}
         if: matrix.webpack-version == '4'
         run: npm i webpack@${{ matrix.webpack-version }} --save-dev --ignore-scripts
-
-      - name: Debug1
-        run: cat ./client/modules/logger/index.js
 
       - name: Link webpack-dev-server
         run: |
@@ -112,12 +106,6 @@ jobs:
           npm link webpack-dev-server --ignore-scripts
           rm -r client
           cp -R tmp-client client
-
-      - name: Debug2
-        run: cat ./tmp-client/modules/logger/index.js
-
-      - name: Debug2
-        run: cat ./client/modules/logger/index.js
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci
