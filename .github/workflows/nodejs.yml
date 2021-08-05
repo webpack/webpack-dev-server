@@ -49,7 +49,7 @@ jobs:
         run: npm audit --production
 
       - name: Check commit message
-        uses: wagoid/commitlint-github-action@v1
+        uses: wagoid/commitlint-github-action@v4
 
   test:
     name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }}
@@ -97,12 +97,15 @@ jobs:
 
       - name: Install webpack ${{ matrix.webpack-version }}
         if: matrix.webpack-version == '4'
-        run: npm i webpack@${{ matrix.webpack-version }}
+        run: npm i webpack@${{ matrix.webpack-version }} --save-dev --ignore-scripts
 
       - name: Link webpack-dev-server
         run: |
-          npm link --ignore-scripts # do not build the client again
-          npm link webpack-dev-server
+          cp -R client tmp-client
+          npm link --ignore-scripts
+          npm link webpack-dev-server --ignore-scripts
+          rm -r client
+          cp -R tmp-client client
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci
