@@ -21,13 +21,14 @@
     "fix:js": "npm run lint:js -- --fix",
     "fix": "npm-run-all fix:js fmt",
     "commitlint": "commitlint --from=master",
+    "build": "npm-run-all build:client",
+    "build:client": "rimraf ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
     "test:only": "jest",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
-    "prepare": "npm run build:client && husky install",
-    "build:client": "rimraf ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
+    "prepare": "husky install && npm run build",
     "release": "standard-version"
   },
   "dependencies": {
@@ -103,7 +104,7 @@
     "tcp-port-used": "^1.0.2",
     "typescript": "^4.2.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.44.0",
+    "webpack": "^5.48.0",
     "webpack-cli": "^4.7.2",
     "webpack-merge": "^5.8.0"
   },

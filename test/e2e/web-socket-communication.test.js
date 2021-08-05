@@ -161,7 +161,8 @@ describe("web socket communication", () => {
       });
     });
 
-    it(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
+    // TODO uncomment after fix regression in webpack
+    it.skip(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
@@ -226,7 +227,6 @@ describe("web socket communication", () => {
       });
 
       await page.waitForNavigation({
-        timeout: 60000,
         waitUntil: "networkidle0",
       });
 
