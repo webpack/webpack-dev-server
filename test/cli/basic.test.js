@@ -167,7 +167,7 @@ describe("basic", () => {
       });
     });
 
-    it.only("should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done", (done) => {
+    it("should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done", (done) => {
       const cliPath = path.resolve(
         __dirname,
         "../../bin/webpack-dev-server.js"
