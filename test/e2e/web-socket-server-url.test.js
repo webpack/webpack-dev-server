@@ -2845,9 +2845,16 @@ describe("web socket server URL", () => {
       const pageErrors = [];
       const consoleMessages = [];
 
+      let isDisconnected = false;
+
       page
         .on("console", (message) => {
-          consoleMessages.push(message);
+          const text = message.text();
+
+          if (!isDisconnected) {
+            isDisconnected = /Disconnected!/.test(text);
+            consoleMessages.push(text.replace(/:[\d]+/g, ":<port>"));
+          }
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -2857,11 +2864,7 @@ describe("web socket server URL", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        consoleMessages.map((message) =>
-          message.text().replace(/:[\d]+/g, ":<port>")
-        )
-      ).toMatchSnapshot("console messages");
+      expect(consoleMessages).toMatchSnapshot("console messages");
       expect(
         pageErrors.map((pageError) => pageError.message.split("\n")[0])
       ).toMatchSnapshot("page errors");
