@@ -443,6 +443,51 @@ module.exports = {
 - Many CLI options were renamed in favor of the above change, please use `webpack serve --help` to get a list of them.
 - The `stdin` option was removed in favor of `--watch-options-stdin`.
 - `injectClient` and `injectHot` were removed in favor of manual setup entries.
+
+  - `injectClient: false` was replaced with `client: false`:
+
+  v3:
+
+  ```js
+  module.exports = {
+    devServer: {
+      injectClient: false,
+    },
+  };
+  ```
+
+  v4:
+
+  ```js
+  module.exports = {
+    devServer: {
+      client: false,
+    },
+  };
+  ```
+
+  - `injectHot: false` is now assumed when `hot: false` is used:
+
+  v3:
+
+  ```js
+  module.exports = {
+    devServer: {
+      injectHot: false,
+    },
+  };
+  ```
+
+  v4:
+
+  ```js
+  module.exports = {
+    devServer: {
+      hot: false,
+    },
+  };
+  ```
+
 - The `sockWrite` public method was renamed to `sendMessage`.
 - The `profile` option was removed in favor [`ProfilingPlugin`](https://webpack.js.org/plugins/profiling-plugin/).
 
@@ -500,3 +545,21 @@ There are a lot of other bug fixes.
   ```
 
   IE8 is not supported, sorry
+
+- Change in **Node.js API**:
+
+  - If you're using dev-server through the Node.js API, the options in devServer will be ignored. Pass the options as a first parameter instead:
+
+  v3:
+
+  ```js
+  new WebpackDevServer(compiler, {...})
+  ```
+
+  v4:
+
+  ```js
+  new WebpackDevServer({...}, compiler)
+  ```
+
+  - [See here](https://github.com/webpack/webpack-dev-server/tree/master/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.
