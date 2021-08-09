@@ -14,11 +14,7 @@ describe("host and port", () => {
   for (const host of hosts) {
     it(`should work using "${host}" host and port as number`, async () => {
       const compiler = webpack(config);
-      const devServerOptions = {
-        host,
-        port,
-      };
-      const server = new Server(devServerOptions, compiler);
+      const server = new Server({ host, port }, compiler);
 
       let hostname = host;
 
@@ -77,11 +73,7 @@ describe("host and port", () => {
 
     it(`should work using "${host}" host and port as string`, async () => {
       const compiler = webpack(config);
-      const devServerOptions = {
-        host,
-        port: `${port}`,
-      };
-      const server = new Server(devServerOptions, compiler);
+      const server = new Server({ host, port: `${port}` }, compiler);
 
       let hostname = host;
 
@@ -140,14 +132,10 @@ describe("host and port", () => {
 
     it(`should work using "${host}" host and "auto" port`, async () => {
       const compiler = webpack(config);
-      const devServerOptions = {
-        host,
-        port: "auto",
-      };
 
-      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 22222;
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = port;
 
-      const server = new Server(devServerOptions, compiler);
+      const server = new Server({ host, port: "auto" }, compiler);
 
       let hostname = host;
 
