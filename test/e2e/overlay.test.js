@@ -200,6 +200,59 @@ describe("overlay", () => {
     });
   });
 
+  it("should show on an ansi formatted error for initial compilation", async () => {
+    const compiler = webpack(config);
+
+    new ErrorPlugin("[0m [90m 18 |[39m           [33mRender[39m [33mansi formatted text[39m[0m").apply(
+      compiler
+    );
+
+    const devServerOptions = {
+      host: "0.0.0.0",
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await new Promise((resolve, reject) => {
+      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
+        if (error) {
+          reject(error);
+
+          return;
+        }
+
+        resolve();
+      });
+    });
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await new Promise((resolve) => {
+      server.close(() => {
+        resolve();
+      });
+    });
+  });
+
   it("should show on a warning and error for initial compilation and protects against xss", async () => {
     const compiler = webpack(config);
 

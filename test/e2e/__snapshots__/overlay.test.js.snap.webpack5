@@ -35,10 +35,14 @@ exports[`overlay should not show initially, then show on an error and allow to c
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Module
-      parse failed: Unterminated template (1:1) You may need an appropriate
-      loader to handle this file type, currently no loaders are configured to
-      process this file. See https://webpack.js.org/concepts#loaders &gt; \`;<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;
+      </div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -113,10 +117,14 @@ exports[`overlay should not show initially, then show on an error, then hide on 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Module
-      parse failed: Unterminated template (1:1) You may need an appropriate
-      loader to handle this file type, currently no loaders are configured to
-      process this file. See https://webpack.js.org/concepts#loaders &gt; \`;<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;
+      </div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -191,10 +199,14 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Module
-      parse failed: Unterminated template (1:1) You may need an appropriate
-      loader to handle this file type, currently no loaders are configured to
-      process this file. See https://webpack.js.org/concepts#loaders &gt; \`;<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;
+      </div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -236,10 +248,14 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Module
-      parse failed: Unterminated template (1:1) You may need an appropriate
-      loader to handle this file type, currently no loaders are configured to
-      process this file. See https://webpack.js.org/concepts#loaders &gt; \`;a<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;a
+      </div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -361,12 +377,14 @@ exports[`overlay should show on a warning and error for initial compilation and 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span
-      ><br /><br />&lt;strong&gt;strong&lt;/strong&gt;<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
+      <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span
-      ><br /><br />&lt;strong&gt;strong&lt;/strong&gt;<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -427,24 +445,29 @@ exports[`overlay should show on a warning and error for initial compilation: ove
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
-      from compilation<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
-      from compilation<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation. Can't find 'test' module.<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation. Can't find 'test' module.<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation. Can't find 'test' module.<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -505,8 +528,9 @@ exports[`overlay should show on a warning for initial compilation: overlay html 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
-      from compilation<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -567,8 +591,9 @@ exports[`overlay should show on a warning when "client.overlay" is "true": overl
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
-      from compilation<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -629,8 +654,9 @@ exports[`overlay should show on a warning when "client.overlay.errors" is "true"
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
-      from compilation<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -691,8 +717,9 @@ exports[`overlay should show on a warning when "client.overlay.warnings" is "tru
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
-      from compilation<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -700,6 +727,82 @@ exports[`overlay should show on a warning when "client.overlay.warnings" is "tru
 `;
 
 exports[`overlay should show on a warning when "client.overlay.warnings" is "true": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show on an ansi formatted error for initial compilation: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        <span
+          style=\\"
+            font-weight: normal;
+            opacity: 1;
+            color: #transparent;
+            background: #transparent;
+          \\"
+        >
+          <span style=\\"color: #6d7891\\"> 18 |</span>
+          <span style=\\"color: #ffd080\\">Render</span>
+          <span style=\\"color: #ffd080\\">ansi formatted text</span></span
+        >
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show on an ansi formatted error for initial compilation: page html 1`] = `
 "<body>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
   <iframe
@@ -753,8 +856,9 @@ exports[`overlay should show on an error for initial compilation: overlay html 1
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation. Can't find 'test' module.<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -815,8 +919,9 @@ exports[`overlay should show on an error when "client.overlay" is "true": overla
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation. Can't find 'test' module.<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -877,8 +982,9 @@ exports[`overlay should show on an error when "client.overlay.errors" is "true":
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />Error from
-      compilation. Can't find 'test' module.<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
     </div>
   </div>
 </body>
@@ -939,8 +1045,9 @@ exports[`overlay should show on an error when "client.overlay.warnings" is "true
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />Warning
-      from compilation<br /><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
     </div>
   </div>
 </body>
