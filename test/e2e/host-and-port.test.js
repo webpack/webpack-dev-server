@@ -144,6 +144,9 @@ describe("host and port", () => {
         host,
         port: "auto",
       };
+
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 22222;
+
       const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
@@ -187,6 +190,8 @@ describe("host and port", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
+
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
 
       await browser.close();
       await new Promise((resolve, reject) => {
