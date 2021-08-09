@@ -8,17 +8,13 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["host-and-port"];
 
 describe("host and port", () => {
-  // TODO: add local-ipv6
-  const hosts = ["0.0.0.0", "localhost", "127.0.0.1", "local-ip", "local-ipv4"];
+  // TODO: add "0.0.0.0" and "local-ipv6"
+  const hosts = ["localhost", "127.0.0.1", "local-ip", "local-ipv4"];
 
   for (const host of hosts) {
     it(`should work using "${host}" host and port as number`, async () => {
       const compiler = webpack(config);
-      const devServerOptions = {
-        host,
-        port,
-      };
-      const server = new Server(devServerOptions, compiler);
+      const server = new Server({ host, port }, compiler);
 
       let hostname = host;
 
@@ -77,11 +73,7 @@ describe("host and port", () => {
 
     it(`should work using "${host}" host and port as string`, async () => {
       const compiler = webpack(config);
-      const devServerOptions = {
-        host,
-        port: `${port}`,
-      };
-      const server = new Server(devServerOptions, compiler);
+      const server = new Server({ host, port: `${port}` }, compiler);
 
       let hostname = host;
 
@@ -140,11 +132,10 @@ describe("host and port", () => {
 
     it(`should work using "${host}" host and "auto" port`, async () => {
       const compiler = webpack(config);
-      const devServerOptions = {
-        host,
-        port: "auto",
-      };
-      const server = new Server(devServerOptions, compiler);
+
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = port;
+
+      const server = new Server({ host, port: "auto" }, compiler);
 
       let hostname = host;
 
@@ -187,6 +178,8 @@ describe("host and port", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
+
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
 
       await browser.close();
       await new Promise((resolve, reject) => {

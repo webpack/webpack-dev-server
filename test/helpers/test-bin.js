@@ -82,14 +82,15 @@ const normalizeStderr = (stderr, options = {}) => {
   normalizedStderr = normalizedStderr.filter(
     (item) => !/.+wait until bundle finished.*(\n)?/g.test(item)
   );
-
   normalizedStderr = normalizedStderr.join("\n");
-
   normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ":<port>/");
 
   if (options.https) {
     // We have deprecation warning on windows in some cases
     normalizedStderr = normalizedStderr.split("\n");
+    normalizedStderr = normalizedStderr.filter(
+      (item) => !/Generating SSL Certificate/g.test(item)
+    );
     normalizedStderr = normalizedStderr.filter(
       (item) =>
         !/DeprecationWarning: The legacy HTTP parser is deprecated/g.test(item)

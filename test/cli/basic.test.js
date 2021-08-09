@@ -181,6 +181,14 @@ describe("basic", () => {
 
       let killed = false;
 
+      cp.on("error", (error) => {
+        done(error);
+      });
+
+      cp.stdin.on("error", (error) => {
+        done(error);
+      });
+
       cp.stdout.on("data", () => {
         if (!killed) {
           expect(cp.pid !== 0).toBe(true);

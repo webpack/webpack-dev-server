@@ -425,10 +425,16 @@ describe("hot and live reload", () => {
       const pageErrors = [];
 
       let doneHotUpdate = false;
+      let hasDisconnectedMessage = false;
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          if (!hasDisconnectedMessage) {
+            const text = message.text();
+
+            hasDisconnectedMessage = /Disconnected!/.test(text);
+            consoleMessages.push(text);
+          }
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
