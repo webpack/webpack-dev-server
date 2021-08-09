@@ -4,7 +4,6 @@ const os = require("os");
 const path = require("path");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
-const internalIp = require("internal-ip");
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -41,6 +40,25 @@ const testBin = (testArgs = []) => {
   return execa("node", args, { cwd, env, timeout: 10000 });
 };
 
+const ipV4 =
+  "(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}";
+const ipV6Seg = "[a-fA-F\\d]{1,4}";
+const ipV6 = `
+(?:
+(?:${ipV6Seg}:){7}(?:${ipV6Seg}|:)|                                        // 1:2:3:4:5:6:7::  1:2:3:4:5:6:7:8
+(?:${ipV6Seg}:){6}(?:${ipV4}|:${ipV6Seg}|:)|                               // 1:2:3:4:5:6::    1:2:3:4:5:6::8   1:2:3:4:5:6::8  1:2:3:4:5:6::1.2.3.4
+(?:${ipV6Seg}:){5}(?::${ipV4}|(?::${ipV6Seg}){1,2}|:)|                     // 1:2:3:4:5::      1:2:3:4:5::7:8   1:2:3:4:5::8    1:2:3:4:5::7:1.2.3.4
+(?:${ipV6Seg}:){4}(?:(?::${ipV6Seg}){0,1}:${ipV4}|(?::${ipV6Seg}){1,3}|:)| // 1:2:3:4::        1:2:3:4::6:7:8   1:2:3:4::8      1:2:3:4::6:7:1.2.3.4
+(?:${ipV6Seg}:){3}(?:(?::${ipV6Seg}){0,2}:${ipV4}|(?::${ipV6Seg}){1,4}|:)| // 1:2:3::          1:2:3::5:6:7:8   1:2:3::8        1:2:3::5:6:7:1.2.3.4
+(?:${ipV6Seg}:){2}(?:(?::${ipV6Seg}){0,3}:${ipV4}|(?::${ipV6Seg}){1,5}|:)| // 1:2::            1:2::4:5:6:7:8   1:2::8          1:2::4:5:6:7:1.2.3.4
+(?:${ipV6Seg}:){1}(?:(?::${ipV6Seg}){0,4}:${ipV4}|(?::${ipV6Seg}){1,6}|:)| // 1::              1::3:4:5:6:7:8   1::8            1::3:4:5:6:7:1.2.3.4
+(?::(?:(?::${ipV6Seg}){0,5}:${ipV4}|(?::${ipV6Seg}){1,7}|:))               // ::2:3:4:5:6:7:8  ::2:3:4:5:6:7:8  ::8             ::1.2.3.4
+)(?:%[0-9a-zA-Z]{1,})?                                                     // %eth0            %1
+`
+  .replace(/\s*\/\/.*$/gm, "")
+  .replace(/\n/g, "")
+  .trim();
+
 const normalizeStderr = (stderr, options = {}) => {
   let normalizedStderr = stripAnsi(stderr);
 
@@ -48,18 +66,9 @@ const normalizeStderr = (stderr, options = {}) => {
     .replace(/\\/g, "/")
     .replace(new RegExp(process.cwd().replace(/\\/g, "/"), "g"), "<cwd>")
     .replace(new RegExp(os.tmpdir().replace(/\\/g, "/"), "g"), "<tmp>")
-    .replace(new RegExp("\\\\.\\pipe".replace(/\\/g, "/"), "g"), "<tmp>");
-
-  const networkIPv4 = internalIp.v4.sync();
-
-  if (networkIPv4) {
-    normalizedStderr = normalizedStderr.replace(
-      new RegExp(networkIPv4, "g"),
-      "<network-ip-v4>"
-    );
-  }
-
-  const networkIPv6 = internalIp.v6.sync();
+    .replace(new RegExp("\\\\.\\pipe".replace(/\\/g, "/"), "g"), "<tmp>")
+    .replace(new RegExp(ipV4, "g"), "<ip-v4>")
+    .replace(new RegExp(ipV6, "g"), "<ip-v6>");
 
   // normalize node warnings
   normalizedStderr = normalizedStderr.replace(
@@ -70,13 +79,6 @@ const normalizeStderr = (stderr, options = {}) => {
     /.*Use `node --trace-deprecation ...` to show where the warning was created.*(\n)*/gm,
     ""
   );
-
-  if (networkIPv6) {
-    normalizedStderr = normalizedStderr.replace(
-      new RegExp(networkIPv6, "g"),
-      "<network-ip-v6>"
-    );
-  }
 
   normalizedStderr = normalizedStderr.split("\n");
   normalizedStderr = normalizedStderr.filter(
@@ -98,7 +100,7 @@ const normalizeStderr = (stderr, options = {}) => {
     normalizedStderr = normalizedStderr.join("\n");
   }
 
-  if (options.ipv6 && !networkIPv6) {
+  if (options.ipv6) {
     // Github Actions doesnt' support IPv6 on ubuntu in some cases
     normalizedStderr = normalizedStderr.split("\n");
 
@@ -111,7 +113,7 @@ const normalizeStderr = (stderr, options = {}) => {
     normalizedStderr.splice(
       ipv4MessageIndex + 1,
       0,
-      `<i> [webpack-dev-server] On Your Network (IPv6): ${protocol}://[<network-ip-v6>]:<port>/`
+      `<i> [webpack-dev-server] On Your Network (IPv6): ${protocol}://[<ip-v6>]:<port>/`
     );
 
     normalizedStderr = normalizedStderr.join("\n");
