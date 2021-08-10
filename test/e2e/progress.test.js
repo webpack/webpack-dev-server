@@ -85,10 +85,6 @@ describe("progress", () => {
 
     fs.unlinkSync(cssFilePath);
 
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 });

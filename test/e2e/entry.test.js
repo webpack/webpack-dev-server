@@ -83,17 +83,7 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should work with single array entry", async () => {
@@ -139,17 +129,7 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   itOnlyWebpack5("should work with object entry", async () => {
@@ -200,17 +180,7 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should work with dynamic entry", async () => {
@@ -256,17 +226,7 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should work with dynamic async entry", async () => {
@@ -315,17 +275,7 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should work with multiple entries", async () => {
@@ -383,17 +333,7 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should work with multiple entries #2", async () => {
@@ -450,17 +390,7 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   itOnlyWebpack5(
@@ -518,17 +448,7 @@ describe("entry", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     }
   );
 
@@ -584,16 +504,6 @@ describe("entry", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await new Promise((resolve, reject) => {
-      server.close((error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.stop();
   });
 });

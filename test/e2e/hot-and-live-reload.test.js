@@ -541,11 +541,7 @@ describe("hot and live reload", () => {
       fs.unlinkSync(cssFilePath);
 
       await browser.close();
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 });

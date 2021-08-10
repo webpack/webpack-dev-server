@@ -53,19 +53,7 @@ describe("web socket communication", () => {
       await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
-
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
-
+      await server.stop();
       await new Promise((resolve) => {
         const interval = setInterval(() => {
           if (server.webSocketServer.clients.size === 0) {
@@ -81,17 +69,7 @@ describe("web socket communication", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work and terminate client that is not alive ("${websocketServer}")`, async () => {
@@ -148,17 +126,7 @@ describe("web socket communication", () => {
       );
       expect(pageErrors).toMatchSnapshot("page errors");
 
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     // TODO uncomment after fix regression in webpack
@@ -202,17 +170,7 @@ describe("web socket communication", () => {
         waitUntil: "networkidle0",
       });
 
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
 
       await new Promise((resolve, reject) => {
         server.listen(devServerOptions.port, devServerOptions.host, (error) => {
@@ -236,17 +194,7 @@ describe("web socket communication", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 
@@ -313,10 +261,6 @@ describe("web socket communication", () => {
       });
     });
 
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 });

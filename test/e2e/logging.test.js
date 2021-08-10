@@ -248,11 +248,7 @@ describe("logging", () => {
         ).toMatchSnapshot();
 
         await browser.close();
-        await new Promise((resolve) => {
-          server.close(() => {
-            resolve();
-          });
-        });
+        await server.stop();
       });
     });
   });
