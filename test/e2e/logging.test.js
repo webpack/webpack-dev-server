@@ -196,21 +196,7 @@ describe("logging", () => {
         };
         const server = new Server(devServerOptions, compiler);
 
-        await new Promise((resolve, reject) => {
-          server.listen(
-            devServerOptions.port,
-            devServerOptions.host,
-            (error) => {
-              if (error) {
-                reject(error);
-
-                return;
-              }
-
-              resolve();
-            }
-          );
-        });
+        await server.start();
 
         const { page, browser } = await runBrowser();
 

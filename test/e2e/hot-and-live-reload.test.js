@@ -292,17 +292,7 @@ describe("hot and live reload", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await new Promise((resolve, reject) => {
         request(`http://127.0.0.1:${devServerOptions.port}`)

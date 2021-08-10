@@ -25,17 +25,7 @@ describe("web socket communication", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -83,17 +73,7 @@ describe("web socket communication", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -141,17 +121,7 @@ describe("web socket communication", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -171,18 +141,7 @@ describe("web socket communication", () => {
       });
 
       await server.stop();
-
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await page.waitForNavigation({
         waitUntil: "networkidle0",
@@ -209,17 +168,7 @@ describe("web socket communication", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     server.webSocketServer.heartbeatInterval = 100;
 

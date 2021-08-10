@@ -48,17 +48,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -94,17 +84,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -145,17 +125,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -191,17 +161,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -240,17 +200,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -297,17 +247,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -355,17 +295,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
     const pageErrors = [];
@@ -412,17 +342,7 @@ describe("entry", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -469,17 +389,7 @@ describe("entry", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
