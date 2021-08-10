@@ -1,8 +1,8 @@
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
-const ansiHTML = require("ansi-html");
-const { encode } = require("html-entities");
+import ansiHTML from "ansi-html";
+import { encode } from "html-entities";
 
 const colors = {
   reset: ["transparent", "transparent"],
@@ -138,6 +138,7 @@ function show(messages, type) {
       const errorMessage = message.message || messages[0];
       const text = ansiHTML(encode(errorMessage));
       const messageTextNode = document.createElement("div");
+
       messageTextNode.innerHTML = text;
 
       entryElement.appendChild(typeElement);
