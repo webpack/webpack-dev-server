@@ -33,17 +33,7 @@ describe("host option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -55,7 +45,7 @@ describe("host option", () => {
     it("server address", () => {
       const address = server.server.address();
 
-      expect(address.address).toBe("127.0.0.1");
+      expect(address.address).toBe("::");
       expect(address.port).toBe(port);
     });
 
@@ -83,17 +73,7 @@ describe("host option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "::", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -132,17 +112,7 @@ describe("host option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -181,17 +151,7 @@ describe("host option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -230,17 +190,7 @@ describe("host option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "0.0.0.0", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -279,17 +229,7 @@ describe("host option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, internalIPv4, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -328,17 +268,7 @@ describe("host option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, internalIPv4, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
