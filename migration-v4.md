@@ -491,6 +491,106 @@ module.exports = {
 - The `sockWrite` public method was renamed to `sendMessage`.
 - The `profile` option was removed in favor [`ProfilingPlugin`](https://webpack.js.org/plugins/profiling-plugin/).
 
+### Deprecations
+
+- `constructor` arguments were changed, the first argument is dev server options, the second is compiler
+
+  v3:
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(compiler, devServerOptions);
+  ```
+
+  v4:
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(devServerOptions, compiler);
+  ```
+
+- `listen` method is deprecated in favor async `start` or `startCallback` methods
+
+  v3:
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(compiler, devServerOptions);
+
+  devServer.listen(devServerOptions.host, devServerOptions.port, () => {
+    console.log("Running");
+  });
+  ```
+
+  v4:
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(compiler, devServerOptions);
+
+  (async () => {
+    await devServer.start();
+
+    console.log("Running");
+  })();
+  ```
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(compiler, devServerOptions);
+
+  devServer.startCallback(() => {
+    console.log("Running");
+  });
+  ```
+
+- `close` method is deprecated in favor async `stop` or `stopCallback` methods
+
+  v3:
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(compiler, devServerOptions);
+
+  devServer.listen(devServerOptions.host, devServerOptions.port, () => {
+    console.log("Running");
+
+    devServer.close(() => {
+      console.log("Closed");
+    });
+  });
+  ```
+
+  v4:
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(compiler, devServerOptions);
+
+  (async () => {
+    await devServer.start();
+
+    console.log("Running");
+
+    await devServer.stop();
+
+    console.log("Closed");
+  })();
+  ```
+
+  ```js
+  const devServerOptions = { host: "127.0.0.1", port: 8080 };
+  const devServer = new Server(compiler, devServerOptions);
+
+  devServer.startCallback(() => {
+    console.log("Running");
+
+    devServer.stopCallback(() => {
+      console.log("Closed");
+    });
+  });
+  ```
+
 ### Features
 
 - Added the `setupExitSignals` option, it takes a boolean and if `true` (default on CLI), the server will close and exit the process on `SIGINT` and `SIGTERM`.
@@ -503,6 +603,8 @@ module.exports = {
 - Overlay can be closed in browser.
 - The `allowedHosts` option can be `auto` or custom string with your domain (i.e. default value).
 - The `static` option can be disabled using `static: false`.
+- Added async `start` and `stop` methods to API
+- Added `startCallback` and `stopCallback` methods to API
 
 ### Bug Fixes
 
