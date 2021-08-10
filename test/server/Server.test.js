@@ -996,6 +996,7 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       const freePort = await Server.getFreePort(8082);
+
       expect(freePort).toEqual(8082);
     });
 
@@ -1005,7 +1006,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort(null);
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1015,8 +1018,10 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       // eslint-disable-next-line no-undefined
       const freePort = await Server.getFreePort(undefined);
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1026,7 +1031,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1036,7 +1043,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1046,7 +1055,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1000;
 
       await createDummyServers(busyPorts);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toBeGreaterThan(60005);
     });
 
@@ -1055,7 +1066,7 @@ describe("Server", () => {
 
       jest.mock("portfinder", () => {
         return {
-          getPort: (callback) => callback(new Error("busy")),
+          getPortPromise: () => Promise.reject(new Error("busy")),
         };
       });
 
@@ -1063,8 +1074,8 @@ describe("Server", () => {
 
       try {
         await Server.getFreePort();
-      } catch (err) {
-        expect(err.message).toMatchSnapshot();
+      } catch (error) {
+        expect(error.message).toMatchSnapshot();
       }
     });
   });

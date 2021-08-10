@@ -325,19 +325,22 @@ describe("static.directory option", () => {
     });
 
     it("Should throw exception (external url)", (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = testServer.start(config, {
-          static: "https://example.com/",
-        });
+      expect.assertions(1);
 
-        expect(true).toBe(false);
-      } catch (e) {
-        expect(e.message).toBe(
-          "Using a URL as static.directory is not supported"
-        );
-        done();
-      }
+      // eslint-disable-next-line no-unused-vars
+      server = testServer.start(
+        config,
+        {
+          static: "https://example.com/",
+        },
+        (error) => {
+          expect(error.message).toBe(
+            "Using a URL as static.directory is not supported"
+          );
+
+          server.close(done);
+        }
+      );
     });
 
     it("Should not throw exception (local path with lower case first character)", (done) => {
@@ -385,19 +388,20 @@ describe("static.directory option", () => {
     });
 
     it("Should throw exception (array with absolute url)", (done) => {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        server = testServer.start(config, {
+      // eslint-disable-next-line no-unused-vars
+      server = testServer.start(
+        config,
+        {
           static: [publicDirectory, "https://example.com/"],
-        });
+        },
+        (error) => {
+          expect(error.message).toBe(
+            "Using a URL as static.directory is not supported"
+          );
 
-        expect(true).toBe(false);
-      } catch (e) {
-        expect(e.message).toBe(
-          "Using a URL as static.directory is not supported"
-        );
-        done();
-      }
+          server.close(done);
+        }
+      );
     });
   });
 
