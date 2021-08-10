@@ -10,6 +10,7 @@ describe("setupExitSignals option", () => {
   let exitSpy;
   let killSpy;
   let stdinResumeSpy;
+
   const signals = ["SIGINT", "SIGTERM"];
 
   beforeEach(async () => {
@@ -23,17 +24,7 @@ describe("setupExitSignals option", () => {
       compiler
     );
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
     stdinResumeSpy = jest

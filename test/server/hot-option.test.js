@@ -17,17 +17,7 @@ describe("hot option", () => {
 
       server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -56,17 +46,7 @@ describe("hot option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -89,17 +69,7 @@ describe("hot option", () => {
 
       server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -122,17 +92,7 @@ describe("hot option", () => {
 
       server = new Server({ port, hot: false }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -169,17 +129,7 @@ describe("hot option", () => {
 
       const serverInTest = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await serverInTest.start();
 
       expect(pluginFound).toBe(true);
 
@@ -204,17 +154,7 @@ describe("hot option", () => {
 
       const serverInTest = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await serverInTest.start();
 
       expect(pluginFound).toBe(true);
 
@@ -239,17 +179,7 @@ describe("hot option", () => {
 
       const serverInTest = new Server({ port, hot: false }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       expect(pluginFound).toBe(false);
 

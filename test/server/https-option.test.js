@@ -38,17 +38,7 @@ describe("https option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "::", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -95,17 +85,7 @@ describe("https option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "::", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -141,17 +121,7 @@ describe("https option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "::", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -194,17 +164,7 @@ describe("https option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "::", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -252,17 +212,7 @@ describe("https option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "::", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -310,17 +260,7 @@ describe("https option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "::", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });

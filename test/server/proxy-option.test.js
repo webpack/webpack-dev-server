@@ -137,17 +137,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -233,17 +223,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -282,17 +262,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -353,17 +323,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const proxy = express();
 
@@ -432,17 +392,7 @@ describe("proxy option", () => {
             compiler
           );
 
-          await new Promise((resolve, reject) => {
-            server.listen(port3, "127.0.0.1", (error) => {
-              if (error) {
-                reject(error);
-
-                return;
-              }
-
-              resolve();
-            });
-          });
+          await server.start();
 
           webSocketServer = new WebSocketServer({ port: port4 });
           webSocketServer.on("connection", (connection) => {
@@ -503,17 +453,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const proxy = express();
 
@@ -648,17 +588,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -712,17 +642,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -777,17 +697,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -844,17 +754,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -911,17 +811,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
