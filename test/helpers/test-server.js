@@ -95,10 +95,6 @@ function start(config, options, done) {
   return startAwaitingCompilation(config, options, done);
 }
 
-function startBeforeCompilation(config, options, done) {
-  return startFullSetup(config, options, done).server;
-}
-
 function close(done) {
   if (server) {
     server.close(() => {
@@ -111,10 +107,6 @@ function close(done) {
 }
 
 module.exports = {
-  startFullSetup,
-  startAwaitingCompilation,
-  startAwaitingCompilationFullSetup,
-  startBeforeCompilation,
   start,
   close,
 };
