@@ -52,11 +52,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to index", async () => {
@@ -107,11 +103,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("shouldn't list the files inside the assets folder (404)", async () => {
@@ -161,11 +153,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should list the files inside the assets folder (200)", async () => {
@@ -214,11 +202,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should list the files inside the assets folder (200)", async () => {
@@ -272,11 +256,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to first directory", async () => {
@@ -326,11 +306,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to page", async () => {
@@ -371,11 +347,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request foo.wasm", async () => {
@@ -417,11 +389,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("GET request", async () => {
@@ -500,11 +468,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request the first path to index", async () => {
@@ -568,11 +532,7 @@ describe("static.publicPath option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request the first path to index", async () => {

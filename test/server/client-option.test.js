@@ -25,27 +25,13 @@ describe("client option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(`http://localhost:${port}`);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("overlay true by default", () => {
@@ -83,27 +69,13 @@ describe("client option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(`http://localhost:${port}`);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("responds with a 200 second", async () => {
@@ -125,27 +97,13 @@ describe("client option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const res = await request(server.app).get("/main.js");
 
       expect(res.text).not.toMatch(/client\/index\.js/);
 
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("disables hot entry", async () => {
@@ -159,27 +117,13 @@ describe("client option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const res = await request(server.app).get("/main.js");
 
       expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
 
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 
@@ -231,17 +175,7 @@ describe("client option", () => {
           let thrownError;
 
           try {
-            await new Promise((resolve, reject) => {
-              server.listen(port, "127.0.0.1", (error) => {
-                if (error) {
-                  reject(error);
-
-                  return;
-                }
-
-                resolve();
-              });
-            });
+            await server.start();
           } catch (error) {
             thrownError = error;
           }
@@ -252,11 +186,7 @@ describe("client option", () => {
             );
           }
 
-          await new Promise((resolve) => {
-            server.close(() => {
-              resolve();
-            });
-          });
+          await server.stop();
         });
       });
     });

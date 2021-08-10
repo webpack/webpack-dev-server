@@ -29,11 +29,7 @@ describe('"open" option', () => {
   afterEach(async () => {
     open.mockClear();
 
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should work with unspecified host", (done) => {

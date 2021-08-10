@@ -47,11 +47,7 @@ describe('"http2" option', () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("confirm http2 client can connect", (done) => {
@@ -111,11 +107,7 @@ describe('"http2" option', () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to index", async () => {
@@ -156,11 +148,7 @@ describe('"http2" option', () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to index", async () => {

@@ -50,11 +50,7 @@ describe("setupExitSignals option", () => {
     });
     process.stdin.removeAllListeners("end");
 
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it.each(signals)("should close and exit on %s", (signal, done) => {

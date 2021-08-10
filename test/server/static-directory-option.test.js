@@ -53,11 +53,7 @@ describe("static.directory option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(nestedFile);
     });
@@ -141,11 +137,7 @@ describe("static.directory option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("shouldn't list the files inside the assets folder (404)", async () => {
@@ -194,11 +186,7 @@ describe("static.directory option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should list the files inside the assets folder (200)", async () => {
@@ -246,11 +234,7 @@ describe("static.directory option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should list the files inside the assets folder (200)", async () => {
@@ -295,11 +279,7 @@ describe("static.directory option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to first directory", async () => {
@@ -438,11 +418,7 @@ describe("static.directory option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to page", async () => {
@@ -484,11 +460,7 @@ describe("static.directory option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to page", async () => {

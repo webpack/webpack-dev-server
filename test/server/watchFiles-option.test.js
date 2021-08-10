@@ -44,11 +44,7 @@ describe("'watchFiles' option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(file);
     });
@@ -95,11 +91,7 @@ describe("'watchFiles' option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(file);
     });
@@ -146,11 +138,7 @@ describe("'watchFiles' option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(file);
     });
@@ -203,11 +191,7 @@ describe("'watchFiles' option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(nonExistFile);
     });
@@ -259,11 +243,7 @@ describe("'watchFiles' option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(file);
     });
@@ -311,11 +291,7 @@ describe("'watchFiles' option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(file);
     });
@@ -372,11 +348,7 @@ describe("'watchFiles' option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       fs.truncateSync(file);
       fs.truncateSync(other);
@@ -474,11 +446,7 @@ describe("'watchFiles' option", () => {
         });
 
         afterAll(async () => {
-          await new Promise((resolve) => {
-            server.close(() => {
-              resolve();
-            });
-          });
+          await server.stop();
 
           fs.truncateSync(file);
         });

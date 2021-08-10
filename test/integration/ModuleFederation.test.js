@@ -46,11 +46,7 @@ describe("module federation", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should use the last entry export", async () => {
@@ -110,11 +106,7 @@ describe("module federation", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should contain hot script", async () => {

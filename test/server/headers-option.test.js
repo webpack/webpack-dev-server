@@ -38,11 +38,7 @@ describe("headers option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("GET request with headers", async () => {
@@ -81,11 +77,7 @@ describe("headers option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("GET request with headers as an array", async () => {
@@ -128,11 +120,7 @@ describe("headers option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("GET request with headers as a function", async () => {
@@ -176,11 +164,7 @@ describe("headers option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("GET request with headers", async () => {

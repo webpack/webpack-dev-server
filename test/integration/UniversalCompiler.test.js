@@ -31,11 +31,7 @@ describe("universal compiler", () => {
   });
 
   afterAll(async () => {
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("client bundle should have the inlined the client runtime", async () => {

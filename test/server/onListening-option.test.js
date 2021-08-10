@@ -40,11 +40,7 @@ describe("onListening option", () => {
   });
 
   afterAll(async () => {
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should runs onListening callback", () => {

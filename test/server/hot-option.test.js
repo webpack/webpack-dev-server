@@ -33,11 +33,7 @@ describe("hot option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot script in the bundle", async () => {
@@ -76,11 +72,7 @@ describe("hot option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot-only script in the bundle", async () => {
@@ -113,11 +105,7 @@ describe("hot option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot script in the bundle", async () => {
@@ -150,11 +138,7 @@ describe("hot option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should NOT include hot script in the bundle", async () => {
@@ -199,11 +183,7 @@ describe("hot option", () => {
 
       expect(pluginFound).toBe(true);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await serverInTest.stop();
     });
   });
 
@@ -238,11 +218,7 @@ describe("hot option", () => {
 
       expect(pluginFound).toBe(true);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await serverInTest.stop();
     });
   });
 
@@ -277,11 +253,7 @@ describe("hot option", () => {
 
       expect(pluginFound).toBe(false);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await serverInTest.stop();
     });
   });
 });

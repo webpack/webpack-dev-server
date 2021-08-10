@@ -41,11 +41,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory", async () => {
@@ -89,11 +85,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory", async () => {
@@ -138,11 +130,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("historyApiFallback should take preference above directory index", async () => {
@@ -198,11 +186,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("historyApiFallback should work and ignore static content", async () => {
@@ -256,11 +240,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("historyApiFallback respect rewrites for index", async () => {
@@ -322,11 +302,7 @@ describe("historyApiFallback option", () => {
     afterAll(async () => {
       consoleSpy.mockRestore();
 
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory and log", async () => {
@@ -381,11 +357,7 @@ describe("historyApiFallback option", () => {
     afterAll(async () => {
       consoleSpy.mockRestore();
 
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory and log", async () => {
@@ -435,11 +407,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should take precedence over static files", async () => {

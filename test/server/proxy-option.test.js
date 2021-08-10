@@ -155,12 +155,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -256,12 +251,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -310,12 +300,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -392,12 +377,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await new Promise((resolve) => {
         listener.close(() => {
           resolve();
@@ -492,11 +472,7 @@ describe("proxy option", () => {
         afterAll(async () => {
           webSocketServer.close();
 
-          await new Promise((resolve) => {
-            server.close(() => {
-              resolve();
-            });
-          });
+          await server.stop();
         });
       });
     });
@@ -589,11 +565,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       await new Promise((resolve) => {
         listener.close(() => {
@@ -694,12 +666,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -763,12 +730,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -833,12 +795,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -905,12 +862,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -975,11 +927,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     describe("target", () => {

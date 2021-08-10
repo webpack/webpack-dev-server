@@ -42,11 +42,7 @@ describe('"mimeTypes" option', () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("requests file with different js mime type", async () => {
@@ -94,11 +90,7 @@ describe('"mimeTypes" option', () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("requests file with custom mime type", async () => {

@@ -31,11 +31,7 @@ describe("multi compiler", () => {
   });
 
   afterAll(async () => {
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should handle GET request to bundle", async () => {

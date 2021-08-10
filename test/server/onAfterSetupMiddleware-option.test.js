@@ -53,11 +53,7 @@ describe("onAfterSetupMiddleware option", () => {
   });
 
   afterAll(async () => {
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should handle after route", async () => {
