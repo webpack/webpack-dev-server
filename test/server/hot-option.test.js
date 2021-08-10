@@ -127,13 +127,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port }, compiler);
+      server = new Server({ port }, compiler);
 
-      await serverInTest.start();
+      await server.start();
 
       expect(pluginFound).toBe(true);
 
-      await serverInTest.stop();
+      await server.stop();
     });
   });
 
@@ -152,13 +152,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port }, compiler);
+      server = new Server({ port }, compiler);
 
-      await serverInTest.start();
+      await server.start();
 
       expect(pluginFound).toBe(true);
 
-      await serverInTest.stop();
+      await server.stop();
     });
   });
 
@@ -177,13 +177,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port, hot: false }, compiler);
+      server = new Server({ port, hot: false }, compiler);
 
       await server.start();
 
       expect(pluginFound).toBe(false);
 
-      await serverInTest.stop();
+      await server.stop();
     });
   });
 });
