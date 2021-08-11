@@ -284,6 +284,66 @@ describe("Server", () => {
         },
       },
       {
+        title:
+          "single compiler client.logging should default to infrastructureLogging.level",
+        multiCompiler: false,
+        options: {},
+        webpackConfig: {
+          infrastructureLogging: {
+            level: "verbose",
+          },
+        },
+      },
+      {
+        title:
+          "single compiler client.logging should override to infrastructureLogging.level",
+        multiCompiler: false,
+        options: {
+          client: {
+            logging: "none",
+          },
+        },
+        webpackConfig: {
+          infrastructureLogging: {
+            level: "verbose",
+          },
+        },
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          {},
+          // infrastructureLogging is set on the second compiler
+          {
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should override infrastructureLogging.level",
+        multiCompiler: true,
+        options: {
+          client: {
+            logging: "none",
+          },
+        },
+        webpackConfig: [
+          {},
+          // infrastructureLogging is set on the second compiler
+          {
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+        ],
+      },
+      {
         title: "liveReload is true",
         multiCompiler: false,
         options: {

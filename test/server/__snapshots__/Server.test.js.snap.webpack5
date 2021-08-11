@@ -4,7 +4,7 @@ exports[`Server DevServerPlugin add hot option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
   ],
   Array [
     "node_modules",
@@ -22,7 +22,7 @@ exports[`Server DevServerPlugin add hot-only option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
   ],
   Array [
     "node_modules",
@@ -40,7 +40,7 @@ exports[`Server DevServerPlugin should create and run server with old parameters
 Array [
   Array [
     "client",
-    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
   ],
   Array [
     "node_modules",
@@ -63,6 +63,7 @@ Object {
   ],
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -103,6 +104,7 @@ Object {
   "allowedHosts": "all",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -143,6 +145,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketTransport": "/path/to/custom/client/",
     "webSocketURL": Object {},
@@ -184,6 +187,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {
       "hostname": "my.host",
@@ -227,6 +231,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {
       "hostname": "my.host",
@@ -270,6 +275,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {
       "pathname": "/custom/path/",
@@ -312,6 +318,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {
       "pathname": "custom/path",
@@ -354,6 +361,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketTransport": "sockjs",
     "webSocketURL": Object {},
@@ -395,6 +403,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
@@ -436,6 +445,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
@@ -480,6 +490,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
@@ -524,6 +535,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
@@ -565,6 +577,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -607,6 +620,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -647,6 +661,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -687,6 +702,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -727,6 +743,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -767,6 +784,89 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "historyApiFallback": false,
+  "host": "127.0.0.1",
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "port": "<auto>",
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "<cwd>/public",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "watchFiles": Array [],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`Server normalizeOptions multi compiler client.logging should override infrastructureLogging.level 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": Object {
+    "logging": "none",
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "historyApiFallback": false,
+  "host": "127.0.0.1",
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "port": "<auto>",
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "<cwd>/public",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "watchFiles": Array [],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`Server normalizeOptions multi compiler client.logging should respect infrastructureLogging.level 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": Object {
+    "logging": "warn",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -807,6 +907,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "warn",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -849,6 +950,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -889,6 +991,89 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "historyApiFallback": false,
+  "host": "127.0.0.1",
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "port": "<auto>",
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "<cwd>/public",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "watchFiles": Array [],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`Server normalizeOptions single compiler client.logging should default to infrastructureLogging.level 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": Object {
+    "logging": "verbose",
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "historyApiFallback": false,
+  "host": "127.0.0.1",
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "port": "<auto>",
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "<cwd>/public",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "watchFiles": Array [],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`Server normalizeOptions single compiler client.logging should override to infrastructureLogging.level 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": Object {
+    "logging": "none",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -929,6 +1114,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -971,6 +1157,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1013,6 +1200,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1055,6 +1243,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1095,6 +1284,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1146,6 +1336,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1197,6 +1388,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1248,6 +1440,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1288,6 +1481,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1316,6 +1510,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1356,6 +1551,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1396,6 +1592,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1436,6 +1633,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1477,6 +1675,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1517,6 +1716,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1555,6 +1755,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1595,6 +1796,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1637,6 +1839,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1677,6 +1880,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1717,6 +1921,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {
       "password": "chuntaro",
@@ -1760,6 +1965,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },
@@ -1800,6 +2006,7 @@ Object {
   "allowedHosts": "auto",
   "bonjour": false,
   "client": Object {
+    "logging": "info",
     "overlay": true,
     "webSocketURL": Object {},
   },

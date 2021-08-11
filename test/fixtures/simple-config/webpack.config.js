@@ -10,6 +10,6 @@ module.exports = {
   },
   node: false,
   infrastructureLogging: {
-    level: "warn",
+    level: "info",
   },
 };
