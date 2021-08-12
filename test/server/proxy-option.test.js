@@ -137,17 +137,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -155,12 +145,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -238,17 +223,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -256,12 +231,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -292,17 +262,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -310,12 +270,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -368,17 +323,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const proxy = express();
 
@@ -392,12 +337,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await new Promise((resolve) => {
         listener.close(() => {
           resolve();
@@ -452,17 +392,7 @@ describe("proxy option", () => {
             compiler
           );
 
-          await new Promise((resolve, reject) => {
-            server.listen(port3, "127.0.0.1", (error) => {
-              if (error) {
-                reject(error);
-
-                return;
-              }
-
-              resolve();
-            });
-          });
+          await server.start();
 
           webSocketServer = new WebSocketServer({ port: port4 });
           webSocketServer.on("connection", (connection) => {
@@ -492,11 +422,7 @@ describe("proxy option", () => {
         afterAll(async () => {
           webSocketServer.close();
 
-          await new Promise((resolve) => {
-            server.close(() => {
-              resolve();
-            });
-          });
+          await server.stop();
         });
       });
     });
@@ -527,17 +453,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const proxy = express();
 
@@ -589,11 +505,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       await new Promise((resolve) => {
         listener.close(() => {
@@ -676,17 +588,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -694,12 +596,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -745,17 +642,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -763,12 +650,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -815,17 +697,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -833,12 +705,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -887,17 +754,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -905,12 +762,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -959,27 +811,13 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     describe("target", () => {

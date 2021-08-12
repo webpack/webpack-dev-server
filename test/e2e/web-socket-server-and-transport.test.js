@@ -18,17 +18,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -50,12 +40,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "ws" web socket server when specify "ws" value', async () => {
@@ -66,17 +51,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -98,12 +73,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "ws" web socket server when specify "ws" value using object', async () => {
@@ -116,17 +86,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -148,12 +108,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "sockjs" web socket server when specify "sockjs" value', async () => {
@@ -164,17 +119,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -196,12 +141,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "sockjs" web socket server when specify "sockjs" value using object', async () => {
@@ -214,17 +154,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -246,12 +176,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should use custom web socket server when specify class", async () => {
@@ -265,17 +190,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -297,12 +212,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should use custom web socket server when specify class using object", async () => {
@@ -318,17 +228,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -350,12 +250,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should use custom web socket server when specify path to class", async () => {
@@ -369,17 +264,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -401,12 +286,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should use custom web socket server when specify path to class using object", async () => {
@@ -422,17 +302,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -454,12 +324,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should throw an error on wrong path", async () => {
@@ -475,26 +340,12 @@ describe("web socket server and transport", () => {
     const server = new Server(devServerOptions, compiler);
 
     try {
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
     } catch (error) {
       expect(error.message).toMatchSnapshot();
     }
 
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "sockjs" transport, when web socket server is not specify', async () => {
@@ -507,17 +358,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -539,12 +380,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "ws" transport, when web socket server is not specify', async () => {
@@ -557,17 +393,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -589,12 +415,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "sockjs" transport and "sockjs" web socket server', async () => {
@@ -608,17 +429,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -640,12 +451,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use "ws" transport and "ws" web socket server', async () => {
@@ -659,17 +465,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -691,12 +487,7 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should use custom transport and "sockjs" web socket server', async () => {
@@ -712,17 +503,7 @@ describe("web socket server and transport", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -744,11 +525,6 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
-
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 });

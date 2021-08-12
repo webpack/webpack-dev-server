@@ -17,27 +17,13 @@ describe("hot option", () => {
 
       server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot script in the bundle", async () => {
@@ -60,27 +46,13 @@ describe("hot option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot-only script in the bundle", async () => {
@@ -97,27 +69,13 @@ describe("hot option", () => {
 
       server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot script in the bundle", async () => {
@@ -134,27 +92,13 @@ describe("hot option", () => {
 
       server = new Server({ port, hot: false }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should NOT include hot script in the bundle", async () => {
@@ -183,27 +127,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port }, compiler);
+      server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       expect(pluginFound).toBe(true);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 
@@ -222,27 +152,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port }, compiler);
+      server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       expect(pluginFound).toBe(true);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 
@@ -261,27 +177,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port, hot: false }, compiler);
+      server = new Server({ port, hot: false }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       expect(pluginFound).toBe(false);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 });

@@ -56,7 +56,13 @@ function startFullSetup(config, options, done) {
 function startAwaitingCompilationFullSetup(config, options, done) {
   let readyCount = 0;
 
-  const ready = () => {
+  const ready = (error) => {
+    if (error && done) {
+      done(error);
+
+      return;
+    }
+
     readyCount += 1;
 
     if (readyCount === 2) {
@@ -68,7 +74,9 @@ function startAwaitingCompilationFullSetup(config, options, done) {
 
   // wait for compilation, since dev server can start before this
   // https://github.com/webpack/webpack-dev-server/issues/847
-  fullSetup.compiler.hooks.done.tap("done", ready);
+  fullSetup.compiler.hooks.done.tap("done", () => {
+    ready();
+  });
 
   return fullSetup;
 }
@@ -87,10 +95,6 @@ function start(config, options, done) {
   return startAwaitingCompilation(config, options, done);
 }
 
-function startBeforeCompilation(config, options, done) {
-  return startFullSetup(config, options, done).server;
-}
-
 function close(done) {
   if (server) {
     server.close(() => {
@@ -103,10 +107,6 @@ function close(done) {
 }
 
 module.exports = {
-  startFullSetup,
-  startAwaitingCompilation,
-  startAwaitingCompilationFullSetup,
-  startBeforeCompilation,
   start,
   close,
 };

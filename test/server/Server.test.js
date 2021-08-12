@@ -588,22 +588,12 @@ describe("Server", () => {
         }
 
         const compiler = webpack(webpackConfig);
-        const server = new Server(item.options, compiler);
+        const server = new Server({ ...item.options, port }, compiler);
 
         let errored;
 
         try {
-          await new Promise((resolve, reject) => {
-            server.listen(port, "127.0.0.1", (error) => {
-              if (error) {
-                reject(error);
-
-                return;
-              }
-
-              resolve();
-            });
-          });
+          await server.start();
         } catch (error) {
           errored = error;
         }
@@ -629,32 +619,32 @@ describe("Server", () => {
           expect(optionsForSnapshot).toMatchSnapshot();
         }
 
-        await new Promise((resolve) => {
-          server.close(() => {
-            resolve();
-          });
-        });
+        await server.stop();
       });
     });
   });
 
   describe("event emitter", () => {
-    it("test server error reporting", () => {
+    it("test server error reporting", async () => {
       const compiler = webpack(config);
       const server = new Server(baseDevConfig, compiler);
+
+      await server.start();
 
       const emitError = () =>
         server.server.emit("error", new Error("Error !!!"));
 
       expect(emitError).toThrowError();
 
-      server.close();
+      await server.stop();
     });
   });
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe("express.static.mime.types", () => {
-    it("should success even if mime.types doesn't exist", (done) => {
+    it("should success even if mime.types doesn't exist", async () => {
+      // expect.assertions(1);
+
       jest.mock("express", () => {
         const data = jest.requireActual("express");
         const { static: st } = data;
@@ -670,14 +660,29 @@ describe("Server", () => {
       const compiler = webpack(config);
       const server = new Server(baseDevConfig, compiler);
 
+      let hasStats = false;
+
       compiler.hooks.done.tap("webpack-dev-server", (s) => {
         const output = server.getStats(s);
+
         expect(output.errors.length).toEqual(0);
 
-        server.close(done);
+        hasStats = true;
       });
 
-      server.listen(port, "localhost");
+      await server.start();
+
+      await new Promise((resolve) => {
+        const interval = setInterval(() => {
+          if (hasStats) {
+            resolve();
+
+            clearInterval(interval);
+          }
+        }, 100);
+      });
+
+      await server.stop();
     });
   });
 
@@ -823,10 +828,8 @@ describe("Server", () => {
       compiler = webpack(config);
     });
 
-    afterEach((done) => {
-      server.close(() => {
-        done();
-      });
+    afterEach(async () => {
+      await server.stop();
     });
 
     it("should allow access for every requests using an IP", () => {
@@ -874,45 +877,33 @@ describe("Server", () => {
 
   describe("Invalidate Callback", () => {
     describe("Testing callback functions on calling invalidate without callback", () => {
-      it("should use default `noop` callback", (done) => {
+      it("should use default `noop` callback", async () => {
         const compiler = webpack(config);
         const server = new Server(baseDevConfig, compiler);
 
-        compiler.hooks.done.tap("webpack-dev-server", () => {
-          server.close(done);
-        });
+        await server.start();
 
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            throw error;
-          }
+        server.invalidate();
 
-          server.invalidate();
+        expect(server.middleware.context.callbacks.length).toEqual(1);
 
-          expect(server.middleware.context.callbacks.length).toEqual(1);
-        });
+        await server.stop();
       });
     });
 
     describe("Testing callback functions on calling invalidate with callback", () => {
-      it("should use `callback` function", (done) => {
+      it("should use `callback` function", async () => {
         const compiler = webpack(config);
         const callback = jest.fn();
         const server = new Server(baseDevConfig, compiler);
 
-        compiler.hooks.done.tap("webpack-dev-server", () => {
-          server.close(done);
-        });
+        await server.start();
 
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            throw error;
-          }
+        server.invalidate(callback);
 
-          server.invalidate(callback);
+        expect(server.middleware.context.callbacks[0]).toBe(callback);
 
-          expect(server.middleware.context.callbacks[0]).toBe(callback);
-        });
+        await server.stop();
       });
     });
   });
@@ -996,6 +987,7 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       const freePort = await Server.getFreePort(8082);
+
       expect(freePort).toEqual(8082);
     });
 
@@ -1005,7 +997,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort(null);
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1015,8 +1009,10 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       // eslint-disable-next-line no-undefined
       const freePort = await Server.getFreePort(undefined);
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1026,7 +1022,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1036,7 +1034,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1046,7 +1046,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1000;
 
       await createDummyServers(busyPorts);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toBeGreaterThan(60005);
     });
 
@@ -1055,7 +1057,7 @@ describe("Server", () => {
 
       jest.mock("portfinder", () => {
         return {
-          getPort: (callback) => callback(new Error("busy")),
+          getPortPromise: () => Promise.reject(new Error("busy")),
         };
       });
 
@@ -1063,8 +1065,8 @@ describe("Server", () => {
 
       try {
         await Server.getFreePort();
-      } catch (err) {
-        expect(err.message).toMatchSnapshot();
+      } catch (error) {
+        expect(error.message).toMatchSnapshot();
       }
     });
   });

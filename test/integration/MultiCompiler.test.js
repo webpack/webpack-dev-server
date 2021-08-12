@@ -15,27 +15,13 @@ describe("multi compiler", () => {
 
     server = new Server({ port }, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     req = request(server.app);
   });
 
   afterAll(async () => {
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should handle GET request to bundle", async () => {
