@@ -20,7 +20,6 @@ const internalIPv4 = internalIp.v4.sync();
 
 describe('"open" option', () => {
   let compiler;
-  let server;
 
   beforeEach(() => {
     compiler = webpack(config);
@@ -28,12 +27,10 @@ describe('"open" option', () => {
 
   afterEach(async () => {
     open.mockClear();
-
-    await server.stop();
   });
 
   it("should work with unspecified host", async () => {
-    server = new Server(
+    const server = new Server(
       {
         open: true,
         port,
@@ -50,7 +47,7 @@ describe('"open" option', () => {
   });
 
   it("should work with the 'https' option", async () => {
-    server = new Server(
+    const server = new Server(
       {
         open: true,
         port,
@@ -70,7 +67,7 @@ describe('"open" option', () => {
   it("should work with '0.0.0.0' host", async () => {
     const host = "0.0.0.0";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -90,7 +87,7 @@ describe('"open" option', () => {
   it("should work with '::' host", async () => {
     const host = "::";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -110,7 +107,7 @@ describe('"open" option', () => {
   it("should work with 'localhost' host", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -130,7 +127,7 @@ describe('"open" option', () => {
   it("should work with '127.0.0.1' host", async () => {
     const host = "127.0.0.1";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -150,7 +147,7 @@ describe('"open" option', () => {
   it("should work with '::1' host", async () => {
     const host = "::1";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -168,7 +165,7 @@ describe('"open" option', () => {
   });
 
   it(`should work with '${internalIPv4}' host`, async () => {
-    server = new Server(
+    const server = new Server(
       {
         host: internalIPv4,
         port,
@@ -188,7 +185,7 @@ describe('"open" option', () => {
   it("should work with boolean", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -208,7 +205,7 @@ describe('"open" option', () => {
   it("should work with boolean but don't close with 'false' value", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -226,7 +223,7 @@ describe('"open" option', () => {
   it("should work with relative string", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -246,7 +243,7 @@ describe('"open" option', () => {
   it('should work with "<url>" pattern', async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -266,7 +263,7 @@ describe('"open" option', () => {
   it('should work with relative string starting with "/"', async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -286,7 +283,7 @@ describe('"open" option', () => {
   it("should work with absolute string", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         open: `http://${host}:${port}/index.html`,
         port,
@@ -306,7 +303,7 @@ describe('"open" option', () => {
   it("should work with multiple relative strings", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host: "localhost",
         port,
@@ -337,7 +334,7 @@ describe('"open" option', () => {
   it("should work with multiple absolute strings", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host: "localhost",
         port,
@@ -371,7 +368,7 @@ describe('"open" option', () => {
   it('should work with "<url>" pattern in multiple strings', async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host: "localhost",
         port,
@@ -398,7 +395,7 @@ describe('"open" option', () => {
   it("should work with empty object", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -418,7 +415,7 @@ describe('"open" option', () => {
   it("should work with object and with the 'target' option", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -440,7 +437,7 @@ describe('"open" option', () => {
   it("should work with object and with multiple values of the 'target' option", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -473,7 +470,7 @@ describe('"open" option', () => {
   it("should work with object and with the 'app' option", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -496,7 +493,7 @@ describe('"open" option', () => {
   it("should work with object and with the 'app' and 'arguments' options", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -519,7 +516,7 @@ describe('"open" option', () => {
   it('should work with object with "target" and "app" options', async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -543,7 +540,7 @@ describe('"open" option', () => {
   it('should work with <url> pattern in "target" and "app" options', async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -567,7 +564,7 @@ describe('"open" option', () => {
   it("should work with object, with multiple value of the 'target' option and with the 'app' and 'arguments' options", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -603,7 +600,7 @@ describe('"open" option', () => {
   it("should work with object, with multiple value of the 'target' option (relative and absolute URLs) and with the 'app' option with arguments", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -639,7 +636,7 @@ describe('"open" option', () => {
   it("should work with <url> pattern in multiple open options", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -674,7 +671,7 @@ describe('"open" option', () => {
   it("should work with multiple open options without target", async () => {
     const host = "localhost";
 
-    server = new Server(
+    const server = new Server(
       {
         host,
         port,
@@ -718,7 +715,7 @@ describe('"open" option', () => {
         };
       });
 
-    server = new Server(
+    const server = new Server(
       {
         port,
         open: true,
@@ -754,7 +751,7 @@ describe('"open" option', () => {
         };
       });
 
-    server = new Server(
+    const server = new Server(
       {
         open: "index.html",
         port,
@@ -790,7 +787,7 @@ describe('"open" option', () => {
         };
       });
 
-    server = new Server(
+    const server = new Server(
       {
         open: {
           target: "index.html",
@@ -830,7 +827,7 @@ describe('"open" option', () => {
         };
       });
 
-    server = new Server(
+    const server = new Server(
       {
         open: {
           target: "index.html",
@@ -876,7 +873,7 @@ describe('"open" option', () => {
         };
       });
 
-    server = new Server(
+    const server = new Server(
       {
         open: {
           target: ["first.html", `http://localhost:${port}/second.html`],
