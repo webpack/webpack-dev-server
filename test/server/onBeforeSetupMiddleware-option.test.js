@@ -33,26 +33,13 @@ describe("onBeforeSetupMiddleware option", () => {
       compiler
     );
 
-    await new Promise((resolve, reject) => {
-      server.listen(port, "127.0.0.1", (error) => {
-        if (error) {
-          reject(error);
+    await server.start();
 
-          return;
-        }
-
-        resolve();
-      });
-    });
     req = request(server.app);
   });
 
   afterAll(async () => {
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should handle before route", async () => {

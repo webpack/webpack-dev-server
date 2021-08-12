@@ -68,6 +68,7 @@ const listOfTests = {
   entry: 1,
   "allowed-hosts": 2,
   "host-and-port": 1,
+  api: 1,
 };
 
 let startPort = 8089;

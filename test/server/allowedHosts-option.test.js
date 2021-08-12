@@ -16,11 +16,7 @@ describe("allowedHosts", () => {
   });
 
   afterEach(async () => {
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should always allow `localhost` if options.allowedHosts is auto", () => {

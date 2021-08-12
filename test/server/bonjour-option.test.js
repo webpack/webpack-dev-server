@@ -36,8 +36,8 @@ describe("bonjour option", () => {
       );
     });
 
-    afterEach((done) => {
-      server.close(done);
+    afterEach(async () => {
+      await server.stop();
     });
 
     it("should call bonjour with correct params", () => {
@@ -65,8 +65,8 @@ describe("bonjour option", () => {
       );
     });
 
-    afterEach((done) => {
-      server.close(done);
+    afterEach(async () => {
+      await server.stop();
     });
 
     it("bonjour should use https when passed in option", () => {
@@ -96,8 +96,8 @@ describe("bonjour option", () => {
       );
     });
 
-    afterEach((done) => {
-      server.close(done);
+    afterEach(async () => {
+      await server.stop();
     });
 
     it("applies bonjour options", () => {
@@ -129,8 +129,8 @@ describe("bonjour option", () => {
       );
     });
 
-    afterEach((done) => {
-      server.close(done);
+    afterEach(async () => {
+      await server.stop();
     });
 
     it("prefers bonjour options over devServer.https", () => {

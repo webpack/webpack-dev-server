@@ -22,17 +22,7 @@ describe("host and port", () => {
         hostname = internalIp.v4.sync();
       }
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -58,17 +48,7 @@ describe("host and port", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work using "${host}" host and port as string`, async () => {
@@ -81,17 +61,7 @@ describe("host and port", () => {
         hostname = internalIp.v4.sync();
       }
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -117,17 +87,7 @@ describe("host and port", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work using "${host}" host and "auto" port`, async () => {
@@ -143,17 +103,7 @@ describe("host and port", () => {
         hostname = internalIp.v4.sync();
       }
 
-      await new Promise((resolve, reject) => {
-        server.listen("auto", host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const address = server.server.address();
       const { page, browser } = await runBrowser();
@@ -182,17 +132,7 @@ describe("host and port", () => {
       delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
   }
 });
