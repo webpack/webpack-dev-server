@@ -45,7 +45,6 @@
     "http-proxy-middleware": "^2.0.0",
     "internal-ip": "^6.2.0",
     "ipaddr.js": "^2.0.1",
-    "is-absolute-url": "^3.0.3",
     "killable": "^1.0.1",
     "open": "^8.0.9",
     "p-retry": "^4.5.0",
