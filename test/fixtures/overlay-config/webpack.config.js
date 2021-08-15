@@ -9,6 +9,9 @@ module.exports = {
     path: "/",
   },
   infrastructureLogging: {
-    level: "warn",
+    level: "info",
+    stream: {
+      write: () => {},
+    },
   },
 };

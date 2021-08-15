@@ -11,5 +11,8 @@ module.exports = {
   node: false,
   infrastructureLogging: {
     level: "info",
+    stream: {
+      write: () => {},
+    },
   },
 };

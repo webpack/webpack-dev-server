@@ -36,24 +36,6 @@ Array [
 ]
 `;
 
-exports[`Server DevServerPlugin should create and run server with old parameters order and log deprecation warning: oldparam 1`] = `
-Array [
-  Array [
-    "client",
-    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
-  ],
-  Array [
-    "node_modules",
-    "webpack",
-    "hot",
-    "dev-server.js",
-  ],
-  Array [
-    "foo.js",
-  ],
-]
-`;
-
 exports[`Server Server.getFreePort should throws the error when the port isn't found 1`] = `"busy"`;
 
 exports[`Server normalizeOptions allowedHosts is array 1`] = `
@@ -791,7 +773,7 @@ Object {
   "compress": true,
   "devMiddleware": Object {},
   "historyApiFallback": false,
-  "host": "127.0.0.1",
+  "host": undefined,
   "hot": true,
   "liveReload": true,
   "open": Array [],
@@ -832,7 +814,7 @@ Object {
   "compress": true,
   "devMiddleware": Object {},
   "historyApiFallback": false,
-  "host": "127.0.0.1",
+  "host": undefined,
   "hot": true,
   "liveReload": true,
   "open": Array [],
@@ -902,7 +884,7 @@ Object {
 }
 `;
 
-exports[`Server normalizeOptions multi compiler watchOptions is set 1`] = `
+exports[`Server normalizeOptions multi compiler client.logging should respect infrastructureLogging.level 2`] = `
 Object {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -930,9 +912,89 @@ Object {
         "icons": true,
       },
       "staticOptions": Object {},
-      "watch": Object {
-        "aggregateTimeout": 300,
+      "watch": Object {},
+    },
+  ],
+  "watchFiles": Array [],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`Server normalizeOptions multi compiler client.logging should respect infrastructureLogging.level 3`] = `
+Object {
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": Object {
+    "logging": "warn",
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "historyApiFallback": false,
+  "host": undefined,
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "port": "<auto>",
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "<cwd>/public",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
       },
+      "staticOptions": Object {},
+      "watch": Object {},
+    },
+  ],
+  "watchFiles": Array [],
+  "webSocketServer": Object {
+    "options": Object {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`Server normalizeOptions multi compiler watchOptions is set 1`] = `
+Object {
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": Object {
+    "logging": "info",
+    "overlay": true,
+    "webSocketURL": Object {},
+  },
+  "compress": true,
+  "devMiddleware": Object {},
+  "historyApiFallback": false,
+  "host": undefined,
+  "hot": true,
+  "liveReload": true,
+  "open": Array [],
+  "port": "<auto>",
+  "setupExitSignals": true,
+  "static": Array [
+    Object {
+      "directory": "<cwd>/public",
+      "publicPath": Array [
+        "/",
+      ],
+      "serveIndex": Object {
+        "icons": true,
+      },
+      "staticOptions": Object {},
+      "watch": Object {},
     },
   ],
   "watchFiles": Array [],
@@ -998,7 +1060,7 @@ Object {
   "compress": true,
   "devMiddleware": Object {},
   "historyApiFallback": false,
-  "host": "127.0.0.1",
+  "host": undefined,
   "hot": true,
   "liveReload": true,
   "open": Array [],
@@ -1039,7 +1101,7 @@ Object {
   "compress": true,
   "devMiddleware": Object {},
   "historyApiFallback": false,
-  "host": "127.0.0.1",
+  "host": undefined,
   "hot": true,
   "liveReload": true,
   "open": Array [],
@@ -1266,7 +1328,9 @@ Object {
         "icons": true,
       },
       "staticOptions": Object {},
-      "watch": Object {},
+      "watch": Object {
+        "aggregateTimeout": 300,
+      },
     },
   ],
   "watchFiles": Array [],

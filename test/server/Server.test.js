@@ -120,7 +120,7 @@ describe("Server", () => {
     });
   });
 
-  describe("normalizeOptions", () => {
+  describe.only("normalizeOptions", () => {
     const cases = [
       {
         title: "no options",
@@ -291,6 +291,9 @@ describe("Server", () => {
         webpackConfig: {
           infrastructureLogging: {
             level: "verbose",
+            stream: {
+              write: () => {},
+            },
           },
         },
       },
@@ -306,8 +309,29 @@ describe("Server", () => {
         webpackConfig: {
           infrastructureLogging: {
             level: "verbose",
+            stream: {
+              write: () => {},
+            },
           },
         },
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          {
+            target: "node",
+          },
+          // infrastructureLogging is set on the second compiler
+          {
+            target: "web",
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+        ],
       },
       {
         title:
@@ -318,10 +342,26 @@ describe("Server", () => {
           {},
           // infrastructureLogging is set on the second compiler
           {
+            devServer: {},
             infrastructureLogging: {
               level: "warn",
             },
           },
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          // Fallback
+          {
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+          {},
         ],
       },
       {
@@ -334,13 +374,12 @@ describe("Server", () => {
           },
         },
         webpackConfig: [
-          {},
-          // infrastructureLogging is set on the second compiler
           {
             infrastructureLogging: {
               level: "warn",
             },
           },
+          {},
         ],
       },
       {
