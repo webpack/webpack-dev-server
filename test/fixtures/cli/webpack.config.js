@@ -7,5 +7,5 @@ module.exports = {
   stats: "detailed",
   context: __dirname,
   entry: "./foo.js",
-  plugins: [ExitOnDonePlugin],
+  plugins: [new ExitOnDonePlugin()],
 };

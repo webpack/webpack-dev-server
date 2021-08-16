@@ -14,7 +14,7 @@ const basicConfigPath = path.resolve(
   "../fixtures/cli/webpack.config.js"
 );
 
-const testBin = (testArgs = []) => {
+const testBin = (testArgs = [], options) => {
   const cwd = process.cwd();
   const env = {
     WEBPACK_CLI_HELP_WIDTH: 2048,
@@ -37,7 +37,7 @@ const testBin = (testArgs = []) => {
     args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
-  return execa("node", args, { cwd, env, timeout: 10000 });
+  return execa("node", args, { cwd, env, timeout: 5000, ...options });
 };
 
 const ipV4 =
