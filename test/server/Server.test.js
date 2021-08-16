@@ -284,6 +284,113 @@ describe("Server", () => {
         },
       },
       {
+        title:
+          "single compiler client.logging should default to infrastructureLogging.level",
+        multiCompiler: false,
+        options: {},
+        webpackConfig: {
+          infrastructureLogging: isWebpack5
+            ? {
+                level: "verbose",
+                stream: {
+                  write: () => {},
+                },
+              }
+            : {
+                level: "verbose",
+              },
+        },
+      },
+      {
+        title:
+          "single compiler client.logging should override to infrastructureLogging.level",
+        multiCompiler: false,
+        options: {
+          client: {
+            logging: "none",
+          },
+        },
+        webpackConfig: {
+          infrastructureLogging: isWebpack5
+            ? {
+                level: "verbose",
+                stream: {
+                  write: () => {},
+                },
+              }
+            : {
+                level: "verbose",
+              },
+        },
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          {
+            target: "node",
+          },
+          // infrastructureLogging is set on the second compiler
+          {
+            target: "web",
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          {},
+          // infrastructureLogging is set on the second compiler
+          {
+            devServer: {},
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          // Fallback
+          {
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+          {},
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should override infrastructureLogging.level",
+        multiCompiler: true,
+        options: {
+          client: {
+            logging: "none",
+          },
+        },
+        webpackConfig: [
+          {
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+          {},
+        ],
+      },
+      {
         title: "liveReload is true",
         multiCompiler: false,
         options: {
