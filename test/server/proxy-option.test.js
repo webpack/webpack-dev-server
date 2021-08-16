@@ -66,12 +66,34 @@ const proxyOptionOfArray = [
       bypass: () => {
         if (req && req.query.foo) {
           res.end(`foo+${next.name}+${typeof next}`);
+
           return false;
         }
       },
     };
   },
 ];
+
+const proxyOptionOfArrayWithoutTarget = [
+  {
+    router: () => `http://localhost:${port1}`,
+  },
+];
+
+const proxyWithPath = {
+  "/proxy1": {
+    path: `http://localhost:${port1}`,
+    target: `http://localhost:${port1}`,
+  },
+};
+
+const proxyWithString = {
+  "/proxy1": `http://localhost:${port1}`,
+};
+
+const proxyWithRouterAsObject = {
+  router: () => `http://localhost:${port1}`,
+};
 
 describe("proxy option", () => {
   let proxyServer1;
@@ -204,7 +226,7 @@ describe("proxy option", () => {
     });
   });
 
-  describe("as an option is an object", () => {
+  describe("as an option is an object with the `context` option", () => {
     let server;
     let req;
 
@@ -218,6 +240,123 @@ describe("proxy option", () => {
             watch: false,
           },
           proxy: proxyOption,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
+    });
+  });
+
+  describe("as an option is an object with `context` and `target` as string", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
+          proxy: proxyWithString,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
+    });
+  });
+
+  describe("as an option is an object with the `path` option (`context` alias)", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
+          proxy: proxyWithPath,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
+    });
+  });
+
+  describe("as an option is an object with the `router` option", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
+          proxy: proxyWithRouterAsObject,
           port: port3,
         },
         compiler
@@ -293,6 +432,45 @@ describe("proxy option", () => {
 
       expect(response.statusCode).toEqual(200);
       expect(response.text).toEqual("foo+next+function");
+    });
+  });
+
+  describe("as an array without the `route` option", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
+          proxy: proxyOptionOfArrayWithoutTarget,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
     });
   });
 
