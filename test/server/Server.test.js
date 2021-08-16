@@ -176,7 +176,11 @@ describe("Server", () => {
         options: {
           webSocketServer: class CustomServerImplementation {
             constructor() {
-              this.implementation = { close: () => {} };
+              this.implementation = {
+                close: (callback) => {
+                  callback();
+                },
+              };
             }
           },
         },

@@ -57,7 +57,7 @@
     "strip-ansi": "^7.0.0",
     "url": "^0.11.0",
     "webpack-dev-middleware": "^5.0.0",
-    "ws": "^7.5.3"
+    "ws": "^8.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
