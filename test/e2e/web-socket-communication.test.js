@@ -109,8 +109,7 @@ describe("web socket communication", () => {
       await server.stop();
     });
 
-    // TODO uncomment after fix regression in webpack
-    it.skip(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
+    it(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
