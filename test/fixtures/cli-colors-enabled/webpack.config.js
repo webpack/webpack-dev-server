@@ -9,5 +9,5 @@ module.exports = {
   },
   context: __dirname,
   entry: "./foo.js",
-  plugins: [ExitOnDonePlugin],
+  plugins: [new ExitOnDonePlugin()],
 };

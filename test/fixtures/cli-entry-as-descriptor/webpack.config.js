@@ -10,8 +10,5 @@ module.exports = {
       import: "./foo.js",
     },
   },
-  plugins: [ExitOnDonePlugin],
-  infrastructureLogging: {
-    level: "warn",
-  },
+  plugins: [new ExitOnDonePlugin()],
 };

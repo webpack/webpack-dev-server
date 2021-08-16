@@ -7,8 +7,6 @@ module.exports = {
   mode: "development",
   stats: "detailed",
   entry: resolve(__dirname, "./foo.js"),
-  devServer: {
-    webSocketServer: "ws",
-  },
-  plugins: [ExitOnDonePlugin],
+  target: ["web"],
+  plugins: [new ExitOnDonePlugin()],
 };

@@ -11,8 +11,5 @@ module.exports = {
     foo: resolve(__dirname, "./foo.js"),
     bar: resolve(__dirname, "./bar.js"),
   },
-  devServer: {
-    webSocketServer: "ws",
-  },
-  plugins: [ExitOnDonePlugin],
+  plugins: [new ExitOnDonePlugin()],
 };
