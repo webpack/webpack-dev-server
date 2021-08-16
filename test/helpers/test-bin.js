@@ -37,7 +37,7 @@ const testBin = (testArgs = [], options) => {
     args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
-  return execa("node", args, { cwd, env, timeout: 5000, ...options });
+  return execa("node", args, { cwd, env, ...options });
 };
 
 const ipV4 =
