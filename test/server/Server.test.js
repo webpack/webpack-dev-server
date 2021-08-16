@@ -120,7 +120,7 @@ describe("Server", () => {
     });
   });
 
-  describe.only("normalizeOptions", () => {
+  describe("normalizeOptions", () => {
     const cases = [
       {
         title: "no options",
@@ -289,12 +289,16 @@ describe("Server", () => {
         multiCompiler: false,
         options: {},
         webpackConfig: {
-          infrastructureLogging: {
-            level: "verbose",
-            stream: {
-              write: () => {},
-            },
-          },
+          infrastructureLogging: isWebpack5
+            ? {
+                level: "verbose",
+                stream: {
+                  write: () => {},
+                },
+              }
+            : {
+                level: "verbose",
+              },
         },
       },
       {
@@ -307,12 +311,16 @@ describe("Server", () => {
           },
         },
         webpackConfig: {
-          infrastructureLogging: {
-            level: "verbose",
-            stream: {
-              write: () => {},
-            },
-          },
+          infrastructureLogging: isWebpack5
+            ? {
+                level: "verbose",
+                stream: {
+                  write: () => {},
+                },
+              }
+            : {
+                level: "verbose",
+              },
         },
       },
       {

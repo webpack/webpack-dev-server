@@ -36,6 +36,24 @@ Array [
 ]
 `;
 
+exports[`Server DevServerPlugin should create and run server with old parameters order and log deprecation warning: oldparam 1`] = `
+Array [
+  Array [
+    "client",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
+  ],
+  Array [
+    "node_modules",
+    "webpack",
+    "hot",
+    "dev-server.js",
+  ],
+  Array [
+    "foo.js",
+  ],
+]
+`;
+
 exports[`Server Server.getFreePort should throws the error when the port isn't found 1`] = `"busy"`;
 
 exports[`Server normalizeOptions allowedHosts is array 1`] = `
