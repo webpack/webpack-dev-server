@@ -67,7 +67,7 @@ describe("basic", () => {
 
     it("should accept the promise function of webpack.config.js", async () => {
       try {
-        const { exitCode } = await testBin([
+        await testBin([
           "--config",
           path.resolve(
             __dirname,
@@ -76,10 +76,29 @@ describe("basic", () => {
           "--port",
           port,
         ]);
-        expect(exitCode).toEqual(0);
-      } catch (err) {
-        // for windows
-        expect(err.stdout).toContain("main.js");
+      } catch (error) {
+        expect(error.stdout).toContain("main.js");
+        expect(normalizeStderr(error.stderr, { ipv6: true })).toMatchSnapshot(
+          "stderr"
+        );
+      }
+    });
+
+    it("should work using multi compiler mode", async () => {
+      try {
+        await testBin([
+          "--config",
+          path.resolve(
+            __dirname,
+            "../fixtures/universal-compiler-config/webpack.config.js"
+          ),
+          "--port",
+          port,
+        ]);
+      } catch (error) {
+        expect(normalizeStderr(error.stderr, { ipv6: true })).toMatchSnapshot(
+          "stderr"
+        );
       }
     });
 
