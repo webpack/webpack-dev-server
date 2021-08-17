@@ -1,8 +1,16 @@
+/* global __webpack_hash__ */
+
 import hotEmitter from "webpack/hot/emitter.js";
 import { log } from "./log.js";
 
 function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
   if (isUnloading) {
+    return;
+  }
+
+  const isInitial = currentHash.indexOf(__webpack_hash__) === 0;
+
+  if (isInitial) {
     return;
   }
 
