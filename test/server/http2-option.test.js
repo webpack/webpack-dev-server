@@ -62,6 +62,7 @@ describe('"http2" option', () => {
       });
       http2Req.on("end", () => {
         expect(data).toEqual(expect.stringMatching(/Heyo/));
+        client.close();
         done();
       });
       http2Req.end();
