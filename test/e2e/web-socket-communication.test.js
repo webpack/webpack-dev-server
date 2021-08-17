@@ -96,7 +96,7 @@ describe("web socket communication", () => {
         }, 200);
       });
 
-      expect(server.webSocketServer.clients.size).toBe(0);
+      expect(server.webSocketServer.clients.length).toBe(0);
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
