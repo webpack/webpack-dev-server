@@ -33,7 +33,7 @@ describe("web socket communication", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message);
+          consoleMessages.push(message.text());
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -45,20 +45,18 @@ describe("web socket communication", () => {
       await server.stop();
       await new Promise((resolve) => {
         const interval = setInterval(() => {
-          if (server.webSocketServer.clients.size === 0) {
+          if (consoleMessages.includes("[webpack-dev-server] Disconnected!")) {
             clearInterval(interval);
+
             resolve();
           }
         }, 100);
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
+      expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await server.stop();
     });
 
     it(`should work and terminate client that is not alive ("${websocketServer}")`, async () => {

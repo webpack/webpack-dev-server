@@ -46,10 +46,12 @@ describe("setupExitSignals option", () => {
 
   it.each(signals)("should close and exit on %s", (signal, done) => {
     process.emit(signal);
-    process.nextTick(() => {
+
+    setTimeout(() => {
       expect(killSpy.mock.calls.length).toEqual(1);
+      expect(exitSpy.mock.calls.length).toEqual(1);
 
       done();
-    });
+    }, 1000);
   });
 });
