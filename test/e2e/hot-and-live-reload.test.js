@@ -286,7 +286,6 @@ describe("hot and live reload", () => {
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
       const devServerOptions = {
-        host: "0.0.0.0",
         port,
         ...testDevServerOptions,
       };

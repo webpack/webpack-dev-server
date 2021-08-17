@@ -49,7 +49,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -86,7 +85,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -127,7 +125,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -166,7 +163,6 @@ describe("overlay", () => {
     );
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -204,7 +200,6 @@ describe("overlay", () => {
     new ErrorPlugin("<strong>strong</strong>").apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -238,7 +233,6 @@ describe("overlay", () => {
   it("should not show initially, then show on an error, then hide on fix", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -305,7 +299,6 @@ describe("overlay", () => {
   it("should not show initially, then show on an error, then show other error, then hide on fix", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -392,7 +385,6 @@ describe("overlay", () => {
   it("should not show initially, then show on an error and allow to close", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -470,7 +462,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: false,
@@ -504,7 +495,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -540,7 +530,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: true,
@@ -580,7 +569,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -622,7 +610,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -664,7 +651,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: false,
@@ -698,7 +684,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -734,7 +719,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: true,
@@ -774,7 +758,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -816,7 +799,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {

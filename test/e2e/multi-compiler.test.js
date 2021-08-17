@@ -10,7 +10,6 @@ describe("Multi compiler", () => {
   it(`should work with multiple compilers`, async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);

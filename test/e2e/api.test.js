@@ -9,7 +9,7 @@ const port = require("../ports-map").api;
 describe("API", () => {
   it(`should work with async API`, async () => {
     const compiler = webpack(config);
-    const server = new Server({ host: "127.0.0.1", port }, compiler);
+    const server = new Server({ port }, compiler);
 
     await server.start();
 
@@ -41,7 +41,7 @@ describe("API", () => {
 
   it(`should work with callback API`, async () => {
     const compiler = webpack(config);
-    const server = new Server({ host: "127.0.0.1", port }, compiler);
+    const server = new Server({ port }, compiler);
 
     await new Promise((resolve) => {
       server.startCallback(() => {
@@ -81,7 +81,7 @@ describe("API", () => {
 
   it(`should work with deprecated API`, async () => {
     const compiler = webpack(config);
-    const devServerOptions = { host: "127.0.0.1", port };
+    const devServerOptions = { port };
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {

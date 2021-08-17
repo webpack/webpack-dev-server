@@ -25,7 +25,6 @@ describe("web socket server URL", () => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
-        host: devServerHost,
         ipc: true,
       };
       const server = new Server(devServerOptions, compiler);
@@ -118,7 +117,6 @@ describe("web socket server URL", () => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
-        host: devServerHost,
         ipc,
       };
       const server = new Server(devServerOptions, compiler);

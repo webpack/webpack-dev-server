@@ -10,7 +10,6 @@ describe("Universal compiler", () => {
   it("client bundle should have the inlined the client runtime", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -58,7 +57,6 @@ describe("Universal compiler", () => {
     // but we'll do it here to check the contents
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);

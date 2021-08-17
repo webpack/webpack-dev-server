@@ -109,7 +109,6 @@ describe("stats", () => {
     it(testCase.title, async () => {
       const compiler = webpack({ ...config, ...testCase.webpackOptions });
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
       };
       const server = new Server(devServerOptions, compiler);
