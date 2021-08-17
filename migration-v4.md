@@ -5,6 +5,7 @@ This document serves as a migration guide for `webpack-dev-server@4.0.0`.
 ### ⚠ BREAKING CHANGES
 
 - Minimum supported `Node.js` version is `12.13.0`.
+- Minimum supported `webpack` version is `4.37.0` (**but we so recommend using 5 version**).
 - The `hotOnly` option was removed, if you need hot only mode, use `{ hot: 'only' }` value.
 
 v3:
@@ -605,6 +606,7 @@ module.exports = {
 - The `static` option can be disabled using `static: false`.
 - Added async `start` and `stop` methods to API
 - Added `startCallback` and `stopCallback` methods to API
+- Migrate on built-in `webpack` logger.
 
 ### Bug Fixes
 
@@ -616,6 +618,8 @@ module.exports = {
 - `chokidar` was updated.
 - Respect the `client.logging` option for HMR logging.
 - Show plugin name in progress log.
+- Use value of the `infastructureLogging.level` option by default for `client.logging`.
+- Allow to pass options without the `target` option for the `proxy` options.
 
 There are a lot of other bug fixes.
 

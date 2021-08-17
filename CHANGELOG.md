@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-rc.1](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-rc.0...v4.0.0-rc.1) (2021-08-17)
+
+## Notes:
+
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+
+### Features
+
+* async API ([#3608](https://github.com/webpack/webpack-dev-server/issues/3608)) ([974ce25](https://github.com/webpack/webpack-dev-server/commit/974ce25669ef6a4f55e8a7576fc140bc7ccb55f1))
+* use ECMA modules in client ([#3550](https://github.com/webpack/webpack-dev-server/issues/3550)) ([9307755](https://github.com/webpack/webpack-dev-server/commit/93077552c2bac020650936316dc93e03245b7a19))
+
+
+### Bug Fixes
+
+* fix usage legacy API ([#3660](https://github.com/webpack/webpack-dev-server/issues/3660)) ([c4678bc](https://github.com/webpack/webpack-dev-server/commit/c4678bc467370e7dc74d06a8b898515e448d0da0))
+* proxy logging and allow to pass options without the `target` option ([#3651](https://github.com/webpack/webpack-dev-server/issues/3651)) ([6e2cbde](https://github.com/webpack/webpack-dev-server/commit/6e2cbde16b0d071b6dd5c243b1b0e867b69575c5))
+* render ansi formatted error messages correctly in overlay ([#3579](https://github.com/webpack/webpack-dev-server/issues/3579)) ([9313454](https://github.com/webpack/webpack-dev-server/commit/9313454066c2a830b425965837a2756d8f945e97))
+* use value of the `infastructureLogging.level` option by default for `client.logging`. ([#3613](https://github.com/webpack/webpack-dev-server/issues/3613)) ([c9ccc96](https://github.com/webpack/webpack-dev-server/commit/c9ccc96f9d5cd9930f69b927b248d52509ec1e55))
+* schema for the `host` option ([#3549](https://github.com/webpack/webpack-dev-server/issues/3549)) ([7200d31](https://github.com/webpack/webpack-dev-server/commit/7200d3101403864b3ca795c6bf028197e9f62183))
+* show deprecation warning for incorrect usage of Node.js API ([#3563](https://github.com/webpack/webpack-dev-server/issues/3563)) ([62b21ff](https://github.com/webpack/webpack-dev-server/commit/62b21ffb028685e76ee715babfe53d5a9606fbbc))
+
 ## [4.0.0-rc.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.3...v4.0.0-rc.0) (2021-07-19)
 
 
