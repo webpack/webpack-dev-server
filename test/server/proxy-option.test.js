@@ -584,7 +584,7 @@ describe("proxy option", () => {
           ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
 
           ws.on("message", (message) => {
-            responseMessage = message;
+            responseMessage = message.toString();
             done();
           });
 
@@ -599,6 +599,10 @@ describe("proxy option", () => {
 
         afterAll(async () => {
           webSocketServer.close();
+
+          for (const client of webSocketServer.clients) {
+            client.terminate();
+          }
 
           await server.stop();
         });
