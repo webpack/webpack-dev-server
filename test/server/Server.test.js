@@ -216,7 +216,7 @@ describe("Server", () => {
             options: {
               host: "127.0.0.1",
               // TODO `jest` is freeze here
-              port: "43335",
+              // port: "43335",
               pathname: "/ws",
             },
           },
