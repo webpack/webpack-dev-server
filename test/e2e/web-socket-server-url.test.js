@@ -2213,6 +2213,15 @@ describe("web socket server URL", () => {
       await page.goto(`http://localhost:${port1}/main`, {
         waitUntil: "networkidle0",
       });
+      await new Promise((resolve) => {
+        const interval = setInterval(() => {
+          if (consoleMessages.includes("[webpack-dev-server] Disconnected!")) {
+            clearInterval(interval);
+
+            resolve();
+          }
+        }, 100);
+      });
 
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(
