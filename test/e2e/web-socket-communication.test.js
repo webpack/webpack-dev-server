@@ -19,7 +19,6 @@ describe("web socket communication", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
@@ -67,7 +66,6 @@ describe("web socket communication", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
@@ -114,7 +112,6 @@ describe("web socket communication", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
@@ -161,7 +158,6 @@ describe("web socket communication", () => {
 
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
       webSocketServer: "ws",
     };

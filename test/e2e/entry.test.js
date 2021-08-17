@@ -43,7 +43,6 @@ describe("entry", () => {
   it("should work with single entry", async () => {
     const compiler = webpack({ ...config, entry: entryFirst });
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -79,7 +78,6 @@ describe("entry", () => {
   it("should work with single array entry", async () => {
     const compiler = webpack({ ...config, entry: [entryFirst, entrySecond] });
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -120,7 +118,6 @@ describe("entry", () => {
       },
     });
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -156,7 +153,6 @@ describe("entry", () => {
   it("should work with dynamic entry", async () => {
     const compiler = webpack({ ...config, entry: () => entryFirst });
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -195,7 +191,6 @@ describe("entry", () => {
       entry: () => new Promise((resolve) => resolve([entryFirst])),
     });
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -242,7 +237,6 @@ describe("entry", () => {
       },
     });
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -290,7 +284,6 @@ describe("entry", () => {
       },
     });
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);
@@ -337,7 +330,6 @@ describe("entry", () => {
         },
       });
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
       };
       const server = new Server(devServerOptions, compiler);
@@ -384,7 +376,6 @@ describe("entry", () => {
     }).apply(compiler);
 
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
     };
     const server = new Server(devServerOptions, compiler);

@@ -190,7 +190,6 @@ describe("logging", () => {
       })`, async () => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
         const devServerOptions = {
-          host: "0.0.0.0",
           port,
           ...testCase.devServerOptions,
         };
