@@ -196,7 +196,8 @@ describe("Server", () => {
             type: "ws",
             options: {
               host: "127.0.0.1",
-              port: 43334,
+              // TODO `jest` is freeze here
+              // port: 43334,
               pathname: "/ws",
             },
           },
@@ -214,6 +215,7 @@ describe("Server", () => {
             type: "ws",
             options: {
               host: "127.0.0.1",
+              // TODO `jest` is freeze here
               port: "43335",
               pathname: "/ws",
             },
