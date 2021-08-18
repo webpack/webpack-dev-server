@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`"https" CLI option should work using "--https" 1`] = `
-"<i> [webpack-dev-server] Generating SSL Certificate...
-<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+"<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -27,8 +26,7 @@ exports[`"https" CLI option should work using "--https-key <path> --https-pfx <p
 `;
 
 exports[`"https" CLI option should work using "--https-request-cert" 1`] = `
-"<i> [webpack-dev-server] Generating SSL Certificate...
-<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+"<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -45,8 +43,7 @@ exports[`"https" CLI option should work using "--no-https" 1`] = `
 `;
 
 exports[`"https" CLI option should work using "--no-https-request-cert" 1`] = `
-"<i> [webpack-dev-server] Generating SSL Certificate...
-<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+"<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
