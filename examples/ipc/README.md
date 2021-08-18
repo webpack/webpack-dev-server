@@ -1,4 +1,4 @@
-# CLI: IPC
+# IPC
 
 The Unix socket to listen to (instead of a [host](../host-and-port/README.md)).
 

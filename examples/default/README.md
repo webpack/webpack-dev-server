@@ -1,4 +1,4 @@
-# CLI: Default State
+# Default State
 
 This example demonstrates how to use `webpack-dev-server`.
 

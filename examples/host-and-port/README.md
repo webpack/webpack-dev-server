@@ -1,4 +1,4 @@
-# CLI: Host and Port Options
+# Host and Port Options
 
 You may choose to wish to change the host and port on which `webpack-dev-server`
 will run. The `host` and `port` options allow for that.

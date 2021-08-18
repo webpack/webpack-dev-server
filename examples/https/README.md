@@ -1,4 +1,4 @@
-# CLI: https
+# https options
 
 You may choose to wish to run `webpack-dev-server` on `https`.
 
