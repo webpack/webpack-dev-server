@@ -10,6 +10,8 @@ describe("'reloadApp' function", () => {
   let locationValue;
 
   beforeEach(() => {
+    global.__webpack_hash__ = "mock-hash";
+
     locationValue = self.location;
 
     self.postMessage = jest.fn();
@@ -38,10 +40,19 @@ describe("'reloadApp' function", () => {
   });
 
   test("should do nothing when isUnloading is true or hotReload is false", () => {
-    // eslint-disable-next-line no-undefined
-    expect(reloadApp({}, { isUnloading: false })).toEqual(undefined);
+    expect(
+      reloadApp({}, { isUnloading: false, currentHash: "mock-hash" })
+    ).toEqual(
+      // eslint-disable-next-line no-undefined
+      undefined
+    );
     expect(log.getLogger.mock.results[0].value.info).not.toBeCalled();
-    expect(reloadApp({ hotReload: false }, { isUnloading: false })).toEqual(
+    expect(
+      reloadApp(
+        { hotReload: false },
+        { isUnloading: false, currentHash: "other-mock-hash" }
+      )
+    ).toEqual(
       // eslint-disable-next-line no-undefined
       undefined
     );
@@ -75,7 +86,7 @@ describe("'reloadApp' function", () => {
 
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false }
+      { isUnloading: false, currentHash: "other-mock-hash" }
     );
 
     setTimeout(() => {
@@ -90,7 +101,7 @@ describe("'reloadApp' function", () => {
   test("should run liveReload when protocol is http:", (done) => {
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false }
+      { isUnloading: false, currentHash: "other-mock-hash" }
     );
 
     setTimeout(() => {

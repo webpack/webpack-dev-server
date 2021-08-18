@@ -1,4 +1,4 @@
-/* global __resourceQuery */
+/* global __resourceQuery, __webpack_hash__ */
 
 import webpackHotLog from "webpack/hot/log.js";
 import stripAnsi from "./modules/strip-ansi/index.js";
@@ -10,11 +10,16 @@ import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
 
-const status = { isUnloading: false, currentHash: "" };
+const status = {
+  isUnloading: false,
+  // TODO Workaround for webpack v4, `__webpack_hash__` is not replaced without HotModuleReplacement
+  // eslint-disable-next-line camelcase
+  currentHash: typeof __webpack_hash__ !== "undefined" ? __webpack_hash__ : "",
+};
+// console.log(__webpack_hash__);
 const options = {
   hot: false,
   liveReload: false,
-  initial: true,
   progress: false,
   overlay: false,
 };
@@ -110,10 +115,6 @@ const onSocketMessage = {
       hide();
     }
 
-    if (options.initial) {
-      return (options.initial = false);
-    }
-
     reloadApp(options, status);
   },
   // TODO: remove in v5 in favor of 'static-changed'
@@ -157,10 +158,6 @@ const onSocketMessage = {
       show(warnings, "warnings");
     }
 
-    if (options.initial) {
-      return (options.initial = false);
-    }
-
     reloadApp(options, status);
   },
   errors(errors) {
@@ -184,8 +181,6 @@ const onSocketMessage = {
     if (needShowOverlay) {
       show(errors, "errors");
     }
-
-    options.initial = false;
   },
   error(error) {
     log.error(error);
