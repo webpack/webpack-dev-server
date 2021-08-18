@@ -610,6 +610,7 @@ module.exports = {
 
 ### Bug Fixes
 
+- Compatibility with the `target` option (you can use `target: ['web', 'es5']`).
 - `publicPath: auto` is now working out of box.
 - No problems with the `target` option anymore, you can remove workaround (i.e. `target: 'web'` for webpack v5).
 - Fix `webpack-dev-server` binary, i.e. `webpack server` and `webpack-dev-server` will work identically.
@@ -620,6 +621,7 @@ module.exports = {
 - Show plugin name in progress log.
 - Use value of the `infastructureLogging.level` option by default for `client.logging`.
 - Allow to pass options without the `target` option for the `proxy` options.
+- Support lazy compilation.
 
 There are a lot of other bug fixes.
 

@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-rc.1...v4.0.0) (2021-08-18)
+
+## Notes:
+
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+
+### Bug Fixes
+
+* improve https CLI output ([#3673](https://github.com/webpack/webpack-dev-server/issues/3673)) ([f2d87fb](https://github.com/webpack/webpack-dev-server/commit/f2d87fb2dc3f9545dd9203beda8bf9ac056c70f6))
+* initial reloading for lazy compilation ([#3662](https://github.com/webpack/webpack-dev-server/issues/3662)) ([1768d6b](https://github.com/webpack/webpack-dev-server/commit/1768d6b7913055dad02318a49de65df2e93baa4f))
+* respect protocol from browser for manual setup ([#3675](https://github.com/webpack/webpack-dev-server/issues/3675)) ([cdcabb2](https://github.com/webpack/webpack-dev-server/commit/cdcabb240f9afcab504ca26fbf71d3af013dd806))
+
 ## [4.0.0-rc.1](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-rc.0...v4.0.0-rc.1) (2021-08-17)
 
 ## Notes:
