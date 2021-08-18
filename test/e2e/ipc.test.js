@@ -248,7 +248,6 @@ describe("web socket server URL", () => {
         return proxyServer.listen(proxyPort, proxyHost, callback);
       }
 
-      console.log("HERE");
       const proxy = await new Promise((resolve) => {
         const proxyCreated = startProxy(() => {
           resolve(proxyCreated);
@@ -284,7 +283,6 @@ describe("web socket server URL", () => {
         });
       }
 
-      console.log(`http://${proxyHost}:${proxyPort}/main`);
       await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
         waitUntil: "networkidle0",
       });
