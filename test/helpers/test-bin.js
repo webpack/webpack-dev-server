@@ -91,6 +91,9 @@ const normalizeStderr = (stderr, options = {}) => {
     // We have deprecation warning on windows in some cases
     normalizedStderr = normalizedStderr.split("\n");
     normalizedStderr = normalizedStderr.filter(
+      (item) => !/Generating SSL Certificate/g.test(item)
+    );
+    normalizedStderr = normalizedStderr.filter(
       (item) =>
         !/DeprecationWarning: The legacy HTTP parser is deprecated/g.test(item)
     );
