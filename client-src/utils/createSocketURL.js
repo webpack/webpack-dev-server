@@ -21,7 +21,7 @@ function createSocketURL(parsedURL) {
     hostname = self.location.hostname;
   }
 
-  let socketURLProtocol = parsedURL.protocol || "ws:";
+  let socketURLProtocol = parsedURL.protocol || self.location.protocol;
 
   // When https is used in the app, secure web sockets are always necessary because the browser doesn't accept non-secure web sockets.
   if (
