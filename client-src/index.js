@@ -10,7 +10,13 @@ import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
 
-const status = { isUnloading: false, currentHash: __webpack_hash__ };
+const status = {
+  isUnloading: false,
+  // TODO Workaround for webpack v4, `__webpack_hash__` is not replaced without HotModuleReplacement
+  // eslint-disable-next-line camelcase
+  currentHash: typeof __webpack_hash__ !== "undefined" ? __webpack_hash__ : "",
+};
+// console.log(__webpack_hash__);
 const options = {
   hot: false,
   liveReload: false,
