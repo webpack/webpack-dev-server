@@ -55,7 +55,7 @@ describe("'createSocketURL' function ", () => {
 
     ["?hostname=%3A%3A", "http://example.com:8080", "ws://example.com:8080/ws"],
     ["?hostname=%3A%3A1", "http://example.com:8080", "ws://[::1]:8080/ws"],
-    ["?hostname=%3A%3A1", "https://example.com:8080", "ws://[::1]:8080/ws"],
+    ["?hostname=%3A%3A1", "https://example.com:8080", "wss://[::1]:8080/ws"],
     [
       "?hostname=%3A%3A",
       "https://example.com:8080",
