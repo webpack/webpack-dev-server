@@ -38,7 +38,7 @@
 // additional code, remove if not needed.
 ```
 
-### Please paste the results of `webpack-cli info` here, and mention other relevant information
+### Please paste the results of `webpack-cli info` and `webpack-cli version` here, and mention other relevant information
 
 ### Expected Behavior
 
