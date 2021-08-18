@@ -7,6 +7,7 @@ const port = require("../ports-map")["setup-exit-signals-option"];
 
 describe("setupExitSignals option", () => {
   let server;
+  let doExit;
   let exitSpy;
   let stopCallbackSpy;
   let stdinResumeSpy;
@@ -26,7 +27,11 @@ describe("setupExitSignals option", () => {
 
     await server.start();
 
-    exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
+    doExit = false;
+
+    exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {
+      doExit = true;
+    });
     stdinResumeSpy = jest
       .spyOn(process.stdin, "resume")
       .mockImplementation(() => {});
@@ -44,14 +49,19 @@ describe("setupExitSignals option", () => {
     await server.stop();
   });
 
-  it.each(signals)("should close and exit on %s", (signal, done) => {
+  it.each(signals)("should close and exit on %s", async (signal) => {
     process.emit(signal);
 
-    setTimeout(() => {
-      expect(stopCallbackSpy.mock.calls.length).toEqual(1);
-      expect(exitSpy.mock.calls.length).toEqual(1);
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (doExit) {
+          expect(stopCallbackSpy.mock.calls.length).toEqual(1);
 
-      done();
-    }, 1000);
+          clearInterval(interval);
+
+          resolve();
+        }
+      }, 100);
+    });
   });
 });
