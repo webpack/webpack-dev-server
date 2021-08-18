@@ -16,6 +16,7 @@ describe("index", () => {
 
   beforeEach(() => {
     global.__resourceQuery = "foo";
+    global.__webpack_hash__ = "mock-hash";
 
     // log
     jest.setMock("../../client-src/utils/log.js", {
@@ -61,10 +62,8 @@ describe("index", () => {
 
     // issue: https://github.com/jsdom/jsdom/issues/2112
     delete window.location;
-    window.location = {
-      ...locationValue,
-      reload: jest.fn(),
-    };
+
+    window.location = { ...locationValue, reload: jest.fn() };
 
     require("../../client-src");
     onSocketMessage = socket.mock.calls[0][1];
@@ -83,16 +82,19 @@ describe("index", () => {
 
   test("should run onSocketMessage.hot", () => {
     onSocketMessage.hot();
+
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test("should run onSocketMessage.liveReload", () => {
     onSocketMessage.liveReload();
+
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test("should run onSocketMessage['still-ok']", () => {
     onSocketMessage["still-ok"]();
+
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
     expect(overlay.hide).not.toBeCalled();
@@ -100,6 +102,7 @@ describe("index", () => {
     // change flags
     onSocketMessage.overlay(true);
     onSocketMessage["still-ok"]();
+
     expect(overlay.hide).toBeCalled();
   });
 
@@ -109,6 +112,7 @@ describe("index", () => {
       msg: "mock-msg",
       percent: "12",
     });
+
     expect(log.log.info).not.toBeCalled();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
 
@@ -117,6 +121,7 @@ describe("index", () => {
       msg: "mock-msg",
       percent: "12",
     });
+
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
 
@@ -127,6 +132,7 @@ describe("index", () => {
       percent: "12",
       pluginName: "mock-plugin",
     });
+
     expect(log.log.info).not.toBeCalled();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
 
@@ -136,27 +142,24 @@ describe("index", () => {
       percent: "12",
       pluginName: "mock-plugin",
     });
+
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test("should run onSocketMessage.ok", () => {
-    {
-      const res = onSocketMessage.ok();
-      expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-      expect(res).toEqual(false);
-    }
+    onSocketMessage.ok();
 
-    // change flags
-    {
-      onSocketMessage.errors([]);
-      onSocketMessage.hash("mock-hash");
+    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
 
-      const res = onSocketMessage.ok();
-      expect(reloadApp).toBeCalled();
-      expect(reloadApp.mock.calls[0][0]).toMatchSnapshot();
-      // eslint-disable-next-line no-undefined
-      expect(res).toEqual(undefined);
-    }
+    onSocketMessage.errors([]);
+    onSocketMessage.hash("mock-hash");
+
+    const res = onSocketMessage.ok();
+
+    expect(reloadApp).toBeCalled();
+    expect(reloadApp.mock.calls[0][0]).toMatchSnapshot();
+    // eslint-disable-next-line no-undefined
+    expect(res).toEqual(undefined);
   });
 
   test("should run onSocketMessage['content-changed']", () => {
@@ -188,40 +191,29 @@ describe("index", () => {
   });
 
   test("should run onSocketMessage.warnings", () => {
-    {
-      const res = onSocketMessage.warnings([
-        "warn1",
-        "\u001B[4mwarn2\u001B[0m",
-        "warn3",
-      ]);
-      expect(res).toEqual(false);
+    onSocketMessage.warnings(["warn1", "\u001B[4mwarn2\u001B[0m", "warn3"]);
 
-      expect(log.log.warn.mock.calls[0][0]).toMatchSnapshot();
-      expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-      expect(log.log.warn.mock.calls.splice(1)).toMatchSnapshot();
-    }
+    expect(log.log.warn.mock.calls[0][0]).toMatchSnapshot();
+    expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.warn.mock.calls.splice(1)).toMatchSnapshot();
 
     // change flags
-    {
-      onSocketMessage.overlay({
-        warnings: true,
-      });
-      const res = onSocketMessage.warnings([]);
-      // eslint-disable-next-line no-undefined
-      expect(res).toEqual(undefined);
+    onSocketMessage.overlay({ warnings: true });
+    onSocketMessage.warnings([]);
 
-      expect(overlay.show).toBeCalled();
-      expect(reloadApp).toBeCalled();
-    }
+    expect(overlay.show).toBeCalled();
+    expect(reloadApp).toBeCalled();
   });
 
   test("should run onSocketMessage.error", () => {
     onSocketMessage.error("error!!");
+
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test("should run onSocketMessage.close", () => {
     onSocketMessage.close();
+
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
@@ -230,6 +222,7 @@ describe("index", () => {
     // enabling hot
     onSocketMessage.hot();
     onSocketMessage.close();
+
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
@@ -238,6 +231,7 @@ describe("index", () => {
     // enabling liveReload
     onSocketMessage.liveReload();
     onSocketMessage.close();
+
     expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
