@@ -71,12 +71,14 @@
     },
     "ClientLogging": {
       "enum": ["none", "error", "warn", "info", "log", "verbose"],
-      "decription": "Allows to set log level in the browser."
+      "decription": "Allows to set log level in the browser.",
+      "link": "https://webpack.js.org/configuration/dev-server/#logging"
     },
     "ClientOverlay": {
       "anyOf": [
         {
           "description": "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
+          "link": "https://webpack.js.org/configuration/dev-server/#overlay",
           "type": "boolean"
         },
         {
@@ -97,6 +99,7 @@
     },
     "ClientProgress": {
       "description": "Prints compilation progress in percentage in the browser.",
+      "link": "https://webpack.js.org/configuration/dev-server/#progress",
       "type": "boolean"
     },
     "ClientWebSocketTransport": {
@@ -108,7 +111,8 @@
           "$ref": "#/definitions/ClientWebSocketTransportString"
         }
       ],
-      "description": "Allows to set custom web socket transport to communicate with dev server."
+      "description": "Allows to set custom web socket transport to communicate with dev server.",
+      "link": "https://webpack.js.org/configuration/dev-server/#websockettransport"
     },
     "ClientWebSocketTransportEnum": {
       "enum": ["sockjs", "ws"]
@@ -119,6 +123,7 @@
     },
     "ClientWebSocketURL": {
       "description": "Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).",
+      "link": "https://webpack.js.org/configuration/dev-server/#websocketurl",
       "anyOf": [
         {
           "type": "string",
