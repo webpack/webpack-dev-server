@@ -71,12 +71,14 @@
     },
     "ClientLogging": {
       "enum": ["none", "error", "warn", "info", "log", "verbose"],
-      "decription": "Allows to set log level in the browser."
+      "decription": "Allows to set log level in the browser.",
+      "link": "https://webpack.js.org/configuration/dev-server/#logging"
     },
     "ClientOverlay": {
       "anyOf": [
         {
           "description": "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
+          "link": "https://webpack.js.org/configuration/dev-server/#overlay",
           "type": "boolean"
         },
         {
@@ -97,6 +99,7 @@
     },
     "ClientProgress": {
       "description": "Prints compilation progress in percentage in the browser.",
+      "link": "https://webpack.js.org/configuration/dev-server/#progress",
       "type": "boolean"
     },
     "ClientWebSocketTransport": {
@@ -108,7 +111,8 @@
           "$ref": "#/definitions/ClientWebSocketTransportString"
         }
       ],
-      "description": "Allows to set custom web socket transport to communicate with dev server."
+      "description": "Allows to set custom web socket transport to communicate with dev server.",
+      "link": "https://webpack.js.org/configuration/dev-server/#websockettransport"
     },
     "ClientWebSocketTransportEnum": {
       "enum": ["sockjs", "ws"]
@@ -119,6 +123,7 @@
     },
     "ClientWebSocketURL": {
       "description": "Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).",
+      "link": "https://webpack.js.org/configuration/dev-server/#websocketurl",
       "anyOf": [
         {
           "type": "string",
@@ -514,10 +519,12 @@
         "directory": {
           "type": "string",
           "minLength": 1,
-          "description": "Directory for static contents."
+          "description": "Directory for static contents.",
+          "link": "https://webpack.js.org/configuration/dev-server/#directory"
         },
         "staticOptions": {
           "type": "object",
+          "link": "https://webpack.js.org/configuration/dev-server/#staticoptions",
           "additionalProperties": true
         },
         "publicPath": {
@@ -533,7 +540,8 @@
               "type": "string"
             }
           ],
-          "description": "The static files will be available in the browser under this public path."
+          "description": "The static files will be available in the browser under this public path.",
+          "link": "https://webpack.js.org/configuration/dev-server/#publicpath"
         },
         "serveIndex": {
           "anyOf": [
@@ -545,7 +553,8 @@
               "additionalProperties": true
             }
           ],
-          "description": "Tells dev server to use serveIndex middleware when enabled."
+          "description": "Tells dev server to use serveIndex middleware when enabled.",
+          "link": "https://webpack.js.org/configuration/dev-server/#serveindex"
         },
         "watch": {
           "anyOf": [
@@ -558,7 +567,8 @@
               "link": "https://github.com/paulmillr/chokidar#api"
             }
           ],
-          "description": "Watches for files in static content directory."
+          "description": "Watches for files in static content directory.",
+          "link": "https://webpack.js.org/configuration/dev-server/#watch"
         }
       }
     },

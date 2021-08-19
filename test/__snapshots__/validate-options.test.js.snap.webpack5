@@ -69,13 +69,15 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
 exports[`options validate should throw an error on the "client" option with '{"logging":"silent"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.logging should be one of these:
-   \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\""
+   \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\"
+   -> Read more at https://webpack.js.org/configuration/dev-server/#logging"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"logging":"whoops!"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.logging should be one of these:
-   \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\""
+   \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\"
+   -> Read more at https://webpack.js.org/configuration/dev-server/#logging"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
@@ -90,6 +92,7 @@ exports[`options validate should throw an error on the "client" option with '{"o
       Details:
        * options.client.overlay should be a boolean.
          -> Enables a full-screen overlay in the browser when there are compiler errors or warnings.
+         -> Read more at https://webpack.js.org/configuration/dev-server/#overlay
        * options.client.overlay should be an object:
          object { errors?, warnings? }"
 `;
@@ -115,7 +118,8 @@ exports[`options validate should throw an error on the "client" option with '{"o
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.progress should be a boolean.
-   -> Prints compilation progress in percentage in the browser."
+   -> Prints compilation progress in percentage in the browser.
+   -> Read more at https://webpack.js.org/configuration/dev-server/#progress"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
@@ -134,6 +138,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
     * options.client.webSocketTransport should be one of these:
       \\"sockjs\\" | \\"ws\\" | non-empty string
       -> Allows to set custom web socket transport to communicate with dev server.
+      -> Read more at https://webpack.js.org/configuration/dev-server/#websockettransport
       Details:
        * options.client.webSocketTransport should be one of these:
          \\"sockjs\\" | \\"ws\\"
@@ -554,7 +559,8 @@ exports[`options validate should throw an error on the "static" option with '' v
 exports[`options validate should throw an error on the "static" option with '{"directory":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static.directory should be a non-empty string.
-   -> Directory for static contents."
+   -> Directory for static contents.
+   -> Read more at https://webpack.js.org/configuration/dev-server/#directory"
 `;
 
 exports[`options validate should throw an error on the "static" option with '{"publicPath":false}' value 1`] = `
@@ -567,6 +573,7 @@ exports[`options validate should throw an error on the "static" option with '{"p
     * options.static.publicPath should be one of these:
       [string, ...] (should not have fewer than 1 item) | string
       -> The static files will be available in the browser under this public path.
+      -> Read more at https://webpack.js.org/configuration/dev-server/#publicpath
       Details:
        * options.static.publicPath should be an array:
          [string, ...] (should not have fewer than 1 item)
@@ -583,6 +590,7 @@ exports[`options validate should throw an error on the "static" option with '{"s
     * options.static.serveIndex should be one of these:
       boolean | object { … }
       -> Tells dev server to use serveIndex middleware when enabled.
+      -> Read more at https://webpack.js.org/configuration/dev-server/#serveindex
       Details:
        * options.static.serveIndex should be a boolean.
        * options.static.serveIndex should be an object:
@@ -599,6 +607,7 @@ exports[`options validate should throw an error on the "static" option with '{"w
     * options.static.watch should be one of these:
       boolean | object { … }
       -> Watches for files in static content directory.
+      -> Read more at https://webpack.js.org/configuration/dev-server/#watch
       Details:
        * options.static.watch should be a boolean.
        * options.static.watch should be an object:
