@@ -6,6 +6,7 @@ This document serves as a migration guide for `webpack-dev-server@4.0.0`.
 
 - Minimum supported `Node.js` version is `12.13.0`.
 - Minimum supported `webpack` version is `4.37.0` (**but we so recommend using 5 version**).
+- Minimum compatible `webpack-cli` version is `4.4.0`.
 - The `hotOnly` option was removed, if you need hot only mode, use `{ hot: 'only' }` value.
 
 v3:
