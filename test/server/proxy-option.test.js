@@ -49,6 +49,16 @@ const proxyOptionPathsAsProperties = {
       }
     },
   },
+  "/bypass-with-target": {
+    target: `http://localhost:${port1}`,
+    changeOrigin: true,
+    secure: false,
+    bypass(req) {
+      if (/\.(html)$/i.test(req.url)) {
+        return req.url;
+      }
+    },
+  },
 };
 
 const proxyOption = {
@@ -222,6 +232,19 @@ describe("proxy option", () => {
 
         expect(response.status).toEqual(200);
         expect(response.text).toContain("proxy async response");
+      });
+
+      it("should work with the 'target' option", async () => {
+        const response = await req.get("/bypass-with-target/foo.js");
+
+        expect(response.status).toEqual(404);
+      });
+
+      it("should work with the 'target' option #2", async () => {
+        const response = await req.get("/bypass-with-target/index.html");
+
+        expect(response.status).toEqual(200);
+        expect(response.text).toContain("Hello");
       });
     });
   });
