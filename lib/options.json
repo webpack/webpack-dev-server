@@ -519,10 +519,12 @@
         "directory": {
           "type": "string",
           "minLength": 1,
-          "description": "Directory for static contents."
+          "description": "Directory for static contents.",
+          "link": "https://webpack.js.org/configuration/dev-server/#directory"
         },
         "staticOptions": {
           "type": "object",
+          "link": "https://webpack.js.org/configuration/dev-server/#staticoptions",
           "additionalProperties": true
         },
         "publicPath": {
@@ -538,7 +540,8 @@
               "type": "string"
             }
           ],
-          "description": "The static files will be available in the browser under this public path."
+          "description": "The static files will be available in the browser under this public path.",
+          "link": "https://webpack.js.org/configuration/dev-server/#publicpath"
         },
         "serveIndex": {
           "anyOf": [
@@ -550,7 +553,8 @@
               "additionalProperties": true
             }
           ],
-          "description": "Tells dev server to use serveIndex middleware when enabled."
+          "description": "Tells dev server to use serveIndex middleware when enabled.",
+          "link": "https://webpack.js.org/configuration/dev-server/#serveindex"
         },
         "watch": {
           "anyOf": [
@@ -563,7 +567,8 @@
               "link": "https://github.com/paulmillr/chokidar#api"
             }
           ],
-          "description": "Watches for files in static content directory."
+          "description": "Watches for files in static content directory.",
+          "link": "https://webpack.js.org/configuration/dev-server/#watch"
         }
       }
     },
