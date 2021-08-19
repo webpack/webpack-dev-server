@@ -49,6 +49,16 @@ const proxyOptionPathsAsProperties = {
       }
     },
   },
+  "/bypass-with-target": {
+    target: `http://localhost:${port1}`,
+    changeOrigin: true,
+    secure: false,
+    bypass(req) {
+      if (/\.(html)$/i.test(req.url)) {
+        return req.url;
+      }
+    },
+  },
 };
 
 const proxyOption = {
@@ -223,6 +233,19 @@ describe("proxy option", () => {
         expect(response.status).toEqual(200);
         expect(response.text).toContain("proxy async response");
       });
+
+      it("should work with the 'target' option", async () => {
+        const response = await req.get("/bypass-with-target/foo.js");
+
+        expect(response.status).toEqual(404);
+      });
+
+      it("should work with the 'target' option #2", async () => {
+        const response = await req.get("/bypass-with-target/index.html");
+
+        expect(response.status).toEqual(200);
+        expect(response.text).toContain("Hello");
+      });
     });
   });
 
@@ -235,10 +258,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOption,
           port: port3,
         },
@@ -274,10 +293,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyWithString,
           port: port3,
         },
@@ -313,10 +328,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyWithPath,
           port: port3,
         },
@@ -352,10 +363,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyWithRouterAsObject,
           port: port3,
         },
@@ -391,10 +398,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOptionOfArray,
           port: port3,
         },
@@ -444,10 +447,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOptionOfArrayWithoutTarget,
           port: port3,
         },
@@ -488,10 +487,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/proxy1": proxyTarget,
             "/proxy2": proxyTarget,
@@ -553,10 +548,6 @@ describe("proxy option", () => {
 
           server = new Server(
             {
-              static: {
-                directory: staticDirectory,
-                watch: false,
-              },
               webSocketServer: webSocketServerType,
               proxy: [
                 {
@@ -623,10 +614,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "**": proxyTarget,
           },
@@ -755,10 +742,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "*": {
               context: () => true,
@@ -808,10 +791,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -863,10 +842,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -921,10 +896,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -978,10 +949,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
