@@ -235,10 +235,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOption,
           port: port3,
         },
@@ -274,10 +270,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyWithString,
           port: port3,
         },
@@ -313,10 +305,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyWithPath,
           port: port3,
         },
@@ -352,10 +340,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyWithRouterAsObject,
           port: port3,
         },
@@ -391,10 +375,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOptionOfArray,
           port: port3,
         },
@@ -444,10 +424,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOptionOfArrayWithoutTarget,
           port: port3,
         },
@@ -488,10 +464,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/proxy1": proxyTarget,
             "/proxy2": proxyTarget,
@@ -553,10 +525,6 @@ describe("proxy option", () => {
 
           server = new Server(
             {
-              static: {
-                directory: staticDirectory,
-                watch: false,
-              },
               webSocketServer: webSocketServerType,
               proxy: [
                 {
@@ -623,10 +591,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "**": proxyTarget,
           },
@@ -755,10 +719,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "*": {
               context: () => true,
@@ -808,10 +768,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -863,10 +819,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -921,10 +873,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -978,10 +926,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
