@@ -2,6 +2,12 @@
 
 This document serves as a migration guide for `webpack-dev-server@4.0.0`.
 
+### Before updating
+
+- `webpack-dev-server` v3 and `webpack-dev-server` v4 automatically apply `HotModuleReplacementPlugin` plugin when you set `hot: true`, so please check you don't have `HotModuleReplacementPlugin` in your `plugins` if you have `hot: true`/`hot: "only"`
+- `webpack-dev-server` v3 and `webpack-dev-server` v4 automatically inject `webpack/hot/dev-server` in your `entry` option when you set `hot: true` (except when you use `injectHot` for webpack-dev-server v3), please check you don't have `webpack/hot/dev-server` in your `entry` option
+- `webpack-dev-server` v3 and `webpack-dev-server` v4 automatically inject `webpack-dev-server/client/index.js` in your `entry` option (except when you use `injectClient` for webpack-dev-server v3), please check you don't have `webpack-dev-server/client/index.js` in your `entry` option
+
 ### ⚠ BREAKING CHANGES
 
 - Minimum supported `Node.js` version is `12.13.0`.
