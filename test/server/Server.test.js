@@ -57,12 +57,10 @@ describe("Server", () => {
       compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot();
 
-        server.close(() => {
-          done();
-        });
+        server.stopCallback(done);
       });
 
-      server.listen(port, "localhost", (error) => {
+      server.startCallback((error) => {
         if (error) {
           throw error;
         }
@@ -78,10 +76,10 @@ describe("Server", () => {
       compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot();
 
-        server.close(done);
+        server.stopCallback(done);
       });
 
-      server.listen(port, "localhost", (error) => {
+      server.startCallback((error) => {
         if (error) {
           throw error;
         }
@@ -105,10 +103,10 @@ describe("Server", () => {
       compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot("oldparam");
 
-        server.close(done);
+        server.stopCallback(done);
       });
 
-      server.listen(port, "localhost", (error) => {
+      server.startCallback((error) => {
         if (error) {
           throw error;
         }

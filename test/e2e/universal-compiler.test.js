@@ -49,7 +49,7 @@ describe("Universal compiler", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await server.close();
+    await server.stop();
   });
 
   it("server bundle should NOT have the inlined the client runtime", async () => {
@@ -96,6 +96,6 @@ describe("Universal compiler", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await server.close();
+    await server.stop();
   });
 });
