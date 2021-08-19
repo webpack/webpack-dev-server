@@ -40,6 +40,6 @@ describe("Multi compiler", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
 
     await browser.close();
-    await server.close();
+    await server.stop();
   });
 });
