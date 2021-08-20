@@ -340,6 +340,13 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Updated modules:",
+  "[HMR]  - ./main.css",
+  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
+  "",
+  "[HMR] App is up to date.",
 ]
 `;
 
@@ -350,6 +357,9 @@ Array [
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -368,6 +378,13 @@ Array [
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Updated modules:",
+  "[HMR]  - ./main.css",
+  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
+  "",
+  "[HMR] App is up to date.",
 ]
 `;
 
@@ -377,6 +394,8 @@ exports[`hot and live reload should work with manual client setup and allow to e
 Array [
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 

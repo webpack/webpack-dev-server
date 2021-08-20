@@ -339,14 +339,6 @@ describe("hot and live reload", () => {
           });
       });
 
-      let hot =
-        typeof testDevServerOptions.hot !== "undefined"
-          ? testDevServerOptions.hot
-          : true;
-      let liveReload =
-        typeof testDevServerOptions.liveReload !== "undefined"
-          ? testDevServerOptions.liveReload
-          : true;
       const webSocketServerLaunched =
         testDevServerOptions.webSocketServer !== false;
 
@@ -483,53 +475,55 @@ describe("hot and live reload", () => {
         "body { background-color: rgb(255, 0, 0); }"
       );
 
-      let doNothing = false;
+      let waitHot =
+        typeof testDevServerOptions.hot !== "undefined"
+          ? testDevServerOptions.hot
+          : true;
+      let waitLiveReload =
+        typeof testDevServerOptions.liveReload !== "undefined"
+          ? testDevServerOptions.liveReload
+          : true;
 
-      const query = mode.query || "";
-      let allowToHotModuleReplacement = true;
-
-      if (query.indexOf("webpack-dev-server-hot=false") !== -1) {
-        allowToHotModuleReplacement = false;
+      if (webSocketServerLaunched === false) {
+        waitHot = false;
+        waitLiveReload = false;
       }
 
       if (Array.isArray(webpackOptions.entry)) {
-        if (webpackOptions.entry.map((item) => item.includes("hot=false"))) {
-          allowToHotModuleReplacement = false;
+        if (webpackOptions.entry.some((item) => item.includes("hot=true"))) {
+          waitHot = true;
         } else if (
-          webpackOptions.entry.map((item) => item.includes("hot=true"))
+          webpackOptions.entry.some((item) => item.includes("hot=false"))
         ) {
-          hot = true;
-          allowToHotModuleReplacement = true;
+          waitHot = false;
         }
-      }
-
-      let allowToLiveReload = true;
-
-      if (query.indexOf("webpack-dev-server-live-reload=false") !== -1) {
-        allowToLiveReload = false;
       }
 
       if (Array.isArray(webpackOptions.entry)) {
         if (
-          webpackOptions.entry.map((item) => item.includes("live-reload=false"))
+          webpackOptions.entry.some((item) => item.includes("live-reload=true"))
         ) {
-          allowToLiveReload = false;
+          waitLiveReload = true;
         } else if (
-          webpackOptions.entry.map((item) => item.includes("live-reload=true"))
+          webpackOptions.entry.some((item) =>
+            item.includes("live-reload=false")
+          )
         ) {
-          liveReload = true;
-          allowToLiveReload = true;
+          waitLiveReload = false;
         }
       }
 
-      console.log(allowToHotModuleReplacement);
-      console.log((hot && liveReload) || (hot && !liveReload));
+      const query = mode.query || "";
 
-      if (
-        webSocketServerLaunched &&
-        allowToHotModuleReplacement &&
-        ((hot && liveReload) || (hot && !liveReload))
-      ) {
+      if (query.includes("webpack-dev-server-hot=false")) {
+        waitHot = false;
+      }
+
+      if (query.includes("webpack-dev-server-live-reload=false")) {
+        waitLiveReload = false;
+      }
+
+      if (waitHot) {
         await page.waitForFunction(
           () =>
             getComputedStyle(document.body)["background-color"] ===
@@ -537,24 +531,20 @@ describe("hot and live reload", () => {
         );
 
         expect(doneHotUpdate).toBe(true);
-      } else if (webSocketServerLaunched && liveReload && allowToLiveReload) {
+      } else if (waitLiveReload) {
         await page.waitForNavigation({
           waitUntil: "networkidle0",
         });
-      } else {
-        if (webSocketServerLaunched) {
-          await new Promise((resolve) => {
-            const interval = setInterval(() => {
-              if (consoleMessages.includes(INVALID_MESSAGE)) {
-                clearInterval(interval);
+      } else if (webSocketServerLaunched) {
+        await new Promise((resolve) => {
+          const interval = setInterval(() => {
+            if (consoleMessages.includes(INVALID_MESSAGE)) {
+              clearInterval(interval);
 
-                resolve();
-              }
-            }, 100);
-          });
-        }
-
-        doNothing = true;
+              resolve();
+            }
+          }, 100);
+        });
       }
 
       const backgroundColorAfter = await page.evaluate(() => {
@@ -563,7 +553,7 @@ describe("hot and live reload", () => {
         return getComputedStyle(body)["background-color"];
       });
 
-      if (doNothing) {
+      if (!waitHot && !waitLiveReload) {
         expect(backgroundColorAfter).toEqual("rgb(0, 0, 255)");
       } else {
         expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
