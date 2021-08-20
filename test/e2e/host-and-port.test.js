@@ -8,8 +8,8 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["host-and-port"];
 
 describe("host and port", () => {
-  // TODO: add "0.0.0.0" and "local-ipv6"
-  const hosts = ["localhost", "127.0.0.1", "local-ip", "local-ipv4"];
+  // TODO: add "local-ipv6"
+  const hosts = ["0.0.0.0", "localhost", "127.0.0.1", "local-ip", "local-ipv4"];
 
   for (const host of hosts) {
     it(`should work using "${host}" host and port as number`, async () => {
@@ -18,7 +18,9 @@ describe("host and port", () => {
 
       let hostname = host;
 
-      if (hostname === "local-ip" || hostname === "local-ipv4") {
+      if (hostname === "0.0.0.0") {
+        hostname = "127.0.0.1";
+      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = internalIp.v4.sync();
       }
 
@@ -57,7 +59,9 @@ describe("host and port", () => {
 
       let hostname = host;
 
-      if (hostname === "local-ip" || hostname === "local-ipv4") {
+      if (hostname === "0.0.0.0") {
+        hostname = "127.0.0.1";
+      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = internalIp.v4.sync();
       }
 
@@ -99,7 +103,9 @@ describe("host and port", () => {
 
       let hostname = host;
 
-      if (hostname === "local-ip" || hostname === "local-ipv4") {
+      if (hostname === "0.0.0.0") {
+        hostname = "127.0.0.1";
+      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = internalIp.v4.sync();
       }
 
