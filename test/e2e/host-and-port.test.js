@@ -18,7 +18,9 @@ describe("host and port", () => {
 
       let hostname = host;
 
-      if (hostname === "local-ip" || hostname === "local-ipv4") {
+      if (hostname === "0.0.0.0") {
+        hostname = "127.0.0.1";
+      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = internalIp.v4.sync();
       }
 
@@ -57,7 +59,9 @@ describe("host and port", () => {
 
       let hostname = host;
 
-      if (hostname === "local-ip" || hostname === "local-ipv4") {
+      if (hostname === "0.0.0.0") {
+        hostname = "127.0.0.1";
+      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = internalIp.v4.sync();
       }
 
@@ -99,7 +103,9 @@ describe("host and port", () => {
 
       let hostname = host;
 
-      if (hostname === "local-ip" || hostname === "local-ipv4") {
+      if (hostname === "0.0.0.0") {
+        hostname = "127.0.0.1";
+      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = internalIp.v4.sync();
       }
 
