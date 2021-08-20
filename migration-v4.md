@@ -534,7 +534,7 @@ module.exports = {
 
   ```js
   const devServerOptions = { host: "127.0.0.1", port: 8080 };
-  const devServer = new Server(compiler, devServerOptions);
+  const devServer = new Server(devServerOptions, compiler);
 
   (async () => {
     await devServer.start();
@@ -545,7 +545,7 @@ module.exports = {
 
   ```js
   const devServerOptions = { host: "127.0.0.1", port: 8080 };
-  const devServer = new Server(compiler, devServerOptions);
+  const devServer = new Server(devServerOptions, compiler);
 
   devServer.startCallback(() => {
     console.log("Running");
@@ -588,7 +588,7 @@ module.exports = {
 
   ```js
   const devServerOptions = { host: "127.0.0.1", port: 8080 };
-  const devServer = new Server(compiler, devServerOptions);
+  const devServer = new Server(devServerOptions, compiler);
 
   devServer.startCallback(() => {
     console.log("Running");
