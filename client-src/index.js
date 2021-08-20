@@ -25,6 +25,18 @@ const options = {
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
 
+if (parsedResourceQuery.hot === "true") {
+  options.hot = true;
+
+  log.info("Hot Module Replacement enabled.");
+}
+
+if (parsedResourceQuery["live-reload"] === "true") {
+  options.liveReload = true;
+
+  log.info("Live Reloading enabled.");
+}
+
 if (parsedResourceQuery.logging) {
   options.logging = parsedResourceQuery.logging;
 }
