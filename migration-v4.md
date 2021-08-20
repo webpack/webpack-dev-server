@@ -626,7 +626,7 @@ module.exports = {
 - `chokidar` was updated.
 - Respect the `client.logging` option for HMR logging.
 - Show plugin name in progress log.
-- Use value of the `infastructureLogging.level` option by default for `client.logging`.
+- Use value of the `infrastructureLogging.level` option by default for `client.logging`.
 - Allow to pass options without the `target` option for the `proxy` options.
 - Support lazy compilation.
 
