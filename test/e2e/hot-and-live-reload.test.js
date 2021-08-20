@@ -240,6 +240,23 @@ describe("hot and live reload", () => {
     // TODO we still output logs from webpack, need to improve this
     {
       title:
+        "should work with manual client setup and allow to enable hot module replacement",
+      webpackOptions: {
+        entry: [
+          "webpack/hot/dev-server",
+          `${require.resolve("../../client-src/index.js")}?hot=true`,
+          require.resolve("../fixtures/reload-config/foo.js"),
+        ],
+        plugins: [new webpack.HotModuleReplacementPlugin()],
+      },
+      options: {
+        client: false,
+        liveReload: false,
+        hot: false,
+      },
+    },
+    {
+      title:
         "should work with manual client setup and allow to disable hot module replacement",
       webpackOptions: {
         entry: [
@@ -251,6 +268,21 @@ describe("hot and live reload", () => {
         client: false,
         liveReload: true,
         hot: true,
+      },
+    },
+    {
+      title:
+        "should work with manual client setup and allow to enable live reload",
+      webpackOptions: {
+        entry: [
+          `${require.resolve("../../client-src/index.js")}?live-reload=true`,
+          require.resolve("../fixtures/reload-config/foo.js"),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: false,
+        hot: false,
       },
     },
     {
@@ -307,11 +339,11 @@ describe("hot and live reload", () => {
           });
       });
 
-      const hot =
+      let hot =
         typeof testDevServerOptions.hot !== "undefined"
           ? testDevServerOptions.hot
           : true;
-      const liveReload =
+      let liveReload =
         typeof testDevServerOptions.liveReload !== "undefined"
           ? testDevServerOptions.liveReload
           : true;
@@ -460,11 +492,15 @@ describe("hot and live reload", () => {
         allowToHotModuleReplacement = false;
       }
 
-      if (
-        Array.isArray(webpackOptions.entry) &&
-        webpackOptions.entry.map((item) => item.includes("hot=false"))
-      ) {
-        allowToHotModuleReplacement = false;
+      if (Array.isArray(webpackOptions.entry)) {
+        if (webpackOptions.entry.map((item) => item.includes("hot=false"))) {
+          allowToHotModuleReplacement = false;
+        } else if (
+          webpackOptions.entry.map((item) => item.includes("hot=true"))
+        ) {
+          hot = true;
+          allowToHotModuleReplacement = true;
+        }
       }
 
       let allowToLiveReload = true;
@@ -473,12 +509,21 @@ describe("hot and live reload", () => {
         allowToLiveReload = false;
       }
 
-      if (
-        Array.isArray(webpackOptions.entry) &&
-        webpackOptions.entry.map((item) => item.includes("live-reload=false"))
-      ) {
-        allowToLiveReload = false;
+      if (Array.isArray(webpackOptions.entry)) {
+        if (
+          webpackOptions.entry.map((item) => item.includes("live-reload=false"))
+        ) {
+          allowToLiveReload = false;
+        } else if (
+          webpackOptions.entry.map((item) => item.includes("live-reload=true"))
+        ) {
+          liveReload = true;
+          allowToLiveReload = true;
+        }
       }
+
+      console.log(allowToHotModuleReplacement);
+      console.log((hot && liveReload) || (hot && !liveReload));
 
       if (
         webSocketServerLaunched &&
