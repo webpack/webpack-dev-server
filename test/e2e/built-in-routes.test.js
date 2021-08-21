@@ -5,7 +5,7 @@ const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const multiConfig = require("../fixtures/multi-public-path-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["universal-compiler"];
+const port = require("../ports-map").routes;
 
 describe("Built in routes", () => {
   describe("with simple config", () => {
