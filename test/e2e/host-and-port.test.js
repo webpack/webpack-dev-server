@@ -13,18 +13,29 @@ const ipv6 = internalIp.v6.sync();
 describe("host and port", () => {
   const hosts = [
     "0.0.0.0",
-    ipv6 ? "::" : "127.0.0.1",
+    "::",
     "localhost",
-    ipv6 ? "::1" : "127.0.0.1",
+    "::1",
     "127.0.0.1",
     "local-ip",
     "local-ipv4",
-    ipv6 ? "local-ipv6" : "127.0.0.1",
+    "local-ipv6",
   ];
 
-  for (const host of hosts) {
+  for (let host of hosts) {
     it(`should work using "${host}" host and port as number`, async () => {
       const compiler = webpack(config);
+
+      if (!ipv6) {
+        if (host === "::") {
+          host = "127.0.0.1";
+        } else if (host === "::1") {
+          host = "127.0.0.1";
+        } else if (host === "local-ipv6") {
+          host = "127.0.0.1";
+        }
+      }
+
       const server = new Server({ host, port }, compiler);
 
       let hostname = host;
@@ -36,7 +47,7 @@ describe("host and port", () => {
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
       } else if (hostname === "local-ipv6") {
-        hostname = `[${ipv6}]` || "127.0.0.1";
+        hostname = `[${ipv6}]`;
       }
 
       await server.start();
@@ -70,6 +81,17 @@ describe("host and port", () => {
 
     it(`should work using "${host}" host and port as string`, async () => {
       const compiler = webpack(config);
+
+      if (!ipv6) {
+        if (host === "::") {
+          host = "127.0.0.1";
+        } else if (host === "::1") {
+          host = "127.0.0.1";
+        } else if (host === "local-ipv6") {
+          host = "127.0.0.1";
+        }
+      }
+
       const server = new Server({ host, port: `${port}` }, compiler);
 
       let hostname = host;
@@ -81,7 +103,7 @@ describe("host and port", () => {
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
       } else if (hostname === "local-ipv6") {
-        hostname = `[${ipv6}]` || "127.0.0.1";
+        hostname = `[${ipv6}]`;
       }
 
       await server.start();
@@ -118,6 +140,16 @@ describe("host and port", () => {
 
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = port;
 
+      if (!ipv6) {
+        if (host === "::") {
+          host = "127.0.0.1";
+        } else if (host === "::1") {
+          host = "127.0.0.1";
+        } else if (host === "local-ipv6") {
+          host = "127.0.0.1";
+        }
+      }
+
       const server = new Server({ host, port: "auto" }, compiler);
 
       let hostname = host;
@@ -129,7 +161,7 @@ describe("host and port", () => {
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
       } else if (hostname === "local-ipv6") {
-        hostname = `[${ipv6}]` || "127.0.0.1";
+        hostname = `[${ipv6}]`;
       }
 
       await server.start();
