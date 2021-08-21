@@ -13,11 +13,13 @@ const ipv6 = internalIp.v6.sync();
 describe("host and port", () => {
   const hosts = [
     "0.0.0.0",
+    ipv6 ? "::" : "127.0.0.1",
     "localhost",
+    ipv6 ? "::1" : "127.0.0.1",
     "127.0.0.1",
     "local-ip",
     "local-ipv4",
-    ipv6 ? "local-ipv6" : "::",
+    ipv6 ? "local-ipv6" : "127.0.0.1",
   ];
 
   for (const host of hosts) {
@@ -29,10 +31,12 @@ describe("host and port", () => {
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
+      } else if (hostname === "::" || hostname === "::1") {
+        hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
-      } else if (hostname === "local-ipv6" || hostname === "::") {
-        hostname = ipv6 || "127.0.0.1";
+      } else if (hostname === "local-ipv6") {
+        hostname = `[${ipv6}]` || "127.0.0.1";
       }
 
       await server.start();
@@ -72,10 +76,12 @@ describe("host and port", () => {
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
+      } else if (hostname === "::" || hostname === "::1") {
+        hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
-      } else if (hostname === "local-ipv6" || hostname === "::") {
-        hostname = ipv6 || "127.0.0.1";
+      } else if (hostname === "local-ipv6") {
+        hostname = `[${ipv6}]` || "127.0.0.1";
       }
 
       await server.start();
@@ -118,10 +124,12 @@ describe("host and port", () => {
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
+      } else if (hostname === "::" || hostname === "::1") {
+        hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
-      } else if (hostname === "local-ipv6" || hostname === "::") {
-        hostname = ipv6 || "127.0.0.1";
+      } else if (hostname === "local-ipv6") {
+        hostname = `[${ipv6}]` || "127.0.0.1";
       }
 
       await server.start();
