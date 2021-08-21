@@ -7,9 +7,18 @@ const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["host-and-port"];
 
+const ipv4 = internalIp.v4.sync();
+const ipv6 = internalIp.v6.sync();
+
 describe("host and port", () => {
-  // TODO: add "local-ipv6"
-  const hosts = ["0.0.0.0", "localhost", "127.0.0.1", "local-ip", "local-ipv4"];
+  const hosts = [
+    "0.0.0.0",
+    "localhost",
+    "127.0.0.1",
+    "local-ip",
+    "local-ipv4",
+    ipv6 ? "local-ipv6" : "::",
+  ];
 
   for (const host of hosts) {
     it(`should work using "${host}" host and port as number`, async () => {
@@ -21,7 +30,9 @@ describe("host and port", () => {
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = internalIp.v4.sync();
+        hostname = ipv4;
+      } else if (hostname === "local-ipv6" || hostname === "::") {
+        hostname = ipv6 || "127.0.0.1";
       }
 
       await server.start();
@@ -62,7 +73,9 @@ describe("host and port", () => {
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = internalIp.v4.sync();
+        hostname = ipv4;
+      } else if (hostname === "local-ipv6" || hostname === "::") {
+        hostname = ipv6 || "127.0.0.1";
       }
 
       await server.start();
@@ -106,7 +119,9 @@ describe("host and port", () => {
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = internalIp.v4.sync();
+        hostname = ipv4;
+      } else if (hostname === "local-ipv6" || hostname === "::") {
+        hostname = ipv6 || "127.0.0.1";
       }
 
       await server.start();
