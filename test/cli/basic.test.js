@@ -102,7 +102,7 @@ describe("basic", () => {
       );
       const examplePath = path.resolve(
         __dirname,
-        "../../examples/web-socket-url"
+        "../../examples/client/web-socket-url"
       );
       const cp = execa("node", ["--port", port, cliPath], { cwd: examplePath });
 
@@ -153,7 +153,7 @@ describe("basic", () => {
       );
       const examplePath = path.resolve(
         __dirname,
-        "../../examples/web-socket-url"
+        "../../examples/client/web-socket-url"
       );
       const cp = execa(
         "node",
