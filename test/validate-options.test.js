@@ -237,6 +237,10 @@ const tests = {
     success: [true, path.resolve(os.tmpdir(), "webpack-dev-server.socket")],
     failure: [false, {}],
   },
+  liveReload: {
+    success: [true, false],
+    failure: ["invalid"],
+  },
   onListening: {
     success: [() => {}],
     failure: [""],
