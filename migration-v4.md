@@ -325,7 +325,7 @@ module.exports = {
 ```
 
 - Default value of the `static` option is `path.resolve(process.cwd(), 'public')` directory and enabled by default.
-- Watching of static files is enabled by default.
+- `static.watch` is enabled by default.
 - The `socket` option was renamed to `ipc` (also supports `string` type, i.e. path to unix socket):
 
 v3:
