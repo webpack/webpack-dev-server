@@ -274,7 +274,9 @@ If you need to set custom `path` to dev server web socket server, please use:
 module.exports = {
   devServer: {
     webSocketServer: {
-      path: "/my/custom/path/to/web/socket/server",
+      options: {
+        path: "/my/custom/path/to/web/socket/server",
+      },
     },
   },
 };
