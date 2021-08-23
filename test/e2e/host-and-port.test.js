@@ -7,21 +7,49 @@ const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["host-and-port"];
 
-describe("host and port", () => {
-  // TODO: add "local-ipv6"
-  const hosts = ["0.0.0.0", "localhost", "127.0.0.1", "local-ip", "local-ipv4"];
+const ipv4 = internalIp.v4.sync();
+const ipv6 = internalIp.v6.sync();
+// macos requires root for using ip v6
+const isMacOS = process.platform === "darwin";
 
-  for (const host of hosts) {
+describe("host and port", () => {
+  const hosts = [
+    "0.0.0.0",
+    "::",
+    "localhost",
+    "::1",
+    "127.0.0.1",
+    "local-ip",
+    "local-ipv4",
+    "local-ipv6",
+  ];
+
+  for (let host of hosts) {
     it(`should work using "${host}" host and port as number`, async () => {
       const compiler = webpack(config);
+
+      if (!ipv6 || isMacOS) {
+        if (host === "::") {
+          host = "127.0.0.1";
+        } else if (host === "::1") {
+          host = "127.0.0.1";
+        } else if (host === "local-ipv6") {
+          host = "127.0.0.1";
+        }
+      }
+
       const server = new Server({ host, port }, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
+      } else if (hostname === "::" || hostname === "::1") {
+        hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = internalIp.v4.sync();
+        hostname = ipv4;
+      } else if (hostname === "local-ipv6") {
+        hostname = `[${ipv6}]`;
       }
 
       await server.start();
@@ -55,14 +83,29 @@ describe("host and port", () => {
 
     it(`should work using "${host}" host and port as string`, async () => {
       const compiler = webpack(config);
+
+      if (!ipv6 || isMacOS) {
+        if (host === "::") {
+          host = "127.0.0.1";
+        } else if (host === "::1") {
+          host = "127.0.0.1";
+        } else if (host === "local-ipv6") {
+          host = "127.0.0.1";
+        }
+      }
+
       const server = new Server({ host, port: `${port}` }, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
+      } else if (hostname === "::" || hostname === "::1") {
+        hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = internalIp.v4.sync();
+        hostname = ipv4;
+      } else if (hostname === "local-ipv6") {
+        hostname = `[${ipv6}]`;
       }
 
       await server.start();
@@ -99,14 +142,28 @@ describe("host and port", () => {
 
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = port;
 
+      if (!ipv6 || isMacOS) {
+        if (host === "::") {
+          host = "127.0.0.1";
+        } else if (host === "::1") {
+          host = "127.0.0.1";
+        } else if (host === "local-ipv6") {
+          host = "127.0.0.1";
+        }
+      }
+
       const server = new Server({ host, port: "auto" }, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
+      } else if (hostname === "::" || hostname === "::1") {
+        hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = internalIp.v4.sync();
+        hostname = ipv4;
+      } else if (hostname === "local-ipv6") {
+        hostname = `[${ipv6}]`;
       }
 
       await server.start();
