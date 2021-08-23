@@ -58,9 +58,7 @@ exports[`Server Server.getFreePort should throws the error when the port isn't f
 
 exports[`Server normalizeOptions allowedHosts is array 1`] = `
 Object {
-  "allowedHosts": Array [
-    "all",
-  ],
+  "allowedHosts": "all",
   "bonjour": false,
   "client": Object {
     "logging": "info",
