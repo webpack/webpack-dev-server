@@ -324,6 +324,26 @@ module.exports = {
 };
 ```
 
+Provide an array of objects in case you have multiple static folders:
+
+```js
+module.exports = {
+  //...
+  devServer: {
+    static: [
+      {
+        directory: path.join(__dirname, "assets"),
+        publicPath: "/serve-public-path-url",
+      },
+      {
+        directory: path.join(__dirname, "css"),
+        publicPath: "/other-serve-public-path-url",
+      },
+    ],
+  },
+};
+```
+
 - Default value of the `static` option is `path.resolve(process.cwd(), 'public')` directory and enabled by default.
 - `static.watch` is enabled by default.
 - The `socket` option was renamed to `ipc` (also supports `string` type, i.e. path to unix socket):
