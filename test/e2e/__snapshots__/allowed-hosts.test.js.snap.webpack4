@@ -66,6 +66,28 @@ Array [
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value ("ws"): page errors 1`] = `Array []`;
 
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value in array ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value in array ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value in array ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value in array ("ws"): page errors 1`] = `Array []`;
+
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
