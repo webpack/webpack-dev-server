@@ -13,7 +13,7 @@ const listOfTests = {
   logging: 1,
   overlay: 1,
   progress: 1,
-  "web-socket-server-and-transport": 1,
+  "server-and-client-transport": 1,
   "web-socket-server-url": 2,
   // integration tests
   "module-federation": 1,

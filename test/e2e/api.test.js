@@ -1,5 +1,6 @@
 "use strict";
 
+const path = require("path");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -77,6 +78,49 @@ describe("API", () => {
         resolve();
       });
     });
+  });
+
+  it(`should work when using configured manually`, async () => {
+    const compiler = webpack({
+      ...config,
+      entry: [
+        "webpack/hot/dev-server.js",
+        `${path.resolve(
+          __dirname,
+          "../../client/index.js"
+        )}?hot=true&live-reload=true"`,
+        path.resolve(__dirname, "../fixtures/client-config/foo.js"),
+      ],
+      plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
+    });
+    const server = new Server({ port, hot: false, client: false }, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    const pageErrors = [];
+    const consoleMessages = [];
+
+    page
+      .on("console", (message) => {
+        consoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    await page.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+      "console messages"
+    );
+    expect(pageErrors).toMatchSnapshot("page errors");
+
+    await browser.close();
+    await server.stop();
   });
 
   it("should work with deprecated API ('listen' and `close` methods)", async () => {

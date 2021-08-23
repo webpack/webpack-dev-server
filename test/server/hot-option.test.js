@@ -137,6 +137,35 @@ describe("hot option", () => {
     });
   });
 
+  describe("simple hot config HMR plugin with already added HMR plugin", () => {
+    it("should register the HMR plugin before compilation is complete", async () => {
+      let pluginFound = false;
+      const compiler = webpack({
+        ...config,
+        plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
+      });
+
+      compiler.hooks.compilation.intercept({
+        register: (tapInfo) => {
+          if (tapInfo.name === "HotModuleReplacementPlugin") {
+            pluginFound = true;
+          }
+
+          return tapInfo;
+        },
+      });
+
+      server = new Server({ port }, compiler);
+
+      await server.start();
+
+      expect(compiler.options.plugins).toHaveLength(2);
+      expect(pluginFound).toBe(true);
+
+      await server.stop();
+    });
+  });
+
   describe("multi compiler hot config HMR plugin", () => {
     it("should register the HMR plugin before compilation is complete", async () => {
       let pluginFound = false;
