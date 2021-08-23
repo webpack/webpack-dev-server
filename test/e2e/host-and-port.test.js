@@ -9,6 +9,8 @@ const port = require("../ports-map")["host-and-port"];
 
 const ipv4 = internalIp.v4.sync();
 const ipv6 = internalIp.v6.sync();
+// macos requires root for using ip v6
+const isMacOS = process.platform === "darwin";
 
 describe("host and port", () => {
   const hosts = [
@@ -26,7 +28,7 @@ describe("host and port", () => {
     it(`should work using "${host}" host and port as number`, async () => {
       const compiler = webpack(config);
 
-      if (!ipv6) {
+      if (!ipv6 || isMacOS) {
         if (host === "::") {
           host = "127.0.0.1";
         } else if (host === "::1") {
@@ -82,7 +84,7 @@ describe("host and port", () => {
     it(`should work using "${host}" host and port as string`, async () => {
       const compiler = webpack(config);
 
-      if (!ipv6) {
+      if (!ipv6 || isMacOS) {
         if (host === "::") {
           host = "127.0.0.1";
         } else if (host === "::1") {
@@ -140,7 +142,7 @@ describe("host and port", () => {
 
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = port;
 
-      if (!ipv6) {
+      if (!ipv6 || isMacOS) {
         if (host === "::") {
           host = "127.0.0.1";
         } else if (host === "::1") {
