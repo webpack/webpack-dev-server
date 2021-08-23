@@ -534,6 +534,19 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "magic-html": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description: "Enables/Disables magic HTML routes (enabled by default).",
+        path: "magicHtml",
+      },
+    ],
+    description: "Enables/Disables magic HTML routes (enabled by default).",
+    simpleType: "boolean",
+    multiple: false,
+  },
   open: {
     configs: [
       {

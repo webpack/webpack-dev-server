@@ -98,6 +98,8 @@ Options:
   --ipc [value]                             Listen to a unix socket.
   --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default).
   --no-live-reload                          Negative 'live-reload' option.
+  --magic-html                              Enables/Disables magic HTML routes (enabled by default).
+  --no-magic-html                           Negative 'magic-html' option.
   --open [value...]                         Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).
   --no-open                                 Negative 'open' option.
   --open-target <value...>                  Opens specified page in browser.

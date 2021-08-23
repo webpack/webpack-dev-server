@@ -331,6 +331,11 @@
       "description": "Enables reload/refresh the page(s) when file changes are detected (enabled by default).",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverlivereload"
     },
+    "MagicHTML": {
+      "type": "boolean",
+      "description": "Enables/Disables magic HTML routes (enabled by default).",
+      "link": "https://webpack.js.org/configuration/dev-server/#devservermagichtml"
+    },
     "OnAfterSetupMiddleware": {
       "instanceof": "Function",
       "description": "Provides the ability to execute a custom function and apply custom middleware(s) after all other middlewares.",
@@ -728,6 +733,9 @@
     },
     "liveReload": {
       "$ref": "#/definitions/LiveReload"
+    },
+    "magicHtml": {
+      "$ref": "#/definitions/MagicHTML"
     },
     "onAfterSetupMiddleware": {
       "$ref": "#/definitions/OnAfterSetupMiddleware"
