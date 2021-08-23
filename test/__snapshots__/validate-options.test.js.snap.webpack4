@@ -432,6 +432,20 @@ exports[`options validate should throw an error on the "ipc" option with 'false'
     * options.ipc should be true."
 `;
 
+exports[`options validate should throw an error on the "liveReload" option with 'invalid' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.liveReload should be a boolean.
+   -> Enables reload/refresh the page(s) when file changes are detected (enabled by default).
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverlivereload"
+`;
+
+exports[`options validate should throw an error on the "magicHtml" option with 'string' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.magicHtml should be a boolean.
+   -> Enables/Disables magic HTML routes (enabled by default).
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devservermagichtml"
+`;
+
 exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onAfterSetupMiddleware should be an instance of function.
