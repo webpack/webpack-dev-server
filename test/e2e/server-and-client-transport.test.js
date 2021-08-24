@@ -8,9 +8,9 @@ const sockjsConfig = require("../fixtures/provide-plugin-sockjs-config/webpack.c
 const wsConfig = require("../fixtures/provide-plugin-ws-config/webpack.config");
 const customConfig = require("../fixtures/provide-plugin-custom/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["web-socket-server-and-transport"];
+const port = require("../ports-map")["server-and-client-transport"];
 
-describe("web socket server and transport", () => {
+describe("server and client transport", () => {
   it('should use default web socket server ("ws")', async () => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
@@ -525,6 +525,38 @@ describe("web socket server and transport", () => {
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot();
 
     await browser.close();
+    await server.stop();
+  });
+
+  it("should throw an error on invalid path to server transport", async () => {
+    const compiler = webpack(defaultConfig);
+    const devServerOptions = {
+      port,
+      webSocketServer: {
+        type: "invalid/path",
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
+    await expect(async () => {
+      await server.start();
+    }).rejects.toThrowErrorMatchingSnapshot();
+
+    await server.stop();
+  });
+
+  it("should throw an error on invalid path to client transport", async () => {
+    const compiler = webpack(defaultConfig);
+    const devServerOptions = {
+      port,
+      client: {
+        webSocketTransport: "invalid/path",
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
+    await expect(async () => {
+      await server.start();
+    }).rejects.toThrowErrorMatchingSnapshot();
+
     await server.stop();
   });
 });
