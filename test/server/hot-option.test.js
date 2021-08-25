@@ -166,6 +166,73 @@ describe("hot option", () => {
     });
   });
 
+  describe("simple config with already added HMR plugin", () => {
+    let loggerWarnSpy;
+    let getInfrastructureLoggerSpy;
+    let compiler;
+
+    beforeEach(() => {
+      compiler = webpack({
+        ...config,
+        devServer: { hot: false },
+        plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
+      });
+
+      loggerWarnSpy = jest.fn();
+
+      getInfrastructureLoggerSpy = jest
+        .spyOn(compiler, "getInfrastructureLogger")
+        .mockImplementation(() => {
+          return {
+            warn: loggerWarnSpy,
+            info: () => {},
+            log: () => {},
+          };
+        });
+    });
+
+    afterEach(() => {
+      getInfrastructureLoggerSpy.mockRestore();
+      loggerWarnSpy.mockRestore();
+    });
+
+    it("should show warning with hot normalized as true", async () => {
+      server = new Server({ port }, compiler);
+
+      await server.start();
+
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      );
+
+      await server.stop();
+    });
+
+    it(`should show warning with "hot: true"`, async () => {
+      server = new Server({ port, hot: true }, compiler);
+
+      await server.start();
+
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      );
+
+      await server.stop();
+    });
+
+    it(`should show warning with "hot: false"`, async () => {
+      server = new Server({ port, hot: false }, compiler);
+
+      await server.start();
+
+      expect(loggerWarnSpy).not.toHaveBeenCalledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      );
+
+      await server.stop();
+    });
+  });
+
   describe("multi compiler hot config HMR plugin", () => {
     it("should register the HMR plugin before compilation is complete", async () => {
       let pluginFound = false;
