@@ -3,14 +3,14 @@
 const path = require("path");
 const express = require("express");
 // const bodyParser = require("body-parser");
-// const WebSocket = require("ws");
+const WebSocket = require("ws");
 const webpack = require("webpack");
 const runBrowser = require("../helpers/run-browser");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/proxy-config/webpack.config");
-const [port1, port2, port3] = require("../ports-map")["proxy-option"];
+const [port1, port2, port3, port4] = require("../ports-map")["proxy-option"];
 
-// const WebSocketServer = WebSocket.Server;
+const WebSocketServer = WebSocket.Server;
 const staticDirectory = path.resolve(__dirname, "../fixtures/proxy-config");
 
 const proxyOptionPathsAsProperties = {
@@ -964,6 +964,107 @@ describe("proxy option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("should handles external websocket upgrade", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+    let ws;
+    let webSocketServer;
+    let responseMessage;
+
+    const webSocketServerTypes = ["sockjs", "ws"];
+
+    webSocketServerTypes.forEach((webSocketServerType) => {
+      describe(`with webSocketServerType: ${webSocketServerType}`, () => {
+        beforeEach(async () => {
+          compiler = webpack(config);
+
+          server = new Server(
+            {
+              webSocketServer: webSocketServerType,
+              proxy: [
+                {
+                  context: "/",
+                  target: `http://localhost:${port4}`,
+                  ws: true,
+                },
+              ],
+              port: port3,
+            },
+            compiler
+          );
+
+          await server.start();
+
+          webSocketServer = new WebSocketServer({ port: port4 });
+          webSocketServer.on("connection", (connection) => {
+            connection.on("message", (message) => {
+              connection.send(message);
+            });
+          });
+
+          ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
+
+          ws.on("message", (message) => {
+            responseMessage = message.toString();
+          });
+
+          ws.on("open", () => {
+            ws.send("foo");
+          });
+
+          ({ page, browser } = await runBrowser());
+
+          pageErrors = [];
+          consoleMessages = [];
+        });
+
+        afterEach(async () => {
+          webSocketServer.close();
+
+          for (const client of webSocketServer.clients) {
+            client.terminate();
+          }
+
+          await browser.close();
+          await server.stop();
+        });
+
+        it("Should receive response", async () => {
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
+
+          const response = await page.goto(
+            `http://localhost:${port3}/proxy3/socket`,
+            {
+              waitUntil: "networkidle0",
+            }
+          );
+
+          expect(responseMessage).toEqual("foo");
+
+          expect(response.status()).toMatchSnapshot("response status");
+
+          expect(await response.text()).toMatchSnapshot("response text");
+
+          expect(
+            consoleMessages.map((message) => message.text())
+          ).toMatchSnapshot("console messages");
+
+          expect(pageErrors).toMatchSnapshot("page errors");
+        });
+      });
     });
   });
 });

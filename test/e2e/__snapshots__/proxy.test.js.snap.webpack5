@@ -182,6 +182,30 @@ exports[`proxy option as an option is an object with the \`router\` option respe
 
 exports[`proxy option as an option is an object with the \`router\` option respects a proxy option: response text 1`] = `"from proxy1"`;
 
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 426 (Upgrade Required)",
+]
+`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: page errors 1`] = `Array []`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: response status 1`] = `426`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: response text 1`] = `"Upgrade Required"`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 426 (Upgrade Required)",
+]
+`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: page errors 1`] = `Array []`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: response status 1`] = `426`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: response text 1`] = `"Upgrade Required"`;
+
 exports[`proxy option should sharing a proxy option respects proxy1 option: console messages 1`] = `Array []`;
 
 exports[`proxy option should sharing a proxy option respects proxy1 option: page errors 1`] = `Array []`;
