@@ -61,53 +61,49 @@ const proxyOptionPathsAsProperties = {
   },
 };
 
-/** 
-  const proxyOption = {
-    context: () => true,
-    target: `http://localhost:${port1}`,
-  };
-  
+const proxyOption = {
+  context: () => true,
+  target: `http://localhost:${port1}`,
+};
 
-  const proxyOptionOfArray = [
-    { context: "/proxy1", target: proxyOption.target },
-    function proxy(req, res, next) {
-      return {
-        context: "/api/proxy2",
-        target: `http://localhost:${port2}`,
-        pathRewrite: { "^/api": "" },
-        bypass: () => {
-          if (req && req.query.foo) {
-            res.end(`foo+${next.name}+${typeof next}`);
-  
-            return false;
-          }
-        },
-      };
-    },
-  ];
-  
-  const proxyOptionOfArrayWithoutTarget = [
-    {
-      router: () => `http://localhost:${port1}`,
-    },
-  ];
-  
-  const proxyWithPath = {
-    "/proxy1": {
-      path: `http://localhost:${port1}`,
-      target: `http://localhost:${port1}`,
-    },
-  };
-  
-  const proxyWithString = {
-    "/proxy1": `http://localhost:${port1}`,
-  };
-  
-  const proxyWithRouterAsObject = {
+const proxyOptionOfArray = [
+  { context: "/proxy1", target: proxyOption.target },
+  function proxy(req, res, next) {
+    return {
+      context: "/api/proxy2",
+      target: `http://localhost:${port2}`,
+      pathRewrite: { "^/api": "" },
+      bypass: () => {
+        if (req && req.query.foo) {
+          res.end(`foo+${next.name}+${typeof next}`);
+
+          return false;
+        }
+      },
+    };
+  },
+];
+
+const proxyOptionOfArrayWithoutTarget = [
+  {
     router: () => `http://localhost:${port1}`,
-  };
+  },
+];
 
-*/
+const proxyWithPath = {
+  "/proxy1": {
+    path: `http://localhost:${port1}`,
+    target: `http://localhost:${port1}`,
+  },
+};
+
+const proxyWithString = {
+  "/proxy1": `http://localhost:${port1}`,
+};
+
+const proxyWithRouterAsObject = {
+  router: () => `http://localhost:${port1}`,
+};
 
 describe("proxy option", () => {
   let proxyServer1;
@@ -455,6 +451,519 @@ describe("proxy option", () => {
 
         expect(pageErrors).toMatchSnapshot("page errors");
       });
+    });
+  });
+
+  describe("as an option is an object with the `context` option", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyOption,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an option is an object with `context` and `target` as string", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithString,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an option is an object with the `path` option (`context` alias)", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithPath,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an option is an object with the `router` option", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithRouterAsObject,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an array", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyOptionOfArray,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("respects a proxy option of function", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/api/proxy2`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should allow req, res, and next", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/api/proxy2?foo=true`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an array without the `route` option", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyOptionOfArrayWithoutTarget,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("should sharing a proxy option", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+    let listener;
+
+    const proxyTarget = {
+      target: `http://localhost:${port1}`,
+    };
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: {
+            "/proxy1": proxyTarget,
+            "/proxy2": proxyTarget,
+          },
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      const proxy = express();
+
+      proxy.get("*", (proxyReq, res) => {
+        res.send("from proxy");
+      });
+
+      listener = proxy.listen(port1);
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await new Promise((resolve) => {
+        listener.close(() => {
+          resolve();
+        });
+      });
+    });
+
+    it("respects proxy1 option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("respects proxy2 option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy2`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
 });
