@@ -12,5 +12,5 @@
     "types": ["node"],
     "esModuleInterop": true
   },
-  "include": ["bin/webpack-dev-server.js", "lib/utils/DevServerPlugin.js"]
+  "include": ["bin/webpack-dev-server.js"]
 }
