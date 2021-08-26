@@ -220,7 +220,7 @@ describe("hot option", () => {
       await server.stop();
     });
 
-    it(`should show warning with "hot: false"`, async () => {
+    it(`should not show warning with "hot: false"`, async () => {
       server = new Server({ port, hot: false }, compiler);
 
       await server.start();
