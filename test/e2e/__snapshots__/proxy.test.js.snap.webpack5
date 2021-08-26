@@ -277,3 +277,59 @@ exports[`proxy option should supports http methods errors: page errors 1`] = `Ar
 exports[`proxy option should supports http methods errors: response status 1`] = `500`;
 
 exports[`proxy option should supports http methods errors: response text 1`] = `"error from proxy"`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: response text 1`] = `"from proxy1"`;

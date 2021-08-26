@@ -1351,4 +1351,387 @@ describe("proxy option", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
+
+  describe("should work in multi compiler mode", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: {
+            "*": {
+              context: () => true,
+              target: `http://localhost:${port1}`,
+            },
+          },
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("should work and respect `logProvider` and `logLevel` options", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+    let customLogProvider;
+
+    beforeEach(async () => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: {
+            "/my-path": {
+              target: "http://unknown:1234",
+              logProvider: () => customLogProvider,
+              logLevel: "error",
+            },
+          },
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://localhost:${port3}/my-path`, {
+          waitUntil: "networkidle0",
+        });
+
+        expect(customLogProvider.error).toHaveBeenCalledTimes(1);
+
+        expect(response.status()).toMatchSnapshot("response status");
+
+        expect(await response.text()).toMatchSnapshot("response text");
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+
+        expect(pageErrors).toMatchSnapshot("page errors");
+      });
+    });
+  });
+
+  describe("should work and respect `logProvider` and `logLevel` options with `silent` value", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+    let customLogProvider;
+
+    beforeEach(async () => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: {
+            "/my-path": {
+              target: "http://unknown:1234",
+              logProvider: () => customLogProvider,
+              logLevel: "silent",
+            },
+          },
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://localhost:${port3}/my-path`, {
+          waitUntil: "networkidle0",
+        });
+
+        expect(customLogProvider.error).toHaveBeenCalledTimes(0);
+
+        expect(response.status()).toMatchSnapshot("response status");
+
+        expect(await response.text()).toMatchSnapshot("response text");
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+
+        expect(pageErrors).toMatchSnapshot("page errors");
+      });
+    });
+  });
+
+  describe("should work and respect the `infrastructureLogging.level` option", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+    let customLogProvider;
+
+    beforeEach(async () => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+
+      compiler = webpack({
+        ...config,
+        infrastructureLogging: { level: "error" },
+      });
+
+      server = new Server(
+        {
+          proxy: {
+            "/my-path": {
+              target: "http://unknown:1234",
+              logProvider: () => customLogProvider,
+            },
+          },
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://localhost:${port3}/my-path`, {
+          waitUntil: "networkidle0",
+        });
+
+        expect(customLogProvider.error).toHaveBeenCalledTimes(1);
+
+        expect(response.status()).toMatchSnapshot("response status");
+
+        expect(await response.text()).toMatchSnapshot("response text");
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+
+        expect(pageErrors).toMatchSnapshot("page errors");
+      });
+    });
+  });
+
+  describe("should work and respect the `infrastructureLogging.level` option with `none` value", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+    let customLogProvider;
+
+    beforeEach(async () => {
+      customLogProvider = {
+        log: jest.fn(),
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: jest.fn(),
+        error: jest.fn(),
+      };
+
+      compiler = webpack({
+        ...config,
+        infrastructureLogging: { level: "none" },
+      });
+
+      server = new Server(
+        {
+          proxy: {
+            "/my-path": {
+              target: "http://unknown:1234",
+              logProvider: () => customLogProvider,
+            },
+          },
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    describe("target", () => {
+      it("respects a proxy option when a request path is matched", async () => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://localhost:${port3}/my-path`, {
+          waitUntil: "networkidle0",
+        });
+
+        expect(customLogProvider.error).toHaveBeenCalledTimes(0);
+
+        expect(response.status()).toMatchSnapshot("response status");
+
+        expect(await response.text()).toMatchSnapshot("response text");
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+
+        expect(pageErrors).toMatchSnapshot("page errors");
+      });
+    });
+  });
 });
