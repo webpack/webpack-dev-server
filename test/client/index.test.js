@@ -223,7 +223,7 @@ describe("index", () => {
     onSocketMessage.hot();
     onSocketMessage.close();
 
-    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 
@@ -232,7 +232,7 @@ describe("index", () => {
     onSocketMessage.liveReload();
     onSocketMessage.close();
 
-    expect(log.log.error.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 
