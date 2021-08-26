@@ -30,17 +30,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -108,17 +98,7 @@ describe("web socket server URL", () => {
 
       proxy.close();
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work behind proxy, when hostnames are different and ports are same ("${webSocketServer}")`, async () => {
@@ -136,17 +116,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -214,17 +184,7 @@ describe("web socket server URL", () => {
 
       proxy.close();
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work behind proxy, when hostnames are different and ports are different ("${webSocketServer}")`, async () => {
@@ -247,17 +207,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -326,17 +276,7 @@ describe("web socket server URL", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("${webSocketServer}")`, async () => {
@@ -354,17 +294,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const resolvedHost = server.options.host;
       const resolvedPort = server.options.port;
@@ -437,17 +367,7 @@ describe("web socket server URL", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
 
       delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
@@ -467,17 +387,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -523,17 +433,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.protocol" option using "auto:" value ("${webSocketServer}")`, async () => {
@@ -551,17 +451,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -607,17 +497,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("${webSocketServer}")`, async () => {
@@ -635,17 +515,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -691,17 +561,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.host" option ("${webSocketServer}")`, async () => {
@@ -719,17 +579,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -775,17 +625,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("${webSocketServer}")`, async () => {
@@ -803,17 +643,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -859,17 +689,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.port" option ("${webSocketServer}")`, async () => {
@@ -887,17 +707,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -943,17 +753,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.port" option as string ("${webSocketServer}")`, async () => {
@@ -971,17 +771,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1027,17 +817,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("${webSocketServer}")`, async () => {
@@ -1062,17 +842,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1120,17 +890,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.port" option using "0" value ("${webSocketServer}")`, async () => {
@@ -1148,17 +908,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1204,17 +954,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
@@ -1232,17 +972,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1288,17 +1018,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with default "/ws" value of the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
@@ -1311,17 +1031,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1367,17 +1077,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.username" option ("${webSocketServer}")`, async () => {
@@ -1395,17 +1095,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1451,17 +1141,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.password" option ("${webSocketServer}")`, async () => {
@@ -1483,17 +1163,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1542,17 +1212,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("${webSocketServer}")`, async () => {
@@ -1571,17 +1231,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1627,17 +1277,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the custom web socket server "path" ("${webSocketServer}")`, async () => {
@@ -1655,17 +1295,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1711,17 +1341,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     // Only works for "ws" server
@@ -1740,17 +1360,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1798,17 +1408,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("${webSocketServer}")`, async () => {
@@ -1831,17 +1431,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1887,17 +1477,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("${webSocketServer}")`, async () => {
@@ -1920,17 +1500,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -1976,17 +1546,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     // Only works for "ws" server, "sockjs" adds "/" be default, because need do requests like "/custom-ws/info?t=1624462615772"
@@ -2010,17 +1570,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2066,17 +1616,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     // Only works for "ws" server
@@ -2100,17 +1640,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2158,17 +1688,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     // Only works for "sockjs" server
@@ -2193,17 +1713,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2249,17 +1759,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work when "host" option is IPv4 ("${webSocketServer}")`, async () => {
@@ -2272,17 +1772,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2328,17 +1818,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work when "host" option is "local-ip" ("${webSocketServer}")`, async () => {
@@ -2351,17 +1831,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2407,17 +1877,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work when "host" option is "local-ipv4" ("${webSocketServer}")`, async () => {
@@ -2430,17 +1890,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2486,17 +1936,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
@@ -2510,17 +1950,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const resolvedFreePort = server.options.port;
 
@@ -2568,17 +1998,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
 
       delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
@@ -2601,17 +2021,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2657,17 +2067,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL" option as "string" ("${webSocketServer}")`, async () => {
@@ -2683,17 +2083,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2739,17 +2129,7 @@ describe("web socket server URL", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work and throw an error on invalid web socket URL ("${webSocketServer}")`, async () => {
@@ -2765,17 +2145,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -2802,17 +2172,7 @@ describe("web socket server URL", () => {
       ).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should not work and output disconnect wrong web socket URL ("${webSocketServer}")`, async () => {
@@ -2828,26 +2188,23 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
       const pageErrors = [];
       const consoleMessages = [];
 
+      let isDisconnected = false;
+
       page
         .on("console", (message) => {
-          consoleMessages.push(message);
+          const text = message.text();
+
+          if (!isDisconnected) {
+            isDisconnected = /Disconnected!/.test(text);
+            consoleMessages.push(text.replace(/:[\d]+/g, ":<port>"));
+          }
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -2856,28 +2213,23 @@ describe("web socket server URL", () => {
       await page.goto(`http://localhost:${port1}/main`, {
         waitUntil: "networkidle0",
       });
+      await new Promise((resolve) => {
+        const interval = setInterval(() => {
+          if (consoleMessages.includes("[webpack-dev-server] Disconnected!")) {
+            clearInterval(interval);
 
-      expect(
-        consoleMessages.map((message) =>
-          message.text().replace(/:[\d]+/g, ":<port>")
-        )
-      ).toMatchSnapshot("console messages");
+            resolve();
+          }
+        }, 100);
+      });
+
+      expect(consoleMessages).toMatchSnapshot("console messages");
       expect(
         pageErrors.map((pageError) => pageError.message.split("\n")[0])
       ).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
   }
 });

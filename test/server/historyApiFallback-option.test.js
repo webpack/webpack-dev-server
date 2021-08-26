@@ -25,27 +25,13 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory", async () => {
@@ -73,27 +59,13 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory", async () => {
@@ -122,27 +94,13 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("historyApiFallback should take preference above directory index", async () => {
@@ -182,27 +140,13 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("historyApiFallback should work and ignore static content", async () => {
@@ -240,27 +184,13 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("historyApiFallback respect rewrites for index", async () => {
@@ -304,17 +234,7 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -322,11 +242,7 @@ describe("historyApiFallback option", () => {
     afterAll(async () => {
       consoleSpy.mockRestore();
 
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory and log", async () => {
@@ -363,17 +279,7 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
@@ -381,11 +287,7 @@ describe("historyApiFallback option", () => {
     afterAll(async () => {
       consoleSpy.mockRestore();
 
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("request to directory and log", async () => {
@@ -419,27 +321,13 @@ describe("historyApiFallback option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should take precedence over static files", async () => {

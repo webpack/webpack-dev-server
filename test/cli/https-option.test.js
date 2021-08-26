@@ -1,6 +1,8 @@
 "use strict";
 
 const path = require("path");
+const del = require("del");
+const Server = require("../../lib/Server");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-https"];
 
@@ -9,7 +11,13 @@ const httpsCertificateDirectory = path.resolve(
   "../fixtures/https-certificate"
 );
 
+const defaultCertificateDir = Server.findCacheDir();
+
 describe('"https" CLI option', () => {
+  beforeEach(async () => {
+    await del([defaultCertificateDir]);
+  });
+
   it('should work using "--https"', async () => {
     const { exitCode, stderr } = await testBin(["--port", port, "--https"]);
 

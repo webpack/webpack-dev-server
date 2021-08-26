@@ -49,22 +49,11 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -87,11 +76,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should show on an error for initial compilation", async () => {
@@ -100,22 +85,11 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -138,11 +112,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should show on a warning and error for initial compilation", async () => {
@@ -155,22 +125,11 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -193,11 +152,45 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
+    await server.stop();
+  });
+
+  it("should show on an ansi formatted error for initial compilation", async () => {
+    const compiler = webpack(config);
+
+    new ErrorPlugin("[0m [90m 18 |[39m           [33mRender[39m [33mansi formatted text[39m[0m").apply(
+      compiler
+    );
+
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/main`, {
+      waitUntil: "networkidle0",
     });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await server.stop();
   });
 
   it("should show on a warning and error for initial compilation and protects against xss", async () => {
@@ -207,22 +200,11 @@ describe("overlay", () => {
     new ErrorPlugin("<strong>strong</strong>").apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -245,32 +227,17 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should not show initially, then show on an error, then hide on fix", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -326,32 +293,17 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should not show initially, then show on an error, then show other error, then hide on fix", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -427,32 +379,17 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it("should not show initially, then show on an error and allow to close", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -516,11 +453,7 @@ describe("overlay", () => {
     fs.writeFileSync(pathToFile, originalCode);
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should not show on a warning when "client.overlay" is "false"', async () => {
@@ -529,7 +462,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: false,
@@ -537,17 +469,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -564,11 +486,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should not show on a warning when "client.overlay.warnings" is "false"', async () => {
@@ -577,7 +495,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -587,17 +504,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -614,11 +521,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should show on a warning when "client.overlay" is "true"', async () => {
@@ -627,7 +530,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: true,
@@ -635,17 +537,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -668,11 +560,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should show on a warning when "client.overlay.warnings" is "true"', async () => {
@@ -681,7 +569,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -691,17 +578,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -724,11 +601,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should show on a warning when "client.overlay.errors" is "true"', async () => {
@@ -737,7 +610,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -747,17 +619,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -780,11 +642,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should not show on an error when "client.overlay" is "false"', async () => {
@@ -793,7 +651,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: false,
@@ -801,17 +658,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -828,11 +675,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should not show on an error when "client.overlay.errors" is "false"', async () => {
@@ -841,7 +684,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -851,17 +693,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -878,11 +710,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should show on an error when "client.overlay" is "true"', async () => {
@@ -891,7 +719,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: true,
@@ -899,17 +726,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -932,11 +749,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should show on an error when "client.overlay.errors" is "true"', async () => {
@@ -945,7 +758,6 @@ describe("overlay", () => {
     new ErrorPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -955,17 +767,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -988,11 +790,7 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 
   it('should show on an error when "client.overlay.warnings" is "true"', async () => {
@@ -1001,7 +799,6 @@ describe("overlay", () => {
     new WarningPlugin().apply(compiler);
 
     const devServerOptions = {
-      host: "0.0.0.0",
       port,
       client: {
         overlay: {
@@ -1011,17 +808,7 @@ describe("overlay", () => {
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     const { page, browser } = await runBrowser();
 
@@ -1044,10 +831,6 @@ describe("overlay", () => {
     );
 
     await browser.close();
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 });

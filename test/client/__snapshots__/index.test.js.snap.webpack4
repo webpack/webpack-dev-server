@@ -23,7 +23,6 @@ exports[`index should run onSocketMessage.ok 1`] = `"Ok"`;
 exports[`index should run onSocketMessage.ok 2`] = `
 Object {
   "hot": false,
-  "initial": false,
   "liveReload": false,
   "logging": "info",
   "overlay": false,

@@ -5,6 +5,7 @@ npm-debug.log
 .idea
 
 client
+!/examples/client
 !/test/client
 coverage
 node_modules

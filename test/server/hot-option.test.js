@@ -17,27 +17,13 @@ describe("hot option", () => {
 
       server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot script in the bundle", async () => {
@@ -60,27 +46,13 @@ describe("hot option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot-only script in the bundle", async () => {
@@ -97,27 +69,13 @@ describe("hot option", () => {
 
       server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should include hot script in the bundle", async () => {
@@ -134,27 +92,13 @@ describe("hot option", () => {
 
       server = new Server({ port, hot: false }, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should NOT include hot script in the bundle", async () => {
@@ -183,27 +127,109 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port }, compiler);
+      server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       expect(pluginFound).toBe(true);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
+      await server.stop();
+    });
+  });
+
+  describe("simple hot config HMR plugin with already added HMR plugin", () => {
+    it("should register the HMR plugin before compilation is complete", async () => {
+      let pluginFound = false;
+      const compiler = webpack({
+        ...config,
+        plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
       });
+
+      compiler.hooks.compilation.intercept({
+        register: (tapInfo) => {
+          if (tapInfo.name === "HotModuleReplacementPlugin") {
+            pluginFound = true;
+          }
+
+          return tapInfo;
+        },
+      });
+
+      server = new Server({ port }, compiler);
+
+      await server.start();
+
+      expect(compiler.options.plugins).toHaveLength(2);
+      expect(pluginFound).toBe(true);
+
+      await server.stop();
+    });
+  });
+
+  describe("simple config with already added HMR plugin", () => {
+    let loggerWarnSpy;
+    let getInfrastructureLoggerSpy;
+    let compiler;
+
+    beforeEach(() => {
+      compiler = webpack({
+        ...config,
+        devServer: { hot: false },
+        plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
+      });
+
+      loggerWarnSpy = jest.fn();
+
+      getInfrastructureLoggerSpy = jest
+        .spyOn(compiler, "getInfrastructureLogger")
+        .mockImplementation(() => {
+          return {
+            warn: loggerWarnSpy,
+            info: () => {},
+            log: () => {},
+          };
+        });
+    });
+
+    afterEach(() => {
+      getInfrastructureLoggerSpy.mockRestore();
+      loggerWarnSpy.mockRestore();
+    });
+
+    it("should show warning with hot normalized as true", async () => {
+      server = new Server({ port }, compiler);
+
+      await server.start();
+
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      );
+
+      await server.stop();
+    });
+
+    it(`should show warning with "hot: true"`, async () => {
+      server = new Server({ port, hot: true }, compiler);
+
+      await server.start();
+
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      );
+
+      await server.stop();
+    });
+
+    it(`should not show warning with "hot: false"`, async () => {
+      server = new Server({ port, hot: false }, compiler);
+
+      await server.start();
+
+      expect(loggerWarnSpy).not.toHaveBeenCalledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      );
+
+      await server.stop();
     });
   });
 
@@ -222,27 +248,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port }, compiler);
+      server = new Server({ port }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       expect(pluginFound).toBe(true);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 
@@ -261,27 +273,13 @@ describe("hot option", () => {
         },
       });
 
-      const serverInTest = new Server({ port, hot: false }, compiler);
+      server = new Server({ port, hot: false }, compiler);
 
-      await new Promise((resolve, reject) => {
-        serverInTest.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       expect(pluginFound).toBe(false);
 
-      await new Promise((resolve) => {
-        serverInTest.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 });

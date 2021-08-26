@@ -47,22 +47,11 @@ describe("target", () => {
           : {}),
       });
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -105,17 +94,7 @@ describe("target", () => {
       }
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
   }
 });

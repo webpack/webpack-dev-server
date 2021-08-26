@@ -240,6 +240,23 @@ describe("hot and live reload", () => {
     // TODO we still output logs from webpack, need to improve this
     {
       title:
+        "should work with manual client setup and allow to enable hot module replacement",
+      webpackOptions: {
+        entry: [
+          "webpack/hot/dev-server",
+          `${require.resolve("../../client-src/index.js")}?hot=true`,
+          require.resolve("../fixtures/reload-config/foo.js"),
+        ],
+        plugins: [new webpack.HotModuleReplacementPlugin()],
+      },
+      options: {
+        client: false,
+        liveReload: false,
+        hot: false,
+      },
+    },
+    {
+      title:
         "should work with manual client setup and allow to disable hot module replacement",
       webpackOptions: {
         entry: [
@@ -251,6 +268,21 @@ describe("hot and live reload", () => {
         client: false,
         liveReload: true,
         hot: true,
+      },
+    },
+    {
+      title:
+        "should work with manual client setup and allow to enable live reload",
+      webpackOptions: {
+        entry: [
+          `${require.resolve("../../client-src/index.js")}?live-reload=true`,
+          require.resolve("../fixtures/reload-config/foo.js"),
+        ],
+      },
+      options: {
+        client: false,
+        liveReload: false,
+        hot: false,
       },
     },
     {
@@ -286,23 +318,12 @@ describe("hot and live reload", () => {
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
       const devServerOptions = {
-        host: "0.0.0.0",
         port,
         ...testDevServerOptions,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await new Promise((resolve, reject) => {
         request(`http://127.0.0.1:${devServerOptions.port}`)
@@ -318,14 +339,6 @@ describe("hot and live reload", () => {
           });
       });
 
-      const hot =
-        typeof testDevServerOptions.hot !== "undefined"
-          ? testDevServerOptions.hot
-          : true;
-      const liveReload =
-        typeof testDevServerOptions.liveReload !== "undefined"
-          ? testDevServerOptions.liveReload
-          : true;
       const webSocketServerLaunched =
         testDevServerOptions.webSocketServer !== false;
 
@@ -425,10 +438,16 @@ describe("hot and live reload", () => {
       const pageErrors = [];
 
       let doneHotUpdate = false;
+      let hasDisconnectedMessage = false;
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          if (!hasDisconnectedMessage) {
+            const text = message.text();
+
+            hasDisconnectedMessage = /Disconnected!/.test(text);
+            consoleMessages.push(text);
+          }
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -456,40 +475,55 @@ describe("hot and live reload", () => {
         "body { background-color: rgb(255, 0, 0); }"
       );
 
-      let doNothing = false;
+      let waitHot =
+        typeof testDevServerOptions.hot !== "undefined"
+          ? testDevServerOptions.hot
+          : true;
+      let waitLiveReload =
+        typeof testDevServerOptions.liveReload !== "undefined"
+          ? testDevServerOptions.liveReload
+          : true;
+
+      if (webSocketServerLaunched === false) {
+        waitHot = false;
+        waitLiveReload = false;
+      }
+
+      if (Array.isArray(webpackOptions.entry)) {
+        if (webpackOptions.entry.some((item) => item.includes("hot=true"))) {
+          waitHot = true;
+        } else if (
+          webpackOptions.entry.some((item) => item.includes("hot=false"))
+        ) {
+          waitHot = false;
+        }
+      }
+
+      if (Array.isArray(webpackOptions.entry)) {
+        if (
+          webpackOptions.entry.some((item) => item.includes("live-reload=true"))
+        ) {
+          waitLiveReload = true;
+        } else if (
+          webpackOptions.entry.some((item) =>
+            item.includes("live-reload=false")
+          )
+        ) {
+          waitLiveReload = false;
+        }
+      }
 
       const query = mode.query || "";
-      let allowToHotModuleReplacement = true;
 
-      if (query.indexOf("webpack-dev-server-hot=false") !== -1) {
-        allowToHotModuleReplacement = false;
+      if (query.includes("webpack-dev-server-hot=false")) {
+        waitHot = false;
       }
 
-      if (
-        Array.isArray(webpackOptions.entry) &&
-        webpackOptions.entry.map((item) => item.includes("hot=false"))
-      ) {
-        allowToHotModuleReplacement = false;
+      if (query.includes("webpack-dev-server-live-reload=false")) {
+        waitLiveReload = false;
       }
 
-      let allowToLiveReload = true;
-
-      if (query.indexOf("webpack-dev-server-live-reload=false") !== -1) {
-        allowToLiveReload = false;
-      }
-
-      if (
-        Array.isArray(webpackOptions.entry) &&
-        webpackOptions.entry.map((item) => item.includes("live-reload=false"))
-      ) {
-        allowToLiveReload = false;
-      }
-
-      if (
-        webSocketServerLaunched &&
-        allowToHotModuleReplacement &&
-        ((hot && liveReload) || (hot && !liveReload))
-      ) {
+      if (waitHot) {
         await page.waitForFunction(
           () =>
             getComputedStyle(document.body)["background-color"] ===
@@ -497,24 +531,20 @@ describe("hot and live reload", () => {
         );
 
         expect(doneHotUpdate).toBe(true);
-      } else if (webSocketServerLaunched && liveReload && allowToLiveReload) {
+      } else if (waitLiveReload) {
         await page.waitForNavigation({
           waitUntil: "networkidle0",
         });
-      } else {
-        if (webSocketServerLaunched) {
-          await new Promise((resolve) => {
-            const interval = setInterval(() => {
-              if (consoleMessages.includes(INVALID_MESSAGE)) {
-                clearInterval(interval);
+      } else if (webSocketServerLaunched) {
+        await new Promise((resolve) => {
+          const interval = setInterval(() => {
+            if (consoleMessages.includes(INVALID_MESSAGE)) {
+              clearInterval(interval);
 
-                resolve();
-              }
-            }, 100);
-          });
-        }
-
-        doNothing = true;
+              resolve();
+            }
+          }, 100);
+        });
       }
 
       const backgroundColorAfter = await page.evaluate(() => {
@@ -523,7 +553,7 @@ describe("hot and live reload", () => {
         return getComputedStyle(body)["background-color"];
       });
 
-      if (doNothing) {
+      if (!waitHot && !waitLiveReload) {
         expect(backgroundColorAfter).toEqual("rgb(0, 0, 255)");
       } else {
         expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
@@ -535,11 +565,7 @@ describe("hot and live reload", () => {
       fs.unlinkSync(cssFilePath);
 
       await browser.close();
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 });

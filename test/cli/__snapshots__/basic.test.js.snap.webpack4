@@ -1,16 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`basic basic should accept the promise function of webpack.config.js: stderr 1`] = `
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
 exports[`basic basic should work using "--host localhost --port <port>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://127.0.0.1:<port>/
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
+exports[`basic basic should work using multi compiler mode: stderr 1`] = `
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`basic basic should work: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<network-ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<network-ip-v6>]:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
@@ -83,6 +99,8 @@ Options:
   --ipc [value]                             Listen to a unix socket.
   --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default).
   --no-live-reload                          Disables reload/refresh the page(s) when file changes are detected (enabled by default)
+  --magic-html                              Enables/Disables magic HTML routes (enabled by default).
+  --no-magic-html                           Negative 'magic-html' option.
   --open [value...]                         Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).
   --no-open                                 Does not open the default browser.
   --open-target <value...>                  Opens specified page in browser.

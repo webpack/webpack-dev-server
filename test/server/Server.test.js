@@ -57,12 +57,10 @@ describe("Server", () => {
       compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot();
 
-        server.close(() => {
-          done();
-        });
+        server.stopCallback(done);
       });
 
-      server.listen(port, "localhost", (error) => {
+      server.startCallback((error) => {
         if (error) {
           throw error;
         }
@@ -78,10 +76,10 @@ describe("Server", () => {
       compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot();
 
-        server.close(done);
+        server.stopCallback(done);
       });
 
-      server.listen(port, "localhost", (error) => {
+      server.startCallback((error) => {
         if (error) {
           throw error;
         }
@@ -91,23 +89,32 @@ describe("Server", () => {
     });
 
     // TODO: remove this after plugin support is published
-    it("should create and run server with old parameters order", (done) => {
+    it("should create and run server with old parameters order and log deprecation warning", (done) => {
       const compiler = webpack(config);
+      const util = require("util");
+      const utilSpy = jest.spyOn(util, "deprecate");
+
       const server = new Server(compiler, baseDevConfig);
+
+      expect(utilSpy.mock.calls[0][1]).toBe(
+        "Using 'compiler' as the first argument is deprecated. Please use 'options' as the first argument and 'compiler' as the second argument."
+      );
 
       compiler.hooks.done.tap("webpack-dev-server", () => {
         expect(entries).toMatchSnapshot("oldparam");
 
-        server.close(done);
+        server.stopCallback(done);
       });
 
-      server.listen(port, "localhost", (error) => {
+      server.startCallback((error) => {
         if (error) {
           throw error;
         }
 
         getEntries(server);
       });
+
+      utilSpy.mockRestore();
     });
   });
 
@@ -167,7 +174,11 @@ describe("Server", () => {
         options: {
           webSocketServer: class CustomServerImplementation {
             constructor() {
-              this.implementation = { close: () => {} };
+              this.implementation = {
+                close: (callback) => {
+                  callback();
+                },
+              };
             }
           },
         },
@@ -183,7 +194,8 @@ describe("Server", () => {
             type: "ws",
             options: {
               host: "127.0.0.1",
-              port: 43334,
+              // TODO `jest` is freeze here
+              // port: 43334,
               pathname: "/ws",
             },
           },
@@ -201,7 +213,8 @@ describe("Server", () => {
             type: "ws",
             options: {
               host: "127.0.0.1",
-              port: "43335",
+              // TODO `jest` is freeze here
+              // port: "43335",
               pathname: "/ws",
             },
           },
@@ -273,6 +286,113 @@ describe("Server", () => {
             },
           },
         },
+      },
+      {
+        title:
+          "single compiler client.logging should default to infrastructureLogging.level",
+        multiCompiler: false,
+        options: {},
+        webpackConfig: {
+          infrastructureLogging: isWebpack5
+            ? {
+                level: "verbose",
+                stream: {
+                  write: () => {},
+                },
+              }
+            : {
+                level: "verbose",
+              },
+        },
+      },
+      {
+        title:
+          "single compiler client.logging should override to infrastructureLogging.level",
+        multiCompiler: false,
+        options: {
+          client: {
+            logging: "none",
+          },
+        },
+        webpackConfig: {
+          infrastructureLogging: isWebpack5
+            ? {
+                level: "verbose",
+                stream: {
+                  write: () => {},
+                },
+              }
+            : {
+                level: "verbose",
+              },
+        },
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          {
+            target: "node",
+          },
+          // infrastructureLogging is set on the second compiler
+          {
+            target: "web",
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          {},
+          // infrastructureLogging is set on the second compiler
+          {
+            devServer: {},
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should respect infrastructureLogging.level",
+        multiCompiler: true,
+        options: {},
+        webpackConfig: [
+          // Fallback
+          {
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+          {},
+        ],
+      },
+      {
+        title:
+          "multi compiler client.logging should override infrastructureLogging.level",
+        multiCompiler: true,
+        options: {
+          client: {
+            logging: "none",
+          },
+        },
+        webpackConfig: [
+          {
+            infrastructureLogging: {
+              level: "warn",
+            },
+          },
+          {},
+        ],
       },
       {
         title: "liveReload is true",
@@ -579,22 +699,12 @@ describe("Server", () => {
         }
 
         const compiler = webpack(webpackConfig);
-        const server = new Server(item.options, compiler);
+        const server = new Server({ ...item.options, port }, compiler);
 
         let errored;
 
         try {
-          await new Promise((resolve, reject) => {
-            server.listen(port, "127.0.0.1", (error) => {
-              if (error) {
-                reject(error);
-
-                return;
-              }
-
-              resolve();
-            });
-          });
+          await server.start();
         } catch (error) {
           errored = error;
         }
@@ -620,32 +730,32 @@ describe("Server", () => {
           expect(optionsForSnapshot).toMatchSnapshot();
         }
 
-        await new Promise((resolve) => {
-          server.close(() => {
-            resolve();
-          });
-        });
+        await server.stop();
       });
     });
   });
 
   describe("event emitter", () => {
-    it("test server error reporting", () => {
+    it("test server error reporting", async () => {
       const compiler = webpack(config);
       const server = new Server(baseDevConfig, compiler);
+
+      await server.start();
 
       const emitError = () =>
         server.server.emit("error", new Error("Error !!!"));
 
       expect(emitError).toThrowError();
 
-      server.close();
+      await server.stop();
     });
   });
 
   // issue: https://github.com/webpack/webpack-dev-server/issues/1724
   describe("express.static.mime.types", () => {
-    it("should success even if mime.types doesn't exist", (done) => {
+    it("should success even if mime.types doesn't exist", async () => {
+      // expect.assertions(1);
+
       jest.mock("express", () => {
         const data = jest.requireActual("express");
         const { static: st } = data;
@@ -661,14 +771,29 @@ describe("Server", () => {
       const compiler = webpack(config);
       const server = new Server(baseDevConfig, compiler);
 
+      let hasStats = false;
+
       compiler.hooks.done.tap("webpack-dev-server", (s) => {
         const output = server.getStats(s);
+
         expect(output.errors.length).toEqual(0);
 
-        server.close(done);
+        hasStats = true;
       });
 
-      server.listen(port, "localhost");
+      await server.start();
+
+      await new Promise((resolve) => {
+        const interval = setInterval(() => {
+          if (hasStats) {
+            resolve();
+
+            clearInterval(interval);
+          }
+        }, 100);
+      });
+
+      await server.stop();
     });
   });
 
@@ -772,7 +897,7 @@ describe("Server", () => {
         port: "9999",
       };
 
-      server = new Server(compiler, options);
+      server = new Server(options, compiler);
 
       const warnSpy = jest.fn();
 
@@ -814,10 +939,8 @@ describe("Server", () => {
       compiler = webpack(config);
     });
 
-    afterEach((done) => {
-      server.close(() => {
-        done();
-      });
+    afterEach(async () => {
+      await server.stop();
     });
 
     it("should allow access for every requests using an IP", () => {
@@ -865,45 +988,33 @@ describe("Server", () => {
 
   describe("Invalidate Callback", () => {
     describe("Testing callback functions on calling invalidate without callback", () => {
-      it("should use default `noop` callback", (done) => {
+      it("should use default `noop` callback", async () => {
         const compiler = webpack(config);
         const server = new Server(baseDevConfig, compiler);
 
-        compiler.hooks.done.tap("webpack-dev-server", () => {
-          server.close(done);
-        });
+        await server.start();
 
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            throw error;
-          }
+        server.invalidate();
 
-          server.invalidate();
+        expect(server.middleware.context.callbacks.length).toEqual(1);
 
-          expect(server.middleware.context.callbacks.length).toEqual(1);
-        });
+        await server.stop();
       });
     });
 
     describe("Testing callback functions on calling invalidate with callback", () => {
-      it("should use `callback` function", (done) => {
+      it("should use `callback` function", async () => {
         const compiler = webpack(config);
         const callback = jest.fn();
         const server = new Server(baseDevConfig, compiler);
 
-        compiler.hooks.done.tap("webpack-dev-server", () => {
-          server.close(done);
-        });
+        await server.start();
 
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            throw error;
-          }
+        server.invalidate(callback);
 
-          server.invalidate(callback);
+        expect(server.middleware.context.callbacks[0]).toBe(callback);
 
-          expect(server.middleware.context.callbacks[0]).toBe(callback);
-        });
+        await server.stop();
       });
     });
   });
@@ -987,6 +1098,7 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       const freePort = await Server.getFreePort(8082);
+
       expect(freePort).toEqual(8082);
     });
 
@@ -996,7 +1108,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort(null);
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1006,8 +1120,10 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       // eslint-disable-next-line no-undefined
       const freePort = await Server.getFreePort(undefined);
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1017,7 +1133,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1027,7 +1145,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
       await createDummyServers(retryCount);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toEqual(60000 + retryCount);
     });
 
@@ -1037,7 +1157,9 @@ describe("Server", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1000;
 
       await createDummyServers(busyPorts);
+
       const freePort = await Server.getFreePort();
+
       expect(freePort).toBeGreaterThan(60005);
     });
 
@@ -1046,7 +1168,7 @@ describe("Server", () => {
 
       jest.mock("portfinder", () => {
         return {
-          getPort: (callback) => callback(new Error("busy")),
+          getPortPromise: () => Promise.reject(new Error("busy")),
         };
       });
 
@@ -1054,8 +1176,8 @@ describe("Server", () => {
 
       try {
         await Server.getFreePort();
-      } catch (err) {
-        expect(err.message).toMatchSnapshot();
+      } catch (error) {
+        expect(error.message).toMatchSnapshot();
       }
     });
   });

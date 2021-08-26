@@ -10,7 +10,6 @@ module.exports = [
       path: "/",
       filename: "client.js",
     },
-    node: false,
     infrastructureLogging: {
       level: "warn",
     },
@@ -25,7 +24,6 @@ module.exports = [
       path: "/",
       filename: "server.js",
     },
-    node: false,
     infrastructureLogging: {
       level: "warn",
     },

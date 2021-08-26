@@ -26,27 +26,13 @@ describe('"mimeTypes" option', () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("requests file with different js mime type", async () => {
@@ -78,27 +64,13 @@ describe('"mimeTypes" option', () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("requests file with custom mime type", async () => {

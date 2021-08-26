@@ -13,7 +13,7 @@ const listOfTests = {
   logging: 1,
   overlay: 1,
   progress: 1,
-  "web-socket-server-and-transport": 1,
+  "server-and-client-transport": 1,
   "web-socket-server-url": 2,
   // integration tests
   "module-federation": 1,
@@ -30,6 +30,7 @@ const listOfTests = {
   "http2-option": 1,
   "https-option": 1,
   "mine-types-option": 1,
+  "magic-html-option": 1,
   "on-after-setup-middleware-option": 1,
   "on-before-setup-middleware-option": 1,
   "on-listening-option": 1,
@@ -60,6 +61,7 @@ const listOfTests = {
   "cli-http2": 1,
   "cli-https": 1,
   "cli-live-reload": 1,
+  "cli-magic-html": 1,
   "cli-open": 1,
   "cli-static": 1,
   "cli-watch-files": 1,
@@ -67,6 +69,9 @@ const listOfTests = {
   target: 1,
   entry: 1,
   "allowed-hosts": 2,
+  "host-and-port": 1,
+  api: 1,
+  "lazy-compilation": 1,
 };
 
 let startPort = 8089;

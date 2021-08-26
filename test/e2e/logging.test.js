@@ -190,27 +190,12 @@ describe("logging", () => {
       })`, async () => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
         const devServerOptions = {
-          host: "0.0.0.0",
           port,
           ...testCase.devServerOptions,
         };
         const server = new Server(devServerOptions, compiler);
 
-        await new Promise((resolve, reject) => {
-          server.listen(
-            devServerOptions.port,
-            devServerOptions.host,
-            (error) => {
-              if (error) {
-                reject(error);
-
-                return;
-              }
-
-              resolve();
-            }
-          );
-        });
+        await server.start();
 
         const { page, browser } = await runBrowser();
 
@@ -248,11 +233,7 @@ describe("logging", () => {
         ).toMatchSnapshot();
 
         await browser.close();
-        await new Promise((resolve) => {
-          server.close(() => {
-            resolve();
-          });
-        });
+        await server.stop();
       });
     });
   });

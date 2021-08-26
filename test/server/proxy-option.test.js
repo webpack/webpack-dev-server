@@ -49,6 +49,16 @@ const proxyOptionPathsAsProperties = {
       }
     },
   },
+  "/bypass-with-target": {
+    target: `http://localhost:${port1}`,
+    changeOrigin: true,
+    secure: false,
+    bypass(req) {
+      if (/\.(html)$/i.test(req.url)) {
+        return req.url;
+      }
+    },
+  },
 };
 
 const proxyOption = {
@@ -66,12 +76,34 @@ const proxyOptionOfArray = [
       bypass: () => {
         if (req && req.query.foo) {
           res.end(`foo+${next.name}+${typeof next}`);
+
           return false;
         }
       },
     };
   },
 ];
+
+const proxyOptionOfArrayWithoutTarget = [
+  {
+    router: () => `http://localhost:${port1}`,
+  },
+];
+
+const proxyWithPath = {
+  "/proxy1": {
+    path: `http://localhost:${port1}`,
+    target: `http://localhost:${port1}`,
+  },
+};
+
+const proxyWithString = {
+  "/proxy1": `http://localhost:${port1}`,
+};
+
+const proxyWithRouterAsObject = {
+  router: () => `http://localhost:${port1}`,
+};
 
 describe("proxy option", () => {
   let proxyServer1;
@@ -137,17 +169,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -155,12 +177,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -216,10 +233,23 @@ describe("proxy option", () => {
         expect(response.status).toEqual(200);
         expect(response.text).toContain("proxy async response");
       });
+
+      it("should work with the 'target' option", async () => {
+        const response = await req.get("/bypass-with-target/foo.js");
+
+        expect(response.status).toEqual(404);
+      });
+
+      it("should work with the 'target' option #2", async () => {
+        const response = await req.get("/bypass-with-target/index.html");
+
+        expect(response.status).toEqual(200);
+        expect(response.text).toContain("Hello");
+      });
     });
   });
 
-  describe("as an option is an object", () => {
+  describe("as an option is an object with the `context` option", () => {
     let server;
     let req;
 
@@ -228,27 +258,13 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOption,
           port: port3,
         },
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -256,12 +272,112 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
+      await closeProxyServers();
+    });
 
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
+    });
+  });
+
+  describe("as an option is an object with `context` and `target` as string", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithString,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
+    });
+  });
+
+  describe("as an option is an object with the `path` option (`context` alias)", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithPath,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
+    });
+  });
+
+  describe("as an option is an object with the `router` option", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithRouterAsObject,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -282,27 +398,13 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: proxyOptionOfArray,
           port: port3,
         },
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -310,12 +412,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -341,6 +438,41 @@ describe("proxy option", () => {
     });
   });
 
+  describe("as an array without the `route` option", () => {
+    let server;
+    let req;
+
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyOptionOfArrayWithoutTarget,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      const response = await req.get("/proxy1");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).toContain("from proxy1");
+    });
+  });
+
   describe("should sharing a proxy option", () => {
     let server;
     let req;
@@ -355,10 +487,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/proxy1": proxyTarget,
             "/proxy2": proxyTarget,
@@ -368,17 +496,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const proxy = express();
 
@@ -392,12 +510,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await new Promise((resolve) => {
         listener.close(() => {
           resolve();
@@ -435,10 +548,6 @@ describe("proxy option", () => {
 
           server = new Server(
             {
-              static: {
-                directory: staticDirectory,
-                watch: false,
-              },
               webSocketServer: webSocketServerType,
               proxy: [
                 {
@@ -452,17 +561,7 @@ describe("proxy option", () => {
             compiler
           );
 
-          await new Promise((resolve, reject) => {
-            server.listen(port3, "127.0.0.1", (error) => {
-              if (error) {
-                reject(error);
-
-                return;
-              }
-
-              resolve();
-            });
-          });
+          await server.start();
 
           webSocketServer = new WebSocketServer({ port: port4 });
           webSocketServer.on("connection", (connection) => {
@@ -476,7 +575,7 @@ describe("proxy option", () => {
           ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
 
           ws.on("message", (message) => {
-            responseMessage = message;
+            responseMessage = message.toString();
             done();
           });
 
@@ -492,11 +591,11 @@ describe("proxy option", () => {
         afterAll(async () => {
           webSocketServer.close();
 
-          await new Promise((resolve) => {
-            server.close(() => {
-              resolve();
-            });
-          });
+          for (const client of webSocketServer.clients) {
+            client.terminate();
+          }
+
+          await server.stop();
         });
       });
     });
@@ -515,10 +614,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "**": proxyTarget,
           },
@@ -527,17 +622,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const proxy = express();
 
@@ -589,11 +674,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
 
       await new Promise((resolve) => {
         listener.close(() => {
@@ -661,10 +742,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "*": {
               context: () => true,
@@ -676,17 +753,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -694,12 +761,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -729,10 +791,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -745,17 +803,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -763,12 +811,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -799,10 +842,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -815,17 +854,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -833,12 +862,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -872,10 +896,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -887,17 +907,7 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       await listenProxyServers();
 
@@ -905,12 +915,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
-
+      await server.stop();
       await closeProxyServers();
     });
 
@@ -944,10 +949,6 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          static: {
-            directory: staticDirectory,
-            watch: false,
-          },
           proxy: {
             "/my-path": {
               target: "http://unknown:1234",
@@ -959,27 +960,13 @@ describe("proxy option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port3, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     describe("target", () => {

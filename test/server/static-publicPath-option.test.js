@@ -36,27 +36,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to index", async () => {
@@ -91,27 +77,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("shouldn't list the files inside the assets folder (404)", async () => {
@@ -145,27 +117,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should list the files inside the assets folder (200)", async () => {
@@ -198,27 +156,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("should list the files inside the assets folder (200)", async () => {
@@ -256,27 +200,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to first directory", async () => {
@@ -310,27 +240,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request to page", async () => {
@@ -355,27 +271,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request foo.wasm", async () => {
@@ -401,27 +303,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("GET request", async () => {
@@ -484,27 +372,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request the first path to index", async () => {
@@ -552,27 +426,13 @@ describe("static.publicPath option", () => {
         compiler
       );
 
-      await new Promise((resolve, reject) => {
-        server.listen(port, "127.0.0.1", (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       req = request(server.app);
     });
 
     afterAll(async () => {
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it("Request the first path to index", async () => {

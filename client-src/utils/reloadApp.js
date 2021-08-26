@@ -1,8 +1,30 @@
+/* global __webpack_hash__ */
+
 import hotEmitter from "webpack/hot/emitter.js";
 import { log } from "./log.js";
 
-function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
-  if (isUnloading) {
+function reloadApp({ hot, liveReload }, status) {
+  if (status.isUnloading) {
+    return;
+  }
+
+  // TODO Workaround for webpack v4, `__webpack_hash__` is not replaced without HotModuleReplacement plugin
+  const webpackHash =
+    // eslint-disable-next-line camelcase
+    typeof __webpack_hash__ !== "undefined"
+      ? // eslint-disable-next-line camelcase
+        __webpack_hash__
+      : status.previousHash || "";
+  const isInitial = status.currentHash.indexOf(webpackHash) === 0;
+
+  if (isInitial) {
+    const isLegacyInitial =
+      webpackHash === "" && hot === false && liveReload === true;
+
+    if (isLegacyInitial) {
+      status.previousHash = status.currentHash;
+    }
+
     return;
   }
 
@@ -22,11 +44,11 @@ function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
   if (hot && allowToHot) {
     log.info("App hot update...");
 
-    hotEmitter.emit("webpackHotUpdate", currentHash);
+    hotEmitter.emit("webpackHotUpdate", status.currentHash);
 
     if (typeof self !== "undefined" && self.window) {
       // broadcast update to window
-      self.postMessage(`webpackHotUpdate${currentHash}`, "*");
+      self.postMessage(`webpackHotUpdate${status.currentHash}`, "*");
     }
   }
   // allow refreshing the page only if liveReload isn't disabled

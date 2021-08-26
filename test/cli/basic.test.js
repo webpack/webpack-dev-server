@@ -66,21 +66,33 @@ describe("basic", () => {
     });
 
     it("should accept the promise function of webpack.config.js", async () => {
-      try {
-        const { exitCode } = await testBin([
-          "--config",
-          path.resolve(
-            __dirname,
-            "../fixtures/promise-config/webpack.config.js"
-          ),
-          "--port",
-          port,
-        ]);
-        expect(exitCode).toEqual(0);
-      } catch (err) {
-        // for windows
-        expect(err.stdout).toContain("main.js");
-      }
+      const { exitCode, stderr } = await testBin([
+        "--config",
+        path.resolve(
+          __dirname,
+          "../fixtures/cli-promise-config/webpack.config.js"
+        ),
+        "--port",
+        port,
+      ]);
+
+      expect(exitCode).toEqual(0);
+      expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    });
+
+    it("should work using multi compiler mode", async () => {
+      const { exitCode, stderr } = await testBin([
+        "--config",
+        path.resolve(
+          __dirname,
+          "../fixtures/cli-universal-compiler-config/webpack.config.js"
+        ),
+        "--port",
+        port,
+      ]);
+
+      expect(exitCode).toEqual(0);
+      expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
     it("should exit the process when SIGINT is detected", (done) => {
@@ -90,7 +102,7 @@ describe("basic", () => {
       );
       const examplePath = path.resolve(
         __dirname,
-        "../../examples/cli/web-socket-url"
+        "../../examples/client/web-socket-url"
       );
       const cp = execa("node", ["--port", port, cliPath], { cwd: examplePath });
 
@@ -141,7 +153,7 @@ describe("basic", () => {
       );
       const examplePath = path.resolve(
         __dirname,
-        "../../examples/cli/web-socket-url"
+        "../../examples/client/web-socket-url"
       );
       const cp = execa(
         "node",
@@ -181,6 +193,14 @@ describe("basic", () => {
 
       let killed = false;
 
+      cp.on("error", (error) => {
+        done(error);
+      });
+
+      cp.stdin.on("error", (error) => {
+        done(error);
+      });
+
       cp.stdout.on("data", () => {
         if (!killed) {
           expect(cp.pid !== 0).toBe(true);
@@ -202,7 +222,7 @@ describe("basic", () => {
         "--port",
         port,
         "--config",
-        "./test/fixtures/dev-server/default-config.js",
+        "./test/fixtures/cli-single-entry/webpack.config.js",
       ]);
 
       expect(exitCode).toEqual(0);
@@ -216,7 +236,7 @@ describe("basic", () => {
           "--port",
           port,
           "--config",
-          "./test/fixtures/dev-server/multi-entry.js",
+          "./test/fixtures/cli-multi-entry/webpack.config.js",
           "--stats",
           "verbose",
         ]);
@@ -234,7 +254,7 @@ describe("basic", () => {
           "--port",
           port,
           "--config",
-          "./test/fixtures/dev-server/empty-entry.js",
+          "./test/fixtures/cli-empty-entry/webpack.config.js",
         ]);
 
         expect(exitCode).toEqual(0);
@@ -247,7 +267,7 @@ describe("basic", () => {
         "--port",
         port,
         "--config",
-        "./test/fixtures/entry-as-descriptor/webpack.config",
+        "./test/fixtures/cli-entry-as-descriptor/webpack.config",
         "--stats",
         "detailed",
       ]);
@@ -302,7 +322,7 @@ describe("basic", () => {
           "--port",
           port,
           "--config",
-          "./test/fixtures/dev-server/target-config.js",
+          "./test/fixtures/cli-target-config/webpack.config.js",
         ]);
 
         expect(exitCode).toEqual(0);

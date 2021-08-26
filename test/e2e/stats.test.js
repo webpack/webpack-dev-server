@@ -109,22 +109,11 @@ describe("stats", () => {
     it(testCase.title, async () => {
       const compiler = webpack({ ...config, ...testCase.webpackOptions });
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -143,11 +132,7 @@ describe("stats", () => {
       ).toMatchSnapshot();
 
       await browser.close();
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 });

@@ -25,22 +25,11 @@ describe("web socket server URL", () => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
-        host: devServerHost,
         ipc: true,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const proxy = httpProxy.createProxyServer({
@@ -112,17 +101,7 @@ describe("web socket server URL", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
@@ -138,22 +117,11 @@ describe("web socket server URL", () => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
-        host: devServerHost,
         ipc,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const proxy = httpProxy.createProxyServer({
@@ -225,17 +193,7 @@ describe("web socket server URL", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     // TODO un skip after implement new API
@@ -270,17 +228,7 @@ describe("web socket server URL", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const proxy = httpProxy.createProxyServer({
@@ -300,7 +248,6 @@ describe("web socket server URL", () => {
         return proxyServer.listen(proxyPort, proxyHost, callback);
       }
 
-      console.log("HERE");
       const proxy = await new Promise((resolve) => {
         const proxyCreated = startProxy(() => {
           resolve(proxyCreated);
@@ -336,7 +283,6 @@ describe("web socket server URL", () => {
         });
       }
 
-      console.log(`http://${proxyHost}:${proxyPort}/main`);
       await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
         waitUntil: "networkidle0",
       });
@@ -365,17 +311,7 @@ describe("web socket server URL", () => {
         });
       });
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
   }
 });

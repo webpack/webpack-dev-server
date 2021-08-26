@@ -32,17 +32,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -95,17 +85,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "origin" header ("${webSocketServer}")`, async () => {
@@ -128,17 +108,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -191,17 +161,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should connect web socket client using localhost to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
@@ -224,17 +184,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -283,17 +233,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should connect web socket client using "127.0.0.1" host to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
@@ -316,17 +256,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -375,17 +305,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should connect web socket client using "[::1] host to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
@@ -408,17 +328,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -467,17 +377,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should connect web socket client using custom hostname to web socket server with the "all" value ("${webSocketServer}")`, async () => {
@@ -500,17 +400,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -563,17 +453,83 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
+      await server.stop();
+    });
 
-            return;
-          }
+    it(`should connect web socket client using custom hostname to web socket server with the "all" value in array ("${webSocketServer}")`, async () => {
+      const devServerHost = "127.0.0.1";
+      const devServerPort = port1;
+      const proxyHost = devServerHost;
+      const proxyPort = port2;
 
-          resolve();
+      const compiler = webpack(config);
+      const devServerOptions = {
+        client: {
+          webSocketURL: {
+            port: port2,
+          },
+        },
+        webSocketServer,
+        port: devServerPort,
+        host: devServerHost,
+        allowedHosts: ["all"],
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await server.start();
+
+      function startProxy(callback) {
+        const app = express();
+
+        app.use(
+          "/",
+          createProxyMiddleware({
+            // Emulation
+            onProxyReqWs: (proxyReq) => {
+              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            },
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: "warn",
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
         });
       });
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      proxy.close();
+
+      await browser.close();
+      await server.stop();
     });
 
     it(`should connect web socket client using custom hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async () => {
@@ -596,17 +552,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -659,17 +605,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("${webSocketServer}")`, async () => {
@@ -692,17 +628,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -755,17 +681,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async () => {
@@ -788,17 +704,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -854,17 +760,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("${webSocketServer}")`, async () => {
@@ -887,17 +783,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -950,17 +836,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should disconnect web client using localhost to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
@@ -983,17 +859,7 @@ describe("allowed hosts", () => {
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       function startProxy(callback) {
         const app = express();
@@ -1050,17 +916,7 @@ describe("allowed hosts", () => {
       proxy.close();
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
   }
 });

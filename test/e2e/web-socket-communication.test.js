@@ -19,23 +19,12 @@ describe("web socket communication", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -44,7 +33,7 @@ describe("web socket communication", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message);
+          consoleMessages.push(message.text());
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -53,45 +42,21 @@ describe("web socket communication", () => {
       await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
-
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
-
+      await server.stop();
       await new Promise((resolve) => {
         const interval = setInterval(() => {
-          if (server.webSocketServer.clients.size === 0) {
+          if (consoleMessages.includes("[webpack-dev-server] Disconnected!")) {
             clearInterval(interval);
+
             resolve();
           }
         }, 100);
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
+      expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
     });
 
     it(`should work and terminate client that is not alive ("${websocketServer}")`, async () => {
@@ -99,23 +64,12 @@ describe("web socket communication", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -142,23 +96,13 @@ describe("web socket communication", () => {
         }, 200);
       });
 
-      expect(server.webSocketServer.clients.size).toBe(0);
+      expect(server.webSocketServer.clients.length).toBe(0);
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
       expect(pageErrors).toMatchSnapshot("page errors");
 
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
 
     it(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
@@ -166,23 +110,12 @@ describe("web socket communication", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        host: "127.0.0.1",
         port,
         webSocketServer: websocketServer,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
@@ -201,32 +134,10 @@ describe("web socket communication", () => {
         waitUntil: "networkidle0",
       });
 
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
-
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
+      await server.start();
 
       await page.waitForNavigation({
-        timeout: 60000,
         waitUntil: "networkidle0",
       });
 
@@ -236,17 +147,7 @@ describe("web socket communication", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
 
       await browser.close();
-      await new Promise((resolve, reject) => {
-        server.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 
@@ -255,23 +156,12 @@ describe("web socket communication", () => {
 
     const compiler = webpack(config);
     const devServerOptions = {
-      host: "127.0.0.1",
       port,
       webSocketServer: "ws",
     };
     const server = new Server(devServerOptions, compiler);
 
-    await new Promise((resolve, reject) => {
-      server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-        if (error) {
-          reject(error);
-
-          return;
-        }
-
-        resolve();
-      });
-    });
+    await server.start();
 
     server.webSocketServer.heartbeatInterval = 100;
 
@@ -313,10 +203,6 @@ describe("web socket communication", () => {
       });
     });
 
-    await new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
-    });
+    await server.stop();
   });
 });
