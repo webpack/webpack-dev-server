@@ -2,7 +2,7 @@
 
 const path = require("path");
 const express = require("express");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const WebSocket = require("ws");
 const webpack = require("webpack");
 const runBrowser = require("../helpers/run-browser");
@@ -1065,6 +1065,290 @@ describe("proxy option", () => {
           expect(pageErrors).toMatchSnapshot("page errors");
         });
       });
+    });
+  });
+
+  describe("should supports http methods", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+    let listener;
+
+    const proxyTarget = {
+      target: `http://localhost:${port1}`,
+    };
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: {
+            "**": proxyTarget,
+          },
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      const proxy = express();
+
+      // Parse application/x-www-form-urlencoded
+      proxy.use(bodyParser.urlencoded({ extended: false }));
+
+      // Parse application/json
+      proxy.use(bodyParser.json());
+
+      // This forces Express to try to decode URLs, which is needed for the test
+      // associated with the middleware below.
+      proxy.all("*", (_req, res, next) => {
+        next();
+      });
+      // We must define all 4 params in order for this to be detected as an
+      // error handling middleware.
+      // eslint-disable-next-line no-unused-vars
+      proxy.use((error, proxyReq, res, next) => {
+        res.status(500);
+        res.send("error from proxy");
+      });
+
+      proxy.get("/get", (proxyReq, res) => {
+        res.send("GET method from proxy");
+      });
+
+      proxy.head("/head", (proxyReq, res) => {
+        res.send("HEAD method from proxy");
+      });
+
+      proxy.post("/post-x-www-form-urlencoded", (proxyReq, res) => {
+        const id = proxyReq.body.id;
+
+        res.status(200).send(`POST method from proxy (id: ${id})`);
+      });
+
+      proxy.post("/post-application-json", (proxyReq, res) => {
+        const id = proxyReq.body.id;
+
+        res.status(200).send({ answer: `POST method from proxy (id: ${id})` });
+      });
+
+      proxy.delete("/delete", (proxyReq, res) => {
+        res.send("DELETE method from proxy");
+      });
+
+      listener = proxy.listen(port1);
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await new Promise((resolve) => {
+        listener.close(() => {
+          resolve();
+        });
+      });
+    });
+
+    it("errors", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/%`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("GET method", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/get`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("HEAD method", async () => {
+      await page.setRequestInterception(true);
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        })
+        .on("request", (interceptedRequest) => {
+          interceptedRequest.continue({ method: "HEAD" });
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/head`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("POST method (application/x-www-form-urlencoded)", async () => {
+      await page.setRequestInterception(true);
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        })
+        .on("request", (interceptedRequest) => {
+          interceptedRequest.continue({
+            method: "POST",
+            postData: "id=1",
+            headers: {
+              ...interceptedRequest.headers(),
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          });
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/post-x-www-form-urlencoded`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(response.headers()["content-type"]).toMatchSnapshot(
+        "response headers content-type"
+      );
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("POST method (application/json)", async () => {
+      await page.setRequestInterception(true);
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        })
+        .on("request", (interceptedRequest) => {
+          interceptedRequest.continue({
+            method: "POST",
+            postData: JSON.stringify({ id: "1" }),
+            headers: {
+              ...interceptedRequest.headers(),
+              "Content-Type": "application/json",
+            },
+          });
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/post-application-json`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(response.headers()["content-type"]).toMatchSnapshot(
+        "response headers content-type"
+      );
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("DELETE method", async () => {
+      await page.setRequestInterception(true);
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        })
+        .on("request", (interceptedRequest) => {
+          interceptedRequest.continue({ method: "DELETE" });
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/delete`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
 });

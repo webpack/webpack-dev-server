@@ -221,3 +221,59 @@ exports[`proxy option should sharing a proxy option respects proxy2 option: page
 exports[`proxy option should sharing a proxy option respects proxy2 option: response status 1`] = `200`;
 
 exports[`proxy option should sharing a proxy option respects proxy2 option: response text 1`] = `"from proxy"`;
+
+exports[`proxy option should supports http methods DELETE method: console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods DELETE method: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods DELETE method: response status 1`] = `200`;
+
+exports[`proxy option should supports http methods DELETE method: response text 1`] = `"DELETE method from proxy"`;
+
+exports[`proxy option should supports http methods GET method: console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods GET method: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods GET method: response status 1`] = `200`;
+
+exports[`proxy option should supports http methods GET method: response text 1`] = `"GET method from proxy"`;
+
+exports[`proxy option should supports http methods HEAD method: console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods HEAD method: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods HEAD method: response status 1`] = `200`;
+
+exports[`proxy option should supports http methods HEAD method: response text 1`] = `""`;
+
+exports[`proxy option should supports http methods POST method (application/json): console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/json): page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/json): response headers content-type 1`] = `"application/json; charset=utf-8"`;
+
+exports[`proxy option should supports http methods POST method (application/json): response status 1`] = `200`;
+
+exports[`proxy option should supports http methods POST method (application/json): response text 1`] = `"{\\"answer\\":\\"POST method from proxy (id: 1)\\"}"`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): response status 1`] = `200`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): response text 1`] = `"POST method from proxy (id: 1)"`;
+
+exports[`proxy option should supports http methods errors: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+]
+`;
+
+exports[`proxy option should supports http methods errors: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods errors: response status 1`] = `500`;
+
+exports[`proxy option should supports http methods errors: response text 1`] = `"error from proxy"`;
