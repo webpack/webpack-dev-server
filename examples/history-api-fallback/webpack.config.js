@@ -8,8 +8,6 @@ module.exports = setup({
   context: __dirname,
   entry: "./app.js",
   devServer: {
-    historyApiFallback: {
-      disableDotRule: true,
-    },
+    historyApiFallback: true,
   },
 });
