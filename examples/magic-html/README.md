@@ -4,7 +4,7 @@ Enables/Disables magic HTML routes (enabled by default).
 
 ## true
 
-Setting it to `true` will enable magic HTML route (`/main`):
+Setting it to `true` will enable magic HTML routes ( routes corresponding to your webpack output, in this example `/main` for `main.js`):
 
 **webpack.config.js**
 
