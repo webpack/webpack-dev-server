@@ -29,18 +29,14 @@ describe("Universal compiler", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/client.js`, {
+    const response = await page.goto(`http://127.0.0.1:${port}/client.js`, {
       waitUntil: "networkidle0",
     });
 
-    const bodyHandle = await page.$("body");
-    const htmlContent = await page.evaluate(
-      (body) => body.innerHTML,
-      bodyHandle
-    );
+    const responseText = await response.text();
 
-    expect(htmlContent).toContain("Hello from the client");
-    expect(htmlContent).toContain("WebsocketClient");
+    expect(responseText).toContain("Hello from the client");
+    expect(responseText).toContain("WebsocketClient");
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
@@ -76,18 +72,14 @@ describe("Universal compiler", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/server.js`, {
+    const response = await page.goto(`http://127.0.0.1:${port}/server.js`, {
       waitUntil: "networkidle0",
     });
 
-    const bodyHandle = await page.$("body");
-    const htmlContent = await page.evaluate(
-      (body) => body.innerHTML,
-      bodyHandle
-    );
+    const responseText = await response.text();
 
-    expect(htmlContent).toContain("Hello from the server");
-    expect(htmlContent).not.toContain("WebsocketServer");
+    expect(responseText).toContain("Hello from the server");
+    expect(responseText).not.toContain("WebsocketServer");
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
