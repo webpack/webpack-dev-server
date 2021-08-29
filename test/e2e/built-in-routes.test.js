@@ -139,19 +139,13 @@ describe("Built in routes", () => {
         }
       );
 
-      const bodyHandle = await page.$("body");
-      const htmlContent = await page.evaluate(
-        (body) => body.innerHTML,
-        bodyHandle
-      );
-
       expect(response.headers()["content-type"]).toMatchSnapshot(
         "response headers content-type"
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
-      expect(htmlContent).toMatchSnapshot("directory list");
+      expect(await response.text()).toMatchSnapshot("directory list");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
@@ -181,19 +175,13 @@ describe("Built in routes", () => {
         }
       );
 
-      const bodyHandle = await page.$("body");
-      const htmlContent = await page.evaluate(
-        (body) => body.innerHTML,
-        bodyHandle
-      );
-
       expect(response.headers()["content-type"]).toMatchSnapshot(
         "response headers content-type"
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
-      expect(htmlContent).toMatchSnapshot("directory list");
+      expect(await response.text()).toMatchSnapshot("directory list");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
@@ -350,19 +338,13 @@ describe("Built in routes", () => {
         }
       );
 
-      const bodyHandle = await page.$("body");
-      const htmlContent = await page.evaluate(
-        (body) => body.innerHTML,
-        bodyHandle
-      );
-
       expect(response.headers()["content-type"]).toMatchSnapshot(
         "response headers content-type"
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
-      expect(htmlContent).toMatchSnapshot("directory list");
+      expect(await response.text()).toMatchSnapshot("directory list");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
