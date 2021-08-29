@@ -13,7 +13,7 @@ const [port1, port2, port3, port4] = require("../ports-map")["proxy-option"];
 const WebSocketServer = WebSocket.Server;
 const staticDirectory = path.resolve(__dirname, "../fixtures/proxy-config");
 
-const proxyOptionPathsAsProperties = {
+const proxyOptionsObject = {
   "/proxy1": {
     target: `http://localhost:${port1}`,
   },
@@ -167,7 +167,7 @@ describe("proxy option", () => {
             directory: staticDirectory,
             watch: false,
           },
-          proxy: proxyOptionPathsAsProperties,
+          proxy: proxyOptionsObject,
           port: port3,
         },
         compiler
@@ -189,307 +189,7 @@ describe("proxy option", () => {
       await closeProxyServers();
     });
 
-    describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`http://localhost:${port3}/proxy1`, {
-          waitUntil: "networkidle0",
-        });
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-    });
-
-    describe("pathRewrite", () => {
-      it("respects a pathRewrite option", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(
-          `http://localhost:${port3}/api/proxy2`,
-          {
-            waitUntil: "networkidle0",
-          }
-        );
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-    });
-
-    describe("byPass", () => {
-      it("can rewrite a request path", async () => {
-        pageErrors = [];
-        consoleMessages = [];
-
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(
-          `http://localhost:${port3}/foo/bar.html`,
-          {
-            waitUntil: "networkidle0",
-          }
-        );
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-
-      it("can rewrite a request path regardless of the target defined a bypass option", async () => {
-        pageErrors = [];
-        consoleMessages = [];
-
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(
-          `http://localhost:${port3}/baz/hoge.html`,
-          {
-            waitUntil: "networkidle0",
-          }
-        );
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-
-      it("should pass through a proxy when a bypass function returns null", async () => {
-        pageErrors = [];
-        consoleMessages = [];
-
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`http://localhost:${port3}/foo.js`, {
-          waitUntil: "networkidle0",
-        });
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-
-      it("should not pass through a proxy when a bypass function returns false", async () => {
-        pageErrors = [];
-        consoleMessages = [];
-
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(
-          `http://localhost:${port3}/proxyfalse`,
-          {
-            waitUntil: "networkidle0",
-          }
-        );
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-
-      it("should wait if bypass returns promise", async () => {
-        pageErrors = [];
-        consoleMessages = [];
-
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(
-          `http://localhost:${port3}/proxy/async`,
-          {
-            waitUntil: "networkidle0",
-          }
-        );
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-
-      it("should work with the 'target' option", async () => {
-        pageErrors = [];
-        consoleMessages = [];
-
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(
-          `http://localhost:${port3}/bypass-with-target/foo.js`,
-          {
-            waitUntil: "networkidle0",
-          }
-        );
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-
-      it("should work with the 'target' option #2", async () => {
-        pageErrors = [];
-        consoleMessages = [];
-
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(
-          `http://localhost:${port3}/bypass-with-target/index.html`,
-          {
-            waitUntil: "networkidle0",
-          }
-        );
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-    });
-  });
-
-  describe("as an option is an object with the `context` option", () => {
-    let compiler;
-    let server;
-    let page;
-    let browser;
-    let pageErrors;
-    let consoleMessages;
-
-    beforeEach(async () => {
-      compiler = webpack(config);
-
-      server = new Server(
-        {
-          proxy: proxyOption,
-          port: port3,
-        },
-        compiler
-      );
-
-      await server.start();
-
-      await listenProxyServers();
-
-      ({ page, browser } = await runBrowser());
-
-      pageErrors = [];
-      consoleMessages = [];
-    });
-
-    afterEach(async () => {
-      await browser.close();
-      await server.stop();
-      await closeProxyServers();
-    });
-
-    it("respects a proxy option", async () => {
+    it("respects a proxy option when a request path is matched", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -512,44 +212,8 @@ describe("proxy option", () => {
 
       expect(pageErrors).toMatchSnapshot("page errors");
     });
-  });
 
-  describe("as an option is an object with `context` and `target` as string", () => {
-    let compiler;
-    let server;
-    let page;
-    let browser;
-    let pageErrors;
-    let consoleMessages;
-
-    beforeEach(async () => {
-      compiler = webpack(config);
-
-      server = new Server(
-        {
-          proxy: proxyWithString,
-          port: port3,
-        },
-        compiler
-      );
-
-      await server.start();
-
-      await listenProxyServers();
-
-      ({ page, browser } = await runBrowser());
-
-      pageErrors = [];
-      consoleMessages = [];
-    });
-
-    afterEach(async () => {
-      await browser.close();
-      await server.stop();
-      await closeProxyServers();
-    });
-
-    it("respects a proxy option", async () => {
+    it("respects a pathRewrite option", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -558,127 +222,7 @@ describe("proxy option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(await response.text()).toMatchSnapshot("response text");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-    });
-  });
-
-  describe("as an option is an object with the `path` option (`context` alias)", () => {
-    let compiler;
-    let server;
-    let page;
-    let browser;
-    let pageErrors;
-    let consoleMessages;
-
-    beforeEach(async () => {
-      compiler = webpack(config);
-
-      server = new Server(
-        {
-          proxy: proxyWithPath,
-          port: port3,
-        },
-        compiler
-      );
-
-      await server.start();
-
-      await listenProxyServers();
-
-      ({ page, browser } = await runBrowser());
-
-      pageErrors = [];
-      consoleMessages = [];
-    });
-
-    afterEach(async () => {
-      await browser.close();
-      await server.stop();
-      await closeProxyServers();
-    });
-
-    it("respects a proxy option", async () => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        });
-
-      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(await response.text()).toMatchSnapshot("response text");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-    });
-  });
-
-  describe("as an option is an object with the `router` option", () => {
-    let compiler;
-    let server;
-    let page;
-    let browser;
-    let pageErrors;
-    let consoleMessages;
-
-    beforeEach(async () => {
-      compiler = webpack(config);
-
-      server = new Server(
-        {
-          proxy: proxyWithRouterAsObject,
-          port: port3,
-        },
-        compiler
-      );
-
-      await server.start();
-
-      await listenProxyServers();
-
-      ({ page, browser } = await runBrowser());
-
-      pageErrors = [];
-      consoleMessages = [];
-    });
-
-    afterEach(async () => {
-      await browser.close();
-      await server.stop();
-      await closeProxyServers();
-    });
-
-    it("respects a proxy option", async () => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        });
-
-      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+      const response = await page.goto(`http://localhost:${port3}/api/proxy2`, {
         waitUntil: "networkidle0",
       });
 
@@ -852,6 +396,490 @@ describe("proxy option", () => {
       const response = await page.goto(`http://localhost:${port3}/proxy1`, {
         waitUntil: "networkidle0",
       });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an option is an object with the `context` option", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyOption,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an option is an object with the `path` option (`context` alias)", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithPath,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an option is an object with `context` and `target` as string", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithString,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("as an option is an object with the `router` option", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          proxy: proxyWithRouterAsObject,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("respects a proxy option", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxy1`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
+  describe("proxy with byPass", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
+          proxy: proxyOptionsObject,
+          port: port3,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      await listenProxyServers();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      await closeProxyServers();
+    });
+
+    it("can rewrite a request path", async () => {
+      pageErrors = [];
+      consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/foo/bar.html`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("can rewrite a request path regardless of the target defined a bypass option", async () => {
+      pageErrors = [];
+      consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/baz/hoge.html`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should pass through a proxy when a bypass function returns null", async () => {
+      pageErrors = [];
+      consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/foo.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should not pass through a proxy when a bypass function returns false", async () => {
+      pageErrors = [];
+      consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port3}/proxyfalse`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should wait if bypass returns promise", async () => {
+      pageErrors = [];
+      consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/proxy/async`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should work with the 'target' option", async () => {
+      pageErrors = [];
+      consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/bypass-with-target/foo.js`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(await response.text()).toMatchSnapshot("response text");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should work with the 'target' option #2", async () => {
+      pageErrors = [];
+      consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://localhost:${port3}/bypass-with-target/index.html`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
 
       expect(response.status()).toMatchSnapshot("response status");
 

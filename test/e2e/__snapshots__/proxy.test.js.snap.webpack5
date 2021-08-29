@@ -32,123 +32,21 @@ exports[`proxy option as an array without the \`route\` option respects a proxy 
 
 exports[`proxy option as an array without the \`route\` option respects a proxy option: response text 1`] = `"from proxy1"`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path regardless of the target defined a bypass option: console messages 1`] = `Array []`;
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: console messages 1`] = `Array []`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path regardless of the target defined a bypass option: page errors 1`] = `Array []`;
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: page errors 1`] = `Array []`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path regardless of the target defined a bypass option: response status 1`] = `200`;
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: response status 1`] = `200`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path regardless of the target defined a bypass option: response text 1`] = `
-"Hello
-"
-`;
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: response text 1`] = `"from proxy2"`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path: console messages 1`] = `Array []`;
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: console messages 1`] = `Array []`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path: page errors 1`] = `Array []`;
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path: response status 1`] = `200`;
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: response status 1`] = `200`;
 
-exports[`proxy option as an object of paths with properties byPass can rewrite a request path: response text 1`] = `
-"Hello
-"
-`;
-
-exports[`proxy option as an object of paths with properties byPass should not pass through a proxy when a bypass function returns false: console messages 1`] = `
-Array [
-  "Failed to load resource: the server responded with a status of 404 (Not Found)",
-]
-`;
-
-exports[`proxy option as an object of paths with properties byPass should not pass through a proxy when a bypass function returns false: page errors 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should not pass through a proxy when a bypass function returns false: response status 1`] = `404`;
-
-exports[`proxy option as an object of paths with properties byPass should not pass through a proxy when a bypass function returns false: response text 1`] = `
-"<!DOCTYPE html>
-<html lang=\\"en\\">
-<head>
-<meta charset=\\"utf-8\\">
-<title>Error</title>
-</head>
-<body>
-<pre>Cannot GET /proxyfalse</pre>
-</body>
-</html>
-"
-`;
-
-exports[`proxy option as an object of paths with properties byPass should pass through a proxy when a bypass function returns null: console messages 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should pass through a proxy when a bypass function returns null: page errors 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should pass through a proxy when a bypass function returns null: response status 1`] = `200`;
-
-exports[`proxy option as an object of paths with properties byPass should pass through a proxy when a bypass function returns null: response text 1`] = `
-"\\"use strict\\";
-
-console.log(\\"Hey.\\");
-"
-`;
-
-exports[`proxy option as an object of paths with properties byPass should wait if bypass returns promise: console messages 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should wait if bypass returns promise: page errors 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should wait if bypass returns promise: response status 1`] = `200`;
-
-exports[`proxy option as an object of paths with properties byPass should wait if bypass returns promise: response text 1`] = `"proxy async response"`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option #2: console messages 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option #2: page errors 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option #2: response status 1`] = `200`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option #2: response text 1`] = `
-"Hello
-"
-`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option: console messages 1`] = `
-Array [
-  "Failed to load resource: the server responded with a status of 404 (Not Found)",
-]
-`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option: page errors 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option: response status 1`] = `404`;
-
-exports[`proxy option as an object of paths with properties byPass should work with the 'target' option: response text 1`] = `
-"<!DOCTYPE html>
-<html lang=\\"en\\">
-<head>
-<meta charset=\\"utf-8\\">
-<title>Error</title>
-</head>
-<body>
-<pre>Cannot GET /bypass-with-target/foo.js</pre>
-</body>
-</html>
-"
-`;
-
-exports[`proxy option as an object of paths with properties pathRewrite respects a pathRewrite option: console messages 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties pathRewrite respects a pathRewrite option: page errors 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties pathRewrite respects a pathRewrite option: response status 1`] = `200`;
-
-exports[`proxy option as an object of paths with properties pathRewrite respects a pathRewrite option: response text 1`] = `"from proxy2"`;
-
-exports[`proxy option as an object of paths with properties target respects a proxy option when a request path is matched: console messages 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
-
-exports[`proxy option as an object of paths with properties target respects a proxy option when a request path is matched: response status 1`] = `200`;
-
-exports[`proxy option as an object of paths with properties target respects a proxy option when a request path is matched: response text 1`] = `"from proxy1"`;
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: response text 1`] = `"from proxy1"`;
 
 exports[`proxy option as an option is an object with \`context\` and \`target\` as string respects a proxy option: console messages 1`] = `Array []`;
 
@@ -181,6 +79,108 @@ exports[`proxy option as an option is an object with the \`router\` option respe
 exports[`proxy option as an option is an object with the \`router\` option respects a proxy option: response status 1`] = `200`;
 
 exports[`proxy option as an option is an object with the \`router\` option respects a proxy option: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: response text 1`] = `
+"Hello
+"
+`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: response text 1`] = `
+"Hello
+"
+`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: response status 1`] = `404`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /proxyfalse</pre>
+</body>
+</html>
+"
+`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: response text 1`] = `
+"\\"use strict\\";
+
+console.log(\\"Hey.\\");
+"
+`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: response text 1`] = `"proxy async response"`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: response text 1`] = `
+"Hello
+"
+`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: response status 1`] = `404`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bypass-with-target/foo.js</pre>
+</body>
+</html>
+"
+`;
 
 exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: console messages 1`] = `
 Array [
