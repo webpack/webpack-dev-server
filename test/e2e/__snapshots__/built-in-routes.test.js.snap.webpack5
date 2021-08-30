@@ -3,7 +3,7 @@
 exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: console messages 1`] = `Array []`;
 
 exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: directory list 1`] = `
-"<h1>Assets Report:</h1><div><h2>Compilation: unnamed[0]</h2><ul><li>
+"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><h1>Assets Report:</h1><div><h2>Compilation: unnamed[0]</h2><ul><li>
               <strong><a href=\\"/bundle1/foo.js\\" target=\\"_blank\\">foo.js</a></strong>
             </li><li>
               <strong><a href=\\"/bundle1/path/to/file.html\\" target=\\"_blank\\">path/to/file.html</a></strong>
@@ -11,7 +11,7 @@ exports[`Built in routes with multi config should handle GET request to director
               <strong><a href=\\"/bundle2/bar.js\\" target=\\"_blank\\">bar.js</a></strong>
             </li></ul></div><div><h2>Compilation: other</h2><ul><li>
               <strong><a href=\\"bar.js\\" target=\\"_blank\\">bar.js</a></strong>
-            </li></ul></div>"
+            </li></ul></div></body></html>"
 `;
 
 exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: page errors 1`] = `Array []`;
@@ -23,11 +23,11 @@ exports[`Built in routes with multi config should handle GET request to director
 exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: console messages 1`] = `Array []`;
 
 exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: directory list 1`] = `
-"<h1>Assets Report:</h1><div><h2>Compilation: unnamed</h2><ul><li>
+"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><h1>Assets Report:</h1><div><h2>Compilation: unnamed</h2><ul><li>
               <strong><a href=\\"main.js\\" target=\\"_blank\\">main.js</a></strong>
             </li><li>
               <strong><a href=\\"test.html\\" target=\\"_blank\\">test.html</a></strong>
-            </li></ul></div>"
+            </li></ul></div></body></html>"
 `;
 
 exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: page errors 1`] = `Array []`;

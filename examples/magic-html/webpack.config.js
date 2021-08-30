@@ -8,6 +8,6 @@ module.exports = setup({
   context: __dirname,
   entry: "./app.js",
   devServer: {
-    historyApiFallback: true,
+    magicHtml: true,
   },
 });
