@@ -47,7 +47,7 @@ module.exports = {
 };
 ```
 
-Usage via CLI:
+Use the following command to run the example:
 
 ```console
 npx webpack serve --open
