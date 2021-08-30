@@ -198,7 +198,7 @@ const onSocketMessage = {
     log.error(error);
   },
   close() {
-    log.error("Disconnected!");
+    log.info("Disconnected!");
 
     sendMessage("Close");
   },
