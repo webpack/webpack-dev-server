@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0...v4.1.0) (2021-08-31)
+
+
+### Features
+
+* added the `magicHtml` option ([#3717](https://github.com/webpack/webpack-dev-server/issues/3717)) ([4831f58](https://github.com/webpack/webpack-dev-server/commit/4831f58a75d12f75f4d5e5064ff3245f1a3770ba))
+* allow to set `hot` and `live-reload` for client using search params ([1c57680](https://github.com/webpack/webpack-dev-server/commit/1c576802bff4a4be78b1771ed2fc8f343780663b))
+* show warning when the `hot` option is enabled with the HMR plugin in config ([#3744](https://github.com/webpack/webpack-dev-server/issues/3744)) ([6cb1e4e](https://github.com/webpack/webpack-dev-server/commit/6cb1e4e6a25de3fb284be84d2ad67fc701800b96))
+
+### Bug Fixes
+
+* change log type of `Disconnected!` to `info` ([fde27f5](https://github.com/webpack/webpack-dev-server/commit/fde27f5002ae3d679b2cee2215287f6e3a16febf))
+* handle `--allowed-hosts all` correctly ([#3720](https://github.com/webpack/webpack-dev-server/issues/3720)) ([326ed56](https://github.com/webpack/webpack-dev-server/commit/326ed567638944bc3b64e185b118f9e723383e44))
+* output documentation link on errors ([#3680](https://github.com/webpack/webpack-dev-server/issues/3680)) ([e16221b](https://github.com/webpack/webpack-dev-server/commit/e16221b1aed48f93c31c8659438834fdbf1e62bf))
+* respect the `bypass` option with `target`/`router` options for proxy ([b5dd568](https://github.com/webpack/webpack-dev-server/commit/b5dd5687e521cd70e7e13b397280d8bda38df255))
+
 ## [4.0.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-rc.1...v4.0.0) (2021-08-18)
 
 ## Notes:
