@@ -1,5 +1,33 @@
 "use strict";
 
+const { version } = require("webpack");
+
+let moduleRuleForCustom = {};
+
+if (version.startsWith("5")) {
+  moduleRuleForCustom = {
+    test: /\.custom$/,
+    type: "asset/resource",
+    generator: {
+      filename: "[name][ext]",
+    },
+  };
+} else {
+  moduleRuleForCustom = {
+    test: /\.custom$/,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          name() {
+            return "[name].[ext]";
+          },
+        },
+      },
+    ],
+  };
+}
+
 module.exports = {
   mode: "development",
   context: __dirname,
@@ -15,17 +43,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.custom$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name() {
-                return "[name].[ext]";
-              },
-            },
-          },
-        ],
+        ...moduleRuleForCustom,
       },
     ],
   },
