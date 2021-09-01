@@ -539,11 +539,15 @@ module.exports = {
       {
         type: "boolean",
         multiple: false,
-        description: "Enables/Disables magic HTML routes (enabled by default).",
+        description:
+          "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
         path: "magicHtml",
       },
     ],
-    description: "Enables/Disables magic HTML routes (enabled by default).",
+    description:
+      "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
+    negatedDescription:
+      "Disables magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
     simpleType: "boolean",
     multiple: false,
   },

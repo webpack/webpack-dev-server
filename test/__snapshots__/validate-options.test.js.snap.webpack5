@@ -442,7 +442,7 @@ exports[`options validate should throw an error on the "liveReload" option with 
 exports[`options validate should throw an error on the "magicHtml" option with 'string' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.magicHtml should be a boolean.
-   -> Enables/Disables magic HTML routes (enabled by default).
+   -> Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').
    -> Read more at https://webpack.js.org/configuration/dev-server/#devservermagichtml"
 `;
 
