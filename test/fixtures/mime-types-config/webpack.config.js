@@ -9,7 +9,7 @@ if (version.startsWith("5")) {
     test: /\.custom$/,
     type: "asset/resource",
     generator: {
-      filename: "[name].[ext]",
+      filename: "[name][ext]",
     },
   };
 } else {
