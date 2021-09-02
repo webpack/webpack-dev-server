@@ -1,30 +1,112 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`magicHtml option disabled should not handle GET request to magic async html: console messages 1`] = `
+exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): console messages 1`] = `
 Array [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`magicHtml option disabled should not handle GET request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option disabled should not handle GET request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option disabled should not handle GET request to magic async html: response status 1`] = `404`;
+exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): response status 1`] = `404`;
 
-exports[`magicHtml option disabled should not handle HEAD request to magic async html: console messages 1`] = `
+exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bundle</pre>
+</body>
+</html>
+"
+`;
+
+exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): console messages 1`] = `
 Array [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`magicHtml option disabled should not handle HEAD request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option disabled should not handle HEAD request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option disabled should not handle HEAD request to magic async html: response status 1`] = `404`;
+exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): response status 1`] = `404`;
 
-exports[`magicHtml option enabled should handle GET request to magic async html: console messages 1`] = `
+exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): response text 1`] = `""`;
+
+exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): page errors 1`] = `Array []`;
+
+exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response status 1`] = `404`;
+
+exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bundle.other</pre>
+</body>
+</html>
+"
+`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to /bundle: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to /bundle: page errors 1`] = `Array []`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to /bundle: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to /bundle: response status 1`] = `404`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to /bundle: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bundle</pre>
+</body>
+</html>
+"
+`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle HEAD request to magic async html (/bundle.other): console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle HEAD request to magic async html (/bundle.other): page errors 1`] = `Array []`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle HEAD request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle HEAD request to magic async html (/bundle.other): response status 1`] = `404`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle HEAD request to magic async html (/bundle.other): response text 1`] = `""`;
+
+exports[`magicHtml option enabled filename bundle.js should handle GET request to magic async html (/bundle): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -33,25 +115,25 @@ Array [
 ]
 `;
 
-exports[`magicHtml option enabled should handle GET request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled filename bundle.js should handle GET request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option enabled should handle GET request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option enabled filename bundle.js should handle GET request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option enabled should handle GET request to magic async html: response status 1`] = `200`;
+exports[`magicHtml option enabled filename bundle.js should handle GET request to magic async html (/bundle): response status 1`] = `200`;
 
-exports[`magicHtml option enabled should handle GET request to magic async html: response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script></body></html>"`;
+exports[`magicHtml option enabled filename bundle.js should handle GET request to magic async html (/bundle): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/bundle.js\\"></script></body></html>"`;
 
-exports[`magicHtml option enabled should handle HEAD request to magic async html: console messages 1`] = `Array []`;
+exports[`magicHtml option enabled filename bundle.js should handle HEAD request to magic async html (/bundle): console messages 1`] = `Array []`;
 
-exports[`magicHtml option enabled should handle HEAD request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled filename bundle.js should handle HEAD request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option enabled should handle HEAD request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option enabled filename bundle.js should handle HEAD request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option enabled should handle HEAD request to magic async html: response status 1`] = `200`;
+exports[`magicHtml option enabled filename bundle.js should handle HEAD request to magic async html (/bundle): response status 1`] = `200`;
 
-exports[`magicHtml option enabled should handle HEAD request to magic async html: response text 1`] = `""`;
+exports[`magicHtml option enabled filename bundle.js should handle HEAD request to magic async html (/bundle): response text 1`] = `""`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle GET request to magic async html: console messages 1`] = `
+exports[`magicHtml option enabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -60,25 +142,51 @@ Array [
 ]
 `;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle GET request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): page errors 1`] = `Array []`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle GET request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option enabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle GET request to magic async html: response status 1`] = `200`;
+exports[`magicHtml option enabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response status 1`] = `200`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle GET request to magic async html: response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script></body></html>"`;
+exports[`magicHtml option enabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/bundle.other.js\\"></script></body></html>"`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle HEAD request to magic async html: console messages 1`] = `Array []`;
+exports[`magicHtml option enabled filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): console messages 1`] = `Array []`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle HEAD request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): page errors 1`] = `Array []`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle HEAD request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option enabled filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle HEAD request to magic async html: response status 1`] = `200`;
+exports[`magicHtml option enabled filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response status 1`] = `200`;
 
-exports[`magicHtml option enabled with experiments.outputModule: false should handle HEAD request to magic async html: response text 1`] = `""`;
+exports[`magicHtml option enabled filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response text 1`] = `""`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html: console messages 1`] = `
+exports[`magicHtml option enabled filename bundle.other.js should not handle GET request to /bundle: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`magicHtml option enabled filename bundle.other.js should not handle GET request to /bundle: page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled filename bundle.other.js should not handle GET request to /bundle: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled filename bundle.other.js should not handle GET request to /bundle: response status 1`] = `404`;
+
+exports[`magicHtml option enabled filename bundle.other.js should not handle GET request to /bundle: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bundle</pre>
+</body>
+</html>
+"
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle GET request to magic async html (/bundle): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -87,20 +195,180 @@ Array [
 ]
 `;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle GET request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle GET request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html: response status 1`] = `200`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle GET request to magic async html (/bundle): response status 1`] = `200`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html: response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"module\\" charset=\\"utf-8\\" src=\\"/main.mjs\\"></script></body></html>"`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle GET request to magic async html (/bundle): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/bundle.js\\"></script></body></html>"`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html: console messages 1`] = `Array []`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle HEAD request to magic async html (/bundle): console messages 1`] = `Array []`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle HEAD request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle HEAD request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html: response status 1`] = `200`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle HEAD request to magic async html (/bundle): response status 1`] = `200`;
 
-exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html: response text 1`] = `""`;
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle HEAD request to magic async html (/bundle): response text 1`] = `""`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle GET request to magic async html (/bundle.other): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle GET request to magic async html (/bundle.other): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle GET request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle GET request to magic async html (/bundle.other): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle GET request to magic async html (/bundle.other): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/bundle.other.js\\"></script></body></html>"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response text 1`] = `""`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should not handle GET request to /bundle: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should not handle GET request to /bundle: page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should not handle GET request to /bundle: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should not handle GET request to /bundle: response status 1`] = `404`;
+
+exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.other.js should not handle GET request to /bundle: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bundle</pre>
+</body>
+</html>
+"
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle GET request to magic async html (/bundle): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle GET request to magic async html (/bundle): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle GET request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle GET request to magic async html (/bundle): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle GET request to magic async html (/bundle): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"module\\" charset=\\"utf-8\\" src=\\"/bundle.js\\"></script></body></html>"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle HEAD request to magic async html (/bundle): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle HEAD request to magic async html (/bundle): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle HEAD request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle HEAD request to magic async html (/bundle): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.js should handle HEAD request to magic async html (/bundle): response text 1`] = `""`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle GET request to magic async html (/bundle.other): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle GET request to magic async html (/bundle.other): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle GET request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle GET request to magic async html (/bundle.other): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle GET request to magic async html (/bundle.other): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"module\\" charset=\\"utf-8\\" src=\\"/bundle.other.js\\"></script></body></html>"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should handle HEAD request to magic async html (/bundle.other): response text 1`] = `""`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should not handle GET request to /bundle: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should not handle GET request to /bundle: page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should not handle GET request to /bundle: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should not handle GET request to /bundle: response status 1`] = `404`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension filename bundle.other.js should not handle GET request to /bundle: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bundle</pre>
+</body>
+</html>
+"
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html (/main): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html (/main): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html (/main): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html (/main): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html (/main): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"module\\" charset=\\"utf-8\\" src=\\"/main.mjs\\"></script></body></html>"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html (/main): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html (/main): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html (/main): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html (/main): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true should handle HEAD request to magic async html (/main): response text 1`] = `""`;
