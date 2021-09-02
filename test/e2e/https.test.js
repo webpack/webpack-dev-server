@@ -280,15 +280,13 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(await response.text()).toContain("Heyo");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
+      expect(consoleMessages.map((message) => message.text())).toEqual([]);
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toEqual([]);
     });
   });
 

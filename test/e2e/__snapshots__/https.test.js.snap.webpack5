@@ -33,17 +33,6 @@ exports[`https option as an object when cacert, pfx, key and cert are raw string
 "
 `;
 
-exports[`https option as an object when cacert, pfx, key and cert are symlinks should handle GET request to index route (/): console messages 1`] = `Array []`;
-
-exports[`https option as an object when cacert, pfx, key and cert are symlinks should handle GET request to index route (/): page errors 1`] = `Array []`;
-
-exports[`https option as an object when cacert, pfx, key and cert are symlinks should handle GET request to index route (/): response status 1`] = `200`;
-
-exports[`https option as an object when cacert, pfx, key and cert are symlinks should handle GET request to index route (/): response text 1`] = `
-"Heyo.
-"
-`;
-
 exports[`https option boolean should handle GET request to index route (/): console messages 1`] = `Array []`;
 
 exports[`https option boolean should handle GET request to index route (/): page errors 1`] = `Array []`;
