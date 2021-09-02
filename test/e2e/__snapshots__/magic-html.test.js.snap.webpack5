@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): console messages 1`] = `
+exports[`magicHtml option disabled filename bundle.js should not handle GET request to magic async html (/bundle): console messages 1`] = `
 Array [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): page errors 1`] = `Array []`;
+exports[`magicHtml option disabled filename bundle.js should not handle GET request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option disabled filename bundle.js should not handle GET request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): response status 1`] = `404`;
+exports[`magicHtml option disabled filename bundle.js should not handle GET request to magic async html (/bundle): response status 1`] = `404`;
 
-exports[`magicHtml option disabled filename bundle.js should handle GET request to magic async html (/bundle): response text 1`] = `
+exports[`magicHtml option disabled filename bundle.js should not handle GET request to magic async html (/bundle): response text 1`] = `
 "<!DOCTYPE html>
 <html lang=\\"en\\">
 <head>
@@ -26,45 +26,19 @@ exports[`magicHtml option disabled filename bundle.js should handle GET request 
 "
 `;
 
-exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): console messages 1`] = `
+exports[`magicHtml option disabled filename bundle.js should not handle HEAD request to magic async html (/bundle): console messages 1`] = `
 Array [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): page errors 1`] = `Array []`;
+exports[`magicHtml option disabled filename bundle.js should not handle HEAD request to magic async html (/bundle): page errors 1`] = `Array []`;
 
-exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+exports[`magicHtml option disabled filename bundle.js should not handle HEAD request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
-exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): response status 1`] = `404`;
+exports[`magicHtml option disabled filename bundle.js should not handle HEAD request to magic async html (/bundle): response status 1`] = `404`;
 
-exports[`magicHtml option disabled filename bundle.js should handle HEAD request to magic async html (/bundle): response text 1`] = `""`;
-
-exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): console messages 1`] = `
-Array [
-  "Failed to load resource: the server responded with a status of 404 (Not Found)",
-]
-`;
-
-exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): page errors 1`] = `Array []`;
-
-exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
-
-exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response status 1`] = `404`;
-
-exports[`magicHtml option disabled filename bundle.other.js should handle GET request to magic async html (/bundle.other): response text 1`] = `
-"<!DOCTYPE html>
-<html lang=\\"en\\">
-<head>
-<meta charset=\\"utf-8\\">
-<title>Error</title>
-</head>
-<body>
-<pre>Cannot GET /bundle.other</pre>
-</body>
-</html>
-"
-`;
+exports[`magicHtml option disabled filename bundle.js should not handle HEAD request to magic async html (/bundle): response text 1`] = `""`;
 
 exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to /bundle: console messages 1`] = `
 Array [
@@ -87,6 +61,32 @@ exports[`magicHtml option disabled filename bundle.other.js should not handle GE
 </head>
 <body>
 <pre>Cannot GET /bundle</pre>
+</body>
+</html>
+"
+`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to magic async html (/bundle.other): console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to magic async html (/bundle.other): page errors 1`] = `Array []`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to magic async html (/bundle.other): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to magic async html (/bundle.other): response status 1`] = `404`;
+
+exports[`magicHtml option disabled filename bundle.other.js should not handle GET request to magic async html (/bundle.other): response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bundle.other</pre>
 </body>
 </html>
 "

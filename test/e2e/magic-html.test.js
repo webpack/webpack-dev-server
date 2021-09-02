@@ -846,7 +846,7 @@ describe("magicHtml option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to magic async html (/bundle)", async () => {
+      it("should not handle GET request to magic async html (/bundle)", async () => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -874,7 +874,7 @@ describe("magicHtml option", () => {
         expect(pageErrors).toMatchSnapshot("page errors");
       });
 
-      it("should handle HEAD request to magic async html (/bundle)", async () => {
+      it("should not handle HEAD request to magic async html (/bundle)", async () => {
         await page.setRequestInterception(true);
 
         page
@@ -935,7 +935,7 @@ describe("magicHtml option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to magic async html (/bundle.other)", async () => {
+      it("should not handle GET request to magic async html (/bundle.other)", async () => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
