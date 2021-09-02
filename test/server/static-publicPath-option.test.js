@@ -4,13 +4,10 @@ const path = require("path");
 const request = require("supertest");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/contentbase-config/webpack.config");
+const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["static-public-path-option"];
 
-const staticDirectory = path.resolve(
-  __dirname,
-  "../fixtures/contentbase-config"
-);
+const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");
 const otherPublicDirectory = path.resolve(staticDirectory, "other");
 const staticPublicPath = "/serve-content-base-at-this-url";

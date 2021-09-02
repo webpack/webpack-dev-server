@@ -5,7 +5,7 @@ const fs = require("graceful-fs");
 const request = require("supertest");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/contentbase-config/webpack.config");
+const config = require("../fixtures/static-config/webpack.config");
 const { skipTestOnWindows } = require("../helpers/conditional-test");
 const port = require("../ports-map")["https-option"];
 
@@ -13,9 +13,9 @@ const httpsCertificateDirectory = path.resolve(
   __dirname,
   "../fixtures/https-certificate"
 );
-const contentBasePublic = path.resolve(
+const staticDirectory = path.resolve(
   __dirname,
-  "../fixtures/contentbase-config/public"
+  "../fixtures/static-config/public"
 );
 
 describe("https option", () => {
@@ -29,7 +29,7 @@ describe("https option", () => {
       server = new Server(
         {
           static: {
-            directory: contentBasePublic,
+            directory: staticDirectory,
             watch: false,
           },
           https: true,
@@ -62,7 +62,7 @@ describe("https option", () => {
       server = new Server(
         {
           static: {
-            directory: contentBasePublic,
+            directory: staticDirectory,
             watch: false,
           },
           https: {
@@ -108,7 +108,7 @@ describe("https option", () => {
 
       server = new Server(
         {
-          static: contentBasePublic,
+          static: staticDirectory,
           https: {
             cacert: path.join(httpsCertificateDirectory, "ca.pem"),
             pfx: path.join(httpsCertificateDirectory, "server.pfx"),
@@ -149,7 +149,7 @@ describe("https option", () => {
       server = new Server(
         {
           static: {
-            directory: contentBasePublic,
+            directory: staticDirectory,
             watch: false,
           },
           https: {
@@ -188,7 +188,7 @@ describe("https option", () => {
       server = new Server(
         {
           static: {
-            directory: contentBasePublic,
+            directory: staticDirectory,
             watch: false,
           },
           https: {
@@ -236,7 +236,7 @@ describe("https option", () => {
       server = new Server(
         {
           static: {
-            directory: contentBasePublic,
+            directory: staticDirectory,
             watch: false,
           },
           https: {

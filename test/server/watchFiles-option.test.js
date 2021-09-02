@@ -5,13 +5,10 @@ const webpack = require("webpack");
 const fs = require("graceful-fs");
 const chokidar = require("chokidar");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/contentbase-config/webpack.config");
+const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["watch-files-option"];
 
-const watchDir = path.resolve(
-  __dirname,
-  "../fixtures/contentbase-config/public"
-);
+const watchDir = path.resolve(__dirname, "../fixtures/static-config/public");
 
 describe("'watchFiles' option", () => {
   let server;
