@@ -8,10 +8,7 @@ const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["host-option"];
 
-const staticDirectory = path.resolve(
-  __dirname,
-  "../fixtures/contentbase-config"
-);
+const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const internalIPv4 = internalIp.v4.sync();
 
 describe("host option", () => {

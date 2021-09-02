@@ -5,12 +5,12 @@ const http2 = require("http2");
 const webpack = require("webpack");
 const request = require("supertest");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/contentbase-config/webpack.config");
+const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["http2-option"];
 
 const staticDirectory = path.resolve(
   __dirname,
-  "../fixtures/contentbase-config/public"
+  "../fixtures/static-config/public"
 );
 
 describe('"http2" option', () => {

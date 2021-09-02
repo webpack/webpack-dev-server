@@ -7,10 +7,7 @@ const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["port-option"];
 
-const staticDirectory = path.resolve(
-  __dirname,
-  "../fixtures/contentbase-config"
-);
+const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 
 describe('"port" option', () => {
   let server = null;
