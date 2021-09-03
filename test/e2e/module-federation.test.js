@@ -53,15 +53,11 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      const bodyHandle = await page.$("body");
-      const textContent = await page.evaluate(
-        (body) => body.textContent,
-        bodyHandle
-      );
+      const textContent = await response.text();
 
       expect(textContent).toContain("entry1");
 
@@ -115,15 +111,11 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      const bodyHandle = await page.$("body");
-      const textContent = await page.evaluate(
-        (body) => body.textContent,
-        bodyHandle
-      );
+      const textContent = await response.text();
 
       expect(textContent).toContain("entry1");
 
@@ -151,15 +143,11 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/foo.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/foo.js`, {
         waitUntil: "networkidle0",
       });
 
-      const bodyHandle = await page.$("body");
-      const textContent = await page.evaluate(
-        (body) => body.textContent,
-        bodyHandle
-      );
+      const textContent = await response.text();
 
       expect(textContent).not.toContain("entry2");
 
@@ -213,15 +201,11 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      const bodyHandle = await page.$("body");
-      const textContent = await page.evaluate(
-        (body) => body.textContent,
-        bodyHandle
-      );
+      const textContent = await response.text();
 
       expect(textContent).toContain("entry1");
 
@@ -275,15 +259,14 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/remoteEntry.js`, {
-        waitUntil: "networkidle0",
-      });
-
-      const bodyHandle = await page.$("body");
-      const remoteEntryTextContent = await page.evaluate(
-        (body) => body.textContent,
-        bodyHandle
+      const response = await page.goto(
+        `http://127.0.0.1:${port}/remoteEntry.js`,
+        {
+          waitUntil: "networkidle0",
+        }
       );
+
+      const remoteEntryTextContent = await response.text();
 
       expect(remoteEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
@@ -303,15 +286,11 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      const bodyHandle = await page.$("body");
-      const mainEntryTextContent = await page.evaluate(
-        (body) => body.textContent,
-        bodyHandle
-      );
+      const mainEntryTextContent = await response.text();
 
       expect(mainEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
