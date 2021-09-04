@@ -6,7 +6,7 @@ const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["https-option"];
+const port = require("../ports-map")["http2-option"];
 
 const staticDirectory = path.resolve(
   __dirname,
