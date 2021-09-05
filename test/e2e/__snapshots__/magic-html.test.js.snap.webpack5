@@ -186,6 +186,33 @@ exports[`magicHtml option enabled filename bundle.other.js should not handle GET
 "
 `;
 
+exports[`magicHtml option enabled multi compiler mode should handle GET request to magic async html (/main): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`magicHtml option enabled multi compiler mode should handle GET request to magic async html (/main): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled multi compiler mode should handle GET request to magic async html (/main): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled multi compiler mode should handle GET request to magic async html (/main): response status 1`] = `200`;
+
+exports[`magicHtml option enabled multi compiler mode should handle GET request to magic async html (/main): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script></body></html>"`;
+
+exports[`magicHtml option enabled multi compiler mode should handle HEAD request to magic async html (/main): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled multi compiler mode should handle HEAD request to magic async html (/main): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled multi compiler mode should handle HEAD request to magic async html (/main): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled multi compiler mode should handle HEAD request to magic async html (/main): response status 1`] = `200`;
+
+exports[`magicHtml option enabled multi compiler mode should handle HEAD request to magic async html (/main): response text 1`] = `""`;
+
 exports[`magicHtml option enabled with experiments.outputModule: false filename bundle.js should handle GET request to magic async html (/bundle): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
@@ -345,6 +372,57 @@ exports[`magicHtml option enabled with experiments.outputModule: true and .js ex
 </html>
 "
 `;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle GET request to magic async html (/bundle): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle GET request to magic async html (/bundle): page errors 1`] = `
+Array [
+  [Error: SyntaxError: Cannot use 'import.meta' outside a module],
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle GET request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle GET request to magic async html (/bundle): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle GET request to magic async html (/bundle): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/bundle.js\\"></script></body></html>"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle HEAD request to magic async html (/bundle): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle HEAD request to magic async html (/bundle): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle HEAD request to magic async html (/bundle): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle HEAD request to magic async html (/bundle): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true and .js extension multi compiler mode should handle HEAD request to magic async html (/bundle): response text 1`] = `""`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle GET request to magic async html (/main): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle GET request to magic async html (/main): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle GET request to magic async html (/main): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle GET request to magic async html (/main): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle GET request to magic async html (/main): response text 1`] = `"<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><script type=\\"module\\" charset=\\"utf-8\\" src=\\"/main.mjs\\"></script></body></html>"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle HEAD request to magic async html (/main): console messages 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle HEAD request to magic async html (/main): page errors 1`] = `Array []`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle HEAD request to magic async html (/main): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle HEAD request to magic async html (/main): response status 1`] = `200`;
+
+exports[`magicHtml option enabled with experiments.outputModule: true in multi compiler mode should handle HEAD request to magic async html (/main): response text 1`] = `""`;
 
 exports[`magicHtml option enabled with experiments.outputModule: true should handle GET request to magic async html (/main): console messages 1`] = `
 Array [
