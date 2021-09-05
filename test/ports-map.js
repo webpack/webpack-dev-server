@@ -29,7 +29,7 @@ const listOfTests = {
   "hot-option": 1,
   "http2-option": 1,
   "https-option": 1,
-  "mine-types-option": 1,
+  "mime-types-option": 1,
   "magic-html-option": 1,
   "on-after-setup-middleware-option": 1,
   "on-before-setup-middleware-option": 1,
