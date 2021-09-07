@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.1](https://github.com/webpack/webpack-dev-server/compare/v4.1.0...v4.1.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* improve the description of the `magicHtml` option ([#3772](https://github.com/webpack/webpack-dev-server/issues/3772)) ([b80610f](https://github.com/webpack/webpack-dev-server/commit/b80610f07357c3b2ae8557f6d371e4d563ae3c53))
+* replace `ansi-html` with `ansi-html-community` to avoid CVE ([#3801](https://github.com/webpack/webpack-dev-server/issues/3801)) ([36fd214](https://github.com/webpack/webpack-dev-server/commit/36fd21477dac5131ec266cc1d717d87051f10a2b))
+
 ## [4.1.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0...v4.1.0) (2021-08-31)
 
 
