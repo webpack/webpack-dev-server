@@ -29,7 +29,7 @@ npx webpack serve --open --compress
 1. The script should open `http://localhost:8080/`.
 2. Files being sent to the browser from the `webpack` bundle should be gzipped.
 3. Open the console in your browser's devtools and select the _Network_ tab.
-4. Find `bundle.js`. The response headers should contain `Content-Encoding: gzip`.
+4. Find `main.js`. The response headers should contain `Content-Encoding: gzip`.
 
 ## false
 
@@ -55,7 +55,7 @@ npx webpack serve --open --no-compress
 1. The script should open `http://localhost:8080/`.
 2. Files being sent to the browser from the `webpack` bundle should be gzipped.
 3. Open the console in your browser's devtools and select the _Network_ tab.
-4. Find `bundle.js`. The response headers should not contain `Content-Encoding: gzip`.
+4. Find `main.js`. The response headers should not contain `Content-Encoding: gzip`.
 
 ## Notes
 
