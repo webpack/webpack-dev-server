@@ -36,7 +36,7 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "ansi-html": "0.0.7",
+    "ansi-html-community": "^0.0.8",
     "bonjour": "^3.5.0",
     "chokidar": "^2.1.8",
     "compression": "^1.7.4",
