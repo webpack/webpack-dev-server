@@ -44,6 +44,50 @@ Array [
 
 exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server with the "auto" value ("ws"): page errors 1`] = `Array []`;
 
+exports[`allowed hosts should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("ws"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using "file:" protocol to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "file:" protocol to web socket server with the "auto" value ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should connect web socket client using "file:" protocol to web socket server with the "auto" value ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "file:" protocol to web socket server with the "auto" value ("ws"): page errors 1`] = `Array []`;
+
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
