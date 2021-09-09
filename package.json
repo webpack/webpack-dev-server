@@ -55,7 +55,7 @@
     "spdy": "^4.0.2",
     "strip-ansi": "^7.0.0",
     "url": "^0.11.0",
-    "webpack-dev-middleware": "^5.0.0",
+    "webpack-dev-middleware": "^5.1.0",
     "ws": "^8.1.0"
   },
   "devDependencies": {
