@@ -65,9 +65,9 @@ exports[`overlay should not show initially, then show on an error and allow to c
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -147,9 +147,9 @@ exports[`overlay should not show initially, then show on an error, then hide on 
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -229,9 +229,9 @@ exports[`overlay should not show initially, then show on an error, then show oth
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -278,9 +278,9 @@ exports[`overlay should not show initially, then show on an error, then show oth
     <div>
       <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;a
       </div>
       <br /><br />
