@@ -72,6 +72,7 @@ const listOfTests = {
   "host-and-port": 1,
   api: 1,
   "lazy-compilation": 1,
+  "range-header": 1,
 };
 
 let startPort = 8089;
