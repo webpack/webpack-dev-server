@@ -839,14 +839,18 @@ describe("overlay", () => {
 
     new WarningPlugin().apply(compiler);
 
-    const devServerOptions = {
-      port,
-    };
+    const devServerOptions = { port };
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
 
     const { page, browser } = await runBrowser();
+
+    const consoleMessages = [];
+
+    page.on("console", (message) => {
+      consoleMessages.push(message.text());
+    });
 
     await page.goto(`http://localhost:${port}/main`, {
       waitUntil: "networkidle0",
@@ -867,6 +871,16 @@ describe("overlay", () => {
     );
 
     await server.stop();
+
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (consoleMessages.includes("[webpack-dev-server] Disconnected!")) {
+          clearInterval(interval);
+
+          resolve();
+        }
+      }, 100);
+    });
 
     const pageHtmlAfterClose = await page.evaluate(
       () => document.body.outerHTML
