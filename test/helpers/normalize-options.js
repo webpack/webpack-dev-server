@@ -7,7 +7,15 @@ function normalizeOptions(options) {
   for (const propertyName in options) {
     let value = options[propertyName];
 
-    if (Buffer.isBuffer(value)) {
+    if (Array.isArray(value)) {
+      value = value.map((item) => {
+        if (Buffer.isBuffer(item)) {
+          return "<Buffer>";
+        }
+
+        return item;
+      });
+    } else if (Buffer.isBuffer(value)) {
       value = "<Buffer>";
     }
 
