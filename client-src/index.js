@@ -161,12 +161,12 @@ const onSocketMessage = {
       log.warn(strippedWarnings[i]);
     }
 
-    const needShowOverlay =
+    const needShowOverlayForWarnings =
       typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.warnings;
 
-    if (needShowOverlay) {
+    if (needShowOverlayForWarnings) {
       show(warnings, "warnings");
     }
 
@@ -185,12 +185,12 @@ const onSocketMessage = {
       log.error(strippedErrors[i]);
     }
 
-    const needShowOverlay =
+    const needShowOverlayForErrors =
       typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.errors;
 
-    if (needShowOverlay) {
+    if (needShowOverlayForErrors) {
       show(errors, "errors");
     }
   },
@@ -199,6 +199,10 @@ const onSocketMessage = {
   },
   close() {
     log.info("Disconnected!");
+
+    if (options.overlay) {
+      hide();
+    }
 
     sendMessage("Close");
   },
