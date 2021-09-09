@@ -11,6 +11,16 @@ function normalizeOptions(options) {
       value = value.map((item) => {
         if (Buffer.isBuffer(item)) {
           return "<Buffer>";
+        } else if (
+          typeof item.pem !== "undefined" &&
+          Buffer.isBuffer(item.pem)
+        ) {
+          item.pem = "<Buffer>";
+        } else if (
+          typeof item.buf !== "undefined" &&
+          Buffer.isBuffer(item.buf)
+        ) {
+          item.buf = "<Buffer>";
         }
 
         return item;

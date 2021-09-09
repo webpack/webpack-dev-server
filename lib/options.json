@@ -318,6 +318,10 @@
                       },
                       {
                         "instanceof": "Buffer"
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": true
                       }
                     ]
                   }
@@ -342,6 +346,10 @@
                       },
                       {
                         "instanceof": "Buffer"
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": true
                       }
                     ]
                   }
