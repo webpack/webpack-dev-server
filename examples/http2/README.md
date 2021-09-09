@@ -36,7 +36,7 @@ module.exports = {
       key: "./ssl/server.key",
       pfx: "./ssl/server.pfx",
       cert: "./ssl/server.crt",
-      cacert: "./ssl/ca.pem",
+      ca: "./ssl/ca.pem",
       passphrase: "webpack-dev-server",
     },
   },
@@ -46,7 +46,7 @@ module.exports = {
 Usage via CLI:
 
 ```console
-npx webpack serve --open --http2 --https-key ./ssl/server.key --https-pfx ./ssl/server.pfx --https-cert ./ssl/server.crt --https-cacert ./ssl/ca.pem --https-passphrase webpack-dev-server
+npx webpack serve --open --http2 --https-key ./ssl/server.key --https-pfx ./ssl/server.pfx --https-cert ./ssl/server.crt --https-ca ./ssl/ca.pem --https-passphrase webpack-dev-server
 ```
 
 ## What Should Happen
