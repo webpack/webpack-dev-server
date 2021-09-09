@@ -201,7 +201,7 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
+          "additionalProperties": true,
           "properties": {
             "passphrase": {
               "type": "string",

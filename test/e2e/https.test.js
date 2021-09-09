@@ -547,6 +547,85 @@ describe("https option", () => {
     });
   });
 
+  describe("as an object and allow to pass more options", () => {
+    let compiler;
+    let server;
+    let createServerSpy;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
+
+      server = new Server(
+        {
+          static: {
+            directory: staticDirectory,
+            watch: false,
+          },
+          https: {
+            minVersion: "TLSv1.1",
+            ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+            pfx: fs.readFileSync(
+              path.join(httpsCertificateDirectory, "server.pfx")
+            ),
+            key: fs.readFileSync(
+              path.join(httpsCertificateDirectory, "server.key")
+            ),
+            cert: fs.readFileSync(
+              path.join(httpsCertificateDirectory, "server.crt")
+            ),
+            passphrase: "webpack-dev-server",
+          },
+          port,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      createServerSpy.mockRestore();
+
+      await browser.close();
+      await server.stop();
+    });
+
+    it("should handle GET request to index route (/)", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
+      expect(response.status()).toMatchSnapshot("response status");
+      expect(await response.text()).toMatchSnapshot("response text");
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
   // puppeteer having issues accepting SSL here,
   // throwing error net::ERR_BAD_SSL_CLIENT_AUTH_CERT,
   // hence testing with supertest
