@@ -211,6 +211,17 @@
               "type": "boolean",
               "description": "Request for an SSL certificate."
             },
+            "ca": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "instanceof": "Buffer"
+                }
+              ],
+              "description": "Path to an SSL CA certificate."
+            },
             "cacert": {
               "anyOf": [
                 {

@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`https option as an object when ca, pfx, key and cert are buffer should handle GET request to index route (/): console messages 1`] = `Array []`;
+
+exports[`https option as an object when ca, pfx, key and cert are buffer should handle GET request to index route (/): page errors 1`] = `Array []`;
+
+exports[`https option as an object when ca, pfx, key and cert are buffer should handle GET request to index route (/): response status 1`] = `200`;
+
+exports[`https option as an object when ca, pfx, key and cert are buffer should handle GET request to index route (/): response text 1`] = `
+"Heyo.
+"
+`;
+
+exports[`https option as an object when ca, pfx, key and cert are paths should handle GET request to index route (/): console messages 1`] = `Array []`;
+
+exports[`https option as an object when ca, pfx, key and cert are paths should handle GET request to index route (/): page errors 1`] = `Array []`;
+
+exports[`https option as an object when ca, pfx, key and cert are paths should handle GET request to index route (/): response status 1`] = `200`;
+
+exports[`https option as an object when ca, pfx, key and cert are paths should handle GET request to index route (/): response text 1`] = `
+"Heyo.
+"
+`;
+
+exports[`https option as an object when ca, pfx, key and cert are raw strings should handle GET request to index route (/): console messages 1`] = `Array []`;
+
+exports[`https option as an object when ca, pfx, key and cert are raw strings should handle GET request to index route (/): page errors 1`] = `Array []`;
+
+exports[`https option as an object when ca, pfx, key and cert are raw strings should handle GET request to index route (/): response status 1`] = `200`;
+
+exports[`https option as an object when ca, pfx, key and cert are raw strings should handle GET request to index route (/): response text 1`] = `
+"Heyo.
+"
+`;
+
+exports[`https option as an object when cacert and ca, pfx, key and cert are buffer should handle GET request to index route (/): console messages 1`] = `Array []`;
+
+exports[`https option as an object when cacert and ca, pfx, key and cert are buffer should handle GET request to index route (/): page errors 1`] = `Array []`;
+
+exports[`https option as an object when cacert and ca, pfx, key and cert are buffer should handle GET request to index route (/): response status 1`] = `200`;
+
+exports[`https option as an object when cacert and ca, pfx, key and cert are buffer should handle GET request to index route (/): response text 1`] = `
+"Heyo.
+"
+`;
+
 exports[`https option as an object when cacert, pfx, key and cert are buffer should handle GET request to index route (/): console messages 1`] = `Array []`;
 
 exports[`https option as an object when cacert, pfx, key and cert are buffer should handle GET request to index route (/): page errors 1`] = `Array []`;
@@ -7,28 +51,6 @@ exports[`https option as an object when cacert, pfx, key and cert are buffer sho
 exports[`https option as an object when cacert, pfx, key and cert are buffer should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`https option as an object when cacert, pfx, key and cert are buffer should handle GET request to index route (/): response text 1`] = `
-"Heyo.
-"
-`;
-
-exports[`https option as an object when cacert, pfx, key and cert are paths should handle GET request to index route (/): console messages 1`] = `Array []`;
-
-exports[`https option as an object when cacert, pfx, key and cert are paths should handle GET request to index route (/): page errors 1`] = `Array []`;
-
-exports[`https option as an object when cacert, pfx, key and cert are paths should handle GET request to index route (/): response status 1`] = `200`;
-
-exports[`https option as an object when cacert, pfx, key and cert are paths should handle GET request to index route (/): response text 1`] = `
-"Heyo.
-"
-`;
-
-exports[`https option as an object when cacert, pfx, key and cert are raw strings should handle GET request to index route (/): console messages 1`] = `Array []`;
-
-exports[`https option as an object when cacert, pfx, key and cert are raw strings should handle GET request to index route (/): page errors 1`] = `Array []`;
-
-exports[`https option as an object when cacert, pfx, key and cert are raw strings should handle GET request to index route (/): response status 1`] = `200`;
-
-exports[`https option as an object when cacert, pfx, key and cert are raw strings should handle GET request to index route (/): response text 1`] = `
 "Heyo.
 "
 `;

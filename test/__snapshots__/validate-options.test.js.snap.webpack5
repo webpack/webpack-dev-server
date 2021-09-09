@@ -322,19 +322,19 @@ exports[`options validate should throw an error on the "http2" option with '' va
 exports[`options validate should throw an error on the "https" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert? }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https should be a boolean.
     * options.https should be an object:
-      object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
+      object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert? }"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"cacert":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert? }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
@@ -349,7 +349,7 @@ exports[`options validate should throw an error on the "https" option with '{"ca
 exports[`options validate should throw an error on the "https" option with '{"cert":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert? }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
@@ -364,13 +364,13 @@ exports[`options validate should throw an error on the "https" option with '{"ce
 exports[`options validate should throw an error on the "https" option with '{"foo":"bar"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https has an unknown property 'foo'. These properties are valid:
-   object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }"
+   object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert? }"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"key":10}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert? }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
@@ -391,7 +391,7 @@ exports[`options validate should throw an error on the "https" option with '{"pa
 exports[`options validate should throw an error on the "https" option with '{"pfx":10}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, cacert?, key?, pfx?, cert? }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert? }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
