@@ -98,7 +98,7 @@ module.exports = {
 ```
 
 - The `features` option was removed in favor `onBeforeSetupMiddleware` and `onAfterSetupMiddleware` options.
-- The `key`, `cert`, `pfx`, `pfx-passphrase`, `cacert`, and `requestCert` options were moved to `https` options, please use `https.{key|cert|pfx|passphrase|requestCert|cacert}`.
+- The `key`, `cert`, `pfx`, `pfx-passphrase`, `cacert`, `ca` and `requestCert` options were moved to `https` options, please use `https.{key|cert|pfx|passphrase|requestCert|ca}`.
 
 v3:
 
@@ -121,7 +121,7 @@ v4:
 module.exports = {
   devServer: {
     https: {
-      cacert: "./server.pem",
+      ca: "./server.pem",
       pfx: "./server.pfx",
       key: "./server.key",
       cert: "./server.crt",

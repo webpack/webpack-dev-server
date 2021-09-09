@@ -445,57 +445,180 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "https-ca": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Path to an SSL CA certificate or content of an SSL CA certificate.",
+        path: "https.ca[]",
+      },
+    ],
+    description:
+      "Path to an SSL CA certificate or content of an SSL CA certificate.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-ca-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: false,
+        path: "https.ca",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
   "https-cacert": {
     configs: [
       {
         type: "string",
-        multiple: false,
-        description: "Path to an SSL CA certificate.",
-        path: "https.cacert",
+        multiple: true,
+        description:
+          "Path to an SSL CA certificate or content of an SSL CA certificate.",
+        path: "https.cacert[]",
       },
     ],
-    description: "Path to an SSL CA certificate.",
+    description:
+      "Path to an SSL CA certificate or content of an SSL CA certificate.",
     simpleType: "string",
+    multiple: true,
+  },
+  "https-cacert-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: false,
+        path: "https.cacert",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
     multiple: false,
+    simpleType: "boolean",
   },
   "https-key": {
     configs: [
       {
         type: "string",
-        multiple: false,
-        description: "Path to an SSL key.",
-        path: "https.key",
+        multiple: true,
+        description: "Path to an SSL key or content of an SSL key.",
+        path: "https.key[]",
       },
     ],
-    description: "Path to an SSL key.",
+    description: "Path to an SSL key or content of an SSL key.",
     simpleType: "string",
+    multiple: true,
+  },
+  "https-key-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key.",
+        multiple: false,
+        path: "https.key",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key.",
     multiple: false,
+    simpleType: "boolean",
   },
   "https-pfx": {
     configs: [
       {
         type: "string",
-        multiple: false,
-        description: "Path to an SSL pfx file.",
-        path: "https.pfx",
+        multiple: true,
+        description: "Path to an SSL pfx file or content of an SSL pfx file.",
+        path: "https.pfx[]",
       },
     ],
-    description: "Path to an SSL pfx file.",
+    description: "Path to an SSL pfx file or content of an SSL pfx file.",
     simpleType: "string",
+    multiple: true,
+  },
+  "https-pfx-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.",
+        multiple: false,
+        path: "https.pfx",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.",
     multiple: false,
+    simpleType: "boolean",
   },
   "https-cert": {
     configs: [
       {
         type: "string",
-        multiple: false,
-        description: "Path to an SSL certificate.",
-        path: "https.cert",
+        multiple: true,
+        description:
+          "Path to an SSL certificate or content of an SSL certificate.",
+        path: "https.cert[]",
       },
     ],
-    description: "Path to an SSL certificate.",
+    description: "Path to an SSL certificate or content of an SSL certificate.",
     simpleType: "string",
+    multiple: true,
+  },
+  "https-cert-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate.",
+        multiple: false,
+        path: "https.cert",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate.",
     multiple: false,
+    simpleType: "boolean",
+  },
+  "https-crl": {
+    configs: [
+      {
+        description:
+          "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+        multiple: true,
+        path: "https.crl[]",
+        type: "string",
+      },
+    ],
+    description:
+      "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+    multiple: true,
+    simpleType: "string",
+  },
+  "https-crl-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+        multiple: false,
+        path: "https.crl",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+    multiple: false,
+    simpleType: "boolean",
   },
   ipc: {
     configs: [

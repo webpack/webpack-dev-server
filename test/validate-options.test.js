@@ -193,10 +193,72 @@ const tests = {
       false,
       true,
       {
+        ca: readFileSync(
+          path.join(httpsCertificateDirectory, "ca.pem")
+        ).toString(),
+        pfx: readFileSync(
+          path.join(httpsCertificateDirectory, "server.pfx")
+        ).toString(),
+        key: readFileSync(
+          path.join(httpsCertificateDirectory, "server.key")
+        ).toString(),
+        cert: readFileSync(
+          path.join(httpsCertificateDirectory, "server.crt")
+        ).toString(),
+        passphrase: "webpack-dev-server",
+      },
+      {
+        ca: [
+          readFileSync(
+            path.join(httpsCertificateDirectory, "ca.pem")
+          ).toString(),
+        ],
+        pfx: [
+          readFileSync(
+            path.join(httpsCertificateDirectory, "server.pfx")
+          ).toString(),
+        ],
+        key: [
+          readFileSync(
+            path.join(httpsCertificateDirectory, "server.key")
+          ).toString(),
+        ],
+        cert: [
+          readFileSync(
+            path.join(httpsCertificateDirectory, "server.crt")
+          ).toString(),
+        ],
+        passphrase: "webpack-dev-server",
+      },
+      {
+        ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+        pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
+        key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+        cert: readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+        passphrase: "webpack-dev-server",
+      },
+      {
+        ca: [readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))],
+        pfx: [readFileSync(path.join(httpsCertificateDirectory, "server.pfx"))],
+        key: [readFileSync(path.join(httpsCertificateDirectory, "server.key"))],
+        cert: [
+          readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+        ],
+        passphrase: "webpack-dev-server",
+      },
+      {
         cacert: path.join(httpsCertificateDirectory, "ca.pem"),
         key: path.join(httpsCertificateDirectory, "server.key"),
         pfx: path.join(httpsCertificateDirectory, "server.pfx"),
         cert: path.join(httpsCertificateDirectory, "server.crt"),
+        requestCert: true,
+        passphrase: "webpack-dev-server",
+      },
+      {
+        cacert: [path.join(httpsCertificateDirectory, "ca.pem")],
+        key: [path.join(httpsCertificateDirectory, "server.key")],
+        pfx: [path.join(httpsCertificateDirectory, "server.pfx")],
+        cert: [path.join(httpsCertificateDirectory, "server.crt")],
         requestCert: true,
         passphrase: "webpack-dev-server",
       },
@@ -207,12 +269,36 @@ const tests = {
         cert: readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
         passphrase: "webpack-dev-server",
       },
+      {
+        minVersion: "TLSv1.1",
+        ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+        pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
+        key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+        cert: readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+        passphrase: "webpack-dev-server",
+      },
+      {
+        ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+        pfx: [
+          {
+            buf: readFileSync(
+              path.join(httpsCertificateDirectory, "server.pfx")
+            ),
+          },
+        ],
+        key: [
+          {
+            pem: readFileSync(
+              path.join(httpsCertificateDirectory, "server.key")
+            ),
+          },
+        ],
+        cert: readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+        passphrase: "webpack-dev-server",
+      },
     ],
     failure: [
       "",
-      {
-        foo: "bar",
-      },
       {
         key: 10,
       },
