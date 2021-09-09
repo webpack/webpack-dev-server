@@ -277,6 +277,25 @@ const tests = {
         cert: readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
         passphrase: "webpack-dev-server",
       },
+      {
+        ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+        pfx: [
+          {
+            buf: readFileSync(
+              path.join(httpsCertificateDirectory, "server.pfx")
+            ),
+          },
+        ],
+        key: [
+          {
+            pem: readFileSync(
+              path.join(httpsCertificateDirectory, "server.key")
+            ),
+          },
+        ],
+        cert: readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+        passphrase: "webpack-dev-server",
+      },
     ],
     failure: [
       "",
