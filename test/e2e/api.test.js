@@ -123,6 +123,63 @@ describe("API", () => {
     await server.stop();
   });
 
+  it(`should work and allow to rerun dev server multiple times`, async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port }, compiler);
+
+    await server.start();
+
+    const { page: firstPage, browser } = await runBrowser();
+
+    const firstPageErrors = [];
+    const firstConsoleMessages = [];
+
+    firstPage
+      .on("console", (message) => {
+        firstConsoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        firstPageErrors.push(error);
+      });
+
+    await firstPage.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(
+      firstConsoleMessages.map((message) => message.text())
+    ).toMatchSnapshot("console messages");
+    expect(firstPageErrors).toMatchSnapshot("page errors");
+
+    await server.stop();
+    await server.start();
+
+    const secondPage = await browser.newPage();
+
+    const secondPageErrors = [];
+    const secondConsoleMessages = [];
+
+    secondPage
+      .on("console", (message) => {
+        secondConsoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        secondPageErrors.push(error);
+      });
+
+    await secondPage.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(
+      secondConsoleMessages.map((message) => message.text())
+    ).toMatchSnapshot("console messages");
+    expect(secondPageErrors).toMatchSnapshot("page errors");
+
+    await browser.close();
+    await server.stop();
+  });
+
   it("should work with deprecated API ('listen' and `close` methods)", async () => {
     const compiler = webpack(config);
     const devServerOptions = { port };
