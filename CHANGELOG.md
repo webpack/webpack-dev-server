@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.0](https://github.com/webpack/webpack-dev-server/compare/v4.1.1...v4.2.0) (2021-09-09)
+
+
+### Features
+
+* added the `http.ca` option (CLI option added too) (should be used instead `cacert`, because we will remove it in the next major release in favor the `https.ca` option)
+* added the `https.crl` option (CLI options added too), [more information](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+* `https.ca`/`https.cacert`/ `https.cert`/`https.crl`/`https.key`/`https.pfx` options are now accept Arrays of `Buffer`/`string`/Path to file, using `--https-*-reset` CLI options you can reset these options
+* `https.pfx`/`https.key` can be `Object[]`, [more information](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+* `https` options can now accept custom options, you can use:
+
+```js
+module.exports = {
+  // Other options
+  devServer: {
+    https: {
+      // Allow to set additional TSL options https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options
+      minVersion: "TLSv1.1",
+      ca: path.join(httpsCertificateDirectory, "ca.pem"),
+      pfx: path.join(httpsCertificateDirectory, "server.pfx"),
+      key: path.join(httpsCertificateDirectory, "server.key"),
+      cert: path.join(httpsCertificateDirectory, "server.crt"),
+      passphrase: "webpack-dev-server",
+    },
+  }
+};
+```
+
+### Bug Fixes
+
+* accept connections with `file:` and `chrome-extensions:` protocol by default ([#3822](https://github.com/webpack/webpack-dev-server/issues/3822)) ([138f064](https://github.com/webpack/webpack-dev-server/commit/138f0641a4aa040fa2ff66dfd8891c920aa17808))
+* close overlay on disconnection ([#3825](https://github.com/webpack/webpack-dev-server/issues/3825)) ([011bcf1](https://github.com/webpack/webpack-dev-server/commit/011bcf15c7eba8f7dcd45731f8e434b2eccf781e))
+* respect `https.cacert` option ([#3820](https://github.com/webpack/webpack-dev-server/issues/3820)) ([0002ebf](https://github.com/webpack/webpack-dev-server/commit/0002ebfbc8f36e92f91013372c9e2bca97022825))
+
 ### [4.1.1](https://github.com/webpack/webpack-dev-server/compare/v4.1.0...v4.1.1) (2021-09-07)
 
 
