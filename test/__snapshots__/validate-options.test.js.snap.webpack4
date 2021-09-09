@@ -322,58 +322,64 @@ exports[`options validate should throw an error on the "http2" option with '' va
 exports[`options validate should throw an error on the "https" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert?, … }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, cert?, crl?, key?, pfx?, … }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https should be a boolean.
     * options.https should be an object:
-      object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert?, … }"
+      object { passphrase?, requestCert?, ca?, cacert?, cert?, crl?, key?, pfx?, … }"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"cacert":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert?, … }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, cert?, crl?, key?, pfx?, … }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.cacert should be one of these:
-      string | Buffer
-      -> Path to an SSL CA certificate.
+      string | Buffer | [string | Buffer, ...]
+      -> Path to an SSL CA certificate or content of an SSL CA certificate.
       Details:
        * options.https.cacert should be a string.
-       * options.https.cacert should be an instance of Buffer."
+       * options.https.cacert should be an instance of Buffer.
+       * options.https.cacert should be an array:
+         [string | Buffer, ...]"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"cert":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert?, … }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, cert?, crl?, key?, pfx?, … }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.cert should be one of these:
-      string | Buffer
-      -> Path to an SSL certificate.
+      string | Buffer | [string | Buffer, ...]
+      -> Path to an SSL certificate or content of an SSL certificate.
       Details:
        * options.https.cert should be a string.
-       * options.https.cert should be an instance of Buffer."
+       * options.https.cert should be an instance of Buffer.
+       * options.https.cert should be an array:
+         [string | Buffer, ...]"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"key":10}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert?, … }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, cert?, crl?, key?, pfx?, … }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.key should be one of these:
-      string | Buffer
-      -> Path to an SSL key.
+      string | Buffer | [string | Buffer, ...]
+      -> Path to an SSL key or content of an SSL key.
       Details:
        * options.https.key should be a string.
-       * options.https.key should be an instance of Buffer."
+       * options.https.key should be an instance of Buffer.
+       * options.https.key should be an array:
+         [string | Buffer, ...]"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"passphrase":false}' value 1`] = `
@@ -385,16 +391,18 @@ exports[`options validate should throw an error on the "https" option with '{"pa
 exports[`options validate should throw an error on the "https" option with '{"pfx":10}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https should be one of these:
-   boolean | object { passphrase?, requestCert?, ca?, cacert?, key?, pfx?, cert?, … }
+   boolean | object { passphrase?, requestCert?, ca?, cacert?, cert?, crl?, key?, pfx?, … }
    -> Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverhttps
    Details:
     * options.https.pfx should be one of these:
-      string | Buffer
-      -> Path to an SSL pfx file.
+      string | Buffer | [string | Buffer, ...]
+      -> Path to an SSL pfx file or content of an SSL pfx file.
       Details:
        * options.https.pfx should be a string.
-       * options.https.pfx should be an instance of Buffer."
+       * options.https.pfx should be an instance of Buffer.
+       * options.https.pfx should be an array:
+         [string | Buffer, ...]"
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"requestCert":"test"}' value 1`] = `
