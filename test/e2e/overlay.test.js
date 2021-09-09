@@ -43,7 +43,7 @@ class WarningPlugin {
 }
 
 describe("overlay", () => {
-  it("should show on a warning for initial compilation", async () => {
+  it("should show a warning for initial compilation", async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -79,7 +79,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it("should show on an error for initial compilation", async () => {
+  it("should show an error for initial compilation", async () => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -115,7 +115,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it("should show on a warning and error for initial compilation", async () => {
+  it("should show a warning and error for initial compilation", async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -155,7 +155,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it("should show on an ansi formatted error for initial compilation", async () => {
+  it("should show an ansi formatted error for initial compilation", async () => {
     const compiler = webpack(config);
 
     new ErrorPlugin("[0m [90m 18 |[39m           [33mRender[39m [33mansi formatted text[39m[0m").apply(
@@ -193,7 +193,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it("should show on a warning and error for initial compilation and protects against xss", async () => {
+  it("should show a warning and error for initial compilation and protects against xss", async () => {
     const compiler = webpack(config);
 
     new WarningPlugin("<strong>strong</strong>").apply(compiler);
@@ -456,7 +456,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should not show on a warning when "client.overlay" is "false"', async () => {
+  it('should not show a warning when "client.overlay" is "false"', async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -489,7 +489,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should not show on a warning when "client.overlay.warnings" is "false"', async () => {
+  it('should not show a warning when "client.overlay.warnings" is "false"', async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -524,7 +524,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should show on a warning when "client.overlay" is "true"', async () => {
+  it('should show a warning when "client.overlay" is "true"', async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -563,7 +563,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should show on a warning when "client.overlay.warnings" is "true"', async () => {
+  it('should show a warning when "client.overlay.warnings" is "true"', async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -604,7 +604,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should show on a warning when "client.overlay.errors" is "true"', async () => {
+  it('should show a warning when "client.overlay.errors" is "true"', async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -645,7 +645,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should not show on an error when "client.overlay" is "false"', async () => {
+  it('should not show an error when "client.overlay" is "false"', async () => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -678,7 +678,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should not show on an error when "client.overlay.errors" is "false"', async () => {
+  it('should not show an error when "client.overlay.errors" is "false"', async () => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -713,7 +713,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should show on an error when "client.overlay" is "true"', async () => {
+  it('should show an error when "client.overlay" is "true"', async () => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -752,7 +752,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should show on an error when "client.overlay.errors" is "true"', async () => {
+  it('should show an error when "client.overlay.errors" is "true"', async () => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -793,7 +793,7 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  it('should show on an error when "client.overlay.warnings" is "true"', async () => {
+  it('should show an error when "client.overlay.warnings" is "true"', async () => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -832,5 +832,50 @@ describe("overlay", () => {
 
     await browser.close();
     await server.stop();
+  });
+
+  it("should show a warning and hide them after closing connection", async () => {
+    const compiler = webpack(config);
+
+    new WarningPlugin().apply(compiler);
+
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await server.stop();
+
+    const pageHtmlAfterClose = await page.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(
+      prettier.format(pageHtmlAfterClose, { parser: "html" })
+    ).toMatchSnapshot("page html");
+
+    await browser.close();
   });
 });
