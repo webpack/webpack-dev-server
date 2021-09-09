@@ -458,16 +458,6 @@ exports[`https option as an object when ca, pfx, key and cert are strings, key a
 "
 `;
 
-exports[`https option as an object when ca, pfx, key and cert are symlinks should handle GET request to index route (/): https options 1`] = `
-Object {
-  "ca": "<Buffer>",
-  "cert": "<Buffer>",
-  "key": "<Buffer>",
-  "passphrase": "webpack-dev-server",
-  "pfx": "<Buffer>",
-}
-`;
-
 exports[`https option as an object when cacert and ca, pfx, key and cert are buffer should handle GET request to index route (/): console messages 1`] = `Array []`;
 
 exports[`https option as an object when cacert and ca, pfx, key and cert are buffer should handle GET request to index route (/): https options 1`] = `

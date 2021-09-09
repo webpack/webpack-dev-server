@@ -631,9 +631,6 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        normalizeOptions(createServerSpy.mock.calls[0][0])
-      ).toMatchSnapshot("https options");
       expect(response.status()).toEqual(200);
       expect(await response.text()).toContain("Heyo");
       expect(consoleMessages.map((message) => message.text())).toEqual([]);
