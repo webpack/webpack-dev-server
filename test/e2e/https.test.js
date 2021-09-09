@@ -1,5 +1,6 @@
 "use strict";
 
+const https = require("https");
 const path = require("path");
 const fs = require("graceful-fs");
 const request = require("supertest");
@@ -8,6 +9,7 @@ const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const { skipTestOnWindows } = require("../helpers/conditional-test");
+const normalizeOptions = require("../helpers/normalize-options");
 const port = require("../ports-map")["https-option"];
 
 const httpsCertificateDirectory = path.resolve(
@@ -85,6 +87,7 @@ describe("https option", () => {
   describe("as an object when ca, pfx, key and cert are buffer", () => {
     let compiler;
     let server;
+    let createServerSpy;
     let page;
     let browser;
     let pageErrors;
@@ -92,6 +95,8 @@ describe("https option", () => {
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
 
       server = new Server(
         {
@@ -126,6 +131,8 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      createServerSpy.mockRestore();
+
       await browser.close();
       await server.stop();
     });
@@ -143,14 +150,14 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
       expect(response.status()).toMatchSnapshot("response status");
-
       expect(await response.text()).toMatchSnapshot("response text");
-
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
-
       expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
@@ -158,6 +165,7 @@ describe("https option", () => {
   describe("as an object when ca, pfx, key and cert are paths", () => {
     let compiler;
     let server;
+    let createServerSpy;
     let page;
     let browser;
     let pageErrors;
@@ -165,6 +173,8 @@ describe("https option", () => {
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
 
       server = new Server(
         {
@@ -190,6 +200,8 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      createServerSpy.mockRestore();
+
       await browser.close();
       await server.stop();
     });
@@ -207,14 +219,14 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
       expect(response.status()).toMatchSnapshot("response status");
-
       expect(await response.text()).toMatchSnapshot("response text");
-
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
-
       expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
@@ -226,6 +238,7 @@ describe("https option", () => {
 
     let compiler;
     let server;
+    let createServerSpy;
     let page;
     let browser;
     let pageErrors;
@@ -233,6 +246,8 @@ describe("https option", () => {
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
 
       server = new Server(
         {
@@ -261,6 +276,8 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      createServerSpy.mockRestore();
+
       await browser.close();
       await server.stop();
     });
@@ -278,12 +295,12 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
       expect(response.status()).toEqual(200);
-
       expect(await response.text()).toContain("Heyo");
-
       expect(consoleMessages.map((message) => message.text())).toEqual([]);
-
       expect(pageErrors).toEqual([]);
     });
   });
@@ -291,6 +308,7 @@ describe("https option", () => {
   describe("as an object when ca, pfx, key and cert are raw strings", () => {
     let compiler;
     let server;
+    let createServerSpy;
     let page;
     let browser;
     let pageErrors;
@@ -298,6 +316,8 @@ describe("https option", () => {
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
 
       server = new Server(
         {
@@ -335,6 +355,8 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      createServerSpy.mockRestore();
+
       await browser.close();
       await server.stop();
     });
@@ -352,14 +374,14 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
       expect(response.status()).toMatchSnapshot("response status");
-
       expect(await response.text()).toMatchSnapshot("response text");
-
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
-
       expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
@@ -367,6 +389,7 @@ describe("https option", () => {
   describe("as an object when cacert, pfx, key and cert are buffer", () => {
     let compiler;
     let server;
+    let createServerSpy;
     let page;
     let browser;
     let pageErrors;
@@ -374,6 +397,8 @@ describe("https option", () => {
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
 
       server = new Server(
         {
@@ -410,6 +435,8 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      createServerSpy.mockRestore();
+
       await browser.close();
       await server.stop();
     });
@@ -427,14 +454,14 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
       expect(response.status()).toMatchSnapshot("response status");
-
       expect(await response.text()).toMatchSnapshot("response text");
-
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
-
       expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
@@ -442,6 +469,7 @@ describe("https option", () => {
   describe("as an object when cacert and ca, pfx, key and cert are buffer", () => {
     let compiler;
     let server;
+    let createServerSpy;
     let page;
     let browser;
     let pageErrors;
@@ -449,6 +477,8 @@ describe("https option", () => {
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
 
       server = new Server(
         {
@@ -486,6 +516,8 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      createServerSpy.mockRestore();
+
       await browser.close();
       await server.stop();
     });
@@ -503,14 +535,14 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
       expect(response.status()).toMatchSnapshot("response status");
-
       expect(await response.text()).toMatchSnapshot("response text");
-
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
-
       expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
@@ -521,10 +553,13 @@ describe("https option", () => {
   describe('should support the "requestCert" option', () => {
     let compiler;
     let server;
+    let createServerSpy;
     let req;
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      createServerSpy = jest.spyOn(https, "createServer");
 
       server = new Server(
         {
@@ -556,7 +591,15 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      createServerSpy.mockRestore();
+
       await server.stop();
+    });
+
+    it("should pass options to the 'https.createServer' method", async () => {
+      expect(
+        normalizeOptions(createServerSpy.mock.calls[0][0])
+      ).toMatchSnapshot("https options");
     });
 
     it("should handle GET request to index route (/)", async () => {
