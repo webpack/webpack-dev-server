@@ -1,8 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`"https" CLI option should warn using "--https-cacert" and "--https-ca" together 1`] = `
+"<w> [webpack-dev-server] Do not specify 'https.ca' and 'https.cacert' options together, the 'https.ca' option will be used.
+<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: https://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
 exports[`"https" CLI option should work using "--https" 1`] = `
 "<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: https://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
+exports[`"https" CLI option should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path> --https-ca <path>" 1`] = `
+"<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
@@ -18,6 +35,14 @@ exports[`"https" CLI option should work using "--https-key <path> --https-pfx <p
 `;
 
 exports[`"https" CLI option should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path>" 1`] = `
+"<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: https://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
+exports[`"https" CLI option should work using "--https-key-reset --https-key <path> --https-pfx-reset --https-pfx <path> --https-passphrase webpack-dev-server --https-cert-reset  --https-cert <path> --https-ca-reset --https-ca <path>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
