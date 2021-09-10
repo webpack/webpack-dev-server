@@ -55,6 +55,96 @@ describe('"https" CLI option', () => {
     ).toMatchSnapshot();
   });
 
+  it('should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path> --https-ca <path>"', async () => {
+    const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
+    const key = path.join(httpsCertificateDirectory, "server.key");
+    const cert = path.join(httpsCertificateDirectory, "server.crt");
+    const ca = path.join(httpsCertificateDirectory, "ca.pem");
+    const passphrase = "webpack-dev-server";
+
+    const { exitCode, stderr } = await testBin([
+      "--port",
+      port,
+      "--https-key",
+      key,
+      "--https-pfx",
+      pfxFile,
+      "--https-passphrase",
+      passphrase,
+      "--https-cert",
+      cert,
+      "--https-ca",
+      ca,
+    ]);
+
+    expect(exitCode).toEqual(0);
+    expect(
+      normalizeStderr(stderr, { ipv6: true, https: true })
+    ).toMatchSnapshot();
+  });
+
+  it('should work using "--https-key-reset --https-key <path> --https-pfx-reset --https-pfx <path> --https-passphrase webpack-dev-server --https-cert-reset  --https-cert <path> --https-ca-reset --https-ca <path>"', async () => {
+    const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
+    const key = path.join(httpsCertificateDirectory, "server.key");
+    const cert = path.join(httpsCertificateDirectory, "server.crt");
+    const ca = path.join(httpsCertificateDirectory, "ca.pem");
+    const passphrase = "webpack-dev-server";
+
+    const { exitCode, stderr } = await testBin([
+      "--port",
+      port,
+      "--https-key-reset",
+      "--https-key",
+      key,
+      "--https-pfx-reset",
+      "--https-pfx",
+      pfxFile,
+      "--https-passphrase",
+      passphrase,
+      "--https-cert-reset",
+      "--https-cert",
+      cert,
+      "--https-ca-reset",
+      "--https-ca",
+      ca,
+    ]);
+
+    expect(exitCode).toEqual(0);
+    expect(
+      normalizeStderr(stderr, { ipv6: true, https: true })
+    ).toMatchSnapshot();
+  });
+
+  it('should warn using "--https-cacert" and "--https-ca" together', async () => {
+    const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
+    const key = path.join(httpsCertificateDirectory, "server.key");
+    const cert = path.join(httpsCertificateDirectory, "server.crt");
+    const cacert = path.join(httpsCertificateDirectory, "ca.pem");
+    const passphrase = "webpack-dev-server";
+
+    const { exitCode, stderr } = await testBin([
+      "--port",
+      port,
+      "--https-key",
+      key,
+      "--https-pfx",
+      pfxFile,
+      "--https-passphrase",
+      passphrase,
+      "--https-cert",
+      cert,
+      "--https-cacert",
+      cacert,
+      "--https-ca",
+      cacert,
+    ]);
+
+    expect(exitCode).toEqual(0);
+    expect(
+      normalizeStderr(stderr, { ipv6: true, https: true })
+    ).toMatchSnapshot();
+  });
+
   // For https://github.com/webpack/webpack-dev-server/issues/3306
   it('should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path>"', async () => {
     const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
