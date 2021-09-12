@@ -54,6 +54,8 @@ describe("magicHtml option", () => {
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
     });
 
     it("should handle HEAD request to magic async html", async () => {
@@ -83,6 +85,8 @@ describe("magicHtml option", () => {
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
 
@@ -133,6 +137,8 @@ describe("magicHtml option", () => {
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
     });
 
     it("should not handle HEAD request to magic async html", async () => {
@@ -162,6 +168,8 @@ describe("magicHtml option", () => {
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
 });
