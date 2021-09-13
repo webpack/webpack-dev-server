@@ -200,11 +200,11 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
   });
 
   it(`should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries`, async () => {
@@ -313,11 +313,11 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
   });
 
   it(`should work with web target configurations when only live reload is enabled, and do live reload when changing own entries`, async () => {
@@ -410,11 +410,11 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
   });
 
   it(`should work with web target configurations when only live reload is enabled and do live reload when changing other entries`, async () => {
@@ -507,11 +507,11 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
   });
 
   it("should work with universal configuration and do nothing", async () => {
@@ -552,14 +552,14 @@ describe("multi compiler", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
     await browser.close();
     await server.stop();
+
+    expect(consoleMessages).toMatchSnapshot("console messages");
+    expect(pageErrors).toMatchSnapshot("page errors");
   });
 
-  it(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async () => {
+  it.only(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async () => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -650,11 +650,11 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
-    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
   });
 
   it(`should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed`, async () => {
@@ -740,10 +740,10 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
   });
 
   it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries`, async () => {
@@ -854,11 +854,11 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
-    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
   });
 
   it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries`, async () => {
@@ -969,10 +969,10 @@ describe("multi compiler", () => {
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
-    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
-
     await browser.close();
     await server.stop();
+
+    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
   });
 });
