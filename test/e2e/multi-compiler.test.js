@@ -10,10 +10,8 @@ const universalConfiguration = require("../fixtures/universal-compiler-config/we
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["multi-compiler"];
 
-// TODO fix waitForConsoleLog on needed counts
-// TODO server changes should reload for universal compiler + compiling
 describe("multi compiler", () => {
-  it(`should work with one web target configuration`, async () => {
+  it(`should work with one web target configuration and do nothing`, async () => {
     const compiler = webpack(oneWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -366,11 +364,11 @@ describe("multi compiler", () => {
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
+          consoleMessages.filter(
+            (item) => item === "[webpack-dev-server] Live Reloading enabled."
+          ).length === 2 &&
           consoleMessages.includes(
             "[webpack-dev-server] App updated. Reloading..."
-          ) &&
-          consoleMessages.includes(
-            "[webpack-dev-server] Live Reloading enabled."
           )
         ) {
           clearInterval(interval);
@@ -395,11 +393,11 @@ describe("multi compiler", () => {
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
+          consoleMessages.filter(
+            (item) => item === "[webpack-dev-server] Live Reloading enabled."
+          ).length === 2 &&
           consoleMessages.includes(
             "[webpack-dev-server] App updated. Reloading..."
-          ) &&
-          consoleMessages.includes(
-            "[webpack-dev-server] Live Reloading enabled."
           )
         ) {
           clearInterval(interval);
@@ -463,11 +461,11 @@ describe("multi compiler", () => {
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
+          consoleMessages.filter(
+            (item) => item === "[webpack-dev-server] Live Reloading enabled."
+          ).length === 2 &&
           consoleMessages.includes(
             "[webpack-dev-server] App updated. Reloading..."
-          ) &&
-          consoleMessages.includes(
-            "[webpack-dev-server] Live Reloading enabled."
           )
         ) {
           clearInterval(interval);
@@ -492,11 +490,11 @@ describe("multi compiler", () => {
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
+          consoleMessages.filter(
+            (item) => item === "[webpack-dev-server] Live Reloading enabled."
+          ).length === 2 &&
           consoleMessages.includes(
             "[webpack-dev-server] App updated. Reloading..."
-          ) &&
-          consoleMessages.includes(
-            "[webpack-dev-server] Live Reloading enabled."
           )
         ) {
           clearInterval(interval);
@@ -527,6 +525,18 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
+    const serverResponse = await page.goto(
+      `http://127.0.0.1:${port}/server.js`,
+      {
+        waitUntil: "networkidle0",
+      }
+    );
+
+    const serverResponseText = await serverResponse.text();
+
+    expect(serverResponseText).toContain("Hello from the server");
+    expect(serverResponseText).not.toContain("WebsocketServer");
+
     const pageErrors = [];
     const consoleMessages = [];
 
@@ -544,18 +554,6 @@ describe("multi compiler", () => {
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
-
-    const serverResponse = await page.goto(
-      `http://127.0.0.1:${port}/server.js`,
-      {
-        waitUntil: "networkidle0",
-      }
-    );
-
-    const serverResponseText = await serverResponse.text();
-
-    expect(serverResponseText).toContain("Hello from the server");
-    expect(serverResponseText).not.toContain("WebsocketServer");
 
     await browser.close();
     await server.stop();
@@ -585,8 +583,20 @@ describe("multi compiler", () => {
 
     const { page: pageOne, browser } = await runBrowser();
 
-    let pageErrors = [];
-    let consoleMessages = [];
+    const serverResponse = await pageOne.goto(
+      `http://127.0.0.1:${port}/server.js`,
+      {
+        waitUntil: "networkidle0",
+      }
+    );
+
+    const serverResponseText = await serverResponse.text();
+
+    expect(serverResponseText).toContain("Hello from the server");
+    expect(serverResponseText).not.toContain("WebsocketServer");
+
+    const pageErrors = [];
+    const consoleMessages = [];
 
     pageOne
       .on("console", (message) => {
@@ -636,12 +646,6 @@ describe("multi compiler", () => {
         }
       }, 100);
     });
-
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    pageErrors = [];
-    consoleMessages = [];
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -721,6 +725,9 @@ describe("multi compiler", () => {
           ).length === 2 &&
           consoleMessages.includes(
             "[webpack-dev-server] App updated. Recompiling..."
+          ) &&
+          consoleMessages.includes(
+            "[HMR] Cannot apply update. Need to do a full reload!"
           )
         ) {
           clearInterval(interval);
