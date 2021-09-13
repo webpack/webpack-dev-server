@@ -18,7 +18,6 @@ const listOfTests = {
   // integration tests
   "module-federation": 1,
   "multi-compiler": 1,
-  "universal-compiler": 1,
   // unit tests
   bonjour: 1,
   "client-option": 1,

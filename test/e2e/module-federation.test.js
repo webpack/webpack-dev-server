@@ -8,7 +8,7 @@ const objectEntryConfig = require("../fixtures/module-federation-config/webpack.
 const multiConfig = require("../fixtures/module-federation-config/webpack.multi.config");
 const runBrowser = require("../helpers/run-browser");
 const isWebpack5 = require("../helpers/isWebpack5");
-const port = require("../ports-map")["universal-compiler"];
+const port = require("../ports-map")["module-federation"];
 
 const describeOnlyWebpack5 = isWebpack5 ? describe : describe.skip;
 

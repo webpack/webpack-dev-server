@@ -679,7 +679,7 @@ describe("Server", () => {
         let webpackConfig;
 
         if (item.multiCompiler) {
-          webpackConfig = require("../fixtures/multi-compiler-config/webpack.config");
+          webpackConfig = require("../fixtures/multi-compiler-one-configuration/webpack.config");
 
           if (Array.isArray(item.webpackConfig)) {
             // eslint-disable-next-line no-shadow

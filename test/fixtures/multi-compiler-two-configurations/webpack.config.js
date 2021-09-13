@@ -6,13 +6,15 @@ const isWebpack5 = webpack.version.startsWith("5");
 
 module.exports = [
   {
+    target: "web",
+    name: "one",
     mode: "development",
     context: __dirname,
+    entry: "./one.js",
     stats: "none",
-    entry: "./browser.js",
     output: {
       path: "/",
-      filename: "browser.js",
+      filename: "one-[name].js",
     },
     infrastructureLogging: isWebpack5
       ? {
@@ -26,14 +28,15 @@ module.exports = [
         },
   },
   {
+    target: "web",
+    name: "two",
     mode: "development",
     context: __dirname,
-    target: "node",
+    entry: "./two.js",
     stats: "none",
-    entry: "./server.js",
     output: {
       path: "/",
-      filename: "server.js",
+      filename: "two-[name].js",
     },
     infrastructureLogging: isWebpack5
       ? {

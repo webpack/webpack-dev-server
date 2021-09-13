@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const request = require("supertest");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const multiCompilerConfig = require("../fixtures/multi-compiler-config/webpack.config");
+const multiCompilerConfig = require("../fixtures/multi-compiler-one-configuration/webpack.config");
 const port = require("../ports-map")["hot-option"];
 
 describe("hot option", () => {
