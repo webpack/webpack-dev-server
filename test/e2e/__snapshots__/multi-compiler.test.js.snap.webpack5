@@ -115,8 +115,8 @@ Array [
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] App updated. Recompiling...",
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
