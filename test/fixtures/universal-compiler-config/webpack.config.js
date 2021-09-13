@@ -6,6 +6,7 @@ const isWebpack5 = webpack.version.startsWith("5");
 
 module.exports = [
   {
+    name: "browser",
     mode: "development",
     context: __dirname,
     stats: "none",
@@ -26,6 +27,7 @@ module.exports = [
         },
   },
   {
+    name: "server",
     mode: "development",
     context: __dirname,
     target: "node",

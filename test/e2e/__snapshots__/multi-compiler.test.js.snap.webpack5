@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multi compiler should work with one web target configuration: console messages 1`] = `
+exports[`multi compiler should work with one web target configuration and do nothing: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -9,69 +9,9 @@ Array [
 ]
 `;
 
-exports[`multi compiler should work with one web target configuration: page errors 1`] = `Array []`;
+exports[`multi compiler should work with one web target configuration and do nothing: page errors 1`] = `Array []`;
 
-exports[`multi compiler should work with two web target configurations with hot and live reload: console messages 1`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "one",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`multi compiler should work with two web target configurations with hot and live reload: console messages 2`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "two",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`multi compiler should work with two web target configurations with hot and live reload: page errors 1`] = `Array []`;
-
-exports[`multi compiler should work with two web target configurations with hot and live reload: page errors 2`] = `Array []`;
-
-exports[`multi compiler should work with two web target configurations with only hot reload: console messages 1`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "one",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-]
-`;
-
-exports[`multi compiler should work with two web target configurations with only hot reload: console messages 2`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "two",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-]
-`;
-
-exports[`multi compiler should work with two web target configurations with only hot reload: page errors 1`] = `Array []`;
-
-exports[`multi compiler should work with two web target configurations with only hot reload: page errors 2`] = `Array []`;
-
-exports[`multi compiler should work with two web target configurations with only live reload: console messages 1`] = `
-Array [
-  "one",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`multi compiler should work with two web target configurations with only live reload: console messages 2`] = `
-Array [
-  "two",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`multi compiler should work with two web target configurations with only live reload: page errors 1`] = `Array []`;
-
-exports[`multi compiler should work with two web target configurations with only live reload: page errors 2`] = `Array []`;
-
-exports[`multi compiler should work with universal configurations with hot and live reload: console messages 1`] = `
+exports[`multi compiler should work with universal configuration and do nothing: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
@@ -80,23 +20,262 @@ Array [
 ]
 `;
 
-exports[`multi compiler should work with universal configurations with hot and live reload: page errors 1`] = `Array []`;
+exports[`multi compiler should work with universal configuration and do nothing: page errors 1`] = `Array []`;
 
-exports[`multi compiler should work with universal configurations with only hot reload: console messages 1`] = `
+exports[`multi compiler should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed: console messages 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hello from the browser",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Cannot apply update. Need to do a full reload!",
+  "[HMR] Error: Aborted because ./browser.js is not accepted
+Update propagation: ./browser.js
+    <stack>",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hello from the browser",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hello from the browser",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Cannot apply update. Need to do a full reload!",
+  "[HMR] Error: Aborted because ./browser.js is not accepted
+Update propagation: ./browser.js
+    at applyHandler (http://127.0.0.1:8103/browser.js:1094:31)
+    at http://127.0.0.1:8103/browser.js:794:21
+    at Array.map (<anonymous>)
+    at internalApply (http://127.0.0.1:8103/browser.js:793:54)
+    at http://127.0.0.1:8103/browser.js:767:26
+    at waitForBlockingPromises (http://127.0.0.1:8103/browser.js:720:55)
+    at http://127.0.0.1:8103/browser.js:765:24",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
   "[webpack-dev-server] Hot Module Replacement enabled.",
 ]
 `;
 
-exports[`multi compiler should work with universal configurations with only hot reload: page errors 1`] = `Array []`;
+exports[`multi compiler should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed: page errors 1`] = `Array []`;
 
-exports[`multi compiler should work with universal configurations with only live reload: console messages 1`] = `
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries: console messages 1`] = `
 Array [
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
-exports[`multi compiler should work with universal configurations with only live reload: page errors 1`] = `Array []`;
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries: console messages 2`] = `
+Array [
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries: page errors 2`] = `Array []`;
+
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries: console messages 1`] = `
+Array [
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries: console messages 2`] = `
+Array [
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries: page errors 2`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations and do nothing: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "one",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations and do nothing: console messages 2`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "two",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations and do nothing: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations and do nothing: page errors 2`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "one",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Cannot apply update. Need to do a full reload!",
+  "[HMR] Error: Aborted because ./one.js is not accepted
+Update propagation: ./one.js
+    <stack>",
+  "[HMR] Waiting for update signal from WDS...",
+  "one",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries: console messages 2`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "two",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Cannot apply update. Need to do a full reload!",
+  "[HMR] Error: Aborted because ./two.js is not accepted
+Update propagation: ./two.js
+    <stack>",
+  "[HMR] Waiting for update signal from WDS...",
+  "two",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries: page errors 2`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "one",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Cannot apply update. Need to do a full reload!",
+  "[HMR] Error: Aborted because ./one.js is not accepted
+Update propagation: ./one.js
+    <stack>",
+  "[HMR] Waiting for update signal from WDS...",
+  "one",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries: console messages 2`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "two",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Cannot apply update. Need to do a full reload!",
+  "[HMR] Error: Aborted because ./two.js is not accepted
+Update propagation: ./two.js
+    <stack>",
+  "[HMR] Waiting for update signal from WDS...",
+  "two",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries: page errors 2`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled and do live reload when changing other entries: console messages 1`] = `
+Array [
+  "one",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "one",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled and do live reload when changing other entries: console messages 2`] = `
+Array [
+  "two",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "two",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled and do live reload when changing other entries: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled and do live reload when changing other entries: page errors 2`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled, and do live reload when changing own entries: console messages 1`] = `
+Array [
+  "one",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "one",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled, and do live reload when changing own entries: console messages 2`] = `
+Array [
+  "two",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "two",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled, and do live reload when changing own entries: page errors 1`] = `Array []`;
+
+exports[`multi compiler should work with web target configurations when only live reload is enabled, and do live reload when changing own entries: page errors 2`] = `Array []`;

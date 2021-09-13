@@ -87,6 +87,7 @@ const onSocketMessage = {
     sendMessage("Invalid");
   },
   hash(hash) {
+    status.previousHash = status.currentHash;
     status.currentHash = hash;
   },
   logging: setAllLogLevel,
