@@ -86,7 +86,7 @@ describe("'reloadApp' function", () => {
 
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false, currentHash: "other-mock-hash" }
+      { isUnloading: false, currentHash: "changed-mock" }
     );
 
     setTimeout(() => {
@@ -101,7 +101,7 @@ describe("'reloadApp' function", () => {
   test("should run liveReload when protocol is http:", (done) => {
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false, currentHash: "other-mock-hash" }
+      { isUnloading: false, currentHash: "changed-mock" }
     );
 
     setTimeout(() => {
