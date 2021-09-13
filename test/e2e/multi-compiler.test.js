@@ -54,12 +54,12 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
     let pageErrors = [];
     let consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         consoleMessages.push(message.text());
       })
@@ -67,7 +67,7 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/one-main`, {
+    await page.goto(`http://127.0.0.1:${port}/one-main`, {
       waitUntil: "networkidle0",
     });
 
@@ -77,7 +77,7 @@ describe("multi compiler", () => {
     pageErrors = [];
     consoleMessages = [];
 
-    await pageOne.goto(`http://127.0.0.1:${port}/two-main`, {
+    await page.goto(`http://127.0.0.1:${port}/two-main`, {
       waitUntil: "networkidle0",
     });
 
@@ -110,12 +110,12 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
     let pageErrors = [];
     let consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         let text = message.text();
 
@@ -131,12 +131,13 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/one-main`, {
+    await page.goto(`http://127.0.0.1:${port}/one-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -167,12 +168,13 @@ describe("multi compiler", () => {
     pageErrors = [];
     consoleMessages = [];
 
-    await pageOne.goto(`http://127.0.0.1:${port}/two-main`, {
+    await page.goto(`http://127.0.0.1:${port}/two-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -229,12 +231,12 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
     let pageErrors = [];
     let consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         let text = message.text();
 
@@ -250,12 +252,13 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/one-main`, {
+    await page.goto(`http://127.0.0.1:${port}/one-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -283,12 +286,13 @@ describe("multi compiler", () => {
     pageErrors = [];
     consoleMessages = [];
 
-    await pageOne.goto(`http://127.0.0.1:${port}/two-main`, {
+    await page.goto(`http://127.0.0.1:${port}/two-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -342,12 +346,12 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
     let pageErrors = [];
     let consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         consoleMessages.push(message.text());
       })
@@ -355,12 +359,13 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/one-main`, {
+    await page.goto(`http://127.0.0.1:${port}/one-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -384,12 +389,13 @@ describe("multi compiler", () => {
     pageErrors = [];
     consoleMessages = [];
 
-    await pageOne.goto(`http://127.0.0.1:${port}/two-main`, {
+    await page.goto(`http://127.0.0.1:${port}/two-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -439,12 +445,12 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
     let pageErrors = [];
     let consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         consoleMessages.push(message.text());
       })
@@ -452,12 +458,13 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/one-main`, {
+    await page.goto(`http://127.0.0.1:${port}/one-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -481,12 +488,13 @@ describe("multi compiler", () => {
     pageErrors = [];
     consoleMessages = [];
 
-    await pageOne.goto(`http://127.0.0.1:${port}/two-main`, {
+    await page.goto(`http://127.0.0.1:${port}/two-main`, {
       waitUntil: "networkidle0",
     });
 
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -581,9 +589,9 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
-    const serverResponse = await pageOne.goto(
+    const serverResponse = await page.goto(
       `http://127.0.0.1:${port}/server.js`,
       {
         waitUntil: "networkidle0",
@@ -598,7 +606,7 @@ describe("multi compiler", () => {
     const pageErrors = [];
     const consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         let text = message.text();
 
@@ -614,7 +622,7 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+    await page.goto(`http://127.0.0.1:${port}/browser`, {
       waitUntil: "networkidle0",
     });
 
@@ -623,6 +631,7 @@ describe("multi compiler", () => {
       `${originalBrowserEntryContent}// comment`
     );
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -674,9 +683,9 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
-    const serverResponse = await pageOne.goto(
+    const serverResponse = await page.goto(
       `http://127.0.0.1:${port}/server.js`,
       {
         waitUntil: "networkidle0",
@@ -691,7 +700,7 @@ describe("multi compiler", () => {
     const pageErrors = [];
     const consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         let text = message.text();
 
@@ -707,7 +716,7 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+    await page.goto(`http://127.0.0.1:${port}/browser`, {
       waitUntil: "networkidle0",
     });
 
@@ -715,6 +724,8 @@ describe("multi compiler", () => {
       pathToBrowserEntry,
       `${originalBrowserEntryContent}// comment`
     );
+
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
 
     await new Promise((resolve) => {
       const interval = setInterval(() => {
@@ -768,9 +779,9 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
-    const serverResponse = await pageOne.goto(
+    const serverResponse = await page.goto(
       `http://127.0.0.1:${port}/server.js`,
       {
         waitUntil: "networkidle0",
@@ -785,7 +796,7 @@ describe("multi compiler", () => {
     let pageErrors = [];
     let consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         consoleMessages.push(message.text());
       })
@@ -793,7 +804,7 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+    await page.goto(`http://127.0.0.1:${port}/browser`, {
       waitUntil: "networkidle0",
     });
 
@@ -802,6 +813,7 @@ describe("multi compiler", () => {
       `${originalBrowserEntryContent}// comment`
     );
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -825,7 +837,7 @@ describe("multi compiler", () => {
     pageErrors = [];
     consoleMessages = [];
 
-    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+    await page.goto(`http://127.0.0.1:${port}/browser`, {
       waitUntil: "networkidle0",
     });
 
@@ -834,6 +846,7 @@ describe("multi compiler", () => {
       `${originalServerEntryContent}// comment`
     );
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -883,9 +896,9 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page: pageOne, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
-    const serverResponse = await pageOne.goto(
+    const serverResponse = await page.goto(
       `http://127.0.0.1:${port}/server.js`,
       {
         waitUntil: "networkidle0",
@@ -900,7 +913,7 @@ describe("multi compiler", () => {
     let pageErrors = [];
     let consoleMessages = [];
 
-    pageOne
+    page
       .on("console", (message) => {
         consoleMessages.push(message.text());
       })
@@ -908,7 +921,7 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
-    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+    await page.goto(`http://127.0.0.1:${port}/browser`, {
       waitUntil: "networkidle0",
     });
 
@@ -917,6 +930,7 @@ describe("multi compiler", () => {
       `${originalServerEntryContent}// comment`
     );
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
@@ -940,7 +954,7 @@ describe("multi compiler", () => {
     pageErrors = [];
     consoleMessages = [];
 
-    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+    await page.goto(`http://127.0.0.1:${port}/browser`, {
       waitUntil: "networkidle0",
     });
 
@@ -949,6 +963,7 @@ describe("multi compiler", () => {
       `${originalBrowserEntryContent}// comment`
     );
 
+    await page.waitForNavigation({ waitUntil: "networkidle0" });
     await new Promise((resolve) => {
       const interval = setInterval(() => {
         if (
