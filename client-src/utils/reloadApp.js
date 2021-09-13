@@ -8,23 +8,10 @@ function reloadApp({ hot, liveReload }, status) {
     return;
   }
 
-  // TODO Workaround for webpack v4, `__webpack_hash__` is not replaced without HotModuleReplacement plugin
-  const webpackHash =
-    // eslint-disable-next-line camelcase
-    typeof __webpack_hash__ !== "undefined"
-      ? // eslint-disable-next-line camelcase
-        __webpack_hash__
-      : status.previousHash || "";
-  const isInitial = status.currentHash.indexOf(webpackHash) >= 0;
+  const { currentHash, previousHash } = status;
+  const isInitial = currentHash.indexOf(previousHash) >= 0;
 
   if (isInitial) {
-    const isLegacyInitial =
-      webpackHash === "" && hot === false && liveReload === true;
-
-    if (isLegacyInitial) {
-      status.previousHash = status.currentHash;
-    }
-
     return;
   }
 
