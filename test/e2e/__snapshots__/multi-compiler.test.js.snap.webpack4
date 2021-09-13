@@ -31,10 +31,9 @@ Array [
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App hot update...",
   "[HMR] Checking for updates on the server...",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
-Update propagation: ./browser.js
+Update propagation: ./browser.js -> 0
     <stack>",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
@@ -53,17 +52,12 @@ Array [
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App hot update...",
   "[HMR] Checking for updates on the server...",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
-Update propagation: ./browser.js
-    at applyHandler (http://127.0.0.1:8103/browser.js:1094:31)
-    at http://127.0.0.1:8103/browser.js:794:21
-    at Array.map (<anonymous>)
-    at internalApply (http://127.0.0.1:8103/browser.js:793:54)
-    at http://127.0.0.1:8103/browser.js:767:26
-    at waitForBlockingPromises (http://127.0.0.1:8103/browser.js:720:55)
-    at http://127.0.0.1:8103/browser.js:765:24",
+Update propagation: ./browser.js -> 0
+    at hotApplyInternal (http://127.0.0.1:8103/browser.js:508:30)
+    at hotApply (http://127.0.0.1:8103/browser.js:362:19)
+    at http://127.0.0.1:8103/browser.js:337:22",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -76,7 +70,6 @@ exports[`multi compiler should work with universal configuration when only live 
 Array [
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
   "Hello from the browser",
@@ -114,7 +107,6 @@ exports[`multi compiler should work with universal configuration when only live 
 Array [
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
   "Hello from the browser",
@@ -159,7 +151,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./one.js is not accepted
-Update propagation: ./one.js
+Update propagation: ./one.js -> 0
     <stack>",
   "[HMR] Waiting for update signal from WDS...",
   "one",
@@ -179,7 +171,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./two.js is not accepted
-Update propagation: ./two.js
+Update propagation: ./two.js -> 0
     <stack>",
   "[HMR] Waiting for update signal from WDS...",
   "two",
@@ -202,7 +194,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./one.js is not accepted
-Update propagation: ./one.js
+Update propagation: ./one.js -> 0
     <stack>",
   "[HMR] Waiting for update signal from WDS...",
   "one",
@@ -220,7 +212,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./two.js is not accepted
-Update propagation: ./two.js
+Update propagation: ./two.js -> 0
     <stack>",
   "[HMR] Waiting for update signal from WDS...",
   "two",
