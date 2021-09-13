@@ -31,7 +31,6 @@ Array [
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App hot update...",
   "[HMR] Checking for updates on the server...",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
 Update propagation: ./browser.js
@@ -53,7 +52,6 @@ Array [
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App hot update...",
   "[HMR] Checking for updates on the server...",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
 Update propagation: ./browser.js
@@ -76,7 +74,6 @@ exports[`multi compiler should work with universal configuration when only live 
 Array [
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
   "Hello from the browser",
@@ -116,7 +113,6 @@ Array [
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] App updated. Recompiling...",
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
 ]

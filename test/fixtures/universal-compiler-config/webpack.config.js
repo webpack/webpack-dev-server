@@ -28,7 +28,6 @@ module.exports = [
   },
   {
     name: "server",
-    dependencies: ["browser"],
     mode: "development",
     context: __dirname,
     target: "node",

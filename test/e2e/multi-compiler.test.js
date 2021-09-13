@@ -559,7 +559,7 @@ describe("multi compiler", () => {
     expect(pageErrors).toMatchSnapshot("page errors");
   });
 
-  it.only(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async () => {
+  it(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async () => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
