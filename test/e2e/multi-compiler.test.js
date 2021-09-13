@@ -714,7 +714,6 @@ describe("multi compiler", () => {
 
     await new Promise((resolve) => {
       const interval = setInterval(() => {
-        console.log(consoleMessages);
         if (
           consoleMessages.filter(
             (item) =>
@@ -740,7 +739,7 @@ describe("multi compiler", () => {
     await server.stop();
   });
 
-  it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing entries`, async () => {
+  it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing other entries`, async () => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
