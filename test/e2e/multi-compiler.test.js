@@ -11,7 +11,6 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["multi-compiler"];
 
 // TODO fix waitForConsoleLog on needed counts
-// TODO better naming
 // TODO server changes should reload for universal compiler + compiling
 describe("multi compiler", () => {
   it(`should work with one web target configuration`, async () => {
@@ -562,7 +561,7 @@ describe("multi compiler", () => {
     await server.stop();
   });
 
-  it(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compile by default when browser entry changed`, async () => {
+  it(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async () => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
