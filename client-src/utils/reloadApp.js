@@ -15,7 +15,7 @@ function reloadApp({ hot, liveReload }, status) {
       ? // eslint-disable-next-line camelcase
         __webpack_hash__
       : status.previousHash || "";
-  const isInitial = status.currentHash.indexOf(webpackHash) === 0;
+  const isInitial = status.currentHash.indexOf(webpackHash) >= 0;
 
   if (isInitial) {
     const isLegacyInitial =
