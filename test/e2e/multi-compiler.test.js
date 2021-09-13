@@ -138,29 +138,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) =>
-              item === "[webpack-dev-server] Hot Module Replacement enabled."
-          ).length === 2 &&
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Recompiling..."
-          ) &&
-          consoleMessages.includes(
-            "[HMR] Cannot apply update. Need to do a full reload!"
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -175,29 +152,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) =>
-              item === "[webpack-dev-server] Hot Module Replacement enabled."
-          ).length === 2 &&
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Recompiling..."
-          ) &&
-          consoleMessages.includes(
-            "[HMR] Cannot apply update. Need to do a full reload!"
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -259,26 +213,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) =>
-              item === "[webpack-dev-server] Hot Module Replacement enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Recompiling..."
-          ) &&
-          consoleMessages.includes(
-            "[HMR] Cannot apply update. Need to do a full reload!"
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -293,26 +227,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) =>
-              item === "[webpack-dev-server] Hot Module Replacement enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Recompiling..."
-          ) &&
-          consoleMessages.includes(
-            "[HMR] Cannot apply update. Need to do a full reload!"
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -366,22 +280,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -396,22 +294,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -465,22 +347,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -495,22 +361,6 @@ describe("multi compiler", () => {
     fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -632,29 +482,6 @@ describe("multi compiler", () => {
     );
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) =>
-              item === "[webpack-dev-server] Hot Module Replacement enabled."
-          ).length === 2 &&
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Recompiling..."
-          ) &&
-          consoleMessages.includes(
-            "[HMR] Cannot apply update. Need to do a full reload!"
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -727,27 +554,6 @@ describe("multi compiler", () => {
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) =>
-              item === "[webpack-dev-server] Hot Module Replacement enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Recompiling..."
-          ) &&
-          consoleMessages.includes(
-            "[HMR] Cannot apply update. Need to do a full reload!"
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
-
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
@@ -814,22 +620,6 @@ describe("multi compiler", () => {
     );
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -847,22 +637,6 @@ describe("multi compiler", () => {
     );
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -931,22 +705,6 @@ describe("multi compiler", () => {
     );
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -964,22 +722,6 @@ describe("multi compiler", () => {
     );
 
     await page.waitForNavigation({ waitUntil: "networkidle0" });
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          consoleMessages.filter(
-            (item) => item === "[webpack-dev-server] Live Reloading enabled."
-          ).length === 2 &&
-          consoleMessages.includes(
-            "[webpack-dev-server] App updated. Reloading..."
-          )
-        ) {
-          clearInterval(interval);
-
-          resolve();
-        }
-      }, 100);
-    });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
