@@ -657,7 +657,7 @@ describe("multi compiler", () => {
     await server.stop();
   });
 
-  it(`should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry`, async () => {
+  it(`should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed`, async () => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -746,7 +746,7 @@ describe("multi compiler", () => {
     await server.stop();
   });
 
-  it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing other entries`, async () => {
+  it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries`, async () => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -832,6 +832,121 @@ describe("multi compiler", () => {
     fs.writeFileSync(
       pathToServerEntry,
       `${originalServerEntryContent}// comment`
+    );
+
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (
+          consoleMessages.filter(
+            (item) => item === "[webpack-dev-server] Live Reloading enabled."
+          ).length === 2 &&
+          consoleMessages.includes(
+            "[webpack-dev-server] App updated. Reloading..."
+          )
+        ) {
+          clearInterval(interval);
+
+          resolve();
+        }
+      }, 100);
+    });
+
+    expect(consoleMessages).toMatchSnapshot("console messages");
+    expect(pageErrors).toMatchSnapshot("page errors");
+
+    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries`, async () => {
+    const compiler = webpack(universalConfiguration);
+    const devServerOptions = {
+      port,
+      hot: false,
+      liveReload: true,
+    };
+    const pathToBrowserEntry = path.resolve(
+      __dirname,
+      "../fixtures/universal-compiler-config/browser.js"
+    );
+    const originalBrowserEntryContent = fs.readFileSync(pathToBrowserEntry);
+    const pathToServerEntry = path.resolve(
+      __dirname,
+      "../fixtures/universal-compiler-config/server.js"
+    );
+    const originalServerEntryContent = fs.readFileSync(pathToServerEntry);
+
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page: pageOne, browser } = await runBrowser();
+
+    const serverResponse = await pageOne.goto(
+      `http://127.0.0.1:${port}/server.js`,
+      {
+        waitUntil: "networkidle0",
+      }
+    );
+
+    const serverResponseText = await serverResponse.text();
+
+    expect(serverResponseText).toContain("Hello from the server");
+    expect(serverResponseText).not.toContain("WebsocketServer");
+
+    let pageErrors = [];
+    let consoleMessages = [];
+
+    pageOne
+      .on("console", (message) => {
+        consoleMessages.push(message.text());
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+      waitUntil: "networkidle0",
+    });
+
+    fs.writeFileSync(
+      pathToServerEntry,
+      `${originalServerEntryContent}// comment`
+    );
+
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (
+          consoleMessages.filter(
+            (item) => item === "[webpack-dev-server] Live Reloading enabled."
+          ).length === 2 &&
+          consoleMessages.includes(
+            "[webpack-dev-server] App updated. Reloading..."
+          )
+        ) {
+          clearInterval(interval);
+
+          resolve();
+        }
+      }, 100);
+    });
+
+    expect(consoleMessages).toMatchSnapshot("console messages");
+    expect(pageErrors).toMatchSnapshot("page errors");
+
+    pageErrors = [];
+    consoleMessages = [];
+
+    await pageOne.goto(`http://127.0.0.1:${port}/browser`, {
+      waitUntil: "networkidle0",
+    });
+
+    fs.writeFileSync(
+      pathToBrowserEntry,
+      `${originalBrowserEntryContent}// comment`
     );
 
     await new Promise((resolve) => {
