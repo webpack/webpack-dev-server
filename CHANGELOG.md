@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.1](https://github.com/webpack/webpack-dev-server/compare/v4.2.0...v4.2.1) (2021-09-13)
+
+
+### Bug Fixes
+
+* infinity loop for multi compiler mode ([#3840](https://github.com/webpack/webpack-dev-server/issues/3840)) ([e019bd2](https://github.com/webpack/webpack-dev-server/commit/e019bd24ea061c4839a4667f8bd75a04b9a48128))
+* reloading logic for multi compiler mode ([#3841](https://github.com/webpack/webpack-dev-server/issues/3841)) ([ef148ec](https://github.com/webpack/webpack-dev-server/commit/ef148ec1feb66d0f72457d0b2de853b76b06b3c9))
+
 ### [4.2.0](https://github.com/webpack/webpack-dev-server/compare/v4.1.1...v4.2.0) (2021-09-09)
 
 
