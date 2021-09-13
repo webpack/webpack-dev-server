@@ -6,7 +6,7 @@ const config = require("../fixtures/multi-compiler-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["multi-compiler"];
 
-describe("Multi compiler", () => {
+describe("multi compiler", () => {
   it(`should work with multiple compilers`, async () => {
     const compiler = webpack(config);
     const devServerOptions = {

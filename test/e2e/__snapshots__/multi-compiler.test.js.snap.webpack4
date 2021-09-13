@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Multi compiler should work with multiple compilers: console messages 1`] = `
+exports[`multi compiler should work with multiple compilers: console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
+  "WebSocket connection to 'ws://localhost:8081/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+  "[webpack-dev-server] JSHandle@object",
+  "[webpack-dev-server] Disconnected!",
+  "1",
 ]
 `;
 
-exports[`Multi compiler should work with multiple compilers: page errors 1`] = `Array []`;
+exports[`multi compiler should work with multiple compilers: page errors 1`] = `Array []`;

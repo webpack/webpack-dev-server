@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Universal compiler client bundle should have the inlined the client runtime: console messages 1`] = `Array []`;
+exports[`universal compiler client bundle should have the inlined the client runtime: console messages 1`] = `Array []`;
 
-exports[`Universal compiler client bundle should have the inlined the client runtime: page errors 1`] = `Array []`;
+exports[`universal compiler client bundle should have the inlined the client runtime: page errors 1`] = `Array []`;
 
-exports[`Universal compiler server bundle should NOT have the inlined the client runtime: console messages 1`] = `Array []`;
+exports[`universal compiler server bundle should NOT have the inlined the client runtime: console messages 1`] = `Array []`;
 
-exports[`Universal compiler server bundle should NOT have the inlined the client runtime: page errors 1`] = `Array []`;
+exports[`universal compiler server bundle should NOT have the inlined the client runtime: page errors 1`] = `Array []`;

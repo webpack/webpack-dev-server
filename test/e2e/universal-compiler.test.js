@@ -6,7 +6,7 @@ const config = require("../fixtures/universal-compiler-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["universal-compiler"];
 
-describe("Universal compiler", () => {
+describe("universal compiler", () => {
   it("client bundle should have the inlined the client runtime", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
