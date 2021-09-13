@@ -1,5 +1,7 @@
 "use strict";
 
+const path = require("path");
+const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const oneWebTargetConfiguration = require("../fixtures/multi-compiler-one-configuration/webpack.config");
@@ -139,6 +141,16 @@ describe("multi compiler", () => {
       hot: false,
       liveReload: true,
     };
+    const pathToOneEntry = path.resolve(
+      __dirname,
+      "../fixtures/multi-compiler-two-configurations/one.js"
+    );
+    const originalOneEntryContent = fs.readFileSync(pathToOneEntry);
+    const pathToTwoEntry = path.resolve(
+      __dirname,
+      "../fixtures/multi-compiler-two-configurations/two.js"
+    );
+    const originalTwoEntryContent = fs.readFileSync(pathToTwoEntry);
 
     const server = new Server(devServerOptions, compiler);
 
@@ -157,8 +169,28 @@ describe("multi compiler", () => {
         pageErrors.push(error);
       });
 
+    // Change own entry for the `one` configuration
     await pageOne.goto(`http://127.0.0.1:${port}/one-main`, {
       waitUntil: "networkidle0",
+    });
+
+    fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
+
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (
+          consoleMessages.includes(
+            "[webpack-dev-server] App updated. Reloading..."
+          ) &&
+          consoleMessages.includes(
+            "[webpack-dev-server] Live Reloading enabled."
+          )
+        ) {
+          clearInterval(interval);
+
+          resolve();
+        }
+      }, 100);
     });
 
     expect(consoleMessages).toMatchSnapshot("console messages");
@@ -171,8 +203,30 @@ describe("multi compiler", () => {
       waitUntil: "networkidle0",
     });
 
+    fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
+
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (
+          consoleMessages.includes(
+            "[webpack-dev-server] App updated. Reloading..."
+          ) &&
+          consoleMessages.includes(
+            "[webpack-dev-server] Live Reloading enabled."
+          )
+        ) {
+          clearInterval(interval);
+
+          resolve();
+        }
+      }, 100);
+    });
+
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
+
+    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
 
     await browser.close();
     await server.stop();
@@ -278,6 +332,11 @@ describe("multi compiler", () => {
       liveReload: true,
     };
     const server = new Server(devServerOptions, compiler);
+    const pathToBrowserEntry = path.resolve(
+      __dirname,
+      "../fixtures/universal-compiler-config/browser.js"
+    );
+    const originalBrowserEntryContent = fs.readFileSync(pathToBrowserEntry);
 
     await server.start();
 
@@ -298,6 +357,28 @@ describe("multi compiler", () => {
       waitUntil: "networkidle0",
     });
 
+    fs.writeFileSync(
+      pathToBrowserEntry,
+      `${originalBrowserEntryContent}// comment`
+    );
+
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (
+          consoleMessages.includes(
+            "[webpack-dev-server] App updated. Reloading..."
+          ) &&
+          consoleMessages.includes(
+            "[webpack-dev-server] Live Reloading enabled."
+          )
+        ) {
+          clearInterval(interval);
+
+          resolve();
+        }
+      }, 100);
+    });
+
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
 
@@ -312,6 +393,8 @@ describe("multi compiler", () => {
 
     expect(serverResponseText).toContain("Hello from the server");
     expect(serverResponseText).not.toContain("WebsocketServer");
+
+    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
 
     await browser.close();
     await server.stop();

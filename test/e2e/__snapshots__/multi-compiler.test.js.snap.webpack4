@@ -57,6 +57,10 @@ exports[`multi compiler should work with two web target configurations with only
 Array [
   "one",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "one",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -64,6 +68,8 @@ exports[`multi compiler should work with two web target configurations with only
 Array [
   "two",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
 ]
 `;
 
@@ -94,6 +100,10 @@ exports[`multi compiler should work with universal configurations with only hot 
 
 exports[`multi compiler should work with universal configurations with only live reload: console messages 1`] = `
 Array [
+  "Hello from the browser",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
   "Hello from the browser",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
