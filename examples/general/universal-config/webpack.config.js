@@ -1,22 +1,22 @@
-'use strict';
+"use strict";
 
-const { setup } = require('../../util');
+const { setup } = require("../../util");
 
 module.exports = [
   setup({
-    mode: 'development',
-    entry: './client.js',
+    mode: "development",
+    entry: "./client.js",
     output: {
-      filename: 'client.js',
+      filename: "client.js",
     },
     context: __dirname,
   }),
   {
-    mode: 'development',
-    target: 'node',
-    entry: './server.js',
+    mode: "development",
+    target: "node",
+    entry: "./server.js",
     output: {
-      filename: 'server.js',
+      filename: "server.js",
     },
     context: __dirname,
     node: false,

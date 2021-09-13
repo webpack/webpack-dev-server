@@ -1,11 +1,9 @@
-'use strict';
+import logger from "../modules/logger/index.js";
 
-const logger = require('../modules/logger');
-
-const name = 'webpack-dev-server';
+const name = "webpack-dev-server";
 // default level is set on the client side, so it does not need
 // to be set by the CLI or API
-const defaultLevel = 'info';
+const defaultLevel = "info";
 
 function setLogLevel(level) {
   logger.configureDefaultLogger({ level });
@@ -13,4 +11,6 @@ function setLogLevel(level) {
 
 setLogLevel(defaultLevel);
 
-module.exports = { log: logger.getLogger(name), setLogLevel };
+const log = logger.getLogger(name);
+
+export { log, setLogLevel };

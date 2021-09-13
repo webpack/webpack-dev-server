@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = (api) => {
   api.cache(true);
@@ -6,18 +6,30 @@ module.exports = (api) => {
   return {
     presets: [
       [
-        '@babel/preset-env',
+        "@babel/preset-env",
         {
+          modules: false,
           targets: {
-            node: '0.12',
+            esmodules: true,
+            node: "0.12",
           },
         },
       ],
     ],
-    plugins: ['@babel/plugin-transform-object-assign'],
+    plugins: ["@babel/plugin-transform-object-assign"],
     env: {
       test: {
-        plugins: ['@babel/plugin-transform-runtime'],
+        presets: [
+          [
+            "@babel/preset-env",
+            {
+              targets: {
+                node: "12.13.0",
+              },
+            },
+          ],
+        ],
+        plugins: ["@babel/plugin-transform-runtime"],
       },
     },
   };

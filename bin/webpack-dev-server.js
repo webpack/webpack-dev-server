@@ -2,7 +2,7 @@
 /* Based on webpack/bin/webpack.js */
 /* eslint-disable no-console */
 
-'use strict';
+"use strict";
 
 /**
  * @param {string} command process to run
@@ -10,18 +10,18 @@
  * @returns {Promise<void>} promise
  */
 const runCommand = (command, args) => {
-  const cp = require('child_process');
+  const cp = require("child_process");
   return new Promise((resolve, reject) => {
     const executedCommand = cp.spawn(command, args, {
-      stdio: 'inherit',
+      stdio: "inherit",
       shell: true,
     });
 
-    executedCommand.on('error', (error) => {
+    executedCommand.on("error", (error) => {
       reject(error);
     });
 
-    executedCommand.on('exit', (code) => {
+    executedCommand.on("exit", (code) => {
       if (code === 0) {
         resolve();
       } else {
@@ -36,13 +36,29 @@ const runCommand = (command, args) => {
  * @returns {boolean} is the package installed?
  */
 const isInstalled = (packageName) => {
-  try {
-    require.resolve(packageName);
-
+  if (process.versions.pnp) {
     return true;
-  } catch (err) {
-    return false;
   }
+
+  const path = require("path");
+  const fs = require("graceful-fs");
+
+  let dir = __dirname;
+
+  do {
+    try {
+      if (
+        fs.statSync(path.join(dir, "node_modules", packageName)).isDirectory()
+      ) {
+        return true;
+      }
+    } catch (_error) {
+      // Nothing
+    }
+    // eslint-disable-next-line no-cond-assign
+  } while (dir !== (dir = path.dirname(dir)));
+
+  return false;
 };
 
 /**
@@ -53,7 +69,7 @@ const runCli = (cli) => {
   if (cli.preprocess) {
     cli.preprocess();
   }
-  const path = require('path');
+  const path = require("path");
   const pkgPath = require.resolve(`${cli.package}/package.json`);
   // eslint-disable-next-line import/no-dynamic-require
   const pkg = require(pkgPath);
@@ -73,20 +89,20 @@ const runCli = (cli) => {
 
 /** @type {CliOption} */
 const cli = {
-  name: 'webpack-cli',
-  package: 'webpack-cli',
-  binName: 'webpack-cli',
-  installed: isInstalled('webpack-cli'),
-  url: 'https://github.com/webpack/webpack-cli',
+  name: "webpack-cli",
+  package: "webpack-cli",
+  binName: "webpack-cli",
+  installed: isInstalled("webpack-cli"),
+  url: "https://github.com/webpack/webpack-cli",
   preprocess() {
-    process.argv.splice(2, 0, 'serve');
+    process.argv.splice(2, 0, "serve");
   },
 };
 
 if (!cli.installed) {
-  const path = require('path');
-  const fs = require('graceful-fs');
-  const readLine = require('readline');
+  const path = require("path");
+  const fs = require("graceful-fs");
+  const readLine = require("readline");
 
   const notify = `CLI for webpack must be installed.\n  ${cli.name} (${cli.url})\n`;
 
@@ -94,19 +110,19 @@ if (!cli.installed) {
 
   let packageManager;
 
-  if (fs.existsSync(path.resolve(process.cwd(), 'yarn.lock'))) {
-    packageManager = 'yarn';
-  } else if (fs.existsSync(path.resolve(process.cwd(), 'pnpm-lock.yaml'))) {
-    packageManager = 'pnpm';
+  if (fs.existsSync(path.resolve(process.cwd(), "yarn.lock"))) {
+    packageManager = "yarn";
+  } else if (fs.existsSync(path.resolve(process.cwd(), "pnpm-lock.yaml"))) {
+    packageManager = "pnpm";
   } else {
-    packageManager = 'npm';
+    packageManager = "npm";
   }
 
-  const installOptions = [packageManager === 'yarn' ? 'add' : 'install', '-D'];
+  const installOptions = [packageManager === "yarn" ? "add" : "install", "-D"];
 
   console.error(
     `We will use "${packageManager}" to install the CLI via "${packageManager} ${installOptions.join(
-      ' '
+      " "
     )} ${cli.package}".`
   );
 
@@ -124,12 +140,12 @@ if (!cli.installed) {
   questionInterface.question(question, (answer) => {
     questionInterface.close();
 
-    const normalizedAnswer = answer.toLowerCase().startsWith('y');
+    const normalizedAnswer = answer.toLowerCase().startsWith("y");
 
     if (!normalizedAnswer) {
       console.error(
         "You need to install 'webpack-cli' to use webpack via CLI.\n" +
-          'You can also install the CLI manually.'
+          "You can also install the CLI manually."
       );
 
       return;
@@ -139,7 +155,7 @@ if (!cli.installed) {
     console.log(
       `Installing '${
         cli.package
-      }' (running '${packageManager} ${installOptions.join(' ')} ${
+      }' (running '${packageManager} ${installOptions.join(" ")} ${
         cli.package
       }')...`
     );

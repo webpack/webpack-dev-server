@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-require('./index.html');
-require('./bar.html');
+require("./index.html");
+require("./bar.html");
 
-console.log('Hey.'); // eslint-disable-line
+console.log("Hey."); // eslint-disable-line

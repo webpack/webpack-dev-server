@@ -1,25 +1,25 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const request = require('supertest');
-const internalIp = require('internal-ip');
-const config = require('../fixtures/simple-config/webpack.config');
-const testServer = require('../helpers/test-server');
-const port = require('../ports-map')['host-option'];
+const path = require("path");
+const webpack = require("webpack");
+const request = require("supertest");
+const internalIp = require("internal-ip");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/simple-config/webpack.config");
+const port = require("../ports-map")["host-option"];
 
-const staticDirectory = path.resolve(
-  __dirname,
-  '../fixtures/contentbase-config'
-);
+const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
+const internalIPv4 = internalIp.v4.sync();
 
-describe('host option', () => {
+describe("host option", () => {
   let server = null;
   let req = null;
 
-  describe('is not be specified', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+  describe("is not be specified", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -27,29 +27,37 @@ describe('host option', () => {
           },
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(server.app);
     });
 
-    it('server address', () => {
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("server address", () => {
       const address = server.server.address();
 
-      expect(address.address).toBe('127.0.0.1');
+      expect(address.address).toBe("::");
       expect(address.port).toBe(port);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
-  describe('is undefined', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+  describe("is undefined", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
@@ -59,179 +67,224 @@ describe('host option', () => {
           host: undefined,
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(server.app);
     });
 
-    it('server address', () => {
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("server address", () => {
       const address = server.server.address();
 
-      expect(address.address).toBe('::');
+      expect(address.address).toBe("::");
       expect(address.port).toBe(port);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
-  describe('is 127.0.0.1 (IPv4)', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+  describe("is 127.0.0.1 (IPv4)", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
             watch: false,
           },
-          host: '127.0.0.1',
+          host: "127.0.0.1",
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(server.app);
     });
 
-    it('server address', () => {
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("server address", () => {
       const address = server.server.address();
 
-      expect(address.address).toBe('127.0.0.1');
+      expect(address.address).toBe("127.0.0.1");
       expect(address.port).toBe(port);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
-  describe('is localhost', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+  describe("is localhost", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
             watch: false,
           },
-          host: 'localhost',
+          host: "localhost",
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(server.app);
     });
 
-    it('server address', () => {
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("server address", () => {
       const address = server.server.address();
 
-      expect(address.address).toBe('127.0.0.1');
+      expect(address.address).toBe("127.0.0.1");
       expect(address.port).toBe(port);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
-  describe('is 0.0.0.0', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+  describe("is 0.0.0.0", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
             watch: false,
           },
-          host: '0.0.0.0',
+          host: "0.0.0.0",
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(server.app);
     });
 
-    it('server address', () => {
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("server address", () => {
       const address = server.server.address();
 
-      expect(address.address).toBe('0.0.0.0');
+      expect(address.address).toBe("0.0.0.0");
       expect(address.port).toBe(port);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
-  describe('is local-ip', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+  describe("is local-ip", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
             watch: false,
           },
-          host: 'local-ip',
+          host: "local-ip",
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(server.app);
     });
 
-    it('server address', () => {
-      const address = server.server.address();
-      const networkIP = internalIp.v4.sync();
+    afterAll(async () => {
+      await server.stop();
+    });
 
-      expect(address.address).toBe(networkIP);
+    it("server address", () => {
+      const address = server.server.address();
+
+      expect(address.address).toBe(internalIPv4);
       expect(address.port).toBe(port);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 
-  describe('is local-ipv4', () => {
-    beforeAll((done) => {
-      server = testServer.start(
-        config,
+  describe("is local-ipv4", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           static: {
             directory: staticDirectory,
             watch: false,
           },
-          host: 'local-ipv4',
+          host: "local-ipv4",
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(server.app);
     });
 
-    it('server address', () => {
-      const address = server.server.address();
-      const networkIP = internalIp.v4.sync();
+    afterAll(async () => {
+      await server.stop();
+    });
 
-      expect(address.address).toBe(networkIP);
+    it("server address", () => {
+      const address = server.server.address();
+
+      expect(address.address).toBe(internalIPv4);
       expect(address.port).toBe(port);
     });
 
-    it('Request to index', (done) => {
-      req.get('/').expect(200, done);
-    });
+    it("Request to index", async () => {
+      const response = await req.get("/");
 
-    afterAll(testServer.close);
+      expect(response.status).toEqual(200);
+    });
   });
 });

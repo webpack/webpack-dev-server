@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
-const { join } = require('path');
+const { join } = require("path");
 
 module.exports = {
-  mode: 'development',
-  entry: join(__dirname, 'foo.js'),
+  mode: "development",
+  entry: join(__dirname, "foo.js"),
   devServer: {
     devMiddleware: {
-      publicPath: '/foo/bar',
+      publicPath: "/foo/bar",
     },
   },
 };

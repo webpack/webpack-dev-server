@@ -1,28 +1,28 @@
-'use strict';
+"use strict";
 
 module.exports = [
   {
-    mode: 'development',
+    mode: "development",
     context: __dirname,
-    entry: './foo.js',
+    entry: "./foo.js",
     output: {
-      path: '/',
+      path: "/",
     },
     node: false,
     infrastructureLogging: {
-      level: 'warn',
+      level: "warn",
     },
   },
   {
-    mode: 'development',
+    mode: "development",
     context: __dirname,
-    entry: './foo.js',
+    entry: "./foo.js",
     output: {
-      path: '/',
+      path: "/",
     },
     node: false,
     infrastructureLogging: {
-      level: 'warn',
+      level: "warn",
     },
   },
 ];

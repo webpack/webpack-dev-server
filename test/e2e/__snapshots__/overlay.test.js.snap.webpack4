@@ -1,0 +1,1144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overlay should not show a warning when "client.overlay" is "false": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show a warning when "client.overlay.warnings" is "false": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show an error when "client.overlay" is "false": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show an error when "client.overlay.errors" is "false": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error and allow to close: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error and allow to close: page html after close 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error and allow to close: page html initial 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error and allow to close: page html with error 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then hide on fix: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then hide on fix: page html after fix error 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then hide on fix: page html initial 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then hide on fix: page html with error 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: overlay html 2`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
+        https://webpack.js.org/concepts#loaders &gt; \`;a
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html after fix error 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html initial 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html with error 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html with other error 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning and error for initial compilation and protects against xss: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
+      <br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning and error for initial compilation and protects against xss: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning and error for initial compilation: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
+    </div>
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning and error for initial compilation: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning and hide them after closing connection: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning and hide them after closing connection: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning and hide them after closing connection: page html 2`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+</body>
+"
+`;
+
+exports[`overlay should show a warning for initial compilation: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning for initial compilation: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning when "client.overlay" is "true": overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning when "client.overlay" is "true": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning when "client.overlay.errors" is "true": overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning when "client.overlay.errors" is "true": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning when "client.overlay.warnings" is "true": overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning when "client.overlay.warnings" is "true": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show an ansi formatted error for initial compilation: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>
+        <span
+          style=\\"
+            font-weight: normal;
+            opacity: 1;
+            color: #transparent;
+            background: #transparent;
+          \\"
+        >
+          <span style=\\"color: #6d7891\\"> 18 |</span>
+          <span style=\\"color: #ffd080\\">Render</span>
+          <span style=\\"color: #ffd080\\">ansi formatted text</span></span
+        >
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show an ansi formatted error for initial compilation: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show an error for initial compilation: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show an error for initial compilation: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show an error when "client.overlay" is "true": overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show an error when "client.overlay" is "true": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show an error when "client.overlay.errors" is "true": overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <div>Error from compilation. Can't find 'test' module.</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show an error when "client.overlay.errors" is "true": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show an error when "client.overlay.warnings" is "true": overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show an error when "client.overlay.warnings" is "true": page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;

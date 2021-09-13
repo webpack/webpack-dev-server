@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const puppeteer = require('puppeteer');
-const { puppeteerArgs } = require('./puppeteer-constants');
+const puppeteer = require("puppeteer");
+const { puppeteerArgs } = require("./puppeteer-constants");
 
 function runBrowser(config) {
   const options = {
@@ -9,7 +9,7 @@ function runBrowser(config) {
       width: 500,
       height: 500,
     },
-    userAgent: '',
+    userAgent: "",
     ...config,
   };
 
@@ -20,16 +20,20 @@ function runBrowser(config) {
     puppeteer
       .launch({
         headless: true,
+        // because of invalid localhost certificate
+        ignoreHTTPSErrors: true,
         // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
         args: puppeteerArgs,
       })
       .then((launchedBrowser) => {
         browser = launchedBrowser;
+
         return browser.newPage();
       })
       .then((newPage) => {
         page = newPage;
         page.emulate(options);
+
         resolve({ page, browser });
       })
       .catch(reject);

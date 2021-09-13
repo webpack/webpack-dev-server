@@ -1,174 +1,192 @@
-'use strict';
+"use strict";
 
-const request = require('supertest');
-const config = require('../fixtures/simple-config/webpack.config');
-const testServer = require('../helpers/test-server');
-const port = require('../ports-map')['client-option'];
+const webpack = require("webpack");
+const request = require("supertest");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/simple-config/webpack.config");
+const port = require("../ports-map")["client-option"];
 
-describe('client option', () => {
+describe("client option", () => {
   let server;
   let req;
 
-  afterEach((done) => {
-    testServer.close(done);
-    req = null;
-    server = null;
-  });
+  describe("default behavior", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
 
-  describe('default behavior', () => {
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
+      server = new Server(
         {
           client: {
-            transport: 'sockjs',
+            webSocketTransport: "sockjs",
           },
-          webSocketServer: 'sockjs',
+          webSocketServer: "sockjs",
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(`http://localhost:${port}`);
     });
 
-    it('overlay true by default', () => {
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("overlay true by default", () => {
       expect(server.options.client.overlay).toBe(true);
     });
 
-    it('responds with a 200', (done) => {
-      req.get('/ws').expect(200, done);
+    it("responds with a 200", async () => {
+      const response = await req.get("/ws");
+
+      expect(response.statusCode).toEqual(200);
     });
   });
 
-  describe('path option', () => {
-    const path = '/foo/test/bar';
+  describe("path option", () => {
+    const path = "/foo/test/bar";
 
-    beforeEach((done) => {
-      server = testServer.start(
-        config,
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
           client: {
-            transport: 'sockjs',
+            webSocketTransport: "sockjs",
           },
           webSocketServer: {
-            type: 'sockjs',
+            type: "sockjs",
             options: {
-              host: 'localhost',
+              host: "localhost",
               port,
-              path: '/foo/test/bar',
+              path: "/foo/test/bar",
             },
           },
           port,
         },
-        done
+        compiler
       );
+
+      await server.start();
+
       req = request(`http://localhost:${port}`);
     });
 
-    it('responds with a 200 second', (done) => {
-      req.get(path).expect(200, done);
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("responds with a 200 second", async () => {
+      const response = await req.get(path);
+
+      expect(response.statusCode).toEqual(200);
     });
   });
 
-  describe('configure client entry', () => {
-    it('disables client entry', (done) => {
-      server = testServer.start(
-        config,
+  describe("configure client entry", () => {
+    it("disables client entry", async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          client: {
-            needClientEntry: false,
-          },
+          client: false,
           port,
         },
-        () => {
-          request(server.app)
-            .get('/main.js')
-            .then((res) => {
-              expect(res.text).not.toMatch(/client\/index\.js/);
-            })
-            .then(done, done);
-        }
+        compiler
       );
+
+      await server.start();
+
+      const res = await request(server.app).get("/main.js");
+
+      expect(res.text).not.toMatch(/client\/index\.js/);
+
+      await server.stop();
     });
 
-    it('disables hot entry', (done) => {
-      server = testServer.start(
-        config,
+    it("disables hot entry", async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
         {
-          client: {
-            hotEntry: false,
-          },
+          hot: false,
           port,
         },
-        () => {
-          request(server.app)
-            .get('/main.js')
-            .then((res) => {
-              expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
-            })
-            .then(done, done);
-        }
+        compiler
       );
+
+      await server.start();
+
+      const res = await request(server.app).get("/main.js");
+
+      expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
+
+      await server.stop();
     });
   });
 
-  describe('transport', () => {
+  describe("webSocketTransport", () => {
     const clientModes = [
       {
         title: 'as a string ("sockjs")',
         client: {
-          transport: 'sockjs',
+          webSocketTransport: "sockjs",
         },
-        webSocketServer: 'sockjs',
+        webSocketServer: "sockjs",
         shouldThrow: false,
       },
       {
         title: 'as a path ("sockjs")',
         client: {
-          transport: require.resolve('../../client-src/clients/SockJSClient'),
+          webSocketTransport: require.resolve(
+            "../../client-src/clients/SockJSClient"
+          ),
         },
-        webSocketServer: 'sockjs',
+        webSocketServer: "sockjs",
         shouldThrow: false,
       },
       {
-        title: 'as a nonexistent path',
+        title: "as a nonexistent path",
         client: {
-          transport: '/bad/path/to/implementation',
+          webSocketTransport: "/bad/path/to/implementation",
         },
-        webSocketServer: 'sockjs',
+        webSocketServer: "sockjs",
         shouldThrow: true,
       },
     ];
 
-    describe('passed to server', () => {
-      beforeAll(() => {
-        jest.unmock('../../lib/utils/getSocketClientPath');
-      });
-
-      afterEach((done) => {
-        testServer.close(done);
-      });
-
+    describe("passed to server", () => {
       clientModes.forEach((data) => {
         it(`${data.title} ${
-          data.shouldThrow ? 'should throw' : 'should not throw'
-        }`, (done) => {
-          const res = () => {
-            testServer.start(
-              config,
-              {
-                client: data.client,
-                port,
-              },
-              done
-            );
-          };
-          if (data.shouldThrow) {
-            expect(res).toThrow(/client\.transport must be a string/);
-            done();
-          } else {
-            expect(res).not.toThrow();
+          data.shouldThrow ? "should throw" : "should not throw"
+        }`, async () => {
+          const compiler = webpack(config);
+
+          server = new Server(
+            {
+              client: data.client,
+              port,
+            },
+            compiler
+          );
+
+          let thrownError;
+
+          try {
+            await server.start();
+          } catch (error) {
+            thrownError = error;
           }
+
+          if (data.shouldThrow) {
+            expect(thrownError.message).toMatch(
+              /client\.webSocketTransport must be a string/
+            );
+          }
+
+          await server.stop();
         });
       });
     });

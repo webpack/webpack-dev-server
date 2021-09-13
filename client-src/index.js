@@ -1,57 +1,51 @@
-'use strict';
+/* global __resourceQuery, __webpack_hash__ */
 
-/* global __resourceQuery WorkerGlobalScope */
-
-const webpackHotLog = require('webpack/hot/log');
-const stripAnsi = require('./modules/strip-ansi');
-const parseURL = require('./utils/parseURL');
-const socket = require('./socket');
-const overlay = require('./overlay');
-const { log, setLogLevel } = require('./utils/log');
-const sendMessage = require('./utils/sendMessage');
-const reloadApp = require('./utils/reloadApp');
-const createSocketURL = require('./utils/createSocketURL');
+import webpackHotLog from "webpack/hot/log.js";
+import stripAnsi from "./modules/strip-ansi/index.js";
+import parseURL from "./utils/parseURL.js";
+import socket from "./socket.js";
+import { show, hide } from "./overlay.js";
+import { log, setLogLevel } from "./utils/log.js";
+import sendMessage from "./utils/sendMessage.js";
+import reloadApp from "./utils/reloadApp.js";
+import createSocketURL from "./utils/createSocketURL.js";
 
 const status = {
   isUnloading: false,
-  currentHash: '',
+  // TODO Workaround for webpack v4, `__webpack_hash__` is not replaced without HotModuleReplacement
+  // eslint-disable-next-line camelcase
+  currentHash: typeof __webpack_hash__ !== "undefined" ? __webpack_hash__ : "",
 };
-const defaultOptions = {
+// console.log(__webpack_hash__);
+const options = {
   hot: false,
-  hotReload: true,
   liveReload: false,
-  initial: true,
   progress: false,
   overlay: false,
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
-const options = defaultOptions;
 
-// Handle Node.js legacy format and `new URL()`
-if (parsedResourceQuery.query) {
-  Object.assign(options, parsedResourceQuery.query);
-} else if (parsedResourceQuery.searchParams) {
-  const paramsToObject = (entries) => {
-    const result = {};
+if (parsedResourceQuery.hot === "true") {
+  options.hot = true;
 
-    for (const [key, value] of entries) {
-      result[key] = value;
-    }
-
-    return result;
-  };
-
-  Object.assign(
-    options,
-    paramsToObject(parsedResourceQuery.searchParams.entries())
-  );
+  log.info("Hot Module Replacement enabled.");
 }
 
-const socketURL = createSocketURL(parsedResourceQuery);
+if (parsedResourceQuery["live-reload"] === "true") {
+  options.liveReload = true;
+
+  log.info("Live Reloading enabled.");
+}
+
+if (parsedResourceQuery.logging) {
+  options.logging = parsedResourceQuery.logging;
+}
 
 function setAllLogLevel(level) {
   // This is needed because the HMR logger operate separately from dev server logger
-  webpackHotLog.setLogLevel(level);
+  webpackHotLog.setLogLevel(
+    level === "verbose" || level === "log" ? "info" : level
+  );
   setLogLevel(level);
 }
 
@@ -59,43 +53,45 @@ if (options.logging) {
   setAllLogLevel(options.logging);
 }
 
-self.addEventListener('beforeunload', () => {
+self.addEventListener("beforeunload", () => {
   status.isUnloading = true;
 });
 
-if (typeof window !== 'undefined') {
-  const qs = window.location.search.toLowerCase();
-
-  options.hotReload = qs.indexOf('hotreload=false') === -1;
-}
-
 const onSocketMessage = {
   hot() {
+    if (parsedResourceQuery.hot === "false") {
+      return;
+    }
+
     options.hot = true;
 
-    log.info('Hot Module Replacement enabled.');
+    log.info("Hot Module Replacement enabled.");
   },
   liveReload() {
+    if (parsedResourceQuery["live-reload"] === "false") {
+      return;
+    }
+
     options.liveReload = true;
 
-    log.info('Live Reloading enabled.');
+    log.info("Live Reloading enabled.");
   },
   invalid() {
-    log.info('App updated. Recompiling...');
+    log.info("App updated. Recompiling...");
 
     // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.overlay) {
-      overlay.clear();
+      hide();
     }
 
-    sendMessage('Invalid');
+    sendMessage("Invalid");
   },
   hash(hash) {
     status.currentHash = hash;
   },
   logging: setAllLogLevel,
   overlay(value) {
-    if (typeof document === 'undefined') {
+    if (typeof document === "undefined") {
       return;
     }
 
@@ -104,118 +100,114 @@ const onSocketMessage = {
   progress(progress) {
     options.progress = progress;
   },
-  'progress-update': function progressUpdate(data) {
+  "progress-update": function progressUpdate(data) {
     if (options.progress) {
       log.info(
-        `${data.pluginName ? `[${data.pluginName}] ` : ''}${data.percent}% - ${
+        `${data.pluginName ? `[${data.pluginName}] ` : ""}${data.percent}% - ${
           data.msg
         }.`
       );
     }
 
-    sendMessage('Progress', data);
+    sendMessage("Progress", data);
   },
-  'still-ok': function stillOk() {
-    log.info('Nothing changed.');
+  "still-ok": function stillOk() {
+    log.info("Nothing changed.");
 
     if (options.overlay) {
-      overlay.clear();
+      hide();
     }
 
-    sendMessage('StillOk');
+    sendMessage("StillOk");
   },
   ok() {
-    sendMessage('Ok');
+    sendMessage("Ok");
 
     if (options.overlay) {
-      overlay.clear();
-    }
-
-    if (options.initial) {
-      return (options.initial = false);
+      hide();
     }
 
     reloadApp(options, status);
   },
   // TODO: remove in v5 in favor of 'static-changed'
-  'content-changed': function contentChanged(file) {
+  "content-changed": function contentChanged(file) {
     log.info(
       `${
-        file ? `"${file}"` : 'Content'
+        file ? `"${file}"` : "Content"
       } from static directory was changed. Reloading...`
     );
 
     self.location.reload();
   },
-  'static-changed': function staticChanged(file) {
+  "static-changed": function staticChanged(file) {
     log.info(
       `${
-        file ? `"${file}"` : 'Content'
+        file ? `"${file}"` : "Content"
       } from static directory was changed. Reloading...`
     );
 
     self.location.reload();
   },
   warnings(warnings) {
-    log.warn('Warnings while compiling.');
+    log.warn("Warnings while compiling.");
 
     const strippedWarnings = warnings.map((warning) =>
       stripAnsi(warning.message ? warning.message : warning)
     );
 
-    sendMessage('Warnings', strippedWarnings);
+    sendMessage("Warnings", strippedWarnings);
 
     for (let i = 0; i < strippedWarnings.length; i++) {
       log.warn(strippedWarnings[i]);
     }
 
-    const needShowOverlay =
-      typeof options.overlay === 'boolean'
+    const needShowOverlayForWarnings =
+      typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.warnings;
 
-    if (needShowOverlay) {
-      overlay.showMessage(warnings);
-    }
-
-    if (options.initial) {
-      return (options.initial = false);
+    if (needShowOverlayForWarnings) {
+      show(warnings, "warnings");
     }
 
     reloadApp(options, status);
   },
   errors(errors) {
-    log.error('Errors while compiling. Reload prevented.');
+    log.error("Errors while compiling. Reload prevented.");
 
     const strippedErrors = errors.map((error) =>
       stripAnsi(error.message ? error.message : error)
     );
 
-    sendMessage('Errors', strippedErrors);
+    sendMessage("Errors", strippedErrors);
 
     for (let i = 0; i < strippedErrors.length; i++) {
       log.error(strippedErrors[i]);
     }
 
-    const needShowOverlay =
-      typeof options.overlay === 'boolean'
+    const needShowOverlayForErrors =
+      typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.errors;
 
-    if (needShowOverlay) {
-      overlay.showMessage(errors);
+    if (needShowOverlayForErrors) {
+      show(errors, "errors");
     }
-
-    options.initial = false;
   },
   error(error) {
     log.error(error);
   },
   close() {
-    log.error('Disconnected!');
+    log.info("Disconnected!");
 
-    sendMessage('Close');
+    if (options.overlay) {
+      hide();
+    }
+
+    sendMessage("Close");
   },
 };
+
+const socketURL = createSocketURL(parsedResourceQuery);
 
 socket(socketURL, onSocketMessage);

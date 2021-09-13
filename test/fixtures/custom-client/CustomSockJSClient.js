@@ -1,34 +1,27 @@
-'use strict';
+"use strict";
 
 /* eslint-disable
   no-unused-vars
 */
-const SockJS = require('sockjs-client/dist/sockjs');
-const BaseClient = require('../../../client/clients/BaseClient');
+const SockJS = require("sockjs-client/dist/sockjs");
 
-module.exports = class SockJSClient extends BaseClient {
+module.exports = class SockJSClient {
   constructor(url) {
-    super();
-
     this.sock = new SockJS(
-      url.replace(/^ws:/i, 'http://').replace(/^wss:/i, 'https://')
+      url.replace(/^ws:/i, "http://").replace(/^wss:/i, "https://")
     );
-  }
-
-  static getClientPath(options) {
-    return require.resolve('./CustomSockJSClient');
   }
 
   onOpen(f) {
     this.sock.onopen = () => {
-      console.log('open');
+      console.log("open");
       f();
     };
   }
 
   onClose(f) {
     this.sock.onclose = () => {
-      console.log('close');
+      console.log("close");
       f();
     };
   }

@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 /**/
 module.exports = {
-  target: 'http://jsonplaceholder.typicode.com/',
+  target: "http://jsonplaceholder.typicode.com/",
   pathRewrite: {
-    '^/api': '',
+    "^/api": "",
   },
 };
 /**/

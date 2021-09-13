@@ -1,33 +1,31 @@
-'use strict';
+"use strict";
 
 module.exports = [
   {
-    mode: 'development',
+    mode: "development",
     context: __dirname,
-    stats: 'none',
-    entry: './client.js',
+    stats: "none",
+    entry: "./client.js",
     output: {
-      path: '/',
-      filename: 'client.js',
+      path: "/",
+      filename: "client.js",
     },
-    node: false,
     infrastructureLogging: {
-      level: 'warn',
+      level: "warn",
     },
   },
   {
-    mode: 'development',
+    mode: "development",
     context: __dirname,
-    target: 'node',
-    stats: 'none',
-    entry: './server.js',
+    target: "node",
+    stats: "none",
+    entry: "./server.js",
     output: {
-      path: '/',
-      filename: 'server.js',
+      path: "/",
+      filename: "server.js",
     },
-    node: false,
     infrastructureLogging: {
-      level: 'warn',
+      level: "warn",
     },
   },
 ];

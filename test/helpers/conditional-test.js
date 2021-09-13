@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const isWindows = process.platform === 'win32';
+const isWindows = process.platform === "win32";
 
 function skipTestOnWindows(reason) {
   if (isWindows) {

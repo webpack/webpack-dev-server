@@ -1,427 +1,970 @@
-'use strict';
-
-const normalizeOption = (option) => (typeof option === 'object' ? option : {});
+"use strict";
 
 module.exports = {
-  devServer: [
-    {
-      name: 'host',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'The hostname/ip address the server will bind to.',
-    },
-    {
-      name: 'port',
-      type: [Number, String],
-      configs: [
-        {
-          type: 'number',
-        },
-        {
-          type: 'string',
-        },
-        {
-          type: 'enum',
-          values: ['auto'],
-        },
-      ],
-      description: 'The port server will listen to.',
-    },
-    {
-      name: 'static',
-      type: [String, Boolean],
-      configs: [
-        {
-          type: 'string',
-        },
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'A directory to serve static content from.',
-      multiple: true,
-      negative: true,
-    },
-    {
-      name: 'static-directory',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Directory for static contents.',
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.directory = opts.staticDirectory;
-        delete opts.staticDirectory;
+  "allowed-hosts": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').",
+        path: "allowedHosts[]",
       },
-    },
-    {
-      name: 'static-public-path',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'The bundled files will be available in the browser under this path.',
-      multiple: true,
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.publicPath = opts.staticPublicPath;
-        delete opts.staticPublicPath;
+      {
+        description:
+          "Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').",
+        multiple: false,
+        path: "allowedHosts",
+        type: "enum",
+        values: ["auto", "all"],
       },
-    },
-    {
-      name: 'static-serve-index',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Tells dev-server to use serveIndex middleware.',
-      negatedDescription:
-        'Do not tell dev-server to use serveIndex middleware.',
-      negative: true,
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.serveIndex = opts.staticServeIndex;
-        delete opts.staticServeIndex;
+    ],
+    description:
+      "Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').",
+    multiple: true,
+    simpleType: "string",
+  },
+  "allowed-hosts-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').",
+        path: "allowedHosts",
       },
-    },
-    {
-      name: 'static-watch',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Watch for files in static content directory.',
-      negatedDescription: 'Do not watch for files in static content directory.',
-      negative: true,
-      processor(opts) {
-        opts.static = normalizeOption(opts.static);
-        opts.static.watch = opts.staticWatch;
-        delete opts.staticWatch;
+    ],
+    description:
+      "Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  bonjour: {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Allows to broadcasts dev server via ZeroConf networking on start.",
+        path: "bonjour",
       },
-    },
-    {
-      name: 'live-reload',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Enables live reloading on changing files.',
-      negatedDescription: 'Disables live reloading on changing files.',
-      negative: true,
-    },
-    {
-      name: 'https',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Use HTTPS protocol.',
-      negatedDescription: 'Do not use HTTPS protocol.',
-      negative: true,
-    },
-    {
-      name: 'https-passphrase',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Passphrase for a pfx file.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.passphrase = opts.httpsPassphrase;
-        delete opts.httpsPassphrase;
+    ],
+    description:
+      "Allows to broadcasts dev server via ZeroConf networking on start.",
+    negatedDescription:
+      "Disallows to broadcasts dev server via ZeroConf networking on start.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "client-web-socket-transport": {
+    configs: [
+      {
+        type: "enum",
+        values: ["sockjs", "ws"],
+        multiple: false,
+        description:
+          "Allows to set custom web socket transport to communicate with dev server.",
+        path: "client.webSocketTransport",
       },
-    },
-    {
-      name: 'https-key',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL key.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.key = opts.httpsKey;
-        delete opts.httpsKey;
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Allows to set custom web socket transport to communicate with dev server.",
+        path: "client.webSocketTransport",
       },
-    },
-    {
-      name: 'https-pfx',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL pfx file.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.pfx = opts.httpsPfx;
-        delete opts.httpsPfx;
+    ],
+    description:
+      "Allows to set custom web socket transport to communicate with dev server.",
+    simpleType: "string",
+    multiple: false,
+  },
+  client: {
+    configs: [
+      {
+        description:
+          "Allows to specify options for client script in the browser or disable client script.",
+        multiple: false,
+        path: "client",
+        type: "enum",
+        values: [false],
       },
-    },
-    {
-      name: 'https-cert',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL certificate.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.cert = opts.httpsCert;
-        delete opts.httpsCert;
+    ],
+    description:
+      "Allows to specify options for client script in the browser or disable client script.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "client-logging": {
+    configs: [
+      {
+        type: "enum",
+        values: ["none", "error", "warn", "info", "log", "verbose"],
+        multiple: false,
+        description:
+          "Allows to specify options for client script in the browser or disable client script.",
+        path: "client.logging",
       },
-    },
-    {
-      name: 'https-cacert',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Path to an SSL CA certificate.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.cacert = opts.httpsCacert;
-        delete opts.httpsCacert;
+    ],
+    description:
+      "Allows to specify options for client script in the browser or disable client script.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-progress": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Prints compilation progress in percentage in the browser.",
+        path: "client.progress",
       },
-    },
-    {
-      name: 'https-request-cert',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Request for an SSL certificate.',
-      negatedDescription: 'Do not request for an SSL certificate.',
-      processor(opts) {
-        opts.https = normalizeOption(opts.https);
-        opts.https.requestCert = opts.httpsRequestCert;
-        delete opts.httpsRequestCert;
+    ],
+    description: "Prints compilation progress in percentage in the browser.",
+    negatedDescription:
+      "Does not print compilation progress in percentage in the browser.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "client-overlay": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
+        path: "client.overlay",
       },
-    },
-    {
-      name: 'http2',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Use HTTP/2, must be used with HTTPS.',
-      negatedDescription: 'Do not use HTTP/2.',
-      negative: true,
-    },
-    {
-      name: 'bonjour',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Broadcasts the server via ZeroConf networking on start.',
-      negatedDescription:
-        'Do not broadcast the server via ZeroConf networking on start.',
-      negative: true,
-    },
-    {
-      name: 'client-hot-entry',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Tell devServer to inject a Hot Module Replacement entry.',
-      negatedDescription:
-        'Do not tell devServer to inject a Hot Module Replacement entry.',
-      negative: true,
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.hotEntry = opts.clientHotEntry;
-        delete opts.clientHotEntry;
+    ],
+    description:
+      "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
+    negatedDescription:
+      "Disables a full-screen overlay in the browser when there are compiler errors or warnings.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "client-overlay-errors": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Enables a full-screen overlay in the browser when there are compiler errors.",
+        path: "client.overlay.errors",
       },
-    },
-    {
-      name: 'client-progress',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Print compilation progress in percentage in the browser.',
-      negatedDescription:
-        'Do not print compilation progress in percentage in the browser.',
-      negative: true,
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.progress = opts.clientProgress;
-        delete opts.clientProgress;
+    ],
+    description:
+      "Enables a full-screen overlay in the browser when there are compiler errors.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "client-overlay-warnings": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Enables a full-screen overlay in the browser when there are compiler warnings.",
+        path: "client.overlay.warnings",
       },
-    },
-    {
-      name: 'client-overlay',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description:
-        'Show a full-screen overlay in the browser when there are compiler errors or warnings.',
-      negatedDescription:
-        'Do not show a full-screen overlay in the browser when there are compiler errors or warnings.',
-      negative: true,
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.overlay = opts.clientOverlay;
-        delete opts.clientOverlay;
+    ],
+    description:
+      "Enables a full-screen overlay in the browser when there are compiler warnings.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "client-web-socket-url": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).",
+        path: "client.webSocketURL",
       },
-    },
-    {
-      name: 'client-logging',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description:
-        'Log level in the browser (none, error, warn, info, log, verbose).',
-      processor(opts) {
-        opts.client = normalizeOption(opts.client);
-        opts.client.logging = opts.clientLogging;
-        delete opts.clientLogging;
+    ],
+    description:
+      "Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-web-socket-url-hostname": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Tells clients connected to devServer to use the provided hostname.",
+        path: "client.webSocketURL.hostname",
       },
-    },
-    {
-      name: 'open',
-      type: [Boolean, String],
-      multiple: true,
-      configs: [
-        {
-          type: 'boolean',
-        },
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open the default browser.',
-      negatedDescription: 'Do not open the default browser.',
-      negative: true,
-    },
-    {
-      name: 'open-app',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open specified browser.',
-      processor(opts) {
-        opts.open = normalizeOption(opts.open);
-        opts.open.app = opts.openApp;
-        delete opts.openApp;
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided hostname.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-web-socket-url-port": {
+    configs: [
+      {
+        type: "number",
+        multiple: false,
+        description:
+          "Tells clients connected to devServer to use the provided port.",
+        path: "client.webSocketURL.port",
       },
-    },
-    {
-      name: 'open-target',
-      type: String,
-      configs: [
-        {
-          type: 'boolean',
-        },
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Open specified route in browser.',
-      processor(opts) {
-        opts.open = normalizeOption(opts.open);
-        opts.open.target = opts.openTarget;
-        delete opts.openTarget;
+      {
+        description:
+          "Tells clients connected to devServer to use the provided port.",
+        multiple: false,
+        path: "client.webSocketURL.port",
+        type: "string",
       },
-      negatedDescription: 'Do not open specified route in browser.',
-      multiple: true,
-      negative: true,
-    },
-    {
-      name: 'history-api-fallback',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Fallback to /index.html for Single Page Applications.',
-      negatedDescription:
-        'Do not fallback to /index.html for Single Page Applications.',
-      negative: true,
-    },
-    {
-      name: 'compress',
-      type: Boolean,
-      configs: [
-        {
-          type: 'boolean',
-        },
-      ],
-      description: 'Enable gzip compression.',
-      negatedDescription: 'Disable gzip compression.',
-      negative: true,
-    },
-    {
-      name: 'allowed-hosts',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Set hosts that are allowed to access the dev server.',
-      multiple: true,
-    },
-    {
-      name: 'watch-files',
-      type: String,
-      configs: [
-        {
-          type: 'string',
-        },
-      ],
-      description: 'Watch static files for file changes.',
-      multiple: true,
-    },
-  ],
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided port.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-web-socket-url-pathname": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Tells clients connected to devServer to use the provided path to connect.",
+        path: "client.webSocketURL.pathname",
+      },
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided path to connect.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-web-socket-url-protocol": {
+    configs: [
+      {
+        description:
+          "Tells clients connected to devServer to use the provided protocol.",
+        multiple: false,
+        path: "client.webSocketURL.protocol",
+        type: "enum",
+        values: ["auto"],
+      },
+      {
+        description:
+          "Tells clients connected to devServer to use the provided protocol.",
+        multiple: false,
+        path: "client.webSocketURL.protocol",
+        type: "string",
+      },
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided protocol.",
+    multiple: false,
+    simpleType: "string",
+  },
+  "client-web-socket-url-username": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Tells clients connected to devServer to use the provided username to authenticate.",
+        path: "client.webSocketURL.username",
+      },
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided username to authenticate.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-web-socket-url-password": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Tells clients connected to devServer to use the provided password to authenticate.",
+        path: "client.webSocketURL.password",
+      },
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided password to authenticate.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "web-socket-server": {
+    configs: [
+      {
+        type: "enum",
+        values: [false, "sockjs", "ws"],
+        multiple: false,
+        description:
+          "Allows to set web socket server and options (by default 'ws').",
+        path: "webSocketServer",
+      },
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Allows to set web socket server and options (by default 'ws').",
+        path: "webSocketServer",
+      },
+    ],
+    description:
+      "Allows to set web socket server and options (by default 'ws').",
+    simpleType: "string",
+    multiple: false,
+  },
+  compress: {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description: "Enables gzip compression for everything served.",
+        path: "compress",
+      },
+    ],
+    description: "Enables gzip compression for everything served.",
+    negatedDescription: "Disables gzip compression for everything served.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "history-api-fallback": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API.",
+        path: "historyApiFallback",
+      },
+    ],
+    description:
+      "Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  host: {
+    configs: [
+      {
+        description: "Allows to specify a hostname to use.",
+        multiple: false,
+        path: "host",
+        type: "enum",
+        values: ["local-ip", "local-ipv4", "local-ipv6"],
+      },
+      {
+        description: "Allows to specify a hostname to use.",
+        multiple: false,
+        path: "host",
+        type: "string",
+      },
+    ],
+    description: "Allows to specify a hostname to use.",
+    simpleType: "string",
+    multiple: false,
+  },
+  hot: {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description: "Enables Hot Module Replacement.",
+        path: "hot",
+      },
+      {
+        type: "enum",
+        values: ["only"],
+        multiple: false,
+        description: "Enables Hot Module Replacement.",
+        path: "hot",
+      },
+    ],
+    description: "Enables Hot Module Replacement.",
+    negatedDescription: "Disables Hot Module Replacement.",
+    simpleType: "string",
+    multiple: false,
+  },
+  http2: {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description: "Allows to serve over HTTP/2 using SPDY.",
+        path: "http2",
+      },
+    ],
+    description: "Allows to serve over HTTP/2 using SPDY.",
+    negatedDescription: "Does not serve over HTTP/2 using SPDY.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  https: {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
+        path: "https",
+      },
+    ],
+    description:
+      "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
+    negatedDescription:
+      "Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "https-passphrase": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description: "Passphrase for a pfx file.",
+        path: "https.passphrase",
+      },
+    ],
+    description: "Passphrase for a pfx file.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "https-request-cert": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description: "Request for an SSL certificate.",
+        path: "https.requestCert",
+      },
+    ],
+    description: "Request for an SSL certificate.",
+    negatedDescription: "Does not request for an SSL certificate.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "https-ca": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Path to an SSL CA certificate or content of an SSL CA certificate.",
+        path: "https.ca[]",
+      },
+    ],
+    description:
+      "Path to an SSL CA certificate or content of an SSL CA certificate.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-ca-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: false,
+        path: "https.ca",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "https-cacert": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Path to an SSL CA certificate or content of an SSL CA certificate.",
+        path: "https.cacert[]",
+      },
+    ],
+    description:
+      "Path to an SSL CA certificate or content of an SSL CA certificate.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-cacert-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: false,
+        path: "https.cacert",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "https-key": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description: "Path to an SSL key or content of an SSL key.",
+        path: "https.key[]",
+      },
+    ],
+    description: "Path to an SSL key or content of an SSL key.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-key-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key.",
+        multiple: false,
+        path: "https.key",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "https-pfx": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description: "Path to an SSL pfx file or content of an SSL pfx file.",
+        path: "https.pfx[]",
+      },
+    ],
+    description: "Path to an SSL pfx file or content of an SSL pfx file.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-pfx-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.",
+        multiple: false,
+        path: "https.pfx",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "https-cert": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Path to an SSL certificate or content of an SSL certificate.",
+        path: "https.cert[]",
+      },
+    ],
+    description: "Path to an SSL certificate or content of an SSL certificate.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-cert-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate.",
+        multiple: false,
+        path: "https.cert",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "https-crl": {
+    configs: [
+      {
+        description:
+          "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+        multiple: true,
+        path: "https.crl[]",
+        type: "string",
+      },
+    ],
+    description:
+      "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+    multiple: true,
+    simpleType: "string",
+  },
+  "https-crl-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+        multiple: false,
+        path: "https.crl",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  ipc: {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description: "Listen to a unix socket.",
+        path: "ipc",
+      },
+      {
+        type: "enum",
+        values: [true],
+        multiple: false,
+        description: "Listen to a unix socket.",
+        path: "ipc",
+      },
+    ],
+    description: "Listen to a unix socket.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "live-reload": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Enables reload/refresh the page(s) when file changes are detected (enabled by default).",
+        path: "liveReload",
+      },
+    ],
+    description:
+      "Enables reload/refresh the page(s) when file changes are detected (enabled by default).",
+    negatedDescription:
+      "Disables reload/refresh the page(s) when file changes are detected (enabled by default)",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "magic-html": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
+        path: "magicHtml",
+      },
+    ],
+    description:
+      "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
+    negatedDescription:
+      "Disables magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  open: {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
+        path: "open[]",
+      },
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
+        path: "open",
+      },
+    ],
+    description:
+      "Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
+    negatedDescription: "Does not open the default browser.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "open-target": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description: "Opens specified page in browser.",
+        path: "open[].target",
+      },
+      {
+        type: "string",
+        multiple: true,
+        description: "Opens specified page in browser.",
+        path: "open.target[]",
+      },
+    ],
+    description: "Opens specified page in browser.",
+    negatedDescription: "Does not open specified page in browser.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "open-app-name": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description: "Open specified browser.",
+        path: "open[].app.name",
+      },
+      {
+        type: "string",
+        multiple: true,
+        description: "Open specified browser.",
+        path: "open.app.name[]",
+      },
+    ],
+    description: "Open specified browser.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "open-app": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description: "Open specified browser.",
+        path: "open[].app",
+      },
+    ],
+    description: "Open specified browser.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "open-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'open' configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
+        path: "open",
+      },
+    ],
+    description:
+      "Clear all items provided in 'open' configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "open-target-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'open.target' configuration. Opens specified page in browser.",
+        path: "open.target",
+      },
+    ],
+    description:
+      "Clear all items provided in 'open.target' configuration. Opens specified page in browser.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "open-app-name-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
+        path: "open.app.name",
+      },
+    ],
+    description:
+      "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  port: {
+    configs: [
+      {
+        type: "number",
+        multiple: false,
+        description: "Allows to specify a port to use.",
+        path: "port",
+      },
+      {
+        type: "string",
+        multiple: false,
+        description: "Allows to specify a port to use.",
+        path: "port",
+      },
+      {
+        type: "enum",
+        values: ["auto"],
+        multiple: false,
+        description: "Allows to specify a port to use.",
+        path: "port",
+      },
+    ],
+    description: "Allows to specify a port to use.",
+    simpleType: "string",
+    multiple: false,
+  },
+  static: {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Allows to configure options for serving static files from directory (by default 'public' directory).",
+        path: "static[]",
+      },
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Allows to configure options for serving static files from directory (by default 'public' directory).",
+        path: "static",
+      },
+    ],
+    description:
+      "Allows to configure options for serving static files from directory (by default 'public' directory).",
+    simpleType: "string",
+    multiple: true,
+  },
+  "static-directory": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description: "Directory for static contents.",
+        path: "static[].directory",
+      },
+    ],
+    description: "Directory for static contents.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "static-public-path": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "The static files will be available in the browser under this public path.",
+        path: "static[].publicPath",
+      },
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "The static files will be available in the browser under this public path.",
+        path: "static.publicPath[]",
+      },
+    ],
+    description:
+      "The static files will be available in the browser under this public path.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "static-serve-index": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: true,
+        description:
+          "Tells dev server to use serveIndex middleware when enabled.",
+        path: "static[].serveIndex",
+      },
+    ],
+    description: "Tells dev server to use serveIndex middleware when enabled.",
+    negatedDescription:
+      "Does not tell dev server to use serveIndex middleware.",
+    simpleType: "boolean",
+    multiple: true,
+  },
+  "static-watch": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: true,
+        description: "Watches for files in static content directory.",
+        path: "static[].watch",
+      },
+    ],
+    description: "Watches for files in static content directory.",
+    negatedDescription: "Does not watch for files in static content directory.",
+    simpleType: "boolean",
+    multiple: true,
+  },
+  "static-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).",
+        path: "static",
+      },
+    ],
+    description:
+      "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "static-public-path-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
+        path: "static.publicPath",
+      },
+    ],
+    description:
+      "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "watch-files": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Allows to configure list of globs/directories/files to watch for file changes.",
+        path: "watchFiles[]",
+      },
+    ],
+    description:
+      "Allows to configure list of globs/directories/files to watch for file changes.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "watch-files-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes.",
+        path: "watchFiles",
+      },
+    ],
+    description:
+      "Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes.",
+    simpleType: "boolean",
+    multiple: false,
+  },
 };
