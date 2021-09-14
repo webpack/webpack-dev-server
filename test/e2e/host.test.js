@@ -14,6 +14,9 @@ const isMacOS = process.platform === "darwin";
 
 describe("host", () => {
   const hosts = [
+    "<not-specified>",
+    // eslint-disable-next-line no-undefined
+    undefined,
     "0.0.0.0",
     "::",
     "localhost",
@@ -38,13 +41,24 @@ describe("host", () => {
         }
       }
 
-      const server = new Server({ host, port }, compiler);
+      const devServerOptions = { port };
+
+      if (host !== "<not-specified>") {
+        devServerOptions.host = host;
+      }
+
+      const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
-      } else if (hostname === "::" || hostname === "::1") {
+      } else if (
+        hostname === "<not-specified>" ||
+        typeof hostname === "undefined" ||
+        hostname === "::" ||
+        hostname === "::1"
+      ) {
         hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
@@ -94,13 +108,24 @@ describe("host", () => {
         }
       }
 
-      const server = new Server({ host, port: `${port}` }, compiler);
+      const devServerOptions = { port: `${port}` };
+
+      if (host !== "<not-specified>") {
+        devServerOptions.host = host;
+      }
+
+      const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
-      } else if (hostname === "::" || hostname === "::1") {
+      } else if (
+        hostname === "<not-specified>" ||
+        typeof hostname === "undefined" ||
+        hostname === "::" ||
+        hostname === "::1"
+      ) {
         hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
@@ -152,13 +177,24 @@ describe("host", () => {
         }
       }
 
-      const server = new Server({ host, port: "auto" }, compiler);
+      const devServerOptions = { port: "auto" };
+
+      if (host !== "<not-specified>") {
+        devServerOptions.host = host;
+      }
+
+      const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
-      } else if (hostname === "::" || hostname === "::1") {
+      } else if (
+        hostname === "<not-specified>" ||
+        typeof hostname === "undefined" ||
+        hostname === "::" ||
+        hostname === "::1"
+      ) {
         hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
