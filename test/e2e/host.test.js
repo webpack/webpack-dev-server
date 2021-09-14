@@ -234,14 +234,14 @@ describe("host", () => {
       await server.stop();
     });
   }
-
-  it(`should throw an error on invalid host`, async () => {
-    const compiler = webpack(config);
-    const server = new Server({ port, host: "unknown.unknown" }, compiler);
-    const runDevServer = async () => {
-      await server.start();
-    };
-
-    return expect(runDevServer()).toBeDefined();
-  });
+  //
+  // it(`should throw an error on invalid host`, async () => {
+  //   const compiler = webpack(config);
+  //   const server = new Server({ port, host: "unknown.unknown" }, compiler);
+  //   const runDevServer = async () => {
+  //     await server.start();
+  //   };
+  //
+  //   return expect(runDevServer()).toBeDefined();
+  // });
 });
