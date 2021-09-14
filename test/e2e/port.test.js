@@ -14,6 +14,10 @@ describe("port", () => {
     "auto",
     port,
     `${port}`,
+    // 0,
+    "-1",
+    // 80
+    "99999",
   ];
 
   for (const testedPort of ports) {
@@ -40,7 +44,25 @@ describe("port", () => {
 
       const server = new Server(devServerOptions, compiler);
 
-      await server.start();
+      let errored;
+
+      try {
+        await server.start();
+      } catch (error) {
+        errored = error;
+      }
+
+      if (testedPort === "-1" || testedPort === "99999") {
+        const errorMessageRegExp = new RegExp(
+          `options.port should be >= 0 and < 65536. Received ${testedPort}.`
+        );
+
+        expect(errored.message).toMatch(errorMessageRegExp);
+
+        await server.stop();
+
+        return;
+      }
 
       const address = server.server.address();
 
