@@ -5,14 +5,14 @@ const internalIp = require("internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["host-and-port"];
+const port = require("../ports-map").host;
 
 const ipv4 = internalIp.v4.sync();
 const ipv6 = internalIp.v6.sync();
 // macos requires root for using ip v6
 const isMacOS = process.platform === "darwin";
 
-describe("host and port", () => {
+describe("host", () => {
   const hosts = [
     "0.0.0.0",
     "::",
