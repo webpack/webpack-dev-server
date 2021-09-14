@@ -14,7 +14,8 @@ describe("port", () => {
     "auto",
     port,
     `${port}`,
-    0,
+    // TODO test me
+    // 0,
     "-1",
     "99999",
   ];

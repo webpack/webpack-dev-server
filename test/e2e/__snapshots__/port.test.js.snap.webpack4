@@ -11,17 +11,6 @@ Array [
 
 exports[`port should work using "<not-specified>" port : page errors 1`] = `Array []`;
 
-exports[`port should work using "0" port : console messages 1`] = `
-Array [
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
-]
-`;
-
-exports[`port should work using "0" port : page errors 1`] = `Array []`;
-
 exports[`port should work using "8161" port : console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
