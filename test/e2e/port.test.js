@@ -14,7 +14,7 @@ describe("port", () => {
     "auto",
     port,
     `${port}`,
-    // 0,
+    0,
     "-1",
     "99999",
   ];
@@ -65,7 +65,11 @@ describe("port", () => {
 
       const address = server.server.address();
 
-      expect(address.port).toBe(Number(usedPort));
+      if (testedPort === 0) {
+        expect(typeof address.port).toBe("number");
+      } else {
+        expect(address.port).toBe(Number(usedPort));
+      }
 
       const { page, browser } = await runBrowser();
 
@@ -80,7 +84,7 @@ describe("port", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${usedPort}/main`, {
+      await page.goto(`http://127.0.0.1:${address.port}/main`, {
         waitUntil: "networkidle0",
       });
 
