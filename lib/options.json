@@ -389,7 +389,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/HeaderObject"
-          }
+          },
+          "minItems": 1
         },
         {
           "type": "object"

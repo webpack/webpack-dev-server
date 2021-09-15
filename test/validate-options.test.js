@@ -169,8 +169,8 @@ const tests = {
     failure: [true, false, 123, [], [""]],
   },
   headers: {
-    success: [{}, { foo: "bar" }, () => {}],
-    failure: [false, 1],
+    success: [{}, { foo: "bar" }, () => {}, [{ key: "foo", value: "bar" }]],
+    failure: [false, 1, [], [{ foo: "bar" }]],
   },
   historyApiFallback: {
     success: [{}, true],
