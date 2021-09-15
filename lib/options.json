@@ -554,7 +554,9 @@
     "Port": {
       "anyOf": [
         {
-          "type": "number"
+          "type": "number",
+          "minimum": 0,
+          "maximum": 65535
         },
         {
           "type": "string",

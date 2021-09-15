@@ -5,15 +5,18 @@ const internalIp = require("internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["host-and-port"];
+const port = require("../ports-map").host;
 
 const ipv4 = internalIp.v4.sync();
 const ipv6 = internalIp.v6.sync();
 // macos requires root for using ip v6
 const isMacOS = process.platform === "darwin";
 
-describe("host and port", () => {
+describe("host", () => {
   const hosts = [
+    "<not-specified>",
+    // eslint-disable-next-line no-undefined
+    undefined,
     "0.0.0.0",
     "::",
     "localhost",
@@ -38,13 +41,24 @@ describe("host and port", () => {
         }
       }
 
-      const server = new Server({ host, port }, compiler);
+      const devServerOptions = { port };
+
+      if (host !== "<not-specified>") {
+        devServerOptions.host = host;
+      }
+
+      const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
-      } else if (hostname === "::" || hostname === "::1") {
+      } else if (
+        hostname === "<not-specified>" ||
+        typeof hostname === "undefined" ||
+        hostname === "::" ||
+        hostname === "::1"
+      ) {
         hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
@@ -94,13 +108,24 @@ describe("host and port", () => {
         }
       }
 
-      const server = new Server({ host, port: `${port}` }, compiler);
+      const devServerOptions = { port: `${port}` };
+
+      if (host !== "<not-specified>") {
+        devServerOptions.host = host;
+      }
+
+      const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
-      } else if (hostname === "::" || hostname === "::1") {
+      } else if (
+        hostname === "<not-specified>" ||
+        typeof hostname === "undefined" ||
+        hostname === "::" ||
+        hostname === "::1"
+      ) {
         hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
@@ -152,13 +177,24 @@ describe("host and port", () => {
         }
       }
 
-      const server = new Server({ host, port: "auto" }, compiler);
+      const devServerOptions = { port: "auto" };
+
+      if (host !== "<not-specified>") {
+        devServerOptions.host = host;
+      }
+
+      const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
 
       if (hostname === "0.0.0.0") {
         hostname = "127.0.0.1";
-      } else if (hostname === "::" || hostname === "::1") {
+      } else if (
+        hostname === "<not-specified>" ||
+        typeof hostname === "undefined" ||
+        hostname === "::" ||
+        hostname === "::1"
+      ) {
         hostname = "[::1]";
       } else if (hostname === "local-ip" || hostname === "local-ipv4") {
         hostname = ipv4;
@@ -198,4 +234,15 @@ describe("host and port", () => {
       await server.stop();
     });
   }
+
+  // TODO need test on error
+  // it(`should throw an error on invalid host`, async () => {
+  //   const compiler = webpack(config);
+  //   const server = new Server({ port, host: "unknown.unknown" }, compiler);
+  //   const runDevServer = async () => {
+  //     await server.start();
+  //   };
+  //
+  //   return expect(runDevServer()).toBeDefined();
+  // });
 });

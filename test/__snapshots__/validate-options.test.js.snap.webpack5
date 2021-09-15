@@ -517,14 +517,24 @@ exports[`options validate should throw an error on the "port" option with '' val
  - options.port should be a non-empty string."
 `;
 
+exports[`options validate should throw an error on the "port" option with '-1' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.port should be >= 0 and <= 65535."
+`;
+
+exports[`options validate should throw an error on the "port" option with '65536' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.port should be >= 0 and <= 65535."
+`;
+
 exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be one of these:
-   number | non-empty string | \\"auto\\"
+   number (should be >= 0 and <= 65535) | non-empty string | \\"auto\\"
    -> Allows to specify a port to use.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
-    * options.port should be a number.
+    * options.port should be a number (should be >= 0 and <= 65535).
     * options.port should be a non-empty string.
     * options.port should be \\"auto\\"."
 `;
@@ -532,11 +542,11 @@ exports[`options validate should throw an error on the "port" option with 'false
 exports[`options validate should throw an error on the "port" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be one of these:
-   number | non-empty string | \\"auto\\"
+   number (should be >= 0 and <= 65535) | non-empty string | \\"auto\\"
    -> Allows to specify a port to use.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverport
    Details:
-    * options.port should be a number.
+    * options.port should be a number (should be >= 0 and <= 65535).
     * options.port should be a non-empty string.
     * options.port should be \\"auto\\"."
 `;

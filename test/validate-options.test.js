@@ -359,8 +359,8 @@ const tests = {
     failure: ["", { foo: "bar" }, { target: 90 }, { app: true }],
   },
   port: {
-    success: ["20000", 20001, "auto"],
-    failure: [false, null, ""],
+    success: ["20000", 20001, "auto", 0, 1, 65535],
+    failure: [false, null, "", -1, 65536],
   },
   proxy: {
     success: [
