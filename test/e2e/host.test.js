@@ -234,7 +234,8 @@ describe("host", () => {
       await server.stop();
     });
   }
-  //
+
+  // TODO need test on error
   // it(`should throw an error on invalid host`, async () => {
   //   const compiler = webpack(config);
   //   const server = new Server({ port, host: "unknown.unknown" }, compiler);
