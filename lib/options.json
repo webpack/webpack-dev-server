@@ -381,6 +381,9 @@
           "description": "value of header.",
           "type": "string"
         }
+      },
+      "cli": {
+        "exclude": true
       }
     },
     "Headers": {
