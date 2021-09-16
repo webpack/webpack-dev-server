@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`headers option as a function returning an array should handle GET request with headers: console messages 1`] = `Array []`;
+
+exports[`headers option as a function returning an array should handle GET request with headers: page errors 1`] = `Array []`;
+
+exports[`headers option as a function returning an array should handle GET request with headers: response headers x-bar 1`] = `"value2"`;
+
+exports[`headers option as a function returning an array should handle GET request with headers: response headers x-foo 1`] = `"value1"`;
+
+exports[`headers option as a function returning an array should handle GET request with headers: response status 1`] = `200`;
+
 exports[`headers option as a function should handle GET request with headers as a function: console messages 1`] = `Array []`;
 
 exports[`headers option as a function should handle GET request with headers as a function: page errors 1`] = `Array []`;
@@ -18,6 +28,16 @@ exports[`headers option as a string should handle GET request with headers: page
 exports[`headers option as a string should handle GET request with headers: response headers x-foo 1`] = `"dev-server headers"`;
 
 exports[`headers option as a string should handle GET request with headers: response status 1`] = `200`;
+
+exports[`headers option as an array of objects should handle GET request with headers: console messages 1`] = `Array []`;
+
+exports[`headers option as an array of objects should handle GET request with headers: page errors 1`] = `Array []`;
+
+exports[`headers option as an array of objects should handle GET request with headers: response headers x-bar 1`] = `"value2"`;
+
+exports[`headers option as an array of objects should handle GET request with headers: response headers x-foo 1`] = `"value1"`;
+
+exports[`headers option as an array of objects should handle GET request with headers: response status 1`] = `200`;
 
 exports[`headers option as an array should handle GET request with headers as an array: console messages 1`] = `Array []`;
 
