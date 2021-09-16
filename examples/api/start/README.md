@@ -3,7 +3,7 @@
 While it's recommended to run `webpack-dev-server` via the CLI, you may also
 choose to start a server via the API.
 
-This example demonstrates using `start` method.
+This example demonstrates using `start` method. It instructs `webpack-dev-server` instance to stop watching for file changes.
 
 ```js
 const Webpack = require("webpack");
