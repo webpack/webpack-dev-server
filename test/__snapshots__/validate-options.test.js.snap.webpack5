@@ -223,13 +223,26 @@ exports[`options validate should throw an error on the "devMiddleware" option wi
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
 `;
 
+exports[`options validate should throw an error on the "headers" option with '[]' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.headers should be a non-empty array."
+`;
+
+exports[`options validate should throw an error on the "headers" option with '[{"foo":"bar"}]' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.headers[0] has an unknown property 'foo'. These properties are valid:
+   object { key?, value? }"
+`;
+
 exports[`options validate should throw an error on the "headers" option with '1' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
-   object { … } | function
+   [object { key?, value? }, ...] (should not have fewer than 1 item) | object { … } | function
    -> Allows to set custom headers on response.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverheaders
    Details:
+    * options.headers should be an array:
+      [object { key?, value? }, ...] (should not have fewer than 1 item)
     * options.headers should be an object:
       object { … }
     * options.headers should be an instance of function."
@@ -238,10 +251,12 @@ exports[`options validate should throw an error on the "headers" option with '1'
 exports[`options validate should throw an error on the "headers" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
-   object { … } | function
+   [object { key?, value? }, ...] (should not have fewer than 1 item) | object { … } | function
    -> Allows to set custom headers on response.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverheaders
    Details:
+    * options.headers should be an array:
+      [object { key?, value? }, ...] (should not have fewer than 1 item)
     * options.headers should be an object:
       object { … }
     * options.headers should be an instance of function."

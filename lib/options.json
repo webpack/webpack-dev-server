@@ -369,8 +369,32 @@
       "description": "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverhttps"
     },
+    "HeaderObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "description": "key of header.",
+          "type": "string"
+        },
+        "value": {
+          "description": "value of header.",
+          "type": "string"
+        }
+      },
+      "cli": {
+        "exclude": true
+      }
+    },
     "Headers": {
       "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HeaderObject"
+          },
+          "minItems": 1
+        },
         {
           "type": "object"
         },
