@@ -14,7 +14,12 @@ const compiler = Webpack(webpackConfig);
 const devServerOptions = { ...webpackConfig.devServer };
 const server = new WebpackDevServer(devServerOptions, compiler);
 
-server.start();
+const runServer = async () => {
+  console.log("Starting server...");
+  await server.start();
+};
+
+runServer();
 ```
 
 Use the following command to run this example:
