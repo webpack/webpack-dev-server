@@ -87,3 +87,14 @@ Array [
 `;
 
 exports[`API should work with deprecated API (the order of the arguments in the constructor): page errors 1`] = `Array []`;
+
+exports[`API should work with plugin API: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`API should work with plugin API: page errors 1`] = `Array []`;
