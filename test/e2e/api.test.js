@@ -8,6 +8,38 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").api;
 
 describe("API", () => {
+  it(`should work with plugin API`, async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+
+    server.apply(compiler);
+
+    const { page, browser } = await runBrowser();
+
+    const pageErrors = [];
+    const consoleMessages = [];
+
+    page
+      .on("console", (message) => {
+        consoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    await page.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+      "console messages"
+    );
+    expect(pageErrors).toMatchSnapshot("page errors");
+
+    await browser.close();
+    await server.stop();
+  });
+
   it(`should work with async API`, async () => {
     const compiler = webpack(config);
     const server = new Server({ port }, compiler);
