@@ -131,7 +131,8 @@ function show(messages, type) {
       const entryElement = document.createElement("div");
       const typeElement = document.createElement("span");
 
-      typeElement.innerText = type === "warnings" ? "Warning:" : "Error:";
+      typeElement.innerText =
+        (type === "warnings" ? "Warning:" : "Error:") + message.file || "";
       typeElement.style.color = `#${colors.red}`;
 
       // Make it look similar to our terminal.
