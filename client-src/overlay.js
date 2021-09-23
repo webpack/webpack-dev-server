@@ -130,9 +130,9 @@ function show(messages, type) {
     messages.forEach((message) => {
       const entryElement = document.createElement("div");
       const typeElement = document.createElement("span");
-
+      // ts-loader will output `error.file` for error file path, not in message
       typeElement.innerText =
-        (type === "warnings" ? "Warning:" : "Error:") + message.file || "";
+        (type === "warnings" ? "Warning:" : "Error:") + (message.file || "");
       typeElement.style.color = `#${colors.red}`;
 
       // Make it look similar to our terminal.
