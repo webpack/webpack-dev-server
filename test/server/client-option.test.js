@@ -105,26 +105,6 @@ describe("client option", () => {
 
       await server.stop();
     });
-
-    it("disables hot entry", async () => {
-      const compiler = webpack(config);
-
-      server = new Server(
-        {
-          hot: false,
-          port,
-        },
-        compiler
-      );
-
-      await server.start();
-
-      const res = await request(server.app).get("/main.js");
-
-      expect(res.text).not.toMatch(/webpack\/hot\/dev-server\.js/);
-
-      await server.stop();
-    });
   });
 
   describe("webSocketTransport", () => {
