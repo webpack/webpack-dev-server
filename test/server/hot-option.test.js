@@ -34,6 +34,35 @@ describe("hot option", () => {
     });
   });
 
+  describe("simple config with hot: false", () => {
+    beforeAll(async () => {
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          port,
+          hot: false,
+        },
+        compiler
+      );
+
+      await server.start();
+
+      req = request(server.app);
+    });
+
+    afterAll(async () => {
+      await server.stop();
+    });
+
+    it("should not include hot script in the bundle", async () => {
+      const response = await req.get("/main.js");
+
+      expect(response.status).toEqual(200);
+      expect(response.text).not.toContain("webpack/hot/dev-server.js");
+    });
+  });
+
   describe("simple hot-only config entries", () => {
     beforeAll(async () => {
       const compiler = webpack(config);
