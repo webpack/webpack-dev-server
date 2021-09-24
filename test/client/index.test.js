@@ -39,6 +39,9 @@ describe("index", () => {
     jest.setMock("../../client-src/overlay.js", {
       hide: jest.fn(),
       show: jest.fn(),
+      formatProblem: (item) => {
+        return { header: "HEADER warning", body: `BODY: ${item}` };
+      },
     });
     overlay = require("../../client-src/overlay");
 
