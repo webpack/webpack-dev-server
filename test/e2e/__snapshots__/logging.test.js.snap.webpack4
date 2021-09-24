@@ -19,7 +19,8 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] ERROR
+Error from compilation",
 ]
 `;
 
@@ -30,7 +31,8 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] ERROR
+Error from compilation",
 ]
 `;
 
@@ -122,7 +124,8 @@ exports[`logging should work and log only error (sockjs) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] ERROR
+Error from compilation",
 ]
 `;
 
@@ -130,7 +133,8 @@ exports[`logging should work and log only error (ws) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] ERROR
+Error from compilation",
 ]
 `;
 
@@ -166,9 +170,11 @@ exports[`logging should work and log warning and errors (sockjs) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] WARNING
+Warning from compilation",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] ERROR
+Error from compilation",
 ]
 `;
 
@@ -176,9 +182,11 @@ exports[`logging should work and log warning and errors (ws) 1`] = `
 Array [
   "Hey.",
   "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] WARNING
+Warning from compilation",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] Error from compilation",
+  "[webpack-dev-server] ERROR
+Error from compilation",
 ]
 `;
 
@@ -189,7 +197,8 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] WARNING
+Warning from compilation",
 ]
 `;
 
@@ -200,7 +209,8 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] WARNING
+Warning from compilation",
 ]
 `;
 
