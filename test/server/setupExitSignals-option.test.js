@@ -37,7 +37,10 @@ describe("setupExitSignals option", () => {
       .spyOn(process.stdin, "resume")
       .mockImplementation(() => {});
     stopCallbackSpy = jest.spyOn(server, "stopCallback");
-    closeCallbackSpy = jest.spyOn(server.compiler, "close");
+
+    if (server.compiler.close) {
+      closeCallbackSpy = jest.spyOn(server.compiler, "close");
+    }
   });
 
   afterEach(async () => {
@@ -58,7 +61,10 @@ describe("setupExitSignals option", () => {
       const interval = setInterval(() => {
         if (doExit) {
           expect(stopCallbackSpy.mock.calls.length).toEqual(1);
-          expect(closeCallbackSpy.mock.calls.length).toEqual(1);
+
+          if (server.compiler.close) {
+            expect(closeCallbackSpy.mock.calls.length).toEqual(1);
+          }
 
           clearInterval(interval);
 
