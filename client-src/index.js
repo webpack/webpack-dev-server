@@ -4,7 +4,7 @@ import webpackHotLog from "webpack/hot/log.js";
 import stripAnsi from "./modules/strip-ansi/index.js";
 import parseURL from "./utils/parseURL.js";
 import socket from "./socket.js";
-import { show, hide } from "./overlay.js";
+import { formatProblem, show, hide } from "./overlay.js";
 import { log, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
@@ -152,14 +152,16 @@ const onSocketMessage = {
   warnings(warnings) {
     log.warn("Warnings while compiling.");
 
-    const strippedWarnings = warnings.map((warning) =>
-      stripAnsi(warning.message ? warning.message : warning)
-    );
+    const printableWarnings = warnings.map((error) => {
+      const { header, body } = formatProblem("warning", error);
 
-    sendMessage("Warnings", strippedWarnings);
+      return `${header}\n${stripAnsi(body)}`;
+    });
 
-    for (let i = 0; i < strippedWarnings.length; i++) {
-      log.warn(strippedWarnings[i]);
+    sendMessage("Warnings", printableWarnings);
+
+    for (let i = 0; i < printableWarnings.length; i++) {
+      log.warn(printableWarnings[i]);
     }
 
     const needShowOverlayForWarnings =
@@ -168,7 +170,7 @@ const onSocketMessage = {
         : options.overlay && options.overlay.warnings;
 
     if (needShowOverlayForWarnings) {
-      show(warnings, "warnings");
+      show("warning", warnings);
     }
 
     reloadApp(options, status);
@@ -176,14 +178,16 @@ const onSocketMessage = {
   errors(errors) {
     log.error("Errors while compiling. Reload prevented.");
 
-    const strippedErrors = errors.map((error) =>
-      stripAnsi(error.message ? error.message : error)
-    );
+    const printableErrors = errors.map((error) => {
+      const { header, body } = formatProblem("error", error);
 
-    sendMessage("Errors", strippedErrors);
+      return `${header}\n${stripAnsi(body)}`;
+    });
 
-    for (let i = 0; i < strippedErrors.length; i++) {
-      log.error(strippedErrors[i]);
+    sendMessage("Errors", printableErrors);
+
+    for (let i = 0; i < printableErrors.length; i++) {
+      log.error(printableErrors[i]);
     }
 
     const needShowOverlayForErrors =
@@ -192,7 +196,7 @@ const onSocketMessage = {
         : options.overlay && options.overlay.errors;
 
     if (needShowOverlayForErrors) {
-      show(errors, "errors");
+      show("error", errors);
     }
   },
   error(error) {

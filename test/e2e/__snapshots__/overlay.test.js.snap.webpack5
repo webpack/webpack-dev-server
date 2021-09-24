@@ -63,7 +63,8 @@ exports[`overlay should not show initially, then show on an error and allow to c
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
         Module parse failed: Unterminated template (1:1) You may need an
         appropriate loader to handle this file type, currently no loaders are
@@ -145,7 +146,8 @@ exports[`overlay should not show initially, then show on an error, then hide on 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
         Module parse failed: Unterminated template (1:1) You may need an
         appropriate loader to handle this file type, currently no loaders are
@@ -227,7 +229,8 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
         Module parse failed: Unterminated template (1:1) You may need an
         appropriate loader to handle this file type, currently no loaders are
@@ -276,7 +279,8 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
         Module parse failed: Unterminated template (1:1) You may need an
         appropriate loader to handle this file type, currently no loaders are
@@ -377,12 +381,12 @@ exports[`overlay should show a warning and error for initial compilation and pro
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
       <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
       <br /><br />
     </div>
@@ -445,27 +449,27 @@ exports[`overlay should show a warning and error for initial compilation: overla
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>Error from compilation. Can't find 'test' module.</div>
       <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>Error from compilation. Can't find 'test' module.</div>
       <br /><br />
     </div>
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>Error from compilation. Can't find 'test' module.</div>
       <br /><br />
     </div>
@@ -528,7 +532,7 @@ exports[`overlay should show a warning and hide them after closing connection: o
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
@@ -598,7 +602,7 @@ exports[`overlay should show a warning for initial compilation: overlay html 1`]
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
@@ -661,7 +665,7 @@ exports[`overlay should show a warning when "client.overlay" is "true": overlay 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
@@ -724,7 +728,7 @@ exports[`overlay should show a warning when "client.overlay.errors" is "true": o
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
@@ -787,7 +791,7 @@ exports[`overlay should show a warning when "client.overlay.warnings" is "true":
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
@@ -850,7 +854,7 @@ exports[`overlay should show an ansi formatted error for initial compilation: ov
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>
         <span
           style=\\"
@@ -926,7 +930,7 @@ exports[`overlay should show an error for initial compilation: overlay html 1`] 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>Error from compilation. Can't find 'test' module.</div>
       <br /><br />
     </div>
@@ -989,7 +993,7 @@ exports[`overlay should show an error when "client.overlay" is "true": overlay h
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>Error from compilation. Can't find 'test' module.</div>
       <br /><br />
     </div>
@@ -1052,7 +1056,7 @@ exports[`overlay should show an error when "client.overlay.errors" is "true": ov
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Error:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>Error from compilation. Can't find 'test' module.</div>
       <br /><br />
     </div>
@@ -1115,7 +1119,7 @@ exports[`overlay should show an error when "client.overlay.warnings" is "true": 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">Warning:</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
       <div>Warning from compilation</div>
       <br /><br />
     </div>
