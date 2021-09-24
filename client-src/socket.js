@@ -1,4 +1,4 @@
-/* global __webpack_dev_server_web_socket_client__, __webpack_dev_server_web_socket_server_status__ */
+/* global __webpack_dev_server_client__, __webpack_dev_server_web_socket_server_status__ */
 
 import WebSocketClient from "./clients/WebSocketClient.js";
 
@@ -6,11 +6,11 @@ import WebSocketClient from "./clients/WebSocketClient.js";
 /* eslint-disable camelcase */
 const Client =
   // eslint-disable-next-line camelcase, no-nested-ternary
-  typeof __webpack_dev_server_web_socket_client__ !== "undefined"
+  typeof __webpack_dev_server_client__ !== "undefined"
     ? // eslint-disable-next-line camelcase
-      typeof __webpack_dev_server_web_socket_client__.default !== "undefined"
-      ? __webpack_dev_server_web_socket_client__.default
-      : __webpack_dev_server_web_socket_client__
+      typeof __webpack_dev_server_client__.default !== "undefined"
+      ? __webpack_dev_server_client__.default
+      : __webpack_dev_server_client__
     : WebSocketClient;
 /* eslint-enable camelcase */
 
