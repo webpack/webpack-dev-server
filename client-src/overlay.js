@@ -124,20 +124,48 @@ function hide() {
   containerElement = null;
 }
 
+function formatProblem(type, item) {
+  let header = type === "warning" ? "WARNING" : "ERROR";
+  let body = "";
+
+  if (typeof item === "string") {
+    body += item;
+  } else {
+    const file = item.file || "";
+    // eslint-disable-next-line no-nested-ternary
+    const moduleName = item.moduleName
+      ? item.moduleName.indexOf("!") !== -1
+        ? `${item.moduleName.replace(/^(\s|\S)*!/, "")} (${item.moduleName})`
+        : `${item.moduleName}`
+      : "";
+    const loc = item.loc;
+
+    header += `${
+      moduleName || file
+        ? ` in ${
+            moduleName ? `${moduleName}${file ? ` (${file})` : ""}` : file
+          }${loc ? ` ${loc}` : ""}`
+        : ""
+    }`;
+    body += item.message || "";
+  }
+
+  return { header, body };
+}
+
 // Compilation with errors (e.g. syntax error or missing modules).
-function show(messages, type) {
+function show(type, messages) {
   ensureOverlayExists(() => {
     messages.forEach((message) => {
       const entryElement = document.createElement("div");
       const typeElement = document.createElement("span");
-      // ts-loader will output `error.file` for error file path, not in message
-      typeElement.innerText =
-        (type === "warnings" ? "Warning:" : "Error:") + (message.file || "");
+      const { header, body } = formatProblem(type, message);
+
+      typeElement.innerText = header;
       typeElement.style.color = `#${colors.red}`;
 
       // Make it look similar to our terminal.
-      const errorMessage = message.message || messages[0];
-      const text = ansiHTML(encode(errorMessage));
+      const text = ansiHTML(encode(body));
       const messageTextNode = document.createElement("div");
 
       messageTextNode.innerHTML = text;
@@ -154,4 +182,4 @@ function show(messages, type) {
   });
 }
 
-export { show, hide };
+export { formatProblem, show, hide };
