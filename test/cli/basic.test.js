@@ -315,6 +315,29 @@ describe("basic", () => {
       expect(stdout).toContain("webpack/hot/dev-server");
     });
 
+    it("should allow to kill process", (done) => {
+      const cliPath = path.resolve(
+        __dirname,
+        "../../bin/webpack-dev-server.js"
+      );
+      const cwd = path.resolve(__dirname, "../fixtures/cli-exit");
+      const proc = execa("node", [cliPath, "--port", port], { cwd });
+
+      proc.stdout.on("data", (data) => {
+        if (/compiled successfully/.test(data.toString())) {
+          expect(proc.pid !== 0).toBe(true);
+
+          proc.kill("SIGINT");
+        }
+      });
+
+      proc.on("exit", () => {
+        expect(proc.killed).toBe(true);
+
+        done();
+      });
+    });
+
     webpack5Test(
       "should prepend dev server entry points depending on targetProperties",
       async () => {
