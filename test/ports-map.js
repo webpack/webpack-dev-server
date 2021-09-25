@@ -73,6 +73,7 @@ const listOfTests = {
   "lazy-compilation": 1,
   "range-header": 1,
   port: 1,
+  "web-socket-server-test": 1,
 };
 
 let startPort = 8089;

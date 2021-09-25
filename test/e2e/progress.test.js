@@ -20,8 +20,6 @@ describe("progress", () => {
     const compiler = webpack(reloadConfig);
     const devServerOptions = {
       port,
-      static: false,
-      hot: true,
       client: {
         progress: true,
       },
