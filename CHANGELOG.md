@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/webpack/webpack-dev-server/compare/v4.2.1...v4.3.0) (2021-09-25)
+
+
+### Features
+
+* allow array for `headers` option ([#3847](https://github.com/webpack/webpack-dev-server/issues/3847)) ([9911437](https://github.com/webpack/webpack-dev-server/commit/9911437186a28b2249adfb282524361d7afe6c25))
+* gracefully and force shutdown ([#3880](https://github.com/webpack/webpack-dev-server/issues/3880)) ([db24b16](https://github.com/webpack/webpack-dev-server/commit/db24b16e66a63a51e5bacead47ed30c3bf21ff5b))
+
+
+### Bug Fixes
+
+* avoid web socket connection when web socket server is not running ([#3879](https://github.com/webpack/webpack-dev-server/issues/3879)) ([8874d72](https://github.com/webpack/webpack-dev-server/commit/8874d72f2ee8f11c8420de131e8335982e516727))
+* display file name for warnings/errors in overlay ([#3867](https://github.com/webpack/webpack-dev-server/issues/3867)) ([d20def5](https://github.com/webpack/webpack-dev-server/commit/d20def5c71609ad97ea783716c53070235f398cc))
+* formatting errors/warnings ([#3877](https://github.com/webpack/webpack-dev-server/issues/3877)) ([f0dbea0](https://github.com/webpack/webpack-dev-server/commit/f0dbea019c822e7e4b7e5ed81a6a9588e9521d73))
+* handle 0 value of the `port` option property ([ed67f66](https://github.com/webpack/webpack-dev-server/commit/ed67f66fc41eb1dd83fb84ecaa18703559dbe2ae))
+
 ### [4.2.1](https://github.com/webpack/webpack-dev-server/compare/v4.2.0...v4.2.1) (2021-09-13)
 
 
