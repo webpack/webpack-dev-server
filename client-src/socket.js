@@ -1,4 +1,4 @@
-/* global __webpack_dev_server_client__, __webpack_dev_server_web_socket_server_status__ */
+/* global __webpack_dev_server_client__ */
 
 import WebSocketClient from "./clients/WebSocketClient.js";
 
