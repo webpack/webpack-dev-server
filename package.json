@@ -35,6 +35,7 @@
     "ansi-html-community": "^0.0.8",
     "bonjour": "^3.5.0",
     "chokidar": "^3.5.1",
+    "colorette": "^2.0.10",
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "del": "^6.0.0",
@@ -44,7 +45,6 @@
     "http-proxy-middleware": "^2.0.0",
     "internal-ip": "^6.2.0",
     "ipaddr.js": "^2.0.1",
-    "nanocolors": "^0.2.1",
     "open": "^8.0.9",
     "p-retry": "^4.5.0",
     "portfinder": "^1.0.28",
@@ -55,7 +55,7 @@
     "spdy": "^4.0.2",
     "strip-ansi": "^7.0.0",
     "url": "^0.11.0",
-    "webpack-dev-middleware": "^5.2.0",
+    "webpack-dev-middleware": "^5.2.1",
     "ws": "^8.1.0"
   },
   "devDependencies": {
@@ -103,7 +103,7 @@
     "tcp-port-used": "^1.0.2",
     "typescript": "^4.2.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.50.0",
+    "webpack": "^5.54.0",
     "webpack-cli": "^4.7.2",
     "webpack-merge": "^5.8.0"
   },
