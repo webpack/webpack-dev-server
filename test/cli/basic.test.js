@@ -324,7 +324,7 @@ describe("basic", () => {
       const proc = execa("node", [cliPath, "--port", port], { cwd });
 
       proc.stdout.on("data", (data) => {
-        if (/compiled successfully/.test(data.toString())) {
+        if (/(Built at|compiled successfully)/.test(data.toString())) {
           expect(proc.pid !== 0).toBe(true);
 
           proc.kill("SIGINT");
