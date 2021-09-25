@@ -1,14 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client option configure client entry should disable client entry: console messages 1`] = `
-Array [
-  "Failed to load resource: the server responded with a status of 404 (Not Found)",
-]
-`;
+exports[`client option configure client entry should disable client entry: console messages 1`] = `Array []`;
 
 exports[`client option configure client entry should disable client entry: page errors 1`] = `Array []`;
 
-exports[`client option configure client entry should disable client entry: response status 1`] = `404`;
+exports[`client option configure client entry should disable client entry: response status 1`] = `200`;
 
 exports[`client option default behaviour responds with a 200 status code for /ws path: console messages 1`] = `Array []`;
 

@@ -178,12 +178,9 @@ describe("client option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(
-        `http://127.0.0.1:${port}/foo/test/bar`,
-        {
-          waitUntil: "networkidle0",
-        }
-      );
+      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+        waitUntil: "networkidle0",
+      });
 
       expect(response.status()).toMatchSnapshot("response status");
 
