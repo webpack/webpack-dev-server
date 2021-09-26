@@ -205,6 +205,14 @@ describe("client option", () => {
         shouldThrow: false,
       },
       {
+        title: 'as a string ("ws")',
+        client: {
+          webSocketTransport: "ws",
+        },
+        webSocketServer: "ws",
+        shouldThrow: false,
+      },
+      {
         title: 'as a path ("sockjs")',
         client: {
           webSocketTransport: require.resolve(
@@ -215,11 +223,29 @@ describe("client option", () => {
         shouldThrow: false,
       },
       {
+        title: 'as a path ("ws")',
+        client: {
+          webSocketTransport: require.resolve(
+            "../../client-src/clients/WebSocketClient"
+          ),
+        },
+        webSocketServer: "ws",
+        shouldThrow: false,
+      },
+      {
         title: "as a nonexistent path",
         client: {
           webSocketTransport: "/bad/path/to/implementation",
         },
         webSocketServer: "sockjs",
+        shouldThrow: true,
+      },
+      {
+        title: "as a nonexistent path",
+        client: {
+          webSocketTransport: "/bad/path/to/implementation",
+        },
+        webSocketServer: "ws",
         shouldThrow: true,
       },
     ];
