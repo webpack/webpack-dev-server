@@ -1,4 +1,4 @@
-# web-socket-server
+# web-socket-server (sockjs)
 
 To create a custom server implementation.
 
@@ -21,27 +21,6 @@ Usage via CLI:
 
 ```console
 npx webpack serve --web-socket-server sockjs --open
-```
-
-## ws
-
-This mode uses [ws](https://github.com/websockets/ws) as a server.
-
-**webpack.config.js**
-
-```js
-module.exports = {
-  // ...
-  devServer: {
-    webSocketServer: "ws",
-  },
-};
-```
-
-Usage via CLI:
-
-```console
-npx webpack serve --web-socket-server ws --open
 ```
 
 ### What Should Happen
