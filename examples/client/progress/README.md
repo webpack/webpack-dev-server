@@ -19,6 +19,12 @@ Usage via CLI:
 npx webpack serve --open --client-progress
 ```
 
+To disable:
+
+```shell
+npx webpack serve --open --no-client-progress
+```
+
 ## What Should Happen
 
 1. The script should open `http://localhost:8080/` in your default browser.
