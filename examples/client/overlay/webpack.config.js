@@ -8,4 +8,9 @@ module.exports = setup({
   context: __dirname,
   // create error for overlay
   entry: "./invalid.js",
+  devServer: {
+    client: {
+      overlay: true,
+    },
+  },
 });

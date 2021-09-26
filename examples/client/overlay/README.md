@@ -19,6 +19,12 @@ Usage via CLI:
 npx webpack serve --open --client-overlay
 ```
 
+To disable:
+
+```shell
+npx webpack serve --open --no-client-overlay
+```
+
 ## What Should Happen
 
 1. The script should open `http://localhost:8080/` in your default browser.
