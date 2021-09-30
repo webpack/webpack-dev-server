@@ -50,6 +50,17 @@ describe("Server", () => {
       }
     }
 
+    it("should accept plugin API", (done) => {
+      const compiler = webpack(config);
+      const server = new Server(baseDevConfig);
+      server.apply(compiler);
+
+      compiler.hooks.done.tap("webpack-dev-server", () => {
+        expect(true).toBe(true);
+        server.stopCallback(done);
+      });
+    });
+
     it("add hot option", (done) => {
       const compiler = webpack(config);
       const server = new Server({ ...baseDevConfig, hot: true }, compiler);
