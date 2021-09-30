@@ -233,7 +233,7 @@ describe("client option", () => {
         shouldThrow: false,
       },
       {
-        title: "as a nonexistent path",
+        title: "as a nonexistent path (sockjs)",
         client: {
           webSocketTransport: "/bad/path/to/implementation",
         },
@@ -241,7 +241,7 @@ describe("client option", () => {
         shouldThrow: true,
       },
       {
-        title: "as a nonexistent path",
+        title: "as a nonexistent path (ws)",
         client: {
           webSocketTransport: "/bad/path/to/implementation",
         },
