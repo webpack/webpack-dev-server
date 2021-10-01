@@ -316,6 +316,12 @@ describe("basic", () => {
     });
 
     it("should allow to kill process", (done) => {
+      if (isMacOS) {
+        done();
+
+        return;
+      }
+
       const cliPath = path.resolve(
         __dirname,
         "../../bin/webpack-dev-server.js"
