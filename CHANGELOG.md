@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.1](https://github.com/webpack/webpack-dev-server/compare/v4.3.0...v4.3.1) (2021-10-04)
+
+
+### Bug Fixes
+
+* perf ([#3906](https://github.com/webpack/webpack-dev-server/issues/3906)) ([f6e2a19](https://github.com/webpack/webpack-dev-server/commit/f6e2a1981d4c552368cd06ccf5dc400db298c2d6))
+
 ## [4.3.0](https://github.com/webpack/webpack-dev-server/compare/v4.2.1...v4.3.0) (2021-09-25)
 
 
