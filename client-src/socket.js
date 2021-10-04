@@ -39,7 +39,7 @@ const socket = function initSocket(url, handlers, reconnect) {
       // Exponentially increase timeout to reconnect.
       // Respectfully copied from the package `got`.
       // eslint-disable-next-line no-mixed-operators, no-restricted-properties
-      const retryInMs = 1000;
+      const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
 
       retries += 1;
 
