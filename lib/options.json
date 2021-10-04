@@ -106,7 +106,7 @@
       "type": "boolean"
     },
     "ClientReconnect": {
-      "description": "Tells dev-server number of times it should try to reconnect the client.",
+      "description": "Tells dev-server the number of times it should try to reconnect the client.",
       "link": "https://webpack.js.org/configuration/dev-server/#reconnect",
       "anyOf": [
         {
