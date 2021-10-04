@@ -793,6 +793,9 @@
     "WebSocketServerEnum": {
       "enum": [false, "sockjs", "ws"]
     },
+    "WebSocketServerType": {
+      "enum": ["sockjs", "ws"]
+    },
     "WebSocketServerFunction": {
       "instanceof": "Function"
     },
@@ -805,7 +808,7 @@
         "type": {
           "anyOf": [
             {
-              "$ref": "#/definitions/WebSocketServerEnum"
+              "$ref": "#/definitions/WebSocketServerType"
             },
             {
               "$ref": "#/definitions/WebSocketServerString"

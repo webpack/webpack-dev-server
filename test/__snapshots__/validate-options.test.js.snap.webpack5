@@ -721,6 +721,22 @@ exports[`options validate should throw an error on the "webSocketServer" option 
    object { type?, options? }"
 `;
 
+exports[`options validate should throw an error on the "webSocketServer" option with '{"type":false}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.webSocketServer should be one of these:
+   false | \\"sockjs\\" | \\"ws\\" | non-empty string | function | object { type?, options? }
+   -> Allows to set web socket server and options (by default 'ws').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
+   Details:
+    * options.webSocketServer.type should be one of these:
+      \\"sockjs\\" | \\"ws\\" | non-empty string | function
+      Details:
+       * options.webSocketServer.type should be one of these:
+         \\"sockjs\\" | \\"ws\\"
+       * options.webSocketServer.type should be a non-empty string.
+       * options.webSocketServer.type should be an instance of function."
+`;
+
 exports[`options validate should throw an error on the "webSocketServer" option with '{"type":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
@@ -729,10 +745,10 @@ exports[`options validate should throw an error on the "webSocketServer" option 
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver
    Details:
     * options.webSocketServer.type should be one of these:
-      false | \\"sockjs\\" | \\"ws\\" | non-empty string | function
+      \\"sockjs\\" | \\"ws\\" | non-empty string | function
       Details:
        * options.webSocketServer.type should be one of these:
-         false | \\"sockjs\\" | \\"ws\\"
+         \\"sockjs\\" | \\"ws\\"
        * options.webSocketServer.type should be a non-empty string.
        * options.webSocketServer.type should be an instance of function."
 `;
