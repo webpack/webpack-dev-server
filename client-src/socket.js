@@ -15,13 +15,15 @@ const Client =
 /* eslint-enable camelcase */
 
 let retries = 0;
+let maxRetries = 10;
 let client = null;
 
-const socket = function initSocket(url, handlers) {
+const socket = function initSocket(url, handlers, reconnect) {
   client = new Client(url);
 
   client.onOpen(() => {
     retries = 0;
+    maxRetries = reconnect;
   });
 
   client.onClose(() => {
@@ -33,11 +35,11 @@ const socket = function initSocket(url, handlers) {
     client = null;
 
     // After 10 retries stop trying, to prevent logspam.
-    if (retries <= 10) {
+    if (retries < maxRetries) {
       // Exponentially increase timeout to reconnect.
       // Respectfully copied from the package `got`.
       // eslint-disable-next-line no-mixed-operators, no-restricted-properties
-      const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
+      const retryInMs = 1000;
 
       retries += 1;
 
