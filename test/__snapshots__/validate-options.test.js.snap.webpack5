@@ -83,7 +83,7 @@ exports[`options validate should throw an error on the "client" option with '{"l
 exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
@@ -122,16 +122,32 @@ exports[`options validate should throw an error on the "client" option with '{"p
    -> Read more at https://webpack.js.org/configuration/dev-server/#progress"
 `;
 
+exports[`options validate should throw an error on the "client" option with '{"reconnect":""}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.client should be one of these:
+   false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
+   -> Allows to specify options for client script in the browser or disable client script.
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
+   Details:
+    * options.client.reconnect should be one of these:
+      boolean | number (should be >= 0)
+      -> Tells dev-server the number of times it should try to reconnect the client.
+      -> Read more at https://webpack.js.org/configuration/dev-server/#reconnect
+      Details:
+       * options.client.reconnect should be a boolean.
+       * options.client.reconnect should be a number (should be >= 0)."
+`;
+
 exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client has an unknown property 'unknownOption'. These properties are valid:
-   object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }"
+   object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"webSocketTransport":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
@@ -171,7 +187,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
@@ -186,7 +202,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"username":123,"password":976}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
@@ -199,13 +215,13 @@ exports[`options validate should throw an error on the "client" option with '{"w
 exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
-   false | object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }
+   false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
    -> Allows to specify options for client script in the browser or disable client script.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * options.client should be false.
     * options.client should be an object:
-      object { logging?, overlay?, progress?, webSocketTransport?, webSocketURL? }"
+      object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }"
 `;
 
 exports[`options validate should throw an error on the "compress" option with '' value 1`] = `

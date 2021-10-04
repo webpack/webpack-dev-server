@@ -51,6 +51,15 @@ const tests = {
         progress: false,
       },
       {
+        reconnect: false,
+      },
+      {
+        reconnect: true,
+      },
+      {
+        reconnect: 5,
+      },
+      {
         overlay: true,
       },
       {
@@ -114,6 +123,9 @@ const tests = {
       },
       {
         progress: "",
+      },
+      {
+        reconnect: "",
       },
       {
         overlay: "",
