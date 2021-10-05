@@ -790,8 +790,18 @@
       "description": "Allows to set web socket server and options (by default 'ws').",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver"
     },
+    "WebSocketServerType": {
+      "enum": ["sockjs", "ws"]
+    },
     "WebSocketServerEnum": {
-      "enum": [false, "sockjs", "ws"]
+      "anyOf": [
+        {
+          "enum": [false]
+        },
+        {
+          "$ref": "#/definitions/WebSocketServerType"
+        }
+      ]
     },
     "WebSocketServerFunction": {
       "instanceof": "Function"
@@ -805,7 +815,7 @@
         "type": {
           "anyOf": [
             {
-              "$ref": "#/definitions/WebSocketServerEnum"
+              "$ref": "#/definitions/WebSocketServerType"
             },
             {
               "$ref": "#/definitions/WebSocketServerString"

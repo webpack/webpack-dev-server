@@ -449,6 +449,9 @@ const tests = {
       null,
       true,
       {
+        type: false,
+      },
+      {
         notAnOption: true,
       },
       {

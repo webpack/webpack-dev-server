@@ -297,21 +297,30 @@ module.exports = {
   "web-socket-server": {
     configs: [
       {
-        type: "enum",
-        values: [false, "sockjs", "ws"],
-        multiple: false,
         description:
           "Allows to set web socket server and options (by default 'ws').",
+        multiple: false,
         path: "webSocketServer",
+        type: "enum",
+        values: [false],
       },
       {
-        type: "string",
-        multiple: false,
         description:
           "Allows to set web socket server and options (by default 'ws').",
+        multiple: false,
         path: "webSocketServer",
+        type: "enum",
+        values: ["sockjs", "ws"],
+      },
+      {
+        description:
+          "Allows to set web socket server and options (by default 'ws').",
+        multiple: false,
+        path: "webSocketServer",
+        type: "string",
       },
     ],
+
     description:
       "Allows to set web socket server and options (by default 'ws').",
     simpleType: "string",
