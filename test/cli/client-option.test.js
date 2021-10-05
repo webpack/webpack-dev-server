@@ -105,6 +105,33 @@ describe('"client" CLI option', () => {
     expect(exitCode).toEqual(0);
   });
 
+  it('should work using "--client-reconnect"', async () => {
+    const { exitCode } = await testBin(["--port", port, "--client-reconnect"]);
+
+    expect(exitCode).toEqual(0);
+  });
+
+  it('should work using "--client-reconnect <value>"', async () => {
+    const { exitCode } = await testBin([
+      "--port",
+      port,
+      "--client-reconnect",
+      5,
+    ]);
+
+    expect(exitCode).toEqual(0);
+  });
+
+  it('should work using "--no-client-reconnect"', async () => {
+    const { exitCode } = await testBin([
+      "--port",
+      port,
+      "--no-client-reconnect",
+    ]);
+
+    expect(exitCode).toEqual(0);
+  });
+
   it('should work using "--client-web-socket-url"', async () => {
     const { exitCode } = await testBin([
       "--port",
