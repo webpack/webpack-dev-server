@@ -105,6 +105,13 @@ const onSocketMessage = {
 
     options.overlay = value;
   },
+  reconnect(value) {
+    if (parsedResourceQuery.reconnect === "false") {
+      return;
+    }
+
+    options.reconnect = value;
+  },
   progress(progress) {
     options.progress = progress;
   },
