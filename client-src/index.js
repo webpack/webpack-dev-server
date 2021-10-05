@@ -41,10 +41,7 @@ if (parsedResourceQuery.logging) {
   options.logging = parsedResourceQuery.logging;
 }
 
-if (
-  typeof parsedResourceQuery.reconnect !== "undefined" &&
-  parsedResourceQuery.reconnect !== "false"
-) {
+if (typeof parsedResourceQuery.reconnect !== "undefined") {
   options.reconnect = Number(parsedResourceQuery.reconnect);
 }
 
