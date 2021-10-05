@@ -762,6 +762,10 @@ exports[`options validate should throw an error on the "webSocketServer" option 
    Details:
     * options.webSocketServer should be one of these:
       false | \\"sockjs\\" | \\"ws\\"
+      Details:
+       * options.webSocketServer should be false.
+       * options.webSocketServer should be one of these:
+         \\"sockjs\\" | \\"ws\\"
     * options.webSocketServer should be a non-empty string.
     * options.webSocketServer should be an instance of function.
     * options.webSocketServer should be an object:
@@ -777,6 +781,10 @@ exports[`options validate should throw an error on the "webSocketServer" option 
    Details:
     * options.webSocketServer should be one of these:
       false | \\"sockjs\\" | \\"ws\\"
+      Details:
+       * options.webSocketServer should be false.
+       * options.webSocketServer should be one of these:
+         \\"sockjs\\" | \\"ws\\"
     * options.webSocketServer should be a non-empty string.
     * options.webSocketServer should be an instance of function.
     * options.webSocketServer should be an object:
