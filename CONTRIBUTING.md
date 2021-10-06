@@ -79,7 +79,7 @@ The **header** is mandatory.
 Any line of the commit message cannot be longer 100 characters. This allows the message to be easier
 to read on GitHub as well as in several git tools.
 
-For more information about what each part of the template mean, head up to the documentation in the
+For more information about what each part of the template means, head up to the documentation in the
 [angular repo](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits).
 
 ### Example commit message
