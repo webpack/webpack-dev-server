@@ -1,6 +1,7 @@
 /* global __webpack_dev_server_client__ */
 
 import WebSocketClient from "./clients/WebSocketClient.js";
+import { log } from "./utils/log.js";
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
 /* eslint-disable camelcase */
@@ -42,6 +43,8 @@ const socket = function initSocket(url, handlers, reconnect) {
       const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
 
       retries += 1;
+
+      log.info("Trying to reconnect...");
 
       setTimeout(() => {
         socket(url, handlers);
