@@ -2,7 +2,7 @@
 
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/reload-config/webpack.config");
+const config = require("../fixtures/simple-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["compress-option"];
 

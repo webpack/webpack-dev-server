@@ -260,6 +260,7 @@ Array [
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -271,6 +272,7 @@ Array [
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -282,6 +284,7 @@ Array [
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -293,6 +296,7 @@ Array [
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
