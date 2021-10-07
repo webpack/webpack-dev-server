@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["compress-option"];
+const port = require("../ports-map")["client-reconnect-option"];
 
 describe("client.reconnect option", () => {
   describe("specified as true", () => {
