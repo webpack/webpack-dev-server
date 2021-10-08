@@ -155,7 +155,7 @@ describe("client.reconnect option", () => {
 
       await server.stop();
       // eslint-disable-next-line no-restricted-properties
-      await page.waitForTimeout(1000 * Math.pow(2, 2) + Math.random() * 100);
+      await page.waitForTimeout(1000 * Math.pow(2, 3) + Math.random() * 100);
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
