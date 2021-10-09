@@ -74,6 +74,7 @@ const listOfTests = {
   "range-header": 1,
   port: 1,
   "web-socket-server-test": 1,
+  "client-reconnect-option": 1,
 };
 
 let startPort = 8089;

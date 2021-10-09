@@ -41,6 +41,10 @@ if (parsedResourceQuery.logging) {
   options.logging = parsedResourceQuery.logging;
 }
 
+if (typeof parsedResourceQuery.reconnect !== "undefined") {
+  options.reconnect = Number(parsedResourceQuery.reconnect);
+}
+
 function setAllLogLevel(level) {
   // This is needed because the HMR logger operate separately from dev server logger
   webpackHotLog.setLogLevel(
@@ -97,6 +101,13 @@ const onSocketMessage = {
     }
 
     options.overlay = value;
+  },
+  reconnect(value) {
+    if (parsedResourceQuery.reconnect === "false") {
+      return;
+    }
+
+    options.reconnect = value;
   },
   progress(progress) {
     options.progress = progress;
@@ -215,4 +226,4 @@ const onSocketMessage = {
 
 const socketURL = createSocketURL(parsedResourceQuery);
 
-socket(socketURL, onSocketMessage);
+socket(socketURL, onSocketMessage, options.reconnect);

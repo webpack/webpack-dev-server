@@ -27,6 +27,7 @@ Object {
   "logging": "info",
   "overlay": false,
   "progress": false,
+  "reconnect": 10,
 }
 `;
 
@@ -88,10 +89,12 @@ Array [
     "overlay": [Function],
     "progress": [Function],
     "progress-update": [Function],
+    "reconnect": [Function],
     "static-changed": [Function],
     "still-ok": [Function],
     "warnings": [Function],
   },
+  10,
 ]
 `;
 

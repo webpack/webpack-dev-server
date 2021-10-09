@@ -57,6 +57,7 @@ describe("index", () => {
     jest.setMock("../../client-src/utils/parseURL.js", () => {
       return {
         logging: "info",
+        reconnect: 10,
       };
     });
 

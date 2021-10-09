@@ -93,6 +93,8 @@ Options:
   --client-logging <value>                  Allows to specify options for client script in the browser or disable client script.
   --client-progress                         Prints compilation progress in percentage in the browser.
   --no-client-progress                      Does not print compilation progress in percentage in the browser.
+  --client-reconnect [value]                Tells dev-server the number of times it should try to reconnect the client.
+  --no-client-reconnect                     Tells dev-server to not to try to connect the client.
   --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay                       Disables a full-screen overlay in the browser when there are compiler errors or warnings.
   --client-overlay-errors                   Enables a full-screen overlay in the browser when there are compiler errors.

@@ -1,6 +1,7 @@
 /* global __webpack_dev_server_client__ */
 
 import WebSocketClient from "./clients/WebSocketClient.js";
+import { log } from "./utils/log.js";
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
 /* eslint-disable camelcase */
@@ -15,13 +16,15 @@ const Client =
 /* eslint-enable camelcase */
 
 let retries = 0;
+let maxRetries = 10;
 let client = null;
 
-const socket = function initSocket(url, handlers) {
+const socket = function initSocket(url, handlers, reconnect) {
   client = new Client(url);
 
   client.onOpen(() => {
     retries = 0;
+    maxRetries = reconnect;
   });
 
   client.onClose(() => {
@@ -33,13 +36,15 @@ const socket = function initSocket(url, handlers) {
     client = null;
 
     // After 10 retries stop trying, to prevent logspam.
-    if (retries <= 10) {
+    if (retries < maxRetries) {
       // Exponentially increase timeout to reconnect.
       // Respectfully copied from the package `got`.
       // eslint-disable-next-line no-mixed-operators, no-restricted-properties
       const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
 
       retries += 1;
+
+      log.info("Trying to reconnect...");
 
       setTimeout(() => {
         socket(url, handlers);

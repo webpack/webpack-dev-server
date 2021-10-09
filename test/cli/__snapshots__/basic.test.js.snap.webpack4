@@ -69,6 +69,8 @@ Options:
   --no-client-overlay-errors                Negative 'client-overlay-errors' option.
   --client-overlay-warnings                 Enables a full-screen overlay in the browser when there are compiler warnings.
   --no-client-overlay-warnings              Negative 'client-overlay-warnings' option.
+  --client-reconnect [value]                Tells dev-server the number of times it should try to reconnect the client.
+  --no-client-reconnect                     Tells dev-server to not to try to connect the client.
   --client-web-socket-url <value>           Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
   --client-web-socket-url-hostname <value>  Tells clients connected to devServer to use the provided hostname.
   --client-web-socket-url-port <value>      Tells clients connected to devServer to use the provided port.

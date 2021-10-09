@@ -4,7 +4,7 @@ exports[`Server DevServerPlugin add hot option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info&reconnect=10",
   ],
   Array [
     "node_modules",
@@ -22,7 +22,7 @@ exports[`Server DevServerPlugin add hot-only option 1`] = `
 Array [
   Array [
     "client",
-    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info&reconnect=10",
   ],
   Array [
     "node_modules",
@@ -40,7 +40,7 @@ exports[`Server DevServerPlugin should create and run server with old parameters
 Array [
   Array [
     "client",
-    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info",
+    "index.js?protocol=ws%3A&hostname=localhost&port=8124&pathname=%2Fws&logging=info&reconnect=10",
   ],
   Array [
     "node_modules",
@@ -63,6 +63,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -105,6 +106,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -147,6 +149,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketTransport": "/path/to/custom/client/",
     "webSocketURL": Object {},
   },
@@ -190,6 +193,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {
       "hostname": "my.host",
       "port": 9000,
@@ -235,6 +239,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {
       "hostname": "my.host",
       "port": 9000,
@@ -280,6 +285,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {
       "pathname": "/custom/path/",
     },
@@ -324,6 +330,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {
       "pathname": "custom/path",
     },
@@ -368,6 +375,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketTransport": "sockjs",
     "webSocketURL": Object {},
   },
@@ -411,6 +419,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
@@ -454,6 +463,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
@@ -499,6 +509,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
@@ -544,6 +555,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketTransport": "ws",
     "webSocketURL": Object {},
   },
@@ -587,6 +599,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -631,6 +644,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -673,6 +687,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -715,6 +730,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -757,6 +773,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -799,6 +816,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -841,6 +859,7 @@ Object {
   "client": Object {
     "logging": "none",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -883,6 +902,7 @@ Object {
   "client": Object {
     "logging": "warn",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -925,6 +945,7 @@ Object {
   "client": Object {
     "logging": "warn",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -967,6 +988,7 @@ Object {
   "client": Object {
     "logging": "warn",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1009,6 +1031,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1051,6 +1074,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1093,6 +1117,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1135,6 +1160,7 @@ Object {
   "client": Object {
     "logging": "verbose",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1177,6 +1203,7 @@ Object {
   "client": Object {
     "logging": "none",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1219,6 +1246,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1263,6 +1291,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1307,6 +1336,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1351,6 +1381,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1395,6 +1426,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1448,6 +1480,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1501,6 +1534,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1554,6 +1588,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1596,6 +1631,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1626,6 +1662,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1668,6 +1705,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1710,6 +1748,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1752,6 +1791,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1795,6 +1835,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1837,6 +1878,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1877,6 +1919,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1919,6 +1962,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -1963,6 +2007,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -2005,6 +2050,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -2047,6 +2093,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {
       "password": "chuntaro",
       "username": "zenitsu",
@@ -2092,6 +2139,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,
@@ -2134,6 +2182,7 @@ Object {
   "client": Object {
     "logging": "info",
     "overlay": true,
+    "reconnect": 10,
     "webSocketURL": Object {},
   },
   "compress": true,

@@ -174,6 +174,29 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "client-reconnect": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Tells dev-server the number of times it should try to reconnect the client.",
+        path: "client.reconnect",
+      },
+      {
+        type: "number",
+        multiple: false,
+        description:
+          "Tells dev-server the number of times it should try to reconnect the client.",
+        path: "client.reconnect",
+      },
+    ],
+    description:
+      "Tells dev-server the number of times it should try to reconnect the client.",
+    negatedDescription: "Tells dev-server to not to try to connect the client.",
+    simpleType: "string",
+    multiple: false,
+  },
   "client-web-socket-url": {
     configs: [
       {

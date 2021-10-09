@@ -59,6 +59,9 @@
             "progress": {
               "$ref": "#/definitions/ClientProgress"
             },
+            "reconnect": {
+              "$ref": "#/definitions/ClientReconnect"
+            },
             "webSocketTransport": {
               "$ref": "#/definitions/ClientWebSocketTransport"
             },
@@ -101,6 +104,19 @@
       "description": "Prints compilation progress in percentage in the browser.",
       "link": "https://webpack.js.org/configuration/dev-server/#progress",
       "type": "boolean"
+    },
+    "ClientReconnect": {
+      "description": "Tells dev-server the number of times it should try to reconnect the client.",
+      "link": "https://webpack.js.org/configuration/dev-server/#reconnect",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number",
+          "minimum": 0
+        }
+      ]
     },
     "ClientWebSocketTransport": {
       "anyOf": [
