@@ -16,7 +16,7 @@ const status = {
   // eslint-disable-next-line camelcase
   currentHash: typeof __webpack_hash__ !== "undefined" ? __webpack_hash__ : "",
 };
-// console.log(__webpack_hash__);
+
 const options = {
   hot: false,
   liveReload: false,
