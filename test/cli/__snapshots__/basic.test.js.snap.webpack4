@@ -120,6 +120,23 @@ Options:
   --open-target-reset                       Clear all items provided in 'open.target' configuration. Opens specified page in browser.
   --open-app-name-reset                     Clear all items provided in 'open.app.name' configuration. Open specified browser.
   --port <value>                            Allows to specify a port to use.
+  --server <value>                          Allows to set server and options (by default 'http').
+  --server-type <value>                     Allows to set server and options (by default 'http').
+  --server-options-passphrase <value>       Passphrase for a pfx file.
+  --server-options-request-cert             Request for an SSL certificate.
+  --no-server-options-request-cert          Negative 'server-options-request-cert' option.
+  --server-options-ca <value...>            Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-ca-reset                 Clear all items provided in 'server.options.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-cacert <value...>        Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-cacert-reset             Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-cert <value...>          Path to an SSL certificate or content of an SSL certificate.
+  --server-options-cert-reset               Clear all items provided in 'server.options.cert' configuration. Path to an SSL certificate or content of an SSL certificate.
+  --server-options-crl <value...>           Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
+  --server-options-crl-reset                Clear all items provided in 'server.options.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
+  --server-options-key <value...>           Path to an SSL key or content of an SSL key.
+  --server-options-key-reset                Clear all items provided in 'server.options.key' configuration. Path to an SSL key or content of an SSL key.
+  --server-options-pfx <value...>           Path to an SSL pfx file or content of an SSL pfx file.
+  --server-options-pfx-reset                Clear all items provided in 'server.options.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.
   --static [value...]                       Allows to configure options for serving static files from directory (by default 'public' directory).
   --no-static                               Negative 'static' option.
   --static-directory <value...>             Directory for static contents.

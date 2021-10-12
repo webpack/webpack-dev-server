@@ -643,8 +643,8 @@
           "$ref": "#/definitions/ServerObject"
         }
       ],
-      "link": "",
-      "description": ""
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverserver",
+      "description": "Allows to set server and options (by default 'http')."
     },
     "ServerType": {
       "enum": ["http", "https", "spdy"]

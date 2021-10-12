@@ -852,6 +852,235 @@ module.exports = {
     simpleType: "string",
     multiple: false,
   },
+  server: {
+    configs: [
+      {
+        description: "Allows to set server and options (by default 'http').",
+        multiple: false,
+        path: "server",
+        type: "enum",
+        values: ["http", "https", "spdy"],
+      },
+    ],
+    description: "Allows to set server and options (by default 'http').",
+    multiple: false,
+    simpleType: "string",
+  },
+  "server-options-ca": {
+    configs: [
+      {
+        description:
+          "Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: true,
+        path: "server.options.ca[]",
+        type: "string",
+      },
+    ],
+    description:
+      "Path to an SSL CA certificate or content of an SSL CA certificate.",
+    multiple: true,
+    simpleType: "string",
+  },
+  "server-options-ca-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'server.options.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: false,
+        path: "server.options.ca",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'server.options.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "server-options-cacert": {
+    configs: [
+      {
+        description:
+          "Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: true,
+        path: "server.options.cacert[]",
+        type: "string",
+      },
+    ],
+    description:
+      "Path to an SSL CA certificate or content of an SSL CA certificate.",
+    multiple: true,
+    simpleType: "string",
+  },
+  "server-options-cacert-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+        multiple: false,
+        path: "server.options.cacert",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "server-options-cert": {
+    configs: [
+      {
+        description:
+          "Path to an SSL certificate or content of an SSL certificate.",
+        multiple: true,
+        path: "server.options.cert[]",
+        type: "string",
+      },
+    ],
+    description: "Path to an SSL certificate or content of an SSL certificate.",
+    multiple: true,
+    simpleType: "string",
+  },
+  "server-options-cert-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'server.options.cert' configuration. Path to an SSL certificate or content of an SSL certificate.",
+        multiple: false,
+        path: "server.options.cert",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'server.options.cert' configuration. Path to an SSL certificate or content of an SSL certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "server-options-crl": {
+    configs: [
+      {
+        description:
+          "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+        multiple: true,
+        path: "server.options.crl[]",
+        type: "string",
+      },
+    ],
+    description:
+      "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+    multiple: true,
+    simpleType: "string",
+  },
+  "server-options-crl-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'server.options.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+        multiple: false,
+        path: "server.options.crl",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'server.options.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "server-options-key": {
+    configs: [
+      {
+        description: "Path to an SSL key or content of an SSL key.",
+        multiple: true,
+        path: "server.options.key[]",
+        type: "string",
+      },
+    ],
+    description: "Path to an SSL key or content of an SSL key.",
+    multiple: true,
+    simpleType: "string",
+  },
+  "server-options-key-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'server.options.key' configuration. Path to an SSL key or content of an SSL key.",
+        multiple: false,
+        path: "server.options.key",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'server.options.key' configuration. Path to an SSL key or content of an SSL key.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "server-options-passphrase": {
+    configs: [
+      {
+        description: "Passphrase for a pfx file.",
+        multiple: false,
+        path: "server.options.passphrase",
+        type: "string",
+      },
+    ],
+    description: "Passphrase for a pfx file.",
+    multiple: false,
+    simpleType: "string",
+  },
+  "server-options-pfx": {
+    configs: [
+      {
+        description: "Path to an SSL pfx file or content of an SSL pfx file.",
+        multiple: true,
+        path: "server.options.pfx[]",
+        type: "string",
+      },
+    ],
+    description: "Path to an SSL pfx file or content of an SSL pfx file.",
+    multiple: true,
+    simpleType: "string",
+  },
+  "server-options-pfx-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'server.options.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.",
+        multiple: false,
+        path: "server.options.pfx",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'server.options.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "server-options-request-cert": {
+    configs: [
+      {
+        description: "Request for an SSL certificate.",
+        multiple: false,
+        path: "server.options.requestCert",
+        type: "boolean",
+      },
+    ],
+    description: "Request for an SSL certificate.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "server-type": {
+    configs: [
+      {
+        description: "Allows to set server and options (by default 'http').",
+        multiple: false,
+        path: "server.type",
+        type: "enum",
+        values: ["http", "https", "spdy"],
+      },
+    ],
+    description: "Allows to set server and options (by default 'http').",
+    multiple: false,
+    simpleType: "string",
+  },
   static: {
     configs: [
       {
