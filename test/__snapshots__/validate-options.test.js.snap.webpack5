@@ -608,6 +608,124 @@ exports[`options validate should throw an error on the "proxy" option with 'fals
       [object { … } | function, ...]"
 `;
 
+exports[`options validate should throw an error on the "server" option with '{"type":"https","additional":"test"}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server has an unknown property 'additional'. These properties are valid:
+   object { type?, options? }"
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"ca":true}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.ca should be one of these:
+      [string | Buffer, ...] | string | Buffer
+      -> Path to an SSL CA certificate or content of an SSL CA certificate.
+      Details:
+       * options.server.options.ca should be an array:
+         [string | Buffer, ...]
+       * options.server.options.ca should be a string.
+       * options.server.options.ca should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"cert":true}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.cert should be one of these:
+      [string | Buffer, ...] | string | Buffer
+      -> Path to an SSL certificate or content of an SSL certificate.
+      Details:
+       * options.server.options.cert should be an array:
+         [string | Buffer, ...]
+       * options.server.options.cert should be a string.
+       * options.server.options.cert should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"key":10}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.key should be one of these:
+      [string | Buffer | object { … }, ...] | string | Buffer
+      -> Path to an SSL key or content of an SSL key.
+      Details:
+       * options.server.options.key should be an array:
+         [string | Buffer | object { … }, ...]
+       * options.server.options.key should be a string.
+       * options.server.options.key should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"passphrase":false}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server.options.passphrase should be a string.
+   -> Passphrase for a pfx file."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"pfx":10}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.pfx should be one of these:
+      [string | Buffer | object { … }, ...] | string | Buffer
+      -> Path to an SSL pfx file or content of an SSL pfx file.
+      Details:
+       * options.server.options.pfx should be an array:
+         [string | Buffer | object { … }, ...]
+       * options.server.options.pfx should be a string.
+       * options.server.options.pfx should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"requestCert":"false"}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server.options.requestCert should be a boolean.
+   -> Request for an SSL certificate."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"invalid"}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server.type should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\""
+`;
+
+exports[`options validate should throw an error on the "server" option with 'http2' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server should be one of these:
+      \\"http\\" | \\"https\\" | \\"spdy\\"
+    * options.server should be an object:
+      object { type?, options? }"
+`;
+
+exports[`options validate should throw an error on the "server" option with 'invalid' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server should be one of these:
+      \\"http\\" | \\"https\\" | \\"spdy\\"
+    * options.server should be an object:
+      object { type?, options? }"
+`;
+
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be a non-empty string."

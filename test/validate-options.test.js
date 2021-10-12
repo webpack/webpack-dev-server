@@ -388,6 +388,80 @@ const tests = {
     ],
     failure: [() => {}, false],
   },
+  server: {
+    success: [
+      "http",
+      "https",
+      "spdy",
+      {
+        type: "http",
+      },
+      {
+        type: "https",
+      },
+      {
+        type: "spdy",
+      },
+      {
+        type: "https",
+        options: {
+          ca: path.join(httpsCertificateDirectory, "ca.pem"),
+          key: path.join(httpsCertificateDirectory, "server.key"),
+          pfx: path.join(httpsCertificateDirectory, "server.pfx"),
+          cert: path.join(httpsCertificateDirectory, "server.crt"),
+          requestCert: true,
+          passphrase: "webpack-dev-server",
+        },
+      },
+    ],
+    failure: [
+      "http2",
+      "invalid",
+      {
+        type: "invalid",
+      },
+      {
+        type: "https",
+        additional: "test",
+      },
+      {
+        type: "https",
+        options: {
+          key: 10,
+        },
+      },
+      {
+        type: "https",
+        options: {
+          cert: true,
+        },
+      },
+      {
+        type: "https",
+        options: {
+          ca: true,
+        },
+      },
+      {
+        type: "https",
+        options: {
+          pfx: 10,
+        },
+      },
+      {
+        type: "https",
+        options: {
+          passphrase: false,
+        },
+      },
+      {
+        type: "https",
+        options: {
+          requestCert: "false",
+        },
+      },
+    ],
+  },
   static: {
     success: [
       "path",
