@@ -634,7 +634,10 @@
     "Server": {
       "anyOf": [
         {
-          "$ref": "#/definitions/ServerType"
+          "enum": ["http", "https", "spdy"],
+          "cli": {
+            "exclude": true
+          }
         },
         {
           "$ref": "#/definitions/ServerObject"

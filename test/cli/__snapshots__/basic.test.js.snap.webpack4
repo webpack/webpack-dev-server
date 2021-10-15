@@ -120,7 +120,6 @@ Options:
   --open-target-reset                       Clear all items provided in 'open.target' configuration. Opens specified page in browser.
   --open-app-name-reset                     Clear all items provided in 'open.app.name' configuration. Open specified browser.
   --port <value>                            Allows to specify a port to use.
-  --server <value>                          Allows to set server and options (by default 'http').
   --server-type <value>                     Allows to set server and options (by default 'http').
   --server-options-passphrase <value>       Passphrase for a pfx file.
   --server-options-request-cert             Request for an SSL certificate.
