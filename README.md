@@ -121,21 +121,35 @@ Options:
   --no-http2                                Does not serve over HTTP/2 using SPDY.
   --https                                   Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
   --no-https                                Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
-  --https-passphrase <value>                Passphrase for a pfx file.
-  --https-request-cert                      Request for an SSL certificate.
-  --no-https-request-cert                   Does not request for an SSL certificate.
-  --https-ca <value...>                     Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-ca-reset                          Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-cacert <value...>                 Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-cacert-reset                      Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-key <value...>                    Path to an SSL key or content of an SSL key.
-  --https-key-reset                         Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key.
-  --https-pfx <value...>                    Path to an SSL pfx file or content of an SSL pfx file.
+  --https-passphrase <value>                Passphrase for a pfx file. Deprecated, it will be removed in favor of the `server.options.passphrase` option.
+  --https-request-cert                      Request for an SSL certificate. Deprecated, it will be removed in favor of the `server.options.requestCert`
+                                            option.
+  --no-https-request-cert                   Negative 'https-request-cert' option.
+  --https-ca <value...>                     Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the
+                                            `server.options.ca` option.
+  --https-ca-reset                          Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA
+                                            certificate. Deprecated, it will be removed in favor of the `server.options.ca` option.
+  --https-cacert <value...>                 Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the
+                                            `server.options.cacert` option.
+  --https-cacert-reset                      Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA
+                                            certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option.
+  --https-cert <value...>                   Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the
+                                            `server.options.cert` option.
+  --https-cert-reset                        Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL
+                                            certificate. Deprecated, it will be removed in favor of the `server.options.cert` option.
+  --https-crl <value...>                    Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate
+                                            Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option.
+  --https-crl-reset                         Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists)
+                                            or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the
+                                            `server.options.crl` option.
+  --https-key <value...>                    Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key`
+                                            option.
+  --https-key-reset                         Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated,
+                                            it will be removed in favor of the `server.options.key` option.
+  --https-pfx <value...>                    Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the
+                                            `server.options.pfx` option.
   --https-pfx-reset                         Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.
-  --https-cert <value...>                   Path to an SSL certificate or content of an SSL certificate.
-  --https-cert-reset                        Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate.
-  --https-crl <value...>                    Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
-  --https-crl-reset                         Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
+                                            Deprecated, it will be removed in favor of the `server.options.pfx` option.
   --ipc [value]                             Listen to a unix socket.
   --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default).
   --no-live-reload                          Disables reload/refresh the page(s) when file changes are detected (enabled by default)
