@@ -861,20 +861,6 @@ module.exports = {
     simpleType: "string",
     multiple: false,
   },
-  server: {
-    configs: [
-      {
-        description: "Allows to set server and options (by default 'http').",
-        multiple: false,
-        path: "server",
-        type: "enum",
-        values: ["http", "https", "spdy"],
-      },
-    ],
-    description: "Allows to set server and options (by default 'http').",
-    multiple: false,
-    simpleType: "string",
-  },
   "server-options-ca": {
     configs: [
       {
