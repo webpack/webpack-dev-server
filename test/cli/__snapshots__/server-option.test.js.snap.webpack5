@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`"server" CLI options should warn using "--server-options-cacert" and "--server-options-ca" together 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<w> [webpack-dev-server] Do not specify 'ca' and 'cacert' options together, the 'ca' option will be used."
+`;
+
+exports[`"server" CLI options should work using "--no-server-options-request-cert" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Generating SSL certificate...
+<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem"
+`;
+
+exports[`"server" CLI options should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path> --server-options-ca <path>" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+"
+`;
+
+exports[`"server" CLI options should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path> --server-options-cacert <path>" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+"
+`;
+
+exports[`"server" CLI options should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path>" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+"
+`;
+
+exports[`"server" CLI options should work using "--server-options-key-reset --server-options-key <path> --server-options-pfx-reset --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert-reset  --server-options-cert <path> --server-options-ca-reset --server-options-ca <path>" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+"
+`;
+
+exports[`"server" CLI options should work using "--server-options-request-cert" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Generating SSL certificate...
+<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem"
+`;
+
+exports[`"server" CLI options should work using "--server-type http" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Generating SSL certificate...
+<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem"
+`;
+
+exports[`"server" CLI options should work using "--server-type https" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Generating SSL certificate...
+<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem"
+`;
+
+exports[`"server" CLI options should work using "--server-type spdy" 1`] = `
+"<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Generating SSL certificate...
+<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem"
+`;
