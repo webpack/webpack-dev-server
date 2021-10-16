@@ -4,7 +4,7 @@ const path = require("path");
 const del = require("del");
 const Server = require("../../lib/Server");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-https"];
+const port = require("../ports-map")["cli-server"];
 
 const httpsCertificateDirectory = path.resolve(
   __dirname,
