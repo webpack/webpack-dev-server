@@ -4,6 +4,11 @@ const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 
+const isNode17 = process.version.startsWith("v17");
+
+// can also try "xxhash64"
+const hashFunction = isNode17 ? "md5" : "md4";
+
 const library = webpack.webpack
   ? {
       library: {
@@ -23,6 +28,7 @@ const baseForModules = {
   output: {
     path: path.resolve(__dirname, "../client/modules"),
     ...library,
+    hashFunction,
   },
   optimization: {
     minimize: false,
