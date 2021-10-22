@@ -18,6 +18,7 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NODE_OPTIONS: "--openssl-legacy-provider"
 
     strategy:
       matrix:
