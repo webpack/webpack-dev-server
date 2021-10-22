@@ -3,33 +3,7 @@
 Website gzip compression makes it possible to reduce the file size of a file
 to roughly 30% of its original size before the files are sent to the browser.
 
-It is enabled by default.
-
-## true
-
-**webpack.config.js**
-
-```js
-module.exports = {
-  // ...
-  devServer: {
-    compress: true,
-  },
-};
-```
-
-Usage via CLI:
-
-```console
-npx webpack serve --open --compress
-```
-
-### What should happen
-
-1. The script should open `http://localhost:8080/`.
-2. Files being sent to the browser from the `webpack` bundle should be gzipped.
-3. Open the console in your browser's devtools and select the _Network_ tab.
-4. Find `main.js`. The response headers should contain `Content-Encoding: gzip`.
+It is enabled by default. To disable it set `compresss` option to `false`.
 
 ## false
 
