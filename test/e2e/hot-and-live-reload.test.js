@@ -20,6 +20,11 @@ const cssFilePath = path.resolve(
   "../fixtures/reload-config/main.css"
 );
 
+const jsFilePath = path.resolve(
+  __dirname,
+  "../fixtures/reload-config/child.js"
+);
+
 const INVALID_MESSAGE = "[webpack-dev-server] App updated. Recompiling...";
 
 describe("hot and live reload", () => {
@@ -314,6 +319,8 @@ describe("hot and live reload", () => {
         "body { background-color: rgb(0, 0, 255); }"
       );
 
+      fs.writeFileSync(jsFilePath, "");
+
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
@@ -470,11 +477,6 @@ describe("hot and live reload", () => {
 
       expect(backgroundColorBefore).toEqual("rgb(0, 0, 255)");
 
-      fs.writeFileSync(
-        cssFilePath,
-        "body { background-color: rgb(255, 0, 0); }"
-      );
-
       let waitHot =
         typeof testDevServerOptions.hot !== "undefined"
           ? testDevServerOptions.hot
@@ -523,29 +525,38 @@ describe("hot and live reload", () => {
         waitLiveReload = false;
       }
 
-      if (waitHot) {
-        await page.waitForFunction(
-          () =>
-            getComputedStyle(document.body)["background-color"] ===
-            "rgb(255, 0, 0)"
-        );
+      const waitFunc = async () => {
+        if (waitHot) {
+          await page.waitForFunction(
+            () =>
+              getComputedStyle(document.body)["background-color"] ===
+              "rgb(255, 0, 0)"
+          );
 
-        expect(doneHotUpdate).toBe(true);
-      } else if (waitLiveReload) {
-        await page.waitForNavigation({
-          waitUntil: "networkidle0",
-        });
-      } else if (webSocketServerLaunched) {
-        await new Promise((resolve) => {
-          const interval = setInterval(() => {
-            if (consoleMessages.includes(INVALID_MESSAGE)) {
-              clearInterval(interval);
+          expect(doneHotUpdate).toBe(true);
+        } else if (waitLiveReload) {
+          await page.waitForNavigation({
+            waitUntil: "networkidle0",
+          });
+        } else if (webSocketServerLaunched) {
+          await new Promise((resolve) => {
+            const interval = setInterval(() => {
+              if (consoleMessages.includes(INVALID_MESSAGE)) {
+                clearInterval(interval);
 
-              resolve();
-            }
-          }, 100);
-        });
-      }
+                resolve();
+              }
+            }, 100);
+          });
+        }
+      };
+
+      fs.writeFileSync(
+        cssFilePath,
+        "body { background-color: rgb(255, 0, 0); }"
+      );
+
+      await waitFunc();
 
       const backgroundColorAfter = await page.evaluate(() => {
         const body = document.body;
@@ -559,10 +570,15 @@ describe("hot and live reload", () => {
         expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
       }
 
+      fs.writeFileSync(jsFilePath, "console.log('hello from child.js');");
+
+      await waitFunc();
+
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
 
       fs.unlinkSync(cssFilePath);
+      fs.unlinkSync(jsFilePath);
 
       await browser.close();
       await server.stop();

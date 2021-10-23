@@ -45,6 +45,11 @@ Array [
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -300,6 +305,9 @@ Array [
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -311,6 +319,9 @@ Array [
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
   "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -318,6 +329,9 @@ exports[`hot and live reload should work and refresh content using live reload w
 
 exports[`hot and live reload should work and refresh content using live reload when live reload enabled and hot disabled (ws): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
@@ -347,6 +361,10 @@ exports[`hot and live reload should work with manual client setup (default): pag
 
 exports[`hot and live reload should work with manual client setup and allow to disable hot module replacement (default): console messages 1`] = `
 Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
@@ -385,6 +403,9 @@ exports[`hot and live reload should work with manual client setup and allow to e
 
 exports[`hot and live reload should work with manual client setup and allow to enable live reload (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
