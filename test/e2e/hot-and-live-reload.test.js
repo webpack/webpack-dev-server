@@ -15,6 +15,8 @@ const reloadConfig = require("../fixtures/reload-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["hot-and-live-reload"];
 
+const isWebpack5 = webpack.version.startsWith("5");
+
 const cssFilePath = path.resolve(
   __dirname,
   "../fixtures/reload-config/main.css"
@@ -570,9 +572,10 @@ describe("hot and live reload", () => {
         expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
       }
 
-      fs.writeFileSync(jsFilePath, "console.log('hello from child.js');");
-
-      await waitFunc();
+      if (isWebpack5) {
+        fs.writeFileSync(jsFilePath, "console.log('hello from child.js');");
+        await waitFunc();
+      }
 
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");

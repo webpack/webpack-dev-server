@@ -3,40 +3,35 @@
 const webpack = require("webpack");
 
 const { EntryOptionPlugin, Compilation } = webpack;
-const { getNormalizedWebpackOptions } = webpack.config;
 
 const isWebpack5 = webpack.version.startsWith("5");
 
 class TestChildCompilerPlugin {
   constructor(options) {
-    this.options = getNormalizedWebpackOptions(options);
+    this.name = "TestChildCompilerPlugin";
+    this.options = webpack.config.getNormalizedWebpackOptions(options);
   }
 
   apply(compiler) {
-    compiler.hooks.thisCompilation.tap(
-      "TestApplyEntryOptionPlugin",
-      (compilation) => {
-        compilation.hooks.processAssets.tapAsync(
-          {
-            name: "TestChildCompilerPlugin",
-            stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
-          },
-          (assets, callback) => {
-            const child = compilation.createChildCompiler(
-              "TestChildCompilerPlugin"
-            );
-            EntryOptionPlugin.applyEntryOption(
-              child,
-              compilation.compiler.context,
-              this.options.entry
-            );
-            child.runAsChild(() => {
-              callback();
-            });
-          }
-        );
-      }
-    );
+    compiler.hooks.thisCompilation.tap(this.name, (compilation) => {
+      compilation.hooks.processAssets.tapAsync(
+        {
+          name: this.name,
+          stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
+        },
+        (assets, callback) => {
+          const child = compilation.createChildCompiler(this.name);
+          EntryOptionPlugin.applyEntryOption(
+            child,
+            compilation.compiler.context,
+            this.options.entry
+          );
+          child.runAsChild(() => {
+            callback();
+          });
+        }
+      );
+    });
   }
 }
 
@@ -67,11 +62,13 @@ module.exports = {
         level: "info",
       },
 
-  plugins: [
-    new TestChildCompilerPlugin({
-      entry: {
-        child: "./child",
-      },
-    }),
-  ],
+  plugins: isWebpack5
+    ? [
+        new TestChildCompilerPlugin({
+          entry: {
+            child: "./child",
+          },
+        }),
+      ]
+    : [],
 };
