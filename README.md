@@ -26,6 +26,7 @@ fast in-memory access to the webpack assets.
 - [Usage](#usage)
   - [With the CLI](#with-the-cli)
   - [With NPM Scripts](#with-npm-scripts)
+  - [With the API](#with-the-api)
   - [The Result](#the-result)
 - [Browser Support](#browser-support)
 - [Support](#support)
@@ -200,6 +201,12 @@ npm run serve
 
 NPM will automagically reference the binary in `node_modules` for you, and
 execute the file or command.
+
+### With the API
+
+While it's recommended to run webpack-dev-server via the CLI, you may also choose to start a server via the API.
+
+See the related [API documentation for `webpack-dev-server`](https://webpack.js.org/api/webpack-dev-server/).
 
 ### The Result
 
