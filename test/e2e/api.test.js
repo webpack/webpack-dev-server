@@ -80,6 +80,29 @@ describe("API", () => {
     });
   });
 
+  it(`should catch errors within startCallback`, async () => {
+    const compiler = webpack(config);
+    const server = new Server(
+      { port, static: "https://absolute-url.com/somewhere" },
+      compiler
+    );
+
+    await new Promise((resolve) => {
+      server.startCallback((err) => {
+        expect(err.message).toEqual(
+          "Using a URL as static.directory is not supported"
+        );
+        resolve();
+      });
+    });
+
+    await new Promise((resolve) => {
+      server.stopCallback(() => {
+        resolve();
+      });
+    });
+  });
+
   it(`should work when using configured manually`, async () => {
     const compiler = webpack({
       ...config,
