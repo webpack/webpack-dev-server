@@ -3,11 +3,13 @@
 const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
+const { version } = require("webpack");
+
+const isWebpack5 = version.startsWith("5");
 
 const isNode17 = process.version.startsWith("v17");
 
-// can also try "xxhash64"
-const hashFunction = isNode17 ? "md5" : "md4";
+const hashFunction = isNode17 && isWebpack5 ? "xxhash64" : "md4";
 
 const library = webpack.webpack
   ? {
