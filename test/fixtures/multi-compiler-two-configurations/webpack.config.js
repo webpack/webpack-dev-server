@@ -1,6 +1,7 @@
 "use strict";
 
 const webpack = require("webpack");
+const getHashFunction = require("../../helpers/getHashFunction");
 
 const isWebpack5 = webpack.version.startsWith("5");
 
@@ -15,6 +16,7 @@ module.exports = [
     output: {
       path: "/",
       filename: "one-[name].js",
+      hashFunction: getHashFunction(),
     },
     infrastructureLogging: isWebpack5
       ? {
@@ -37,6 +39,7 @@ module.exports = [
     output: {
       path: "/",
       filename: "two-[name].js",
+      hashFunction: getHashFunction(),
     },
     infrastructureLogging: isWebpack5
       ? {

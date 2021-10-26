@@ -2,6 +2,7 @@
 
 const path = require("path");
 const { version } = require("webpack");
+const getHashFunction = require("../../helpers/getHashFunction");
 
 let moduleRuleForHTML = {};
 
@@ -31,6 +32,7 @@ module.exports = [
       path: __dirname,
       filename: "foo.js",
       publicPath: "/bundle1/",
+      hashFunction: getHashFunction(),
     },
     infrastructureLogging: {
       level: "warn",
@@ -52,6 +54,7 @@ module.exports = [
       path: path.join(__dirname, "named"),
       filename: "bar.js",
       publicPath: "/bundle2/",
+      hashFunction: getHashFunction(),
     },
     name: "named",
     infrastructureLogging: {
@@ -66,6 +69,7 @@ module.exports = [
       path: path.join(__dirname, "dist"),
       filename: "bar.js",
       publicPath: "auto",
+      hashFunction: getHashFunction(),
     },
     name: "other",
     stats: false,

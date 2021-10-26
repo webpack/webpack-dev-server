@@ -3,10 +3,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
-
-const isNode17 = process.version.startsWith("v17");
-
-const hashFunction = isNode17 ? "xxhash64" : "md4";
+const getHashFunction = require("../test/helpers/getHashFunction");
 
 const library = webpack.webpack
   ? {
@@ -27,7 +24,7 @@ const baseForModules = {
   output: {
     path: path.resolve(__dirname, "../client/modules"),
     ...library,
-    hashFunction,
+    hashFunction: getHashFunction(),
   },
   optimization: {
     minimize: false,
