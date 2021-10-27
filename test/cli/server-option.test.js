@@ -70,6 +70,8 @@ describe('"server" CLI options', () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
+      "--server-type",
+      "https",
       "--server-options-key",
       key,
       "--server-options-pfx",
@@ -98,6 +100,8 @@ describe('"server" CLI options', () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
+      "--server-type",
+      "https",
       "--server-options-key",
       key,
       "--server-options-pfx",
@@ -126,6 +130,8 @@ describe('"server" CLI options', () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
+      "--server-type",
+      "https",
       "--server-options-key-reset",
       "--server-options-key",
       key,
@@ -158,6 +164,8 @@ describe('"server" CLI options', () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
+      "--server-type",
+      "https",
       "--server-options-key",
       key,
       "--server-options-pfx",
@@ -188,6 +196,8 @@ describe('"server" CLI options', () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
+      "--server-type",
+      "https",
       "--server-options-key",
       key,
       "--server-options-pfx",
@@ -208,6 +218,8 @@ describe('"server" CLI options', () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
+      "--server-type",
+      "https",
       "--server-options-request-cert",
     ]);
 
@@ -221,6 +233,8 @@ describe('"server" CLI options', () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
+      "--server-type",
+      "https",
       "--no-server-options-request-cert",
     ]);
 
