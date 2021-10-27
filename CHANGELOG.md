@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/webpack/webpack-dev-server/compare/v4.3.1...v4.4.0) (2021-10-27)
+
+
+### Features
+
+* added the `server` option, now you can pass server options, example `{ server: { type: 'http', options: { maxHeaderSize: 32768 } } }`, available options for [`http`](https://nodejs.org/api/http.html#httpcreateserveroptions-requestlistener) and [`https`](https://nodejs.org/api/https.html#httpscreateserveroptions-requestlistener), note - for `http2` is used [`spdy`](https://github.com/spdy-http2/node-spdy), options specified in the `server.options` option take precedence over `https`/`http2` options ([#3940](https://github.com/webpack/webpack-dev-server/issues/3940)) ([a70a7ef](https://github.com/webpack/webpack-dev-server/commit/a70a7ef025f07ec6be69cee0b3b5204c7e3a0c5b))
+* added the `client.reconnect` option ([#3912](https://github.com/webpack/webpack-dev-server/issues/3912)) ([5edad76](https://github.com/webpack/webpack-dev-server/commit/5edad76bb099713210b2a8c5c29d22371df7371e))
+* improve error handling within `startCallback` and `endCallback` ([#3969](https://github.com/webpack/webpack-dev-server/issues/3969)) ([b0928ac](https://github.com/webpack/webpack-dev-server/commit/b0928acadccd2251a9eb165bfae0c63c84d0d745))
+
+
+### Bug Fixes
+
+* schema for web socket server type ([#3913](https://github.com/webpack/webpack-dev-server/issues/3913)) ([f6aa6f7](https://github.com/webpack/webpack-dev-server/commit/f6aa6f7979dae5a44ff4597b7338027c5aab869a))
+* typo in SSL information log ([#3939](https://github.com/webpack/webpack-dev-server/issues/3939)) ([4c6103b](https://github.com/webpack/webpack-dev-server/commit/4c6103ba9495a29c6e142373c8dad084a20b6bc8))
+
 ### [4.3.1](https://github.com/webpack/webpack-dev-server/compare/v4.3.0...v4.3.1) (2021-10-04)
 
 
