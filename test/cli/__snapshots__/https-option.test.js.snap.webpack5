@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`"https" CLI option should warn using "--https-cacert" and "--https-ca" together 1`] = `
-"<w> [webpack-dev-server] Do not specify 'https.ca' and 'https.cacert' options together, the 'https.ca' option will be used.
+"<w> [webpack-dev-server] Do not specify 'ca' and 'cacert' options together, the 'ca' option will be used.
 <i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/

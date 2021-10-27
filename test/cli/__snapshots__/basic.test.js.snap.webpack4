@@ -91,21 +91,21 @@ Options:
   --no-http2                                Does not serve over HTTP/2 using SPDY.
   --https                                   Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
   --no-https                                Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
-  --https-passphrase <value>                Passphrase for a pfx file.
-  --https-request-cert                      Request for an SSL certificate.
+  --https-passphrase <value>                Passphrase for a pfx file. Deprecated, it will be removed in favor of the \`server.options.passphrase\` option.
+  --https-request-cert                      Request for an SSL certificate. Deprecated, it will be removed in favor of the \`server.options.requestCert\` option.
   --no-https-request-cert                   Does not request for an SSL certificate.
-  --https-ca <value...>                     Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-ca-reset                          Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-cacert <value...>                 Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-cacert-reset                      Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
-  --https-key <value...>                    Path to an SSL key or content of an SSL key.
-  --https-key-reset                         Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key.
-  --https-pfx <value...>                    Path to an SSL pfx file or content of an SSL pfx file.
-  --https-pfx-reset                         Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.
-  --https-cert <value...>                   Path to an SSL certificate or content of an SSL certificate.
-  --https-cert-reset                        Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate.
-  --https-crl <value...>                    Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
-  --https-crl-reset                         Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
+  --https-ca <value...>                     Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the \`server.options.ca\` option.
+  --https-ca-reset                          Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the \`server.options.ca\` option.
+  --https-cacert <value...>                 Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the \`server.options.cacert\` option.
+  --https-cacert-reset                      Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the \`server.options.cacert\` option.
+  --https-key <value...>                    Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the \`server.options.key\` option.
+  --https-key-reset                         Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the \`server.options.key\` option.
+  --https-pfx <value...>                    Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the \`server.options.pfx\` option.
+  --https-pfx-reset                         Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the \`server.options.pfx\` option.
+  --https-cert <value...>                   Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the \`server.options.cert\` option.
+  --https-cert-reset                        Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the \`server.options.cert\` option.
+  --https-crl <value...>                    Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the \`server.options.crl\` option.
+  --https-crl-reset                         Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the \`server.options.crl\` option.
   --ipc [value]                             Listen to a unix socket.
   --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default).
   --no-live-reload                          Disables reload/refresh the page(s) when file changes are detected (enabled by default)
@@ -120,6 +120,22 @@ Options:
   --open-target-reset                       Clear all items provided in 'open.target' configuration. Opens specified page in browser.
   --open-app-name-reset                     Clear all items provided in 'open.app.name' configuration. Open specified browser.
   --port <value>                            Allows to specify a port to use.
+  --server-options-ca <value...>            Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-ca-reset                 Clear all items provided in 'server.options.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-cacert <value...>        Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-cacert-reset             Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
+  --server-options-cert <value...>          Path to an SSL certificate or content of an SSL certificate.
+  --server-options-cert-reset               Clear all items provided in 'server.options.cert' configuration. Path to an SSL certificate or content of an SSL certificate.
+  --server-options-crl <value...>           Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
+  --server-options-crl-reset                Clear all items provided in 'server.options.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).
+  --server-options-key <value...>           Path to an SSL key or content of an SSL key.
+  --server-options-key-reset                Clear all items provided in 'server.options.key' configuration. Path to an SSL key or content of an SSL key.
+  --server-options-passphrase <value>       Passphrase for a pfx file.
+  --server-options-pfx <value...>           Path to an SSL pfx file or content of an SSL pfx file.
+  --server-options-pfx-reset                Clear all items provided in 'server.options.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.
+  --server-options-request-cert             Request for an SSL certificate.
+  --no-server-options-request-cert          Negative 'server-options-request-cert' option.
+  --server-type <value>                     Allows to set server and options (by default 'http').
   --static [value...]                       Allows to configure options for serving static files from directory (by default 'public' directory).
   --no-static                               Negative 'static' option.
   --static-directory <value...>             Directory for static contents.

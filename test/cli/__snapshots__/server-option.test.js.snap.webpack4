@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`"https" CLI option should warn using "--https-cacert" and "--https-ca" together 1`] = `
+exports[`"server" CLI options should warn using "--server-options-cacert" and "--server-options-ca" together 1`] = `
 "<w> [webpack-dev-server] Do not specify 'ca' and 'cacert' options together, the 'ca' option will be used.
 <i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
@@ -9,7 +9,7 @@ exports[`"https" CLI option should warn using "--https-cacert" and "--https-ca" 
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--https" 1`] = `
+exports[`"server" CLI options should work using "--no-server-options-request-cert" 1`] = `
 "<i> [webpack-dev-server] Generating SSL certificate...
 <i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
@@ -19,7 +19,7 @@ exports[`"https" CLI option should work using "--https" 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path> --https-ca <path>" 1`] = `
+exports[`"server" CLI options should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path> --server-options-ca <path>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -27,7 +27,7 @@ exports[`"https" CLI option should work using "--https-key <path> --https-pfx <p
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path> --https-cacert <path>" 1`] = `
+exports[`"server" CLI options should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path> --server-options-cacert <path>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -35,7 +35,7 @@ exports[`"https" CLI option should work using "--https-key <path> --https-pfx <p
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--https-key <path> --https-pfx <path> --https-passphrase webpack-dev-server --https-cert <path>" 1`] = `
+exports[`"server" CLI options should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -43,7 +43,7 @@ exports[`"https" CLI option should work using "--https-key <path> --https-pfx <p
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--https-key-reset --https-key <path> --https-pfx-reset --https-pfx <path> --https-passphrase webpack-dev-server --https-cert-reset  --https-cert <path> --https-ca-reset --https-ca <path>" 1`] = `
+exports[`"server" CLI options should work using "--server-options-key-reset --server-options-key <path> --server-options-pfx-reset --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert-reset  --server-options-cert <path> --server-options-ca-reset --server-options-ca <path>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: https://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -51,7 +51,7 @@ exports[`"https" CLI option should work using "--https-key-reset --https-key <pa
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--https-request-cert" 1`] = `
+exports[`"server" CLI options should work using "--server-options-request-cert" 1`] = `
 "<i> [webpack-dev-server] Generating SSL certificate...
 <i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
@@ -61,7 +61,7 @@ exports[`"https" CLI option should work using "--https-request-cert" 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--no-https" 1`] = `
+exports[`"server" CLI options should work using "--server-type http" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] Loopback: http://localhost:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
@@ -69,7 +69,17 @@ exports[`"https" CLI option should work using "--no-https" 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"https" CLI option should work using "--no-https-request-cert" 1`] = `
+exports[`"server" CLI options should work using "--server-type https" 1`] = `
+"<i> [webpack-dev-server] Generating SSL certificate...
+<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: https://localhost:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+`;
+
+exports[`"server" CLI options should work using "--server-type spdy" 1`] = `
 "<i> [webpack-dev-server] Generating SSL certificate...
 <i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:

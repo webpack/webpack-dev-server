@@ -221,11 +221,11 @@
           "properties": {
             "passphrase": {
               "type": "string",
-              "description": "Passphrase for a pfx file."
+              "description": "Passphrase for a pfx file. Deprecated, it will be removed in favor of the `server.options.passphrase` option."
             },
             "requestCert": {
               "type": "boolean",
-              "description": "Request for an SSL certificate."
+              "description": "Request for an SSL certificate. Deprecated, it will be removed in favor of the `server.options.requestCert` option."
             },
             "ca": {
               "anyOf": [
@@ -249,7 +249,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL CA certificate or content of an SSL CA certificate."
+              "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.ca` option."
             },
             "cacert": {
               "anyOf": [
@@ -273,7 +273,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL CA certificate or content of an SSL CA certificate."
+              "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option."
             },
             "cert": {
               "anyOf": [
@@ -297,7 +297,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL certificate or content of an SSL certificate."
+              "description": "Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the `server.options.cert` option."
             },
             "crl": {
               "anyOf": [
@@ -321,7 +321,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists)."
+              "description": "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option."
             },
             "key": {
               "anyOf": [
@@ -349,7 +349,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL key or content of an SSL key."
+              "description": "Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key` option."
             },
             "pfx": {
               "anyOf": [
@@ -377,7 +377,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL pfx file or content of an SSL pfx file."
+              "description": "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the `server.options.pfx` option."
             }
           }
         }
@@ -630,6 +630,215 @@
       ],
       "description": "Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverproxy"
+    },
+    "Server": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ServerEnum"
+        },
+        {
+          "$ref": "#/definitions/ServerString"
+        },
+        {
+          "$ref": "#/definitions/ServerObject"
+        }
+      ],
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverserver",
+      "description": "Allows to set server and options (by default 'http')."
+    },
+    "ServerType": {
+      "enum": ["http", "https", "spdy"]
+    },
+    "ServerEnum": {
+      "enum": ["http", "https", "spdy"],
+      "cli": {
+        "exclude": true
+      }
+    },
+    "ServerString": {
+      "type": "string",
+      "minLength": 1,
+      "cli": {
+        "exclude": true
+      }
+    },
+    "ServerObject": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ServerType"
+        },
+        "options": {
+          "$ref": "#/definitions/ServerOptions"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ServerOptions": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "passphrase": {
+          "type": "string",
+          "description": "Passphrase for a pfx file."
+        },
+        "requestCert": {
+          "type": "boolean",
+          "description": "Request for an SSL certificate."
+        },
+        "ca": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "instanceof": "Buffer"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "string"
+            },
+            {
+              "instanceof": "Buffer"
+            }
+          ],
+          "description": "Path to an SSL CA certificate or content of an SSL CA certificate."
+        },
+        "cacert": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "instanceof": "Buffer"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "string"
+            },
+            {
+              "instanceof": "Buffer"
+            }
+          ],
+          "description": "Path to an SSL CA certificate or content of an SSL CA certificate."
+        },
+        "cert": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "instanceof": "Buffer"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "string"
+            },
+            {
+              "instanceof": "Buffer"
+            }
+          ],
+          "description": "Path to an SSL certificate or content of an SSL certificate."
+        },
+        "crl": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "instanceof": "Buffer"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "string"
+            },
+            {
+              "instanceof": "Buffer"
+            }
+          ],
+          "description": "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists)."
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "instanceof": "Buffer"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                ]
+              }
+            },
+            {
+              "type": "string"
+            },
+            {
+              "instanceof": "Buffer"
+            }
+          ],
+          "description": "Path to an SSL key or content of an SSL key."
+        },
+        "pfx": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "instanceof": "Buffer"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                ]
+              }
+            },
+            {
+              "type": "string"
+            },
+            {
+              "instanceof": "Buffer"
+            }
+          ],
+          "description": "Path to an SSL pfx file or content of an SSL pfx file."
+        }
+      }
     },
     "SetupExitSignals": {
       "type": "boolean",
@@ -914,6 +1123,9 @@
     },
     "proxy": {
       "$ref": "#/definitions/Proxy"
+    },
+    "server": {
+      "$ref": "#/definitions/Server"
     },
     "setupExitSignals": {
       "$ref": "#/definitions/SetupExitSignals"

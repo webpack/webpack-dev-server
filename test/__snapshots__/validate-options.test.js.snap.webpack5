@@ -371,7 +371,7 @@ exports[`options validate should throw an error on the "https" option with '{"ca
    Details:
     * options.https.cacert should be one of these:
       [string | Buffer, ...] | string | Buffer
-      -> Path to an SSL CA certificate or content of an SSL CA certificate.
+      -> Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the \`server.options.cacert\` option.
       Details:
        * options.https.cacert should be an array:
          [string | Buffer, ...]
@@ -388,7 +388,7 @@ exports[`options validate should throw an error on the "https" option with '{"ce
    Details:
     * options.https.cert should be one of these:
       [string | Buffer, ...] | string | Buffer
-      -> Path to an SSL certificate or content of an SSL certificate.
+      -> Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the \`server.options.cert\` option.
       Details:
        * options.https.cert should be an array:
          [string | Buffer, ...]
@@ -405,7 +405,7 @@ exports[`options validate should throw an error on the "https" option with '{"ke
    Details:
     * options.https.key should be one of these:
       [string | Buffer | object { … }, ...] | string | Buffer
-      -> Path to an SSL key or content of an SSL key.
+      -> Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the \`server.options.key\` option.
       Details:
        * options.https.key should be an array:
          [string | Buffer | object { … }, ...]
@@ -416,7 +416,7 @@ exports[`options validate should throw an error on the "https" option with '{"ke
 exports[`options validate should throw an error on the "https" option with '{"passphrase":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https.passphrase should be a string.
-   -> Passphrase for a pfx file."
+   -> Passphrase for a pfx file. Deprecated, it will be removed in favor of the \`server.options.passphrase\` option."
 `;
 
 exports[`options validate should throw an error on the "https" option with '{"pfx":10}' value 1`] = `
@@ -428,7 +428,7 @@ exports[`options validate should throw an error on the "https" option with '{"pf
    Details:
     * options.https.pfx should be one of these:
       [string | Buffer | object { … }, ...] | string | Buffer
-      -> Path to an SSL pfx file or content of an SSL pfx file.
+      -> Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the \`server.options.pfx\` option.
       Details:
        * options.https.pfx should be an array:
          [string | Buffer | object { … }, ...]
@@ -439,7 +439,7 @@ exports[`options validate should throw an error on the "https" option with '{"pf
 exports[`options validate should throw an error on the "https" option with '{"requestCert":"test"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.https.requestCert should be a boolean.
-   -> Request for an SSL certificate."
+   -> Request for an SSL certificate. Deprecated, it will be removed in favor of the \`server.options.requestCert\` option."
 `;
 
 exports[`options validate should throw an error on the "ipc" option with '{}' value 1`] = `
@@ -606,6 +606,92 @@ exports[`options validate should throw an error on the "proxy" option with 'fals
       object { … }
     * options.proxy should be an array:
       [object { … } | function, ...]"
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","additional":"test"}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server has an unknown property 'additional'. These properties are valid:
+   object { type?, options? }"
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"ca":true}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | non-empty string | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.ca should be one of these:
+      [string | Buffer, ...] | string | Buffer
+      -> Path to an SSL CA certificate or content of an SSL CA certificate.
+      Details:
+       * options.server.options.ca should be an array:
+         [string | Buffer, ...]
+       * options.server.options.ca should be a string.
+       * options.server.options.ca should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"cert":true}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | non-empty string | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.cert should be one of these:
+      [string | Buffer, ...] | string | Buffer
+      -> Path to an SSL certificate or content of an SSL certificate.
+      Details:
+       * options.server.options.cert should be an array:
+         [string | Buffer, ...]
+       * options.server.options.cert should be a string.
+       * options.server.options.cert should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"key":10}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | non-empty string | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.key should be one of these:
+      [string | Buffer | object { … }, ...] | string | Buffer
+      -> Path to an SSL key or content of an SSL key.
+      Details:
+       * options.server.options.key should be an array:
+         [string | Buffer | object { … }, ...]
+       * options.server.options.key should be a string.
+       * options.server.options.key should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"passphrase":false}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server.options.passphrase should be a string.
+   -> Passphrase for a pfx file."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"pfx":10}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server should be one of these:
+   \\"http\\" | \\"https\\" | \\"spdy\\" | non-empty string | object { type?, options? }
+   -> Allows to set server and options (by default 'http').
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
+   Details:
+    * options.server.options.pfx should be one of these:
+      [string | Buffer | object { … }, ...] | string | Buffer
+      -> Path to an SSL pfx file or content of an SSL pfx file.
+      Details:
+       * options.server.options.pfx should be an array:
+         [string | Buffer | object { … }, ...]
+       * options.server.options.pfx should be a string.
+       * options.server.options.pfx should be an instance of Buffer."
+`;
+
+exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"requestCert":"false"}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.server.options.requestCert should be a boolean.
+   -> Request for an SSL certificate."
 `;
 
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
