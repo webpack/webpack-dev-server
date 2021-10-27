@@ -10,6 +10,7 @@ Object {
   "minVersion": "TLSv1.1",
   "passphrase": "webpack-dev-server",
   "pfx": "<Buffer>",
+  "requestCert": false,
 }
 `;
 
@@ -39,6 +40,7 @@ Object {
   "pfx": Array [
     "<Buffer>",
   ],
+  "requestCert": false,
 }
 `;
 
@@ -68,6 +70,7 @@ Object {
   "pfx": Array [
     "<Buffer>",
   ],
+  "requestCert": false,
 }
 `;
 
@@ -173,6 +176,7 @@ QyvMqmN1kGy20SZbQDD/fLfqBQ==
   "pfx": Array [
     "<Buffer>",
   ],
+  "requestCert": false,
 }
 `;
 
@@ -194,6 +198,7 @@ Object {
   "key": "<Buffer>",
   "passphrase": "webpack-dev-server",
   "pfx": "<Buffer>",
+  "requestCert": false,
 }
 `;
 
@@ -223,6 +228,7 @@ Object {
       "buf": "<Buffer>",
     },
   ],
+  "requestCert": false,
 }
 `;
 
@@ -244,6 +250,7 @@ Object {
   "key": "<Buffer>",
   "passphrase": "webpack-dev-server",
   "pfx": "<Buffer>",
+  "requestCert": false,
 }
 `;
 
@@ -341,6 +348,7 @@ QyvMqmN1kGy20SZbQDD/fLfqBQ==
 ",
   "passphrase": "webpack-dev-server",
   "pfx": "<Buffer>",
+  "requestCert": false,
 }
 `;
 
@@ -446,6 +454,7 @@ QyvMqmN1kGy20SZbQDD/fLfqBQ==
       "buf": "<Buffer>",
     },
   ],
+  "requestCert": false,
 }
 `;
 
@@ -467,6 +476,7 @@ Object {
   "key": "<Buffer>",
   "passphrase": "webpack-dev-server",
   "pfx": "<Buffer>",
+  "requestCert": false,
 }
 `;
 
@@ -488,6 +498,7 @@ Object {
   "key": "<Buffer>",
   "passphrase": "webpack-dev-server",
   "pfx": "<Buffer>",
+  "requestCert": false,
 }
 `;
 
