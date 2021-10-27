@@ -634,10 +634,10 @@
     "Server": {
       "anyOf": [
         {
-          "enum": ["http", "https", "spdy"],
-          "cli": {
-            "exclude": true
-          }
+          "$ref": "#/definitions/ServerEnum"
+        },
+        {
+          "$ref": "#/definitions/ServerString"
         },
         {
           "$ref": "#/definitions/ServerObject"
@@ -648,6 +648,19 @@
     },
     "ServerType": {
       "enum": ["http", "https", "spdy"]
+    },
+    "ServerEnum": {
+      "enum": ["http", "https", "spdy"],
+      "cli": {
+        "exclude": true
+      }
+    },
+    "ServerString": {
+      "type": "string",
+      "minLength": 1,
+      "cli": {
+        "exclude": true
+      }
     },
     "ServerObject": {
       "type": "object",

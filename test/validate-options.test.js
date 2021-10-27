@@ -415,11 +415,6 @@ const tests = {
       },
     ],
     failure: [
-      "http2",
-      "invalid",
-      {
-        type: "invalid",
-      },
       {
         type: "https",
         additional: "test",
