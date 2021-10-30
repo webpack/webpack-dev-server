@@ -17,10 +17,10 @@ module.exports = {
   // ...
   devServer: {
     https: {
-      key: "../ssl/server.key",
-      pfx: "../ssl/server.pfx",
-      cert: "../ssl/server.crt",
-      ca: "../ssl/ca.pem",
+      key: "./ssl/server.key",
+      pfx: "./ssl/server.pfx",
+      cert: "./ssl/server.crt",
+      ca: "./ssl/ca.pem",
       passphrase: "webpack-dev-server",
     },
   },
