@@ -278,6 +278,30 @@ Array [
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("ws"): page errors 1`] = `Array []`;
 
+exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "https" is enabled ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
+]
+`;
+
+exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "https" is enabled ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "https" is enabled ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
+]
+`;
+
+exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "https" is enabled ("ws"): page errors 1`] = `Array []`;
+
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "origin" header ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
