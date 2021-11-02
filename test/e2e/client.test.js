@@ -42,10 +42,6 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("overlay should be true by default", () => {
-      expect(server.options.client.overlay).toBe(true);
-    });
-
     it("responds with a 200 status code for /ws path", async () => {
       page
         .on("console", (message) => {
@@ -58,6 +54,9 @@ describe("client option", () => {
       const response = await page.goto(`http://127.0.0.1:${port}/ws`, {
         waitUntil: "networkidle0",
       });
+
+      // overlay should be true by default
+      expect(server.options.client.overlay).toBe(true);
 
       expect(response.status()).toMatchSnapshot("response status");
 
