@@ -25,4 +25,26 @@ describe('"webSocketServer" CLI option', () => {
 
     expect(exitCode).toEqual(0);
   });
+
+  it('should work using "--web-socket-server-type ws"', async () => {
+    const { exitCode } = await testBin([
+      "--port",
+      port,
+      "--web-socket-server-type",
+      "ws",
+    ]);
+
+    expect(exitCode).toEqual(0);
+  });
+
+  it('should work using "--web-socket-server-type sockjs"', async () => {
+    const { exitCode } = await testBin([
+      "--port",
+      port,
+      "--web-socket-server-type",
+      "sockjs",
+    ]);
+
+    expect(exitCode).toEqual(0);
+  });
 });
