@@ -1033,9 +1033,6 @@
     },
     "WebSocketServerObject": {
       "type": "object",
-      "cli": {
-        "exclude": true
-      },
       "properties": {
         "type": {
           "anyOf": [
@@ -1052,7 +1049,10 @@
         },
         "options": {
           "type": "object",
-          "additionalProperties": true
+          "additionalProperties": true,
+          "cli": {
+            "exclude": true
+          }
         }
       },
       "additionalProperties": false
