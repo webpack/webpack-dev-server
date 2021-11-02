@@ -92,6 +92,66 @@ describe("server option", () => {
       });
     });
 
+    describe("custom-http", () => {
+      beforeEach(async () => {
+        compiler = webpack(config);
+
+        server = new Server(
+          {
+            static: {
+              directory: staticDirectory,
+              watch: false,
+            },
+            server: path.resolve(__dirname, "../helpers/custom-http.js"),
+            port,
+          },
+          compiler
+        );
+
+        await server.start();
+
+        ({ page, browser } = await runBrowser());
+
+        pageErrors = [];
+        consoleMessages = [];
+      });
+
+      afterEach(async () => {
+        await browser.close();
+        await server.stop();
+      });
+
+      it("should handle GET request to index route (/)", async () => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
+        });
+
+        const HTTPVersion = await page.evaluate(
+          () => performance.getEntries()[0].nextHopProtocol
+        );
+
+        expect(HTTPVersion).not.toEqual("h2");
+
+        expect(response.status()).toMatchSnapshot("response status");
+
+        expect(await response.text()).toMatchSnapshot("response text");
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+
+        expect(pageErrors).toMatchSnapshot("page errors");
+      });
+    });
+
     describe("https", () => {
       beforeEach(async () => {
         compiler = webpack(config);

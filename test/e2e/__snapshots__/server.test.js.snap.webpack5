@@ -624,6 +624,17 @@ exports[`server option as object spdy server with options should handle GET requ
 "
 `;
 
+exports[`server option as string custom-http should handle GET request to index route (/): console messages 1`] = `Array []`;
+
+exports[`server option as string custom-http should handle GET request to index route (/): page errors 1`] = `Array []`;
+
+exports[`server option as string custom-http should handle GET request to index route (/): response status 1`] = `200`;
+
+exports[`server option as string custom-http should handle GET request to index route (/): response text 1`] = `
+"Heyo.
+"
+`;
+
 exports[`server option as string http should handle GET request to index route (/): console messages 1`] = `Array []`;
 
 exports[`server option as string http should handle GET request to index route (/): page errors 1`] = `Array []`;
