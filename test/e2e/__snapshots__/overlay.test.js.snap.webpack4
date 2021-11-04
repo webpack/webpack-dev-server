@@ -63,12 +63,11 @@ exports[`overlay should not show initially, then show on an error and allow to c
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
-      ><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -146,12 +145,11 @@ exports[`overlay should not show initially, then show on an error, then hide on 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
-      ><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -229,12 +227,11 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
-      ><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -279,12 +276,11 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
-      ><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
       <div>
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
+        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
+        need an appropriate loader to handle this file type, currently no
+        loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;a
       </div>
       <br /><br />
