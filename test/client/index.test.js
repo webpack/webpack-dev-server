@@ -206,7 +206,6 @@ describe("index", () => {
     onSocketMessage.warnings([]);
 
     expect(overlay.show).toBeCalled();
-    expect(reloadApp).toBeCalled();
   });
 
   test("should run onSocketMessage.error", () => {
