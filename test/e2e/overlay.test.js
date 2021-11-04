@@ -10,9 +10,11 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").overlay;
 
 class ErrorPlugin {
-  constructor(message) {
+  constructor(message, skipCounter) {
     this.message =
       message || "Error from compilation. Can't find 'test' module.";
+    this.skipCounter = skipCounter;
+    this.counter = 0;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -20,6 +22,15 @@ class ErrorPlugin {
     compiler.hooks.thisCompilation.tap(
       "errors-webpack-plugin",
       (compilation) => {
+        if (
+          typeof this.skipCounter !== "undefined" &&
+          this.counter !== this.skipCounter
+        ) {
+          this.counter += 1;
+
+          return;
+        }
+
         compilation.errors.push(new Error(this.message));
       }
     );
@@ -27,8 +38,10 @@ class ErrorPlugin {
 }
 
 class WarningPlugin {
-  constructor(message) {
+  constructor(message, skipCounter) {
     this.message = message || "Warning from compilation";
+    this.skipCounter = skipCounter;
+    this.counter = 0;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -36,6 +49,15 @@ class WarningPlugin {
     compiler.hooks.thisCompilation.tap(
       "warnings-webpack-plugin",
       (compilation) => {
+        if (
+          typeof this.skipCounter !== "undefined" &&
+          this.counter !== this.skipCounter
+        ) {
+          this.counter += 1;
+
+          return;
+        }
+
         compilation.warnings.push(new Error(this.message));
       }
     );
@@ -891,5 +913,101 @@ describe("overlay", () => {
     ).toMatchSnapshot("page html");
 
     await browser.close();
+  });
+
+  it("should show an error after invalidation", async () => {
+    const compiler = webpack(config);
+
+    new ErrorPlugin("Error from compilation", 1).apply(compiler);
+
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    await new Promise((resolve) => {
+      server.middleware.invalidate(() => {
+        resolve();
+      });
+    });
+
+    await new Promise((resolve) => {
+      server.middleware.waitUntilValid(() => {
+        resolve();
+      });
+    });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should show a warning after invalidation", async () => {
+    const compiler = webpack(config);
+
+    new WarningPlugin("Warning from compilation", 1).apply(compiler);
+
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    await new Promise((resolve) => {
+      server.middleware.invalidate(() => {
+        resolve();
+      });
+    });
+
+    await new Promise((resolve) => {
+      server.middleware.waitUntilValid(() => {
+        resolve();
+      });
+    });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await server.stop();
   });
 });

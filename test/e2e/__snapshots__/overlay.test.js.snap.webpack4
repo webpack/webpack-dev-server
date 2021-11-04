@@ -63,11 +63,12 @@ exports[`overlay should not show initially, then show on an error and allow to c
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
-        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
-        need an appropriate loader to handle this file type, currently no
-        loaders are configured to process this file. See
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -145,11 +146,12 @@ exports[`overlay should not show initially, then show on an error, then hide on 
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
-        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
-        need an appropriate loader to handle this file type, currently no
-        loaders are configured to process this file. See
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -227,11 +229,12 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
-        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
-        need an appropriate loader to handle this file type, currently no
-        loaders are configured to process this file. See
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
       <br /><br />
@@ -276,11 +279,12 @@ exports[`overlay should not show initially, then show on an error, then show oth
       X</button
     ><br /><br />
     <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR in ./foo.js 1:1</span
+      ><br /><br />
       <div>
-        ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
-        need an appropriate loader to handle this file type, currently no
-        loaders are configured to process this file. See
+        Module parse failed: Unterminated template (1:1) You may need an
+        appropriate loader to handle this file type, currently no loaders are
+        configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;a
       </div>
       <br /><br />
@@ -324,6 +328,69 @@ exports[`overlay should not show initially, then show on an error, then show oth
 `;
 
 exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html with other error 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show a warning after invalidation: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
+      <div>Warning from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show a warning after invalidation: page html 1`] = `
 "<body>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
   <iframe
@@ -873,6 +940,69 @@ exports[`overlay should show an ansi formatted error for initial compilation: ov
 `;
 
 exports[`overlay should show an ansi formatted error for initial compilation: page html 1`] = `
+"<body>
+  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <iframe
+    id=\\"webpack-dev-server-client-overlay\\"
+    src=\\"about:blank\\"
+    style=\\"
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    \\"
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay should show an error after invalidation: overlay html 1`] = `
+"<body>
+  <div
+    id=\\"webpack-dev-server-client-overlay-div\\"
+    style=\\"
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: rgb(232, 232, 232);
+      font-family: Menlo, Consolas, monospace;
+      font-size: large;
+      padding: 2rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+    \\"
+  >
+    <span>Compiled with problems:</span
+    ><button
+      style=\\"
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        float: right;
+      \\"
+    >
+      X</button
+    ><br /><br />
+    <div>
+      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
+      <div>Error from compilation</div>
+      <br /><br />
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay should show an error after invalidation: page html 1`] = `
 "<body>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
   <iframe
