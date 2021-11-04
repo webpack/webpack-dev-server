@@ -945,6 +945,8 @@ describe("overlay", () => {
       });
     });
 
+    await page.waitForSelector("#webpack-dev-server-client-overlay");
+
     const pageHtml = await page.evaluate(() => document.body.outerHTML);
     const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
     const overlayFrame = await overlayHandle.contentFrame();
@@ -992,6 +994,8 @@ describe("overlay", () => {
         resolve();
       });
     });
+
+    await page.waitForSelector("#webpack-dev-server-client-overlay");
 
     const pageHtml = await page.evaluate(() => document.body.outerHTML);
     const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
