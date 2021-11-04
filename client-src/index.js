@@ -183,8 +183,6 @@ const onSocketMessage = {
     if (needShowOverlayForWarnings) {
       show("warning", warnings);
     }
-
-    reloadApp(options, status);
   },
   errors(errors) {
     log.error("Errors while compiling. Reload prevented.");
