@@ -2,6 +2,7 @@
 
 const https = require("https");
 const path = require("path");
+const util = require("util");
 const fs = require("graceful-fs");
 const request = require("supertest");
 const webpack = require("webpack");
@@ -30,9 +31,12 @@ describe("https option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let utilSpy;
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      utilSpy = jest.spyOn(util, "deprecate");
 
       server = new Server(
         {
@@ -71,6 +75,10 @@ describe("https option", () => {
       const response = await page.goto(`https://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      expect(utilSpy.mock.calls[0][1]).toBe(
+        "'https' option is deprecated. Please use the 'server' option."
+      );
 
       expect(response.status()).toMatchSnapshot("response status");
 

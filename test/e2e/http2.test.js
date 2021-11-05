@@ -2,6 +2,7 @@
 
 const path = require("path");
 const http2 = require("http2");
+const util = require("util");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
@@ -92,9 +93,12 @@ describe("http2 option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let utilSpy;
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      utilSpy = jest.spyOn(util, "deprecate");
 
       server = new Server(
         {
@@ -133,6 +137,10 @@ describe("http2 option", () => {
 
       const HTTPVersion = await page.evaluate(
         () => performance.getEntries()[0].nextHopProtocol
+      );
+
+      expect(utilSpy.mock.calls[0][1]).toBe(
+        "'http2' option is deprecated. Please use the 'server' option."
       );
 
       expect(HTTPVersion).toMatchSnapshot("HTTP version");
