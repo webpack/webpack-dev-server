@@ -321,7 +321,7 @@ module.exports = {
     configs: [
       {
         description:
-          "Allows to set web socket server and options (by default 'ws').",
+          "Deprecated: please use '--web-socket-server-type' option.",
         multiple: false,
         path: "webSocketServer",
         type: "enum",
@@ -329,7 +329,7 @@ module.exports = {
       },
       {
         description:
-          "Allows to set web socket server and options (by default 'ws').",
+          "Deprecated: please use '--web-socket-server-type' option.",
         multiple: false,
         path: "webSocketServer",
         type: "enum",
@@ -345,7 +345,7 @@ module.exports = {
     ],
 
     description:
-      "Allows to set web socket server and options (by default 'ws').",
+      "Deprecated: please use '--web-socket-server-type' option. Allows to set web socket server and options (by default 'ws').",
     simpleType: "string",
     multiple: false,
   },
