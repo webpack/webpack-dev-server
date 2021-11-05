@@ -207,7 +207,7 @@
     },
     "HTTP2": {
       "type": "boolean",
-      "description": "Allows to serve over HTTP/2 using SPDY.",
+      "description": "Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverhttp2"
     },
     "HTTPS": {
@@ -382,7 +382,7 @@
           }
         }
       ],
-      "description": "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
+      "description": "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor of the `server` option.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverhttps"
     },
     "HeaderObject": {
