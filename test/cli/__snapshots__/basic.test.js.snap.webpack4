@@ -78,7 +78,7 @@ Options:
   --client-web-socket-url-protocol <value>  Tells clients connected to devServer to use the provided protocol.
   --client-web-socket-url-username <value>  Tells clients connected to devServer to use the provided username to authenticate.
   --client-web-socket-url-password <value>  Tells clients connected to devServer to use the provided password to authenticate.
-  --web-socket-server <value>               Deprecated: please use '--web-socket-server-type' option. Allows to set web socket server and options (by default 'ws').
+  --web-socket-server <value>               Deprecated: please use 'webSocketServer.type'/'--web-socket-server-type' option. Allows to set web socket server and options (by default 'ws').
   --no-web-socket-server                    Negative 'web-socket-server' option.
   --web-socket-server-type <value>          Allows to set web socket server and options (by default 'ws').
   --compress                                Enables gzip compression for everything served.

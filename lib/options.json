@@ -1027,7 +1027,7 @@
           "$ref": "#/definitions/WebSocketServerType"
         }
       ],
-      "description": "Deprecated: please use '--web-socket-server-type' option."
+      "description": "Deprecated: please use 'webSocketServer.type'/'--web-socket-server-type' option."
     },
     "WebSocketServerFunction": {
       "instanceof": "Function"
