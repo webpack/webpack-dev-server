@@ -1026,16 +1026,14 @@
         {
           "$ref": "#/definitions/WebSocketServerType"
         }
-      ]
+      ],
+      "description": "Deprecated: please use 'webSocketServer.type'/'--web-socket-server-type' option."
     },
     "WebSocketServerFunction": {
       "instanceof": "Function"
     },
     "WebSocketServerObject": {
       "type": "object",
-      "cli": {
-        "exclude": true
-      },
       "properties": {
         "type": {
           "anyOf": [
@@ -1052,7 +1050,10 @@
         },
         "options": {
           "type": "object",
-          "additionalProperties": true
+          "additionalProperties": true,
+          "cli": {
+            "exclude": true
+          }
         }
       },
       "additionalProperties": false
