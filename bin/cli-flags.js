@@ -448,11 +448,13 @@ module.exports = {
       {
         type: "boolean",
         multiple: false,
-        description: "Allows to serve over HTTP/2 using SPDY.",
+        description:
+          "Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.",
         path: "http2",
       },
     ],
-    description: "Allows to serve over HTTP/2 using SPDY.",
+    description:
+      "Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.",
     negatedDescription: "Does not serve over HTTP/2 using SPDY.",
     simpleType: "boolean",
     multiple: false,
@@ -463,12 +465,12 @@ module.exports = {
         type: "boolean",
         multiple: false,
         description:
-          "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
+          "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor of the `server` option.",
         path: "https",
       },
     ],
     description:
-      "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
+      "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor of the `server` option.",
     negatedDescription:
       "Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
     simpleType: "boolean",
