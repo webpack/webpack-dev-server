@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bonjour option as object should apply bonjour options: console messages 1`] = `Array []`;
+
+exports[`bonjour option as object should apply bonjour options: page errors 1`] = `Array []`;
+
+exports[`bonjour option as object should apply bonjour options: response status 1`] = `200`;
+
+exports[`bonjour option as true should call bonjour with correct params: console messages 1`] = `Array []`;
+
+exports[`bonjour option as true should call bonjour with correct params: page errors 1`] = `Array []`;
+
+exports[`bonjour option as true should call bonjour with correct params: response status 1`] = `200`;
+
+exports[`bonjour option with 'https' option should call bonjour with 'https' type: console messages 1`] = `Array []`;
+
+exports[`bonjour option with 'https' option should call bonjour with 'https' type: page errors 1`] = `Array []`;
+
+exports[`bonjour option with 'https' option should call bonjour with 'https' type: response status 1`] = `200`;
