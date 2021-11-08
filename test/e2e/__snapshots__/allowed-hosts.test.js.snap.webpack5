@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`allowed hosts check host headers should allow hosts in allowedHosts: console messages 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should allow hosts in allowedHosts: page errors 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should allow hosts in allowedHosts: response status 1`] = `200`;
+
+exports[`allowed hosts check host headers should allow hosts that pass a wildcard in allowedHosts: console messages 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should allow hosts that pass a wildcard in allowedHosts: page errors 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should allow hosts that pass a wildcard in allowedHosts: response status 1`] = `200`;
+
+exports[`allowed hosts check host headers should always allow \`localhost\` if options.allowedHosts is auto: console messages 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow \`localhost\` if options.allowedHosts is auto: page errors 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow \`localhost\` if options.allowedHosts is auto: response status 1`] = `200`;
+
+exports[`allowed hosts check host headers should always allow any host if options.allowedHosts is all: console messages 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow any host if options.allowedHosts is all: page errors 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow any host if options.allowedHosts is all: response status 1`] = `200`;
+
+exports[`allowed hosts check host headers should always allow value from the \`host\` options if options.allowedHosts is auto: console messages 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow value from the \`host\` options if options.allowedHosts is auto: page errors 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow value from the \`host\` options if options.allowedHosts is auto: response status 1`] = `200`;
+
 exports[`allowed hosts should connect web socket client using "[::1] host to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",

@@ -1,6 +1,7 @@
 "use strict";
 
 const express = require("express");
+const internalIp = require("internal-ip");
 const webpack = require("webpack");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const Server = require("../../lib/Server");
@@ -1069,4 +1070,284 @@ describe("allowed hosts", () => {
       await server.stop();
     });
   }
+
+  describe("check host headers", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(() => {
+      compiler = webpack(config);
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+    });
+
+    it("should always allow `localhost` if options.allowedHosts is auto", async () => {
+      const options = {
+        allowedHosts: "auto",
+        port: port1,
+      };
+
+      const headers = {
+        host: "localhost",
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://127.0.0.1:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      if (!server.checkHeader(headers, "host")) {
+        throw new Error("Validation didn't fail");
+      }
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should always allow value from the `host` options if options.allowedHosts is auto", async () => {
+      const networkIP = internalIp.v4.sync();
+      const options = {
+        host: networkIP,
+        allowedHosts: "auto",
+        port: port1,
+      };
+
+      const headers = {
+        host: networkIP,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://${networkIP}:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      if (!server.checkHeader(headers, "host")) {
+        throw new Error("Validation didn't fail");
+      }
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it.skip("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", async () => {
+      const options = {
+        allowedHosts: "auto",
+        port: port1,
+        client: {
+          webSocketURL: "ws://test.host:80",
+        },
+      };
+
+      const headers = {
+        host: "test.host",
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://127.0.0.1:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      if (!server.checkHeader(headers, "host")) {
+        throw new Error("Validation didn't fail");
+      }
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should always allow any host if options.allowedHosts is all", async () => {
+      const options = {
+        allowedHosts: "all",
+        port: port1,
+      };
+      const headers = {
+        host: "bad.host",
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://127.0.0.1:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      if (!server.checkHeader(headers, "host")) {
+        throw new Error("Validation didn't fail");
+      }
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should allow hosts in allowedHosts", async () => {
+      const tests = ["test.host", "test2.host", "test3.host"];
+      const options = {
+        allowedHosts: tests,
+        port: port1,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://127.0.0.1:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      tests.forEach((test) => {
+        const headers = { host: test };
+
+        if (!server.checkHeader(headers, "host")) {
+          throw new Error("Validation didn't fail");
+        }
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
+    it("should allow hosts that pass a wildcard in allowedHosts", async () => {
+      const options = {
+        allowedHosts: [".example.com"],
+        port: port1,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://127.0.0.1:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      const tests = [
+        "www.example.com",
+        "subdomain.example.com",
+        "example.com",
+        "subsubcomain.subdomain.example.com",
+        "example.com:80",
+        "subdomain.example.com:80",
+      ];
+
+      tests.forEach((test) => {
+        const headers = { host: test };
+
+        if (!server.checkHeader(headers, "host")) {
+          throw new Error("Validation didn't fail");
+        }
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
 });
