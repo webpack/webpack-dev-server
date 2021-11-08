@@ -1,7 +1,6 @@
 "use strict";
 
 const webpack = require("webpack");
-const getHashFunction = require("../../helpers/getHashFunction");
 
 const isWebpack5 = webpack.version.startsWith("5");
 
@@ -25,7 +24,6 @@ module.exports = {
   entry: "./entry.js",
   output: {
     path: "/",
-    hashFunction: getHashFunction(),
   },
   experiments: {
     lazyCompilation: true,

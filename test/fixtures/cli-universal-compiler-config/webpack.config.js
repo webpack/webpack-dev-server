@@ -1,7 +1,6 @@
 "use strict";
 
 const ExitOnDonePlugin = require("../../helpers/ExitOnDonePlugin");
-const getHashFunction = require("../../helpers/getHashFunction");
 
 module.exports = [
   {
@@ -12,7 +11,6 @@ module.exports = [
     output: {
       path: "/",
       filename: "client.js",
-      hashFunction: getHashFunction(),
     },
   },
   {
@@ -24,7 +22,6 @@ module.exports = [
     output: {
       path: "/",
       filename: "server.js",
-      hashFunction: getHashFunction(),
     },
     plugins: [new ExitOnDonePlugin()],
   },

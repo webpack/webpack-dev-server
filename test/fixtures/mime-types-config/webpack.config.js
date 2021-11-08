@@ -1,7 +1,6 @@
 "use strict";
 
 const { version } = require("webpack");
-const getHashFunction = require("../../helpers/getHashFunction");
 
 let moduleRuleForCustom = {};
 
@@ -36,7 +35,6 @@ module.exports = {
   entry: "./foo.js",
   output: {
     path: "/",
-    hashFunction: getHashFunction(),
   },
   node: false,
   infrastructureLogging: {

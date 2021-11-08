@@ -1,7 +1,5 @@
 "use strict";
 
-const getHashFunction = require("../../helpers/getHashFunction");
-
 module.exports = {
   mode: "development",
   context: __dirname,
@@ -9,7 +7,6 @@ module.exports = {
   entry: "./foo.js",
   output: {
     publicPath: "/",
-    hashFunction: getHashFunction(),
   },
   infrastructureLogging: {
     level: "warn",
