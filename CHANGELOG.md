@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.11.3](https://github.com/webpack/webpack-dev-server/compare/v3.11.2...v3.11.3) (2021-11-08)
+
+
+### Bug Fixes
+
+* replace `ansi-html` with `ansi-html-community` ([#4011](https://github.com/webpack/webpack-dev-server/issues/4011)) ([4fef67b](https://github.com/webpack/webpack-dev-server/commit/4fef67b997a2bd09b46beb779c185ad8f85e3e1a))
+
 ### [3.11.2](https://github.com/webpack/webpack-dev-server/compare/v3.11.1...v3.11.2) (2021-01-13)
 
 
