@@ -100,6 +100,21 @@ const normalizeStderr = (stderr, options = {}) => {
     normalizedStderr = normalizedStderr.join("\n");
   }
 
+  if (normalizedStderr.includes("Loopback:")) {
+    normalizedStderr = normalizedStderr.split("\n");
+
+    const loopbackIndex = normalizedStderr.findIndex((item) =>
+      /Loopback:/.test(item)
+    );
+
+    const protocol = options.https ? "https" : "http";
+
+    normalizedStderr[
+      loopbackIndex
+    ] = `<i> Loopback: ${protocol}://localhost:<port>/, ${protocol}://<ip-v4>:<port>/, ${protocol}://[<ip-v6>]:<port>/`;
+    normalizedStderr = normalizedStderr.join("\n");
+  }
+
   if (options.ipv6 && !normalizedStderr.includes("On Your Network (IPv6):")) {
     // Github Actions doesnt' support IPv6 on ubuntu in some cases
     normalizedStderr = normalizedStderr.split("\n");
