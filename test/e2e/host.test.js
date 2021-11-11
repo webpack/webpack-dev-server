@@ -12,7 +12,7 @@ const ipv6 = internalIp.v6.sync();
 // macos requires root for using ip v6
 const isMacOS = process.platform === "darwin";
 
-function getAddress(host, usedPort, hostname) {
+function getAddress(host, hostname) {
   let address;
 
   if (
@@ -28,7 +28,7 @@ function getAddress(host, usedPort, hostname) {
     address = hostname;
   }
 
-  return { address, port: usedPort };
+  return { address };
 }
 
 describe("host", () => {
@@ -87,9 +87,7 @@ describe("host", () => {
 
       await server.start();
 
-      expect(server.server.address()).toMatchObject(
-        getAddress(host, port, hostname)
-      );
+      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
 
       const { page, browser } = await runBrowser();
 
@@ -158,9 +156,7 @@ describe("host", () => {
 
       await server.start();
 
-      expect(server.server.address()).toMatchObject(
-        getAddress(host, port, hostname)
-      );
+      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
 
       const { page, browser } = await runBrowser();
 
@@ -231,9 +227,7 @@ describe("host", () => {
 
       await server.start();
 
-      expect(server.server.address()).toMatchObject(
-        getAddress(host, port, hostname)
-      );
+      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
 
       const address = server.server.address();
       const { page, browser } = await runBrowser();
