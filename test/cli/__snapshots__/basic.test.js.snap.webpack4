@@ -2,7 +2,7 @@
 
 exports[`basic basic should accept the promise function of webpack.config.js: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
@@ -10,13 +10,13 @@ exports[`basic basic should accept the promise function of webpack.config.js: st
 
 exports[`basic basic should work using "--host localhost --port <port>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/
+<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
 exports[`basic basic should work using multi compiler mode: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
@@ -24,7 +24,7 @@ exports[`basic basic should work using multi compiler mode: stderr 1`] = `
 
 exports[`basic basic should work: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
-<i> [webpack-dev-server] Loopback: http://localhost:<port>/
+<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
