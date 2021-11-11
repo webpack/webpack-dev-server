@@ -23,7 +23,7 @@ function getAddress(host, usedPort, hostname) {
   } else if (typeof host === "string" && host === "0.0.0.0") {
     address = "0.0.0.0";
   } else if (typeof host === "string" && host === "localhost") {
-    address = "127.0.0.1";
+    address = ipv6 ? "::1" : "127.0.0.1";
   } else {
     address = hostname;
   }
