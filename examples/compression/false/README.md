@@ -3,7 +3,7 @@
 Website gzip compression makes it possible to reduce the file size of a file
 to roughly 30% of its original size before the files are sent to the browser.
 
-It is enabled by default. To disable it set `compresss` option to `false`.
+It is enabled by default. To disable it set `compress` option to `false`.
 
 ## false
 
