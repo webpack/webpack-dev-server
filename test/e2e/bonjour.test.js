@@ -8,8 +8,17 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").bonjour;
 
 describe("bonjour option", () => {
-  const mockPublish = jest.fn();
-  const mockUnpublishAll = jest.fn();
+  let mockPublish;
+  let mockUnpublishAll;
+  let mockDestroy;
+
+  beforeEach(() => {
+    mockPublish = jest.fn();
+    mockUnpublishAll = jest.fn((callback) => {
+      callback();
+    });
+    mockDestroy = jest.fn();
+  });
 
   describe("as true", () => {
     let compiler;
@@ -24,6 +33,7 @@ describe("bonjour option", () => {
         return {
           publish: mockPublish,
           unpublishAll: mockUnpublishAll,
+          destroy: mockDestroy,
         };
       });
 
@@ -42,8 +52,10 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
+
       mockPublish.mockReset();
       mockUnpublishAll.mockReset();
+      mockDestroy.mockReset();
     });
 
     it("should call bonjour with correct params", async () => {
@@ -69,6 +81,7 @@ describe("bonjour option", () => {
       });
 
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+      expect(mockDestroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -93,6 +106,7 @@ describe("bonjour option", () => {
         return {
           publish: mockPublish,
           unpublishAll: mockUnpublishAll,
+          destroy: mockDestroy,
         };
       });
 
@@ -111,8 +125,10 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
+
       mockPublish.mockReset();
       mockUnpublishAll.mockReset();
+      mockDestroy.mockReset();
     });
 
     it("should call bonjour with 'https' type", async () => {
@@ -138,6 +154,7 @@ describe("bonjour option", () => {
       });
 
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+      expect(mockDestroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -162,6 +179,7 @@ describe("bonjour option", () => {
         return {
           publish: mockPublish,
           unpublishAll: mockUnpublishAll,
+          destroy: mockDestroy,
         };
       });
 
@@ -180,8 +198,10 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
+
       mockPublish.mockReset();
       mockUnpublishAll.mockReset();
+      mockDestroy.mockReset();
     });
 
     it("should call bonjour with 'https' type", async () => {
@@ -207,6 +227,7 @@ describe("bonjour option", () => {
       });
 
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+      expect(mockDestroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -231,6 +252,7 @@ describe("bonjour option", () => {
         return {
           publish: mockPublish,
           unpublishAll: mockUnpublishAll,
+          destroy: mockDestroy,
         };
       });
 
@@ -258,8 +280,10 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
+
       mockPublish.mockReset();
       mockUnpublishAll.mockReset();
+      mockDestroy.mockReset();
     });
 
     it("should apply bonjour options", async () => {
@@ -286,6 +310,7 @@ describe("bonjour option", () => {
       });
 
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+      expect(mockDestroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -310,6 +335,7 @@ describe("bonjour option", () => {
         return {
           publish: mockPublish,
           unpublishAll: mockUnpublishAll,
+          destroy: mockDestroy,
         };
       });
 
@@ -338,8 +364,10 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
+
       mockPublish.mockReset();
       mockUnpublishAll.mockReset();
+      mockDestroy.mockReset();
     });
 
     it("should apply bonjour options", async () => {
@@ -366,6 +394,7 @@ describe("bonjour option", () => {
       });
 
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+      expect(mockDestroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -390,6 +419,7 @@ describe("bonjour option", () => {
         return {
           publish: mockPublish,
           unpublishAll: mockUnpublishAll,
+          destroy: mockDestroy,
         };
       });
 
@@ -402,7 +432,9 @@ describe("bonjour option", () => {
             type: "http",
             protocol: "udp",
           },
-          server: "https",
+          server: {
+            type: "https",
+          },
         },
         compiler
       );
@@ -418,6 +450,7 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
+
       mockPublish.mockReset();
       mockUnpublishAll.mockReset();
     });
@@ -446,6 +479,7 @@ describe("bonjour option", () => {
       });
 
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
+      expect(mockDestroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
