@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/webpack/webpack-dev-server/compare/v4.4.0...v4.5.0) (2021-11-13)
+
+
+### Features
+
+* add `--web-socket-server-type` option for CLI ([#4001](https://github.com/webpack/webpack-dev-server/issues/4001)) ([17c390a](https://github.com/webpack/webpack-dev-server/commit/17c390a04e474a675255eb25132b423e0614253f))
+* show deprecation warning for `https`/`http2` option, [migration guide for `https`](https://github.com/webpack/webpack-dev-server/tree/master/examples/server/https) and [migration guide for `http2`](https://github.com/webpack/webpack-dev-server/tree/master/examples/server/spdy) (because we use [`spdy`](https://github.com/spdy-http2/node-spdy) for http2 due `express` doesn't support http2) ([#4003](https://github.com/webpack/webpack-dev-server/issues/4003)) ([521cf85](https://github.com/webpack/webpack-dev-server/commit/521cf852a81c5913e17cf36c90140c566d4218e5))
+
+
+### Bug Fixes
+
+* infinity refresh on warnings ([#4006](https://github.com/webpack/webpack-dev-server/issues/4006)) ([10da223](https://github.com/webpack/webpack-dev-server/commit/10da2238b0fce26973160ef03ba0dd35d5bc0568))
+* invalid host message is missing on client with https ([#3997](https://github.com/webpack/webpack-dev-server/issues/3997)) ([#3998](https://github.com/webpack/webpack-dev-server/issues/3998)) ([ff0869c](https://github.com/webpack/webpack-dev-server/commit/ff0869cb08cd886ed5b1f8265736d514358c7305))
+* remove process listeners after stopping the server ([#4013](https://github.com/webpack/webpack-dev-server/issues/4013)) ([d198e4e](https://github.com/webpack/webpack-dev-server/commit/d198e4e138c194427af596663c129515353db9c4))
+
 ## [4.4.0](https://github.com/webpack/webpack-dev-server/compare/v4.3.1...v4.4.0) (2021-10-27)
 
 
