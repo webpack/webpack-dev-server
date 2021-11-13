@@ -3,7 +3,6 @@
 const express = require("express");
 const webpack = require("webpack");
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const { syncInternalIp } = require("../helpers/internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
@@ -1132,7 +1131,7 @@ describe("allowed hosts", () => {
     });
 
     it("should always allow value from the `host` options if options.allowedHosts is auto", async () => {
-      const networkIP = syncInternalIp("v4");
+      const networkIP = Server.internalIPSync("v4");
       const options = {
         host: networkIP,
         allowedHosts: "auto",

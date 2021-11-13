@@ -1,14 +1,13 @@
 "use strict";
 
 const webpack = require("webpack");
-const { syncInternalIp } = require("../helpers/internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").host;
 
-const ipv4 = syncInternalIp("v4");
-const ipv6 = syncInternalIp("v6");
+const ipv4 = Server.internalIPSync("v4");
+const ipv6 = Server.internalIPSync("v6");
 // macos requires root for using ip v6
 const isMacOS = process.platform === "darwin";
 

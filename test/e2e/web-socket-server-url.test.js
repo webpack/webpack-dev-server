@@ -3,7 +3,6 @@
 const express = require("express");
 const webpack = require("webpack");
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const { syncInternalIp } = require("../helpers/internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
@@ -104,7 +103,7 @@ describe("web socket server URL", () => {
     it(`should work behind proxy, when hostnames are different and ports are same ("${webSocketServer}")`, async () => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
-      const proxyHost = syncInternalIp("v4");
+      const proxyHost = Server.internalIPSync("v4");
       const proxyPort = port1;
 
       const compiler = webpack(config);
@@ -190,7 +189,7 @@ describe("web socket server URL", () => {
     it(`should work behind proxy, when hostnames are different and ports are different ("${webSocketServer}")`, async () => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
-      const proxyHost = syncInternalIp("v4");
+      const proxyHost = Server.internalIPSync("v4");
       const proxyPort = port2;
 
       const compiler = webpack(config);
@@ -282,7 +281,7 @@ describe("web socket server URL", () => {
     it(`should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("${webSocketServer}")`, async () => {
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = 40000;
 
-      const proxyHost = syncInternalIp("v4");
+      const proxyHost = Server.internalIPSync("v4");
       const proxyPort = port2;
 
       const compiler = webpack(config);
@@ -1763,7 +1762,7 @@ describe("web socket server URL", () => {
     });
 
     it(`should work when "host" option is IPv4 ("${webSocketServer}")`, async () => {
-      const hostname = syncInternalIp("v4");
+      const hostname = Server.internalIPSync("v4");
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -1822,7 +1821,7 @@ describe("web socket server URL", () => {
     });
 
     it(`should work when "host" option is "local-ip" ("${webSocketServer}")`, async () => {
-      const hostname = syncInternalIp("v4");
+      const hostname = Server.internalIPSync("v4");
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -1881,7 +1880,7 @@ describe("web socket server URL", () => {
     });
 
     it(`should work when "host" option is "local-ipv4" ("${webSocketServer}")`, async () => {
-      const hostname = syncInternalIp("v4");
+      const hostname = Server.internalIPSync("v4");
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,

@@ -2,7 +2,6 @@
 
 const webpack = require("webpack");
 const open = require("open");
-const { syncInternalIp } = require("../helpers/internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["open-option"];
@@ -15,8 +14,8 @@ open.mockImplementation(() => {
   };
 });
 
-const internalIPv4 = syncInternalIp("v4");
-// const internalIPv6 = syncInternalIp('v6');
+const internalIPv4 = Server.internalIPSync("v4");
+// const internalIPv6 = Server.internalIPSync('v6');
 
 describe('"open" option', () => {
   let compiler;
