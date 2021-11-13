@@ -1,8 +1,8 @@
 "use strict";
 
-const internalIp = require("internal-ip");
 const webpack = require("webpack");
 const open = require("open");
+const { syncInternalIp } = require("../helpers/internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["open-option"];
@@ -15,8 +15,8 @@ open.mockImplementation(() => {
   };
 });
 
-const internalIPv4 = internalIp.v4.sync();
-// const internalIPv6 = internalIp.v6.sync();
+const internalIPv4 = syncInternalIp("v4");
+// const internalIPv6 = syncInternalIp('v6');
 
 describe('"open" option', () => {
   let compiler;

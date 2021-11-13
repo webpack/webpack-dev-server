@@ -1,9 +1,9 @@
 "use strict";
 
 const express = require("express");
-const internalIp = require("internal-ip");
 const webpack = require("webpack");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { syncInternalIp } = require("../helpers/internal-ip");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
@@ -1132,7 +1132,7 @@ describe("allowed hosts", () => {
     });
 
     it("should always allow value from the `host` options if options.allowedHosts is auto", async () => {
-      const networkIP = internalIp.v4.sync();
+      const networkIP = syncInternalIp("v4");
       const options = {
         host: networkIP,
         allowedHosts: "auto",
