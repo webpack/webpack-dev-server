@@ -11,7 +11,7 @@ module.exports = {
   // ...
   devServer: {
     client: {
-      reconect: false,
+      reconnect: false,
     },
   },
 };

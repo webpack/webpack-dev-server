@@ -11,7 +11,7 @@ module.exports = {
   // ...
   devServer: {
     client: {
-      reconect: 2,
+      reconnect: 2,
     },
   },
 };
