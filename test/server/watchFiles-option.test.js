@@ -328,14 +328,31 @@ describe("'watchFiles' option", () => {
         usePolling: true,
       },
       {
+        usePolling: true,
+        poll: 200,
+      },
+      {
         usePolling: false,
+      },
+      {
+        usePolling: false,
+        poll: 200,
       },
       {
         usePolling: false,
         poll: true,
       },
       {
+        interval: 400,
+        poll: 200,
+      },
+      {
         usePolling: true,
+        interval: 200,
+        poll: 400,
+      },
+      {
+        usePolling: false,
         interval: 200,
         poll: 400,
       },

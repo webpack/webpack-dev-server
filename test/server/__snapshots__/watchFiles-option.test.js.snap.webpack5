@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`'watchFiles' option should work with options {"interval":400,"poll":200} should pass correct options to chokidar config 1`] = `
+Object {
+  "alwaysStat": true,
+  "atomic": false,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": undefined,
+  "interval": 400,
+  "persistent": true,
+  "usePolling": true,
+}
+`;
+
 exports[`'watchFiles' option should work with options {"poll":200} should pass correct options to chokidar config 1`] = `
 Object {
   "alwaysStat": true,
@@ -25,6 +39,34 @@ Object {
   "interval": undefined,
   "persistent": true,
   "usePolling": true,
+}
+`;
+
+exports[`'watchFiles' option should work with options {"usePolling":false,"interval":200,"poll":400} should pass correct options to chokidar config 1`] = `
+Object {
+  "alwaysStat": true,
+  "atomic": false,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": undefined,
+  "interval": 200,
+  "persistent": true,
+  "usePolling": false,
+}
+`;
+
+exports[`'watchFiles' option should work with options {"usePolling":false,"poll":200} should pass correct options to chokidar config 1`] = `
+Object {
+  "alwaysStat": true,
+  "atomic": false,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": undefined,
+  "interval": 200,
+  "persistent": true,
+  "usePolling": false,
 }
 `;
 
@@ -57,6 +99,20 @@ Object {
 `;
 
 exports[`'watchFiles' option should work with options {"usePolling":true,"interval":200,"poll":400} should pass correct options to chokidar config 1`] = `
+Object {
+  "alwaysStat": true,
+  "atomic": false,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": undefined,
+  "interval": 200,
+  "persistent": true,
+  "usePolling": true,
+}
+`;
+
+exports[`'watchFiles' option should work with options {"usePolling":true,"poll":200} should pass correct options to chokidar config 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
