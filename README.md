@@ -121,7 +121,7 @@ Options:
   --no-hot                                  Disables Hot Module Replacement.
   --http2                                   Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.
   --no-http2                                Does not serve over HTTP/2 using SPDY.
---https                                   Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor
+  --https                                   Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor
                                             of the `server` option.
   --no-https                                Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
   --https-passphrase <value>                Passphrase for a pfx file. Deprecated, it will be removed in favor of the `server.options.passphrase` option.
