@@ -48,7 +48,7 @@
     "open": "^8.0.9",
     "p-retry": "^4.5.0",
     "portfinder": "^1.0.28",
-    "schema-utils": "^3.1.0",
+    "schema-utils": "^4.0.0",
     "selfsigned": "^1.10.11",
     "serve-index": "^1.9.1",
     "sockjs": "^0.3.21",
