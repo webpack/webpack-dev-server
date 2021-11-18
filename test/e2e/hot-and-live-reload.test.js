@@ -8,7 +8,6 @@ const path = require("path");
 const WebSocket = require("ws");
 const SockJS = require("sockjs-client");
 const webpack = require("webpack");
-const request = require("supertest");
 const fs = require("graceful-fs");
 const Server = require("../../lib/Server");
 const reloadConfig = require("../fixtures/reload-config/webpack.config");
@@ -302,6 +301,25 @@ describe("hot and live reload", () => {
     },
   ];
 
+  let browser;
+  let server;
+
+  beforeEach(() => {
+    fs.writeFileSync(cssFilePath, "body { background-color: rgb(0, 0, 255); }");
+  });
+
+  afterEach(async () => {
+    if (browser) {
+      await browser.close();
+    }
+
+    if (server) {
+      await server.stop();
+    }
+
+    fs.unlinkSync(cssFilePath);
+  });
+
   modes.forEach((mode) => {
     const webSocketServerTitle =
       mode.options && mode.options.webSocketServer
@@ -309,35 +327,18 @@ describe("hot and live reload", () => {
         : "default";
 
     it(`${mode.title} (${webSocketServerTitle})`, async () => {
-      fs.writeFileSync(
-        cssFilePath,
-        "body { background-color: rgb(0, 0, 255); }"
-      );
-
-      const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
+      const webpackOptions = {
+        ...reloadConfig,
+        ...mode.webpackOptions,
+        watchOptions: { aggregateTimeout: 2000 },
+      };
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
-      const devServerOptions = {
-        port,
-        ...testDevServerOptions,
-      };
-      const server = new Server(devServerOptions, compiler);
+      const devServerOptions = { port, ...testDevServerOptions };
+
+      server = new Server(devServerOptions, compiler);
 
       await server.start();
-
-      await new Promise((resolve, reject) => {
-        request(`http://127.0.0.1:${devServerOptions.port}`)
-          .get("/main")
-          .expect(200, (error) => {
-            if (error) {
-              reject(error);
-
-              return;
-            }
-
-            resolve();
-          });
-      });
 
       const webSocketServerLaunched =
         testDevServerOptions.webSocketServer !== false;
@@ -432,7 +433,11 @@ describe("hot and live reload", () => {
         }
       });
 
-      const { page, browser } = await runBrowser();
+      const launched = await runBrowser();
+
+      ({ browser } = launched);
+
+      const page = launched.page;
 
       const consoleMessages = [];
       const pageErrors = [];
@@ -561,11 +566,6 @@ describe("hot and live reload", () => {
 
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
-
-      fs.unlinkSync(cssFilePath);
-
-      await browser.close();
-      await server.stop();
     });
   });
 });
