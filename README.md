@@ -269,7 +269,7 @@ Pull Request to resolve the bug.
 
 ## Support
 
-We do our best to keep Issues in the repository focused on bugs, features, and
+We do our best to keep issues in the repository focused on bugs, features, and
 needed modifications to the code for the module. Because of that, we ask users
 with general support, "how-to", or "why isn't this working" questions to try one
 of the other support channels that are available.
