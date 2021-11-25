@@ -160,7 +160,7 @@ const onSocketMessage = {
 
     self.location.reload();
   },
-  warnings(warnings) {
+  warnings(warnings, params) {
     log.warn("Warnings while compiling.");
 
     const printableWarnings = warnings.map((error) => {
@@ -183,6 +183,12 @@ const onSocketMessage = {
     if (needShowOverlayForWarnings) {
       show("warning", warnings);
     }
+
+    if (params && params.preventReloading) {
+      return;
+    }
+
+    reloadApp(options, status);
   },
   errors(errors) {
     log.error("Errors while compiling. Reload prevented.");

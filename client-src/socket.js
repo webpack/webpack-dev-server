@@ -56,7 +56,7 @@ const socket = function initSocket(url, handlers, reconnect) {
     const message = JSON.parse(data);
 
     if (handlers[message.type]) {
-      handlers[message.type](message.data);
+      handlers[message.type](message.data, message.params);
     }
   });
 };

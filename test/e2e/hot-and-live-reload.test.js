@@ -327,11 +327,7 @@ describe("hot and live reload", () => {
         : "default";
 
     it(`${mode.title} (${webSocketServerTitle})`, async () => {
-      const webpackOptions = {
-        ...reloadConfig,
-        ...mode.webpackOptions,
-        watchOptions: { aggregateTimeout: 2000 },
-      };
+      const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
       const devServerOptions = { port, ...testDevServerOptions };
