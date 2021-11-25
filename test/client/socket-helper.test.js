@@ -31,6 +31,7 @@ describe("socket", () => {
       JSON.stringify({
         type: "example",
         data: "hello world",
+        params: { foo: "bar" },
       })
     );
 
@@ -64,6 +65,7 @@ describe("socket", () => {
       JSON.stringify({
         type: "example",
         data: "hello world",
+        params: { foo: "bar" },
       })
     );
 
