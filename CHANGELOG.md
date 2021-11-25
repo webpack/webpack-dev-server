@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/webpack/webpack-dev-server/compare/v4.5.0...v4.6.0) (2021-11-25)
+
+
+### Features
+
+* allow to pass all `chokidar` options ([#4025](https://github.com/webpack/webpack-dev-server/issues/4025)) ([5026601](https://github.com/webpack/webpack-dev-server/commit/5026601bd670eb65bdddabc208ec9ae73a58e592))
+
+
+### Bug Fixes
+
+* reconnection logic ([#4044](https://github.com/webpack/webpack-dev-server/issues/4044)) ([9b32c96](https://github.com/webpack/webpack-dev-server/commit/9b32c968fd96a57f5bab36416f79e649ab3a4a2c))
+* reload on warnings ([#4056](https://github.com/webpack/webpack-dev-server/issues/4056)) ([1ba9720](https://github.com/webpack/webpack-dev-server/commit/1ba97201f71b8a5b8f67281059f4834e55bf8f67))
+
 ## [4.5.0](https://github.com/webpack/webpack-dev-server/compare/v4.4.0...v4.5.0) (2021-11-13)
 
 
