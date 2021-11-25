@@ -1652,7 +1652,6 @@ Object {
       },
       "staticOptions": Object {},
       "watch": Object {
-        "aggregateTimeout": 300,
         "alwaysStat": true,
         "atomic": false,
         "followSymlinks": false,
@@ -1710,7 +1709,6 @@ Object {
       },
       "staticOptions": Object {},
       "watch": Object {
-        "aggregateTimeout": 300,
         "alwaysStat": true,
         "atomic": false,
         "followSymlinks": false,
@@ -1768,7 +1766,6 @@ Object {
       },
       "staticOptions": Object {},
       "watch": Object {
-        "aggregateTimeout": 300,
         "alwaysStat": true,
         "atomic": false,
         "followSymlinks": false,
@@ -1826,7 +1823,6 @@ Object {
       },
       "staticOptions": Object {},
       "watch": Object {
-        "aggregateTimeout": 300,
         "alwaysStat": true,
         "atomic": false,
         "followSymlinks": false,
