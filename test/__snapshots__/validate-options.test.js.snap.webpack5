@@ -789,6 +789,30 @@ exports[`options validate should throw an error on the "static" option with 'nul
       object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
+exports[`options validate should throw an error on the "watchFiles" option with '{"options":false}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.watchFiles.options should be an object:
+   object { … }
+   -> Configure advanced options for watching. See the chokidar documentation for the possible options.
+   -> Read more at https://github.com/paulmillr/chokidar#api"
+`;
+
+exports[`options validate should throw an error on the "watchFiles" option with '{"paths":false}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.watchFiles should be one of these:
+   [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
+   -> Allows to configure list of globs/directories/files to watch for file changes.
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverwatchfiles
+   Details:
+    * options.watchFiles.paths should be one of these:
+      [non-empty string, ...] | non-empty string
+      -> Path(s) of globs/directories/files to watch for file changes.
+      Details:
+       * options.watchFiles.paths should be an array:
+         [non-empty string, ...]
+       * options.watchFiles.paths should be a non-empty string."
+`;
+
 exports[`options validate should throw an error on the "watchFiles" option with '123' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles should be one of these:

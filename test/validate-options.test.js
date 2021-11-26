@@ -548,7 +548,16 @@ const tests = {
       { paths: ["dir"], options: { usePolling: true } },
       [{ paths: ["one-dir"] }, "two-dir"],
     ],
-    failure: [false, 123],
+    failure: [
+      false,
+      123,
+      {
+        paths: false,
+      },
+      {
+        options: false,
+      },
+    ],
   },
 };
 
