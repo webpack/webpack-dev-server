@@ -984,10 +984,13 @@
               "type": "string",
               "minLength": 1
             }
-          ]
+          ],
+          "description": "Path(s) of globs/directories/files to watch for file changes."
         },
         "options": {
           "type": "object",
+          "description": "Configure advanced options for watching. See the chokidar documentation for the possible options.",
+          "link": "https://github.com/paulmillr/chokidar#api",
           "additionalProperties": true
         }
       },
