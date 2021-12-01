@@ -121,7 +121,7 @@ The pull request is now ready to be tested.
 
 ## [Contributor License Agreement](https://openjsf.org/about/the-openjs-foundation-cla/)
 
-When submitting your contribution, a CLA (Contributor License Agreement) bot will come by to verify that you signed the [CLA](https://github.com/openjs-foundation/easycla). If it is your first time, it will link you to the right place to sign it. However, if you have committed your contributions using an email that is not the same as your email used on GitHub, the CLA bot can't accept your contribution.
+When submitting your contribution, a CLA (Contributor License Agreement) bot will come by to verify that you signed the [CLA](https://contributor.easycla.lfx.linuxfoundation.org/#/cla/project/3d9a9c15-cb4a-478d-a185-d8d2881dd914/user/f5e71bf5-4dd3-4e03-b70f-7459c4deb7df). If it is your first time, it will link you to the right place to sign it. However, if you have committed your contributions using an email that is not the same as your email used on GitHub, the CLA bot can't accept your contribution.
 
 Run `git config user.email` to see your Git email, and verify it with [your GitHub email](https://github.com/settings/emails).
 
