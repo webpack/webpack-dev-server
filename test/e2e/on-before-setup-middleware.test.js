@@ -1,5 +1,6 @@
 "use strict";
 
+const util = require("util");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -13,9 +14,13 @@ describe("onBeforeSetupMiddleware option", () => {
   let browser;
   let pageErrors;
   let consoleMessages;
+  let utilSpy;
 
   beforeEach(async () => {
     compiler = webpack(config);
+
+    utilSpy = jest.spyOn(util, "deprecate");
+
     server = new Server(
       {
         onBeforeSetupMiddleware: (devServer) => {
@@ -58,6 +63,10 @@ describe("onBeforeSetupMiddleware option", () => {
         pageErrors.push(error);
       });
 
+    expect(utilSpy.mock.calls[0][1]).toBe(
+      "'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option."
+    );
+
     const response = await page.goto(
       `http://127.0.0.1:${port}/before/some/path`,
       {
@@ -93,6 +102,10 @@ describe("onBeforeSetupMiddleware option", () => {
       .on("request", (interceptedRequest) => {
         interceptedRequest.continue({ method: "POST" });
       });
+
+    expect(utilSpy.mock.calls[0][1]).toBe(
+      "'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option."
+    );
 
     const response = await page.goto(
       `http://127.0.0.1:${port}/before/some/path`,
