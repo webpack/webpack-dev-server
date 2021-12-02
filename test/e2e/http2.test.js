@@ -21,9 +21,12 @@ describe("http2 option", () => {
     let page;
     let browser;
     let HTTPVersion;
+    let utilSpy;
 
     beforeEach(async () => {
       compiler = webpack(config);
+
+      utilSpy = jest.spyOn(util, "deprecate");
 
       server = new Server(
         {
@@ -49,6 +52,7 @@ describe("http2 option", () => {
     });
 
     afterEach(async () => {
+      utilSpy.mockRestore();
       await browser.close();
       await server.stop();
     });
@@ -81,6 +85,15 @@ describe("http2 option", () => {
       });
 
       expect(HTTPVersion).toEqual("h2");
+
+      // should show deprecated warning for both `https` and `http2`
+      expect(utilSpy.mock.calls[0][1]).toBe(
+        "'https' option is deprecated. Please use the 'server' option."
+      );
+
+      expect(utilSpy.mock.calls[1][1]).toBe(
+        "'http2' option is deprecated. Please use the 'server' option."
+      );
 
       http2Req.end();
     });
@@ -118,6 +131,7 @@ describe("http2 option", () => {
     });
 
     afterEach(async () => {
+      utilSpy.mockRestore();
       await browser.close();
       await server.stop();
     });
