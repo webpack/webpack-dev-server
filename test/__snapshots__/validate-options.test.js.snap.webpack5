@@ -714,6 +714,27 @@ exports[`options validate should throw an error on the "server" option with '{"t
    -> Request for an SSL certificate."
 `;
 
+exports[`options validate should throw an error on the "setupMiddlewares" option with '10' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.setupMiddlewares should be an instance of function.
+   -> Provides the ability to execute a custom function and apply custom middleware(s).
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares"
+`;
+
+exports[`options validate should throw an error on the "setupMiddlewares" option with 'false' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.setupMiddlewares should be an instance of function.
+   -> Provides the ability to execute a custom function and apply custom middleware(s).
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares"
+`;
+
+exports[`options validate should throw an error on the "setupMiddlewares" option with 'true' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.setupMiddlewares should be an instance of function.
+   -> Provides the ability to execute a custom function and apply custom middleware(s).
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares"
+`;
+
 exports[`options validate should throw an error on the "static" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be a non-empty string."
