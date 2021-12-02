@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setupMiddlewares option should handle GET request to /setup-middleware/some/path route: console messages 1`] = `Array []`;
+
+exports[`setupMiddlewares option should handle GET request to /setup-middleware/some/path route: page errors 1`] = `Array []`;
+
+exports[`setupMiddlewares option should handle GET request to /setup-middleware/some/path route: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`setupMiddlewares option should handle GET request to /setup-middleware/some/path route: response status 1`] = `200`;
+
+exports[`setupMiddlewares option should handle GET request to /setup-middleware/some/path route: response text 1`] = `"setup-middlewares option GET"`;
+
+exports[`setupMiddlewares option should handle POST request to /setup-middleware/some/path route: console messages 1`] = `Array []`;
+
+exports[`setupMiddlewares option should handle POST request to /setup-middleware/some/path route: page errors 1`] = `Array []`;
+
+exports[`setupMiddlewares option should handle POST request to /setup-middleware/some/path route: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`setupMiddlewares option should handle POST request to /setup-middleware/some/path route: response status 1`] = `200`;
+
+exports[`setupMiddlewares option should handle POST request to /setup-middleware/some/path route: response text 1`] = `"setup-middlewares option POST"`;
