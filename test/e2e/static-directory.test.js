@@ -497,7 +497,7 @@ describe("static.directory option", () => {
             "Using a URL as static.directory is not supported"
           );
 
-          server.close(done);
+          server.stopCallback(done);
         }
       );
     });
@@ -558,7 +558,7 @@ describe("static.directory option", () => {
             "Using a URL as static.directory is not supported"
           );
 
-          server.close(done);
+          server.stopCallback(done);
         }
       );
     });
