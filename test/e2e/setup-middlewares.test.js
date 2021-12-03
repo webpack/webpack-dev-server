@@ -23,17 +23,17 @@ describe("setupMiddlewares option", () => {
             throw new Error("webpack-dev-server is not defined");
           }
 
-          const sendResponses = (server) => {
-            server.app.get("/setup-middleware/some/path", (_, response) => {
+          const sendResponses = () => {
+            devServer.app.get("/setup-middleware/some/path", (_, response) => {
               response.send("setup-middlewares option GET");
             });
 
-            server.app.post("/setup-middleware/some/path", (_, response) => {
+            devServer.app.post("/setup-middleware/some/path", (_, response) => {
               response.send("setup-middlewares option POST");
             });
           };
 
-          middlewares.push(sendResponses(devServer));
+          middlewares.push(sendResponses());
 
           return middlewares;
         },
