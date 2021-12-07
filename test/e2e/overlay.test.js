@@ -1,7 +1,7 @@
 "use strict";
 
-const fs = require("fs");
 const path = require("path");
+const fs = require("graceful-fs");
 const prettier = require("prettier");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");

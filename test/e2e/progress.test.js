@@ -1,7 +1,7 @@
 "use strict";
 
-const fs = require("fs");
 const path = require("path");
+const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const reloadConfig = require("../fixtures/reload-config-2/webpack.config");
