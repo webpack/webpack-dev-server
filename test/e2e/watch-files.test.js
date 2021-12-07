@@ -7,7 +7,7 @@ const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").progress;
+const port = require("../ports-map")["watch-files-option"];
 
 const watchDir = path.resolve(__dirname, "../fixtures/static-config/public");
 
