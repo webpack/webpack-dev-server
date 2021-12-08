@@ -74,7 +74,7 @@
     },
     "ClientLogging": {
       "enum": ["none", "error", "warn", "info", "log", "verbose"],
-      "decription": "Allows to set log level in the browser.",
+      "description": "Allows to set log level in the browser.",
       "link": "https://webpack.js.org/configuration/dev-server/#logging"
     },
     "ClientOverlay": {
