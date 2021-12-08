@@ -60,7 +60,7 @@ Options:
   --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                              Negative 'bonjour' option.
   --no-client                               Negative 'client' option.
-  --client-logging <value>                  Allows to specify options for client script in the browser or disable client script.
+  --client-logging <value>                  Allows to set log level in the browser.
   --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay                       Negative 'client-overlay' option.
   --client-overlay-errors                   Enables a full-screen overlay in the browser when there are compiler errors.

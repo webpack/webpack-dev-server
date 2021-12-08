@@ -101,13 +101,11 @@ module.exports = {
         type: "enum",
         values: ["none", "error", "warn", "info", "log", "verbose"],
         multiple: false,
-        description:
-          "Allows to specify options for client script in the browser or disable client script.",
+        description: "Allows to set log level in the browser.",
         path: "client.logging",
       },
     ],
-    description:
-      "Allows to specify options for client script in the browser or disable client script.",
+    description: "Allows to set log level in the browser.",
     simpleType: "string",
     multiple: false,
   },

@@ -70,6 +70,7 @@ exports[`options validate should throw an error on the "client" option with '{"l
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.logging should be one of these:
    \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\"
+   -> Allows to set log level in the browser.
    -> Read more at https://webpack.js.org/configuration/dev-server/#logging"
 `;
 
@@ -77,6 +78,7 @@ exports[`options validate should throw an error on the "client" option with '{"l
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.logging should be one of these:
    \\"none\\" | \\"error\\" | \\"warn\\" | \\"info\\" | \\"log\\" | \\"verbose\\"
+   -> Allows to set log level in the browser.
    -> Read more at https://webpack.js.org/configuration/dev-server/#logging"
 `;
 
