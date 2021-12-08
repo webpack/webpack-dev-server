@@ -371,7 +371,6 @@ describe("entry", () => {
     });
 
     new webpack.EntryPlugin(compiler.context, entryFirst, {
-      // eslint-disable-next-line no-undefined
       name: "main",
     }).apply(compiler);
 

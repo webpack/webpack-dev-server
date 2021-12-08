@@ -27,7 +27,7 @@ fs.watch("./proxy-config.js", () => {
       };
     }
   } catch (e) {
-    // eslint-disable-line
+    // ignore
   }
 });
 

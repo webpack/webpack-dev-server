@@ -17,7 +17,6 @@ class ErrorPlugin {
     this.counter = 0;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     compiler.hooks.thisCompilation.tap(
       "errors-webpack-plugin",
@@ -44,7 +43,6 @@ class WarningPlugin {
     this.counter = 0;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     compiler.hooks.thisCompilation.tap(
       "warnings-webpack-plugin",
