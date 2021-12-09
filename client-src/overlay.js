@@ -3,6 +3,7 @@
 
 import ansiHTML from "ansi-html-community";
 import { encode } from "html-entities";
+import formatWebpackMessage from "./utils/format-webpack-message.js";
 
 const colors = {
   reset: ["transparent", "transparent"],
@@ -147,11 +148,8 @@ function hide() {
  */
 function formatProblem(type, item) {
   let header = type === "warning" ? "WARNING" : "ERROR";
-  let body = "";
 
-  if (typeof item === "string") {
-    body += item;
-  } else {
+  if (typeof item === "object") {
     const file = item.file || "";
     // eslint-disable-next-line no-nested-ternary
     const moduleName = item.moduleName
@@ -168,10 +166,9 @@ function formatProblem(type, item) {
           }${loc ? ` ${loc}` : ""}`
         : ""
     }`;
-    body += item.message || "";
   }
 
-  return { header, body };
+  return { header, body: formatWebpackMessage(item) };
 }
 
 // Compilation with errors (e.g. syntax error or missing modules).
