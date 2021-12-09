@@ -7,6 +7,7 @@ module.exports = {
     sourceType: "script",
     ecmaVersion: 2018,
   },
+  reportUnusedDisableDirectives: true,
   env: {
     node: true,
     es6: true,

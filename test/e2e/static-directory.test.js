@@ -486,7 +486,6 @@ describe("static.directory option", () => {
     it("Should throw exception (external url)", (done) => {
       expect.assertions(1);
 
-      // eslint-disable-next-line no-unused-vars
       server = testServer.start(
         config,
         {
@@ -547,7 +546,6 @@ describe("static.directory option", () => {
     });
 
     it("Should throw exception (array with absolute url)", (done) => {
-      // eslint-disable-next-line no-unused-vars
       server = testServer.start(
         config,
         {

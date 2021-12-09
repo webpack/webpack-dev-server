@@ -1,8 +1,5 @@
 "use strict";
 
-/* eslint-disable
-  no-unused-vars
-*/
 const SockJS = require("sockjs-client/dist/sockjs");
 
 module.exports = class SockJSClient {
