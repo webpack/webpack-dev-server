@@ -570,7 +570,6 @@ describe("normalize options", () => {
         webpackConfig = require("./fixtures/multi-compiler-one-configuration/webpack.config");
 
         if (Array.isArray(item.webpackConfig)) {
-          // eslint-disable-next-line no-shadow
           webpackConfig = item.webpackConfig.map((config, index) => {
             return { ...webpackConfig[index], ...config };
           });
