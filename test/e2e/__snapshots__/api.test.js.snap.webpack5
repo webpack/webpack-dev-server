@@ -55,7 +55,9 @@ Array [
 
 exports[`API should work with callback API: page errors 1`] = `Array []`;
 
-exports[`API should work with deprecated API ('listen' and \`close\` methods): console messages 1`] = `
+exports[`API should work with deprecated API ('listen' and 'close' methods): close deprecation log 1`] = `"'close' is deprecated. Please use the async 'stop' or 'stopCallback' method."`;
+
+exports[`API should work with deprecated API ('listen' and 'close' methods): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -64,9 +66,9 @@ Array [
 ]
 `;
 
-exports[`API should work with deprecated API ('listen' and \`close\` methods): deprecation log 1`] = `"'listen' is deprecated. Please use async 'start' or 'startCallback' methods."`;
+exports[`API should work with deprecated API ('listen' and 'close' methods): listen deprecation log 1`] = `"'listen' is deprecated. Please use the async 'start' or 'startCallback' method."`;
 
-exports[`API should work with deprecated API ('listen' and \`close\` methods): page errors 1`] = `Array []`;
+exports[`API should work with deprecated API ('listen' and 'close' methods): page errors 1`] = `Array []`;
 
 exports[`API should work with deprecated API (only compiler in constructor): console messages 1`] = `
 Array [

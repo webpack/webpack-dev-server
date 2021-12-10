@@ -204,7 +204,7 @@ describe("API", () => {
     await server.stop();
   });
 
-  it("should work with deprecated API ('listen' and `close` methods)", async () => {
+  it("should work with deprecated API ('listen' and 'close' methods)", async () => {
     const compiler = webpack(config);
     const devServerOptions = { port };
     const utilSpy = jest.spyOn(util, "deprecate");
@@ -239,19 +239,24 @@ describe("API", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
+    expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("listen deprecation log");
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
     );
     expect(pageErrors).toMatchSnapshot("page errors");
 
-    utilSpy.mockRestore();
     await browser.close();
     await new Promise((resolve) => {
       server.close(() => {
         resolve();
       });
     });
+
+    expect(
+      utilSpy.mock.calls[utilSpy.mock.calls.length - 1][1]
+    ).toMatchSnapshot("close deprecation log");
+
+    utilSpy.mockRestore();
   });
 
   it(`should work with deprecated API (the order of the arguments in the constructor)`, async () => {
