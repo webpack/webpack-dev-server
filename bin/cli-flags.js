@@ -447,12 +447,12 @@ module.exports = {
         type: "boolean",
         multiple: false,
         description:
-          "Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.",
+          "Allows to serve over HTTP/2 using SPDY. Deprecated, use the `server` option.",
         path: "http2",
       },
     ],
     description:
-      "Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.",
+      "Allows to serve over HTTP/2 using SPDY. Deprecated, use the `server` option.",
     negatedDescription: "Does not serve over HTTP/2 using SPDY.",
     simpleType: "boolean",
     multiple: false,
@@ -463,12 +463,12 @@ module.exports = {
         type: "boolean",
         multiple: false,
         description:
-          "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor of the `server` option.",
+          "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, use the `server` option.",
         path: "https",
       },
     ],
     description:
-      "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor of the `server` option.",
+      "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, use the `server` option.",
     negatedDescription:
       "Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
     simpleType: "boolean",
@@ -480,12 +480,12 @@ module.exports = {
         type: "string",
         multiple: false,
         description:
-          "Passphrase for a pfx file. Deprecated, it will be removed in favor of the `server.options.passphrase` option.",
+          "Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option.",
         path: "https.passphrase",
       },
     ],
     description:
-      "Passphrase for a pfx file. Deprecated, it will be removed in favor of the `server.options.passphrase` option.",
+      "Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option.",
     simpleType: "string",
     multiple: false,
   },
@@ -495,12 +495,12 @@ module.exports = {
         type: "boolean",
         multiple: false,
         description:
-          "Request for an SSL certificate. Deprecated, it will be removed in favor of the `server.options.requestCert` option.",
+          "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
         path: "https.requestCert",
       },
     ],
     description:
-      "Request for an SSL certificate. Deprecated, it will be removed in favor of the `server.options.requestCert` option.",
+      "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
     negatedDescription: "Does not request for an SSL certificate.",
     simpleType: "boolean",
     multiple: false,
@@ -511,12 +511,12 @@ module.exports = {
         type: "string",
         multiple: true,
         description:
-          "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.ca` option.",
+          "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
         path: "https.ca[]",
       },
     ],
     description:
-      "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.ca` option.",
+      "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
     simpleType: "string",
     multiple: true,
   },
@@ -524,14 +524,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.ca` option.",
+          "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
         multiple: false,
         path: "https.ca",
         type: "reset",
       },
     ],
     description:
-      "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.ca` option.",
+      "Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
     multiple: false,
     simpleType: "boolean",
   },
@@ -541,12 +541,12 @@ module.exports = {
         type: "string",
         multiple: true,
         description:
-          "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option.",
+          "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
         path: "https.cacert[]",
       },
     ],
     description:
-      "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option.",
+      "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
     simpleType: "string",
     multiple: true,
   },
@@ -554,14 +554,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option.",
+          "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
         multiple: false,
         path: "https.cacert",
         type: "reset",
       },
     ],
     description:
-      "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option.",
+      "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
     multiple: false,
     simpleType: "boolean",
   },
@@ -571,12 +571,12 @@ module.exports = {
         type: "string",
         multiple: true,
         description:
-          "Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key` option.",
+          "Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
         path: "https.key[]",
       },
     ],
     description:
-      "Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key` option.",
+      "Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
     simpleType: "string",
     multiple: true,
   },
@@ -584,14 +584,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key` option.",
+          "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
         multiple: false,
         path: "https.key",
         type: "reset",
       },
     ],
     description:
-      "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key` option.",
+      "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
     multiple: false,
     simpleType: "boolean",
   },
@@ -601,12 +601,12 @@ module.exports = {
         type: "string",
         multiple: true,
         description:
-          "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the `server.options.pfx` option.",
+          "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
         path: "https.pfx[]",
       },
     ],
     description:
-      "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the `server.options.pfx` option.",
+      "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
     simpleType: "string",
     multiple: true,
   },
@@ -614,14 +614,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the `server.options.pfx` option.",
+          "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
         multiple: false,
         path: "https.pfx",
         type: "reset",
       },
     ],
     description:
-      "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the `server.options.pfx` option.",
+      "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
     multiple: false,
     simpleType: "boolean",
   },
@@ -631,12 +631,12 @@ module.exports = {
         type: "string",
         multiple: true,
         description:
-          "Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the `server.options.cert` option.",
+          "Path to an SSL certificate or content of an SSL certificate. Deprecated, use the `server.options.cert` option.",
         path: "https.cert[]",
       },
     ],
     description:
-      "Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the `server.options.cert` option.",
+      "Path to an SSL certificate or content of an SSL certificate. Deprecated, use the `server.options.cert` option.",
     simpleType: "string",
     multiple: true,
   },
@@ -644,14 +644,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the `server.options.cert` option.",
+          "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate. Deprecated, use the `server.options.cert` option.",
         multiple: false,
         path: "https.cert",
         type: "reset",
       },
     ],
     description:
-      "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the `server.options.cert` option.",
+      "Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL certificate. Deprecated, use the `server.options.cert` option.",
     multiple: false,
     simpleType: "boolean",
   },
@@ -659,14 +659,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option.",
+          "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, use the `server.options.crl` option.",
         multiple: true,
         path: "https.crl[]",
         type: "string",
       },
     ],
     description:
-      "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option.",
+      "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, use the `server.options.crl` option.",
     multiple: true,
     simpleType: "string",
   },
@@ -674,14 +674,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option.",
+          "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, use the `server.options.crl` option.",
         multiple: false,
         path: "https.crl",
         type: "reset",
       },
     ],
     description:
-      "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option.",
+      "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, use the `server.options.crl` option.",
     multiple: false,
     simpleType: "boolean",
   },
@@ -919,14 +919,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Path to an SSL CA certificate or content of an SSL CA certificate.",
+          "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
         multiple: true,
         path: "server.options.cacert[]",
         type: "string",
       },
     ],
     description:
-      "Path to an SSL CA certificate or content of an SSL CA certificate.",
+      "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
     multiple: true,
     simpleType: "string",
   },
@@ -934,14 +934,14 @@ module.exports = {
     configs: [
       {
         description:
-          "Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+          "Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
         multiple: false,
         path: "server.options.cacert",
         type: "reset",
       },
     ],
     description:
-      "Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.",
+      "Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
     multiple: false,
     simpleType: "boolean",
   },
