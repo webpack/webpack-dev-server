@@ -64,6 +64,8 @@ Array [
 ]
 `;
 
+exports[`API should work with deprecated API ('listen' and \`close\` methods): deprecation log 1`] = `"'listen' is deprecated. Please use async 'start' or 'startCallback' methods."`;
+
 exports[`API should work with deprecated API ('listen' and \`close\` methods): page errors 1`] = `Array []`;
 
 exports[`API should work with deprecated API (only compiler in constructor): console messages 1`] = `
@@ -75,6 +77,8 @@ Array [
 ]
 `;
 
+exports[`API should work with deprecated API (only compiler in constructor): deprecation log 1`] = `"Using 'compiler' as the first argument is deprecated. Please use 'options' as the first argument and 'compiler' as the second argument."`;
+
 exports[`API should work with deprecated API (only compiler in constructor): page errors 1`] = `Array []`;
 
 exports[`API should work with deprecated API (the order of the arguments in the constructor): console messages 1`] = `
@@ -85,5 +89,7 @@ Array [
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
+
+exports[`API should work with deprecated API (the order of the arguments in the constructor): deprecation log 1`] = `"Using 'compiler' as the first argument is deprecated. Please use 'options' as the first argument and 'compiler' as the second argument."`;
 
 exports[`API should work with deprecated API (the order of the arguments in the constructor): page errors 1`] = `Array []`;

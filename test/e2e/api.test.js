@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const util = require("util");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -206,6 +207,7 @@ describe("API", () => {
   it("should work with deprecated API ('listen' and `close` methods)", async () => {
     const compiler = webpack(config);
     const devServerOptions = { port };
+    const utilSpy = jest.spyOn(util, "deprecate");
     const server = new Server(devServerOptions, compiler);
 
     await new Promise((resolve, reject) => {
@@ -237,11 +239,13 @@ describe("API", () => {
       waitUntil: "networkidle0",
     });
 
+    expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
     );
     expect(pageErrors).toMatchSnapshot("page errors");
 
+    utilSpy.mockRestore();
     await browser.close();
     await new Promise((resolve) => {
       server.close(() => {
@@ -253,6 +257,7 @@ describe("API", () => {
   it(`should work with deprecated API (the order of the arguments in the constructor)`, async () => {
     const compiler = webpack(config);
     const devServerOptions = { port };
+    const utilSpy = jest.spyOn(util, "deprecate");
     const server = new Server(compiler, devServerOptions);
 
     await server.start();
@@ -274,17 +279,21 @@ describe("API", () => {
       waitUntil: "networkidle0",
     });
 
+    expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
+
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
     );
     expect(pageErrors).toMatchSnapshot("page errors");
 
+    utilSpy.mockRestore();
     await browser.close();
     await server.stop();
   });
 
   it(`should work with deprecated API (only compiler in constructor)`, async () => {
     const compiler = webpack(config);
+    const utilSpy = jest.spyOn(util, "deprecate");
     const server = new Server(compiler);
 
     server.options.port = port;
@@ -308,11 +317,13 @@ describe("API", () => {
       waitUntil: "networkidle0",
     });
 
+    expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
     );
     expect(pageErrors).toMatchSnapshot("page errors");
 
+    utilSpy.mockRestore();
     await browser.close();
     await server.stop();
   });
