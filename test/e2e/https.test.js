@@ -59,6 +59,7 @@ describe("https option", () => {
     });
 
     afterEach(async () => {
+      utilSpy.mockRestore();
       await browser.close();
       await server.stop();
     });
