@@ -520,7 +520,8 @@ exports[`options validate should throw an error on the "open" option with '{"app
       Details:
        * options.open.app should be an object:
          object { name?, arguments? }
-       * options.open.app should be a non-empty string."
+       * options.open.app should be a non-empty string.
+         -> Open specified browser. Deprecated: please use '--open-app-name'."
 `;
 
 exports[`options validate should throw an error on the "open" option with '{"foo":"bar"}' value 1`] = `

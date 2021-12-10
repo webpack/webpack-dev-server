@@ -160,7 +160,7 @@ Options:
   --no-open                                 Does not open the default browser.
   --open-target <value...>                  Opens specified page in browser.
   --open-app-name <value...>                Open specified browser.
-  --open-app <value...>                     Open specified browser.
+  --open-app <value...>                     Open specified browser. Deprecated: please use '--open-app-name'.
   --open-reset                              Clear all items provided in 'open' configuration. Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).
   --open-target-reset                       Clear all items provided in 'open.target' configuration. Opens specified page in browser.
   --open-app-name-reset                     Clear all items provided in 'open.app.name' configuration. Open specified browser.
