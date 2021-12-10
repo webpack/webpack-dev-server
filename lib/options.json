@@ -581,7 +581,7 @@
             {
               "type": "string",
               "minLength": 1,
-              "description": "Open specified browser. Deprecated: please use open.app.name/--open-app-name."
+              "description": "Open specified browser. Deprecated: please use '--open-app-name'."
             }
           ],
           "description": "Open specified browser."

@@ -807,12 +807,12 @@ module.exports = {
         type: "string",
         multiple: true,
         description:
-          "Open specified browser. Deprecated: please use open.app.name/--open-app-name.",
+          "Open specified browser. Deprecated: please use '--open-app-name'.",
         path: "open[].app",
       },
     ],
     description:
-      "Open specified browser. Deprecated: please use open.app.name/--open-app-name.",
+      "Open specified browser. Deprecated: please use '--open-app-name'.",
     simpleType: "string",
     multiple: true,
   },
