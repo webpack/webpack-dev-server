@@ -434,6 +434,12 @@ const tests = {
       {
         type: "https",
         options: {
+          cacert: true,
+        },
+      },
+      {
+        type: "https",
+        options: {
           ca: true,
         },
       },
