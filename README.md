@@ -119,40 +119,38 @@ Options:
   --host <value>                            Allows to specify a hostname to use.
   --hot [value]                             Enables Hot Module Replacement.
   --no-hot                                  Disables Hot Module Replacement.
-  --http2                                   Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.
+  --http2                                   Allows to serve over HTTP/2 using SPDY. Deprecated, use the `server` option.
   --no-http2                                Does not serve over HTTP/2 using SPDY.
-  --https                                   Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor
-                                            of the `server` option.
+  --https                                   Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, use the `server` option.
   --no-https                                Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).
-  --https-passphrase <value>                Passphrase for a pfx file. Deprecated, it will be removed in favor of the `server.options.passphrase` option.
-  --https-request-cert                      Request for an SSL certificate. Deprecated, it will be removed in favor of the `server.options.requestCert`
-                                            option.
+  --https-passphrase <value>                Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option.
+  --https-request-cert                      Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.
   --no-https-request-cert                   Negative 'https-request-cert' option.
-  --https-ca <value...>                     Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the
+  --https-ca <value...>                     Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the
                                             `server.options.ca` option.
   --https-ca-reset                          Clear all items provided in 'https.ca' configuration. Path to an SSL CA certificate or content of an SSL CA
-                                            certificate. Deprecated, it will be removed in favor of the `server.options.ca` option.
-  --https-cacert <value...>                 Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the
+                                            certificate. Deprecated, use the `server.options.ca` option.
+  --https-cacert <value...>                 Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the
                                             `server.options.cacert` option.
   --https-cacert-reset                      Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA
-                                            certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option.
-  --https-cert <value...>                   Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the
+                                            certificate. Deprecated, use the `server.options.cacert` option.
+  --https-cert <value...>                   Path to an SSL certificate or content of an SSL certificate. Deprecated, use the
                                             `server.options.cert` option.
   --https-cert-reset                        Clear all items provided in 'https.cert' configuration. Path to an SSL certificate or content of an SSL
-                                            certificate. Deprecated, it will be removed in favor of the `server.options.cert` option.
+                                            certificate. Deprecated, use the `server.options.cert` option.
   --https-crl <value...>                    Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate
-                                            Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option.
+                                            Revocation Lists). Deprecated, use the `server.options.crl` option.
   --https-crl-reset                         Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists)
-                                            or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the
+                                            or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, use the
                                             `server.options.crl` option.
-  --https-key <value...>                    Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key`
+  --https-key <value...>                    Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key`
                                             option.
   --https-key-reset                         Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated,
-                                            it will be removed in favor of the `server.options.key` option.
-  --https-pfx <value...>                    Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the
+                                            use the `server.options.key` option.
+  --https-pfx <value...>                    Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the
                                             `server.options.pfx` option.
   --https-pfx-reset                         Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file.
-                                            Deprecated, it will be removed in favor of the `server.options.pfx` option.
+                                            Deprecated, use the `server.options.pfx` option.
   --ipc [value]                             Listen to a unix socket.
   --live-reload                             Enables reload/refresh the page(s) when file changes are detected (enabled by default).
   --no-live-reload                          Disables reload/refresh the page(s) when file changes are detected (enabled by default)

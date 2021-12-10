@@ -207,7 +207,7 @@
     },
     "HTTP2": {
       "type": "boolean",
-      "description": "Allows to serve over HTTP/2 using SPDY. Deprecated, it will be removed in favor of the `server` option.",
+      "description": "Allows to serve over HTTP/2 using SPDY. Deprecated, use the `server` option.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverhttp2"
     },
     "HTTPS": {
@@ -221,11 +221,11 @@
           "properties": {
             "passphrase": {
               "type": "string",
-              "description": "Passphrase for a pfx file. Deprecated, it will be removed in favor of the `server.options.passphrase` option."
+              "description": "Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option."
             },
             "requestCert": {
               "type": "boolean",
-              "description": "Request for an SSL certificate. Deprecated, it will be removed in favor of the `server.options.requestCert` option."
+              "description": "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option."
             },
             "ca": {
               "anyOf": [
@@ -249,7 +249,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.ca` option."
+              "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option."
             },
             "cacert": {
               "anyOf": [
@@ -273,7 +273,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, it will be removed in favor of the `server.options.cacert` option."
+              "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option."
             },
             "cert": {
               "anyOf": [
@@ -297,7 +297,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL certificate or content of an SSL certificate. Deprecated, it will be removed in favor of the `server.options.cert` option."
+              "description": "Path to an SSL certificate or content of an SSL certificate. Deprecated, use the `server.options.cert` option."
             },
             "crl": {
               "anyOf": [
@@ -321,7 +321,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, it will be removed in favor of the `server.options.crl` option."
+              "description": "Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, use the `server.options.crl` option."
             },
             "key": {
               "anyOf": [
@@ -349,7 +349,7 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL key or content of an SSL key. Deprecated, it will be removed in favor of the `server.options.key` option."
+              "description": "Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option."
             },
             "pfx": {
               "anyOf": [
@@ -377,12 +377,12 @@
                   "instanceof": "Buffer"
                 }
               ],
-              "description": "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, it will be removed in favor of the `server.options.pfx` option."
+              "description": "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option."
             }
           }
         }
       ],
-      "description": "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, it will be removed in favor of the `server` option.",
+      "description": "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, use the `server` option.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverhttps"
     },
     "HeaderObject": {
@@ -732,7 +732,7 @@
               "instanceof": "Buffer"
             }
           ],
-          "description": "Path to an SSL CA certificate or content of an SSL CA certificate."
+          "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option."
         },
         "cert": {
           "anyOf": [
