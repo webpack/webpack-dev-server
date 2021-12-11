@@ -1,30 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`watchFiles option should not crash if wile doesn't exist should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should not crash if file doesn't exist should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should not crash if wile doesn't exist should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should not crash if file doesn't exist should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should not crash if wile doesn't exist should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should not crash if file doesn't exist should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with array config should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with array config should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with array config should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with array config should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with array config should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with array config should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with object with multiple paths should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with object with multiple paths should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with object with multiple paths should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with object with multiple paths should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with object with multiple paths should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with object with multiple paths should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with object with single path should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with object with single path should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with object with single path should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with object with single path should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with object with single path should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with object with single path should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"interval":400,"poll":200} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"interval":400,"poll":200} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -38,13 +54,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"interval":400,"poll":200} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"interval":400,"poll":200} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"interval":400,"poll":200} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"interval":400,"poll":200} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"interval":400,"poll":200} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"interval":400,"poll":200} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"poll":200} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"poll":200} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -58,13 +78,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"poll":200} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"poll":200} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"poll":200} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"poll":200} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"poll":200} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"poll":200} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"poll":true} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"poll":true} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -78,13 +102,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"poll":true} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"poll":true} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"poll":true} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"poll":true} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"poll":true} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"poll":true} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -98,13 +126,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -118,13 +150,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -138,13 +174,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"usePolling":false} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"usePolling":false} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -158,13 +198,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"usePolling":false} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"usePolling":false} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":false} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"usePolling":false} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"usePolling":false} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -178,13 +222,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -198,13 +246,17 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with options {"usePolling":true} should handle GET request to bundle file 1`] = `
+exports[`watchFiles option should work with options {"usePolling":true} should reload when file content is changed 1`] = `
 Object {
   "alwaysStat": true,
   "atomic": false,
@@ -218,26 +270,42 @@ Object {
 }
 `;
 
-exports[`watchFiles option should work with options {"usePolling":true} should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":true} should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with options {"usePolling":true} should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with options {"usePolling":true} should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with options {"usePolling":true} should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with options {"usePolling":true} should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with string and glob should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with string and glob should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with string and glob should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with string and glob should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with string and glob should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with string and glob should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with string and path to directory should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with string and path to directory should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with string and path to directory should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with string and path to directory should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with string and path to directory should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with string and path to directory should reload when file content is changed: response status 1`] = `200`;
 
-exports[`watchFiles option should work with string and path to file should handle GET request to bundle file: console messages 1`] = `Array []`;
+exports[`watchFiles option should work with string and path to file should reload when file content is changed: console messages 1`] = `
+Array [
+  "Hey.",
+]
+`;
 
-exports[`watchFiles option should work with string and path to file should handle GET request to bundle file: page errors 1`] = `Array []`;
+exports[`watchFiles option should work with string and path to file should reload when file content is changed: page errors 1`] = `Array []`;
 
-exports[`watchFiles option should work with string and path to file should handle GET request to bundle file: response status 1`] = `200`;
+exports[`watchFiles option should work with string and path to file should reload when file content is changed: response status 1`] = `200`;

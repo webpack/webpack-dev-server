@@ -46,7 +46,7 @@ describe("watchFiles option", () => {
       fs.truncateSync(file);
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should reload when file content is changed", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -55,7 +55,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
 
@@ -66,18 +66,20 @@ describe("watchFiles option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
-    it("should reload on file content changed", (done) => {
-      server.staticWatchers[0].on("change", (changedPath) => {
-        expect(changedPath).toBe(file);
-        done();
-      });
 
       // change file content
-      setTimeout(() => {
-        fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
-      }, 1000);
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
     });
   });
 
@@ -115,7 +117,7 @@ describe("watchFiles option", () => {
       fs.truncateSync(file);
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should reload when file content is changed", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -124,7 +126,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
 
@@ -135,18 +137,20 @@ describe("watchFiles option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
-    it("should reload on file content changed", (done) => {
-      server.staticWatchers[0].on("change", (changedPath) => {
-        expect(changedPath).toBe(file);
-        done();
-      });
 
       // change file content
-      setTimeout(() => {
-        fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
-      }, 1000);
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
     });
   });
 
@@ -184,7 +188,7 @@ describe("watchFiles option", () => {
       fs.truncateSync(file);
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should reload when file content is changed", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -193,7 +197,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
 
@@ -204,22 +208,24 @@ describe("watchFiles option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
-    it("should reload on file content changed", (done) => {
-      server.staticWatchers[0].on("change", (changedPath) => {
-        expect(changedPath).toBe(file);
-        done();
-      });
 
       // change file content
-      setTimeout(() => {
-        fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
-      }, 1000);
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
     });
   });
 
-  describe("should not crash if wile doesn't exist", () => {
+  describe("should not crash if file doesn't exist", () => {
     const nonExistFile = path.join(watchDir, "assets/non-exist.txt");
     let compiler;
     let server;
@@ -258,7 +264,7 @@ describe("watchFiles option", () => {
       await server.stop();
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should reload when file content is changed", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -267,7 +273,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
 
@@ -278,24 +284,25 @@ describe("watchFiles option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
-    });
 
-    it("should reload on file content changed", (done) => {
-      server.staticWatchers[0].on("change", (changedPath) => {
-        expect(changedPath).toBe(nonExistFile);
-        fs.truncateSync(nonExistFile);
-        done();
-      });
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      // create file content
-      setTimeout(() => {
-        fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
+          expect(changedPath).toBe(nonExistFile);
+          resolve();
+        });
 
-        // change file content
+        // create file content
         setTimeout(() => {
           fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
+          // change file content
+          setTimeout(() => {
+            fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
+          }, 1000);
         }, 1000);
-      }, 1000);
+      });
     });
   });
 
@@ -333,7 +340,7 @@ describe("watchFiles option", () => {
       fs.truncateSync(file);
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should reload when file content is changed", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -342,7 +349,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
 
@@ -353,18 +360,20 @@ describe("watchFiles option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
-    it("should reload on file content changed", (done) => {
-      server.staticWatchers[0].on("change", (changedPath) => {
-        expect(changedPath).toBe(file);
-        done();
-      });
 
       // change file content
-      setTimeout(() => {
-        fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
-      }, 1000);
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
     });
   });
 
@@ -404,7 +413,7 @@ describe("watchFiles option", () => {
       fs.truncateSync(other);
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should reload when file content is changed", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -413,7 +422,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
 
@@ -424,28 +433,28 @@ describe("watchFiles option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
-    it("should reload on file content channge", (done) => {
-      const expected = [file, other];
-
-      let changed = 0;
-
-      server.staticWatchers[0].on("change", (changedPath) => {
-        expect(expected.includes(changedPath)).toBeTruthy();
-
-        changed += 1;
-
-        if (changed === 2) {
-          done();
-        }
-      });
 
       // change file content
-      setTimeout(() => {
-        fs.writeFileSync(file, "foo", "utf8");
-        fs.writeFileSync(other, "bar", "utf8");
-      }, 1000);
+      fs.writeFileSync(file, "foo", "utf8");
+      fs.writeFileSync(other, "bar", "utf8");
+
+      await new Promise((resolve) => {
+        const expected = [file, other];
+        let changed = 0;
+
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(expected.includes(changedPath)).toBeTruthy();
+
+          changed += 1;
+
+          if (changed === 2) {
+            resolve();
+          }
+        });
+      });
     });
   });
 
@@ -485,7 +494,7 @@ describe("watchFiles option", () => {
       fs.truncateSync(other);
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should reload when file content is changed", async () => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -494,7 +503,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
         waitUntil: "networkidle0",
       });
 
@@ -505,36 +514,39 @@ describe("watchFiles option", () => {
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
-    it("should reload on file content change", (done) => {
-      let changed = 0;
-
-      server.staticWatchers[0].on("change", (changedPath) => {
-        expect(changedPath).toBe(file);
-
-        changed += 1;
-
-        if (changed === 2) {
-          done();
-        }
-      });
-
-      server.staticWatchers[1].on("change", (changedPath) => {
-        expect(changedPath).toBe(other);
-
-        changed += 1;
-
-        if (changed === 2) {
-          done();
-        }
-      });
 
       // change file content
-      setTimeout(() => {
-        fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
-        fs.writeFileSync(other, "Kurosaki Ichigo", "utf8");
-      }, 1000);
+      fs.writeFileSync(file, "foo", "utf8");
+      fs.writeFileSync(other, "bar", "utf8");
+
+      await new Promise((resolve) => {
+        let changed = 0;
+
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          changed += 1;
+
+          if (changed === 2) {
+            resolve();
+          }
+        });
+        server.staticWatchers[1].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(other);
+
+          changed += 1;
+
+          if (changed === 2) {
+            resolve();
+          }
+        });
+      });
     });
   });
 
@@ -623,7 +635,7 @@ describe("watchFiles option", () => {
           fs.truncateSync(file);
         });
 
-        it("should handle GET request to bundle file", async () => {
+        it("should reload when file content is changed", async () => {
           page
             .on("console", (message) => {
               consoleMessages.push(message);
@@ -632,7 +644,7 @@ describe("watchFiles option", () => {
               pageErrors.push(error);
             });
 
-          const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+          const response = await page.goto(`http://127.0.0.1:${port}/main`, {
             waitUntil: "networkidle0",
           });
 
@@ -646,19 +658,20 @@ describe("watchFiles option", () => {
           ).toMatchSnapshot("console messages");
 
           expect(pageErrors).toMatchSnapshot("page errors");
-        });
-
-        it("should reload on file content changed", (done) => {
-          server.staticWatchers[0].on("change", (changedPath) => {
-            expect(changedPath).toBe(file);
-
-            done();
-          });
 
           // change file content
-          setTimeout(() => {
-            fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
-          }, 1000);
+          fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+          await new Promise((resolve) => {
+            server.staticWatchers[0].on("change", async (changedPath) => {
+              // page reload
+              await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+              expect(changedPath).toBe(file);
+
+              resolve();
+            });
+          });
         });
       });
     });
