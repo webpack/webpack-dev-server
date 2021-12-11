@@ -908,7 +908,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
    Details:
     * options.webSocketServer should be one of these:
       false | \\"sockjs\\" | \\"ws\\"
-      -> Deprecated: please use 'webSocketServer.type'/'--web-socket-server-type' option.
+      -> Deprecated: please use '--web-socket-server-type' option.
       Details:
        * options.webSocketServer should be false.
        * options.webSocketServer should be one of these:
@@ -928,7 +928,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
    Details:
     * options.webSocketServer should be one of these:
       false | \\"sockjs\\" | \\"ws\\"
-      -> Deprecated: please use 'webSocketServer.type'/'--web-socket-server-type' option.
+      -> Deprecated: please use '--web-socket-server-type' option.
       Details:
        * options.webSocketServer should be false.
        * options.webSocketServer should be one of these:
