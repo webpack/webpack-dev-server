@@ -56,29 +56,6 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
-  "client-web-socket-transport": {
-    configs: [
-      {
-        type: "enum",
-        values: ["sockjs", "ws"],
-        multiple: false,
-        description:
-          "Allows to set custom web socket transport to communicate with dev server.",
-        path: "client.webSocketTransport",
-      },
-      {
-        type: "string",
-        multiple: false,
-        description:
-          "Allows to set custom web socket transport to communicate with dev server.",
-        path: "client.webSocketTransport",
-      },
-    ],
-    description:
-      "Allows to set custom web socket transport to communicate with dev server.",
-    simpleType: "string",
-    multiple: false,
-  },
   client: {
     configs: [
       {
@@ -107,22 +84,6 @@ module.exports = {
     ],
     description: "Allows to set log level in the browser.",
     simpleType: "string",
-    multiple: false,
-  },
-  "client-progress": {
-    configs: [
-      {
-        type: "boolean",
-        multiple: false,
-        description:
-          "Prints compilation progress in percentage in the browser.",
-        path: "client.progress",
-      },
-    ],
-    description: "Prints compilation progress in percentage in the browser.",
-    negatedDescription:
-      "Does not print compilation progress in percentage in the browser.",
-    simpleType: "boolean",
     multiple: false,
   },
   "client-overlay": {
@@ -172,6 +133,22 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "client-progress": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Prints compilation progress in percentage in the browser.",
+        path: "client.progress",
+      },
+    ],
+    description: "Prints compilation progress in percentage in the browser.",
+    negatedDescription:
+      "Does not print compilation progress in percentage in the browser.",
+    simpleType: "boolean",
+    multiple: false,
+  },
   "client-reconnect": {
     configs: [
       {
@@ -192,6 +169,29 @@ module.exports = {
     description:
       "Tells dev-server the number of times it should try to reconnect the client.",
     negatedDescription: "Tells dev-server to not to try to connect the client.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-web-socket-transport": {
+    configs: [
+      {
+        type: "enum",
+        values: ["sockjs", "ws"],
+        multiple: false,
+        description:
+          "Allows to set custom web socket transport to communicate with dev server.",
+        path: "client.webSocketTransport",
+      },
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Allows to set custom web socket transport to communicate with dev server.",
+        path: "client.webSocketTransport",
+      },
+    ],
+    description:
+      "Allows to set custom web socket transport to communicate with dev server.",
     simpleType: "string",
     multiple: false,
   },
@@ -225,6 +225,36 @@ module.exports = {
     simpleType: "string",
     multiple: false,
   },
+  "client-web-socket-url-password": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Tells clients connected to devServer to use the provided password to authenticate.",
+        path: "client.webSocketURL.password",
+      },
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided password to authenticate.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "client-web-socket-url-pathname": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Tells clients connected to devServer to use the provided path to connect.",
+        path: "client.webSocketURL.pathname",
+      },
+    ],
+    description:
+      "Tells clients connected to devServer to use the provided path to connect.",
+    simpleType: "string",
+    multiple: false,
+  },
   "client-web-socket-url-port": {
     configs: [
       {
@@ -244,21 +274,6 @@ module.exports = {
     ],
     description:
       "Tells clients connected to devServer to use the provided port.",
-    simpleType: "string",
-    multiple: false,
-  },
-  "client-web-socket-url-pathname": {
-    configs: [
-      {
-        type: "string",
-        multiple: false,
-        description:
-          "Tells clients connected to devServer to use the provided path to connect.",
-        path: "client.webSocketURL.pathname",
-      },
-    ],
-    description:
-      "Tells clients connected to devServer to use the provided path to connect.",
     simpleType: "string",
     multiple: false,
   },
@@ -297,77 +312,6 @@ module.exports = {
     ],
     description:
       "Tells clients connected to devServer to use the provided username to authenticate.",
-    simpleType: "string",
-    multiple: false,
-  },
-  "client-web-socket-url-password": {
-    configs: [
-      {
-        type: "string",
-        multiple: false,
-        description:
-          "Tells clients connected to devServer to use the provided password to authenticate.",
-        path: "client.webSocketURL.password",
-      },
-    ],
-    description:
-      "Tells clients connected to devServer to use the provided password to authenticate.",
-    simpleType: "string",
-    multiple: false,
-  },
-  "web-socket-server": {
-    configs: [
-      {
-        description:
-          "Deprecated: please use '--web-socket-server-type' option.",
-        multiple: false,
-        path: "webSocketServer",
-        type: "enum",
-        values: [false],
-      },
-      {
-        description:
-          "Deprecated: please use '--web-socket-server-type' option.",
-        multiple: false,
-        path: "webSocketServer",
-        type: "enum",
-        values: ["sockjs", "ws"],
-      },
-      {
-        description:
-          "Allows to set web socket server and options (by default 'ws').",
-        multiple: false,
-        path: "webSocketServer",
-        type: "string",
-      },
-    ],
-
-    description:
-      "Deprecated: please use '--web-socket-server-type' option. Allows to set web socket server and options (by default 'ws').",
-    simpleType: "string",
-    multiple: false,
-  },
-  "web-socket-server-type": {
-    configs: [
-      {
-        description:
-          "Allows to set web socket server and options (by default 'ws').",
-        multiple: false,
-        path: "webSocketServer.type",
-        type: "enum",
-        values: ["sockjs", "ws"],
-      },
-      {
-        description:
-          "Allows to set web socket server and options (by default 'ws').",
-        multiple: false,
-        path: "webSocketServer.type",
-        type: "string",
-      },
-    ],
-
-    description:
-      "Allows to set web socket server and options (by default 'ws').",
     simpleType: "string",
     multiple: false,
   },
@@ -474,37 +418,6 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
-  "https-passphrase": {
-    configs: [
-      {
-        type: "string",
-        multiple: false,
-        description:
-          "Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option.",
-        path: "https.passphrase",
-      },
-    ],
-    description:
-      "Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option.",
-    simpleType: "string",
-    multiple: false,
-  },
-  "https-request-cert": {
-    configs: [
-      {
-        type: "boolean",
-        multiple: false,
-        description:
-          "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
-        path: "https.requestCert",
-      },
-    ],
-    description:
-      "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
-    negatedDescription: "Does not request for an SSL certificate.",
-    simpleType: "boolean",
-    multiple: false,
-  },
   "https-ca": {
     configs: [
       {
@@ -562,66 +475,6 @@ module.exports = {
     ],
     description:
       "Clear all items provided in 'https.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option.",
-    multiple: false,
-    simpleType: "boolean",
-  },
-  "https-key": {
-    configs: [
-      {
-        type: "string",
-        multiple: true,
-        description:
-          "Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
-        path: "https.key[]",
-      },
-    ],
-    description:
-      "Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
-    simpleType: "string",
-    multiple: true,
-  },
-  "https-key-reset": {
-    configs: [
-      {
-        description:
-          "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
-        multiple: false,
-        path: "https.key",
-        type: "reset",
-      },
-    ],
-    description:
-      "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
-    multiple: false,
-    simpleType: "boolean",
-  },
-  "https-pfx": {
-    configs: [
-      {
-        type: "string",
-        multiple: true,
-        description:
-          "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
-        path: "https.pfx[]",
-      },
-    ],
-    description:
-      "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
-    simpleType: "string",
-    multiple: true,
-  },
-  "https-pfx-reset": {
-    configs: [
-      {
-        description:
-          "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
-        multiple: false,
-        path: "https.pfx",
-        type: "reset",
-      },
-    ],
-    description:
-      "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
     multiple: false,
     simpleType: "boolean",
   },
@@ -684,6 +537,97 @@ module.exports = {
       "Clear all items provided in 'https.crl' configuration. Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists). Deprecated, use the `server.options.crl` option.",
     multiple: false,
     simpleType: "boolean",
+  },
+  "https-key": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
+        path: "https.key[]",
+      },
+    ],
+    description:
+      "Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-key-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
+        multiple: false,
+        path: "https.key",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.key' configuration. Path to an SSL key or content of an SSL key. Deprecated, use the `server.options.key` option.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "https-passphrase": {
+    configs: [
+      {
+        type: "string",
+        multiple: false,
+        description:
+          "Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option.",
+        path: "https.passphrase",
+      },
+    ],
+    description:
+      "Passphrase for a pfx file. Deprecated, use the `server.options.passphrase` option.",
+    simpleType: "string",
+    multiple: false,
+  },
+  "https-pfx": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description:
+          "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
+        path: "https.pfx[]",
+      },
+    ],
+    description:
+      "Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
+    simpleType: "string",
+    multiple: true,
+  },
+  "https-pfx-reset": {
+    configs: [
+      {
+        description:
+          "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
+        multiple: false,
+        path: "https.pfx",
+        type: "reset",
+      },
+    ],
+    description:
+      "Clear all items provided in 'https.pfx' configuration. Path to an SSL pfx file or content of an SSL pfx file. Deprecated, use the `server.options.pfx` option.",
+    multiple: false,
+    simpleType: "boolean",
+  },
+  "https-request-cert": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
+        path: "https.requestCert",
+      },
+    ],
+    description:
+      "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
+    negatedDescription: "Does not request for an SSL certificate.",
+    simpleType: "boolean",
+    multiple: false,
   },
   ipc: {
     configs: [
@@ -762,23 +706,18 @@ module.exports = {
     simpleType: "string",
     multiple: true,
   },
-  "open-target": {
+  "open-app": {
     configs: [
       {
         type: "string",
         multiple: true,
-        description: "Opens specified page in browser.",
-        path: "open[].target",
-      },
-      {
-        type: "string",
-        multiple: true,
-        description: "Opens specified page in browser.",
-        path: "open.target[]",
+        description:
+          "Open specified browser. Deprecated: please use '--open-app-name'.",
+        path: "open[].app",
       },
     ],
-    description: "Opens specified page in browser.",
-    negatedDescription: "Does not open specified page in browser.",
+    description:
+      "Open specified browser. Deprecated: please use '--open-app-name'.",
     simpleType: "string",
     multiple: true,
   },
@@ -801,20 +740,20 @@ module.exports = {
     simpleType: "string",
     multiple: true,
   },
-  "open-app": {
+  "open-app-name-reset": {
     configs: [
       {
-        type: "string",
-        multiple: true,
+        type: "reset",
+        multiple: false,
         description:
-          "Open specified browser. Deprecated: please use '--open-app-name'.",
-        path: "open[].app",
+          "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
+        path: "open.app.name",
       },
     ],
     description:
-      "Open specified browser. Deprecated: please use '--open-app-name'.",
-    simpleType: "string",
-    multiple: true,
+      "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
+    simpleType: "boolean",
+    multiple: false,
   },
   "open-reset": {
     configs: [
@@ -831,6 +770,26 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "open-target": {
+    configs: [
+      {
+        type: "string",
+        multiple: true,
+        description: "Opens specified page in browser.",
+        path: "open[].target",
+      },
+      {
+        type: "string",
+        multiple: true,
+        description: "Opens specified page in browser.",
+        path: "open.target[]",
+      },
+    ],
+    description: "Opens specified page in browser.",
+    negatedDescription: "Does not open specified page in browser.",
+    simpleType: "string",
+    multiple: true,
+  },
   "open-target-reset": {
     configs: [
       {
@@ -843,21 +802,6 @@ module.exports = {
     ],
     description:
       "Clear all items provided in 'open.target' configuration. Opens specified page in browser.",
-    simpleType: "boolean",
-    multiple: false,
-  },
-  "open-app-name-reset": {
-    configs: [
-      {
-        type: "reset",
-        multiple: false,
-        description:
-          "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
-        path: "open.app.name",
-      },
-    ],
-    description:
-      "Clear all items provided in 'open.app.name' configuration. Open specified browser.",
     simpleType: "boolean",
     multiple: false,
   },
@@ -1159,6 +1103,36 @@ module.exports = {
     simpleType: "string",
     multiple: true,
   },
+  "static-public-path-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
+        path: "static.publicPath",
+      },
+    ],
+    description:
+      "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
+    simpleType: "boolean",
+    multiple: false,
+  },
+  "static-reset": {
+    configs: [
+      {
+        type: "reset",
+        multiple: false,
+        description:
+          "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).",
+        path: "static",
+      },
+    ],
+    description:
+      "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).",
+    simpleType: "boolean",
+    multiple: false,
+  },
   "static-serve-index": {
     configs: [
       {
@@ -1189,36 +1163,6 @@ module.exports = {
     simpleType: "boolean",
     multiple: true,
   },
-  "static-reset": {
-    configs: [
-      {
-        type: "reset",
-        multiple: false,
-        description:
-          "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).",
-        path: "static",
-      },
-    ],
-    description:
-      "Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).",
-    simpleType: "boolean",
-    multiple: false,
-  },
-  "static-public-path-reset": {
-    configs: [
-      {
-        type: "reset",
-        multiple: false,
-        description:
-          "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
-        path: "static.publicPath",
-      },
-    ],
-    description:
-      "Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.",
-    simpleType: "boolean",
-    multiple: false,
-  },
   "watch-files": {
     configs: [
       {
@@ -1247,6 +1191,60 @@ module.exports = {
     description:
       "Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes.",
     simpleType: "boolean",
+    multiple: false,
+  },
+  "web-socket-server": {
+    configs: [
+      {
+        description:
+          "Deprecated: please use '--web-socket-server-type' option.",
+        multiple: false,
+        path: "webSocketServer",
+        type: "enum",
+        values: [false],
+      },
+      {
+        description:
+          "Deprecated: please use '--web-socket-server-type' option.",
+        multiple: false,
+        path: "webSocketServer",
+        type: "enum",
+        values: ["sockjs", "ws"],
+      },
+      {
+        description:
+          "Allows to set web socket server and options (by default 'ws').",
+        multiple: false,
+        path: "webSocketServer",
+        type: "string",
+      },
+    ],
+    description:
+      "Deprecated: please use '--web-socket-server-type' option. Allows to set web socket server and options (by default 'ws').",
+    simpleType: "string",
+    multiple: false,
+  },
+  "web-socket-server-type": {
+    configs: [
+      {
+        description:
+          "Allows to set web socket server and options (by default 'ws').",
+        multiple: false,
+        path: "webSocketServer.type",
+        type: "enum",
+        values: ["sockjs", "ws"],
+      },
+      {
+        description:
+          "Allows to set web socket server and options (by default 'ws').",
+        multiple: false,
+        path: "webSocketServer.type",
+        type: "string",
+      },
+    ],
+    description:
+      "Allows to set web socket server and options (by default 'ws').",
+    simpleType: "string",
     multiple: false,
   },
 };
