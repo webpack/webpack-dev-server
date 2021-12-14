@@ -393,6 +393,7 @@ const tests = {
       "http",
       "https",
       "spdy",
+      "custom-server.js",
       {
         type: "http",
       },
@@ -401,6 +402,9 @@ const tests = {
       },
       {
         type: "spdy",
+      },
+      {
+        type: "custom-server.js",
       },
       {
         type: "https",

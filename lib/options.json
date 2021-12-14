@@ -667,7 +667,14 @@
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/ServerType"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ServerType"
+            },
+            {
+              "$ref": "#/definitions/ServerString"
+            }
+          ]
         },
         "options": {
           "$ref": "#/definitions/ServerOptions"

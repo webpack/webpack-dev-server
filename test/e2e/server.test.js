@@ -10,6 +10,7 @@ const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const { skipTestOnWindows } = require("../helpers/conditional-test");
+const customHTTP = require("../helpers/custom-http");
 const normalizeOptions = require("../helpers/normalize-options");
 const port = require("../ports-map")["server-option"];
 
@@ -1635,6 +1636,82 @@ describe("server option", () => {
         expect(
           normalizeOptions(createServerSpy.mock.calls[0][0])
         ).toMatchSnapshot("https options");
+        expect(response.status()).toMatchSnapshot("response status");
+        expect(await response.text()).toMatchSnapshot("response text");
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      });
+    });
+
+    describe("custom server with options", () => {
+      let compiler;
+      let server;
+      let createServerSpy;
+      let page;
+      let browser;
+      let pageErrors;
+      let consoleMessages;
+
+      beforeEach(async () => {
+        compiler = webpack(config);
+
+        createServerSpy = jest.spyOn(customHTTP, "createServer");
+
+        server = new Server(
+          {
+            static: {
+              directory: staticDirectory,
+              watch: false,
+            },
+            server: {
+              type: path.join(__dirname, "../helpers/custom-http.js"),
+              options: {
+                maxHeaderSize: 16384,
+              },
+            },
+            port,
+          },
+          compiler
+        );
+
+        await server.start();
+
+        ({ page, browser } = await runBrowser());
+
+        pageErrors = [];
+        consoleMessages = [];
+      });
+
+      afterEach(async () => {
+        createServerSpy.mockRestore();
+
+        await browser.close();
+        await server.stop();
+      });
+
+      it("should handle GET request to index route (/)", async () => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
+        });
+
+        const HTTPVersion = await page.evaluate(
+          () => performance.getEntries()[0].nextHopProtocol
+        );
+
+        expect(HTTPVersion).toEqual("http/1.1");
+        expect(
+          normalizeOptions(createServerSpy.mock.calls[0][0])
+        ).toMatchSnapshot("http options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
