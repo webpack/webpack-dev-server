@@ -163,54 +163,6 @@ describe("Server", () => {
     });
   });
 
-  describe("listen", () => {
-    let compiler;
-    let server;
-
-    beforeAll(() => {
-      compiler = webpack(config);
-    });
-
-    it('should log warning when the "port" and "host" options from options different from arguments', (done) => {
-      const options = {
-        host: "127.0.0.2",
-        port: "9999",
-      };
-
-      server = new Server(options, compiler);
-
-      const warnSpy = jest.fn();
-
-      const getInfrastructureLoggerSpy = jest
-        .spyOn(compiler, "getInfrastructureLogger")
-        .mockImplementation(() => {
-          return {
-            warn: warnSpy,
-            info: () => {},
-          };
-        });
-
-      server.listen(port, "127.0.0.1", () => {
-        const info = server.server.address();
-
-        expect(warnSpy).toHaveBeenNthCalledWith(
-          1,
-          'The "port" specified in options is different from the port passed as an argument. Will be used from arguments.'
-        );
-        expect(warnSpy).toHaveBeenNthCalledWith(
-          2,
-          'The "host" specified in options is different from the host passed as an argument. Will be used from arguments.'
-        );
-        expect(info.address).toBe("127.0.0.1");
-        expect(info.port).toBe(port);
-
-        warnSpy.mockRestore();
-        getInfrastructureLoggerSpy.mockRestore();
-        server.close(done);
-      });
-    });
-  });
-
   describe("checkHostHeader", () => {
     let compiler;
     let server;
@@ -263,39 +215,6 @@ describe("Server", () => {
       if (!server.checkHeader(headers, "origin")) {
         throw new Error("Validation didn't fail");
       }
-    });
-  });
-
-  describe("Invalidate Callback", () => {
-    describe("Testing callback functions on calling invalidate without callback", () => {
-      it("should use default `noop` callback", async () => {
-        const compiler = webpack(config);
-        const server = new Server(baseDevConfig, compiler);
-
-        await server.start();
-
-        server.invalidate();
-
-        expect(server.middleware.context.callbacks.length).toEqual(1);
-
-        await server.stop();
-      });
-    });
-
-    describe("Testing callback functions on calling invalidate with callback", () => {
-      it("should use `callback` function", async () => {
-        const compiler = webpack(config);
-        const callback = jest.fn();
-        const server = new Server(baseDevConfig, compiler);
-
-        await server.start();
-
-        server.invalidate(callback);
-
-        expect(server.middleware.context.callbacks[0]).toBe(callback);
-
-        await server.stop();
-      });
     });
   });
 
