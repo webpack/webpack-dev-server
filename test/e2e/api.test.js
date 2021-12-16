@@ -481,4 +481,292 @@ describe("API", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
     });
   });
+
+  describe("Server.getFreePort", () => {
+    let dummyServers = [];
+    let devServerPort;
+
+    afterEach(() => {
+      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
+      delete process.env.WEBPACK_DEV_SERVER_PORT_RETRY;
+
+      return dummyServers
+        .reduce(
+          (p, server) =>
+            p.then(
+              () =>
+                new Promise((resolve) => {
+                  server.stopCallback(resolve);
+                })
+            ),
+          Promise.resolve()
+        )
+        .then(() => {
+          dummyServers = [];
+        });
+    });
+
+    function createDummyServers(n) {
+      process.env.WEBPACK_DEV_SERVER_BASE_PORT = 60000;
+
+      return (Array.isArray(n) ? n : [...new Array(n)]).reduce(
+        (p, _, i) =>
+          p.then(
+            () =>
+              new Promise((resolve) => {
+                devServerPort = 60000 + i;
+                const compiler = webpack(config);
+                const server = new Server(
+                  { port: devServerPort, host: "0.0.0.0" },
+                  compiler
+                );
+
+                dummyServers.push(server);
+
+                server.startCallback(resolve);
+              })
+          ),
+        Promise.resolve()
+      );
+    }
+
+    it("should return the port when the port is specified", async () => {
+      const retryCount = 1;
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
+
+      const freePort = await Server.getFreePort(8082);
+
+      expect(freePort).toEqual(8082);
+    });
+
+    it("should return the port when the port is `null`", async () => {
+      const retryCount = 2;
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
+
+      await createDummyServers(retryCount);
+
+      const freePort = await Server.getFreePort(null);
+
+      expect(freePort).toEqual(60000 + retryCount);
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://127.0.0.1:${devServerPort}/main`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+    });
+
+    it("should return the port when the port is undefined", async () => {
+      const retryCount = 3;
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
+
+      await createDummyServers(retryCount);
+
+      // eslint-disable-next-line no-undefined
+      const freePort = await Server.getFreePort(undefined);
+
+      expect(freePort).toEqual(60000 + retryCount);
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://127.0.0.1:${devServerPort}/main`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+    });
+
+    it("should retry finding the port for up to defaultPortRetry times (number)", async () => {
+      const retryCount = 4;
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
+
+      await createDummyServers(retryCount);
+
+      const freePort = await Server.getFreePort();
+
+      expect(freePort).toEqual(60000 + retryCount);
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://127.0.0.1:${devServerPort}/main`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+    });
+
+    it("should retry finding the port for up to defaultPortRetry times (string)", async () => {
+      const retryCount = 5;
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
+
+      await createDummyServers(retryCount);
+
+      const freePort = await Server.getFreePort();
+
+      expect(freePort).toEqual(60000 + retryCount);
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://127.0.0.1:${devServerPort}/main`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+    });
+
+    it("should retry finding the port when serial ports are busy", async () => {
+      const busyPorts = [60000, 60001, 60002, 60003, 60004, 60005];
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1000;
+
+      await createDummyServers(busyPorts);
+
+      const freePort = await Server.getFreePort();
+
+      expect(freePort).toBeGreaterThan(60005);
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(
+        `http://127.0.0.1:${devServerPort}/main`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+    });
+
+    it("should throw the error when the port isn't found", async () => {
+      expect.assertions(1);
+
+      jest.mock("portfinder", () => {
+        return {
+          getPortPromise: () => Promise.reject(new Error("busy")),
+        };
+      });
+
+      process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
+
+      try {
+        await Server.getFreePort();
+      } catch (error) {
+        expect(error.message).toMatchSnapshot();
+      }
+    });
+  });
 });
