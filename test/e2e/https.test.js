@@ -655,11 +655,13 @@ describe("https option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let utilSpy;
 
     beforeEach(async () => {
       compiler = webpack(config);
 
       createServerSpy = jest.spyOn(https, "createServer");
+      utilSpy = jest.spyOn(util, "deprecate");
 
       server = new Server(
         {
@@ -697,6 +699,7 @@ describe("https option", () => {
 
     afterEach(async () => {
       createServerSpy.mockRestore();
+      utilSpy.mockRestore();
 
       await browser.close();
       await server.stop();
@@ -715,6 +718,9 @@ describe("https option", () => {
         waitUntil: "networkidle0",
       });
 
+      expect(utilSpy.mock.calls[1][1]).toBe(
+        "The 'cacert' option is deprecated. Please use the 'ca' option."
+      );
       expect(
         normalizeOptions(createServerSpy.mock.calls[0][0])
       ).toMatchSnapshot("https options");

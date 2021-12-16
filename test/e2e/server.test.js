@@ -2,6 +2,7 @@
 
 const https = require("https");
 const path = require("path");
+const util = require("util");
 const fs = require("graceful-fs");
 const request = require("supertest");
 const spdy = require("spdy");
@@ -871,11 +872,13 @@ describe("server option", () => {
       let browser;
       let pageErrors;
       let consoleMessages;
+      let utilSpy;
 
       beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = jest.spyOn(https, "createServer");
+        utilSpy = jest.spyOn(util, "deprecate");
 
         server = new Server(
           {
@@ -916,6 +919,7 @@ describe("server option", () => {
 
       afterEach(async () => {
         createServerSpy.mockRestore();
+        utilSpy.mockRestore();
 
         await browser.close();
         await server.stop();
@@ -934,6 +938,9 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
+        expect(utilSpy.mock.calls[0][1]).toBe(
+          "The 'cacert' option is deprecated. Please use the 'ca' option."
+        );
         expect(
           normalizeOptions(createServerSpy.mock.calls[0][0])
         ).toMatchSnapshot("https options");
