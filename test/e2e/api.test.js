@@ -769,4 +769,91 @@ describe("API", () => {
       }
     });
   });
+
+  describe("Server.checkHostHeader", () => {
+    it("should allow access for every requests using an IP", () => {
+      const options = {};
+
+      const tests = [
+        "192.168.1.123",
+        "192.168.1.2:8080",
+        "[::1]",
+        "[::1]:8080",
+        "[ad42::1de2:54c2:c2fa:1234]",
+        "[ad42::1de2:54c2:c2fa:1234]:8080",
+      ];
+
+      const compiler = webpack(config);
+      const server = new Server(options, compiler);
+
+      tests.forEach((test) => {
+        const headers = { host: test };
+
+        if (!server.checkHeader(headers, "host")) {
+          throw new Error("Validation didn't pass");
+        }
+      });
+    });
+
+    it('should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object', async () => {
+      const options = {
+        port,
+        client: {
+          webSocketURL: {
+            hostname: "test.host",
+          },
+        },
+        webSocketServer: "ws",
+      };
+      const headers = {
+        origin: "https://test.host",
+      };
+
+      const compiler = webpack(config);
+      const server = new Server(options, compiler);
+
+      await server.start();
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+      const client = page._client;
+
+      client.on("Network.webSocketCreated", (test) => {
+        webSocketRequests.push(test);
+      });
+
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+        waitUntil: "networkidle0",
+      });
+
+      if (!server.checkHeader(headers, "origin")) {
+        throw new Error("Validation didn't fail");
+      }
+
+      expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+      await server.stop();
+    });
+  });
 });
