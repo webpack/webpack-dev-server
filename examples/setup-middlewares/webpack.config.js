@@ -13,13 +13,22 @@ module.exports = setup({
         throw new Error("webpack-dev-server is not defined");
       }
 
-      const sendResponses = () => {
-        devServer.app.get("/setup-middleware/some/path", (_, response) => {
-          response.send("setup-middlewares option GET");
-        });
-      };
+      devServer.app.get("/setup-middleware/some/path", (_, response) => {
+        response.send("setup-middlewares option GET");
+      });
 
-      middlewares.push(sendResponses());
+      middlewares.push({
+        name: "hello-world-test-one",
+        // `path` is optional
+        path: "/foo/bar",
+        middleware: (req, res) => {
+          res.send("Foo Bar!");
+        },
+      });
+
+      middlewares.push((req, res) => {
+        res.send("Hello World!");
+      });
 
       return middlewares;
     },

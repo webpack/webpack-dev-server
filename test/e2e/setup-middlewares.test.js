@@ -23,17 +23,36 @@ describe("setupMiddlewares option", () => {
             throw new Error("webpack-dev-server is not defined");
           }
 
-          const sendResponses = () => {
-            devServer.app.get("/setup-middleware/some/path", (_, response) => {
-              response.send("setup-middlewares option GET");
-            });
+          devServer.app.get("/setup-middleware/some/path", (_, response) => {
+            response.send("setup-middlewares option GET");
+          });
 
-            devServer.app.post("/setup-middleware/some/path", (_, response) => {
-              response.send("setup-middlewares option POST");
-            });
-          };
+          devServer.app.post("/setup-middleware/some/path", (_, response) => {
+            response.send("setup-middlewares option POST");
+          });
 
-          middlewares.push(sendResponses());
+          middlewares.push({
+            name: "hello-world-test-two",
+            middleware: (req, res, next) => {
+              if (req.path !== "/foo/bar/baz") {
+                next();
+
+                return;
+              }
+
+              res.send("Hello World without path!");
+            },
+          });
+          middlewares.push({
+            name: "hello-world-test-one",
+            path: "/foo/bar",
+            middleware: (req, res) => {
+              res.send("Hello World with path!");
+            },
+          });
+          middlewares.push((req, res) => {
+            res.send("Hello World as function!");
+          });
 
           return middlewares;
         },
@@ -74,15 +93,45 @@ describe("setupMiddlewares option", () => {
     expect(response.headers()["content-type"]).toMatchSnapshot(
       "response headers content-type"
     );
-
     expect(response.status()).toMatchSnapshot("response status");
-
     expect(await response.text()).toMatchSnapshot("response text");
+
+    const response1 = await page.goto(`http://127.0.0.1:${port}/foo/bar`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(response1.headers()["content-type"]).toMatchSnapshot(
+      "response headers content-type"
+    );
+    expect(response1.status()).toMatchSnapshot("response status");
+    expect(await response1.text()).toMatchSnapshot("response text");
+
+    const response2 = await page.goto(`http://127.0.0.1:${port}/foo/bar/baz`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(response2.headers()["content-type"]).toMatchSnapshot(
+      "response headers content-type"
+    );
+    expect(response2.status()).toMatchSnapshot("response status");
+    expect(await response2.text()).toMatchSnapshot("response text");
+
+    const response3 = await page.goto(
+      `http://127.0.0.1:${port}/setup-middleware/unknown`,
+      {
+        waitUntil: "networkidle0",
+      }
+    );
+
+    expect(response3.headers()["content-type"]).toMatchSnapshot(
+      "response headers content-type"
+    );
+    expect(response3.status()).toMatchSnapshot("response status");
+    expect(await response3.text()).toMatchSnapshot("response text");
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
     );
-
     expect(pageErrors).toMatchSnapshot("page errors");
   });
 
@@ -110,15 +159,11 @@ describe("setupMiddlewares option", () => {
     expect(response.headers()["content-type"]).toMatchSnapshot(
       "response headers content-type"
     );
-
     expect(response.status()).toMatchSnapshot("response status");
-
     expect(await response.text()).toMatchSnapshot("response text");
-
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
       "console messages"
     );
-
     expect(pageErrors).toMatchSnapshot("page errors");
   });
 });
