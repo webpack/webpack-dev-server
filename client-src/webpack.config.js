@@ -4,6 +4,7 @@ const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 
+// @ts-ignore
 const library = webpack.webpack
   ? {
       library: {
@@ -27,6 +28,7 @@ const baseForModules = {
   optimization: {
     minimize: false,
   },
+  // @ts-ignore
   target: webpack.webpack ? ["web", "es5"] : "web",
   module: {
     rules: [
