@@ -33,6 +33,9 @@
     "release": "standard-version"
   },
   "dependencies": {
+    "@types/bonjour": "^3.5.9",
+    "@types/connect-history-api-fallback": "^1.3.5",
+    "@types/serve-index": "^1.9.1",
     "ansi-html-community": "^0.0.8",
     "bonjour": "^3.5.0",
     "chokidar": "^3.5.2",
