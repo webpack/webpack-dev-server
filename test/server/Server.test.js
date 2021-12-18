@@ -162,61 +162,6 @@ describe("Server", () => {
     });
   });
 
-  describe("checkHostHeader", () => {
-    let compiler;
-    let server;
-
-    beforeEach(() => {
-      compiler = webpack(config);
-    });
-
-    afterEach(async () => {
-      await server.stop();
-    });
-
-    it("should allow access for every requests using an IP", () => {
-      const options = {};
-
-      const tests = [
-        "192.168.1.123",
-        "192.168.1.2:8080",
-        "[::1]",
-        "[::1]:8080",
-        "[ad42::1de2:54c2:c2fa:1234]",
-        "[ad42::1de2:54c2:c2fa:1234]:8080",
-      ];
-
-      server = new Server(options, compiler);
-
-      tests.forEach((test) => {
-        const headers = { host: test };
-
-        if (!server.checkHeader(headers, "host")) {
-          throw new Error("Validation didn't pass");
-        }
-      });
-    });
-
-    it('should allow urls with scheme for checking origin when the "option.client.webSocketURL" is object', () => {
-      const options = {
-        client: {
-          webSocketURL: {
-            hostname: "test.host",
-          },
-        },
-      };
-      const headers = {
-        origin: "https://test.host",
-      };
-
-      server = new Server(options, compiler);
-
-      if (!server.checkHeader(headers, "origin")) {
-        throw new Error("Validation didn't fail");
-      }
-    });
-  });
-
   describe("WEBPACK_SERVE environment variable", () => {
     const OLD_ENV = process.env;
 
