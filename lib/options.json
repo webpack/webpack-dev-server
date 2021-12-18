@@ -856,6 +856,11 @@
         "exclude": true
       }
     },
+    "SetupMiddlewares": {
+      "instanceof": "Function",
+      "description": "Provides the ability to execute a custom function and apply custom middleware(s).",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares"
+    },
     "Static": {
       "anyOf": [
         {
@@ -1141,6 +1146,9 @@
     },
     "setupExitSignals": {
       "$ref": "#/definitions/SetupExitSignals"
+    },
+    "setupMiddlewares": {
+      "$ref": "#/definitions/SetupMiddlewares"
     },
     "static": {
       "$ref": "#/definitions/Static"
