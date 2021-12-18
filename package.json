@@ -69,6 +69,7 @@
     "@babel/runtime": "^7.14.5",
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
+    "@types/compression": "^1.7.2",
     "acorn": "^8.2.4",
     "babel-jest": "^27.4.4",
     "babel-loader": "^8.2.2",
