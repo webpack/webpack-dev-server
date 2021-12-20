@@ -4,10 +4,12 @@
   "description": "Serves a webpack app. Updates the browser on changes.",
   "bin": "bin/webpack-dev-server.js",
   "main": "lib/Server.js",
+  "types": "types/lib/Server.d.ts",
   "files": [
     "bin",
     "lib",
-    "client"
+    "client",
+    "types"
   ],
   "engines": {
     "node": ">= 12.13.0"
@@ -15,14 +17,14 @@
   "scripts": {
     "fmt:check": "prettier \"{**/*,*}.{js,json,md,yml,css,ts}\" --list-different",
     "lint:js": "eslint . --cache",
-    "_lint:types": "tsc --pretty --noEmit",
+    "lint:types": "tsc --pretty --noEmit",
     "lint": "npm-run-all lint:js lint:type fmt:check",
     "fmt": "npm run fmt:check -- --write",
     "fix:js": "npm run lint:js -- --fix",
     "fix": "npm-run-all fix:js fmt",
     "commitlint": "commitlint --from=master",
     "build:client": "rimraf ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
-    "_build:types": "rimraf ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && prettier \"types/**/*.ts\" --write",
+    "build:types": "rimraf ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:**\"",
     "test:only": "jest",
     "test:coverage": "npm run test:only -- --coverage",
@@ -36,6 +38,8 @@
     "@types/bonjour": "^3.5.9",
     "@types/connect-history-api-fallback": "^1.3.5",
     "@types/serve-index": "^1.9.1",
+    "@types/sockjs": "^0.3.33",
+    "@types/ws": "^8.2.2",
     "ansi-html-community": "^0.0.8",
     "bonjour": "^3.5.0",
     "chokidar": "^3.5.2",
@@ -74,8 +78,6 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@types/compression": "^1.7.2",
     "@types/default-gateway": "^3.0.1",
-    "@types/sockjs": "^0.3.33",
-    "@types/ws": "^8.2.2",
     "acorn": "^8.2.4",
     "babel-jest": "^27.4.4",
     "babel-loader": "^8.2.2",
