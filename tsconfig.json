@@ -10,5 +10,9 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./bin/**/*", "./client-src/**/*", "./lib/**/*"]
+  "include": [
+    "./bin/**/*",
+    // "./client-src/**/*",
+    "./lib/**/*"
+  ]
 }
