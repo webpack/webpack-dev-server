@@ -85,7 +85,7 @@ jobs:
 
       - name: Use latest NPM on windows
         if: matrix.webpack-version == 4
-        run: sed -i 's/"build:types"/"_"/g' package.json
+        run: sed -i 's/"build:types"/"unused"/g' package.json
 
       - name: Install dependencies
         run: npm ci
