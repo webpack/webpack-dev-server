@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/webpack/webpack-dev-server/compare/v4.6.0...v4.7.0) (2021-12-21)
+
+
+### Features
+
+* added the `setupMiddlewares` option and deprecated `onAfterSetupMiddleware` and `onBeforeSetupMiddleware` options ([#4068](https://github.com/webpack/webpack-dev-server/issues/4068)) ([c13aa56](https://github.com/webpack/webpack-dev-server/commit/c13aa560651a3bb4c4a7b1b4363c04383596c7e9))
+* added types ([8f02c3f](https://github.com/webpack/webpack-dev-server/commit/8f02c3f3d6131fd37f58ef4d5cbe15578c94a6fd))
+* show deprecation warning for `cacert` option ([#4115](https://github.com/webpack/webpack-dev-server/issues/4115)) ([c73ddfb](https://github.com/webpack/webpack-dev-server/commit/c73ddfb934ec748e3dd34456d4293b933e9c6c99))
+
+
+### Bug Fixes
+
+* add description for `watchFiles` options ([#4057](https://github.com/webpack/webpack-dev-server/issues/4057)) ([75f3817](https://github.com/webpack/webpack-dev-server/commit/75f381751e5377ae297c32f9fcdcd096ef28c5c2))
+* allow passing options for custom server ([#4110](https://github.com/webpack/webpack-dev-server/issues/4110)) ([fc8bed9](https://github.com/webpack/webpack-dev-server/commit/fc8bed95251f27a24c1441307c44782f3836edd6))
+* correct schema for `ClientLogging` ([#4084](https://github.com/webpack/webpack-dev-server/issues/4084)) ([9b7ae7b](https://github.com/webpack/webpack-dev-server/commit/9b7ae7b5f4ac4a920b1ae3b47a8eb15d093cb369))
+* mark `--open-app` deprecated in favor of `--open-app-name` ([#4091](https://github.com/webpack/webpack-dev-server/issues/4091)) ([693c28a](https://github.com/webpack/webpack-dev-server/commit/693c28a0499e431b09274b8b7ecce71adb292c8f))
+* show deprecation warning for both `https` and `http2` ([#4069](https://github.com/webpack/webpack-dev-server/issues/4069)) ([d8d5d71](https://github.com/webpack/webpack-dev-server/commit/d8d5d71c8ca495098e1ee30ebc72ffd657ad5ba0))
+* update `--web-socket-server` description ([#4098](https://github.com/webpack/webpack-dev-server/issues/4098)) ([65955e9](https://github.com/webpack/webpack-dev-server/commit/65955e96cf7869dd4294699fd2a3878c2179c656))
+* update `listen` and `close` deprecation warning message ([#4097](https://github.com/webpack/webpack-dev-server/issues/4097)) ([b217a19](https://github.com/webpack/webpack-dev-server/commit/b217a191d09a93e8dcc1fff2ee26e97857e096d3))
+* update descriptions of `https` and `server` options ([#4094](https://github.com/webpack/webpack-dev-server/issues/4094)) ([f97c9e2](https://github.com/webpack/webpack-dev-server/commit/f97c9e2df460ef9a84c8ab2016c6bce3c90d93ac))
+
 ## [4.6.0](https://github.com/webpack/webpack-dev-server/compare/v4.5.0...v4.6.0) (2021-11-25)
 
 
