@@ -2265,16 +2265,15 @@ declare class Server {
         };
         additionalProperties: boolean;
       };
+      /** @type {any} */
       ServerOptions: {
         type: string;
         additionalProperties: boolean;
         properties: {
-          /** @type {any} */
           passphrase: {
             type: string;
             description: string;
           };
-          /** @type {any} */
           requestCert: {
             type: string;
             description: string;
@@ -2295,7 +2294,11 @@ declare class Server {
                         }
                     )[];
                   };
-                  /** @type {string} */ instanceof?: undefined;
+                  /**
+                   * @private
+                   * @returns {Compiler["options"]}
+                   */
+                  instanceof?: undefined;
                 }
               | {
                   type: string;
@@ -2724,7 +2727,7 @@ declare class Server {
         $ref: string;
       };
       http2: {
-        $ref: string /** @type {ServerConfiguration} */;
+        $ref: string;
       };
       https: {
         $ref: string;
@@ -2751,7 +2754,7 @@ declare class Server {
         $ref: string;
       };
       port: {
-        $ref: string;
+        $ref: string /** @type {Array<keyof ServerOptions>} */;
       };
       proxy: {
         $ref: string;

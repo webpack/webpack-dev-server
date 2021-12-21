@@ -102,7 +102,7 @@
     "memfs": "^3.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
-    "puppeteer": "^11.0.0",
+    "puppeteer": "^13.0.0",
     "require-from-string": "^2.0.2",
     "rimraf": "^3.0.2",
     "sockjs-client": "^1.5.1",
