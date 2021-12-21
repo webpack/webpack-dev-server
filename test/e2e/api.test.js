@@ -9,6 +9,68 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").api;
 
 describe("API", () => {
+  describe("WEBPACK_SERVE environment variable", () => {
+    const OLD_ENV = process.env;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      // this is important - it clears the cache
+      jest.resetModules();
+
+      process.env = { ...OLD_ENV };
+
+      delete process.env.WEBPACK_SERVE;
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      process.env = OLD_ENV;
+    });
+
+    it("should be present", async () => {
+      expect(process.env.WEBPACK_SERVE).toBeUndefined();
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const WebpackDevServer = require("../../lib/Server");
+
+      const compiler = webpack(config);
+      server = new WebpackDevServer({ port }, compiler);
+
+      await server.start();
+
+      expect(process.env.WEBPACK_SERVE).toBe(true);
+
+      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+  });
+
   describe("latest async API", () => {
     it(`should work with async API`, async () => {
       const compiler = webpack(config);
