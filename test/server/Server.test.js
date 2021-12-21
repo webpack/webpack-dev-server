@@ -161,29 +161,4 @@ describe("Server", () => {
       await server.stop();
     });
   });
-
-  describe("WEBPACK_SERVE environment variable", () => {
-    const OLD_ENV = process.env;
-
-    beforeEach(() => {
-      // this is important - it clears the cache
-      jest.resetModules();
-
-      process.env = { ...OLD_ENV };
-
-      delete process.env.WEBPACK_SERVE;
-    });
-
-    afterEach(() => {
-      process.env = OLD_ENV;
-    });
-
-    it("should be present", () => {
-      expect(process.env.WEBPACK_SERVE).toBeUndefined();
-
-      require("../../lib/Server");
-
-      expect(process.env.WEBPACK_SERVE).toBe(true);
-    });
-  });
 });

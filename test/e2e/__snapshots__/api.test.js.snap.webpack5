@@ -110,6 +110,19 @@ exports[`API Server.getFreePort should return the port when the port is undefine
 
 exports[`API Server.getFreePort should throw the error when the port isn't found 1`] = `"busy"`;
 
+exports[`API WEBPACK_SERVE environment variable should be present: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`API WEBPACK_SERVE environment variable should be present: page errors 1`] = `Array []`;
+
+exports[`API WEBPACK_SERVE environment variable should be present: response status 1`] = `200`;
+
 exports[`API deprecated API should log warning when the "port" and "host" options from options different from arguments ('listen' method): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",
