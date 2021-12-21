@@ -556,6 +556,9 @@ declare const _exports: typeof Server & {
                       }
                     | {
                         type: string;
+                        /**
+                         * @type {Socket[]}
+                         */
                         items?: undefined;
                         instanceof?: undefined;
                       }
@@ -769,6 +772,7 @@ declare const _exports: typeof Server & {
         description: string;
         link: string;
       };
+      /** @type {ClientConfiguration} */
       IPC: {
         anyOf: (
           | {
@@ -778,6 +782,7 @@ declare const _exports: typeof Server & {
             }
           | {
               type: string;
+              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               enum: boolean[];
               minLength?: undefined;
             }
@@ -787,7 +792,7 @@ declare const _exports: typeof Server & {
       };
       LiveReload: {
         type: string;
-        description: string;
+        /** @type {string} */ description: string;
         link: string;
       };
       MagicHTML: {
@@ -967,6 +972,7 @@ declare const _exports: typeof Server & {
       };
       ServerEnum: {
         enum: string[];
+        /** @type {Object<string,string>} */
         cli: {
           exclude: boolean;
         };
@@ -1004,15 +1010,12 @@ declare const _exports: typeof Server & {
             type: string;
             description: string;
           };
+          /** @type {string} */
           ca: {
             anyOf: (
               | {
                   type: string;
                   items: {
-                    /**
-                     * @private
-                     * @returns {Compiler["options"]}
-                     */
                     anyOf: (
                       | {
                           type: string;
@@ -1095,10 +1098,6 @@ declare const _exports: typeof Server & {
                 }
               | {
                   instanceof: string;
-                  /**
-                   * @private
-                   * @returns {Promise<void>}
-                   */
                   type?: undefined;
                   items?: undefined;
                 }
@@ -1197,6 +1196,10 @@ declare const _exports: typeof Server & {
                         }
                     )[];
                   };
+                  /**
+                   * @param {string | Static | undefined} [optionsForStatic]
+                   * @returns {NormalizedStatic}
+                   */
                   instanceof?: undefined;
                 }
               | {
@@ -1466,11 +1469,12 @@ declare const _exports: typeof Server & {
         $ref: string;
       };
       liveReload: {
-        $ref: string;
+        /** @type {ServerOptions} */ $ref: string;
       };
       magicHtml: {
         $ref: string;
       };
+      /** @type {ServerOptions} */
       onAfterSetupMiddleware: {
         $ref: string;
       };
@@ -1507,7 +1511,7 @@ declare const _exports: typeof Server & {
       webSocketServer: {
         $ref: string;
       };
-    };
+    } /** @type {any} */;
   };
   cli: {
     readonly getArguments: () => {
@@ -1878,6 +1882,10 @@ declare const _exports: typeof Server & {
           path: string;
         }[];
         description: string;
+        /**
+         * @private
+         * @type {string | undefined}
+         */
         simpleType: string;
         multiple: boolean;
       };
@@ -1931,10 +1939,6 @@ declare const _exports: typeof Server & {
               multiple: boolean;
               description: string;
               path: string;
-              /**
-               * @param {"v4" | "v6"} family
-               * @returns {string | undefined}
-               */
             }
           | {
               type: string;
@@ -1978,6 +1982,9 @@ declare const _exports: typeof Server & {
           type: string;
           multiple: boolean;
           description: string;
+          /**
+           * @type {string | undefined}
+           */
           path: string;
         }[];
         description: string;
@@ -1995,6 +2002,10 @@ declare const _exports: typeof Server & {
         multiple: boolean;
         simpleType: string;
       };
+      /**
+       * @private
+       * @param {Compiler} compiler
+       */
       "https-cacert": {
         configs: {
           type: string;
@@ -2021,7 +2032,7 @@ declare const _exports: typeof Server & {
         configs: {
           type: string;
           multiple: boolean;
-          description: string;
+          /** @type {string} */ description: string;
           path: string;
         }[];
         description: string;
@@ -2035,8 +2046,7 @@ declare const _exports: typeof Server & {
           path: string;
           type: string;
         }[];
-        /** @type {string} */
-        description: string;
+        /** @type {string} */ description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -2089,7 +2099,7 @@ declare const _exports: typeof Server & {
           type: string;
           multiple: boolean;
           description: string;
-          path: string /** @type {ClientConfiguration} */;
+          path: string;
         }[];
         description: string;
         simpleType: string;
@@ -2121,12 +2131,6 @@ declare const _exports: typeof Server & {
         configs: {
           type: string;
           multiple: boolean;
-          /**
-           * prependEntry Method for webpack 4
-           * @param {any} originalEntry
-           * @param {any} newAdditionalEntries
-           * @returns {any}
-           */
           description: string;
           path: string;
         }[];
@@ -2141,7 +2145,7 @@ declare const _exports: typeof Server & {
               type: string;
               multiple: boolean;
               description: string;
-              path: string;
+              path: string /** @type {Object<string,string>} */;
             }
           | {
               type: string;
@@ -2159,8 +2163,9 @@ declare const _exports: typeof Server & {
         configs: {
           type: string;
           multiple: boolean;
+          /** @type {any} */
           description: string;
-          /** @type {any} */ path: string;
+          path: string;
         }[];
         description: string;
         negatedDescription: string;
@@ -2182,7 +2187,7 @@ declare const _exports: typeof Server & {
       open: {
         configs: {
           type: string;
-          multiple: boolean;
+          /** @type {MultiCompiler} */ multiple: boolean;
           description: string;
           path: string;
         }[];
@@ -2432,6 +2437,7 @@ declare const _exports: typeof Server & {
         multiple: boolean;
         simpleType: string;
       };
+      /** @type {ServerOptions} */
       "server-type": {
         configs: {
           description: string;
@@ -2440,7 +2446,7 @@ declare const _exports: typeof Server & {
           type: string;
           values: string[];
         }[];
-        /** @type {Array<keyof ServerOptions>} */ description: string;
+        description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -2453,15 +2459,11 @@ declare const _exports: typeof Server & {
         }[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        /** @type {ServerOptions} */ multiple: boolean;
       };
       "static-directory": {
         configs: {
           type: string;
-          /**
-           * @param {string | Buffer | undefined} item
-           * @returns {string | Buffer | undefined}
-           */
           multiple: boolean;
           description: string;
           path: string;
@@ -2569,6 +2571,7 @@ declare const _exports: typeof Server & {
               description: string;
               multiple: boolean;
               path: string;
+              /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
               type: string;
             }
         )[];
@@ -2582,7 +2585,6 @@ declare const _exports: typeof Server & {
               description: string;
               multiple: boolean;
               path: string;
-              /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
               type: string;
               values: string[];
             }
@@ -2594,7 +2596,7 @@ declare const _exports: typeof Server & {
             }
         )[];
         description: string;
-        /** @type {ServerOptions} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
     };
