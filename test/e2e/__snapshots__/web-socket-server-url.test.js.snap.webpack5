@@ -43,7 +43,6 @@ exports[`web socket server URL should work behind proxy, when hostnames are diff
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "The website requested a subresource from a network that it could only access because of its users' privileged network position. These requests expose non-public devices and servers to the internet, increasing the risk of a cross-site request forgery (CSRF) attack, and/or information leakage. To mitigate these risks, Chrome deprecates requests to non-public subresources when initiated from non-secure contexts, and will start blocking them in Chrome 92 (July 2021). See https://chromestatus.com/feature/5436853517811712 for more details.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
@@ -66,7 +65,6 @@ exports[`web socket server URL should work behind proxy, when hostnames are diff
 Array [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "The website requested a subresource from a network that it could only access because of its users' privileged network position. These requests expose non-public devices and servers to the internet, increasing the risk of a cross-site request forgery (CSRF) attack, and/or information leakage. To mitigate these risks, Chrome deprecates requests to non-public subresources when initiated from non-secure contexts, and will start blocking them in Chrome 92 (July 2021). See https://chromestatus.com/feature/5436853517811712 for more details.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
