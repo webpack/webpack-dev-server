@@ -1,13 +1,11 @@
 export = BaseServer;
 declare class BaseServer {
   /**
-   * @param {any} server
+   * @param {import("../Server")} server
    */
-  constructor(server: any);
-  /**
-   * @param {any} server
-   */
-  server: any;
+  constructor(server: import("../Server"));
+  /** @type {import("../Server")} */
+  server: import("../Server");
   /** @type {ClientConnection[]} */
   clients: ClientConnection[];
 }
