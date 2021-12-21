@@ -45,6 +45,9 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
   options.reconnect = Number(parsedResourceQuery.reconnect);
 }
 
+/**
+ * @param {string} level
+ */
 function setAllLogLevel(level) {
   // This is needed because the HMR logger operate separately from dev server logger
   webpackHotLog.setLogLevel(
@@ -90,6 +93,9 @@ const onSocketMessage = {
 
     sendMessage("Invalid");
   },
+  /**
+   * @param {string} hash
+   */
   hash(hash) {
     status.previousHash = status.currentHash;
     status.currentHash = hash;
@@ -160,6 +166,10 @@ const onSocketMessage = {
 
     self.location.reload();
   },
+  /**
+   * @param {Error[]} warnings
+   * @param {any} params
+   */
   warnings(warnings, params) {
     log.warn("Warnings while compiling.");
 
@@ -190,6 +200,9 @@ const onSocketMessage = {
 
     reloadApp(options, status);
   },
+  /**
+   * @param {Error[]} errors
+   */
   errors(errors) {
     log.error("Errors while compiling. Reload prevented.");
 
@@ -214,6 +227,9 @@ const onSocketMessage = {
       show("error", errors);
     }
   },
+  /**
+   * @param {Error} error
+   */
   error(error) {
     log.error(error);
   },

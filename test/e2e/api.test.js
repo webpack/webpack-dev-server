@@ -329,10 +329,7 @@ describe("API", () => {
     it(`should log warning when the "port" and "host" options from options different from arguments ('listen' method)`, async () => {
       const compiler = webpack(config);
       const devServerOptions = { port: 9999, host: "127.0.0.2" };
-      const server = new Server(devServerOptions, compiler);
-
       const warnSpy = jest.fn();
-
       const getInfrastructureLoggerSpy = jest
         .spyOn(compiler, "getInfrastructureLogger")
         .mockImplementation(() => {
@@ -342,6 +339,7 @@ describe("API", () => {
             log: () => {},
           };
         });
+      const server = new Server(devServerOptions, compiler);
 
       await new Promise((resolve, reject) => {
         server.listen(port, "127.0.0.1", (error) => {

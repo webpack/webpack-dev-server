@@ -5,6 +5,11 @@ const name = "webpack-dev-server";
 // to be set by the CLI or API
 const defaultLevel = "info";
 
+// options new options, merge with old options
+/**
+ * @param {false | true | "none" | "error" | "warn" | "info" | "log" | "verbose"} level
+ * @returns {void}
+ */
 function setLogLevel(level) {
   logger.configureDefaultLogger({ level });
 }

@@ -108,6 +108,9 @@ if (!cli.installed) {
 
   console.error(notify);
 
+  /**
+   * @type {string}
+   */
   let packageManager;
 
   if (fs.existsSync(path.resolve(process.cwd(), "yarn.lock"))) {

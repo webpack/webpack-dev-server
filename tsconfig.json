@@ -5,12 +5,14 @@
     "lib": ["es2017", "dom"],
     "allowJs": true,
     "checkJs": true,
-    "noEmit": true,
-    "strict": false,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
+    "strict": true,
     "types": ["node"],
-    "esModuleInterop": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["bin/webpack-dev-server.js"]
+  "include": [
+    "./bin/**/*",
+    // "./client-src/**/*",
+    "./lib/**/*"
+  ]
 }
