@@ -1532,6 +1532,166 @@ declare const _exports: typeof Server & {
             }
         )[];
         description: string;
+        /** @typedef {import("os").NetworkInterfaceInfo} NetworkInterfaceInfo */
+        /** @typedef {import("express").Request} Request */
+        /** @typedef {import("express").Response} Response */
+        /** @typedef {import("express").NextFunction} NextFunction */
+        /** @typedef {import("express").RequestHandler} ExpressRequestHandler */
+        /** @typedef {import("express").ErrorRequestHandler} ExpressErrorRequestHandler */
+        /** @typedef {import("chokidar").WatchOptions} WatchOptions */
+        /** @typedef {import("chokidar").FSWatcher} FSWatcher */
+        /** @typedef {import("connect-history-api-fallback").Options} ConnectHistoryApiFallbackOptions */
+        /** @typedef {import("bonjour").Bonjour} Bonjour */
+        /** @typedef {import("bonjour").BonjourOptions} BonjourOptions */
+        /** @typedef {import("http-proxy-middleware").RequestHandler} RequestHandler */
+        /** @typedef {import("http-proxy-middleware").Options} HttpProxyMiddlewareOptions */
+        /** @typedef {import("http-proxy-middleware").Filter} HttpProxyMiddlewareOptionsFilter */
+        /** @typedef {import("serve-index").Options} ServeIndexOptions */
+        /** @typedef {import("serve-static").ServeStaticOptions} ServeStaticOptions */
+        /** @typedef {import("ipaddr.js").IPv4} IPv4 */
+        /** @typedef {import("ipaddr.js").IPv6} IPv6 */
+        /** @typedef {import("net").Socket} Socket */
+        /** @typedef {import("http").IncomingMessage} IncomingMessage */
+        /** @typedef {import("open").Options} OpenOptions */
+        /** @typedef {import("https").ServerOptions & { spdy?: { plain?: boolean | undefined, ssl?: boolean | undefined, 'x-forwarded-for'?: string | undefined, protocol?: string | undefined, protocols?: string[] | undefined }}} ServerOptions */
+        /**
+         * @template Request, Response
+         * @typedef {import("webpack-dev-middleware").Options<Request, Response>} DevMiddlewareOptions
+         */
+        /**
+         * @template Request, Response
+         * @typedef {import("webpack-dev-middleware").Context<Request, Response>} DevMiddlewareContext
+         */
+        /**
+         * @typedef {"local-ip" | "local-ipv4" | "local-ipv6" | string} Host
+         */
+        /**
+         * @typedef {number | string | "auto"} Port
+         */
+        /**
+         * @typedef {Object} WatchFiles
+         * @property {string | string[]} paths
+         * @property {WatchOptions & { aggregateTimeout?: number, ignored?: string | RegExp | string[], poll?: number | boolean }} [options]
+         */
+        /**
+         * @typedef {Object} Static
+         * @property {string} [directory]
+         * @property {string | string[]} [publicPath]
+         * @property {boolean | ServeIndexOptions} [serveIndex]
+         * @property {ServeStaticOptions} [staticOptions]
+         * @property {boolean | WatchOptions & { aggregateTimeout?: number, ignored?: string | RegExp | string[], poll?: number | boolean }} [watch]
+         */
+        /**
+         * @typedef {Object} NormalizedStatic
+         * @property {string} directory
+         * @property {string[]} publicPath
+         * @property {false | ServeIndexOptions} serveIndex
+         * @property {ServeStaticOptions} staticOptions
+         * @property {false | WatchOptions} watch
+         */
+        /**
+         * @typedef {Object} ServerConfiguration
+         * @property {"http" | "https" | "spdy" | string} [type]
+         * @property {ServerOptions} [options]
+         */
+        /**
+         * @typedef {Object} WebSocketServerConfiguration
+         * @property {"sockjs" | "ws" | string | Function} [type]
+         * @property {Record<string, any>} [options]
+         */
+        /**
+         * @typedef {(import("ws").WebSocket | import("sockjs").Connection & { send: import("ws").WebSocket["send"], terminate: import("ws").WebSocket["terminate"], ping: import("ws").WebSocket["ping"] }) & { isAlive?: boolean }} ClientConnection
+         */
+        /**
+         * @typedef {import("ws").WebSocketServer | import("sockjs").Server & { close: import("ws").WebSocketServer["close"] }} WebSocketServer
+         */
+        /**
+         * @typedef {{ implementation: WebSocketServer, clients: ClientConnection[] }} WebSocketServerImplementation
+         */
+        /**
+         * @typedef {{ [url: string]: string | HttpProxyMiddlewareOptions }} ProxyConfigMap
+         */
+        /**
+         * @typedef {HttpProxyMiddlewareOptions[]} ProxyArray
+         */
+        /**
+         * @callback ByPass
+         * @param {Request} req
+         * @param {Response} res
+         * @param {ProxyConfigArray} proxyConfig
+         */
+        /**
+         * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArray
+         */
+        /**
+         * @typedef {Object} OpenApp
+         * @property {string} [name]
+         * @property {string[]} [arguments]
+         */
+        /**
+         * @typedef {Object} Open
+         * @property {string | string[] | OpenApp} [app]
+         * @property {string | string[]} [target]
+         */
+        /**
+         * @typedef {Object} NormalizedOpen
+         * @property {string} target
+         * @property {import("open").Options} options
+         */
+        /**
+         * @typedef {Object} WebSocketURL
+         * @property {string} [hostname]
+         * @property {string} [password]
+         * @property {string} [pathname]
+         * @property {number | string} [port]
+         * @property {string} [protocol]
+         * @property {string} [username]
+         */
+        /**
+         * @typedef {Object} ClientConfiguration
+         * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
+         * @property {boolean  | { warnings?: boolean, errors?: boolean }} [overlay]
+         * @property {boolean} [progress]
+         * @property {boolean | number} [reconnect]
+         * @property {"ws" | "sockjs" | string} [webSocketTransport]
+         * @property {string | WebSocketURL} [webSocketURL]
+         */
+        /**
+         * @typedef {Array<{ key: string; value: string }> | Record<string, string | string[]>} Headers
+         */
+        /**
+         * @typedef {{ name?: string, path?: string, middleware: ExpressRequestHandler | ExpressErrorRequestHandler } | ExpressRequestHandler | ExpressErrorRequestHandler} Middleware
+         */
+        /**
+         * @typedef {Object} Configuration
+         * @property {boolean | string} [ipc]
+         * @property {Host} [host]
+         * @property {Port} [port]
+         * @property {boolean | "only"} [hot]
+         * @property {boolean} [liveReload]
+         * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
+         * @property {boolean} [compress]
+         * @property {boolean} [magicHtml]
+         * @property {"auto" | "all" | string | string[]} [allowedHosts]
+         * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
+         * @property {boolean} [setupExitSignals]
+         * @property {boolean | BonjourOptions} [bonjour]
+         * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
+         * @property {boolean | string | Static | Array<string | Static>} [static]
+         * @property {boolean | ServerOptions} [https]
+         * @property {boolean} [http2]
+         * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
+         * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
+         * @property {ProxyConfigMap | ProxyConfigArray | ProxyArray} [proxy]
+         * @property {boolean | string | Open | Array<string | Open>} [open]
+         * @property {boolean} [setupExitSignals]
+         * @property {boolean | ClientConfiguration} [client]
+         * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+         * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
+         * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
+         * @property {(devServer: Server) => void} [onListening]
+         * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
+         */
         multiple: boolean;
         simpleType: string;
       };
@@ -2620,10 +2780,10 @@ export type Compiler = import("webpack").Compiler;
 export type MultiCompiler = import("webpack").MultiCompiler;
 export type WebpackConfiguration = import("webpack").Configuration;
 export type StatsOptions = import("webpack").StatsOptions;
-export type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
 export type StatsCompilation = import("webpack").StatsCompilation;
 export type Stats = import("webpack").Stats;
 export type MultiStats = import("webpack").MultiStats;
+export type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
 export type Request = import("express").Request;
 export type Response = import("express").Response;
 export type NextFunction = import("express").NextFunction;
@@ -2961,7 +3121,7 @@ declare class Server {
   /**
    * @private
    * @param {Stats | MultiStats} statsObj
-   * @returns {any}
+   * @returns {StatsCompilation}
    */
   private getStats;
   /**
