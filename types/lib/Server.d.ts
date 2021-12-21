@@ -550,11 +550,6 @@ declare class Server {
         multiple: boolean;
       };
       "history-api-fallback": {
-        /**
-         * @private
-         * @returns {StatsOptions}
-         * @constructor
-         */
         configs: {
           type: string;
           multiple: boolean;
@@ -604,10 +599,6 @@ declare class Server {
         description: string;
         negatedDescription: string;
         simpleType: string;
-        /**
-         * @param {"v4" | "v6"} family
-         * @returns {string | undefined}
-         */
         multiple: boolean;
       };
       http2: {
@@ -1128,7 +1119,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /** @type {ServerOptions} */
       "static-public-path": {
         configs: {
           type: string;
@@ -1850,6 +1840,11 @@ declare class Server {
                                 instanceof?: undefined;
                               }
                             | {
+                                /**
+                                 * @private
+                                 * @returns {StatsOptions}
+                                 * @constructor
+                                 */
                                 instanceof: string;
                                 type?: undefined;
                               }
@@ -1874,10 +1869,6 @@ declare class Server {
                   anyOf: (
                     | {
                         type: string;
-                        /**
-                         * @param {string} gateway
-                         * @returns {string | undefined}
-                         */
                         items: {
                           anyOf: (
                             | {
@@ -1892,6 +1883,7 @@ declare class Server {
                               }
                             | {
                                 type: string;
+                                /** @type {NetworkInterfaceInfo[]} */
                                 additionalProperties: boolean;
                                 instanceof?: undefined;
                               }
@@ -1930,6 +1922,10 @@ declare class Server {
                               }
                             | {
                                 type: string;
+                                /**
+                                 * @param {Host} hostname
+                                 * @returns {Promise<string>}
+                                 */
                                 additionalProperties: boolean;
                                 instanceof?: undefined;
                               }
@@ -2278,6 +2274,7 @@ declare class Server {
             type: string;
             description: string;
           };
+          /** @type {any} */
           requestCert: {
             type: string;
             description: string;
@@ -2714,7 +2711,6 @@ declare class Server {
       devMiddleware: {
         $ref: string;
       };
-      /** @type {ServerConfiguration} */
       headers: {
         $ref: string;
       };
@@ -2725,10 +2721,10 @@ declare class Server {
         $ref: string;
       };
       hot: {
-        $ref: string /** @type {ServerOptions} */;
+        $ref: string;
       };
       http2: {
-        $ref: string;
+        $ref: string /** @type {ServerConfiguration} */;
       };
       https: {
         $ref: string;
