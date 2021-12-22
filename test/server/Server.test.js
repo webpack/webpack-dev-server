@@ -2,13 +2,10 @@
 
 const { relative, sep } = require("path");
 const webpack = require("webpack");
-const sockjs = require("sockjs/lib/transport");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map").server;
 const isWebpack5 = require("../helpers/isWebpack5");
-
-jest.mock("sockjs/lib/transport");
 
 const baseDevConfig = {
   port,
@@ -17,14 +14,6 @@ const baseDevConfig = {
 };
 
 describe("Server", () => {
-  describe("sockjs has decorateConnection", () => {
-    it("add decorateConnection", () => {
-      expect(typeof sockjs.Session.prototype.decorateConnection).toEqual(
-        "function"
-      );
-    });
-  });
-
   describe("DevServerPlugin", () => {
     let entries;
 
@@ -113,52 +102,6 @@ describe("Server", () => {
       });
 
       utilSpy.mockRestore();
-    });
-  });
-
-  // issue: https://github.com/webpack/webpack-dev-server/issues/1724
-  describe("express.static.mime.types", () => {
-    it("should success even if mime.types doesn't exist", async () => {
-      // expect.assertions(1);
-
-      jest.mock("express", () => {
-        const data = jest.requireActual("express");
-        const { static: st } = data;
-        const { mime } = st;
-
-        delete mime.types;
-
-        expect(typeof mime.types).toEqual("undefined");
-
-        return { ...data, static: { ...st, mime } };
-      });
-
-      const compiler = webpack(config);
-      const server = new Server(baseDevConfig, compiler);
-
-      let hasStats = false;
-
-      compiler.hooks.done.tap("webpack-dev-server", (s) => {
-        const output = server.getStats(s);
-
-        expect(output.errors.length).toEqual(0);
-
-        hasStats = true;
-      });
-
-      await server.start();
-
-      await new Promise((resolve) => {
-        const interval = setInterval(() => {
-          if (hasStats) {
-            resolve();
-
-            clearInterval(interval);
-          }
-        }, 100);
-      });
-
-      await server.stop();
     });
   });
 });
