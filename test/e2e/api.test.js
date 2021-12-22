@@ -595,9 +595,9 @@ describe("API", () => {
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
-      const freePort = await Server.getFreePort(8082);
+      const freePort = await Server.getFreePort(9082);
 
-      expect(freePort).toEqual(8082);
+      expect(freePort).toEqual(9082);
     });
 
     it("should return the port when the port is `null`", async () => {

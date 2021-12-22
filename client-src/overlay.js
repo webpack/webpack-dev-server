@@ -17,8 +17,11 @@ const colors = {
   darkgrey: "6D7891",
 };
 
+/** @type {HTMLIFrameElement | null | undefined} */
 let iframeContainerElement;
+/** @type {HTMLDivElement | null | undefined} */
 let containerElement;
+/** @type {Array<(element: HTMLDivElement) => void>} */
 let onLoadQueue = [];
 
 ansiHTML.setColors(colors);
@@ -38,7 +41,11 @@ function createContainer() {
   iframeContainerElement.style.zIndex = 9999999999;
   iframeContainerElement.onload = () => {
     containerElement =
-      iframeContainerElement.contentDocument.createElement("div");
+      /** @type {Document} */
+      (
+        /** @type {HTMLIFrameElement} */
+        (iframeContainerElement).contentDocument
+      ).createElement("div");
     containerElement.id = "webpack-dev-server-client-overlay-div";
     containerElement.style.position = "fixed";
     containerElement.style.boxSizing = "border-box";
@@ -71,6 +78,7 @@ function createContainer() {
     closeButtonElement.style.color = "white";
     closeButtonElement.style.cursor = "pointer";
     closeButtonElement.style.cssFloat = "right";
+    // @ts-ignore
     closeButtonElement.style.styleFloat = "right";
     closeButtonElement.addEventListener("click", () => {
       hide();
@@ -81,19 +89,27 @@ function createContainer() {
     containerElement.appendChild(document.createElement("br"));
     containerElement.appendChild(document.createElement("br"));
 
-    iframeContainerElement.contentDocument.body.appendChild(containerElement);
+    /** @type {Document} */
+    (
+      /** @type {HTMLIFrameElement} */
+      (iframeContainerElement).contentDocument
+    ).body.appendChild(containerElement);
 
     onLoadQueue.forEach((onLoad) => {
-      onLoad(containerElement);
+      onLoad(/** @type {HTMLDivElement} */ (containerElement));
     });
     onLoadQueue = [];
 
-    iframeContainerElement.onload = null;
+    /** @type {HTMLIFrameElement} */
+    (iframeContainerElement).onload = null;
   };
 
   document.body.appendChild(iframeContainerElement);
 }
 
+/**
+ * @param {(element: HTMLDivElement) => void} callback
+ */
 function ensureOverlayExists(callback) {
   if (containerElement) {
     // Everything is ready, call the callback right away.
@@ -124,6 +140,11 @@ function hide() {
   containerElement = null;
 }
 
+/**
+ * @param {string} type
+ * @param {string  | { file?: string, moduleName?: string, loc?: string, message?: string }} item
+ * @returns {{ header: string, body: string }}
+ */
 function formatProblem(type, item) {
   let header = type === "warning" ? "WARNING" : "ERROR";
   let body = "";
@@ -154,6 +175,10 @@ function formatProblem(type, item) {
 }
 
 // Compilation with errors (e.g. syntax error or missing modules).
+/**
+ * @param {string} type
+ * @param {Array<string  | { file?: string, moduleName?: string, loc?: string, message?: string }>} messages
+ */
 function show(type, messages) {
   ensureOverlayExists(() => {
     messages.forEach((message) => {
@@ -177,7 +202,8 @@ function show(type, messages) {
       entryElement.appendChild(document.createElement("br"));
       entryElement.appendChild(document.createElement("br"));
 
-      containerElement.appendChild(entryElement);
+      /** @type {HTMLDivElement} */
+      (containerElement).appendChild(entryElement);
     });
   });
 }
