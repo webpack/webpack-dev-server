@@ -18,12 +18,20 @@ let retries = 0;
 let maxRetries = 10;
 let client = null;
 
+/**
+ * @param {string} url
+ * @param {{ [handler: string]: (data?: any, params?: any) => any }} handlers
+ * @param {number} [reconnect]
+ */
 const socket = function initSocket(url, handlers, reconnect) {
   client = new Client(url);
 
   client.onOpen(() => {
     retries = 0;
-    maxRetries = reconnect;
+
+    if (typeof reconnect !== "undefined") {
+      maxRetries = reconnect;
+    }
   });
 
   client.onClose(() => {
@@ -51,13 +59,18 @@ const socket = function initSocket(url, handlers, reconnect) {
     }
   });
 
-  client.onMessage((data) => {
-    const message = JSON.parse(data);
+  client.onMessage(
+    /**
+     * @param {any} data
+     */
+    (data) => {
+      const message = JSON.parse(data);
 
-    if (handlers[message.type]) {
-      handlers[message.type](message.data, message.params);
+      if (handlers[message.type]) {
+        handlers[message.type](message.data, message.params);
+      }
     }
-  });
+  );
 };
 
 export default socket;

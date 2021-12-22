@@ -1,5 +1,5 @@
 /* global __resourceQuery, __webpack_hash__ */
-
+/// <reference types="webpack/module" />
 import webpackHotLog from "webpack/hot/log.js";
 import stripAnsi from "./modules/strip-ansi/index.js";
 import parseURL from "./utils/parseURL.js";
@@ -10,6 +10,26 @@ import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
 
+/**
+ * @typedef {Object} Options
+ * @property {boolean} hot
+ * @property {boolean} liveReload
+ * @property {boolean} progress
+ * @property {boolean | { warnings?: boolean, errors?: boolean }} overlay
+ * @property {string} [logging]
+ * @property {number} [reconnect]
+ */
+
+/**
+ * @typedef {Object} Status
+ * @property {boolean} isUnloading
+ * @property {string} currentHash
+ * @property {string} [previousHash]
+ */
+
+/**
+ * @type {Status}
+ */
 const status = {
   isUnloading: false,
   // TODO Workaround for webpack v4, `__webpack_hash__` is not replaced without HotModuleReplacement
@@ -17,6 +37,7 @@ const status = {
   currentHash: typeof __webpack_hash__ !== "undefined" ? __webpack_hash__ : "",
 };
 
+/** @type {Options} */
 const options = {
   hot: false,
   liveReload: false,
@@ -101,6 +122,9 @@ const onSocketMessage = {
     status.currentHash = hash;
   },
   logging: setAllLogLevel,
+  /**
+   * @param {boolean} value
+   */
   overlay(value) {
     if (typeof document === "undefined") {
       return;
@@ -108,6 +132,9 @@ const onSocketMessage = {
 
     options.overlay = value;
   },
+  /**
+   * @param {number} value
+   */
   reconnect(value) {
     if (parsedResourceQuery.reconnect === "false") {
       return;
@@ -115,9 +142,15 @@ const onSocketMessage = {
 
     options.reconnect = value;
   },
-  progress(progress) {
-    options.progress = progress;
+  /**
+   * @param {boolean} value
+   */
+  progress(value) {
+    options.progress = value;
   },
+  /**
+   * @param {{ pluginName?: string, percent: number, msg: string }} data
+   */
   "progress-update": function progressUpdate(data) {
     if (options.progress) {
       log.info(
@@ -148,6 +181,9 @@ const onSocketMessage = {
     reloadApp(options, status);
   },
   // TODO: remove in v5 in favor of 'static-changed'
+  /**
+   * @param {string} file
+   */
   "content-changed": function contentChanged(file) {
     log.info(
       `${
@@ -157,6 +193,9 @@ const onSocketMessage = {
 
     self.location.reload();
   },
+  /**
+   * @param {string} file
+   */
   "static-changed": function staticChanged(file) {
     log.info(
       `${

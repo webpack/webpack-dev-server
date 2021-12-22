@@ -38,8 +38,12 @@ export default class SockJSClient {
    * @param {(...args: any[]) => void} f
    */
   onMessage(f) {
-    this.sock.onmessage = (e) => {
-      f(e.data);
-    };
+    this.sock.onmessage =
+      /**
+       * @param {Error & { data: string }} e
+       */
+      (e) => {
+        f(e.data);
+      };
   }
 }

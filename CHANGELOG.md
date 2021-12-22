@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.1](https://github.com/webpack/webpack-dev-server/compare/v4.7.0...v4.7.1) (2021-12-22)
+
+
+### Bug Fixes
+
+* removed `url` package, fixed compatibility with future webpack defaults ([#4132](https://github.com/webpack/webpack-dev-server/issues/4132)) ([4e5d8ea](https://github.com/webpack/webpack-dev-server/commit/4e5d8eae654ef382697722c6406dbc96207594aa))
+
 ## [4.7.0](https://github.com/webpack/webpack-dev-server/compare/v4.6.0...v4.7.0) (2021-12-21)
 
 

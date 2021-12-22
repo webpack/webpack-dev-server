@@ -1,12 +1,82 @@
-import url from "url";
+/**
+ * @param {{ protocol?: string, auth?: string, hostname?: string, port?: string, pathname?: string, search?: string, hash?: string, slashes?: boolean }} objURL
+ * @returns {string}
+ */
+function format(objURL) {
+  let protocol = objURL.protocol || "";
 
-// We handle legacy API that is Node.js specific, and a newer API that implements the same WHATWG URL Standard used by web browsers
-// Please look at https://nodejs.org/api/url.html#url_url_strings_and_url_objects
+  if (protocol && protocol.substr(-1) !== ":") {
+    protocol += ":";
+  }
+
+  let auth = objURL.auth || "";
+
+  if (auth) {
+    auth = encodeURIComponent(auth);
+    auth = auth.replace(/%3A/i, ":");
+    auth += "@";
+  }
+
+  let host = "";
+
+  if (objURL.hostname) {
+    host =
+      auth +
+      (objURL.hostname.indexOf(":") === -1
+        ? objURL.hostname
+        : `[${objURL.hostname}]`);
+
+    if (objURL.port) {
+      host += `:${objURL.port}`;
+    }
+  }
+
+  let pathname = objURL.pathname || "";
+
+  if (objURL.slashes) {
+    host = `//${host || ""}`;
+
+    if (pathname && pathname.charAt(0) !== "/") {
+      pathname = `/${pathname}`;
+    }
+  } else if (!host) {
+    host = "";
+  }
+
+  let search = objURL.search || "";
+
+  if (search && search.charAt(0) !== "?") {
+    search = `?${search}`;
+  }
+
+  let hash = objURL.hash || "";
+
+  if (hash && hash.charAt(0) !== "#") {
+    hash = `#${hash}`;
+  }
+
+  pathname = pathname.replace(
+    /[?#]/g,
+    /**
+     * @param {string} match
+     * @returns {string}
+     */
+    (match) => encodeURIComponent(match)
+  );
+  search = search.replace("#", "%23");
+
+  return `${protocol}${host}${pathname}${search}${hash}`;
+}
+
+/**
+ * @param {URL & { fromCurrentScript?: boolean }} parsedURL
+ * @returns {string}
+ */
 function createSocketURL(parsedURL) {
   let { hostname } = parsedURL;
 
   // Node.js module parses it as `::`
-  // `new URL(urlString, [baseURLstring])` parses it as '[::]'
+  // `new URL(urlString, [baseURLString])` parses it as '[::]'
   const isInAddrAny =
     hostname === "0.0.0.0" || hostname === "::" || hostname === "[::]";
 
@@ -80,7 +150,7 @@ function createSocketURL(parsedURL) {
     socketURLPathname = parsedURL.pathname;
   }
 
-  return url.format({
+  return format({
     protocol: socketURLProtocol,
     auth: socketURLAuth,
     hostname: socketURLHostname,
