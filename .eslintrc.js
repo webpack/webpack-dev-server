@@ -21,6 +21,21 @@ module.exports = {
     "prefer-rest-params": "off",
     strict: ["error", "safe"],
     "global-require": "off",
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        line: {
+          exceptions: ["-", "+"],
+          markers: ["=", "!", "/"],
+        },
+        block: {
+          exceptions: ["-", "+"],
+          markers: ["=", "!"],
+          balanced: false,
+        },
+      },
+    ],
   },
   overrides: [
     {
