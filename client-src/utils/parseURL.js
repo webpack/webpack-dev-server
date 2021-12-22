@@ -2,9 +2,10 @@ import getCurrentScriptSource from "./getCurrentScriptSource.js";
 
 /**
  * @param {string} resourceQuery
- * @returns {URL}
+ * @returns {{ [key: string]: string | boolean }}
  */
 function parseURL(resourceQuery) {
+  /** @type {{ [key: string]: string }} */
   let options = {};
 
   if (typeof resourceQuery === "string" && resourceQuery !== "") {

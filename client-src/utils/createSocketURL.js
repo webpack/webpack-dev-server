@@ -1,3 +1,7 @@
+/**
+ * @param {{ protocol?: string, auth?: string, hostname?: string, port?: string, pathname?: string, search?: string, hash?: string, slashes?: boolean }} objURL
+ * @returns {string}
+ */
 function format(objURL) {
   let protocol = objURL.protocol || "";
 
@@ -13,7 +17,7 @@ function format(objURL) {
     auth += "@";
   }
 
-  let host = false;
+  let host = "";
 
   if (objURL.hostname) {
     host =
@@ -51,12 +55,23 @@ function format(objURL) {
     hash = `#${hash}`;
   }
 
-  pathname = pathname.replace(/[?#]/g, (match) => encodeURIComponent(match));
+  pathname = pathname.replace(
+    /[?#]/g,
+    /**
+     * @param {string} match
+     * @returns {string}
+     */
+    (match) => encodeURIComponent(match)
+  );
   search = search.replace("#", "%23");
 
   return `${protocol}${host}${pathname}${search}${hash}`;
 }
 
+/**
+ * @param {URL & { fromCurrentScript?: boolean }} parsedURL
+ * @returns {string}
+ */
 function createSocketURL(parsedURL) {
   let { hostname } = parsedURL;
 

@@ -3,7 +3,7 @@
 // Send messages to the outside, so plugins can consume it.
 /**
  * @param {string} type
- * @param {any} data
+ * @param {any} [data]
  */
 function sendMsg(type, data) {
   if (
