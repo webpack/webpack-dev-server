@@ -115,7 +115,7 @@ Pull requests often need some real-world testing.
 
 2. Run `npm install`.
 
-3. Go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-server`), and run `npm run prepublish`.
+3. Go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-server`), and run `npm run build`.
 
 The pull request is now ready to be tested.
 
