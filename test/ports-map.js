@@ -94,6 +94,8 @@ Object.keys(listOfTests).forEach((key) => {
       : [...new Array(value)].map(() => (startPort += 1));
 });
 
+const busy = {};
+
 module.exports = new Proxy(ports, {
   get(target, name) {
     if (!target[name]) {
@@ -101,6 +103,14 @@ module.exports = new Proxy(ports, {
         `Requested "${name}" port(s) for tests not found, please update "test/ports-map.js".`
       );
     }
+
+    if (busy[name]) {
+      throw new Error(
+        `The "${name}" port is already in use in another test, please add a new one.`
+      );
+    }
+
+    busy[name] = true;
 
     return target[name];
   },
