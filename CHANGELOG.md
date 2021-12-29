@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.2](https://github.com/webpack/webpack-dev-server/compare/v4.7.1...v4.7.2) (2021-12-29)
+
+
+### Bug Fixes
+
+* apply `onAfterSetupMiddleware` after `setupMiddlewares` (as behavior earlier) ([f6bc644](https://github.com/webpack/webpack-dev-server/commit/f6bc644bb81b966e030d8f8a54d5a99cd61ec8f2))
+
 ### [4.7.1](https://github.com/webpack/webpack-dev-server/compare/v4.7.0...v4.7.1) (2021-12-22)
 
 
