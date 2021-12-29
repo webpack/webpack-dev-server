@@ -539,7 +539,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are array of strings", () => {
+    describe.skip("ca, pfx, key and cert are array of strings", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -637,7 +637,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are paths to files", () => {
+    describe.skip("ca, pfx, key and cert are paths to files", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -712,7 +712,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are array of paths to files", () => {
+    describe.skip("ca, pfx, key and cert are array of paths to files", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -787,7 +787,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are symlinks", () => {
+    describe.skip("ca, pfx, key and cert are symlinks", () => {
       if (skipTestOnWindows("Symlinks are not supported on Windows")) {
         return;
       }
