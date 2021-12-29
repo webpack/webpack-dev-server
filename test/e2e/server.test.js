@@ -276,7 +276,7 @@ describe("server option", () => {
   });
 
   describe("as object", () => {
-    describe("ca, pfx, key and cert are buffer", () => {
+    describe.skip("ca, pfx, key and cert are buffer", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -359,7 +359,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are array of buffers", () => {
+    describe.skip("ca, pfx, key and cert are array of buffers", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -450,7 +450,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are strings", () => {
+    describe.skip("ca, pfx, key and cert are strings", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -864,7 +864,7 @@ describe("server option", () => {
       });
     });
 
-    describe("cacert, pfx, key and cert are buffer", () => {
+    describe.skip("cacert, pfx, key and cert are buffer", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -953,7 +953,7 @@ describe("server option", () => {
       });
     });
 
-    describe("cacert and ca, pfx, key and cert are buffer", () => {
+    describe.skip("cacert and ca, pfx, key and cert are buffer", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1039,7 +1039,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are buffer, key and pfx are objects", () => {
+    describe.skip("ca, pfx, key and cert are buffer, key and pfx are objects", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1130,7 +1130,7 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are strings, key and pfx are objects", () => {
+    describe.skip("ca, pfx, key and cert are strings, key and pfx are objects", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1226,7 +1226,7 @@ describe("server option", () => {
       });
     });
 
-    describe("allow to pass more options", () => {
+    describe.skip("allow to pass more options", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1311,7 +1311,7 @@ describe("server option", () => {
     });
 
     // puppeteer having issues accepting SSL here, throwing error net::ERR_BAD_SSL_CLIENT_AUTH_CERT, hence testing with supertest
-    describe('should support the "requestCert" option', () => {
+    describe.skip('should support the "requestCert" option', () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1374,7 +1374,7 @@ describe("server option", () => {
       });
     });
 
-    describe("options should be prioritized over https options", () => {
+    describe.skip("options should be prioritized over https options", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1472,7 +1472,7 @@ describe("server option", () => {
       });
     });
 
-    describe("options should be prioritized over http2 options", () => {
+    describe.skip("options should be prioritized over http2 options", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1571,7 +1571,7 @@ describe("server option", () => {
       });
     });
 
-    describe("spdy server with options", () => {
+    describe.skip("spdy server with options", () => {
       let compiler;
       let server;
       let createServerSpy;
