@@ -542,7 +542,7 @@ describe("API", () => {
     });
   });
 
-  describe.skip("Server.getFreePort", () => {
+  describe.only("Server.getFreePort", () => {
     let dummyServers = [];
     let devServerPort;
 
@@ -556,7 +556,9 @@ describe("API", () => {
             p.then(
               () =>
                 new Promise((resolve) => {
-                  server.stopCallback(resolve);
+                  server.stopCallback(() => {
+                    resolve();
+                  });
                 })
             ),
           Promise.resolve()
@@ -583,7 +585,9 @@ describe("API", () => {
 
                 dummyServers.push(server);
 
-                server.startCallback(resolve);
+                server.startCallback(() => {
+                  resolve();
+                });
               })
           ),
         Promise.resolve()
@@ -601,7 +605,7 @@ describe("API", () => {
     });
 
     it("should return the port when the port is `null`", async () => {
-      const retryCount = 42;
+      const retryCount = 2;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
