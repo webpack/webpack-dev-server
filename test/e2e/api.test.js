@@ -542,7 +542,7 @@ describe("API", () => {
     });
   });
 
-  describe("Server.getFreePort", () => {
+  describe.skip("Server.getFreePort", () => {
     let dummyServers = [];
     let devServerPort;
 
@@ -601,7 +601,7 @@ describe("API", () => {
     });
 
     it("should return the port when the port is `null`", async () => {
-      const retryCount = 2;
+      const retryCount = 42;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
 
