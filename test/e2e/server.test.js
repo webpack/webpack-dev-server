@@ -275,7 +275,7 @@ describe("server option", () => {
     });
   });
 
-  describe("as object", () => {
+  describe.skip("as object", () => {
     describe("ca, pfx, key and cert are buffer", () => {
       let compiler;
       let server;
