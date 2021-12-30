@@ -478,6 +478,7 @@ describe("static.publicPath option", () => {
   });
 
   describe("defaults to CWD", () => {
+    let cwdSpy;
     let compiler;
     let server;
     let page;
@@ -486,7 +487,10 @@ describe("static.publicPath option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.spyOn(process, "cwd").mockImplementation(() => staticDirectory);
+      cwdSpy = jest
+        .spyOn(process, "cwd")
+        .mockImplementation(() => staticDirectory);
+
       compiler = webpack(config);
 
       server = new Server(
@@ -508,6 +512,8 @@ describe("static.publicPath option", () => {
     });
 
     afterEach(async () => {
+      cwdSpy.mockRestore();
+
       await browser.close();
       await server.stop();
     });
