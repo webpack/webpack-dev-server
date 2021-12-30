@@ -57,7 +57,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         node-version: [12.x, 14.x, 16.x, 17.x]
         webpack-version: [4, latest]
         exclude:
