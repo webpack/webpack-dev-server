@@ -58,6 +58,18 @@ if (parsedResourceQuery["live-reload"] === "true") {
   log.info("Live Reloading enabled.");
 }
 
+if (parsedResourceQuery.progress === "true") {
+  options.progress = true;
+
+  log.info("Progress reporting enabled.");
+}
+
+if (parsedResourceQuery.overlay === "true") {
+  options.overlay = true;
+
+  log.info("Error overlay enabled.");
+}
+
 if (parsedResourceQuery.logging) {
   options.logging = parsedResourceQuery.logging;
 }
