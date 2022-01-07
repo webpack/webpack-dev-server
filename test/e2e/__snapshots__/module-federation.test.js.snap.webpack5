@@ -19,7 +19,3 @@ exports[`Module federation should work with object multi-entry config should sup
 exports[`Module federation should work with object multi-entry config should use the last entry export: console messages 1`] = `Array []`;
 
 exports[`Module federation should work with object multi-entry config should use the last entry export: page errors 1`] = `Array []`;
-
-exports[`Module federation should work with simple multi-entry config should use the last entry export: console messages 1`] = `Array []`;
-
-exports[`Module federation should work with simple multi-entry config should use the last entry export: page errors 1`] = `Array []`;
