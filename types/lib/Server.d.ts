@@ -106,10 +106,13 @@ declare class Server {
          * @callback ByPass
          * @param {Request} req
          * @param {Response} res
-         * @param {ProxyConfigArray} proxyConfig
+         * @param {ProxyConfigArrayItem} proxyConfig
          */
         /**
-         * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArray
+         * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArrayItem
+         */
+        /**
+         * @typedef {ProxyConfigArrayItem[]} ProxyConfigArray
          */
         /**
          * @typedef {Object} OpenApp
@@ -170,7 +173,7 @@ declare class Server {
          * @property {boolean} [http2]
          * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
          * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
-         * @property {ProxyConfigMap | ProxyConfigArray | ProxyArray} [proxy]
+         * @property {ProxyConfigMap | ProxyConfigArray | ProxyConfigArrayItem | ProxyArray} [proxy]
          * @property {boolean | string | Open | Array<string | Open>} [open]
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
@@ -279,10 +282,13 @@ declare class Server {
          * @callback ByPass
          * @param {Request} req
          * @param {Response} res
-         * @param {ProxyConfigArray} proxyConfig
+         * @param {ProxyConfigArrayItem} proxyConfig
          */
         /**
-         * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArray
+         * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArrayItem
+         */
+        /**
+         * @typedef {ProxyConfigArrayItem[]} ProxyConfigArray
          */
         /**
          * @typedef {Object} OpenApp
@@ -343,7 +349,7 @@ declare class Server {
          * @property {boolean} [http2]
          * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
          * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
-         * @property {ProxyConfigMap | ProxyConfigArray | ProxyArray} [proxy]
+         * @property {ProxyConfigMap | ProxyConfigArray | ProxyConfigArrayItem | ProxyArray} [proxy]
          * @property {boolean | string | Open | Array<string | Open>} [open]
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
@@ -530,10 +536,6 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /**
-         * @private
-         * @type {string | undefined}
-         */
         simpleType: string;
         multiple: boolean;
       };
@@ -593,6 +595,10 @@ declare class Server {
               values: string[];
               multiple: boolean;
               description: string;
+              /**
+               * @param {"v4" | "v6"} family
+               * @returns {Promise<string | undefined>}
+               */
               path: string;
             }
         )[];
@@ -608,10 +614,6 @@ declare class Server {
           description: string;
           path: string;
         }[];
-        /**
-         * @param {Host} hostname
-         * @returns {Promise<string>}
-         */
         description: string;
         negatedDescription: string;
         simpleType: string;
@@ -660,7 +662,8 @@ declare class Server {
         }[];
         description: string;
         /**
-         * @type {string[]}
+         * @private
+         * @param {Compiler} compiler
          */
         simpleType: string;
         multiple: boolean;
@@ -679,7 +682,7 @@ declare class Server {
       "https-cert": {
         configs: {
           type: string;
-          /** @type {ClientConfiguration} */ multiple: boolean;
+          multiple: boolean;
           description: string;
           path: string;
         }[];
@@ -689,10 +692,11 @@ declare class Server {
       };
       "https-cert-reset": {
         configs: {
+          /** @type {string} */
           description: string;
           multiple: boolean;
           path: string;
-          type: string;
+          type: string /** @type {ServerConfiguration} */;
         }[];
         description: string;
         multiple: boolean;
@@ -717,6 +721,7 @@ declare class Server {
           type: string;
         }[];
         description: string;
+        /** @type {number | string} */
         multiple: boolean;
         simpleType: string;
       };
@@ -810,18 +815,6 @@ declare class Server {
       "live-reload": {
         configs: {
           type: string;
-          /** @type {Object<string,string>} */ multiple: boolean;
-          description: string;
-          path: string;
-        }[];
-        description: string;
-        negatedDescription: string;
-        simpleType: string;
-        multiple: boolean /** @type {any} */;
-      };
-      "magic-html": {
-        configs: {
-          type: string;
           multiple: boolean;
           description: string;
           path: string;
@@ -829,7 +822,24 @@ declare class Server {
         description: string;
         negatedDescription: string;
         simpleType: string;
+        /** @type {any} */
         multiple: boolean;
+      };
+      "magic-html": {
+        configs: {
+          type: string;
+          multiple: boolean;
+          /** @type {any} */ description: string;
+          path: string;
+        }[];
+        description: string;
+        negatedDescription: string;
+        simpleType: string;
+        multiple: boolean;
+        /**
+         * @private
+         * @returns {Compiler["options"]}
+         */
       };
       open: {
         configs: {
@@ -1090,7 +1100,7 @@ declare class Server {
           multiple: boolean;
           path: string;
           type: string;
-          values: string[];
+          /** @type {ServerOptions} */ values: string[];
         }[];
         description: string;
         multiple: boolean;
@@ -1103,7 +1113,7 @@ declare class Server {
           description: string;
           path: string;
         }[];
-        description: string;
+        /** @type {ServerOptions} */ description: string;
         simpleType: string;
         multiple: boolean;
       };
@@ -1115,7 +1125,6 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /** @type {any} */
         simpleType: string;
         multiple: boolean;
       };
@@ -1123,7 +1132,7 @@ declare class Server {
         configs: {
           type: string;
           multiple: boolean;
-          description: string;
+          /** @type {ServerOptions} */ description: string;
           path: string;
         }[];
         description: string;
@@ -1139,7 +1148,7 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        /** @type {ServerOptions} */ multiple: boolean;
       };
       "static-reset": {
         configs: {
@@ -1244,7 +1253,7 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
-      };
+      } /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */;
     };
     readonly processArguments: (
       args: Record<string, import("../bin/process-arguments").Argument>,
@@ -1416,10 +1425,13 @@ declare class Server {
          * @callback ByPass
          * @param {Request} req
          * @param {Response} res
-         * @param {ProxyConfigArray} proxyConfig
+         * @param {ProxyConfigArrayItem} proxyConfig
          */
         /**
-         * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArray
+         * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArrayItem
+         */
+        /**
+         * @typedef {ProxyConfigArrayItem[]} ProxyConfigArray
          */
         /**
          * @typedef {Object} OpenApp
@@ -1480,7 +1492,7 @@ declare class Server {
          * @property {boolean} [http2]
          * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
          * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
-         * @property {ProxyConfigMap | ProxyConfigArray | ProxyArray} [proxy]
+         * @property {ProxyConfigMap | ProxyConfigArray | ProxyConfigArrayItem | ProxyArray} [proxy]
          * @property {boolean | string | Open | Array<string | Open>} [open]
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
@@ -1565,10 +1577,13 @@ declare class Server {
                * @callback ByPass
                * @param {Request} req
                * @param {Response} res
-               * @param {ProxyConfigArray} proxyConfig
+               * @param {ProxyConfigArrayItem} proxyConfig
                */
               /**
-               * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArray
+               * @typedef {{ path?: string | string[] | undefined, context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined } & HttpProxyMiddlewareOptions & ByPass} ProxyConfigArrayItem
+               */
+              /**
+               * @typedef {ProxyConfigArrayItem[]} ProxyConfigArray
                */
               /**
                * @typedef {Object} OpenApp
@@ -1629,7 +1644,7 @@ declare class Server {
                * @property {boolean} [http2]
                * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
                * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
-               * @property {ProxyConfigMap | ProxyConfigArray | ProxyArray} [proxy]
+               * @property {ProxyConfigMap | ProxyConfigArray | ProxyConfigArrayItem | ProxyArray} [proxy]
                * @property {boolean | string | Open | Array<string | Open>} [open]
                * @property {boolean} [setupExitSignals]
                * @property {boolean | ClientConfiguration} [client]
@@ -1689,6 +1704,9 @@ declare class Server {
                       }
                   )[];
                 };
+                /**
+                 * @typedef {Array<{ key: string; value: string }> | Record<string, string | string[]>} Headers
+                 */
                 username: {
                   description: string;
                   type: string;
@@ -1815,9 +1833,6 @@ declare class Server {
                       }
                     | {
                         type: string;
-                        /**
-                         * @type {Socket[]}
-                         */
                         items?: undefined;
                         instanceof?: undefined;
                       }
@@ -1840,11 +1855,6 @@ declare class Server {
                                 instanceof?: undefined;
                               }
                             | {
-                                /**
-                                 * @private
-                                 * @returns {StatsOptions}
-                                 * @constructor
-                                 */
                                 instanceof: string;
                                 type?: undefined;
                               }
@@ -1883,7 +1893,6 @@ declare class Server {
                               }
                             | {
                                 type: string;
-                                /** @type {NetworkInterfaceInfo[]} */
                                 additionalProperties: boolean;
                                 instanceof?: undefined;
                               }
@@ -1922,10 +1931,6 @@ declare class Server {
                               }
                             | {
                                 type: string;
-                                /**
-                                 * @param {Host} hostname
-                                 * @returns {Promise<string>}
-                                 */
                                 additionalProperties: boolean;
                                 instanceof?: undefined;
                               }
@@ -1995,6 +2000,9 @@ declare class Server {
         description: string;
         link: string;
       };
+      /**
+       * @type {string | undefined}
+       */
       HistoryApiFallback: {
         anyOf: (
           | {
@@ -2026,6 +2034,9 @@ declare class Server {
               enum?: undefined;
             }
         )[];
+        /**
+         * @type {string[]}
+         */
       };
       Hot: {
         anyOf: (
@@ -2060,9 +2071,9 @@ declare class Server {
       LiveReload: {
         type: string;
         description: string;
-        /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
-        link: string;
+        link: string /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */;
       };
+      /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
       MagicHTML: {
         type: string;
         description: string;
@@ -2265,7 +2276,6 @@ declare class Server {
         };
         additionalProperties: boolean;
       };
-      /** @type {any} */
       ServerOptions: {
         type: string;
         additionalProperties: boolean;
@@ -2292,12 +2302,8 @@ declare class Server {
                           instanceof: string;
                           type?: undefined;
                         }
-                    )[];
+                    )[] /** @type {string} */;
                   };
-                  /**
-                   * @private
-                   * @returns {Compiler["options"]}
-                   */
                   instanceof?: undefined;
                 }
               | {
@@ -2404,6 +2410,10 @@ declare class Server {
                   items?: undefined;
                 }
             )[];
+            /**
+             * @param {WatchOptions & WebpackConfiguration["watchOptions"]} watchOptions
+             * @returns {WatchOptions}
+             */
             description: string;
           };
           key: {
@@ -2495,6 +2505,7 @@ declare class Server {
       SetupMiddlewares: {
         instanceof: string;
         description: string;
+        /** @type {NormalizedStatic} */
         link: string;
       };
       Static: {
@@ -2754,7 +2765,7 @@ declare class Server {
         $ref: string;
       };
       port: {
-        $ref: string /** @type {Array<keyof ServerOptions>} */;
+        $ref: string;
       };
       proxy: {
         $ref: string;
@@ -2766,8 +2777,9 @@ declare class Server {
         $ref: string;
       };
       setupMiddlewares: {
-        $ref: string;
+        $ref: string /** @type {ServerOptions} */;
       };
+      /** @type {ServerOptions} */
       static: {
         $ref: string;
       };
@@ -3135,6 +3147,7 @@ declare namespace Server {
     ProxyConfigMap,
     ProxyArray,
     ByPass,
+    ProxyConfigArrayItem,
     ProxyConfigArray,
     OpenApp,
     Open,
@@ -3185,7 +3198,12 @@ type Configuration = {
   http2?: boolean | undefined;
   server?: string | ServerConfiguration | undefined;
   webSocketServer?: string | boolean | WebSocketServerConfiguration | undefined;
-  proxy?: ProxyConfigMap | ProxyConfigArray | ProxyArray | undefined;
+  proxy?:
+    | ProxyConfigMap
+    | ProxyConfigArrayItem
+    | ProxyConfigArray
+    | ProxyArray
+    | undefined;
   open?: string | boolean | Open | (string | Open)[] | undefined;
   client?: boolean | ClientConfiguration | undefined;
   headers?:
@@ -3318,13 +3336,14 @@ type ProxyArray = HttpProxyMiddlewareOptions[];
 type ByPass = (
   req: Request,
   res: Response,
-  proxyConfig: ProxyConfigArray
+  proxyConfig: ProxyConfigArrayItem
 ) => any;
-type ProxyConfigArray = {
+type ProxyConfigArrayItem = {
   path?: string | string[] | undefined;
   context?: string | string[] | HttpProxyMiddlewareOptionsFilter | undefined;
 } & HttpProxyMiddlewareOptions &
   ByPass;
+type ProxyConfigArray = ProxyConfigArrayItem[];
 type OpenApp = {
   name?: string | undefined;
   arguments?: string[] | undefined;
