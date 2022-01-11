@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Security
 
-* update `selfsigned` to `2.0.0` verison
+* update `selfsigned` to `2.0.0` version
 
 ### [4.7.2](https://github.com/webpack/webpack-dev-server/compare/v4.7.1...v4.7.2) (2021-12-29)
 
