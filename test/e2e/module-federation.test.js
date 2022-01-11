@@ -19,7 +19,7 @@ if (isWebpack5) {
 }
 
 describe("Module federation", () => {
-  describe.skip("should work with simple multi-entry config", () => {
+  describe("should work with simple multi-entry config", () => {
     let compiler;
     let server;
     let page;
