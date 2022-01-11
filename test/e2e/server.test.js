@@ -539,7 +539,7 @@ describe("server option", () => {
       });
     });
 
-    describe.skip("ca, pfx, key and cert are array of strings", () => {
+    describe("ca, pfx, key and cert are array of strings", () => {
       let compiler;
       let server;
       let createServerSpy;

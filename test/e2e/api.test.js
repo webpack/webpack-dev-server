@@ -542,7 +542,7 @@ describe("API", () => {
     });
   });
 
-  describe.only("Server.getFreePort", () => {
+  describe("Server.getFreePort", () => {
     let dummyServers = [];
     let devServerPort;
 
