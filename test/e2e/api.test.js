@@ -556,7 +556,9 @@ describe("API", () => {
             p.then(
               () =>
                 new Promise((resolve) => {
-                  server.stopCallback(resolve);
+                  server.stopCallback(() => {
+                    resolve();
+                  });
                 })
             ),
           Promise.resolve()
@@ -583,7 +585,9 @@ describe("API", () => {
 
                 dummyServers.push(server);
 
-                server.startCallback(resolve);
+                server.startCallback(() => {
+                  resolve();
+                });
               })
           ),
         Promise.resolve()
