@@ -59,7 +59,7 @@ jobs:
       matrix:
         os: [macos-latest]
         node-version: [12.x, 14.x, 16.x, 17.x]
-        webpack-version: [4, latest]
+        webpack-version: [latest]
         exclude:
           - node-version: 17.x
             webpack-version: 4
