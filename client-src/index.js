@@ -64,10 +64,22 @@ if (parsedResourceQuery.progress === "true") {
   log.info("Progress reporting enabled.");
 }
 
-if (parsedResourceQuery.overlay === "true") {
-  options.overlay = true;
+if (parsedResourceQuery.overlay) {
+  try {
+    options.overlay = JSON.parse(parsedResourceQuery.overlay);
+    log.info("Error overlay enabled.");
+  } catch (e) {
+    log.error("Error parsing overlay options from resource query:", e);
+  }
 
-  log.info("Error overlay enabled.");
+  // Fill in default "true" params for partially-specified objects.
+  if (typeof options.overlay === "object") {
+    options.overlay = {
+      errors: true,
+      warnings: true,
+      ...options.overlay,
+    };
+  }
 }
 
 if (parsedResourceQuery.logging) {
