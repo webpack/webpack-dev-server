@@ -393,3 +393,53 @@ Array [
 `;
 
 exports[`hot and live reload should work with manual client setup and allow to enable live reload (default): page errors 1`] = `Array []`;
+
+exports[`hot disabled HMR plugin should NOT register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "Hey.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`hot disabled HMR plugin should NOT register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`hot disabled HMR plugin should NOT register the HMR plugin before compilation is complete: response status 1`] = `200`;
+
+exports[`multi compiler hot config HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler hot config HMR plugin should register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`multi compiler hot config HMR plugin should register the HMR plugin before compilation is complete: response status 1`] = `200`;
+
+exports[`simple hot config HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`simple hot config HMR plugin should register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`simple hot config HMR plugin should register the HMR plugin before compilation is complete: response status 1`] = `200`;
+
+exports[`simple hot config HMR plugin with already added HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`simple hot config HMR plugin with already added HMR plugin should register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`simple hot config HMR plugin with already added HMR plugin should register the HMR plugin before compilation is complete: response status 1`] = `200`;
