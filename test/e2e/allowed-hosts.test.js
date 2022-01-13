@@ -1252,7 +1252,7 @@ describe("allowed hosts", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
     });
 
-    it.skip("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", async () => {
+    it("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", async () => {
       const options = {
         allowedHosts: "auto",
         port: port1,
