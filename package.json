@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "4.7.2",
+  "version": "4.7.3",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "bin": "bin/webpack-dev-server.js",
   "main": "lib/Server.js",
@@ -57,7 +57,7 @@
     "p-retry": "^4.5.0",
     "portfinder": "^1.0.28",
     "schema-utils": "^4.0.0",
-    "selfsigned": "^1.10.11",
+    "selfsigned": "^2.0.0",
     "serve-index": "^1.9.1",
     "sockjs": "^0.3.21",
     "spdy": "^4.0.2",
