@@ -67,7 +67,6 @@ if (parsedResourceQuery.progress === "true") {
 if (parsedResourceQuery.overlay) {
   try {
     options.overlay = JSON.parse(parsedResourceQuery.overlay);
-    log.info("Error overlay enabled.");
   } catch (e) {
     log.error("Error parsing overlay options from resource query:", e);
   }
@@ -79,6 +78,17 @@ if (parsedResourceQuery.overlay) {
       warnings: true,
       ...options.overlay,
     };
+  }
+
+  if (
+    options.overlay === true ||
+    (options.overlay.errors && options.overlay.warnings)
+  ) {
+    log.info("Overlay is enabled for errors and warnings.");
+  } else if (options.overlay.errors) {
+    log.info("Overlay is enabled for errors.");
+  } else if (options.overlay.warnings) {
+    log.info("Overlay is enabled for warnings.");
   }
 }
 
