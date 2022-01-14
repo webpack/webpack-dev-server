@@ -19,7 +19,7 @@ describe("onListening option", () => {
     compiler = webpack(config);
     server = new Server(
       {
-        onAfterSetupMiddleware: (devServer) => {
+        onListening: (devServer) => {
           if (!devServer) {
             throw new Error("webpack-dev-server is not defined");
           }
