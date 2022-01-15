@@ -13,6 +13,8 @@ const Server = require("../../lib/Server");
 const reloadConfig = require("../fixtures/reload-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["hot-and-live-reload"];
+const config = require("../fixtures/client-config/webpack.config");
+const multiCompilerConfig = require("../fixtures/multi-compiler-one-configuration/webpack.config");
 
 const cssFilePath = path.resolve(
   __dirname,
@@ -563,5 +565,332 @@ describe("hot and live reload", () => {
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
     });
+  });
+});
+
+// the following cases check to make sure that the HMR
+// plugin is actually added
+
+describe("simple hot config HMR plugin", () => {
+  let compiler;
+  let server;
+  let page;
+  let browser;
+  let pageErrors;
+  let consoleMessages;
+
+  beforeEach(async () => {
+    compiler = webpack(config);
+
+    ({ page, browser } = await runBrowser());
+
+    pageErrors = [];
+    consoleMessages = [];
+  });
+
+  afterEach(async () => {
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should register the HMR plugin before compilation is complete", async () => {
+    let pluginFound = false;
+
+    compiler.hooks.compilation.intercept({
+      register: (tapInfo) => {
+        if (tapInfo.name === "HotModuleReplacementPlugin") {
+          pluginFound = true;
+        }
+
+        return tapInfo;
+      },
+    });
+
+    server = new Server({ port }, compiler);
+
+    await server.start();
+
+    expect(pluginFound).toBe(true);
+
+    page
+      .on("console", (message) => {
+        consoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(response.status()).toMatchSnapshot("response status");
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+      "console messages"
+    );
+
+    expect(pageErrors).toMatchSnapshot("page errors");
+  });
+});
+
+describe("simple hot config HMR plugin with already added HMR plugin", () => {
+  let compiler;
+  let server;
+  let page;
+  let browser;
+  let pageErrors;
+  let consoleMessages;
+
+  beforeEach(async () => {
+    compiler = webpack({
+      ...config,
+      plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
+    });
+
+    ({ page, browser } = await runBrowser());
+
+    pageErrors = [];
+    consoleMessages = [];
+  });
+
+  afterEach(async () => {
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should register the HMR plugin before compilation is complete", async () => {
+    let pluginFound = false;
+
+    compiler.hooks.compilation.intercept({
+      register: (tapInfo) => {
+        if (tapInfo.name === "HotModuleReplacementPlugin") {
+          pluginFound = true;
+        }
+
+        return tapInfo;
+      },
+    });
+
+    server = new Server({ port }, compiler);
+
+    await server.start();
+
+    expect(compiler.options.plugins).toHaveLength(2);
+    expect(pluginFound).toBe(true);
+
+    page
+      .on("console", (message) => {
+        consoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(response.status()).toMatchSnapshot("response status");
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+      "console messages"
+    );
+
+    expect(pageErrors).toMatchSnapshot("page errors");
+  });
+});
+
+describe("simple config with already added HMR plugin", () => {
+  let loggerWarnSpy;
+  let getInfrastructureLoggerSpy;
+  let compiler;
+  let server;
+
+  beforeEach(() => {
+    compiler = webpack({
+      ...config,
+      devServer: { hot: false },
+      plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
+    });
+
+    loggerWarnSpy = jest.fn();
+
+    getInfrastructureLoggerSpy = jest
+      .spyOn(compiler, "getInfrastructureLogger")
+      .mockImplementation(() => {
+        return {
+          warn: loggerWarnSpy,
+          info: () => {},
+          log: () => {},
+        };
+      });
+  });
+
+  afterEach(() => {
+    getInfrastructureLoggerSpy.mockRestore();
+    loggerWarnSpy.mockRestore();
+  });
+
+  it("should show warning with hot normalized as true", async () => {
+    server = new Server({ port }, compiler);
+
+    await server.start();
+
+    expect(loggerWarnSpy).toHaveBeenCalledWith(
+      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+    );
+
+    await server.stop();
+  });
+
+  it(`should show warning with "hot: true"`, async () => {
+    server = new Server({ port, hot: true }, compiler);
+
+    await server.start();
+
+    expect(loggerWarnSpy).toHaveBeenCalledWith(
+      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+    );
+
+    await server.stop();
+  });
+
+  it(`should not show warning with "hot: false"`, async () => {
+    server = new Server({ port, hot: false }, compiler);
+
+    await server.start();
+
+    expect(loggerWarnSpy).not.toHaveBeenCalledWith(
+      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+    );
+
+    await server.stop();
+  });
+});
+
+describe("multi compiler hot config HMR plugin", () => {
+  let compiler;
+  let server;
+  let page;
+  let browser;
+  let pageErrors;
+  let consoleMessages;
+
+  beforeEach(async () => {
+    compiler = webpack(multiCompilerConfig);
+
+    ({ page, browser } = await runBrowser());
+
+    pageErrors = [];
+    consoleMessages = [];
+  });
+
+  afterEach(async () => {
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should register the HMR plugin before compilation is complete", async () => {
+    let pluginFound = false;
+
+    compiler.compilers[0].hooks.compilation.intercept({
+      register: (tapInfo) => {
+        if (tapInfo.name === "HotModuleReplacementPlugin") {
+          pluginFound = true;
+        }
+
+        return tapInfo;
+      },
+    });
+
+    server = new Server({ port }, compiler);
+
+    await server.start();
+
+    expect(pluginFound).toBe(true);
+
+    page
+      .on("console", (message) => {
+        consoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(response.status()).toMatchSnapshot("response status");
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+      "console messages"
+    );
+
+    expect(pageErrors).toMatchSnapshot("page errors");
+  });
+});
+
+describe("hot disabled HMR plugin", () => {
+  let compiler;
+  let server;
+  let page;
+  let browser;
+  let pageErrors;
+  let consoleMessages;
+
+  beforeEach(async () => {
+    compiler = webpack(config);
+
+    ({ page, browser } = await runBrowser());
+
+    pageErrors = [];
+    consoleMessages = [];
+  });
+
+  afterEach(async () => {
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should NOT register the HMR plugin before compilation is complete", async () => {
+    let pluginFound = false;
+
+    compiler.hooks.compilation.intercept({
+      register: (tapInfo) => {
+        if (tapInfo.name === "HotModuleReplacementPlugin") {
+          pluginFound = true;
+        }
+
+        return tapInfo;
+      },
+    });
+
+    server = new Server({ port, hot: false }, compiler);
+
+    await server.start();
+
+    expect(pluginFound).toBe(false);
+
+    page
+      .on("console", (message) => {
+        consoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(response.status()).toMatchSnapshot("response status");
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+      "console messages"
+    );
+
+    expect(pageErrors).toMatchSnapshot("page errors");
   });
 });
