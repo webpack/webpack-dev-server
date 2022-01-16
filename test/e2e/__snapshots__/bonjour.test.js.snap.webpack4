@@ -1,36 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bonjour option as object should apply bonjour options: console messages 1`] = `Array []`;
+exports[`bonjour option as object should apply bonjour options: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
 
 exports[`bonjour option as object should apply bonjour options: page errors 1`] = `Array []`;
 
 exports[`bonjour option as object should apply bonjour options: response status 1`] = `200`;
 
-exports[`bonjour option as true should call bonjour with correct params: console messages 1`] = `Array []`;
+exports[`bonjour option as true should call bonjour with correct params: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
 
 exports[`bonjour option as true should call bonjour with correct params: page errors 1`] = `Array []`;
 
 exports[`bonjour option as true should call bonjour with correct params: response status 1`] = `200`;
 
-exports[`bonjour option bonjour object and 'https' should apply bonjour options: console messages 1`] = `Array []`;
+exports[`bonjour option bonjour object and 'https' should apply bonjour options: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
 
 exports[`bonjour option bonjour object and 'https' should apply bonjour options: page errors 1`] = `Array []`;
 
 exports[`bonjour option bonjour object and 'https' should apply bonjour options: response status 1`] = `200`;
 
-exports[`bonjour option bonjour object and 'server' option should apply bonjour options: console messages 1`] = `Array []`;
+exports[`bonjour option bonjour object and 'server' option should apply bonjour options: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
 
 exports[`bonjour option bonjour object and 'server' option should apply bonjour options: page errors 1`] = `Array []`;
 
 exports[`bonjour option bonjour object and 'server' option should apply bonjour options: response status 1`] = `200`;
 
-exports[`bonjour option with 'https' option should call bonjour with 'https' type: console messages 1`] = `Array []`;
+exports[`bonjour option with 'https' option should call bonjour with 'https' type: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
 
 exports[`bonjour option with 'https' option should call bonjour with 'https' type: page errors 1`] = `Array []`;
 
 exports[`bonjour option with 'https' option should call bonjour with 'https' type: response status 1`] = `200`;
 
-exports[`bonjour option with 'server' option should call bonjour with 'https' type: console messages 1`] = `Array []`;
+exports[`bonjour option with 'server' option should call bonjour with 'https' type: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
 
 exports[`bonjour option with 'server' option should call bonjour with 'https' type: page errors 1`] = `Array []`;
 

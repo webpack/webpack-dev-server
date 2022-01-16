@@ -62,7 +62,7 @@ describe("entry", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/main`, {
+    await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -97,7 +97,7 @@ describe("entry", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/main`, {
+    await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -137,7 +137,7 @@ describe("entry", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/main`, {
+    await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -172,7 +172,7 @@ describe("entry", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/main`, {
+    await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -210,7 +210,7 @@ describe("entry", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/main`, {
+    await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -394,7 +394,7 @@ describe("entry", () => {
         pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/main`, {
+    await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 

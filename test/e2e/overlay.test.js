@@ -77,7 +77,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -113,7 +113,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -153,7 +153,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -191,7 +191,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -228,7 +228,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -261,7 +261,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -327,7 +327,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -413,7 +413,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -493,7 +493,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -528,7 +528,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -561,7 +561,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -602,7 +602,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -643,7 +643,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -682,7 +682,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -717,7 +717,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -750,7 +750,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -791,7 +791,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -832,7 +832,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -872,7 +872,7 @@ describe("overlay", () => {
       consoleMessages.push(message.text());
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -927,7 +927,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -977,7 +977,7 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 

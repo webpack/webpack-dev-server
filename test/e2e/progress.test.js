@@ -44,7 +44,7 @@ describe("progress", () => {
         }
       });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 

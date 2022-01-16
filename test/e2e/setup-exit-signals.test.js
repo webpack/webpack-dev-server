@@ -76,7 +76,7 @@ describe("setupExitSignals option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
