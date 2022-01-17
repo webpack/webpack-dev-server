@@ -67,7 +67,7 @@ describe("bonjour option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -140,7 +140,7 @@ describe("bonjour option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`https://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`https://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -213,7 +213,7 @@ describe("bonjour option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`https://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`https://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -295,7 +295,7 @@ describe("bonjour option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -379,7 +379,7 @@ describe("bonjour option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`https://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`https://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -464,7 +464,7 @@ describe("bonjour option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`https://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`https://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 

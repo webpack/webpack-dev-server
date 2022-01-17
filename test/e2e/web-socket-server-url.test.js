@@ -81,7 +81,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -167,7 +167,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -258,7 +258,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -349,7 +349,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -417,7 +417,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://localhost:${port1}/main`, {
+      await page.goto(`http://localhost:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -481,7 +481,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://localhost:${port1}/main`, {
+      await page.goto(`http://localhost:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -545,7 +545,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://localhost:${port1}/main`, {
+      await page.goto(`http://localhost:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -609,7 +609,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -673,7 +673,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -737,7 +737,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -801,7 +801,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -872,7 +872,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -938,7 +938,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1002,7 +1002,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1061,7 +1061,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1125,7 +1125,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1193,7 +1193,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1261,7 +1261,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1325,7 +1325,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1390,7 +1390,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1461,7 +1461,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1530,7 +1530,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1600,7 +1600,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1670,7 +1670,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1743,7 +1743,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1802,7 +1802,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${hostname}:${port1}/main`, {
+      await page.goto(`http://${hostname}:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1861,7 +1861,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${hostname}:${port1}/main`, {
+      await page.goto(`http://${hostname}:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1920,7 +1920,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${hostname}:${port1}/main`, {
+      await page.goto(`http://${hostname}:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1979,7 +1979,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`https://${hostname}:${port1}/main`, {
+      await page.goto(`https://${hostname}:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -2043,7 +2043,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`https://${hostname}:${port1}/main`, {
+      await page.goto(`https://${hostname}:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -2110,7 +2110,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${resolvedFreePort}/main`, {
+      await page.goto(`http://127.0.0.1:${resolvedFreePort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -2179,7 +2179,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -2241,7 +2241,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://127.0.0.1:${port1}/main`, {
+      await page.goto(`http://127.0.0.1:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -2287,7 +2287,7 @@ describe("web socket server URL", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://localhost:${port1}/main`, {
+      await page.goto(`http://localhost:${port1}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -2337,7 +2337,7 @@ describe("web socket server URL", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://localhost:${port1}/main`, {
+      await page.goto(`http://localhost:${port1}/`, {
         waitUntil: "networkidle0",
       });
       await new Promise((resolve) => {

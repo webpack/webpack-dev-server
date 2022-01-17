@@ -24,6 +24,8 @@ exports[`Built in routes with simple config should handle GET request to directo
 
 exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: directory list 1`] = `
 "<!DOCTYPE html><html><head><meta charset=\\"utf-8\\"/></head><body><h1>Assets Report:</h1><div><h2>Compilation: unnamed</h2><ul><li>
+              <strong><a href=\\"index.html\\" target=\\"_blank\\">index.html</a></strong>
+            </li><li>
               <strong><a href=\\"main.js\\" target=\\"_blank\\">main.js</a></strong>
             </li><li>
               <strong><a href=\\"test.html\\" target=\\"_blank\\">test.html</a></strong>

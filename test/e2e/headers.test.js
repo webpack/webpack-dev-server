@@ -49,7 +49,7 @@ describe("headers option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -117,7 +117,7 @@ describe("headers option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -180,7 +180,7 @@ describe("headers option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -241,7 +241,7 @@ describe("headers option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -309,7 +309,7 @@ describe("headers option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -375,7 +375,7 @@ describe("headers option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -437,7 +437,7 @@ describe("headers option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -450,7 +450,7 @@ describe("headers option", () => {
       );
       expect(pageErrors).toMatchSnapshot("page errors");
 
-      const responseForHead = await req.get(`/main.js`);
+      const responseForHead = await req.get(`/`);
 
       expect(responseForHead.headers["x-foo"]).toBe("dev-server headers");
     });

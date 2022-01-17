@@ -101,7 +101,7 @@ describe("host", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${hostname}:${port}/main`, {
+      await page.goto(`http://${hostname}:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -170,7 +170,7 @@ describe("host", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${hostname}:${port}/main`, {
+      await page.goto(`http://${hostname}:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -242,7 +242,7 @@ describe("host", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${hostname}:${address.port}/main`, {
+      await page.goto(`http://${hostname}:${address.port}/`, {
         waitUntil: "networkidle0",
       });
 

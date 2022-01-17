@@ -84,7 +84,7 @@ describe("port", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${address.port}/main`, {
+      await page.goto(`http://127.0.0.1:${address.port}/`, {
         waitUntil: "networkidle0",
       });
 

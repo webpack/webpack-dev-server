@@ -2,6 +2,7 @@
 
 exports[`overlay should not show a warning when "client.overlay" is "false": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -9,6 +10,7 @@ exports[`overlay should not show a warning when "client.overlay" is "false": pag
 
 exports[`overlay should not show a warning when "client.overlay.warnings" is "false": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -16,6 +18,7 @@ exports[`overlay should not show a warning when "client.overlay.warnings" is "fa
 
 exports[`overlay should not show an error when "client.overlay" is "false": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -23,6 +26,7 @@ exports[`overlay should not show an error when "client.overlay" is "false": page
 
 exports[`overlay should not show an error when "client.overlay.errors" is "false": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -79,6 +83,7 @@ exports[`overlay should not show initially, then show on an error and allow to c
 
 exports[`overlay should not show initially, then show on an error and allow to close: page html after close 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -86,6 +91,7 @@ exports[`overlay should not show initially, then show on an error and allow to c
 
 exports[`overlay should not show initially, then show on an error and allow to close: page html initial 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -93,7 +99,9 @@ exports[`overlay should not show initially, then show on an error and allow to c
 
 exports[`overlay should not show initially, then show on an error and allow to close: page html with error 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -161,6 +169,7 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 
 exports[`overlay should not show initially, then show on an error, then hide on fix: page html after fix error 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -168,6 +177,7 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 
 exports[`overlay should not show initially, then show on an error, then hide on fix: page html initial 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -175,7 +185,9 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 
 exports[`overlay should not show initially, then show on an error, then hide on fix: page html with error 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -292,6 +304,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
 
 exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html after fix error 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -299,6 +312,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
 
 exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html initial 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -306,7 +320,9 @@ exports[`overlay should not show initially, then show on an error, then show oth
 
 exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html with error 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -325,7 +341,9 @@ exports[`overlay should not show initially, then show on an error, then show oth
 
 exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html with other error 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -388,7 +406,9 @@ exports[`overlay should show a warning after invalidation: overlay html 1`] = `
 
 exports[`overlay should show a warning after invalidation: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -456,7 +476,9 @@ exports[`overlay should show a warning and error for initial compilation and pro
 
 exports[`overlay should show a warning and error for initial compilation and protects against xss: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -539,7 +561,9 @@ exports[`overlay should show a warning and error for initial compilation: overla
 
 exports[`overlay should show a warning and error for initial compilation: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -602,7 +626,9 @@ exports[`overlay should show a warning and hide them after closing connection: o
 
 exports[`overlay should show a warning and hide them after closing connection: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -621,6 +647,7 @@ exports[`overlay should show a warning and hide them after closing connection: p
 
 exports[`overlay should show a warning and hide them after closing connection: page html 2`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
 </body>
 "
@@ -672,7 +699,9 @@ exports[`overlay should show a warning for initial compilation: overlay html 1`]
 
 exports[`overlay should show a warning for initial compilation: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -735,7 +764,9 @@ exports[`overlay should show a warning when "client.overlay" is "true": overlay 
 
 exports[`overlay should show a warning when "client.overlay" is "true": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -798,7 +829,9 @@ exports[`overlay should show a warning when "client.overlay.errors" is "true": o
 
 exports[`overlay should show a warning when "client.overlay.errors" is "true": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -861,7 +894,9 @@ exports[`overlay should show a warning when "client.overlay.warnings" is "true":
 
 exports[`overlay should show a warning when "client.overlay.warnings" is "true": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -937,7 +972,9 @@ exports[`overlay should show an ansi formatted error for initial compilation: ov
 
 exports[`overlay should show an ansi formatted error for initial compilation: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -1000,7 +1037,9 @@ exports[`overlay should show an error after invalidation: overlay html 1`] = `
 
 exports[`overlay should show an error after invalidation: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -1063,7 +1102,9 @@ exports[`overlay should show an error for initial compilation: overlay html 1`] 
 
 exports[`overlay should show an error for initial compilation: page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -1126,7 +1167,9 @@ exports[`overlay should show an error when "client.overlay" is "true": overlay h
 
 exports[`overlay should show an error when "client.overlay" is "true": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -1189,7 +1232,9 @@ exports[`overlay should show an error when "client.overlay.errors" is "true": ov
 
 exports[`overlay should show an error when "client.overlay.errors" is "true": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"
@@ -1252,7 +1297,9 @@ exports[`overlay should show an error when "client.overlay.warnings" is "true": 
 
 exports[`overlay should show an error when "client.overlay.warnings" is "true": page html 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
   <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+
   <iframe
     id=\\"webpack-dev-server-client-overlay\\"
     src=\\"about:blank\\"

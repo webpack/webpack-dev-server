@@ -84,7 +84,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -176,7 +176,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -283,7 +283,7 @@ describe("web socket server URL", () => {
         });
       }
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 

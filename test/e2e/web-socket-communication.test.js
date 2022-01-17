@@ -39,7 +39,7 @@ describe("web socket communication", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
       await server.stop();
@@ -84,7 +84,7 @@ describe("web socket communication", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
       await browser.close();
@@ -130,7 +130,7 @@ describe("web socket communication", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
