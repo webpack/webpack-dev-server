@@ -1,7 +1,7 @@
 "use strict";
 
-const fs = require("fs");
 const path = require("path");
+const fs = require("graceful-fs");
 
 async function extendTypes() {
   const typesPath = path.resolve(__dirname, "../types/lib/Server.d.ts");
