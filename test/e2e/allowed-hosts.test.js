@@ -88,7 +88,7 @@ describe("allowed hosts", () => {
       await server.stop();
     });
 
-    it(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "https" is enabled ("${webSocketServer}")`, async () => {
+    it(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "server: 'https'" is enabled ("${webSocketServer}")`, async () => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -106,7 +106,7 @@ describe("allowed hosts", () => {
         port: devServerPort,
         host: devServerHost,
         allowedHosts: "auto",
-        https: true,
+        server: "https",
       };
       const server = new Server(devServerOptions, compiler);
 
