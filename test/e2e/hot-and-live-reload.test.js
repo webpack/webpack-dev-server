@@ -10,6 +10,7 @@ const SockJS = require("sockjs-client");
 const webpack = require("webpack");
 const fs = require("graceful-fs");
 const Server = require("../../lib/Server");
+const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const reloadConfig = require("../fixtures/reload-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["hot-and-live-reload"];
@@ -248,7 +249,10 @@ describe("hot and live reload", () => {
           `${require.resolve("../../client-src/index.js")}?hot=true`,
           require.resolve("../fixtures/reload-config/foo.js"),
         ],
-        plugins: [new webpack.HotModuleReplacementPlugin()],
+        plugins: [
+          new webpack.HotModuleReplacementPlugin(),
+          new HTMLGeneratorPlugin(),
+        ],
       },
       options: {
         client: false,
