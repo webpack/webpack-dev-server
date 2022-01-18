@@ -465,7 +465,7 @@ describe("hot and live reload", () => {
           }
         });
 
-      await page.goto(`http://localhost:${port}/main${mode.query || ""}`, {
+      await page.goto(`http://localhost:${port}/${mode.query || ""}`, {
         waitUntil: "networkidle0",
       });
 
@@ -624,7 +624,7 @@ describe("simple hot config HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+    const response = await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -691,7 +691,7 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+    const response = await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -822,7 +822,7 @@ describe("multi compiler hot config HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+    const response = await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -885,7 +885,7 @@ describe("hot disabled HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+    const response = await page.goto(`http://127.0.0.1:${port}/`, {
       waitUntil: "networkidle0",
     });
 
