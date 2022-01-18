@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
+const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").logging;
@@ -73,6 +74,7 @@ describe("logging", () => {
               );
             },
           },
+          new HTMLGeneratorPlugin(),
         ],
       },
     },
@@ -90,6 +92,7 @@ describe("logging", () => {
               );
             },
           },
+          new HTMLGeneratorPlugin(),
         ],
       },
     },
@@ -142,6 +145,7 @@ describe("logging", () => {
               );
             },
           },
+          new HTMLGeneratorPlugin(),
         ],
       },
       devServerOptions: {
@@ -167,6 +171,7 @@ describe("logging", () => {
               );
             },
           },
+          new HTMLGeneratorPlugin(),
         ],
       },
       devServerOptions: {
@@ -205,7 +210,7 @@ describe("logging", () => {
           consoleMessages.push(message);
         });
 
-        await page.goto(`http://localhost:${port}/main`, {
+        await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
