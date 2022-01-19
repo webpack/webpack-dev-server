@@ -73,7 +73,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -152,7 +152,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -228,7 +228,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -300,7 +300,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -372,7 +372,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -444,7 +444,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://[${proxyHost}]:${proxyPort}/main`, {
+      await page.goto(`http://[${proxyHost}]:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -519,7 +519,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -594,7 +594,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -670,7 +670,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -746,7 +746,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -822,7 +822,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -898,7 +898,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -977,7 +977,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1053,7 +1053,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -1130,7 +1130,7 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://${proxyHost}:${proxyPort}/main`, {
+      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
         waitUntil: "networkidle0",
       });
 

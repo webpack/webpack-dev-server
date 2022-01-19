@@ -57,7 +57,7 @@ describe("API", () => {
 
       expect(process.env.WEBPACK_SERVE).toBe(true);
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -91,7 +91,7 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -127,7 +127,7 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -197,7 +197,7 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -229,7 +229,7 @@ describe("API", () => {
           firstPageErrors.push(error);
         });
 
-      await firstPage.goto(`http://127.0.0.1:${port}/main`, {
+      await firstPage.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -254,7 +254,7 @@ describe("API", () => {
           secondPageErrors.push(error);
         });
 
-      await secondPage.goto(`http://127.0.0.1:${port}/main`, {
+      await secondPage.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -300,7 +300,7 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -366,7 +366,7 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -416,7 +416,7 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -454,7 +454,7 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/main`, {
+      await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -509,7 +509,7 @@ describe("API", () => {
 
       expect(server.middleware.context.callbacks.length).toEqual(1);
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -528,7 +528,7 @@ describe("API", () => {
 
       expect(server.middleware.context.callbacks[0]).toBe(callback);
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -628,12 +628,9 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(
-        `http://127.0.0.1:${devServerPort}/main`,
-        {
-          waitUntil: "networkidle0",
-        }
-      );
+      const response = await page.goto(`http://127.0.0.1:${devServerPort}/`, {
+        waitUntil: "networkidle0",
+      });
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -671,12 +668,9 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(
-        `http://127.0.0.1:${devServerPort}/main`,
-        {
-          waitUntil: "networkidle0",
-        }
-      );
+      const response = await page.goto(`http://127.0.0.1:${devServerPort}/`, {
+        waitUntil: "networkidle0",
+      });
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -713,12 +707,9 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(
-        `http://127.0.0.1:${devServerPort}/main`,
-        {
-          waitUntil: "networkidle0",
-        }
-      );
+      const response = await page.goto(`http://127.0.0.1:${devServerPort}/`, {
+        waitUntil: "networkidle0",
+      });
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -755,12 +746,9 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(
-        `http://127.0.0.1:${devServerPort}/main`,
-        {
-          waitUntil: "networkidle0",
-        }
-      );
+      const response = await page.goto(`http://127.0.0.1:${devServerPort}/`, {
+        waitUntil: "networkidle0",
+      });
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -797,12 +785,9 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(
-        `http://127.0.0.1:${devServerPort}/main`,
-        {
-          waitUntil: "networkidle0",
-        }
-      );
+      const response = await page.goto(`http://127.0.0.1:${devServerPort}/`, {
+        waitUntil: "networkidle0",
+      });
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -898,7 +883,7 @@ describe("API", () => {
         webSocketRequests.push(test);
       });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
