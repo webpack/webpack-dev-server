@@ -28,7 +28,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -61,7 +61,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -96,7 +96,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -129,7 +129,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -164,7 +164,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -200,7 +200,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -238,7 +238,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -274,7 +274,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -312,7 +312,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -403,7 +403,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -439,7 +439,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -475,7 +475,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -513,7 +513,7 @@ describe("server and client transport", () => {
       consoleMessages.push(message);
     });
 
-    await page.goto(`http://localhost:${port}/main`, {
+    await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
