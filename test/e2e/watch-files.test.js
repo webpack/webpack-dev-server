@@ -5,11 +5,14 @@ const chokidar = require("chokidar");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/static-config/webpack.config");
+const config = require("../fixtures/watch-files-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["watch-files-option"];
 
-const watchDir = path.resolve(__dirname, "../fixtures/static-config/public");
+const watchDir = path.resolve(
+  __dirname,
+  "../fixtures/watch-files-config/public"
+);
 
 describe("watchFiles option", () => {
   describe("should work with string and path to file", () => {
@@ -55,7 +58,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -126,7 +129,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -197,7 +200,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -273,7 +276,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -349,7 +352,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -422,7 +425,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -503,7 +506,7 @@ describe("watchFiles option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -644,7 +647,7 @@ describe("watchFiles option", () => {
               pageErrors.push(error);
             });
 
-          const response = await page.goto(`http://127.0.0.1:${port}/main`, {
+          const response = await page.goto(`http://127.0.0.1:${port}/`, {
             waitUntil: "networkidle0",
           });
 
