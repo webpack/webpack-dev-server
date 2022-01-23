@@ -978,6 +978,9 @@ declare class Server {
           description: string;
           multiple: boolean;
           path: string;
+          /**
+           * @type {string | undefined}
+           */
           type: string;
         }[];
         description: string;
@@ -1011,7 +1014,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          path: string /** @type {ClientConfiguration} */;
         }[];
         description: string;
         simpleType: string;
@@ -1032,7 +1035,7 @@ declare class Server {
         configs: {
           description: string;
           multiple: boolean;
-          /** @type {string} */ path: string;
+          path: string;
           type: string;
         }[];
         description: string;
@@ -1053,7 +1056,7 @@ declare class Server {
       "https-key": {
         configs: {
           type: string;
-          multiple: boolean;
+          /** @type {number | string} */ multiple: boolean;
           description: string;
           path: string;
         }[];
@@ -1142,8 +1145,9 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string /** @type {Object<string,string>} */;
+          path: string;
         }[];
+        /** @type {Object<string,string>} */
         description: string;
         negatedDescription: string;
         simpleType: string;
@@ -1152,7 +1156,6 @@ declare class Server {
       "magic-html": {
         configs: {
           type: string;
-          /** @type {any} */
           multiple: boolean;
           description: string;
           path: string;
@@ -1160,16 +1163,12 @@ declare class Server {
         description: string;
         negatedDescription: string;
         simpleType: string;
-        /** @type {string} */ multiple: boolean;
+        multiple: boolean /** @type {string} */;
       };
       open: {
         configs: {
           type: string;
           multiple: boolean;
-          /**
-           * @private
-           * @returns {Compiler["options"]}
-           */
           description: string;
           path: string;
         }[];
@@ -1197,7 +1196,7 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /** @type {Compiler} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
       "open-app-name-reset": {
@@ -1412,7 +1411,7 @@ declare class Server {
         configs: {
           description: string;
           multiple: boolean;
-          path: string;
+          /** @type {ServerConfiguration} */ path: string;
           type: string;
         }[];
         description: string;
@@ -2681,7 +2680,6 @@ declare class Server {
       OpenBoolean: {
         type: string;
       };
-      /** @type {number | string} */
       OpenObject: {
         type: string;
         additionalProperties: boolean;
@@ -2726,7 +2724,6 @@ declare class Server {
                           }
                       )[];
                     };
-                    /** @type {string} */
                     arguments: {
                       items: {
                         type: string;
@@ -2736,11 +2733,15 @@ declare class Server {
                   };
                   minLength?: undefined;
                   description?: undefined;
+                  cli?: undefined;
                 }
               | {
                   type: string;
                   minLength: number;
                   description: string;
+                  cli: {
+                    description: string;
+                  };
                   additionalProperties?: undefined;
                   properties?: undefined;
                 }
@@ -2846,9 +2847,11 @@ declare class Server {
         type: string;
         additionalProperties: boolean;
         properties: {
+          /** @type {any} */
           passphrase: {
             type: string;
-            description: string;
+            /** @type {any} */
+            description: string /** @type {any} */;
           };
           requestCert: {
             type: string;
@@ -2870,7 +2873,7 @@ declare class Server {
                         }
                     )[];
                   };
-                  instanceof?: undefined;
+                  /** @type {string} */ instanceof?: undefined;
                 }
               | {
                   type: string;
@@ -2901,7 +2904,7 @@ declare class Server {
                         }
                     )[];
                   };
-                  instanceof?: undefined;
+                  /** @type {MultiCompiler} */ instanceof?: undefined;
                 }
               | {
                   type: string;
@@ -2919,7 +2922,6 @@ declare class Server {
           cert: {
             anyOf: (
               | {
-                  /** @type {MultiCompiler} */
                   type: string;
                   items: {
                     anyOf: (
@@ -3242,7 +3244,9 @@ declare class Server {
               enum?: undefined;
             }
         )[];
-        description: string;
+        cli: {
+          description: string;
+        };
       };
       WebSocketServerFunction: {
         instanceof: string;
@@ -3321,14 +3325,16 @@ declare class Server {
         $ref: string;
       };
       onListening: {
-        $ref: string;
+        $ref: string /** @type {ServerOptions} */;
       };
+      /** @type {ServerOptions} */
       open: {
         $ref: string;
       };
       port: {
-        $ref: string;
+        $ref: string /** @type {ServerOptions} */;
       };
+      /** @type {ServerOptions} */
       proxy: {
         $ref: string;
       };
