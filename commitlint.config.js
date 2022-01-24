@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
 };

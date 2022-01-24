@@ -1,23 +1,23 @@
-'use strict';
+"use strict";
 
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
-const { setup } = require('../../util');
+const { setup } = require("../../util");
 
 module.exports = setup({
   context: __dirname,
-  entry: './app.js',
+  entry: "./app.js",
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://jsonplaceholder.typicode.com/',
+      "/api": {
+        target: "http://jsonplaceholder.typicode.com/",
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '',
+          "^/api": "",
         },
         bypass(req) {
-          if (req.url === '/api/nope') {
-            return '/bypass.html';
+          if (req.url === "/api/nope") {
+            return "/bypass.html";
           }
         },
       },

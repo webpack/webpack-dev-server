@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`onBeforeSetupMiddleware option should handle GET request to /before/some/path route: console messages 1`] = `Array []`;
+
+exports[`onBeforeSetupMiddleware option should handle GET request to /before/some/path route: page errors 1`] = `Array []`;
+
+exports[`onBeforeSetupMiddleware option should handle GET request to /before/some/path route: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`onBeforeSetupMiddleware option should handle GET request to /before/some/path route: response status 1`] = `200`;
+
+exports[`onBeforeSetupMiddleware option should handle GET request to /before/some/path route: response text 1`] = `"before"`;
+
+exports[`onBeforeSetupMiddleware option should handle POST request to /before/some/path route: console messages 1`] = `Array []`;
+
+exports[`onBeforeSetupMiddleware option should handle POST request to /before/some/path route: page errors 1`] = `Array []`;
+
+exports[`onBeforeSetupMiddleware option should handle POST request to /before/some/path route: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`onBeforeSetupMiddleware option should handle POST request to /before/some/path route: response status 1`] = `200`;
+
+exports[`onBeforeSetupMiddleware option should handle POST request to /before/some/path route: response text 1`] = `"brefore POST"`;

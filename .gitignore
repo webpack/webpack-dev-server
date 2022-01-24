@@ -5,6 +5,7 @@ npm-debug.log
 .idea
 
 client
+!/examples/client
 !/test/client
 coverage
 node_modules
@@ -14,7 +15,8 @@ yarn-error.log
 
 .eslintcache
 
-test/fixtures/contentbase-config/public/assets/non-exist.txt
+test/fixtures/static-config/public/assets/non-exist.txt
+test/fixtures/watch-files-config/public/assets/non-exist.txt
 test/fixtures/reload-config/main.css
 test/fixtures/reload-config-2/main.css
-!/test/fixtures/contentbase-config/public/node_modules
+!/test/fixtures/static-config/public/node_modules

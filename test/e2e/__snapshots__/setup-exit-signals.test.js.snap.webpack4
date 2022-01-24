@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGINT: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGINT: page errors 1`] = `Array []`;
+
+exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGINT: response status 1`] = `200`;
+
+exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGTERM: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGTERM: page errors 1`] = `Array []`;
+
+exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGTERM: response status 1`] = `200`;

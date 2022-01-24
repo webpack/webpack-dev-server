@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
-require('./file.custom');
+require("./file.custom");
 
-console.log('Hey.');
+console.log("Hey.");

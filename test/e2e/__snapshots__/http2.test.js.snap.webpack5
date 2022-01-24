@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`http2 option https without http2, disables HTTP/2 should handle GET request to index route (/): HTTP version 1`] = `"http/1.1"`;
+
+exports[`http2 option https without http2, disables HTTP/2 should handle GET request to index route (/): console messages 1`] = `Array []`;
+
+exports[`http2 option https without http2, disables HTTP/2 should handle GET request to index route (/): page errors 1`] = `Array []`;
+
+exports[`http2 option https without http2, disables HTTP/2 should handle GET request to index route (/): response status 1`] = `200`;
+
+exports[`http2 option https without http2, disables HTTP/2 should handle GET request to index route (/): response text 1`] = `
+"Heyo.
+"
+`;
+
+exports[`http2 option server works with http2 option, without https option enabled should handle GET request to index route (/): HTTP version 1`] = `"h2"`;
+
+exports[`http2 option server works with http2 option, without https option enabled should handle GET request to index route (/): console messages 1`] = `Array []`;
+
+exports[`http2 option server works with http2 option, without https option enabled should handle GET request to index route (/): page errors 1`] = `Array []`;
+
+exports[`http2 option server works with http2 option, without https option enabled should handle GET request to index route (/): response status 1`] = `200`;
+
+exports[`http2 option server works with http2 option, without https option enabled should handle GET request to index route (/): response text 1`] = `
+"Heyo.
+"
+`;

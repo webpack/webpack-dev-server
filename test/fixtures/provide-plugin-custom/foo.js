@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
 // 'npm run prepare' must be run for this to work during testing
-const CustomClient = require('../../fixtures/custom-client/CustomSockJSClient');
+const CustomClient = require("../../fixtures/custom-client/CustomSockJSClient");
 
 window.expectedClient = CustomClient;
 // eslint-disable-next-line camelcase, no-undef

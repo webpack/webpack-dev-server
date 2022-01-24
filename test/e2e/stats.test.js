@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-const webpack = require('webpack');
-const Server = require('../../lib/Server');
-const config = require('../fixtures/client-config/webpack.config');
-const runBrowser = require('../helpers/run-browser');
-const port = require('../ports-map').stats;
+const webpack = require("webpack");
+const Server = require("../../lib/Server");
+const config = require("../fixtures/client-config/webpack.config");
+const runBrowser = require("../helpers/run-browser");
+const port = require("../ports-map").stats;
 
 global.console.log = jest.fn();
 
-describe('stats', () => {
+describe("stats", () => {
   const cases = [
     {
       title: 'should work when "stats" is not specified',
@@ -36,7 +36,7 @@ describe('stats', () => {
     {
       title: 'should work using "errors-only" value for the "stats" option',
       webpackOptions: {
-        stats: 'errors-only',
+        stats: "errors-only",
       },
     },
     {
@@ -54,7 +54,7 @@ describe('stats', () => {
       webpackOptions: {
         stats: {
           colors: {
-            green: '\u001b[32m',
+            green: "\u001b[32m",
           },
         },
       },
@@ -67,10 +67,10 @@ describe('stats', () => {
           {
             apply(compiler) {
               compiler.hooks.thisCompilation.tap(
-                'warnings-webpack-plugin',
+                "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.warnings.push(
-                    new Error('Warning from compilation')
+                    new Error("Warning from compilation")
                   );
                 }
               );
@@ -82,7 +82,7 @@ describe('stats', () => {
     },
   ];
 
-  if (webpack.version.startsWith('5')) {
+  if (webpack.version.startsWith("5")) {
     cases.push({
       title: 'should work and respect the "ignoreWarnings" option',
       webpackOptions: {
@@ -90,10 +90,10 @@ describe('stats', () => {
           {
             apply(compiler) {
               compiler.hooks.thisCompilation.tap(
-                'warnings-webpack-plugin',
+                "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.warnings.push(
-                    new Error('Warning from compilation')
+                    new Error("Warning from compilation")
                   );
                 }
               );
@@ -109,33 +109,22 @@ describe('stats', () => {
     it(testCase.title, async () => {
       const compiler = webpack({ ...config, ...testCase.webpackOptions });
       const devServerOptions = {
-        host: '127.0.0.1',
         port,
       };
       const server = new Server(devServerOptions, compiler);
 
-      await new Promise((resolve, reject) => {
-        server.listen(devServerOptions.port, devServerOptions.host, (error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
+      await server.start();
 
       const { page, browser } = await runBrowser();
 
       const consoleMessages = [];
 
-      page.on('console', (message) => {
+      page.on("console", (message) => {
         consoleMessages.push(message);
       });
 
       await page.goto(`http://localhost:${port}/main`, {
-        waitUntil: 'networkidle0',
+        waitUntil: "networkidle0",
       });
 
       expect(
@@ -143,11 +132,7 @@ describe('stats', () => {
       ).toMatchSnapshot();
 
       await browser.close();
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
-        });
-      });
+      await server.stop();
     });
   });
 });

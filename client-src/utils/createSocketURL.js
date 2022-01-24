@@ -1,16 +1,84 @@
-'use strict';
+/**
+ * @param {{ protocol?: string, auth?: string, hostname?: string, port?: string, pathname?: string, search?: string, hash?: string, slashes?: boolean }} objURL
+ * @returns {string}
+ */
+function format(objURL) {
+  let protocol = objURL.protocol || "";
 
-const url = require('url');
+  if (protocol && protocol.substr(-1) !== ":") {
+    protocol += ":";
+  }
 
-// We handle legacy API that is Node.js specific, and a newer API that implements the same WHATWG URL Standard used by web browsers
-// Please look at https://nodejs.org/api/url.html#url_url_strings_and_url_objects
+  let auth = objURL.auth || "";
+
+  if (auth) {
+    auth = encodeURIComponent(auth);
+    auth = auth.replace(/%3A/i, ":");
+    auth += "@";
+  }
+
+  let host = "";
+
+  if (objURL.hostname) {
+    host =
+      auth +
+      (objURL.hostname.indexOf(":") === -1
+        ? objURL.hostname
+        : `[${objURL.hostname}]`);
+
+    if (objURL.port) {
+      host += `:${objURL.port}`;
+    }
+  }
+
+  let pathname = objURL.pathname || "";
+
+  if (objURL.slashes) {
+    host = `//${host || ""}`;
+
+    if (pathname && pathname.charAt(0) !== "/") {
+      pathname = `/${pathname}`;
+    }
+  } else if (!host) {
+    host = "";
+  }
+
+  let search = objURL.search || "";
+
+  if (search && search.charAt(0) !== "?") {
+    search = `?${search}`;
+  }
+
+  let hash = objURL.hash || "";
+
+  if (hash && hash.charAt(0) !== "#") {
+    hash = `#${hash}`;
+  }
+
+  pathname = pathname.replace(
+    /[?#]/g,
+    /**
+     * @param {string} match
+     * @returns {string}
+     */
+    (match) => encodeURIComponent(match)
+  );
+  search = search.replace("#", "%23");
+
+  return `${protocol}${host}${pathname}${search}${hash}`;
+}
+
+/**
+ * @param {URL & { fromCurrentScript?: boolean }} parsedURL
+ * @returns {string}
+ */
 function createSocketURL(parsedURL) {
   let { hostname } = parsedURL;
 
   // Node.js module parses it as `::`
-  // `new URL(urlString, [baseURLstring])` parses it as '[::]'
+  // `new URL(urlString, [baseURLString])` parses it as '[::]'
   const isInAddrAny =
-    hostname === '0.0.0.0' || hostname === '::' || hostname === '[::]';
+    hostname === "0.0.0.0" || hostname === "::" || hostname === "[::]";
 
   // why do we need this check?
   // hostname n/a for file protocol (example, when using electron, ionic)
@@ -18,27 +86,27 @@ function createSocketURL(parsedURL) {
   if (
     isInAddrAny &&
     self.location.hostname &&
-    self.location.protocol.indexOf('http') === 0
+    self.location.protocol.indexOf("http") === 0
   ) {
     hostname = self.location.hostname;
   }
 
-  let socketURLProtocol = parsedURL.protocol || 'ws:';
+  let socketURLProtocol = parsedURL.protocol || self.location.protocol;
 
   // When https is used in the app, secure web sockets are always necessary because the browser doesn't accept non-secure web sockets.
   if (
-    socketURLProtocol === 'auto:' ||
-    (hostname && isInAddrAny && self.location.protocol === 'https:')
+    socketURLProtocol === "auto:" ||
+    (hostname && isInAddrAny && self.location.protocol === "https:")
   ) {
     socketURLProtocol = self.location.protocol;
   }
 
   socketURLProtocol = socketURLProtocol.replace(
     /^(?:http|.+-extension|file)/i,
-    'ws'
+    "ws"
   );
 
-  let socketURLAuth = '';
+  let socketURLAuth = "";
 
   // `new URL(urlString, [baseURLstring])` doesn't have `auth` property
   // Parse authentication credentials in case we need them
@@ -49,7 +117,7 @@ function createSocketURL(parsedURL) {
     // we only include password if the username is not empty.
     if (parsedURL.password) {
       // Result: <username>:<password>
-      socketURLAuth = socketURLAuth.concat(':', parsedURL.password);
+      socketURLAuth = socketURLAuth.concat(":", parsedURL.password);
     }
   }
 
@@ -64,25 +132,25 @@ function createSocketURL(parsedURL) {
   const socketURLHostname = (
     hostname ||
     self.location.hostname ||
-    'localhost'
-  ).replace(/^\[(.*)\]$/, '$1');
+    "localhost"
+  ).replace(/^\[(.*)\]$/, "$1");
 
   let socketURLPort = parsedURL.port;
 
-  if (!socketURLPort || socketURLPort === '0') {
+  if (!socketURLPort || socketURLPort === "0") {
     socketURLPort = self.location.port;
   }
 
   // If path is provided it'll be passed in via the resourceQuery as a
   // query param so it has to be parsed out of the querystring in order for the
   // client to open the socket to the correct location.
-  let socketURLPathname = '/ws';
+  let socketURLPathname = "/ws";
 
   if (parsedURL.pathname && !parsedURL.fromCurrentScript) {
     socketURLPathname = parsedURL.pathname;
   }
 
-  return url.format({
+  return format({
     protocol: socketURLProtocol,
     auth: socketURLAuth,
     hostname: socketURLHostname,
@@ -92,4 +160,4 @@ function createSocketURL(parsedURL) {
   });
 }
 
-module.exports = createSocketURL;
+export default createSocketURL;

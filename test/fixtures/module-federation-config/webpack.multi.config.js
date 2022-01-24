@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
 module.exports = [
   {
-    mode: 'development',
-    target: 'node',
+    mode: "development",
+    target: "node",
     context: __dirname,
-    stats: 'none',
-    entry: ['./entry1.js', './entry2.js'],
+    stats: "none",
+    entry: ["./entry1.js", "./entry2.js"],
     output: {
-      path: '/',
-      libraryTarget: 'umd',
+      path: "/",
+      libraryTarget: "umd",
     },
     infrastructureLogging: {
-      level: 'warn',
+      level: "warn",
     },
   },
 ];

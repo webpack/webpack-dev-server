@@ -1,33 +1,51 @@
-'use strict';
+"use strict";
+
+const webpack = require("webpack");
+
+const isWebpack5 = webpack.version.startsWith("5");
 
 module.exports = [
   {
-    mode: 'development',
+    name: "browser",
+    mode: "development",
     context: __dirname,
-    stats: 'none',
-    entry: './client.js',
+    stats: "none",
+    entry: "./browser.js",
     output: {
-      path: '/',
-      filename: 'client.js',
+      path: "/",
+      filename: "browser.js",
     },
-    node: false,
-    infrastructureLogging: {
-      level: 'warn',
-    },
+    infrastructureLogging: isWebpack5
+      ? {
+          level: "info",
+          stream: {
+            write: () => {},
+          },
+        }
+      : {
+          level: "info",
+        },
   },
   {
-    mode: 'development',
+    name: "server",
+    mode: "development",
     context: __dirname,
-    target: 'node',
-    stats: 'none',
-    entry: './server.js',
+    target: "node",
+    stats: "none",
+    entry: "./server.js",
     output: {
-      path: '/',
-      filename: 'server.js',
+      path: "/",
+      filename: "server.js",
     },
-    node: false,
-    infrastructureLogging: {
-      level: 'warn',
-    },
+    infrastructureLogging: isWebpack5
+      ? {
+          level: "info",
+          stream: {
+            write: () => {},
+          },
+        }
+      : {
+          level: "info",
+        },
   },
 ];

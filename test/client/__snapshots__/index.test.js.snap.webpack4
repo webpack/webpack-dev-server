@@ -23,11 +23,11 @@ exports[`index should run onSocketMessage.ok 1`] = `"Ok"`;
 exports[`index should run onSocketMessage.ok 2`] = `
 Object {
   "hot": false,
-  "initial": false,
   "liveReload": false,
   "logging": "info",
   "overlay": false,
   "progress": false,
+  "reconnect": 10,
 }
 `;
 
@@ -46,13 +46,16 @@ exports[`index should run onSocketMessage.warnings 2`] = `"Warnings"`;
 exports[`index should run onSocketMessage.warnings 3`] = `
 Array [
   Array [
-    "warn1",
+    "HEADER warning
+BODY: warning",
   ],
   Array [
-    "warn2",
+    "HEADER warning
+BODY: warning",
   ],
   Array [
-    "warn3",
+    "HEADER warning
+BODY: warning",
   ],
 ]
 `;
@@ -86,10 +89,12 @@ Array [
     "overlay": [Function],
     "progress": [Function],
     "progress-update": [Function],
+    "reconnect": [Function],
     "static-changed": [Function],
     "still-ok": [Function],
     "warnings": [Function],
   },
+  10,
 ]
 `;
 

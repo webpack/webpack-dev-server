@@ -1,22 +1,22 @@
-'use strict';
+"use strict";
 
 /* eslint-disable import/no-extraneous-dependencies */
 
-const path = require('path');
-const fs = require('graceful-fs');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const marked = require('marked');
+const path = require("path");
+const fs = require("graceful-fs");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const marked = require("marked");
 
 module.exports = {
   setup(config) {
-    const defaults = { mode: 'development', plugins: [], devServer: {} };
+    const defaults = { mode: "development", plugins: [], devServer: {} };
 
     if (config.entry) {
-      if (typeof config.entry === 'string') {
+      if (typeof config.entry === "string") {
         config.entry = path.resolve(config.entry);
       } else if (Array.isArray(config.entry)) {
         config.entry = config.entry.map((entry) => path.resolve(entry));
-      } else if (typeof config.entry === 'object') {
+      } else if (typeof config.entry === "object") {
         Object.entries(config.entry).forEach(([key, value]) => {
           config.entry[key] = path.resolve(value);
         });
@@ -25,8 +25,8 @@ module.exports = {
 
     const result = { ...defaults, ...config };
     const onBeforeSetupMiddleware = ({ app }) => {
-      app.get('/.assets/*', (req, res) => {
-        const filename = path.join(__dirname, '/', req.path);
+      app.get("/.assets/*", (req, res) => {
+        const filename = path.join(__dirname, "/", req.path);
         res.sendFile(filename);
       });
     };
@@ -42,15 +42,15 @@ module.exports = {
       mangle: true,
       smartLists: false,
       silent: false,
-      langPrefix: 'lang-',
+      langPrefix: "lang-",
       smartypants: false,
-      headerPrefix: '',
+      headerPrefix: "",
       renderer,
       xhtml: false,
     };
-    const readme = fs.readFileSync('README.md', 'utf-8');
+    const readme = fs.readFileSync("README.md", "utf-8");
 
-    let exampleTitle = '';
+    let exampleTitle = "";
 
     renderer.heading = function headingProxy(text, level, raw, slugger) {
       if (level === 1 && !exampleTitle) {
@@ -66,8 +66,8 @@ module.exports = {
 
     result.plugins.push(
       new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: path.join(__dirname, '.assets/layout.html'),
+        filename: "index.html",
+        template: path.join(__dirname, ".assets/layout.html"),
         title: exampleTitle,
       })
     );

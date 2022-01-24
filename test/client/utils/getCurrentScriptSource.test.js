@@ -2,18 +2,19 @@
  * @jest-environment jsdom
  */
 
-'use strict';
+"use strict";
 
-const getCurrentScriptSource = require('../../../client-src/utils/getCurrentScriptSource');
+const getCurrentScriptSource =
+  require("../../../client-src/utils/getCurrentScriptSource").default;
 
 describe("'getCurrentScriptSource' function", () => {
   afterEach(() => {
-    Object.defineProperty(document, 'currentScript', {
+    Object.defineProperty(document, "currentScript", {
       // eslint-disable-next-line no-undefined
       value: undefined,
       writable: true,
     });
-    Object.defineProperty(document, 'scripts', {
+    Object.defineProperty(document, "scripts", {
       value: [],
       writable: true,
     });
@@ -28,19 +29,19 @@ describe("'getCurrentScriptSource' function", () => {
   });
 
   test("should return src when 'document.currentScript' exists", () => {
-    const elm = document.createElement('script');
+    const elm = document.createElement("script");
 
-    elm.setAttribute('src', 'foo');
+    elm.setAttribute("src", "foo");
 
-    Object.defineProperty(document, 'currentScript', {
+    Object.defineProperty(document, "currentScript", {
       value: elm,
     });
 
-    expect(getCurrentScriptSource()).toEqual('foo');
+    expect(getCurrentScriptSource()).toEqual("foo");
   });
 
   test("should fail when 'document.scripts' doesn't exist and no scripts", () => {
-    Object.defineProperty(document, 'scripts', {
+    Object.defineProperty(document, "scripts", {
       // eslint-disable-next-line no-undefined
       value: undefined,
       writable: true,
@@ -54,25 +55,25 @@ describe("'getCurrentScriptSource' function", () => {
   });
 
   test("should return the 'src' attribute of the last 'script' tag", () => {
-    const elements = ['foo', 'bar'].map((src) => {
-      const element = document.createElement('script');
+    const elements = ["foo", "bar"].map((src) => {
+      const element = document.createElement("script");
 
-      element.setAttribute('src', src);
+      element.setAttribute("src", src);
 
       return element;
     });
 
-    Object.defineProperty(document, 'scripts', {
+    Object.defineProperty(document, "scripts", {
       value: elements,
     });
 
-    expect(getCurrentScriptSource()).toEqual('bar');
+    expect(getCurrentScriptSource()).toEqual("bar");
   });
 
   test("should fail when no scripts with the 'scr' attribute", () => {
-    const elements = ['foo', 'bar'].map(() => document.createElement('script'));
+    const elements = ["foo", "bar"].map(() => document.createElement("script"));
 
-    Object.defineProperty(document, 'scripts', {
+    Object.defineProperty(document, "scripts", {
       value: elements,
     });
 

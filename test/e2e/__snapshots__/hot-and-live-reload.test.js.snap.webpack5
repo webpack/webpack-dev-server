@@ -1,16 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): console messages 1`] = `Array []`;
+exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): console messages 1`] = `
+Array [
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): page errors 1`] = `Array []`;
 
-exports[`hot and live reload should not refresh content when hot and no live reload disabled (sockjs): console messages 1`] = `Array []`;
+exports[`hot and live reload should not refresh content when hot and no live reload disabled (sockjs): console messages 1`] = `
+Array [
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (sockjs): page errors 1`] = `Array []`;
 
-exports[`hot and live reload should not refresh content when hot and no live reload disabled (ws): console messages 1`] = `Array []`;
+exports[`hot and live reload should not refresh content when hot and no live reload disabled (ws): console messages 1`] = `
+Array [
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (ws): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-hot=false&webpack-dev-server-live-reload=false" (default): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
+
+exports[`hot and live reload should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-hot=false&webpack-dev-server-live-reload=false" (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false" (default): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`hot and live reload should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false" (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work and allow to disable live reload using the "webpack-dev-server-live-reload=false" (default): console messages 1`] = `
+Array [
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
+
+exports[`hot and live reload should work and allow to disable live reload using the "webpack-dev-server-live-reload=false" (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work and do nothing when web socket server disabled (default): console messages 1`] = `Array []`;
+
+exports[`hot and live reload should work and do nothing when web socket server disabled (default): page errors 1`] = `Array []`;
 
 exports[`hot and live reload should work and refresh content using hot module replacement (default): console messages 1`] = `
 Array [
@@ -275,3 +326,120 @@ Array [
 `;
 
 exports[`hot and live reload should work and refresh content using live reload when live reload enabled and hot disabled (ws): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work with manual client setup (default): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Updated modules:",
+  "[HMR]  - ./main.css",
+  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
+  "",
+  "[HMR] App is up to date.",
+]
+`;
+
+exports[`hot and live reload should work with manual client setup (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work with manual client setup and allow to disable hot module replacement (default): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`hot and live reload should work with manual client setup and allow to disable hot module replacement (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work with manual client setup and allow to disable live reload (default): console messages 1`] = `
+Array [
+  "[webpack-dev-server] App updated. Recompiling...",
+]
+`;
+
+exports[`hot and live reload should work with manual client setup and allow to disable live reload (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work with manual client setup and allow to enable hot module replacement (default): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App hot update...",
+  "[HMR] Checking for updates on the server...",
+  "[HMR] Updated modules:",
+  "[HMR]  - ./main.css",
+  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
+  "",
+  "[HMR] App is up to date.",
+]
+`;
+
+exports[`hot and live reload should work with manual client setup and allow to enable hot module replacement (default): page errors 1`] = `Array []`;
+
+exports[`hot and live reload should work with manual client setup and allow to enable live reload (default): console messages 1`] = `
+Array [
+  "[webpack-dev-server] Live Reloading enabled.",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`hot and live reload should work with manual client setup and allow to enable live reload (default): page errors 1`] = `Array []`;
+
+exports[`hot disabled HMR plugin should NOT register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "Hey.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`hot disabled HMR plugin should NOT register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`hot disabled HMR plugin should NOT register the HMR plugin before compilation is complete: response status 1`] = `200`;
+
+exports[`multi compiler hot config HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`multi compiler hot config HMR plugin should register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`multi compiler hot config HMR plugin should register the HMR plugin before compilation is complete: response status 1`] = `200`;
+
+exports[`simple hot config HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`simple hot config HMR plugin should register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`simple hot config HMR plugin should register the HMR plugin before compilation is complete: response status 1`] = `200`;
+
+exports[`simple hot config HMR plugin with already added HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`simple hot config HMR plugin with already added HMR plugin should register the HMR plugin before compilation is complete: page errors 1`] = `Array []`;
+
+exports[`simple hot config HMR plugin with already added HMR plugin should register the HMR plugin before compilation is complete: response status 1`] = `200`;

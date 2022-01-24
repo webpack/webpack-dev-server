@@ -2,6 +2,261 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.3](https://github.com/webpack/webpack-dev-server/compare/v4.7.2...v4.7.3) (2022-01-11)
+
+### Security
+
+* update `selfsigned` to `2.0.0` version
+
+### [4.7.2](https://github.com/webpack/webpack-dev-server/compare/v4.7.1...v4.7.2) (2021-12-29)
+
+
+### Bug Fixes
+
+* apply `onAfterSetupMiddleware` after `setupMiddlewares` (as behavior earlier) ([f6bc644](https://github.com/webpack/webpack-dev-server/commit/f6bc644bb81b966e030d8f8a54d5a99cd61ec8f2))
+
+### [4.7.1](https://github.com/webpack/webpack-dev-server/compare/v4.7.0...v4.7.1) (2021-12-22)
+
+
+### Bug Fixes
+
+* removed `url` package, fixed compatibility with future webpack defaults ([#4132](https://github.com/webpack/webpack-dev-server/issues/4132)) ([4e5d8ea](https://github.com/webpack/webpack-dev-server/commit/4e5d8eae654ef382697722c6406dbc96207594aa))
+
+## [4.7.0](https://github.com/webpack/webpack-dev-server/compare/v4.6.0...v4.7.0) (2021-12-21)
+
+
+### Features
+
+* added the `setupMiddlewares` option and deprecated `onAfterSetupMiddleware` and `onBeforeSetupMiddleware` options ([#4068](https://github.com/webpack/webpack-dev-server/issues/4068)) ([c13aa56](https://github.com/webpack/webpack-dev-server/commit/c13aa560651a3bb4c4a7b1b4363c04383596c7e9))
+* added types ([8f02c3f](https://github.com/webpack/webpack-dev-server/commit/8f02c3f3d6131fd37f58ef4d5cbe15578c94a6fd))
+* show deprecation warning for `cacert` option ([#4115](https://github.com/webpack/webpack-dev-server/issues/4115)) ([c73ddfb](https://github.com/webpack/webpack-dev-server/commit/c73ddfb934ec748e3dd34456d4293b933e9c6c99))
+
+
+### Bug Fixes
+
+* add description for `watchFiles` options ([#4057](https://github.com/webpack/webpack-dev-server/issues/4057)) ([75f3817](https://github.com/webpack/webpack-dev-server/commit/75f381751e5377ae297c32f9fcdcd096ef28c5c2))
+* allow passing options for custom server ([#4110](https://github.com/webpack/webpack-dev-server/issues/4110)) ([fc8bed9](https://github.com/webpack/webpack-dev-server/commit/fc8bed95251f27a24c1441307c44782f3836edd6))
+* correct schema for `ClientLogging` ([#4084](https://github.com/webpack/webpack-dev-server/issues/4084)) ([9b7ae7b](https://github.com/webpack/webpack-dev-server/commit/9b7ae7b5f4ac4a920b1ae3b47a8eb15d093cb369))
+* mark `--open-app` deprecated in favor of `--open-app-name` ([#4091](https://github.com/webpack/webpack-dev-server/issues/4091)) ([693c28a](https://github.com/webpack/webpack-dev-server/commit/693c28a0499e431b09274b8b7ecce71adb292c8f))
+* show deprecation warning for both `https` and `http2` ([#4069](https://github.com/webpack/webpack-dev-server/issues/4069)) ([d8d5d71](https://github.com/webpack/webpack-dev-server/commit/d8d5d71c8ca495098e1ee30ebc72ffd657ad5ba0))
+* update `--web-socket-server` description ([#4098](https://github.com/webpack/webpack-dev-server/issues/4098)) ([65955e9](https://github.com/webpack/webpack-dev-server/commit/65955e96cf7869dd4294699fd2a3878c2179c656))
+* update `listen` and `close` deprecation warning message ([#4097](https://github.com/webpack/webpack-dev-server/issues/4097)) ([b217a19](https://github.com/webpack/webpack-dev-server/commit/b217a191d09a93e8dcc1fff2ee26e97857e096d3))
+* update descriptions of `https` and `server` options ([#4094](https://github.com/webpack/webpack-dev-server/issues/4094)) ([f97c9e2](https://github.com/webpack/webpack-dev-server/commit/f97c9e2df460ef9a84c8ab2016c6bce3c90d93ac))
+
+## [4.6.0](https://github.com/webpack/webpack-dev-server/compare/v4.5.0...v4.6.0) (2021-11-25)
+
+
+### Features
+
+* allow to pass all `chokidar` options ([#4025](https://github.com/webpack/webpack-dev-server/issues/4025)) ([5026601](https://github.com/webpack/webpack-dev-server/commit/5026601bd670eb65bdddabc208ec9ae73a58e592))
+
+
+### Bug Fixes
+
+* reconnection logic ([#4044](https://github.com/webpack/webpack-dev-server/issues/4044)) ([9b32c96](https://github.com/webpack/webpack-dev-server/commit/9b32c968fd96a57f5bab36416f79e649ab3a4a2c))
+* reload on warnings ([#4056](https://github.com/webpack/webpack-dev-server/issues/4056)) ([1ba9720](https://github.com/webpack/webpack-dev-server/commit/1ba97201f71b8a5b8f67281059f4834e55bf8f67))
+
+## [4.5.0](https://github.com/webpack/webpack-dev-server/compare/v4.4.0...v4.5.0) (2021-11-13)
+
+
+### Features
+
+* add `--web-socket-server-type` option for CLI ([#4001](https://github.com/webpack/webpack-dev-server/issues/4001)) ([17c390a](https://github.com/webpack/webpack-dev-server/commit/17c390a04e474a675255eb25132b423e0614253f))
+* show deprecation warning for `https`/`http2` option, [migration guide for `https`](https://github.com/webpack/webpack-dev-server/tree/master/examples/server/https) and [migration guide for `http2`](https://github.com/webpack/webpack-dev-server/tree/master/examples/server/spdy) (because we use [`spdy`](https://github.com/spdy-http2/node-spdy) for http2 due `express` doesn't support http2) ([#4003](https://github.com/webpack/webpack-dev-server/issues/4003)) ([521cf85](https://github.com/webpack/webpack-dev-server/commit/521cf852a81c5913e17cf36c90140c566d4218e5))
+
+
+### Bug Fixes
+
+* infinity refresh on warnings ([#4006](https://github.com/webpack/webpack-dev-server/issues/4006)) ([10da223](https://github.com/webpack/webpack-dev-server/commit/10da2238b0fce26973160ef03ba0dd35d5bc0568))
+* invalid host message is missing on client with https ([#3997](https://github.com/webpack/webpack-dev-server/issues/3997)) ([#3998](https://github.com/webpack/webpack-dev-server/issues/3998)) ([ff0869c](https://github.com/webpack/webpack-dev-server/commit/ff0869cb08cd886ed5b1f8265736d514358c7305))
+* remove process listeners after stopping the server ([#4013](https://github.com/webpack/webpack-dev-server/issues/4013)) ([d198e4e](https://github.com/webpack/webpack-dev-server/commit/d198e4e138c194427af596663c129515353db9c4))
+
+## [4.4.0](https://github.com/webpack/webpack-dev-server/compare/v4.3.1...v4.4.0) (2021-10-27)
+
+
+### Features
+
+* added the `server` option, now you can pass server options, example `{ server: { type: 'http', options: { maxHeaderSize: 32768 } } }`, available options for [`http`](https://nodejs.org/api/http.html#httpcreateserveroptions-requestlistener) and [`https`](https://nodejs.org/api/https.html#httpscreateserveroptions-requestlistener), note - for `http2` is used [`spdy`](https://github.com/spdy-http2/node-spdy), options specified in the `server.options` option take precedence over `https`/`http2` options ([#3940](https://github.com/webpack/webpack-dev-server/issues/3940)) ([a70a7ef](https://github.com/webpack/webpack-dev-server/commit/a70a7ef025f07ec6be69cee0b3b5204c7e3a0c5b))
+* added the `client.reconnect` option ([#3912](https://github.com/webpack/webpack-dev-server/issues/3912)) ([5edad76](https://github.com/webpack/webpack-dev-server/commit/5edad76bb099713210b2a8c5c29d22371df7371e))
+* improve error handling within `startCallback` and `endCallback` ([#3969](https://github.com/webpack/webpack-dev-server/issues/3969)) ([b0928ac](https://github.com/webpack/webpack-dev-server/commit/b0928acadccd2251a9eb165bfae0c63c84d0d745))
+
+
+### Bug Fixes
+
+* schema for web socket server type ([#3913](https://github.com/webpack/webpack-dev-server/issues/3913)) ([f6aa6f7](https://github.com/webpack/webpack-dev-server/commit/f6aa6f7979dae5a44ff4597b7338027c5aab869a))
+* typo in SSL information log ([#3939](https://github.com/webpack/webpack-dev-server/issues/3939)) ([4c6103b](https://github.com/webpack/webpack-dev-server/commit/4c6103ba9495a29c6e142373c8dad084a20b6bc8))
+
+### [4.3.1](https://github.com/webpack/webpack-dev-server/compare/v4.3.0...v4.3.1) (2021-10-04)
+
+
+### Bug Fixes
+
+* perf ([#3906](https://github.com/webpack/webpack-dev-server/issues/3906)) ([f6e2a19](https://github.com/webpack/webpack-dev-server/commit/f6e2a1981d4c552368cd06ccf5dc400db298c2d6))
+
+## [4.3.0](https://github.com/webpack/webpack-dev-server/compare/v4.2.1...v4.3.0) (2021-09-25)
+
+
+### Features
+
+* allow array for `headers` option ([#3847](https://github.com/webpack/webpack-dev-server/issues/3847)) ([9911437](https://github.com/webpack/webpack-dev-server/commit/9911437186a28b2249adfb282524361d7afe6c25))
+* gracefully and force shutdown ([#3880](https://github.com/webpack/webpack-dev-server/issues/3880)) ([db24b16](https://github.com/webpack/webpack-dev-server/commit/db24b16e66a63a51e5bacead47ed30c3bf21ff5b))
+
+
+### Bug Fixes
+
+* avoid web socket connection when web socket server is not running ([#3879](https://github.com/webpack/webpack-dev-server/issues/3879)) ([8874d72](https://github.com/webpack/webpack-dev-server/commit/8874d72f2ee8f11c8420de131e8335982e516727))
+* display file name for warnings/errors in overlay ([#3867](https://github.com/webpack/webpack-dev-server/issues/3867)) ([d20def5](https://github.com/webpack/webpack-dev-server/commit/d20def5c71609ad97ea783716c53070235f398cc))
+* formatting errors/warnings ([#3877](https://github.com/webpack/webpack-dev-server/issues/3877)) ([f0dbea0](https://github.com/webpack/webpack-dev-server/commit/f0dbea019c822e7e4b7e5ed81a6a9588e9521d73))
+* handle 0 value of the `port` option property ([ed67f66](https://github.com/webpack/webpack-dev-server/commit/ed67f66fc41eb1dd83fb84ecaa18703559dbe2ae))
+
+### [4.2.1](https://github.com/webpack/webpack-dev-server/compare/v4.2.0...v4.2.1) (2021-09-13)
+
+
+### Bug Fixes
+
+* infinity loop for multi compiler mode ([#3840](https://github.com/webpack/webpack-dev-server/issues/3840)) ([e019bd2](https://github.com/webpack/webpack-dev-server/commit/e019bd24ea061c4839a4667f8bd75a04b9a48128))
+* reloading logic for multi compiler mode ([#3841](https://github.com/webpack/webpack-dev-server/issues/3841)) ([ef148ec](https://github.com/webpack/webpack-dev-server/commit/ef148ec1feb66d0f72457d0b2de853b76b06b3c9))
+
+### [4.2.0](https://github.com/webpack/webpack-dev-server/compare/v4.1.1...v4.2.0) (2021-09-09)
+
+
+### Features
+
+* added the `http.ca` option (CLI option added too) (should be used instead `cacert`, because we will remove it in the next major release in favor the `https.ca` option)
+* added the `https.crl` option (CLI options added too), [more information](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+* `https.ca`/`https.cacert`/ `https.cert`/`https.crl`/`https.key`/`https.pfx` options are now accept Arrays of `Buffer`/`string`/Path to file, using `--https-*-reset` CLI options you can reset these options
+* `https.pfx`/`https.key` can be `Object[]`, [more information](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+* `https` options can now accept custom options, you can use:
+
+```js
+module.exports = {
+  // Other options
+  devServer: {
+    https: {
+      // Allow to set additional TSL options https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options
+      minVersion: "TLSv1.1",
+      ca: path.join(httpsCertificateDirectory, "ca.pem"),
+      pfx: path.join(httpsCertificateDirectory, "server.pfx"),
+      key: path.join(httpsCertificateDirectory, "server.key"),
+      cert: path.join(httpsCertificateDirectory, "server.crt"),
+      passphrase: "webpack-dev-server",
+    },
+  }
+};
+```
+
+### Bug Fixes
+
+* accept connections with `file:` and `chrome-extensions:` protocol by default ([#3822](https://github.com/webpack/webpack-dev-server/issues/3822)) ([138f064](https://github.com/webpack/webpack-dev-server/commit/138f0641a4aa040fa2ff66dfd8891c920aa17808))
+* close overlay on disconnection ([#3825](https://github.com/webpack/webpack-dev-server/issues/3825)) ([011bcf1](https://github.com/webpack/webpack-dev-server/commit/011bcf15c7eba8f7dcd45731f8e434b2eccf781e))
+* respect `https.cacert` option ([#3820](https://github.com/webpack/webpack-dev-server/issues/3820)) ([0002ebf](https://github.com/webpack/webpack-dev-server/commit/0002ebfbc8f36e92f91013372c9e2bca97022825))
+
+### [4.1.1](https://github.com/webpack/webpack-dev-server/compare/v4.1.0...v4.1.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* improve the description of the `magicHtml` option ([#3772](https://github.com/webpack/webpack-dev-server/issues/3772)) ([b80610f](https://github.com/webpack/webpack-dev-server/commit/b80610f07357c3b2ae8557f6d371e4d563ae3c53))
+* replace `ansi-html` with `ansi-html-community` to avoid CVE ([#3801](https://github.com/webpack/webpack-dev-server/issues/3801)) ([36fd214](https://github.com/webpack/webpack-dev-server/commit/36fd21477dac5131ec266cc1d717d87051f10a2b))
+
+## [4.1.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0...v4.1.0) (2021-08-31)
+
+
+### Features
+
+* added the `magicHtml` option ([#3717](https://github.com/webpack/webpack-dev-server/issues/3717)) ([4831f58](https://github.com/webpack/webpack-dev-server/commit/4831f58a75d12f75f4d5e5064ff3245f1a3770ba))
+* allow to set `hot` and `live-reload` for client using search params ([1c57680](https://github.com/webpack/webpack-dev-server/commit/1c576802bff4a4be78b1771ed2fc8f343780663b))
+* show warning when the `hot` option is enabled with the HMR plugin in config ([#3744](https://github.com/webpack/webpack-dev-server/issues/3744)) ([6cb1e4e](https://github.com/webpack/webpack-dev-server/commit/6cb1e4e6a25de3fb284be84d2ad67fc701800b96))
+
+### Bug Fixes
+
+* change log type of `Disconnected!` to `info` ([fde27f5](https://github.com/webpack/webpack-dev-server/commit/fde27f5002ae3d679b2cee2215287f6e3a16febf))
+* handle `--allowed-hosts all` correctly ([#3720](https://github.com/webpack/webpack-dev-server/issues/3720)) ([326ed56](https://github.com/webpack/webpack-dev-server/commit/326ed567638944bc3b64e185b118f9e723383e44))
+* output documentation link on errors ([#3680](https://github.com/webpack/webpack-dev-server/issues/3680)) ([e16221b](https://github.com/webpack/webpack-dev-server/commit/e16221b1aed48f93c31c8659438834fdbf1e62bf))
+* respect the `bypass` option with `target`/`router` options for proxy ([b5dd568](https://github.com/webpack/webpack-dev-server/commit/b5dd5687e521cd70e7e13b397280d8bda38df255))
+
+## [4.0.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-rc.1...v4.0.0) (2021-08-18)
+
+## Notes:
+
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+
+### Bug Fixes
+
+* improve https CLI output ([#3673](https://github.com/webpack/webpack-dev-server/issues/3673)) ([f2d87fb](https://github.com/webpack/webpack-dev-server/commit/f2d87fb2dc3f9545dd9203beda8bf9ac056c70f6))
+* initial reloading for lazy compilation ([#3662](https://github.com/webpack/webpack-dev-server/issues/3662)) ([1768d6b](https://github.com/webpack/webpack-dev-server/commit/1768d6b7913055dad02318a49de65df2e93baa4f))
+* respect protocol from browser for manual setup ([#3675](https://github.com/webpack/webpack-dev-server/issues/3675)) ([cdcabb2](https://github.com/webpack/webpack-dev-server/commit/cdcabb240f9afcab504ca26fbf71d3af013dd806))
+
+## [4.0.0-rc.1](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-rc.0...v4.0.0-rc.1) (2021-08-17)
+
+## Notes:
+
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+
+### Features
+
+* async API ([#3608](https://github.com/webpack/webpack-dev-server/issues/3608)) ([974ce25](https://github.com/webpack/webpack-dev-server/commit/974ce25669ef6a4f55e8a7576fc140bc7ccb55f1))
+* use ECMA modules in client ([#3550](https://github.com/webpack/webpack-dev-server/issues/3550)) ([9307755](https://github.com/webpack/webpack-dev-server/commit/93077552c2bac020650936316dc93e03245b7a19))
+
+
+### Bug Fixes
+
+* fix usage legacy API ([#3660](https://github.com/webpack/webpack-dev-server/issues/3660)) ([c4678bc](https://github.com/webpack/webpack-dev-server/commit/c4678bc467370e7dc74d06a8b898515e448d0da0))
+* proxy logging and allow to pass options without the `target` option ([#3651](https://github.com/webpack/webpack-dev-server/issues/3651)) ([6e2cbde](https://github.com/webpack/webpack-dev-server/commit/6e2cbde16b0d071b6dd5c243b1b0e867b69575c5))
+* render ansi formatted error messages correctly in overlay ([#3579](https://github.com/webpack/webpack-dev-server/issues/3579)) ([9313454](https://github.com/webpack/webpack-dev-server/commit/9313454066c2a830b425965837a2756d8f945e97))
+* use value of the `infastructureLogging.level` option by default for `client.logging`. ([#3613](https://github.com/webpack/webpack-dev-server/issues/3613)) ([c9ccc96](https://github.com/webpack/webpack-dev-server/commit/c9ccc96f9d5cd9930f69b927b248d52509ec1e55))
+* schema for the `host` option ([#3549](https://github.com/webpack/webpack-dev-server/issues/3549)) ([7200d31](https://github.com/webpack/webpack-dev-server/commit/7200d3101403864b3ca795c6bf028197e9f62183))
+* show deprecation warning for incorrect usage of Node.js API ([#3563](https://github.com/webpack/webpack-dev-server/issues/3563)) ([62b21ff](https://github.com/webpack/webpack-dev-server/commit/62b21ffb028685e76ee715babfe53d5a9606fbbc))
+
+## [4.0.0-rc.0](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.3...v4.0.0-rc.0) (2021-07-19)
+
+
+## Notes:
+
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+
+### ⚠ BREAKING CHANGES
+
+* rename `client.transport` to `client.webSocketTransport`
+* move web socket client to web socket server class, i.e. to get web socket clients use `this.webSocketServer.clients`
+* remove entry options (i.e. `hotEntry` and `needClientEntry`) in favor manual setup entries (#3494)
+* you need to reset CLI options using `reset` option, please look them in `webpack serve --help`
+* `host` and `port` options can't be `null` or empty string
+
+### Features
+
+* allow to close overlay in browser ([#3433](https://github.com/webpack/webpack-dev-server/issues/3433)) ([307f2e7](https://github.com/webpack/webpack-dev-server/commit/307f2e7879b6c1ee18f279eb8f6d30509d550a86))
+* add port `auto` ([#3297](https://github.com/webpack/webpack-dev-server/issues/3297)) ([437c8d3](https://github.com/webpack/webpack-dev-server/commit/437c8d3be7041e4203920d3d8a6af5a8071406fd))
+* added `<url>` pattern for open and allow to use multiple browsers ([#3496](https://github.com/webpack/webpack-dev-server/issues/3496)) ([7c7ccf9](https://github.com/webpack/webpack-dev-server/commit/7c7ccf9c6cf2a26f980b725e9ba8ee9e48e5d397))
+* allow string value for `client.webSocketURL.port` ([#3354](https://github.com/webpack/webpack-dev-server/issues/3354)) ([f5e7f8f](https://github.com/webpack/webpack-dev-server/commit/f5e7f8f6d2236d01b8e9562a23d9db077ce4032e))
+* allow to disable web socket server using `webSocketServer: false` ([f62f20f](https://github.com/webpack/webpack-dev-server/commit/f62f20f301e39ac16be089f2d51129443838b921))
+* allow `username` and `password` in clientURL ([#3452](https://github.com/webpack/webpack-dev-server/issues/3452)) ([a7225d5](https://github.com/webpack/webpack-dev-server/commit/a7225d5efc473549619f6121570b33c76b4fda7e))
+* display documentation links on errors ([#3512](https://github.com/webpack/webpack-dev-server/issues/3512)) ([54790ab](https://github.com/webpack/webpack-dev-server/commit/54790abab19ccfc6a96461c32675d410551f902a))
+* enable `compress` by default ([#3303](https://github.com/webpack/webpack-dev-server/issues/3303)) ([4d251b5](https://github.com/webpack/webpack-dev-server/commit/4d251b5c29418aba447021517158e0348dc37d32))
+* implement the `client.webSocketURL.protocol` option ([#3380](https://github.com/webpack/webpack-dev-server/issues/3380)) ([8998d6b](https://github.com/webpack/webpack-dev-server/commit/8998d6b3a28251c5f8a6481d134f7557c5dc8e2b))
+* the `ipc` option was added for unix socket ([#3479](https://github.com/webpack/webpack-dev-server/issues/3479)) ([b559738](https://github.com/webpack/webpack-dev-server/commit/b559738047bbe6f9bf508747c8ed188dacdec258))
+* support `Function` in headers option ([#3267](https://github.com/webpack/webpack-dev-server/issues/3267)) ([28f9597](https://github.com/webpack/webpack-dev-server/commit/28f95978f6494885a5f6402ec14e9290bcae6bf4))
+
+
+### Bug Fixes
+
+* allow to use `80` port for dev server ([#3487](https://github.com/webpack/webpack-dev-server/issues/3487)) ([22f18eb](https://github.com/webpack/webpack-dev-server/commit/22f18ebfae77df0d75a44f2fa136cfecd655bce7))
+* avoid duplicate `App updated. Recompiling...` ([#3488](https://github.com/webpack/webpack-dev-server/issues/3488)) ([a2e3ead](https://github.com/webpack/webpack-dev-server/commit/a2e3eaddd400e77668b8ab6585fef89ffb963ede))
+* do not allow empty string for `port` ([#3372](https://github.com/webpack/webpack-dev-server/issues/3372)) ([8c53102](https://github.com/webpack/webpack-dev-server/commit/8c53102840c2a0310931c43ccf320226bec74766))
+* don't allow empty array for `allowedHosts` option ([#3451](https://github.com/webpack/webpack-dev-server/issues/3451)) ([17aa345](https://github.com/webpack/webpack-dev-server/commit/17aa345b36fa8d70c9242015303b814de55cfa71))
+* get rid of Symbol core-js polyfill ([#3535](https://github.com/webpack/webpack-dev-server/issues/3535)) ([7afe3d2](https://github.com/webpack/webpack-dev-server/commit/7afe3d2559d7f4145fe67bbffa8994498ee3a3b6))
+* the `host` option can't be `null` or empty string ([#3352](https://github.com/webpack/webpack-dev-server/issues/3352)) ([216b0d3](https://github.com/webpack/webpack-dev-server/commit/216b0d3c71a617eeef32cff523f95fcd8916af72))
+* improve message for static content changes ([#3289](https://github.com/webpack/webpack-dev-server/issues/3289)) ([970a7d7](https://github.com/webpack/webpack-dev-server/commit/970a7d7bbee1be33c749ee3faae344fc6567a599))
+* improve processing of CLI flags ([#3313](https://github.com/webpack/webpack-dev-server/issues/3313)) ([32bc877](https://github.com/webpack/webpack-dev-server/commit/32bc877f378af5fbf893d9e152369ed68ab127ee))
+* rename `firewall` option to `allowedHosts` option ([#3345](https://github.com/webpack/webpack-dev-server/issues/3345)) ([81e4e55](https://github.com/webpack/webpack-dev-server/commit/81e4e557a07381980083efdeb99eb26265b38aae))
+* pass own logger in historyApiFallback ([#3373](https://github.com/webpack/webpack-dev-server/issues/3373)) ([3ba2fa5](https://github.com/webpack/webpack-dev-server/commit/3ba2fa5817c49e95424f7dfab2ca0a94af82996b))
+* polling usage in watchFiles option ([#3366](https://github.com/webpack/webpack-dev-server/issues/3366)) ([2afb223](https://github.com/webpack/webpack-dev-server/commit/2afb223fb5384da2416ecf4b39ac45963d9ee2d5))
+* postpone initialize ([#3467](https://github.com/webpack/webpack-dev-server/issues/3467)) ([80087de](https://github.com/webpack/webpack-dev-server/commit/80087dec9a816e6d68984b18a82e875b1a826835))
+* regression with `port` and `bonjour` ([c2805fe](https://github.com/webpack/webpack-dev-server/commit/c2805fe5a3c359809e315d9ba55849a5bbbe3ecf))
+* rename `path` to `pathname` for `client.webSocketURL` ([#3466](https://github.com/webpack/webpack-dev-server/issues/3466)) ([fd63e02](https://github.com/webpack/webpack-dev-server/commit/fd63e02ff58ed7e3ab2dcb84a36f0d49c1d553a2))
+* respect `logLevel` and `logProvider` option for proxy ([#3257](https://github.com/webpack/webpack-dev-server/issues/3257)) ([199baec](https://github.com/webpack/webpack-dev-server/commit/199baec187376213f55d8d0542798f4945b8cce5))
+* show plugin name in progress log ([#3337](https://github.com/webpack/webpack-dev-server/issues/3337)) ([b8a0932](https://github.com/webpack/webpack-dev-server/commit/b8a09323cb0d6f009459f77b618722408dfbe68c))
+
 ## [4.0.0-beta.3](https://github.com/webpack/webpack-dev-server/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2021-05-06)
 
 

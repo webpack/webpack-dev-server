@@ -1,23 +1,41 @@
-'use strict';
+"use strict";
+
+const { version } = require("webpack");
+
+let moduleRuleForHTML = {};
+
+if (version.startsWith("5")) {
+  moduleRuleForHTML = {
+    test: /\.html$/,
+    type: "asset/resource",
+    generator: {
+      filename: "[name][ext]",
+    },
+  };
+} else {
+  moduleRuleForHTML = {
+    test: /\.html$/,
+    loader: "file-loader",
+    options: { name: "[name].[ext]" },
+  };
+}
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
   context: __dirname,
-  stats: 'none',
-  entry: './foo.js',
+  stats: "none",
+  entry: "./foo.js",
   output: {
-    path: '/',
+    path: "/",
   },
   module: {
     rules: [
       {
-        test: /\.html$/,
-        loader: 'file-loader',
-        options: { name: '[name].[ext]' },
+        ...moduleRuleForHTML,
       },
     ],
   },
   infrastructureLogging: {
-    level: 'warn',
+    level: "warn",
   },
 };

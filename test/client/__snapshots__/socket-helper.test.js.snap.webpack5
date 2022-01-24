@@ -34,6 +34,9 @@ exports[`socket should default to WebsocketClient when no __webpack_dev_server_c
 Array [
   Array [
     "hello world",
+    Object {
+      "foo": "bar",
+    },
   ],
 ]
 `;
@@ -72,6 +75,9 @@ exports[`socket should use __webpack_dev_server_client__ when set 5`] = `
 Array [
   Array [
     "hello world",
+    Object {
+      "foo": "bar",
+    },
   ],
 ]
 `;

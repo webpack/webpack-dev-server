@@ -79,7 +79,7 @@ The **header** is mandatory.
 Any line of the commit message cannot be longer 100 characters. This allows the message to be easier
 to read on GitHub as well as in several git tools.
 
-For more information about what each part of the template mean, head up to the documentation in the
+For more information about what each part of the template means, head up to the documentation in the
 [angular repo](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits).
 
 ### Example commit message
@@ -115,13 +115,13 @@ Pull requests often need some real-world testing.
 
 2. Run `npm install`.
 
-3. Go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-server`), and run `npm run prepublish`.
+3. Go to the `webpack-dev-server` module (`cd node_modules/webpack-dev-server`), and run `npm run build`.
 
 The pull request is now ready to be tested.
 
-## Contributor License Agreement
+## [Contributor License Agreement](https://openjsf.org/about/the-openjs-foundation-cla/)
 
-When submitting your contribution, a CLA (Contributor License Agreement) bot will come by to verify that you signed the [CLA](https://cla.js.foundation/webpack/webpack-dev-server). If it is your first time, it will link you to the right place to sign it. However, if you have committed your contributions using an email that is not the same as your email used on GitHub, the CLA bot can't accept your contribution.
+When submitting your contribution, a CLA (Contributor License Agreement) bot will come by to verify that you signed the [CLA](https://cla.openjsf.org/). If it is your first time, it will link you to the right place to sign it. However, if you have committed your contributions using an email that is not the same as your email used on GitHub, the CLA bot can't accept your contribution.
 
 Run `git config user.email` to see your Git email, and verify it with [your GitHub email](https://github.com/settings/emails).
 

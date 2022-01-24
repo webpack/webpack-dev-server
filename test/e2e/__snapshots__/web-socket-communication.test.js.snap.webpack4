@@ -7,6 +7,7 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -19,6 +20,7 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -31,6 +33,7 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App hot update...",
@@ -54,6 +57,7 @@ Array [
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App hot update...",

@@ -1,27 +1,24 @@
-'use strict';
+"use strict";
 
-/* eslint-disable
-  no-unused-vars
-*/
-const SockJS = require('sockjs-client/dist/sockjs');
+const SockJS = require("sockjs-client/dist/sockjs");
 
 module.exports = class SockJSClient {
   constructor(url) {
     this.sock = new SockJS(
-      url.replace(/^ws:/i, 'http://').replace(/^wss:/i, 'https://')
+      url.replace(/^ws:/i, "http://").replace(/^wss:/i, "https://")
     );
   }
 
   onOpen(f) {
     this.sock.onopen = () => {
-      console.log('open');
+      console.log("open");
       f();
     };
   }
 
   onClose(f) {
     this.sock.onclose = () => {
-      console.log('close');
+      console.log("close");
       f();
     };
   }

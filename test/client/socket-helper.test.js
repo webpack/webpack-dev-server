@@ -2,22 +2,24 @@
  * @jest-environment jsdom
  */
 
-'use strict';
+"use strict";
 
-describe('socket', () => {
+describe("socket", () => {
   afterEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
   });
 
-  it('should default to WebsocketClient when no __webpack_dev_server_client__ set', () => {
-    jest.mock('../../client/clients/WebsocketClient');
-    const socket = require('../../client/socket');
-    const WebsocketClient = require('../../client/clients/WebsocketClient');
+  it("should default to WebsocketClient when no __webpack_dev_server_client__ set", () => {
+    jest.mock("../../client/clients/WebSocketClient");
+
+    const socket = require("../../client/socket").default;
+    const WebsocketClient =
+      require("../../client/clients/WebSocketClient").default;
 
     const mockHandler = jest.fn();
 
-    socket('my.url', {
+    socket("my.url", {
       example: mockHandler,
     });
 
@@ -27,8 +29,9 @@ describe('socket', () => {
     // along to the callback of onMessage
     mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
-        type: 'example',
-        data: 'hello world',
+        type: "example",
+        data: "hello world",
+        params: { foo: "bar" },
       })
     );
 
@@ -39,13 +42,17 @@ describe('socket', () => {
     expect(mockHandler.mock.calls).toMatchSnapshot();
   });
 
-  it('should use __webpack_dev_server_client__ when set', () => {
-    jest.mock('../../client/clients/WebsocketClient');
-    const socket = require('../../client/socket');
-    global.__webpack_dev_server_client__ = require('../../client/clients/WebsocketClient');
+  it("should use __webpack_dev_server_client__ when set", () => {
+    jest.mock("../../client/clients/WebSocketClient");
+
+    const socket = require("../../client/socket").default;
+
+    global.__webpack_dev_server_client__ =
+      require("../../client/clients/WebSocketClient").default;
 
     const mockHandler = jest.fn();
-    socket('my.url', {
+
+    socket("my.url", {
       example: mockHandler,
     });
 
@@ -56,8 +63,9 @@ describe('socket', () => {
     // along to the callback of onMessage
     mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
-        type: 'example',
-        data: 'hello world',
+        type: "example",
+        data: "hello world",
+        params: { foo: "bar" },
       })
     );
 

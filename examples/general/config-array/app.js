@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-require('./style.less');
+require("./style.less");
 
-const target = document.querySelector('#target');
+const target = document.querySelector("#target");
 
-target.classList.add('pass');
-target.innerHTML = 'Success!';
+target.classList.add("pass");
+target.innerHTML = "Success!";
 
 // This results in a warning:
 // if(!window) require("./" + window + "parseable.js");

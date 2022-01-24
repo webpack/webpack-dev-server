@@ -1,24 +1,66 @@
-'use strict';
+"use strict";
 
-const path = require('path');
+const path = require("path");
 
 // Based on https://github.com/webpack/webpack/blob/master/lib/cli.js
 // Please do not modify it
 
+/** @typedef {"unknown-argument" | "unexpected-non-array-in-path" | "unexpected-non-object-in-path" | "multiple-values-unexpected" | "invalid-value"} ProblemType */
+
+/**
+ * @typedef {Object} Problem
+ * @property {ProblemType} type
+ * @property {string} path
+ * @property {string} argument
+ * @property {any=} value
+ * @property {number=} index
+ * @property {string=} expected
+ */
+
+/**
+ * @typedef {Object} LocalProblem
+ * @property {ProblemType} type
+ * @property {string} path
+ * @property {string=} expected
+ */
+
+/**
+ * @typedef {Object} ArgumentConfig
+ * @property {string} description
+ * @property {string} path
+ * @property {boolean} multiple
+ * @property {"enum"|"string"|"path"|"number"|"boolean"|"RegExp"|"reset"} type
+ * @property {any[]=} values
+ */
+
+/**
+ * @typedef {Object} Argument
+ * @property {string} description
+ * @property {"string"|"number"|"boolean"} simpleType
+ * @property {boolean} multiple
+ * @property {ArgumentConfig[]} configs
+ */
+
 const cliAddedItems = new WeakMap();
 
+/**
+ * @param {any} config configuration
+ * @param {string} schemaPath path in the config
+ * @param {number | undefined} index index of value when multiple values are provided, otherwise undefined
+ * @returns {{ problem?: LocalProblem, object?: any, property?: string | number, value?: any }} problem or object with property and value
+ */
 const getObjectAndProperty = (config, schemaPath, index = 0) => {
   if (!schemaPath) {
     return { value: config };
   }
 
-  const parts = schemaPath.split('.');
+  const parts = schemaPath.split(".");
   const property = parts.pop();
   let current = config;
   let i = 0;
 
   for (const part of parts) {
-    const isArray = part.endsWith('[]');
+    const isArray = part.endsWith("[]");
     const name = isArray ? part.slice(0, -2) : part;
     let value = current[name];
 
@@ -31,8 +73,8 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
       } else if (!Array.isArray(value)) {
         return {
           problem: {
-            type: 'unexpected-non-array-in-path',
-            path: parts.slice(0, i).join('.'),
+            type: "unexpected-non-array-in-path",
+            path: parts.slice(0, i).join("."),
           },
         };
       } else {
@@ -52,11 +94,11 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
         // eslint-disable-next-line no-undefined
         if (value[x] === undefined) {
           value[x] = {};
-        } else if (value[x] === null || typeof value[x] !== 'object') {
+        } else if (value[x] === null || typeof value[x] !== "object") {
           return {
             problem: {
-              type: 'unexpected-non-object-in-path',
-              path: parts.slice(0, i).join('.'),
+              type: "unexpected-non-object-in-path",
+              path: parts.slice(0, i).join("."),
             },
           };
         }
@@ -67,11 +109,11 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
     } else if (value === undefined) {
       // eslint-disable-next-line no-multi-assign
       value = current[name] = {};
-    } else if (value === null || typeof value !== 'object') {
+    } else if (value === null || typeof value !== "object") {
       return {
         problem: {
-          type: 'unexpected-non-object-in-path',
-          path: parts.slice(0, i).join('.'),
+          type: "unexpected-non-object-in-path",
+          path: parts.slice(0, i).join("."),
         },
       };
     }
@@ -81,10 +123,10 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
     i++;
   }
 
-  const value = current[property];
+  const value = current[/** @type {string} */ (property)];
 
-  if (property.endsWith('[]')) {
-    const name = property.slice(0, -2);
+  if (/** @type {string} */ (property).endsWith("[]")) {
+    const name = /** @type {string} */ (property).slice(0, -2);
     // eslint-disable-next-line no-shadow
     const value = current[name];
 
@@ -121,10 +163,10 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
     // eslint-disable-next-line no-undefined
     if (value[x] === undefined) {
       value[x] = {};
-    } else if (value[x] === null || typeof value[x] !== 'object') {
+    } else if (value[x] === null || typeof value[x] !== "object") {
       return {
         problem: {
-          type: 'unexpected-non-object-in-path',
+          type: "unexpected-non-object-in-path",
           path: schemaPath,
         },
       };
@@ -140,50 +182,55 @@ const getObjectAndProperty = (config, schemaPath, index = 0) => {
   return { object: current, property, value };
 };
 
+/**
+ * @param {ArgumentConfig} argConfig processing instructions
+ * @param {any} value the value
+ * @returns {any | undefined} parsed value
+ */
 const parseValueForArgumentConfig = (argConfig, value) => {
   // eslint-disable-next-line default-case
   switch (argConfig.type) {
-    case 'string':
-      if (typeof value === 'string') {
+    case "string":
+      if (typeof value === "string") {
         return value;
       }
       break;
-    case 'path':
-      if (typeof value === 'string') {
+    case "path":
+      if (typeof value === "string") {
         return path.resolve(value);
       }
       break;
-    case 'number':
-      if (typeof value === 'number') {
+    case "number":
+      if (typeof value === "number") {
         return value;
       }
 
-      if (typeof value === 'string' && /^[+-]?\d*(\.\d*)[eE]\d+$/) {
+      if (typeof value === "string" && /^[+-]?\d*(\.\d*)[eE]\d+$/) {
         const n = +value;
         if (!isNaN(n)) return n;
       }
 
       break;
-    case 'boolean':
-      if (typeof value === 'boolean') {
+    case "boolean":
+      if (typeof value === "boolean") {
         return value;
       }
 
-      if (value === 'true') {
+      if (value === "true") {
         return true;
       }
 
-      if (value === 'false') {
+      if (value === "false") {
         return false;
       }
 
       break;
-    case 'RegExp':
+    case "RegExp":
       if (value instanceof RegExp) {
         return value;
       }
 
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         // cspell:word yugi
         const match = /^\/(.*)\/([yugi]*)$/.exec(value);
 
@@ -193,17 +240,17 @@ const parseValueForArgumentConfig = (argConfig, value) => {
       }
 
       break;
-    case 'enum':
-      if (argConfig.values.includes(value)) {
+    case "enum":
+      if (/** @type {any[]} */ (argConfig.values).includes(value)) {
         return value;
       }
 
-      for (const item of argConfig.values) {
+      for (const item of /** @type {any[]} */ (argConfig.values)) {
         if (`${item}` === value) return item;
       }
 
       break;
-    case 'reset':
+    case "reset":
       if (value === true) {
         return [];
       }
@@ -212,21 +259,34 @@ const parseValueForArgumentConfig = (argConfig, value) => {
   }
 };
 
+/**
+ * @param {ArgumentConfig} argConfig processing instructions
+ * @returns {string | undefined} expected message
+ */
 const getExpectedValue = (argConfig) => {
   switch (argConfig.type) {
     default:
       return argConfig.type;
-    case 'boolean':
-      return 'true | false';
-    case 'RegExp':
-      return 'regular expression (example: /ab?c*/)';
-    case 'enum':
-      return argConfig.values.map((v) => `${v}`).join(' | ');
-    case 'reset':
-      return 'true (will reset the previous value to an empty array)';
+    case "boolean":
+      return "true | false";
+    case "RegExp":
+      return "regular expression (example: /ab?c*/)";
+    case "enum":
+      return /** @type {any[]} */ (argConfig.values)
+        .map((v) => `${v}`)
+        .join(" | ");
+    case "reset":
+      return "true (will reset the previous value to an empty array)";
   }
 };
 
+/**
+ * @param {any} config configuration
+ * @param {string} schemaPath path in the config
+ * @param {any} value parsed value
+ * @param {number | undefined} index index of value when multiple values are provided, otherwise undefined
+ * @returns {LocalProblem | null} problem or null for success
+ */
 const setValue = (config, schemaPath, value, index) => {
   const { problem, object, property } = getObjectAndProperty(
     config,
@@ -238,16 +298,23 @@ const setValue = (config, schemaPath, value, index) => {
     return problem;
   }
 
-  object[property] = value;
+  object[/** @type {string} */ (property)] = value;
 
   return null;
 };
 
+/**
+ * @param {ArgumentConfig} argConfig processing instructions
+ * @param {any} config configuration
+ * @param {any} value the value
+ * @param {number | undefined} index the index if multiple values provided
+ * @returns {LocalProblem | null} a problem if any
+ */
 const processArgumentConfig = (argConfig, config, value, index) => {
   // eslint-disable-next-line no-undefined
   if (index !== undefined && !argConfig.multiple) {
     return {
-      type: 'multiple-values-unexpected',
+      type: "multiple-values-unexpected",
       path: argConfig.path,
     };
   }
@@ -257,7 +324,7 @@ const processArgumentConfig = (argConfig, config, value, index) => {
   // eslint-disable-next-line no-undefined
   if (parsed === undefined) {
     return {
-      type: 'invalid-value',
+      type: "invalid-value",
       path: argConfig.path,
       expected: getExpectedValue(argConfig),
     };
@@ -272,7 +339,16 @@ const processArgumentConfig = (argConfig, config, value, index) => {
   return null;
 };
 
+/**
+ * @param {Record<string, Argument>} args object of arguments
+ * @param {any} config configuration
+ * @param {Record<string, string | number | boolean | RegExp | (string | number | boolean | RegExp)[]>} values object with values
+ * @returns {Problem[] | null} problems or null for success
+ */
 const processArguments = (args, config, values) => {
+  /**
+   * @type {Problem[]}
+   */
   const problems = [];
 
   for (const key of Object.keys(values)) {
@@ -280,8 +356,8 @@ const processArguments = (args, config, values) => {
 
     if (!arg) {
       problems.push({
-        type: 'unknown-argument',
-        path: '',
+        type: "unknown-argument",
+        path: "",
         argument: key,
       });
 
@@ -289,6 +365,10 @@ const processArguments = (args, config, values) => {
       continue;
     }
 
+    /**
+     * @param {any} value
+     * @param {number | undefined} i
+     */
     const processValue = (value, i) => {
       const currentProblems = [];
 

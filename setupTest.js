@@ -1,5 +1,6 @@
-'use strict';
+"use strict";
 
 process.env.CHOKIDAR_USEPOLLING = true;
 
-jest.setTimeout(140000);
+jest.retryTimes(3);
+jest.setTimeout(300000);

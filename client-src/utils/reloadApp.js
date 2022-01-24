@@ -1,31 +1,60 @@
-'use strict';
+import hotEmitter from "webpack/hot/emitter.js";
+import { log } from "./log.js";
 
-const { log } = require('./log');
+/** @typedef {import("../index").Options} Options
+/** @typedef {import("../index").Status} Status
 
-function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
-  if (isUnloading) {
+/**
+ * @param {Options} options
+ * @param {Status} status
+ */
+function reloadApp({ hot, liveReload }, status) {
+  if (status.isUnloading) {
     return;
   }
 
-  if (hot) {
-    log.info('App hot update...');
+  const { currentHash, previousHash } = status;
+  const isInitial =
+    currentHash.indexOf(/** @type {string} */ (previousHash)) >= 0;
 
-    const hotEmitter = require('webpack/hot/emitter');
+  if (isInitial) {
+    return;
+  }
 
-    hotEmitter.emit('webpackHotUpdate', currentHash);
+  /**
+   * @param {Window} rootWindow
+   * @param {number} intervalId
+   */
+  function applyReload(rootWindow, intervalId) {
+    clearInterval(intervalId);
 
-    if (typeof self !== 'undefined' && self.window) {
+    log.info("App updated. Reloading...");
+
+    rootWindow.location.reload();
+  }
+
+  const search = self.location.search.toLowerCase();
+  const allowToHot = search.indexOf("webpack-dev-server-hot=false") === -1;
+  const allowToLiveReload =
+    search.indexOf("webpack-dev-server-live-reload=false") === -1;
+
+  if (hot && allowToHot) {
+    log.info("App hot update...");
+
+    hotEmitter.emit("webpackHotUpdate", status.currentHash);
+
+    if (typeof self !== "undefined" && self.window) {
       // broadcast update to window
-      self.postMessage(`webpackHotUpdate${currentHash}`, '*');
+      self.postMessage(`webpackHotUpdate${status.currentHash}`, "*");
     }
   }
   // allow refreshing the page only if liveReload isn't disabled
-  else if (liveReload) {
+  else if (liveReload && allowToLiveReload) {
     let rootWindow = self;
 
     // use parent window for reload (in case we're in an iframe with no valid src)
     const intervalId = self.setInterval(() => {
-      if (rootWindow.location.protocol !== 'about:') {
+      if (rootWindow.location.protocol !== "about:") {
         // reload immediately if protocol is valid
         applyReload(rootWindow, intervalId);
       } else {
@@ -38,14 +67,6 @@ function reloadApp({ hot, liveReload }, { isUnloading, currentHash }) {
       }
     });
   }
-
-  function applyReload(rootWindow, intervalId) {
-    clearInterval(intervalId);
-
-    log.info('App updated. Reloading...');
-
-    rootWindow.location.reload();
-  }
 }
 
-module.exports = reloadApp;
+export default reloadApp;
