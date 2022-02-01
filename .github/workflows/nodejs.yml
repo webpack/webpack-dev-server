@@ -37,9 +37,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
-      - name: Use latest NPM
-        run: sudo npm i -g npm
-
       - name: Install dependencies
         run: npm ci
 
@@ -76,20 +73,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
-      - name: Use latest NPM on ubuntu/macos
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-        run: sudo npm i -g npm
-
-      - name: Use latest NPM on windows
-        if: matrix.os == 'windows-latest'
-        run: npm i -g npm
-
-      - name: Use latest NPM on windows
-        if: matrix.webpack-version == 4
-        run: sed -i'.original' 's/"build:types"/"_unused"/g' package.json
-
       - name: Install dependencies
         run: npm ci
+
+      - name: Update package.json for webpack@4
+        if: matrix.webpack-version == '4'
+        run: echo "`jq '.scripts.build="npm run build:client"' package.json`" > package.json
 
       - name: Install webpack ${{ matrix.webpack-version }}
         if: matrix.webpack-version == '4'
