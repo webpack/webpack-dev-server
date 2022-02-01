@@ -25,7 +25,7 @@ const staticDirectory = path.resolve(
   "../fixtures/static-config/public"
 );
 
-describe("server option", () => {
+describe.skip("server option", () => {
   describe("as string", () => {
     let compiler;
     let server;
