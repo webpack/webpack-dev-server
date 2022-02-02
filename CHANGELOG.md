@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.4](https://github.com/webpack/webpack-dev-server/compare/v4.7.3...v4.7.4) (2022-02-02)
+
+
+### Bug Fixes
+
+* add @types/express ([#4226](https://github.com/webpack/webpack-dev-server/issues/4226)) ([e55f728](https://github.com/webpack/webpack-dev-server/commit/e55f728d3b5262884aa80daf9b021198b4bc65a9))
+* negative descriptions ([#4216](https://github.com/webpack/webpack-dev-server/issues/4216)) ([fd854c0](https://github.com/webpack/webpack-dev-server/commit/fd854c07c2a4654f479bdbad1b717d9406ce15c6))
+* types for the `proxy` option ([#4173](https://github.com/webpack/webpack-dev-server/issues/4173)) ([efec2f5](https://github.com/webpack/webpack-dev-server/commit/efec2f5bfb5ff4b99258b12317aa0d922836738e))
+* use CLI specific description for `--open-app-name` and `--web-socket-server` ([#4215](https://github.com/webpack/webpack-dev-server/issues/4215)) ([329679a](https://github.com/webpack/webpack-dev-server/commit/329679a434219adc43f2d73c2ceeda14787dc64d))
+
 ### [4.7.3](https://github.com/webpack/webpack-dev-server/compare/v4.7.2...v4.7.3) (2022-01-11)
 
 ### Security
