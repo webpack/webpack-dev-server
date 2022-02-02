@@ -21,10 +21,6 @@ describe("basic", () => {
       const normalizedCliOptions = {};
 
       for (const [name, options] of Object.entries(cliOptions)) {
-        // Only webpack-cli supports it
-        // TODO send PR to webpack
-        delete options.negatedDescription;
-
         normalizedCliOptions[name] = options;
       }
 

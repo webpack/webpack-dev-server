@@ -46,13 +46,13 @@ module.exports = {
         multiple: false,
         description:
           "Allows to broadcasts dev server via ZeroConf networking on start.",
+        negatedDescription:
+          "Disallows to broadcasts dev server via ZeroConf networking on start.",
         path: "bonjour",
       },
     ],
     description:
       "Allows to broadcasts dev server via ZeroConf networking on start.",
-    negatedDescription:
-      "Disallows to broadcasts dev server via ZeroConf networking on start.",
     simpleType: "boolean",
     multiple: false,
   },
@@ -93,13 +93,13 @@ module.exports = {
         multiple: false,
         description:
           "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
+        negatedDescription:
+          "Disables a full-screen overlay in the browser when there are compiler errors or warnings.",
         path: "client.overlay",
       },
     ],
     description:
       "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
-    negatedDescription:
-      "Disables a full-screen overlay in the browser when there are compiler errors or warnings.",
     simpleType: "boolean",
     multiple: false,
   },
@@ -140,12 +140,12 @@ module.exports = {
         multiple: false,
         description:
           "Prints compilation progress in percentage in the browser.",
+        negatedDescription:
+          "Does not print compilation progress in percentage in the browser.",
         path: "client.progress",
       },
     ],
     description: "Prints compilation progress in percentage in the browser.",
-    negatedDescription:
-      "Does not print compilation progress in percentage in the browser.",
     simpleType: "boolean",
     multiple: false,
   },
@@ -156,6 +156,8 @@ module.exports = {
         multiple: false,
         description:
           "Tells dev-server the number of times it should try to reconnect the client.",
+        negatedDescription:
+          "Tells dev-server to not to try to connect the client.",
         path: "client.reconnect",
       },
       {
@@ -163,12 +165,13 @@ module.exports = {
         multiple: false,
         description:
           "Tells dev-server the number of times it should try to reconnect the client.",
+        negatedDescription:
+          "Tells dev-server to not to try to connect the client.",
         path: "client.reconnect",
       },
     ],
     description:
       "Tells dev-server the number of times it should try to reconnect the client.",
-    negatedDescription: "Tells dev-server to not to try to connect the client.",
     simpleType: "string",
     multiple: false,
   },
@@ -321,11 +324,11 @@ module.exports = {
         type: "boolean",
         multiple: false,
         description: "Enables gzip compression for everything served.",
+        negatedDescription: "Disables gzip compression for everything served.",
         path: "compress",
       },
     ],
     description: "Enables gzip compression for everything served.",
-    negatedDescription: "Disables gzip compression for everything served.",
     simpleType: "boolean",
     multiple: false,
   },
@@ -370,6 +373,7 @@ module.exports = {
         type: "boolean",
         multiple: false,
         description: "Enables Hot Module Replacement.",
+        negatedDescription: "Disables Hot Module Replacement.",
         path: "hot",
       },
       {
@@ -377,11 +381,11 @@ module.exports = {
         values: ["only"],
         multiple: false,
         description: "Enables Hot Module Replacement.",
+        negatedDescription: "Disables Hot Module Replacement.",
         path: "hot",
       },
     ],
     description: "Enables Hot Module Replacement.",
-    negatedDescription: "Disables Hot Module Replacement.",
     simpleType: "string",
     multiple: false,
   },
@@ -392,12 +396,12 @@ module.exports = {
         multiple: false,
         description:
           "Allows to serve over HTTP/2 using SPDY. Deprecated, use the `server` option.",
+        negatedDescription: "Does not serve over HTTP/2 using SPDY.",
         path: "http2",
       },
     ],
     description:
       "Allows to serve over HTTP/2 using SPDY. Deprecated, use the `server` option.",
-    negatedDescription: "Does not serve over HTTP/2 using SPDY.",
     simpleType: "boolean",
     multiple: false,
   },
@@ -408,13 +412,13 @@ module.exports = {
         multiple: false,
         description:
           "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, use the `server` option.",
+        negatedDescription:
+          "Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
         path: "https",
       },
     ],
     description:
       "Allows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP). Deprecated, use the `server` option.",
-    negatedDescription:
-      "Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP).",
     simpleType: "boolean",
     multiple: false,
   },
@@ -620,12 +624,12 @@ module.exports = {
         multiple: false,
         description:
           "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
+        negatedDescription: "Does not request for an SSL certificate.",
         path: "https.requestCert",
       },
     ],
     description:
       "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
-    negatedDescription: "Does not request for an SSL certificate.",
     simpleType: "boolean",
     multiple: false,
   },
@@ -656,13 +660,13 @@ module.exports = {
         multiple: false,
         description:
           "Enables reload/refresh the page(s) when file changes are detected (enabled by default).",
+        negatedDescription:
+          "Disables reload/refresh the page(s) when file changes are detected (enabled by default).",
         path: "liveReload",
       },
     ],
     description:
       "Enables reload/refresh the page(s) when file changes are detected (enabled by default).",
-    negatedDescription:
-      "Disables reload/refresh the page(s) when file changes are detected (enabled by default)",
     simpleType: "boolean",
     multiple: false,
   },
@@ -673,13 +677,13 @@ module.exports = {
         multiple: false,
         description:
           "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
+        negatedDescription:
+          "Disables magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
         path: "magicHtml",
       },
     ],
     description:
       "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
-    negatedDescription:
-      "Disables magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
     simpleType: "boolean",
     multiple: false,
   },
@@ -697,12 +701,12 @@ module.exports = {
         multiple: false,
         description:
           "Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
+        negatedDescription: "Does not open the default browser.",
         path: "open",
       },
     ],
     description:
       "Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).",
-    negatedDescription: "Does not open the default browser.",
     simpleType: "string",
     multiple: true,
   },
@@ -786,7 +790,6 @@ module.exports = {
       },
     ],
     description: "Opens specified page in browser.",
-    negatedDescription: "Does not open specified page in browser.",
     simpleType: "string",
     multiple: true,
   },
@@ -1140,12 +1143,12 @@ module.exports = {
         multiple: true,
         description:
           "Tells dev server to use serveIndex middleware when enabled.",
+        negatedDescription:
+          "Does not tell dev server to use serveIndex middleware.",
         path: "static[].serveIndex",
       },
     ],
     description: "Tells dev server to use serveIndex middleware when enabled.",
-    negatedDescription:
-      "Does not tell dev server to use serveIndex middleware.",
     simpleType: "boolean",
     multiple: true,
   },
@@ -1155,11 +1158,12 @@ module.exports = {
         type: "boolean",
         multiple: true,
         description: "Watches for files in static content directory.",
+        negatedDescription:
+          "Does not watch for files in static content directory.",
         path: "static[].watch",
       },
     ],
     description: "Watches for files in static content directory.",
-    negatedDescription: "Does not watch for files in static content directory.",
     simpleType: "boolean",
     multiple: true,
   },
