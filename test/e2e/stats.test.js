@@ -3,6 +3,7 @@
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
+const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").stats;
 
@@ -76,6 +77,7 @@ describe("stats", () => {
               );
             },
           },
+          new HTMLGeneratorPlugin(),
         ],
         stats: { warningsFilter: /Warning from compilation/ },
       },
@@ -99,6 +101,7 @@ describe("stats", () => {
               );
             },
           },
+          new HTMLGeneratorPlugin(),
         ],
         ignoreWarnings: [/Warning from compilation/],
       },
@@ -123,7 +126,7 @@ describe("stats", () => {
         consoleMessages.push(message);
       });
 
-      await page.goto(`http://localhost:${port}/main`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
