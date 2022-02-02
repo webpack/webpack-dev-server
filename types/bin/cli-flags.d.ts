@@ -35,10 +35,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -71,10 +71,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -105,10 +105,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -117,10 +117,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -235,10 +235,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -279,6 +279,7 @@ declare const _exports: {
           type: string;
           multiple: boolean;
           description: string;
+          negatedDescription: string;
           path: string;
         }
       | {
@@ -286,11 +287,11 @@ declare const _exports: {
           values: string[];
           multiple: boolean;
           description: string;
+          negatedDescription: string;
           path: string;
         }
     )[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -299,10 +300,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -311,10 +312,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -466,10 +467,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -498,10 +499,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -510,22 +511,30 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
   open: {
-    configs: {
-      type: string;
-      multiple: boolean;
-      description: string;
-      path: string;
-    }[];
+    configs: (
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          path: string;
+        }
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          negatedDescription: string;
+          path: string;
+        }
+    )[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -581,7 +590,6 @@ declare const _exports: {
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -842,10 +850,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
@@ -854,10 +862,10 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
-    negatedDescription: string;
     simpleType: string;
     multiple: boolean;
   };
