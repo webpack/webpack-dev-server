@@ -157,7 +157,7 @@ module.exports = {
         description:
           "Tells dev-server the number of times it should try to reconnect the client.",
         negatedDescription:
-          "Tells dev-server to not to try to connect the client.",
+          "Tells dev-server to not to try to reconnect the client.",
         path: "client.reconnect",
       },
       {
@@ -166,7 +166,7 @@ module.exports = {
         description:
           "Tells dev-server the number of times it should try to reconnect the client.",
         negatedDescription:
-          "Tells dev-server to not to try to connect the client.",
+          "Tells dev-server to not to try to reconnect the client.",
         path: "client.reconnect",
       },
     ],
