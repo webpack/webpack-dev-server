@@ -16,7 +16,7 @@ about: Something went awry and you'd like to tell us about it.
 
 ### Actual Behavior
 
-<!-- Explain exactly how it behave -->
+<!-- Explain exactly how it behaves -->
 
 ### Expected Behavior
 
