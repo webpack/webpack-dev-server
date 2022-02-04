@@ -127,7 +127,7 @@
         }
       ],
       "cli": {
-        "negatedDescription": "Tells dev-server to not to try to connect the client."
+        "negatedDescription": "Tells dev-server to not to try to reconnect the client."
       }
     },
     "ClientWebSocketTransport": {
