@@ -90,7 +90,7 @@ Options:
                                             you are proxying dev server, by default is 'auto').
   --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                              Disallows to broadcasts dev server via ZeroConf networking on start.
-  --no-client                               Negative 'client' option.
+  --no-client                               Disables client script.
   --client-logging <value>                  Allows to set log level in the browser.
   --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
   --no-client-overlay                       Disables a full-screen overlay in the browser when there are compiler errors or warnings.

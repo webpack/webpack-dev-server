@@ -61,6 +61,7 @@ module.exports = {
       {
         description:
           "Allows to specify options for client script in the browser or disable client script.",
+        negatedDescription: "Disables client script.",
         multiple: false,
         path: "client",
         type: "enum",
