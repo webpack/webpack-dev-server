@@ -42,6 +42,18 @@ First things first, install the module:
 npm install webpack-dev-server --save-dev
 ```
 
+or
+
+```console
+yarn add -D webpack-dev-server
+```
+
+or
+
+```console
+pnpm add -D webpack-dev-server
+```
+
 _Note: While you can install and run webpack-dev-server globally, we recommend
 installing it locally. webpack-dev-server will always use a local installation
 over a global one._
