@@ -47,7 +47,10 @@
       "link": "https://webpack.js.org/configuration/dev-server/#devserverclient",
       "anyOf": [
         {
-          "enum": [false]
+          "enum": [false],
+          "cli": {
+            "negatedDescription": "Disables client script."
+          }
         },
         {
           "type": "object",

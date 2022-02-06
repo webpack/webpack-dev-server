@@ -45,6 +45,7 @@ declare const _exports: {
   client: {
     configs: {
       description: string;
+      negatedDescription: string;
       multiple: boolean;
       path: string;
       type: string;
