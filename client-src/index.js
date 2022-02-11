@@ -58,6 +58,40 @@ if (parsedResourceQuery["live-reload"] === "true") {
   log.info("Live Reloading enabled.");
 }
 
+if (parsedResourceQuery.progress === "true") {
+  options.liveReload = true;
+
+  log.info("Progress reporting enabled.");
+}
+
+if (parsedResourceQuery.overlay) {
+  try {
+    options.overlay = JSON.parse(parsedResourceQuery.overlay);
+  } catch (e) {
+    log.error("Error parsing overlay options from resource query:", e);
+  }
+
+  // Fill in default "true" params for partially-specified objects.
+  if (typeof options.overlay === "object") {
+    options.overlay = {
+      errors: true,
+      warnings: true,
+      ...options.overlay,
+    };
+  }
+
+  if (
+    options.overlay === true ||
+    (options.overlay.errors && options.overlay.warnings)
+  ) {
+    log.info("Overlay is enabled for both errors and warnings.");
+  } else if (options.overlay.errors) {
+    log.info("Overlay is enabled for errors only.");
+  } else if (options.overlay.warnings) {
+    log.info("Overlay is enabled for warnings only.");
+  }
+}
+
 if (parsedResourceQuery.logging) {
   options.logging = parsedResourceQuery.logging;
 }

@@ -207,6 +207,60 @@ describe("index", () => {
     expect(overlay.show).toBeCalled();
   });
 
+  test("should parse overlay options from resource query", () => {
+    jest.isolateModules(() => {
+      // Pass JSON config with warnings disabled
+      global.__resourceQuery = `?overlay=${encodeURIComponent(
+        `{"warnings": false}`
+      )}`;
+      overlay.show.mockReset();
+      socket.mockReset();
+      jest.unmock("../../client-src/utils/parseURL.js");
+      require("../../client-src");
+      onSocketMessage = socket.mock.calls[0][1];
+
+      onSocketMessage.warnings(["warn1"]);
+      expect(overlay.show).not.toBeCalled();
+
+      onSocketMessage.errors(["error1"]);
+      expect(overlay.show).toBeCalledTimes(1);
+    });
+
+    jest.isolateModules(() => {
+      // Pass JSON config with errors disabled
+      global.__resourceQuery = `?overlay=${encodeURIComponent(
+        `{"errors": false}`
+      )}`;
+      overlay.show.mockReset();
+      socket.mockReset();
+      jest.unmock("../../client-src/utils/parseURL.js");
+      require("../../client-src");
+      onSocketMessage = socket.mock.calls[0][1];
+
+      onSocketMessage.errors(["error1"]);
+      expect(overlay.show).not.toBeCalled();
+
+      onSocketMessage.warnings(["warn1"]);
+      expect(overlay.show).toBeCalledTimes(1);
+    });
+
+    jest.isolateModules(() => {
+      // Use simple boolean
+      global.__resourceQuery = "?overlay=true";
+      jest.unmock("../../client-src/utils/parseURL.js");
+      socket.mockReset();
+      overlay.show.mockReset();
+      require("../../client-src");
+      onSocketMessage = socket.mock.calls[0][1];
+
+      onSocketMessage.warnings(["warn2"]);
+      expect(overlay.show).toBeCalledTimes(1);
+
+      onSocketMessage.errors(["error2"]);
+      expect(overlay.show).toBeCalledTimes(2);
+    });
+  });
+
   test("should run onSocketMessage.error", () => {
     onSocketMessage.error("error!!");
 

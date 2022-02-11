@@ -863,7 +863,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          /** @type {Object<string,string>} */ negatedDescription: string;
+          negatedDescription: string;
           path: string;
         }[];
         description: string;
@@ -875,13 +875,12 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              /** @type {any} */
               description: string;
               path: string;
             }
           | {
               type: string;
-              /** @type {any} */ values: boolean[];
+              values: boolean[];
               multiple: boolean;
               description: string;
               path: string;
@@ -906,14 +905,14 @@ declare class Server {
       "magic-html": {
         configs: {
           type: string;
-          multiple: boolean;
+          /** @type {string} */ multiple: boolean;
           description: string;
           negatedDescription: string;
           path: string;
         }[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        multiple: boolean /** @type {MultiCompiler} */;
       };
       open: {
         configs: (
@@ -931,7 +930,7 @@ declare class Server {
               path: string;
             }
         )[];
-        /** @type {Compiler} */ description: string;
+        description: string;
         simpleType: string;
         multiple: boolean;
       };
@@ -939,7 +938,7 @@ declare class Server {
         configs: {
           type: string;
           multiple: boolean;
-          description: string;
+          /** @type {MultiCompiler} */ description: string;
           path: string;
         }[];
         description: string;
@@ -987,7 +986,7 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /** @type {NormalizedStatic} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
       "open-target-reset": {
@@ -1162,9 +1161,8 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
-        simpleType: string /** @type {ServerOptions} */;
+        simpleType: string;
       };
-      /** @type {ServerOptions} */
       "server-options-request-cert": {
         configs: {
           description: string;
@@ -1200,10 +1198,6 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              /**
-               * @param {string | Buffer | undefined} item
-               * @returns {string | Buffer | undefined}
-               */
               description: string;
               negatedDescription: string;
               path: string;
@@ -1220,7 +1214,7 @@ declare class Server {
           description: string;
           path: string;
         }[];
-        /** @type {any} */ description: string;
+        description: string;
         simpleType: string;
         multiple: boolean;
       };
@@ -1327,11 +1321,9 @@ declare class Server {
               type: string;
             }
         )[];
-        /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
         description: string;
-        /** @type {ServerOptions} */
         simpleType: string;
-        multiple: boolean;
+        /** @type {ServerOptions} */ multiple: boolean;
       };
       "web-socket-server-type": {
         configs: (
@@ -1350,7 +1342,7 @@ declare class Server {
             }
         )[];
         description: string;
-        simpleType: string;
+        /** @type {ServerOptions} */ simpleType: string;
         multiple: boolean;
       };
     };
@@ -2374,12 +2366,6 @@ declare class Server {
                       anyOf: (
                         | {
                             type: string;
-                            /**
-                             * prependEntry Method for webpack 4
-                             * @param {any} originalEntry
-                             * @param {any} newAdditionalEntries
-                             * @returns {any}
-                             */
                             items: {
                               type: string;
                               minLength: number;
@@ -2421,8 +2407,8 @@ declare class Server {
           };
         };
       };
-      /** @type {any} */
       OpenString: {
+        /** @type {Object<string,string>} */
         type: string;
         minLength: number;
       };
@@ -2451,6 +2437,7 @@ declare class Server {
             }
         )[];
         description: string;
+        /** @type {any} */
         link: string;
       };
       Proxy: {
@@ -2480,7 +2467,7 @@ declare class Server {
       };
       Server: {
         anyOf: {
-          $ref: string /** @type {MultiCompiler} */;
+          $ref: string;
         }[];
         link: string;
         description: string;
@@ -2488,6 +2475,7 @@ declare class Server {
       ServerType: {
         enum: string[];
       };
+      /** @type {MultiCompiler} */
       ServerEnum: {
         enum: string[];
         cli: {
@@ -2503,6 +2491,7 @@ declare class Server {
       };
       ServerObject: {
         type: string;
+        /** @type {MultiCompiler} */
         properties: {
           type: {
             anyOf: {
@@ -2631,7 +2620,6 @@ declare class Server {
                     anyOf: (
                       | {
                           type: string;
-                          /** @type {NormalizedStatic} */
                           instanceof?: undefined;
                         }
                       | {
@@ -2915,7 +2903,7 @@ declare class Server {
           $ref: string;
         }[];
         description: string;
-        link: string;
+        link: string /** @type {ServerOptions} */;
       };
       WebSocketServerType: {
         enum: string[];
@@ -2936,7 +2924,7 @@ declare class Server {
             }
         )[];
         cli: {
-          description: string /** @type {any} */;
+          description: string;
         };
       };
       WebSocketServerFunction: {
@@ -2995,7 +2983,7 @@ declare class Server {
         $ref: string;
       };
       http2: {
-        $ref: string;
+        $ref: string /** @type {ServerOptions} */;
       };
       https: {
         $ref: string;
