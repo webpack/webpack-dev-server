@@ -2,6 +2,7 @@
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] App updated. Recompiling...",
 ]
 `;
@@ -10,6 +11,7 @@ exports[`hot and live reload should not refresh content when hot and no live rel
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (sockjs): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] App updated. Recompiling...",
 ]
 `;
@@ -18,6 +20,7 @@ exports[`hot and live reload should not refresh content when hot and no live rel
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (ws): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] App updated. Recompiling...",
 ]
 `;
@@ -26,6 +29,7 @@ exports[`hot and live reload should not refresh content when hot and no live rel
 
 exports[`hot and live reload should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-hot=false&webpack-dev-server-live-reload=false" (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -37,11 +41,13 @@ exports[`hot and live reload should work and allow to disable hot module replace
 
 exports[`hot and live reload should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false" (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -52,6 +58,7 @@ exports[`hot and live reload should work and allow to disable hot module replace
 
 exports[`hot and live reload should work and allow to disable live reload using the "webpack-dev-server-live-reload=false" (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
 ]
@@ -65,6 +72,7 @@ exports[`hot and live reload should work and do nothing when web socket server d
 
 exports[`hot and live reload should work and refresh content using hot module replacement (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -83,6 +91,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when hot enabled (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -101,6 +110,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when hot enabled (sockjs): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -119,6 +129,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when hot enabled (ws): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -137,6 +148,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload and hot enabled (sockjs): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -155,6 +167,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload and hot enabled (ws): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -173,6 +186,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload disabled and hot enabled (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
@@ -190,6 +204,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload disabled and hot enabled (sockjs): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
@@ -207,6 +222,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload disabled and hot enabled (ws): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
@@ -224,6 +240,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload enabled (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -242,6 +259,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload enabled (sockjs): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -260,6 +278,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload enabled (ws): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -278,6 +297,7 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using hot module replacement when live reload enabled and hot disabled (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "[webpack-dev-server] Live Reloading enabled.",
@@ -296,9 +316,11 @@ exports[`hot and live reload should work and refresh content using hot module re
 
 exports[`hot and live reload should work and refresh content using live reload (default): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
@@ -307,9 +329,11 @@ exports[`hot and live reload should work and refresh content using live reload (
 
 exports[`hot and live reload should work and refresh content using live reload when live reload disabled and hot enabled (sockjs): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
@@ -318,9 +342,11 @@ exports[`hot and live reload should work and refresh content using live reload w
 
 exports[`hot and live reload should work and refresh content using live reload when live reload enabled and hot disabled (ws): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
@@ -396,6 +422,7 @@ exports[`hot and live reload should work with manual client setup and allow to e
 
 exports[`hot disabled HMR plugin should NOT register the HMR plugin before compilation is complete: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "Hey.",
   "[webpack-dev-server] Live Reloading enabled.",
 ]
@@ -407,6 +434,7 @@ exports[`hot disabled HMR plugin should NOT register the HMR plugin before compi
 
 exports[`multi compiler hot config HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -420,6 +448,7 @@ exports[`multi compiler hot config HMR plugin should register the HMR plugin bef
 
 exports[`simple hot config HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -433,6 +462,7 @@ exports[`simple hot config HMR plugin should register the HMR plugin before comp
 
 exports[`simple hot config HMR plugin with already added HMR plugin should register the HMR plugin before compilation is complete: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",

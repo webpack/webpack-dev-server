@@ -2,6 +2,7 @@
 
 exports[`client.reconnect option specified as false should not try to reconnect: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -16,6 +17,7 @@ exports[`client.reconnect option specified as false should not try to reconnect:
 
 exports[`client.reconnect option specified as number should try to reconnect 2 times: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
