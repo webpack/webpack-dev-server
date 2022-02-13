@@ -451,7 +451,10 @@
     "HistoryApiFallback": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to proxy requests through a specified index page."
+          }
         },
         {
           "type": "object",
