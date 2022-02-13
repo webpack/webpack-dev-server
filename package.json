@@ -62,7 +62,6 @@
     "serve-index": "^1.9.1",
     "sockjs": "^0.3.21",
     "spdy": "^4.0.2",
-    "strip-ansi": "^7.0.0",
     "webpack-dev-middleware": "^5.3.1",
     "ws": "^8.4.2"
   },
