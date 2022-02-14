@@ -340,6 +340,8 @@ module.exports = {
         multiple: false,
         description:
           "Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API.",
+        negatedDescription:
+          "Disallows to proxy requests through a specified index page.",
         path: "historyApiFallback",
       },
     ],

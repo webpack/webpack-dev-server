@@ -2149,6 +2149,9 @@ declare class Server {
         anyOf: (
           | {
               type: string;
+              cli: {
+                negatedDescription: string;
+              };
               description?: undefined;
               link?: undefined;
             }
@@ -2156,10 +2159,11 @@ declare class Server {
               type: string;
               description: string;
               link: string;
+              cli?: undefined;
             }
         )[];
         description: string;
-        link: string /** @type {WebSocketURL} */;
+        link: string;
       };
       Host: {
         description: string;
@@ -2181,7 +2185,7 @@ declare class Server {
         anyOf: (
           | {
               type: string;
-              /** @type {string} */ enum?: undefined;
+              enum?: undefined;
             }
           | {
               enum: string[];
@@ -2264,7 +2268,7 @@ declare class Server {
       OpenBoolean: {
         type: string;
         cli: {
-          negatedDescription: string;
+          negatedDescription: string /** @type {ClientConfiguration} */;
         };
       };
       OpenObject: {
@@ -2376,6 +2380,7 @@ declare class Server {
             }
           | {
               type: string;
+              /** @type {any} */
               items: {
                 anyOf: (
                   | {
@@ -2383,7 +2388,6 @@ declare class Server {
                       instanceof?: undefined;
                     }
                   | {
-                      /** @type {any} */
                       instanceof: string;
                       type?: undefined;
                     }
@@ -2391,7 +2395,6 @@ declare class Server {
               };
             }
         )[];
-        /** @type {any} */
         description: string;
         link: string;
       };
@@ -2405,6 +2408,7 @@ declare class Server {
       ServerType: {
         enum: string[];
       };
+      /** @type {MultiCompiler} */
       ServerEnum: {
         enum: string[];
         cli: {
@@ -2428,9 +2432,9 @@ declare class Server {
           };
           options: {
             $ref: string;
-          } /** @type {MultiCompiler} */;
+          };
         };
-        /** @type {MultiCompiler} */ additionalProperties: boolean;
+        additionalProperties: boolean;
       };
       ServerOptions: {
         type: string;
@@ -2837,17 +2841,17 @@ declare class Server {
               enum?: undefined;
             }
         )[];
-        /** @type {ServerOptions} */
         cli: {
           description: string;
-        };
+        } /** @type {ServerOptions} */;
       };
+      /** @type {ServerOptions} */
       WebSocketServerFunction: {
         instanceof: string;
       };
       WebSocketServerObject: {
-        type: string;
         /** @type {ServerOptions} */
+        type: string;
         properties: {
           type: {
             anyOf: {
@@ -2878,8 +2882,9 @@ declare class Server {
         $ref: string;
       };
       client: {
-        $ref: string;
+        $ref: string /** @type {ServerOptions} */;
       };
+      /** @type {ServerOptions} */
       compress: {
         $ref: string;
       };
@@ -2917,7 +2922,7 @@ declare class Server {
         $ref: string;
       };
       onBeforeSetupMiddleware: {
-        $ref: string /** @type {any} */;
+        $ref: string;
       };
       onListening: {
         $ref: string;
