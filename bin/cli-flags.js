@@ -166,8 +166,6 @@ module.exports = {
         multiple: false,
         description:
           "Tells dev-server the number of times it should try to reconnect the client.",
-        negatedDescription:
-          "Tells dev-server to not to try to reconnect the client.",
         path: "client.reconnect",
       },
     ],
@@ -384,7 +382,6 @@ module.exports = {
         values: ["only"],
         multiple: false,
         description: "Enables Hot Module Replacement.",
-        negatedDescription: "Disables Hot Module Replacement.",
         path: "hot",
       },
     ],
