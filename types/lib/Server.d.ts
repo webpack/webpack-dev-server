@@ -802,10 +802,15 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
+          negatedDescription: string;
           path: string;
         }[];
         description: string;
         simpleType: string;
+        /**
+         * @param {string} gateway
+         * @returns {string | undefined}
+         */
         multiple: boolean;
       };
       host: {
@@ -824,7 +829,7 @@ declare class Server {
               type: string;
             }
         )[];
-        /** @type {NetworkInterfaceInfo[]} */ description: string;
+        description: string;
         simpleType: string;
         multiple: boolean;
       };
@@ -886,9 +891,6 @@ declare class Server {
         multiple: boolean;
       };
       "https-ca-reset": {
-        /**
-         * @type {string | undefined}
-         */
         configs: {
           description: string;
           multiple: boolean;
@@ -1045,7 +1047,7 @@ declare class Server {
               values: boolean[];
               multiple: boolean;
               description: string;
-              path: string;
+              path: string /** @type {Object<string,string>} */;
             }
         )[];
         description: string;
@@ -1069,13 +1071,14 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          negatedDescription: string;
+          /** @type {string} */ negatedDescription: string;
           path: string;
         }[];
         description: string;
         simpleType: string;
         multiple: boolean;
       };
+      /** @type {MultiCompiler} */
       open: {
         configs: (
           | {
@@ -1344,9 +1347,9 @@ declare class Server {
           type: string;
           values: string[];
         }[];
-        description: string;
+        /** @type {ServerOptions} */ description: string;
         multiple: boolean;
-        simpleType: string;
+        simpleType: string /** @type {ServerOptions} */;
       };
       static: {
         configs: {
@@ -1364,7 +1367,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          path: string /** @type {any} */;
         }[];
         description: string;
         simpleType: string;
@@ -1474,8 +1477,9 @@ declare class Server {
         )[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        multiple: boolean /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */;
       };
+      /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
       "web-socket-server-type": {
         configs: (
           | {
