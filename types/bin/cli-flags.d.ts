@@ -114,13 +114,21 @@ declare const _exports: {
     multiple: boolean;
   };
   "client-reconnect": {
-    configs: {
-      type: string;
-      multiple: boolean;
-      description: string;
-      negatedDescription: string;
-      path: string;
-    }[];
+    configs: (
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          negatedDescription: string;
+          path: string;
+        }
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          path: string;
+        }
+    )[];
     description: string;
     simpleType: string;
     multiple: boolean;
@@ -289,7 +297,6 @@ declare const _exports: {
           values: string[];
           multiple: boolean;
           description: string;
-          negatedDescription: string;
           path: string;
         }
     )[];

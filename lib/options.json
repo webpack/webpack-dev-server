@@ -28,7 +28,10 @@
     "Bonjour": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to broadcasts dev server via ZeroConf networking on start."
+          }
         },
         {
           "type": "object",
@@ -37,10 +40,7 @@
         }
       ],
       "description": "Allows to broadcasts dev server via ZeroConf networking on start.",
-      "link": " https://webpack.js.org/configuration/dev-server/#devserverbonjour",
-      "cli": {
-        "negatedDescription": "Disallows to broadcasts dev server via ZeroConf networking on start."
-      }
+      "link": " https://webpack.js.org/configuration/dev-server/#devserverbonjour"
     },
     "Client": {
       "description": "Allows to specify options for client script in the browser or disable client script.",
@@ -122,16 +122,16 @@
       "link": "https://webpack.js.org/configuration/dev-server/#reconnect",
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Tells dev-server to not to try to reconnect the client."
+          }
         },
         {
           "type": "number",
           "minimum": 0
         }
-      ],
-      "cli": {
-        "negatedDescription": "Tells dev-server to not to try to reconnect the client."
-      }
+      ]
     },
     "ClientWebSocketTransport": {
       "anyOf": [
@@ -481,17 +481,17 @@
     "Hot": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disables Hot Module Replacement."
+          }
         },
         {
           "enum": ["only"]
         }
       ],
       "description": "Enables Hot Module Replacement.",
-      "link": "https://webpack.js.org/configuration/dev-server/#devserverhot",
-      "cli": {
-        "negatedDescription": "Disables Hot Module Replacement."
-      }
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhot"
     },
     "IPC": {
       "anyOf": [
@@ -968,7 +968,10 @@
         "serveIndex": {
           "anyOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Does not tell dev server to use serveIndex middleware."
+              }
             },
             {
               "type": "object",
@@ -976,15 +979,15 @@
             }
           ],
           "description": "Tells dev server to use serveIndex middleware when enabled.",
-          "cli": {
-            "negatedDescription": "Does not tell dev server to use serveIndex middleware."
-          },
           "link": "https://webpack.js.org/configuration/dev-server/#serveindex"
         },
         "watch": {
           "anyOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Does not watch for files in static content directory."
+              }
             },
             {
               "type": "object",
@@ -993,9 +996,6 @@
             }
           ],
           "description": "Watches for files in static content directory.",
-          "cli": {
-            "negatedDescription": "Does not watch for files in static content directory."
-          },
           "link": "https://webpack.js.org/configuration/dev-server/#watch"
         }
       }
