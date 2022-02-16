@@ -743,7 +743,10 @@
         },
         "requestCert": {
           "type": "boolean",
-          "description": "Request for an SSL certificate."
+          "description": "Request for an SSL certificate.",
+          "cli": {
+            "negatedDescription": "Does not request for an SSL certificate."
+          }
         },
         "ca": {
           "anyOf": [
@@ -928,7 +931,10 @@
           }
         },
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to configure options for serving static files from directory."
+          }
         },
         {
           "$ref": "#/definitions/StaticString"
@@ -1094,7 +1100,10 @@
     "WebSocketServerEnum": {
       "anyOf": [
         {
-          "enum": [false]
+          "enum": [false],
+          "cli": {
+            "negatedDescription": "Disallows to set web socket server and options."
+          }
         },
         {
           "$ref": "#/definitions/WebSocketServerType"

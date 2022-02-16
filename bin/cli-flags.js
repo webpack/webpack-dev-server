@@ -1030,6 +1030,7 @@ module.exports = {
     configs: [
       {
         description: "Request for an SSL certificate.",
+        negatedDescription: "Does not request for an SSL certificate.",
         multiple: false,
         path: "server.options.requestCert",
         type: "boolean",
@@ -1067,6 +1068,8 @@ module.exports = {
         multiple: false,
         description:
           "Allows to configure options for serving static files from directory (by default 'public' directory).",
+        negatedDescription:
+          "Disallows to configure options for serving static files from directory.",
         path: "static",
       },
     ],
@@ -1206,6 +1209,7 @@ module.exports = {
       {
         description:
           "Deprecated: please use '--web-socket-server-type' option.",
+        negatedDescription: "Disallows to set web socket server and options.",
         multiple: false,
         path: "webSocketServer",
         type: "enum",
