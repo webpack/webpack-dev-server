@@ -84,6 +84,7 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
@@ -95,6 +96,7 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;

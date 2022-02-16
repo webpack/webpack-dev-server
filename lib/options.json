@@ -90,7 +90,7 @@
           "link": "https://webpack.js.org/configuration/dev-server/#overlay",
           "type": "boolean",
           "cli": {
-            "negatedDescription": "Disables a full-screen overlay in the browser when there are compiler errors or warnings."
+            "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors or warnings."
           }
         },
         {
@@ -99,11 +99,17 @@
           "properties": {
             "errors": {
               "description": "Enables a full-screen overlay in the browser when there are compiler errors.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors."
+              }
             },
             "warnings": {
               "description": "Enables a full-screen overlay in the browser when there are compiler warnings.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler warnings."
+              }
             }
           }
         }

@@ -95,7 +95,7 @@ module.exports = {
         description:
           "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
         negatedDescription:
-          "Disables a full-screen overlay in the browser when there are compiler errors or warnings.",
+          "Disables the full-screen overlay in the browser when there are compiler errors or warnings.",
         path: "client.overlay",
       },
     ],
@@ -111,6 +111,8 @@ module.exports = {
         multiple: false,
         description:
           "Enables a full-screen overlay in the browser when there are compiler errors.",
+        negatedDescription:
+          "Disables the full-screen overlay in the browser when there are compiler errors.",
         path: "client.overlay.errors",
       },
     ],
@@ -126,6 +128,8 @@ module.exports = {
         multiple: false,
         description:
           "Enables a full-screen overlay in the browser when there are compiler warnings.",
+        negatedDescription:
+          "Disables the full-screen overlay in the browser when there are compiler warnings.",
         path: "client.overlay.warnings",
       },
     ],
