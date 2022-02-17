@@ -90,7 +90,7 @@
           "link": "https://webpack.js.org/configuration/dev-server/#overlay",
           "type": "boolean",
           "cli": {
-            "negatedDescription": "Disables a full-screen overlay in the browser when there are compiler errors or warnings."
+            "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors or warnings."
           }
         },
         {
@@ -99,11 +99,17 @@
           "properties": {
             "errors": {
               "description": "Enables a full-screen overlay in the browser when there are compiler errors.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors."
+              }
             },
             "warnings": {
               "description": "Enables a full-screen overlay in the browser when there are compiler warnings.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler warnings."
+              }
             }
           }
         }
@@ -737,7 +743,10 @@
         },
         "requestCert": {
           "type": "boolean",
-          "description": "Request for an SSL certificate."
+          "description": "Request for an SSL certificate.",
+          "cli": {
+            "negatedDescription": "Does not request for an SSL certificate."
+          }
         },
         "ca": {
           "anyOf": [
@@ -922,7 +931,10 @@
           }
         },
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to configure options for serving static files from directory."
+          }
         },
         {
           "$ref": "#/definitions/StaticString"
@@ -1088,7 +1100,10 @@
     "WebSocketServerEnum": {
       "anyOf": [
         {
-          "enum": [false]
+          "enum": [false],
+          "cli": {
+            "negatedDescription": "Disallows to set web socket server and options."
+          }
         },
         {
           "$ref": "#/definitions/WebSocketServerType"

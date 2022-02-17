@@ -95,7 +95,7 @@ module.exports = {
         description:
           "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
         negatedDescription:
-          "Disables a full-screen overlay in the browser when there are compiler errors or warnings.",
+          "Disables the full-screen overlay in the browser when there are compiler errors or warnings.",
         path: "client.overlay",
       },
     ],
@@ -111,6 +111,8 @@ module.exports = {
         multiple: false,
         description:
           "Enables a full-screen overlay in the browser when there are compiler errors.",
+        negatedDescription:
+          "Disables the full-screen overlay in the browser when there are compiler errors.",
         path: "client.overlay.errors",
       },
     ],
@@ -126,6 +128,8 @@ module.exports = {
         multiple: false,
         description:
           "Enables a full-screen overlay in the browser when there are compiler warnings.",
+        negatedDescription:
+          "Disables the full-screen overlay in the browser when there are compiler warnings.",
         path: "client.overlay.warnings",
       },
     ],
@@ -1026,6 +1030,7 @@ module.exports = {
     configs: [
       {
         description: "Request for an SSL certificate.",
+        negatedDescription: "Does not request for an SSL certificate.",
         multiple: false,
         path: "server.options.requestCert",
         type: "boolean",
@@ -1063,6 +1068,8 @@ module.exports = {
         multiple: false,
         description:
           "Allows to configure options for serving static files from directory (by default 'public' directory).",
+        negatedDescription:
+          "Disallows to configure options for serving static files from directory.",
         path: "static",
       },
     ],
@@ -1202,6 +1209,7 @@ module.exports = {
       {
         description:
           "Deprecated: please use '--web-socket-server-type' option.",
+        negatedDescription: "Disallows to set web socket server and options.",
         multiple: false,
         path: "webSocketServer",
         type: "enum",

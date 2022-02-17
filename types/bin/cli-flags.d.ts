@@ -84,6 +84,7 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
@@ -95,6 +96,7 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
@@ -779,6 +781,7 @@ declare const _exports: {
   "server-options-request-cert": {
     configs: {
       description: string;
+      negatedDescription: string;
       multiple: boolean;
       path: string;
       type: string;
@@ -800,12 +803,21 @@ declare const _exports: {
     simpleType: string;
   };
   static: {
-    configs: {
-      type: string;
-      multiple: boolean;
-      description: string;
-      path: string;
-    }[];
+    configs: (
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          path: string;
+        }
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          negatedDescription: string;
+          path: string;
+        }
+    )[];
     description: string;
     simpleType: string;
     multiple: boolean;
@@ -904,6 +916,7 @@ declare const _exports: {
     configs: (
       | {
           description: string;
+          negatedDescription: string;
           multiple: boolean;
           path: string;
           type: string;
