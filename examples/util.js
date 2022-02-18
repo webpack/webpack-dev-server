@@ -5,7 +5,7 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const marked = require("marked");
+const { marked } = require("marked");
 
 module.exports = {
   setup(config) {

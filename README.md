@@ -105,11 +105,11 @@ Options:
   --no-client                               Disables client script.
   --client-logging <value>                  Allows to set log level in the browser.
   --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
-  --no-client-overlay                       Disables a full-screen overlay in the browser when there are compiler errors or warnings.
+  --no-client-overlay                       Disables the full-screen overlay in the browser when there are compiler errors or warnings.
   --client-overlay-errors                   Enables a full-screen overlay in the browser when there are compiler errors.
-  --no-client-overlay-errors                Negative 'client-overlay-errors' option.
+  --no-client-overlay-errors                Disables the full-screen overlay in the browser when there are compiler errors.
   --client-overlay-warnings                 Enables a full-screen overlay in the browser when there are compiler warnings.
-  --no-client-overlay-warnings              Negative 'client-overlay-warnings' option.
+  --no-client-overlay-warnings              Disables the full-screen overlay in the browser when there are compiler warnings.
   --client-progress                         Prints compilation progress in percentage in the browser.
   --no-client-progress                      Does not print compilation progress in percentage in the browser.
   --client-reconnect [value]                Tells dev-server the number of times it should try to reconnect the client.
@@ -126,7 +126,7 @@ Options:
   --no-compress                             Disables gzip compression for everything served.
   --history-api-fallback                    Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5
                                             History API.
-  --no-history-api-fallback                 Negative 'history-api-fallback' option.
+  --no-history-api-fallback                 Disallows to proxy requests through a specified index page.
   --host <value>                            Allows to specify a hostname to use.
   --hot [value]                             Enables Hot Module Replacement.
   --no-hot                                  Disables Hot Module Replacement.
