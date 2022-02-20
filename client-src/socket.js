@@ -16,7 +16,9 @@ const Client =
 
 let retries = 0;
 let maxRetries = 10;
-let client = null;
+
+// Initialized client is exported so external consumers can utilize the same instance
+export let client = null;
 
 /**
  * @param {string} url
