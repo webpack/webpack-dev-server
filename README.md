@@ -27,6 +27,7 @@ fast in-memory access to the webpack assets.
   - [With the CLI](#with-the-cli)
   - [With NPM Scripts](#with-npm-scripts)
   - [With the API](#with-the-api)
+  - [With TypeScript](#with-typescript)
   - [The Result](#the-result)
 - [Browser Support](#browser-support)
 - [Support](#support)
@@ -248,6 +249,30 @@ execute the file or command.
 While it's recommended to run webpack-dev-server via the CLI, you may also choose to start a server via the API.
 
 See the related [API documentation for `webpack-dev-server`](https://webpack.js.org/api/webpack-dev-server/).
+
+### With TypeScript
+
+If you use TypeScript in the webpack config, you'll need to properly type `devServer` property in order to avoid TS errors (e.g. `'devServer' does not exist in type 'Configuration'`). For that use either:
+
+```ts
+/// <reference path="node_modules/webpack-dev-server/types/lib/Server.d.ts"/>
+import type { Configuration } from "webpack";
+
+// Your logic
+```
+
+Or you can import the type from `webpack-dev-server`, i.e.
+
+```ts
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import type { Configuration } from "webpack";
+
+const devServer: DevServerConfiguration = {};
+const config: Configuration = { devServer };
+
+// module.exports
+export default config;
+```
 
 ### The Result
 
