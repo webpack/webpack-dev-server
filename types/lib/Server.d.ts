@@ -1198,7 +1198,7 @@ declare class Server {
         )[];
         description: string;
         simpleType: string;
-        /** @type {ServerOptions} */ multiple: boolean;
+        multiple: boolean;
       };
       "static-directory": {
         configs: {
@@ -1225,7 +1225,7 @@ declare class Server {
       "static-public-path-reset": {
         configs: {
           type: string;
-          multiple: boolean;
+          /** @type {ServerOptions} */ multiple: boolean;
           description: string;
           path: string;
         }[];
@@ -1310,6 +1310,7 @@ declare class Server {
           | {
               description: string;
               multiple: boolean;
+              /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
               path: string;
               type: string;
             }
@@ -1331,13 +1332,13 @@ declare class Server {
               description: string;
               multiple: boolean;
               path: string;
-              type: string /** @type {ServerOptions} */;
+              type: string;
             }
         )[];
         description: string;
         simpleType: string;
         multiple: boolean /** @type {ServerOptions} */;
-      } /** @type {ServerOptions} */;
+      };
     };
     readonly processArguments: (
       args: Record<string, import("../bin/process-arguments").Argument>,
