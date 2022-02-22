@@ -1,7 +1,7 @@
 /* global __resourceQuery, __webpack_hash__ */
 /// <reference types="webpack/module" />
 import webpackHotLog from "webpack/hot/log.js";
-import stripAnsi from "./modules/strip-ansi/index.js";
+import stripAnsi from "./utils/stripAnsi.js";
 import parseURL from "./utils/parseURL.js";
 import socket from "./socket.js";
 import { formatProblem, show, hide } from "./overlay.js";

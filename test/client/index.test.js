@@ -27,7 +27,6 @@ describe("index", () => {
       },
       setLogLevel: jest.fn(),
     });
-    jest.setMock("strip-ansi", require("strip-ansi-v6"));
 
     log = require("../../client-src/utils/log");
 
