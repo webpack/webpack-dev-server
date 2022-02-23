@@ -2,24 +2,15 @@
 
 const os = require("os");
 const webpack = require("webpack");
+const Bonjour = require("bonjour-service");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").bonjour;
 
+jest.mock("bonjour-service");
+
 describe("bonjour option", () => {
-  let mockPublish;
-  let mockUnpublishAll;
-  let mockDestroy;
-
-  beforeEach(() => {
-    mockPublish = jest.fn();
-    mockUnpublishAll = jest.fn((callback) => {
-      callback();
-    });
-    mockDestroy = jest.fn();
-  });
-
   describe("as true", () => {
     let compiler;
     let server;
@@ -27,15 +18,12 @@ describe("bonjour option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let bonjourInstance;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
-        return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
-        };
-      });
+      Bonjour.mockClear();
+
+      bonjourInstance = new Bonjour();
 
       compiler = webpack(config);
 
@@ -52,10 +40,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should call bonjour with correct params", async () => {
@@ -71,17 +55,17 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(bonjourInstance.publish).toHaveBeenCalledTimes(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(bonjourInstance.publish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "http",
         subtypes: ["webpack"],
       });
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.unpublishAll).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.destroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -100,15 +84,12 @@ describe("bonjour option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let bonjourInstance;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
-        return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
-        };
-      });
+      Bonjour.mockClear();
+
+      bonjourInstance = new Bonjour();
 
       compiler = webpack(config);
 
@@ -125,10 +106,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should call bonjour with 'https' type", async () => {
@@ -144,17 +121,17 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(bonjourInstance.publish).toHaveBeenCalledTimes(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(bonjourInstance.publish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "https",
         subtypes: ["webpack"],
       });
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.unpublishAll).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.destroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -173,15 +150,12 @@ describe("bonjour option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let bonjourInstance;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
-        return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
-        };
-      });
+      Bonjour.mockClear();
+
+      bonjourInstance = new Bonjour();
 
       compiler = webpack(config);
 
@@ -198,10 +172,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should call bonjour with 'https' type", async () => {
@@ -217,17 +187,17 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(bonjourInstance.publish).toHaveBeenCalledTimes(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(bonjourInstance.publish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "https",
         subtypes: ["webpack"],
       });
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.unpublishAll).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.destroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -246,15 +216,12 @@ describe("bonjour option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let bonjourInstance;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
-        return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
-        };
-      });
+      Bonjour.mockClear();
+
+      bonjourInstance = new Bonjour();
 
       compiler = webpack(config);
 
@@ -280,10 +247,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should apply bonjour options", async () => {
@@ -299,9 +262,9 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(bonjourInstance.publish).toHaveBeenCalledTimes(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(bonjourInstance.publish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "https",
@@ -309,8 +272,8 @@ describe("bonjour option", () => {
         subtypes: ["webpack"],
       });
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.unpublishAll).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.destroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -329,15 +292,12 @@ describe("bonjour option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let bonjourInstance;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
-        return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
-        };
-      });
+      Bonjour.mockClear();
+
+      bonjourInstance = new Bonjour();
 
       compiler = webpack(config);
 
@@ -364,10 +324,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should apply bonjour options", async () => {
@@ -383,9 +339,9 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(bonjourInstance.publish).toHaveBeenCalledTimes(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(bonjourInstance.publish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "http",
@@ -393,8 +349,8 @@ describe("bonjour option", () => {
         subtypes: ["webpack"],
       });
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.unpublishAll).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.destroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
@@ -413,15 +369,12 @@ describe("bonjour option", () => {
     let browser;
     let pageErrors;
     let consoleMessages;
+    let bonjourInstance;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
-        return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
-        };
-      });
+      Bonjour.mockClear();
+
+      bonjourInstance = new Bonjour();
 
       compiler = webpack(config);
 
@@ -450,9 +403,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
     });
 
     it("should apply bonjour options", async () => {
@@ -468,9 +418,9 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(bonjourInstance.publish).toHaveBeenCalledTimes(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(bonjourInstance.publish).toHaveBeenCalledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "http",
@@ -478,8 +428,8 @@ describe("bonjour option", () => {
         subtypes: ["webpack"],
       });
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.unpublishAll).toHaveBeenCalledTimes(0);
+      expect(bonjourInstance.destroy).toHaveBeenCalledTimes(0);
 
       expect(response.status()).toMatchSnapshot("response status");
 
