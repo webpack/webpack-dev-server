@@ -14,7 +14,7 @@ try {
     shell: true,
   });
 
-  if (!stdout.trim()) {
+  if (!stdout.trim().includes("types/")) {
     // eslint-disable-next-line no-console
     console.log("types are up-to-date.");
     process.exit(0);
