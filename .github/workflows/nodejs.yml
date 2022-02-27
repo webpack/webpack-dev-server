@@ -43,6 +43,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Check types
+        run: npm run check:types
+
       - name: Security audit
         run: npm audit --production
 
