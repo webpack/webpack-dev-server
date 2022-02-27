@@ -29,11 +29,15 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
+      jest.mock("bonjour-service", () => {
         return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
+          Bonjour: jest.fn().mockImplementation(() => {
+            return {
+              publish: mockPublish,
+              unpublishAll: mockUnpublishAll,
+              destroy: mockDestroy,
+            };
+          }),
         };
       });
 
@@ -102,11 +106,15 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
+      jest.mock("bonjour-service", () => {
         return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
+          Bonjour: jest.fn().mockImplementation(() => {
+            return {
+              publish: mockPublish,
+              unpublishAll: mockUnpublishAll,
+              destroy: mockDestroy,
+            };
+          }),
         };
       });
 
@@ -125,10 +133,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should call bonjour with 'https' type", async () => {
@@ -175,11 +179,15 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
+      jest.mock("bonjour-service", () => {
         return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
+          Bonjour: jest.fn().mockImplementation(() => {
+            return {
+              publish: mockPublish,
+              unpublishAll: mockUnpublishAll,
+              destroy: mockDestroy,
+            };
+          }),
         };
       });
 
@@ -198,10 +206,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should call bonjour with 'https' type", async () => {
@@ -248,11 +252,15 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
+      jest.mock("bonjour-service", () => {
         return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
+          Bonjour: jest.fn().mockImplementation(() => {
+            return {
+              publish: mockPublish,
+              unpublishAll: mockUnpublishAll,
+              destroy: mockDestroy,
+            };
+          }),
         };
       });
 
@@ -280,10 +288,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should apply bonjour options", async () => {
@@ -331,11 +335,15 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
+      jest.mock("bonjour-service", () => {
         return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
+          Bonjour: jest.fn().mockImplementation(() => {
+            return {
+              publish: mockPublish,
+              unpublishAll: mockUnpublishAll,
+              destroy: mockDestroy,
+            };
+          }),
         };
       });
 
@@ -364,10 +372,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     it("should apply bonjour options", async () => {
@@ -415,11 +419,15 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour", () => () => {
+      jest.mock("bonjour-service", () => {
         return {
-          publish: mockPublish,
-          unpublishAll: mockUnpublishAll,
-          destroy: mockDestroy,
+          Bonjour: jest.fn().mockImplementation(() => {
+            return {
+              publish: mockPublish,
+              unpublishAll: mockUnpublishAll,
+              destroy: mockDestroy,
+            };
+          }),
         };
       });
 
@@ -450,9 +458,6 @@ describe("bonjour option", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
     });
 
     it("should apply bonjour options", async () => {
