@@ -40,7 +40,7 @@
     "@types/express": "^4.17.13",
     "@types/serve-index": "^1.9.1",
     "@types/sockjs": "^0.3.33",
-    "@types/ws": "^8.2.3",
+    "@types/ws": "^8.5.1",
     "ansi-html-community": "^0.0.8",
     "bonjour-service": "^1.0.11",
     "chokidar": "^3.5.3",
