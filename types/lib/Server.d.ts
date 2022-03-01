@@ -3262,9 +3262,9 @@ type ServerOptions = import("https").ServerOptions & {
   };
 };
 type DevMiddlewareOptions<Request_1, Response_1> =
-  import("webpack-dev-middleware").Options<Request_1, Response_1>;
+  import("webpack-dev-middleware").Options<Request, Response>;
 type DevMiddlewareContext<Request_1, Response_1> =
-  import("webpack-dev-middleware").Context<Request_1, Response_1>;
+  import("webpack-dev-middleware").Context<Request, Response>;
 type WatchFiles = {
   paths: string | string[];
   options?:
