@@ -103,7 +103,7 @@ describe("setupExitSignals option", () => {
       consoleMessages = consoleMessages.filter(
         (message) =>
           !(
-            message.text().includes("Trying to reconnect...") &&
+            message.text().includes("Trying to reconnect...") ||
             message.text().includes("Disconnected")
           )
       );
