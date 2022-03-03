@@ -16,7 +16,11 @@ const Client =
 
 let retries = 0;
 let maxRetries = 10;
-let client = null;
+
+// Initialized client is exported so external consumers can utilize the same instance
+// https://github.com/webpack/webpack-dev-server/issues/4261
+// eslint-disable-next-line import/no-mutable-exports
+export let client = null;
 
 /**
  * @param {string} url
