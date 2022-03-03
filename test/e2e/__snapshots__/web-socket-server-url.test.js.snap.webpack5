@@ -25,7 +25,11 @@ Array [
 
 exports[`web socket server URL should not work and output disconnect wrong web socket URL ("ws"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work and throw an error on invalid web socket URL ("sockjs"): console messages 1`] = `Array []`;
+exports[`web socket server URL should work and throw an error on invalid web socket URL ("sockjs"): console messages 1`] = `
+Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+]
+`;
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("sockjs"): page errors 1`] = `
 Array [
@@ -33,7 +37,11 @@ Array [
 ]
 `;
 
-exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): console messages 1`] = `Array []`;
+exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): console messages 1`] = `
+Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+]
+`;
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): page errors 1`] = `
 Array [
