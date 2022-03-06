@@ -9,7 +9,7 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").api;
 
 describe("API", () => {
-  describe("WEBPACK_SERVE environment variable", () => {
+  describe.skip("WEBPACK_SERVE environment variable", () => {
     const OLD_ENV = process.env;
     let server;
     let page;
@@ -542,7 +542,7 @@ describe("API", () => {
     });
   });
 
-  describe("Server.getFreePort", () => {
+  describe.skip("Server.getFreePort", () => {
     let dummyServers = [];
     let devServerPort;
 
