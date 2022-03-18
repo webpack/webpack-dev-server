@@ -72,14 +72,17 @@ module.exports = {
       })
     );
 
-    if (result.devServer.onBeforeSetupMiddleware) {
-      const proxy = result.devServer.onBeforeSetupMiddleware;
-      result.devServer.onBeforeSetupMiddleware = function replace(app) {
-        onBeforeSetupMiddleware(app);
-        proxy(app);
+    if (result.devServer.setupMiddlewares) {
+      const proxy = result.devServer.setupMiddlewares;
+      result.devServer.setupMiddlewares = (middlewares, devServer) => {
+        onBeforeSetupMiddleware(devServer);
+        return proxy(middlewares, devServer);
       };
     } else {
-      result.devServer.onBeforeSetupMiddleware = onBeforeSetupMiddleware;
+      result.devServer.setupMiddlewares = (middlewares, devServer) => {
+        onBeforeSetupMiddleware(devServer);
+        return middlewares;
+      };
     }
 
     const output = {
