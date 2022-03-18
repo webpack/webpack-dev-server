@@ -9,7 +9,7 @@ function parseURL(resourceQuery) {
   let options = {};
 
   if (typeof resourceQuery === "string" && resourceQuery !== "") {
-    const searchParams = resourceQuery.substr(1).split("&");
+    const searchParams = resourceQuery.slice(1).split("&");
 
     for (let i = 0; i < searchParams.length; i++) {
       const pair = searchParams[i].split("=");

@@ -42,7 +42,7 @@ describe("'Range' header", () => {
     );
     expect(responseRange.headers["content-length"]).toBe("500");
     expect(responseRange.headers["content-range"]).toMatch(/^bytes 0-499\//);
-    expect(responseRange.text).toBe(responseContent.substr(0, 500));
+    expect(responseRange.text).toBe(responseContent.slice(0, 500));
     expect(responseRange.text.length).toBe(500);
   });
 

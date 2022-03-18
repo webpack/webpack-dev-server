@@ -5,7 +5,7 @@
 function format(objURL) {
   let protocol = objURL.protocol || "";
 
-  if (protocol && protocol.substr(-1) !== ":") {
+  if (protocol && !protocol.endsWith(":")) {
     protocol += ":";
   }
 
