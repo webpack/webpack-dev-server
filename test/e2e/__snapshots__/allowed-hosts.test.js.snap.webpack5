@@ -18,6 +18,12 @@ exports[`allowed hosts check host headers should always allow \`localhost\` if o
 
 exports[`allowed hosts check host headers should always allow \`localhost\` if options.allowedHosts is auto: response status 1`] = `200`;
 
+exports[`allowed hosts check host headers should always allow \`localhost\` subdomain if options.allowedHosts is auto: console messages 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow \`localhost\` subdomain if options.allowedHosts is auto: page errors 1`] = `Array []`;
+
+exports[`allowed hosts check host headers should always allow \`localhost\` subdomain if options.allowedHosts is auto: response status 1`] = `200`;
+
 exports[`allowed hosts check host headers should always allow any host if options.allowedHosts is all: console messages 1`] = `Array []`;
 
 exports[`allowed hosts check host headers should always allow any host if options.allowedHosts is all: page errors 1`] = `Array []`;
