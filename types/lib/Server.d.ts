@@ -685,9 +685,6 @@ declare class Server {
           description: string;
           path: string;
         }[];
-        /**
-         * @type {string | undefined}
-         */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -719,9 +716,9 @@ declare class Server {
           description: string;
           multiple: boolean;
           path: string;
-          /** @type {WebSocketURL} */ type: string;
+          type: string;
         }[];
-        description: string;
+        /** @type {ClientConfiguration} */ description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -846,7 +843,7 @@ declare class Server {
             }
           | {
               type: string;
-              /** @type {Object<string,string>} */ values: boolean[];
+              values: boolean[];
               multiple: boolean;
               description: string;
               path: string;
@@ -884,7 +881,7 @@ declare class Server {
         configs: (
           | {
               type: string;
-              multiple: boolean;
+              /** @type {MultiCompiler} */ multiple: boolean;
               description: string;
               path: string;
             }
@@ -1134,7 +1131,7 @@ declare class Server {
           description: string;
           negatedDescription: string;
           multiple: boolean;
-          path: string;
+          /** @type {ServerOptions} */ path: string;
           type: string;
         }[];
         description: string;
@@ -1303,7 +1300,7 @@ declare class Server {
           | {
               description: string;
               multiple: boolean;
-              path: string;
+              /** @type {ServerOptions} */ path: string;
               type: string;
             }
         )[];
@@ -2120,11 +2117,12 @@ declare class Server {
             }
         )[];
         description: string;
-        /** @type {string} */ link: string;
+        link: string;
       };
       Host: {
         description: string;
         link: string;
+        /** @type {ServerConfiguration} */
         anyOf: (
           | {
               enum: string[];
@@ -2263,6 +2261,12 @@ declare class Server {
                               minLength: number;
                             };
                             minItems: number;
+                            /**
+                             * prependEntry Method for webpack 4
+                             * @param {any} originalEntry
+                             * @param {any} newAdditionalEntries
+                             * @returns {any}
+                             */
                             minLength?: undefined;
                           }
                         | {
@@ -2346,7 +2350,7 @@ declare class Server {
                     }
                   | {
                       instanceof: string;
-                      /** @type {string} */ type?: undefined;
+                      type?: undefined;
                     }
                 )[];
               };
@@ -2357,7 +2361,7 @@ declare class Server {
       };
       Server: {
         anyOf: {
-          $ref: string /** @type {MultiCompiler} */;
+          $ref: string;
         }[];
         link: string;
         description: string;
@@ -2399,6 +2403,10 @@ declare class Server {
           passphrase: {
             type: string;
             description: string;
+            /**
+             * @private
+             * @returns {Promise<void>}
+             */
           };
           requestCert: {
             type: string;
@@ -2791,7 +2799,7 @@ declare class Server {
           $ref: string;
         }[];
         description: string;
-        link: string;
+        /** @type {Array<keyof ServerOptions>} */ link: string;
       };
       WebSocketServerType: {
         enum: string[];
@@ -2849,8 +2857,8 @@ declare class Server {
       bonjour: {
         $ref: string;
       };
+      /** @type {any} */
       client: {
-        /** @type {any} */
         $ref: string;
       };
       compress: {
