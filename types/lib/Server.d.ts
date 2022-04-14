@@ -664,6 +664,7 @@ declare class Server {
       };
       /**
        * @param {Port} port
+       * @param {string} host
        * @returns {Promise<number | string>}
        */
       https: {
@@ -716,9 +717,9 @@ declare class Server {
           description: string;
           multiple: boolean;
           path: string;
-          type: string;
+          type: string /** @type {WebSocketURL} */;
         }[];
-        /** @type {ClientConfiguration} */ description: string;
+        description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -730,7 +731,7 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        simpleType: string;
+        /** @type {ServerConfiguration} */ simpleType: string;
         multiple: boolean;
       };
       "https-cert-reset": {
@@ -881,7 +882,7 @@ declare class Server {
         configs: (
           | {
               type: string;
-              /** @type {MultiCompiler} */ multiple: boolean;
+              multiple: boolean;
               description: string;
               path: string;
             }
@@ -905,6 +906,10 @@ declare class Server {
           path: string;
         }[];
         description: string;
+        /**
+         * @private
+         * @returns {Promise<void>}
+         */
         simpleType: string;
         multiple: boolean;
       };
@@ -952,6 +957,10 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
+      /**
+       * @param {string | Static | undefined} [optionsForStatic]
+       * @returns {NormalizedStatic}
+       */
       "open-target-reset": {
         configs: {
           type: string;
@@ -1118,7 +1127,7 @@ declare class Server {
       "server-options-pfx-reset": {
         configs: {
           description: string;
-          multiple: boolean;
+          /** @type {ServerConfiguration} */ multiple: boolean;
           path: string;
           type: string;
         }[];
@@ -1131,7 +1140,7 @@ declare class Server {
           description: string;
           negatedDescription: string;
           multiple: boolean;
-          /** @type {ServerOptions} */ path: string;
+          path: string;
           type: string;
         }[];
         description: string;
@@ -1144,10 +1153,10 @@ declare class Server {
           multiple: boolean;
           path: string;
           type: string;
-          values: string[];
+          /** @type {ServerOptions} */ values: string[];
         }[];
         description: string;
-        multiple: boolean;
+        /** @type {Array<keyof ServerOptions>} */ multiple: boolean;
         simpleType: string;
       };
       static: {
@@ -1167,7 +1176,7 @@ declare class Server {
             }
         )[];
         description: string;
-        simpleType: string;
+        /** @type {ServerOptions} */ simpleType: string;
         multiple: boolean;
       };
       "static-directory": {
@@ -1279,7 +1288,7 @@ declare class Server {
             }
           | {
               description: string;
-              multiple: boolean;
+              /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */ multiple: boolean;
               path: string;
               type: string;
             }
@@ -1292,6 +1301,7 @@ declare class Server {
         configs: (
           | {
               description: string;
+              /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
               multiple: boolean;
               path: string;
               type: string;
@@ -1300,13 +1310,13 @@ declare class Server {
           | {
               description: string;
               multiple: boolean;
-              /** @type {ServerOptions} */ path: string;
-              type: string;
+              path: string;
+              /** @type {ServerOptions} */ type: string;
             }
         )[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        /** @type {ServerOptions} */ multiple: boolean;
       };
     };
     readonly processArguments: (
@@ -2033,6 +2043,9 @@ declare class Server {
                                 instanceof?: undefined;
                               }
                           )[];
+                          /**
+                           * @returns {string}
+                           */
                         };
                         instanceof?: undefined;
                       }
@@ -2073,6 +2086,9 @@ declare class Server {
           exclude: boolean;
         };
       };
+      /**
+       * @type {string[]}
+       */
       Headers: {
         anyOf: (
           | {
@@ -2111,7 +2127,7 @@ declare class Server {
             }
           | {
               type: string;
-              description: string;
+              /** @type {ClientConfiguration} */ description: string;
               link: string;
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
@@ -2122,7 +2138,6 @@ declare class Server {
       Host: {
         description: string;
         link: string;
-        /** @type {ServerConfiguration} */
         anyOf: (
           | {
               enum: string[];
@@ -2152,7 +2167,7 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string;
+        /** @type {string} */ link: string;
       };
       IPC: {
         anyOf: (
@@ -2261,12 +2276,6 @@ declare class Server {
                               minLength: number;
                             };
                             minItems: number;
-                            /**
-                             * prependEntry Method for webpack 4
-                             * @param {any} originalEntry
-                             * @param {any} newAdditionalEntries
-                             * @returns {any}
-                             */
                             minLength?: undefined;
                           }
                         | {
@@ -2317,6 +2326,7 @@ declare class Server {
               enum?: undefined;
             }
           | {
+              /** @type {any} */
               type: string;
               minLength: number;
               minimum?: undefined;
@@ -2372,7 +2382,7 @@ declare class Server {
       ServerEnum: {
         enum: string[];
         cli: {
-          exclude: boolean;
+          exclude: boolean /** @type {MultiCompiler} */;
         };
       };
       ServerString: {
@@ -2403,10 +2413,6 @@ declare class Server {
           passphrase: {
             type: string;
             description: string;
-            /**
-             * @private
-             * @returns {Promise<void>}
-             */
           };
           requestCert: {
             type: string;
@@ -2776,7 +2782,7 @@ declare class Server {
               | {
                   type: string;
                   minLength: number;
-                  items?: undefined;
+                  /** @type {ServerConfiguration} */ items?: undefined;
                 }
             )[];
             description: string;
@@ -2798,8 +2804,8 @@ declare class Server {
         anyOf: {
           $ref: string;
         }[];
-        description: string;
-        /** @type {Array<keyof ServerOptions>} */ link: string;
+        /** @type {ServerOptions} */ description: string;
+        link: string;
       };
       WebSocketServerType: {
         enum: string[];
@@ -2857,7 +2863,6 @@ declare class Server {
       bonjour: {
         $ref: string;
       };
-      /** @type {any} */
       client: {
         $ref: string;
       };
@@ -2959,9 +2964,10 @@ declare class Server {
   static getHostname(hostname: Host): Promise<string>;
   /**
    * @param {Port} port
+   * @param {string} host
    * @returns {Promise<number | string>}
    */
-  static getFreePort(port: Port): Promise<number | string>;
+  static getFreePort(port: Port, host: string): Promise<number | string>;
   /**
    * @returns {string}
    */
