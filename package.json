@@ -55,7 +55,6 @@
     "ipaddr.js": "^2.0.1",
     "open": "^8.0.9",
     "p-retry": "^4.5.0",
-    "portfinder": "^1.0.28",
     "rimraf": "^3.0.2",
     "schema-utils": "^4.0.0",
     "selfsigned": "^2.0.1",
