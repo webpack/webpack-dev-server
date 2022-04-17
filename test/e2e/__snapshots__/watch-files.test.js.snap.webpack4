@@ -302,6 +302,7 @@ exports[`watchFiles option should work with string and path to directory should 
 
 exports[`watchFiles option should work with string and path to file should reload when file content is changed: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "Hey.",
 ]
 `;

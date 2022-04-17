@@ -214,7 +214,6 @@ exports[`API latest async API should work and allow to rerun dev server multiple
 
 exports[`API latest async API should work when using configured manually: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "[webpack-dev-server] Hot Module Replacement enabled.",
   "Hey.",
