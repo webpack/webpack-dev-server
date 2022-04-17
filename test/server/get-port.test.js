@@ -16,6 +16,7 @@ it("should pick the next port if the preferred port is unavailable", async () =>
   server.unref();
   await util.promisify(server.listen.bind(server))(preferredPort);
   const port = await getPort(preferredPort);
+  server.close();
   expect(port).toBe(preferredPort + 1);
 });
 
@@ -33,4 +34,22 @@ it("should reject too high port numbers", async () => {
   } catch (e) {
     expect(e.message).toBeDefined();
   }
+});
+
+describe("when passing a host", () => {
+  it("should bind to the preferred port", async () => {
+    const preferredPort = 8080;
+    const port = await getPort(8080, "127.0.0.1");
+    expect(port).toBe(preferredPort);
+  });
+
+  it("should pick the next port if the preferred port is unavailable", async () => {
+    const preferredPort = 8345;
+    const server = net.createServer();
+    server.unref();
+    await util.promisify(server.listen.bind(server))(preferredPort);
+    const port = await getPort(preferredPort, "0.0.0.0");
+    server.close();
+    expect(port).toBe(preferredPort + 1);
+  });
 });
