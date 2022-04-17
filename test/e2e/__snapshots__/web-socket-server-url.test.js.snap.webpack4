@@ -339,6 +339,7 @@ exports[`web socket server URL should work with "https" option ("ws"): page erro
 
 exports[`web socket server URL should work with "server: 'https'" option ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -350,6 +351,7 @@ exports[`web socket server URL should work with "server: 'https'" option ("sockj
 
 exports[`web socket server URL should work with "server: 'https'" option ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -361,6 +363,7 @@ exports[`web socket server URL should work with "server: 'https'" option ("ws"):
 
 exports[`web socket server URL should work with "server: 'spdy'" option ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -372,6 +375,7 @@ exports[`web socket server URL should work with "server: 'spdy'" option ("sockjs
 
 exports[`web socket server URL should work with "server: 'spdy'" option ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Hot Module Replacement enabled.",

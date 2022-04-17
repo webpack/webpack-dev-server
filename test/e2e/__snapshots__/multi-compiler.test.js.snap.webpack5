@@ -65,6 +65,7 @@ Update propagation: ./browser.js
     at http://127.0.0.1:8103/browser.js:702:26
     at waitForBlockingPromises (http://127.0.0.1:8103/browser.js:656:48)
     at http://127.0.0.1:8103/browser.js:700:24",
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -227,6 +228,7 @@ Update propagation: ./one.js
 
 exports[`multi compiler should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries: console messages 2`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "two",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -237,6 +239,7 @@ Array [
   "[HMR] Error: Aborted because ./two.js is not accepted
 Update propagation: ./two.js
     <stack>",
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "two",
   "[webpack-dev-server] Hot Module Replacement enabled.",
