@@ -241,7 +241,7 @@ And run the following in your terminal/console:
 npm run serve
 ```
 
-NPM will automagically reference the binary in `node_modules` for you, and
+NPM will automatically refer to the the binary in `node_modules` for you, and
 execute the file or command.
 
 ### With the API
