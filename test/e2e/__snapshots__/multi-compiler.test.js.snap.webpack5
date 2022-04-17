@@ -26,6 +26,7 @@ exports[`multi compiler should work with universal configuration and do nothing:
 
 exports[`multi compiler should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
   "[webpack-dev-server] Hot Module Replacement enabled.",
@@ -37,6 +38,7 @@ Array [
   "[HMR] Error: Aborted because ./browser.js is not accepted
 Update propagation: ./browser.js
     <stack>",
+  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
   "[webpack-dev-server] Hot Module Replacement enabled.",
