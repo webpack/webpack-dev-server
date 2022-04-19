@@ -27,6 +27,7 @@ fast in-memory access to the webpack assets.
   - [With the CLI](#with-the-cli)
   - [With NPM Scripts](#with-npm-scripts)
   - [With the API](#with-the-api)
+  - [With TypeScript](#with-typescript)
   - [The Result](#the-result)
 - [Browser Support](#browser-support)
 - [Support](#support)
@@ -40,6 +41,18 @@ First things first, install the module:
 
 ```console
 npm install webpack-dev-server --save-dev
+```
+
+or
+
+```console
+yarn add -D webpack-dev-server
+```
+
+or
+
+```console
+pnpm add -D webpack-dev-server
 ```
 
 _Note: While you can install and run webpack-dev-server globally, we recommend
@@ -90,18 +103,18 @@ Options:
                                             you are proxying dev server, by default is 'auto').
   --bonjour                                 Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                              Disallows to broadcasts dev server via ZeroConf networking on start.
-  --no-client                               Negative 'client' option.
+  --no-client                               Disables client script.
   --client-logging <value>                  Allows to set log level in the browser.
   --client-overlay                          Enables a full-screen overlay in the browser when there are compiler errors or warnings.
-  --no-client-overlay                       Disables a full-screen overlay in the browser when there are compiler errors or warnings.
+  --no-client-overlay                       Disables the full-screen overlay in the browser when there are compiler errors or warnings.
   --client-overlay-errors                   Enables a full-screen overlay in the browser when there are compiler errors.
-  --no-client-overlay-errors                Negative 'client-overlay-errors' option.
+  --no-client-overlay-errors                Disables the full-screen overlay in the browser when there are compiler errors.
   --client-overlay-warnings                 Enables a full-screen overlay in the browser when there are compiler warnings.
-  --no-client-overlay-warnings              Negative 'client-overlay-warnings' option.
+  --no-client-overlay-warnings              Disables the full-screen overlay in the browser when there are compiler warnings.
   --client-progress                         Prints compilation progress in percentage in the browser.
   --no-client-progress                      Does not print compilation progress in percentage in the browser.
   --client-reconnect [value]                Tells dev-server the number of times it should try to reconnect the client.
-  --no-client-reconnect                     Tells dev-server to not to try to connect the client.
+  --no-client-reconnect                     Tells dev-server to not to try to reconnect the client.
   --client-web-socket-transport <value>     Allows to set custom web socket transport to communicate with dev server.
   --client-web-socket-url <value>           Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
   --client-web-socket-url-hostname <value>  Tells clients connected to devServer to use the provided hostname.
@@ -114,7 +127,7 @@ Options:
   --no-compress                             Disables gzip compression for everything served.
   --history-api-fallback                    Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5
                                             History API.
-  --no-history-api-fallback                 Negative 'history-api-fallback' option.
+  --no-history-api-fallback                 Disallows to proxy requests through a specified index page.
   --host <value>                            Allows to specify a hostname to use.
   --hot [value]                             Enables Hot Module Replacement.
   --no-hot                                  Disables Hot Module Replacement.
@@ -228,7 +241,7 @@ And run the following in your terminal/console:
 npm run serve
 ```
 
-NPM will automagically reference the binary in `node_modules` for you, and
+NPM will automatically refer to the the binary in `node_modules` for you, and
 execute the file or command.
 
 ### With the API
@@ -236,6 +249,30 @@ execute the file or command.
 While it's recommended to run webpack-dev-server via the CLI, you may also choose to start a server via the API.
 
 See the related [API documentation for `webpack-dev-server`](https://webpack.js.org/api/webpack-dev-server/).
+
+### With TypeScript
+
+If you use TypeScript in the webpack config, you'll need to properly type `devServer` property in order to avoid TS errors (e.g. `'devServer' does not exist in type 'Configuration'`). For that use either:
+
+```ts
+/// <reference path="node_modules/webpack-dev-server/types/lib/Server.d.ts"/>
+import type { Configuration } from "webpack";
+
+// Your logic
+```
+
+Or you can import the type from `webpack-dev-server`, i.e.
+
+```ts
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import type { Configuration } from "webpack";
+
+const devServer: DevServerConfiguration = {};
+const config: Configuration = { devServer };
+
+// module.exports
+export default config;
+```
 
 ### The Result
 

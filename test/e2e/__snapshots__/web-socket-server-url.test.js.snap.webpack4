@@ -303,6 +303,50 @@ Array [
 
 exports[`web socket server URL should work with "https" option ("ws"): page errors 1`] = `Array []`;
 
+exports[`web socket server URL should work with "server: 'https'" option ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with "server: 'https'" option ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with "server: 'https'" option ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with "server: 'https'" option ("ws"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with "server: 'spdy'" option ("sockjs"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with "server: 'spdy'" option ("sockjs"): page errors 1`] = `Array []`;
+
+exports[`web socket server URL should work with "server: 'spdy'" option ("ws"): console messages 1`] = `
+Array [
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Hot Module Replacement enabled.",
+  "[webpack-dev-server] Live Reloading enabled.",
+]
+`;
+
+exports[`web socket server URL should work with "server: 'spdy'" option ("ws"): page errors 1`] = `Array []`;
+
 exports[`web socket server URL should work with default "/ws" value of the "client.webSocketURL.pathname" option ("sockjs"): console messages 1`] = `
 Array [
   "[HMR] Waiting for update signal from WDS...",

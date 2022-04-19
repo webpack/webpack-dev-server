@@ -28,7 +28,10 @@
     "Bonjour": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to broadcasts dev server via ZeroConf networking on start."
+          }
         },
         {
           "type": "object",
@@ -44,7 +47,10 @@
       "link": "https://webpack.js.org/configuration/dev-server/#devserverclient",
       "anyOf": [
         {
-          "enum": [false]
+          "enum": [false],
+          "cli": {
+            "negatedDescription": "Disables client script."
+          }
         },
         {
           "type": "object",
@@ -82,7 +88,10 @@
         {
           "description": "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
           "link": "https://webpack.js.org/configuration/dev-server/#overlay",
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors or warnings."
+          }
         },
         {
           "type": "object",
@@ -90,11 +99,17 @@
           "properties": {
             "errors": {
               "description": "Enables a full-screen overlay in the browser when there are compiler errors.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors."
+              }
             },
             "warnings": {
               "description": "Enables a full-screen overlay in the browser when there are compiler warnings.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler warnings."
+              }
             }
           }
         }
@@ -103,14 +118,20 @@
     "ClientProgress": {
       "description": "Prints compilation progress in percentage in the browser.",
       "link": "https://webpack.js.org/configuration/dev-server/#progress",
-      "type": "boolean"
+      "type": "boolean",
+      "cli": {
+        "negatedDescription": "Does not print compilation progress in percentage in the browser."
+      }
     },
     "ClientReconnect": {
       "description": "Tells dev-server the number of times it should try to reconnect the client.",
       "link": "https://webpack.js.org/configuration/dev-server/#reconnect",
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Tells dev-server to not to try to reconnect the client."
+          }
         },
         {
           "type": "number",
@@ -197,7 +218,10 @@
     "Compress": {
       "type": "boolean",
       "description": "Enables gzip compression for everything served.",
-      "link": "https://webpack.js.org/configuration/dev-server/#devservercompress"
+      "link": "https://webpack.js.org/configuration/dev-server/#devservercompress",
+      "cli": {
+        "negatedDescription": "Disables gzip compression for everything served."
+      }
     },
     "DevMiddleware": {
       "description": "Provide options to 'webpack-dev-middleware' which handles webpack assets.",
@@ -208,12 +232,18 @@
     "HTTP2": {
       "type": "boolean",
       "description": "Allows to serve over HTTP/2 using SPDY. Deprecated, use the `server` option.",
-      "link": "https://webpack.js.org/configuration/dev-server/#devserverhttp2"
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhttp2",
+      "cli": {
+        "negatedDescription": "Does not serve over HTTP/2 using SPDY."
+      }
     },
     "HTTPS": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to configure the server's listening socket for TLS (by default, dev server will be served over HTTP)."
+          }
         },
         {
           "type": "object",
@@ -225,7 +255,10 @@
             },
             "requestCert": {
               "type": "boolean",
-              "description": "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option."
+              "description": "Request for an SSL certificate. Deprecated, use the `server.options.requestCert` option.",
+              "cli": {
+                "negatedDescription": "Does not request for an SSL certificate."
+              }
             },
             "ca": {
               "anyOf": [
@@ -424,7 +457,10 @@
     "HistoryApiFallback": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to proxy requests through a specified index page."
+          }
         },
         {
           "type": "object",
@@ -451,7 +487,10 @@
     "Hot": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disables Hot Module Replacement."
+          }
         },
         {
           "enum": ["only"]
@@ -477,11 +516,17 @@
     "LiveReload": {
       "type": "boolean",
       "description": "Enables reload/refresh the page(s) when file changes are detected (enabled by default).",
+      "cli": {
+        "negatedDescription": "Disables reload/refresh the page(s) when file changes are detected (enabled by default)."
+      },
       "link": "https://webpack.js.org/configuration/dev-server/#devserverlivereload"
     },
     "MagicHTML": {
       "type": "boolean",
       "description": "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
+      "cli": {
+        "negatedDescription": "Disables magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js')."
+      },
       "link": "https://webpack.js.org/configuration/dev-server/#devservermagichtml"
     },
     "OnAfterSetupMiddleware": {
@@ -528,7 +573,10 @@
       "link": "https://webpack.js.org/configuration/dev-server/#devserveropen"
     },
     "OpenBoolean": {
-      "type": "boolean"
+      "type": "boolean",
+      "cli": {
+        "negatedDescription": "Does not open the default browser."
+      }
     },
     "OpenObject": {
       "type": "object",
@@ -695,7 +743,10 @@
         },
         "requestCert": {
           "type": "boolean",
-          "description": "Request for an SSL certificate."
+          "description": "Request for an SSL certificate.",
+          "cli": {
+            "negatedDescription": "Does not request for an SSL certificate."
+          }
         },
         "ca": {
           "anyOf": [
@@ -880,7 +931,10 @@
           }
         },
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to configure options for serving static files from directory."
+          }
         },
         {
           "$ref": "#/definitions/StaticString"
@@ -926,7 +980,10 @@
         "serveIndex": {
           "anyOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Does not tell dev server to use serveIndex middleware."
+              }
             },
             {
               "type": "object",
@@ -939,7 +996,10 @@
         "watch": {
           "anyOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Does not watch for files in static content directory."
+              }
             },
             {
               "type": "object",
@@ -1040,7 +1100,10 @@
     "WebSocketServerEnum": {
       "anyOf": [
         {
-          "enum": [false]
+          "enum": [false],
+          "cli": {
+            "negatedDescription": "Disallows to set web socket server and options."
+          }
         },
         {
           "$ref": "#/definitions/WebSocketServerType"
