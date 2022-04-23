@@ -6,6 +6,7 @@ const prettier = require("prettier");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/overlay-config/webpack.config");
+const trustedTypesConfig = require("../fixtures/overlay-config/trusted-types.webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").overlay;
 
@@ -766,6 +767,81 @@ describe("overlay", () => {
     );
     expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
       "overlay html"
+    );
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should show overlay when Trusted Types are enabled", async () => {
+    const compiler = webpack(trustedTypesConfig);
+
+    new ErrorPlugin().apply(compiler);
+
+    const devServerOptions = {
+      port,
+      client: {
+        overlay: {
+          policyName: "overlay-policy",
+        },
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should not show overlay when Trusted Types are enabled, but policy is not allowed", async () => {
+    const compiler = webpack(trustedTypesConfig);
+
+    new ErrorPlugin().apply(compiler);
+
+    const devServerOptions = {
+      port,
+      client: {
+        overlay: {
+          policyName: "disallowed-policy",
+        },
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    expect(overlayHandle).toBe(null);
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
     );
 
     await browser.close();
