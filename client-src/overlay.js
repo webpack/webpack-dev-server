@@ -23,7 +23,7 @@ let iframeContainerElement;
 let containerElement;
 /** @type {Array<(element: HTMLDivElement) => void>} */
 let onLoadQueue = [];
-/** @type {any} */
+/** @type {TrustedTypePolicy | undefined} */
 let overlayTrustedTypesPolicy;
 
 ansiHTML.setColors(colors);
