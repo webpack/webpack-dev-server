@@ -6,7 +6,7 @@ const HTMLContentForIndex = `
   <head>
     <meta
       http-equiv="Content-Security-Policy"
-      content="require-trusted-types-for 'script'; trusted-types webpack overlay-policy;"
+      content="require-trusted-types-for 'script'; trusted-types webpack webpack#dev-overlay;"
     />
     <meta charset='UTF-8'>
     <title>webpack-dev-server</title>
@@ -24,7 +24,7 @@ const HTMLContentForTest = `
   <head>
     <meta
       http-equiv="Content-Security-Policy"
-      content="require-trusted-types-for 'script'; trusted-types webpack overlay-policy;"
+      content="require-trusted-types-for 'script'; trusted-types webpack webpack#dev-overlay;"
     />
     <meta charset='UTF-8'>
     <title>test</title>

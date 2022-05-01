@@ -11,7 +11,7 @@ module.exports = {
   devServer: {
     client: {
       overlay: {
-        trustedTypesPolicyName: "overlay-policy",
+        trustedTypesPolicyName: "webpack#dev-overlay",
       },
     },
   },
@@ -32,5 +32,5 @@ npx webpack serve --open
 4. Restart the command and you should not see an overlay at all. In the console you should see the following error:
 
 ```
-Refused to create a TrustedTypePolicy named 'disallowed-policy' because it violates the following Content Security Policy directive: "trusted-types webpack overlay-policy".
+Refused to create a TrustedTypePolicy named 'disallowed-policy' because it violates the following Content Security Policy directive: "trusted-types webpack webpack#dev-overlay".
 ```

@@ -782,7 +782,7 @@ describe("overlay", () => {
       port,
       client: {
         overlay: {
-          trustedTypesPolicyName: "overlay-policy",
+          trustedTypesPolicyName: "webpack#dev-overlay",
         },
       },
     };
