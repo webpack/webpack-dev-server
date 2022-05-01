@@ -15,7 +15,7 @@ import createSocketURL from "./utils/createSocketURL.js";
  * @property {boolean} hot
  * @property {boolean} liveReload
  * @property {boolean} progress
- * @property {boolean | { warnings?: boolean, errors?: boolean, policyName?: string }} overlay
+ * @property {boolean | { warnings?: boolean, errors?: boolean, trustedTypesPolicyName?: string }} overlay
  * @property {string} [logging]
  * @property {number} [reconnect]
  */
@@ -230,9 +230,10 @@ const onSocketMessage = {
         : options.overlay && options.overlay.warnings;
 
     if (needShowOverlayForWarnings) {
-      const policyName =
-        typeof options.overlay === "object" && options.overlay.policyName;
-      show("warning", warnings, policyName || null);
+      const trustedTypesPolicyName =
+        typeof options.overlay === "object" &&
+        options.overlay.trustedTypesPolicyName;
+      show("warning", warnings, trustedTypesPolicyName || null);
     }
 
     if (params && params.preventReloading) {
@@ -265,9 +266,10 @@ const onSocketMessage = {
         : options.overlay && options.overlay.errors;
 
     if (needShowOverlayForErrors) {
-      const policyName =
-        typeof options.overlay === "object" && options.overlay.policyName;
-      show("error", errors, policyName || null);
+      const trustedTypesPolicyName =
+        typeof options.overlay === "object" &&
+        options.overlay.trustedTypesPolicyName;
+      show("error", errors, trustedTypesPolicyName || null);
     }
   },
   /**

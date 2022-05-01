@@ -1,4 +1,4 @@
-# client.overlay.policyName option
+# client.overlay.trustedTypesPolicyName option
 
 **webpack.config.js**
 
@@ -11,7 +11,7 @@ module.exports = {
   devServer: {
     client: {
       overlay: {
-        policyName: "overlay-policy",
+        trustedTypesPolicyName: "overlay-policy",
       },
     },
   },
@@ -28,7 +28,7 @@ npx webpack serve --open
 
 1. The script should open `http://localhost:8080/` in your default browser.
 2. You should see an overlay in browser for compilation errors.
-3. Modify `devServer.client.overlay.policyName` in webpack.config.js to `disallowed-policy` and save.
+3. Modify `devServer.client.overlay.trustedTypesPolicyName` in webpack.config.js to `disallowed-policy` and save.
 4. Restart the command and you should not see an overlay at all. In the console you should see the following error:
 
 ```

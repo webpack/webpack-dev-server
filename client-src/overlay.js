@@ -29,13 +29,13 @@ let overlayTrustedTypesPolicy;
 ansiHTML.setColors(colors);
 
 /**
- * @param {string | null} policyName
+ * @param {string | null} trustedTypesPolicyName
  */
-function createContainer(policyName) {
+function createContainer(trustedTypesPolicyName) {
   // Enable Trusted Types if they are available in the current browser.
   if (window.trustedTypes) {
     overlayTrustedTypesPolicy = window.trustedTypes.createPolicy(
-      policyName || "webpack-dev-server#overlay",
+      trustedTypesPolicyName || "webpack-dev-server#overlay",
       {
         createHTML: (value) => value,
       }
@@ -124,9 +124,9 @@ function createContainer(policyName) {
 
 /**
  * @param {(element: HTMLDivElement) => void} callback
- * @param {string | null} policyName
+ * @param {string | null} trustedTypesPolicyName
  */
-function ensureOverlayExists(callback, policyName) {
+function ensureOverlayExists(callback, trustedTypesPolicyName) {
   if (containerElement) {
     // Everything is ready, call the callback right away.
     callback(containerElement);
@@ -140,7 +140,7 @@ function ensureOverlayExists(callback, policyName) {
     return;
   }
 
-  createContainer(policyName);
+  createContainer(trustedTypesPolicyName);
 }
 
 // Successful compilation.
@@ -194,9 +194,9 @@ function formatProblem(type, item) {
 /**
  * @param {string} type
  * @param {Array<string  | { file?: string, moduleName?: string, loc?: string, message?: string }>} messages
- * @param {string | null} policyName
+ * @param {string | null} trustedTypesPolicyName
  */
-function show(type, messages, policyName) {
+function show(type, messages, trustedTypesPolicyName) {
   ensureOverlayExists(() => {
     messages.forEach((message) => {
       const entryElement = document.createElement("div");
@@ -224,7 +224,7 @@ function show(type, messages, policyName) {
       /** @type {HTMLDivElement} */
       (containerElement).appendChild(entryElement);
     });
-  }, policyName);
+  }, trustedTypesPolicyName);
 }
 
 export { formatProblem, show, hide };

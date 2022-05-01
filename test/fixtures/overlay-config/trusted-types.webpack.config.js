@@ -12,7 +12,7 @@ module.exports = {
   entry: "./foo.js",
   output: {
     path: "/",
-    trustedTypes: { policyName: "webpack" },
+    trustedTypes: { trustedTypesPolicyName: "webpack" },
   },
   infrastructureLogging: isWebpack5
     ? {

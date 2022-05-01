@@ -16,7 +16,7 @@ const config = setup({
   devServer: {
     client: {
       overlay: {
-        policyName: "overlay-policy",
+        trustedTypesPolicyName: "overlay-policy",
       },
     },
   },

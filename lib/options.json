@@ -111,7 +111,7 @@
                 "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler warnings."
               }
             },
-            "policyName": {
+            "trustedTypesPolicyName": {
               "description": "The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.",
               "type": "string"
             }

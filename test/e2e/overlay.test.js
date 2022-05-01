@@ -782,7 +782,7 @@ describe("overlay", () => {
       port,
       client: {
         overlay: {
-          policyName: "overlay-policy",
+          trustedTypesPolicyName: "overlay-policy",
         },
       },
     };
@@ -823,7 +823,7 @@ describe("overlay", () => {
       port,
       client: {
         overlay: {
-          policyName: "disallowed-policy",
+          trustedTypesPolicyName: "disallowed-policy",
         },
       },
     };
