@@ -2724,13 +2724,11 @@ declare class Server {
                   cli: {
                     negatedDescription: string;
                   };
-                  description?: undefined;
-                  link?: undefined;
+                  $ref?: undefined;
                 }
               | {
-                  type: string;
-                  description: string;
-                  link: string;
+                  $ref: string;
+                  type?: undefined;
                   cli?: undefined /** @typedef {import("express").Request} Request */;
                 }
             )[];
@@ -2782,16 +2780,13 @@ declare class Server {
               | {
                   type: string;
                   minLength: number;
-                  /** @type {ServerConfiguration} */ items?: undefined;
+                  items?: undefined;
                 }
             )[];
             description: string;
           };
           options: {
-            type: string;
-            description: string;
-            link: string;
-            additionalProperties: boolean;
+            $ref: string;
           };
         };
         additionalProperties: boolean;
@@ -2800,11 +2795,64 @@ declare class Server {
         type: string;
         minLength: number;
       };
+      WatchOptionsChokidar: {
+        type: string;
+        additionalProperties: boolean;
+        description: string;
+        link: string;
+        properties: {
+          persistent: {
+            type: string;
+          };
+          ignored: {
+            type: string;
+          };
+          ignoreInitial: {
+            type: string;
+          };
+          followSymlinks: {
+            type: string /** @type {ServerOptions} */;
+          };
+          cwd: {
+            type: string;
+          };
+          disableGlobbing: {
+            type: string;
+          };
+          usePolling: {
+            type: string;
+          };
+          interval: {
+            type: string;
+          };
+          binaryInterval: {
+            type: string;
+          };
+          alwaysStat: {
+            type: string;
+          };
+          depth: {
+            type: string /** @type {ServerOptions} */;
+          };
+          awaitWriteFinish: {
+            type: string;
+            additionalProperties: boolean;
+          };
+          ignorePermissionErrors: {
+            type: string;
+          };
+          atomic: {
+            anyOf: {
+              type: string;
+            }[];
+          };
+        };
+      };
       WebSocketServer: {
         anyOf: {
           $ref: string;
         }[];
-        /** @type {ServerOptions} */ description: string;
+        description: string;
         link: string;
       };
       WebSocketServerType: {
