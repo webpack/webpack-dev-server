@@ -54,7 +54,6 @@ exports[`hot and live reload should work and allow to disable live reload using 
 Array [
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App updated. Recompiling...",
 ]
 `;
 
@@ -267,6 +266,8 @@ Array [
   "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App hot update...",
   "[HMR] Checking for updates on the server...",
+  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] Nothing changed.",
   "[HMR] Updated modules:",
   "[HMR]  - ./main.css",
   "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",

@@ -91,6 +91,17 @@ declare const _exports: {
     simpleType: string;
     multiple: boolean;
   };
+  "client-overlay-trusted-types-policy-name": {
+    configs: {
+      description: string;
+      multiple: boolean;
+      path: string;
+      type: string;
+    }[];
+    description: string;
+    multiple: boolean;
+    simpleType: string;
+  };
   "client-overlay-warnings": {
     configs: {
       type: string;

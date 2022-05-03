@@ -10,7 +10,8 @@ exports[`"https" CLI option should warn using "--https-cacert" and "--https-ca" 
 `;
 
 exports[`"https" CLI option should work using "--https" 1`] = `
-"<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+"<i> [webpack-dev-server] Generating SSL certificate...
+<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
 <i> Loopback: https://localhost:<port>/, https://<ip-v4>:<port>/, https://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
