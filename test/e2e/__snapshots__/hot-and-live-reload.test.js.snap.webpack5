@@ -54,6 +54,7 @@ exports[`hot and live reload should work and allow to disable live reload using 
 Array [
   "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] App updated. Recompiling...",
 ]
 `;
 
