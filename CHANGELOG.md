@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/webpack/webpack-dev-server/compare/v4.8.1...v4.9.0) (2022-05-04)
+
+
+### Features
+
+* support Trusted Types for client overlay ([#4404](https://github.com/webpack/webpack-dev-server/issues/4404)) ([8132e1d](https://github.com/webpack/webpack-dev-server/commit/8132e1d029badab7b1e836f8f240844c2d843ecc))
+
+
+### Bug Fixes
+
+* ie11 runtime ([#4403](https://github.com/webpack/webpack-dev-server/issues/4403)) ([256d5fb](https://github.com/webpack/webpack-dev-server/commit/256d5fb5fea7ee5a6683f77ea347ac79816ad639))
+* replace portfinder with custom implementation and fix security problem ([#4384](https://github.com/webpack/webpack-dev-server/issues/4384)) ([eea50f3](https://github.com/webpack/webpack-dev-server/commit/eea50f342e3090483f6da4932b84ed52bba44c58))
+* use the host in options to check if port is available ([#4385](https://github.com/webpack/webpack-dev-server/issues/4385)) ([a10c7cf](https://github.com/webpack/webpack-dev-server/commit/a10c7cfd290d29384d14405d7cf79e105c7b5d15))
+
 ### [4.8.1](https://github.com/webpack/webpack-dev-server/compare/v4.8.0...v4.8.1) (2022-04-06)
 
 
