@@ -121,6 +121,21 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "client-overlay-trusted-types-policy-name": {
+    configs: [
+      {
+        description:
+          "The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.",
+        multiple: false,
+        path: "client.overlay.trustedTypesPolicyName",
+        type: "string",
+      },
+    ],
+    description:
+      "The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.",
+    multiple: false,
+    simpleType: "string",
+  },
   "client-overlay-warnings": {
     configs: [
       {

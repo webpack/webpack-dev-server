@@ -78,6 +78,7 @@
     "@types/default-gateway": "^3.0.1",
     "@types/rimraf": "^3.0.2",
     "@types/sockjs-client": "^1.5.1",
+    "@types/trusted-types": "^2.0.2",
     "acorn": "^8.2.4",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.4",
