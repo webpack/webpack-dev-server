@@ -51,17 +51,17 @@ const enabledFeatures = [];
 if (parsedResourceQuery.hot === "true") {
   options.hot = true;
 
-  enabledFeatures.push("HMR");
+  enabledFeatures.push("Hot Module Replacement");
 }
 
 if (parsedResourceQuery["live-reload"] === "true") {
   options.liveReload = true;
-  enabledFeatures.push("live reloading");
+  enabledFeatures.push("Live Reloading");
 }
 
 if (parsedResourceQuery.progress === "true") {
-  options.liveReload = true;
-  enabledFeatures.push("progress");
+  options.progress = true;
+  enabledFeatures.push("Progress");
 }
 
 if (parsedResourceQuery.overlay) {
@@ -79,7 +79,7 @@ if (parsedResourceQuery.overlay) {
       ...options.overlay,
     };
   }
-  enabledFeatures.push("overlay");
+  enabledFeatures.push("Overlay");
 }
 
 if (parsedResourceQuery.logging) {
@@ -91,7 +91,7 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
 }
 
 if (enabledFeatures.length > 0) {
-  log.info(`server started with ${enabledFeatures.join(', ')} enabled.`)
+  log.info(`server started with ${enabledFeatures.join(", ")} enabled.`);
 }
 
 /**
@@ -120,8 +120,6 @@ const onSocketMessage = {
     }
 
     options.hot = true;
-
-    log.info("Hot Module Replacement enabled.");
   },
   liveReload() {
     if (parsedResourceQuery["live-reload"] === "false") {
@@ -129,8 +127,6 @@ const onSocketMessage = {
     }
 
     options.liveReload = true;
-
-    log.info("Live Reloading enabled.");
   },
   invalid() {
     log.info("App updated. Recompiling...");

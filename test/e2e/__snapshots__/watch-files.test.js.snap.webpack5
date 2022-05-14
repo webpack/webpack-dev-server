@@ -2,7 +2,7 @@
 
 exports[`watchFiles option should not crash if file doesn't exist should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -13,7 +13,7 @@ exports[`watchFiles option should not crash if file doesn't exist should reload 
 
 exports[`watchFiles option should work with array config should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -24,7 +24,7 @@ exports[`watchFiles option should work with array config should reload when file
 
 exports[`watchFiles option should work with object with multiple paths should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -35,7 +35,7 @@ exports[`watchFiles option should work with object with multiple paths should re
 
 exports[`watchFiles option should work with object with single path should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -60,7 +60,7 @@ Object {
 
 exports[`watchFiles option should work with options {"interval":400,"poll":200} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -85,7 +85,7 @@ Object {
 
 exports[`watchFiles option should work with options {"poll":200} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -110,7 +110,7 @@ Object {
 
 exports[`watchFiles option should work with options {"poll":true} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -135,7 +135,7 @@ Object {
 
 exports[`watchFiles option should work with options {"usePolling":false,"interval":200,"poll":400} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -160,7 +160,7 @@ Object {
 
 exports[`watchFiles option should work with options {"usePolling":false,"poll":200} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -185,7 +185,7 @@ Object {
 
 exports[`watchFiles option should work with options {"usePolling":false,"poll":true} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -210,7 +210,7 @@ Object {
 
 exports[`watchFiles option should work with options {"usePolling":false} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -235,7 +235,7 @@ Object {
 
 exports[`watchFiles option should work with options {"usePolling":true,"interval":200,"poll":400} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -260,7 +260,7 @@ Object {
 
 exports[`watchFiles option should work with options {"usePolling":true,"poll":200} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -285,7 +285,7 @@ Object {
 
 exports[`watchFiles option should work with options {"usePolling":true} should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -296,7 +296,7 @@ exports[`watchFiles option should work with options {"usePolling":true} should r
 
 exports[`watchFiles option should work with string and glob should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -307,7 +307,7 @@ exports[`watchFiles option should work with string and glob should reload when f
 
 exports[`watchFiles option should work with string and path to directory should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -318,7 +318,7 @@ exports[`watchFiles option should work with string and path to directory should 
 
 exports[`watchFiles option should work with string and path to file should reload when file content is changed: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "Hey.",
 ]
 `;

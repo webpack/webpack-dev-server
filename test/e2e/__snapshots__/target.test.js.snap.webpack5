@@ -4,11 +4,9 @@ exports[`target should work using "async-node" target: console messages 1`] = `A
 
 exports[`target should work using "browserslist:defaults" target: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -46,11 +44,9 @@ exports[`target should work using "nwjs" target: console messages 1`] = `Array [
 
 exports[`target should work using "web" target: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -58,11 +54,9 @@ exports[`target should work using "web" target: page errors 1`] = `Array []`;
 
 exports[`target should work using "web,es5" target: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -70,11 +64,9 @@ exports[`target should work using "web,es5" target: page errors 1`] = `Array []`
 
 exports[`target should work using "webworker" target: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
