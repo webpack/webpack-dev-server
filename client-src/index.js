@@ -46,22 +46,22 @@ const options = {
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
 
+const enabledFeatures = [];
+
 if (parsedResourceQuery.hot === "true") {
   options.hot = true;
 
-  log.info("Hot Module Replacement enabled.");
+  enabledFeatures.push("HMR");
 }
 
 if (parsedResourceQuery["live-reload"] === "true") {
   options.liveReload = true;
-
-  log.info("Live Reloading enabled.");
+  enabledFeatures.push("live reloading");
 }
 
 if (parsedResourceQuery.progress === "true") {
   options.liveReload = true;
-
-  log.info("Progress reporting enabled.");
+  enabledFeatures.push("progress");
 }
 
 if (parsedResourceQuery.overlay) {
@@ -79,17 +79,7 @@ if (parsedResourceQuery.overlay) {
       ...options.overlay,
     };
   }
-
-  if (
-    options.overlay === true ||
-    (options.overlay.errors && options.overlay.warnings)
-  ) {
-    log.info("Overlay is enabled for both errors and warnings.");
-  } else if (options.overlay.errors) {
-    log.info("Overlay is enabled for errors only.");
-  } else if (options.overlay.warnings) {
-    log.info("Overlay is enabled for warnings only.");
-  }
+  enabledFeatures.push("overlay");
 }
 
 if (parsedResourceQuery.logging) {
@@ -98,6 +88,10 @@ if (parsedResourceQuery.logging) {
 
 if (typeof parsedResourceQuery.reconnect !== "undefined") {
   options.reconnect = Number(parsedResourceQuery.reconnect);
+}
+
+if (enabledFeatures.length > 0) {
+  log.info(`server started with ${enabledFeatures.join(', ')} enabled.`)
 }
 
 /**
