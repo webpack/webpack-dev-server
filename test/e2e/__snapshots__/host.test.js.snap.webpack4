@@ -2,11 +2,9 @@
 
 exports[`host should work using "::" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -14,11 +12,9 @@ exports[`host should work using "::" host and "auto" port: page errors 1`] = `Ar
 
 exports[`host should work using "::" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -26,11 +22,9 @@ exports[`host should work using "::" host and port as number: page errors 1`] = 
 
 exports[`host should work using "::" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -38,11 +32,9 @@ exports[`host should work using "::" host and port as string: page errors 1`] = 
 
 exports[`host should work using "::1" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -50,11 +42,9 @@ exports[`host should work using "::1" host and "auto" port: page errors 1`] = `A
 
 exports[`host should work using "::1" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -62,11 +52,9 @@ exports[`host should work using "::1" host and port as number: page errors 1`] =
 
 exports[`host should work using "::1" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -74,11 +62,9 @@ exports[`host should work using "::1" host and port as string: page errors 1`] =
 
 exports[`host should work using "<not-specified>" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -86,11 +72,9 @@ exports[`host should work using "<not-specified>" host and "auto" port: page err
 
 exports[`host should work using "<not-specified>" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -98,11 +82,9 @@ exports[`host should work using "<not-specified>" host and port as number: page 
 
 exports[`host should work using "<not-specified>" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -110,11 +92,9 @@ exports[`host should work using "<not-specified>" host and port as string: page 
 
 exports[`host should work using "0.0.0.0" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -122,11 +102,9 @@ exports[`host should work using "0.0.0.0" host and "auto" port: page errors 1`] 
 
 exports[`host should work using "0.0.0.0" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -134,11 +112,9 @@ exports[`host should work using "0.0.0.0" host and port as number: page errors 1
 
 exports[`host should work using "0.0.0.0" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -146,11 +122,9 @@ exports[`host should work using "0.0.0.0" host and port as string: page errors 1
 
 exports[`host should work using "127.0.0.1" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -158,11 +132,9 @@ exports[`host should work using "127.0.0.1" host and "auto" port: page errors 1`
 
 exports[`host should work using "127.0.0.1" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -170,11 +142,9 @@ exports[`host should work using "127.0.0.1" host and port as number: page errors
 
 exports[`host should work using "127.0.0.1" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -182,11 +152,9 @@ exports[`host should work using "127.0.0.1" host and port as string: page errors
 
 exports[`host should work using "local-ip" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -194,11 +162,9 @@ exports[`host should work using "local-ip" host and "auto" port: page errors 1`]
 
 exports[`host should work using "local-ip" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -206,11 +172,9 @@ exports[`host should work using "local-ip" host and port as number: page errors 
 
 exports[`host should work using "local-ip" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -218,11 +182,9 @@ exports[`host should work using "local-ip" host and port as string: page errors 
 
 exports[`host should work using "local-ipv4" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -230,11 +192,9 @@ exports[`host should work using "local-ipv4" host and "auto" port: page errors 1
 
 exports[`host should work using "local-ipv4" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -242,11 +202,9 @@ exports[`host should work using "local-ipv4" host and port as number: page error
 
 exports[`host should work using "local-ipv4" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -254,11 +212,9 @@ exports[`host should work using "local-ipv4" host and port as string: page error
 
 exports[`host should work using "local-ipv6" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -266,11 +222,9 @@ exports[`host should work using "local-ipv6" host and "auto" port: page errors 1
 
 exports[`host should work using "local-ipv6" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -278,11 +232,9 @@ exports[`host should work using "local-ipv6" host and port as number: page error
 
 exports[`host should work using "local-ipv6" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -290,11 +242,9 @@ exports[`host should work using "local-ipv6" host and port as string: page error
 
 exports[`host should work using "localhost" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -302,11 +252,9 @@ exports[`host should work using "localhost" host and "auto" port: page errors 1`
 
 exports[`host should work using "localhost" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -314,11 +262,9 @@ exports[`host should work using "localhost" host and port as number: page errors
 
 exports[`host should work using "localhost" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -326,11 +272,9 @@ exports[`host should work using "localhost" host and port as string: page errors
 
 exports[`host should work using "undefined" host and "auto" port: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -338,11 +282,9 @@ exports[`host should work using "undefined" host and "auto" port: page errors 1`
 
 exports[`host should work using "undefined" host and port as number: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -350,11 +292,9 @@ exports[`host should work using "undefined" host and port as number: page errors
 
 exports[`host should work using "undefined" host and port as string: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
