@@ -39,7 +39,7 @@ Array [
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): console messages 1`] = `
 Array [
- "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
 ]
 `;
 
