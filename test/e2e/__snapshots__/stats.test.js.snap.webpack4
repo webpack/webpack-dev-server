@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`stats should work and respect the "ignoreWarnings" option 1`] = `
-Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
 exports[`stats should work using "{ assets: false }" value for the "stats" option 1`] = `
 Array [
   "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",

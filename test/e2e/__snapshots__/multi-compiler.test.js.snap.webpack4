@@ -30,7 +30,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
-Update propagation: ./browser.js
+Update propagation: ./browser.js -> 0
     <stack>",
   "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -50,14 +50,10 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
-Update propagation: ./browser.js
-    at applyHandler (http://127.0.0.1:8103/browser.js:1034:31)
-    at http://127.0.0.1:8103/browser.js:733:21
-    at Array.map (<anonymous>)
-    at internalApply (http://127.0.0.1:8103/browser.js:732:54)
-    at http://127.0.0.1:8103/browser.js:702:26
-    at waitForBlockingPromises (http://127.0.0.1:8103/browser.js:656:48)
-    at http://127.0.0.1:8103/browser.js:700:24",
+Update propagation: ./browser.js -> 0
+    at hotApplyInternal (http://127.0.0.1:8103/browser.js:508:30)
+    at hotApply (http://127.0.0.1:8103/browser.js:362:19)
+    at http://127.0.0.1:8103/browser.js:337:22",
   "[webpack-dev-server] server started with Hot Module Replacement, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
@@ -148,7 +144,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./one.js is not accepted
-Update propagation: ./one.js
+Update propagation: ./one.js -> 0
     <stack>",
   "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -166,7 +162,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./two.js is not accepted
-Update propagation: ./two.js
+Update propagation: ./two.js -> 0
     <stack>",
   "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -188,7 +184,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./one.js is not accepted
-Update propagation: ./one.js
+Update propagation: ./one.js -> 0
     <stack>",
   "[webpack-dev-server] server started with Hot Module Replacement, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -206,7 +202,7 @@ Array [
   "[HMR] Checking for updates on the server...",
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./two.js is not accepted
-Update propagation: ./two.js
+Update propagation: ./two.js -> 0
     <stack>",
   "[webpack-dev-server] server started with Hot Module Replacement, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
