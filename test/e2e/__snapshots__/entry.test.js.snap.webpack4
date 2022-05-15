@@ -2,11 +2,9 @@
 
 exports[`entry should work with dynamic async entry: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -14,11 +12,9 @@ exports[`entry should work with dynamic async entry: page errors 1`] = `Array []
 
 exports[`entry should work with dynamic entry: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -26,11 +22,9 @@ exports[`entry should work with dynamic entry: page errors 1`] = `Array []`;
 
 exports[`entry should work with multiple entries #2: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Bar.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -38,11 +32,9 @@ exports[`entry should work with multiple entries #2: page errors 1`] = `Array []
 
 exports[`entry should work with multiple entries: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -50,12 +42,10 @@ exports[`entry should work with multiple entries: page errors 1`] = `Array []`;
 
 exports[`entry should work with single array entry: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "Bar.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -63,11 +53,9 @@ exports[`entry should work with single array entry: page errors 1`] = `Array []`
 
 exports[`entry should work with single entry: console messages 1`] = `
 Array [
-  "[webpack-dev-server] Overlay is enabled for both errors and warnings.",
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 

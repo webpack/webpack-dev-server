@@ -83,18 +83,6 @@ describe("index", () => {
     expect(socket.mock.calls[0]).toMatchSnapshot();
   });
 
-  test("should run onSocketMessage.hot", () => {
-    onSocketMessage.hot();
-
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
-  });
-
-  test("should run onSocketMessage.liveReload", () => {
-    onSocketMessage.liveReload();
-
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
-  });
-
   test("should run onSocketMessage['still-ok']", () => {
     onSocketMessage["still-ok"]();
 
@@ -279,7 +267,7 @@ describe("index", () => {
     onSocketMessage.hot();
     onSocketMessage.close();
 
-    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 
@@ -288,7 +276,7 @@ describe("index", () => {
     onSocketMessage.liveReload();
     onSocketMessage.close();
 
-    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 

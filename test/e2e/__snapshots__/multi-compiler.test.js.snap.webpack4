@@ -223,9 +223,7 @@ Array [
   "[webpack-dev-server] server started with Live Reloading, Overlay enabled.",
   "one",
   "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App updated. Recompiling...",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Nothing changed.",
   "[webpack-dev-server] server started with Live Reloading, Overlay enabled.",
   "one",
 ]

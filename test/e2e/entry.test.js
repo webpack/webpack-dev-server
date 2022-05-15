@@ -9,16 +9,13 @@ const port = require("../ports-map").entry;
 const isWebpack5 = require("../helpers/isWebpack5");
 
 const HOT_ENABLED_MESSAGE =
-  "[webpack-dev-server] Hot Module Replacement enabled.";
-const LIVE_RELOAD_ENABLED_MESSAGE =
-  "[webpack-dev-server] Hot Module Replacement enabled.";
+  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.";
 
 const waitForConsoleLogFinished = async (consoleLogs) => {
   await new Promise((resolve) => {
     const interval = setInterval(() => {
       if (
-        consoleLogs.includes(HOT_ENABLED_MESSAGE) &&
-        consoleLogs.includes(LIVE_RELOAD_ENABLED_MESSAGE)
+        consoleLogs.includes(HOT_ENABLED_MESSAGE)
       ) {
         clearInterval(interval);
 
