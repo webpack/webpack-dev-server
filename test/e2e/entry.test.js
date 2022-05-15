@@ -14,9 +14,7 @@ const HOT_ENABLED_MESSAGE =
 const waitForConsoleLogFinished = async (consoleLogs) => {
   await new Promise((resolve) => {
     const interval = setInterval(() => {
-      if (
-        consoleLogs.includes(HOT_ENABLED_MESSAGE)
-      ) {
+      if (consoleLogs.includes(HOT_ENABLED_MESSAGE)) {
         clearInterval(interval);
 
         resolve();
