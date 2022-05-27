@@ -3326,9 +3326,7 @@ declare class Server {
   /**
    * @param {(err?: Error) => void} [callback]
    */
-  startCallback(
-    callback?: ((err?: Error | undefined) => void) | undefined
-  ): void;
+  startCallback(callback?: ((err?: Error) => void) | undefined): void;
   /**
    * @returns {Promise<void>}
    */
@@ -3336,25 +3334,19 @@ declare class Server {
   /**
    * @param {(err?: Error) => void} [callback]
    */
-  stopCallback(
-    callback?: ((err?: Error | undefined) => void) | undefined
-  ): void;
+  stopCallback(callback?: ((err?: Error) => void) | undefined): void;
   /**
    * @param {Port} port
    * @param {Host} hostname
    * @param {(err?: Error) => void} fn
    * @returns {void}
    */
-  listen(
-    port: Port,
-    hostname: Host,
-    fn: (err?: Error | undefined) => void
-  ): void;
+  listen(port: Port, hostname: Host, fn: (err?: Error) => void): void;
   /**
    * @param {(err?: Error) => void} [callback]
    * @returns {void}
    */
-  close(callback?: ((err?: Error | undefined) => void) | undefined): void;
+  close(callback?: ((err?: Error) => void) | undefined): void;
 }
 declare namespace Server {
   export {
