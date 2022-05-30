@@ -59,7 +59,7 @@
     "schema-utils": "^4.0.0",
     "selfsigned": "^2.0.1",
     "serve-index": "^1.9.1",
-    "sockjs": "^0.3.21",
+    "sockjs": "^0.3.24",
     "spdy": "^4.0.2",
     "webpack-dev-middleware": "^5.3.1",
     "ws": "^8.4.2"
@@ -106,7 +106,7 @@
     "puppeteer": "^13.4.1",
     "require-from-string": "^2.0.2",
     "rimraf": "^3.0.2",
-    "sockjs-client": "^1.6.0",
+    "sockjs-client": "^1.6.1",
     "standard-version": "^9.3.0",
     "strip-ansi-v6": "npm:strip-ansi@^6.0.0",
     "style-loader": "^2.0.0",
