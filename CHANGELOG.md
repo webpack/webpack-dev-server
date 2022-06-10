@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.9.2](https://github.com/webpack/webpack-dev-server/compare/v4.9.1...v4.9.2) (2022-06-06)
+
+
+### Bug Fixes
+
+* add `@types/serve-static` to dependencies ([#4468](https://github.com/webpack/webpack-dev-server/issues/4468)) ([af83deb](https://github.com/webpack/webpack-dev-server/commit/af83deb199dc1d8cae4365ec2c5acf07e29358df))
+
 ### [4.9.1](https://github.com/webpack/webpack-dev-server/compare/v4.9.0...v4.9.1) (2022-05-31)
 
 
