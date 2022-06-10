@@ -5,6 +5,15 @@
   "bin": "bin/webpack-dev-server.js",
   "main": "lib/Server.js",
   "types": "types/lib/Server.d.ts",
+  "author": "Tobias Koppers @sokra",
+  "bugs": "https://github.com/webpack/webpack-dev-server/issues",
+  "homepage": "https://github.com/webpack/webpack-dev-server#readme",
+  "repository": "https://github.com/webpack/webpack-dev-server",
+  "license": "MIT",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/webpack"
+  },
   "files": [
     "bin",
     "lib",
@@ -126,10 +135,5 @@
     "webpack-cli": {
       "optional": true
     }
-  },
-  "author": "Tobias Koppers @sokra",
-  "bugs": "https://github.com/webpack/webpack-dev-server/issues",
-  "homepage": "https://github.com/webpack/webpack-dev-server#readme",
-  "repository": "https://github.com/webpack/webpack-dev-server.git",
-  "license": "MIT"
+  }
 }
