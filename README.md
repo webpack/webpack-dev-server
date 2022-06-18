@@ -209,7 +209,9 @@ CLI documentation: https://webpack.js.org/api/cli/.
 Made with ♥ by the webpack team.
 ```
 
-_**Note**: For more information on above options explore this [link](https://webpack.js.org/configuration/dev-server/)._
+> **Note**
+>
+> _Detailed documentation for above options is available on this [link](https://webpack.js.org/configuration/dev-server/)._
 
 ### With NPM Scripts
 
