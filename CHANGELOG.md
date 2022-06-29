@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.9.3](https://github.com/webpack/webpack-dev-server/compare/v4.9.2...v4.9.3) (2022-06-29)
+
+
+### Bug Fixes
+
+* avoid creation unnecessary stream for static sockjs file ([#4482](https://github.com/webpack/webpack-dev-server/issues/4482)) ([049b153](https://github.com/webpack/webpack-dev-server/commit/049b153b87ab908ae53b71356e0716bb3fc5bf07))
+* history-api-fallback now supports HEAD requests and handles them the same as GET ([8936082](https://github.com/webpack/webpack-dev-server/commit/8936082809a9575f231afbcad6a32bb8e14d6dce))
+
 ### [4.9.2](https://github.com/webpack/webpack-dev-server/compare/v4.9.1...v4.9.2) (2022-06-06)
 
 
