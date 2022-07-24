@@ -2,14 +2,14 @@
 
 exports[`logging should work and do not log messages about hot and live reloading is enabled (sockjs) 1`] = `
 Array [
-  "[webpack-dev-server] server started with Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "Hey.",
 ]
 `;
 
 exports[`logging should work and do not log messages about hot and live reloading is enabled (ws) 1`] = `
 Array [
-  "[webpack-dev-server] server started with Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -38,14 +38,14 @@ Error from compilation",
 
 exports[`logging should work and log message about live reloading is enabled (sockjs) 1`] = `
 Array [
-  "[webpack-dev-server] server started with Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
 ]
 `;
 
 exports[`logging should work and log message about live reloading is enabled (ws) 1`] = `
 Array [
-  "[webpack-dev-server] server started with Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
 ]
 `;
@@ -100,7 +100,7 @@ Array [
 
 exports[`logging should work and log messages about hot is enabled (sockjs) 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -108,7 +108,7 @@ Array [
 
 exports[`logging should work and log messages about hot is enabled (ws) 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]

@@ -25,6 +25,7 @@ describe("index", () => {
         warn: jest.fn(),
         error: jest.fn(),
       },
+      logEnabledFeatures: jest.fn(),
       setLogLevel: jest.fn(),
     });
 
