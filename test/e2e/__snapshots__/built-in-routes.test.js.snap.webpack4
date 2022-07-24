@@ -52,7 +52,7 @@ exports[`Built in routes with simple config should handle GET request to magic a
 
 exports[`Built in routes with simple config should handle GET request to magic async html: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]

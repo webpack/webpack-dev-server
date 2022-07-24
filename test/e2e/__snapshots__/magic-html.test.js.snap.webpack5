@@ -26,7 +26,7 @@ exports[`magicHtml option disabled should not handle HEAD request to magic async
 
 exports[`magicHtml option enabled should handle GET request to magic async html: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]

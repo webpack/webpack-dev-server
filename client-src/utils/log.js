@@ -18,4 +18,22 @@ setLogLevel(defaultLevel);
 
 const log = logger.getLogger(name);
 
-export { log, setLogLevel };
+const logEnabledFeatures = (features) => {
+  const enabledFeatures = Object.entries(features);
+  if (!features || enabledFeatures.length === 0) {
+    return;
+  }
+
+  let logString = "Server started:";
+
+  // Server started: Hot Module Replacement enabled, Live Reloading enabled, Overlay disabled.
+  for (const [key, value] of Object.entries(features)) {
+    logString += ` ${key} ${value ? "enabled" : "disabled"},`;
+  }
+  // replace last comma with a period
+  logString = logString.slice(0, -1).concat(".");
+
+  log.info(logString);
+};
+
+export { log, logEnabledFeatures, setLogLevel };

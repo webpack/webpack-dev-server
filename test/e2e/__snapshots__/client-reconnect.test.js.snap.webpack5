@@ -2,7 +2,7 @@
 
 exports[`client.reconnect option specified as false should not try to reconnect: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Disconnected!",
@@ -15,7 +15,7 @@ exports[`client.reconnect option specified as false should not try to reconnect:
 
 exports[`client.reconnect option specified as number should try to reconnect 2 times: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Disconnected!",

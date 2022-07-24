@@ -2,7 +2,7 @@
 
 exports[`bonjour option as object should apply bonjour options: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -14,7 +14,7 @@ exports[`bonjour option as object should apply bonjour options: response status 
 
 exports[`bonjour option as true should call bonjour with correct params: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -26,7 +26,7 @@ exports[`bonjour option as true should call bonjour with correct params: respons
 
 exports[`bonjour option bonjour object and 'https' should apply bonjour options: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -38,7 +38,7 @@ exports[`bonjour option bonjour object and 'https' should apply bonjour options:
 
 exports[`bonjour option bonjour object and 'server' option should apply bonjour options: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -50,7 +50,7 @@ exports[`bonjour option bonjour object and 'server' option should apply bonjour 
 
 exports[`bonjour option with 'https' option should call bonjour with 'https' type: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -62,7 +62,7 @@ exports[`bonjour option with 'https' option should call bonjour with 'https' typ
 
 exports[`bonjour option with 'server' option should call bonjour with 'https' type: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]

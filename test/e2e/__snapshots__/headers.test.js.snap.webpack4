@@ -2,7 +2,7 @@
 
 exports[`headers option as a function returning an array should handle GET request with headers: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -18,7 +18,7 @@ exports[`headers option as a function returning an array should handle GET reque
 
 exports[`headers option as a function should handle GET request with headers as a function: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -35,7 +35,7 @@ exports[`headers option as a function should handle GET request with headers as 
 
 exports[`headers option as a string and support HEAD request should handle HEAD request with headers: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -49,7 +49,7 @@ exports[`headers option as a string and support HEAD request should handle HEAD 
 
 exports[`headers option as a string should handle GET request with headers: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -63,7 +63,7 @@ exports[`headers option as a string should handle GET request with headers: resp
 
 exports[`headers option as an array of objects should handle GET request with headers: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -79,7 +79,7 @@ exports[`headers option as an array of objects should handle GET request with he
 
 exports[`headers option as an array should handle GET request with headers as an array: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -96,7 +96,7 @@ exports[`headers option as an array should handle GET request with headers as an
 
 exports[`headers option dev middleware headers take precedence for dev middleware output files should handle GET request with headers as a function: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]

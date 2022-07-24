@@ -2,7 +2,7 @@
 
 exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGINT: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
@@ -14,7 +14,7 @@ exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals sh
 
 exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGTERM: console messages 1`] = `
 Array [
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]

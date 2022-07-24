@@ -5,7 +5,7 @@ import stripAnsi from "./utils/stripAnsi.js";
 import parseURL from "./utils/parseURL.js";
 import socket from "./socket.js";
 import { formatProblem, show, hide } from "./overlay.js";
-import { log, setLogLevel } from "./utils/log.js";
+import { log, logEnabledFeatures, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
@@ -46,22 +46,26 @@ const options = {
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
 
-const enabledFeatures = [];
+const enabledFeatures = {
+  "Hot Module Replacement": false,
+  "Live Reloading": false,
+  Progress: false,
+  Overlay: false,
+};
 
 if (parsedResourceQuery.hot === "true") {
   options.hot = true;
-
-  enabledFeatures.push("Hot Module Replacement");
+  enabledFeatures["Hot Module Replacement"] = true;
 }
 
 if (parsedResourceQuery["live-reload"] === "true") {
   options.liveReload = true;
-  enabledFeatures.push("Live Reloading");
+  enabledFeatures["Live Reloading"] = true;
 }
 
 if (parsedResourceQuery.progress === "true") {
   options.progress = true;
-  enabledFeatures.push("Progress");
+  enabledFeatures.Progress = true;
 }
 
 if (parsedResourceQuery.overlay) {
@@ -79,7 +83,7 @@ if (parsedResourceQuery.overlay) {
       ...options.overlay,
     };
   }
-  enabledFeatures.push("Overlay");
+  enabledFeatures.Overlay = true;
 }
 
 if (parsedResourceQuery.logging) {
@@ -90,9 +94,7 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
   options.reconnect = Number(parsedResourceQuery.reconnect);
 }
 
-if (enabledFeatures.length > 0) {
-  log.info(`server started with ${enabledFeatures.join(", ")} enabled.`);
-}
+logEnabledFeatures(enabledFeatures);
 
 /**
  * @param {string} level
