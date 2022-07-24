@@ -54,7 +54,7 @@ Update propagation: ./browser.js -> 0
     at hotApplyInternal (http://127.0.0.1:8103/browser.js:508:30)
     at hotApply (http://127.0.0.1:8103/browser.js:362:19)
     at http://127.0.0.1:8103/browser.js:337:22",
-  "[webpack-dev-server] server started with Hot Module Replacement, Overlay enabled.",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
 ]
