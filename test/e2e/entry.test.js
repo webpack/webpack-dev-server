@@ -9,7 +9,7 @@ const port = require("../ports-map").entry;
 const isWebpack5 = require("../helpers/isWebpack5");
 
 const HOT_ENABLED_MESSAGE =
-  "[webpack-dev-server] server started with Hot Module Replacement, Live Reloading, Overlay enabled.";
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.";
 
 const waitForConsoleLogFinished = async (consoleLogs) => {
   await new Promise((resolve) => {
