@@ -12,6 +12,9 @@ on:
       - next
       - v4
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: Lint - ${{ matrix.os }} - Node v${{ matrix.node-version }}
