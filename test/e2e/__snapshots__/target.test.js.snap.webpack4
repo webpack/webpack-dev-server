@@ -14,10 +14,9 @@ exports[`target should work using "node-webkit" target: console messages 1`] = `
 
 exports[`target should work using "web" target: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -25,10 +24,9 @@ exports[`target should work using "web" target: page errors 1`] = `Array []`;
 
 exports[`target should work using "webworker" target: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 

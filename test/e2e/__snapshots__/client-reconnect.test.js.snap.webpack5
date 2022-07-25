@@ -2,10 +2,9 @@
 
 exports[`client.reconnect option specified as false should not try to reconnect: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Disconnected!",
 ]
 `;
@@ -16,10 +15,9 @@ exports[`client.reconnect option specified as false should not try to reconnect:
 
 exports[`client.reconnect option specified as number should try to reconnect 2 times: console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
   "WebSocket connection to 'ws://127.0.0.1:8163/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",

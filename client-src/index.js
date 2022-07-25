@@ -5,7 +5,7 @@ import stripAnsi from "./utils/stripAnsi.js";
 import parseURL from "./utils/parseURL.js";
 import socket from "./socket.js";
 import { formatProblem, show, hide } from "./overlay.js";
-import { log, setLogLevel } from "./utils/log.js";
+import { log, logEnabledFeatures, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
@@ -46,16 +46,44 @@ const options = {
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
 
+const enabledFeatures = {
+  "Hot Module Replacement": false,
+  "Live Reloading": false,
+  Progress: false,
+  Overlay: false,
+};
+
 if (parsedResourceQuery.hot === "true") {
   options.hot = true;
-
-  log.info("Hot Module Replacement enabled.");
+  enabledFeatures["Hot Module Replacement"] = true;
 }
 
 if (parsedResourceQuery["live-reload"] === "true") {
   options.liveReload = true;
+  enabledFeatures["Live Reloading"] = true;
+}
 
-  log.info("Live Reloading enabled.");
+if (parsedResourceQuery.progress === "true") {
+  options.progress = true;
+  enabledFeatures.Progress = true;
+}
+
+if (parsedResourceQuery.overlay) {
+  try {
+    options.overlay = JSON.parse(parsedResourceQuery.overlay);
+  } catch (e) {
+    log.error("Error parsing overlay options from resource query:", e);
+  }
+
+  // Fill in default "true" params for partially-specified objects.
+  if (typeof options.overlay === "object") {
+    options.overlay = {
+      errors: true,
+      warnings: true,
+      ...options.overlay,
+    };
+  }
+  enabledFeatures.Overlay = true;
 }
 
 if (parsedResourceQuery.logging) {
@@ -65,6 +93,8 @@ if (parsedResourceQuery.logging) {
 if (typeof parsedResourceQuery.reconnect !== "undefined") {
   options.reconnect = Number(parsedResourceQuery.reconnect);
 }
+
+logEnabledFeatures(enabledFeatures);
 
 /**
  * @param {string} level
@@ -92,8 +122,6 @@ const onSocketMessage = {
     }
 
     options.hot = true;
-
-    log.info("Hot Module Replacement enabled.");
   },
   liveReload() {
     if (parsedResourceQuery["live-reload"] === "false") {
@@ -101,8 +129,6 @@ const onSocketMessage = {
     }
 
     options.liveReload = true;
-
-    log.info("Live Reloading enabled.");
   },
   invalid() {
     log.info("App updated. Recompiling...");
