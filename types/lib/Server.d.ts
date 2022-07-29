@@ -175,6 +175,7 @@ declare class Server {
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
          * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+         * @property {boolean} [optionsMethod]
          * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
          * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
          * @property {(devServer: Server) => void} [onListening]
@@ -353,6 +354,7 @@ declare class Server {
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
          * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+         * @property {boolean} [optionsMethod]
          * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
          * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
          * @property {(devServer: Server) => void} [onListening]
@@ -477,6 +479,7 @@ declare class Server {
        * @property {boolean} [setupExitSignals]
        * @property {boolean | ClientConfiguration} [client]
        * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+       * @property {boolean} [optionsMethod]
        * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
        * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
        * @property {(devServer: Server) => void} [onListening]
@@ -574,9 +577,6 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /**
-         * @type {FSWatcher[]}
-         */
         simpleType: string;
         multiple: boolean;
       };
@@ -611,10 +611,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /**
-       * @param {string} URL
-       * @returns {boolean}
-       */
       compress: {
         configs: {
           type: string;
@@ -625,10 +621,6 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
-        /**
-         * @param {string} gateway
-         * @returns {string | undefined}
-         */
         multiple: boolean;
       };
       "history-api-fallback": {
@@ -641,6 +633,10 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
+        /**
+         * @param {"v4" | "v6"} family
+         * @returns {Promise<string | undefined>}
+         */
         multiple: boolean;
       };
       host: {
@@ -661,13 +657,13 @@ declare class Server {
         )[];
         description: string;
         simpleType: string;
+        multiple: boolean;
+      };
+      hot: {
         /**
          * @param {Host} hostname
          * @returns {Promise<string>}
          */
-        multiple: boolean;
-      };
-      hot: {
         configs: (
           | {
               type: string;
@@ -726,9 +722,6 @@ declare class Server {
       "https-ca-reset": {
         configs: {
           description: string;
-          /**
-           * @type {string[]}
-           */
           multiple: boolean;
           path: string;
           type: string;
@@ -757,7 +750,7 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
-        simpleType: string;
+        /** @type {ServerConfiguration} */ simpleType: string;
       };
       "https-cert": {
         configs: {
@@ -865,12 +858,6 @@ declare class Server {
           description: string;
           negatedDescription: string;
           path: string;
-          /**
-           * prependEntry Method for webpack 4
-           * @param {any} originalEntry
-           * @param {any} newAdditionalEntries
-           * @returns {any}
-           */
         }[];
         description: string;
         simpleType: string;
@@ -894,8 +881,9 @@ declare class Server {
         )[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        multiple: boolean /** @type {Object<string,string>} */;
       };
+      /** @type {Object<string,string>} */
       "live-reload": {
         configs: {
           type: string;
@@ -925,7 +913,7 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              /** @type {MultiCompiler} */ description: string;
+              description: string;
               path: string;
             }
           | {
@@ -933,7 +921,7 @@ declare class Server {
               multiple: boolean;
               description: string;
               negatedDescription: string;
-              path: string;
+              /** @type {MultiCompiler} */ path: string;
             }
         )[];
         description: string;
@@ -961,10 +949,6 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
-        /**
-         * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-         * @returns {WatchOptions}
-         */
       };
       "open-app-name-reset": {
         configs: {
@@ -1004,6 +988,10 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
+          /**
+           * @param {string | Static | undefined} [optionsForStatic]
+           * @returns {NormalizedStatic}
+           */
           path: string;
         }[];
         description: string;
@@ -1195,7 +1183,7 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
-        simpleType: string /** @type {ServerOptions} */;
+        simpleType: string;
       };
       static: {
         configs: (
@@ -1208,7 +1196,7 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              /** @type {ServerOptions} */ description: string;
+              description: string;
               negatedDescription: string;
               path: string;
             }
@@ -1220,14 +1208,10 @@ declare class Server {
       "static-directory": {
         configs: {
           type: string;
-          /** @type {any} */ multiple: boolean;
+          multiple: boolean;
           description: string;
           path: string;
         }[];
-        /**
-         * @param {string | Buffer | undefined} item
-         * @returns {string | Buffer | undefined}
-         */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -1240,7 +1224,7 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /** @type {any} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
       "static-public-path-reset": {
@@ -1248,7 +1232,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          /** @type {ServerOptions} */ path: string;
         }[];
         description: string;
         simpleType: string;
@@ -1352,12 +1336,12 @@ declare class Server {
               description: string;
               multiple: boolean;
               path: string;
-              type: string /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */;
+              type: string;
             }
         )[];
         description: string;
         simpleType: string;
-        multiple: boolean /** @type {ServerOptions} */;
+        multiple: boolean;
       };
     };
     readonly processArguments: (
@@ -1590,6 +1574,7 @@ declare class Server {
                  * @property {boolean} [setupExitSignals]
                  * @property {boolean | ClientConfiguration} [client]
                  * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+                 * @property {boolean} [optionsMethod]
                  * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
                  * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                  * @property {(devServer: Server) => void} [onListening]
@@ -1748,6 +1733,7 @@ declare class Server {
                * @property {boolean} [setupExitSignals]
                * @property {boolean | ClientConfiguration} [client]
                * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+               * @property {boolean} [optionsMethod]
                * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
                * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                * @property {(devServer: Server) => void} [onListening]
@@ -1834,6 +1820,7 @@ declare class Server {
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
          * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+         * @property {boolean} [optionsMethod]
          * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
          * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
          * @property {(devServer: Server) => void} [onListening]
@@ -1962,9 +1949,13 @@ declare class Server {
                   type: string;
                   description: string;
                 };
+                /** @type {Schema} */
                 requestCert: {
                   type: string;
                   description: string;
+                  /**
+                   * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
+                   * */
                   cli: {
                     negatedDescription: string;
                   };
@@ -1984,6 +1975,10 @@ declare class Server {
                                 type?: undefined;
                               }
                           )[];
+                          /**
+                           * @private
+                           * @type {RequestHandler[]}
+                           */
                         };
                         instanceof?: undefined;
                       }
@@ -2063,10 +2058,6 @@ declare class Server {
                   description: string;
                 };
                 crl: {
-                  /**
-                   * @param {"v4" | "v6"} family
-                   * @returns {Promise<string | undefined>}
-                   */
                   anyOf: (
                     | {
                         type: string;
@@ -2187,6 +2178,9 @@ declare class Server {
           key: {
             description: string;
             type: string;
+            /**
+             * @type {string[]}
+             */
           };
           value: {
             description: string;
@@ -2221,7 +2215,14 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string /** @type {WebSocketURL} */;
+        link: string;
+      };
+      OptionsMethod: {
+        type: string;
+        description: string;
+        cli: {
+          exclude: boolean;
+        };
       };
       HistoryApiFallback: {
         anyOf: (
@@ -2235,9 +2236,9 @@ declare class Server {
             }
           | {
               type: string;
+              /** @type {string} */
               description: string;
               link: string;
-              /** @type {string} */
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
         )[];
@@ -2300,7 +2301,7 @@ declare class Server {
         cli: {
           negatedDescription: string;
         };
-        link: string;
+        /** @type {number | string} */ link: string;
       };
       MagicHTML: {
         type: string;
@@ -2455,6 +2456,7 @@ declare class Server {
       Proxy: {
         anyOf: (
           | {
+              /** @type {any} */
               type: string;
               items?: undefined;
             }
@@ -2484,6 +2486,7 @@ declare class Server {
         link: string;
         description: string;
       };
+      /** @type {MultiCompiler} */
       ServerType: {
         enum: string[];
       };
@@ -2634,6 +2637,10 @@ declare class Server {
                         }
                       | {
                           instanceof: string;
+                          /**
+                           * @param {string | Static | undefined} [optionsForStatic]
+                           * @returns {NormalizedStatic}
+                           */
                           type?: undefined;
                         }
                     )[];
@@ -2922,10 +2929,10 @@ declare class Server {
         anyOf: (
           | {
               enum: boolean[];
-              /** @type {ServerOptions} */ cli: {
-                negatedDescription: string;
+              cli: {
+                negatedDescription: string /** @type {Array<keyof ServerOptions>} */;
               };
-              /** @type {ServerOptions} */ $ref?: undefined;
+              $ref?: undefined;
             }
           | {
               $ref: string;
@@ -2955,7 +2962,15 @@ declare class Server {
               exclude: boolean;
             };
           };
+          /**
+           * @param {string | Buffer | undefined} item
+           * @returns {string | Buffer | undefined}
+           */
         };
+        /**
+         * @param {string | Buffer | undefined} item
+         * @returns {string | Buffer | undefined}
+         */
         additionalProperties: boolean;
       };
       WebSocketServerString: {
@@ -2981,6 +2996,9 @@ declare class Server {
         $ref: string;
       };
       headers: {
+        $ref: string;
+      };
+      optionsMethod: {
         $ref: string;
       };
       historyApiFallback: {
@@ -3459,6 +3477,7 @@ type Configuration = {
         context: DevMiddlewareContext<Request, Response>
       ) => Headers)
     | undefined;
+  optionsMethod?: boolean | undefined;
   onAfterSetupMiddleware?: ((devServer: Server) => void) | undefined;
   onBeforeSetupMiddleware?: ((devServer: Server) => void) | undefined;
   onListening?: ((devServer: Server) => void) | undefined;
