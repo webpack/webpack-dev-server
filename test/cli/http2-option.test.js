@@ -1,15 +1,17 @@
 "use strict";
 
-const del = require("del");
+const { promisify } = require("util");
+const rimraf = require("rimraf");
 const Server = require("../../lib/Server");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-http2"];
 
+const del = promisify(rimraf);
 const defaultCertificateDir = Server.findCacheDir();
 
 describe('"http2" CLI option', () => {
   beforeEach(async () => {
-    await del([defaultCertificateDir]);
+    await del(defaultCertificateDir);
   });
 
   it('should work using "--http2"', async () => {

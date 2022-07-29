@@ -25,9 +25,9 @@ describe("index", () => {
         warn: jest.fn(),
         error: jest.fn(),
       },
+      logEnabledFeatures: jest.fn(),
       setLogLevel: jest.fn(),
     });
-    jest.setMock("strip-ansi", require("strip-ansi-v6"));
 
     log = require("../../client-src/utils/log");
 
@@ -82,18 +82,6 @@ describe("index", () => {
 
   test("should set arguments into socket function", () => {
     expect(socket.mock.calls[0]).toMatchSnapshot();
-  });
-
-  test("should run onSocketMessage.hot", () => {
-    onSocketMessage.hot();
-
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
-  });
-
-  test("should run onSocketMessage.liveReload", () => {
-    onSocketMessage.liveReload();
-
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
   });
 
   test("should run onSocketMessage['still-ok']", () => {
@@ -208,6 +196,60 @@ describe("index", () => {
     expect(overlay.show).toBeCalled();
   });
 
+  test("should parse overlay options from resource query", () => {
+    jest.isolateModules(() => {
+      // Pass JSON config with warnings disabled
+      global.__resourceQuery = `?overlay=${encodeURIComponent(
+        `{"warnings": false}`
+      )}`;
+      overlay.show.mockReset();
+      socket.mockReset();
+      jest.unmock("../../client-src/utils/parseURL.js");
+      require("../../client-src");
+      onSocketMessage = socket.mock.calls[0][1];
+
+      onSocketMessage.warnings(["warn1"]);
+      expect(overlay.show).not.toBeCalled();
+
+      onSocketMessage.errors(["error1"]);
+      expect(overlay.show).toBeCalledTimes(1);
+    });
+
+    jest.isolateModules(() => {
+      // Pass JSON config with errors disabled
+      global.__resourceQuery = `?overlay=${encodeURIComponent(
+        `{"errors": false}`
+      )}`;
+      overlay.show.mockReset();
+      socket.mockReset();
+      jest.unmock("../../client-src/utils/parseURL.js");
+      require("../../client-src");
+      onSocketMessage = socket.mock.calls[0][1];
+
+      onSocketMessage.errors(["error1"]);
+      expect(overlay.show).not.toBeCalled();
+
+      onSocketMessage.warnings(["warn1"]);
+      expect(overlay.show).toBeCalledTimes(1);
+    });
+
+    jest.isolateModules(() => {
+      // Use simple boolean
+      global.__resourceQuery = "?overlay=true";
+      jest.unmock("../../client-src/utils/parseURL.js");
+      socket.mockReset();
+      overlay.show.mockReset();
+      require("../../client-src");
+      onSocketMessage = socket.mock.calls[0][1];
+
+      onSocketMessage.warnings(["warn2"]);
+      expect(overlay.show).toBeCalledTimes(1);
+
+      onSocketMessage.errors(["error2"]);
+      expect(overlay.show).toBeCalledTimes(2);
+    });
+  });
+
   test("should run onSocketMessage.error", () => {
     onSocketMessage.error("error!!");
 
@@ -226,7 +268,7 @@ describe("index", () => {
     onSocketMessage.hot();
     onSocketMessage.close();
 
-    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 
@@ -235,7 +277,7 @@ describe("index", () => {
     onSocketMessage.liveReload();
     onSocketMessage.close();
 
-    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 

@@ -45,6 +45,7 @@ declare const _exports: {
   client: {
     configs: {
       description: string;
+      negatedDescription: string;
       multiple: boolean;
       path: string;
       type: string;
@@ -83,17 +84,30 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
     simpleType: string;
     multiple: boolean;
   };
+  "client-overlay-trusted-types-policy-name": {
+    configs: {
+      description: string;
+      multiple: boolean;
+      path: string;
+      type: string;
+    }[];
+    description: string;
+    multiple: boolean;
+    simpleType: string;
+  };
   "client-overlay-warnings": {
     configs: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
@@ -113,13 +127,21 @@ declare const _exports: {
     multiple: boolean;
   };
   "client-reconnect": {
-    configs: {
-      type: string;
-      multiple: boolean;
-      description: string;
-      negatedDescription: string;
-      path: string;
-    }[];
+    configs: (
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          negatedDescription: string;
+          path: string;
+        }
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          path: string;
+        }
+    )[];
     description: string;
     simpleType: string;
     multiple: boolean;
@@ -247,6 +269,7 @@ declare const _exports: {
       type: string;
       multiple: boolean;
       description: string;
+      negatedDescription: string;
       path: string;
     }[];
     description: string;
@@ -287,7 +310,6 @@ declare const _exports: {
           values: string[];
           multiple: boolean;
           description: string;
-          negatedDescription: string;
           path: string;
         }
     )[];
@@ -770,6 +792,7 @@ declare const _exports: {
   "server-options-request-cert": {
     configs: {
       description: string;
+      negatedDescription: string;
       multiple: boolean;
       path: string;
       type: string;
@@ -791,12 +814,21 @@ declare const _exports: {
     simpleType: string;
   };
   static: {
-    configs: {
-      type: string;
-      multiple: boolean;
-      description: string;
-      path: string;
-    }[];
+    configs: (
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          path: string;
+        }
+      | {
+          type: string;
+          multiple: boolean;
+          description: string;
+          negatedDescription: string;
+          path: string;
+        }
+    )[];
     description: string;
     simpleType: string;
     multiple: boolean;
@@ -895,6 +927,7 @@ declare const _exports: {
     configs: (
       | {
           description: string;
+          negatedDescription: string;
           multiple: boolean;
           path: string;
           type: string;

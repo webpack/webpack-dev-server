@@ -63,6 +63,42 @@ describe('"open" option', () => {
     });
   });
 
+  it("should work with the server: 'https' option", async () => {
+    const server = new Server(
+      {
+        open: true,
+        port,
+        server: "https",
+      },
+      compiler
+    );
+
+    await server.start();
+    await server.stop();
+
+    expect(open).toHaveBeenCalledWith(`https://localhost:${port}/`, {
+      wait: false,
+    });
+  });
+
+  it("should work with the server: 'spdy' option", async () => {
+    const server = new Server(
+      {
+        open: true,
+        port,
+        server: "spdy",
+      },
+      compiler
+    );
+
+    await server.start();
+    await server.stop();
+
+    expect(open).toHaveBeenCalledWith(`https://localhost:${port}/`, {
+      wait: false,
+    });
+  });
+
   it("should work with '0.0.0.0' host", async () => {
     const host = "0.0.0.0";
 

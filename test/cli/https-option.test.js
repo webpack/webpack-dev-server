@@ -1,11 +1,13 @@
 "use strict";
 
 const path = require("path");
-const del = require("del");
+const { promisify } = require("util");
+const rimraf = require("rimraf");
 const Server = require("../../lib/Server");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-https"];
 
+const del = promisify(rimraf);
 const httpsCertificateDirectory = path.resolve(
   __dirname,
   "../fixtures/https-certificate"
@@ -15,7 +17,7 @@ const defaultCertificateDir = Server.findCacheDir();
 
 describe('"https" CLI option', () => {
   beforeEach(async () => {
-    await del([defaultCertificateDir]);
+    await del(defaultCertificateDir);
   });
 
   it('should work using "--https"', async () => {

@@ -100,6 +100,14 @@ describe("setupExitSignals option", () => {
         }, 100);
       });
 
+      consoleMessages = consoleMessages.filter(
+        (message) =>
+          !(
+            message.text().includes("Trying to reconnect...") ||
+            message.text().includes("Disconnected")
+          )
+      );
+
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages"
       );

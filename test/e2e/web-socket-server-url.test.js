@@ -2066,6 +2066,134 @@ describe("web socket server URL", () => {
       await server.stop();
     });
 
+    it(`should work with "server: 'https'" option ("${webSocketServer}")`, async () => {
+      const hostname = "127.0.0.1";
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: port1,
+        server: "https",
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await server.start();
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === "ws") {
+        const client = page._client;
+
+        client.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on("request", (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`https://${hostname}:${port1}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      if (webSocketServer === "ws") {
+        expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
+      } else {
+        expect(webSocketRequest.url).toContain(
+          `https://${hostname}:${port1}/ws`
+        );
+      }
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+      await server.stop();
+    });
+
+    it(`should work with "server: 'spdy'" option ("${webSocketServer}")`, async () => {
+      const hostname = "127.0.0.1";
+      const compiler = webpack(config);
+      const devServerOptions = {
+        webSocketServer,
+        port: port1,
+        server: "spdy",
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await server.start();
+
+      const { page, browser } = await runBrowser();
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const webSocketRequests = [];
+
+      if (webSocketServer === "ws") {
+        const client = page._client;
+
+        client.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
+      } else {
+        page.on("request", (request) => {
+          if (/\/ws\//.test(request.url())) {
+            webSocketRequests.push({ url: request.url() });
+          }
+        });
+      }
+
+      await page.goto(`https://${hostname}:${port1}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      const webSocketRequest = webSocketRequests[0];
+
+      if (webSocketServer === "ws") {
+        expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
+      } else {
+        expect(webSocketRequest.url).toContain(
+          `https://${hostname}:${port1}/ws`
+        );
+      }
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await browser.close();
+      await server.stop();
+    });
+
     it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = 50000;
 

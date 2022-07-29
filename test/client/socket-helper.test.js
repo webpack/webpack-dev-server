@@ -5,7 +5,7 @@
 "use strict";
 
 describe("socket", () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
   });
@@ -76,5 +76,20 @@ describe("socket", () => {
     expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
     expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
     expect(mockHandler.mock.calls).toMatchSnapshot();
+  });
+
+  it("should export initialized client", () => {
+    const socket = require("../../client/socket").default;
+
+    const nonInitializedInstance = require("../../client/socket").client;
+    expect(nonInitializedInstance).toBe(null);
+
+    socket("my.url", {});
+
+    const initializedInstance = require("../../client/socket").client;
+    expect(initializedInstance).not.toBe(null);
+    expect(typeof initializedInstance.onClose).toBe("function");
+    expect(typeof initializedInstance.onMessage).toBe("function");
+    expect(typeof initializedInstance.onOpen).toBe("function");
   });
 });

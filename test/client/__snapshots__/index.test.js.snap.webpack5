@@ -14,10 +14,6 @@ exports[`index should run onSocketMessage.close 2`] = `"Close"`;
 
 exports[`index should run onSocketMessage.error 1`] = `"error!!"`;
 
-exports[`index should run onSocketMessage.hot 1`] = `"Hot Module Replacement enabled."`;
-
-exports[`index should run onSocketMessage.liveReload 1`] = `"Live Reloading enabled."`;
-
 exports[`index should run onSocketMessage.ok 1`] = `"Ok"`;
 
 exports[`index should run onSocketMessage.ok 2`] = `

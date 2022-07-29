@@ -1,7 +1,7 @@
 export = WebsocketServer;
 declare class WebsocketServer extends BaseServer {
   static heartbeatInterval: number;
-  implementation: WebSocket.Server;
+  implementation: WebSocket.Server<WebSocket.WebSocket>;
 }
 declare namespace WebsocketServer {
   export { WebSocketServerConfiguration, ClientConnection };

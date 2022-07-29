@@ -28,7 +28,10 @@
     "Bonjour": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to broadcasts dev server via ZeroConf networking on start."
+          }
         },
         {
           "type": "object",
@@ -37,17 +40,17 @@
         }
       ],
       "description": "Allows to broadcasts dev server via ZeroConf networking on start.",
-      "link": " https://webpack.js.org/configuration/dev-server/#devserverbonjour",
-      "cli": {
-        "negatedDescription": "Disallows to broadcasts dev server via ZeroConf networking on start."
-      }
+      "link": " https://webpack.js.org/configuration/dev-server/#devserverbonjour"
     },
     "Client": {
       "description": "Allows to specify options for client script in the browser or disable client script.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverclient",
       "anyOf": [
         {
-          "enum": [false]
+          "enum": [false],
+          "cli": {
+            "negatedDescription": "Disables client script."
+          }
         },
         {
           "type": "object",
@@ -87,7 +90,7 @@
           "link": "https://webpack.js.org/configuration/dev-server/#overlay",
           "type": "boolean",
           "cli": {
-            "negatedDescription": "Disables a full-screen overlay in the browser when there are compiler errors or warnings."
+            "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors or warnings."
           }
         },
         {
@@ -96,11 +99,21 @@
           "properties": {
             "errors": {
               "description": "Enables a full-screen overlay in the browser when there are compiler errors.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors."
+              }
             },
             "warnings": {
               "description": "Enables a full-screen overlay in the browser when there are compiler warnings.",
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler warnings."
+              }
+            },
+            "trustedTypesPolicyName": {
+              "description": "The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.",
+              "type": "string"
             }
           }
         }
@@ -119,16 +132,16 @@
       "link": "https://webpack.js.org/configuration/dev-server/#reconnect",
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Tells dev-server to not to try to reconnect the client."
+          }
         },
         {
           "type": "number",
           "minimum": 0
         }
-      ],
-      "cli": {
-        "negatedDescription": "Tells dev-server to not to try to reconnect the client."
-      }
+      ]
     },
     "ClientWebSocketTransport": {
       "anyOf": [
@@ -455,7 +468,10 @@
     "HistoryApiFallback": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to proxy requests through a specified index page."
+          }
         },
         {
           "type": "object",
@@ -482,17 +498,17 @@
     "Hot": {
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disables Hot Module Replacement."
+          }
         },
         {
           "enum": ["only"]
         }
       ],
       "description": "Enables Hot Module Replacement.",
-      "link": "https://webpack.js.org/configuration/dev-server/#devserverhot",
-      "cli": {
-        "negatedDescription": "Disables Hot Module Replacement."
-      }
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverhot"
     },
     "IPC": {
       "anyOf": [
@@ -738,7 +754,10 @@
         },
         "requestCert": {
           "type": "boolean",
-          "description": "Request for an SSL certificate."
+          "description": "Request for an SSL certificate.",
+          "cli": {
+            "negatedDescription": "Does not request for an SSL certificate."
+          }
         },
         "ca": {
           "anyOf": [
@@ -923,7 +942,10 @@
           }
         },
         {
-          "type": "boolean"
+          "type": "boolean",
+          "cli": {
+            "negatedDescription": "Disallows to configure options for serving static files from directory."
+          }
         },
         {
           "$ref": "#/definitions/StaticString"
@@ -969,7 +991,10 @@
         "serveIndex": {
           "anyOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Does not tell dev server to use serveIndex middleware."
+              }
             },
             {
               "type": "object",
@@ -977,15 +1002,15 @@
             }
           ],
           "description": "Tells dev server to use serveIndex middleware when enabled.",
-          "cli": {
-            "negatedDescription": "Does not tell dev server to use serveIndex middleware."
-          },
           "link": "https://webpack.js.org/configuration/dev-server/#serveindex"
         },
         "watch": {
           "anyOf": [
             {
-              "type": "boolean"
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Does not watch for files in static content directory."
+              }
             },
             {
               "type": "object",
@@ -994,9 +1019,6 @@
             }
           ],
           "description": "Watches for files in static content directory.",
-          "cli": {
-            "negatedDescription": "Does not watch for files in static content directory."
-          },
           "link": "https://webpack.js.org/configuration/dev-server/#watch"
         }
       }
@@ -1089,7 +1111,10 @@
     "WebSocketServerEnum": {
       "anyOf": [
         {
-          "enum": [false]
+          "enum": [false],
+          "cli": {
+            "negatedDescription": "Disallows to set web socket server and options."
+          }
         },
         {
           "$ref": "#/definitions/WebSocketServerType"

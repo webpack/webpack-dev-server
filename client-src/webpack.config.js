@@ -79,13 +79,6 @@ module.exports = [
     ],
   }),
   merge(baseForModules, {
-    entry: path.join(__dirname, "modules/strip-ansi/index.js"),
-    output: {
-      // @ts-ignore
-      filename: "strip-ansi/index.js",
-    },
-  }),
-  merge(baseForModules, {
     entry: path.join(__dirname, "modules/sockjs-client/index.js"),
     output: {
       filename: "sockjs-client/index.js",

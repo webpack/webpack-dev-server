@@ -61,6 +61,7 @@ module.exports = {
       {
         description:
           "Allows to specify options for client script in the browser or disable client script.",
+        negatedDescription: "Disables client script.",
         multiple: false,
         path: "client",
         type: "enum",
@@ -94,7 +95,7 @@ module.exports = {
         description:
           "Enables a full-screen overlay in the browser when there are compiler errors or warnings.",
         negatedDescription:
-          "Disables a full-screen overlay in the browser when there are compiler errors or warnings.",
+          "Disables the full-screen overlay in the browser when there are compiler errors or warnings.",
         path: "client.overlay",
       },
     ],
@@ -110,6 +111,8 @@ module.exports = {
         multiple: false,
         description:
           "Enables a full-screen overlay in the browser when there are compiler errors.",
+        negatedDescription:
+          "Disables the full-screen overlay in the browser when there are compiler errors.",
         path: "client.overlay.errors",
       },
     ],
@@ -118,6 +121,21 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "client-overlay-trusted-types-policy-name": {
+    configs: [
+      {
+        description:
+          "The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.",
+        multiple: false,
+        path: "client.overlay.trustedTypesPolicyName",
+        type: "string",
+      },
+    ],
+    description:
+      "The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.",
+    multiple: false,
+    simpleType: "string",
+  },
   "client-overlay-warnings": {
     configs: [
       {
@@ -125,6 +143,8 @@ module.exports = {
         multiple: false,
         description:
           "Enables a full-screen overlay in the browser when there are compiler warnings.",
+        negatedDescription:
+          "Disables the full-screen overlay in the browser when there are compiler warnings.",
         path: "client.overlay.warnings",
       },
     ],
@@ -165,8 +185,6 @@ module.exports = {
         multiple: false,
         description:
           "Tells dev-server the number of times it should try to reconnect the client.",
-        negatedDescription:
-          "Tells dev-server to not to try to reconnect the client.",
         path: "client.reconnect",
       },
     ],
@@ -339,6 +357,8 @@ module.exports = {
         multiple: false,
         description:
           "Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API.",
+        negatedDescription:
+          "Disallows to proxy requests through a specified index page.",
         path: "historyApiFallback",
       },
     ],
@@ -381,7 +401,6 @@ module.exports = {
         values: ["only"],
         multiple: false,
         description: "Enables Hot Module Replacement.",
-        negatedDescription: "Disables Hot Module Replacement.",
         path: "hot",
       },
     ],
@@ -1026,6 +1045,7 @@ module.exports = {
     configs: [
       {
         description: "Request for an SSL certificate.",
+        negatedDescription: "Does not request for an SSL certificate.",
         multiple: false,
         path: "server.options.requestCert",
         type: "boolean",
@@ -1063,6 +1083,8 @@ module.exports = {
         multiple: false,
         description:
           "Allows to configure options for serving static files from directory (by default 'public' directory).",
+        negatedDescription:
+          "Disallows to configure options for serving static files from directory.",
         path: "static",
       },
     ],
@@ -1202,6 +1224,7 @@ module.exports = {
       {
         description:
           "Deprecated: please use '--web-socket-server-type' option.",
+        negatedDescription: "Disallows to set web socket server and options.",
         multiple: false,
         path: "webSocketServer",
         type: "enum",
