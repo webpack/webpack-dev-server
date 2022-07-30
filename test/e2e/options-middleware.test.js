@@ -50,7 +50,6 @@ describe("handle options-request correctly", () => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
         },
-        optionsMethod: true,
       },
       compiler
     );

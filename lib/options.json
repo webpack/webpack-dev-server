@@ -458,13 +458,6 @@
       "description": "Allows to set custom headers on response.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverheaders"
     },
-    "OptionsMethod": {
-      "type": "boolean",
-      "description": "Response with 204 httpCode when receive an OPTIONS request",
-      "cli": {
-        "exclude": true
-      }
-    },
     "HistoryApiFallback": {
       "anyOf": [
         {
@@ -1177,9 +1170,6 @@
     },
     "headers": {
       "$ref": "#/definitions/Headers"
-    },
-    "optionsMethod": {
-      "$ref": "#/definitions/OptionsMethod"
     },
     "historyApiFallback": {
       "$ref": "#/definitions/HistoryApiFallback"
