@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.10.0](https://github.com/webpack/webpack-dev-server/compare/v4.9.3...v4.10.0) (2022-08-10)
+
+
+### Features
+
+* allow to configure more `client` options via resource URL ([#4274](https://github.com/webpack/webpack-dev-server/issues/4274)) ([216e3cb](https://github.com/webpack/webpack-dev-server/commit/216e3cbe62dc90b9345995cb4f33ca9dd7b6aaba))
+
+
+### Bug Fixes
+
+* response correctly when receive an OPTIONS request ([#4185](https://github.com/webpack/webpack-dev-server/issues/4185)) ([2b3b7e0](https://github.com/webpack/webpack-dev-server/commit/2b3b7e000f688e086c68ba821ed2edc3cd56a219))
+
 ### [4.9.3](https://github.com/webpack/webpack-dev-server/compare/v4.9.2...v4.9.3) (2022-06-29)
 
 

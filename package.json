@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "4.9.3",
+  "version": "4.10.0",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "bin": "bin/webpack-dev-server.js",
   "main": "lib/Server.js",
