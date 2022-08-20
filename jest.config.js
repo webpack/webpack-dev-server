@@ -1,7 +1,9 @@
 "use strict";
 
 module.exports = {
-  testURL: "http://localhost/",
+  testEnvironmentOptions: {
+    url: "http://localhost/",
+  },
   collectCoverage: false,
   coveragePathIgnorePatterns: [
     "/node_modules/",
