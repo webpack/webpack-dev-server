@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.10.1](https://github.com/webpack/webpack-dev-server/compare/v4.10.0...v4.10.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* compatibility with old browsers ([#4544](https://github.com/webpack/webpack-dev-server/issues/4544)) ([6a430d4](https://github.com/webpack/webpack-dev-server/commit/6a430d495e3e616304000e21e72deba27eb5303f))
+
 ## [4.10.0](https://github.com/webpack/webpack-dev-server/compare/v4.9.3...v4.10.0) (2022-08-10)
 
 
