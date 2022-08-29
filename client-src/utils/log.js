@@ -19,7 +19,7 @@ setLogLevel(defaultLevel);
 const log = logger.getLogger(name);
 
 const logEnabledFeatures = (features) => {
-  const enabledFeatures = Object.entries(features);
+  const enabledFeatures = Object.keys(features);
   if (!features || enabledFeatures.length === 0) {
     return;
   }
@@ -27,8 +27,9 @@ const logEnabledFeatures = (features) => {
   let logString = "Server started:";
 
   // Server started: Hot Module Replacement enabled, Live Reloading enabled, Overlay disabled.
-  for (const [key, value] of Object.entries(features)) {
-    logString += ` ${key} ${value ? "enabled" : "disabled"},`;
+  for (let i = 0; i < enabledFeatures.length; i++) {
+    const key = enabledFeatures[i];
+    logString += ` ${key} ${features[key] ? "enabled" : "disabled"},`;
   }
   // replace last comma with a period
   logString = logString.slice(0, -1).concat(".");
