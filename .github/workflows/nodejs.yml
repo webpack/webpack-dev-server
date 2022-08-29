@@ -59,12 +59,13 @@ jobs:
         uses: wagoid/commitlint-github-action@v4
 
   test:
-    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }}
+    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }} (${{ matrix.shard }})
 
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: [12.x, 14.x, 16.x, 17.x]
+        shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
         include:
           - node-version: 16.x
@@ -102,7 +103,7 @@ jobs:
           cp -R tmp-client client
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
-        run: npm run test:coverage -- --ci
+        run: npm run test:coverage -- --ci --shard=${{ matrix.shard }}
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v3
