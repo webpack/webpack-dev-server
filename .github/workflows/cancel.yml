@@ -1,7 +1,10 @@
 name: Cancel
 on: [push]
+permissions: {} # none
 jobs:
   cancel:
+    permissions:
+      actions: write
     name: Cancel Previous Runs
     runs-on: ubuntu-latest
     timeout-minutes: 3
