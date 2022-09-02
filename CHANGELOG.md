@@ -2,6 +2,84 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.10.1](https://github.com/webpack/webpack-dev-server/compare/v4.10.0...v4.10.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* compatibility with old browsers ([#4544](https://github.com/webpack/webpack-dev-server/issues/4544)) ([6a430d4](https://github.com/webpack/webpack-dev-server/commit/6a430d495e3e616304000e21e72deba27eb5303f))
+
+## [4.10.0](https://github.com/webpack/webpack-dev-server/compare/v4.9.3...v4.10.0) (2022-08-10)
+
+
+### Features
+
+* allow to configure more `client` options via resource URL ([#4274](https://github.com/webpack/webpack-dev-server/issues/4274)) ([216e3cb](https://github.com/webpack/webpack-dev-server/commit/216e3cbe62dc90b9345995cb4f33ca9dd7b6aaba))
+
+
+### Bug Fixes
+
+* response correctly when receive an OPTIONS request ([#4185](https://github.com/webpack/webpack-dev-server/issues/4185)) ([2b3b7e0](https://github.com/webpack/webpack-dev-server/commit/2b3b7e000f688e086c68ba821ed2edc3cd56a219))
+
+### [4.9.3](https://github.com/webpack/webpack-dev-server/compare/v4.9.2...v4.9.3) (2022-06-29)
+
+
+### Bug Fixes
+
+* avoid creation unnecessary stream for static sockjs file ([#4482](https://github.com/webpack/webpack-dev-server/issues/4482)) ([049b153](https://github.com/webpack/webpack-dev-server/commit/049b153b87ab908ae53b71356e0716bb3fc5bf07))
+* history-api-fallback now supports HEAD requests and handles them the same as GET ([8936082](https://github.com/webpack/webpack-dev-server/commit/8936082809a9575f231afbcad6a32bb8e14d6dce))
+
+### [4.9.2](https://github.com/webpack/webpack-dev-server/compare/v4.9.1...v4.9.2) (2022-06-06)
+
+
+### Bug Fixes
+
+* add `@types/serve-static` to dependencies ([#4468](https://github.com/webpack/webpack-dev-server/issues/4468)) ([af83deb](https://github.com/webpack/webpack-dev-server/commit/af83deb199dc1d8cae4365ec2c5acf07e29358df))
+
+### [4.9.1](https://github.com/webpack/webpack-dev-server/compare/v4.9.0...v4.9.1) (2022-05-31)
+
+
+### Bug Fixes
+
+* security problem with sockjs ([#4465](https://github.com/webpack/webpack-dev-server/issues/4465)) ([e765182](https://github.com/webpack/webpack-dev-server/commit/e765182e426cbca9c3c09294b02ac2d9737c1d74))
+
+## [4.9.0](https://github.com/webpack/webpack-dev-server/compare/v4.8.1...v4.9.0) (2022-05-04)
+
+
+### Features
+
+* support Trusted Types for client overlay ([#4404](https://github.com/webpack/webpack-dev-server/issues/4404)) ([8132e1d](https://github.com/webpack/webpack-dev-server/commit/8132e1d029badab7b1e836f8f240844c2d843ecc))
+
+
+### Bug Fixes
+
+* ie11 runtime ([#4403](https://github.com/webpack/webpack-dev-server/issues/4403)) ([256d5fb](https://github.com/webpack/webpack-dev-server/commit/256d5fb5fea7ee5a6683f77ea347ac79816ad639))
+* replace portfinder with custom implementation and fix security problem ([#4384](https://github.com/webpack/webpack-dev-server/issues/4384)) ([eea50f3](https://github.com/webpack/webpack-dev-server/commit/eea50f342e3090483f6da4932b84ed52bba44c58))
+* use the host in options to check if port is available ([#4385](https://github.com/webpack/webpack-dev-server/issues/4385)) ([a10c7cf](https://github.com/webpack/webpack-dev-server/commit/a10c7cfd290d29384d14405d7cf79e105c7b5d15))
+
+### [4.8.1](https://github.com/webpack/webpack-dev-server/compare/v4.8.0...v4.8.1) (2022-04-06)
+
+
+### Bug Fixes
+
+* types ([#4373](https://github.com/webpack/webpack-dev-server/issues/4373)) ([f6fe6be](https://github.com/webpack/webpack-dev-server/commit/f6fe6be27656c9cc1e65a894a889d7443be7e6a8))
+
+## [4.8.0](https://github.com/webpack/webpack-dev-server/compare/v4.7.4...v4.8.0) (2022-04-05)
+
+
+### Features
+
+* export initialized socket client ([#4304](https://github.com/webpack/webpack-dev-server/issues/4304)) ([7920364](https://github.com/webpack/webpack-dev-server/commit/7920364d6b6ac29e1b7fdbb38c8a9fe22eec61de))
+
+
+### Bug Fixes
+
+* update description for `--no-client-reconnect` ([#4248](https://github.com/webpack/webpack-dev-server/issues/4248)) ([317648d](https://github.com/webpack/webpack-dev-server/commit/317648df21562f9dfe1b9f8069642b91ac3bffae))
+* update description for `--no-client` ([#4250](https://github.com/webpack/webpack-dev-server/issues/4250)) ([c3b6690](https://github.com/webpack/webpack-dev-server/commit/c3b669077089802412774079f38a13bce054eee7))
+* update description for `--no-history-api-fallback` ([#4277](https://github.com/webpack/webpack-dev-server/issues/4277)) ([d63a0a2](https://github.com/webpack/webpack-dev-server/commit/d63a0a298739d599f2161b237a750220c314deef))
+* update negated descriptions for more options ([#4287](https://github.com/webpack/webpack-dev-server/issues/4287)) ([c64bd94](https://github.com/webpack/webpack-dev-server/commit/c64bd94fb75c30984281f71ad3c20393fcb5ee67))
+* update schema to have `negatedDescription` only for type `boolean` ([#4280](https://github.com/webpack/webpack-dev-server/issues/4280)) ([fcf8e8e](https://github.com/webpack/webpack-dev-server/commit/fcf8e8e6a9951f4283e796df3ad72cc803e634a3))
+
 ### [4.7.4](https://github.com/webpack/webpack-dev-server/compare/v4.7.3...v4.7.4) (2022-02-02)
 
 

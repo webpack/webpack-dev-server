@@ -643,5 +643,45 @@ describe("historyApiFallback option", () => {
 
       expect(pageErrors).toMatchSnapshot("page errors");
     });
+
+    it("should perform HEAD request in same way as GET", async () => {
+      await page.goto(`http://127.0.0.1:${port}/foo`, {
+        waitUntil: "networkidle0",
+      });
+
+      const responseGet = await page.evaluate(async () => {
+        const response = await fetch("/foo", { method: "GET" });
+
+        return {
+          contentType: response.headers.get("content-type"),
+          statusText: response.statusText,
+          text: await response.text(),
+        };
+      });
+
+      expect(responseGet.contentType).toMatchSnapshot(
+        "response headers content-type"
+      );
+
+      expect(responseGet.statusText).toMatchSnapshot("response status");
+
+      expect(responseGet.text).toMatchSnapshot("response text");
+
+      const responseHead = await page.evaluate(async () => {
+        const response = await fetch("/foo", { method: "HEAD" });
+
+        return {
+          contentType: response.headers.get("content-type"),
+          statusText: response.statusText,
+          text: await response.text(),
+        };
+      });
+
+      expect(responseHead).toMatchObject({
+        ...responseGet,
+        // HEAD response has an empty body
+        text: "",
+      });
+    });
   });
 });

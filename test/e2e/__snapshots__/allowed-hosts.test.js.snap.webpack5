@@ -44,10 +44,9 @@ exports[`allowed hosts check host headers should always allow value of the \`hos
 
 exports[`allowed hosts should connect web socket client using "[::1] host to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -55,10 +54,9 @@ exports[`allowed hosts should connect web socket client using "[::1] host to web
 
 exports[`allowed hosts should connect web socket client using "[::1] host to web socket server with the "auto" value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -66,10 +64,9 @@ exports[`allowed hosts should connect web socket client using "[::1] host to web
 
 exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -77,10 +74,9 @@ exports[`allowed hosts should connect web socket client using "127.0.0.1" host t
 
 exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server with the "auto" value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -88,10 +84,9 @@ exports[`allowed hosts should connect web socket client using "127.0.0.1" host t
 
 exports[`allowed hosts should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -99,10 +94,9 @@ exports[`allowed hosts should connect web socket client using "chrome-extension:
 
 exports[`allowed hosts should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -110,10 +104,9 @@ exports[`allowed hosts should connect web socket client using "chrome-extension:
 
 exports[`allowed hosts should connect web socket client using "file:" protocol to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -121,10 +114,9 @@ exports[`allowed hosts should connect web socket client using "file:" protocol t
 
 exports[`allowed hosts should connect web socket client using "file:" protocol to web socket server with the "auto" value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -132,10 +124,9 @@ exports[`allowed hosts should connect web socket client using "file:" protocol t
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -143,10 +134,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -154,10 +144,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value in array ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -165,10 +154,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value in array ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -176,10 +164,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -187,10 +174,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -198,10 +184,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -209,10 +194,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -220,10 +204,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -231,10 +214,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -242,10 +224,9 @@ exports[`allowed hosts should connect web socket client using custom hostname to
 
 exports[`allowed hosts should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -253,10 +234,9 @@ exports[`allowed hosts should connect web socket client using custom sub hostnam
 
 exports[`allowed hosts should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -264,10 +244,9 @@ exports[`allowed hosts should connect web socket client using custom sub hostnam
 
 exports[`allowed hosts should connect web socket client using localhost to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -275,10 +254,9 @@ exports[`allowed hosts should connect web socket client using localhost to web s
 
 exports[`allowed hosts should connect web socket client using localhost to web socket server with the "auto" value ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Hot Module Replacement enabled.",
-  "[webpack-dev-server] Live Reloading enabled.",
 ]
 `;
 
@@ -298,6 +276,7 @@ exports[`allowed hosts should disconnect web client using localhost to web socke
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
@@ -310,6 +289,7 @@ exports[`allowed hosts should disconnect web socket client using custom hostname
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
@@ -322,6 +302,7 @@ exports[`allowed hosts should disconnect web socket client using custom hostname
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "server: 'https'" is enabled ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
@@ -334,6 +315,7 @@ exports[`allowed hosts should disconnect web socket client using custom hostname
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "server: 'https'" is enabled ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
@@ -346,6 +328,7 @@ exports[`allowed hosts should disconnect web socket client using custom hostname
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "origin" header ("sockjs"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",
@@ -358,6 +341,7 @@ exports[`allowed hosts should disconnect web socket client using custom hostname
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "origin" header ("ws"): console messages 1`] = `
 Array [
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "[webpack-dev-server] Invalid Host/Origin header",

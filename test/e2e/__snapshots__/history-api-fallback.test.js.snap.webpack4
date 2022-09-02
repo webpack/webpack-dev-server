@@ -130,6 +130,15 @@ exports[`historyApiFallback option as object with the "verbose" option request t
 "
 `;
 
+exports[`historyApiFallback option in-memory files should perform HEAD request in same way as GET: response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`historyApiFallback option in-memory files should perform HEAD request in same way as GET: response status 1`] = `"OK"`;
+
+exports[`historyApiFallback option in-memory files should perform HEAD request in same way as GET: response text 1`] = `
+"In-memory file
+"
+`;
+
 exports[`historyApiFallback option in-memory files should take precedence over static files: console messages 1`] = `Array []`;
 
 exports[`historyApiFallback option in-memory files should take precedence over static files: page errors 1`] = `Array []`;
