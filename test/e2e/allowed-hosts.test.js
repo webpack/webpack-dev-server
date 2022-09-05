@@ -1209,6 +1209,47 @@ describe("allowed hosts", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
     });
 
+    it("should always allow `localhost` subdomain if options.allowedHosts is auto", async () => {
+      const options = {
+        allowedHosts: "auto",
+        port: port1,
+      };
+
+      const headers = {
+        host: "app.localhost",
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://127.0.0.1:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      if (!server.checkHeader(headers, "host")) {
+        throw new Error("Validation didn't fail");
+      }
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages"
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    });
+
     it("should always allow value from the `host` options if options.allowedHosts is auto", async () => {
       const networkIP = Server.internalIPSync("v4");
       const options = {
