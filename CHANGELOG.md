@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.11.0](https://github.com/webpack/webpack-dev-server/compare/v4.10.1...v4.11.0) (2022-09-07)
+
+
+### Features
+
+* make allowedHosts accept localhost subdomains by default ([#4357](https://github.com/webpack/webpack-dev-server/issues/4357)) ([0a33e6a](https://github.com/webpack/webpack-dev-server/commit/0a33e6a7529ef20ec8841c3fd501c37da179be3e))
+
+
+### Bug Fixes
+
+* auto reply to OPTIONS requests only when unhandled ([#4559](https://github.com/webpack/webpack-dev-server/issues/4559)) ([984af02](https://github.com/webpack/webpack-dev-server/commit/984af026a50f3e77c58abe24475da40a4ed038f1)), closes [#4551](https://github.com/webpack/webpack-dev-server/issues/4551)
+
 ### [4.10.1](https://github.com/webpack/webpack-dev-server/compare/v4.10.0...v4.10.1) (2022-08-29)
 
 
