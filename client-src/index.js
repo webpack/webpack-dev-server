@@ -94,7 +94,7 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
   options.reconnect = Number(parsedResourceQuery.reconnect);
 }
 
-logEnabledFeatures(enabledFeatures);
+logEnabledFeatures(enabledFeatures, options.logging);
 
 /**
  * @param {string} level

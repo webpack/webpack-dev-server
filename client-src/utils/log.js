@@ -18,7 +18,8 @@ setLogLevel(defaultLevel);
 
 const log = logger.getLogger(name);
 
-const logEnabledFeatures = (features) => {
+const logEnabledFeatures = (features, logLevel = "info") => {
+  setLogLevel(logLevel);
   const enabledFeatures = Object.keys(features);
   if (!features || enabledFeatures.length === 0) {
     return;
