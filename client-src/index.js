@@ -94,8 +94,6 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
   options.reconnect = Number(parsedResourceQuery.reconnect);
 }
 
-logEnabledFeatures(enabledFeatures, options.logging);
-
 /**
  * @param {string} level
  */
@@ -110,6 +108,8 @@ function setAllLogLevel(level) {
 if (options.logging) {
   setAllLogLevel(options.logging);
 }
+
+logEnabledFeatures(enabledFeatures);
 
 self.addEventListener("beforeunload", () => {
   status.isUnloading = true;
