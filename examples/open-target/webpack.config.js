@@ -11,7 +11,7 @@ module.exports = setup({
   plugins: [
     new HtmlWebpackPlugin({
       filename: "example.html",
-      template: "../../.assets/layout.html",
+      template: "../.assets/layout.html",
       title: "Open Target / Example",
     }),
   ],
