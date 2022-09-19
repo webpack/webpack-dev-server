@@ -15,12 +15,12 @@ module.exports = [
     plugins: [
       new HtmlWebpackPlugin({
         filename: "example1.html",
-        template: "../../.assets/layout.html",
+        template: "../.assets/layout.html",
         title: "Open Target (Multiple) / Example / Page 1",
       }),
     ],
   }),
-  {
+  setup({
     context: __dirname,
     entry: "./app2.js",
     output: {
@@ -29,9 +29,9 @@ module.exports = [
     plugins: [
       new HtmlWebpackPlugin({
         filename: "example2.html",
-        template: "../../.assets/layout.html",
+        template: "../.assets/layout.html",
         title: "Open Target (Multiple) / Example / Page 2",
       }),
     ],
-  },
+  }),
 ];
