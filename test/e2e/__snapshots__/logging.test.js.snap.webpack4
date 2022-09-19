@@ -116,7 +116,6 @@ Array [
 
 exports[`logging should work and log only error (sockjs) 1`] = `
 Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
   "[webpack-dev-server] ERROR
@@ -126,7 +125,6 @@ Error from compilation",
 
 exports[`logging should work and log only error (ws) 1`] = `
 Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
   "[webpack-dev-server] Errors while compiling. Reload prevented.",
   "[webpack-dev-server] ERROR
@@ -160,7 +158,6 @@ Array [
 
 exports[`logging should work and log warning and errors (sockjs) 1`] = `
 Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
   "[webpack-dev-server] Warnings while compiling.",
   "[webpack-dev-server] WARNING
@@ -173,7 +170,6 @@ Error from compilation",
 
 exports[`logging should work and log warning and errors (ws) 1`] = `
 Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
   "[webpack-dev-server] Warnings while compiling.",
   "[webpack-dev-server] WARNING
@@ -240,14 +236,12 @@ Array [
 
 exports[`logging should work when the "client.logging" is "none" (sockjs) 1`] = `
 Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
 ]
 `;
 
 exports[`logging should work when the "client.logging" is "none" (ws) 1`] = `
 Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
 ]
 `;
