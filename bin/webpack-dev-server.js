@@ -43,6 +43,18 @@ const isInstalled = (packageName) => {
   const path = require("path");
   const fs = require("graceful-fs");
 
+  // Respect NODE_PATH environment variable
+  try {
+    if (
+      process.env.NODE_PATH &&
+      fs.statSync(path.join(process.env.NODE_PATH, packageName)).isDirectory()
+    ) {
+      return true;
+    }
+  } catch (_error) {
+    // Nothing
+  }
+
   let dir = __dirname;
 
   do {
