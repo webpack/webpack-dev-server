@@ -49,7 +49,7 @@ describe("host", () => {
     it(`should work using "${host}" host and port as number`, async () => {
       const compiler = webpack(config);
 
-      if (!ipv6 || (isMacOS && !process.version.startsWith("v18"))) {
+      if (!ipv6 || isMacOS) {
         if (host === "::") {
           host = "127.0.0.1";
         } else if (host === "::1") {
