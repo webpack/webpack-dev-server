@@ -82,7 +82,7 @@ const listOfTests = {
   "options-request-response": 2,
 };
 
-let startPort = 50000;
+let startPort = 8089;
 
 const ports = {};
 
