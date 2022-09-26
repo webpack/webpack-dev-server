@@ -42,39 +42,75 @@ exports[`overlay should not show initially, then show on an error and allow to c
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
         ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
         need an appropriate loader to handle this file type, currently no
         loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
-      <br /><br />
     </div>
   </div>
 </body>
@@ -128,39 +164,75 @@ exports[`overlay should not show initially, then show on an error, then hide on 
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
         ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
         need an appropriate loader to handle this file type, currently no
         loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
-      <br /><br />
     </div>
   </div>
 </body>
@@ -214,39 +286,75 @@ exports[`overlay should not show initially, then show on an error, then show oth
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
         ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
         need an appropriate loader to handle this file type, currently no
         loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;
       </div>
-      <br /><br />
     </div>
   </div>
 </body>
@@ -263,39 +371,75 @@ exports[`overlay should not show initially, then show on an error, then show oth
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
         ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
         need an appropriate loader to handle this file type, currently no
         loaders are configured to process this file. See
         https://webpack.js.org/concepts#loaders &gt; \`;a
       </div>
-      <br /><br />
     </div>
   </div>
 </body>
@@ -370,34 +514,72 @@ exports[`overlay should show a warning after invalidation: overlay html 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
   </div>
 </body>
@@ -435,39 +617,99 @@ exports[`overlay should show a warning and error for initial compilation and pro
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
-      <br /><br />
+      Compiled with problems:
     </div>
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>&lt;strong&gt;strong&lt;/strong&gt;</div>
-      <br /><br />
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        &lt;strong&gt;strong&lt;/strong&gt;
+      </div>
+    </div>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        &lt;strong&gt;strong&lt;/strong&gt;
+      </div>
     </div>
   </div>
 </body>
@@ -505,54 +747,180 @@ exports[`overlay should show a warning and error for initial compilation: overla
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
     </div>
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>Error from compilation. Can't find 'test' module.</div>
-      <br /><br />
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>Error from compilation. Can't find 'test' module.</div>
-      <br /><br />
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Error from compilation. Can't find 'test' module.
+      </div>
     </div>
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>Error from compilation. Can't find 'test' module.</div>
-      <br /><br />
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Error from compilation. Can't find 'test' module.
+      </div>
+    </div>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Error from compilation. Can't find 'test' module.
+      </div>
     </div>
   </div>
 </body>
@@ -590,34 +958,72 @@ exports[`overlay should show a warning and hide them after closing connection: o
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
   </div>
 </body>
@@ -663,34 +1069,72 @@ exports[`overlay should show a warning for initial compilation: overlay html 1`]
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
   </div>
 </body>
@@ -728,34 +1172,72 @@ exports[`overlay should show a warning when "client.overlay" is "true": overlay 
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
   </div>
 </body>
@@ -793,34 +1275,72 @@ exports[`overlay should show a warning when "client.overlay.errors" is "true": o
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
   </div>
 </body>
@@ -858,34 +1378,72 @@ exports[`overlay should show a warning when "client.overlay.warnings" is "true":
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
   </div>
 </body>
@@ -923,33 +1481,70 @@ exports[`overlay should show an ansi formatted error for initial compilation: ov
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
         <span
           style=\\"
             font-weight: normal;
@@ -963,7 +1558,6 @@ exports[`overlay should show an ansi formatted error for initial compilation: ov
           <span style=\\"color: #ffd080\\">ansi formatted text</span></span
         >
       </div>
-      <br /><br />
     </div>
   </div>
 </body>
@@ -1001,34 +1595,72 @@ exports[`overlay should show an error after invalidation: overlay html 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>Error from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Error from compilation
+      </div>
     </div>
   </div>
 </body>
@@ -1066,34 +1698,72 @@ exports[`overlay should show an error for initial compilation: overlay html 1`] 
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>Error from compilation. Can't find 'test' module.</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Error from compilation. Can't find 'test' module.
+      </div>
     </div>
   </div>
 </body>
@@ -1131,34 +1801,72 @@ exports[`overlay should show an error when "client.overlay" is "true": overlay h
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>Error from compilation. Can't find 'test' module.</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Error from compilation. Can't find 'test' module.
+      </div>
     </div>
   </div>
 </body>
@@ -1196,34 +1904,72 @@ exports[`overlay should show an error when "client.overlay.errors" is "true": ov
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">ERROR</span><br /><br />
-      <div>Error from compilation. Can't find 'test' module.</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(206, 17, 38, 0.1);
+        color: rgb(252, 207, 207);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        ERROR
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Error from compilation. Can't find 'test' module.
+      </div>
     </div>
   </div>
 </body>
@@ -1261,34 +2007,72 @@ exports[`overlay should show an error when "client.overlay.warnings" is "true": 
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: rgb(232, 232, 232);
-      font-family: Menlo, Consolas, monospace;
       font-size: large;
-      padding: 2rem;
+      padding: 2rem 2rem 4rem;
       line-height: 1.2;
       white-space: pre-wrap;
       overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
     \\"
   >
-    <span>Compiled with problems:</span
-    ><button
+    <div
       style=\\"
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        float: right;
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
       \\"
     >
-      X</button
-    ><br /><br />
-    <div>
-      <span style=\\"color: rgb(227, 96, 73)\\">WARNING</span><br /><br />
-      <div>Warning from compilation</div>
-      <br /><br />
+      Compiled with problems:
+    </div>
+    <button
+      aria-label=\\"Dismiss\\"
+      style=\\"
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      \\"
+    >
+      ×
+    </button>
+    <div
+      style=\\"
+        background-color: rgba(251, 245, 180, 0.1);
+        color: rgb(251, 245, 180);
+        padding: 1rem 1rem 1.5rem;
+      \\"
+    >
+      <div
+        style=\\"
+          color: rgb(232, 59, 70);
+          font-size: 1.2em;
+          margin-bottom: 1rem;
+          font-family: sans-serif;
+        \\"
+      >
+        WARNING
+      </div>
+      <div
+        style=\\"
+          line-height: 1.5;
+          font-size: 1rem;
+          font-family: Menlo, Consolas, monospace;
+        \\"
+      >
+        Warning from compilation
+      </div>
     </div>
   </div>
 </body>
