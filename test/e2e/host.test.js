@@ -56,6 +56,8 @@ describe("host", () => {
           host = "127.0.0.1";
         } else if (host === "local-ipv6") {
           host = "127.0.0.1";
+        } else if (isMacOS && host === "localhost") {
+          host = "127.0.0.1";
         }
       }
 
@@ -86,7 +88,7 @@ describe("host", () => {
 
       await server.start();
 
-      // expect(server.server.address()).toMatchObject(getAddress(host, hostname));
+      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
 
       const { page, browser } = await runBrowser();
 
