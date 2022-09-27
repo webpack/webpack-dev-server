@@ -754,14 +754,14 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
-        /** @type {ClientConfiguration} */ simpleType: string;
+        simpleType: string;
       };
       "https-cert": {
         configs: {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          path: string /** @type {string} */;
         }[];
         description: string;
         simpleType: string;
@@ -778,7 +778,6 @@ declare class Server {
         multiple: boolean;
         simpleType: string;
       };
-      /** @type {string} */
       "https-crl": {
         configs: {
           description: string;
@@ -797,7 +796,7 @@ declare class Server {
           path: string;
           type: string;
         }[];
-        description: string;
+        /** @type {number | string} */ description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -819,7 +818,7 @@ declare class Server {
           path: string;
           type: string;
         }[];
-        description: string;
+        /** @type {string} */ description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -887,6 +886,12 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
+        /**
+         * prependEntry Method for webpack 4
+         * @param {any} originalEntry
+         * @param {any} newAdditionalEntries
+         * @returns {any}
+         */
       };
       "live-reload": {
         configs: {
@@ -904,11 +909,10 @@ declare class Server {
         configs: {
           type: string;
           multiple: boolean;
-          /** @type {Object<string,string>} */ description: string;
+          description: string;
           negatedDescription: string;
           path: string;
         }[];
-        /** @type {any} */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -924,7 +928,7 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              /** @type {string} */ description: string;
+              description: string;
               negatedDescription: string;
               path: string;
             }
@@ -960,7 +964,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          path: string /** @type {Compiler} */;
         }[];
         description: string;
         simpleType: string;
@@ -1199,11 +1203,11 @@ declare class Server {
               multiple: boolean;
               description: string;
               negatedDescription: string;
-              /** @type {ServerOptions} */ path: string;
+              path: string;
             }
         )[];
-        description: string;
-        simpleType: string;
+        /** @type {ServerOptions} */ description: string;
+        /** @type {Array<keyof ServerOptions>} */ simpleType: string;
         multiple: boolean;
       };
       "static-directory": {
@@ -1243,7 +1247,7 @@ declare class Server {
         configs: {
           type: string;
           multiple: boolean;
-          /** @type {any} */ description: string;
+          description: string;
           path: string;
         }[];
         description: string;
@@ -1340,6 +1344,7 @@ declare class Server {
               type: string;
             }
         )[];
+        /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -2229,10 +2234,8 @@ declare class Server {
         link: string;
       };
       Host: {
-        /** @type {ClientConfiguration} */
         description: string;
         link: string;
-        /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
         anyOf: (
           | {
               enum: string[];
@@ -2337,6 +2340,7 @@ declare class Server {
           negatedDescription: string;
         };
       };
+      /** @type {ClientConfiguration} */
       OpenObject: {
         type: string;
         additionalProperties: boolean;
@@ -2467,8 +2471,8 @@ declare class Server {
         anyOf: {
           $ref: string;
         }[];
-        link: string;
         /** @type {any} */
+        link: string;
         description: string;
       };
       ServerType: {
@@ -2489,6 +2493,7 @@ declare class Server {
       };
       ServerObject: {
         type: string;
+        /** @type {string} */
         properties: {
           type: {
             anyOf: {
@@ -2496,7 +2501,7 @@ declare class Server {
             }[];
           };
           options: {
-            $ref: string;
+            $ref: string /** @type {MultiCompiler} */;
           };
         };
         additionalProperties: boolean;
@@ -2509,6 +2514,7 @@ declare class Server {
             type: string;
             description: string;
           };
+          /** @type {MultiCompiler} */
           requestCert: {
             type: string;
             description: string;
@@ -2578,10 +2584,6 @@ declare class Server {
             )[];
             description: string;
           };
-          /**
-           * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-           * @returns {WatchOptions}
-           */
           cert: {
             anyOf: (
               | {
@@ -2667,10 +2669,6 @@ declare class Server {
                         }
                     )[];
                   };
-                  /**
-                   * @param {string | Static | undefined} [optionsForStatic]
-                   * @returns {NormalizedStatic}
-                   */
                   instanceof?: undefined;
                 }
               | {
@@ -2943,9 +2941,9 @@ declare class Server {
               $ref: string;
             }[];
           };
-          /** @type {ServerOptions} */
           options: {
             type: string;
+            /** @type {Array<keyof ServerOptions>} */
             additionalProperties: boolean;
             cli: {
               exclude: boolean;
@@ -2982,6 +2980,7 @@ declare class Server {
       historyApiFallback: {
         $ref: string;
       };
+      /** @type {ServerOptions} */
       host: {
         $ref: string;
       };
@@ -2990,15 +2989,7 @@ declare class Server {
       };
       http2: {
         $ref: string;
-        /**
-         * @param {string | Buffer | undefined} item
-         * @returns {string | Buffer | undefined}
-         */
       };
-      /**
-       * @param {string | Buffer | undefined} item
-       * @returns {string | Buffer | undefined}
-       */
       https: {
         $ref: string;
       };
@@ -3027,7 +3018,7 @@ declare class Server {
         $ref: string;
       };
       proxy: {
-        $ref: string /** @type {any} */;
+        $ref: string;
       };
       server: {
         $ref: string;
@@ -3039,9 +3030,8 @@ declare class Server {
         $ref: string;
       };
       static: {
-        $ref: string /** @type {ServerOptions} */;
+        $ref: string;
       };
-      /** @type {ServerOptions} */
       watchFiles: {
         $ref: string;
       };
