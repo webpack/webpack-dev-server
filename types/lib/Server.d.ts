@@ -726,9 +726,6 @@ declare class Server {
       "https-ca-reset": {
         configs: {
           description: string;
-          /**
-           * @type {string[]}
-           */
           multiple: boolean;
           path: string;
           type: string;
@@ -764,7 +761,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          path: string /** @type {string} */;
         }[];
         description: string;
         simpleType: string;
@@ -799,7 +796,7 @@ declare class Server {
           path: string;
           type: string;
         }[];
-        description: string;
+        /** @type {number | string} */ description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -821,7 +818,7 @@ declare class Server {
           path: string;
           type: string;
         }[];
-        description: string;
+        /** @type {string} */ description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -865,12 +862,6 @@ declare class Server {
           description: string;
           negatedDescription: string;
           path: string;
-          /**
-           * prependEntry Method for webpack 4
-           * @param {any} originalEntry
-           * @param {any} newAdditionalEntries
-           * @returns {any}
-           */
         }[];
         description: string;
         simpleType: string;
@@ -895,6 +886,12 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
+        /**
+         * prependEntry Method for webpack 4
+         * @param {any} originalEntry
+         * @param {any} newAdditionalEntries
+         * @returns {any}
+         */
       };
       "live-reload": {
         configs: {
@@ -925,7 +922,7 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              /** @type {MultiCompiler} */ description: string;
+              description: string;
               path: string;
             }
           | {
@@ -961,17 +958,13 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
-        /**
-         * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-         * @returns {WatchOptions}
-         */
       };
       "open-app-name-reset": {
         configs: {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          path: string /** @type {Compiler} */;
         }[];
         description: string;
         simpleType: string;
@@ -1195,7 +1188,7 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
-        simpleType: string /** @type {ServerOptions} */;
+        simpleType: string;
       };
       static: {
         configs: (
@@ -1208,26 +1201,22 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              /** @type {ServerOptions} */ description: string;
+              description: string;
               negatedDescription: string;
               path: string;
             }
         )[];
-        description: string;
-        simpleType: string;
+        /** @type {ServerOptions} */ description: string;
+        /** @type {Array<keyof ServerOptions>} */ simpleType: string;
         multiple: boolean;
       };
       "static-directory": {
         configs: {
           type: string;
-          /** @type {any} */ multiple: boolean;
+          multiple: boolean;
           description: string;
           path: string;
         }[];
-        /**
-         * @param {string | Buffer | undefined} item
-         * @returns {string | Buffer | undefined}
-         */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -1240,7 +1229,7 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /** @type {any} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
       "static-public-path-reset": {
@@ -1352,12 +1341,13 @@ declare class Server {
               description: string;
               multiple: boolean;
               path: string;
-              type: string /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */;
+              type: string;
             }
         )[];
+        /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
         description: string;
         simpleType: string;
-        multiple: boolean /** @type {ServerOptions} */;
+        multiple: boolean;
       };
     };
     readonly processArguments: (
@@ -2221,7 +2211,7 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string /** @type {WebSocketURL} */;
+        link: string;
       };
       HistoryApiFallback: {
         anyOf: (
@@ -2237,7 +2227,6 @@ declare class Server {
               type: string;
               description: string;
               link: string;
-              /** @type {string} */
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
         )[];
@@ -2351,6 +2340,7 @@ declare class Server {
           negatedDescription: string;
         };
       };
+      /** @type {ClientConfiguration} */
       OpenObject: {
         type: string;
         additionalProperties: boolean;
@@ -2481,6 +2471,7 @@ declare class Server {
         anyOf: {
           $ref: string;
         }[];
+        /** @type {any} */
         link: string;
         description: string;
       };
@@ -2502,6 +2493,7 @@ declare class Server {
       };
       ServerObject: {
         type: string;
+        /** @type {string} */
         properties: {
           type: {
             anyOf: {
@@ -2509,7 +2501,7 @@ declare class Server {
             }[];
           };
           options: {
-            $ref: string;
+            $ref: string /** @type {MultiCompiler} */;
           };
         };
         additionalProperties: boolean;
@@ -2522,6 +2514,7 @@ declare class Server {
             type: string;
             description: string;
           };
+          /** @type {MultiCompiler} */
           requestCert: {
             type: string;
             description: string;
@@ -2922,10 +2915,10 @@ declare class Server {
         anyOf: (
           | {
               enum: boolean[];
-              /** @type {ServerOptions} */ cli: {
+              cli: {
                 negatedDescription: string;
               };
-              /** @type {ServerOptions} */ $ref?: undefined;
+              $ref?: undefined;
             }
           | {
               $ref: string;
@@ -2950,6 +2943,7 @@ declare class Server {
           };
           options: {
             type: string;
+            /** @type {Array<keyof ServerOptions>} */
             additionalProperties: boolean;
             cli: {
               exclude: boolean;
@@ -2986,6 +2980,7 @@ declare class Server {
       historyApiFallback: {
         $ref: string;
       };
+      /** @type {ServerOptions} */
       host: {
         $ref: string;
       };
@@ -3080,6 +3075,12 @@ declare class Server {
    * @returns {string}
    */
   static findCacheDir(): string;
+  /**
+   * @private
+   * @param {Compiler} compiler
+   * @returns bool
+   */
+  private static isWebTarget;
   /**
    * @param {Configuration | Compiler | MultiCompiler} options
    * @param {Compiler | MultiCompiler | Configuration} compiler
