@@ -7,7 +7,7 @@ const { setup } = require("../../util");
 module.exports = setup({
   context: __dirname,
   // create error for overlay
-  entry: "./invalid.js",
+  entry: "./app.js",
   devServer: {
     client: {
       overlay: true,

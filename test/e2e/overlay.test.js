@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("graceful-fs");
 const prettier = require("prettier");
 const webpack = require("webpack");
+const waitForExpect = require("wait-for-expect");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/overlay-config/webpack.config");
 const trustedTypesConfig = require("../fixtures/overlay-config/trusted-types.webpack.config");
@@ -477,6 +478,55 @@ describe("overlay", () => {
     await browser.close();
     await server.stop();
   });
+
+  (isWebpack5 ? it : it.skip)(
+    "should open editor when error with file info is clicked",
+    async () => {
+      const mockLaunchEditorCb = jest.fn();
+      jest.mock("launch-editor", () => mockLaunchEditorCb);
+
+      const compiler = webpack(config);
+      const devServerOptions = {
+        port,
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await server.start();
+
+      const { page, browser } = await runBrowser();
+
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      const pathToFile = path.resolve(
+        __dirname,
+        "../fixtures/overlay-config/foo.js"
+      );
+      const originalCode = fs.readFileSync(pathToFile);
+
+      fs.writeFileSync(pathToFile, "`;");
+
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
+
+      const frame = page
+        .frames()
+        .find((item) => item.name() === "webpack-dev-server-client-overlay");
+
+      const errorHandle = await frame.$("[data-can-open]");
+
+      await errorHandle.click();
+
+      await waitForExpect(() => {
+        expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
+      });
+
+      fs.writeFileSync(pathToFile, originalCode);
+
+      await browser.close();
+      await server.stop();
+    }
+  );
 
   it('should not show a warning when "client.overlay" is "false"', async () => {
     const compiler = webpack(config);

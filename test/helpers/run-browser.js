@@ -3,6 +3,16 @@
 const puppeteer = require("puppeteer");
 const { puppeteerArgs } = require("./puppeteer-constants");
 
+/**
+ * @typedef {Object} RunBrowserResult
+ * @property {import('puppeteer').Page} page
+ * @property {import('puppeteer').Browser} browser
+ */
+
+/**
+ * @param {Parameters<import('puppeteer').Page['emulate']>[0]} config
+ * @returns {Promise<RunBrowserResult>}
+ */
 function runBrowser(config) {
   const options = {
     viewport: {
@@ -14,7 +24,13 @@ function runBrowser(config) {
   };
 
   return new Promise((resolve, reject) => {
+    /**
+     * @type {import('puppeteer').Page}
+     */
     let page;
+    /**
+     * @type {import('puppeteer').Browser}
+     */
     let browser;
 
     puppeteer

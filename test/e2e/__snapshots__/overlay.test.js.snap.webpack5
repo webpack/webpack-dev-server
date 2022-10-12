@@ -90,11 +90,13 @@ exports[`overlay should not show initially, then show on an error and allow to c
       \\"
     >
       <div
+        data-can-open=\\"true\\"
         style=\\"
           color: rgb(232, 59, 70);
           font-size: 1.2em;
           margin-bottom: 1rem;
           font-family: sans-serif;
+          cursor: pointer;
         \\"
       >
         ERROR in ./foo.js 1:1
@@ -212,11 +214,13 @@ exports[`overlay should not show initially, then show on an error, then hide on 
       \\"
     >
       <div
+        data-can-open=\\"true\\"
         style=\\"
           color: rgb(232, 59, 70);
           font-size: 1.2em;
           margin-bottom: 1rem;
           font-family: sans-serif;
+          cursor: pointer;
         \\"
       >
         ERROR in ./foo.js 1:1
@@ -334,11 +338,13 @@ exports[`overlay should not show initially, then show on an error, then show oth
       \\"
     >
       <div
+        data-can-open=\\"true\\"
         style=\\"
           color: rgb(232, 59, 70);
           font-size: 1.2em;
           margin-bottom: 1rem;
           font-family: sans-serif;
+          cursor: pointer;
         \\"
       >
         ERROR in ./foo.js 1:1
@@ -419,11 +425,13 @@ exports[`overlay should not show initially, then show on an error, then show oth
       \\"
     >
       <div
+        data-can-open=\\"true\\"
         style=\\"
           color: rgb(232, 59, 70);
           font-size: 1.2em;
           margin-bottom: 1rem;
           font-family: sans-serif;
+          cursor: pointer;
         \\"
       >
         ERROR in ./foo.js 1:1

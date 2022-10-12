@@ -184,7 +184,7 @@ function formatProblem(type, item) {
 // Compilation with errors (e.g. syntax error or missing modules).
 /**
  * @param {string} type
- * @param {Array<string  | { file?: string, moduleName?: string, loc?: string, message?: string }>} messages
+ * @param {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages
  * @param {string | null} trustedTypesPolicyName
  */
 function show(type, messages, trustedTypesPolicyName) {
@@ -202,6 +202,16 @@ function show(type, messages, trustedTypesPolicyName) {
 
       typeElement.innerText = header;
       applyStyle(typeElement, msgTypeStyle);
+
+      if (message.moduleIdentifier) {
+        applyStyle(typeElement, { cursor: "pointer" });
+        typeElement.dataset.canOpen = true;
+        typeElement.addEventListener("click", () => {
+          fetch(
+            `/webpack-dev-server/open-editor?fileName=${message.moduleIdentifier}`
+          );
+        });
+      }
 
       // Make it look similar to our terminal.
       const text = ansiHTML(encode(body));
