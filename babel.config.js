@@ -11,7 +11,7 @@ module.exports = (api) => {
           modules: false,
           targets: {
             esmodules: true,
-            node: "0.12",
+            node: "14.15.0",
           },
         },
       ],
@@ -24,7 +24,7 @@ module.exports = (api) => {
             "@babel/preset-env",
             {
               targets: {
-                node: "12.13.0",
+                node: "14.15.0",
               },
             },
           ],
