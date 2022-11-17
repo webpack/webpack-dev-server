@@ -11,7 +11,7 @@ module.exports = (api) => {
           modules: false,
           targets: {
             esmodules: true,
-            node: "14.15.0",
+            node: "0.12",
           },
         },
       ],
