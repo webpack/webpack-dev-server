@@ -53,7 +53,11 @@ describe("port", () => {
 
       if (testedPort === "-1" || testedPort === "99999") {
         const errorMessageRegExp = new RegExp(
-          `options.port should be >= 0 and < 65536. Received ${testedPort}.`
+          `options.port should be >= 0 and < 65536. Received ${
+            parseFloat(process.versions.node) >= 19
+              ? `type number \\(${testedPort}\\)`
+              : testedPort
+          }.`
         );
 
         expect(errored.message).toMatch(errorMessageRegExp);
