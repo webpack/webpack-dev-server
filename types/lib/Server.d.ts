@@ -1248,7 +1248,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string;
+          path: string /** @type {ServerOptions} */;
         }[];
         description: string;
         simpleType: string;
@@ -1344,7 +1344,6 @@ declare class Server {
               type: string;
             }
         )[];
-        /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -3544,7 +3543,9 @@ type Static = {
   publicPath?: string | string[] | undefined;
   serveIndex?: boolean | import("serve-index").Options | undefined;
   staticOptions?:
-    | import("serve-static").ServeStaticOptions<import("http").ServerResponse>
+    | import("serve-static").ServeStaticOptions<
+        import("http").ServerResponse<import("http").IncomingMessage>
+      >
     | undefined;
   watch?:
     | boolean
