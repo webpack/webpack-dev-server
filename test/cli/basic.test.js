@@ -1,11 +1,8 @@
 "use strict";
 
 const path = require("path");
-const webpack = require("webpack");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
-const schema = require("../../lib/options.json");
-const cliOptions = require("../../bin/cli-flags");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const isWebpack5 = require("../helpers/isWebpack5");
 const port = require("../ports-map")["cli-basic"];
