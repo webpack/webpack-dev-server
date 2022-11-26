@@ -94,6 +94,11 @@ jobs:
         if: matrix.webpack-version == '4'
         run: npm i webpack@${{ matrix.webpack-version }} --save-dev --ignore-scripts
 
+      - name: Setup firefox
+        uses: browser-actions/setup-firefox@latest
+        with:
+          firefox-version: latest
+
       - name: Link webpack-dev-server
         run: |
           cp -R client tmp-client
