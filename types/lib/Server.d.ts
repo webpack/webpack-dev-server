@@ -2322,6 +2322,9 @@ declare class Server {
                   anyOf: (
                     | {
                         type: string;
+                        /**
+                         * @returns {string}
+                         */
                         items: {
                           anyOf: (
                             | {
@@ -2405,6 +2408,10 @@ declare class Server {
         )[];
         description: string;
         link: string;
+        /**
+         * @private
+         * @param {Compiler} compiler
+         */
       };
       HistoryApiFallback: {
         anyOf: (
@@ -2493,6 +2500,7 @@ declare class Server {
         };
         link: string;
       };
+      /** @type {number | string} */
       OnAfterSetupMiddleware: {
         instanceof: string;
         description: string;
@@ -2626,7 +2634,7 @@ declare class Server {
             }
           | {
               enum: string[];
-              type?: undefined;
+              /** @type {MultiCompiler} */ type?: undefined;
               minimum?: undefined;
               maximum?: undefined;
               minLength?: undefined;
@@ -2653,7 +2661,7 @@ declare class Server {
                       instanceof: string;
                       type?: undefined;
                     }
-                )[];
+                )[] /** @type {MultiCompiler} */;
               };
             }
         )[];
@@ -2684,6 +2692,10 @@ declare class Server {
         };
       };
       ServerObject: {
+        /**
+         * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
+         * @returns {WatchOptions}
+         */
         type: string;
         properties: {
           type: {
@@ -3122,7 +3134,7 @@ declare class Server {
         };
       };
       WebSocketServerFunction: {
-        instanceof: string;
+        instanceof: string /** @type {any} */;
       };
       WebSocketServerObject: {
         type: string;
