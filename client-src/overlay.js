@@ -4,6 +4,11 @@
 import ansiHTML from "ansi-html-community";
 import { encode } from "html-entities";
 import {
+  listenToRuntimeError,
+  parseErrorToStacks,
+} from "./overlay/runtime-error.js";
+import createOverlayMachine from "./overlay/state-machine.js";
+import {
   containerStyle,
   dismissButtonStyle,
   headerStyle,
@@ -12,8 +17,6 @@ import {
   msgTextStyle,
   msgTypeStyle,
 } from "./overlay/styles.js";
-import { listenToRuntimeError } from "./overlay/runtime-error.js";
-import createOverlayMachine from "./overlay/state-machine.js";
 
 const colors = {
   reset: ["transparent", "transparent"],
@@ -32,7 +35,7 @@ ansiHTML.setColors(colors);
 
 /**
  * @param {string} type
- * @param {string  | { file?: string, moduleName?: string, loc?: string, message?: string }} item
+ * @param {string  | { file?: string, moduleName?: string, loc?: string, message?: string; stack?: string[] }} item
  * @returns {{ header: string, body: string }}
  */
 function formatProblem(type, item) {
@@ -59,6 +62,14 @@ function formatProblem(type, item) {
         : ""
     }`;
     body += item.message || "";
+  }
+
+  if (Array.isArray(item.stack)) {
+    item.stack.forEach((stack) => {
+      if (typeof stack === "string") {
+        body += `\r\n${stack}`;
+      }
+    });
   }
 
   return { header, body };
@@ -259,10 +270,20 @@ const createOverlay = (options) => {
     hideOverlay: hide,
   });
 
-  listenToRuntimeError((err) => {
+  listenToRuntimeError((errorEvent) => {
+    const { error } = errorEvent;
+    if (!error) {
+      return;
+    }
+    const errorObject = error instanceof Error ? error : new Error(error);
     overlayService.send({
       type: "RUNTIME_ERROR",
-      messages: [err.message],
+      messages: [
+        {
+          message: errorObject.message,
+          stack: parseErrorToStacks(errorObject),
+        },
+      ],
     });
   });
 

@@ -1,4 +1,19 @@
 /**
+ *
+ * @param {Error} error
+ */
+function parseErrorToStacks(error) {
+  if (!error || !(error instanceof Error)) {
+    throw new Error(`parseErrorToStacks expects Error object`);
+  }
+  if (typeof error.stack === "string") {
+    return error.stack
+      .split("\n")
+      .filter((stack) => stack !== `Error: ${error.message}`);
+  }
+}
+
+/**
  * @callback ErrorCallback
  * @param {ErrorEvent} error
  * @returns {void}
@@ -15,6 +30,4 @@ function listenToRuntimeError(callback) {
   };
 }
 
-function listenToSomething() {}
-
-export { listenToRuntimeError, listenToSomething };
+export { listenToRuntimeError, parseErrorToStacks };
