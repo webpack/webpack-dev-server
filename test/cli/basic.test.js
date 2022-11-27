@@ -1,11 +1,8 @@
 "use strict";
 
 const path = require("path");
-const webpack = require("webpack");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
-const schema = require("../../lib/options.json");
-const cliOptions = require("../../bin/cli-flags");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const isWebpack5 = require("../helpers/isWebpack5");
 const port = require("../ports-map")["cli-basic"];
@@ -14,20 +11,6 @@ const isMacOS = process.platform === "darwin";
 const webpack5Test = isWebpack5 ? it : it.skip;
 
 describe("basic", () => {
-  describe("should validate CLI options", () => {
-    webpack5Test("should be same as in schema", () => {
-      const cliOptionsFromWebpack = webpack.cli.getArguments(schema);
-
-      const normalizedCliOptions = {};
-
-      for (const [name, options] of Object.entries(cliOptions)) {
-        normalizedCliOptions[name] = options;
-      }
-
-      expect(normalizedCliOptions).toStrictEqual(cliOptionsFromWebpack);
-    });
-  });
-
   describe("should output help", () => {
     (isMacOS ? it.skip : it)("should generate correct cli flags", async () => {
       const { exitCode, stdout } = await testBin(["--help"]);
