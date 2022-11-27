@@ -3,7 +3,7 @@
   "version": "4.11.1",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "bin": "bin/webpack-dev-server.js",
-  "main": "lib/Server.js",
+  "main": "./lib/Server.js",
   "types": "types/lib/Server.d.ts",
   "author": "Tobias Koppers @sokra",
   "bugs": "https://github.com/webpack/webpack-dev-server/issues",
