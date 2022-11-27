@@ -51,7 +51,13 @@ Array [
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
 Update propagation: ./browser.js
+    at applyHandler (http://127.0.0.1:8103/browser.js:1077:31)
+    at http://127.0.0.1:8103/browser.js:776:21
     at Array.map (<anonymous>)
+    at internalApply (http://127.0.0.1:8103/browser.js:775:54)
+    at http://127.0.0.1:8103/browser.js:745:26
+    at waitForBlockingPromises (http://127.0.0.1:8103/browser.js:699:48)
+    at http://127.0.0.1:8103/browser.js:743:24",
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
