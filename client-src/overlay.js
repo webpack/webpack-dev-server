@@ -3,7 +3,6 @@
 
 import ansiHTML from "ansi-html-community";
 import { encode } from "html-entities";
-import { interpret } from "@xstate/fsm";
 import {
   containerStyle,
   dismissButtonStyle,
@@ -143,7 +142,7 @@ const createOverlay = (options) => {
       closeButtonElement.ariaLabel = "Dismiss";
       closeButtonElement.addEventListener("click", () => {
         // eslint-disable-next-line no-use-before-define
-        overlayService.send("DISMISS");
+        overlayService.send({ type: "DISMISS" });
       });
 
       contentElement.appendChild(headerElement);
@@ -254,16 +253,13 @@ const createOverlay = (options) => {
     }, trustedTypesPolicyName);
   }
 
-  const overlayMachine = createOverlayMachine({
+  const overlayService = createOverlayMachine({
     showOverlay: ({ level = "error", messages }) =>
       show(level, messages, options.trustedTypesPolicyName),
     hideOverlay: hide,
   });
 
-  const overlayService = interpret(overlayMachine).start();
-
   listenToRuntimeError((err) => {
-    console.log(err);
     overlayService.send({
       type: "RUNTIME_ERROR",
       messages: [err.message],

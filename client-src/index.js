@@ -142,7 +142,7 @@ const onSocketMessage = {
 
     // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.overlay) {
-      overlay.send("DISMISS");
+      overlay.send({ type: "DISMISS" });
     }
 
     sendMessage("Invalid");
@@ -199,7 +199,7 @@ const onSocketMessage = {
     log.info("Nothing changed.");
 
     if (options.overlay) {
-      overlay.send("DISMISS");
+      overlay.send({ type: "DISMISS" });
     }
 
     sendMessage("StillOk");
@@ -208,7 +208,7 @@ const onSocketMessage = {
     sendMessage("Ok");
 
     if (options.overlay) {
-      overlay.send("DISMISS");
+      overlay.send({ type: "DISMISS" });
     }
 
     reloadApp(options, status);
@@ -317,7 +317,7 @@ const onSocketMessage = {
     log.info("Disconnected!");
 
     if (options.overlay) {
-      overlay.send("DISMISS");
+      overlay.send({ type: "DISMISS" });
     }
 
     sendMessage("Close");

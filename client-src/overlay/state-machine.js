@@ -1,4 +1,4 @@
-import { createMachine, assign } from "@xstate/fsm";
+import createMachine from "./fsm.js";
 
 /**
  * @typedef {Object} ShowOverlayData
@@ -19,7 +19,6 @@ const createOverlayMachine = (options) => {
   const { hideOverlay, showOverlay } = options;
   const overlayMachine = createMachine(
     {
-      id: "overlay",
       initial: "hidden",
       context: {
         level: "error",
@@ -27,7 +26,6 @@ const createOverlayMachine = (options) => {
       },
       states: {
         hidden: {
-          entry: "hideOverlay",
           on: {
             BUILD_ERROR: {
               target: "displayBuildError",
@@ -41,7 +39,10 @@ const createOverlayMachine = (options) => {
         },
         displayBuildError: {
           on: {
-            DISMISS: { target: "hidden", actions: "dismissMessages" },
+            DISMISS: {
+              target: "hidden",
+              actions: ["dismissMessages", "hideOverlay"],
+            },
             BUILD_ERROR: {
               target: "displayBuildError",
               actions: ["appendMessages", "showOverlay"],
@@ -50,7 +51,10 @@ const createOverlayMachine = (options) => {
         },
         displayRuntimeError: {
           on: {
-            DISMISS: { target: "hidden", actions: "dismissMessages" },
+            DISMISS: {
+              target: "hidden",
+              actions: ["dismissMessages", "hideOverlay"],
+            },
             RUNTIME_ERROR: {
               target: "displayRuntimeError",
               actions: ["appendMessages", "showOverlay"],
@@ -65,18 +69,24 @@ const createOverlayMachine = (options) => {
     },
     {
       actions: {
-        dismissMessages: assign({
-          messages: [],
-          level: "error",
-        }),
-        appendMessages: assign({
-          messages: (context, event) => context.messages.concat(event.messages),
-          level: (context, event) => event.level || context.level,
-        }),
-        setMessages: assign({
-          messages: (_, event) => event.messages,
-          level: (context, event) => event.level || context.level,
-        }),
+        dismissMessages: () => {
+          return {
+            messages: [],
+            level: "error",
+          };
+        },
+        appendMessages: (context, event) => {
+          return {
+            messages: context.messages.concat(event.messages),
+            level: event.level || context.level,
+          };
+        },
+        setMessages: (context, event) => {
+          return {
+            messages: event.messages,
+            level: event.level || context.level,
+          };
+        },
         hideOverlay,
         showOverlay,
       },
