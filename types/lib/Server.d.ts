@@ -1914,18 +1914,6 @@ declare class Server {
    * @param {(err?: Error) => void} [callback]
    */
   stopCallback(callback?: ((err?: Error) => void) | undefined): void;
-  /**
-   * @param {Port} port
-   * @param {Host} hostname
-   * @param {(err?: Error) => void} fn
-   * @returns {void}
-   */
-  listen(port: Port, hostname: Host, fn: (err?: Error) => void): void;
-  /**
-   * @param {(err?: Error) => void} [callback]
-   * @returns {void}
-   */
-  close(callback?: ((err?: Error) => void) | undefined): void;
 }
 declare namespace Server {
   export {
@@ -2064,8 +2052,8 @@ type ClientConnection = (
 ) & {
   isAlive?: boolean;
 };
-type Port = number | string | "auto";
 type Host = "local-ip" | "local-ipv4" | "local-ipv6" | string;
+type Port = number | string | "auto";
 type MultiCompiler = import("webpack").MultiCompiler;
 declare class DEFAULT_STATS {
   private constructor();
