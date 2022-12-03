@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`"bonjour" CLI option should work using "--bonjour and --https" 1`] = `
+exports[`"bonjour" CLI option should work using "--bonjour and --server-type=https" 1`] = `
 "<i> [webpack-dev-server] Generating SSL certificate...
 <i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
