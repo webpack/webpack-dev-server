@@ -21,12 +21,12 @@ describe('"bonjour" CLI option', () => {
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
   });
 
-  it('should work using "--bonjour and --https"', async () => {
+  it('should work using "--bonjour and --server-type=https"', async () => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--bonjour",
-      "--https",
+      "--server-type=https",
     ]);
 
     expect(exitCode).toEqual(0);
