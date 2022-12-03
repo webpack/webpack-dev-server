@@ -249,46 +249,6 @@ Array [
 
 exports[`web socket server URL should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("ws"): page errors 1`] = `Array []`;
 
-exports[`web socket server URL should work with "http2" option ("sockjs"): console messages 1`] = `
-Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`web socket server URL should work with "http2" option ("sockjs"): page errors 1`] = `Array []`;
-
-exports[`web socket server URL should work with "http2" option ("ws"): console messages 1`] = `
-Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`web socket server URL should work with "http2" option ("ws"): page errors 1`] = `Array []`;
-
-exports[`web socket server URL should work with "https" option ("sockjs"): console messages 1`] = `
-Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`web socket server URL should work with "https" option ("sockjs"): page errors 1`] = `Array []`;
-
-exports[`web socket server URL should work with "https" option ("ws"): console messages 1`] = `
-Array [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`web socket server URL should work with "https" option ("ws"): page errors 1`] = `Array []`;
-
 exports[`web socket server URL should work with "server: 'https'" option ("sockjs"): console messages 1`] = `
 Array [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
