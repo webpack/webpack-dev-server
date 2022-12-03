@@ -511,250 +511,6 @@ declare class Server {
         type: string;
         additionalProperties: boolean;
       };
-      HTTP2: {
-        type: string;
-        description: string;
-        link: string;
-        cli: {
-          negatedDescription: string;
-        };
-      };
-      HTTPS: {
-        anyOf: (
-          | {
-              type: string;
-              cli: {
-                negatedDescription: string;
-              };
-              additionalProperties?: undefined;
-              properties?: undefined;
-            }
-          | {
-              type: string;
-              additionalProperties: boolean;
-              properties: {
-                passphrase: {
-                  type: string;
-                  description: string;
-                };
-                requestCert: {
-                  type: string;
-                  description: string;
-                  cli: {
-                    negatedDescription: string;
-                  };
-                };
-                ca: {
-                  anyOf: (
-                    | {
-                        type: string;
-                        items: {
-                          anyOf: (
-                            | {
-                                type: string;
-                                instanceof?: undefined;
-                              }
-                            | {
-                                instanceof: string;
-                                type?: undefined;
-                              }
-                          )[];
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        type: string;
-                        items?: undefined;
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        /**
-                         * @param {string} URL
-                         * @returns {boolean}
-                         */
-                        type?: undefined;
-                        items?: undefined;
-                      }
-                  )[];
-                  description: string;
-                };
-                cacert: {
-                  anyOf: (
-                    | {
-                        type: string;
-                        items: {
-                          anyOf: (
-                            | {
-                                type: string;
-                                instanceof?: undefined;
-                              }
-                            | {
-                                instanceof: string;
-                                type?: undefined;
-                              }
-                          )[];
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        type: string;
-                        items?: undefined;
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        type?: undefined;
-                        items?: undefined;
-                      }
-                  )[];
-                  description: string;
-                };
-                cert: {
-                  anyOf: (
-                    | {
-                        type: string;
-                        items: {
-                          anyOf: (
-                            | {
-                                type: string;
-                                instanceof?: undefined;
-                              }
-                            | {
-                                instanceof: string;
-                                type?: undefined;
-                              }
-                          )[];
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        type: string;
-                        items?: undefined;
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        type?: undefined;
-                        items?: undefined;
-                      }
-                  )[];
-                  description: string;
-                };
-                crl: {
-                  anyOf: (
-                    | {
-                        type: string;
-                        items: {
-                          anyOf: (
-                            | {
-                                type: string;
-                                instanceof?: undefined;
-                              }
-                            | {
-                                instanceof: string;
-                                type?: undefined;
-                              }
-                          )[];
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        type: string;
-                        items?: undefined;
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        type?: undefined;
-                        items?: undefined;
-                      }
-                  )[];
-                  description: string;
-                };
-                key: {
-                  anyOf: (
-                    | {
-                        type: string;
-                        items: {
-                          anyOf: (
-                            | {
-                                type: string;
-                                instanceof?: undefined;
-                                additionalProperties?: undefined;
-                              }
-                            | {
-                                instanceof: string;
-                                type?: undefined;
-                                additionalProperties?: undefined;
-                              }
-                            | {
-                                type: string;
-                                additionalProperties: boolean;
-                                instanceof?: undefined;
-                              }
-                          )[];
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        type: string;
-                        items?: undefined;
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        type?: undefined;
-                        items?: undefined;
-                      }
-                  )[];
-                  description: string;
-                };
-                pfx: {
-                  anyOf: (
-                    | {
-                        type: string;
-                        items: {
-                          anyOf: (
-                            | {
-                                type: string;
-                                instanceof?: undefined;
-                                additionalProperties?: undefined;
-                              }
-                            | {
-                                instanceof: string;
-                                type?: undefined;
-                                additionalProperties?: undefined;
-                              }
-                            | {
-                                type: string;
-                                additionalProperties: boolean;
-                                instanceof?: undefined;
-                              }
-                          )[];
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        type: string;
-                        items?: undefined;
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        type?: undefined;
-                        items?: undefined;
-                      }
-                  )[];
-                  description: string;
-                };
-              };
-              cli?: undefined /** @typedef {import("express").Request} Request */;
-            }
-        )[];
-        description: string;
-        link: string;
-      };
       HeaderObject: {
         type: string;
         additionalProperties: boolean;
@@ -796,7 +552,7 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string;
+        link: string /** @type {Configuration} */;
       };
       HistoryApiFallback: {
         anyOf: (
@@ -874,7 +630,7 @@ declare class Server {
         cli: {
           negatedDescription: string;
         };
-        link: string /** @type {number | string} */;
+        link: string;
       };
       MagicHTML: {
         type: string;
@@ -912,6 +668,9 @@ declare class Server {
             }
           | {
               $ref: string;
+              /**
+               * @type {string | undefined}
+               */
               type?: undefined;
               items?: undefined;
             }
@@ -995,6 +754,7 @@ declare class Server {
           };
         };
       };
+      /** @type {WebSocketURL} */
       OpenString: {
         type: string;
         minLength: number;
@@ -1005,6 +765,7 @@ declare class Server {
               type: string;
               minimum: number;
               maximum: number;
+              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               minLength?: undefined;
               enum?: undefined;
             }
@@ -1013,13 +774,15 @@ declare class Server {
               minLength: number;
               minimum?: undefined;
               maximum?: undefined;
+              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               enum?: undefined;
             }
           | {
               enum: string[];
-              /** @type {MultiCompiler} */ type?: undefined;
+              type?: undefined;
               minimum?: undefined;
               maximum?: undefined;
+              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               minLength?: undefined;
             }
         )[];
@@ -1038,7 +801,7 @@ declare class Server {
                 anyOf: (
                   | {
                       type: string;
-                      instanceof?: undefined;
+                      /** @type {ServerConfiguration} */ instanceof?: undefined;
                     }
                   | {
                       instanceof: string;
@@ -1134,6 +897,7 @@ declare class Server {
             )[];
             description: string;
           };
+          /** @type {string} */
           cacert: {
             anyOf: (
               | {
@@ -1284,7 +1048,7 @@ declare class Server {
                       | {
                           type: string;
                           additionalProperties: boolean;
-                          instanceof?: undefined;
+                          /** @type {MultiCompiler} */ instanceof?: undefined;
                         }
                     )[];
                   };
@@ -1492,7 +1256,6 @@ declare class Server {
       WebSocketServerType: {
         enum: string[];
       };
-      /** @type {any} */
       WebSocketServerEnum: {
         anyOf: (
           | {
@@ -1565,12 +1328,6 @@ declare class Server {
         $ref: string;
       };
       hot: {
-        $ref: string;
-      };
-      http2: {
-        $ref: string;
-      };
-      https: {
         $ref: string;
       };
       ipc: {
