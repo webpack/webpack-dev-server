@@ -73,6 +73,8 @@ jobs:
             webpack-version: 4
 
     runs-on: ${{ matrix.os }}
+    
+    timeout-minutes: 45
 
     steps:
       - uses: actions/checkout@v3
