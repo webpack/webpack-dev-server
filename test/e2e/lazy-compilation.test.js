@@ -6,9 +6,6 @@ const lazyCompilationSingleEntryConfig = require("../fixtures/lazy-compilation-s
 const lazyCompilationMultipleEntriesConfig = require("../fixtures/lazy-compilation-multiple-entries/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["lazy-compilation"];
-// const isWebpack5 = require("../helpers/isWebpack5");
-
-// const itOnlyWebpack5 = isWebpack5 ? it : it.skip;
 
 describe("lazy compilation", () => {
   // TODO jest freeze due webpack do not close `eventsource`, we should uncomment this after fix it on webpack side

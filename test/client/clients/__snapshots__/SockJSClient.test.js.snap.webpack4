@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SockJSClient client should open, receive message, and close 1`] = `
-Array [
-  "open",
-  "hello world",
-  "close",
-]
-`;
