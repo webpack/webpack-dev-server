@@ -7,16 +7,8 @@ const simpleConfig = require("../fixtures/module-federation-config/webpack.confi
 const objectEntryConfig = require("../fixtures/module-federation-config/webpack.object-entry.config");
 const multiConfig = require("../fixtures/module-federation-config/webpack.multi.config");
 const runBrowser = require("../helpers/run-browser");
-const isWebpack5 = require("../helpers/isWebpack5");
 const port = require("../ports-map")["module-federation"];
-
-const describeOnlyWebpack5 = isWebpack5 ? describe : describe.skip;
-
-let pluginConfig;
-
-if (isWebpack5) {
-  pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
-}
+const pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
 
 describe("Module federation", () => {
   describe("should work with simple multi-entry config", () => {
@@ -225,7 +217,7 @@ describe("Module federation", () => {
     });
   });
 
-  describeOnlyWebpack5("should use plugin", () => {
+  describe("should use plugin", () => {
     let compiler;
     let server;
     let page;

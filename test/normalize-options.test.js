@@ -3,7 +3,6 @@
 const webpack = require("webpack");
 const { klona } = require("klona/full");
 const Server = require("../lib/Server");
-const isWebpack5 = require("./helpers/isWebpack5");
 const port = require("./ports-map")["normalize-option"];
 
 describe("normalize options", () => {
@@ -181,16 +180,12 @@ describe("normalize options", () => {
       multiCompiler: false,
       options: {},
       webpackConfig: {
-        infrastructureLogging: isWebpack5
-          ? {
-              level: "verbose",
-              stream: {
-                write: () => {},
-              },
-            }
-          : {
-              level: "verbose",
-            },
+        infrastructureLogging: {
+          level: "verbose",
+          stream: {
+            write: () => {},
+          },
+        },
       },
     },
     {
@@ -203,16 +198,12 @@ describe("normalize options", () => {
         },
       },
       webpackConfig: {
-        infrastructureLogging: isWebpack5
-          ? {
-              level: "verbose",
-              stream: {
-                write: () => {},
-              },
-            }
-          : {
-              level: "verbose",
-            },
+        infrastructureLogging: {
+          level: "verbose",
+          stream: {
+            write: () => {},
+          },
+        },
       },
     },
     {
