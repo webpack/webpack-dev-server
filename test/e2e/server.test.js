@@ -2,7 +2,6 @@
 
 const https = require("https");
 const path = require("path");
-const util = require("util");
 const fs = require("graceful-fs");
 const request = require("supertest");
 const spdy = require("spdy");
@@ -864,96 +863,7 @@ describe("server option", () => {
       });
     });
 
-    describe("cacert, pfx, key and cert are buffer", () => {
-      let compiler;
-      let server;
-      let createServerSpy;
-      let page;
-      let browser;
-      let pageErrors;
-      let consoleMessages;
-      let utilSpy;
-
-      beforeEach(async () => {
-        compiler = webpack(config);
-
-        createServerSpy = jest.spyOn(https, "createServer");
-        utilSpy = jest.spyOn(util, "deprecate");
-
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: {
-              type: "https",
-              options: {
-                cacert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "ca.pem")
-                ),
-                pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx")
-                ),
-                key: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.key")
-                ),
-                cert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.crt")
-                ),
-                passphrase: "webpack-dev-server",
-              },
-            },
-            port,
-          },
-          compiler
-        );
-
-        await server.start();
-
-        ({ page, browser } = await runBrowser());
-
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      afterEach(async () => {
-        createServerSpy.mockRestore();
-        utilSpy.mockRestore();
-
-        await browser.close();
-        await server.stop();
-      });
-
-      it("should handle GET request to index route (/)", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
-          waitUntil: "networkidle0",
-        });
-
-        expect(utilSpy.mock.calls[0][1]).toBe(
-          "The 'cacert' option is deprecated. Please use the 'ca' option."
-        );
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-    });
-
-    describe("cacert and ca, pfx, key and cert are buffer", () => {
+    describe("ca, pfx, key and cert are buffer", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -977,9 +887,6 @@ describe("server option", () => {
               type: "https",
               options: {
                 ca: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "ca.pem")
-                ),
-                cacert: fs.readFileSync(
                   path.join(httpsCertificateDirectory, "ca.pem")
                 ),
                 pfx: fs.readFileSync(
