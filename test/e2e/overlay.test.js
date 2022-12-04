@@ -10,7 +10,6 @@ const config = require("../fixtures/overlay-config/webpack.config");
 const trustedTypesConfig = require("../fixtures/overlay-config/trusted-types.webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").overlay;
-const isWebpack5 = require("../helpers/isWebpack5");
 
 class ErrorPlugin {
   constructor(message, skipCounter) {
@@ -479,54 +478,51 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  (isWebpack5 ? it : it.skip)(
-    "should open editor when error with file info is clicked",
-    async () => {
-      const mockLaunchEditorCb = jest.fn();
-      jest.mock("launch-editor", () => mockLaunchEditorCb);
+  it("should open editor when error with file info is clicked", async () => {
+    const mockLaunchEditorCb = jest.fn();
+    jest.mock("launch-editor", () => mockLaunchEditorCb);
 
-      const compiler = webpack(config);
-      const devServerOptions = {
-        port,
-      };
-      const server = new Server(devServerOptions, compiler);
+    const compiler = webpack(config);
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
 
-      await server.start();
+    await server.start();
 
-      const { page, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
 
-      const pathToFile = path.resolve(
-        __dirname,
-        "../fixtures/overlay-config/foo.js"
-      );
-      const originalCode = fs.readFileSync(pathToFile);
+    const pathToFile = path.resolve(
+      __dirname,
+      "../fixtures/overlay-config/foo.js"
+    );
+    const originalCode = fs.readFileSync(pathToFile);
 
-      fs.writeFileSync(pathToFile, "`;");
+    fs.writeFileSync(pathToFile, "`;");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+    await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-      const frame = page
-        .frames()
-        .find((item) => item.name() === "webpack-dev-server-client-overlay");
+    const frame = page
+      .frames()
+      .find((item) => item.name() === "webpack-dev-server-client-overlay");
 
-      const errorHandle = await frame.$("[data-can-open]");
+    const errorHandle = await frame.$("[data-can-open]");
 
-      await errorHandle.click();
+    await errorHandle.click();
 
-      await waitForExpect(() => {
-        expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
-      });
+    await waitForExpect(() => {
+      expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
+    });
 
-      fs.writeFileSync(pathToFile, originalCode);
+    fs.writeFileSync(pathToFile, originalCode);
 
-      await browser.close();
-      await server.stop();
-    }
-  );
+    await browser.close();
+    await server.stop();
+  });
 
   it('should not show a warning when "client.overlay" is "false"', async () => {
     const compiler = webpack(config);
@@ -997,86 +993,80 @@ describe("overlay", () => {
     await server.stop();
   });
 
-  (isWebpack5 ? it : it.skip)(
-    "should show overlay when Trusted Types are enabled",
-    async () => {
-      const compiler = webpack(trustedTypesConfig);
+  it("should show overlay when Trusted Types are enabled", async () => {
+    const compiler = webpack(trustedTypesConfig);
 
-      new ErrorPlugin().apply(compiler);
+    new ErrorPlugin().apply(compiler);
 
-      const devServerOptions = {
-        port,
-        client: {
-          overlay: {
-            trustedTypesPolicyName: "webpack#dev-overlay",
-          },
+    const devServerOptions = {
+      port,
+      client: {
+        overlay: {
+          trustedTypesPolicyName: "webpack#dev-overlay",
         },
-      };
-      const server = new Server(devServerOptions, compiler);
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
 
-      await server.start();
+    await server.start();
 
-      const { page, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML
-      );
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html"
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html"
-      );
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
 
-      await browser.close();
-      await server.stop();
-    }
-  );
+    await browser.close();
+    await server.stop();
+  });
 
-  (isWebpack5 ? it : it.skip)(
-    "should not show overlay when Trusted Types are enabled, but policy is not allowed",
-    async () => {
-      const compiler = webpack(trustedTypesConfig);
+  it("should not show overlay when Trusted Types are enabled, but policy is not allowed", async () => {
+    const compiler = webpack(trustedTypesConfig);
 
-      new ErrorPlugin().apply(compiler);
+    new ErrorPlugin().apply(compiler);
 
-      const devServerOptions = {
-        port,
-        client: {
-          overlay: {
-            trustedTypesPolicyName: "disallowed-policy",
-          },
+    const devServerOptions = {
+      port,
+      client: {
+        overlay: {
+          trustedTypesPolicyName: "disallowed-policy",
         },
-      };
-      const server = new Server(devServerOptions, compiler);
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
 
-      await server.start();
+    await server.start();
 
-      const { page, browser } = await runBrowser();
+    const { page, browser } = await runBrowser();
 
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html"
-      );
+    const pageHtml = await page.evaluate(() => document.body.outerHTML);
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    expect(overlayHandle).toBe(null);
+    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+      "page html"
+    );
 
-      await browser.close();
-      await server.stop();
-    }
-  );
+    await browser.close();
+    await server.stop();
+  });
 
   it('should show an error when "client.overlay.errors" is "true"', async () => {
     const compiler = webpack(config);
