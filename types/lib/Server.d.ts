@@ -2508,37 +2508,6 @@ declare class Server {
             )[];
             description: string;
           };
-          cacert: {
-            anyOf: (
-              | {
-                  type: string;
-                  items: {
-                    anyOf: (
-                      | {
-                          type: string;
-                          instanceof?: undefined;
-                        }
-                      | {
-                          instanceof: string;
-                          type?: undefined;
-                        }
-                    )[];
-                  };
-                  instanceof?: undefined;
-                }
-              | {
-                  type: string;
-                  items?: undefined;
-                  instanceof?: undefined;
-                }
-              | {
-                  instanceof: string;
-                  type?: undefined;
-                  items?: undefined;
-                }
-            )[];
-            description: string;
-          };
           cert: {
             anyOf: (
               | {
@@ -2708,7 +2677,7 @@ declare class Server {
           | {
               type: string;
               cli: {
-                negatedDescription: string;
+                negatedDescription: string /** @type {MultiCompiler} */;
               };
               items?: undefined;
               $ref?: undefined;
@@ -2806,6 +2775,10 @@ declare class Server {
               type: string;
               items: {
                 anyOf: {
+                  /**
+                   * @param {string | Static | undefined} [optionsForStatic]
+                   * @returns {NormalizedStatic}
+                   */
                   $ref: string;
                 }[];
               };
