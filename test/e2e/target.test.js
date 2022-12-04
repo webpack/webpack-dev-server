@@ -4,36 +4,24 @@ const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const isWebpack5 = require("../helpers/isWebpack5");
 const port = require("../ports-map").target;
 
 describe("target", () => {
-  const targets = isWebpack5
-    ? [
-        false,
-        "browserslist:defaults",
-        "web",
-        "webworker",
-        "node",
-        "async-node",
-        "electron-main",
-        "electron-preload",
-        "electron-renderer",
-        "nwjs",
-        "node-webkit",
-        "es5",
-        ["web", "es5"],
-      ]
-    : [
-        "web",
-        "webworker",
-        "node",
-        "async-node",
-        "electron-main",
-        "electron-preload",
-        "electron-renderer",
-        "node-webkit",
-      ];
+  const targets = [
+    false,
+    "browserslist:defaults",
+    "web",
+    "webworker",
+    "node",
+    "async-node",
+    "electron-main",
+    "electron-preload",
+    "electron-renderer",
+    "nwjs",
+    "node-webkit",
+    "es5",
+    ["web", "es5"],
+  ];
 
   for (const target of targets) {
     it(`should work using "${target}" target`, async () => {

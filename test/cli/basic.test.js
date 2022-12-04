@@ -4,11 +4,9 @@ const path = require("path");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
-const isWebpack5 = require("../helpers/isWebpack5");
 const port = require("../ports-map")["cli-basic"];
 
 const isMacOS = process.platform === "darwin";
-const webpack5Test = isWebpack5 ? it : it.skip;
 
 describe("basic", () => {
   describe("should output help", () => {
@@ -208,40 +206,34 @@ describe("basic", () => {
       expect(stdout).toContain("client/index.js?");
     });
 
-    webpack5Test(
-      "should add dev server entry points to a multi entry point object",
-      async () => {
-        const { exitCode, stdout } = await testBin([
-          "--port",
-          port,
-          "--config",
-          "./test/fixtures/cli-multi-entry/webpack.config.js",
-          "--stats",
-          "verbose",
-        ]);
+    it("should add dev server entry points to a multi entry point object", async () => {
+      const { exitCode, stdout } = await testBin([
+        "--port",
+        port,
+        "--config",
+        "./test/fixtures/cli-multi-entry/webpack.config.js",
+        "--stats",
+        "verbose",
+      ]);
 
-        expect(exitCode).toEqual(0);
-        expect(stdout).toContain("client/index.js?");
-        expect(stdout).toContain("foo.js");
-      }
-    );
+      expect(exitCode).toEqual(0);
+      expect(stdout).toContain("client/index.js?");
+      expect(stdout).toContain("foo.js");
+    });
 
-    webpack5Test(
-      "should add dev server entry points to an empty entry object",
-      async () => {
-        const { exitCode, stdout } = await testBin([
-          "--port",
-          port,
-          "--config",
-          "./test/fixtures/cli-empty-entry/webpack.config.js",
-        ]);
+    it("should add dev server entry points to an empty entry object", async () => {
+      const { exitCode, stdout } = await testBin([
+        "--port",
+        port,
+        "--config",
+        "./test/fixtures/cli-empty-entry/webpack.config.js",
+      ]);
 
-        expect(exitCode).toEqual(0);
-        expect(stdout).toContain("client/index.js?");
-      }
-    );
+      expect(exitCode).toEqual(0);
+      expect(stdout).toContain("client/index.js?");
+    });
 
-    webpack5Test("should supports entry as descriptor", async () => {
+    it("should supports entry as descriptor", async () => {
       const { exitCode, stdout } = await testBin([
         "--port",
         port,
@@ -294,20 +286,17 @@ describe("basic", () => {
       expect(stdout).toContain("webpack/hot/dev-server");
     });
 
-    webpack5Test(
-      "should prepend dev server entry points depending on targetProperties",
-      async () => {
-        const { exitCode, stdout } = await testBin([
-          "--port",
-          port,
-          "--config",
-          "./test/fixtures/cli-target-config/webpack.config.js",
-        ]);
+    it("should prepend dev server entry points depending on targetProperties", async () => {
+      const { exitCode, stdout } = await testBin([
+        "--port",
+        port,
+        "--config",
+        "./test/fixtures/cli-target-config/webpack.config.js",
+      ]);
 
-        expect(exitCode).toEqual(0);
-        expect(stdout).toContain("client/index.js");
-      }
-    );
+      expect(exitCode).toEqual(0);
+      expect(stdout).toContain("client/index.js");
+    });
 
     it.skip("should use different random port when multiple instances are started on different processes", async () => {
       const cliPath = path.resolve(
