@@ -954,37 +954,6 @@ declare class Server {
             )[];
             description: string;
           };
-          cacert: {
-            anyOf: (
-              | {
-                  type: string;
-                  items: {
-                    anyOf: (
-                      | {
-                          type: string;
-                          instanceof?: undefined;
-                        }
-                      | {
-                          instanceof: string;
-                          type?: undefined;
-                        }
-                    )[];
-                  };
-                  instanceof?: undefined;
-                }
-              | {
-                  type: string;
-                  items?: undefined;
-                  instanceof?: undefined;
-                }
-              | {
-                  instanceof: string;
-                  type?: undefined;
-                  items?: undefined;
-                }
-            )[];
-            description: string;
-          };
           cert: {
             anyOf: (
               | {
@@ -1178,6 +1147,10 @@ declare class Server {
             description: string;
             link: string;
           };
+          /**
+           * @private
+           * @returns {Promise<void>}
+           */
           staticOptions: {
             type: string;
             link: string;
@@ -1262,7 +1235,7 @@ declare class Server {
               items?: undefined;
             }
         )[];
-        description: string;
+        /** @type {NormalizedStatic} */ description: string;
         link: string;
       };
       WatchFilesObject: {

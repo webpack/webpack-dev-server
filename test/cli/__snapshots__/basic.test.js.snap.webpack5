@@ -107,8 +107,6 @@ Options:
   --no-server-options-request-cert                    Does not request for an SSL certificate.
   --server-options-ca <value...>                      Path to an SSL CA certificate or content of an SSL CA certificate.
   --server-options-ca-reset                           Clear all items provided in 'server.options.ca' configuration. Path to an SSL CA certificate or content of an SSL CA certificate.
-  --server-options-cacert <value...>                  Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the \`server.options.ca\` option.
-  --server-options-cacert-reset                       Clear all items provided in 'server.options.cacert' configuration. Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the \`server.options.ca\` option.
   --server-options-cert <value...>                    Path to an SSL certificate or content of an SSL certificate.
   --server-options-cert-reset                         Clear all items provided in 'server.options.cert' configuration. Path to an SSL certificate or content of an SSL certificate.
   --server-options-crl <value...>                     Path to PEM formatted CRLs (Certificate Revocation Lists) or content of PEM formatted CRLs (Certificate Revocation Lists).

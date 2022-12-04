@@ -357,7 +357,7 @@ const tests = {
       {
         type: "https",
         options: {
-          cacert: [path.join(httpsCertificateDirectory, "ca.pem")],
+          ca: [path.join(httpsCertificateDirectory, "ca.pem")],
           key: [path.join(httpsCertificateDirectory, "server.key")],
           pfx: [path.join(httpsCertificateDirectory, "server.pfx")],
           cert: [path.join(httpsCertificateDirectory, "server.crt")],
@@ -418,12 +418,6 @@ const tests = {
         type: "https",
         options: {
           cert: true,
-        },
-      },
-      {
-        type: "https",
-        options: {
-          cacert: true,
         },
       },
       {

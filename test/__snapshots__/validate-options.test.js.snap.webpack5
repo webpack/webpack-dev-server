@@ -535,23 +535,6 @@ exports[`options validate should throw an error on the "server" option with '{"t
        * options.server.options.ca should be an instance of Buffer."
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"cacert":true}}' value 1`] = `
-"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.server should be one of these:
-   \\"http\\" | \\"https\\" | \\"spdy\\" | non-empty string | object { type?, options? }
-   -> Allows to set server and options (by default 'http').
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverserver
-   Details:
-    * options.server.options.cacert should be one of these:
-      [string | Buffer, ...] | string | Buffer
-      -> Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the \`server.options.ca\` option.
-      Details:
-       * options.server.options.cacert should be an array:
-         [string | Buffer, ...]
-       * options.server.options.cacert should be a string.
-       * options.server.options.cacert should be an instance of Buffer."
-`;
-
 exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"cert":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server should be one of these:
