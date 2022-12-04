@@ -6,7 +6,6 @@ const request = require("supertest");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map").bundle;
-const isWebpack5 = require("../helpers/isWebpack5");
 
 describe("bundle", () => {
   describe("main.js bundled output", () => {
@@ -16,7 +15,7 @@ describe("bundle", () => {
     beforeAll(async () => {
       const compiler = webpack({
         ...config,
-        target: isWebpack5 ? ["es5", "web"] : "web",
+        target: ["es5", "web"],
       });
 
       server = new Server({ port }, compiler);
