@@ -594,30 +594,6 @@
           ],
           "description": "Path to an SSL CA certificate or content of an SSL CA certificate."
         },
-        "cacert": {
-          "anyOf": [
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "instanceof": "Buffer"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "string"
-            },
-            {
-              "instanceof": "Buffer"
-            }
-          ],
-          "description": "Path to an SSL CA certificate or content of an SSL CA certificate. Deprecated, use the `server.options.ca` option."
-        },
         "cert": {
           "anyOf": [
             {
