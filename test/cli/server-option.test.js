@@ -62,11 +62,10 @@ describe('"server" CLI options', () => {
     ).toMatchSnapshot();
   });
 
-  it('should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path> --server-options-cacert <path>"', async () => {
+  it('should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path>"', async () => {
     const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
     const key = path.join(httpsCertificateDirectory, "server.key");
     const cert = path.join(httpsCertificateDirectory, "server.crt");
-    const cacert = path.join(httpsCertificateDirectory, "ca.pem");
     const passphrase = "webpack-dev-server";
 
     const { exitCode, stderr } = await testBin([
@@ -82,8 +81,6 @@ describe('"server" CLI options', () => {
       passphrase,
       "--server-options-cert",
       cert,
-      "--server-options-cacert",
-      cacert,
     ]);
 
     expect(exitCode).toEqual(0);
@@ -148,38 +145,6 @@ describe('"server" CLI options', () => {
       "--server-options-ca-reset",
       "--server-options-ca",
       ca,
-    ]);
-
-    expect(exitCode).toEqual(0);
-    expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
-    ).toMatchSnapshot();
-  });
-
-  it('should warn using "--server-options-cacert" and "--server-options-ca" together', async () => {
-    const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
-    const key = path.join(httpsCertificateDirectory, "server.key");
-    const cert = path.join(httpsCertificateDirectory, "server.crt");
-    const cacert = path.join(httpsCertificateDirectory, "ca.pem");
-    const passphrase = "webpack-dev-server";
-
-    const { exitCode, stderr } = await testBin([
-      "--port",
-      port,
-      "--server-type",
-      "https",
-      "--server-options-key",
-      key,
-      "--server-options-pfx",
-      pfxFile,
-      "--server-options-passphrase",
-      passphrase,
-      "--server-options-cert",
-      cert,
-      "--server-options-cacert",
-      cacert,
-      "--server-options-ca",
-      cacert,
     ]);
 
     expect(exitCode).toEqual(0);
