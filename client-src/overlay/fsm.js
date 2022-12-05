@@ -36,19 +36,26 @@ function createMachine({ states, context, initial }, { actions }) {
 
   return {
     send: (event) => {
-      const transitionConfig = states[currentState].on?.[event.type];
+      const currentStateOn = states[currentState].on;
+      const transitionConfig = currentStateOn && currentStateOn[event.type];
 
       if (transitionConfig) {
         currentState = transitionConfig.target;
-        transitionConfig.actions?.forEach((actName) => {
-          const nextContextValue = actions[actName]?.(currentContext, event);
-          if (nextContextValue) {
-            currentContext = {
-              ...currentContext,
-              ...nextContextValue,
-            };
-          }
-        });
+        if (transitionConfig.actions) {
+          transitionConfig.actions.forEach((actName) => {
+            const actionImpl = actions[actName];
+
+            const nextContextValue =
+              actionImpl && actionImpl(currentContext, event);
+
+            if (nextContextValue) {
+              currentContext = {
+                ...currentContext,
+                ...nextContextValue,
+              };
+            }
+          });
+        }
       }
     },
   };
