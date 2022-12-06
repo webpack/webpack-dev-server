@@ -13,4 +13,6 @@ module.exports = setup({
       overlay: true,
     },
   },
+  // uncomment to test for IE
+  // target: ["web", "es5"],
 });

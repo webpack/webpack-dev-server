@@ -1,12 +1,12 @@
 "use strict";
 
-const unsafeOperation = () => {
+function unsafeOperation() {
   throw new Error("Error message thrown from JS");
-};
+}
 
-const handleButtonClick = () => {
+function handleButtonClick() {
   unsafeOperation();
-};
+}
 
 module.exports = function createErrorButton() {
   const errorBtn = document.createElement("button");
