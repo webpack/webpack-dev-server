@@ -887,12 +887,12 @@
           }
         },
         {
-          "$ref": "#/definitions/WebSocketServerType"
+          "enum": ["sockjs", "ws"],
+          "cli": {
+            "exclude": true
+          }
         }
-      ],
-      "cli": {
-        "description": "Deprecated: please use '--web-socket-server-type' option."
-      }
+      ]
     },
     "WebSocketServerFunction": {
       "instanceof": "Function"
@@ -925,7 +925,10 @@
     },
     "WebSocketServerString": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "cli": {
+        "exclude": true
+      }
     }
   },
   "additionalProperties": false,
