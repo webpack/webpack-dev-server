@@ -217,8 +217,6 @@ declare class Server {
                  * @property {boolean} [setupExitSignals]
                  * @property {boolean | ClientConfiguration} [client]
                  * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-                 * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-                 * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                  * @property {(devServer: Server) => void} [onListening]
                  * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
                  */
@@ -373,8 +371,6 @@ declare class Server {
                * @property {boolean} [setupExitSignals]
                * @property {boolean | ClientConfiguration} [client]
                * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-               * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-               * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                * @property {(devServer: Server) => void} [onListening]
                * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
                */
@@ -440,8 +436,6 @@ declare class Server {
                * @property {boolean} [setupExitSignals]
                * @property {boolean | ClientConfiguration} [client]
                * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-               * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-               * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                * @property {(devServer: Server) => void} [onListening]
                * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
                */
@@ -552,7 +546,7 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string /** @type {Configuration} */;
+        link: string;
       };
       HistoryApiFallback: {
         anyOf: (
@@ -626,6 +620,10 @@ declare class Server {
       };
       LiveReload: {
         type: string;
+        /**
+         * @param {"v4" | "v6"} family
+         * @returns {Promise<string | undefined>}
+         */
         description: string;
         cli: {
           negatedDescription: string;
@@ -638,16 +636,6 @@ declare class Server {
         cli: {
           negatedDescription: string;
         };
-        link: string;
-      };
-      OnAfterSetupMiddleware: {
-        instanceof: string;
-        description: string;
-        link: string;
-      };
-      OnBeforeSetupMiddleware: {
-        instanceof: string;
-        description: string;
         link: string;
       };
       OnListening: {
@@ -668,9 +656,6 @@ declare class Server {
             }
           | {
               $ref: string;
-              /**
-               * @type {string | undefined}
-               */
               type?: undefined;
               items?: undefined;
             }
@@ -754,7 +739,6 @@ declare class Server {
           };
         };
       };
-      /** @type {WebSocketURL} */
       OpenString: {
         type: string;
         minLength: number;
@@ -765,16 +749,17 @@ declare class Server {
               type: string;
               minimum: number;
               maximum: number;
-              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               minLength?: undefined;
               enum?: undefined;
             }
           | {
               type: string;
               minLength: number;
+              /**
+               * @type {string[]}
+               */
               minimum?: undefined;
               maximum?: undefined;
-              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               enum?: undefined;
             }
           | {
@@ -782,7 +767,6 @@ declare class Server {
               type?: undefined;
               minimum?: undefined;
               maximum?: undefined;
-              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               minLength?: undefined;
             }
         )[];
@@ -801,7 +785,7 @@ declare class Server {
                 anyOf: (
                   | {
                       type: string;
-                      /** @type {ServerConfiguration} */ instanceof?: undefined;
+                      instanceof?: undefined;
                     }
                   | {
                       instanceof: string;
@@ -897,7 +881,6 @@ declare class Server {
             )[];
             description: string;
           };
-          /** @type {string} */
           cert: {
             anyOf: (
               | {
@@ -929,6 +912,7 @@ declare class Server {
             )[];
             description: string;
           };
+          /** @type {string} */
           crl: {
             anyOf: (
               | {
@@ -958,7 +942,7 @@ declare class Server {
                   items?: undefined;
                 }
             )[];
-            description: string;
+            description: string /** @type {ClientConfiguration} */;
           };
           key: {
             anyOf: (
@@ -1044,9 +1028,8 @@ declare class Server {
         link: string;
         cli: {
           exclude: boolean;
-        } /** @type {MultiCompiler} */;
+        };
       };
-      /** @type {MultiCompiler} */
       SetupMiddlewares: {
         instanceof: string;
         description: string;
@@ -1061,6 +1044,7 @@ declare class Server {
                   $ref: string;
                 }[];
               };
+              /** @type {MultiCompiler} */
               cli?: undefined /** @typedef {import("express").Request} Request */;
               $ref?: undefined;
             }
@@ -1307,12 +1291,6 @@ declare class Server {
         $ref: string;
       };
       magicHtml: {
-        $ref: string;
-      };
-      onAfterSetupMiddleware: {
-        $ref: string;
-      };
-      onBeforeSetupMiddleware: {
         $ref: string;
       };
       onListening: {
@@ -1755,8 +1733,6 @@ type Configuration = {
         context: DevMiddlewareContext<Request, Response>
       ) => Headers)
     | undefined;
-  onAfterSetupMiddleware?: ((devServer: Server) => void) | undefined;
-  onBeforeSetupMiddleware?: ((devServer: Server) => void) | undefined;
   onListening?: ((devServer: Server) => void) | undefined;
   setupMiddlewares?:
     | ((middlewares: Middleware[], devServer: Server) => Middleware[])
