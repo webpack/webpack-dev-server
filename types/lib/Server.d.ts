@@ -1659,8 +1659,6 @@ declare class Server {
                    * @property {boolean} [setupExitSignals]
                    * @property {boolean | ClientConfiguration} [client]
                    * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-                   * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-                   * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                    * @property {(devServer: Server) => void} [onListening]
                    * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
                    */
@@ -1811,8 +1809,6 @@ declare class Server {
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
          * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-         * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-         * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
          * @property {(devServer: Server) => void} [onListening]
          * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
          */
@@ -1837,158 +1833,25 @@ declare class Server {
               additionalProperties: boolean;
               properties: {
                 errors: {
-                  anyOf: (
-                    | {
-                        description: string;
-                        type: string;
-                        cli: {
-                          negatedDescription: string;
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        /**
-                         * @typedef {Object} WebSocketServerConfiguration
-                         * @property {"sockjs" | "ws" | string | Function} [type]
-                         * @property {Record<string, any>} [options]
-                         */
-                        /**
-                         * @typedef {(import("ws").WebSocket | import("sockjs").Connection & { send: import("ws").WebSocket["send"], terminate: import("ws").WebSocket["terminate"], ping: import("ws").WebSocket["ping"] }) & { isAlive?: boolean }} ClientConnection
-                         */
-                        /**
-                         * @typedef {import("ws").WebSocketServer | import("sockjs").Server & { close: import("ws").WebSocketServer["close"] }} WebSocketServer
-                         */
-                        /**
-                         * @typedef {{ implementation: WebSocketServer, clients: ClientConnection[] }} WebSocketServerImplementation
-                         */
-                        /**
-                         * @callback ByPass
-                         * @param {Request} req
-                         * @param {Response} res
-                         * @param {ProxyConfigArrayItem} proxyConfig
-                         */
-                        /**
-                         * @typedef {{ path?: HttpProxyMiddlewareOptionsFilter | undefined, context?: HttpProxyMiddlewareOptionsFilter | undefined } & { bypass?: ByPass } & HttpProxyMiddlewareOptions } ProxyConfigArrayItem
-                         */
-                        /**
-                         * @typedef {(ProxyConfigArrayItem | ((req?: Request | undefined, res?: Response | undefined, next?: NextFunction | undefined) => ProxyConfigArrayItem))[]} ProxyConfigArray
-                         */
-                        /**
-                         * @typedef {{ [url: string]: string | ProxyConfigArrayItem }} ProxyConfigMap
-                         */
-                        /**
-                         * @typedef {Object} OpenApp
-                         * @property {string} [name]
-                         * @property {string[]} [arguments]
-                         */
-                        /**
-                         * @typedef {Object} Open
-                         * @property {string | string[] | OpenApp} [app]
-                         * @property {string | string[]} [target]
-                         */
-                        /**
-                         * @typedef {Object} NormalizedOpen
-                         * @property {string} target
-                         * @property {import("open").Options} options
-                         */
-                        /**
-                         * @typedef {Object} WebSocketURL
-                         * @property {string} [hostname]
-                         * @property {string} [password]
-                         * @property {string} [pathname]
-                         * @property {number | string} [port]
-                         * @property {string} [protocol]
-                         * @property {string} [username]
-                         */
-                        /**
-                         * @typedef {boolean | ((error: Error) => void)} OverlayMessageOptions
-                         */
-                        /**
-                         * @typedef {Object} ClientConfiguration
-                         * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-                         * @property {boolean  | { warnings?: OverlayMessageOptions, errors?: OverlayMessageOptions, runtimeErrors?: OverlayMessageOptions }} [overlay]
-                         * @property {boolean} [progress]
-                         * @property {boolean | number} [reconnect]
-                         * @property {"ws" | "sockjs" | string} [webSocketTransport]
-                         * @property {string | WebSocketURL} [webSocketURL]
-                         */
-                        /**
-                         * @typedef {Array<{ key: string; value: string }> | Record<string, string | string[]>} Headers
-                         */
-                        /**
-                         * @typedef {{ name?: string, path?: string, middleware: ExpressRequestHandler | ExpressErrorRequestHandler } | ExpressRequestHandler | ExpressErrorRequestHandler} Middleware
-                         */
-                        /**
-                         * @typedef {Object} Configuration
-                         * @property {boolean | string} [ipc]
-                         * @property {Host} [host]
-                         * @property {Port} [port]
-                         * @property {boolean | "only"} [hot]
-                         * @property {boolean} [liveReload]
-                         * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
-                         * @property {boolean} [compress]
-                         * @property {boolean} [magicHtml]
-                         * @property {"auto" | "all" | string | string[]} [allowedHosts]
-                         * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-                         * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
-                         * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
-                         * @property {boolean | string | Static | Array<string | Static>} [static]
-                         * @property {boolean | ServerOptions} [https]
-                         * @property {boolean} [http2]
-                         * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
-                         * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
-                         * @property {ProxyConfigMap | ProxyConfigArrayItem | ProxyConfigArray} [proxy]
-                         * @property {boolean | string | Open | Array<string | Open>} [open]
-                         * @property {boolean} [setupExitSignals]
-                         * @property {boolean | ClientConfiguration} [client]
-                         * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-                         * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-                         * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
-                         * @property {(devServer: Server) => void} [onListening]
-                         * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
-                         */
-                        description: string;
-                        type?: undefined;
-                        cli?: undefined;
-                      }
-                  )[];
+                  description: string;
+                  type: string;
+                  cli: {
+                    negatedDescription: string;
+                  };
                 };
                 warnings: {
-                  anyOf: (
-                    | {
-                        description: string;
-                        type: string;
-                        cli: {
-                          negatedDescription: string;
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        description: string;
-                        type?: undefined;
-                        cli?: undefined;
-                      }
-                  )[];
+                  description: string;
+                  type: string;
+                  cli: {
+                    negatedDescription: string;
+                  };
                 };
                 runtimeErrors: {
-                  anyOf: (
-                    | {
-                        description: string;
-                        type: string;
-                        cli: {
-                          negatedDescription: string;
-                        };
-                        instanceof?: undefined;
-                      }
-                    | {
-                        instanceof: string;
-                        description: string;
-                        type?: undefined;
-                        cli?: undefined;
-                      }
-                  )[];
+                  description: string;
+                  type: string;
+                  cli: {
+                    negatedDescription: string;
+                  };
                 };
                 trustedTypesPolicyName: {
                   description: string;
@@ -2015,6 +1878,67 @@ declare class Server {
         anyOf: (
           | {
               type: string;
+              /**
+               * @typedef {Object} Open
+               * @property {string | string[] | OpenApp} [app]
+               * @property {string | string[]} [target]
+               */
+              /**
+               * @typedef {Object} NormalizedOpen
+               * @property {string} target
+               * @property {import("open").Options} options
+               */
+              /**
+               * @typedef {Object} WebSocketURL
+               * @property {string} [hostname]
+               * @property {string} [password]
+               * @property {string} [pathname]
+               * @property {number | string} [port]
+               * @property {string} [protocol]
+               * @property {string} [username]
+               */
+              /**
+               * @typedef {Object} ClientConfiguration
+               * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
+               * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
+               * @property {boolean} [progress]
+               * @property {boolean | number} [reconnect]
+               * @property {"ws" | "sockjs" | string} [webSocketTransport]
+               * @property {string | WebSocketURL} [webSocketURL]
+               */
+              /**
+               * @typedef {Array<{ key: string; value: string }> | Record<string, string | string[]>} Headers
+               */
+              /**
+               * @typedef {{ name?: string, path?: string, middleware: ExpressRequestHandler | ExpressErrorRequestHandler } | ExpressRequestHandler | ExpressErrorRequestHandler} Middleware
+               */
+              /**
+               * @typedef {Object} Configuration
+               * @property {boolean | string} [ipc]
+               * @property {Host} [host]
+               * @property {Port} [port]
+               * @property {boolean | "only"} [hot]
+               * @property {boolean} [liveReload]
+               * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
+               * @property {boolean} [compress]
+               * @property {boolean} [magicHtml]
+               * @property {"auto" | "all" | string | string[]} [allowedHosts]
+               * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
+               * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
+               * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
+               * @property {boolean | string | Static | Array<string | Static>} [static]
+               * @property {boolean | ServerOptions} [https]
+               * @property {boolean} [http2]
+               * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
+               * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
+               * @property {ProxyConfigMap | ProxyConfigArrayItem | ProxyConfigArray} [proxy]
+               * @property {boolean | string | Open | Array<string | Open>} [open]
+               * @property {boolean} [setupExitSignals]
+               * @property {boolean | ClientConfiguration} [client]
+               * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+               * @property {(devServer: Server) => void} [onListening]
+               * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
+               */
               cli: {
                 negatedDescription: string;
               };
@@ -2186,9 +2110,6 @@ declare class Server {
       Host: {
         description: string;
         link: string;
-        /**
-         * @type {Socket[]}
-         */
         anyOf: (
           | {
               enum: string[];
@@ -2209,6 +2130,10 @@ declare class Server {
               cli: {
                 negatedDescription: string;
               };
+              /**
+               * @param {string} URL
+               * @returns {boolean}
+               */
               enum?: undefined;
             }
           | {
@@ -2252,16 +2177,6 @@ declare class Server {
         };
         link: string;
       };
-      OnAfterSetupMiddleware: {
-        instanceof: string;
-        description: string;
-        link: string;
-      };
-      OnBeforeSetupMiddleware: {
-        instanceof: string;
-        description: string;
-        link: string;
-      };
       OnListening: {
         instanceof: string;
         description: string;
@@ -2290,9 +2205,6 @@ declare class Server {
       OpenBoolean: {
         type: string;
         cli: {
-          /**
-           * @type {string | undefined}
-           */
           negatedDescription: string;
         };
       };
@@ -2395,9 +2307,8 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string /** @type {WebSocketURL} */;
+        link: string;
       };
-      /** @type {WebSocketURL} */
       Proxy: {
         anyOf: (
           | {
@@ -2409,7 +2320,6 @@ declare class Server {
               items: {
                 anyOf: (
                   | {
-                      /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
                       type: string;
                       instanceof?: undefined;
                     }
@@ -2442,7 +2352,8 @@ declare class Server {
       };
       ServerString: {
         type: string;
-        /** @type {string} */ minLength: number;
+        minLength: number;
+        /** @type {ServerConfiguration} */
         cli: {
           exclude: boolean;
         };
@@ -2476,7 +2387,6 @@ declare class Server {
               negatedDescription: string;
             };
           };
-          /** @type {number | string} */
           ca: {
             anyOf: (
               | {
@@ -2506,7 +2416,7 @@ declare class Server {
                   items?: undefined;
                 }
             )[];
-            description: string;
+            description: string /** @type {number | string} */;
           };
           cert: {
             anyOf: (
@@ -2593,7 +2503,7 @@ declare class Server {
                         }
                     )[];
                   };
-                  instanceof?: undefined;
+                  /** @type {ClientConfiguration} */ instanceof?: undefined;
                 }
               | {
                   type: string;
@@ -2677,7 +2587,7 @@ declare class Server {
           | {
               type: string;
               cli: {
-                negatedDescription: string /** @type {MultiCompiler} */;
+                negatedDescription: string;
               };
               items?: undefined;
               $ref?: undefined;
@@ -2775,10 +2685,6 @@ declare class Server {
               type: string;
               items: {
                 anyOf: {
-                  /**
-                   * @param {string | Static | undefined} [optionsForStatic]
-                   * @returns {NormalizedStatic}
-                   */
                   $ref: string;
                 }[];
               };
@@ -2921,12 +2827,6 @@ declare class Server {
         $ref: string;
       };
       magicHtml: {
-        $ref: string;
-      };
-      onAfterSetupMiddleware: {
-        $ref: string;
-      };
-      onBeforeSetupMiddleware: {
         $ref: string;
       };
       onListening: {
@@ -3370,8 +3270,6 @@ type Configuration = {
         context: DevMiddlewareContext<Request, Response>
       ) => Headers)
     | undefined;
-  onAfterSetupMiddleware?: ((devServer: Server) => void) | undefined;
-  onBeforeSetupMiddleware?: ((devServer: Server) => void) | undefined;
   onListening?: ((devServer: Server) => void) | undefined;
   setupMiddlewares?:
     | ((middlewares: Middleware[], devServer: Server) => Middleware[])

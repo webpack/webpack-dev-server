@@ -14,14 +14,6 @@ const httpsCertificateDirectory = path.join(
 );
 
 const tests = {
-  onAfterSetupMiddleware: {
-    success: [() => {}],
-    failure: [false],
-  },
-  onBeforeSetupMiddleware: {
-    success: [() => {}],
-    failure: [false],
-  },
   bonjour: {
     success: [false, true, { type: "https" }],
     failure: [""],
