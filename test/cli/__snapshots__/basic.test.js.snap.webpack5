@@ -129,7 +129,6 @@ Options:
   --static-public-path-reset                          Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.
   --watch-files <value...>                            Allows to configure list of globs/directories/files to watch for file changes.
   --watch-files-reset                                 Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes.
-  --web-socket-server <value>                         Deprecated: please use '--web-socket-server-type' option. Allows to set web socket server and options (by default 'ws').
   --no-web-socket-server                              Disallows to set web socket server and options.
   --web-socket-server-type <value>                    Allows to set web socket server and options (by default 'ws').
 
