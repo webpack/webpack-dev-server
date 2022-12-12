@@ -1216,18 +1216,17 @@ declare class Server {
               enum: boolean[];
               cli: {
                 negatedDescription: string;
+                exclude?: undefined;
               };
-              $ref?: undefined;
             }
           | {
-              $ref: string;
-              enum?: undefined;
-              cli?: undefined /** @typedef {import("express").Request} Request */;
+              enum: string[];
+              cli: {
+                exclude: boolean;
+                negatedDescription?: undefined;
+              };
             }
         )[];
-        cli: {
-          description: string;
-        };
       };
       WebSocketServerFunction: {
         instanceof: string;
@@ -1253,6 +1252,9 @@ declare class Server {
       WebSocketServerString: {
         type: string;
         minLength: number;
+        cli: {
+          exclude: boolean;
+        };
       };
     };
     additionalProperties: boolean;
