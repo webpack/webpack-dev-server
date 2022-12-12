@@ -218,8 +218,6 @@ declare class Server {
                  * @property {boolean} [setupExitSignals]
                  * @property {boolean | ClientConfiguration} [client]
                  * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-                 * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-                 * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                  * @property {(devServer: Server) => void} [onListening]
                  * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
                  */
@@ -376,8 +374,6 @@ declare class Server {
                * @property {boolean} [setupExitSignals]
                * @property {boolean | ClientConfiguration} [client]
                * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-               * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-               * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
                * @property {(devServer: Server) => void} [onListening]
                * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
                */
@@ -462,8 +458,6 @@ declare class Server {
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
          * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-         * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-         * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
          * @property {(devServer: Server) => void} [onListening]
          * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
          */
@@ -613,9 +607,6 @@ declare class Server {
               type: string;
               cli: {
                 negatedDescription: string;
-                /**
-                 * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
-                 * */
               };
               description?: undefined;
               link?: undefined;
@@ -629,10 +620,6 @@ declare class Server {
         )[];
         description: string;
         link: string;
-        /**
-         * @private
-         * @type {RequestHandler[]}
-         */
       };
       Host: {
         description: string;
@@ -700,16 +687,6 @@ declare class Server {
         };
         link: string;
       };
-      OnAfterSetupMiddleware: {
-        instanceof: string;
-        description: string;
-        link: string;
-      };
-      OnBeforeSetupMiddleware: {
-        instanceof: string;
-        description: string;
-        link: string;
-      };
       OnListening: {
         instanceof: string;
         description: string;
@@ -759,6 +736,9 @@ declare class Server {
                 }
             )[];
             description: string;
+            /**
+             * @type {string | undefined}
+             */
           };
           app: {
             anyOf: (
@@ -808,10 +788,6 @@ declare class Server {
                 }
             )[];
             description: string;
-            /**
-             * @private
-             * @param {Compiler} compiler
-             */
           };
         };
       };
@@ -865,11 +841,11 @@ declare class Server {
                       type?: undefined;
                     }
                 )[];
-              } /** @type {string} */;
+              };
             }
         )[];
         description: string;
-        link: string /** @type {ServerConfiguration} */;
+        link: string;
       };
       Server: {
         anyOf: {
@@ -884,7 +860,7 @@ declare class Server {
       ServerEnum: {
         enum: string[];
         cli: {
-          exclude: boolean;
+          exclude: boolean /** @type {ServerConfiguration} */;
         };
       };
       ServerString: {
@@ -1124,7 +1100,7 @@ declare class Server {
               cli: {
                 negatedDescription: string;
               };
-              items?: undefined;
+              /** @type {MultiCompiler} */ items?: undefined;
               $ref?: undefined;
             }
           | {
@@ -1141,16 +1117,13 @@ declare class Server {
         type: string;
         additionalProperties: boolean;
         properties: {
+          /** @type {MultiCompiler} */
           directory: {
             type: string;
             minLength: number;
             description: string;
             link: string;
           };
-          /**
-           * @private
-           * @returns {Promise<void>}
-           */
           staticOptions: {
             type: string;
             link: string;
@@ -1235,7 +1208,7 @@ declare class Server {
               items?: undefined;
             }
         )[];
-        /** @type {NormalizedStatic} */ description: string;
+        description: string;
         link: string;
       };
       WatchFilesObject: {
@@ -1366,12 +1339,6 @@ declare class Server {
         $ref: string;
       };
       magicHtml: {
-        $ref: string;
-      };
-      onAfterSetupMiddleware: {
-        $ref: string;
-      };
-      onBeforeSetupMiddleware: {
         $ref: string;
       };
       onListening: {
@@ -1814,8 +1781,6 @@ type Configuration = {
         context: DevMiddlewareContext<Request, Response>
       ) => Headers)
     | undefined;
-  onAfterSetupMiddleware?: ((devServer: Server) => void) | undefined;
-  onBeforeSetupMiddleware?: ((devServer: Server) => void) | undefined;
   onListening?: ((devServer: Server) => void) | undefined;
   setupMiddlewares?:
     | ((middlewares: Middleware[], devServer: Server) => Middleware[])
