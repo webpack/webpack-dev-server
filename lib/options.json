@@ -375,16 +375,6 @@
       },
       "link": "https://webpack.js.org/configuration/dev-server/#devservermagichtml"
     },
-    "OnAfterSetupMiddleware": {
-      "instanceof": "Function",
-      "description": "Provides the ability to execute a custom function and apply custom middleware(s) after all other middlewares. Deprecated: please use the 'setupMiddlewares' option.",
-      "link": "https://webpack.js.org/configuration/dev-server/#devserveronaftersetupmiddleware"
-    },
-    "OnBeforeSetupMiddleware": {
-      "instanceof": "Function",
-      "description": "Provides the ability to execute a custom function and apply custom middleware(s) prior to all other middlewares. Deprecated: please use the 'setupMiddlewares' option.",
-      "link": "https://webpack.js.org/configuration/dev-server/#devserveronbeforesetupmiddleware"
-    },
     "OnListening": {
       "instanceof": "Function",
       "description": "Provides the ability to execute a custom function when dev server starts listening.",
@@ -1006,12 +996,6 @@
     },
     "magicHtml": {
       "$ref": "#/definitions/MagicHTML"
-    },
-    "onAfterSetupMiddleware": {
-      "$ref": "#/definitions/OnAfterSetupMiddleware"
-    },
-    "onBeforeSetupMiddleware": {
-      "$ref": "#/definitions/OnBeforeSetupMiddleware"
     },
     "onListening": {
       "$ref": "#/definitions/OnListening"
