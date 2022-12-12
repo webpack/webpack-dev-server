@@ -256,19 +256,6 @@ const onSocketMessage = {
 
     reloadApp(options, status);
   },
-  // TODO: remove in v5 in favor of 'static-changed'
-  /**
-   * @param {string} file
-   */
-  "content-changed": function contentChanged(file) {
-    log.info(
-      `${
-        file ? `"${file}"` : "Content"
-      } from static directory was changed. Reloading...`
-    );
-
-    self.location.reload();
-  },
   /**
    * @param {string} file
    */
