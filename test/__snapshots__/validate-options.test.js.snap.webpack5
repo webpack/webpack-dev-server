@@ -402,20 +402,6 @@ exports[`options validate should throw an error on the "magicHtml" option with '
    -> Read more at https://webpack.js.org/configuration/dev-server/#devservermagichtml"
 `;
 
-exports[`options validate should throw an error on the "onAfterSetupMiddleware" option with 'false' value 1`] = `
-"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.onAfterSetupMiddleware should be an instance of function.
-   -> Provides the ability to execute a custom function and apply custom middleware(s) after all other middlewares. Deprecated: please use the 'setupMiddlewares' option.
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserveronaftersetupmiddleware"
-`;
-
-exports[`options validate should throw an error on the "onBeforeSetupMiddleware" option with 'false' value 1`] = `
-"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.onBeforeSetupMiddleware should be an instance of function.
-   -> Provides the ability to execute a custom function and apply custom middleware(s) prior to all other middlewares. Deprecated: please use the 'setupMiddlewares' option.
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserveronbeforesetupmiddleware"
-`;
-
 exports[`options validate should throw an error on the "onListening" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onListening should be an instance of function.
