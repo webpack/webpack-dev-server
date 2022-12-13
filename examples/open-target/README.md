@@ -60,7 +60,7 @@ module.exports = {
 Usage via CLI:
 
 ```
-npx webpack serve --open-app firefox
+npx webpack serve --open-app-name firefox
 ```
 
 ## Open specific page in specific browser:
@@ -82,7 +82,7 @@ module.exports = {
 Usage via CLI:
 
 ```
-npx webpack serve --open-target example.html#page1 --open-app firefox
+npx webpack serve --open-target example.html#page1 --open-app-name firefox
 ```
 
 Some applications may consist of multiple pages. During development it may
