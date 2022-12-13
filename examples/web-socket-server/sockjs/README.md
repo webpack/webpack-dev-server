@@ -20,7 +20,7 @@ module.exports = {
 Usage via CLI:
 
 ```console
-npx webpack serve --web-socket-server sockjs --open
+npx webpack serve --web-socket-server-type sockjs --open
 ```
 
 ### What Should Happen
