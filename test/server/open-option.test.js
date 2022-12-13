@@ -747,7 +747,7 @@ describe('"open" option', () => {
       wait: false,
     });
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `Unable to open "http://localhost:${port}/" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
+      `Unable to open "http://localhost:${port}/" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app-name".`
     );
 
     getInfrastructureLoggerSpy.mockRestore();
@@ -783,7 +783,7 @@ describe('"open" option', () => {
       wait: false,
     });
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `Unable to open "http://localhost:${port}/index.html" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
+      `Unable to open "http://localhost:${port}/index.html" page. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app-name".`
     );
 
     getInfrastructureLoggerSpy.mockRestore();
@@ -823,7 +823,7 @@ describe('"open" option', () => {
       wait: false,
     });
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `Unable to open "http://localhost:${port}/index.html" page in "google-chrome" app. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
+      `Unable to open "http://localhost:${port}/index.html" page in "google-chrome" app. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app-name".`
     );
 
     loggerWarnSpy.mockRestore();
@@ -869,7 +869,7 @@ describe('"open" option', () => {
       wait: false,
     });
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `Unable to open "http://localhost:${port}/index.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
+      `Unable to open "http://localhost:${port}/index.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app-name".`
     );
 
     getInfrastructureLoggerSpy.mockRestore();
@@ -931,11 +931,11 @@ describe('"open" option', () => {
     );
     expect(loggerWarnSpy).toHaveBeenNthCalledWith(
       1,
-      `Unable to open "http://localhost:${port}/first.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
+      `Unable to open "http://localhost:${port}/first.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app-name".`
     );
     expect(loggerWarnSpy).toHaveBeenNthCalledWith(
       2,
-      `Unable to open "http://localhost:${port}/second.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app".`
+      `Unable to open "http://localhost:${port}/second.html" page in "google-chrome" app with "--incognito --new-window" arguments. If you are running in a headless environment, please do not use the "open" option or related flags like "--open", "--open-target", and "--open-app-name".`
     );
 
     getInfrastructureLoggerSpy.mockRestore();
