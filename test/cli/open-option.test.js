@@ -75,17 +75,6 @@ describe('"open" CLI option', () => {
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--open-app google-chrome"', async () => {
-    const { exitCode } = await testBin([
-      "--port",
-      port,
-      "--open-app",
-      "google-chrome",
-    ]);
-
-    expect(exitCode).toEqual(0);
-  });
-
   it('should work using "--open-app-name google-chrome"', async () => {
     const { exitCode } = await testBin([
       "--port",
@@ -144,40 +133,12 @@ describe('"open" CLI option', () => {
     expect(exitCode).toEqual(0);
   });
 
-  it('should work using "--open-target /index.html --open-app google-chrome"', async () => {
-    const { exitCode } = await testBin([
-      "--port",
-      port,
-      "--open-target",
-      "/index.html",
-      "--open-app",
-      "google-chrome",
-    ]);
-
-    expect(exitCode).toEqual(0);
-  });
-
   it('should work using "--open-target /index.html --open-app-name google-chrome"', async () => {
     const { exitCode } = await testBin([
       "--port",
       port,
       "--open-target",
       "/index.html",
-      "--open-app-name",
-      "google-chrome",
-    ]);
-
-    expect(exitCode).toEqual(0);
-  });
-
-  it('should work using "--open-target /index.html --open-app google-chrome --open-app-name google-chrome"', async () => {
-    const { exitCode } = await testBin([
-      "--port",
-      port,
-      "--open-target",
-      "/index.html",
-      "--open-app",
-      "google-chrome",
       "--open-app-name",
       "google-chrome",
     ]);
