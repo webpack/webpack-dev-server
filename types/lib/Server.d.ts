@@ -781,7 +781,7 @@ declare class Server {
                   minLength: number;
                   description: string;
                   cli: {
-                    description: string;
+                    exclude: boolean;
                   };
                   additionalProperties?: undefined;
                   properties?: undefined;
@@ -845,8 +845,9 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string;
+        link: string /** @type {ClientConfiguration} */;
       };
+      /** @type {ClientConfiguration} */
       Server: {
         anyOf: {
           $ref: string;
@@ -860,12 +861,12 @@ declare class Server {
       ServerEnum: {
         enum: string[];
         cli: {
-          exclude: boolean /** @type {ServerConfiguration} */;
+          exclude: boolean;
         };
       };
       ServerString: {
         type: string;
-        minLength: number;
+        /** @type {ServerConfiguration} */ minLength: number;
         cli: {
           exclude: boolean;
         };
@@ -880,7 +881,7 @@ declare class Server {
           };
           options: {
             $ref: string;
-          };
+          } /** @type {string} */;
         };
         additionalProperties: boolean;
       };
@@ -1100,12 +1101,12 @@ declare class Server {
               cli: {
                 negatedDescription: string;
               };
-              /** @type {MultiCompiler} */ items?: undefined;
+              items?: undefined;
               $ref?: undefined;
             }
           | {
               $ref: string;
-              type?: undefined;
+              /** @type {MultiCompiler} */ type?: undefined;
               items?: undefined;
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
@@ -1117,11 +1118,10 @@ declare class Server {
         type: string;
         additionalProperties: boolean;
         properties: {
-          /** @type {MultiCompiler} */
           directory: {
             type: string;
             minLength: number;
-            description: string;
+            /** @type {MultiCompiler} */ description: string;
             link: string;
           };
           staticOptions: {
