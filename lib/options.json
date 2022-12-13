@@ -443,7 +443,7 @@
               "minLength": 1,
               "description": "Open specified browser.",
               "cli": {
-                "description": "Open specified browser. Deprecated: please use '--open-app-name'."
+                "exclude": true
               }
             }
           ],

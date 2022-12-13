@@ -826,7 +826,7 @@ declare class Server {
                   minLength: number;
                   description: string;
                   cli: {
-                    description: string;
+                    exclude: boolean;
                   };
                   additionalProperties?: undefined;
                   properties?: undefined;
@@ -887,6 +887,9 @@ declare class Server {
                     }
                 )[];
               };
+              /**
+               * @type {string[]}
+               */
             }
         )[];
         description: string;
@@ -894,7 +897,7 @@ declare class Server {
       };
       Server: {
         anyOf: {
-          $ref: string;
+          $ref: string /** @type {ClientConfiguration} */;
         }[];
         link: string;
         description: string;
@@ -911,7 +914,6 @@ declare class Server {
       ServerString: {
         type: string;
         minLength: number;
-        /** @type {ServerConfiguration} */
         cli: {
           exclude: boolean;
         };
@@ -974,11 +976,12 @@ declare class Server {
                   items?: undefined;
                 }
             )[];
-            description: string /** @type {number | string} */;
+            description: string;
           };
           cert: {
             anyOf: (
               | {
+                  /** @type {number | string} */
                   type: string;
                   items: {
                     anyOf: (
@@ -1061,7 +1064,7 @@ declare class Server {
                         }
                     )[];
                   };
-                  /** @type {ClientConfiguration} */ instanceof?: undefined;
+                  instanceof?: undefined;
                 }
               | {
                   type: string;
@@ -1143,6 +1146,10 @@ declare class Server {
             }
           | {
               type: string;
+              /**
+               * @private
+               * @returns {Compiler["options"]}
+               */
               cli: {
                 negatedDescription: string;
               };
@@ -1156,7 +1163,7 @@ declare class Server {
               cli?: undefined;
             }
         )[];
-        description: string;
+        /** @type {MultiCompiler} */ description: string;
         link: string;
       };
       StaticObject: {
