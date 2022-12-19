@@ -272,11 +272,13 @@ const createOverlay = (options) => {
   });
 
   listenToRuntimeError((errorEvent) => {
-    const { error } = errorEvent;
-    if (!error) {
+    // error property may be empty in older browser like IE
+    const { error, message } = errorEvent;
+    if (!error && !message) {
       return;
     }
-    const errorObject = error instanceof Error ? error : new Error(error);
+    const errorObject =
+      error instanceof Error ? error : new Error(error || message);
     overlayService.send({
       type: "RUNTIME_ERROR",
       messages: [
