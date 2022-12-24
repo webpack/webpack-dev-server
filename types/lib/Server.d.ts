@@ -823,34 +823,25 @@ declare class Server {
         link: string;
       };
       Proxy: {
-        anyOf: (
-          | {
-              type: string;
-              items?: undefined;
-            }
-          | {
-              type: string;
-              items: {
-                anyOf: (
-                  | {
-                      type: string;
-                      instanceof?: undefined;
-                    }
-                  | {
-                      instanceof: string;
-                      type?: undefined;
-                    }
-                )[];
-              };
-            }
-        )[];
+        type: string;
+        items: {
+          anyOf: (
+            | {
+                type: string;
+                instanceof?: undefined;
+              }
+            | {
+                instanceof: string;
+                type?: undefined;
+              }
+          )[];
+        };
         description: string;
-        link: string /** @type {ClientConfiguration} */;
+        link: string;
       };
-      /** @type {ClientConfiguration} */
       Server: {
         anyOf: {
-          $ref: string;
+          $ref: string /** @type {WebSocketURL} */;
         }[];
         link: string;
         description: string;
@@ -859,6 +850,7 @@ declare class Server {
         enum: string[];
       };
       ServerEnum: {
+        /** @type {string} */
         enum: string[];
         cli: {
           exclude: boolean;
@@ -866,7 +858,7 @@ declare class Server {
       };
       ServerString: {
         type: string;
-        /** @type {ServerConfiguration} */ minLength: number;
+        minLength: number;
         cli: {
           exclude: boolean;
         };
@@ -881,13 +873,14 @@ declare class Server {
           };
           options: {
             $ref: string;
-          } /** @type {string} */;
+          };
         };
         additionalProperties: boolean;
       };
       ServerOptions: {
         type: string;
         additionalProperties: boolean;
+        /** @type {string} */
         properties: {
           passphrase: {
             type: string;
@@ -1106,7 +1099,7 @@ declare class Server {
             }
           | {
               $ref: string;
-              /** @type {MultiCompiler} */ type?: undefined;
+              type?: undefined;
               items?: undefined;
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
@@ -1121,7 +1114,7 @@ declare class Server {
           directory: {
             type: string;
             minLength: number;
-            /** @type {MultiCompiler} */ description: string;
+            description: string;
             link: string;
           };
           staticOptions: {
@@ -1162,6 +1155,10 @@ declare class Server {
                   cli?: undefined /** @typedef {import("express").Request} Request */;
                 }
             )[];
+            /**
+             * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
+             * @returns {WatchOptions}
+             */
             description: string;
             link: string;
           };
