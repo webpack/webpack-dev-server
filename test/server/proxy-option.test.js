@@ -75,7 +75,7 @@ const proxyOption = [
 ];
 
 const proxyOptionOfArray = [
-  { context: "/proxy1", target: proxyOption.target },
+  { context: "/proxy1", target: `http://localhost:${port1}` },
   function proxy(req, res, next) {
     return {
       context: "/api/proxy2",
@@ -403,7 +403,7 @@ describe("proxy option", () => {
     });
   });
 
-  describe.only("as an array", () => {
+  describe("as an array", () => {
     let server;
     let req;
 
@@ -487,7 +487,7 @@ describe("proxy option", () => {
     });
   });
 
-  describe.only("should sharing a proxy option", () => {
+  describe("should sharing a proxy option", () => {
     let server;
     let req;
     let listener;
@@ -499,13 +499,13 @@ describe("proxy option", () => {
         {
           proxy: [
             {
-              context: ["proxy1", "proxy2"],
+              context: "/proxy1",
               target: `http://localhost:${port1}`,
             },
-            // {
-            //   context: "proxy2",
-            //   target: `http://localhost:${port1}`,
-            // }
+            {
+              context: "/proxy2",
+              target: `http://localhost:${port1}`,
+            }
           ],
           port: port3,
         },
