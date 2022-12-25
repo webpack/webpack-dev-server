@@ -505,7 +505,7 @@ describe("proxy option", () => {
             {
               context: "/proxy2",
               target: `http://localhost:${port1}`,
-            }
+            },
           ],
           port: port3,
         },
