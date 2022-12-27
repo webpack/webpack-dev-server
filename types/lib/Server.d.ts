@@ -754,10 +754,11 @@ declare class Server {
             }
           | {
               type: string;
-              minLength: number;
               /**
-               * @type {string[]}
+               * @private
+               * @param {Compiler} compiler
                */
+              minLength: number;
               minimum?: undefined;
               maximum?: undefined;
               enum?: undefined;
@@ -796,9 +797,8 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string /** @type {ClientConfiguration} */;
+        link: string;
       };
-      /** @type {ClientConfiguration} */
       Server: {
         anyOf: {
           $ref: string;
@@ -817,9 +817,9 @@ declare class Server {
       };
       ServerString: {
         type: string;
-        /** @type {ServerConfiguration} */ minLength: number;
+        minLength: number;
         cli: {
-          exclude: boolean;
+          exclude: boolean /** @type {string} */;
         };
       };
       ServerObject: {
@@ -832,7 +832,7 @@ declare class Server {
           };
           options: {
             $ref: string;
-          } /** @type {string} */;
+          };
         };
         additionalProperties: boolean;
       };
@@ -913,7 +913,6 @@ declare class Server {
             )[];
             description: string;
           };
-          /** @type {string} */
           crl: {
             anyOf: (
               | {
@@ -943,7 +942,7 @@ declare class Server {
                   items?: undefined;
                 }
             )[];
-            description: string /** @type {ClientConfiguration} */;
+            description: string;
           };
           key: {
             anyOf: (
@@ -1045,7 +1044,6 @@ declare class Server {
                   $ref: string;
                 }[];
               };
-              /** @type {MultiCompiler} */
               cli?: undefined /** @typedef {import("express").Request} Request */;
               $ref?: undefined;
             }
@@ -1059,7 +1057,7 @@ declare class Server {
             }
           | {
               $ref: string;
-              /** @type {MultiCompiler} */ type?: undefined;
+              type?: undefined;
               items?: undefined;
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
@@ -1074,7 +1072,7 @@ declare class Server {
           directory: {
             type: string;
             minLength: number;
-            /** @type {MultiCompiler} */ description: string;
+            description: string;
             link: string;
           };
           staticOptions: {
@@ -1168,7 +1166,7 @@ declare class Server {
         cli: {
           exclude: boolean;
         };
-        type: string;
+        /** @type {NormalizedStatic} */ type: string;
         properties: {
           paths: {
             anyOf: (

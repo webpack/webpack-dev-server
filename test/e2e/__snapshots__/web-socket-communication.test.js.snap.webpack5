@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`web socket communication should work and close web socket client connection when web socket server closed ("sockjs"): console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -10,10 +10,10 @@ Array [
 ]
 `;
 
-exports[`web socket communication should work and close web socket client connection when web socket server closed ("sockjs"): page errors 1`] = `Array []`;
+exports[`web socket communication should work and close web socket client connection when web socket server closed ("sockjs"): page errors 1`] = `[]`;
 
 exports[`web socket communication should work and close web socket client connection when web socket server closed ("ws"): console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -22,10 +22,10 @@ Array [
 ]
 `;
 
-exports[`web socket communication should work and close web socket client connection when web socket server closed ("ws"): page errors 1`] = `Array []`;
+exports[`web socket communication should work and close web socket client connection when web socket server closed ("ws"): page errors 1`] = `[]`;
 
 exports[`web socket communication should work and reconnect when the connection is lost ("sockjs"): console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -42,10 +42,10 @@ Array [
 ]
 `;
 
-exports[`web socket communication should work and reconnect when the connection is lost ("sockjs"): page errors 1`] = `Array []`;
+exports[`web socket communication should work and reconnect when the connection is lost ("sockjs"): page errors 1`] = `[]`;
 
 exports[`web socket communication should work and reconnect when the connection is lost ("ws"): console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -62,24 +62,24 @@ Array [
 ]
 `;
 
-exports[`web socket communication should work and reconnect when the connection is lost ("ws"): page errors 1`] = `Array []`;
+exports[`web socket communication should work and reconnect when the connection is lost ("ws"): page errors 1`] = `[]`;
 
 exports[`web socket communication should work and terminate client that is not alive ("sockjs"): console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
 `;
 
-exports[`web socket communication should work and terminate client that is not alive ("sockjs"): page errors 1`] = `Array []`;
+exports[`web socket communication should work and terminate client that is not alive ("sockjs"): page errors 1`] = `[]`;
 
 exports[`web socket communication should work and terminate client that is not alive ("ws"): console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
 `;
 
-exports[`web socket communication should work and terminate client that is not alive ("ws"): page errors 1`] = `Array []`;
+exports[`web socket communication should work and terminate client that is not alive ("ws"): page errors 1`] = `[]`;
