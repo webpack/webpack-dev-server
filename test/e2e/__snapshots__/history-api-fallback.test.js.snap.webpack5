@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`historyApiFallback option as boolean should handle GET request to directory: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as boolean should handle GET request to directory: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as boolean should handle GET request to directory: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as boolean should handle GET request to directory: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as boolean should handle GET request to directory: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
@@ -13,9 +13,9 @@ exports[`historyApiFallback option as boolean should handle GET request to direc
 "
 `;
 
-exports[`historyApiFallback option as object should handle GET request to directory: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object should handle GET request to directory: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object should handle GET request to directory: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object should handle GET request to directory: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object should handle GET request to directory: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
@@ -26,9 +26,9 @@ exports[`historyApiFallback option as object should handle GET request to direct
 "
 `;
 
-exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect any other specified rewrites: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect any other specified rewrites: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect any other specified rewrites: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect any other specified rewrites: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect any other specified rewrites: response headers content-type 1`] = `"text/html; charset=UTF-8"`;
 
@@ -39,9 +39,9 @@ exports[`historyApiFallback option as object with static and rewrites historyApi
 "
 `;
 
-exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites and shows index for unknown urls: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites and shows index for unknown urls: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites and shows index for unknown urls: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites and shows index for unknown urls: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites and shows index for unknown urls: response headers content-type 1`] = `"text/html; charset=UTF-8"`;
 
@@ -52,9 +52,9 @@ exports[`historyApiFallback option as object with static and rewrites historyApi
 "
 `;
 
-exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites for index: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites for index: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites for index: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites for index: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with static and rewrites historyApiFallback respect rewrites for index: response headers content-type 1`] = `"text/html; charset=UTF-8"`;
 
@@ -65,9 +65,9 @@ exports[`historyApiFallback option as object with static and rewrites historyApi
 "
 `;
 
-exports[`historyApiFallback option as object with static set to false historyApiFallback should work and ignore static content: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with static set to false historyApiFallback should work and ignore static content: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with static set to false historyApiFallback should work and ignore static content: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with static set to false historyApiFallback should work and ignore static content: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with static set to false historyApiFallback should work and ignore static content: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
@@ -78,9 +78,9 @@ exports[`historyApiFallback option as object with static set to false historyApi
 "
 `;
 
-exports[`historyApiFallback option as object with static should handle GET request to directory: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with static should handle GET request to directory: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with static should handle GET request to directory: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with static should handle GET request to directory: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with static should handle GET request to directory: response headers content-type 1`] = `"text/html; charset=UTF-8"`;
 
@@ -91,9 +91,9 @@ exports[`historyApiFallback option as object with static should handle GET reque
 "
 `;
 
-exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: response headers content-type 1`] = `"text/plain; charset=UTF-8"`;
 
@@ -104,9 +104,9 @@ exports[`historyApiFallback option as object with static should prefer static fi
 "
 `;
 
-exports[`historyApiFallback option as object with the "logger" option request to directory and log: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with the "logger" option request to directory and log: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with the "logger" option request to directory and log: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with the "logger" option request to directory and log: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with the "logger" option request to directory and log: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
@@ -117,9 +117,9 @@ exports[`historyApiFallback option as object with the "logger" option request to
 "
 `;
 
-exports[`historyApiFallback option as object with the "verbose" option request to directory and log: console messages 1`] = `Array []`;
+exports[`historyApiFallback option as object with the "verbose" option request to directory and log: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option as object with the "verbose" option request to directory and log: page errors 1`] = `Array []`;
+exports[`historyApiFallback option as object with the "verbose" option request to directory and log: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option as object with the "verbose" option request to directory and log: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
@@ -139,9 +139,9 @@ exports[`historyApiFallback option in-memory files should perform HEAD request i
 "
 `;
 
-exports[`historyApiFallback option in-memory files should take precedence over static files: console messages 1`] = `Array []`;
+exports[`historyApiFallback option in-memory files should take precedence over static files: console messages 1`] = `[]`;
 
-exports[`historyApiFallback option in-memory files should take precedence over static files: page errors 1`] = `Array []`;
+exports[`historyApiFallback option in-memory files should take precedence over static files: page errors 1`] = `[]`;
 
 exports[`historyApiFallback option in-memory files should take precedence over static files: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 

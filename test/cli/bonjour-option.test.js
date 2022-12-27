@@ -1,17 +1,15 @@
 "use strict";
 
-const { promisify } = require("util");
-const rimraf = require("rimraf");
+const fs = require("fs");
 const Server = require("../../lib/Server");
 const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-bonjour"];
 
-const del = promisify(rimraf);
 const defaultCertificateDir = Server.findCacheDir();
 
 describe('"bonjour" CLI option', () => {
   beforeEach(async () => {
-    await del(defaultCertificateDir);
+    fs.rmSync(defaultCertificateDir, { recursive: true, force: true });
   });
 
   it('should work using "--bonjour"', async () => {
