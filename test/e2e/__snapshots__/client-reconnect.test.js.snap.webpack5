@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`client.reconnect option specified as false should not try to reconnect: console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -9,12 +9,12 @@ Array [
 ]
 `;
 
-exports[`client.reconnect option specified as false should not try to reconnect: page errors 1`] = `Array []`;
+exports[`client.reconnect option specified as false should not try to reconnect: page errors 1`] = `[]`;
 
 exports[`client.reconnect option specified as false should not try to reconnect: response status 1`] = `200`;
 
 exports[`client.reconnect option specified as number should try to reconnect 2 times: console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -28,10 +28,10 @@ Array [
 ]
 `;
 
-exports[`client.reconnect option specified as number should try to reconnect 2 times: page errors 1`] = `Array []`;
+exports[`client.reconnect option specified as number should try to reconnect 2 times: page errors 1`] = `[]`;
 
 exports[`client.reconnect option specified as number should try to reconnect 2 times: response status 1`] = `200`;
 
-exports[`client.reconnect option specified as true should try to reconnect unlimited times: page errors 1`] = `Array []`;
+exports[`client.reconnect option specified as true should try to reconnect unlimited times: page errors 1`] = `[]`;
 
 exports[`client.reconnect option specified as true should try to reconnect unlimited times: response status 1`] = `200`;

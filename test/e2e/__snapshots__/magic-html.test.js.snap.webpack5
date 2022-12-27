@@ -1,46 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`magicHtml option disabled should not handle GET request to magic async html: console messages 1`] = `
-Array [
+[
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`magicHtml option disabled should not handle GET request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option disabled should not handle GET request to magic async html: page errors 1`] = `[]`;
 
 exports[`magicHtml option disabled should not handle GET request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
 exports[`magicHtml option disabled should not handle GET request to magic async html: response status 1`] = `404`;
 
 exports[`magicHtml option disabled should not handle HEAD request to magic async html: console messages 1`] = `
-Array [
+[
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`magicHtml option disabled should not handle HEAD request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option disabled should not handle HEAD request to magic async html: page errors 1`] = `[]`;
 
 exports[`magicHtml option disabled should not handle HEAD request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
 exports[`magicHtml option disabled should not handle HEAD request to magic async html: response status 1`] = `404`;
 
 exports[`magicHtml option enabled should handle GET request to magic async html: console messages 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
 `;
 
-exports[`magicHtml option enabled should handle GET request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled should handle GET request to magic async html: page errors 1`] = `[]`;
 
 exports[`magicHtml option enabled should handle GET request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
 exports[`magicHtml option enabled should handle GET request to magic async html: response status 1`] = `200`;
 
-exports[`magicHtml option enabled should handle HEAD request to magic async html: console messages 1`] = `Array []`;
+exports[`magicHtml option enabled should handle HEAD request to magic async html: console messages 1`] = `[]`;
 
-exports[`magicHtml option enabled should handle HEAD request to magic async html: page errors 1`] = `Array []`;
+exports[`magicHtml option enabled should handle HEAD request to magic async html: page errors 1`] = `[]`;
 
 exports[`magicHtml option enabled should handle HEAD request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
