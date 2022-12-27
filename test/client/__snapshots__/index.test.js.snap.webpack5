@@ -17,7 +17,7 @@ exports[`index should run onSocketMessage.error 1`] = `"error!!"`;
 exports[`index should run onSocketMessage.ok 1`] = `"Ok"`;
 
 exports[`index should run onSocketMessage.ok 2`] = `
-Object {
+{
   "hot": false,
   "liveReload": false,
   "logging": "info",
@@ -40,16 +40,16 @@ exports[`index should run onSocketMessage.warnings 1`] = `"Warnings while compil
 exports[`index should run onSocketMessage.warnings 2`] = `"Warnings"`;
 
 exports[`index should run onSocketMessage.warnings 3`] = `
-Array [
-  Array [
+[
+  [
     "HEADER warning
 BODY: warning",
   ],
-  Array [
+  [
     "HEADER warning
 BODY: warning",
   ],
-  Array [
+  [
     "HEADER warning
 BODY: warning",
   ],
@@ -58,16 +58,16 @@ BODY: warning",
 
 exports[`index should run onSocketMessage['static-changed'] 1`] = `"Content from static directory was changed. Reloading..."`;
 
-exports[`index should run onSocketMessage['static-changed'](file) 1`] = `"\\"/static/assets/index.html\\" from static directory was changed. Reloading..."`;
+exports[`index should run onSocketMessage['static-changed'](file) 1`] = `""/static/assets/index.html" from static directory was changed. Reloading..."`;
 
 exports[`index should run onSocketMessage['still-ok'] 1`] = `"Nothing changed."`;
 
 exports[`index should run onSocketMessage['still-ok'] 2`] = `"StillOk"`;
 
 exports[`index should set arguments into socket function 1`] = `
-Array [
+[
   "mock-url",
-  Object {
+  {
     "close": [Function],
     "error": [Function],
     "errors": [Function],

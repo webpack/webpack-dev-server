@@ -1,34 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`'log' function should set log level via setLogLevel 1`] = `
-Array [
-  Array [
-    Object {
+[
+  [
+    {
       "level": "none",
     },
   ],
-  Array [
-    Object {
+  [
+    {
       "level": "error",
     },
   ],
-  Array [
-    Object {
+  [
+    {
       "level": "warn",
     },
   ],
-  Array [
-    Object {
+  [
+    {
       "level": "info",
     },
   ],
-  Array [
-    Object {
+  [
+    {
       "level": "log",
     },
   ],
-  Array [
-    Object {
+  [
+    {
       "level": "verbose",
     },
   ],

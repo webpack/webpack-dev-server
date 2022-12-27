@@ -8,7 +8,7 @@ exports[`"bonjour" CLI option should work using "--bonjour and --server-type=htt
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): https://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
-<i> [webpack-dev-server] Broadcasting \\"https\\" with subtype of \\"webpack\\" via ZeroConf DNS (Bonjour)"
+<i> [webpack-dev-server] Broadcasting "https" with subtype of "webpack" via ZeroConf DNS (Bonjour)"
 `;
 
 exports[`"bonjour" CLI option should work using "--bonjour" 1`] = `
@@ -17,7 +17,7 @@ exports[`"bonjour" CLI option should work using "--bonjour" 1`] = `
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
-<i> [webpack-dev-server] Broadcasting \\"http\\" with subtype of \\"webpack\\" via ZeroConf DNS (Bonjour)"
+<i> [webpack-dev-server] Broadcasting "http" with subtype of "webpack" via ZeroConf DNS (Bonjour)"
 `;
 
 exports[`"bonjour" CLI option should work using "--no-bonjour" 1`] = `

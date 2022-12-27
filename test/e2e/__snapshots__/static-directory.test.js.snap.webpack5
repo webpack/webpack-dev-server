@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`static.directory option defaults to PWD should handle request to /index.html: console messages 1`] = `Array []`;
+exports[`static.directory option defaults to PWD should handle request to /index.html: console messages 1`] = `[]`;
 
-exports[`static.directory option defaults to PWD should handle request to /index.html: page errors 1`] = `Array []`;
+exports[`static.directory option defaults to PWD should handle request to /index.html: page errors 1`] = `[]`;
 
 exports[`static.directory option defaults to PWD should handle request to /index.html: response status 1`] = `200`;
 
@@ -12,20 +12,20 @@ exports[`static.directory option defaults to PWD should handle request to /index
 `;
 
 exports[`static.directory option disabled should not handle request to /other.html (404): console messages 1`] = `
-Array [
+[
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`static.directory option disabled should not handle request to /other.html (404): page errors 1`] = `Array []`;
+exports[`static.directory option disabled should not handle request to /other.html (404): page errors 1`] = `[]`;
 
 exports[`static.directory option disabled should not handle request to /other.html (404): response status 1`] = `404`;
 
 exports[`static.directory option disabled should not handle request to /other.html (404): response text 1`] = `
 "<!DOCTYPE html>
-<html lang=\\"en\\">
+<html lang="en">
 <head>
-<meta charset=\\"utf-8\\">
+<meta charset="utf-8">
 <title>Error</title>
 </head>
 <body>
@@ -35,15 +35,15 @@ exports[`static.directory option disabled should not handle request to /other.ht
 "
 `;
 
-exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should list the files inside the assets folder (200): console messages 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should list the files inside the assets folder (200): console messages 1`] = `[]`;
 
-exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should list the files inside the assets folder (200): page errors 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should list the files inside the assets folder (200): page errors 1`] = `[]`;
 
 exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should list the files inside the assets folder (200): response status 1`] = `200`;
 
-exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should show Heyo. because bar has index.html inside it (200): console messages 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
 
-exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should show Heyo. because bar has index.html inside it (200): page errors 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
 
 exports[`static.directory option test listing files in folders without index.html using the default static.serveIndex option (true) should show Heyo. because bar has index.html inside it (200): response status 1`] = `200`;
 
@@ -53,20 +53,20 @@ exports[`static.directory option test listing files in folders without index.htm
 `;
 
 exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should not list the files inside the assets folder (404): console messages 1`] = `
-Array [
+[
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should not list the files inside the assets folder (404): page errors 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should not list the files inside the assets folder (404): page errors 1`] = `[]`;
 
 exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should not list the files inside the assets folder (404): response status 1`] = `404`;
 
 exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should not list the files inside the assets folder (404): response text 1`] = `
 "<!DOCTYPE html>
-<html lang=\\"en\\">
+<html lang="en">
 <head>
-<meta charset=\\"utf-8\\">
+<meta charset="utf-8">
 <title>Error</title>
 </head>
 <body>
@@ -76,9 +76,9 @@ exports[`static.directory option test listing files in folders without index.htm
 "
 `;
 
-exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): console messages 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
 
-exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): page errors 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
 
 exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): response status 1`] = `200`;
 
@@ -87,15 +87,15 @@ exports[`static.directory option test listing files in folders without index.htm
 "
 `;
 
-exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): console messages 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): console messages 1`] = `[]`;
 
-exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): page errors 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): page errors 1`] = `[]`;
 
 exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): response status 1`] = `200`;
 
-exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): console messages 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
 
-exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): page errors 1`] = `Array []`;
+exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
 
 exports[`static.directory option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): response status 1`] = `200`;
 
@@ -104,9 +104,9 @@ exports[`static.directory option test listing files in folders without index.htm
 "
 `;
 
-exports[`static.directory option to directory should handle request to index route: console messages 1`] = `Array []`;
+exports[`static.directory option to directory should handle request to index route: console messages 1`] = `[]`;
 
-exports[`static.directory option to directory should handle request to index route: page errors 1`] = `Array []`;
+exports[`static.directory option to directory should handle request to index route: page errors 1`] = `[]`;
 
 exports[`static.directory option to directory should handle request to index route: response status 1`] = `200`;
 
@@ -115,9 +115,9 @@ exports[`static.directory option to directory should handle request to index rou
 "
 `;
 
-exports[`static.directory option to directory should handle request to other file: console messages 1`] = `Array []`;
+exports[`static.directory option to directory should handle request to other file: console messages 1`] = `[]`;
 
-exports[`static.directory option to directory should handle request to other file: page errors 1`] = `Array []`;
+exports[`static.directory option to directory should handle request to other file: page errors 1`] = `[]`;
 
 exports[`static.directory option to directory should handle request to other file: response status 1`] = `200`;
 
@@ -126,9 +126,9 @@ exports[`static.directory option to directory should handle request to other fil
 "
 `;
 
-exports[`static.directory option to multiple directories should handle request first directory: console messages 1`] = `Array []`;
+exports[`static.directory option to multiple directories should handle request first directory: console messages 1`] = `[]`;
 
-exports[`static.directory option to multiple directories should handle request first directory: page errors 1`] = `Array []`;
+exports[`static.directory option to multiple directories should handle request first directory: page errors 1`] = `[]`;
 
 exports[`static.directory option to multiple directories should handle request first directory: response status 1`] = `200`;
 
@@ -137,9 +137,9 @@ exports[`static.directory option to multiple directories should handle request f
 "
 `;
 
-exports[`static.directory option to multiple directories should handle request to second directory: console messages 1`] = `Array []`;
+exports[`static.directory option to multiple directories should handle request to second directory: console messages 1`] = `[]`;
 
-exports[`static.directory option to multiple directories should handle request to second directory: page errors 1`] = `Array []`;
+exports[`static.directory option to multiple directories should handle request to second directory: page errors 1`] = `[]`;
 
 exports[`static.directory option to multiple directories should handle request to second directory: response status 1`] = `200`;
 

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`stats should work and respect the "ignoreWarnings" option 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -9,7 +9,7 @@ Array [
 `;
 
 exports[`stats should work using "{ assets: false }" value for the "stats" option 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -17,7 +17,7 @@ Array [
 `;
 
 exports[`stats should work using "{ assets: false }" value for the "stats" option 2`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -25,7 +25,7 @@ Array [
 `;
 
 exports[`stats should work using "{ warningsFilter: 'test' }" value for the "stats" option 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -33,7 +33,7 @@ Array [
 `;
 
 exports[`stats should work using "{}" value for the "stats" option 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -41,7 +41,7 @@ Array [
 `;
 
 exports[`stats should work using "errors-only" value for the "stats" option 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -49,7 +49,7 @@ Array [
 `;
 
 exports[`stats should work using "false" value for the "stats" option 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -57,7 +57,7 @@ Array [
 `;
 
 exports[`stats should work using "undefined" value for the "stats" option 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -65,7 +65,7 @@ Array [
 `;
 
 exports[`stats should work when "stats" is not specified 1`] = `
-Array [
+[
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
