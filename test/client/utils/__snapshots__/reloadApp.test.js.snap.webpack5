@@ -5,7 +5,7 @@ exports[`'reloadApp' function should run hot 1`] = `"App hot update..."`;
 exports[`'reloadApp' function should run hot 2`] = `"webpackHotUpdate"`;
 
 exports[`'reloadApp' function should run hot 3`] = `
-Array [
+[
   "webpackHotUpdatehash",
   "*",
 ]
