@@ -775,33 +775,25 @@ declare class Server {
         link: string;
       };
       Proxy: {
-        anyOf: (
-          | {
-              type: string;
-              items?: undefined;
-            }
-          | {
-              type: string;
-              items: {
-                anyOf: (
-                  | {
-                      type: string;
-                      instanceof?: undefined;
-                    }
-                  | {
-                      instanceof: string;
-                      type?: undefined;
-                    }
-                )[];
-              };
-            }
-        )[];
+        type: string;
+        items: {
+          anyOf: (
+            | {
+                type: string;
+                instanceof?: undefined;
+              }
+            | {
+                instanceof: string;
+                type?: undefined;
+              }
+          )[];
+        };
         description: string;
         link: string;
       };
       Server: {
         anyOf: {
-          $ref: string;
+          $ref: string /** @type {WebSocketURL} */;
         }[];
         link: string;
         description: string;
@@ -810,6 +802,7 @@ declare class Server {
         enum: string[];
       };
       ServerEnum: {
+        /** @type {string} */
         enum: string[];
         cli: {
           exclude: boolean;
@@ -839,6 +832,7 @@ declare class Server {
       ServerOptions: {
         type: string;
         additionalProperties: boolean;
+        /** @type {string} */
         properties: {
           passphrase: {
             type: string;
@@ -1113,6 +1107,10 @@ declare class Server {
                   cli?: undefined /** @typedef {import("express").Request} Request */;
                 }
             )[];
+            /**
+             * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
+             * @returns {WatchOptions}
+             */
             description: string;
             link: string;
           };
