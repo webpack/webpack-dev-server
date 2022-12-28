@@ -956,27 +956,19 @@ declare class Server {
         link: string;
       };
       Proxy: {
-        anyOf: (
-          | {
-              type: string;
-              items?: undefined;
-            }
-          | {
-              type: string;
-              items: {
-                anyOf: (
-                  | {
-                      type: string;
-                      instanceof?: undefined;
-                    }
-                  | {
-                      instanceof: string;
-                      type?: undefined;
-                    }
-                )[];
-              };
-            }
-        )[];
+        type: string;
+        items: {
+          anyOf: (
+            | {
+                type: string;
+                instanceof?: undefined;
+              }
+            | {
+                instanceof: string;
+                type?: undefined;
+              }
+          )[];
+        };
         description: string;
         link: string;
       };
@@ -1244,7 +1236,7 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string;
+        /** @type {MultiCompiler} */ link: string;
       };
       StaticObject: {
         type: string;
@@ -1268,7 +1260,7 @@ declare class Server {
                   items: {
                     type: string;
                   };
-                  minItems: number /** @type {MultiCompiler} */;
+                  minItems: number;
                 }
               | {
                   type: string;
@@ -1276,17 +1268,17 @@ declare class Server {
                   minItems?: undefined;
                 }
             )[];
-            /** @type {Compiler} */ description: string;
+            description: string;
             link: string;
           };
+          /**
+           * @private
+           * @returns {Promise<void>}
+           */
           serveIndex: {
             anyOf: (
               | {
                   type: string;
-                  /**
-                   * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-                   * @returns {WatchOptions}
-                   */
                   cli: {
                     negatedDescription: string;
                   };
