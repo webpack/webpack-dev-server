@@ -498,24 +498,17 @@
       "link": "https://webpack.js.org/configuration/dev-server/#devserverport"
     },
     "Proxy": {
-      "anyOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "object"
-              },
-              {
-                "instanceof": "Function"
-              }
-            ]
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object"
+          },
+          {
+            "instanceof": "Function"
           }
-        }
-      ],
+        ]
+      },
       "description": "Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverproxy"
     },
