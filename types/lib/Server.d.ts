@@ -868,36 +868,25 @@ declare class Server {
         link: string;
       };
       Proxy: {
-        anyOf: (
-          | {
-              type: string;
-              items?: undefined;
-            }
-          | {
-              type: string;
-              items: {
-                anyOf: (
-                  | {
-                      type: string;
-                      instanceof?: undefined;
-                    }
-                  | {
-                      instanceof: string;
-                      type?: undefined;
-                    }
-                )[];
-              };
-              /**
-               * @type {string[]}
-               */
-            }
-        )[];
+        type: string;
+        items: {
+          anyOf: (
+            | {
+                type: string;
+                instanceof?: undefined;
+              }
+            | {
+                instanceof: string;
+                type?: undefined;
+              }
+          )[];
+        };
         description: string;
         link: string;
       };
       Server: {
         anyOf: {
-          $ref: string /** @type {ClientConfiguration} */;
+          $ref: string;
         }[];
         link: string;
         description: string;
@@ -911,6 +900,7 @@ declare class Server {
           exclude: boolean;
         };
       };
+      /** @type {string} */
       ServerString: {
         type: string;
         minLength: number;
@@ -981,13 +971,12 @@ declare class Server {
           cert: {
             anyOf: (
               | {
-                  /** @type {number | string} */
                   type: string;
                   items: {
                     anyOf: (
                       | {
                           type: string;
-                          instanceof?: undefined;
+                          /** @type {number | string} */ instanceof?: undefined;
                         }
                       | {
                           instanceof: string;
@@ -1146,10 +1135,6 @@ declare class Server {
             }
           | {
               type: string;
-              /**
-               * @private
-               * @returns {Compiler["options"]}
-               */
               cli: {
                 negatedDescription: string;
               };
@@ -1163,7 +1148,7 @@ declare class Server {
               cli?: undefined;
             }
         )[];
-        /** @type {MultiCompiler} */ description: string;
+        description: string;
         link: string;
       };
       StaticObject: {
@@ -1205,6 +1190,10 @@ declare class Server {
                   type: string;
                   cli: {
                     negatedDescription: string;
+                    /**
+                     * @private
+                     * @returns {Promise<void>}
+                     */
                   };
                   additionalProperties?: undefined;
                 }
@@ -1215,6 +1204,10 @@ declare class Server {
                 }
             )[];
             description: string;
+            /**
+             * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
+             * @returns {WatchOptions}
+             */
             link: string;
           };
           watch: {

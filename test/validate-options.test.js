@@ -239,11 +239,14 @@ const tests = {
           target: "http://localhost:3000",
         },
       ],
+    ],
+    failure: [
+      () => {},
+      false,
       {
         "/api": "http://localhost:3000",
       },
     ],
-    failure: [() => {}, false],
   },
   server: {
     success: [

@@ -474,28 +474,26 @@ exports[`options validate should throw an error on the "port" option with 'null'
 
 exports[`options validate should throw an error on the "proxy" option with '() => {}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.proxy should be one of these:
-   object { … } | [object { … } | function, ...]
+ - options.proxy should be an array:
+   [object { … } | function, ...]
    -> Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain.
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy
-   Details:
-    * options.proxy should be an object:
-      object { … }
-    * options.proxy should be an array:
-      [object { … } | function, ...]"
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy"
+`;
+
+exports[`options validate should throw an error on the "proxy" option with '{"/api":"http://localhost:3000"}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.proxy should be an array:
+   [object { … } | function, ...]
+   -> Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain.
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy"
 `;
 
 exports[`options validate should throw an error on the "proxy" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.proxy should be one of these:
-   object { … } | [object { … } | function, ...]
+ - options.proxy should be an array:
+   [object { … } | function, ...]
    -> Allows to proxy requests, can be useful when you have a separate API backend development server and you want to send API requests on the same domain.
-   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy
-   Details:
-    * options.proxy should be an object:
-      object { … }
-    * options.proxy should be an array:
-      [object { … } | function, ...]"
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy"
 `;
 
 exports[`options validate should throw an error on the "server" option with '{"type":"https","additional":"test"}' value 1`] = `
