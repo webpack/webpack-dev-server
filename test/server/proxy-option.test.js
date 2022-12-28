@@ -13,15 +13,18 @@ const [port1, port2, port3, port4] = require("../ports-map")["proxy-option"];
 const WebSocketServer = WebSocket.Server;
 const staticDirectory = path.resolve(__dirname, "../fixtures/proxy-config");
 
-const proxyOptionPathsAsProperties = {
-  "/proxy1": {
+const proxyOptionPathsAsProperties = [
+  {
+    context: "/proxy1",
     target: `http://localhost:${port1}`,
   },
-  "/api/proxy2": {
+  {
+    context: "/api/proxy2",
     target: `http://localhost:${port2}`,
     pathRewrite: { "^/api": "" },
   },
-  "/foo": {
+  {
+    context: "/foo",
     bypass(req) {
       if (/\.html$/.test(req.path)) {
         return "/index.html";
@@ -30,14 +33,16 @@ const proxyOptionPathsAsProperties = {
       return null;
     },
   },
-  "/proxyfalse": {
+  {
+    context: "proxyfalse",
     bypass(req) {
       if (/\/proxyfalse$/.test(req.path)) {
         return false;
       }
     },
   },
-  "/proxy/async": {
+  {
+    context: "/proxy/async",
     bypass(req, res) {
       if (/\/proxy\/async$/.test(req.path)) {
         return new Promise((resolve) => {
@@ -49,7 +54,8 @@ const proxyOptionPathsAsProperties = {
       }
     },
   },
-  "/bypass-with-target": {
+  {
+    context: "/bypass-with-target",
     target: `http://localhost:${port1}`,
     changeOrigin: true,
     secure: false,
@@ -59,15 +65,17 @@ const proxyOptionPathsAsProperties = {
       }
     },
   },
-};
+];
 
-const proxyOption = {
-  context: () => true,
-  target: `http://localhost:${port1}`,
-};
+const proxyOption = [
+  {
+    context: () => true,
+    target: `http://localhost:${port1}`,
+  },
+];
 
 const proxyOptionOfArray = [
-  { context: "/proxy1", target: proxyOption.target },
+  { context: "/proxy1", target: `http://localhost:${port1}` },
   function proxy(req, res, next) {
     return {
       context: "/api/proxy2",
@@ -90,20 +98,26 @@ const proxyOptionOfArrayWithoutTarget = [
   },
 ];
 
-const proxyWithPath = {
-  "/proxy1": {
+const proxyWithPath = [
+  {
+    context: "/proxy1",
     path: `http://localhost:${port1}`,
     target: `http://localhost:${port1}`,
   },
-};
+];
 
-const proxyWithString = {
-  "/proxy1": `http://localhost:${port1}`,
-};
+const proxyWithString = [
+  {
+    context: "/proxy1",
+    target: `http://localhost:${port1}`,
+  },
+];
 
-const proxyWithRouterAsObject = {
-  router: () => `http://localhost:${port1}`,
-};
+const proxyWithRouterAsObject = [
+  {
+    router: () => `http://localhost:${port1}`,
+  },
+];
 
 describe("proxy option", () => {
   let proxyServer1;
@@ -478,19 +492,21 @@ describe("proxy option", () => {
     let req;
     let listener;
 
-    const proxyTarget = {
-      target: `http://localhost:${port1}`,
-    };
-
     beforeAll(async () => {
       const compiler = webpack(config);
 
       server = new Server(
         {
-          proxy: {
-            "/proxy1": proxyTarget,
-            "/proxy2": proxyTarget,
-          },
+          proxy: [
+            {
+              context: "/proxy1",
+              target: `http://localhost:${port1}`,
+            },
+            {
+              context: "/proxy2",
+              target: `http://localhost:${port1}`,
+            },
+          ],
           port: port3,
         },
         compiler
@@ -605,18 +621,18 @@ describe("proxy option", () => {
     let server;
     let req;
     let listener;
-    const proxyTarget = {
-      target: `http://localhost:${port1}`,
-    };
 
     beforeAll(async () => {
       const compiler = webpack(config);
 
       server = new Server(
         {
-          proxy: {
-            "**": proxyTarget,
-          },
+          proxy: [
+            {
+              context: "**",
+              target: `http://localhost:${port1}`,
+            },
+          ],
           port: port3,
         },
         compiler
@@ -742,12 +758,12 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          proxy: {
-            "*": {
+          proxy: [
+            {
               context: () => true,
               target: `http://localhost:${port1}`,
             },
-          },
+          ],
           port: port3,
         },
         compiler
@@ -791,13 +807,14 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          proxy: {
-            "/my-path": {
+          proxy: [
+            {
+              context: "/my-path",
               target: "http://unknown:1234",
               logProvider: () => customLogProvider,
               logLevel: "error",
             },
-          },
+          ],
           port: port3,
         },
         compiler
@@ -842,13 +859,14 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          proxy: {
-            "/my-path": {
+          proxy: [
+            {
+              context: "my-path",
               target: "http://unknown:1234",
               logProvider: () => customLogProvider,
               logLevel: "silent",
             },
-          },
+          ],
           port: port3,
         },
         compiler
@@ -896,12 +914,13 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          proxy: {
-            "/my-path": {
+          proxy: [
+            {
+              context: "/my-path",
               target: "http://unknown:1234",
               logProvider: () => customLogProvider,
             },
-          },
+          ],
           port: port3,
         },
         compiler
@@ -949,12 +968,13 @@ describe("proxy option", () => {
 
       server = new Server(
         {
-          proxy: {
-            "/my-path": {
+          proxy: [
+            {
+              context: "/my-path",
               target: "http://unknown:1234",
               logProvider: () => customLogProvider,
             },
-          },
+          ],
           port: port3,
         },
         compiler
