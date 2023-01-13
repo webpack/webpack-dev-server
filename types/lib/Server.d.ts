@@ -784,7 +784,7 @@ declare class Server {
               }
             | {
                 instanceof: string;
-                type?: undefined;
+                /** @type {WebSocketURL} */ type?: undefined;
               }
           )[];
         };
@@ -793,7 +793,7 @@ declare class Server {
       };
       Server: {
         anyOf: {
-          $ref: string /** @type {WebSocketURL} */;
+          $ref: string;
         }[];
         link: string;
         description: string;
@@ -802,7 +802,6 @@ declare class Server {
         enum: string[];
       };
       ServerEnum: {
-        /** @type {string} */
         enum: string[];
         cli: {
           exclude: boolean;
@@ -812,7 +811,7 @@ declare class Server {
         type: string;
         minLength: number;
         cli: {
-          exclude: boolean /** @type {string} */;
+          exclude: boolean;
         };
       };
       ServerObject: {
@@ -832,7 +831,6 @@ declare class Server {
       ServerOptions: {
         type: string;
         additionalProperties: boolean;
-        /** @type {string} */
         properties: {
           passphrase: {
             type: string;
@@ -859,7 +857,7 @@ declare class Server {
                           instanceof: string;
                           type?: undefined;
                         }
-                    )[];
+                    )[] /** @type {number | string} */;
                   };
                   instanceof?: undefined;
                 }
@@ -946,6 +944,7 @@ declare class Server {
                     anyOf: (
                       | {
                           type: string;
+                          /** @type {ClientConfiguration} */
                           instanceof?: undefined;
                           additionalProperties?: undefined;
                         }
@@ -1107,10 +1106,6 @@ declare class Server {
                   cli?: undefined /** @typedef {import("express").Request} Request */;
                 }
             )[];
-            /**
-             * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-             * @returns {WatchOptions}
-             */
             description: string;
             link: string;
           };
@@ -1164,12 +1159,13 @@ declare class Server {
         cli: {
           exclude: boolean;
         };
-        /** @type {NormalizedStatic} */ type: string;
+        type: string;
         properties: {
           paths: {
             anyOf: (
               | {
                   type: string;
+                  /** @type {NormalizedStatic} */
                   items: {
                     type: string;
                     minLength: number;
