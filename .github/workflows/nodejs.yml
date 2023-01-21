@@ -75,7 +75,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     concurrency:
-      group: build-${{ matrix.os }}-v${{ matrix.node-version }}-${{ matrix.webpack-version }}-${{ matrix.shard }}-${{ github.ref }}
+      group: test-${{ matrix.os }}-v${{ matrix.node-version }}-${{ matrix.webpack-version }}-${{ matrix.shard }}-${{ github.ref }}
       cancel-in-progress: true
 
     steps:
