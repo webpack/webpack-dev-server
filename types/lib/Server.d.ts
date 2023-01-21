@@ -568,7 +568,7 @@ declare class Server {
           };
           value: {
             description: string;
-            type: string;
+            /** @type {Compiler | MultiCompiler} */ type: string;
           };
         };
         cli: {
@@ -601,6 +601,9 @@ declare class Server {
         description: string;
         link: string;
       };
+      /**
+       * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
+       * */
       HistoryApiFallback: {
         anyOf: (
           | {
@@ -624,6 +627,11 @@ declare class Server {
       Host: {
         description: string;
         link: string;
+        /**
+         * @private
+         * @returns {StatsOptions}
+         * @constructor
+         */
         anyOf: (
           | {
               enum: string[];
@@ -736,9 +744,6 @@ declare class Server {
                 }
             )[];
             description: string;
-            /**
-             * @type {string | undefined}
-             */
           };
           app: {
             anyOf: (
@@ -827,6 +832,10 @@ declare class Server {
         items: {
           anyOf: (
             | {
+                /**
+                 * @private
+                 * @param {Compiler} compiler
+                 */
                 type: string;
                 instanceof?: undefined;
               }
@@ -841,7 +850,7 @@ declare class Server {
       };
       Server: {
         anyOf: {
-          $ref: string /** @type {WebSocketURL} */;
+          $ref: string;
         }[];
         link: string;
         description: string;
@@ -850,7 +859,6 @@ declare class Server {
         enum: string[];
       };
       ServerEnum: {
-        /** @type {string} */
         enum: string[];
         cli: {
           exclude: boolean;
@@ -863,6 +871,7 @@ declare class Server {
           exclude: boolean;
         };
       };
+      /** @type {ServerConfiguration} */
       ServerObject: {
         type: string;
         properties: {
@@ -880,7 +889,6 @@ declare class Server {
       ServerOptions: {
         type: string;
         additionalProperties: boolean;
-        /** @type {string} */
         properties: {
           passphrase: {
             type: string;
@@ -1104,7 +1112,7 @@ declare class Server {
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
         )[];
-        description: string;
+        /** @type {MultiCompiler} */ description: string;
         link: string;
       };
       StaticObject: {
@@ -1155,10 +1163,6 @@ declare class Server {
                   cli?: undefined /** @typedef {import("express").Request} Request */;
                 }
             )[];
-            /**
-             * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-             * @returns {WatchOptions}
-             */
             description: string;
             link: string;
           };
@@ -1232,6 +1236,7 @@ declare class Server {
             )[];
             description: string;
           };
+          /** @type {NormalizedStatic} */
           options: {
             type: string;
             description: string;
