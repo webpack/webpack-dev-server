@@ -612,7 +612,7 @@ declare class Server {
           };
           value: {
             description: string;
-            type: string;
+            /** @type {Compiler | MultiCompiler} */ type: string;
           };
         };
         cli: {
@@ -645,6 +645,9 @@ declare class Server {
         description: string;
         link: string;
       };
+      /**
+       * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
+       * */
       HistoryApiFallback: {
         anyOf: (
           | {
@@ -668,6 +671,11 @@ declare class Server {
       Host: {
         description: string;
         link: string;
+        /**
+         * @private
+         * @returns {StatsOptions}
+         * @constructor
+         */
         anyOf: (
           | {
               enum: string[];
@@ -872,6 +880,10 @@ declare class Server {
         items: {
           anyOf: (
             | {
+                /**
+                 * @private
+                 * @param {Compiler} compiler
+                 */
                 type: string;
                 instanceof?: undefined;
               }
@@ -908,6 +920,7 @@ declare class Server {
           exclude: boolean;
         };
       };
+      /** @type {ServerConfiguration} */
       ServerObject: {
         type: string;
         properties: {
@@ -1148,7 +1161,7 @@ declare class Server {
               cli?: undefined;
             }
         )[];
-        description: string;
+        /** @type {MultiCompiler} */ description: string;
         link: string;
       };
       StaticObject: {
@@ -1280,6 +1293,7 @@ declare class Server {
             )[];
             description: string;
           };
+          /** @type {NormalizedStatic} */
           options: {
             type: string;
             description: string;
