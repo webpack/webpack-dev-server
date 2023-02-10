@@ -721,10 +721,6 @@ declare class Server {
         description: string;
         link: string;
       };
-      /**
-       * @private
-       * @type {RequestHandler[]}
-       */
       HistoryApiFallback: {
         anyOf: (
           | {
@@ -742,11 +738,6 @@ declare class Server {
               cli?: undefined;
             }
         )[];
-        /**
-         * @private
-         * @returns {StatsOptions}
-         * @constructor
-         */
         description: string;
         link: string;
       };
@@ -766,10 +757,6 @@ declare class Server {
             }
         )[];
       };
-      /**
-       * @param {string} gateway
-       * @returns {string | undefined}
-       */
       Hot: {
         anyOf: (
           | {
@@ -845,9 +832,6 @@ declare class Server {
         description: string;
         link: string;
       };
-      /**
-       * @returns {string}
-       */
       OpenBoolean: {
         type: string;
         cli: {
@@ -957,6 +941,7 @@ declare class Server {
       };
       Proxy: {
         type: string;
+        /** @type {WebSocketURL} */
         items: {
           anyOf: (
             | {
@@ -992,7 +977,7 @@ declare class Server {
         type: string;
         minLength: number;
         cli: {
-          exclude: boolean;
+          exclude: boolean /** @type {string} */;
         };
       };
       ServerObject: {
@@ -1236,7 +1221,7 @@ declare class Server {
             }
         )[];
         description: string;
-        /** @type {MultiCompiler} */ link: string;
+        link: string;
       };
       StaticObject: {
         type: string;
@@ -1271,10 +1256,6 @@ declare class Server {
             description: string;
             link: string;
           };
-          /**
-           * @private
-           * @returns {Promise<void>}
-           */
           serveIndex: {
             anyOf: (
               | {
