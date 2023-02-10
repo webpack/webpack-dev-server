@@ -55,7 +55,7 @@ describe("API", () => {
 
       await server.start();
 
-      expect(process.env.WEBPACK_SERVE).toBe(true);
+      expect(process.env.WEBPACK_SERVE).toBe("true");
 
       const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
