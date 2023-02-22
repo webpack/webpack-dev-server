@@ -48,7 +48,7 @@ const socket = function initSocket(url, handlers, reconnect) {
 
     // After 10 retries stop trying, to prevent logspam.
     if (retries < maxRetries) {
-      // Exponentially increase timeout to reconnect.
+      // Exponentially increase timeout to deconnect from client-src.
       // Respectfully copied from the package `got`.
       // eslint-disable-next-line no-restricted-properties
       const retryInMs = 1000 * Math.pow(2, retries) + Math.random() * 100;
