@@ -82,36 +82,38 @@ exports[`overlay should not show initially, then show on an error and allow to c
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        data-can-open=\\"true\\"
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-          cursor: pointer;
-        \\"
-      >
-        ERROR in ./foo.js 1:1
-      </div>
+    <div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
-        https://webpack.js.org/concepts#loaders &gt; \`;
+        <div
+          data-can-open=\\"true\\"
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+            cursor: pointer;
+          \\"
+        >
+          ERROR in ./foo.js 1:1
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Module parse failed: Unterminated template (1:1) You may need an
+          appropriate loader to handle this file type, currently no loaders are
+          configured to process this file. See
+          https://webpack.js.org/concepts#loaders &gt; \`;
+        </div>
       </div>
     </div>
   </div>
@@ -206,36 +208,38 @@ exports[`overlay should not show initially, then show on an error, then hide on 
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        data-can-open=\\"true\\"
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-          cursor: pointer;
-        \\"
-      >
-        ERROR in ./foo.js 1:1
-      </div>
+    <div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
-        https://webpack.js.org/concepts#loaders &gt; \`;
+        <div
+          data-can-open=\\"true\\"
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+            cursor: pointer;
+          \\"
+        >
+          ERROR in ./foo.js 1:1
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Module parse failed: Unterminated template (1:1) You may need an
+          appropriate loader to handle this file type, currently no loaders are
+          configured to process this file. See
+          https://webpack.js.org/concepts#loaders &gt; \`;
+        </div>
       </div>
     </div>
   </div>
@@ -330,36 +334,38 @@ exports[`overlay should not show initially, then show on an error, then show oth
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        data-can-open=\\"true\\"
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-          cursor: pointer;
-        \\"
-      >
-        ERROR in ./foo.js 1:1
-      </div>
+    <div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
-        https://webpack.js.org/concepts#loaders &gt; \`;
+        <div
+          data-can-open=\\"true\\"
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+            cursor: pointer;
+          \\"
+        >
+          ERROR in ./foo.js 1:1
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Module parse failed: Unterminated template (1:1) You may need an
+          appropriate loader to handle this file type, currently no loaders are
+          configured to process this file. See
+          https://webpack.js.org/concepts#loaders &gt; \`;
+        </div>
       </div>
     </div>
   </div>
@@ -417,36 +423,38 @@ exports[`overlay should not show initially, then show on an error, then show oth
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        data-can-open=\\"true\\"
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-          cursor: pointer;
-        \\"
-      >
-        ERROR in ./foo.js 1:1
-      </div>
+    <div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        Module parse failed: Unterminated template (1:1) You may need an
-        appropriate loader to handle this file type, currently no loaders are
-        configured to process this file. See
-        https://webpack.js.org/concepts#loaders &gt; \`;a
+        <div
+          data-can-open=\\"true\\"
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+            cursor: pointer;
+          \\"
+        >
+          ERROR in ./foo.js 1:1
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Module parse failed: Unterminated template (1:1) You may need an
+          appropriate loader to handle this file type, currently no loaders are
+          configured to process this file. See
+          https://webpack.js.org/concepts#loaders &gt; \`;a
+        </div>
       </div>
     </div>
   </div>
@@ -570,31 +578,33 @@ exports[`overlay should show a warning after invalidation: overlay html 1`] = `
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(251, 245, 180, 0.1);
+          color: rgb(251, 245, 180);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          WARNING
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -673,58 +683,60 @@ exports[`overlay should show a warning and error for initial compilation and pro
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          &lt;strong&gt;strong&lt;/strong&gt;
+        </div>
       </div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        &lt;strong&gt;strong&lt;/strong&gt;
-      </div>
-    </div>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-        \\"
-      >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        &lt;strong&gt;strong&lt;/strong&gt;
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          &lt;strong&gt;strong&lt;/strong&gt;
+        </div>
       </div>
     </div>
   </div>
@@ -803,139 +815,141 @@ exports[`overlay should show a warning and error for initial compilation: overla
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        Warning from compilation
-      </div>
-    </div>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-        \\"
-      >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
-      </div>
-    </div>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-        \\"
-      >
-        ERROR
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        Error from compilation. Can't find 'test' module.
-      </div>
-    </div>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-        \\"
-      >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Error from compilation. Can't find 'test' module.
-      </div>
-    </div>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
-      <div
-        style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
-        \\"
-      >
-        ERROR
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
       </div>
       <div
         style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        Error from compilation. Can't find 'test' module.
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
+      </div>
+      <div
+        style=\\"
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
+        \\"
+      >
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
       </div>
     </div>
   </div>
@@ -1014,31 +1028,33 @@ exports[`overlay should show a warning and hide them after closing connection: o
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(251, 245, 180, 0.1);
+          color: rgb(251, 245, 180);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          WARNING
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -1125,31 +1141,33 @@ exports[`overlay should show a warning for initial compilation: overlay html 1`]
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(251, 245, 180, 0.1);
+          color: rgb(251, 245, 180);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          WARNING
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -1228,31 +1246,33 @@ exports[`overlay should show a warning when "client.overlay" is "true": overlay 
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(251, 245, 180, 0.1);
+          color: rgb(251, 245, 180);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          WARNING
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -1331,31 +1351,33 @@ exports[`overlay should show a warning when "client.overlay.errors" is "true": o
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(251, 245, 180, 0.1);
+          color: rgb(251, 245, 180);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          WARNING
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -1434,31 +1456,33 @@ exports[`overlay should show a warning when "client.overlay.warnings" is "true":
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(251, 245, 180, 0.1);
+          color: rgb(251, 245, 180);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          WARNING
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -1537,42 +1561,44 @@ exports[`overlay should show an ansi formatted error for initial compilation: ov
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        <span
+        <div
           style=\\"
-            font-weight: normal;
-            opacity: 1;
-            color: #transparent;
-            background: #transparent;
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
           \\"
         >
-          <span style=\\"color: #6d7891\\"> 18 |</span>
-          <span style=\\"color: #ffd080\\">Render</span>
-          <span style=\\"color: #ffd080\\">ansi formatted text</span></span
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
         >
+          <span
+            style=\\"
+              font-weight: normal;
+              opacity: 1;
+              color: #transparent;
+              background: #transparent;
+            \\"
+          >
+            <span style=\\"color: #6d7891\\"> 18 |</span>
+            <span style=\\"color: #ffd080\\">Render</span>
+            <span style=\\"color: #ffd080\\">ansi formatted text</span></span
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -1651,31 +1677,33 @@ exports[`overlay should show an error after invalidation: overlay html 1`] = `
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Error from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -1754,31 +1782,33 @@ exports[`overlay should show an error for initial compilation: overlay html 1`] 
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Error from compilation. Can't find 'test' module.
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
       </div>
     </div>
   </div>
@@ -1857,31 +1887,33 @@ exports[`overlay should show an error when "client.overlay" is "true": overlay h
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Error from compilation. Can't find 'test' module.
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
       </div>
     </div>
   </div>
@@ -1960,31 +1992,33 @@ exports[`overlay should show an error when "client.overlay.errors" is "true": ov
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Error from compilation. Can't find 'test' module.
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
       </div>
     </div>
   </div>
@@ -2063,31 +2097,33 @@ exports[`overlay should show an error when "client.overlay.warnings" is "true": 
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(251, 245, 180, 0.1);
-        color: rgb(251, 245, 180);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(251, 245, 180, 0.1);
+          color: rgb(251, 245, 180);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        WARNING
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Warning from compilation
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          WARNING
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Warning from compilation
+        </div>
       </div>
     </div>
   </div>
@@ -2166,31 +2202,33 @@ exports[`overlay should show overlay when Trusted Types are enabled: overlay htm
     >
       ×
     </button>
-    <div
-      style=\\"
-        background-color: rgba(206, 17, 38, 0.1);
-        color: rgb(252, 207, 207);
-        padding: 1rem 1rem 1.5rem;
-      \\"
-    >
+    <div>
       <div
         style=\\"
-          color: rgb(232, 59, 70);
-          font-size: 1.2em;
-          margin-bottom: 1rem;
-          font-family: sans-serif;
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
         \\"
       >
-        ERROR
-      </div>
-      <div
-        style=\\"
-          line-height: 1.5;
-          font-size: 1rem;
-          font-family: Menlo, Consolas, monospace;
-        \\"
-      >
-        Error from compilation. Can't find 'test' module.
+        <div
+          style=\\"
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          \\"
+        >
+          ERROR
+        </div>
+        <div
+          style=\\"
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          \\"
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
       </div>
     </div>
   </div>

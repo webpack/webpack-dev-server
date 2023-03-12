@@ -4,7 +4,7 @@ import webpackHotLog from "webpack/hot/log.js";
 import stripAnsi from "./utils/stripAnsi.js";
 import parseURL from "./utils/parseURL.js";
 import socket from "./socket.js";
-import { formatProblem, show, hide } from "./overlay.js";
+import { formatProblem, createOverlay } from "./overlay.js";
 import { log, logEnabledFeatures, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
@@ -115,6 +115,13 @@ self.addEventListener("beforeunload", () => {
   status.isUnloading = true;
 });
 
+const trustedTypesPolicyName =
+  typeof options.overlay === "object" && options.overlay.trustedTypesPolicyName;
+
+const overlay = createOverlay({
+  trustedTypesPolicyName,
+});
+
 const onSocketMessage = {
   hot() {
     if (parsedResourceQuery.hot === "false") {
@@ -135,7 +142,7 @@ const onSocketMessage = {
 
     // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
     if (options.overlay) {
-      hide();
+      overlay.send({ type: "DISMISS" });
     }
 
     sendMessage("Invalid");
@@ -192,7 +199,7 @@ const onSocketMessage = {
     log.info("Nothing changed.");
 
     if (options.overlay) {
-      hide();
+      overlay.send({ type: "DISMISS" });
     }
 
     sendMessage("StillOk");
@@ -201,7 +208,7 @@ const onSocketMessage = {
     sendMessage("Ok");
 
     if (options.overlay) {
-      hide();
+      overlay.send({ type: "DISMISS" });
     }
 
     reloadApp(options, status);
@@ -256,10 +263,11 @@ const onSocketMessage = {
         : options.overlay && options.overlay.warnings;
 
     if (needShowOverlayForWarnings) {
-      const trustedTypesPolicyName =
-        typeof options.overlay === "object" &&
-        options.overlay.trustedTypesPolicyName;
-      show("warning", warnings, trustedTypesPolicyName || null);
+      overlay.send({
+        type: "BUILD_ERROR",
+        level: "warning",
+        messages: warnings,
+      });
     }
 
     if (params && params.preventReloading) {
@@ -292,10 +300,11 @@ const onSocketMessage = {
         : options.overlay && options.overlay.errors;
 
     if (needShowOverlayForErrors) {
-      const trustedTypesPolicyName =
-        typeof options.overlay === "object" &&
-        options.overlay.trustedTypesPolicyName;
-      show("error", errors, trustedTypesPolicyName || null);
+      overlay.send({
+        type: "BUILD_ERROR",
+        level: "error",
+        messages: errors,
+      });
     }
   },
   /**
@@ -308,7 +317,7 @@ const onSocketMessage = {
     log.info("Disconnected!");
 
     if (options.overlay) {
-      hide();
+      overlay.send({ type: "DISMISS" });
     }
 
     sendMessage("Close");

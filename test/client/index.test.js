@@ -35,15 +35,21 @@ describe("index", () => {
     jest.setMock("../../client-src/socket.js", jest.fn());
     socket = require("../../client-src/socket");
 
+    const send = jest.fn();
+
     // overlay
     jest.setMock("../../client-src/overlay.js", {
-      hide: jest.fn(),
-      show: jest.fn(),
+      createOverlay: () => {
+        return {
+          send,
+        };
+      },
       formatProblem: (item) => {
         return { header: "HEADER warning", body: `BODY: ${item}` };
       },
     });
-    overlay = require("../../client-src/overlay");
+    const { createOverlay } = require("../../client-src/overlay");
+    overlay = createOverlay();
 
     // reloadApp
     jest.setMock("../../client-src/utils/reloadApp.js", jest.fn());
@@ -89,13 +95,13 @@ describe("index", () => {
 
     expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-    expect(overlay.hide).not.toBeCalled();
+    expect(overlay.send).not.toBeCalledWith({ type: "DISMISS" });
 
     // change flags
     onSocketMessage.overlay(true);
     onSocketMessage["still-ok"]();
 
-    expect(overlay.hide).toBeCalled();
+    expect(overlay.send).toHaveBeenCalledWith({ type: "DISMISS" });
   });
 
   test("should run onSocketMessage.progress and onSocketMessage['progress-update']", () => {
@@ -191,9 +197,14 @@ describe("index", () => {
 
     // change flags
     onSocketMessage.overlay({ warnings: true });
-    onSocketMessage.warnings([]);
+    onSocketMessage.warnings(["warning message"]);
 
-    expect(overlay.show).toBeCalled();
+    expect(overlay.send).toHaveBeenCalledTimes(1);
+    expect(overlay.send).toHaveBeenCalledWith({
+      type: "BUILD_ERROR",
+      level: "warning",
+      messages: ["warning message"],
+    });
   });
 
   test("should parse overlay options from resource query", () => {
@@ -202,17 +213,22 @@ describe("index", () => {
       global.__resourceQuery = `?overlay=${encodeURIComponent(
         `{"warnings": false}`
       )}`;
-      overlay.show.mockReset();
+      overlay.send.mockReset();
       socket.mockReset();
       jest.unmock("../../client-src/utils/parseURL.js");
       require("../../client-src");
       onSocketMessage = socket.mock.calls[0][1];
 
       onSocketMessage.warnings(["warn1"]);
-      expect(overlay.show).not.toBeCalled();
+      expect(overlay.send).not.toBeCalled();
 
       onSocketMessage.errors(["error1"]);
-      expect(overlay.show).toBeCalledTimes(1);
+      expect(overlay.send).toBeCalledTimes(1);
+      expect(overlay.send).toHaveBeenCalledWith({
+        type: "BUILD_ERROR",
+        level: "error",
+        messages: ["error1"],
+      });
     });
 
     jest.isolateModules(() => {
@@ -220,17 +236,22 @@ describe("index", () => {
       global.__resourceQuery = `?overlay=${encodeURIComponent(
         `{"errors": false}`
       )}`;
-      overlay.show.mockReset();
+      overlay.send.mockReset();
       socket.mockReset();
       jest.unmock("../../client-src/utils/parseURL.js");
       require("../../client-src");
       onSocketMessage = socket.mock.calls[0][1];
 
       onSocketMessage.errors(["error1"]);
-      expect(overlay.show).not.toBeCalled();
+      expect(overlay.send).not.toBeCalled();
 
       onSocketMessage.warnings(["warn1"]);
-      expect(overlay.show).toBeCalledTimes(1);
+      expect(overlay.send).toBeCalledTimes(1);
+      expect(overlay.send).toHaveBeenCalledWith({
+        type: "BUILD_ERROR",
+        level: "warning",
+        messages: ["warn1"],
+      });
     });
 
     jest.isolateModules(() => {
@@ -238,15 +259,25 @@ describe("index", () => {
       global.__resourceQuery = "?overlay=true";
       jest.unmock("../../client-src/utils/parseURL.js");
       socket.mockReset();
-      overlay.show.mockReset();
+      overlay.send.mockReset();
       require("../../client-src");
       onSocketMessage = socket.mock.calls[0][1];
 
       onSocketMessage.warnings(["warn2"]);
-      expect(overlay.show).toBeCalledTimes(1);
+      expect(overlay.send).toBeCalledTimes(1);
+      expect(overlay.send).toHaveBeenLastCalledWith({
+        type: "BUILD_ERROR",
+        level: "warning",
+        messages: ["warn2"],
+      });
 
       onSocketMessage.errors(["error2"]);
-      expect(overlay.show).toBeCalledTimes(2);
+      expect(overlay.send).toBeCalledTimes(2);
+      expect(overlay.send).toHaveBeenLastCalledWith({
+        type: "BUILD_ERROR",
+        level: "error",
+        messages: ["error2"],
+      });
     });
   });
 
