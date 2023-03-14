@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.12.0](https://github.com/webpack/webpack-dev-server/compare/v4.11.1...v4.12.0) (2023-03-14)
+
+
+### Features
+
+* allow to set the `sockjs_url` option (only `sockjs`) using the `webSocketServer.options.sockjsUrl` option ([#4586](https://github.com/webpack/webpack-dev-server/issues/4586)) ([69a2fba](https://github.com/webpack/webpack-dev-server/commit/69a2fba4e915b4814de1c3cb27930a13dc994945))
+* catch runtime error ([#4605](https://github.com/webpack/webpack-dev-server/issues/4605)) ([87a26cf](https://github.com/webpack/webpack-dev-server/commit/87a26cf4c1fd9ac8140d345a8520a8d5cb059556))
+* improve styles for overlay ([#4576](https://github.com/webpack/webpack-dev-server/issues/4576)) ([791fb85](https://github.com/webpack/webpack-dev-server/commit/791fb85931299eea052b3c37d4353d48ea34fa5e))
+* open editor when clicking error on overlay ([#4587](https://github.com/webpack/webpack-dev-server/issues/4587)) ([efb2cec](https://github.com/webpack/webpack-dev-server/commit/efb2cec3f8acbbe5113aad20529e268c01ac29c2))
+
+
+### Bug Fixes
+
+* compatibility with `experiments.buildHttp` ([#4585](https://github.com/webpack/webpack-dev-server/issues/4585)) ([5b846cb](https://github.com/webpack/webpack-dev-server/commit/5b846cbe9bfb8444bc7605654fcebf4e87766aa4))
+* respect `NODE_PATH` env variable ([#4581](https://github.com/webpack/webpack-dev-server/issues/4581)) ([b857e6f](https://github.com/webpack/webpack-dev-server/commit/b857e6fa3b86facc63811438eef17be92dc36dc6))
+
 ### [4.11.1](https://github.com/webpack/webpack-dev-server/compare/v4.11.0...v4.11.1) (2022-09-19)
 
 
