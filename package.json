@@ -73,7 +73,7 @@
     "sockjs": "^0.3.24",
     "spdy": "^4.0.2",
     "webpack-dev-middleware": "^5.3.1",
-    "ws": "^8.4.2"
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.3",
@@ -129,7 +129,7 @@
     "typescript": "^4.9.3",
     "url-loader": "^4.1.1",
     "wait-for-expect": "^3.0.2",
-    "webpack": "^5.75.0",
+    "webpack": "^5.76.1",
     "webpack-cli": "^4.7.2",
     "webpack-merge": "^5.8.0"
   },

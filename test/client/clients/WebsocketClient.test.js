@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * @jest-environment-options { "customExportConditions": ["main"] }
  */
 
 "use strict";
