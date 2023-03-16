@@ -115,13 +115,18 @@ self.addEventListener("beforeunload", () => {
   status.isUnloading = true;
 });
 
-const trustedTypesPolicyName =
-  typeof options.overlay === "object" && options.overlay.trustedTypesPolicyName;
-
 const overlay = options.overlay
-  ? createOverlay({
-      trustedTypesPolicyName,
-    })
+  ? createOverlay(
+      typeof options.overlay === "object"
+        ? {
+            trustedTypesPolicyName: options.overlay.trustedTypesPolicyName,
+            catchRuntimeError: options.overlay.errors,
+          }
+        : {
+            trustedTypesPolicyName: false,
+            catchRuntimeError: options.overlay,
+          }
+    )
   : {
       send() {
         // noop
