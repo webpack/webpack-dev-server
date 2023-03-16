@@ -118,9 +118,15 @@ self.addEventListener("beforeunload", () => {
 const trustedTypesPolicyName =
   typeof options.overlay === "object" && options.overlay.trustedTypesPolicyName;
 
-const overlay = createOverlay({
-  trustedTypesPolicyName,
-});
+const overlay = options.overlay
+  ? createOverlay({
+      trustedTypesPolicyName,
+    })
+  : {
+      send() {
+        // noop
+      },
+    };
 
 const onSocketMessage = {
   hot() {
