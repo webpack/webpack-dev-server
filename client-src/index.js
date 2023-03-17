@@ -15,7 +15,7 @@ import createSocketURL from "./utils/createSocketURL.js";
  * @property {boolean} hot
  * @property {boolean} liveReload
  * @property {boolean} progress
- * @property {boolean | { warnings?: boolean, errors?: boolean, trustedTypesPolicyName?: string }} overlay
+ * @property {boolean | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean, trustedTypesPolicyName?: string }} overlay
  * @property {string} [logging]
  * @property {number} [reconnect]
  */
@@ -80,6 +80,7 @@ if (parsedResourceQuery.overlay) {
     options.overlay = {
       errors: true,
       warnings: true,
+      runtimeErrors: true,
       ...options.overlay,
     };
   }
@@ -120,7 +121,7 @@ const overlay = options.overlay
       typeof options.overlay === "object"
         ? {
             trustedTypesPolicyName: options.overlay.trustedTypesPolicyName,
-            catchRuntimeError: options.overlay.errors,
+            catchRuntimeError: options.overlay.runtimeErrors,
           }
         : {
             trustedTypesPolicyName: false,

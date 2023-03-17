@@ -138,7 +138,7 @@ declare class Server {
         /**
          * @typedef {Object} ClientConfiguration
          * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-         * @property {boolean  | { warnings?: boolean, errors?: boolean }} [overlay]
+         * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
          * @property {boolean} [progress]
          * @property {boolean | number} [reconnect]
          * @property {"ws" | "sockjs" | string} [webSocketTransport]
@@ -316,7 +316,7 @@ declare class Server {
         /**
          * @typedef {Object} ClientConfiguration
          * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-         * @property {boolean  | { warnings?: boolean, errors?: boolean }} [overlay]
+         * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
          * @property {boolean} [progress]
          * @property {boolean | number} [reconnect]
          * @property {"ws" | "sockjs" | string} [webSocketTransport]
@@ -440,7 +440,7 @@ declare class Server {
       /**
        * @typedef {Object} ClientConfiguration
        * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-       * @property {boolean  | { warnings?: boolean, errors?: boolean }} [overlay]
+       * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
        * @property {boolean} [progress]
        * @property {boolean | number} [reconnect]
        * @property {"ws" | "sockjs" | string} [webSocketTransport]
@@ -574,10 +574,10 @@ declare class Server {
           path: string;
         }[];
         description: string;
+        simpleType: string;
         /**
          * @type {FSWatcher[]}
          */
-        simpleType: string;
         multiple: boolean;
       };
       "client-web-socket-url-protocol": {
@@ -587,6 +587,10 @@ declare class Server {
               multiple: boolean;
               path: string;
               type: string;
+              /**
+               * @private
+               * @type {RequestHandler[]}
+               */
               values: string[];
             }
           | {
@@ -611,10 +615,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /**
-       * @param {string} URL
-       * @returns {boolean}
-       */
       compress: {
         configs: {
           type: string;
@@ -625,12 +625,12 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
-        /**
-         * @param {string} gateway
-         * @returns {string | undefined}
-         */
         multiple: boolean;
       };
+      /**
+       * @param {string} gateway
+       * @returns {string | undefined}
+       */
       "history-api-fallback": {
         configs: {
           type: string;
@@ -661,12 +661,12 @@ declare class Server {
         )[];
         description: string;
         simpleType: string;
-        /**
-         * @param {Host} hostname
-         * @returns {Promise<string>}
-         */
         multiple: boolean;
       };
+      /**
+       * @param {Host} hostname
+       * @returns {Promise<string>}
+       */
       hot: {
         configs: (
           | {
@@ -706,6 +706,9 @@ declare class Server {
           multiple: boolean;
           description: string;
           negatedDescription: string;
+          /**
+           * @returns {string}
+           */
           path: string;
         }[];
         description: string;
@@ -761,8 +764,9 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string /** @type {string} */;
+          path: string;
         }[];
+        /** @type {string} */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -775,7 +779,7 @@ declare class Server {
           type: string;
         }[];
         description: string;
-        multiple: boolean;
+        /** @type {string} */ multiple: boolean;
         simpleType: string;
       };
       "https-crl": {
@@ -796,7 +800,7 @@ declare class Server {
           path: string;
           type: string;
         }[];
-        /** @type {number | string} */ description: string;
+        description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -818,7 +822,7 @@ declare class Server {
           path: string;
           type: string;
         }[];
-        /** @type {string} */ description: string;
+        description: string;
         multiple: boolean;
         simpleType: string;
       };
@@ -886,12 +890,6 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
-        /**
-         * prependEntry Method for webpack 4
-         * @param {any} originalEntry
-         * @param {any} newAdditionalEntries
-         * @returns {any}
-         */
       };
       "live-reload": {
         configs: {
@@ -913,6 +911,7 @@ declare class Server {
           negatedDescription: string;
           path: string;
         }[];
+        /** @type {any} */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -964,7 +963,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string /** @type {Compiler} */;
+          path: string;
         }[];
         description: string;
         simpleType: string;
@@ -1014,6 +1013,10 @@ declare class Server {
           | {
               type: string;
               values: string[];
+              /**
+               * @param {string | Static | undefined} [optionsForStatic]
+               * @returns {NormalizedStatic}
+               */
               multiple: boolean;
               description: string;
               path: string;
@@ -1028,6 +1031,7 @@ declare class Server {
           description: string;
           multiple: boolean;
           path: string;
+          /** @type {NormalizedStatic} */
           type: string;
         }[];
         description: string;
@@ -1206,9 +1210,9 @@ declare class Server {
               path: string;
             }
         )[];
-        /** @type {ServerOptions} */ description: string;
-        /** @type {Array<keyof ServerOptions>} */ simpleType: string;
-        multiple: boolean;
+        description: string;
+        simpleType: string;
+        /** @type {Array<keyof ServerOptions>} */ multiple: boolean;
       };
       "static-directory": {
         configs: {
@@ -1248,7 +1252,7 @@ declare class Server {
           type: string;
           multiple: boolean;
           description: string;
-          path: string /** @type {ServerOptions} */;
+          path: string;
         }[];
         description: string;
         simpleType: string;
@@ -1542,7 +1546,7 @@ declare class Server {
                 /**
                  * @typedef {Object} ClientConfiguration
                  * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-                 * @property {boolean  | { warnings?: boolean, errors?: boolean }} [overlay]
+                 * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
                  * @property {boolean} [progress]
                  * @property {boolean | number} [reconnect]
                  * @property {"ws" | "sockjs" | string} [webSocketTransport]
@@ -1700,7 +1704,7 @@ declare class Server {
               /**
                * @typedef {Object} ClientConfiguration
                * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-               * @property {boolean  | { warnings?: boolean, errors?: boolean }} [overlay]
+               * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
                * @property {boolean} [progress]
                * @property {boolean | number} [reconnect]
                * @property {"ws" | "sockjs" | string} [webSocketTransport]
@@ -1786,7 +1790,7 @@ declare class Server {
         /**
          * @typedef {Object} ClientConfiguration
          * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-         * @property {boolean  | { warnings?: boolean, errors?: boolean }} [overlay]
+         * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
          * @property {boolean} [progress]
          * @property {boolean | number} [reconnect]
          * @property {"ws" | "sockjs" | string} [webSocketTransport]
@@ -1949,7 +1953,7 @@ declare class Server {
               properties: {
                 passphrase: {
                   type: string;
-                  description: string;
+                  description: string /** @type {Schema} */;
                 };
                 requestCert: {
                   type: string;
@@ -2052,10 +2056,6 @@ declare class Server {
                   description: string;
                 };
                 crl: {
-                  /**
-                   * @param {"v4" | "v6"} family
-                   * @returns {Promise<string | undefined>}
-                   */
                   anyOf: (
                     | {
                         type: string;
@@ -2067,6 +2067,10 @@ declare class Server {
                               }
                             | {
                                 instanceof: string;
+                                /**
+                                 * @param {"v4" | "v6"} family
+                                 * @returns {string | undefined}
+                                 */
                                 type?: undefined;
                               }
                           )[];
@@ -2246,7 +2250,7 @@ declare class Server {
               minLength: number;
               enum?: undefined;
             }
-        )[];
+        )[] /** @type {string} */;
       };
       Hot: {
         anyOf: (
@@ -2322,7 +2326,7 @@ declare class Server {
                   $ref: string;
                 }[];
               };
-              $ref?: undefined;
+              /** @type {string} */ $ref?: undefined;
             }
           | {
               $ref: string;
@@ -2339,7 +2343,6 @@ declare class Server {
           negatedDescription: string;
         };
       };
-      /** @type {ClientConfiguration} */
       OpenObject: {
         type: string;
         additionalProperties: boolean;
@@ -2470,9 +2473,8 @@ declare class Server {
         anyOf: {
           $ref: string;
         }[];
-        /** @type {any} */
         link: string;
-        description: string;
+        /** @type {any} */ description: string;
       };
       ServerType: {
         enum: string[];
@@ -2492,7 +2494,6 @@ declare class Server {
       };
       ServerObject: {
         type: string;
-        /** @type {string} */
         properties: {
           type: {
             anyOf: {
@@ -2500,7 +2501,7 @@ declare class Server {
             }[];
           };
           options: {
-            $ref: string /** @type {MultiCompiler} */;
+            $ref: string;
           };
         };
         additionalProperties: boolean;
@@ -2513,7 +2514,6 @@ declare class Server {
             type: string;
             description: string;
           };
-          /** @type {MultiCompiler} */
           requestCert: {
             type: string;
             description: string;
@@ -2525,6 +2525,7 @@ declare class Server {
             anyOf: (
               | {
                   type: string;
+                  /** @type {MultiCompiler} */
                   items: {
                     anyOf: (
                       | {
@@ -2664,6 +2665,10 @@ declare class Server {
                       | {
                           type: string;
                           additionalProperties: boolean;
+                          /**
+                           * @param {string | Static | undefined} [optionsForStatic]
+                           * @returns {NormalizedStatic}
+                           */
                           instanceof?: undefined;
                         }
                     )[];
@@ -2907,6 +2912,7 @@ declare class Server {
         description: string;
         link: string;
       };
+      /** @type {ServerConfiguration} */
       WebSocketServerType: {
         enum: string[];
       };
@@ -2932,6 +2938,7 @@ declare class Server {
       WebSocketServerFunction: {
         instanceof: string;
       };
+      /** @type {ServerOptions} */
       WebSocketServerObject: {
         type: string;
         properties: {
@@ -2942,7 +2949,6 @@ declare class Server {
           };
           options: {
             type: string;
-            /** @type {Array<keyof ServerOptions>} */
             additionalProperties: boolean;
             cli: {
               exclude: boolean;
@@ -2953,7 +2959,7 @@ declare class Server {
       };
       WebSocketServerString: {
         type: string;
-        minLength: number;
+        /** @type {ServerOptions} */ minLength: number;
       };
     };
     additionalProperties: boolean;
@@ -2979,13 +2985,16 @@ declare class Server {
       historyApiFallback: {
         $ref: string;
       };
-      /** @type {ServerOptions} */
       host: {
         $ref: string;
       };
       hot: {
         $ref: string;
       };
+      /**
+       * @param {string | Buffer | undefined} item
+       * @returns {string | Buffer | undefined}
+       */
       http2: {
         $ref: string;
       };
@@ -3014,8 +3023,9 @@ declare class Server {
         $ref: string;
       };
       port: {
-        $ref: string;
+        $ref: string /** @type {any} */;
       };
+      /** @type {any} */
       proxy: {
         $ref: string;
       };
@@ -3625,6 +3635,7 @@ type ClientConfiguration = {
     | {
         warnings?: boolean | undefined;
         errors?: boolean | undefined;
+        runtimeErrors?: boolean | undefined;
       }
     | undefined;
   progress?: boolean | undefined;
