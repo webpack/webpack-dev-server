@@ -272,7 +272,7 @@ const createOverlay = (options) => {
     hideOverlay: hide,
   });
 
-  if (options.catchRuntimeError) {
+  if (options.catchRuntimeError && typeof window !== "undefined") {
     listenToRuntimeError((errorEvent) => {
       // error property may be empty in older browser like IE
       const { error, message } = errorEvent;
