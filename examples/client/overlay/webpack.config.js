@@ -10,9 +10,7 @@ module.exports = setup({
   entry: "./app.js",
   devServer: {
     client: {
-      overlay: {
-        runtimeErrors: false,
-      },
+      overlay: true,
     },
   },
   // uncomment to test for IE
