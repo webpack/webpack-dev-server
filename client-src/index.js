@@ -46,8 +46,6 @@ const options = {
 };
 const parsedResourceQuery = parseURL(__resourceQuery);
 
-console.log(parsedResourceQuery);
-
 const enabledFeatures = {
   "Hot Module Replacement": false,
   "Live Reloading": false,
