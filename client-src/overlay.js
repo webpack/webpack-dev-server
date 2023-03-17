@@ -272,15 +272,18 @@ const createOverlay = (options) => {
     hideOverlay: hide,
   });
 
-  if (options.catchRuntimeError && typeof window !== "undefined") {
+  if (options.catchRuntimeError) {
     listenToRuntimeError((errorEvent) => {
       // error property may be empty in older browser like IE
       const { error, message } = errorEvent;
+
       if (!error && !message) {
         return;
       }
+
       const errorObject =
         error instanceof Error ? error : new Error(error || message);
+
       overlayService.send({
         type: "RUNTIME_ERROR",
         messages: [
