@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.13.0](https://github.com/webpack/webpack-dev-server/compare/v4.12.0...v4.13.0) (2023-03-17)
+
+
+### Features
+
+* added `client.overlay.runtimeErrors` option to control runtime errors ([#4773](https://github.com/webpack/webpack-dev-server/issues/4773)) ([dca2366](https://github.com/webpack/webpack-dev-server/commit/dca2366e22a262e6052dae060c8b237f4e6fd26b))
+
 ## [4.12.0](https://github.com/webpack/webpack-dev-server/compare/v4.11.1...v4.12.0) (2023-03-14)
 
 
