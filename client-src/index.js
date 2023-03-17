@@ -116,23 +116,17 @@ self.addEventListener("beforeunload", () => {
   status.isUnloading = true;
 });
 
-const overlay = options.overlay
-  ? createOverlay(
-      typeof options.overlay === "object"
-        ? {
-            trustedTypesPolicyName: options.overlay.trustedTypesPolicyName,
-            catchRuntimeError: options.overlay.runtimeErrors,
-          }
-        : {
-            trustedTypesPolicyName: false,
-            catchRuntimeError: options.overlay,
-          }
-    )
-  : {
-      send() {
-        // noop
-      },
-    };
+const overlay = createOverlay(
+  typeof options.overlay === "object"
+    ? {
+        trustedTypesPolicyName: options.overlay.trustedTypesPolicyName,
+        catchRuntimeError: options.overlay.runtimeErrors,
+      }
+    : {
+        trustedTypesPolicyName: false,
+        catchRuntimeError: options.overlay,
+      }
+);
 
 const onSocketMessage = {
   hot() {

@@ -153,6 +153,23 @@ module.exports = {
     simpleType: "boolean",
     multiple: false,
   },
+  "client-overlay-runtime-errors": {
+    configs: [
+      {
+        type: "boolean",
+        multiple: false,
+        description:
+          "Enables a full-screen overlay in the browser when there are uncaught runtime errors.",
+        negatedDescription:
+          "Disables the full-screen overlay in the browser when there are uncaught runtime errors.",
+        path: "client.overlay.runtimeErrors",
+      },
+    ],
+    description:
+      "Enables a full-screen overlay in the browser when there are uncaught runtime errors.",
+    simpleType: "boolean",
+    multiple: false,
+  },
   "client-progress": {
     configs: [
       {

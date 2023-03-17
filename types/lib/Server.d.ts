@@ -416,6 +416,82 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
+      "client-overlay-runtime-errors": {
+        configs: {
+          type: string;
+          multiple: boolean;
+          description: string;
+          /**
+           * @typedef {Object} Open
+           * @property {string | string[] | OpenApp} [app]
+           * @property {string | string[]} [target]
+           */
+          /**
+           * @typedef {Object} NormalizedOpen
+           * @property {string} target
+           * @property {import("open").Options} options
+           */
+          /**
+           * @typedef {Object} WebSocketURL
+           * @property {string} [hostname]
+           * @property {string} [password]
+           * @property {string} [pathname]
+           * @property {number | string} [port]
+           * @property {string} [protocol]
+           * @property {string} [username]
+           */
+          /**
+           * @typedef {Object} ClientConfiguration
+           * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
+           * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
+           * @property {boolean} [progress]
+           * @property {boolean | number} [reconnect]
+           * @property {"ws" | "sockjs" | string} [webSocketTransport]
+           * @property {string | WebSocketURL} [webSocketURL]
+           */
+          /**
+           * @typedef {Array<{ key: string; value: string }> | Record<string, string | string[]>} Headers
+           */
+          /**
+           * @typedef {{ name?: string, path?: string, middleware: ExpressRequestHandler | ExpressErrorRequestHandler } | ExpressRequestHandler | ExpressErrorRequestHandler} Middleware
+           */
+          /**
+           * @typedef {Object} Configuration
+           * @property {boolean | string} [ipc]
+           * @property {Host} [host]
+           * @property {Port} [port]
+           * @property {boolean | "only"} [hot]
+           * @property {boolean} [liveReload]
+           * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
+           * @property {boolean} [compress]
+           * @property {boolean} [magicHtml]
+           * @property {"auto" | "all" | string | string[]} [allowedHosts]
+           * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
+           * @property {boolean} [setupExitSignals]
+           * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
+           * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
+           * @property {boolean | string | Static | Array<string | Static>} [static]
+           * @property {boolean | ServerOptions} [https]
+           * @property {boolean} [http2]
+           * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
+           * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
+           * @property {ProxyConfigMap | ProxyConfigArrayItem | ProxyConfigArray} [proxy]
+           * @property {boolean | string | Open | Array<string | Open>} [open]
+           * @property {boolean} [setupExitSignals]
+           * @property {boolean | ClientConfiguration} [client]
+           * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
+           * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
+           * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
+           * @property {(devServer: Server) => void} [onListening]
+           * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
+           */
+          negatedDescription: string;
+          path: string;
+        }[];
+        description: string;
+        simpleType: string;
+        multiple: boolean;
+      };
       "client-progress": {
         configs: {
           type: string;
@@ -428,60 +504,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /**
-       * @typedef {Object} WebSocketURL
-       * @property {string} [hostname]
-       * @property {string} [password]
-       * @property {string} [pathname]
-       * @property {number | string} [port]
-       * @property {string} [protocol]
-       * @property {string} [username]
-       */
-      /**
-       * @typedef {Object} ClientConfiguration
-       * @property {"log" | "info" | "warn" | "error" | "none" | "verbose"} [logging]
-       * @property {boolean  | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean }} [overlay]
-       * @property {boolean} [progress]
-       * @property {boolean | number} [reconnect]
-       * @property {"ws" | "sockjs" | string} [webSocketTransport]
-       * @property {string | WebSocketURL} [webSocketURL]
-       */
-      /**
-       * @typedef {Array<{ key: string; value: string }> | Record<string, string | string[]>} Headers
-       */
-      /**
-       * @typedef {{ name?: string, path?: string, middleware: ExpressRequestHandler | ExpressErrorRequestHandler } | ExpressRequestHandler | ExpressErrorRequestHandler} Middleware
-       */
-      /**
-       * @typedef {Object} Configuration
-       * @property {boolean | string} [ipc]
-       * @property {Host} [host]
-       * @property {Port} [port]
-       * @property {boolean | "only"} [hot]
-       * @property {boolean} [liveReload]
-       * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
-       * @property {boolean} [compress]
-       * @property {boolean} [magicHtml]
-       * @property {"auto" | "all" | string | string[]} [allowedHosts]
-       * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-       * @property {boolean} [setupExitSignals]
-       * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
-       * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
-       * @property {boolean | string | Static | Array<string | Static>} [static]
-       * @property {boolean | ServerOptions} [https]
-       * @property {boolean} [http2]
-       * @property {"http" | "https" | "spdy" | string | ServerConfiguration} [server]
-       * @property {boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration} [webSocketServer]
-       * @property {ProxyConfigMap | ProxyConfigArrayItem | ProxyConfigArray} [proxy]
-       * @property {boolean | string | Open | Array<string | Open>} [open]
-       * @property {boolean} [setupExitSignals]
-       * @property {boolean | ClientConfiguration} [client]
-       * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-       * @property {(devServer: Server) => void} [onAfterSetupMiddleware]
-       * @property {(devServer: Server) => void} [onBeforeSetupMiddleware]
-       * @property {(devServer: Server) => void} [onListening]
-       * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
-       */
       "client-reconnect": {
         configs: (
           | {
@@ -540,6 +562,10 @@ declare class Server {
           description: string;
           path: string;
         }[];
+        /**
+         * @param {Configuration | Compiler | MultiCompiler} options
+         * @param {Compiler | MultiCompiler | Configuration} compiler
+         */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -565,19 +591,23 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
+        /**
+         * @type {FSWatcher[]}
+         */
       };
       "client-web-socket-url-port": {
         configs: {
           type: string;
           multiple: boolean;
           description: string;
+          /**
+           * @private
+           * @type {RequestHandler[]}
+           */
           path: string;
         }[];
         description: string;
         simpleType: string;
-        /**
-         * @type {FSWatcher[]}
-         */
         multiple: boolean;
       };
       "client-web-socket-url-protocol": {
@@ -587,10 +617,6 @@ declare class Server {
               multiple: boolean;
               path: string;
               type: string;
-              /**
-               * @private
-               * @type {RequestHandler[]}
-               */
               values: string[];
             }
           | {
@@ -627,10 +653,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /**
-       * @param {string} gateway
-       * @returns {string | undefined}
-       */
       "history-api-fallback": {
         configs: {
           type: string;
@@ -663,10 +685,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /**
-       * @param {Host} hostname
-       * @returns {Promise<string>}
-       */
       hot: {
         configs: (
           | {
@@ -706,9 +724,6 @@ declare class Server {
           multiple: boolean;
           description: string;
           negatedDescription: string;
-          /**
-           * @returns {string}
-           */
           path: string;
         }[];
         description: string;
@@ -757,6 +772,7 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
+        /** @type {ServerConfiguration} */
         simpleType: string;
       };
       "https-cert": {
@@ -766,9 +782,8 @@ declare class Server {
           description: string;
           path: string;
         }[];
-        /** @type {string} */
         description: string;
-        simpleType: string;
+        /** @type {string} */ simpleType: string;
         multiple: boolean;
       };
       "https-cert-reset": {
@@ -779,7 +794,7 @@ declare class Server {
           type: string;
         }[];
         description: string;
-        /** @type {string} */ multiple: boolean;
+        multiple: boolean;
         simpleType: string;
       };
       "https-crl": {
@@ -891,6 +906,7 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
+      /** @type {Object<string,string>} */
       "live-reload": {
         configs: {
           type: string;
@@ -911,7 +927,6 @@ declare class Server {
           negatedDescription: string;
           path: string;
         }[];
-        /** @type {any} */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -953,6 +968,10 @@ declare class Server {
           multiple: boolean;
           description: string;
           path: string;
+          /**
+           * @private
+           * @returns {Promise<void>}
+           */
         }[];
         description: string;
         simpleType: string;
@@ -1013,10 +1032,6 @@ declare class Server {
           | {
               type: string;
               values: string[];
-              /**
-               * @param {string | Static | undefined} [optionsForStatic]
-               * @returns {NormalizedStatic}
-               */
               multiple: boolean;
               description: string;
               path: string;
@@ -1031,7 +1046,6 @@ declare class Server {
           description: string;
           multiple: boolean;
           path: string;
-          /** @type {NormalizedStatic} */
           type: string;
         }[];
         description: string;
@@ -1212,7 +1226,7 @@ declare class Server {
         )[];
         description: string;
         simpleType: string;
-        /** @type {Array<keyof ServerOptions>} */ multiple: boolean;
+        multiple: boolean;
       };
       "static-directory": {
         configs: {
@@ -1222,6 +1236,10 @@ declare class Server {
           path: string;
         }[];
         description: string;
+        /**
+         * @param {string | Buffer | undefined} item
+         * @returns {string | Buffer | undefined}
+         */
         simpleType: string;
         multiple: boolean;
       };
@@ -1234,7 +1252,7 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        multiple: boolean /** @type {any} */;
       };
       "static-public-path-reset": {
         configs: {
