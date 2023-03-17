@@ -78,6 +78,7 @@ function formatProblem(type, item) {
 /**
  * @typedef {Object} CreateOverlayOptions
  * @property {string | null} trustedTypesPolicyName
+ * @property {boolean} [catchRuntimeError]
  */
 
 /**
@@ -271,24 +272,29 @@ const createOverlay = (options) => {
     hideOverlay: hide,
   });
 
-  listenToRuntimeError((errorEvent) => {
-    // error property may be empty in older browser like IE
-    const { error, message } = errorEvent;
-    if (!error && !message) {
-      return;
-    }
-    const errorObject =
-      error instanceof Error ? error : new Error(error || message);
-    overlayService.send({
-      type: "RUNTIME_ERROR",
-      messages: [
-        {
-          message: errorObject.message,
-          stack: parseErrorToStacks(errorObject),
-        },
-      ],
+  if (options.catchRuntimeError) {
+    listenToRuntimeError((errorEvent) => {
+      // error property may be empty in older browser like IE
+      const { error, message } = errorEvent;
+
+      if (!error && !message) {
+        return;
+      }
+
+      const errorObject =
+        error instanceof Error ? error : new Error(error || message);
+
+      overlayService.send({
+        type: "RUNTIME_ERROR",
+        messages: [
+          {
+            message: errorObject.message,
+            stack: parseErrorToStacks(errorObject),
+          },
+        ],
+      });
     });
-  });
+  }
 
   return overlayService;
 };

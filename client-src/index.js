@@ -15,7 +15,7 @@ import createSocketURL from "./utils/createSocketURL.js";
  * @property {boolean} hot
  * @property {boolean} liveReload
  * @property {boolean} progress
- * @property {boolean | { warnings?: boolean, errors?: boolean, trustedTypesPolicyName?: string }} overlay
+ * @property {boolean | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean, trustedTypesPolicyName?: string }} overlay
  * @property {string} [logging]
  * @property {number} [reconnect]
  */
@@ -80,6 +80,7 @@ if (parsedResourceQuery.overlay) {
     options.overlay = {
       errors: true,
       warnings: true,
+      runtimeErrors: true,
       ...options.overlay,
     };
   }
@@ -115,12 +116,20 @@ self.addEventListener("beforeunload", () => {
   status.isUnloading = true;
 });
 
-const trustedTypesPolicyName =
-  typeof options.overlay === "object" && options.overlay.trustedTypesPolicyName;
-
-const overlay = createOverlay({
-  trustedTypesPolicyName,
-});
+const overlay =
+  typeof window !== "undefined"
+    ? createOverlay(
+        typeof options.overlay === "object"
+          ? {
+              trustedTypesPolicyName: options.overlay.trustedTypesPolicyName,
+              catchRuntimeError: options.overlay.runtimeErrors,
+            }
+          : {
+              trustedTypesPolicyName: false,
+              catchRuntimeError: options.overlay,
+            }
+      )
+    : { send: () => {} };
 
 const onSocketMessage = {
   hot() {

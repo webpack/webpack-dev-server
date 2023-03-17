@@ -114,6 +114,18 @@ declare const _exports: {
     simpleType: string;
     multiple: boolean;
   };
+  "client-overlay-runtime-errors": {
+    configs: {
+      type: string;
+      multiple: boolean;
+      description: string;
+      negatedDescription: string;
+      path: string;
+    }[];
+    description: string;
+    simpleType: string;
+    multiple: boolean;
+  };
   "client-progress": {
     configs: {
       type: string;

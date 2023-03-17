@@ -90,19 +90,19 @@ exports[`options validate should throw an error on the "client" option with '{"o
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * options.client.overlay should be one of these:
-      boolean | object { errors?, warnings?, trustedTypesPolicyName? }
+      boolean | object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }
       Details:
        * options.client.overlay should be a boolean.
          -> Enables a full-screen overlay in the browser when there are compiler errors or warnings.
          -> Read more at https://webpack.js.org/configuration/dev-server/#overlay
        * options.client.overlay should be an object:
-         object { errors?, warnings?, trustedTypesPolicyName? }"
+         object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":{"arbitrary":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.overlay has an unknown property 'arbitrary'. These properties are valid:
-   object { errors?, warnings?, trustedTypesPolicyName? }"
+   object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }"
 `;
 
 exports[`options validate should throw an error on the "client" option with '{"overlay":{"errors":""}}' value 1`] = `
