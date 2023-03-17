@@ -139,6 +139,9 @@
   "peerDependenciesMeta": {
     "webpack-cli": {
       "optional": true
+    },
+    "webpack": {
+      "optional": true
     }
   }
 }
