@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.13.1](https://github.com/webpack/webpack-dev-server/compare/v4.13.0...v4.13.1) (2023-03-18)
+
+
+### Bug Fixes
+
+* make webpack optional peer dependency ([#4778](https://github.com/webpack/webpack-dev-server/issues/4778)) ([71be54e](https://github.com/webpack/webpack-dev-server/commit/71be54edcb890f53d2cd900c2801989a17c2c9b1))
+
 ## [4.13.0](https://github.com/webpack/webpack-dev-server/compare/v4.12.0...v4.13.0) (2023-03-17)
 
 
