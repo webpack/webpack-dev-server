@@ -99,7 +99,7 @@ describe('"open" option', () => {
     });
   });
 
-  it("should work with '0.0.0.0' host", async () => {
+  it("should work with '0.0.0.0' host but open localhost", async () => {
     const host = "0.0.0.0";
 
     const server = new Server(
@@ -114,7 +114,7 @@ describe('"open" option', () => {
     await server.start();
     await server.stop();
 
-    expect(open).toHaveBeenCalledWith(`http://${host}:${port}/`, {
+    expect(open).toHaveBeenCalledWith(`http://localhost:${port}/`, {
       wait: false,
     });
   });
