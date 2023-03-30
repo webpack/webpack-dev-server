@@ -162,7 +162,6 @@ declare class Server {
          * @property {boolean} [magicHtml]
          * @property {"auto" | "all" | string | string[]} [allowedHosts]
          * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-         * @property {boolean} [setupExitSignals]
          * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
          * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
          * @property {boolean | string | Static | Array<string | Static>} [static]
@@ -340,7 +339,6 @@ declare class Server {
          * @property {boolean} [magicHtml]
          * @property {"auto" | "all" | string | string[]} [allowedHosts]
          * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-         * @property {boolean} [setupExitSignals]
          * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
          * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
          * @property {boolean | string | Static | Array<string | Static>} [static]
@@ -467,7 +465,6 @@ declare class Server {
            * @property {boolean} [magicHtml]
            * @property {"auto" | "all" | string | string[]} [allowedHosts]
            * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-           * @property {boolean} [setupExitSignals]
            * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
            * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
            * @property {boolean | string | Static | Array<string | Static>} [static]
@@ -562,10 +559,6 @@ declare class Server {
           description: string;
           path: string;
         }[];
-        /**
-         * @param {Configuration | Compiler | MultiCompiler} options
-         * @param {Compiler | MultiCompiler | Configuration} compiler
-         */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -591,19 +584,12 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
-        /**
-         * @type {FSWatcher[]}
-         */
       };
       "client-web-socket-url-port": {
         configs: {
           type: string;
           multiple: boolean;
           description: string;
-          /**
-           * @private
-           * @type {RequestHandler[]}
-           */
           path: string;
         }[];
         description: string;
@@ -766,13 +752,13 @@ declare class Server {
       "https-cacert-reset": {
         configs: {
           description: string;
+          /** @type {string} */
           multiple: boolean;
           path: string;
           type: string;
         }[];
         description: string;
         multiple: boolean;
-        /** @type {ServerConfiguration} */
         simpleType: string;
       };
       "https-cert": {
@@ -783,7 +769,7 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /** @type {string} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
       "https-cert-reset": {
@@ -881,6 +867,12 @@ declare class Server {
           description: string;
           negatedDescription: string;
           path: string;
+          /**
+           * prependEntry Method for webpack 4
+           * @param {any} originalEntry
+           * @param {any} newAdditionalEntries
+           * @returns {any}
+           */
         }[];
         description: string;
         simpleType: string;
@@ -906,7 +898,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /** @type {Object<string,string>} */
       "live-reload": {
         configs: {
           type: string;
@@ -915,6 +906,7 @@ declare class Server {
           negatedDescription: string;
           path: string;
         }[];
+        /** @type {any} */
         description: string;
         simpleType: string;
         multiple: boolean;
@@ -936,7 +928,7 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              description: string;
+              /** @type {MultiCompiler} */ description: string;
               path: string;
             }
           | {
@@ -968,14 +960,14 @@ declare class Server {
           multiple: boolean;
           description: string;
           path: string;
-          /**
-           * @private
-           * @returns {Promise<void>}
-           */
         }[];
         description: string;
         simpleType: string;
         multiple: boolean;
+        /**
+         * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
+         * @returns {WatchOptions}
+         */
       };
       "open-app-name-reset": {
         configs: {
@@ -1206,7 +1198,7 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
-        simpleType: string;
+        simpleType: string /** @type {ServerOptions} */;
       };
       static: {
         configs: (
@@ -1219,7 +1211,7 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
-              description: string;
+              /** @type {ServerOptions} */ description: string;
               negatedDescription: string;
               path: string;
             }
@@ -1231,15 +1223,11 @@ declare class Server {
       "static-directory": {
         configs: {
           type: string;
-          multiple: boolean;
+          /** @type {any} */ multiple: boolean;
           description: string;
           path: string;
         }[];
         description: string;
-        /**
-         * @param {string | Buffer | undefined} item
-         * @returns {string | Buffer | undefined}
-         */
         simpleType: string;
         multiple: boolean;
       };
@@ -1251,8 +1239,8 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        simpleType: string;
-        multiple: boolean /** @type {any} */;
+        /** @type {any} */ simpleType: string;
+        multiple: boolean;
       };
       "static-public-path-reset": {
         configs: {
@@ -1369,7 +1357,7 @@ declare class Server {
         description: string;
         simpleType: string;
         multiple: boolean;
-      };
+      } /** @type {ServerOptions} */;
     };
     readonly processArguments: (
       args: Record<string, import("../bin/process-arguments").Argument>,
@@ -1588,7 +1576,6 @@ declare class Server {
                  * @property {boolean} [magicHtml]
                  * @property {"auto" | "all" | string | string[]} [allowedHosts]
                  * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-                 * @property {boolean} [setupExitSignals]
                  * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
                  * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
                  * @property {boolean | string | Static | Array<string | Static>} [static]
@@ -1745,7 +1732,6 @@ declare class Server {
                * @property {boolean} [magicHtml]
                * @property {"auto" | "all" | string | string[]} [allowedHosts]
                * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-               * @property {boolean} [setupExitSignals]
                * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
                * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
                * @property {boolean | string | Static | Array<string | Static>} [static]
@@ -1813,7 +1799,6 @@ declare class Server {
                * @property {boolean} [magicHtml]
                * @property {"auto" | "all" | string | string[]} [allowedHosts]
                * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
-               * @property {boolean} [setupExitSignals]
                * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
                * @property {string | string[] | WatchFiles | Array<string | WatchFiles>} [watchFiles]
                * @property {boolean | string | Static | Array<string | Static>} [static]
@@ -1929,10 +1914,6 @@ declare class Server {
                   cli: {
                     negatedDescription: string;
                   };
-                  /**
-                   * @private
-                   * @type {RequestHandler[]}
-                   */
                 };
                 ca: {
                   anyOf: (
@@ -2191,13 +2172,15 @@ declare class Server {
               cli: {
                 negatedDescription: string;
               };
-              description?: undefined;
+              /** @type {WebSocketURL} */ description?: undefined;
               link?: undefined;
             }
           | {
               type: string;
-              /** @type {WebSocketURL} */ description: string;
+              /** @type {ClientConfiguration} */
+              description: string;
               link: string;
+              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
         )[];
@@ -2210,7 +2193,7 @@ declare class Server {
         anyOf: (
           | {
               enum: string[];
-              /** @type {ServerConfiguration} */ type?: undefined;
+              type?: undefined;
               minLength?: undefined;
             }
           | {
@@ -2283,7 +2266,7 @@ declare class Server {
       OnListening: {
         instanceof: string;
         description: string;
-        link: string;
+        /** @type {string} */ link: string;
       };
       Open: {
         anyOf: (
@@ -2381,12 +2364,6 @@ declare class Server {
           };
         };
       };
-      /**
-       * prependEntry Method for webpack 4
-       * @param {any} originalEntry
-       * @param {any} newAdditionalEntries
-       * @returns {any}
-       */
       OpenString: {
         type: string;
         minLength: number;
@@ -2441,7 +2418,6 @@ declare class Server {
             }
         )[];
         description: string;
-        /** @type {any} */
         link: string;
       };
       Server: {
@@ -2620,6 +2596,10 @@ declare class Server {
             )[];
             description: string;
           };
+          /**
+           * @param {string | Static | undefined} [optionsForStatic]
+           * @returns {NormalizedStatic}
+           */
           key: {
             anyOf: (
               | {
@@ -2641,7 +2621,7 @@ declare class Server {
                           additionalProperties: boolean;
                           instanceof?: undefined;
                         }
-                    )[];
+                    )[] /** @type {NormalizedStatic} */;
                   };
                   instanceof?: undefined;
                 }
@@ -2905,7 +2885,7 @@ declare class Server {
         };
       };
       WebSocketServerFunction: {
-        instanceof: string /** @type {ServerOptions} */;
+        instanceof: string;
       };
       WebSocketServerObject: {
         type: string;
@@ -2940,6 +2920,10 @@ declare class Server {
       };
       client: {
         $ref: string;
+        /**
+         * @param {string | Buffer | undefined} item
+         * @returns {string | Buffer | undefined}
+         */
       };
       compress: {
         $ref: string;
@@ -2974,7 +2958,6 @@ declare class Server {
       magicHtml: {
         $ref: string;
       };
-      /** @type {any} */
       onAfterSetupMiddleware: {
         $ref: string;
       };
@@ -2982,7 +2965,7 @@ declare class Server {
         $ref: string;
       };
       onListening: {
-        $ref: string;
+        $ref: string /** @type {ServerOptions} */;
       };
       open: {
         $ref: string;
@@ -3405,7 +3388,6 @@ type Configuration = {
     | boolean
     | import("connect-history-api-fallback").Options
     | undefined;
-  setupExitSignals?: boolean | undefined;
   bonjour?:
     | boolean
     | Record<string, never>
@@ -3424,6 +3406,7 @@ type Configuration = {
   webSocketServer?: string | boolean | WebSocketServerConfiguration | undefined;
   proxy?: ProxyConfigArrayItem | ProxyConfigMap | ProxyConfigArray | undefined;
   open?: string | boolean | Open | (string | Open)[] | undefined;
+  setupExitSignals?: boolean | undefined;
   client?: boolean | ClientConfiguration | undefined;
   headers?:
     | Headers
