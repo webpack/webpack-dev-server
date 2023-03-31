@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.13.2](https://github.com/webpack/webpack-dev-server/compare/v4.13.1...v4.13.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* prevent open 0.0.0.0 in browser due windows problems ([04e74f2](https://github.com/webpack/webpack-dev-server/commit/04e74f2ba32963932c0ab46ac4862e92c3e4e1e1))
+
 ### [4.13.1](https://github.com/webpack/webpack-dev-server/compare/v4.13.0...v4.13.1) (2023-03-18)
 
 
