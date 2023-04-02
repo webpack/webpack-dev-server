@@ -485,6 +485,15 @@ const tests = {
         serveIndex: {},
         watch: {},
       },
+      {
+        directory: "path",
+        staticOptions: {},
+        publicPath: ["/public1/", "/public2/"],
+        watch: {
+          ignored: "*.txt",
+          usePolling: true,
+        },
+      },
       [
         "path1",
         {
@@ -511,6 +520,9 @@ const tests = {
       },
       {
         watch: 10,
+      },
+      {
+        watch: { invalid: true },
       },
     ],
   },
@@ -570,6 +582,11 @@ const tests = {
       },
       {
         options: false,
+      },
+      {
+        options: {
+          invalid: true,
+        },
       },
     ],
   },

@@ -781,6 +781,14 @@ exports[`options validate should throw an error on the "static" option with '{"s
          object { … }"
 `;
 
+exports[`options validate should throw an error on the "static" option with '{"watch":{"invalid":true}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.static.watch has an unknown property 'invalid'. These properties are valid:
+   object { persistent?, ignored?, ignoreInitial?, followSymlinks?, cwd?, disableGlobbing?, usePolling?, interval?, binaryInterval?, alwaysStat?, depth?, awaitWriteFinish?, ignorePermissionErrors?, atomic? }
+   -> Configure advanced options for watching. See the chokidar documentation for the possible options.
+   -> Read more at https://github.com/paulmillr/chokidar#api"
+`;
+
 exports[`options validate should throw an error on the "static" option with '{"watch":10}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
@@ -789,14 +797,14 @@ exports[`options validate should throw an error on the "static" option with '{"w
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static.watch should be one of these:
-      boolean | object { … }
+      boolean | object { persistent?, ignored?, ignoreInitial?, followSymlinks?, cwd?, disableGlobbing?, usePolling?, interval?, binaryInterval?, alwaysStat?, depth?, awaitWriteFinish?, ignorePermissionErrors?, atomic? }
       -> Watches for files in static content directory.
       -> Read more at https://webpack.js.org/configuration/dev-server/#watch
       Details:
        * options.static.watch should be a boolean.
        * options.static.watch should be an object:
-         object { … }
-         -> Options for watch.
+         object { persistent?, ignored?, ignoreInitial?, followSymlinks?, cwd?, disableGlobbing?, usePolling?, interval?, binaryInterval?, alwaysStat?, depth?, awaitWriteFinish?, ignorePermissionErrors?, atomic? }
+         -> Configure advanced options for watching. See the chokidar documentation for the possible options.
          -> Read more at https://github.com/paulmillr/chokidar#api"
 `;
 
@@ -830,10 +838,18 @@ exports[`options validate should throw an error on the "static" option with 'nul
       object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
+exports[`options validate should throw an error on the "watchFiles" option with '{"options":{"invalid":true}}' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.watchFiles.options has an unknown property 'invalid'. These properties are valid:
+   object { persistent?, ignored?, ignoreInitial?, followSymlinks?, cwd?, disableGlobbing?, usePolling?, interval?, binaryInterval?, alwaysStat?, depth?, awaitWriteFinish?, ignorePermissionErrors?, atomic? }
+   -> Configure advanced options for watching. See the chokidar documentation for the possible options.
+   -> Read more at https://github.com/paulmillr/chokidar#api"
+`;
+
 exports[`options validate should throw an error on the "watchFiles" option with '{"options":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles.options should be an object:
-   object { … }
+   object { persistent?, ignored?, ignoreInitial?, followSymlinks?, cwd?, disableGlobbing?, usePolling?, interval?, binaryInterval?, alwaysStat?, depth?, awaitWriteFinish?, ignorePermissionErrors?, atomic? }
    -> Configure advanced options for watching. See the chokidar documentation for the possible options.
    -> Read more at https://github.com/paulmillr/chokidar#api"
 `;

@@ -1013,9 +1013,7 @@
               }
             },
             {
-              "type": "object",
-              "description": "Options for watch.",
-              "link": "https://github.com/paulmillr/chokidar#api"
+              "$ref": "#/definitions/WatchOptionsChokidar"
             }
           ],
           "description": "Watches for files in static content directory.",
@@ -1075,10 +1073,7 @@
           "description": "Path(s) of globs/directories/files to watch for file changes."
         },
         "options": {
-          "type": "object",
-          "description": "Configure advanced options for watching. See the chokidar documentation for the possible options.",
-          "link": "https://github.com/paulmillr/chokidar#api",
-          "additionalProperties": true
+          "$ref": "#/definitions/WatchOptionsChokidar"
         }
       },
       "additionalProperties": false
@@ -1086,6 +1081,64 @@
     "WatchFilesString": {
       "type": "string",
       "minLength": 1
+    },
+    "WatchOptionsChokidar": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Configure advanced options for watching. See the chokidar documentation for the possible options.",
+      "link": "https://github.com/paulmillr/chokidar#api",
+      "properties": {
+        "persistent": {
+          "type": "boolean"
+        },
+        "ignored": {
+          "type": "string"
+        },
+        "ignoreInitial": {
+          "type": "boolean"
+        },
+        "followSymlinks": {
+          "type": "boolean"
+        },
+        "cwd": {
+          "type": "string"
+        },
+        "disableGlobbing": {
+          "type": "boolean"
+        },
+        "usePolling": {
+          "type": "boolean"
+        },
+        "interval": {
+          "type": "number"
+        },
+        "binaryInterval": {
+          "type": "number"
+        },
+        "alwaysStat": {
+          "type": "boolean"
+        },
+        "depth": {
+          "type": "number"
+        },
+        "awaitWriteFinish": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "ignorePermissionErrors": {
+          "type": "boolean"
+        },
+        "atomic": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        }
+      }
     },
     "WebSocketServer": {
       "anyOf": [
