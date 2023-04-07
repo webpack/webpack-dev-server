@@ -116,30 +116,6 @@ exports[`API WEBPACK_SERVE environment variable should be present: page errors 1
 
 exports[`API WEBPACK_SERVE environment variable should be present: response status 1`] = `200`;
 
-exports[`API deprecated API should work with deprecated API (only compiler in constructor): console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`API deprecated API should work with deprecated API (only compiler in constructor): deprecation log 1`] = `"Using 'compiler' as the first argument is deprecated. Please use 'options' as the first argument and 'compiler' as the second argument."`;
-
-exports[`API deprecated API should work with deprecated API (only compiler in constructor): page errors 1`] = `[]`;
-
-exports[`API deprecated API should work with deprecated API (the order of the arguments in the constructor): console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`API deprecated API should work with deprecated API (the order of the arguments in the constructor): deprecation log 1`] = `"Using 'compiler' as the first argument is deprecated. Please use 'options' as the first argument and 'compiler' as the second argument."`;
-
-exports[`API deprecated API should work with deprecated API (the order of the arguments in the constructor): page errors 1`] = `[]`;
-
 exports[`API latest async API should work and allow to rerun dev server multiple times: console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
