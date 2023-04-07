@@ -612,7 +612,7 @@ declare class Server {
           };
           value: {
             description: string;
-            /** @type {Compiler | MultiCompiler} */ type: string;
+            type: string;
           };
         };
         cli: {
@@ -645,9 +645,6 @@ declare class Server {
         description: string;
         link: string;
       };
-      /**
-       * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
-       * */
       HistoryApiFallback: {
         anyOf: (
           | {
@@ -671,11 +668,6 @@ declare class Server {
       Host: {
         description: string;
         link: string;
-        /**
-         * @private
-         * @returns {StatsOptions}
-         * @constructor
-         */
         anyOf: (
           | {
               enum: string[];
@@ -696,10 +688,6 @@ declare class Server {
               cli: {
                 negatedDescription: string;
               };
-              /**
-               * @param {string} URL
-               * @returns {boolean}
-               */
               enum?: undefined;
             }
           | {
@@ -719,6 +707,10 @@ declare class Server {
               enum?: undefined;
             }
           | {
+              /**
+               * @param {string} gateway
+               * @returns {string | undefined}
+               */
               type: string;
               enum: boolean[];
               minLength?: undefined;
@@ -791,6 +783,9 @@ declare class Server {
                   items?: undefined;
                 }
             )[];
+            /**
+             * @returns {string}
+             */
             description: string;
           };
           app: {
@@ -880,15 +875,15 @@ declare class Server {
         items: {
           anyOf: (
             | {
-                /**
-                 * @private
-                 * @param {Compiler} compiler
-                 */
                 type: string;
                 instanceof?: undefined;
               }
             | {
                 instanceof: string;
+                /**
+                 * @private
+                 * @param {Compiler} compiler
+                 */
                 type?: undefined;
               }
           )[];
@@ -908,11 +903,11 @@ declare class Server {
       };
       ServerEnum: {
         enum: string[];
+        /** @type {string} */
         cli: {
           exclude: boolean;
         };
       };
-      /** @type {string} */
       ServerString: {
         type: string;
         minLength: number;
@@ -920,11 +915,11 @@ declare class Server {
           exclude: boolean;
         };
       };
-      /** @type {ServerConfiguration} */
       ServerObject: {
         type: string;
         properties: {
           type: {
+            /** @type {ServerConfiguration} */
             anyOf: {
               $ref: string;
             }[];
@@ -989,7 +984,7 @@ declare class Server {
                     anyOf: (
                       | {
                           type: string;
-                          /** @type {number | string} */ instanceof?: undefined;
+                          instanceof?: undefined;
                         }
                       | {
                           instanceof: string;
@@ -1161,7 +1156,7 @@ declare class Server {
               cli?: undefined;
             }
         )[];
-        /** @type {MultiCompiler} */ description: string;
+        description: string;
         link: string;
       };
       StaticObject: {
@@ -1203,10 +1198,6 @@ declare class Server {
                   type: string;
                   cli: {
                     negatedDescription: string;
-                    /**
-                     * @private
-                     * @returns {Promise<void>}
-                     */
                   };
                   additionalProperties?: undefined;
                 }
@@ -1217,10 +1208,6 @@ declare class Server {
                 }
             )[];
             description: string;
-            /**
-             * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-             * @returns {WatchOptions}
-             */
             link: string;
           };
           watch: {
@@ -1293,7 +1280,6 @@ declare class Server {
             )[];
             description: string;
           };
-          /** @type {NormalizedStatic} */
           options: {
             type: string;
             description: string;
