@@ -511,7 +511,7 @@ declare class Server {
         properties: {
           key: {
             description: string;
-            type: string;
+            type: string /** @type {Configuration} */;
           };
           value: {
             description: string;
@@ -545,9 +545,6 @@ declare class Server {
               minItems?: undefined;
             }
         )[];
-        /**
-         * @type {FSWatcher[]}
-         */
         description: string;
         link: string;
       };
@@ -632,6 +629,11 @@ declare class Server {
       MagicHTML: {
         type: string;
         description: string;
+        /**
+         * @param {Port} port
+         * @param {string} host
+         * @returns {Promise<number | string>}
+         */
         cli: {
           negatedDescription: string;
         };
@@ -663,9 +665,6 @@ declare class Server {
         link: string;
       };
       OpenBoolean: {
-        /**
-         * @returns {string}
-         */
         type: string;
         cli: {
           negatedDescription: string;
@@ -750,7 +749,7 @@ declare class Server {
           | {
               type: string;
               minimum: number;
-              maximum: number;
+              /** @type {WebSocketURL} */ maximum: number;
               minLength?: undefined;
               enum?: undefined;
             }
@@ -778,7 +777,7 @@ declare class Server {
           anyOf: (
             | {
                 type: string;
-                /** @type {WebSocketURL} */ instanceof?: undefined;
+                instanceof?: undefined;
               }
             | {
                 instanceof: string;
@@ -787,7 +786,7 @@ declare class Server {
           )[];
         };
         description: string;
-        link: string;
+        /** @type {ServerConfiguration} */ link: string;
       };
       Server: {
         anyOf: {
@@ -1034,6 +1033,7 @@ declare class Server {
                   $ref: string;
                 }[];
               };
+              /** @type {MultiCompiler} */
               cli?: undefined /** @typedef {import("express").Request} Request */;
               $ref?: undefined;
             }
@@ -1145,10 +1145,6 @@ declare class Server {
             }
           | {
               $ref: string;
-              /**
-               * @param {string | Static | undefined} [optionsForStatic]
-               * @returns {NormalizedStatic}
-               */
               type?: undefined;
               items?: undefined;
             }
