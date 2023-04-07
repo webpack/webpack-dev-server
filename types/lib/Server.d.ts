@@ -783,6 +783,10 @@ declare class Server {
               enum?: undefined;
             }
           | {
+              /**
+               * @param {string} gateway
+               * @returns {string | undefined}
+               */
               type: string;
               enum: boolean[];
               minLength?: undefined;
@@ -855,6 +859,9 @@ declare class Server {
                   items?: undefined;
                 }
             )[];
+            /**
+             * @returns {string}
+             */
             description: string;
           };
           app: {
@@ -950,6 +957,10 @@ declare class Server {
               }
             | {
                 instanceof: string;
+                /**
+                 * @private
+                 * @param {Compiler} compiler
+                 */
                 type?: undefined;
               }
           )[];
@@ -969,6 +980,7 @@ declare class Server {
       };
       ServerEnum: {
         enum: string[];
+        /** @type {string} */
         cli: {
           exclude: boolean;
         };
@@ -984,6 +996,7 @@ declare class Server {
         type: string;
         properties: {
           type: {
+            /** @type {ServerConfiguration} */
             anyOf: {
               $ref: string;
             }[];
