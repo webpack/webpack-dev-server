@@ -515,7 +515,7 @@ declare class Server {
           };
           value: {
             description: string;
-            /** @type {Compiler | MultiCompiler} */ type: string;
+            type: string;
           };
         };
         cli: {
@@ -545,12 +545,12 @@ declare class Server {
               minItems?: undefined;
             }
         )[];
+        /**
+         * @type {FSWatcher[]}
+         */
         description: string;
         link: string;
       };
-      /**
-       * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
-       * */
       HistoryApiFallback: {
         anyOf: (
           | {
@@ -574,11 +574,6 @@ declare class Server {
       Host: {
         description: string;
         link: string;
-        /**
-         * @private
-         * @returns {StatsOptions}
-         * @constructor
-         */
         anyOf: (
           | {
               enum: string[];
@@ -628,10 +623,6 @@ declare class Server {
       };
       LiveReload: {
         type: string;
-        /**
-         * @param {"v4" | "v6"} family
-         * @returns {Promise<string | undefined>}
-         */
         description: string;
         cli: {
           negatedDescription: string;
@@ -672,6 +663,9 @@ declare class Server {
         link: string;
       };
       OpenBoolean: {
+        /**
+         * @returns {string}
+         */
         type: string;
         cli: {
           negatedDescription: string;
@@ -762,10 +756,6 @@ declare class Server {
             }
           | {
               type: string;
-              /**
-               * @private
-               * @param {Compiler} compiler
-               */
               minLength: number;
               minimum?: undefined;
               maximum?: undefined;
@@ -787,16 +777,12 @@ declare class Server {
         items: {
           anyOf: (
             | {
-                /**
-                 * @private
-                 * @param {Compiler} compiler
-                 */
                 type: string;
-                instanceof?: undefined;
+                /** @type {WebSocketURL} */ instanceof?: undefined;
               }
             | {
                 instanceof: string;
-                /** @type {WebSocketURL} */ type?: undefined;
+                type?: undefined;
               }
           )[];
         };
@@ -826,7 +812,6 @@ declare class Server {
           exclude: boolean;
         };
       };
-      /** @type {ServerConfiguration} */
       ServerObject: {
         type: string;
         properties: {
@@ -870,7 +855,7 @@ declare class Server {
                           instanceof: string;
                           type?: undefined;
                         }
-                    )[] /** @type {number | string} */;
+                    )[];
                   };
                   instanceof?: undefined;
                 }
@@ -957,7 +942,6 @@ declare class Server {
                     anyOf: (
                       | {
                           type: string;
-                          /** @type {ClientConfiguration} */
                           instanceof?: undefined;
                           additionalProperties?: undefined;
                         }
@@ -1068,7 +1052,7 @@ declare class Server {
               cli?: undefined /** @typedef {import("express").Request} Request */;
             }
         )[];
-        /** @type {MultiCompiler} */ description: string;
+        description: string;
         link: string;
       };
       StaticObject: {
@@ -1161,6 +1145,10 @@ declare class Server {
             }
           | {
               $ref: string;
+              /**
+               * @param {string | Static | undefined} [optionsForStatic]
+               * @returns {NormalizedStatic}
+               */
               type?: undefined;
               items?: undefined;
             }
@@ -1178,7 +1166,6 @@ declare class Server {
             anyOf: (
               | {
                   type: string;
-                  /** @type {NormalizedStatic} */
                   items: {
                     type: string;
                     minLength: number;
@@ -1193,7 +1180,6 @@ declare class Server {
             )[];
             description: string;
           };
-          /** @type {NormalizedStatic} */
           options: {
             type: string;
             description: string;
