@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.13.3](https://github.com/webpack/webpack-dev-server/compare/v4.13.2...v4.13.3) (2023-04-15)
+
+
+### Bug Fixes
+
+* **perf:** reduced initial start time ([#4818](https://github.com/webpack/webpack-dev-server/issues/4818)) ([fcf01d1](https://github.com/webpack/webpack-dev-server/commit/fcf01d1b8eb67aa1c93486e1b34ceefc33d9ee73))
+
 ### [4.13.2](https://github.com/webpack/webpack-dev-server/compare/v4.13.1...v4.13.2) (2023-03-31)
 
 
