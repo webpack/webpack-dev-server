@@ -51,7 +51,7 @@ Array [
   "[HMR] Cannot apply update. Need to do a full reload!",
   "[HMR] Error: Aborted because ./browser.js is not accepted
 Update propagation: ./browser.js
-    at applyHandler (http://127.0.0.1:8103/browser.js:1077:31)
+    at applyHandler (http://127.0.0.1:8103/browser.js:1080:31)
     at http://127.0.0.1:8103/browser.js:776:21
     at Array.map (<anonymous>)
     at internalApply (http://127.0.0.1:8103/browser.js:775:54)
