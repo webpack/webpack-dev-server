@@ -98,25 +98,49 @@
           "additionalProperties": false,
           "properties": {
             "errors": {
-              "description": "Enables a full-screen overlay in the browser when there are compiler errors.",
-              "type": "boolean",
-              "cli": {
-                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors."
-              }
+              "anyOf": [
+                {
+                  "description": "Enables a full-screen overlay in the browser when there are compiler errors.",
+                  "type": "boolean",
+                  "cli": {
+                    "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler errors."
+                  }
+                },
+                {
+                  "instanceof": "Function",
+                  "description": "Filter compiler errors. Return true to include and return false to exclude."
+                }
+              ]
             },
             "warnings": {
-              "description": "Enables a full-screen overlay in the browser when there are compiler warnings.",
-              "type": "boolean",
-              "cli": {
-                "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler warnings."
-              }
+              "anyOf": [
+                {
+                  "description": "Enables a full-screen overlay in the browser when there are compiler warnings.",
+                  "type": "boolean",
+                  "cli": {
+                    "negatedDescription": "Disables the full-screen overlay in the browser when there are compiler warnings."
+                  }
+                },
+                {
+                  "instanceof": "Function",
+                  "description": "Filter compiler warnings. Return true to include and return false to exclude."
+                }
+              ]
             },
             "runtimeErrors": {
-              "description": "Enables a full-screen overlay in the browser when there are uncaught runtime errors.",
-              "type": "boolean",
-              "cli": {
-                "negatedDescription": "Disables the full-screen overlay in the browser when there are uncaught runtime errors."
-              }
+              "anyOf": [
+                {
+                  "description": "Enables a full-screen overlay in the browser when there are uncaught runtime errors.",
+                  "type": "boolean",
+                  "cli": {
+                    "negatedDescription": "Disables the full-screen overlay in the browser when there are uncaught runtime errors."
+                  }
+                },
+                {
+                  "instanceof": "Function",
+                  "description": "Filter uncaught runtime errors. Return true to include and return false to exclude."
+                }
+              ]
             },
             "trustedTypesPolicyName": {
               "description": "The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.",

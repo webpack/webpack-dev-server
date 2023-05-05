@@ -11,11 +11,19 @@ import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
 
 /**
+ * @typedef {Object} OverlayOptions
+ * @property {boolean | (error: Error) => boolean} [warnings]
+ * @property {boolean | (error: Error) => boolean} [errors]
+ * @property {boolean | (error: Error) => boolean} [runtimeErrors]
+ * @property {string} [trustedTypesPolicyName]
+ */
+
+/**
  * @typedef {Object} Options
  * @property {boolean} hot
  * @property {boolean} liveReload
  * @property {boolean} progress
- * @property {boolean | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean, trustedTypesPolicyName?: string }} overlay
+ * @property {boolean | OverlayOptions} overlay
  * @property {string} [logging]
  * @property {number} [reconnect]
  */
@@ -83,6 +91,23 @@ if (parsedResourceQuery.overlay) {
       runtimeErrors: true,
       ...options.overlay,
     };
+
+    ["errors", "warnings", "runtimeErrors"].forEach((property) => {
+      if (typeof options.overlay[property] === "string") {
+        const overlayFilterFunctionString = decodeURIComponent(
+          options.overlay[property]
+        );
+
+        // eslint-disable-next-line no-new-func
+        const overlayFilterFunction = new Function(
+          "message",
+          `var callback = ${overlayFilterFunctionString}
+        return callback(message)`
+        );
+
+        options.overlay[property] = overlayFilterFunction;
+      }
+    });
   }
   enabledFeatures.Overlay = true;
 }
@@ -266,17 +291,24 @@ const onSocketMessage = {
       log.warn(printableWarnings[i]);
     }
 
-    const needShowOverlayForWarnings =
+    const overlayWarningsSetting =
       typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.warnings;
 
-    if (needShowOverlayForWarnings) {
-      overlay.send({
-        type: "BUILD_ERROR",
-        level: "warning",
-        messages: warnings,
-      });
+    if (overlayWarningsSetting) {
+      const warningsToDisplay =
+        typeof overlayWarningsSetting === "function"
+          ? warnings.filter(overlayWarningsSetting)
+          : warnings;
+
+      if (warningsToDisplay.length) {
+        overlay.send({
+          type: "BUILD_ERROR",
+          level: "warning",
+          messages: warnings,
+        });
+      }
     }
 
     if (params && params.preventReloading) {
@@ -303,17 +335,24 @@ const onSocketMessage = {
       log.error(printableErrors[i]);
     }
 
-    const needShowOverlayForErrors =
+    const overlayErrorsSettings =
       typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.errors;
 
-    if (needShowOverlayForErrors) {
-      overlay.send({
-        type: "BUILD_ERROR",
-        level: "error",
-        messages: errors,
-      });
+    if (overlayErrorsSettings) {
+      const errorsToDisplay =
+        typeof overlayErrorsSettings === "function"
+          ? errors.filter(overlayErrorsSettings)
+          : errors;
+
+      if (errorsToDisplay.length) {
+        overlay.send({
+          type: "BUILD_ERROR",
+          level: "error",
+          messages: errors,
+        });
+      }
     }
   },
   /**
