@@ -36,6 +36,30 @@ import createSocketURL from "./utils/createSocketURL.js";
  */
 
 /**
+ * @param {boolean | { warnings?: boolean | string; errors?: boolean | string; runtimeErrors?: boolean | string; }} overlayOptions
+ */
+const decodeOverlayOptions = (overlayOptions) => {
+  if (typeof overlayOptions === "object") {
+    ["warnings", "errors", "runtimeErrors"].forEach((property) => {
+      if (typeof overlayOptions[property] === "string") {
+        const overlayFilterFunctionString = decodeURIComponent(
+          overlayOptions[property]
+        );
+
+        // eslint-disable-next-line no-new-func
+        const overlayFilterFunction = new Function(
+          "message",
+          `var callback = ${overlayFilterFunctionString}
+        return callback(message)`
+        );
+
+        overlayOptions[property] = overlayFilterFunction;
+      }
+    });
+  }
+};
+
+/**
  * @type {Status}
  */
 const status = {
@@ -92,22 +116,7 @@ if (parsedResourceQuery.overlay) {
       ...options.overlay,
     };
 
-    ["errors", "warnings", "runtimeErrors"].forEach((property) => {
-      if (typeof options.overlay[property] === "string") {
-        const overlayFilterFunctionString = decodeURIComponent(
-          options.overlay[property]
-        );
-
-        // eslint-disable-next-line no-new-func
-        const overlayFilterFunction = new Function(
-          "message",
-          `var callback = ${overlayFilterFunctionString}
-        return callback(message)`
-        );
-
-        options.overlay[property] = overlayFilterFunction;
-      }
-    });
+    decodeOverlayOptions(options.overlay);
   }
   enabledFeatures.Overlay = true;
 }
@@ -198,6 +207,7 @@ const onSocketMessage = {
     }
 
     options.overlay = value;
+    decodeOverlayOptions(options.overlay);
   },
   /**
    * @param {number} value
