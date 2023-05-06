@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.14.0](https://github.com/webpack/webpack-dev-server/compare/v4.13.3...v4.14.0) (2023-05-06)
+
+
+### Features
+
+* allow CLI to be ESM ([#4837](https://github.com/webpack/webpack-dev-server/issues/4837)) ([bb4a5d9](https://github.com/webpack/webpack-dev-server/commit/bb4a5d9e8f87a89c81d4024085ff6c9ebb6c551b))
+* allow filter overlay errors/warnings with function ([#4813](https://github.com/webpack/webpack-dev-server/issues/4813)) ([aab01b3](https://github.com/webpack/webpack-dev-server/commit/aab01b3c4e4fb9ca9ae1c1bbc860a52a06026de6))
+
 ### [4.13.3](https://github.com/webpack/webpack-dev-server/compare/v4.13.2...v4.13.3) (2023-04-15)
 
 
