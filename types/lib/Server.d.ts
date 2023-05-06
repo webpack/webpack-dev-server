@@ -880,11 +880,11 @@ declare class Server {
               }
             | {
                 instanceof: string;
-                type?: undefined;
+                /** @type {WebSocketURL} */ type?: undefined;
               }
-          )[] /** @type {ClientConfiguration} */;
+          )[];
         };
-        /** @type {ClientConfiguration} */ description: string;
+        description: string;
         link: string;
       };
       Server: {
@@ -892,8 +892,9 @@ declare class Server {
           $ref: string;
         }[];
         link: string;
-        description: string;
+        description: string /** @type {ServerConfiguration} */;
       };
+      /** @type {ServerConfiguration} */
       ServerType: {
         enum: string[];
       };
@@ -1132,7 +1133,7 @@ declare class Server {
                   $ref: string;
                 }[];
               };
-              /** @type {MultiCompiler} */ cli?: undefined;
+              cli?: undefined;
               $ref?: undefined;
             }
           | {
@@ -1140,7 +1141,7 @@ declare class Server {
               cli: {
                 negatedDescription: string;
               };
-              /** @type {MultiCompiler} */ items?: undefined;
+              items?: undefined;
               $ref?: undefined;
             }
           | {
@@ -1151,7 +1152,7 @@ declare class Server {
             }
         )[];
         description: string;
-        /** @type {MultiCompiler} */ link: string;
+        link: string;
       };
       StaticObject: {
         type: string;
