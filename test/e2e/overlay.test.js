@@ -596,6 +596,90 @@ describe("overlay", () => {
     await server.stop();
   });
 
+  it("should not show warning when it is filtered", async () => {
+    const compiler = webpack(config);
+
+    new WarningPlugin("My special warning").apply(compiler);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            warnings: (error) => {
+              // error is string in webpack 4
+              const message = typeof error === "string" ? error : error.message;
+              return message !== "My special warning";
+            },
+          },
+        },
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+    expect(overlayHandle).toBe(null);
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should show warning when it is not filtered", async () => {
+    const compiler = webpack(config);
+
+    new WarningPlugin("Unfiltered warning").apply(compiler);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            warnings: () => true,
+          },
+        },
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
+
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      console.error(error);
+    }
+
+    await browser.close();
+    await server.stop();
+  });
+
   it('should show a warning when "client.overlay" is "true"', async () => {
     const compiler = webpack(config);
 
@@ -780,6 +864,95 @@ describe("overlay", () => {
     expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
       "page html"
     );
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should not show error when it is filtered", async () => {
+    const compiler = webpack(config);
+
+    new ErrorPlugin("My special error").apply(compiler);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            errors: (error) => {
+              // error is string in webpack 4
+              const message = typeof error === "string" ? error : error.message;
+
+              return message !== "My special error";
+            },
+          },
+        },
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+      expect(overlayHandle).toBe(null);
+    } catch (error) {
+      console.error(error);
+    }
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should show error when it is not filtered", async () => {
+    const compiler = webpack(config);
+
+    new ErrorPlugin("Unfiltered error").apply(compiler);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            errors: () => true,
+          },
+        },
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
+
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      console.error(error);
+    }
 
     await browser.close();
     await server.stop();
@@ -1141,6 +1314,81 @@ describe("overlay", () => {
     expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
       "overlay html"
     );
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should show error for uncaught runtime error", async () => {
+    const compiler = webpack(config);
+
+    const server = new Server(
+      {
+        port,
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    await page.addScriptTag({
+      content: `(function throwError() {
+        throw new Error('Injected error');
+      })();`,
+    });
+
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should not show filtered runtime error", async () => {
+    const compiler = webpack(config);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            runtimeErrors: (error) => error && !/Injected/.test(error.message),
+          },
+        },
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    await page.addScriptTag({
+      content: `(function throwError() {
+        throw new Error('Injected error');
+      })();`,
+    });
+
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+    expect(overlayHandle).toBe(null);
 
     await browser.close();
     await server.stop();

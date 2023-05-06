@@ -11,11 +11,19 @@ import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
 
 /**
+ * @typedef {Object} OverlayOptions
+ * @property {boolean | (error: Error) => boolean} [warnings]
+ * @property {boolean | (error: Error) => boolean} [errors]
+ * @property {boolean | (error: Error) => boolean} [runtimeErrors]
+ * @property {string} [trustedTypesPolicyName]
+ */
+
+/**
  * @typedef {Object} Options
  * @property {boolean} hot
  * @property {boolean} liveReload
  * @property {boolean} progress
- * @property {boolean | { warnings?: boolean, errors?: boolean, runtimeErrors?: boolean, trustedTypesPolicyName?: string }} overlay
+ * @property {boolean | OverlayOptions} overlay
  * @property {string} [logging]
  * @property {number} [reconnect]
  */
@@ -26,6 +34,30 @@ import createSocketURL from "./utils/createSocketURL.js";
  * @property {string} currentHash
  * @property {string} [previousHash]
  */
+
+/**
+ * @param {boolean | { warnings?: boolean | string; errors?: boolean | string; runtimeErrors?: boolean | string; }} overlayOptions
+ */
+const decodeOverlayOptions = (overlayOptions) => {
+  if (typeof overlayOptions === "object") {
+    ["warnings", "errors", "runtimeErrors"].forEach((property) => {
+      if (typeof overlayOptions[property] === "string") {
+        const overlayFilterFunctionString = decodeURIComponent(
+          overlayOptions[property]
+        );
+
+        // eslint-disable-next-line no-new-func
+        const overlayFilterFunction = new Function(
+          "message",
+          `var callback = ${overlayFilterFunctionString}
+        return callback(message)`
+        );
+
+        overlayOptions[property] = overlayFilterFunction;
+      }
+    });
+  }
+};
 
 /**
  * @type {Status}
@@ -83,6 +115,8 @@ if (parsedResourceQuery.overlay) {
       runtimeErrors: true,
       ...options.overlay,
     };
+
+    decodeOverlayOptions(options.overlay);
   }
   enabledFeatures.Overlay = true;
 }
@@ -173,6 +207,7 @@ const onSocketMessage = {
     }
 
     options.overlay = value;
+    decodeOverlayOptions(options.overlay);
   },
   /**
    * @param {number} value
@@ -266,17 +301,24 @@ const onSocketMessage = {
       log.warn(printableWarnings[i]);
     }
 
-    const needShowOverlayForWarnings =
+    const overlayWarningsSetting =
       typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.warnings;
 
-    if (needShowOverlayForWarnings) {
-      overlay.send({
-        type: "BUILD_ERROR",
-        level: "warning",
-        messages: warnings,
-      });
+    if (overlayWarningsSetting) {
+      const warningsToDisplay =
+        typeof overlayWarningsSetting === "function"
+          ? warnings.filter(overlayWarningsSetting)
+          : warnings;
+
+      if (warningsToDisplay.length) {
+        overlay.send({
+          type: "BUILD_ERROR",
+          level: "warning",
+          messages: warnings,
+        });
+      }
     }
 
     if (params && params.preventReloading) {
@@ -303,17 +345,24 @@ const onSocketMessage = {
       log.error(printableErrors[i]);
     }
 
-    const needShowOverlayForErrors =
+    const overlayErrorsSettings =
       typeof options.overlay === "boolean"
         ? options.overlay
         : options.overlay && options.overlay.errors;
 
-    if (needShowOverlayForErrors) {
-      overlay.send({
-        type: "BUILD_ERROR",
-        level: "error",
-        messages: errors,
-      });
+    if (overlayErrorsSettings) {
+      const errorsToDisplay =
+        typeof overlayErrorsSettings === "function"
+          ? errors.filter(overlayErrorsSettings)
+          : errors;
+
+      if (errorsToDisplay.length) {
+        overlay.send({
+          type: "BUILD_ERROR",
+          level: "error",
+          messages: errors,
+        });
+      }
     }
   },
   /**

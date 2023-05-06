@@ -4,6 +4,7 @@ import createMachine from "./fsm.js";
  * @typedef {Object} ShowOverlayData
  * @property {'warning' | 'error'} level
  * @property {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages
+ * @property {'build' | 'runtime'} messageSource
  */
 
 /**
@@ -23,6 +24,7 @@ const createOverlayMachine = (options) => {
       context: {
         level: "error",
         messages: [],
+        messageSource: "build",
       },
       states: {
         hidden: {
@@ -73,18 +75,21 @@ const createOverlayMachine = (options) => {
           return {
             messages: [],
             level: "error",
+            messageSource: "build",
           };
         },
         appendMessages: (context, event) => {
           return {
             messages: context.messages.concat(event.messages),
             level: event.level || context.level,
+            messageSource: event.type === "RUNTIME_ERROR" ? "runtime" : "build",
           };
         },
         setMessages: (context, event) => {
           return {
             messages: event.messages,
             level: event.level || context.level,
+            messageSource: event.type === "RUNTIME_ERROR" ? "runtime" : "build",
           };
         },
         hideOverlay,

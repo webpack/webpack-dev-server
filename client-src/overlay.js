@@ -78,7 +78,7 @@ function formatProblem(type, item) {
 /**
  * @typedef {Object} CreateOverlayOptions
  * @property {string | null} trustedTypesPolicyName
- * @property {boolean} [catchRuntimeError]
+ * @property {boolean | (error: Error) => void} [catchRuntimeError]
  */
 
 /**
@@ -90,6 +90,8 @@ const createOverlay = (options) => {
   let iframeContainerElement;
   /** @type {HTMLDivElement | null | undefined} */
   let containerElement;
+  /** @type {HTMLDivElement | null | undefined} */
+  let headerElement;
   /** @type {Array<(element: HTMLDivElement) => void>} */
   let onLoadQueue = [];
   /** @type {TrustedTypePolicy | undefined} */
@@ -124,6 +126,7 @@ const createOverlay = (options) => {
     iframeContainerElement.id = "webpack-dev-server-client-overlay";
     iframeContainerElement.src = "about:blank";
     applyStyle(iframeContainerElement, iframeStyle);
+
     iframeContainerElement.onload = () => {
       const contentElement =
         /** @type {Document} */
@@ -141,7 +144,7 @@ const createOverlay = (options) => {
       contentElement.id = "webpack-dev-server-client-overlay-div";
       applyStyle(contentElement, containerStyle);
 
-      const headerElement = document.createElement("div");
+      headerElement = document.createElement("div");
 
       headerElement.innerText = "Compiled with problems:";
       applyStyle(headerElement, headerStyle);
@@ -219,9 +222,15 @@ const createOverlay = (options) => {
    * @param {string} type
    * @param {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages
    * @param {string | null} trustedTypesPolicyName
+   * @param {'build' | 'runtime'} messageSource
    */
-  function show(type, messages, trustedTypesPolicyName) {
+  function show(type, messages, trustedTypesPolicyName, messageSource) {
     ensureOverlayExists(() => {
+      headerElement.innerText =
+        messageSource === "runtime"
+          ? "Uncaught runtime errors:"
+          : "Compiled with problems:";
+
       messages.forEach((message) => {
         const entryElement = document.createElement("div");
         const msgStyle =
@@ -267,8 +276,8 @@ const createOverlay = (options) => {
   }
 
   const overlayService = createOverlayMachine({
-    showOverlay: ({ level = "error", messages }) =>
-      show(level, messages, options.trustedTypesPolicyName),
+    showOverlay: ({ level = "error", messages, messageSource }) =>
+      show(level, messages, options.trustedTypesPolicyName, messageSource),
     hideOverlay: hide,
   });
 
@@ -284,15 +293,22 @@ const createOverlay = (options) => {
       const errorObject =
         error instanceof Error ? error : new Error(error || message);
 
-      overlayService.send({
-        type: "RUNTIME_ERROR",
-        messages: [
-          {
-            message: errorObject.message,
-            stack: parseErrorToStacks(errorObject),
-          },
-        ],
-      });
+      const shouldDisplay =
+        typeof options.catchRuntimeError === "function"
+          ? options.catchRuntimeError(errorObject)
+          : true;
+
+      if (shouldDisplay) {
+        overlayService.send({
+          type: "RUNTIME_ERROR",
+          messages: [
+            {
+              message: errorObject.message,
+              stack: parseErrorToStacks(errorObject),
+            },
+          ],
+        });
+      }
     });
   }
 
