@@ -969,6 +969,12 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
+        /**
+         * prependEntry Method for webpack 4
+         * @param {any} originalEntry
+         * @param {any} newAdditionalEntries
+         * @returns {any}
+         */
         multiple: boolean;
       };
       "magic-html": {
@@ -989,13 +995,13 @@ declare class Server {
               type: string;
               multiple: boolean;
               description: string;
-              /** @type {any} */
               path: string;
             }
           | {
+              /** @type {any} */
               type: string;
               multiple: boolean;
-              description: string;
+              /** @type {any} */ description: string;
               negatedDescription: string;
               path: string;
             }
@@ -1012,7 +1018,7 @@ declare class Server {
           path: string;
         }[];
         description: string;
-        /** @type {MultiCompiler} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
       "open-app-name": {
@@ -1024,9 +1030,8 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
-        multiple: boolean /** @type {MultiCompiler} */;
+        multiple: boolean;
       };
-      /** @type {MultiCompiler} */
       "open-app-name-reset": {
         configs: {
           type: string;
@@ -1098,10 +1103,6 @@ declare class Server {
           path: string;
           type: string;
         }[];
-        /**
-         * @param {string | Static | undefined} [optionsForStatic]
-         * @returns {NormalizedStatic}
-         */
         description: string;
         multiple: boolean;
         simpleType: string;
@@ -1289,7 +1290,7 @@ declare class Server {
           description: string;
           path: string;
         }[];
-        /** @type {ServerOptions} */ description: string;
+        description: string;
         simpleType: string;
         multiple: boolean;
       };
@@ -1324,8 +1325,9 @@ declare class Server {
         }[];
         description: string;
         simpleType: string;
-        multiple: boolean;
+        multiple: boolean /** @type {any} */;
       };
+      /** @type {any} */
       "static-serve-index": {
         configs: {
           type: string;
@@ -2676,7 +2678,7 @@ declare class Server {
       };
       ServerString: {
         type: string;
-        minLength: number;
+        /** @type {string} */ minLength: number;
         cli: {
           exclude: boolean;
         };
@@ -2689,7 +2691,6 @@ declare class Server {
               $ref: string;
             }[];
           };
-          /** @type {MultiCompiler} */
           options: {
             $ref: string;
           };
@@ -2873,6 +2874,7 @@ declare class Server {
             )[];
             description: string;
           };
+          /** @type {NormalizedStatic} */
           pfx: {
             anyOf: (
               | {
@@ -3124,7 +3126,6 @@ declare class Server {
       };
       WebSocketServerObject: {
         type: string;
-        /** @type {ServerOptions} */
         properties: {
           type: {
             anyOf: {
@@ -3134,7 +3135,6 @@ declare class Server {
           options: {
             type: string;
             additionalProperties: boolean;
-            /** @type {ServerOptions} */
             cli: {
               exclude: boolean;
             };
@@ -3195,9 +3195,8 @@ declare class Server {
         $ref: string;
       };
       onBeforeSetupMiddleware: {
-        $ref: string /** @type {any} */;
+        $ref: string;
       };
-      /** @type {any} */
       onListening: {
         $ref: string;
       };
