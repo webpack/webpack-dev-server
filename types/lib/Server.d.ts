@@ -1229,7 +1229,7 @@ declare class Server {
       };
       StaticObject: {
         type: string;
-        additionalProperties: boolean;
+        /** @type {MultiCompiler} */ additionalProperties: boolean;
         properties: {
           directory: {
             type: string;
@@ -1237,6 +1237,7 @@ declare class Server {
             description: string;
             link: string;
           };
+          /** @type {MultiCompiler} */
           staticOptions: {
             type: string;
             link: string;
