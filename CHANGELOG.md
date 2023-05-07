@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.15.0](https://github.com/webpack/webpack-dev-server/compare/v4.14.0...v4.15.0) (2023-05-07)
+
+
+### Features
+
+* overlay displays unhandled promise rejection ([#4849](https://github.com/webpack/webpack-dev-server/issues/4849)) ([d1dd430](https://github.com/webpack/webpack-dev-server/commit/d1dd4305bf3861c43caf374c101a80e65e18b138))
+
 ## [4.14.0](https://github.com/webpack/webpack-dev-server/compare/v4.13.3...v4.14.0) (2023-05-06)
 
 
