@@ -80,28 +80,32 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should work with callback API`, async () => {
@@ -116,32 +120,36 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await new Promise((resolve) => {
-        server.stopCallback(() => {
-          resolve();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await new Promise((resolve) => {
+          server.stopCallback(() => {
+            resolve();
+          });
         });
-      });
+      }
     });
 
     it(`should catch errors within startCallback`, async () => {
@@ -186,28 +194,32 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should work and allow to rerun dev server multiple times`, async () => {
@@ -218,53 +230,61 @@ describe("API", () => {
 
       const { page: firstPage, browser } = await runBrowser();
 
-      const firstPageErrors = [];
-      const firstConsoleMessages = [];
+      try {
+        const firstPageErrors = [];
+        const firstConsoleMessages = [];
 
-      firstPage
-        .on("console", (message) => {
-          firstConsoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          firstPageErrors.push(error);
+        firstPage
+          .on("console", (message) => {
+            firstConsoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            firstPageErrors.push(error);
+          });
+
+        await firstPage.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
+        expect(
+          firstConsoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(firstPageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await server.stop();
+      }
 
-      await firstPage.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(
-        firstConsoleMessages.map((message) => message.text())
-      ).toMatchSnapshot("console messages");
-      expect(firstPageErrors).toMatchSnapshot("page errors");
-
-      await server.stop();
       await server.start();
 
       const secondPage = await browser.newPage();
 
-      const secondPageErrors = [];
-      const secondConsoleMessages = [];
+      try {
+        const secondPageErrors = [];
+        const secondConsoleMessages = [];
 
-      secondPage
-        .on("console", (message) => {
-          secondConsoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          secondPageErrors.push(error);
+        secondPage
+          .on("console", (message) => {
+            secondConsoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            secondPageErrors.push(error);
+          });
+
+        await secondPage.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await secondPage.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(
-        secondConsoleMessages.map((message) => message.text())
-      ).toMatchSnapshot("console messages");
-      expect(secondPageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          secondConsoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(secondPageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
   });
 
@@ -289,35 +309,39 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(utilSpy.mock.calls[0][1]).toMatchSnapshot(
-        "listen deprecation log"
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
+        expect(utilSpy.mock.calls[0][1]).toMatchSnapshot(
+          "listen deprecation log"
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await new Promise((resolve) => {
+          server.close(() => {
+            resolve();
+          });
         });
-      });
+      }
 
       expect(
         utilSpy.mock.calls[utilSpy.mock.calls.length - 1][1]
@@ -355,44 +379,48 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(warnSpy).toHaveBeenNthCalledWith(
+          1,
+          'The "port" specified in options is different from the port passed as an argument. Will be used from arguments.'
+        );
+        expect(warnSpy).toHaveBeenNthCalledWith(
+          2,
+          'The "host" specified in options is different from the host passed as an argument. Will be used from arguments.'
+        );
 
-      expect(warnSpy).toHaveBeenNthCalledWith(
-        1,
-        'The "port" specified in options is different from the port passed as an argument. Will be used from arguments.'
-      );
-      expect(warnSpy).toHaveBeenNthCalledWith(
-        2,
-        'The "host" specified in options is different from the host passed as an argument. Will be used from arguments.'
-      );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        warnSpy.mockRestore();
+        getInfrastructureLoggerSpy.mockRestore();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      warnSpy.mockRestore();
-      getInfrastructureLoggerSpy.mockRestore();
-
-      await browser.close();
-      await new Promise((resolve) => {
-        server.close(() => {
-          resolve();
+        await browser.close();
+        await new Promise((resolve) => {
+          server.close(() => {
+            resolve();
+          });
         });
-      });
+      }
     });
 
     it(`should work with deprecated API (the order of the arguments in the constructor)`, async () => {
@@ -405,31 +433,35 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
 
-      expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      utilSpy.mockRestore();
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        utilSpy.mockRestore();
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should work with deprecated API (only compiler in constructor)`, async () => {
@@ -443,30 +475,34 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      utilSpy.mockRestore();
-      await browser.close();
-      await server.stop();
+        expect(utilSpy.mock.calls[0][1]).toMatchSnapshot("deprecation log");
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        utilSpy.mockRestore();
+        await browser.close();
+        await server.stop();
+      }
     });
   });
 
@@ -864,44 +900,48 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+        const client = page._client;
+
+        client.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
         });
 
-      const webSocketRequests = [];
-      const client = page._client;
+        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      client.on("Network.webSocketCreated", (test) => {
-        webSocketRequests.push(test);
-      });
+        if (!server.checkHeader(headers, "origin")) {
+          throw new Error("Validation didn't fail");
+        }
 
-      const response = await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
 
-      if (!server.checkHeader(headers, "origin")) {
-        throw new Error("Validation didn't fail");
+        expect(response.status()).toMatchSnapshot("response status");
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
   });
 });

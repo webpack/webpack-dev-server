@@ -2211,7 +2211,7 @@ exports[`overlay should show error for uncaught promise rejection: overlay html 
             font-family: Menlo, Consolas, monospace;
           \\"
         >
-          Async error at &lt;anonymous&gt;:3:26
+          Async error at &lt;anonymous&gt;:3:28
         </div>
       </div>
     </div>
@@ -2295,8 +2295,8 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
             font-family: Menlo, Consolas, monospace;
           \\"
         >
-          Injected error at throwError (&lt;anonymous&gt;:2:15) at
-          &lt;anonymous&gt;:3:9 at addScriptContent
+          Injected error at throwError (&lt;anonymous&gt;:2:17) at
+          &lt;anonymous&gt;:3:11 at addScriptContent
           (__puppeteer_evaluation_script__:9:27)
         </div>
       </div>

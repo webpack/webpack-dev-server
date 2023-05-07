@@ -54,50 +54,54 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      proxy.close();
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work behind proxy, when hostnames are different and ports are same ("${webSocketServer}")`, async () => {
@@ -140,50 +144,54 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      proxy.close();
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work behind proxy, when hostnames are different and ports are different ("${webSocketServer}")`, async () => {
@@ -231,51 +239,55 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      proxy.close();
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("${webSocketServer}")`, async () => {
@@ -322,53 +334,57 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${resolvedHost}:${resolvedPort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        await browser.close();
+        await server.stop();
+
+        delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
       }
-
-      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${resolvedHost}:${resolvedPort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      proxy.close();
-
-      await browser.close();
-      await server.stop();
-
-      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
 
     it(`should work with the "client.webSocketURL.protocol" option ("${webSocketServer}")`, async () => {
@@ -390,49 +406,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://localhost:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://localhost:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://localhost:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://localhost:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.protocol" option using "auto:" value ("${webSocketServer}")`, async () => {
@@ -454,49 +474,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://localhost:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://localhost:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://localhost:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://localhost:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("${webSocketServer}")`, async () => {
@@ -518,49 +542,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://localhost:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://localhost:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://localhost:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://localhost:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.host" option ("${webSocketServer}")`, async () => {
@@ -582,49 +610,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("${webSocketServer}")`, async () => {
@@ -646,49 +678,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.port" option ("${webSocketServer}")`, async () => {
@@ -710,49 +746,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.port" option as string ("${webSocketServer}")`, async () => {
@@ -774,49 +814,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("${webSocketServer}")`, async () => {
@@ -845,51 +889,55 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          webSocketServer === "sockjs"
+            ? `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+            : `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        webSocketServer === "sockjs"
-          ? `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-          : `${websocketURLProtocol}://127.0.0.1:${port2}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.port" option using "0" value ("${webSocketServer}")`, async () => {
@@ -911,49 +959,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
@@ -975,49 +1027,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with default "/ws" value of the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
@@ -1034,49 +1090,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.username" option ("${webSocketServer}")`, async () => {
@@ -1098,49 +1158,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://zenitsu@127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://zenitsu@127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.password" option ("${webSocketServer}")`, async () => {
@@ -1166,52 +1230,56 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          // "sockjs" has bug with parsing URL
+          webSocketServer === "ws"
+            ? `${websocketURLProtocol}://foo:chuntaro@127.0.0.1:${port1}/ws`
+            : `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        // "sockjs" has bug with parsing URL
-        webSocketServer === "ws"
-          ? `${websocketURLProtocol}://foo:chuntaro@127.0.0.1:${port1}/ws`
-          : `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("${webSocketServer}")`, async () => {
@@ -1234,49 +1302,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the custom web socket server "path" ("${webSocketServer}")`, async () => {
@@ -1298,49 +1370,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/custom-ws\/foo\/bar/.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/custom-ws\/foo\/bar/.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     // Only works for "ws" server
@@ -1363,51 +1439,55 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/custom-ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/custom-ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          webSocketServer === "ws"
+            ? `${websocketURLProtocol}://127.0.0.1:${port1}`
+            : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        webSocketServer === "ws"
-          ? `${websocketURLProtocol}://127.0.0.1:${port1}`
-          : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("${webSocketServer}")`, async () => {
@@ -1434,49 +1514,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/custom-ws\/foo\/bar/.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/custom-ws\/foo\/bar/.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("${webSocketServer}")`, async () => {
@@ -1503,49 +1587,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/custom-ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/custom-ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     // Only works for "ws" server, "sockjs" adds "/" be default, because need do requests like "/custom-ws/info?t=1624462615772"
@@ -1573,49 +1661,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/custom-ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/custom-ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     // Only works for "ws" server
@@ -1643,51 +1735,55 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/custom-ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/custom-ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          webSocketServer === "ws"
+            ? `${websocketURLProtocol}://127.0.0.1:${port1}`
+            : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        webSocketServer === "ws"
-          ? `${websocketURLProtocol}://127.0.0.1:${port1}`
-          : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     // Only works for "sockjs" server
@@ -1716,49 +1812,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/custom-ws/.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/custom-ws/.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work when "host" option is IPv4 ("${webSocketServer}")`, async () => {
@@ -1775,49 +1875,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${hostname}:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${hostname}:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${hostname}:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${hostname}:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work when "host" option is "local-ip" ("${webSocketServer}")`, async () => {
@@ -1834,49 +1938,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${hostname}:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${hostname}:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${hostname}:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${hostname}:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work when "host" option is "local-ipv4" ("${webSocketServer}")`, async () => {
@@ -1893,49 +2001,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${hostname}:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${hostname}:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${hostname}:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${hostname}:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with "https" option ("${webSocketServer}")`, async () => {
@@ -1952,54 +2064,60 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`https://${hostname}:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        if (webSocketServer === "ws") {
+          expect(webSocketRequest.url).toContain(
+            `wss://${hostname}:${port1}/ws`
+          );
+        } else {
+          expect(webSocketRequest.url).toContain(
+            `https://${hostname}:${port1}/ws`
+          );
+        }
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`https://${hostname}:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      if (webSocketServer === "ws") {
-        expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
-      } else {
-        expect(webSocketRequest.url).toContain(
-          `https://${hostname}:${port1}/ws`
-        );
-      }
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with "http2" option ("${webSocketServer}")`, async () => {
@@ -2016,54 +2134,60 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`https://${hostname}:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        if (webSocketServer === "ws") {
+          expect(webSocketRequest.url).toContain(
+            `wss://${hostname}:${port1}/ws`
+          );
+        } else {
+          expect(webSocketRequest.url).toContain(
+            `https://${hostname}:${port1}/ws`
+          );
+        }
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`https://${hostname}:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      if (webSocketServer === "ws") {
-        expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
-      } else {
-        expect(webSocketRequest.url).toContain(
-          `https://${hostname}:${port1}/ws`
-        );
-      }
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with "server: 'https'" option ("${webSocketServer}")`, async () => {
@@ -2080,54 +2204,60 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`https://${hostname}:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        if (webSocketServer === "ws") {
+          expect(webSocketRequest.url).toContain(
+            `wss://${hostname}:${port1}/ws`
+          );
+        } else {
+          expect(webSocketRequest.url).toContain(
+            `https://${hostname}:${port1}/ws`
+          );
+        }
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`https://${hostname}:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      if (webSocketServer === "ws") {
-        expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
-      } else {
-        expect(webSocketRequest.url).toContain(
-          `https://${hostname}:${port1}/ws`
-        );
-      }
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with "server: 'spdy'" option ("${webSocketServer}")`, async () => {
@@ -2144,54 +2274,60 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`https://${hostname}:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        if (webSocketServer === "ws") {
+          expect(webSocketRequest.url).toContain(
+            `wss://${hostname}:${port1}/ws`
+          );
+        } else {
+          expect(webSocketRequest.url).toContain(
+            `https://${hostname}:${port1}/ws`
+          );
+        }
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`https://${hostname}:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      if (webSocketServer === "ws") {
-        expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
-      } else {
-        expect(webSocketRequest.url).toContain(
-          `https://${hostname}:${port1}/ws`
-        );
-      }
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
@@ -2211,51 +2347,55 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (request) => {
+            webSocketRequests.push(request);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${resolvedFreePort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${resolvedFreePort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
 
-        client.on("Network.webSocketCreated", (request) => {
-          webSocketRequests.push(request);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
       }
-
-      await page.goto(`http://127.0.0.1:${resolvedFreePort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${resolvedFreePort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
-
-      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
     });
 
     it(`should work with "client.webSocketURL.*" options ("${webSocketServer}")`, async () => {
@@ -2280,49 +2420,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "client.webSocketURL" option as "string" ("${webSocketServer}")`, async () => {
@@ -2342,49 +2486,53 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://127.0.0.1:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
-
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://127.0.0.1:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://127.0.0.1:${port1}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work and throw an error on invalid web socket URL ("${webSocketServer}")`, async () => {
@@ -2404,30 +2552,34 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://localhost:${port1}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://localhost:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(
-        pageErrors.map((pageError) => pageError.message.split("\n")[0])
-      ).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(
+          pageErrors.map((pageError) => pageError.message.split("\n")[0])
+        ).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should not work and output disconnect wrong web socket URL ("${webSocketServer}")`, async () => {
@@ -2447,44 +2599,50 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      let isDisconnected = false;
+        let isDisconnected = false;
 
-      page
-        .on("console", (message) => {
-          const text = message.text();
+        page
+          .on("console", (message) => {
+            const text = message.text();
 
-          if (!isDisconnected) {
-            isDisconnected = /Disconnected!/.test(text);
-            consoleMessages.push(text.replace(/:[\d]+/g, ":<port>"));
-          }
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+            if (!isDisconnected) {
+              isDisconnected = /Disconnected!/.test(text);
+              consoleMessages.push(text.replace(/:[\d]+/g, ":<port>"));
+            }
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://localhost:${port1}/`, {
+          waitUntil: "networkidle0",
+        });
+        await new Promise((resolve) => {
+          const interval = setInterval(() => {
+            if (
+              consoleMessages.includes("[webpack-dev-server] Disconnected!")
+            ) {
+              clearInterval(interval);
+
+              resolve();
+            }
+          }, 100);
         });
 
-      await page.goto(`http://localhost:${port1}/`, {
-        waitUntil: "networkidle0",
-      });
-      await new Promise((resolve) => {
-        const interval = setInterval(() => {
-          if (consoleMessages.includes("[webpack-dev-server] Disconnected!")) {
-            clearInterval(interval);
-
-            resolve();
-          }
-        }, 100);
-      });
-
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(
-        pageErrors.map((pageError) => pageError.message.split("\n")[0])
-      ).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(consoleMessages).toMatchSnapshot("console messages");
+        expect(
+          pageErrors.map((pageError) => pageError.message.split("\n")[0])
+        ).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
   }
 });

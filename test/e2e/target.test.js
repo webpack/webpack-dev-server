@@ -55,46 +55,50 @@ describe("target", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
+        if (
+          target === "node" ||
+          target === "async-node" ||
+          target === "electron-main" ||
+          target === "electron-preload" ||
+          target === "electron-renderer" ||
+          target === "nwjs" ||
+          target === "node-webkit"
+        ) {
+          const hasRequireOrGlobalError =
+            pageErrors.filter((pageError) =>
+              /require is not defined|global is not defined/.test(pageError)
+            ).length === 1;
 
-      if (
-        target === "node" ||
-        target === "async-node" ||
-        target === "electron-main" ||
-        target === "electron-preload" ||
-        target === "electron-renderer" ||
-        target === "nwjs" ||
-        target === "node-webkit"
-      ) {
-        const hasRequireOrGlobalError =
-          pageErrors.filter((pageError) =>
-            /require is not defined|global is not defined/.test(pageError)
-          ).length === 1;
-
-        expect(hasRequireOrGlobalError).toBe(true);
-      } else {
-        expect(pageErrors).toMatchSnapshot("page errors");
+          expect(hasRequireOrGlobalError).toBe(true);
+        } else {
+          expect(pageErrors).toMatchSnapshot("page errors");
+        }
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      await browser.close();
-      await server.stop();
     });
   }
 });

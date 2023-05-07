@@ -80,26 +80,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show an error for initial compilation", async () => {
@@ -116,26 +120,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show a warning and error for initial compilation", async () => {
@@ -156,26 +164,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show an ansi formatted error for initial compilation", async () => {
@@ -194,26 +206,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show a warning and error for initial compilation and protects against xss", async () => {
@@ -231,26 +247,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should not show initially, then show on an error, then hide on fix", async () => {
@@ -264,59 +284,63 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    let pageHtml = await page.evaluate(() => document.body.outerHTML);
-    let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      let pageHtml = await page.evaluate(() => document.body.outerHTML);
+      let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html initial"
-    );
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html initial"
+      );
 
-    const pathToFile = path.resolve(
-      __dirname,
-      "../fixtures/overlay-config/foo.js"
-    );
-    const originalCode = fs.readFileSync(pathToFile);
+      const pathToFile = path.resolve(
+        __dirname,
+        "../fixtures/overlay-config/foo.js"
+      );
+      const originalCode = fs.readFileSync(pathToFile);
 
-    fs.writeFileSync(pathToFile, "`;");
+      fs.writeFileSync(pathToFile, "`;");
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-    overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
 
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html with error"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html with error"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
 
-    fs.writeFileSync(pathToFile, originalCode);
+      fs.writeFileSync(pathToFile, originalCode);
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay", {
-      hidden: true,
-    });
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
 
-    pageHtml = await page.evaluate(() => document.body.outerHTML);
-    overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html after fix error"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html after fix error"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should not show initially, then show on an error, then show other error, then hide on fix", async () => {
@@ -330,79 +354,83 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    let pageHtml = await page.evaluate(() => document.body.outerHTML);
-    let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      let pageHtml = await page.evaluate(() => document.body.outerHTML);
+      let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html initial"
-    );
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html initial"
+      );
 
-    const pathToFile = path.resolve(
-      __dirname,
-      "../fixtures/overlay-config/foo.js"
-    );
-    const originalCode = fs.readFileSync(pathToFile);
+      const pathToFile = path.resolve(
+        __dirname,
+        "../fixtures/overlay-config/foo.js"
+      );
+      const originalCode = fs.readFileSync(pathToFile);
 
-    fs.writeFileSync(pathToFile, "`;");
+      fs.writeFileSync(pathToFile, "`;");
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-    overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
 
-    let overlayFrame = await overlayHandle.contentFrame();
-    let overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      let overlayFrame = await overlayHandle.contentFrame();
+      let overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html with error"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html with error"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
 
-    fs.writeFileSync(pathToFile, "`;a");
+      fs.writeFileSync(pathToFile, "`;a");
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay", {
-      hidden: true,
-    });
-    await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-    overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
 
-    overlayFrame = await overlayHandle.contentFrame();
-    overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
+      overlayFrame = await overlayHandle.contentFrame();
+      overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html with other error"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html with other error"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
 
-    fs.writeFileSync(pathToFile, originalCode);
+      fs.writeFileSync(pathToFile, originalCode);
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay", {
-      hidden: true,
-    });
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
 
-    pageHtml = await page.evaluate(() => document.body.outerHTML);
-    overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html after fix error"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html after fix error"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should not show initially, then show on an error and allow to close", async () => {
@@ -416,67 +444,71 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    let pageHtml = await page.evaluate(() => document.body.outerHTML);
-    let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      let pageHtml = await page.evaluate(() => document.body.outerHTML);
+      let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html initial"
-    );
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html initial"
+      );
 
-    const pathToFile = path.resolve(
-      __dirname,
-      "../fixtures/overlay-config/foo.js"
-    );
-    const originalCode = fs.readFileSync(pathToFile);
+      const pathToFile = path.resolve(
+        __dirname,
+        "../fixtures/overlay-config/foo.js"
+      );
+      const originalCode = fs.readFileSync(pathToFile);
 
-    fs.writeFileSync(pathToFile, "`;");
+      fs.writeFileSync(pathToFile, "`;");
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-    overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
 
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html with error"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html with error"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
 
-    const frame = await page
-      .frames()
-      .find((item) => item.name() === "webpack-dev-server-client-overlay");
+      const frame = await page
+        .frames()
+        .find((item) => item.name() === "webpack-dev-server-client-overlay");
 
-    const buttonHandle = await frame.$("button");
+      const buttonHandle = await frame.$("button");
 
-    await buttonHandle.click();
+      await buttonHandle.click();
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay", {
-      hidden: true,
-    });
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
 
-    pageHtml = await page.evaluate(() => document.body.outerHTML);
-    overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html after close"
-    );
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html after close"
+      );
 
-    fs.writeFileSync(pathToFile, originalCode);
-
-    await browser.close();
-    await server.stop();
+      fs.writeFileSync(pathToFile, originalCode);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   (isWebpack5 ? it : it.skip)(
@@ -495,36 +527,40 @@ describe("overlay", () => {
 
       const { page, browser } = await runBrowser();
 
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
       const pathToFile = path.resolve(
         __dirname,
         "../fixtures/overlay-config/foo.js"
       );
       const originalCode = fs.readFileSync(pathToFile);
 
-      fs.writeFileSync(pathToFile, "`;");
+      try {
+        await page.goto(`http://localhost:${port}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+        fs.writeFileSync(pathToFile, "`;");
 
-      const frame = page
-        .frames()
-        .find((item) => item.name() === "webpack-dev-server-client-overlay");
+        await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-      const errorHandle = await frame.$("[data-can-open]");
+        const frame = page
+          .frames()
+          .find((item) => item.name() === "webpack-dev-server-client-overlay");
 
-      await errorHandle.click();
+        const errorHandle = await frame.$("[data-can-open]");
 
-      await waitForExpect(() => {
-        expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
-      });
+        await errorHandle.click();
 
-      fs.writeFileSync(pathToFile, originalCode);
+        await waitForExpect(() => {
+          expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
+        });
+      } catch (error) {
+        throw error;
+      } finally {
+        fs.writeFileSync(pathToFile, originalCode);
 
-      await browser.close();
-      await server.stop();
+        await browser.close();
+        await server.stop();
+      }
     }
   );
 
@@ -545,20 +581,24 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it('should not show a warning when "client.overlay.warnings" is "false"', async () => {
@@ -580,20 +620,24 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should not show warning when it is filtered", async () => {
@@ -621,16 +665,20 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show warning when it is not filtered", async () => {
@@ -673,11 +721,11 @@ describe("overlay", () => {
         "overlay html"
       );
     } catch (error) {
-      console.error(error);
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
     }
-
-    await browser.close();
-    await server.stop();
   });
 
   it('should show a warning when "client.overlay" is "true"', async () => {
@@ -697,26 +745,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it('should show a warning when "client.overlay.warnings" is "true"', async () => {
@@ -738,26 +790,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it('should show a warning when "client.overlay.errors" is "true"', async () => {
@@ -779,26 +835,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it('should not show an error when "client.overlay" is "false"', async () => {
@@ -818,20 +878,24 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it('should not show an error when "client.overlay.errors" is "false"', async () => {
@@ -853,20 +917,24 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should not show error when it is filtered", async () => {
@@ -904,7 +972,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
     } catch (error) {
-      console.error(error);
+      throw error;
     }
 
     await browser.close();
@@ -951,11 +1019,11 @@ describe("overlay", () => {
         "overlay html"
       );
     } catch (error) {
-      console.error(error);
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
     }
-
-    await browser.close();
-    await server.stop();
   });
 
   it('should show an error when "client.overlay" is "true"', async () => {
@@ -975,26 +1043,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   (isWebpack5 ? it : it.skip)(
@@ -1018,26 +1090,32 @@ describe("overlay", () => {
 
       const { page, browser } = await runBrowser();
 
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+      try {
+        await page.goto(`http://localhost:${port}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML
-      );
+        const pageHtml = await page.evaluate(() => document.body.outerHTML);
+        const overlayHandle = await page.$(
+          "#webpack-dev-server-client-overlay"
+        );
+        const overlayFrame = await overlayHandle.contentFrame();
+        const overlayHtml = await overlayFrame.evaluate(
+          () => document.body.outerHTML
+        );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html"
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html"
-      );
-
-      await browser.close();
-      await server.stop();
+        expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+          "page html"
+        );
+        expect(
+          prettier.format(overlayHtml, { parser: "html" })
+        ).toMatchSnapshot("overlay html");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     }
   );
 
@@ -1062,19 +1140,25 @@ describe("overlay", () => {
 
       const { page, browser } = await runBrowser();
 
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+      try {
+        await page.goto(`http://localhost:${port}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html"
-      );
-
-      await browser.close();
-      await server.stop();
+        const pageHtml = await page.evaluate(() => document.body.outerHTML);
+        const overlayHandle = await page.$(
+          "#webpack-dev-server-client-overlay"
+        );
+        expect(overlayHandle).toBe(null);
+        expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+          "page html"
+        );
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     }
   );
 
@@ -1097,26 +1181,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it('should show an error when "client.overlay.warnings" is "true"', async () => {
@@ -1138,26 +1226,30 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show a warning and hide them after closing connection", async () => {
@@ -1173,30 +1265,33 @@ describe("overlay", () => {
     const { page, browser } = await runBrowser();
 
     const consoleMessages = [];
+    try {
+      page.on("console", (message) => {
+        consoleMessages.push(message.text());
+      });
 
-    page.on("console", (message) => {
-      consoleMessages.push(message.text());
-    });
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
-
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await server.stop();
+    }
 
     await new Promise((resolve) => {
       const interval = setInterval(() => {
@@ -1208,15 +1303,19 @@ describe("overlay", () => {
       }, 100);
     });
 
-    const pageHtmlAfterClose = await page.evaluate(
-      () => document.body.outerHTML
-    );
+    try {
+      const pageHtmlAfterClose = await page.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(
-      prettier.format(pageHtmlAfterClose, { parser: "html" })
-    ).toMatchSnapshot("page html");
-
-    await browser.close();
+      expect(
+        prettier.format(pageHtmlAfterClose, { parser: "html" })
+      ).toMatchSnapshot("page html");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+    }
   });
 
   it("should show an error after invalidation", async () => {
@@ -1233,40 +1332,44 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
-
-    await new Promise((resolve) => {
-      server.middleware.invalidate(() => {
-        resolve();
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
       });
-    });
 
-    await new Promise((resolve) => {
-      server.middleware.waitUntilValid(() => {
-        resolve();
+      await new Promise((resolve) => {
+        server.middleware.invalidate(() => {
+          resolve();
+        });
       });
-    });
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await new Promise((resolve) => {
+        server.middleware.waitUntilValid(() => {
+          resolve();
+        });
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show a warning after invalidation", async () => {
@@ -1283,40 +1386,44 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
-
-    await new Promise((resolve) => {
-      server.middleware.invalidate(() => {
-        resolve();
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
       });
-    });
 
-    await new Promise((resolve) => {
-      server.middleware.waitUntilValid(() => {
-        resolve();
+      await new Promise((resolve) => {
+        server.middleware.invalidate(() => {
+          resolve();
+        });
       });
-    });
 
-    await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await new Promise((resolve) => {
+        server.middleware.waitUntilValid(() => {
+          resolve();
+        });
+      });
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html"
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
+        "page html"
+      );
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show error for uncaught runtime error", async () => {
@@ -1333,28 +1440,32 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.addScriptTag({
-      content: `(function throwError() {
-        throw new Error('Injected error');
-      })();`,
-    });
+      await page.addScriptTag({
+        content: `(function throwError() {
+          throw new Error('Injected error');
+        })();`,
+      });
 
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should not show filtered runtime error", async () => {
@@ -1376,22 +1487,26 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.addScriptTag({
-      content: `(function throwError() {
-        throw new Error('Injected error');
-      })();`,
-    });
+      await page.addScriptTag({
+        content: `(function throwError() {
+          throw new Error('Injected error');
+        })();`,
+      });
 
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBe(null);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show error for uncaught promise rejection", async () => {
@@ -1408,30 +1523,36 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.addScriptTag({
-      content: `(function throwError() {
-        setTimeout(function () {
-          Promise.reject(new Error('Async error'));
-        }, 0);
-      })();`,
-    });
+      await page.addScriptTag({
+        content: `(function throwError() {
+          setTimeout(function () {
+            Promise.reject(new Error('Async error'));
+          }, 0);
+        })();`,
+      });
 
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML
-    );
+      const overlayHandle = await page.waitForSelector(
+        "#webpack-dev-server-client-overlay"
+      );
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML
+      );
 
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html"
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+        "overlay html"
+      );
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should not show filtered promise rejection", async () => {
@@ -1453,23 +1574,27 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.addScriptTag({
-      content: `(function throwError() {
-        setTimeout(function () {
-          Promise.reject(new Error('Injected async error'));
-        }, 0);
-      })();`,
-    });
+      await page.addScriptTag({
+        content: `(function throwError() {
+          setTimeout(function () {
+            Promise.reject(new Error('Injected async error'));
+          }, 0);
+        })();`,
+      });
 
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-    expect(overlayHandle).toBe(null);
-
-    await browser.close();
-    await server.stop();
+      expect(overlayHandle).toBeNull();
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 });
