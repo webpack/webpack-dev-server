@@ -5,6 +5,7 @@ import ansiHTML from "ansi-html-community";
 import { encode } from "html-entities";
 import {
   listenToRuntimeError,
+  listenToUnhandledRejection,
   parseErrorToStacks,
 } from "./overlay/runtime-error.js";
 import createOverlayMachine from "./overlay/state-machine.js";
@@ -282,16 +283,13 @@ const createOverlay = (options) => {
   });
 
   if (options.catchRuntimeError) {
-    listenToRuntimeError((errorEvent) => {
-      // error property may be empty in older browser like IE
-      const { error, message } = errorEvent;
-
-      if (!error && !message) {
-        return;
-      }
-
+    /**
+     * @param {Error | undefined} error
+     * @param {string} fallbackMessage
+     */
+    const handleError = (error, fallbackMessage) => {
       const errorObject =
-        error instanceof Error ? error : new Error(error || message);
+        error instanceof Error ? error : new Error(error || fallbackMessage);
 
       const shouldDisplay =
         typeof options.catchRuntimeError === "function"
@@ -309,6 +307,23 @@ const createOverlay = (options) => {
           ],
         });
       }
+    };
+
+    listenToRuntimeError((errorEvent) => {
+      // error property may be empty in older browser like IE
+      const { error, message } = errorEvent;
+
+      if (!error && !message) {
+        return;
+      }
+
+      handleError(error, message);
+    });
+
+    listenToUnhandledRejection((promiseRejectionEvent) => {
+      const { reason } = promiseRejectionEvent;
+
+      handleError(reason, "Unknown promise rejection reason");
     });
   }
 

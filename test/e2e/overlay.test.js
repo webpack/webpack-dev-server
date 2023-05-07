@@ -1393,4 +1393,83 @@ describe("overlay", () => {
     await browser.close();
     await server.stop();
   });
+
+  it("should show error for uncaught promise rejection", async () => {
+    const compiler = webpack(config);
+
+    const server = new Server(
+      {
+        port,
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    await page.addScriptTag({
+      content: `(function throwError() {
+        setTimeout(function () {
+          Promise.reject(new Error('Async error'));
+        }, 0);
+      })();`,
+    });
+
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+    const overlayFrame = await overlayHandle.contentFrame();
+    const overlayHtml = await overlayFrame.evaluate(
+      () => document.body.outerHTML
+    );
+
+    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
+      "overlay html"
+    );
+
+    await browser.close();
+    await server.stop();
+  });
+
+  it("should not show filtered promise rejection", async () => {
+    const compiler = webpack(config);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            runtimeErrors: (error) => !/Injected/.test(error.message),
+          },
+        },
+      },
+      compiler
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    await page.goto(`http://localhost:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    await page.addScriptTag({
+      content: `(function throwError() {
+        setTimeout(function () {
+          Promise.reject(new Error('Injected async error'));
+        }, 0);
+      })();`,
+    });
+
+    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+    expect(overlayHandle).toBe(null);
+
+    await browser.close();
+    await server.stop();
+  });
 });

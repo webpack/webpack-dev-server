@@ -30,4 +30,21 @@ function listenToRuntimeError(callback) {
   };
 }
 
-export { listenToRuntimeError, parseErrorToStacks };
+/**
+ * @callback UnhandledRejectionCallback
+ * @param {PromiseRejectionEvent} rejectionEvent
+ * @returns {void}
+ */
+
+/**
+ * @param {UnhandledRejectionCallback} callback
+ */
+function listenToUnhandledRejection(callback) {
+  window.addEventListener("unhandledrejection", callback);
+
+  return function cleanup() {
+    window.removeEventListener("unhandledrejection", callback);
+  };
+}
+
+export { listenToRuntimeError, listenToUnhandledRejection, parseErrorToStacks };
