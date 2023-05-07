@@ -1064,7 +1064,7 @@ declare class Server {
                 }
               | {
                   instanceof: string;
-                  /** @type {ClientConfiguration} */ type?: undefined;
+                  type?: undefined;
                   items?: undefined;
                 }
             )[];
