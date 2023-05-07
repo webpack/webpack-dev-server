@@ -14,6 +14,10 @@ module.exports = setup({
         warnings: false,
         runtimeErrors: (msg) => {
           if (msg) {
+            if (msg instanceof DOMException && msg.name === "AbortError") {
+              return false;
+            }
+
             let msgString;
 
             if (msg instanceof Error) {
