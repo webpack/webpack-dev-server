@@ -1132,7 +1132,7 @@ declare class Server {
                   $ref: string;
                 }[];
               };
-              /** @type {MultiCompiler} */ cli?: undefined;
+              cli?: undefined;
               $ref?: undefined;
             }
           | {
@@ -1140,7 +1140,7 @@ declare class Server {
               cli: {
                 negatedDescription: string;
               };
-              /** @type {MultiCompiler} */ items?: undefined;
+              items?: undefined;
               $ref?: undefined;
             }
           | {
@@ -1151,11 +1151,11 @@ declare class Server {
             }
         )[];
         description: string;
-        /** @type {MultiCompiler} */ link: string;
+        link: string;
       };
       StaticObject: {
         type: string;
-        additionalProperties: boolean;
+        /** @type {MultiCompiler} */ additionalProperties: boolean;
         properties: {
           directory: {
             type: string;
@@ -1163,6 +1163,7 @@ declare class Server {
             description: string;
             link: string;
           };
+          /** @type {MultiCompiler} */
           staticOptions: {
             type: string;
             link: string;
