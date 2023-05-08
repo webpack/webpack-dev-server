@@ -196,10 +196,6 @@ const tests = {
     success: [true, false],
     failure: ["invalid"],
   },
-  magicHtml: {
-    success: [true, false],
-    failure: ["string"],
-  },
   onListening: {
     success: [() => {}],
     failure: [""],
