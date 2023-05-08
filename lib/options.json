@@ -343,14 +343,6 @@
       },
       "link": "https://webpack.js.org/configuration/dev-server/#devserverlivereload"
     },
-    "MagicHTML": {
-      "type": "boolean",
-      "description": "Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').",
-      "cli": {
-        "negatedDescription": "Disables magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js')."
-      },
-      "link": "https://webpack.js.org/configuration/dev-server/#devservermagichtml"
-    },
     "OnListening": {
       "instanceof": "Function",
       "description": "Provides the ability to execute a custom function when dev server starts listening.",
@@ -965,9 +957,6 @@
     },
     "liveReload": {
       "$ref": "#/definitions/LiveReload"
-    },
-    "magicHtml": {
-      "$ref": "#/definitions/MagicHTML"
     },
     "onListening": {
       "$ref": "#/definitions/OnListening"
