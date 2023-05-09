@@ -1,5 +1,7 @@
 "use strict";
 
+const HTMLGeneratorPlugin = require("../../helpers/html-generator-plugin");
+
 module.exports = [
   {
     name: "browser",
@@ -11,6 +13,7 @@ module.exports = [
       path: "/",
       filename: "browser.js",
     },
+    plugins: [new HTMLGeneratorPlugin()],
     infrastructureLogging: {
       level: "info",
       stream: {
@@ -29,6 +32,7 @@ module.exports = [
       path: "/",
       filename: "server.js",
     },
+    plugins: [new HTMLGeneratorPlugin()],
     infrastructureLogging: {
       level: "info",
       stream: {
