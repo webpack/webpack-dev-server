@@ -65,13 +65,16 @@ module.exports = class HTMLGeneratorPlugin {
 
             for (const asset of assets) {
               const assetName = asset.name;
-              const assetSource = new RawSource(
-                HTMLContentForAssets(assetName)
-              );
-              compilation.emitAsset(
-                assetName.replace(".js", ".html"),
-                assetSource
-              );
+
+              if (assetName !== "main.js") {
+                const assetSource = new RawSource(
+                  HTMLContentForAssets(assetName)
+                );
+                compilation.emitAsset(
+                  assetName.replace(".js", ".html"),
+                  assetSource
+                );
+              }
             }
           }
         );
