@@ -138,8 +138,6 @@ Options:
   --ipc [value]                                       Listen to a unix socket.
   --live-reload                                       Enables reload/refresh the page(s) when file changes are detected (enabled by default).
   --no-live-reload                                    Disables reload/refresh the page(s) when file changes are detected (enabled by default).
-  --magic-html                                        Tells dev-server whether to enable magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').
-  --no-magic-html                                     Disables magic HTML routes (routes corresponding to your webpack output, for example '/main' for 'main.js').
   --open [value...]                                   Allows to configure dev server to open the browser(s) and page(s) after server had been started (set it to true to open your default browser).
   --no-open                                           Does not open the default browser.
   --open-target <value...>                            Opens specified page in browser.

@@ -209,7 +209,6 @@ declare class Server {
                    * @property {boolean} [liveReload]
                    * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
                    * @property {boolean} [compress]
-                   * @property {boolean} [magicHtml]
                    * @property {"auto" | "all" | string | string[]} [allowedHosts]
                    * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
                    * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
@@ -359,7 +358,6 @@ declare class Server {
          * @property {boolean} [liveReload]
          * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
          * @property {boolean} [compress]
-         * @property {boolean} [magicHtml]
          * @property {"auto" | "all" | string | string[]} [allowedHosts]
          * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
          * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
@@ -489,7 +487,6 @@ declare class Server {
                          * @property {boolean} [liveReload]
                          * @property {DevMiddlewareOptions<Request, Response>} [devMiddleware]
                          * @property {boolean} [compress]
-                         * @property {boolean} [magicHtml]
                          * @property {"auto" | "all" | string | string[]} [allowedHosts]
                          * @property {boolean | ConnectHistoryApiFallbackOptions} [historyApiFallback]
                          * @property {boolean | Record<string, never> | BonjourOptions} [bonjour]
@@ -684,12 +681,12 @@ declare class Server {
         properties: {
           key: {
             description: string;
+            /**
+             * @private
+             * @type {{ name: string | symbol, listener: (...args: any[]) => void}[] }}
+             */
             type: string;
           };
-          /**
-           * @private
-           * @type {{ name: string | symbol, listener: (...args: any[]) => void}[] }}
-           */
           value: {
             description: string;
             type: string;
@@ -796,14 +793,6 @@ declare class Server {
         link: string;
       };
       LiveReload: {
-        type: string;
-        description: string;
-        cli: {
-          negatedDescription: string;
-        };
-        link: string;
-      };
-      MagicHTML: {
         type: string;
         description: string;
         cli: {
@@ -928,7 +917,6 @@ declare class Server {
           | {
               type: string;
               minLength: number;
-              /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
               minimum?: undefined;
               maximum?: undefined;
               enum?: undefined;
@@ -958,6 +946,7 @@ declare class Server {
               }
           )[];
         };
+        /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
         description: string;
         link: string;
       };
@@ -965,7 +954,7 @@ declare class Server {
         anyOf: {
           $ref: string;
         }[];
-        link: string;
+        /** @type {ServerConfiguration} */ link: string;
         description: string;
       };
       ServerType: {
@@ -1219,7 +1208,7 @@ declare class Server {
             }
           | {
               $ref: string;
-              /** @type {MultiCompiler} */ type?: undefined;
+              type?: undefined;
               items?: undefined;
               cli?: undefined;
             }
@@ -1229,7 +1218,7 @@ declare class Server {
       };
       StaticObject: {
         type: string;
-        /** @type {MultiCompiler} */ additionalProperties: boolean;
+        additionalProperties: boolean;
         properties: {
           directory: {
             type: string;
@@ -1237,7 +1226,6 @@ declare class Server {
             description: string;
             link: string;
           };
-          /** @type {MultiCompiler} */
           staticOptions: {
             type: string;
             link: string;
@@ -1354,7 +1342,7 @@ declare class Server {
             description: string;
             link: string;
             additionalProperties: boolean;
-          };
+          } /** @type {NormalizedStatic} */;
         };
         additionalProperties: boolean;
       };
@@ -1452,9 +1440,6 @@ declare class Server {
         $ref: string;
       };
       liveReload: {
-        $ref: string;
-      };
-      magicHtml: {
         $ref: string;
       };
       onListening: {
@@ -1740,14 +1725,6 @@ declare class Server {
   ): void;
   /**
    * @private
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {void}
-   */
-  private serveMagicHtml;
-  /**
-   * @private
    * @param {ClientConnection[]} clients
    * @param {StatsCompilation} stats
    * @param {boolean} [force]
@@ -1864,7 +1841,6 @@ type Configuration = {
       >
     | undefined;
   compress?: boolean | undefined;
-  magicHtml?: boolean | undefined;
   allowedHosts?: string | string[] | undefined;
   historyApiFallback?:
     | boolean

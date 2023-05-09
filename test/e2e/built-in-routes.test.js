@@ -190,59 +190,6 @@ describe("Built in routes", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
     });
 
-    it("should handle GET request to magic async html", async () => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        });
-
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
-      );
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-    });
-
-    it("should handle HEAD request to magic async html", async () => {
-      await page.setRequestInterception(true);
-
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        })
-        .on("request", (interceptedRequest) => {
-          interceptedRequest.continue({ method: "HEAD" });
-        });
-
-      const response = await page.goto(`http://127.0.0.1:${port}/main`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
-      );
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-    });
-
     it("should handle GET request to magic async chunk", async () => {
       page
         .on("console", (message) => {
