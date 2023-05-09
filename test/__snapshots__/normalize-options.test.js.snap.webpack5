@@ -16,7 +16,6 @@ exports[`normalize options allowedHosts is array 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -73,7 +72,6 @@ exports[`normalize options allowedHosts is string 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -131,7 +129,6 @@ exports[`normalize options client custom webSocketTransport path 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -191,7 +188,6 @@ exports[`normalize options client host and port 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -251,7 +247,6 @@ exports[`normalize options client host and string port 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -310,7 +305,6 @@ exports[`normalize options client path 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -369,7 +363,6 @@ exports[`normalize options client path without leading/ending slashes 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -427,7 +420,6 @@ exports[`normalize options client.webSocketTransport sockjs string 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -485,7 +477,6 @@ exports[`normalize options client.webSocketTransport ws string 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -543,7 +534,6 @@ exports[`normalize options client.webSocketTransport ws string and webSocketServ
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -603,7 +593,6 @@ exports[`normalize options client.webSocketTransport ws string and webSocketServ
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -663,7 +652,6 @@ exports[`normalize options client.webSocketTransport ws string and webSocketServ
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -722,7 +710,6 @@ exports[`normalize options dev is set 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -779,7 +766,6 @@ exports[`normalize options hot is false 1`] = `
   "host": undefined,
   "hot": false,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -836,7 +822,6 @@ exports[`normalize options hot is only 1`] = `
   "host": undefined,
   "hot": "only",
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -893,7 +878,6 @@ exports[`normalize options hot is true 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -950,7 +934,6 @@ exports[`normalize options liveReload is false 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": false,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1007,7 +990,6 @@ exports[`normalize options liveReload is true 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1064,7 +1046,6 @@ exports[`normalize options multi compiler client.logging should override infrast
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1121,7 +1102,6 @@ exports[`normalize options multi compiler client.logging should respect infrastr
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1178,7 +1158,6 @@ exports[`normalize options multi compiler client.logging should respect infrastr
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1235,7 +1214,6 @@ exports[`normalize options multi compiler client.logging should respect infrastr
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1292,7 +1270,6 @@ exports[`normalize options multi compiler watchOptions is set 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1349,7 +1326,6 @@ exports[`normalize options no options 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1406,7 +1382,6 @@ exports[`normalize options port string 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1463,7 +1438,6 @@ exports[`normalize options single compiler client.logging should default to infr
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1520,7 +1494,6 @@ exports[`normalize options single compiler client.logging should override to inf
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1577,7 +1550,6 @@ exports[`normalize options single compiler watchOptions is object 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1634,7 +1606,6 @@ exports[`normalize options single compiler watchOptions is object with static wa
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1691,7 +1662,6 @@ exports[`normalize options single compiler watchOptions is object with static wa
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1748,7 +1718,6 @@ exports[`normalize options single compiler watchOptions is object with watch fal
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1805,7 +1774,6 @@ exports[`normalize options static is an array of static objects 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1883,7 +1851,6 @@ exports[`normalize options static is an array of strings 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -1961,7 +1928,6 @@ exports[`normalize options static is an array of strings and static objects 1`] 
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2039,7 +2005,6 @@ exports[`normalize options static is an object 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2096,7 +2061,6 @@ exports[`normalize options static is false 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2131,7 +2095,6 @@ exports[`normalize options static is string 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2188,7 +2151,6 @@ exports[`normalize options static is true 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2245,7 +2207,6 @@ exports[`normalize options static publicPath is a string 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2302,7 +2263,6 @@ exports[`normalize options static publicPath is an array 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2360,7 +2320,6 @@ exports[`normalize options static serveIndex is an object 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2417,7 +2376,6 @@ exports[`normalize options static serveIndex is false 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2472,7 +2430,6 @@ exports[`normalize options static serveIndex is true 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2529,7 +2486,6 @@ exports[`normalize options static watch is an object 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2586,7 +2542,6 @@ exports[`normalize options static watch is false 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2633,7 +2588,6 @@ exports[`normalize options static watch is true 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2693,7 +2647,6 @@ exports[`normalize options username and password 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2750,7 +2703,6 @@ exports[`normalize options webSocketServer custom server class 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
@@ -2807,7 +2759,6 @@ exports[`normalize options webSocketServer custom server path 1`] = `
   "host": undefined,
   "hot": true,
   "liveReload": true,
-  "magicHtml": true,
   "open": [],
   "port": "<auto>",
   "server": {
