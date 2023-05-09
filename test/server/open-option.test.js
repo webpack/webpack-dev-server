@@ -134,7 +134,7 @@ describe('"open" option', () => {
     await server.start();
     await server.stop();
 
-    expect(open).toHaveBeenCalledWith(`http://[${host}]:${port}/`, {
+    expect(open).toHaveBeenCalledWith(`http://localhost:${port}/`, {
       wait: false,
     });
   });
