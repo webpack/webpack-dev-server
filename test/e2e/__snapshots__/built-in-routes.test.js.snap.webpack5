@@ -50,18 +50,6 @@ exports[`Built in routes with simple config should handle GET request to magic a
 
 exports[`Built in routes with simple config should handle GET request to magic async chunk: response status 1`] = `200`;
 
-exports[`Built in routes with simple config should handle GET request to magic async html: console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`Built in routes with simple config should handle GET request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
-
-exports[`Built in routes with simple config should handle GET request to magic async html: response status 1`] = `200`;
-
 exports[`Built in routes with simple config should handle HEAD request to directory index: console messages 1`] = `[]`;
 
 exports[`Built in routes with simple config should handle HEAD request to directory index: directory list 1`] = `""`;
@@ -77,12 +65,6 @@ exports[`Built in routes with simple config should handle HEAD request to magic 
 exports[`Built in routes with simple config should handle HEAD request to magic async chunk: response headers content-type 1`] = `"application/javascript; charset=utf-8"`;
 
 exports[`Built in routes with simple config should handle HEAD request to magic async chunk: response status 1`] = `200`;
-
-exports[`Built in routes with simple config should handle HEAD request to magic async html: console messages 1`] = `[]`;
-
-exports[`Built in routes with simple config should handle HEAD request to magic async html: response headers content-type 1`] = `"text/html; charset=utf-8"`;
-
-exports[`Built in routes with simple config should handle HEAD request to magic async html: response status 1`] = `200`;
 
 exports[`Built in routes with simple config should handles GET request to sockjs bundle: console messages 1`] = `[]`;
 
