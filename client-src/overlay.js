@@ -11,6 +11,7 @@ import {
 import createOverlayMachine from "./overlay/state-machine.js";
 import {
   containerStyle,
+  createCssLoader,
   dismissButtonStyle,
   headerStyle,
   iframeStyle,
@@ -93,6 +94,8 @@ const createOverlay = (options) => {
   let containerElement;
   /** @type {HTMLDivElement | null | undefined} */
   let headerElement;
+  /** @type {import('./overlay/styles.js').CssLoader} */
+  let iframeCssLoader;
   /** @type {Array<(element: HTMLDivElement) => void>} */
   let onLoadQueue = [];
   /** @type {TrustedTypePolicy | undefined} */
@@ -107,6 +110,16 @@ const createOverlay = (options) => {
     Object.keys(style).forEach((prop) => {
       element.style[prop] = style[prop];
     });
+  }
+
+  /**
+   *
+   * @param {HTMLElement} element
+   * @param {{className: string, css: string}} styles
+   */
+  function applyCss(element, styles) {
+    element.className = styles.className;
+    iframeCssLoader.load(styles.css);
   }
 
   /**
@@ -129,12 +142,10 @@ const createOverlay = (options) => {
     applyStyle(iframeContainerElement, iframeStyle);
 
     iframeContainerElement.onload = () => {
-      const contentElement =
-        /** @type {Document} */
-        (
-          /** @type {HTMLIFrameElement} */
-          (iframeContainerElement).contentDocument
-        ).createElement("div");
+      const iframeDoc = iframeContainerElement.contentDocument;
+      iframeCssLoader = createCssLoader(iframeDoc);
+
+      const contentElement = iframeDoc.createElement("div");
       containerElement =
         /** @type {Document} */
         (
@@ -143,16 +154,16 @@ const createOverlay = (options) => {
         ).createElement("div");
 
       contentElement.id = "webpack-dev-server-client-overlay-div";
-      applyStyle(contentElement, containerStyle);
+      applyCss(contentElement, containerStyle);
 
       headerElement = document.createElement("div");
 
       headerElement.innerText = "Compiled with problems:";
-      applyStyle(headerElement, headerStyle);
+      applyCss(headerElement, headerStyle);
 
       const closeButtonElement = document.createElement("button");
 
-      applyStyle(closeButtonElement, dismissButtonStyle);
+      applyCss(closeButtonElement, dismissButtonStyle);
 
       closeButtonElement.innerText = "×";
       closeButtonElement.ariaLabel = "Dismiss";
@@ -236,19 +247,15 @@ const createOverlay = (options) => {
         const entryElement = document.createElement("div");
         const msgStyle =
           type === "warning" ? msgStyles.warning : msgStyles.error;
-        applyStyle(entryElement, {
-          ...msgStyle,
-          padding: "1rem 1rem 1.5rem 1rem",
-        });
+        applyCss(entryElement, msgStyle);
 
         const typeElement = document.createElement("div");
         const { header, body } = formatProblem(type, message);
 
         typeElement.innerText = header;
-        applyStyle(typeElement, msgTypeStyle);
+        applyCss(typeElement, msgTypeStyle);
 
         if (message.moduleIdentifier) {
-          applyStyle(typeElement, { cursor: "pointer" });
           // element.dataset not supported in IE
           typeElement.setAttribute("data-can-open", true);
           typeElement.addEventListener("click", () => {
@@ -261,7 +268,9 @@ const createOverlay = (options) => {
         // Make it look similar to our terminal.
         const text = ansiHTML(encode(body));
         const messageTextNode = document.createElement("div");
-        applyStyle(messageTextNode, msgTextStyle);
+        messageTextNode.className = msgTextStyle.className;
+
+        iframeCssLoader.load(msgTextStyle.css);
 
         messageTextNode.innerHTML = overlayTrustedTypesPolicy
           ? overlayTrustedTypesPolicy.createHTML(text)

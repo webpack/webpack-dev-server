@@ -34,79 +34,13 @@ exports[`overlay should not show an error when "client.overlay.errors" is "false
 
 exports[`overlay should not show initially, then show on an error and allow to close: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
           need an appropriate loader to handle this file type, currently no
           loaders are configured to process this file. See
@@ -158,79 +92,13 @@ exports[`overlay should not show initially, then show on an error and allow to c
 
 exports[`overlay should not show initially, then show on an error, then hide on fix: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
           need an appropriate loader to handle this file type, currently no
           loaders are configured to process this file. See
@@ -282,79 +150,13 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 
 exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
           need an appropriate loader to handle this file type, currently no
           loaders are configured to process this file. See
@@ -369,79 +171,13 @@ exports[`overlay should not show initially, then show on an error, then show oth
 
 exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: overlay html 2`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           ./foo.js 1:1 Module parse failed: Unterminated template (1:1) You may
           need an appropriate loader to handle this file type, currently no
           loaders are configured to process this file. See
@@ -514,81 +250,13 @@ exports[`overlay should not show initially, then show on an error, then show oth
 
 exports[`overlay should show a warning after invalidation: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
     </div>
   </div>
@@ -619,108 +287,17 @@ exports[`overlay should show a warning after invalidation: page html 1`] = `
 
 exports[`overlay should show a warning and error for initial compilation and protects against xss: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          &lt;strong&gt;strong&lt;/strong&gt;
-        </div>
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">&lt;strong&gt;strong&lt;/strong&gt;</div>
       </div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          &lt;strong&gt;strong&lt;/strong&gt;
-        </div>
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">&lt;strong&gt;strong&lt;/strong&gt;</div>
       </div>
     </div>
   </div>
@@ -751,187 +328,33 @@ exports[`overlay should show a warning and error for initial compilation and pro
 
 exports[`overlay should show a warning and error for initial compilation: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Error from compilation. Can't find 'test' module.
         </div>
       </div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Error from compilation. Can't find 'test' module.
         </div>
       </div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Error from compilation. Can't find 'test' module.
         </div>
       </div>
@@ -964,81 +387,13 @@ exports[`overlay should show a warning and error for initial compilation: page h
 
 exports[`overlay should show a warning and hide them after closing connection: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
     </div>
   </div>
@@ -1077,81 +432,13 @@ exports[`overlay should show a warning and hide them after closing connection: p
 
 exports[`overlay should show a warning for initial compilation: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
     </div>
   </div>
@@ -1182,81 +469,13 @@ exports[`overlay should show a warning for initial compilation: page html 1`] = 
 
 exports[`overlay should show a warning when "client.overlay" is "true": overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
     </div>
   </div>
@@ -1287,81 +506,13 @@ exports[`overlay should show a warning when "client.overlay" is "true": page htm
 
 exports[`overlay should show a warning when "client.overlay.errors" is "true": overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
     </div>
   </div>
@@ -1392,81 +543,13 @@ exports[`overlay should show a warning when "client.overlay.errors" is "true": p
 
 exports[`overlay should show a warning when "client.overlay.warnings" is "true": overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
     </div>
   </div>
@@ -1497,79 +580,13 @@ exports[`overlay should show a warning when "client.overlay.warnings" is "true":
 
 exports[`overlay should show an ansi formatted error for initial compilation: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           <span
             style=\\"
               font-weight: normal;
@@ -1613,81 +630,13 @@ exports[`overlay should show an ansi formatted error for initial compilation: pa
 
 exports[`overlay should show an error after invalidation: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Error from compilation
-        </div>
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">Error from compilation</div>
       </div>
     </div>
   </div>
@@ -1718,79 +667,13 @@ exports[`overlay should show an error after invalidation: page html 1`] = `
 
 exports[`overlay should show an error for initial compilation: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Error from compilation. Can't find 'test' module.
         </div>
       </div>
@@ -1823,79 +706,13 @@ exports[`overlay should show an error for initial compilation: page html 1`] = `
 
 exports[`overlay should show an error when "client.overlay" is "true": overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Error from compilation. Can't find 'test' module.
         </div>
       </div>
@@ -1928,79 +745,13 @@ exports[`overlay should show an error when "client.overlay" is "true": page html
 
 exports[`overlay should show an error when "client.overlay.errors" is "true": overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Error from compilation. Can't find 'test' module.
         </div>
       </div>
@@ -2033,81 +784,13 @@ exports[`overlay should show an error when "client.overlay.errors" is "true": pa
 
 exports[`overlay should show an error when "client.overlay.warnings" is "true": overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Warning from compilation
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Warning from compilation</div>
       </div>
     </div>
   </div>
@@ -2138,79 +821,13 @@ exports[`overlay should show an error when "client.overlay.warnings" is "true": 
 
 exports[`overlay should show error for uncaught promise rejection: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Uncaught runtime errors:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Uncaught runtime errors:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Async error at &lt;anonymous&gt;:3:26
         </div>
       </div>
@@ -2222,79 +839,13 @@ exports[`overlay should show error for uncaught promise rejection: overlay html 
 
 exports[`overlay should show error for uncaught runtime error: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Uncaught runtime errors:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Uncaught runtime errors:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">
           Injected error at throwError (&lt;anonymous&gt;:2:15) at
           &lt;anonymous&gt;:3:9 at addScriptContent
           (__puppeteer_evaluation_script__:9:27)
@@ -2308,81 +859,13 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
 
 exports[`overlay should show error when it is not filtered: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          ERROR
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Unfiltered error
-        </div>
+      <div class=\\"webpack-error-msg\\">
+        <div class=\\"webpack-msg-type\\">ERROR</div>
+        <div class=\\"webpack-msg-text\\">Unfiltered error</div>
       </div>
     </div>
   </div>
@@ -2413,81 +896,13 @@ exports[`overlay should show error when it is not filtered: page html 1`] = `
 
 exports[`overlay should show warning when it is not filtered: overlay html 1`] = `
 "<body>
-  <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    \\"
-  >
-    <div
-      style=\\"
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      \\"
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      \\"
-    >
-      ×
-    </button>
+  <div id=\\"webpack-dev-server-client-overlay-div\\" class=\\"webpack-container\\">
+    <div class=\\"webpack-header\\">Compiled with problems:</div>
+    <button class=\\"webpack-dismiss-btn\\" aria-label=\\"Dismiss\\">×</button>
     <div>
-      <div
-        style=\\"
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
-        \\"
-      >
-        <div
-          style=\\"
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          \\"
-        >
-          WARNING
-        </div>
-        <div
-          style=\\"
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          \\"
-        >
-          Unfiltered warning
-        </div>
+      <div class=\\"webpack-warning-msg\\">
+        <div class=\\"webpack-msg-type\\">WARNING</div>
+        <div class=\\"webpack-msg-text\\">Unfiltered warning</div>
       </div>
     </div>
   </div>
