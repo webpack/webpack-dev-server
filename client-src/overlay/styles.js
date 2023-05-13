@@ -92,7 +92,7 @@ const msgTextStyle = {
   css: /* css */ `.webpack-msg-text {
       line-height: 1.5;
       font-size: 1rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
   `,
 };
