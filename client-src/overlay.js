@@ -268,9 +268,7 @@ const createOverlay = (options) => {
         // Make it look similar to our terminal.
         const text = ansiHTML(encode(body));
         const messageTextNode = document.createElement("div");
-        messageTextNode.className = msgTextStyle.className;
-
-        iframeCssLoader.load(msgTextStyle.css);
+        applyCss(messageTextNode, msgTextStyle);
 
         messageTextNode.innerHTML = overlayTrustedTypesPolicy
           ? overlayTrustedTypesPolicy.createHTML(text)
