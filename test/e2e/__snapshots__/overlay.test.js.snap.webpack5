@@ -2155,8 +2155,8 @@ exports[`overlay should show an error when "client.overlay.warnings" is "true": 
 exports[`overlay should show error for uncaught promise rejection: overlay html 1`] = `
 "<body>
   <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
+    id="webpack-dev-server-client-overlay-div"
+    style="
       position: fixed;
       box-sizing: border-box;
       inset: 0px;
@@ -2169,10 +2169,10 @@ exports[`overlay should show error for uncaught promise rejection: overlay html 
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.9);
       color: white;
-    \\"
+    "
   >
     <div
-      style=\\"
+      style="
         color: rgb(232, 59, 70);
         font-size: 2em;
         white-space: pre-wrap;
@@ -2181,13 +2181,13 @@ exports[`overlay should show error for uncaught promise rejection: overlay html 
         flex: 0 0 auto;
         max-height: 50%;
         overflow: auto;
-      \\"
+      "
     >
       Uncaught runtime errors:
     </div>
     <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
+      aria-label="Dismiss"
+      style="
         color: rgb(255, 255, 255);
         line-height: 1rem;
         font-size: 1.5rem;
@@ -2198,34 +2198,34 @@ exports[`overlay should show error for uncaught promise rejection: overlay html 
         top: 0px;
         background-color: transparent;
         border: none;
-      \\"
+      "
     >
       ×
     </button>
     <div>
       <div
-        style=\\"
+        style="
           background-color: rgba(206, 17, 38, 0.1);
           color: rgb(252, 207, 207);
           padding: 1rem 1rem 1.5rem;
-        \\"
+        "
       >
         <div
-          style=\\"
+          style="
             color: rgb(232, 59, 70);
             font-size: 1.2em;
             margin-bottom: 1rem;
             font-family: sans-serif;
-          \\"
+          "
         >
           ERROR
         </div>
         <div
-          style=\\"
+          style="
             line-height: 1.5;
             font-size: 1rem;
             font-family: Menlo, Consolas, monospace;
-          \\"
+          "
         >
           Async error at &lt;anonymous&gt;:3:26
         </div>
@@ -2239,8 +2239,8 @@ exports[`overlay should show error for uncaught promise rejection: overlay html 
 exports[`overlay should show error for uncaught runtime error: overlay html 1`] = `
 "<body>
   <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
+    id="webpack-dev-server-client-overlay-div"
+    style="
       position: fixed;
       box-sizing: border-box;
       inset: 0px;
@@ -2253,10 +2253,10 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.9);
       color: white;
-    \\"
+    "
   >
     <div
-      style=\\"
+      style="
         color: rgb(232, 59, 70);
         font-size: 2em;
         white-space: pre-wrap;
@@ -2265,13 +2265,13 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
         flex: 0 0 auto;
         max-height: 50%;
         overflow: auto;
-      \\"
+      "
     >
       Uncaught runtime errors:
     </div>
     <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
+      aria-label="Dismiss"
+      style="
         color: rgb(255, 255, 255);
         line-height: 1rem;
         font-size: 1.5rem;
@@ -2282,34 +2282,34 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
         top: 0px;
         background-color: transparent;
         border: none;
-      \\"
+      "
     >
       ×
     </button>
     <div>
       <div
-        style=\\"
+        style="
           background-color: rgba(206, 17, 38, 0.1);
           color: rgb(252, 207, 207);
           padding: 1rem 1rem 1.5rem;
-        \\"
+        "
       >
         <div
-          style=\\"
+          style="
             color: rgb(232, 59, 70);
             font-size: 1.2em;
             margin-bottom: 1rem;
             font-family: sans-serif;
-          \\"
+          "
         >
           ERROR
         </div>
         <div
-          style=\\"
+          style="
             line-height: 1.5;
             font-size: 1rem;
             font-family: Menlo, Consolas, monospace;
-          \\"
+          "
         >
           Injected error at throwError (&lt;anonymous&gt;:2:15) at
           &lt;anonymous&gt;:3:9 at addScriptContent
@@ -2325,8 +2325,8 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
 exports[`overlay should show error when it is not filtered: overlay html 1`] = `
 "<body>
   <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
+    id="webpack-dev-server-client-overlay-div"
+    style="
       position: fixed;
       box-sizing: border-box;
       inset: 0px;
@@ -2339,10 +2339,10 @@ exports[`overlay should show error when it is not filtered: overlay html 1`] = `
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.9);
       color: white;
-    \\"
+    "
   >
     <div
-      style=\\"
+      style="
         color: rgb(232, 59, 70);
         font-size: 2em;
         white-space: pre-wrap;
@@ -2351,13 +2351,13 @@ exports[`overlay should show error when it is not filtered: overlay html 1`] = `
         flex: 0 0 auto;
         max-height: 50%;
         overflow: auto;
-      \\"
+      "
     >
       Compiled with problems:
     </div>
     <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
+      aria-label="Dismiss"
+      style="
         color: rgb(255, 255, 255);
         line-height: 1rem;
         font-size: 1.5rem;
@@ -2368,34 +2368,34 @@ exports[`overlay should show error when it is not filtered: overlay html 1`] = `
         top: 0px;
         background-color: transparent;
         border: none;
-      \\"
+      "
     >
       ×
     </button>
     <div>
       <div
-        style=\\"
+        style="
           background-color: rgba(206, 17, 38, 0.1);
           color: rgb(252, 207, 207);
           padding: 1rem 1rem 1.5rem;
-        \\"
+        "
       >
         <div
-          style=\\"
+          style="
             color: rgb(232, 59, 70);
             font-size: 1.2em;
             margin-bottom: 1rem;
             font-family: sans-serif;
-          \\"
+          "
         >
           ERROR
         </div>
         <div
-          style=\\"
+          style="
             line-height: 1.5;
             font-size: 1rem;
             font-family: Menlo, Consolas, monospace;
-          \\"
+          "
         >
           Unfiltered error
         </div>
@@ -2409,19 +2409,19 @@ exports[`overlay should show error when it is not filtered: overlay html 1`] = `
 exports[`overlay should show error when it is not filtered: page html 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
-  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
 
   <iframe
-    id=\\"webpack-dev-server-client-overlay\\"
-    src=\\"about:blank\\"
-    style=\\"
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
       position: fixed;
       inset: 0px;
       width: 100vw;
       height: 100vh;
       border: none;
       z-index: 2147483647;
-    \\"
+    "
   ></iframe>
 </body>
 "
@@ -2535,8 +2535,8 @@ exports[`overlay should show overlay when Trusted Types are enabled: page html 1
 exports[`overlay should show warning when it is not filtered: overlay html 1`] = `
 "<body>
   <div
-    id=\\"webpack-dev-server-client-overlay-div\\"
-    style=\\"
+    id="webpack-dev-server-client-overlay-div"
+    style="
       position: fixed;
       box-sizing: border-box;
       inset: 0px;
@@ -2549,10 +2549,10 @@ exports[`overlay should show warning when it is not filtered: overlay html 1`] =
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.9);
       color: white;
-    \\"
+    "
   >
     <div
-      style=\\"
+      style="
         color: rgb(232, 59, 70);
         font-size: 2em;
         white-space: pre-wrap;
@@ -2561,13 +2561,13 @@ exports[`overlay should show warning when it is not filtered: overlay html 1`] =
         flex: 0 0 auto;
         max-height: 50%;
         overflow: auto;
-      \\"
+      "
     >
       Compiled with problems:
     </div>
     <button
-      aria-label=\\"Dismiss\\"
-      style=\\"
+      aria-label="Dismiss"
+      style="
         color: rgb(255, 255, 255);
         line-height: 1rem;
         font-size: 1.5rem;
@@ -2578,34 +2578,34 @@ exports[`overlay should show warning when it is not filtered: overlay html 1`] =
         top: 0px;
         background-color: transparent;
         border: none;
-      \\"
+      "
     >
       ×
     </button>
     <div>
       <div
-        style=\\"
+        style="
           background-color: rgba(251, 245, 180, 0.1);
           color: rgb(251, 245, 180);
           padding: 1rem 1rem 1.5rem;
-        \\"
+        "
       >
         <div
-          style=\\"
+          style="
             color: rgb(232, 59, 70);
             font-size: 1.2em;
             margin-bottom: 1rem;
             font-family: sans-serif;
-          \\"
+          "
         >
           WARNING
         </div>
         <div
-          style=\\"
+          style="
             line-height: 1.5;
             font-size: 1rem;
             font-family: Menlo, Consolas, monospace;
-          \\"
+          "
         >
           Unfiltered warning
         </div>
@@ -2619,19 +2619,19 @@ exports[`overlay should show warning when it is not filtered: overlay html 1`] =
 exports[`overlay should show warning when it is not filtered: page html 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
-  <script type=\\"text/javascript\\" charset=\\"utf-8\\" src=\\"/main.js\\"></script>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
 
   <iframe
-    id=\\"webpack-dev-server-client-overlay\\"
-    src=\\"about:blank\\"
-    style=\\"
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
       position: fixed;
       inset: 0px;
       width: 100vw;
       height: 100vh;
       border: none;
       z-index: 2147483647;
-    \\"
+    "
   ></iframe>
 </body>
 "
