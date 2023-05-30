@@ -4,7 +4,7 @@ This document serves as a migration guide for `webpack-dev-server@5.0.0`.
 
 ## ⚠ BREAKING CHANGES
 
-- Minimum supported `Node.js` version is `14.15.0`.
+- Minimum supported `Node.js` version is `16.10.0`.
 - Minimum supported `webpack` version is `5.0.0`.
 - Minimum compatible `webpack-cli` version is `4.7.0` but we recommend using the latest version.
 - The `http2` and `https` options were removed in favor of [the `server` option](https://webpack.js.org/configuration/dev-server/#devserverserver).
