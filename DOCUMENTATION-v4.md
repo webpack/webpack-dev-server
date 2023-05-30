@@ -1,6 +1,6 @@
 [webpack-dev-server](https://github.com/webpack/webpack-dev-server) can be used to quickly develop an application. See the [development guide](/guides/development/) to get started.
 
-This page describes the options that affect the behavior of webpack-dev-server (short: dev-server) <Badge text="version >= 4.0.0" />. Migration guide from `v3` to `v4` can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md).
+This page describes the options that affect the behavior of webpack-dev-server (short: dev-server) `v4.0.0+`. Migration guide from `v3` to `v4` can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md).
 
 > **Warning**
 >
