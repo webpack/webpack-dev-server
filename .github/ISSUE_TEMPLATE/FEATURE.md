@@ -8,10 +8,9 @@ about: Suggest an idea for this project
 
 ### Feature Proposal
 
-<!-- Please ask questions on discussions, StackOverflow or the webpack Gitter. -->
+<!-- Please ask questions on discussions or StackOverflow. -->
 <!-- https://github.com/webpack/webpack/discussions -->
 <!-- https://stackoverflow.com/questions/ask?tags=webpack -->
-<!-- https://gitter.im/webpack/webpack -->
 <!-- Issues which contain questions or support requests will be closed. -->
 
 ### Feature Use Case
