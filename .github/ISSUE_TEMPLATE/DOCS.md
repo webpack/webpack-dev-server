@@ -20,7 +20,6 @@ Documentation Is:
 <!-- Please don't delete this template otherwise your issue will be closed immediately -->
 <!-- https://github.com/webpack/webpack/discussions -->
 <!-- https://stackoverflow.com/questions/ask?tags=webpack -->
-<!-- https://gitter.im/webpack/webpack -->
 <!-- Issues which contain questions or support requests will be closed. -->
 
 ### Your Proposal for Changes
