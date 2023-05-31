@@ -11,7 +11,6 @@ about: Would you like something work differently? Have an alternative approach? 
 <!-- Please ask questions on discussions, StackOverflow or the webpack Gitter. -->
 <!-- https://github.com/webpack/webpack/discussions -->
 <!-- https://stackoverflow.com/questions/ask?tags=webpack -->
-<!-- https://gitter.im/webpack/webpack -->
 <!-- Issues which contain questions or support requests will be closed. -->
 
 ### Expected Behavior / Situation
