@@ -1,7 +1,11 @@
+/// <reference types="node" />
 export = WebsocketServer;
 declare class WebsocketServer extends BaseServer {
   static heartbeatInterval: number;
-  implementation: WebSocket.Server<WebSocket.WebSocket>;
+  implementation: WebSocket.Server<
+    typeof WebSocket,
+    typeof import("http").IncomingMessage
+  >;
 }
 declare namespace WebsocketServer {
   export { WebSocketServerConfiguration, ClientConnection };
