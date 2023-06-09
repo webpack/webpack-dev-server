@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.15.1](https://github.com/webpack/webpack-dev-server/compare/v4.15.0...v4.15.1) (2023-06-09)
+
+
+### Bug Fixes
+
+* replace `::` with `localhost` before openBrowser() ([#4856](https://github.com/webpack/webpack-dev-server/issues/4856)) ([874c44b](https://github.com/webpack/webpack-dev-server/commit/874c44b072d55fe42a29d366dbe1c71ca3a94db4))
+* **types:** compatibility with `@types/ws` ([#4899](https://github.com/webpack/webpack-dev-server/issues/4899)) ([34bcec2](https://github.com/webpack/webpack-dev-server/commit/34bcec242b8bc64c26e9455a8fd5781a59fbcf24))
+
 ## [4.15.0](https://github.com/webpack/webpack-dev-server/compare/v4.14.0...v4.15.0) (2023-05-07)
 
 
