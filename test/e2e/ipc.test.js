@@ -57,51 +57,55 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      proxy.close();
-
-      await browser.close();
-      await server.stop();
     });
 
     it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
@@ -149,51 +153,55 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      proxy.close();
-
-      await browser.close();
-      await server.stop();
     });
 
     // TODO un skip after implement new API
@@ -256,62 +264,66 @@ describe("web socket server URL", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+
+        if (webSocketServer === "ws") {
+          const client = page._client;
+
+          client.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
+        } else {
+          page.on("request", (request) => {
+            if (/\/ws\//.test(request.url())) {
+              webSocketRequests.push({ url: request.url() });
+            }
+          });
+        }
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const webSocketRequests = [];
+        const webSocketRequest = webSocketRequests[0];
 
-      if (webSocketServer === "ws") {
-        const client = page._client;
+        expect(webSocketRequest.url).toContain(
+          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
+        );
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
 
-        client.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
+        await new Promise((resolve, reject) => {
+          ipcServer.close((error) => {
+            if (error) {
+              reject(error);
+
+              return;
+            }
+
+            resolve();
+          });
         });
-      } else {
-        page.on("request", (request) => {
-          if (/\/ws\//.test(request.url())) {
-            webSocketRequests.push({ url: request.url() });
-          }
-        });
+        await browser.close();
+        await server.stop();
       }
-
-      await page.goto(`http://${proxyHost}:${proxyPort}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const webSocketRequest = webSocketRequests[0];
-
-      expect(webSocketRequest.url).toContain(
-        `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
-      );
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      proxy.close();
-
-      await new Promise((resolve, reject) => {
-        ipcServer.close((error) => {
-          if (error) {
-            reject(error);
-
-            return;
-          }
-
-          resolve();
-        });
-      });
-      await browser.close();
-      await server.stop();
     });
   }
 });
