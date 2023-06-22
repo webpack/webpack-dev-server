@@ -90,29 +90,33 @@ describe("host", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://${hostname}:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://${hostname}:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should work using "${host}" host and port as string`, async () => {
@@ -159,29 +163,33 @@ describe("host", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://${hostname}:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://${hostname}:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should work using "${host}" host and "auto" port`, async () => {
@@ -231,31 +239,35 @@ describe("host", () => {
       const address = server.server.address();
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://${hostname}:${address.port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://${hostname}:${address.port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
 
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
-
-      await browser.close();
-      await server.stop();
+        await browser.close();
+        await server.stop();
+      }
     });
   }
 
