@@ -79,28 +79,32 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should work with callback API`, async () => {
@@ -115,32 +119,36 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await new Promise((resolve) => {
-        server.stopCallback(() => {
-          resolve();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await new Promise((resolve) => {
+          server.stopCallback(() => {
+            resolve();
+          });
         });
-      });
+      }
     });
 
     it(`should catch errors within startCallback`, async () => {
@@ -184,29 +192,32 @@ describe("API", () => {
       await server.start();
 
       const { page, browser } = await runBrowser();
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      const pageErrors = [];
-      const consoleMessages = [];
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
 
     it(`should work and allow to rerun dev server multiple times`, async () => {
@@ -217,53 +228,61 @@ describe("API", () => {
 
       const { page: firstPage, browser } = await runBrowser();
 
-      const firstPageErrors = [];
-      const firstConsoleMessages = [];
+      try {
+        const firstPageErrors = [];
+        const firstConsoleMessages = [];
 
-      firstPage
-        .on("console", (message) => {
-          firstConsoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          firstPageErrors.push(error);
+        firstPage
+          .on("console", (message) => {
+            firstConsoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            firstPageErrors.push(error);
+          });
+
+        await firstPage.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await firstPage.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(
+          firstConsoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(firstPageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await server.stop();
+      }
 
-      expect(
-        firstConsoleMessages.map((message) => message.text())
-      ).toMatchSnapshot("console messages");
-      expect(firstPageErrors).toMatchSnapshot("page errors");
-
-      await server.stop();
       await server.start();
 
       const secondPage = await browser.newPage();
+      try {
+        const secondPageErrors = [];
+        const secondConsoleMessages = [];
 
-      const secondPageErrors = [];
-      const secondConsoleMessages = [];
+        secondPage
+          .on("console", (message) => {
+            secondConsoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            secondPageErrors.push(error);
+          });
 
-      secondPage
-        .on("console", (message) => {
-          secondConsoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          secondPageErrors.push(error);
+        await secondPage.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await secondPage.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(
-        secondConsoleMessages.map((message) => message.text())
-      ).toMatchSnapshot("console messages");
-      expect(secondPageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          secondConsoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(secondPageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
   });
 
@@ -571,30 +590,34 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://127.0.0.1:${devServerPort}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const response = await page.goto(`http://127.0.0.1:${devServerPort}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(response.status()).toMatchSnapshot("response status");
 
-      expect(response.status()).toMatchSnapshot("response status");
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+      }
     });
 
     it("should throw the error when the port isn't found", async () => {
@@ -661,44 +684,48 @@ describe("API", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const webSocketRequests = [];
+        const client = page._client;
+
+        client.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
         });
 
-      const webSocketRequests = [];
-      const client = page._client;
+        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      client.on("Network.webSocketCreated", (test) => {
-        webSocketRequests.push(test);
-      });
+        if (!server.checkHeader(headers, "origin")) {
+          throw new Error("Validation didn't fail");
+        }
 
-      const response = await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
 
-      if (!server.checkHeader(headers, "origin")) {
-        throw new Error("Validation didn't fail");
+        expect(response.status()).toMatchSnapshot("response status");
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
       }
-
-      expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
     });
   });
 });
