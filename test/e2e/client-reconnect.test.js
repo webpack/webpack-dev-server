@@ -45,9 +45,14 @@ describe("client.reconnect option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      try {
+        expect(response.status()).toMatchSnapshot("response status");
+      } catch (error) {
+        throw error;
+      } finally {
+        await server.stop();
+      }
 
-      await server.stop();
       // Can't wait to check for unlimited times so wait only for 5-6 retries
       // eslint-disable-next-line no-restricted-properties
       await page.waitForTimeout(1000 * Math.pow(2, 5) + Math.random() * 100);
@@ -101,9 +106,14 @@ describe("client.reconnect option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      try {
+        expect(response.status()).toMatchSnapshot("response status");
+      } catch (error) {
+        throw error;
+      } finally {
+        await server.stop();
+      }
 
-      await server.stop();
       // Can't wait to check for unlimited times so wait only for 5-6 retries
       // eslint-disable-next-line no-restricted-properties
       await page.waitForTimeout(1000 * Math.pow(2, 2) + Math.random() * 100);
@@ -154,9 +164,14 @@ describe("client.reconnect option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      try {
+        expect(response.status()).toMatchSnapshot("response status");
+      } catch (error) {
+        throw error;
+      } finally {
+        await server.stop();
+      }
 
-      await server.stop();
       // eslint-disable-next-line no-restricted-properties
       await page.waitForTimeout(1000 * Math.pow(2, 3) + Math.random() * 100);
 
