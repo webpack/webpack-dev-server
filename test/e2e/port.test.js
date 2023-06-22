@@ -56,9 +56,13 @@ describe("port", () => {
           `options.port should be >= 0 and < 65536`
         );
 
-        expect(errored.message).toMatch(errorMessageRegExp);
-
-        await server.stop();
+        try {
+          expect(errored.message).toMatch(errorMessageRegExp);
+        } catch (error) {
+          throw error;
+        } finally {
+          await server.stop();
+        }
 
         return;
       }
@@ -73,28 +77,32 @@ describe("port", () => {
 
       const { page, browser } = await runBrowser();
 
-      const pageErrors = [];
-      const consoleMessages = [];
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://127.0.0.1:${address.port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      await page.goto(`http://127.0.0.1:${address.port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
 
       if (
         testedPort === "<not-specified>" ||
