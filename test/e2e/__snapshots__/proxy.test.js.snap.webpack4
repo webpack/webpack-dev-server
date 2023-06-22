@@ -1,0 +1,335 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`proxy option as an array respects a proxy option of function: console messages 1`] = `Array []`;
+
+exports[`proxy option as an array respects a proxy option of function: page errors 1`] = `Array []`;
+
+exports[`proxy option as an array respects a proxy option of function: response status 1`] = `200`;
+
+exports[`proxy option as an array respects a proxy option of function: response text 1`] = `"from proxy2"`;
+
+exports[`proxy option as an array respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option as an array respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option as an array respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option as an array respects a proxy option: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option as an array should allow req, res, and next: console messages 1`] = `Array []`;
+
+exports[`proxy option as an array should allow req, res, and next: page errors 1`] = `Array []`;
+
+exports[`proxy option as an array should allow req, res, and next: response status 1`] = `200`;
+
+exports[`proxy option as an array should allow req, res, and next: response text 1`] = `"foo+next+function"`;
+
+exports[`proxy option as an array without the \`route\` option respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option as an array without the \`route\` option respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option as an array without the \`route\` option respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option as an array without the \`route\` option respects a proxy option: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: console messages 1`] = `Array []`;
+
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: page errors 1`] = `Array []`;
+
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: response status 1`] = `200`;
+
+exports[`proxy option as an object of paths with properties respects a pathRewrite option: response text 1`] = `"from proxy2"`;
+
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: console messages 1`] = `Array []`;
+
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: response status 1`] = `200`;
+
+exports[`proxy option as an object of paths with properties respects a proxy option when a request path is matched: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option as an option is an object with \`context\` and \`target\` as string respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with \`context\` and \`target\` as string respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with \`context\` and \`target\` as string respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option as an option is an object with \`context\` and \`target\` as string respects a proxy option: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option as an option is an object with the \`context\` option respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with the \`context\` option respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with the \`context\` option respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option as an option is an object with the \`context\` option respects a proxy option: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option as an option is an object with the \`path\` option (\`context\` alias) respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with the \`path\` option (\`context\` alias) respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with the \`path\` option (\`context\` alias) respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option as an option is an object with the \`path\` option (\`context\` alias) respects a proxy option: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option as an option is an object with the \`router\` option respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with the \`router\` option respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option as an option is an object with the \`router\` option respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option as an option is an object with the \`router\` option respects a proxy option: response text 1`] = `"from proxy1"`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass can rewrite a request path regardless of the target defined a bypass option: response text 1`] = `
+"Hello
+"
+`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass can rewrite a request path: response text 1`] = `
+"Hello
+"
+`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: response status 1`] = `404`;
+
+exports[`proxy option proxy with byPass should not pass through a proxy when a bypass function returns false: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /proxyfalse</pre>
+</body>
+</html>
+"
+`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass should pass through a proxy when a bypass function returns null: response text 1`] = `
+"\\"use strict\\";
+
+console.log(\\"Hey.\\");
+"
+`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass should wait if bypass returns promise: response text 1`] = `"proxy async response"`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: console messages 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: response status 1`] = `200`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option #2: response text 1`] = `
+"Hello
+"
+`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: page errors 1`] = `Array []`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: response status 1`] = `404`;
+
+exports[`proxy option proxy with byPass should work with the 'target' option: response text 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+<meta charset=\\"utf-8\\">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot GET /bypass-with-target/foo.js</pre>
+</body>
+</html>
+"
+`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 426 (Upgrade Required)",
+]
+`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: page errors 1`] = `Array []`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: response status 1`] = `426`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: sockjs Should receive response: response text 1`] = `"Upgrade Required"`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 426 (Upgrade Required)",
+]
+`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: page errors 1`] = `Array []`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: response status 1`] = `426`;
+
+exports[`proxy option should handles external websocket upgrade with webSocketServerType: ws Should receive response: response text 1`] = `"Upgrade Required"`;
+
+exports[`proxy option should sharing a proxy option respects proxy1 option: console messages 1`] = `Array []`;
+
+exports[`proxy option should sharing a proxy option respects proxy1 option: page errors 1`] = `Array []`;
+
+exports[`proxy option should sharing a proxy option respects proxy1 option: response status 1`] = `200`;
+
+exports[`proxy option should sharing a proxy option respects proxy1 option: response text 1`] = `"from proxy"`;
+
+exports[`proxy option should sharing a proxy option respects proxy2 option: console messages 1`] = `Array []`;
+
+exports[`proxy option should sharing a proxy option respects proxy2 option: page errors 1`] = `Array []`;
+
+exports[`proxy option should sharing a proxy option respects proxy2 option: response status 1`] = `200`;
+
+exports[`proxy option should sharing a proxy option respects proxy2 option: response text 1`] = `"from proxy"`;
+
+exports[`proxy option should supports http methods DELETE method: console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods DELETE method: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods DELETE method: response status 1`] = `200`;
+
+exports[`proxy option should supports http methods DELETE method: response text 1`] = `"DELETE method from proxy"`;
+
+exports[`proxy option should supports http methods GET method: console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods GET method: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods GET method: response status 1`] = `200`;
+
+exports[`proxy option should supports http methods GET method: response text 1`] = `"GET method from proxy"`;
+
+exports[`proxy option should supports http methods HEAD method: console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods HEAD method: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods HEAD method: response status 1`] = `200`;
+
+exports[`proxy option should supports http methods HEAD method: response text 1`] = `""`;
+
+exports[`proxy option should supports http methods POST method (application/json): console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/json): page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/json): response headers content-type 1`] = `"application/json; charset=utf-8"`;
+
+exports[`proxy option should supports http methods POST method (application/json): response status 1`] = `200`;
+
+exports[`proxy option should supports http methods POST method (application/json): response text 1`] = `"{\\"answer\\":\\"POST method from proxy (id: 1)\\"}"`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): console messages 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): response headers content-type 1`] = `"text/html; charset=utf-8"`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): response status 1`] = `200`;
+
+exports[`proxy option should supports http methods POST method (application/x-www-form-urlencoded): response text 1`] = `"POST method from proxy (id: 1)"`;
+
+exports[`proxy option should supports http methods errors: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+]
+`;
+
+exports[`proxy option should supports http methods errors: page errors 1`] = `Array []`;
+
+exports[`proxy option should supports http methods errors: response status 1`] = `500`;
+
+exports[`proxy option should supports http methods errors: response text 1`] = `"error from proxy"`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect \`logProvider\` and \`logLevel\` options with \`silent\` value target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: console messages 1`] = `
+Array [
+  "Failed to load resource: the server responded with a status of 504 (Gateway Timeout)",
+]
+`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: page errors 1`] = `Array []`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: response status 1`] = `504`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched: response text 1`] = `"Error occured while trying to proxy: localhost:8123/my-path"`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: console messages 1`] = `Array []`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: page errors 1`] = `Array []`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: response status 1`] = `200`;
+
+exports[`proxy option should work in multi compiler mode respects a proxy option: response text 1`] = `"from proxy1"`;
