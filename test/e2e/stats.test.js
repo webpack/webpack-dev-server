@@ -120,22 +120,26 @@ describe("stats", () => {
 
       const { page, browser } = await runBrowser();
 
-      const consoleMessages = [];
+      try {
+        const consoleMessages = [];
 
-      page.on("console", (message) => {
-        consoleMessages.push(message);
-      });
+        page.on("console", (message) => {
+          consoleMessages.push(message);
+        });
 
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        await page.goto(`http://localhost:${port}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      expect(
-        consoleMessages.map((message) => message.text())
-      ).toMatchSnapshot();
-
-      await browser.close();
-      await server.stop();
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot();
+      } catch (error) {
+        throw error;
+      } finally {
+        await browser.close();
+        await server.stop();
+      }
     });
   });
 });
