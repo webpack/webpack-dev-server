@@ -587,28 +587,32 @@ describe("normalize options", () => {
         errored = error;
       }
 
-      if (item.throws) {
-        expect(errored.message).toMatch(item.throws);
-      } else {
-        const optionsForSnapshot = klona(server.options);
+      try {
+        if (item.throws) {
+          expect(errored.message).toMatch(item.throws);
+        } else {
+          const optionsForSnapshot = klona(server.options);
 
-        optionsForSnapshot.port = "<auto>";
+          optionsForSnapshot.port = "<auto>";
 
-        if (optionsForSnapshot.static.length > 0) {
-          optionsForSnapshot.static.forEach((i) => {
-            i.directory = i.directory
-              .replace(/\\/g, "/")
-              .replace(
-                new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
-                "<cwd>"
-              );
-          });
+          if (optionsForSnapshot.static.length > 0) {
+            optionsForSnapshot.static.forEach((i) => {
+              i.directory = i.directory
+                .replace(/\\/g, "/")
+                .replace(
+                  new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+                  "<cwd>"
+                );
+            });
+          }
+
+          expect(optionsForSnapshot).toMatchSnapshot();
         }
-
-        expect(optionsForSnapshot).toMatchSnapshot();
+      } catch (error) {
+        throw error;
+      } finally {
+        await server.stop();
       }
-
-      await server.stop();
     });
   });
 });
