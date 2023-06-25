@@ -22,26 +22,30 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    const pageErrors = [];
-    const consoleMessages = [];
+    try {
+      const pageErrors = [];
+      const consoleMessages = [];
 
-    page
-      .on("console", (message) => {
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/`, {
-      waitUntil: "networkidle0",
-    });
-
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it(`should work with web target configurations and do nothing`, async () => {
@@ -56,36 +60,40 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    let pageErrors = [];
-    let consoleMessages = [];
+    try {
+      let pageErrors = [];
+      let consoleMessages = [];
 
-    page
-      .on("console", (message) => {
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+      pageErrors = [];
+      consoleMessages = [];
 
-    pageErrors = [];
-    consoleMessages = [];
+      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
-      waitUntil: "networkidle0",
-    });
-
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it(`should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries`, async () => {
@@ -112,55 +120,59 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    let pageErrors = [];
-    let consoleMessages = [];
+    try {
+      let pageErrors = [];
+      let consoleMessages = [];
 
-    page
-      .on("console", (message) => {
-        let text = message.text();
+      page
+        .on("console", (message) => {
+          let text = message.text();
 
-        if (/Error: Aborted because/.test(text)) {
-          const splittedText = text.split("\n");
+          if (/Error: Aborted because/.test(text)) {
+            const splittedText = text.split("\n");
 
-          text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
-        }
+            text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
+          }
 
-        consoleMessages.push(text);
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+          consoleMessages.push(text);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
-    fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+      pageErrors = [];
+      consoleMessages = [];
 
-    pageErrors = [];
-    consoleMessages = [];
+      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
-    fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+      fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+      fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+    }
   });
 
   it(`should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries`, async () => {
@@ -187,55 +199,59 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    let pageErrors = [];
-    let consoleMessages = [];
+    try {
+      let pageErrors = [];
+      let consoleMessages = [];
 
-    page
-      .on("console", (message) => {
-        let text = message.text();
+      page
+        .on("console", (message) => {
+          let text = message.text();
 
-        if (/Error: Aborted because/.test(text)) {
-          const splittedText = text.split("\n");
+          if (/Error: Aborted because/.test(text)) {
+            const splittedText = text.split("\n");
 
-          text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
-        }
+            text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
+          }
 
-        consoleMessages.push(text);
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+          consoleMessages.push(text);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
-    fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+      pageErrors = [];
+      consoleMessages = [];
 
-    pageErrors = [];
-    consoleMessages = [];
+      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
-    fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+      fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+      fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+    }
   });
 
   it(`should work with web target configurations when only live reload is enabled, and do live reload when changing own entries`, async () => {
@@ -262,47 +278,51 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    let pageErrors = [];
-    let consoleMessages = [];
+    try {
+      let pageErrors = [];
+      let consoleMessages = [];
 
-    page
-      .on("console", (message) => {
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
-    fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+      pageErrors = [];
+      consoleMessages = [];
 
-    pageErrors = [];
-    consoleMessages = [];
+      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
-    fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+      fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+      fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+    }
   });
 
   it(`should work with web target configurations when only live reload is enabled and do live reload when changing other entries`, async () => {
@@ -329,47 +349,51 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    let pageErrors = [];
-    let consoleMessages = [];
+    try {
+      let pageErrors = [];
+      let consoleMessages = [];
 
-    page
-      .on("console", (message) => {
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
 
-    fs.writeFileSync(pathToTwoEntry, `${originalTwoEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+      pageErrors = [];
+      consoleMessages = [];
 
-    pageErrors = [];
-    consoleMessages = [];
+      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
 
-    fs.writeFileSync(pathToOneEntry, `${originalOneEntryContent}// comment`);
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
-    fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+      fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
+      fs.writeFileSync(pathToTwoEntry, originalTwoEntryContent);
+    }
   });
 
   it("should work with universal configuration and do nothing", async () => {
@@ -383,35 +407,38 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    const serverResponse = await page.goto(
-      `http://127.0.0.1:${port}/server.js`,
-      {
-        waitUntil: "networkidle0",
-      }
-    );
-
-    const serverResponseText = await serverResponse.text();
-
-    expect(serverResponseText).toContain("Hello from the server");
-    expect(serverResponseText).not.toContain("WebsocketServer");
-
     const pageErrors = [];
     const consoleMessages = [];
+    try {
+      const serverResponse = await page.goto(
+        `http://127.0.0.1:${port}/server.js`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
 
-    page
-      .on("console", (message) => {
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+      const serverResponseText = await serverResponse.text();
+
+      expect(serverResponseText).toContain("Hello from the server");
+      expect(serverResponseText).not.toContain("WebsocketServer");
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+        waitUntil: "networkidle0",
       });
-
-    await page.goto(`http://127.0.0.1:${port}/browser.html`, {
-      waitUntil: "networkidle0",
-    });
-
-    await browser.close();
-    await server.stop();
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
 
     expect(consoleMessages).toMatchSnapshot("console messages");
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -441,56 +468,60 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    const serverResponse = await page.goto(
-      `http://127.0.0.1:${port}/server.js`,
-      {
-        waitUntil: "networkidle0",
-      }
-    );
-
-    const serverResponseText = await serverResponse.text();
-
-    expect(serverResponseText).toContain("Hello from the server");
-    expect(serverResponseText).not.toContain("WebsocketServer");
-
-    const pageErrors = [];
-    const consoleMessages = [];
-
-    page
-      .on("console", (message) => {
-        let text = message.text();
-
-        if (/Error: Aborted because/.test(text)) {
-          const splittedText = text.split("\n");
-
-          text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
+    try {
+      const serverResponse = await page.goto(
+        `http://127.0.0.1:${port}/server.js`,
+        {
+          waitUntil: "networkidle0",
         }
+      );
 
-        consoleMessages.push(text);
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+      const serverResponseText = await serverResponse.text();
+
+      expect(serverResponseText).toContain("Hello from the server");
+      expect(serverResponseText).not.toContain("WebsocketServer");
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          let text = message.text();
+
+          if (/Error: Aborted because/.test(text)) {
+            const splittedText = text.split("\n");
+
+            text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
+          }
+
+          consoleMessages.push(text);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/browser.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(
+        pathToBrowserEntry,
+        `${originalBrowserEntryContent}// comment`
+      );
 
-    fs.writeFileSync(
-      pathToBrowserEntry,
-      `${originalBrowserEntryContent}// comment`
-    );
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
-    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
+      fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+      fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
+    }
   });
 
   it(`should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed`, async () => {
@@ -512,55 +543,59 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    const serverResponse = await page.goto(
-      `http://127.0.0.1:${port}/server.js`,
-      {
-        waitUntil: "networkidle0",
-      }
-    );
-
-    const serverResponseText = await serverResponse.text();
-
-    expect(serverResponseText).toContain("Hello from the server");
-    expect(serverResponseText).not.toContain("WebsocketServer");
-
-    const pageErrors = [];
-    const consoleMessages = [];
-
-    page
-      .on("console", (message) => {
-        let text = message.text();
-
-        if (/Error: Aborted because/.test(text)) {
-          const splittedText = text.split("\n");
-
-          text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
+    try {
+      const serverResponse = await page.goto(
+        `http://127.0.0.1:${port}/server.js`,
+        {
+          waitUntil: "networkidle0",
         }
+      );
 
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
+      const serverResponseText = await serverResponse.text();
+
+      expect(serverResponseText).toContain("Hello from the server");
+      expect(serverResponseText).not.toContain("WebsocketServer");
+
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          let text = message.text();
+
+          if (/Error: Aborted because/.test(text)) {
+            const splittedText = text.split("\n");
+
+            text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
+          }
+
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+        waitUntil: "networkidle0",
       });
 
-    await page.goto(`http://127.0.0.1:${port}/browser.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(
+        pathToBrowserEntry,
+        `${originalBrowserEntryContent}// comment`
+      );
 
-    fs.writeFileSync(
-      pathToBrowserEntry,
-      `${originalBrowserEntryContent}// comment`
-    );
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+      fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+    }
   });
 
   it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries`, async () => {
@@ -587,65 +622,69 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    const serverResponse = await page.goto(
-      `http://127.0.0.1:${port}/server.js`,
-      {
+    try {
+      const serverResponse = await page.goto(
+        `http://127.0.0.1:${port}/server.js`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      const serverResponseText = await serverResponse.text();
+
+      expect(serverResponseText).toContain("Hello from the server");
+      expect(serverResponseText).not.toContain("WebsocketServer");
+
+      let pageErrors = [];
+      let consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
         waitUntil: "networkidle0",
-      }
-    );
-
-    const serverResponseText = await serverResponse.text();
-
-    expect(serverResponseText).toContain("Hello from the server");
-    expect(serverResponseText).not.toContain("WebsocketServer");
-
-    let pageErrors = [];
-    let consoleMessages = [];
-
-    page
-      .on("console", (message) => {
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/browser.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(
+        pathToBrowserEntry,
+        `${originalBrowserEntryContent}// comment`
+      );
 
-    fs.writeFileSync(
-      pathToBrowserEntry,
-      `${originalBrowserEntryContent}// comment`
-    );
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+      pageErrors = [];
+      consoleMessages = [];
 
-    pageErrors = [];
-    consoleMessages = [];
+      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://127.0.0.1:${port}/browser.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(
+        pathToServerEntry,
+        `${originalServerEntryContent}// comment`
+      );
 
-    fs.writeFileSync(
-      pathToServerEntry,
-      `${originalServerEntryContent}// comment`
-    );
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
-    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
+      fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+      fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
+    }
   });
 
   it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries`, async () => {
@@ -672,64 +711,68 @@ describe("multi compiler", () => {
 
     const { page, browser } = await runBrowser();
 
-    const serverResponse = await page.goto(
-      `http://127.0.0.1:${port}/server.js`,
-      {
+    try {
+      const serverResponse = await page.goto(
+        `http://127.0.0.1:${port}/server.js`,
+        {
+          waitUntil: "networkidle0",
+        }
+      );
+
+      const serverResponseText = await serverResponse.text();
+
+      expect(serverResponseText).toContain("Hello from the server");
+      expect(serverResponseText).not.toContain("WebsocketServer");
+
+      let pageErrors = [];
+      let consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message.text());
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
         waitUntil: "networkidle0",
-      }
-    );
-
-    const serverResponseText = await serverResponse.text();
-
-    expect(serverResponseText).toContain("Hello from the server");
-    expect(serverResponseText).not.toContain("WebsocketServer");
-
-    let pageErrors = [];
-    let consoleMessages = [];
-
-    page
-      .on("console", (message) => {
-        consoleMessages.push(message.text());
-      })
-      .on("pageerror", (error) => {
-        pageErrors.push(error);
       });
 
-    await page.goto(`http://127.0.0.1:${port}/browser.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(
+        pathToServerEntry,
+        `${originalServerEntryContent}// comment`
+      );
 
-    fs.writeFileSync(
-      pathToServerEntry,
-      `${originalServerEntryContent}// comment`
-    );
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+      pageErrors = [];
+      consoleMessages = [];
 
-    pageErrors = [];
-    consoleMessages = [];
+      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+        waitUntil: "networkidle0",
+      });
 
-    await page.goto(`http://127.0.0.1:${port}/browser.html`, {
-      waitUntil: "networkidle0",
-    });
+      fs.writeFileSync(
+        pathToBrowserEntry,
+        `${originalBrowserEntryContent}// comment`
+      );
 
-    fs.writeFileSync(
-      pathToBrowserEntry,
-      `${originalBrowserEntryContent}// comment`
-    );
+      await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-    await page.waitForNavigation({ waitUntil: "networkidle0" });
+      expect(consoleMessages).toMatchSnapshot("console messages");
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
-
-    await browser.close();
-    await server.stop();
-
-    fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
-    fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
+      fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
+      fs.writeFileSync(pathToServerEntry, originalServerEntryContent);
+    }
   });
 });
