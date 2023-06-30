@@ -1568,7 +1568,7 @@ describe("overlay", () => {
     }
   });
 
-  it.only("should show error for uncaught promise rejection", async () => {
+  it("should show error for uncaught promise rejection", async () => {
     const compiler = webpack(config);
 
     const server = new Server(
