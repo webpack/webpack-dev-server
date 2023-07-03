@@ -64,6 +64,8 @@ class WarningPlugin {
   }
 }
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 describe("overlay", () => {
   it("should show a warning for initial compilation", async () => {
     const compiler = webpack(config);
@@ -82,6 +84,9 @@ describe("overlay", () => {
     await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
+
+    // Delay for the overlay to appear
+    await delay(1000);
 
     const pageHtml = await page.evaluate(() => document.body.outerHTML);
     const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -119,6 +124,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -164,6 +172,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -206,6 +217,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -246,6 +260,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -578,6 +595,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -616,6 +636,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -662,6 +685,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
@@ -698,6 +724,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -741,6 +770,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -787,6 +819,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -832,6 +867,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -875,6 +913,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -913,6 +954,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -960,6 +1004,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
@@ -996,6 +1043,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1039,6 +1089,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1085,6 +1138,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -1130,6 +1186,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       expect(overlayHandle).toBe(null);
@@ -1167,6 +1226,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1213,6 +1275,9 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -1256,6 +1321,9 @@ describe("overlay", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1328,6 +1396,9 @@ describe("overlay", () => {
         });
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
@@ -1382,6 +1453,9 @@ describe("overlay", () => {
         });
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
@@ -1430,6 +1504,9 @@ describe("overlay", () => {
       })();`,
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
@@ -1477,6 +1554,9 @@ describe("overlay", () => {
       })();`,
       });
 
+      // Delay for the overlay to appear
+      await delay(1000);
+
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
@@ -1514,6 +1594,9 @@ describe("overlay", () => {
         }, 0);
       })();`,
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -1563,6 +1646,9 @@ describe("overlay", () => {
         }, 0);
       })();`,
       });
+
+      // Delay for the overlay to appear
+      await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
