@@ -1,25 +1,14 @@
 "use strict";
 
 const path = require("path");
-const { version } = require("webpack");
 
-let moduleRuleForHTML = {};
-
-if (version.startsWith("5")) {
-  moduleRuleForHTML = {
-    test: /\.html$/,
-    type: "asset/resource",
-    generator: {
-      filename: "path/to/file.html",
-    },
-  };
-} else {
-  moduleRuleForHTML = {
-    test: /\.html$/,
-    loader: "file-loader",
-    options: { name: "path/to/file.html" },
-  };
-}
+const moduleRuleForHTML = {
+  test: /\.html$/,
+  type: "asset/resource",
+  generator: {
+    filename: "path/to/file.html",
+  },
+};
 
 module.exports = [
   {
