@@ -47,57 +47,36 @@ module.exports = class HTMLGeneratorPlugin {
     const pluginName = "html-generator-plugin";
 
     compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-      if (compiler.webpack) {
-        const { RawSource } = compiler.webpack.sources;
+      const { RawSource } = compiler.webpack.sources;
 
-        compilation.hooks.processAssets.tap(
-          {
-            name: pluginName,
-            stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
-          },
-          () => {
-            const indexSource = new RawSource(HTMLContentForIndex);
-            const testSource = new RawSource(HTMLContentForTest);
-            const assets = compilation.getAssets();
+      compilation.hooks.processAssets.tap(
+        {
+          name: pluginName,
+          stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
+        },
+        () => {
+          const indexSource = new RawSource(HTMLContentForIndex);
+          const testSource = new RawSource(HTMLContentForTest);
+          const assets = compilation.getAssets();
 
-            compilation.emitAsset("index.html", indexSource);
-            compilation.emitAsset("test.html", testSource);
+          compilation.emitAsset("index.html", indexSource);
+          compilation.emitAsset("test.html", testSource);
 
-            for (const asset of assets) {
-              const assetName = asset.name;
+          for (const asset of assets) {
+            const assetName = asset.name;
 
-              if (assetName !== "main.js") {
-                const assetSource = new RawSource(
-                  HTMLContentForAssets(assetName)
-                );
-                compilation.emitAsset(
-                  assetName.replace(".js", ".html"),
-                  assetSource
-                );
-              }
+            if (assetName !== "main.js") {
+              const assetSource = new RawSource(
+                HTMLContentForAssets(assetName)
+              );
+              compilation.emitAsset(
+                assetName.replace(".js", ".html"),
+                assetSource
+              );
             }
           }
-        );
-      } else {
-        compilation.hooks.additionalAssets.tap(pluginName, () => {
-          compilation.emitAsset("index.html", {
-            source() {
-              return HTMLContentForIndex;
-            },
-            size() {
-              return HTMLContentForIndex.length;
-            },
-          });
-          compilation.emitAsset("test.html", {
-            source() {
-              return HTMLContentForTest;
-            },
-            size() {
-              return HTMLContentForTest.length;
-            },
-          });
-        });
-      }
+        }
+      );
     });
   }
 };
