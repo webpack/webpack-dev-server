@@ -1114,7 +1114,7 @@ describe("overlay", () => {
     }
   });
 
-  it("should show overlay when Trusted Types are enabled", async () => {
+  it.only("should show overlay when Trusted Types are enabled", async () => {
     const compiler = webpack(trustedTypesConfig);
 
     new ErrorPlugin().apply(compiler);
@@ -1139,10 +1139,16 @@ describe("overlay", () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(3000);
+      // await page.waitForSelector("#webpack-dev-server-client-overlay");
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      // console.log("🚀 ~ file: overlay.test.js:1146 ~ it.only ~ pageHtml:", pageHtml)
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      console.log(
+        "🚀 ~ file: overlay.test.js:1148 ~ it.only ~ overlayHandle:",
+        overlayHandle
+      );
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
         () => document.body.outerHTML
