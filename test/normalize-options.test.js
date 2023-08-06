@@ -381,6 +381,19 @@ describe("normalize options", () => {
       },
     },
     {
+      title: "static is an object with staticOptions",
+      multiCompiler: false,
+      options: {
+        static: {
+          directory: "/static/path",
+          staticOptions: {
+            redirect: true,
+            immutable: true,
+          },
+        },
+      },
+    },
+    {
       title: "static directory is an absolute url and throws error",
       multiCompiler: false,
       options: {
