@@ -95,11 +95,7 @@ exports[`historyApiFallback option as object with static should handle GET reque
 "
 `;
 
-exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: console messages 1`] = `
-[
-  "Failed to load resource: the server responded with a status of 404 (Not Found)",
-]
-`;
+exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: console messages 1`] = `[]`;
 
 exports[`historyApiFallback option as object with static should prefer static file over historyApiFallback: page errors 1`] = `[]`;
 
@@ -147,11 +143,7 @@ exports[`historyApiFallback option in-memory files should perform HEAD request i
 "
 `;
 
-exports[`historyApiFallback option in-memory files should take precedence over static files: console messages 1`] = `
-[
-  "Failed to load resource: the server responded with a status of 404 (Not Found)",
-]
-`;
+exports[`historyApiFallback option in-memory files should take precedence over static files: console messages 1`] = `[]`;
 
 exports[`historyApiFallback option in-memory files should take precedence over static files: page errors 1`] = `[]`;
 
