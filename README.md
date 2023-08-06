@@ -115,6 +115,8 @@ Options:
   --no-client-overlay-errors                          Disables the full-screen overlay in the browser when there are compiler errors.
   --client-overlay-warnings                           Enables a full-screen overlay in the browser when there are compiler warnings.
   --no-client-overlay-warnings                        Disables the full-screen overlay in the browser when there are compiler warnings.
+  --client-overlay-runtime-errors                     Enables a full-screen overlay in the browser when there are uncaught runtime errors.
+  --no-client-overlay-runtime-errors                  Disables the full-screen overlay in the browser when there are uncaught runtime errors.
   --client-overlay-trusted-types-policy-name <value>  The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.
   --client-progress                                   Prints compilation progress in percentage in the browser.
   --no-client-progress                                Does not print compilation progress in percentage in the browser.
