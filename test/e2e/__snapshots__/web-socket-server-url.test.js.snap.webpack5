@@ -33,7 +33,7 @@ exports[`web socket server URL should work and throw an error on invalid web soc
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("sockjs"): page errors 1`] = `
 [
-  "SyntaxError: The URL's scheme must be either 'http:' or 'https:'. 'unknown:' is not allowed.",
+  "The URL's scheme must be either 'http:' or 'https:'. 'unknown:' is not allowed.",
 ]
 `;
 
@@ -45,7 +45,7 @@ exports[`web socket server URL should work and throw an error on invalid web soc
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): page errors 1`] = `
 [
-  "DOMException: Failed to construct 'WebSocket': The URL's scheme must be either 'ws' or 'wss'. 'unknown' is not allowed.",
+  "Failed to construct 'WebSocket': The URL's scheme must be either 'ws' or 'wss'. 'unknown' is not allowed.",
 ]
 `;
 

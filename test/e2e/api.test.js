@@ -697,7 +697,7 @@ describe("API", () => {
           });
 
         const webSocketRequests = [];
-        const client = page._client;
+        const client = page._client();
 
         client.on("Network.webSocketCreated", (test) => {
           webSocketRequests.push(test);

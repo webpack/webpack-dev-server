@@ -72,7 +72,7 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const client = page._client;
+          const client = page._client();
 
           client.on("Network.webSocketCreated", (test) => {
             webSocketRequests.push(test);
@@ -168,7 +168,7 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const client = page._client;
+          const client = page._client();
 
           client.on("Network.webSocketCreated", (test) => {
             webSocketRequests.push(test);
@@ -279,7 +279,7 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const client = page._client;
+          const client = page._client();
 
           client.on("Network.webSocketCreated", (test) => {
             webSocketRequests.push(test);

@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`static.publicPath option Content type should handle request to example.txt: console messages 1`] = `[]`;
+exports[`static.publicPath option Content type should handle request to example.txt: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option Content type should handle request to example.txt: page errors 1`] = `[]`;
 
@@ -8,7 +12,11 @@ exports[`static.publicPath option Content type should handle request to example.
 
 exports[`static.publicPath option Content type should handle request to example.txt: response status 1`] = `200`;
 
-exports[`static.publicPath option defaults to CWD should handle request to page: console messages 1`] = `[]`;
+exports[`static.publicPath option defaults to CWD should handle request to page: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option defaults to CWD should handle request to page: page errors 1`] = `[]`;
 
@@ -19,7 +27,11 @@ exports[`static.publicPath option defaults to CWD should handle request to page:
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the /foo route of second path: console messages 1`] = `[]`;
+exports[`static.publicPath option multiple static.publicPath entries should handle request to the /foo route of second path: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option multiple static.publicPath entries should handle request to the /foo route of second path: page errors 1`] = `[]`;
 
@@ -30,7 +42,11 @@ exports[`static.publicPath option multiple static.publicPath entries should hand
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the index of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option multiple static.publicPath entries should handle request to the index of first path: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option multiple static.publicPath entries should handle request to the index of first path: page errors 1`] = `[]`;
 
@@ -41,7 +57,11 @@ exports[`static.publicPath option multiple static.publicPath entries should hand
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the other file of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option multiple static.publicPath entries should handle request to the other file of first path: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option multiple static.publicPath entries should handle request to the other file of first path: page errors 1`] = `[]`;
 
@@ -52,7 +72,11 @@ exports[`static.publicPath option multiple static.publicPath entries should hand
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of first path: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of first path: page errors 1`] = `[]`;
 
@@ -63,7 +87,11 @@ exports[`static.publicPath option multiple static.publicPath entries with public
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of second path: console messages 1`] = `[]`;
+exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of second path: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of second path: page errors 1`] = `[]`;
 
@@ -74,7 +102,11 @@ exports[`static.publicPath option multiple static.publicPath entries with public
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the index of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the index of first path: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the index of first path: page errors 1`] = `[]`;
 
@@ -85,7 +117,11 @@ exports[`static.publicPath option multiple static.publicPath entries with public
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the other file of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the other file of first path: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the other file of first path: page errors 1`] = `[]`;
 
@@ -102,7 +138,11 @@ exports[`static.publicPath option should ignore methods other than GET and HEAD 
 
 exports[`static.publicPath option should ignore methods other than GET and HEAD should handle GET request: response status 1`] = `200`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle HEAD request: console messages 1`] = `[]`;
+exports[`static.publicPath option should ignore methods other than GET and HEAD should handle HEAD request: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option should ignore methods other than GET and HEAD should handle HEAD request: page errors 1`] = `[]`;
 
@@ -148,13 +188,21 @@ exports[`static.publicPath option should ignore methods other than GET and HEAD 
 
 exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle PUT request: response status 1`] = `404`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should list the files inside the assets folder (200): console messages 1`] = `[]`;
+exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should list the files inside the assets folder (200): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should list the files inside the assets folder (200): page errors 1`] = `[]`;
 
 exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should list the files inside the assets folder (200): response status 1`] = `200`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
+exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should show Heyo. because bar has index.html inside it (200): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
 
@@ -165,7 +213,11 @@ exports[`static.publicPath option test listing files in folders without index.ht
 "
 `;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
+exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
 
@@ -206,7 +258,11 @@ exports[`static.publicPath option test listing files in folders without index.ht
 
 exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): response status 1`] = `200`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
+exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
 
@@ -228,7 +284,11 @@ exports[`static.publicPath option to directory should handle request to index: r
 "
 `;
 
-exports[`static.publicPath option to directory should handle request to other file: console messages 1`] = `[]`;
+exports[`static.publicPath option to directory should handle request to other file: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option to directory should handle request to other file: page errors 1`] = `[]`;
 
@@ -250,7 +310,11 @@ exports[`static.publicPath option to multiple directories should handle request 
 "
 `;
 
-exports[`static.publicPath option to multiple directories should handle request to second directory: console messages 1`] = `[]`;
+exports[`static.publicPath option to multiple directories should handle request to second directory: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option to multiple directories should handle request to second directory: page errors 1`] = `[]`;
 
