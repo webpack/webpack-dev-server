@@ -31,6 +31,10 @@ exports[`API Server.checkHostHeader should allow URLs with scheme for checking o
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "WebSocket connection to 'ws://test.host:8158/ws' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
+  "[webpack-dev-server] JSHandle@object",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect..."
 ]
 `;
 
