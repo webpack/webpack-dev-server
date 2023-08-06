@@ -456,12 +456,25 @@ describe("normalize options", () => {
       },
     },
     {
-      title: "static serveIndex is an object",
+      title: "static serveIndex is an object with icons false",
       multiCompiler: false,
       options: {
         static: {
           serveIndex: {
             icons: false,
+          },
+        },
+      },
+    },
+    {
+      title: "static serveIndex is an object more options",
+      multiCompiler: false,
+      options: {
+        static: {
+          serveIndex: {
+            hidden: true,
+            stylesheet: "https://example.com/style.css",
+            view: "details",
           },
         },
       },

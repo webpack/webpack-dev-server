@@ -2304,7 +2304,66 @@ exports[`normalize options static publicPath is an array 1`] = `
 }
 `;
 
-exports[`normalize options static serveIndex is an object 1`] = `
+exports[`normalize options static serveIndex is an object more options 1`] = `
+{
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": {
+    "logging": "info",
+    "overlay": true,
+    "reconnect": 10,
+    "webSocketURL": {},
+  },
+  "compress": true,
+  "devMiddleware": {},
+  "historyApiFallback": false,
+  "host": undefined,
+  "hot": true,
+  "liveReload": true,
+  "open": [],
+  "port": "<auto>",
+  "server": {
+    "options": {},
+    "type": "http",
+  },
+  "setupExitSignals": true,
+  "static": [
+    {
+      "directory": "<cwd>/public",
+      "publicPath": [
+        "/",
+      ],
+      "serveIndex": {
+        "hidden": true,
+        "icons": true,
+        "stylesheet": "https://example.com/style.css",
+        "view": "details",
+      },
+      "staticOptions": {},
+      "watch": {
+        "alwaysStat": true,
+        "atomic": false,
+        "followSymlinks": false,
+        "ignoreInitial": true,
+        "ignorePermissionErrors": true,
+        "ignored": undefined,
+        "interval": undefined,
+        "persistent": true,
+        "usePolling": false,
+      },
+    },
+  ],
+  "watchFiles": [],
+  "webSocketServer": {
+    "options": {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalize options static serveIndex is an object with icons false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
