@@ -132,7 +132,11 @@ exports[`static.publicPath option multiple static.publicPath entries with public
 "
 `;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle GET request: console messages 1`] = `[]`;
+exports[`static.publicPath option should ignore methods other than GET and HEAD should handle GET request: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option should ignore methods other than GET and HEAD should handle GET request: page errors 1`] = `[]`;
 
@@ -252,7 +256,11 @@ exports[`static.publicPath option test listing files in folders without index.ht
 "
 `;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): console messages 1`] = `[]`;
+exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): page errors 1`] = `[]`;
 
@@ -273,7 +281,11 @@ exports[`static.publicPath option test listing files in folders without index.ht
 "
 `;
 
-exports[`static.publicPath option to directory should handle request to index: console messages 1`] = `[]`;
+exports[`static.publicPath option to directory should handle request to index: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option to directory should handle request to index: page errors 1`] = `[]`;
 
@@ -299,7 +311,11 @@ exports[`static.publicPath option to directory should handle request to other fi
 "
 `;
 
-exports[`static.publicPath option to multiple directories should handle request to first directory: console messages 1`] = `[]`;
+exports[`static.publicPath option to multiple directories should handle request to first directory: console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
 exports[`static.publicPath option to multiple directories should handle request to first directory: page errors 1`] = `[]`;
 
