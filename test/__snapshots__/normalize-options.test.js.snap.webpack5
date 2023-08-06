@@ -2045,6 +2045,65 @@ exports[`normalize options static is an object 1`] = `
 }
 `;
 
+exports[`normalize options static is an object with staticOptions 1`] = `
+{
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": {
+    "logging": "info",
+    "overlay": true,
+    "reconnect": 10,
+    "webSocketURL": {},
+  },
+  "compress": true,
+  "devMiddleware": {},
+  "historyApiFallback": false,
+  "host": undefined,
+  "hot": true,
+  "liveReload": true,
+  "open": [],
+  "port": "<auto>",
+  "server": {
+    "options": {},
+    "type": "http",
+  },
+  "setupExitSignals": true,
+  "static": [
+    {
+      "directory": "/static/path",
+      "publicPath": [
+        "/",
+      ],
+      "serveIndex": {
+        "icons": true,
+      },
+      "staticOptions": {
+        "immutable": true,
+        "redirect": true,
+      },
+      "watch": {
+        "alwaysStat": true,
+        "atomic": false,
+        "followSymlinks": false,
+        "ignoreInitial": true,
+        "ignorePermissionErrors": true,
+        "ignored": undefined,
+        "interval": undefined,
+        "persistent": true,
+        "usePolling": false,
+      },
+    },
+  ],
+  "watchFiles": [],
+  "webSocketServer": {
+    "options": {
+      "path": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
 exports[`normalize options static is false 1`] = `
 {
   "allowedHosts": "auto",
