@@ -66,9 +66,14 @@ const proxyOption = {
   target: `http://localhost:${port1}`,
 };
 
+let maxServerListeners = 0;
 const proxyOptionOfArray = [
   { context: "/proxy1", target: proxyOption.target },
   function proxy(req, res, next) {
+    const server = (req?.socket ?? req?.connection)?.server;
+    if (server) {
+      maxServerListeners = Math.max(maxServerListeners, server.listeners('close').length)
+    }
     return {
       context: "/api/proxy2",
       target: `http://localhost:${port2}`,
@@ -436,6 +441,11 @@ describe("proxy option", () => {
       expect(response.statusCode).toEqual(200);
       expect(response.text).toEqual("foo+next+function");
     });
+
+    it("should not exist multiple close events registered", async () => {
+      expect(maxServerListeners).toBeLessThanOrEqual(1);
+    });
+    
   });
 
   describe("as an array without the `route` option", () => {
