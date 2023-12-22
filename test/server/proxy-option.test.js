@@ -70,9 +70,16 @@ let maxServerListeners = 0;
 const proxyOptionOfArray = [
   { context: "/proxy1", target: proxyOption.target },
   function proxy(req, res, next) {
-    const server = (req?.socket ?? req?.connection)?.server;
-    if (server) {
-      maxServerListeners = Math.max(maxServerListeners, server.listeners('close').length)
+    if (req != null) {
+      const socket = req.socket != null ? req.socket : req.connection;
+      // @ts-ignore
+      const server = socket != null ? socket.server : null;
+      if (server) {
+        maxServerListeners = Math.max(
+          maxServerListeners,
+          server.listeners("close").length
+        );
+      }
     }
     return {
       context: "/api/proxy2",
@@ -445,7 +452,6 @@ describe("proxy option", () => {
     it("should not exist multiple close events registered", async () => {
       expect(maxServerListeners).toBeLessThanOrEqual(1);
     });
-    
   });
 
   describe("as an array without the `route` option", () => {
