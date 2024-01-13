@@ -21,7 +21,7 @@
     "types"
   ],
   "engines": {
-    "node": ">= 16.10.0"
+    "node": ">= 18.12.0"
   },
   "scripts": {
     "fmt:check": "prettier \"{**/*,*}.{js,json,md,yml,css,ts}\" --list-different",
