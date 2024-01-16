@@ -197,7 +197,7 @@ describe("index", () => {
     jest.isolateModules(() => {
       // Pass JSON config with warnings disabled
       global.__resourceQuery = `?overlay=${encodeURIComponent(
-        `{"warnings": false}`
+        `{"warnings": false}`,
       )}`;
       overlay.send.mockReset();
       socket.mockReset();
@@ -220,7 +220,7 @@ describe("index", () => {
     jest.isolateModules(() => {
       // Pass JSON config with errors disabled
       global.__resourceQuery = `?overlay=${encodeURIComponent(
-        `{"errors": false}`
+        `{"errors": false}`,
       )}`;
       overlay.send.mockReset();
       socket.mockReset();

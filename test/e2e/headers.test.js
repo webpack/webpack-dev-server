@@ -24,7 +24,7 @@ describe("headers option", () => {
           headers: { "X-Foo": "dev-server headers" },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -54,13 +54,13 @@ describe("headers option", () => {
       });
 
       expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo"
+        "response headers x-foo",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -92,7 +92,7 @@ describe("headers option", () => {
           ],
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -122,17 +122,17 @@ describe("headers option", () => {
       });
 
       expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo"
+        "response headers x-foo",
       );
 
       expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar"
+        "response headers x-bar",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -155,7 +155,7 @@ describe("headers option", () => {
           headers: { "X-Bar": ["key1=value1", "key2=value2"] },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -185,13 +185,13 @@ describe("headers option", () => {
       });
 
       expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar"
+        "response headers x-bar",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -216,7 +216,7 @@ describe("headers option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -246,13 +246,13 @@ describe("headers option", () => {
       });
 
       expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar"
+        "response headers x-bar",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -284,7 +284,7 @@ describe("headers option", () => {
           ],
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -314,17 +314,17 @@ describe("headers option", () => {
       });
 
       expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo"
+        "response headers x-foo",
       );
 
       expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar"
+        "response headers x-bar",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -350,7 +350,7 @@ describe("headers option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -380,13 +380,13 @@ describe("headers option", () => {
       });
 
       expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo"
+        "response headers x-foo",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -410,7 +410,7 @@ describe("headers option", () => {
           headers: { "X-Foo": "dev-server headers" },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -442,11 +442,11 @@ describe("headers option", () => {
       });
 
       expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo"
+        "response headers x-foo",
       );
       expect(response.status()).toMatchSnapshot("response status");
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
 

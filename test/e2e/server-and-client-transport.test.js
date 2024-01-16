@@ -34,12 +34,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -73,12 +73,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -114,12 +114,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -153,12 +153,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -194,12 +194,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -236,12 +236,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -280,12 +280,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -322,12 +322,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -366,12 +366,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -428,12 +428,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -469,12 +469,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -511,12 +511,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -553,12 +553,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;
@@ -574,7 +574,7 @@ describe("server and client transport", () => {
       port,
       client: {
         webSocketTransport: require.resolve(
-          "../fixtures/custom-client/CustomSockJSClient"
+          "../fixtures/custom-client/CustomSockJSClient",
         ),
       },
       webSocketServer: "sockjs",
@@ -597,12 +597,12 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-        () => window.injectedClient === window.expectedClient
+        () => window.injectedClient === window.expectedClient,
       );
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshot();
     } catch (error) {
       throw error;

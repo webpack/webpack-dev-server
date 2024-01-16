@@ -90,7 +90,7 @@ describe("bonjour option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -163,7 +163,7 @@ describe("bonjour option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -201,7 +201,7 @@ describe("bonjour option", () => {
             protocol: "udp",
           },
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -246,7 +246,7 @@ describe("bonjour option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -287,7 +287,7 @@ describe("bonjour option", () => {
             type: "https",
           },
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -332,7 +332,7 @@ describe("bonjour option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

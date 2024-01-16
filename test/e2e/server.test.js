@@ -16,12 +16,12 @@ const port = require("../ports-map")["server-option"];
 
 const httpsCertificateDirectory = path.resolve(
   __dirname,
-  "../fixtures/https-certificate"
+  "../fixtures/https-certificate",
 );
 
 const staticDirectory = path.resolve(
   __dirname,
-  "../fixtures/static-config/public"
+  "../fixtures/static-config/public",
 );
 
 describe("server option", () => {
@@ -46,7 +46,7 @@ describe("server option", () => {
             server: "http",
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -76,7 +76,7 @@ describe("server option", () => {
         });
 
         const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol
+          () => performance.getEntries()[0].nextHopProtocol,
         );
 
         expect(HTTPVersion).not.toEqual("h2");
@@ -86,7 +86,7 @@ describe("server option", () => {
         expect(await response.text()).toMatchSnapshot("response text");
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
@@ -106,7 +106,7 @@ describe("server option", () => {
             server: path.resolve(__dirname, "../helpers/custom-http.js"),
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -136,7 +136,7 @@ describe("server option", () => {
         });
 
         const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol
+          () => performance.getEntries()[0].nextHopProtocol,
         );
 
         expect(HTTPVersion).not.toEqual("h2");
@@ -146,7 +146,7 @@ describe("server option", () => {
         expect(await response.text()).toMatchSnapshot("response text");
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
@@ -166,7 +166,7 @@ describe("server option", () => {
             server: "https",
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -196,7 +196,7 @@ describe("server option", () => {
         });
 
         const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol
+          () => performance.getEntries()[0].nextHopProtocol,
         );
 
         expect(HTTPVersion).not.toEqual("h2");
@@ -206,7 +206,7 @@ describe("server option", () => {
         expect(await response.text()).toMatchSnapshot("response text");
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
@@ -226,7 +226,7 @@ describe("server option", () => {
             server: "spdy",
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -256,7 +256,7 @@ describe("server option", () => {
         });
 
         const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol
+          () => performance.getEntries()[0].nextHopProtocol,
         );
 
         expect(HTTPVersion).toEqual("h2");
@@ -266,7 +266,7 @@ describe("server option", () => {
         expect(await response.text()).toMatchSnapshot("response text");
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
@@ -299,23 +299,23 @@ describe("server option", () => {
               type: "https",
               options: {
                 ca: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "ca.pem")
+                  path.join(httpsCertificateDirectory, "ca.pem"),
                 ),
                 pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx")
+                  path.join(httpsCertificateDirectory, "server.pfx"),
                 ),
                 key: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.key")
+                  path.join(httpsCertificateDirectory, "server.key"),
                 ),
                 cert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.crt")
+                  path.join(httpsCertificateDirectory, "server.crt"),
                 ),
                 passphrase: "webpack-dev-server",
               },
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -347,12 +347,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -383,22 +383,22 @@ describe("server option", () => {
               options: {
                 ca: [
                   fs.readFileSync(
-                    path.join(httpsCertificateDirectory, "ca.pem")
+                    path.join(httpsCertificateDirectory, "ca.pem"),
                   ),
                 ],
                 pfx: [
                   fs.readFileSync(
-                    path.join(httpsCertificateDirectory, "server.pfx")
+                    path.join(httpsCertificateDirectory, "server.pfx"),
                   ),
                 ],
                 key: [
                   fs.readFileSync(
-                    path.join(httpsCertificateDirectory, "server.key")
+                    path.join(httpsCertificateDirectory, "server.key"),
                   ),
                 ],
                 cert: [
                   fs.readFileSync(
-                    path.join(httpsCertificateDirectory, "server.crt")
+                    path.join(httpsCertificateDirectory, "server.crt"),
                   ),
                 ],
                 passphrase: "webpack-dev-server",
@@ -406,7 +406,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -438,12 +438,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -478,16 +478,16 @@ describe("server option", () => {
                 // TODO
                 // pfx can't be string because it is binary format
                 pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx")
+                  path.join(httpsCertificateDirectory, "server.pfx"),
                 ),
                 key: fs
                   .readFileSync(
-                    path.join(httpsCertificateDirectory, "server.key")
+                    path.join(httpsCertificateDirectory, "server.key"),
                   )
                   .toString(),
                 cert: fs
                   .readFileSync(
-                    path.join(httpsCertificateDirectory, "server.crt")
+                    path.join(httpsCertificateDirectory, "server.crt"),
                   )
                   .toString(),
                 passphrase: "webpack-dev-server",
@@ -495,7 +495,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -527,12 +527,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -564,27 +564,27 @@ describe("server option", () => {
                 ca: [
                   fs
                     .readFileSync(
-                      path.join(httpsCertificateDirectory, "ca.pem")
+                      path.join(httpsCertificateDirectory, "ca.pem"),
                     )
                     .toString(),
                 ],
                 // pfx can't be string because it is binary format
                 pfx: [
                   fs.readFileSync(
-                    path.join(httpsCertificateDirectory, "server.pfx")
+                    path.join(httpsCertificateDirectory, "server.pfx"),
                   ),
                 ],
                 key: [
                   fs
                     .readFileSync(
-                      path.join(httpsCertificateDirectory, "server.key")
+                      path.join(httpsCertificateDirectory, "server.key"),
                     )
                     .toString(),
                 ],
                 cert: [
                   fs
                     .readFileSync(
-                      path.join(httpsCertificateDirectory, "server.crt")
+                      path.join(httpsCertificateDirectory, "server.crt"),
                     )
                     .toString(),
                 ],
@@ -593,7 +593,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -625,12 +625,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -668,7 +668,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -700,12 +700,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -743,7 +743,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -775,12 +775,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -818,14 +818,14 @@ describe("server option", () => {
                 key: path.join(httpsCertificateDirectory, "server-symlink.key"),
                 cert: path.join(
                   httpsCertificateDirectory,
-                  "server-symlink.crt"
+                  "server-symlink.crt",
                 ),
                 passphrase: "webpack-dev-server",
               },
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -887,23 +887,23 @@ describe("server option", () => {
               type: "https",
               options: {
                 ca: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "ca.pem")
+                  path.join(httpsCertificateDirectory, "ca.pem"),
                 ),
                 pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx")
+                  path.join(httpsCertificateDirectory, "server.pfx"),
                 ),
                 key: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.key")
+                  path.join(httpsCertificateDirectory, "server.key"),
                 ),
                 cert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.crt")
+                  path.join(httpsCertificateDirectory, "server.crt"),
                 ),
                 passphrase: "webpack-dev-server",
               },
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -935,12 +935,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -970,31 +970,31 @@ describe("server option", () => {
               type: "https",
               options: {
                 ca: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "ca.pem")
+                  path.join(httpsCertificateDirectory, "ca.pem"),
                 ),
                 pfx: [
                   {
                     buf: fs.readFileSync(
-                      path.join(httpsCertificateDirectory, "server.pfx")
+                      path.join(httpsCertificateDirectory, "server.pfx"),
                     ),
                   },
                 ],
                 key: [
                   {
                     pem: fs.readFileSync(
-                      path.join(httpsCertificateDirectory, "server.key")
+                      path.join(httpsCertificateDirectory, "server.key"),
                     ),
                   },
                 ],
                 cert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.crt")
+                  path.join(httpsCertificateDirectory, "server.crt"),
                 ),
                 passphrase: "webpack-dev-server",
               },
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -1026,12 +1026,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -1067,7 +1067,7 @@ describe("server option", () => {
                   {
                     // pfx can't be string because it is binary format
                     buf: fs.readFileSync(
-                      path.join(httpsCertificateDirectory, "server.pfx")
+                      path.join(httpsCertificateDirectory, "server.pfx"),
                     ),
                   },
                 ],
@@ -1075,14 +1075,14 @@ describe("server option", () => {
                   {
                     pem: fs
                       .readFileSync(
-                        path.join(httpsCertificateDirectory, "server.key")
+                        path.join(httpsCertificateDirectory, "server.key"),
                       )
                       .toString(),
                   },
                 ],
                 cert: fs
                   .readFileSync(
-                    path.join(httpsCertificateDirectory, "server.crt")
+                    path.join(httpsCertificateDirectory, "server.crt"),
                   )
                   .toString(),
                 passphrase: "webpack-dev-server",
@@ -1090,7 +1090,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -1122,12 +1122,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -1158,23 +1158,23 @@ describe("server option", () => {
               options: {
                 minVersion: "TLSv1.1",
                 ca: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "ca.pem")
+                  path.join(httpsCertificateDirectory, "ca.pem"),
                 ),
                 pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx")
+                  path.join(httpsCertificateDirectory, "server.pfx"),
                 ),
                 key: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.key")
+                  path.join(httpsCertificateDirectory, "server.key"),
                 ),
                 cert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.crt")
+                  path.join(httpsCertificateDirectory, "server.crt"),
                 ),
                 passphrase: "webpack-dev-server",
               },
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -1206,12 +1206,12 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -1240,20 +1240,20 @@ describe("server option", () => {
               options: {
                 requestCert: true,
                 pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx")
+                  path.join(httpsCertificateDirectory, "server.pfx"),
                 ),
                 key: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.key")
+                  path.join(httpsCertificateDirectory, "server.key"),
                 ),
                 cert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.crt")
+                  path.join(httpsCertificateDirectory, "server.crt"),
                 ),
                 passphrase: "webpack-dev-server",
               },
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -1269,7 +1269,7 @@ describe("server option", () => {
 
       it("should pass options to the 'https.createServer' method", async () => {
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
       });
 
@@ -1314,7 +1314,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -1346,17 +1346,17 @@ describe("server option", () => {
         });
 
         const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol
+          () => performance.getEntries()[0].nextHopProtocol,
         );
 
         expect(HTTPVersion).toEqual("h2");
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("https options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });
@@ -1390,7 +1390,7 @@ describe("server option", () => {
             },
             port,
           },
-          compiler
+          compiler,
         );
 
         await server.start();
@@ -1422,17 +1422,17 @@ describe("server option", () => {
         });
 
         const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol
+          () => performance.getEntries()[0].nextHopProtocol,
         );
 
         expect(HTTPVersion).toEqual("http/1.1");
         expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0])
+          normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("http options");
         expect(response.status()).toMatchSnapshot("response status");
         expect(await response.text()).toMatchSnapshot("response text");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       });

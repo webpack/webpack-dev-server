@@ -10,7 +10,7 @@ const port = require("../ports-map")["cli-server"];
 const del = promisify(rimraf);
 const httpsCertificateDirectory = path.resolve(
   __dirname,
-  "../fixtures/https-certificate"
+  "../fixtures/https-certificate",
 );
 
 const defaultCertificateDir = Server.findCacheDir();
@@ -30,7 +30,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: false })
+      normalizeStderr(stderr, { ipv6: true, https: false }),
     ).toMatchSnapshot();
   });
 
@@ -44,7 +44,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
@@ -58,7 +58,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
@@ -85,7 +85,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
@@ -115,7 +115,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
@@ -149,7 +149,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
@@ -177,7 +177,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
@@ -192,7 +192,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
@@ -207,7 +207,7 @@ describe('"server" CLI options', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 });

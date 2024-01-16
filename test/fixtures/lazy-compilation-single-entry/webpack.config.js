@@ -49,7 +49,7 @@ module.exports = {
               const source = new RawSource(HTMLContent);
 
               compilation.emitAsset(filename, source);
-            }
+            },
           );
         });
       },

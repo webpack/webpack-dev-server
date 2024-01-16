@@ -73,7 +73,7 @@ const socket = function initSocket(url, handlers, reconnect) {
       if (handlers[message.type]) {
         handlers[message.type](message.data, message.params);
       }
-    }
+    },
   );
 };
 

@@ -41,20 +41,20 @@ describe("'reloadApp' function", () => {
 
   test("should do nothing when isUnloading is true or hotReload is false", () => {
     expect(
-      reloadApp({}, { isUnloading: false, currentHash: "mock-hash" })
+      reloadApp({}, { isUnloading: false, currentHash: "mock-hash" }),
     ).toEqual(
       // eslint-disable-next-line no-undefined
-      undefined
+      undefined,
     );
     expect(log.getLogger.mock.results[0].value.info).not.toBeCalled();
     expect(
       reloadApp(
         { hotReload: false },
-        { isUnloading: false, currentHash: "other-mock-hash" }
-      )
+        { isUnloading: false, currentHash: "other-mock-hash" },
+      ),
     ).toEqual(
       // eslint-disable-next-line no-undefined
-      undefined
+      undefined,
     );
     expect(log.getLogger.mock.results[0].value.info).not.toBeCalled();
   });
@@ -66,11 +66,11 @@ describe("'reloadApp' function", () => {
 
     reloadApp(
       { hot: true, hotReload: true },
-      { isUnloading: false, currentHash: "hash" }
+      { isUnloading: false, currentHash: "hash" },
     );
 
     expect(
-      log.getLogger.mock.results[0].value.info.mock.calls[0][0]
+      log.getLogger.mock.results[0].value.info.mock.calls[0][0],
     ).toMatchSnapshot();
     expect(emitter.emit.mock.calls[0][0]).toMatchSnapshot();
     expect(self.postMessage.mock.calls[0]).toMatchSnapshot();
@@ -86,12 +86,12 @@ describe("'reloadApp' function", () => {
 
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false, currentHash: "changed-mock" }
+      { isUnloading: false, currentHash: "changed-mock" },
     );
 
     setTimeout(() => {
       expect(
-        log.getLogger.mock.results[0].value.info.mock.calls[0][0]
+        log.getLogger.mock.results[0].value.info.mock.calls[0][0],
       ).toMatchSnapshot();
       expect(self.location.reload).toBeCalled();
       done();
@@ -101,12 +101,12 @@ describe("'reloadApp' function", () => {
   test("should run liveReload when protocol is http:", (done) => {
     reloadApp(
       { hot: false, hotReload: true, liveReload: true },
-      { isUnloading: false, currentHash: "changed-mock" }
+      { isUnloading: false, currentHash: "changed-mock" },
     );
 
     setTimeout(() => {
       expect(
-        log.getLogger.mock.results[0].value.info.mock.calls[0][0]
+        log.getLogger.mock.results[0].value.info.mock.calls[0][0],
       ).toMatchSnapshot();
       expect(self.location.reload).toBeCalled();
       done();

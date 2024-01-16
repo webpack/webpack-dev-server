@@ -32,7 +32,7 @@ describe("socket", () => {
         type: "example",
         data: "hello world",
         params: { foo: "bar" },
-      })
+      }),
     );
 
     expect(WebsocketClient.mock.calls[0]).toMatchSnapshot();
@@ -66,11 +66,11 @@ describe("socket", () => {
         type: "example",
         data: "hello world",
         params: { foo: "bar" },
-      })
+      }),
     );
 
     expect(
-      global.__webpack_dev_server_client__.mock.calls[0]
+      global.__webpack_dev_server_client__.mock.calls[0],
     ).toMatchSnapshot();
     expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
     expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();

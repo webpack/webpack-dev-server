@@ -30,7 +30,7 @@ describe("setupExitSignals option", () => {
           setupExitSignals: true,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -105,11 +105,11 @@ describe("setupExitSignals option", () => {
           !(
             message.text().includes("Trying to reconnect...") ||
             message.text().includes("Disconnected")
-          )
+          ),
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

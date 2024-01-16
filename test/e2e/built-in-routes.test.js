@@ -46,17 +46,17 @@ describe("Built in routes", () => {
         `http://127.0.0.1:${port}/__webpack_dev_server__/sockjs.bundle.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -80,17 +80,17 @@ describe("Built in routes", () => {
         `http://127.0.0.1:${port}/__webpack_dev_server__/sockjs.bundle.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -109,7 +109,7 @@ describe("Built in routes", () => {
         `http://127.0.0.1:${port}/webpack-dev-server/invalidate`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.headers()["content-type"]).not.toEqual("text/html");
@@ -117,7 +117,7 @@ describe("Built in routes", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -136,11 +136,11 @@ describe("Built in routes", () => {
         `http://127.0.0.1:${port}/webpack-dev-server/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -148,7 +148,7 @@ describe("Built in routes", () => {
       expect(await response.text()).toMatchSnapshot("directory list");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -172,11 +172,11 @@ describe("Built in routes", () => {
         `http://127.0.0.1:${port}/webpack-dev-server/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -184,7 +184,7 @@ describe("Built in routes", () => {
       expect(await response.text()).toMatchSnapshot("directory list");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -204,13 +204,13 @@ describe("Built in routes", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
     });
 
@@ -233,13 +233,13 @@ describe("Built in routes", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
     });
   });
@@ -282,11 +282,11 @@ describe("Built in routes", () => {
         `http://127.0.0.1:${port}/webpack-dev-server/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -294,7 +294,7 @@ describe("Built in routes", () => {
       expect(await response.text()).toMatchSnapshot("directory list");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

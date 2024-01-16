@@ -119,7 +119,7 @@ const createOverlay = (options) => {
         trustedTypesPolicyName || "webpack-dev-server#overlay",
         {
           createHTML: (value) => value,
-        }
+        },
       );
     }
 
@@ -253,7 +253,7 @@ const createOverlay = (options) => {
           typeElement.setAttribute("data-can-open", true);
           typeElement.addEventListener("click", () => {
             fetch(
-              `/webpack-dev-server/open-editor?fileName=${message.moduleIdentifier}`
+              `/webpack-dev-server/open-editor?fileName=${message.moduleIdentifier}`,
             );
           });
         }

@@ -47,7 +47,7 @@ describe("basic", () => {
         "--config",
         path.resolve(
           __dirname,
-          "../fixtures/cli-promise-config/webpack.config.js"
+          "../fixtures/cli-promise-config/webpack.config.js",
         ),
         "--port",
         port,
@@ -62,7 +62,7 @@ describe("basic", () => {
         "--config",
         path.resolve(
           __dirname,
-          "../fixtures/cli-universal-compiler-config/webpack.config.js"
+          "../fixtures/cli-universal-compiler-config/webpack.config.js",
         ),
         "--port",
         port,
@@ -75,11 +75,11 @@ describe("basic", () => {
     it("should exit the process when SIGINT is detected", (done) => {
       const cliPath = path.resolve(
         __dirname,
-        "../../bin/webpack-dev-server.js"
+        "../../bin/webpack-dev-server.js",
       );
       const examplePath = path.resolve(
         __dirname,
-        "../../examples/client/web-socket-url"
+        "../../examples/client/web-socket-url",
       );
       const cp = execa("node", ["--port", port, cliPath], { cwd: examplePath });
 
@@ -101,7 +101,7 @@ describe("basic", () => {
     it("should exit the process when SIGINT is detected, even before the compilation is done", (done) => {
       const cliPath = path.resolve(
         __dirname,
-        "../../bin/webpack-dev-server.js"
+        "../../bin/webpack-dev-server.js",
       );
       const cwd = path.resolve(__dirname, "../fixtures/cli");
       const cp = execa("node", ["--port", port, cliPath], { cwd });
@@ -126,18 +126,18 @@ describe("basic", () => {
     it("should exit the process when stdin ends if --watch-options-stdin", (done) => {
       const cliPath = path.resolve(
         __dirname,
-        "../../bin/webpack-dev-server.js"
+        "../../bin/webpack-dev-server.js",
       );
       const examplePath = path.resolve(
         __dirname,
-        "../../examples/client/web-socket-url"
+        "../../examples/client/web-socket-url",
       );
       const cp = execa(
         "node",
         [cliPath, "--port", port, "--watch-options-stdin"],
         {
           cwd: examplePath,
-        }
+        },
       );
 
       cp.stdout.on("data", (data) => {
@@ -159,13 +159,13 @@ describe("basic", () => {
     it("should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done", (done) => {
       const cliPath = path.resolve(
         __dirname,
-        "../../bin/webpack-dev-server.js"
+        "../../bin/webpack-dev-server.js",
       );
       const cwd = path.resolve(__dirname, "../fixtures/cli");
       const cp = execa(
         "node",
         [cliPath, "--port", port, "--watch-options-stdin"],
-        { cwd }
+        { cwd },
       );
 
       let killed = false;
@@ -301,7 +301,7 @@ describe("basic", () => {
     it.skip("should use different random port when multiple instances are started on different processes", async () => {
       const cliPath = path.resolve(
         __dirname,
-        "../../bin/webpack-dev-server.js"
+        "../../bin/webpack-dev-server.js",
       );
       const cwd = path.resolve(__dirname, "../fixtures/cli");
 

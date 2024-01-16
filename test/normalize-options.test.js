@@ -627,7 +627,7 @@ describe("normalize options", () => {
                 .replace(/\\/g, "/")
                 .replace(
                   new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
-                  "<cwd>"
+                  "<cwd>",
                 );
             });
           }

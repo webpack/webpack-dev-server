@@ -58,7 +58,7 @@ describe("setupMiddlewares option", () => {
         },
         port,
       },
-      compiler
+      compiler,
     );
 
     await server.start();
@@ -87,11 +87,11 @@ describe("setupMiddlewares option", () => {
       `http://127.0.0.1:${port}/setup-middleware/some/path`,
       {
         waitUntil: "networkidle0",
-      }
+      },
     );
 
     expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type"
+      "response headers content-type",
     );
     expect(response.status()).toMatchSnapshot("response status");
     expect(await response.text()).toMatchSnapshot("response text");
@@ -101,7 +101,7 @@ describe("setupMiddlewares option", () => {
     });
 
     expect(response1.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type"
+      "response headers content-type",
     );
     expect(response1.status()).toMatchSnapshot("response status");
     expect(await response1.text()).toMatchSnapshot("response text");
@@ -111,7 +111,7 @@ describe("setupMiddlewares option", () => {
     });
 
     expect(response2.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type"
+      "response headers content-type",
     );
     expect(response2.status()).toMatchSnapshot("response status");
     expect(await response2.text()).toMatchSnapshot("response text");
@@ -120,17 +120,17 @@ describe("setupMiddlewares option", () => {
       `http://127.0.0.1:${port}/setup-middleware/unknown`,
       {
         waitUntil: "networkidle0",
-      }
+      },
     );
 
     expect(response3.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type"
+      "response headers content-type",
     );
     expect(response3.status()).toMatchSnapshot("response status");
     expect(await response3.text()).toMatchSnapshot("response text");
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages"
+      "console messages",
     );
     expect(pageErrors).toMatchSnapshot("page errors");
   });
@@ -153,16 +153,16 @@ describe("setupMiddlewares option", () => {
       `http://127.0.0.1:${port}/setup-middleware/some/path`,
       {
         waitUntil: "networkidle0",
-      }
+      },
     );
 
     expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type"
+      "response headers content-type",
     );
     expect(response.status()).toMatchSnapshot("response status");
     expect(await response.text()).toMatchSnapshot("response text");
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages"
+      "console messages",
     );
     expect(pageErrors).toMatchSnapshot("page errors");
   });

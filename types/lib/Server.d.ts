@@ -1525,7 +1525,7 @@ declare class Server {
       | import("webpack").MultiCompiler
       | Configuration
       | undefined,
-    compiler: Compiler | MultiCompiler | Configuration
+    compiler: Compiler | MultiCompiler | Configuration,
   );
   compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
   /**
@@ -1721,7 +1721,7 @@ declare class Server {
     clients: ClientConnection[],
     type: string,
     data?: any,
-    params?: any
+    params?: any,
   ): void;
   /**
    * @private
@@ -1736,13 +1736,13 @@ declare class Server {
    */
   watchFiles(
     watchPath: string | string[],
-    watchOptions?: import("chokidar").WatchOptions | undefined
+    watchOptions?: import("chokidar").WatchOptions | undefined,
   ): void;
   /**
    * @param {import("webpack-dev-middleware").Callback} [callback]
    */
   invalidate(
-    callback?: import("webpack-dev-middleware").Callback | undefined
+    callback?: import("webpack-dev-middleware").Callback | undefined,
   ): void;
   /**
    * @returns {Promise<void>}
@@ -1871,7 +1871,7 @@ type Configuration = {
     | ((
         req: Request,
         res: Response,
-        context: DevMiddlewareContext<Request, Response>
+        context: DevMiddlewareContext<Request, Response>,
       ) => Headers)
     | undefined;
   onListening?: ((devServer: Server) => void) | undefined;
@@ -1991,7 +1991,7 @@ type WebSocketServer =
 type ByPass = (
   req: Request,
   res: Response,
-  proxyConfig: ProxyConfigArrayItem
+  proxyConfig: ProxyConfigArrayItem,
 ) => any;
 type ProxyConfigArrayItem = {
   path?: HttpProxyMiddlewareOptionsFilter | undefined;
@@ -2004,7 +2004,7 @@ type ProxyConfigArray = (
   | ((
       req?: Request | undefined,
       res?: Response | undefined,
-      next?: NextFunction | undefined
+      next?: NextFunction | undefined,
     ) => ProxyConfigArrayItem)
 )[];
 type ProxyConfigMap = {

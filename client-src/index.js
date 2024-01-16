@@ -43,14 +43,14 @@ const decodeOverlayOptions = (overlayOptions) => {
     ["warnings", "errors", "runtimeErrors"].forEach((property) => {
       if (typeof overlayOptions[property] === "string") {
         const overlayFilterFunctionString = decodeURIComponent(
-          overlayOptions[property]
+          overlayOptions[property],
         );
 
         // eslint-disable-next-line no-new-func
         const overlayFilterFunction = new Function(
           "message",
           `var callback = ${overlayFilterFunctionString}
-        return callback(message)`
+        return callback(message)`,
         );
 
         overlayOptions[property] = overlayFilterFunction;
@@ -134,7 +134,7 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
 function setAllLogLevel(level) {
   // This is needed because the HMR logger operate separately from dev server logger
   webpackHotLog.setLogLevel(
-    level === "verbose" || level === "log" ? "info" : level
+    level === "verbose" || level === "log" ? "info" : level,
   );
   setLogLevel(level);
 }
@@ -160,7 +160,7 @@ const overlay =
           : {
               trustedTypesPolicyName: false,
               catchRuntimeError: options.overlay,
-            }
+            },
       )
     : { send: () => {} };
 
@@ -232,7 +232,7 @@ const onSocketMessage = {
       log.info(
         `${data.pluginName ? `[${data.pluginName}] ` : ""}${data.percent}% - ${
           data.msg
-        }.`
+        }.`,
       );
     }
 
@@ -263,7 +263,7 @@ const onSocketMessage = {
     log.info(
       `${
         file ? `"${file}"` : "Content"
-      } from static directory was changed. Reloading...`
+      } from static directory was changed. Reloading...`,
     );
 
     self.location.reload();

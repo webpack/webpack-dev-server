@@ -95,7 +95,7 @@ const createOverlayMachine = (options) => {
         hideOverlay,
         showOverlay,
       },
-    }
+    },
   );
 
   return overlayMachine;

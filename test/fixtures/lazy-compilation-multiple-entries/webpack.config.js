@@ -68,7 +68,7 @@ module.exports = {
               const twoSource = new RawSource(twoHTMLContent);
 
               compilation.emitAsset(twoFilename, twoSource);
-            }
+            },
           );
         });
       },

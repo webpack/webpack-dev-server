@@ -14,9 +14,9 @@ module.exports = setup({
           "warnings-webpack-plugin",
           (compilation) => {
             compilation.warnings.push(
-              new Error("Manual warnings produced during compilation.")
+              new Error("Manual warnings produced during compilation."),
             );
-          }
+          },
         );
       },
     },
