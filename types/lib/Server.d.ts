@@ -1342,9 +1342,9 @@ declare class Server {
             description: string;
             link: string;
             additionalProperties: boolean;
-          } /** @type {NormalizedStatic} */;
+          };
         };
-        additionalProperties: boolean;
+        /** @type {NormalizedStatic} */ additionalProperties: boolean;
       };
       WatchFilesString: {
         type: string;
