@@ -81,29 +81,33 @@ describe("overlay", () => {
 
     const { page, browser } = await runBrowser();
 
-    await page.goto(`http://localhost:${port}/`, {
-      waitUntil: "networkidle0",
-    });
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
 
-    // Delay for the overlay to appear
-    await delay(1000);
+      // Delay for the overlay to appear
+      await delay(1000);
 
-    const pageHtml = await page.evaluate(() => document.body.outerHTML);
-    const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-    const overlayFrame = await overlayHandle.contentFrame();
-    const overlayHtml = await overlayFrame.evaluate(
-      () => document.body.outerHTML,
-    );
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML,
+      );
 
-    expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-      "page html",
-    );
-    expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-      "overlay html",
-    );
-
-    await browser.close();
-    await server.stop();
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
   });
 
   it("should show an error for initial compilation", async () => {
@@ -135,12 +139,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -182,12 +186,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -227,12 +231,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -271,12 +275,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -305,9 +309,9 @@ describe("overlay", () => {
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html initial",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html initial");
 
       const pathToFile = path.resolve(
         __dirname,
@@ -327,12 +331,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html with error",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html with error");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
 
       fs.writeFileSync(pathToFile, originalCode);
 
@@ -344,9 +348,9 @@ describe("overlay", () => {
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html after fix error",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html after fix error");
     } catch (error) {
       throw error;
     } finally {
@@ -375,9 +379,9 @@ describe("overlay", () => {
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html initial",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html initial");
 
       const pathToFile = path.resolve(
         __dirname,
@@ -397,12 +401,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html with error",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html with error");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
 
       fs.writeFileSync(pathToFile, "`;a");
 
@@ -417,12 +421,12 @@ describe("overlay", () => {
       overlayFrame = await overlayHandle.contentFrame();
       overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html with other error",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html with other error");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
 
       fs.writeFileSync(pathToFile, originalCode);
 
@@ -434,9 +438,9 @@ describe("overlay", () => {
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html after fix error",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html after fix error");
     } catch (error) {
       throw error;
     } finally {
@@ -465,9 +469,9 @@ describe("overlay", () => {
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html initial",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html initial");
 
       const pathToFile = path.resolve(
         __dirname,
@@ -487,12 +491,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html with error",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html with error");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
 
       const frame = await page
         .frames()
@@ -510,9 +514,9 @@ describe("overlay", () => {
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html after close",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html after close");
 
       fs.writeFileSync(pathToFile, originalCode);
     } catch (error) {
@@ -602,9 +606,9 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -644,9 +648,9 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -735,12 +739,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -781,12 +785,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -829,12 +833,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -877,12 +881,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -920,9 +924,9 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -962,9 +966,9 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -1054,12 +1058,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1100,12 +1104,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1148,12 +1152,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1192,9 +1196,9 @@ describe("overlay", () => {
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       expect(overlayHandle).toBe(null);
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -1237,12 +1241,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1285,12 +1289,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1332,12 +1336,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
 
       await server.stop();
 
@@ -1356,7 +1360,7 @@ describe("overlay", () => {
       );
 
       expect(
-        prettier.format(pageHtmlAfterClose, { parser: "html" }),
+        await prettier.format(pageHtmlAfterClose, { parser: "html" }),
       ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
@@ -1408,12 +1412,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1465,12 +1469,12 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(pageHtml, { parser: "html" })).toMatchSnapshot(
-        "page html",
-      );
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(pageHtml, { parser: "html" }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1513,9 +1517,9 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1604,9 +1608,9 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      expect(prettier.format(overlayHtml, { parser: "html" })).toMatchSnapshot(
-        "overlay html",
-      );
+      expect(
+        await prettier.format(overlayHtml, { parser: "html" }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
