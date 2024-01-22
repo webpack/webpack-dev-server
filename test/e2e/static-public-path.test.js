@@ -672,8 +672,6 @@ describe("static.publicPath option", () => {
     });
 
     it("should handle HEAD request", async () => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -682,6 +680,8 @@ describe("static.publicPath option", () => {
           pageErrors.push(error);
         })
         .on("request", (interceptedRequest) => {
+          if (interceptedRequest.isInterceptResolutionHandled()) return;
+
           interceptedRequest.continue({ method: "HEAD" });
         });
 

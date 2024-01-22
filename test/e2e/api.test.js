@@ -257,7 +257,8 @@ describe("API", () => {
 
       await server.start();
 
-      const secondPage = await browser.newPage();
+      const secondPage = await runBrowser.runPage(browser);
+
       try {
         const secondPageErrors = [];
         const secondConsoleMessages = [];
