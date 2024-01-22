@@ -58,23 +58,33 @@ describe("handle options-request correctly", () => {
     const prefixUrl = "http://127.0.0.1";
     const htmlUrl = `${prefixUrl}:${portForServer}/test.html`;
     const appUrl = `${prefixUrl}:${portForApp}`;
-    await page.goto(appUrl);
-    const responseStatus = [];
-    page.on("response", (res) => {
-      responseStatus.push(res.status());
-    });
-    await page.evaluate(
-      (url) =>
-        window.fetch(url, {
-          headers: {
-            "another-header": "1",
-          },
-        }),
-      htmlUrl,
-    );
-    await browser.close();
-    await server.stop();
-    await closeApp();
-    expect(responseStatus).toEqual([204, 200]);
+
+    try {
+      await page.goto(appUrl);
+
+      const responseStatus = [];
+
+      page.on("response", (res) => {
+        responseStatus.push(res.status());
+      });
+
+      await page.evaluate(
+        (url) =>
+          window.fetch(url, {
+            headers: {
+              "another-header": "1",
+            },
+          }),
+        htmlUrl,
+      );
+
+      expect(responseStatus).toEqual([200, 204, 200]);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+      await closeApp();
+    }
   });
 });

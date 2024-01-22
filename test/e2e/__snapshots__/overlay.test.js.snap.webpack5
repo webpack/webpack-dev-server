@@ -2312,8 +2312,7 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
           "
         >
           Injected error at throwError (&lt;anonymous&gt;:2:15) at
-          &lt;anonymous&gt;:3:9 at addScriptContent
-          (__puppeteer_evaluation_script__:9:27)
+          &lt;anonymous&gt;:3:9
         </div>
       </div>
     </div>

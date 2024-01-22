@@ -96,6 +96,8 @@ describe("onListening option", () => {
         pageErrors.push(error);
       })
       .on("request", (interceptedRequest) => {
+        if (interceptedRequest.isInterceptResolutionHandled()) return;
+
         interceptedRequest.continue({ method: "POST" });
       });
 
