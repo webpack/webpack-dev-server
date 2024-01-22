@@ -50,6 +50,22 @@ function runBrowser(config) {
         page = newPage;
         page.emulate(options);
 
+        return page.setRequestInterception(true);
+      })
+      .then(() => {
+        page.on("request", (interceptedRequest) => {
+          if (interceptedRequest.isInterceptResolutionHandled()) return;
+          if (interceptedRequest.url().includes("favicon.ico")) {
+            interceptedRequest.respond({
+              status: 200,
+              contentType: "image/png",
+              body: "Empty",
+            });
+          } else {
+            interceptedRequest.continue();
+          }
+        });
+
         resolve({ page, browser });
       })
       .catch(reject);
