@@ -58,7 +58,7 @@ describe("client.reconnect option", () => {
       await page.waitForTimeout(1000 * Math.pow(2, 5) + Math.random() * 100);
 
       const retryingMessages = consoleMessages.filter((message) =>
-        message.text().includes("Trying to reconnect...")
+        message.text().includes("Trying to reconnect..."),
       );
 
       // snapshot can be different on different CI jobs
@@ -119,7 +119,7 @@ describe("client.reconnect option", () => {
       await page.waitForTimeout(1000 * Math.pow(2, 2) + Math.random() * 100);
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -176,7 +176,7 @@ describe("client.reconnect option", () => {
       await page.waitForTimeout(1000 * Math.pow(2, 3) + Math.random() * 100);
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

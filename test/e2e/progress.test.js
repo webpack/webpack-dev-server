@@ -10,7 +10,7 @@ const port = require("../ports-map").progress;
 
 const cssFilePath = path.resolve(
   __dirname,
-  "../fixtures/reload-config-2/main.css"
+  "../fixtures/reload-config-2/main.css",
 );
 
 describe("progress", () => {
@@ -52,7 +52,7 @@ describe("progress", () => {
 
         fs.writeFileSync(
           cssFilePath,
-          "body { background-color: rgb(255, 0, 0); }"
+          "body { background-color: rgb(255, 0, 0); }",
         );
 
         await new Promise((resolve) => {
@@ -72,8 +72,8 @@ describe("progress", () => {
 
       const progressConsoleMessage = consoleMessages.filter((message) =>
         /^\[webpack-dev-server\] (\[[a-zA-Z]+\] )?[0-9]{1,3}% - /.test(
-          message.text()
-        )
+          message.text(),
+        ),
       );
 
       expect(progressConsoleMessage.length > 0).toBe(true);

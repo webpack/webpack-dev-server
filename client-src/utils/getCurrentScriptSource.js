@@ -12,7 +12,7 @@ function getCurrentScriptSource() {
   const scriptElements = document.scripts || [];
   const scriptElementsWithSrc = Array.prototype.filter.call(
     scriptElements,
-    (element) => element.getAttribute("src")
+    (element) => element.getAttribute("src"),
   );
 
   if (scriptElementsWithSrc.length > 0) {

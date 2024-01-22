@@ -11,7 +11,7 @@ const port = require("../ports-map")["watch-files-option"];
 
 const watchDir = path.resolve(
   __dirname,
-  "../fixtures/watch-files-config/public"
+  "../fixtures/watch-files-config/public",
 );
 
 describe("watchFiles option", () => {
@@ -32,7 +32,7 @@ describe("watchFiles option", () => {
           watchFiles: file,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -65,7 +65,7 @@ describe("watchFiles option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -103,7 +103,7 @@ describe("watchFiles option", () => {
           watchFiles: watchDir,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -136,7 +136,7 @@ describe("watchFiles option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -174,7 +174,7 @@ describe("watchFiles option", () => {
           watchFiles: `${watchDir}/**/*`,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -207,7 +207,7 @@ describe("watchFiles option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -251,7 +251,7 @@ describe("watchFiles option", () => {
           watchFiles: nonExistFile,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -283,7 +283,7 @@ describe("watchFiles option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -326,7 +326,7 @@ describe("watchFiles option", () => {
           watchFiles: { paths: file },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -359,7 +359,7 @@ describe("watchFiles option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -398,7 +398,7 @@ describe("watchFiles option", () => {
           watchFiles: { paths: [file, other] },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -432,7 +432,7 @@ describe("watchFiles option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -479,7 +479,7 @@ describe("watchFiles option", () => {
           watchFiles: [{ paths: [file] }, other],
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -513,7 +513,7 @@ describe("watchFiles option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -621,7 +621,7 @@ describe("watchFiles option", () => {
               },
               port,
             },
-            compiler
+            compiler,
           );
 
           await server.start();
@@ -657,7 +657,7 @@ describe("watchFiles option", () => {
           expect(response.status()).toMatchSnapshot("response status");
 
           expect(
-            consoleMessages.map((message) => message.text())
+            consoleMessages.map((message) => message.text()),
           ).toMatchSnapshot("console messages");
 
           expect(pageErrors).toMatchSnapshot("page errors");

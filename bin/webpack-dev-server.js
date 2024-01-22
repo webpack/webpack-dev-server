@@ -91,7 +91,7 @@ const runCli = (cli) => {
       (error) => {
         console.error(error);
         process.exitCode = 1;
-      }
+      },
     );
   } else {
     // eslint-disable-next-line import/no-dynamic-require
@@ -147,8 +147,8 @@ if (!cli.installed) {
 
   console.error(
     `We will use "${packageManager}" to install the CLI via "${packageManager} ${installOptions.join(
-      " "
-    )} ${cli.package}".`
+      " ",
+    )} ${cli.package}".`,
   );
 
   const question = `Do you want to install 'webpack-cli' (yes/no): `;
@@ -170,7 +170,7 @@ if (!cli.installed) {
     if (!normalizedAnswer) {
       console.error(
         "You need to install 'webpack-cli' to use webpack via CLI.\n" +
-          "You can also install the CLI manually."
+          "You can also install the CLI manually.",
       );
 
       return;
@@ -182,7 +182,7 @@ if (!cli.installed) {
         cli.package
       }' (running '${packageManager} ${installOptions.join(" ")} ${
         cli.package
-      }')...`
+      }')...`,
     );
 
     runCommand(packageManager, installOptions.concat(cli.package))

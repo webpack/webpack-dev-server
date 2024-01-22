@@ -64,7 +64,7 @@ document.addEventListener(
       });
     });
   },
-  true
+  true,
 );
 
 function check(url, re, cb) {

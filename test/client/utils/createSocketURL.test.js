@@ -105,7 +105,7 @@ describe("'createSocketURL' function ", () => {
   samples.forEach(([__resourceQuery, location, expected]) => {
     jest.doMock(
       "../../../client-src/utils/getCurrentScriptSource",
-      () => () => new URL("./entry.js", location).toString()
+      () => () => new URL("./entry.js", location).toString(),
     );
 
     const createSocketURL =

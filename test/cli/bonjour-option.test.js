@@ -29,7 +29,7 @@ describe('"bonjour" CLI option', () => {
 
     expect(exitCode).toEqual(0);
     expect(
-      normalizeStderr(stderr, { ipv6: true, https: true })
+      normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 

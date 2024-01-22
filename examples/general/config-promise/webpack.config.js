@@ -10,6 +10,6 @@ module.exports = new Promise((resolve) => {
       context: __dirname,
       entry: "./app.js",
       devServer: {},
-    })
+    }),
   );
 });

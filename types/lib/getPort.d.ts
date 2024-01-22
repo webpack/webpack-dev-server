@@ -6,5 +6,5 @@ export = getPorts;
  */
 declare function getPorts(
   basePort: number,
-  host?: string | undefined
+  host?: string | undefined,
 ): Promise<number>;

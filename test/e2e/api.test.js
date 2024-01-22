@@ -63,7 +63,7 @@ describe("API", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -96,7 +96,7 @@ describe("API", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -136,7 +136,7 @@ describe("API", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -155,13 +155,13 @@ describe("API", () => {
       const compiler = webpack(config);
       const server = new Server(
         { port, static: "https://absolute-url.com/somewhere" },
-        compiler
+        compiler,
       );
 
       await new Promise((resolve) => {
         server.startCallback((err) => {
           expect(err.message).toEqual(
-            "Using a URL as static.directory is not supported"
+            "Using a URL as static.directory is not supported",
           );
           resolve();
         });
@@ -181,7 +181,7 @@ describe("API", () => {
           "webpack/hot/dev-server.js",
           `${path.resolve(
             __dirname,
-            "../../client/index.js"
+            "../../client/index.js",
           )}?hot=true&live-reload=true"`,
           path.resolve(__dirname, "../fixtures/client-config/foo.js"),
         ],
@@ -209,7 +209,7 @@ describe("API", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -245,7 +245,7 @@ describe("API", () => {
         });
 
         expect(
-          firstConsoleMessages.map((message) => message.text())
+          firstConsoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(firstPageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -274,7 +274,7 @@ describe("API", () => {
         });
 
         expect(
-          secondConsoleMessages.map((message) => message.text())
+          secondConsoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(secondPageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -332,7 +332,7 @@ describe("API", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
     });
@@ -351,7 +351,7 @@ describe("API", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -375,9 +375,9 @@ describe("API", () => {
                   server.stopCallback(() => {
                     resolve();
                   });
-                })
+                }),
             ),
-          Promise.resolve()
+          Promise.resolve(),
         )
         .then(() => {
           dummyServers = [];
@@ -396,7 +396,7 @@ describe("API", () => {
                 const compiler = webpack(config);
                 const server = new Server(
                   { port: devServerPort, host: "0.0.0.0" },
-                  compiler
+                  compiler,
                 );
 
                 dummyServers.push(server);
@@ -404,9 +404,9 @@ describe("API", () => {
                 server.startCallback(() => {
                   resolve();
                 });
-              })
+              }),
           ),
-        Promise.resolve()
+        Promise.resolve(),
       );
     }
 
@@ -451,7 +451,7 @@ describe("API", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -491,7 +491,7 @@ describe("API", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -530,7 +530,7 @@ describe("API", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -569,7 +569,7 @@ describe("API", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -609,7 +609,7 @@ describe("API", () => {
         expect(response.status()).toMatchSnapshot("response status");
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
@@ -625,7 +625,7 @@ describe("API", () => {
 
       jest.mock(
         "../../lib/getPort",
-        () => () => Promise.reject(new Error("busy"))
+        () => () => Promise.reject(new Error("busy")),
       );
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
@@ -716,7 +716,7 @@ describe("API", () => {
         expect(response.status()).toMatchSnapshot("response status");
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");

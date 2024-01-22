@@ -55,7 +55,7 @@ module.exports = class HTMLGeneratorPlugin {
 
             compilation.emitAsset("index.html", indexSource);
             compilation.emitAsset("test.html", testSource);
-          }
+          },
         );
       } else {
         compilation.hooks.additionalAssets.tap(pluginName, () => {

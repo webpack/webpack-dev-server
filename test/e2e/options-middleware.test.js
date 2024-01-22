@@ -51,7 +51,7 @@ describe("handle options-request correctly", () => {
           "Access-Control-Allow-Headers": "*",
         },
       },
-      compiler
+      compiler,
     );
     await server.start();
     const { page, browser } = await runBrowser();
@@ -70,7 +70,7 @@ describe("handle options-request correctly", () => {
             "another-header": "1",
           },
         }),
-      htmlUrl
+      htmlUrl,
     );
     await browser.close();
     await server.stop();

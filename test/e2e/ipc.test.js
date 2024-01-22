@@ -92,10 +92,10 @@ describe("web socket server URL", () => {
         const webSocketRequest = webSocketRequests[0];
 
         expect(webSocketRequest.url).toContain(
-          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
+          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -188,10 +188,10 @@ describe("web socket server URL", () => {
         const webSocketRequest = webSocketRequests[0];
 
         expect(webSocketRequest.url).toContain(
-          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
+          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -299,10 +299,10 @@ describe("web socket server URL", () => {
         const webSocketRequest = webSocketRequests[0];
 
         expect(webSocketRequest.url).toContain(
-          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`
+          `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {

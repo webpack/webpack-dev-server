@@ -36,7 +36,7 @@ describe("onListening option", () => {
         },
         port,
       },
-      compiler
+      compiler,
     );
 
     await server.start();
@@ -65,13 +65,13 @@ describe("onListening option", () => {
       `http://127.0.0.1:${port}/listening/some/path`,
       {
         waitUntil: "networkidle0",
-      }
+      },
     );
 
     expect(onListeningIsRunning).toBe(true);
 
     expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type"
+      "response headers content-type",
     );
 
     expect(response.status()).toMatchSnapshot("response status");
@@ -79,7 +79,7 @@ describe("onListening option", () => {
     expect(await response.text()).toMatchSnapshot("response text");
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages"
+      "console messages",
     );
 
     expect(pageErrors).toMatchSnapshot("page errors");
@@ -103,13 +103,13 @@ describe("onListening option", () => {
       `http://127.0.0.1:${port}/listening/some/path`,
       {
         waitUntil: "networkidle0",
-      }
+      },
     );
 
     expect(onListeningIsRunning).toBe(true);
 
     expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type"
+      "response headers content-type",
     );
 
     expect(response.status()).toMatchSnapshot("response status");
@@ -117,7 +117,7 @@ describe("onListening option", () => {
     expect(await response.text()).toMatchSnapshot("response text");
 
     expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages"
+      "console messages",
     );
 
     expect(pageErrors).toMatchSnapshot("page errors");

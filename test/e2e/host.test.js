@@ -107,7 +107,7 @@ describe("host", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
@@ -180,7 +180,7 @@ describe("host", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
@@ -256,7 +256,7 @@ describe("host", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");

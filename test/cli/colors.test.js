@@ -4,13 +4,13 @@ const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-colors"];
 
 const colorsDefaultStats = require.resolve(
-  "../fixtures/cli-colors-default-stats/webpack.config"
+  "../fixtures/cli-colors-default-stats/webpack.config",
 );
 const colorsDisabled = require.resolve(
-  "../fixtures/cli-colors-disabled/webpack.config"
+  "../fixtures/cli-colors-disabled/webpack.config",
 );
 const colorsEnabled = require.resolve(
-  "../fixtures/cli-colors-enabled/webpack.config"
+  "../fixtures/cli-colors-enabled/webpack.config",
 );
 
 describe("colors", () => {

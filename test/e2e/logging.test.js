@@ -68,9 +68,9 @@ describe("logging", () => {
                 "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.warnings.push(
-                    new Error("Warning from compilation")
+                    new Error("Warning from compilation"),
                   );
-                }
+                },
               );
             },
           },
@@ -88,7 +88,7 @@ describe("logging", () => {
                 "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.errors.push(new Error("Error from compilation"));
-                }
+                },
               );
             },
           },
@@ -138,10 +138,10 @@ describe("logging", () => {
                 "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.warnings.push(
-                    new Error("Warning from compilation")
+                    new Error("Warning from compilation"),
                   );
                   compilation.errors.push(new Error("Error from compilation"));
-                }
+                },
               );
             },
           },
@@ -164,10 +164,10 @@ describe("logging", () => {
                 "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.warnings.push(
-                    new Error("Warning from compilation")
+                    new Error("Warning from compilation"),
                   );
                   compilation.errors.push(new Error("Error from compilation"));
-                }
+                },
               );
             },
           },
@@ -218,7 +218,7 @@ describe("logging", () => {
           if (testCase.devServerOptions && testCase.devServerOptions.static) {
             fs.writeFileSync(
               path.join(testCase.devServerOptions.static, "./foo.txt"),
-              "Text"
+              "Text",
             );
 
             await page.waitForNavigation({
@@ -233,9 +233,9 @@ describe("logging", () => {
                 .replace(/\\/g, "/")
                 .replace(
                   new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
-                  "<cwd>"
-                )
-            )
+                  "<cwd>",
+                ),
+            ),
           ).toMatchSnapshot();
         } catch (error) {
           throw error;

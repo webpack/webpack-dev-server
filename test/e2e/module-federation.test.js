@@ -62,7 +62,7 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry2");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -120,7 +120,7 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry2");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -152,7 +152,7 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry1");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -210,7 +210,7 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry2");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -255,7 +255,7 @@ describe("Module federation", () => {
         `http://127.0.0.1:${port}/remoteEntry.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       const remoteEntryTextContent = await response.text();
@@ -263,7 +263,7 @@ describe("Module federation", () => {
       expect(remoteEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -287,7 +287,7 @@ describe("Module federation", () => {
       expect(mainEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

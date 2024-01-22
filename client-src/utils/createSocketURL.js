@@ -61,7 +61,7 @@ function format(objURL) {
      * @param {string} match
      * @returns {string}
      */
-    (match) => encodeURIComponent(match)
+    (match) => encodeURIComponent(match),
   );
   search = search.replace("#", "%23");
 
@@ -103,7 +103,7 @@ function createSocketURL(parsedURL) {
 
   socketURLProtocol = socketURLProtocol.replace(
     /^(?:http|.+-extension|file)/i,
-    "ws"
+    "ws",
   );
 
   let socketURLAuth = "";
