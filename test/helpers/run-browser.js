@@ -35,7 +35,7 @@ function runBrowser(config) {
 
     puppeteer
       .launch({
-        headless: true,
+        headless: "new",
         // because of invalid localhost certificate
         ignoreHTTPSErrors: true,
         // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
