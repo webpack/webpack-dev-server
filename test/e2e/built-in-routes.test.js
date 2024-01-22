@@ -63,8 +63,6 @@ describe("Built in routes", () => {
     });
 
     it("should handles HEAD request to sockjs bundle", async () => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -73,7 +71,9 @@ describe("Built in routes", () => {
           pageErrors.push(error);
         })
         .on("request", (interceptedRequest) => {
-          interceptedRequest.continue({ method: "HEAD" });
+          if (interceptedRequest.isInterceptResolutionHandled()) return;
+
+          interceptedRequest.continue({ method: "HEAD" }, 10);
         });
 
       const response = await page.goto(
@@ -155,8 +155,6 @@ describe("Built in routes", () => {
     });
 
     it("should handle HEAD request to directory index", async () => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -165,6 +163,8 @@ describe("Built in routes", () => {
           pageErrors.push(error);
         })
         .on("request", (interceptedRequest) => {
+          if (interceptedRequest.isInterceptResolutionHandled()) return;
+
           interceptedRequest.continue({ method: "HEAD" });
         });
 
@@ -215,8 +215,6 @@ describe("Built in routes", () => {
     });
 
     it("should handle HEAD request to magic async chunk", async () => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -225,6 +223,8 @@ describe("Built in routes", () => {
           pageErrors.push(error);
         })
         .on("request", (interceptedRequest) => {
+          if (interceptedRequest.isInterceptResolutionHandled()) return;
+
           interceptedRequest.continue({ method: "HEAD" });
         });
 

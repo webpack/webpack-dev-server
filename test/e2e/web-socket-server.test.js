@@ -4,6 +4,7 @@ const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
+const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map")["web-socket-server-test"];
 
 describe("web socket server", () => {
@@ -34,12 +35,19 @@ describe("web socket server", () => {
         });
 
       const webSocketRequests = [];
+      const session = await page.target().createCDPSession();
 
-      const client = page._client;
-
-      client.on("Network.webSocketCreated", (test) => {
+      session.on("Network.webSocketCreated", (test) => {
         webSocketRequests.push(test);
       });
+
+      await session.send("Target.setAutoAttach", {
+        autoAttach: true,
+        flatten: true,
+        waitForDebuggerOnStart: true,
+      });
+
+      sessionSubscribe(session);
 
       await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",

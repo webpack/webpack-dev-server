@@ -9,6 +9,7 @@ const httpProxy = require("http-proxy");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
+const sessionSubscribe = require("../helpers/session-subscribe");
 const port1 = require("../ports-map").ipc;
 
 const webSocketServers = ["ws", "sockjs"];
@@ -72,11 +73,19 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const client = page._client;
+          const session = await page.target().createCDPSession();
 
-          client.on("Network.webSocketCreated", (test) => {
+          session.on("Network.webSocketCreated", (test) => {
             webSocketRequests.push(test);
           });
+
+          await session.send("Target.setAutoAttach", {
+            autoAttach: true,
+            flatten: true,
+            waitForDebuggerOnStart: true,
+          });
+
+          sessionSubscribe(session);
         } else {
           page.on("request", (request) => {
             if (/\/ws\//.test(request.url())) {
@@ -168,11 +177,19 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const client = page._client;
+          const session = await page.target().createCDPSession();
 
-          client.on("Network.webSocketCreated", (test) => {
+          session.on("Network.webSocketCreated", (test) => {
             webSocketRequests.push(test);
           });
+
+          await session.send("Target.setAutoAttach", {
+            autoAttach: true,
+            flatten: true,
+            waitForDebuggerOnStart: true,
+          });
+
+          sessionSubscribe(session);
         } else {
           page.on("request", (request) => {
             if (/\/ws\//.test(request.url())) {
@@ -279,11 +296,19 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const client = page._client;
+          const session = await page.target().createCDPSession();
 
-          client.on("Network.webSocketCreated", (test) => {
+          session.on("Network.webSocketCreated", (test) => {
             webSocketRequests.push(test);
           });
+
+          await session.send("Target.setAutoAttach", {
+            autoAttach: true,
+            flatten: true,
+            waitForDebuggerOnStart: true,
+          });
+
+          sessionSubscribe(session);
         } else {
           page.on("request", (request) => {
             if (/\/ws\//.test(request.url())) {
