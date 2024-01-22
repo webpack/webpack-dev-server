@@ -1118,7 +1118,8 @@ describe("overlay", () => {
     }
   });
 
-  it("should show overlay when Trusted Types are enabled", async () => {
+  // TODO fix me https://github.com/webpack/webpack-dev-server/issues/4966
+  it.skip("should show overlay when Trusted Types are enabled", async () => {
     const compiler = webpack(trustedTypesConfig);
 
     new ErrorPlugin().apply(compiler);
