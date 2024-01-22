@@ -49,11 +49,11 @@ describe("compress option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding"
+        "response headers content-encoding",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -76,7 +76,7 @@ describe("compress option", () => {
           compress: true,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -108,11 +108,11 @@ describe("compress option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding"
+        "response headers content-encoding",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -135,7 +135,7 @@ describe("compress option", () => {
           compress: false,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -167,11 +167,11 @@ describe("compress option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding"
+        "response headers content-encoding",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

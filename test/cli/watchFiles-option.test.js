@@ -23,7 +23,7 @@ describe('"watchFiles" CLI option', () => {
     const watchDirectory = path.resolve(__dirname, "../fixtures/static/static");
     const watchOtherDirectory = path.resolve(
       __dirname,
-      "../fixtures/static/simple-config"
+      "../fixtures/static/simple-config",
     );
 
     const { exitCode, stderr } = await testBin([

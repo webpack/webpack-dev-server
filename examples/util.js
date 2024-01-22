@@ -69,7 +69,7 @@ module.exports = {
         filename: "index.html",
         template: path.join(__dirname, ".assets/layout.html"),
         title: exampleTitle,
-      })
+      }),
     );
 
     if (result.devServer.setupMiddlewares) {

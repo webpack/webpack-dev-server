@@ -105,12 +105,12 @@ describe("multi compiler", () => {
     };
     const pathToOneEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/one.js"
+      "../fixtures/multi-compiler-two-configurations/one.js",
     );
     const originalOneEntryContent = fs.readFileSync(pathToOneEntry);
     const pathToTwoEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/two.js"
+      "../fixtures/multi-compiler-two-configurations/two.js",
     );
     const originalTwoEntryContent = fs.readFileSync(pathToTwoEntry);
 
@@ -184,12 +184,12 @@ describe("multi compiler", () => {
     };
     const pathToOneEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/one.js"
+      "../fixtures/multi-compiler-two-configurations/one.js",
     );
     const originalOneEntryContent = fs.readFileSync(pathToOneEntry);
     const pathToTwoEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/two.js"
+      "../fixtures/multi-compiler-two-configurations/two.js",
     );
     const originalTwoEntryContent = fs.readFileSync(pathToTwoEntry);
 
@@ -263,12 +263,12 @@ describe("multi compiler", () => {
     };
     const pathToOneEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/one.js"
+      "../fixtures/multi-compiler-two-configurations/one.js",
     );
     const originalOneEntryContent = fs.readFileSync(pathToOneEntry);
     const pathToTwoEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/two.js"
+      "../fixtures/multi-compiler-two-configurations/two.js",
     );
     const originalTwoEntryContent = fs.readFileSync(pathToTwoEntry);
 
@@ -334,12 +334,12 @@ describe("multi compiler", () => {
     };
     const pathToOneEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/one.js"
+      "../fixtures/multi-compiler-two-configurations/one.js",
     );
     const originalOneEntryContent = fs.readFileSync(pathToOneEntry);
     const pathToTwoEntry = path.resolve(
       __dirname,
-      "../fixtures/multi-compiler-two-configurations/two.js"
+      "../fixtures/multi-compiler-two-configurations/two.js",
     );
     const originalTwoEntryContent = fs.readFileSync(pathToTwoEntry);
 
@@ -414,7 +414,7 @@ describe("multi compiler", () => {
         `http://127.0.0.1:${port}/server.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       const serverResponseText = await serverResponse.text();
@@ -453,12 +453,12 @@ describe("multi compiler", () => {
     };
     const pathToBrowserEntry = path.resolve(
       __dirname,
-      "../fixtures/universal-compiler-config/browser.js"
+      "../fixtures/universal-compiler-config/browser.js",
     );
     const originalBrowserEntryContent = fs.readFileSync(pathToBrowserEntry);
     const pathToServerEntry = path.resolve(
       __dirname,
-      "../fixtures/universal-compiler-config/server.js"
+      "../fixtures/universal-compiler-config/server.js",
     );
     const originalServerEntryContent = fs.readFileSync(pathToServerEntry);
 
@@ -473,7 +473,7 @@ describe("multi compiler", () => {
         `http://127.0.0.1:${port}/server.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       const serverResponseText = await serverResponse.text();
@@ -506,7 +506,7 @@ describe("multi compiler", () => {
 
       fs.writeFileSync(
         pathToBrowserEntry,
-        `${originalBrowserEntryContent}// comment`
+        `${originalBrowserEntryContent}// comment`,
       );
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
@@ -533,7 +533,7 @@ describe("multi compiler", () => {
     };
     const pathToBrowserEntry = path.resolve(
       __dirname,
-      "../fixtures/universal-compiler-config/browser.js"
+      "../fixtures/universal-compiler-config/browser.js",
     );
     const originalBrowserEntryContent = fs.readFileSync(pathToBrowserEntry);
 
@@ -548,7 +548,7 @@ describe("multi compiler", () => {
         `http://127.0.0.1:${port}/server.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       const serverResponseText = await serverResponse.text();
@@ -581,7 +581,7 @@ describe("multi compiler", () => {
 
       fs.writeFileSync(
         pathToBrowserEntry,
-        `${originalBrowserEntryContent}// comment`
+        `${originalBrowserEntryContent}// comment`,
       );
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
@@ -607,12 +607,12 @@ describe("multi compiler", () => {
     };
     const pathToBrowserEntry = path.resolve(
       __dirname,
-      "../fixtures/universal-compiler-config/browser.js"
+      "../fixtures/universal-compiler-config/browser.js",
     );
     const originalBrowserEntryContent = fs.readFileSync(pathToBrowserEntry);
     const pathToServerEntry = path.resolve(
       __dirname,
-      "../fixtures/universal-compiler-config/server.js"
+      "../fixtures/universal-compiler-config/server.js",
     );
     const originalServerEntryContent = fs.readFileSync(pathToServerEntry);
 
@@ -627,7 +627,7 @@ describe("multi compiler", () => {
         `http://127.0.0.1:${port}/server.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       const serverResponseText = await serverResponse.text();
@@ -652,7 +652,7 @@ describe("multi compiler", () => {
 
       fs.writeFileSync(
         pathToBrowserEntry,
-        `${originalBrowserEntryContent}// comment`
+        `${originalBrowserEntryContent}// comment`,
       );
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
@@ -669,7 +669,7 @@ describe("multi compiler", () => {
 
       fs.writeFileSync(
         pathToServerEntry,
-        `${originalServerEntryContent}// comment`
+        `${originalServerEntryContent}// comment`,
       );
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
@@ -696,12 +696,12 @@ describe("multi compiler", () => {
     };
     const pathToBrowserEntry = path.resolve(
       __dirname,
-      "../fixtures/universal-compiler-config/browser.js"
+      "../fixtures/universal-compiler-config/browser.js",
     );
     const originalBrowserEntryContent = fs.readFileSync(pathToBrowserEntry);
     const pathToServerEntry = path.resolve(
       __dirname,
-      "../fixtures/universal-compiler-config/server.js"
+      "../fixtures/universal-compiler-config/server.js",
     );
     const originalServerEntryContent = fs.readFileSync(pathToServerEntry);
 
@@ -716,7 +716,7 @@ describe("multi compiler", () => {
         `http://127.0.0.1:${port}/server.js`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       const serverResponseText = await serverResponse.text();
@@ -741,7 +741,7 @@ describe("multi compiler", () => {
 
       fs.writeFileSync(
         pathToServerEntry,
-        `${originalServerEntryContent}// comment`
+        `${originalServerEntryContent}// comment`,
       );
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
@@ -758,7 +758,7 @@ describe("multi compiler", () => {
 
       fs.writeFileSync(
         pathToBrowserEntry,
-        `${originalBrowserEntryContent}// comment`
+        `${originalBrowserEntryContent}// comment`,
       );
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });

@@ -60,7 +60,7 @@ describe("target", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
 
         if (
@@ -74,7 +74,7 @@ describe("target", () => {
         ) {
           const hasRequireOrGlobalError =
             pageErrors.filter((pageError) =>
-              /require is not defined|global is not defined/.test(pageError)
+              /require is not defined|global is not defined/.test(pageError),
             ).length === 1;
 
           expect(hasRequireOrGlobalError).toBe(true);

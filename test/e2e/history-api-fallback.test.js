@@ -26,7 +26,7 @@ describe("historyApiFallback option", () => {
           historyApiFallback: true,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -56,7 +56,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -64,7 +64,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -89,7 +89,7 @@ describe("historyApiFallback option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -119,7 +119,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -127,7 +127,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -149,14 +149,14 @@ describe("historyApiFallback option", () => {
         {
           static: path.resolve(
             __dirname,
-            "../fixtures/historyapifallback-2-config"
+            "../fixtures/historyapifallback-2-config",
           ),
           historyApiFallback: {
             index: "/bar.html",
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -186,7 +186,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -194,7 +194,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -213,11 +213,11 @@ describe("historyApiFallback option", () => {
         `http://127.0.0.1:${port}/random-file.txt`,
         {
           waitUntil: "networkidle2",
-        }
+        },
       );
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -225,7 +225,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -251,7 +251,7 @@ describe("historyApiFallback option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -281,7 +281,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -289,7 +289,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -312,7 +312,7 @@ describe("historyApiFallback option", () => {
           port,
           static: path.resolve(
             __dirname,
-            "../fixtures/historyapifallback-2-config"
+            "../fixtures/historyapifallback-2-config",
           ),
           historyApiFallback: {
             rewrites: [
@@ -327,7 +327,7 @@ describe("historyApiFallback option", () => {
             ],
           },
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -357,7 +357,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -365,7 +365,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -385,7 +385,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -393,7 +393,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -413,7 +413,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -421,7 +421,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -450,7 +450,7 @@ describe("historyApiFallback option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -481,7 +481,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -493,11 +493,11 @@ describe("historyApiFallback option", () => {
         "GET",
         "/foo",
         "to",
-        "/bar.html"
+        "/bar.html",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -526,7 +526,7 @@ describe("historyApiFallback option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -557,7 +557,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -569,11 +569,11 @@ describe("historyApiFallback option", () => {
         "GET",
         "/foo",
         "to",
-        "/bar.html"
+        "/bar.html",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -595,12 +595,12 @@ describe("historyApiFallback option", () => {
         {
           static: path.resolve(
             __dirname,
-            "../fixtures/historyapifallback-3-config"
+            "../fixtures/historyapifallback-3-config",
           ),
           historyApiFallback: true,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -630,7 +630,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -638,7 +638,7 @@ describe("historyApiFallback option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -660,7 +660,7 @@ describe("historyApiFallback option", () => {
       });
 
       expect(responseGet.contentType).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(responseGet.statusText).toMatchSnapshot("response status");

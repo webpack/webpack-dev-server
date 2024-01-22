@@ -71,9 +71,9 @@ describe("stats", () => {
                 "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.warnings.push(
-                    new Error("Warning from compilation")
+                    new Error("Warning from compilation"),
                   );
-                }
+                },
               );
             },
           },
@@ -95,9 +95,9 @@ describe("stats", () => {
                 "warnings-webpack-plugin",
                 (compilation) => {
                   compilation.warnings.push(
-                    new Error("Warning from compilation")
+                    new Error("Warning from compilation"),
                   );
-                }
+                },
               );
             },
           },
@@ -132,7 +132,7 @@ describe("stats", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot();
       } catch (error) {
         throw error;

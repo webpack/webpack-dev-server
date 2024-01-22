@@ -10,7 +10,7 @@ const config = require("./fixtures/simple-config/webpack.config");
 
 const httpsCertificateDirectory = path.join(
   __dirname,
-  "./fixtures/https-certificate"
+  "./fixtures/https-certificate",
 );
 
 const tests = {
@@ -277,16 +277,16 @@ const tests = {
         type: "https",
         options: {
           ca: readFileSync(
-            path.join(httpsCertificateDirectory, "ca.pem")
+            path.join(httpsCertificateDirectory, "ca.pem"),
           ).toString(),
           pfx: readFileSync(
-            path.join(httpsCertificateDirectory, "server.pfx")
+            path.join(httpsCertificateDirectory, "server.pfx"),
           ).toString(),
           key: readFileSync(
-            path.join(httpsCertificateDirectory, "server.key")
+            path.join(httpsCertificateDirectory, "server.key"),
           ).toString(),
           cert: readFileSync(
-            path.join(httpsCertificateDirectory, "server.crt")
+            path.join(httpsCertificateDirectory, "server.crt"),
           ).toString(),
           passphrase: "webpack-dev-server",
         },
@@ -296,22 +296,22 @@ const tests = {
         options: {
           ca: [
             readFileSync(
-              path.join(httpsCertificateDirectory, "ca.pem")
+              path.join(httpsCertificateDirectory, "ca.pem"),
             ).toString(),
           ],
           pfx: [
             readFileSync(
-              path.join(httpsCertificateDirectory, "server.pfx")
+              path.join(httpsCertificateDirectory, "server.pfx"),
             ).toString(),
           ],
           key: [
             readFileSync(
-              path.join(httpsCertificateDirectory, "server.key")
+              path.join(httpsCertificateDirectory, "server.key"),
             ).toString(),
           ],
           cert: [
             readFileSync(
-              path.join(httpsCertificateDirectory, "server.crt")
+              path.join(httpsCertificateDirectory, "server.crt"),
             ).toString(),
           ],
           passphrase: "webpack-dev-server",
@@ -324,7 +324,7 @@ const tests = {
           pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
           key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
           cert: readFileSync(
-            path.join(httpsCertificateDirectory, "server.crt")
+            path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
         },
@@ -364,7 +364,7 @@ const tests = {
           pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
           key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
           cert: readFileSync(
-            path.join(httpsCertificateDirectory, "server.crt")
+            path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
         },
@@ -376,19 +376,19 @@ const tests = {
           pfx: [
             {
               buf: readFileSync(
-                path.join(httpsCertificateDirectory, "server.pfx")
+                path.join(httpsCertificateDirectory, "server.pfx"),
               ),
             },
           ],
           key: [
             {
               pem: readFileSync(
-                path.join(httpsCertificateDirectory, "server.key")
+                path.join(httpsCertificateDirectory, "server.key"),
               ),
             },
           ],
           cert: readFileSync(
-            path.join(httpsCertificateDirectory, "server.crt")
+            path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
         },
@@ -578,7 +578,7 @@ describe("options", () => {
               .replace(/\\/g, "/")
               .replace(
                 new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
-                "<cwd>"
+                "<cwd>",
               );
           }
 
@@ -593,7 +593,7 @@ describe("options", () => {
       it(`should ${
         type === "success" ? "successfully validate" : "throw an error on"
       } the "${key}" option with '${stringifyValue(
-        value
+        value,
       )}' value`, async () => {
         const compiler = webpack(config);
         let thrownError;

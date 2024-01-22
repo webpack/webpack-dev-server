@@ -86,7 +86,7 @@ const proxyOptionOfArray = [
       if (server) {
         maxServerListeners = Math.max(
           maxServerListeners,
-          server.listeners("close").length
+          server.listeners("close").length,
         );
       }
     }
@@ -193,7 +193,7 @@ describe("proxy option", () => {
           proxy: proxyOptionPathsAsProperties,
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -231,10 +231,10 @@ describe("proxy option", () => {
         const utilSpy = jest.spyOn(util, "deprecate");
 
         expect(utilSpy.mock.calls[0][1]).toEqual(
-          "Using the 'bypass' option is deprecated. Please use the 'router' and 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options"
+          "Using the 'bypass' option is deprecated. Please use the 'router' and 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options",
         );
         expect(utilSpy.mock.calls[0][2]).toEqual(
-          "DEP_WEBPACK_DEV_SERVER_PROXY_BYPASS_ARGUMENT"
+          "DEP_WEBPACK_DEV_SERVER_PROXY_BYPASS_ARGUMENT",
         );
 
         utilSpy.mockRestore();
@@ -300,7 +300,7 @@ describe("proxy option", () => {
           proxy: proxyOption,
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -335,7 +335,7 @@ describe("proxy option", () => {
           proxy: proxyWithString,
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -370,7 +370,7 @@ describe("proxy option", () => {
           proxy: proxyWithPath,
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -405,7 +405,7 @@ describe("proxy option", () => {
           proxy: proxyWithRouterAsObject,
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -440,7 +440,7 @@ describe("proxy option", () => {
           proxy: proxyOptionOfArray,
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -493,7 +493,7 @@ describe("proxy option", () => {
           proxy: proxyOptionOfArrayWithoutTarget,
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -538,7 +538,7 @@ describe("proxy option", () => {
           ],
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -603,7 +603,7 @@ describe("proxy option", () => {
               ],
               port: port3,
             },
-            compiler
+            compiler,
           );
 
           await server.start();
@@ -664,7 +664,7 @@ describe("proxy option", () => {
           ],
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -765,7 +765,7 @@ describe("proxy option", () => {
 
       expect(response.status).toEqual(200);
       expect(response.headers["content-type"]).toEqual(
-        "application/json; charset=utf-8"
+        "application/json; charset=utf-8",
       );
       expect(response.text).toContain("POST method from proxy (id: 1)");
     });
@@ -795,7 +795,7 @@ describe("proxy option", () => {
           ],
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -846,7 +846,7 @@ describe("proxy option", () => {
           ],
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -898,7 +898,7 @@ describe("proxy option", () => {
           ],
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -952,7 +952,7 @@ describe("proxy option", () => {
           ],
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -1006,7 +1006,7 @@ describe("proxy option", () => {
           ],
           port: port3,
         },
-        compiler
+        compiler,
       );
 
       await server.start();

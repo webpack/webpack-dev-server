@@ -7,11 +7,11 @@ const stripAnsi = require("strip-ansi-v6");
 
 const webpackDevServerPath = path.resolve(
   __dirname,
-  "../../bin/webpack-dev-server.js"
+  "../../bin/webpack-dev-server.js",
 );
 const basicConfigPath = path.resolve(
   __dirname,
-  "../fixtures/cli/webpack.config.js"
+  "../fixtures/cli/webpack.config.js",
 );
 
 const testBin = (testArgs = [], options) => {
@@ -73,16 +73,16 @@ const normalizeStderr = (stderr, options = {}) => {
   // normalize node warnings
   normalizedStderr = normalizedStderr.replace(
     /.*DeprecationWarning.*(\n)*/gm,
-    ""
+    "",
   );
   normalizedStderr = normalizedStderr.replace(
     /.*Use `node --trace-deprecation ...` to show where the warning was created.*(\n)*/gm,
-    ""
+    "",
   );
 
   normalizedStderr = normalizedStderr.split("\n");
   normalizedStderr = normalizedStderr.filter(
-    (item) => !/.+wait until bundle finished.*(\n)?/g.test(item)
+    (item) => !/.+wait until bundle finished.*(\n)?/g.test(item),
   );
   normalizedStderr = normalizedStderr.join("\n");
   normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ":<port>/");
@@ -91,11 +91,11 @@ const normalizeStderr = (stderr, options = {}) => {
     // We have deprecation warning on windows in some cases
     normalizedStderr = normalizedStderr.split("\n");
     normalizedStderr = normalizedStderr.filter(
-      (item) => !/Generating SSL Certificate/g.test(item)
+      (item) => !/Generating SSL Certificate/g.test(item),
     );
     normalizedStderr = normalizedStderr.filter(
       (item) =>
-        !/DeprecationWarning: The legacy HTTP parser is deprecated/g.test(item)
+        !/DeprecationWarning: The legacy HTTP parser is deprecated/g.test(item),
     );
     normalizedStderr = normalizedStderr.join("\n");
   }
@@ -104,14 +104,13 @@ const normalizeStderr = (stderr, options = {}) => {
     normalizedStderr = normalizedStderr.split("\n");
 
     const loopbackIndex = normalizedStderr.findIndex((item) =>
-      /Loopback:/.test(item)
+      /Loopback:/.test(item),
     );
 
     const protocol = options.https ? "https" : "http";
 
-    normalizedStderr[
-      loopbackIndex
-    ] = `<i> Loopback: ${protocol}://localhost:<port>/, ${protocol}://<ip-v4>:<port>/, ${protocol}://[<ip-v6>]:<port>/`;
+    normalizedStderr[loopbackIndex] =
+      `<i> Loopback: ${protocol}://localhost:<port>/, ${protocol}://<ip-v4>:<port>/, ${protocol}://[<ip-v6>]:<port>/`;
     normalizedStderr = normalizedStderr.join("\n");
   }
 
@@ -120,7 +119,7 @@ const normalizeStderr = (stderr, options = {}) => {
     normalizedStderr = normalizedStderr.split("\n");
 
     const ipv4MessageIndex = normalizedStderr.findIndex((item) =>
-      /On Your Network \(IPv4\)/.test(item)
+      /On Your Network \(IPv4\)/.test(item),
     );
 
     const protocol = options.https ? "https" : "http";
@@ -128,7 +127,7 @@ const normalizeStderr = (stderr, options = {}) => {
     normalizedStderr.splice(
       ipv4MessageIndex + 1,
       0,
-      `<i> [webpack-dev-server] On Your Network (IPv6): ${protocol}://[<ip-v6>]:<port>/`
+      `<i> [webpack-dev-server] On Your Network (IPv6): ${protocol}://[<ip-v6>]:<port>/`,
     );
 
     normalizedStderr = normalizedStderr.join("\n");

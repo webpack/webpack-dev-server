@@ -74,7 +74,7 @@ module.exports = [
       }),
       new webpack.NormalModuleReplacementPlugin(
         /^tapable\/lib\/SyncBailHook/,
-        path.join(__dirname, "modules/logger/SyncBailHookFake.js")
+        path.join(__dirname, "modules/logger/SyncBailHookFake.js"),
       ),
     ],
   }),

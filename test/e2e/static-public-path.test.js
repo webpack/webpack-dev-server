@@ -34,7 +34,7 @@ describe("static.publicPath option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -63,7 +63,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -71,7 +71,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -90,7 +90,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/other.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -98,7 +98,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -126,7 +126,7 @@ describe("static.publicPath option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -155,7 +155,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/assets`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -163,7 +163,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -182,7 +182,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/bar`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -190,7 +190,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -218,7 +218,7 @@ describe("static.publicPath option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -247,7 +247,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/assets`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -255,7 +255,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toContain("other.txt");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -274,7 +274,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/bar`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -282,7 +282,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -310,7 +310,7 @@ describe("static.publicPath option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -339,7 +339,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/assets`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -347,7 +347,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toContain("other.txt");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -366,7 +366,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/bar`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -374,7 +374,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -406,7 +406,7 @@ describe("static.publicPath option", () => {
           ],
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -435,7 +435,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -443,7 +443,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -462,7 +462,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -470,7 +470,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -500,7 +500,7 @@ describe("static.publicPath option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -531,7 +531,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/index.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -539,7 +539,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -565,7 +565,7 @@ describe("static.publicPath option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -594,17 +594,17 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/assets/example.txt`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response header content-type"
+        "response header content-type",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -630,7 +630,7 @@ describe("static.publicPath option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -659,13 +659,13 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -689,13 +689,13 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -719,13 +719,13 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -749,13 +749,13 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -779,13 +779,13 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -809,13 +809,13 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -849,7 +849,7 @@ describe("static.publicPath option", () => {
           ],
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -878,7 +878,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -886,7 +886,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -905,7 +905,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/other.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -913,7 +913,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -932,7 +932,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${otherStaticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -940,7 +940,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -974,7 +974,7 @@ describe("static.publicPath option", () => {
           ],
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -1003,7 +1003,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -1011,7 +1011,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1030,7 +1030,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/other.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -1038,7 +1038,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1057,7 +1057,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${staticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -1065,7 +1065,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1084,7 +1084,7 @@ describe("static.publicPath option", () => {
         `http://127.0.0.1:${port}${otherStaticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
@@ -1092,7 +1092,7 @@ describe("static.publicPath option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

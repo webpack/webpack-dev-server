@@ -27,7 +27,7 @@ describe("mimeTypes option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -59,11 +59,11 @@ describe("mimeTypes option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -90,7 +90,7 @@ describe("mimeTypes option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -122,11 +122,11 @@ describe("mimeTypes option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type"
+        "response headers content-type",
       );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

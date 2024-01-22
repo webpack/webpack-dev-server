@@ -25,11 +25,11 @@ const waitForConsoleLogFinished = async (consoleLogs) => {
 describe("entry", () => {
   const entryFirst = path.resolve(
     __dirname,
-    "../fixtures/client-config/foo.js"
+    "../fixtures/client-config/foo.js",
   );
   const entrySecond = path.resolve(
     __dirname,
-    "../fixtures/client-config/bar.js"
+    "../fixtures/client-config/bar.js",
   );
 
   it("should work with single entry", async () => {
@@ -60,7 +60,7 @@ describe("entry", () => {
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {
@@ -99,7 +99,7 @@ describe("entry", () => {
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {
@@ -143,7 +143,7 @@ describe("entry", () => {
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {
@@ -182,7 +182,7 @@ describe("entry", () => {
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {
@@ -224,7 +224,7 @@ describe("entry", () => {
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {
@@ -422,7 +422,7 @@ describe("entry", () => {
       });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {

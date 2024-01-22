@@ -5,7 +5,7 @@ const SockJS = require("sockjs-client/dist/sockjs");
 module.exports = class SockJSClient {
   constructor(url) {
     this.sock = new SockJS(
-      url.replace(/^ws:/i, "http://").replace(/^wss:/i, "https://")
+      url.replace(/^ws:/i, "http://").replace(/^wss:/i, "https://"),
     );
   }
 

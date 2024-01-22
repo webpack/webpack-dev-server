@@ -53,7 +53,7 @@ describe("port", () => {
 
       if (testedPort === "-1" || testedPort === "99999") {
         const errorMessageRegExp = new RegExp(
-          `options.port should be >= 0 and < 65536`
+          `options.port should be >= 0 and < 65536`,
         );
 
         try {
@@ -94,7 +94,7 @@ describe("port", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {

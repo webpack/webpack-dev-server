@@ -23,28 +23,28 @@ target.insertAdjacentElement(
     });
 
     setTimeout(() => abortController.abort(), 100);
-  })
+  }),
 );
 
 target.insertAdjacentElement(
   "afterend",
   createButton("Click to throw unhandled promise rejection", () => {
     setTimeout(() => Promise.reject(new Error("Async error")), 100);
-  })
+  }),
 );
 
 target.insertAdjacentElement(
   "afterend",
   createButton("Click to throw ignored error", () => {
     unsafeOperation("something something");
-  })
+  }),
 );
 
 target.insertAdjacentElement(
   "afterend",
   createButton("Click to throw error", () => {
     unsafeOperation("Error message thrown from JS");
-  })
+  }),
 );
 
 // eslint-disable-next-line import/no-unresolved, import/extensions

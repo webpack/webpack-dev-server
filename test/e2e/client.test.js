@@ -26,7 +26,7 @@ describe("client option", () => {
           webSocketServer: "sockjs",
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -61,7 +61,7 @@ describe("client option", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -94,7 +94,7 @@ describe("client option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -123,13 +123,13 @@ describe("client option", () => {
         `http://127.0.0.1:${port}/foo/test/bar`,
         {
           waitUntil: "networkidle0",
-        }
+        },
       );
 
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -152,7 +152,7 @@ describe("client option", () => {
           client: false,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -186,7 +186,7 @@ describe("client option", () => {
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -215,7 +215,7 @@ describe("client option", () => {
         title: 'as a path ("sockjs")',
         client: {
           webSocketTransport: require.resolve(
-            "../../client-src/clients/SockJSClient"
+            "../../client-src/clients/SockJSClient",
           ),
         },
         webSocketServer: "sockjs",
@@ -225,7 +225,7 @@ describe("client option", () => {
         title: 'as a path ("ws")',
         client: {
           webSocketTransport: require.resolve(
-            "../../client-src/clients/WebSocketClient"
+            "../../client-src/clients/WebSocketClient",
           ),
         },
         webSocketServer: "ws",
@@ -261,7 +261,7 @@ describe("client option", () => {
               client: data.client,
               port,
             },
-            compiler
+            compiler,
           );
 
           let thrownError;
@@ -274,7 +274,7 @@ describe("client option", () => {
 
           if (data.shouldThrow) {
             expect(thrownError.message).toMatch(
-              /client\.webSocketTransport must be a string/
+              /client\.webSocketTransport must be a string/,
             );
           }
 

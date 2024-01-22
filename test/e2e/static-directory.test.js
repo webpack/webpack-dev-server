@@ -35,7 +35,7 @@ describe("static.directory option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -70,7 +70,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -94,7 +94,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -153,7 +153,7 @@ describe("static.directory option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -187,7 +187,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -211,7 +211,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -238,7 +238,7 @@ describe("static.directory option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -275,7 +275,7 @@ describe("static.directory option", () => {
       expect(text).toContain("other.txt");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -299,7 +299,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -325,7 +325,7 @@ describe("static.directory option", () => {
           },
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -362,7 +362,7 @@ describe("static.directory option", () => {
       expect(text).toContain("other.txt");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -386,7 +386,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -409,7 +409,7 @@ describe("static.directory option", () => {
           static: [publicDirectory, otherPublicDirectory],
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -443,7 +443,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -467,7 +467,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -493,11 +493,11 @@ describe("static.directory option", () => {
         },
         (error) => {
           expect(error.message).toBe(
-            "Using a URL as static.directory is not supported"
+            "Using a URL as static.directory is not supported",
           );
 
           server.stopCallback(done);
-        }
+        },
       );
     });
 
@@ -513,7 +513,7 @@ describe("static.directory option", () => {
           },
           port,
         },
-        done
+        done,
       );
     });
 
@@ -527,7 +527,7 @@ describe("static.directory option", () => {
           },
           port,
         },
-        done
+        done,
       );
     });
 
@@ -541,7 +541,7 @@ describe("static.directory option", () => {
           },
           port,
         },
-        done
+        done,
       );
     });
 
@@ -553,11 +553,11 @@ describe("static.directory option", () => {
         },
         (error) => {
           expect(error.message).toBe(
-            "Using a URL as static.directory is not supported"
+            "Using a URL as static.directory is not supported",
           );
 
           server.stopCallback(done);
-        }
+        },
       );
     });
   });
@@ -582,7 +582,7 @@ describe("static.directory option", () => {
           static: undefined,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -616,7 +616,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -643,7 +643,7 @@ describe("static.directory option", () => {
           static: false,
           port,
         },
-        compiler
+        compiler,
       );
 
       await server.start();
@@ -677,7 +677,7 @@ describe("static.directory option", () => {
       expect(await response.text()).toMatchSnapshot("response text");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");

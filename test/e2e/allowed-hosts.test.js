@@ -48,7 +48,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -79,7 +79,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -131,7 +131,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -162,7 +162,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -211,7 +211,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -242,7 +242,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -287,7 +287,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -317,7 +317,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -362,7 +362,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -393,7 +393,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -438,7 +438,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -469,7 +469,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -517,7 +517,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -548,7 +548,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -596,7 +596,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -627,7 +627,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -676,7 +676,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -707,7 +707,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -756,7 +756,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -787,7 +787,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -836,7 +836,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -867,7 +867,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -916,7 +916,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -947,7 +947,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -992,14 +992,14 @@ describe("allowed hosts", () => {
             onProxyReqWs: (proxyReq) => {
               proxyReq.setHeader(
                 "origin",
-                "http://foo.bar.baz.my-test-origin.com/"
+                "http://foo.bar.baz.my-test-origin.com/",
               );
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -1030,7 +1030,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -1079,7 +1079,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -1110,7 +1110,7 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -1160,7 +1160,7 @@ describe("allowed hosts", () => {
             ws: true,
             changeOrigin: true,
             logLevel: "warn",
-          })
+          }),
         );
 
         return app.listen(proxyPort, proxyHost, callback);
@@ -1194,7 +1194,7 @@ describe("allowed hosts", () => {
 
         expect(html).toMatchSnapshot("html");
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
@@ -1262,7 +1262,7 @@ describe("allowed hosts", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1303,7 +1303,7 @@ describe("allowed hosts", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1346,7 +1346,7 @@ describe("allowed hosts", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1390,7 +1390,7 @@ describe("allowed hosts", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1430,7 +1430,7 @@ describe("allowed hosts", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1472,7 +1472,7 @@ describe("allowed hosts", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
@@ -1522,7 +1522,7 @@ describe("allowed hosts", () => {
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages"
+        "console messages",
       );
 
       expect(pageErrors).toMatchSnapshot("page errors");
