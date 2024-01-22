@@ -62,7 +62,10 @@ function runBrowser(config) {
               body: "Empty",
             });
           } else {
-            interceptedRequest.continue();
+            interceptedRequest.continue(
+              interceptedRequest.continueRequestOverrides(),
+              10,
+            );
           }
         });
 

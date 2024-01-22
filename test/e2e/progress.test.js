@@ -40,8 +40,10 @@ describe("progress", () => {
           .on("console", (message) => {
             consoleMessages.push(message);
           })
-          .on("request", (requestObj) => {
-            if (/\.hot-update\.(json|js)$/.test(requestObj.url())) {
+          .on("request", (interceptedRequest) => {
+            if (interceptedRequest.isInterceptResolutionHandled()) return;
+
+            if (/\.hot-update\.(json|js)$/.test(interceptedRequest.url())) {
               doHotUpdate = true;
             }
           });
