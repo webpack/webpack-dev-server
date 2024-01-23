@@ -705,7 +705,7 @@ declare class Server {
               }
             | {
                 instanceof: string;
-                /** @type {ClientConfiguration} */ type?: undefined;
+                type?: undefined;
               }
           )[];
         };
@@ -1450,7 +1450,7 @@ declare class Server {
   private stopBonjour;
   /**
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private logStatus;
   /**
