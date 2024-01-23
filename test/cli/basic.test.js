@@ -68,6 +68,8 @@ describe("basic", () => {
         port,
       ]);
 
+      console.log(stderr);
+
       expect(exitCode).toEqual(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
