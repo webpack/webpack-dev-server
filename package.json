@@ -65,7 +65,7 @@
     "ipaddr.js": "^2.1.0",
     "launch-editor": "^2.6.1",
     "open": "^8.0.9",
-    "p-retry": "^4.5.0",
+    "p-retry": "^6.2.0",
     "rimraf": "^3.0.2",
     "schema-utils": "^4.2.0",
     "selfsigned": "^2.4.1",

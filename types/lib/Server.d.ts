@@ -586,7 +586,9 @@ declare class Server {
         type: string;
         cli: {
           negatedDescription: string;
-        };
+        } /**
+         * @type {string | undefined}
+         */;
       };
       OpenObject: {
         type: string;
@@ -619,7 +621,11 @@ declare class Server {
                             type: string;
                             items: {
                               type: string;
-                              minLength: number;
+                              minLength: number /**
+                               * @private
+                               * @param {Compiler} compiler
+                               * @returns bool
+                               */;
                             };
                             minItems: number;
                             minLength?: undefined;
@@ -695,11 +701,11 @@ declare class Server {
           anyOf: (
             | {
                 type: string;
-                /** @type {WebSocketURL} */ instanceof?: undefined;
+                instanceof?: undefined;
               }
             | {
                 instanceof: string;
-                type?: undefined;
+                /** @type {ClientConfiguration} */ type?: undefined;
               }
           )[];
         };
@@ -979,7 +985,7 @@ declare class Server {
           directory: {
             type: string;
             minLength: number;
-            description: string;
+            /** @type {MultiCompiler} */ description: string;
             link: string;
           };
           staticOptions: {
@@ -1020,10 +1026,7 @@ declare class Server {
                   cli?: undefined;
                 }
             )[];
-            description: string /**
-             * @private
-             * @returns {Promise<void>}
-             */;
+            description: string;
             link: string;
           };
           watch: {
@@ -1107,7 +1110,7 @@ declare class Server {
       };
       WatchFilesString: {
         type: string;
-        /** @type {NormalizedStatic} */ minLength: number;
+        minLength: number;
       };
       WebSocketServer: {
         anyOf: {
