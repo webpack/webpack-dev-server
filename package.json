@@ -64,7 +64,7 @@
     "http-proxy-middleware": "^2.0.3",
     "ipaddr.js": "^2.1.0",
     "launch-editor": "^2.6.1",
-    "open": "^8.0.9",
+    "open": "^10.0.3",
     "p-retry": "^6.2.0",
     "rimraf": "^5.0.5",
     "schema-utils": "^4.2.0",

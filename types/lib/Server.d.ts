@@ -1430,7 +1430,7 @@ declare class Server {
   /**
    * @private
    * @param {string} defaultOpenTarget
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private openBrowser;
   /**

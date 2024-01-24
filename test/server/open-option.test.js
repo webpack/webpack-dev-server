@@ -1,27 +1,28 @@
 "use strict";
 
 const webpack = require("webpack");
-const open = require("open");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["open-option"];
 
-jest.mock("open");
-
-open.mockImplementation(() => {
-  return {
-    catch: jest.fn(),
-  };
-});
-
 const internalIPv4 = Server.internalIPSync("v4");
 // const internalIPv6 = Server.internalIPSync('v6');
+
+let open;
 
 describe('"open" option', () => {
   let compiler;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     compiler = webpack(config);
+
+    jest.unstable_mockModule("open", () => {
+      return {
+        default: jest.fn(() => Promise.resolve()),
+      };
+    });
+
+    open = (await import("open")).default;
   });
 
   afterEach(async () => {
