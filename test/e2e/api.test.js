@@ -323,14 +323,16 @@ describe("API", () => {
     });
 
     it("should use the default `noop` callback when invalidate is called without any callback", async () => {
-      server.invalidate();
+      const callback = jest.fn();
 
-      expect(server.middleware.context.callbacks.length).toEqual(1);
+      server.invalidate();
+      server.middleware.context.callbacks[0] = callback;
 
       const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
+      expect(callback).toHaveBeenCalledTimes(1);
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
@@ -344,12 +346,11 @@ describe("API", () => {
 
       server.invalidate(callback);
 
-      expect(server.middleware.context.callbacks[0]).toBe(callback);
-
       const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
+      expect(callback).toHaveBeenCalledTimes(1);
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
