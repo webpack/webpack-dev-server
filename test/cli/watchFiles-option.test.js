@@ -37,6 +37,7 @@ describe('"watchFiles" CLI option', () => {
 
     expect(exitCode).toEqual(0);
     console.log(stderr);
+    console.log(normalizeStderr(stderr, { ipv6: true }));
     // TODO fix me for windows
     // expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });

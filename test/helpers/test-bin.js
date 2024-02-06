@@ -115,7 +115,7 @@ const normalizeStderr = (stderr, options = {}) => {
   }
 
   if (options.ipv6 && !normalizedStderr.includes("On Your Network (IPv6):")) {
-    // Github Actions doesnt' support IPv6 on ubuntu in some cases
+    // Github Actions doesn't support IPv6 on ubuntu in some cases
     normalizedStderr = normalizedStderr.split("\n");
 
     const ipv4MessageIndex = normalizedStderr.findIndex((item) =>
