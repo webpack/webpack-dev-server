@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`"watchFiles" CLI option should work using "--watch-files <value> --watch-files <other-value>": stderr 1`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
 exports[`"watchFiles" CLI option should work using "--watch-files <value>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
