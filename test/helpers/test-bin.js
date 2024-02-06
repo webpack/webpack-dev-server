@@ -62,6 +62,10 @@ const ipV6 = `
 const normalizeStderr = (stderr, options = {}) => {
   let normalizedStderr = stripAnsi(stderr);
 
+  if (options.debug) {
+    console.log(stderr);
+  }
+
   normalizedStderr = normalizedStderr
     .replace(/\\/g, "/")
     .replace(new RegExp(process.cwd().replace(/\\/g, "/"), "g"), "<cwd>")
@@ -131,6 +135,10 @@ const normalizeStderr = (stderr, options = {}) => {
     );
 
     normalizedStderr = normalizedStderr.join("\n");
+  }
+
+  if (options.debug) {
+    console.log(normalizedStderr);
   }
 
   return normalizedStderr;

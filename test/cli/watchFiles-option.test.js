@@ -51,6 +51,8 @@ describe('"watchFiles" CLI option', () => {
     ]);
 
     expect(exitCode).toEqual(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    expect(
+      normalizeStderr(stderr, { ipv6: true, debug: true }),
+    ).toMatchSnapshot("stderr");
   });
 });
