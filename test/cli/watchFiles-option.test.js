@@ -35,9 +35,6 @@ describe('"watchFiles" CLI option', () => {
       watchOtherDirectory,
     ]);
 
-    console.log(stderr);
-    console.log(normalizeStderr(stderr, { ipv6: true }));
-
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
