@@ -569,7 +569,7 @@ describe("multi compiler", () => {
             text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
           }
 
-          consoleMessages.push(message.text());
+          consoleMessages.push(text);
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);

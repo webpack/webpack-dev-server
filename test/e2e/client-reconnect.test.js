@@ -53,23 +53,21 @@ describe("client.reconnect option", () => {
         await server.stop();
       }
 
-      // Can't wait to check for unlimited times so wait only for couple retries
-      await new Promise((resolve) =>
-        setTimeout(
-          () => {
+      let interval;
+
+      await new Promise((resolve) => {
+        interval = setInterval(() => {
+          const retryingMessages = consoleMessages.filter((message) =>
+            message.text().includes("Trying to reconnect..."),
+          );
+
+          if (retryingMessages.length >= 5) {
+            clearInterval(interval);
+
             resolve();
-          },
-          // eslint-disable-next-line no-restricted-properties
-          1000 * Math.pow(2, 3),
-        ),
-      );
-
-      const retryingMessages = consoleMessages.filter((message) =>
-        message.text().includes("Trying to reconnect..."),
-      );
-
-      // snapshot can be different on different CI jobs
-      expect(retryingMessages.length).toBeGreaterThanOrEqual(2);
+          }
+        }, 1000);
+      });
 
       expect(pageErrors).toMatchSnapshot("page errors");
     });
