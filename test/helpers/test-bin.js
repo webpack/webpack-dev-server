@@ -40,7 +40,6 @@ const testBin = (testArgs = [], options) => {
   return execa("node", args, {
     cwd,
     env,
-    shell: process.platform === "win32",
     maxBuffer: 1000 * 1000 * 1000,
     ...options,
   });
