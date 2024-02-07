@@ -10,7 +10,10 @@ module.exports = class ExitOnDonePlugin {
         exitCode = 1;
       }
 
-      const streams = [process.stderr];
+      process.stdout._handle.setBlocking(true);
+      process.stderr._handle.setBlocking(true);
+
+      const streams = [process.stdout, process.stderr];
 
       let drainCount = 0;
 
