@@ -10,11 +10,15 @@ module.exports = class ExitOnDonePlugin {
         exitCode = 1;
       }
 
-      setTimeout(() => {
+      const isDone = compiler.options.infrastructureLogging.stream.write("");
+
+      setInterval(() => {
         process.nextTick(() => {
-          process.exit(exitCode);
+          if (isDone) {
+            process.exit(exitCode);
+          }
         });
-      });
+      }, 100);
     });
   }
 };
