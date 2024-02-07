@@ -58,7 +58,7 @@ describe("basic", () => {
     });
 
     it("should work using multi compiler mode", async () => {
-      const { exitCode, stderr } = await testBin([
+      const result = await testBin([
         "--config",
         path.resolve(
           __dirname,
@@ -68,8 +68,12 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(0);
-      expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+      console.log(result);
+
+      expect(result.exitCode).toEqual(0);
+      expect(normalizeStderr(result.stderr, { ipv6: true })).toMatchSnapshot(
+        "stderr",
+      );
     });
 
     it("should exit the process when SIGINT is detected", (done) => {
