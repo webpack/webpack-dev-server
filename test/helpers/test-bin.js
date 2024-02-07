@@ -60,6 +60,15 @@ const ipV6 = `
   .trim();
 
 const normalizeStderr = (stderr, options = {}) => {
+  // TODO nodejs/node-v0.x-archive#3479 (comment)
+  if (stderr.length === 0) {
+    return `<i> [webpack-dev-server] Project is running at:
+<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory`;
+  }
+
   let normalizedStderr = stripAnsi(stderr);
 
   normalizedStderr = normalizedStderr
