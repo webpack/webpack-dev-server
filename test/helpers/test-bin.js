@@ -37,7 +37,13 @@ const testBin = (testArgs = [], options) => {
     args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
-  return execa("node", args, { cwd, env, all: true, ...options });
+  return execa("node", args, {
+    cwd,
+    env,
+    all: true,
+    windowsHide: false,
+    ...options,
+  });
 };
 
 const ipV4 =

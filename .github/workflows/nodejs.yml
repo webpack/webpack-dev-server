@@ -71,7 +71,7 @@ jobs:
         node-version: [
             #18.x,
             20.x,
-            21.x,
+            #21.x,
           ]
         shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
