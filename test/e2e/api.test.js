@@ -670,6 +670,7 @@ describe("API", () => {
       const options = {
         port,
         client: {
+          reconnect: false,
           webSocketURL: {
             hostname: "test.host",
           },
@@ -727,7 +728,8 @@ describe("API", () => {
         expect(response.status()).toMatchSnapshot("response status");
 
         expect(
-          consoleMessages.map((message) => message.text()),
+          // net::ERR_NAME_NOT_RESOLVED can be multiple times
+          consoleMessages.map((message) => message.text()).slice(0, 7),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
