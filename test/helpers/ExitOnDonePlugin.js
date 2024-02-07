@@ -10,10 +10,16 @@ module.exports = class ExitOnDonePlugin {
         exitCode = 1;
       }
 
+      compiler.options.infrastructureLogging.stream.cork();
+
       const isDone = compiler.options.infrastructureLogging.stream.write("");
+
+      compiler.options.infrastructureLogging.stream.end("");
 
       setInterval(() => {
         process.nextTick(() => {
+          compiler.options.infrastructureLogging.stream.uncork();
+
           if (isDone) {
             process.exit(exitCode);
           }
