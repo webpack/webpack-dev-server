@@ -65,6 +65,7 @@ const ipV6 = `
   .trim();
 
 const normalizeStderr = (stderr, options = {}) => {
+  console.log(stderr);
   let normalizedStderr = stripAnsi(stderr);
 
   normalizedStderr = normalizedStderr
