@@ -1,7 +1,5 @@
 "use strict";
 
-const ExitOnDonePlugin = require("../../helpers/ExitOnDonePlugin");
-
 module.exports = [
   {
     name: "client",
@@ -26,6 +24,5 @@ module.exports = [
       filename: "server.js",
     },
     dependencies: ["client"],
-    plugins: [new ExitOnDonePlugin()],
   },
 ];

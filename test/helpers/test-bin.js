@@ -40,20 +40,20 @@ const testBin = (testArgs = [], options = {}) => {
   let args;
 
   if (testArgs.includes("--help")) {
-    args = [...testArgs];
+    args = [webpackDevServerPath, ...testArgs];
   } else {
     const configOptions = testArgs.includes("--config")
       ? []
       : ["--config", basicConfigPath];
 
-    args = [...configOptions, ...testArgs];
+    args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
   return new Promise((resolve, reject) => {
     const outputKillStr =
       options.outputKillStr ||
       /Content not from webpack is served|For using 'serve' command you need to install/;
-    const subprocess = execa.node(webpackDevServerPath, args, {
+    const subprocess = execa("node", args, {
       cwd,
       env,
       stdio: "pipe",

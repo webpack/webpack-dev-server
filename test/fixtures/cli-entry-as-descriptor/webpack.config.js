@@ -1,7 +1,5 @@
 "use strict";
 
-const ExitOnDonePlugin = require("../../helpers/ExitOnDonePlugin");
-
 module.exports = {
   mode: "development",
   context: __dirname,
@@ -10,5 +8,4 @@ module.exports = {
       import: "./foo.js",
     },
   },
-  plugins: [new ExitOnDonePlugin()],
 };
