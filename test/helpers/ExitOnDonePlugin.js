@@ -10,7 +10,9 @@ module.exports = class ExitOnDonePlugin {
         exitCode = 1;
       }
 
-      setTimeout(() => process.exit(exitCode));
+      process.nextTick(() => {
+        process.exit(exitCode);
+      });
     });
   }
 };
