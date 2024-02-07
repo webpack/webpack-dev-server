@@ -10,23 +10,15 @@ module.exports = class ExitOnDonePlugin {
         exitCode = 1;
       }
 
-      const stderr = compiler.options.infrastructureLogging.stream;
+      process.stderr._handle.setBlocking(true);
 
-      let waitingIO = false;
+      const done = process.stderr.write("");
 
-      stderr.on("drain", () => {
-        if (waitingIO) {
+      process.nextTick(() => {
+        if (done) {
           process.exit(exitCode);
         }
       });
-
-      if (stderr.write("")) {
-        // no buffer left, exit now:
-        process.exit(exitCode);
-      } else {
-        // write() returned false, kernel buffer is not empty yet...
-        waitingIO = true;
-      }
     });
   }
 };
