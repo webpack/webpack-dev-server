@@ -37,11 +37,16 @@ const testBin = (testArgs = [], options) => {
     args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
-  return execa("node", args, {
-    cwd,
-    env,
-    maxBuffer: 1000 * 1000 * 1000,
-    ...options,
+  return new Promise((resolve) => {
+    execa("node", args, {
+      cwd,
+      env,
+      ...options,
+    }).then((result) => {
+      process.nextTick(() => {
+        resolve(result);
+      });
+    });
   });
 };
 
@@ -65,7 +70,6 @@ const ipV6 = `
   .trim();
 
 const normalizeStderr = (stderr, options = {}) => {
-  console.log(stderr);
   let normalizedStderr = stripAnsi(stderr);
 
   normalizedStderr = normalizedStderr
