@@ -37,7 +37,13 @@ const testBin = (testArgs = [], options) => {
     args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
-  return execa("node", args, { cwd, env, ...options });
+  return execa("node", args, {
+    cwd,
+    env,
+    shell: process.platform === "win32",
+    maxBuffer: 1000 * 1000 * 1000,
+    ...options,
+  });
 };
 
 const ipV4 =
