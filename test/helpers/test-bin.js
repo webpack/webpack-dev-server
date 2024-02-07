@@ -37,15 +37,35 @@ const testBin = (testArgs = [], options) => {
     args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
-  return new Promise((resolve) => {
-    execa("node", args, {
+  return Promise.resolve().then(() => {
+    const subprocess = execa("node", args, {
       cwd,
       env,
+      buffer: false,
       ...options,
-    }).then((result) => {
-      process.nextTick(() => {
-        resolve(result);
+    });
+
+    const stdout = [];
+    const stderr = [];
+
+    subprocess.stdout.on("data", (data) => {
+      stdout.push(data.toString());
+    });
+
+    subprocess.stderr.on("data", (data) => {
+      stderr.push(data.toString());
+    });
+
+    return new Promise((resolve) => {
+      subprocess.on("close", () => {
+        resolve();
       });
+    }).then(() => {
+      return {
+        ...subprocess,
+        stderr: stderr.join("").replace(/\n$/, ""),
+        stdout: stdout.join("").replace(/\n$/, ""),
+      };
     });
   });
 };
