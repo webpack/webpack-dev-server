@@ -10,6 +10,8 @@ module.exports = class ExitOnDonePlugin {
         exitCode = 1;
       }
 
+      compiler.options.infrastructureLogging.stream.end("");
+
       process.nextTick(() => {
         process.exit(exitCode);
       });
