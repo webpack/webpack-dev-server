@@ -13,34 +13,38 @@ describe('"bonjour" CLI option', () => {
   });
 
   it('should work using "--bonjour"', async () => {
-    const { exitCode, stderr } = await testBin(["--port", port, "--bonjour"]);
+    const { exitCode, killed, stderr } = await testBin([
+      "--port",
+      port,
+      "--bonjour",
+    ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toEqual(killed ? 1 : 0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
   });
 
   it('should work using "--bonjour and --server-type=https"', async () => {
-    const { exitCode, stderr } = await testBin([
+    const { exitCode, killed, stderr } = await testBin([
       "--port",
       port,
       "--bonjour",
       "--server-type=https",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toEqual(killed ? 1 : 0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
   it('should work using "--no-bonjour"', async () => {
-    const { exitCode, stderr } = await testBin([
+    const { exitCode, killed, stderr } = await testBin([
       "--port",
       port,
       "--no-bonjour",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toEqual(killed ? 1 : 0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
   });
 });

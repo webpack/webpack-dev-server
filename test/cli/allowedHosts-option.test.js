@@ -5,40 +5,40 @@ const port = require("../ports-map")["cli-allowed-hosts"];
 
 describe('"allowedHosts" CLI option', () => {
   it('should work using "--allowed-hosts auto"', async () => {
-    const { exitCode } = await testBin([
+    const { exitCode, killed } = await testBin([
       "--port",
       port,
       "--allowed-hosts",
       "auto",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toEqual(killed ? 1 : 0);
   });
 
   it('should work using "--allowed-hosts all"', async () => {
-    const { exitCode } = await testBin([
+    const { exitCode, killed } = await testBin([
       "--port",
       port,
       "--allowed-hosts",
       "all",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toEqual(killed ? 1 : 0);
   });
 
   it('should work using "--allowed-hosts testhouse.com"', async () => {
-    const { exitCode } = await testBin([
+    const { exitCode, killed } = await testBin([
       "--port",
       port,
       "--allowed-hosts",
       "testhouse.com",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toEqual(killed ? 1 : 0);
   });
 
   it('should work using "--allowed-hosts testhost.com --allowed-hosts testhost1.com"', async () => {
-    const { exitCode } = await testBin([
+    const { exitCode, killed } = await testBin([
       "--port",
       port,
       "--allowed-hosts",
@@ -47,6 +47,6 @@ describe('"allowedHosts" CLI option', () => {
       "testhost1.com",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toEqual(killed ? 1 : 0);
   });
 });
