@@ -58,6 +58,7 @@ const testBin = (testArgs = [], options = {}) => {
       env,
       stdio: "pipe",
       maxBuffer: Infinity,
+      reject: false,
       ...options,
     });
 
