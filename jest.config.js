@@ -1,5 +1,10 @@
 "use strict";
 
+if (process.platform === "win32") {
+  // eslint-disable-next-line no-console
+  console.log("");
+}
+
 module.exports = {
   testEnvironmentOptions: {
     url: "http://localhost/",
