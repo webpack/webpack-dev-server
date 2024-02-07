@@ -2,8 +2,10 @@
 
 const os = require("os");
 const path = require("path");
+const { exec } = require("child_process");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
+const { Writable } = require("readable-stream");
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -14,7 +16,17 @@ const basicConfigPath = path.resolve(
   "../fixtures/cli/webpack.config.js",
 );
 
-const testBin = (testArgs = [], options) => {
+const isWindows = process.platform === "win32";
+
+const processKill = (process) => {
+  if (isWindows) {
+    exec(`taskkill /pid ${process.pid} /T /F`);
+  } else {
+    process.kill();
+  }
+};
+
+const testBin = (testArgs = [], options = {}) => {
   const cwd = process.cwd();
   const env = {
     WEBPACK_CLI_HELP_WIDTH: 2048,
@@ -28,16 +40,65 @@ const testBin = (testArgs = [], options) => {
   let args;
 
   if (testArgs.includes("--help")) {
-    args = [webpackDevServerPath, ...testArgs];
+    args = [...testArgs];
   } else {
     const configOptions = testArgs.includes("--config")
       ? []
       : ["--config", basicConfigPath];
 
-    args = [webpackDevServerPath, ...configOptions, ...testArgs];
+    args = [...configOptions, ...testArgs];
   }
 
-  return execa("node", args, { cwd, env, ...options });
+  return new Promise((resolve, reject) => {
+    const outputKillStr =
+      options.outputKillStr ||
+      /Content not from webpack is served|For using 'serve' command you need to install/;
+    const subprocess = execa.node(webpackDevServerPath, args, {
+      cwd,
+      env,
+      stdio: "pipe",
+      maxBuffer: Infinity,
+      ...options,
+    });
+
+    subprocess.stdout.pipe(
+      new Writable({
+        write(chunk, encoding, callback) {
+          const str = chunk.toString();
+          const output = options.raw ? str : stripAnsi(str);
+
+          if (outputKillStr.test(output)) {
+            processKill(subprocess);
+          }
+
+          callback();
+        },
+      }),
+    );
+
+    subprocess.stderr.pipe(
+      new Writable({
+        write(chunk, encoding, callback) {
+          const str = chunk.toString();
+          const output = options.raw ? str : stripAnsi(str);
+
+          if (outputKillStr.test(output)) {
+            processKill(subprocess);
+          }
+
+          callback();
+        },
+      }),
+    );
+
+    subprocess
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 const ipV4 =
@@ -60,15 +121,6 @@ const ipV6 = `
   .trim();
 
 const normalizeStderr = (stderr, options = {}) => {
-  // TODO nodejs/node-v0.x-archive#3479 (comment)
-  if (stderr.length === 0) {
-    return `<i> [webpack-dev-server] Project is running at:
-<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
-<i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory`;
-  }
-
   let normalizedStderr = stripAnsi(stderr);
 
   normalizedStderr = normalizedStderr
@@ -140,6 +192,10 @@ const normalizeStderr = (stderr, options = {}) => {
     );
 
     normalizedStderr = normalizedStderr.join("\n");
+  }
+
+  if (/Gracefully shutting down/.test(normalizedStderr)) {
+    normalizedStderr = normalizedStderr.split("\n").slice(0, -1).join("\n");
   }
 
   return normalizedStderr;
