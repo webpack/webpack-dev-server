@@ -230,15 +230,23 @@ describe("proxy option", () => {
       it("should log deprecation warning when bypass is used", async () => {
         const utilSpy = jest.spyOn(util, "deprecate");
 
-        expect(utilSpy.mock.calls[0][1]).toEqual(
+        const response = await req.get("/foo/bar.html");
+
+        expect(response.status).toEqual(200);
+        expect(response.text).toContain("Hello");
+
+        const lastCall = utilSpy.mock.calls[utilSpy.mock.calls.length - 1];
+
+        expect(lastCall[1]).toEqual(
           "Using the 'bypass' option is deprecated. Please use the 'router' and 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options",
         );
-        expect(utilSpy.mock.calls[0][2]).toEqual(
+        expect(lastCall[2]).toEqual(
           "DEP_WEBPACK_DEV_SERVER_PROXY_BYPASS_ARGUMENT",
         );
 
         utilSpy.mockRestore();
       });
+
       it("can rewrite a request path", async () => {
         const response = await req.get("/foo/bar.html");
 
