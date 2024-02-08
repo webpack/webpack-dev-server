@@ -100,7 +100,7 @@ jobs:
 
       - name: Install dependencies for Node.js@18
         run: |
-          npm i -D p-retry@^4.5.0 open@^8.0.9
+          npm i p-retry@^4.5.0 open@^8.0.9
           node ./scripts/prepare-test-for-old-node.js
         if: matrix.node-version == '18.x'
 
@@ -120,6 +120,11 @@ jobs:
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci --shard=${{ matrix.shard }}
+        if: matrix.node-version != '18.x'
+
+      - name: Run tests for webpack version ${{ matrix.webpack-version }}
+        run: jest --coverage --ci --shard=${{ matrix.shard }}
+        if: matrix.node-version == '18.x'
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v3
