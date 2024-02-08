@@ -2,7 +2,6 @@
 
 const os = require("os");
 const path = require("path");
-const { exec } = require("child_process");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
 const { Writable } = require("readable-stream");
@@ -16,14 +15,16 @@ const basicConfigPath = path.resolve(
   "../fixtures/cli/webpack.config.js",
 );
 
-const isWindows = process.platform === "win32";
+// const isWindows = process.platform === "win32";
 
 const processKill = (process) => {
-  if (isWindows) {
-    exec(`taskkill /pid ${process.pid} /T /F`);
-  } else {
-    process.kill();
-  }
+  process.kill();
+
+  // if (isWindows) {
+  //   exec(`taskkill /pid ${process.pid} /T /F`);
+  // } else {
+  //   process.kill();
+  // }
 };
 
 const testBin = (testArgs = [], options = {}) => {

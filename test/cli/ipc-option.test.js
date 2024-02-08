@@ -6,9 +6,9 @@ const { testBin, normalizeStderr } = require("../helpers/test-bin");
 
 describe('"ipc" CLI option', () => {
   it('should work using "--ipc"', async () => {
-    const { exitCode, killed, stderr } = await testBin(["--ipc"]);
+    const { exitCode, stderr } = await testBin(["--ipc"]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
   });
 
@@ -18,9 +18,9 @@ describe('"ipc" CLI option', () => {
     const pipeName = `webpack-dev-server.cli.sock`;
     const ipc = path.join(pipePrefix, pipeName);
 
-    const { exitCode, killed, stderr } = await testBin(["--ipc", ipc]);
+    const { exitCode, stderr } = await testBin(["--ipc", ipc]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
   });
 });

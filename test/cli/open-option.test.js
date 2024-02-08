@@ -5,24 +5,24 @@ const port = require("../ports-map")["cli-open"];
 
 describe('"open" CLI option', () => {
   it('should work using "--open"', async () => {
-    const { exitCode, killed } = await testBin(["--port", port, "--open"]);
+    const { exitCode } = await testBin(["--port", port, "--open"]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open /index.html"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open",
       "/index.html",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open /first.html second.html"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open",
@@ -30,17 +30,17 @@ describe('"open" CLI option', () => {
       "second.html",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--no-open"', async () => {
-    const { exitCode, killed } = await testBin(["--no-open", "--port", port]);
+    const { exitCode } = await testBin(["--no-open", "--port", port]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-reset --open /third.html"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-reset",
@@ -48,11 +48,11 @@ describe('"open" CLI option', () => {
       "/third.html",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-reset --open-target <url>"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-reset",
@@ -60,11 +60,11 @@ describe('"open" CLI option', () => {
       "<url>",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-reset --open-target /third.html"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-reset",
@@ -72,22 +72,22 @@ describe('"open" CLI option', () => {
       "/third.html",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-app-name google-chrome"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-app-name",
       "google-chrome",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-app-name-reset --open-app-name firefox"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-app-name-reset",
@@ -95,22 +95,22 @@ describe('"open" CLI option', () => {
       "firefox",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-target index.html"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-target",
       "index.html",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-target-reset --open-target first.html"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-target-reset",
@@ -118,11 +118,11 @@ describe('"open" CLI option', () => {
       "first.html",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-target /first.html second.html"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-target",
@@ -130,11 +130,11 @@ describe('"open" CLI option', () => {
       "second.html",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--open-target /index.html --open-app-name google-chrome"', async () => {
-    const { exitCode, killed } = await testBin([
+    const { exitCode } = await testBin([
       "--port",
       port,
       "--open-target",
@@ -143,6 +143,6 @@ describe('"open" CLI option', () => {
       "google-chrome",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
   });
 });

@@ -19,42 +19,42 @@ describe('"server" CLI options', () => {
   });
 
   it('should work using "--server-type http"', async () => {
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
       "http",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: false }),
     ).toMatchSnapshot();
   });
 
   it('should work using "--server-type https"', async () => {
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
       "https",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
   it('should work using "--server-type spdy"', async () => {
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
       "spdy",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -66,7 +66,7 @@ describe('"server" CLI options', () => {
     const cert = path.join(httpsCertificateDirectory, "server.crt");
     const passphrase = "webpack-dev-server";
 
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
@@ -81,7 +81,7 @@ describe('"server" CLI options', () => {
       cert,
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -94,7 +94,7 @@ describe('"server" CLI options', () => {
     const ca = path.join(httpsCertificateDirectory, "ca.pem");
     const passphrase = "webpack-dev-server";
 
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
@@ -111,7 +111,7 @@ describe('"server" CLI options', () => {
       ca,
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -124,7 +124,7 @@ describe('"server" CLI options', () => {
     const ca = path.join(httpsCertificateDirectory, "ca.pem");
     const passphrase = "webpack-dev-server";
 
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
@@ -145,7 +145,7 @@ describe('"server" CLI options', () => {
       ca,
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -158,7 +158,7 @@ describe('"server" CLI options', () => {
     const cert = path.join(httpsCertificateDirectory, "server.crt");
     const passphrase = "webpack-dev-server";
 
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
@@ -173,14 +173,14 @@ describe('"server" CLI options', () => {
       cert,
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
   it('should work using "--server-options-request-cert"', async () => {
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
@@ -188,14 +188,14 @@ describe('"server" CLI options', () => {
       "--server-options-request-cert",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
   });
 
   it('should work using "--no-server-options-request-cert"', async () => {
-    const { exitCode, killed, stderr } = await testBin([
+    const { exitCode, stderr } = await testBin([
       "--port",
       port,
       "--server-type",
@@ -203,7 +203,7 @@ describe('"server" CLI options', () => {
       "--no-server-options-request-cert",
     ]);
 
-    expect(exitCode).toEqual(killed ? 1 : 0);
+    expect(exitCode).toEqual(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();

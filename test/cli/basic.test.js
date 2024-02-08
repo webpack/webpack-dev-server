@@ -11,39 +11,39 @@ const isMacOS = process.platform === "darwin";
 describe("basic", () => {
   describe("should output help", () => {
     (isMacOS ? it.skip : it)("should generate correct cli flags", async () => {
-      const { exitCode, killed, stdout } = await testBin(["--help"]);
+      const { exitCode, stdout } = await testBin(["--help"]);
 
-      expect(exitCode).toBe(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stripAnsi(stdout)).toMatchSnapshot();
     });
   });
 
   describe("basic", () => {
     it("should work", async () => {
-      const { exitCode, killed, stderr } = await testBin([
+      const { exitCode, stderr } = await testBin([
         // Ideally it should be empty to test without arguments, unfortunately it takes 8080 port and other test can failed
         "--port",
         port,
       ]);
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
     it('should work using "--host localhost --port <port>"', async () => {
-      const { exitCode, killed, stderr } = await testBin([
+      const { exitCode, stderr } = await testBin([
         "--port",
         port,
         "--host",
         "localhost",
       ]);
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
     });
 
     it("should accept the promise function of webpack.config.js", async () => {
-      const { exitCode, killed, stderr } = await testBin([
+      const { exitCode, stderr } = await testBin([
         "--config",
         path.resolve(
           __dirname,
@@ -53,12 +53,12 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
     it("should work using multi compiler mode", async () => {
-      const { exitCode, killed, stderr } = await testBin([
+      const { exitCode, stderr } = await testBin([
         "--config",
         path.resolve(
           __dirname,
@@ -68,7 +68,7 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
@@ -195,7 +195,7 @@ describe("basic", () => {
     });
 
     it("should add dev server entry points to a single entry point", async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         [
           "--port",
           port,
@@ -207,12 +207,12 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
     });
 
     it("should add dev server entry points to a multi entry point object", async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         [
           "--port",
           port,
@@ -226,13 +226,13 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
 
     it("should add dev server entry points to an empty entry object", async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         [
           "--port",
           port,
@@ -244,12 +244,12 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
     });
 
     it("should supports entry as descriptor", async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         [
           "--port",
           port,
@@ -263,50 +263,50 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).toContain("foo.js");
     });
 
     it('should only prepends dev server entry points to "web" target', async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         ["--port", port, "--target", "web"],
         {
           outputKillStr: /foo\.js/,
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
 
     it('should not prepend dev server entry points to "node" target', async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         ["--port", port, "--target", "node"],
         {
           outputKillStr: /foo\.js/,
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).not.toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
 
     it('should prepends the hot runtime to "node" target as well', async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         ["--port", port, "--target", "node", "--hot"],
         {
           outputKillStr: /webpack\/hot\/dev-server/,
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).toContain("webpack/hot/dev-server");
     });
 
     it("should prepend dev server entry points depending on targetProperties", async () => {
-      const { exitCode, killed, stdout } = await testBin(
+      const { exitCode, stdout } = await testBin(
         [
           "--port",
           port,
@@ -318,7 +318,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(killed ? 1 : 0);
+      expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js");
     });
 
