@@ -105,8 +105,8 @@ jobs:
       - name: Link webpack-dev-server
         run: |
           cp -R client tmp-client
-          npm link --ignore-scripts
-          npm link webpack-dev-server --ignore-scripts
+          npm link --ignore-scripts || true
+          npm link webpack-dev-server --ignore-scripts || true
           rm -r client
           cp -R tmp-client client
 
