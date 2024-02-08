@@ -15,67 +15,57 @@ const colorsEnabled = require.resolve(
 
 describe("colors", () => {
   it("should work use colors by default", async () => {
-    const { exitCode, stderr, stdout } = await testBin(
-      ["--port", port, "--color", colorsDefaultStats],
-      {
-        outputKillStr: /compiled successfully/,
-      },
-    );
+    const { exitCode, stderr } = await testBin([
+      "--port",
+      port,
+      "--color",
+      colorsDefaultStats,
+    ]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stdout).toContain("\x1b[1m");
+    expect(stderr).toContain("\x1b[");
   });
 
   it('should work use colors using "--color"', async () => {
-    const { exitCode, stderr, stdout } = await testBin(
-      ["--port", port, "--color"],
-      {
-        outputKillStr: /compiled successfully/,
-      },
-    );
+    const { exitCode, stderr } = await testBin(["--port", port, "--color"]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stdout).toContain("\x1b[1m");
+    expect(stderr).toContain("\x1b[");
   });
 
   it('should work do not use colors using "--no-color"', async () => {
-    const { exitCode, stderr, stdout } = await testBin(
-      ["--port", port, "--no-color"],
-      {
-        outputKillStr: /compiled successfully/,
-      },
-    );
+    const { exitCode, stderr } = await testBin(["--port", port, "--no-color"]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stdout).not.toContain("\x1b[1m");
+    expect(stderr).not.toContain("\x1b[");
   });
 
   it("should work use colors using configuration with enabled colors", async () => {
-    const { exitCode, stderr, stdout } = await testBin(
-      ["--port", port, "--config", colorsEnabled],
-      {
-        outputKillStr: /compiled successfully/,
-      },
-    );
+    const { exitCode, stderr } = await testBin([
+      "--port",
+      port,
+      "--config",
+      colorsEnabled,
+    ]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stdout).toContain("\x1b[1m");
+    expect(stderr).toContain("\x1b[");
   });
 
   it("should work and do not use colors using configuration with disabled colors", async () => {
-    const { exitCode, stderr, stdout } = await testBin(
-      ["--port", port, "--config", colorsDisabled],
-      {
-        outputKillStr: /compiled successfully/,
-      },
-    );
+    const { exitCode, stderr } = await testBin([
+      "--port",
+      port,
+      "--config",
+      colorsDisabled,
+    ]);
 
     expect(exitCode).toEqual(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stdout).not.toContain("\x1b[1m");
+    expect(stderr).not.toContain("\x1b[");
   });
 });

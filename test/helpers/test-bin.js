@@ -102,8 +102,6 @@ const testBin = (testArgs = [], options = {}) => {
         resolve(result);
       })
       .catch((error) => {
-        console.log("ERRORED", error);
-
         reject(error);
       });
   });

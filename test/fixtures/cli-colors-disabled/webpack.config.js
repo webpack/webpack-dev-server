@@ -7,4 +7,7 @@ module.exports = {
   },
   context: __dirname,
   entry: "./foo.js",
+  infrastructureLogging: {
+    colors: false,
+  },
 };
