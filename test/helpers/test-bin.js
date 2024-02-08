@@ -95,7 +95,8 @@ const testBin = (testArgs = [], options = {}) => {
 
     subprocess
       .then((result) => {
-        if (!result.exitCode && process.platform === "win32") {
+        // Sometimes we will kill our process early, so there is no exit code
+        if (!result.exitCode) {
           result.exitCode = 0;
         }
 
