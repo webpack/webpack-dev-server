@@ -18,7 +18,6 @@ describe("colors", () => {
     const { exitCode, stderr, stdout } = await testBin(
       ["--port", port, "--color", colorsDefaultStats],
       {
-        raw: true,
         outputKillStr: /compiled successfully/,
       },
     );
@@ -32,7 +31,6 @@ describe("colors", () => {
     const { exitCode, stderr, stdout } = await testBin(
       ["--port", port, "--color"],
       {
-        raw: true,
         outputKillStr: /compiled successfully/,
       },
     );
@@ -46,7 +44,6 @@ describe("colors", () => {
     const { exitCode, stderr, stdout } = await testBin(
       ["--port", port, "--no-color"],
       {
-        raw: true,
         outputKillStr: /compiled successfully/,
       },
     );
@@ -60,7 +57,6 @@ describe("colors", () => {
     const { exitCode, stderr, stdout } = await testBin(
       ["--port", port, "--config", colorsEnabled],
       {
-        raw: true,
         outputKillStr: /compiled successfully/,
       },
     );
@@ -74,7 +70,6 @@ describe("colors", () => {
     const { exitCode, stderr, stdout } = await testBin(
       ["--port", port, "--config", colorsDisabled],
       {
-        raw: true,
         outputKillStr: /compiled successfully/,
       },
     );

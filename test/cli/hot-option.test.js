@@ -8,7 +8,7 @@ describe('"hot" CLI option', () => {
     const { exitCode, stdout } = await testBin(
       ["--port", port, "--hot", "--stats=detailed"],
       {
-        outputKillStr: /webpack\/hot\/dev-server\.js/,
+        outputKillStr: /compiled successfully/,
       },
     );
 
@@ -20,7 +20,7 @@ describe('"hot" CLI option', () => {
     const { exitCode, stdout } = await testBin(
       ["--port", port, "--no-hot", "--stats=detailed"],
       {
-        outputKillStr: /webpack\/hot\/dev-server\.js/,
+        outputKillStr: /compiled successfully/,
       },
     );
 
@@ -32,7 +32,7 @@ describe('"hot" CLI option', () => {
     const { exitCode, stdout } = await testBin(
       ["--port", port, "--hot", "only"],
       {
-        outputKillStr: /\/hot\/only-dev-server\.js/,
+        outputKillStr: /compiled successfully/,
       },
     );
 

@@ -67,7 +67,7 @@ const testBin = (testArgs = [], options = {}) => {
       new Writable({
         write(chunk, encoding, callback) {
           const str = chunk.toString();
-          const output = options.raw ? str : stripAnsi(str);
+          const output = stripAnsi(str);
 
           if (outputKillStr.test(output)) {
             processKill(subprocess);
@@ -82,7 +82,7 @@ const testBin = (testArgs = [], options = {}) => {
       new Writable({
         write(chunk, encoding, callback) {
           const str = chunk.toString();
-          const output = options.raw ? str : stripAnsi(str);
+          const output = stripAnsi(str);
 
           if (outputKillStr.test(output)) {
             processKill(subprocess);
