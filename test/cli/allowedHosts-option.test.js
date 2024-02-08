@@ -5,11 +5,14 @@ const port = require("../ports-map")["cli-allowed-hosts"];
 
 describe('"allowedHosts" CLI option', () => {
   it('should work using "--allowed-hosts auto"', async () => {
-    const foo = await testBin(["--port", port, "--allowed-hosts", "auto"]);
+    const { exitCode } = await testBin([
+      "--port",
+      port,
+      "--allowed-hosts",
+      "auto",
+    ]);
 
-    console.log(foo);
-
-    expect(foo.exitCode).toEqual(0);
+    expect(exitCode).toEqual(0);
   });
 
   it('should work using "--allowed-hosts all"', async () => {

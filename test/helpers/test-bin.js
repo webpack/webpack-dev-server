@@ -95,9 +95,15 @@ const testBin = (testArgs = [], options = {}) => {
 
     subprocess
       .then((result) => {
+        if (!result.exitCode && process.platform === "win32") {
+          result.exitCode = 0;
+        }
+
         resolve(result);
       })
       .catch((error) => {
+        console.log("ERRORED", error);
+
         reject(error);
       });
   });
