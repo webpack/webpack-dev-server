@@ -123,7 +123,7 @@ jobs:
         if: matrix.node-version != '18.x'
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
-        run: jest --coverage --ci --shard=${{ matrix.shard }}
+        run: node_modules/.bin/jest --coverage --ci --shard=${{ matrix.shard }}
         if: matrix.node-version == '18.x'
 
       - name: Submit coverage data to codecov
