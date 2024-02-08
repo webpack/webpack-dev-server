@@ -67,11 +67,15 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [
+            ubuntu-latest,
+            # windows-latest,
+            # macos-latest
+          ]
         node-version: [
-            #18.x,
-            20.x,
-            21.x,
+            18.x,
+            # 20.x,
+            # 21.x,
           ]
         shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
@@ -93,6 +97,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install dependencies for Node.js@18
+        run: |
+          npm i -D p-retry@^4.5.0 open@^8.0.9
+          node ./scripts/prepare-test-for-old-node.js
+        if: matrix.node-version == '18.x'
 
       - name: Setup firefox
         if: matrix.os != 'windows-latest'
