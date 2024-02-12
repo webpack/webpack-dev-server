@@ -238,7 +238,7 @@ describe("proxy option", () => {
         const lastCall = utilSpy.mock.calls[utilSpy.mock.calls.length - 1];
 
         expect(lastCall[1]).toEqual(
-          "Using the 'bypass' option is deprecated. Please use the 'router' and 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options",
+          "Using the 'bypass' option is deprecated. Please use the 'router' or 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options",
         );
         expect(lastCall[2]).toEqual(
           "DEP_WEBPACK_DEV_SERVER_PROXY_BYPASS_ARGUMENT",
