@@ -198,7 +198,7 @@ module.exports = {
 - The `--web-socket-server` cli option was removed in favor of the `--web-socket-server-type` option.
 - The `magicHtml` option was removed without replacement.
 - The value of the `WEBPACK_SERVE` environment variable was changed from `true`(boolean) to `'true'` (string).
-- [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware) was update to v6.
+- [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware) was update to v7.
 - The `constructor` arguments were changed, now the first argument is dev server options, the second is compiler.
 
   v4:
@@ -215,7 +215,7 @@ module.exports = {
   const devServer = new Server(devServerOptions, compiler);
   ```
 
-- The `listen` method is deprecated in favor the [async `start`](https://webpack.js.org/api/webpack-dev-server/#start) or the [`startCallback`](https://webpack.js.org/api/webpack-dev-server/#startcallbackcallback) methods
+- The `listen` method was removed in favor the [async `start`](https://webpack.js.org/api/webpack-dev-server/#start) or the [`startCallback`](https://webpack.js.org/api/webpack-dev-server/#startcallbackcallback) methods
 
   v4:
 
@@ -310,6 +310,13 @@ module.exports = {
   ```js
   onSocketMessage["static-changed"]();
   ```
+
+### Bug Fixes
+
+- Clean `close` event listeners on socket server after generating new proxy config.
+- Improve error handling for WebsocketServer.
+- Set `WEBPACK_SERVE` to string value `'true'`.
+- Show warning using custom hostname and port with sockjs.
 
 ## Deprecations
 
