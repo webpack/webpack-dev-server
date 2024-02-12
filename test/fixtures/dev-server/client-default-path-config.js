@@ -1,7 +1,6 @@
 "use strict";
 
 const { resolve } = require("path");
-const ExitOnDonePlugin = require("../../helpers/ExitOnDonePlugin");
 
 module.exports = {
   mode: "development",
@@ -12,5 +11,4 @@ module.exports = {
       type: "ws",
     },
   },
-  plugins: [ExitOnDonePlugin],
 };

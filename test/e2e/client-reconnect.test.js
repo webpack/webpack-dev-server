@@ -53,16 +53,21 @@ describe("client.reconnect option", () => {
         await server.stop();
       }
 
-      // Can't wait to check for unlimited times so wait only for 5-6 retries
-      // eslint-disable-next-line no-restricted-properties
-      await page.waitForTimeout(1000 * Math.pow(2, 5) + Math.random() * 100);
+      let interval;
 
-      const retryingMessages = consoleMessages.filter((message) =>
-        message.text().includes("Trying to reconnect..."),
-      );
+      await new Promise((resolve) => {
+        interval = setInterval(() => {
+          const retryingMessages = consoleMessages.filter((message) =>
+            message.text().includes("Trying to reconnect..."),
+          );
 
-      // snapshot can be different on different CI jobs
-      expect(retryingMessages.length).toBeGreaterThanOrEqual(5);
+          if (retryingMessages.length >= 5) {
+            clearInterval(interval);
+
+            resolve();
+          }
+        }, 1000);
+      });
 
       expect(pageErrors).toMatchSnapshot("page errors");
     });
@@ -114,9 +119,16 @@ describe("client.reconnect option", () => {
         await server.stop();
       }
 
-      // Can't wait to check for unlimited times so wait only for 5-6 retries
-      // eslint-disable-next-line no-restricted-properties
-      await page.waitForTimeout(1000 * Math.pow(2, 2) + Math.random() * 100);
+      // Can't wait to check for unlimited times so wait only for couple retries
+      await new Promise((resolve) =>
+        setTimeout(
+          () => {
+            resolve();
+          },
+          // eslint-disable-next-line no-restricted-properties
+          1000 * Math.pow(2, 3),
+        ),
+      );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",
@@ -172,8 +184,16 @@ describe("client.reconnect option", () => {
         await server.stop();
       }
 
-      // eslint-disable-next-line no-restricted-properties
-      await page.waitForTimeout(1000 * Math.pow(2, 3) + Math.random() * 100);
+      // Can't wait to check for unlimited times so wait only for couple retries
+      await new Promise((resolve) =>
+        setTimeout(
+          () => {
+            resolve();
+          },
+          // eslint-disable-next-line no-restricted-properties
+          1000 * Math.pow(2, 3),
+        ),
+      );
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",

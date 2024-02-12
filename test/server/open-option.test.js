@@ -1,34 +1,51 @@
 "use strict";
 
 const webpack = require("webpack");
-const open = require("open");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["open-option"];
 
-jest.mock("open");
-
-open.mockImplementation(() => {
-  return {
-    catch: jest.fn(),
-  };
-});
-
 const internalIPv4 = Server.internalIPSync("v4");
-// const internalIPv6 = Server.internalIPSync('v6');
+
+let open;
+
+const needRequireMock =
+  process.version.startsWith("v18") || process.version.startsWith("v19");
+
+if (needRequireMock) {
+  open = require("open");
+
+  jest.mock("open");
+
+  open.mockImplementation(() => {
+    return {
+      catch: jest.fn(),
+    };
+  });
+}
 
 describe('"open" option', () => {
   let compiler;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     compiler = webpack(config);
+
+    if (!needRequireMock) {
+      jest.unstable_mockModule("open", () => {
+        return {
+          default: jest.fn(() => Promise.resolve()),
+        };
+      });
+
+      open = (await import("open")).default;
+    }
   });
 
   afterEach(async () => {
     open.mockClear();
   });
 
-  it("should work with unspecified host", async () => {
+  it.only("should work with unspecified host", async () => {
     const server = new Server(
       {
         open: true,

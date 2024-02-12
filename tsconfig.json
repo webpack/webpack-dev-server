@@ -8,11 +8,11 @@
     "strict": true,
     "types": ["node"],
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "./bin/**/*",
     // "./client-src/**/*",
-    "./lib/**/*",
-  ],
+    "./lib/**/*"
+  ]
 }

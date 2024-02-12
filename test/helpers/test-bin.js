@@ -4,6 +4,7 @@ const os = require("os");
 const path = require("path");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
+const { Writable } = require("readable-stream");
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -14,7 +15,19 @@ const basicConfigPath = path.resolve(
   "../fixtures/cli/webpack.config.js",
 );
 
-const testBin = (testArgs = [], options) => {
+// const isWindows = process.platform === "win32";
+
+const processKill = (process) => {
+  process.kill();
+
+  // if (isWindows) {
+  //   exec(`taskkill /pid ${process.pid} /T /F`);
+  // } else {
+  //   process.kill();
+  // }
+};
+
+const testBin = (testArgs = [], options = {}) => {
   const cwd = process.cwd();
   const env = {
     WEBPACK_CLI_HELP_WIDTH: 2048,
@@ -37,7 +50,62 @@ const testBin = (testArgs = [], options) => {
     args = [webpackDevServerPath, ...configOptions, ...testArgs];
   }
 
-  return execa("node", args, { cwd, env, ...options });
+  return new Promise((resolve, reject) => {
+    const outputKillStr =
+      options.outputKillStr ||
+      /Content not from webpack is served|For using 'serve' command you need to install/;
+    const subprocess = execa("node", args, {
+      cwd,
+      env,
+      stdio: "pipe",
+      maxBuffer: Infinity,
+      reject: false,
+      ...options,
+    });
+
+    subprocess.stdout.pipe(
+      new Writable({
+        write(chunk, encoding, callback) {
+          const str = chunk.toString();
+          const output = stripAnsi(str);
+
+          if (outputKillStr.test(output)) {
+            processKill(subprocess);
+          }
+
+          callback();
+        },
+      }),
+    );
+
+    subprocess.stderr.pipe(
+      new Writable({
+        write(chunk, encoding, callback) {
+          const str = chunk.toString();
+          const output = stripAnsi(str);
+
+          if (outputKillStr.test(output)) {
+            processKill(subprocess);
+          }
+
+          callback();
+        },
+      }),
+    );
+
+    subprocess
+      .then((result) => {
+        // Sometimes we will kill our process early, so there is no exit code
+        if (!result.exitCode) {
+          result.exitCode = 0;
+        }
+
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 const ipV4 =
@@ -115,7 +183,7 @@ const normalizeStderr = (stderr, options = {}) => {
   }
 
   if (options.ipv6 && !normalizedStderr.includes("On Your Network (IPv6):")) {
-    // Github Actions doesnt' support IPv6 on ubuntu in some cases
+    // Github Actions doesn't support IPv6 on ubuntu in some cases
     normalizedStderr = normalizedStderr.split("\n");
 
     const ipv4MessageIndex = normalizedStderr.findIndex((item) =>
@@ -131,6 +199,10 @@ const normalizeStderr = (stderr, options = {}) => {
     );
 
     normalizedStderr = normalizedStderr.join("\n");
+  }
+
+  if (/Gracefully shutting down/.test(normalizedStderr)) {
+    normalizedStderr = normalizedStderr.split("\n").slice(0, -1).join("\n");
   }
 
   return normalizedStderr;

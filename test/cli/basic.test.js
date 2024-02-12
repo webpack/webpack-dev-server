@@ -13,7 +13,7 @@ describe("basic", () => {
     (isMacOS ? it.skip : it)("should generate correct cli flags", async () => {
       const { exitCode, stdout } = await testBin(["--help"]);
 
-      expect(exitCode).toBe(0);
+      expect(exitCode).toEqual(0);
       expect(stripAnsi(stdout)).toMatchSnapshot();
     });
   });
@@ -195,26 +195,36 @@ describe("basic", () => {
     });
 
     it("should add dev server entry points to a single entry point", async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--config",
-        "./test/fixtures/cli-single-entry/webpack.config.js",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        [
+          "--port",
+          port,
+          "--config",
+          "./test/fixtures/cli-single-entry/webpack.config.js",
+        ],
+        {
+          outputKillStr: /client\/index\.js\?/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
     });
 
     it("should add dev server entry points to a multi entry point object", async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--config",
-        "./test/fixtures/cli-multi-entry/webpack.config.js",
-        "--stats",
-        "verbose",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        [
+          "--port",
+          port,
+          "--config",
+          "./test/fixtures/cli-multi-entry/webpack.config.js",
+          "--stats",
+          "verbose",
+        ],
+        {
+          outputKillStr: /foo\.js/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
@@ -222,38 +232,48 @@ describe("basic", () => {
     });
 
     it("should add dev server entry points to an empty entry object", async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--config",
-        "./test/fixtures/cli-empty-entry/webpack.config.js",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        [
+          "--port",
+          port,
+          "--config",
+          "./test/fixtures/cli-empty-entry/webpack.config.js",
+        ],
+        {
+          outputKillStr: /client\/index\.js\?/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
     });
 
     it("should supports entry as descriptor", async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--config",
-        "./test/fixtures/cli-entry-as-descriptor/webpack.config",
-        "--stats",
-        "detailed",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        [
+          "--port",
+          port,
+          "--config",
+          "./test/fixtures/cli-entry-as-descriptor/webpack.config",
+          "--stats",
+          "detailed",
+        ],
+        {
+          outputKillStr: /foo\.js/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain("foo.js");
     });
 
     it('should only prepends dev server entry points to "web" target', async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--target",
-        "web",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        ["--port", port, "--target", "web"],
+        {
+          outputKillStr: /foo\.js/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js?");
@@ -261,12 +281,12 @@ describe("basic", () => {
     });
 
     it('should not prepend dev server entry points to "node" target', async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--target",
-        "node",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        ["--port", port, "--target", "node"],
+        {
+          outputKillStr: /foo\.js/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).not.toContain("client/index.js?");
@@ -274,25 +294,29 @@ describe("basic", () => {
     });
 
     it('should prepends the hot runtime to "node" target as well', async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--target",
-        "node",
-        "--hot",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        ["--port", port, "--target", "node", "--hot"],
+        {
+          outputKillStr: /webpack\/hot\/dev-server/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain("webpack/hot/dev-server");
     });
 
     it("should prepend dev server entry points depending on targetProperties", async () => {
-      const { exitCode, stdout } = await testBin([
-        "--port",
-        port,
-        "--config",
-        "./test/fixtures/cli-target-config/webpack.config.js",
-      ]);
+      const { exitCode, stdout } = await testBin(
+        [
+          "--port",
+          port,
+          "--config",
+          "./test/fixtures/cli-target-config/webpack.config.js",
+        ],
+        {
+          outputKillStr: /client\/index\.js/,
+        },
+      );
 
       expect(exitCode).toEqual(0);
       expect(stdout).toContain("client/index.js");

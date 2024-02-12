@@ -323,14 +323,16 @@ describe("API", () => {
     });
 
     it("should use the default `noop` callback when invalidate is called without any callback", async () => {
-      server.invalidate();
+      const callback = jest.fn();
 
-      expect(server.middleware.context.callbacks.length).toEqual(1);
+      server.invalidate();
+      server.middleware.context.callbacks[0] = callback;
 
       const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
+      expect(callback).toHaveBeenCalledTimes(1);
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
@@ -344,12 +346,11 @@ describe("API", () => {
 
       server.invalidate(callback);
 
-      expect(server.middleware.context.callbacks[0]).toBe(callback);
-
       const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
+      expect(callback).toHaveBeenCalledTimes(1);
       expect(response.status()).toMatchSnapshot("response status");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
@@ -669,6 +670,7 @@ describe("API", () => {
       const options = {
         port,
         client: {
+          reconnect: false,
           webSocketURL: {
             hostname: "test.host",
           },
@@ -721,12 +723,26 @@ describe("API", () => {
           throw new Error("Validation didn't fail");
         }
 
+        await new Promise((resolve) => {
+          const interval = setInterval(() => {
+            const needFinish = consoleMessages.filter((message) =>
+              /Trying to reconnect/.test(message.text()),
+            );
+
+            if (needFinish.length > 0) {
+              clearInterval(interval);
+              resolve();
+            }
+          }, 100);
+        });
+
         expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
 
         expect(response.status()).toMatchSnapshot("response status");
 
         expect(
-          consoleMessages.map((message) => message.text()),
+          // net::ERR_NAME_NOT_RESOLVED can be multiple times
+          consoleMessages.map((message) => message.text()).slice(0, 7),
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");

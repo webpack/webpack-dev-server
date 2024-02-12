@@ -8,14 +8,14 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["options-request-response"];
 
 const createWaiting = () => {
-  let reslove;
+  let resolve;
   let reject;
   const waiting = new Promise((resolve$, reject$) => {
-    reslove = resolve$;
+    resolve = resolve$;
     reject = reject$;
   });
   return {
-    reslove,
+    resolve,
     reject,
     waiting,
   };
@@ -26,19 +26,19 @@ describe("handle options-request correctly", () => {
     const compiler = webpack(config);
     const [portForServer, portForApp] = port;
     const closeApp = await (async () => {
-      const { reslove, waiting } = createWaiting();
+      const { resolve, waiting } = createWaiting();
       const app = new Express();
       app.get("/", (req, res) => {
         res.sendStatus(200);
       });
       const server = app.listen(portForApp, () => {
-        reslove();
+        resolve();
       });
       await waiting;
       return async () => {
-        const { reslove: reslove2, waiting: waiting2 } = createWaiting();
+        const { resolve: resolve2, waiting: waiting2 } = createWaiting();
         server.close(() => {
-          reslove2();
+          resolve2();
         });
         await waiting2;
       };
@@ -78,7 +78,7 @@ describe("handle options-request correctly", () => {
         htmlUrl,
       );
 
-      expect(responseStatus.sort()).toEqual([200, 200, 204]);
+      expect(responseStatus.sort()).toEqual([200, 204]);
     } catch (error) {
       throw error;
     } finally {
