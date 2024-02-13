@@ -189,7 +189,9 @@ const createOverlay = (options) => {
    */
   function ensureOverlayExists(callback, trustedTypesPolicyName) {
     if (containerElement) {
-      containerElement.innerHTML = "";
+      containerElement.innerHTML = overlayTrustedTypesPolicy
+        ? overlayTrustedTypesPolicy.createHTML("")
+        : "";
       // Everything is ready, call the callback right away.
       callback(containerElement);
 
