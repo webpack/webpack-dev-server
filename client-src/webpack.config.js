@@ -4,15 +4,12 @@ const path = require("path");
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 
-// @ts-ignore
-const library = webpack.webpack
-  ? {
-      library: {
-        // type: "module",
-        type: "commonjs",
-      },
-    }
-  : { libraryTarget: "umd" };
+const library = {
+  library: {
+    // type: "module",
+    type: "commonjs",
+  },
+};
 
 const baseForModules = {
   devtool: false,
@@ -28,8 +25,7 @@ const baseForModules = {
   optimization: {
     minimize: false,
   },
-  // @ts-ignore
-  target: webpack.webpack ? ["web", "es5"] : "web",
+  target: ["web", "es5"],
   module: {
     rules: [
       {
@@ -73,8 +69,8 @@ module.exports = [
           '(typeof Symbol !== "undefined" ? Symbol : function (i) { return i; })',
       }),
       new webpack.NormalModuleReplacementPlugin(
-        /^tapable\/lib\/SyncBailHook/,
-        path.join(__dirname, "modules/logger/SyncBailHookFake.js"),
+        /^tapable$/,
+        path.join(__dirname, "modules/logger/tapable.js"),
       ),
     ],
   }),
