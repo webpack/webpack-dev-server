@@ -8,7 +8,7 @@
 [![node][node]][node-url]
 [![tests][tests]][tests-url]
 [![coverage][cover]][cover-url]
-[![chat][chat]][chat-url]
+[![discussion][discussion]][discussion-url]
 [![downloads][downloads]][npm-url]
 [![contributors][contributors]][contributors-url]
 
@@ -279,7 +279,7 @@ Your first-stop-shop for support for webpack-dev-server should be the excellent
 of those docs, please head over to the [webpack.js.org repo][wjo-url] and open a
 pull request.
 
-From there, we encourage users to visit the [webpack Gitter chat][chat-url] and
+From there, we encourage users to visit the [webpack discussions][discussion-url] and
 talk to the fine folks there. If your quest for answers comes up dry in chat,
 head over to [StackOverflow][stack-url] and do a quick search or open a new
 question. Remember; It's always much easier to answer questions that include your
@@ -313,8 +313,8 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 [tests-url]: https://github.com/webpack/webpack-dev-server/actions?query=workflow%3Awebpack-dev-server
 [cover]: https://codecov.io/gh/webpack/webpack-dev-server/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack/webpack-dev-server
-[chat]: https://badges.gitter.im/webpack/webpack.svg
-[chat-url]: https://gitter.im/webpack/webpack
+[discussion]: https://img.shields.io/github/discussions/webpack/webpack
+[discussion-url]: https://github.com/webpack/webpack/discussions
 [docs-url]: https://webpack.js.org/configuration/dev-server/#devserver
 [hash-url]: https://twitter.com/search?q=webpack
 [middleware-url]: https://github.com/webpack/webpack-dev-middleware
