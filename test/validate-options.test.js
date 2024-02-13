@@ -99,7 +99,7 @@ const tests = {
         },
       },
       {
-        webSocketURL: { username: "zoro", password: "roronoa" },
+        webSocketURL: { username: "username", password: "password" },
       },
     ],
     failure: [
