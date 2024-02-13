@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/webpack/webpack-dev-server/compare/v5.0.0...v5.0.1) (2024-02-13)
+
+
+### Bug Fixes
+
+* avoid using eval in client ([#5045](https://github.com/webpack/webpack-dev-server/issues/5045)) ([7681477](https://github.com/webpack/webpack-dev-server/commit/76814771dcebe80628b4462f5e1d30064ae226d5))
+* overlay and `require-trusted-types-for` ([#5046](https://github.com/webpack/webpack-dev-server/issues/5046)) ([e115436](https://github.com/webpack/webpack-dev-server/commit/e11543677120b004d1f20e11fdf34c07897c7b0c))
+
 ## [5.0.0](https://github.com/webpack/webpack-dev-server/compare/v4.15.1...v5.0.0) (2024-02-12)
 
 [Migration Guide and Changes](https://github.com/webpack/webpack-dev-server/blob/master/migration-v5.md).
