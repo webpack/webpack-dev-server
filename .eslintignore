@@ -3,3 +3,4 @@
 !/test/client
 coverage
 node_modules
+examples/client/trusted-types-overlay/app.js

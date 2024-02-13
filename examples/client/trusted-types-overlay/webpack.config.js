@@ -9,11 +9,14 @@ const { setup } = require("../../util");
 const config = setup({
   context: __dirname,
   // create error for overlay
-  entry: "./invalid.js",
+  entry: "./app.js",
   output: {
     trustedTypes: { policyName: "webpack" },
   },
   devServer: {
+    headers: {
+      "Content-Security-Policy": "require-trusted-types-for 'script'",
+    },
     client: {
       overlay: {
         trustedTypesPolicyName: "webpack#dev-overlay",

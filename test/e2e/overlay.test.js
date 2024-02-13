@@ -1249,8 +1249,7 @@ describe("overlay", () => {
     }
   });
 
-  // TODO fix me https://github.com/webpack/webpack-dev-server/issues/4966
-  it.skip("should show overlay when Trusted Types are enabled", async () => {
+  it("should show overlay when Trusted Types are enabled", async () => {
     const compiler = webpack(trustedTypesConfig);
 
     new ErrorPlugin().apply(compiler);
@@ -1270,6 +1269,12 @@ describe("overlay", () => {
     const { page, browser } = await runBrowser();
 
     try {
+      const consoleMessages = [];
+
+      page.on("console", (message) => {
+        consoleMessages.push(message.text());
+      });
+
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
@@ -1284,6 +1289,86 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
+      expect(
+        consoleMessages.filter((item) =>
+          /requires 'TrustedHTML' assignment/.test(item),
+        ),
+      ).toHaveLength(0);
+      expect(
+        await prettier.format(pageHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshot("overlay html");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
+
+  it("should show overlay when Trusted Types are enabled and the \"require-trusted-types-for 'script'\" header was used", async () => {
+    const compiler = webpack(trustedTypesConfig);
+
+    new ErrorPlugin().apply(compiler);
+
+    const devServerOptions = {
+      port,
+      headers: [
+        {
+          key: "Content-Security-Policy",
+          value: "require-trusted-types-for 'script'",
+        },
+      ],
+      client: {
+        overlay: {
+          trustedTypesPolicyName: "webpack#dev-overlay",
+        },
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      const consoleMessages = [];
+
+      page.on("console", (message) => {
+        consoleMessages.push(message.text());
+      });
+
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      // Delay for the overlay to appear
+      await delay(1000);
+
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML,
+      );
+
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(
+        consoleMessages.filter((item) =>
+          /requires 'TrustedHTML' assignment/.test(item),
+        ),
+      ).toHaveLength(0);
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -1837,6 +1922,67 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBe(null);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
+
+  it('should show overlay when "Content-Security-Policy" is "default-src \'self\'" was used', async () => {
+    const compiler = webpack({ ...config, devtool: false });
+
+    new ErrorPlugin().apply(compiler);
+
+    const devServerOptions = {
+      port,
+      headers: [
+        {
+          key: "Content-Security-Policy",
+          value: "default-src 'self'",
+        },
+      ],
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      const consoleMessages = [];
+
+      page.on("console", (message) => {
+        consoleMessages.push(message.text());
+      });
+
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      // Delay for the overlay to appear
+      await delay(1000);
+
+      const pageHtml = await page.evaluate(() => document.body.outerHTML);
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML,
+      );
+
+      expect(
+        await prettier.format(pageHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshot("page html");
+      expect(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
     } finally {
