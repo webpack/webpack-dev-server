@@ -78,7 +78,7 @@ describe("handle options-request correctly", () => {
         htmlUrl,
       );
 
-      expect(responseStatus.sort()).toEqual([200, 204]);
+      expect(responseStatus.sort()).toEqual([200, 200, 204]);
     } catch (error) {
       throw error;
     } finally {
