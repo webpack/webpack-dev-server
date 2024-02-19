@@ -10,10 +10,12 @@ const port = require("../ports-map")["options-request-response"];
 const createWaiting = () => {
   let resolve;
   let reject;
+
   const waiting = new Promise((resolve$, reject$) => {
     resolve = resolve$;
     reject = reject$;
   });
+
   return {
     resolve,
     reject,
@@ -28,18 +30,24 @@ describe("handle options-request correctly", () => {
     const closeApp = await (async () => {
       const { resolve, waiting } = createWaiting();
       const app = new Express();
+
       app.get("/", (req, res) => {
         res.sendStatus(200);
       });
+
       const server = app.listen(portForApp, () => {
         resolve();
       });
+
       await waiting;
+
       return async () => {
         const { resolve: resolve2, waiting: waiting2 } = createWaiting();
+
         server.close(() => {
           resolve2();
         });
+
         await waiting2;
       };
     })();
@@ -53,19 +61,25 @@ describe("handle options-request correctly", () => {
       },
       compiler,
     );
+
     await server.start();
+
     const { page, browser } = await runBrowser();
     const prefixUrl = "http://127.0.0.1";
     const htmlUrl = `${prefixUrl}:${portForServer}/test.html`;
     const appUrl = `${prefixUrl}:${portForApp}`;
 
     try {
-      await page.goto(appUrl);
-
       const responseStatus = [];
 
       page.on("response", (res) => {
-        responseStatus.push(res.status());
+        if (/test\.html$/.test(res.url())) {
+          responseStatus.push(res.status());
+        }
+      });
+
+      await page.goto(appUrl, {
+        waitUntil: "networkidle0",
       });
 
       await page.evaluate(
@@ -78,7 +92,7 @@ describe("handle options-request correctly", () => {
         htmlUrl,
       );
 
-      expect(responseStatus.sort()).toEqual([200, 200, 204]);
+      expect(responseStatus.sort()).toEqual([200, 204]);
     } catch (error) {
       throw error;
     } finally {
