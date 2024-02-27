@@ -380,7 +380,7 @@ describe("watchFiles option", () => {
     });
   });
 
-  describe.only("should work with object with multiple paths", () => {
+  describe("should work with object with multiple paths", () => {
     const file = path.join(watchDir, "assets/example.txt");
     const other = path.join(watchDir, "assets/other.txt");
     let compiler;
