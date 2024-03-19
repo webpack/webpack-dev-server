@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.4](https://github.com/webpack/webpack-dev-server/compare/v5.0.3...v5.0.4) (2024-03-19)
+
+
+### Bug Fixes
+
+* **security:** bump webpack-dev-middleware ([#5112](https://github.com/webpack/webpack-dev-server/issues/5112)) ([aab576a](https://github.com/webpack/webpack-dev-server/commit/aab576a9e4930a1731e8b0380c859552fc9a6e11))
+
 ### [5.0.3](https://github.com/webpack/webpack-dev-server/compare/v5.0.2...v5.0.3) (2024-03-12)
 
 
