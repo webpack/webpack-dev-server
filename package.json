@@ -60,7 +60,7 @@
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^2.0.0",
     "default-gateway": "^6.0.3",
-    "express": "^4.17.3",
+    "express": "^4.19.2",
     "graceful-fs": "^4.2.6",
     "html-entities": "^2.4.0",
     "http-proxy-middleware": "^2.0.3",
