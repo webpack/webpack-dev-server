@@ -960,7 +960,7 @@ describe('"open" option', () => {
   });
 });
 
-// applyMiddlewareOnce.test.js
+// applyMiddlewareOnce-test
 
 const { applyMiddlewareOnce } = require('../../lib/Server');
 
