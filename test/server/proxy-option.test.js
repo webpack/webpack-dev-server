@@ -1035,3 +1035,43 @@ describe("proxy option", () => {
     });
   });
 });
+
+
+// applyMiddlewareOnce-test
+
+const { applyMiddlewareOnce } = require('../../lib/Server');
+
+describe('applyMiddlewareOnce', () => {
+  let app;
+
+  beforeEach(() => {
+    // Mock Express app
+    app = {
+      use: jest.fn()
+    };
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should apply middleware only once', () => {
+    const middlewareFunction = jest.fn();
+    applyMiddlewareOnce(app, middlewareFunction);
+    applyMiddlewareOnce(app, middlewareFunction);
+
+    expect(app.use).toHaveBeenCalledTimes(1);
+    expect(app.use).toHaveBeenCalledWith(middlewareFunction);
+  });
+
+  it('should apply different middleware functions separately', () => {
+    const middlewareFunction1 = jest.fn();
+    const middlewareFunction2 = jest.fn();
+    applyMiddlewareOnce(app, middlewareFunction1);
+    applyMiddlewareOnce(app, middlewareFunction2);
+
+    expect(app.use).toHaveBeenCalledTimes(2);
+    expect(app.use).toHaveBeenCalledWith(middlewareFunction1);
+    expect(app.use).toHaveBeenCalledWith(middlewareFunction2);
+  });
+});
