@@ -1,6 +1,15 @@
 /// <reference types="node" />
 export = Server;
-declare class Server {
+/**
+ * @typedef {Object} BasicApplication
+ * @property {typeof useFn} use
+ */
+/**
+ * @template {BasicApplication} [T=import("express").Application]
+ */
+declare class Server<
+  T extends BasicApplication = import("express").Application,
+> {
   static get schema(): {
     title: string;
     type: string;
@@ -196,6 +205,7 @@ declare class Server {
                  * @typedef {{ name?: string, path?: string, middleware: ExpressRequestHandler | ExpressErrorRequestHandler } | ExpressRequestHandler | ExpressErrorRequestHandler} Middleware
                  */
                 /**
+                 * @template {BasicApplication} [T=import("express").Application]
                  * @typedef {Object} Configuration
                  * @property {boolean | string} [ipc]
                  * @property {Host} [host]
@@ -218,8 +228,8 @@ declare class Server {
                  * @property {boolean} [setupExitSignals]
                  * @property {boolean | ClientConfiguration} [client]
                  * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-                 * @property {(devServer: Server) => void} [onListening]
-                 * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
+                 * @property {(devServer: Server<T>) => void} [onListening]
+                 * @property {(middlewares: Middleware[], devServer: Server<T>) => Middleware[]} [setupMiddlewares]
                  */
                 overlay: {
                   $ref: string;
@@ -361,6 +371,7 @@ declare class Server {
          * @typedef {{ name?: string, path?: string, middleware: ExpressRequestHandler | ExpressErrorRequestHandler } | ExpressRequestHandler | ExpressErrorRequestHandler} Middleware
          */
         /**
+         * @template {BasicApplication} [T=import("express").Application]
          * @typedef {Object} Configuration
          * @property {boolean | string} [ipc]
          * @property {Host} [host]
@@ -383,8 +394,8 @@ declare class Server {
          * @property {boolean} [setupExitSignals]
          * @property {boolean | ClientConfiguration} [client]
          * @property {Headers | ((req: Request, res: Response, context: DevMiddlewareContext<Request, Response>) => Headers)} [headers]
-         * @property {(devServer: Server) => void} [onListening]
-         * @property {(middlewares: Middleware[], devServer: Server) => Middleware[]} [setupMiddlewares]
+         * @property {(devServer: Server<T>) => void} [onListening]
+         * @property {(middlewares: Middleware[], devServer: Server<T>) => Middleware[]} [setupMiddlewares]
          */
         anyOf: {
           $ref: string;
@@ -466,7 +477,7 @@ declare class Server {
       Compress: {
         type: string;
         description: string;
-        link: string;
+        link: string /** @typedef {(req: IncomingMessage, res: import("http").ServerResponse, next: NextFunction) => void} NextHandleFunction */;
         cli: {
           negatedDescription: string;
         };
@@ -479,9 +490,6 @@ declare class Server {
       };
       HeaderObject: {
         type: string;
-        /**
-         * @type {FSWatcher[]}
-         */
         additionalProperties: boolean;
         properties: {
           key: {
@@ -553,7 +561,11 @@ declare class Server {
               minLength?: undefined;
             }
           | {
-              type: string;
+              type: string /**
+               * @private
+               * @returns {StatsOptions}
+               * @constructor
+               */;
               minLength: number;
               enum?: undefined;
             }
@@ -589,7 +601,10 @@ declare class Server {
               enum: boolean[];
               minLength?: undefined;
             }
-        )[];
+        )[] /**
+         * @param {string} gateway
+         * @returns {string | undefined}
+         */;
         description: string;
         link: string;
       };
@@ -671,6 +686,9 @@ declare class Server {
                         | {
                             type: string;
                             minLength: number;
+                            /**
+                             * @type {string | undefined}
+                             */
                             items?: undefined;
                             minItems?: undefined;
                           }
@@ -731,7 +749,7 @@ declare class Server {
             }
         )[];
         description: string;
-        link: string /** @type {WebSocketURL} */;
+        link: string;
       };
       Proxy: {
         type: string;
@@ -743,7 +761,6 @@ declare class Server {
               }
             | {
                 instanceof: string;
-                /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
                 type?: undefined;
               }
           )[];
@@ -770,11 +787,12 @@ declare class Server {
       ServerString: {
         type: string;
         minLength: number;
-        /** @type {string} */
+        /** @type {WebSocketURL} */
         cli: {
           exclude: boolean;
         };
       };
+      /** @type {ClientConfiguration} */
       ServerObject: {
         type: string;
         properties: {
@@ -785,7 +803,7 @@ declare class Server {
           };
           options: {
             $ref: string;
-          };
+          } /** @type {string} */;
         };
         additionalProperties: boolean;
       };
@@ -797,6 +815,7 @@ declare class Server {
             type: string;
             description: string;
           };
+          /** @type {ServerConfiguration} */
           requestCert: {
             type: string;
             description: string;
@@ -947,6 +966,7 @@ declare class Server {
                           additionalProperties?: undefined;
                         }
                       | {
+                          /** @type {string} */
                           instanceof: string;
                           type?: undefined;
                           additionalProperties?: undefined;
@@ -1111,7 +1131,10 @@ declare class Server {
               type?: undefined;
               items?: undefined;
             }
-        )[];
+        )[] /**
+         * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
+         * @returns {WatchOptions}
+         */;
         description: string;
         link: string;
       };
@@ -1159,6 +1182,10 @@ declare class Server {
         description: string;
         link: string;
       };
+      /**
+       * @param {string | Static | undefined} [optionsForStatic]
+       * @returns {NormalizedStatic}
+       */
       WebSocketServerType: {
         enum: string[];
       };
@@ -1318,23 +1345,19 @@ declare class Server {
    */
   private static isWebTarget;
   /**
-   * @param {Configuration | Compiler | MultiCompiler} options
-   * @param {Compiler | MultiCompiler | Configuration} compiler
+   * @param {Configuration<T>} options
+   * @param {Compiler | MultiCompiler} compiler
    */
   constructor(
-    options:
-      | import("webpack").Compiler
-      | import("webpack").MultiCompiler
-      | Configuration
-      | undefined,
-    compiler: Compiler | MultiCompiler | Configuration,
+    options: Configuration<T> | undefined,
+    compiler: Compiler | MultiCompiler,
   );
   compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
   /**
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
    * */
   logger: ReturnType<Compiler["getInfrastructureLogger"]>;
-  options: Configuration;
+  options: Configuration<T>;
   /**
    * @type {FSWatcher[]}
    */
@@ -1398,8 +1421,8 @@ declare class Server {
    * @returns {void}
    */
   private setupApp;
-  /** @type {import("express").Application | undefined}*/
-  app: import("express").Application | undefined;
+  /** @type {T | undefined}*/
+  app: T | undefined;
   /**
    * @private
    * @param {Stats | MultiStats} statsObj
@@ -1566,6 +1589,10 @@ declare class Server {
 declare namespace Server {
   export {
     DEFAULT_STATS,
+    SimpleHandleFunction,
+    NextHandleFunction,
+    ErrorHandleFunction,
+    HandleFunction,
     Schema,
     Compiler,
     MultiCompiler,
@@ -1621,6 +1648,7 @@ declare namespace Server {
     Headers,
     Middleware,
     Configuration,
+    BasicApplication,
   };
 }
 type Compiler = import("webpack").Compiler;
@@ -1633,6 +1661,25 @@ type WebSocketServerImplementation = {
 declare class DEFAULT_STATS {
   private constructor();
 }
+type SimpleHandleFunction = (
+  req: IncomingMessage,
+  res: import("http").ServerResponse,
+) => void;
+type NextHandleFunction = (
+  req: IncomingMessage,
+  res: import("http").ServerResponse,
+  next: NextFunction,
+) => void;
+type ErrorHandleFunction = (
+  err: any,
+  req: IncomingMessage,
+  res: import("http").ServerResponse,
+  next: NextFunction,
+) => void;
+type HandleFunction =
+  | SimpleHandleFunction
+  | NextHandleFunction
+  | ErrorHandleFunction;
 type Schema = import("schema-utils/declarations/validate").Schema;
 type MultiCompiler = import("webpack").MultiCompiler;
 type WebpackConfiguration = import("webpack").Configuration;
@@ -1819,64 +1866,91 @@ type Middleware =
     }
   | ExpressRequestHandler
   | ExpressErrorRequestHandler;
-type Configuration = {
-  ipc?: string | boolean | undefined;
-  host?: string | undefined;
-  port?: Port | undefined;
-  hot?: boolean | "only" | undefined;
-  liveReload?: boolean | undefined;
-  devMiddleware?:
-    | DevMiddlewareOptions<
-        import("express").Request<
-          import("express-serve-static-core").ParamsDictionary,
-          any,
-          any,
-          qs.ParsedQs,
-          Record<string, any>
-        >,
-        import("express").Response<any, Record<string, any>>
-      >
-    | undefined;
-  compress?: boolean | undefined;
-  allowedHosts?: string | string[] | undefined;
-  historyApiFallback?:
-    | boolean
-    | import("connect-history-api-fallback").Options
-    | undefined;
-  bonjour?:
-    | boolean
-    | Record<string, never>
-    | import("bonjour-service").Service
-    | undefined;
-  watchFiles?:
-    | string
-    | string[]
-    | WatchFiles
-    | (string | WatchFiles)[]
-    | undefined;
-  static?: string | boolean | Static | (string | Static)[] | undefined;
-  https?: boolean | ServerOptions | undefined;
-  http2?: boolean | undefined;
-  server?: string | ServerConfiguration | undefined;
-  webSocketServer?: string | boolean | WebSocketServerConfiguration | undefined;
-  proxy?: ProxyConfigArray | undefined;
-  open?: string | boolean | Open | (string | Open)[] | undefined;
-  setupExitSignals?: boolean | undefined;
-  client?: boolean | ClientConfiguration | undefined;
-  headers?:
-    | Headers
-    | ((
-        req: Request,
-        res: Response,
-        context: DevMiddlewareContext<Request, Response>,
-      ) => Headers)
-    | undefined;
-  onListening?: ((devServer: Server) => void) | undefined;
-  setupMiddlewares?:
-    | ((middlewares: Middleware[], devServer: Server) => Middleware[])
-    | undefined;
+type Configuration<T extends BasicApplication = import("express").Application> =
+  {
+    ipc?: string | boolean | undefined;
+    host?: string | undefined;
+    port?: Port | undefined;
+    hot?: boolean | "only" | undefined;
+    liveReload?: boolean | undefined;
+    devMiddleware?:
+      | DevMiddlewareOptions<
+          import("express").Request<
+            import("express-serve-static-core").ParamsDictionary,
+            any,
+            any,
+            qs.ParsedQs,
+            Record<string, any>
+          >,
+          import("express").Response<any, Record<string, any>>
+        >
+      | undefined;
+    compress?: boolean | undefined;
+    allowedHosts?: string | string[] | undefined;
+    historyApiFallback?:
+      | boolean
+      | import("connect-history-api-fallback").Options
+      | undefined;
+    bonjour?:
+      | boolean
+      | Record<string, never>
+      | import("bonjour-service").Service
+      | undefined;
+    watchFiles?:
+      | string
+      | string[]
+      | WatchFiles
+      | (string | WatchFiles)[]
+      | undefined;
+    static?: string | boolean | Static | (string | Static)[] | undefined;
+    https?: boolean | ServerOptions | undefined;
+    http2?: boolean | undefined;
+    server?: string | ServerConfiguration | undefined;
+    webSocketServer?:
+      | string
+      | boolean
+      | WebSocketServerConfiguration
+      | undefined;
+    proxy?: ProxyConfigArray | undefined;
+    open?: string | boolean | Open | (string | Open)[] | undefined;
+    setupExitSignals?: boolean | undefined;
+    client?: boolean | ClientConfiguration | undefined;
+    headers?:
+      | Headers
+      | ((
+          req: Request,
+          res: Response,
+          context: DevMiddlewareContext<Request, Response>,
+        ) => Headers)
+      | undefined;
+    onListening?: ((devServer: Server<T>) => void) | undefined;
+    setupMiddlewares?:
+      | ((middlewares: Middleware[], devServer: Server<T>) => Middleware[])
+      | undefined;
+  };
+type BasicApplication = {
+  use: typeof useFn;
 };
 import path = require("path");
+/**
+ * @overload
+ * @param {NextHandleFunction} fn
+ * @returns {BasicApplication}
+ */
+declare function useFn(fn: NextHandleFunction): BasicApplication;
+/**
+ * @overload
+ * @param {HandleFunction} fn
+ * @returns {BasicApplication}
+ */
+declare function useFn(fn: HandleFunction): BasicApplication;
+/**
+ * @overload
+ * @param {string} route
+ * @param {NextHandleFunction} fn
+ * @returns {BasicApplication}
+ */
+declare function useFn(route: string, fn: NextHandleFunction): BasicApplication;
 
 // DO NOT REMOVE THIS!
 type DevServerConfiguration = Configuration;
