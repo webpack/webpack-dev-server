@@ -262,15 +262,23 @@ exports[`allowed hosts should connect web socket client using localhost to web s
 
 exports[`allowed hosts should connect web socket client using localhost to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
 
-exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("sockjs"): console messages 1`] = `[]`;
+exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+]
+`;
 
-exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("sockjs"): html 1`] = `"<html><head></head><body>Invalid Host header</body></html>"`;
+exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("sockjs"): html 1`] = `"<html><head><meta name="color-scheme" content="light dark"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Invalid Host header</pre></body></html>"`;
 
 exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("sockjs"): page errors 1`] = `[]`;
 
-exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): console messages 1`] = `[]`;
+exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+]
+`;
 
-exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): html 1`] = `"<html><head></head><body>Invalid Host header</body></html>"`;
+exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): html 1`] = `"<html><head><meta name="color-scheme" content="light dark"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Invalid Host header</pre></body></html>"`;
 
 exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
 

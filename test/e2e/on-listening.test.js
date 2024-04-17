@@ -26,12 +26,18 @@ describe("onListening option", () => {
 
           onListeningIsRunning = true;
 
-          devServer.app.get("/listening/some/path", (_, response) => {
-            response.send("listening");
-          });
+          devServer.app.use("/listening/some/path", (req, res, next) => {
+            if (req.method === "GET") {
+              res.setHeader("Content-Type", "text/html; charset=utf-8");
+              res.end("listening");
+              return;
+            } else if (req.method === "POST") {
+              res.setHeader("Content-Type", "text/html; charset=utf-8");
+              res.end("listening POST");
+              return;
+            }
 
-          devServer.app.post("/listening/some/path", (_, response) => {
-            response.send("listening POST");
+            return next();
           });
         },
         port,
