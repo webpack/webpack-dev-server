@@ -16,7 +16,7 @@ exports[`Built in routes with multi config should handle GET request to director
 
 exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: page errors 1`] = `[]`;
 
-exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: response headers content-type 1`] = `"text/html"`;
+exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
 exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: response status 1`] = `200`;
 
@@ -34,7 +34,7 @@ exports[`Built in routes with simple config should handle GET request to directo
 
 exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: page errors 1`] = `[]`;
 
-exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: response headers content-type 1`] = `"text/html"`;
+exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
 exports[`Built in routes with simple config should handle GET request to directory index and list all middleware directories: response status 1`] = `200`;
 
@@ -56,7 +56,7 @@ exports[`Built in routes with simple config should handle HEAD request to direct
 
 exports[`Built in routes with simple config should handle HEAD request to directory index: page errors 1`] = `[]`;
 
-exports[`Built in routes with simple config should handle HEAD request to directory index: response headers content-type 1`] = `"text/html"`;
+exports[`Built in routes with simple config should handle HEAD request to directory index: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
 exports[`Built in routes with simple config should handle HEAD request to directory index: response status 1`] = `200`;
 
