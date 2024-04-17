@@ -437,6 +437,16 @@ const tests = {
       },
     ],
   },
+  app: {
+    success: [
+      () => require("connect")(),
+      async () =>
+        new Promise((resolve) => {
+          resolve(require("connect")());
+        }),
+    ],
+    failure: ["test", false],
+  },
   static: {
     success: [
       "path",

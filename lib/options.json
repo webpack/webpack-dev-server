@@ -2,6 +2,11 @@
   "title": "Dev Server options",
   "type": "object",
   "definitions": {
+    "App": {
+      "instanceof": "Function",
+      "description": "Allows to use custom applications (i.e. 'connect', 'fastify' and etc).",
+      "link": " https://webpack.js.org/configuration/dev-server/#devserverapp"
+    },
     "AllowedHosts": {
       "anyOf": [
         {
@@ -996,6 +1001,9 @@
     },
     "server": {
       "$ref": "#/definitions/Server"
+    },
+    "app": {
+      "$ref": "#/definitions/App"
     },
     "setupExitSignals": {
       "$ref": "#/definitions/SetupExitSignals"
