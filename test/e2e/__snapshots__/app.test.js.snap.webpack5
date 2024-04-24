@@ -1,100 +1,253 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`app option should work using "connect (async)" application and "http" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "connect (async)" application and "http" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "connect (async)" application and "http" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "connect (async)" application and "http" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "connect (async)" application and "http" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "connect (async)" application and "https" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "connect (async)" application and "https" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "connect (async)" application and "https" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "connect (async)" application and "https" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "connect (async)" application and "https" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "connect (async)" application and "spdy" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "connect (async)" application and "spdy" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "connect (async)" application and "spdy" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "connect (async)" application and "spdy" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "connect (async)" application and "spdy" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "connect" application and "http" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "connect" application and "http" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "connect" application and "http" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "connect" application and "http" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "connect" application and "http" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "connect" application and "https" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "connect" application and "https" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "connect" application and "https" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "connect" application and "https" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "connect" application and "https" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "connect" application and "spdy" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "connect" application and "spdy" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "connect" application and "spdy" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "connect" application and "spdy" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "connect" application and "spdy" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "express" application and "http" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "express" application and "http" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "express" application and "http" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "express" application and "http" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "express" application and "http" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "express" application and "https" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "express" application and "https" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "express" application and "https" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "express" application and "https" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "express" application and "https" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;
 
-exports[`app option should work using "express" application and "spdy" server should handle GET request to index route (/): console messages 1`] = `[]`;
+exports[`app option should work using "express" application and "spdy" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
 
 exports[`app option should work using "express" application and "spdy" server should handle GET request to index route (/): page errors 1`] = `[]`;
 
 exports[`app option should work using "express" application and "spdy" server should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`app option should work using "express" application and "spdy" server should handle GET request to index route (/): response text 1`] = `
-"Heyo.
+"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>webpack-dev-server</title>
+  </head>
+  <body>
+    <h1>webpack-dev-server is running...</h1>
+    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+  </body>
+</html>
 "
 `;

@@ -3,7 +3,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/static-config/webpack.config");
+const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").app;
 
