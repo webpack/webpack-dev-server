@@ -23,35 +23,43 @@ describe("setupMiddlewares option", () => {
             throw new Error("webpack-dev-server is not defined");
           }
 
-          devServer.app.get("/setup-middleware/some/path", (_, response) => {
-            response.send("setup-middlewares option GET");
-          });
+          devServer.app.use("/setup-middleware/some/path", (req, res, next) => {
+            if (req.method === "GET") {
+              res.setHeader("Content-Type", "text/html; charset=utf-8");
+              res.end("setup-middlewares option GET");
+              return;
+            } else if (req.method === "POST") {
+              res.setHeader("Content-Type", "text/html; charset=utf-8");
+              res.end("setup-middlewares option POST");
+              return;
+            }
 
-          devServer.app.post("/setup-middleware/some/path", (_, response) => {
-            response.send("setup-middlewares option POST");
+            return next();
           });
 
           middlewares.push({
             name: "hello-world-test-two",
             middleware: (req, res, next) => {
-              if (req.path !== "/foo/bar/baz") {
+              if (req.url !== "/foo/bar/baz") {
                 next();
-
                 return;
               }
 
-              res.send("Hello World without path!");
+              res.setHeader("Content-Type", "text/html; charset=utf-8");
+              res.end("Hello World without path!");
             },
           });
           middlewares.push({
             name: "hello-world-test-one",
             path: "/foo/bar",
             middleware: (req, res) => {
-              res.send("Hello World with path!");
+              res.setHeader("Content-Type", "text/html; charset=utf-8");
+              res.end("Hello World with path!");
             },
           });
           middlewares.push((req, res) => {
-            res.send("Hello World as function!");
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            res.end("Hello World as function!");
           });
 
           return middlewares;

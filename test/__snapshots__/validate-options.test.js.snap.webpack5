@@ -52,6 +52,20 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
     * options.allowedHosts should be a non-empty string."
 `;
 
+exports[`options validate should throw an error on the "app" option with 'false' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.app should be an instance of function.
+   -> Allows to use custom applications (i.e. 'connect', 'fastify' and etc).
+   -> Read more at  https://webpack.js.org/configuration/dev-server/#devserverapp"
+`;
+
+exports[`options validate should throw an error on the "app" option with 'test' value 1`] = `
+"ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+ - options.app should be an instance of function.
+   -> Allows to use custom applications (i.e. 'connect', 'fastify' and etc).
+   -> Read more at  https://webpack.js.org/configuration/dev-server/#devserverapp"
+`;
+
 exports[`options validate should throw an error on the "bonjour" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.bonjour should be one of these:

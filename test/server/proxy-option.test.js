@@ -27,7 +27,7 @@ const proxyOptionPathsAsProperties = [
   {
     context: "/foo",
     bypass(req) {
-      if (/\.html$/.test(req.path)) {
+      if (/\.html$/.test(req.path || req.url)) {
         return "/index.html";
       }
 
@@ -37,7 +37,7 @@ const proxyOptionPathsAsProperties = [
   {
     context: "proxyfalse",
     bypass(req) {
-      if (/\/proxyfalse$/.test(req.path)) {
+      if (/\/proxyfalse$/.test(req.path || req.url)) {
         return false;
       }
     },
@@ -45,7 +45,7 @@ const proxyOptionPathsAsProperties = [
   {
     context: "/proxy/async",
     bypass(req, res) {
-      if (/\/proxy\/async$/.test(req.path)) {
+      if (/\/proxy\/async$/.test(req.path || req.url)) {
         return new Promise((resolve) => {
           setTimeout(() => {
             res.end("proxy async response");
@@ -61,7 +61,7 @@ const proxyOptionPathsAsProperties = [
     changeOrigin: true,
     secure: false,
     bypass(req) {
-      if (/\.(html)$/i.test(req.url)) {
+      if (/\.(html)$/i.test(req.path || req.url)) {
         return req.url;
       }
     },
@@ -95,10 +95,16 @@ const proxyOptionOfArray = [
       target: `http://localhost:${port2}`,
       pathRewrite: { "^/api": "" },
       bypass: () => {
-        if (req && req.query.foo) {
-          res.end(`foo+${next.name}+${typeof next}`);
+        if (req) {
+          const resolveUrl = new URL(req.url, `http://${req.headers.host}`);
+          const params = new URLSearchParams(resolveUrl.search);
+          const foo = params.get("foo");
 
-          return false;
+          if (foo) {
+            res.end(`foo+${next.name}+${typeof next}`);
+
+            return false;
+          }
         }
       },
     };
