@@ -2067,7 +2067,6 @@ type Configuration<T extends BasicApplication = import("express").Application> =
 type BasicApplication = {
   use: typeof useFn;
 };
-import path = require("path");
 /**
  * @overload
  * @param {NextHandleFunction} fn
