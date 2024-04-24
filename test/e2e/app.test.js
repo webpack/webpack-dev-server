@@ -18,12 +18,7 @@ const apps = [
   ["connect (async)", async () => require("express")()],
 ];
 
-const servers = [
-  "http",
-  "https",
-  path.resolve(__dirname, "../helpers/custom-http.js"),
-  "spdy",
-];
+const servers = ["http", "https", "spdy"];
 
 describe("app option", () => {
   for (const [appName, app] of apps) {
