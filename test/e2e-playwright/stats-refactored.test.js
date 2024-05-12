@@ -1,13 +1,13 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const port = require("../ports-map").stats;
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
 
 describe("stats", () => {
   const cases = [
@@ -137,7 +137,6 @@ describe("stats", () => {
       } finally {
         await server.stop();
       }
-    })
-  })
-
+    });
+  });
 });
