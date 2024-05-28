@@ -9,6 +9,9 @@ import { log, logEnabledFeatures, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
+import { isProgressSupported, defineProgressElement } from "./progress.js";
+
+defineProgressElement();
 
 /**
  * @typedef {Object} OverlayOptions
@@ -234,6 +237,18 @@ const onSocketMessage = {
           data.msg
         }.`,
       );
+    }
+
+    if (isProgressSupported()) {
+      if (typeof options.progress === "string") {
+        let progress = document.querySelector("wds-progress");
+        if (!progress) {
+          progress = document.createElement("wds-progress");
+          document.body.appendChild(progress);
+        }
+        progress.setAttribute("progress", data.percent);
+        progress.setAttribute("type", options.progress);
+      }
     }
 
     sendMessage("Progress", data);

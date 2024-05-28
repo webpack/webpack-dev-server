@@ -156,11 +156,12 @@
       ]
     },
     "ClientProgress": {
-      "description": "Prints compilation progress in percentage in the browser.",
+      "description": "Displays compilation progress in the browser. Options include 'linear' and 'circular' for visual indicators.",
       "link": "https://webpack.js.org/configuration/dev-server/#progress",
-      "type": "boolean",
+      "type": ["boolean", "string"],
+      "enum": [true, false, "linear", "circular"],
       "cli": {
-        "negatedDescription": "Does not print compilation progress in percentage in the browser."
+        "negatedDescription": "Does not display compilation progress in the browser."
       }
     },
     "ClientReconnect": {

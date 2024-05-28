@@ -7,7 +7,7 @@ module.exports = {
   // ...
   devServer: {
     client: {
-      progress: true,
+      progress: true | "linear" | "circular",
     },
   },
 };
@@ -17,6 +17,8 @@ Usage via CLI:
 
 ```shell
 npx webpack serve --open --client-progress
+npx webpack serve --open --client-progress linear
+npx webpack serve --open --client-progress circular
 ```
 
 To disable:
