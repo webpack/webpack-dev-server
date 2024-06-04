@@ -11,8 +11,6 @@ import reloadApp from "./utils/reloadApp.js";
 import createSocketURL from "./utils/createSocketURL.js";
 import { isProgressSupported, defineProgressElement } from "./progress.js";
 
-defineProgressElement();
-
 /**
  * @typedef {Object} OverlayOptions
  * @property {boolean | (error: Error) => boolean} [warnings]
@@ -243,6 +241,7 @@ const onSocketMessage = {
       if (typeof options.progress === "string") {
         let progress = document.querySelector("wds-progress");
         if (!progress) {
+          defineProgressElement();
           progress = document.createElement("wds-progress");
           document.body.appendChild(progress);
         }

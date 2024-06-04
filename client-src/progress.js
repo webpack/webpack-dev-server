@@ -197,7 +197,7 @@ export function isProgressSupported() {
 }
 
 export function defineProgressElement() {
-  if (!isProgressSupported() || customElements.get("wds-progress")) {
+  if (customElements.get("wds-progress")) {
     return;
   }
 

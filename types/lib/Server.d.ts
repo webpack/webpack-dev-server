@@ -732,7 +732,8 @@ declare class Server<
       ClientProgress: {
         description: string;
         link: string;
-        type: string;
+        type: string[];
+        enum: (string | boolean)[];
         cli: {
           negatedDescription: string;
         };
