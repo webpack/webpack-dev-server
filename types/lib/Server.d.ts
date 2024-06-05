@@ -732,7 +732,8 @@ declare class Server<
       ClientProgress: {
         description: string;
         link: string;
-        type: string;
+        type: string[];
+        enum: (string | boolean)[];
         cli: {
           negatedDescription: string;
         };
@@ -764,7 +765,9 @@ declare class Server<
       };
       ClientWebSocketTransportEnum: {
         enum: string[];
-      };
+      } /**
+       * @typedef {Array<{ key: string; value: string }> | Record<string, string | string[]>} Headers
+       */;
       ClientWebSocketTransportString: {
         type: string;
         minLength: number;
@@ -835,15 +838,10 @@ declare class Server<
       };
       Compress: {
         type: string;
-        /**
-         * @template T
-         * @param fn {(function(): any) | undefined}
-         * @returns {function(): T}
-         */
         description: string;
         link: string;
         cli: {
-          negatedDescription: string /** @type {function(): any} */;
+          negatedDescription: string;
         };
       };
       DevMiddleware: {
@@ -866,6 +864,11 @@ declare class Server<
           };
         };
         cli: {
+          /**
+           * @param {string} route
+           * @param {HandleFunction} fn
+           * @returns {BasicApplication}
+           */
           exclude: boolean;
         };
       };
@@ -873,6 +876,11 @@ declare class Server<
         anyOf: (
           | {
               type: string;
+              /**
+               * @param {string} route
+               * @param {HandleFunction} fn
+               * @returns {BasicApplication}
+               */
               items: {
                 $ref: string;
               };
@@ -892,7 +900,9 @@ declare class Server<
               minItems?: undefined;
             }
         )[];
-        description: string;
+        description: string /**
+         * @template {BasicApplication} [T=ExpressApplication]
+         */;
         link: string;
       };
       HistoryApiFallback: {
@@ -917,17 +927,10 @@ declare class Server<
       };
       Host: {
         description: string;
-        /**
-         * @private
-         * @type {RequestHandler[]}
-         */
         link: string;
         anyOf: (
           | {
               enum: string[];
-              /**
-               * @type {Socket[]}
-               */
               type?: undefined;
               minLength?: undefined;
             }
@@ -954,6 +957,10 @@ declare class Server<
             }
         )[];
         description: string;
+        /**
+         * @param {string} URL
+         * @returns {boolean}
+         */
         link: string;
       };
       IPC: {
@@ -980,6 +987,7 @@ declare class Server<
         };
         link: string;
       };
+      /** @type {string} */
       OnListening: {
         instanceof: string;
         description: string;
@@ -1001,7 +1009,10 @@ declare class Server<
               type?: undefined;
               items?: undefined;
             }
-        )[];
+        )[] /**
+         * @param {Host} hostname
+         * @returns {Promise<string>}
+         */;
         description: string;
         link: string;
       };
@@ -1137,10 +1148,7 @@ declare class Server<
         description: string;
       };
       ServerType: {
-        enum: string[] /**
-         * @private
-         * @param {Compiler} compiler
-         */;
+        enum: string[];
       };
       ServerEnum: {
         enum: string[];
@@ -1164,7 +1172,7 @@ declare class Server<
             }[];
           };
           options: {
-            $ref: string /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */;
+            $ref: string;
           };
         };
         additionalProperties: boolean;
@@ -1175,14 +1183,14 @@ declare class Server<
         properties: {
           passphrase: {
             type: string;
-            /** @type {string} */
             description: string;
           };
           requestCert: {
             type: string;
             description: string;
+            /** @type {ServerConfiguration} */
             cli: {
-              negatedDescription: string /** @type {ServerConfiguration} */;
+              negatedDescription: string;
             };
           };
           ca: {
@@ -1334,7 +1342,7 @@ declare class Server<
                         }
                       | {
                           type: string;
-                          additionalProperties: boolean;
+                          /** @type {string} */ additionalProperties: boolean;
                           instanceof?: undefined;
                         }
                     )[];
@@ -1485,7 +1493,7 @@ declare class Server<
                   $ref: string;
                 }[];
               };
-              /** @type {MultiCompiler} */ $ref?: undefined;
+              $ref?: undefined;
             }
           | {
               $ref: string;

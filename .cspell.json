@@ -64,7 +64,8 @@
     "omnibox",
     "swiftshader",
     "hoge",
-    "subsubcomain"
+    "subsubcomain",
+    "noselect"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
