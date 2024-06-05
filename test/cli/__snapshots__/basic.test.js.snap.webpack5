@@ -77,8 +77,8 @@ Options:
   --client-overlay-runtime-errors                     Enables a full-screen overlay in the browser when there are uncaught runtime errors.
   --no-client-overlay-runtime-errors                  Disables the full-screen overlay in the browser when there are uncaught runtime errors.
   --client-overlay-trusted-types-policy-name <value>  The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.
-  --client-progress                                   Prints compilation progress in percentage in the browser.
-  --no-client-progress                                Does not print compilation progress in percentage in the browser.
+  --client-progress [value]                           Displays compilation progress in the browser. Options include 'linear' and 'circular' for visual indicators.
+  --no-client-progress                                Does not display compilation progress in the browser.
   --client-reconnect [value]                          Tells dev-server the number of times it should try to reconnect the client.
   --no-client-reconnect                               Tells dev-server to not to try to reconnect the client.
   --client-web-socket-transport <value>               Allows to set custom web socket transport to communicate with dev server.
