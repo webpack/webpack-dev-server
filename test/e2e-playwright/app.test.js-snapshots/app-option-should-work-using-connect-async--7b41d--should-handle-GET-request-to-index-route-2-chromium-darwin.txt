@@ -1,0 +1,1 @@
+"\n<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset='UTF-8'>\n    <title>webpack-dev-server</title>\n  </head>\n  <body>\n    <h1>webpack-dev-server is running...</h1>\n    <script type=\"text/javascript\" charset=\"utf-8\" src=\"/main.js\"></script>\n  </body>\n</html>\n"
