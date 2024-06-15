@@ -1,0 +1,1 @@
+"ws://test.host:8158/ws"

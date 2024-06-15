@@ -67,7 +67,7 @@ describe("setupExitSignals option", () => {
       await server.stop();
     });
 
-    it.each(signals)("should close and exit on %s", async (signal) => {
+    test.each(signals)("should close and exit on %s", async (signal) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
