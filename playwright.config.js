@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
+  testIgnore: "**/*.ignore.*",
   testDir: "./test/e2e",
   fullyParallel: false,
   forbidOnly: process.env.CI !== "true",
