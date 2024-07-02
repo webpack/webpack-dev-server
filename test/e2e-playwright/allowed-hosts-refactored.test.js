@@ -1445,8 +1445,8 @@ describe("allowed hosts", () => {
         waitUntil: "networkidle0",
       });
 
-      tests.forEach((test) => {
-        const headers = { host: test };
+      tests.forEach((host) => {
+        const headers = { host };
 
         if (!server.checkHeader(headers, "host")) {
           throw new Error("Validation didn't fail");
@@ -1495,8 +1495,8 @@ describe("allowed hosts", () => {
         "subdomain.example.com:80",
       ];
 
-      tests.forEach((test) => {
-        const headers = { host: test };
+      tests.forEach((host) => {
+        const headers = { host };
 
         if (!server.checkHeader(headers, "host")) {
           throw new Error("Validation didn't fail");
