@@ -25,7 +25,7 @@ const multiCompilerConfig = require("../fixtures/multi-compiler-one-configuratio
 
 const cssFilePath = path.resolve(
   __dirname,
-  "../fixtures/reload-config/main.css"
+  "../fixtures/reload-config/main.css",
 );
 
 const INVALID_MESSAGE = "[webpack-dev-server] App updated. Recompiling...";
@@ -366,7 +366,7 @@ describe("hot and live reload", () => {
                 host: `127.0.0.1:${devServerOptions.port}`,
                 origin: `http://127.0.0.1:${devServerOptions.port}`,
               },
-            }
+            },
           );
 
           let opened = false;
@@ -406,7 +406,7 @@ describe("hot and live reload", () => {
           });
         } else {
           const sockjs = new SockJS(
-            `http://127.0.0.1:${devServerOptions.port}/ws`
+            `http://127.0.0.1:${devServerOptions.port}/ws`,
           );
 
           let opened = false;
@@ -476,10 +476,8 @@ describe("hot and live reload", () => {
       });
 
       const backgroundColorBefore = await page.evaluate(() => {
-         
         const body = document.body;
 
-         
         return getComputedStyle(body)["background-color"];
       });
 
@@ -487,7 +485,7 @@ describe("hot and live reload", () => {
 
       fs.writeFileSync(
         cssFilePath,
-        "body { background-color: rgb(255, 0, 0); }"
+        "body { background-color: rgb(255, 0, 0); }",
       );
 
       let waitHot =
@@ -521,7 +519,7 @@ describe("hot and live reload", () => {
           waitLiveReload = true;
         } else if (
           webpackOptions.entry.some((item) =>
-            item.includes("live-reload=false")
+            item.includes("live-reload=false"),
           )
         ) {
           waitLiveReload = false;
@@ -541,9 +539,8 @@ describe("hot and live reload", () => {
       if (waitHot) {
         await page.waitForFunction(
           () =>
-             
             getComputedStyle(document.body)["background-color"] ===
-            "rgb(255, 0, 0)"
+            "rgb(255, 0, 0)",
         );
 
         expect(doneHotUpdate).toBe(true);
@@ -564,10 +561,8 @@ describe("hot and live reload", () => {
       }
 
       const backgroundColorAfter = await page.evaluate(() => {
-         
         const body = document.body;
 
-         
         return getComputedStyle(body)["background-color"];
       });
 
@@ -639,7 +634,7 @@ describe("simple hot config HMR plugin", () => {
     expect(JSON.stringify(response.status())).toMatchSnapshot();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text()))
+      JSON.stringify(consoleMessages.map((message) => message.text())),
     ).toMatchSnapshot();
 
     expect(JSON.stringify(pageErrors)).toMatchSnapshot();
@@ -703,7 +698,7 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
     expect(JSON.stringify(response.status())).toMatchSnapshot();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text()))
+      JSON.stringify(consoleMessages.map((message) => message.text())),
     ).toMatchSnapshot();
 
     expect(JSON.stringify(pageErrors)).toMatchSnapshot();
@@ -747,7 +742,7 @@ describe("simple config with already added HMR plugin", () => {
     await server.start();
 
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
     );
 
     await server.stop();
@@ -759,7 +754,7 @@ describe("simple config with already added HMR plugin", () => {
     await server.start();
 
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
     );
 
     await server.stop();
@@ -771,7 +766,7 @@ describe("simple config with already added HMR plugin", () => {
     await server.start();
 
     expect(loggerWarnSpy).not.toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`
+      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
     );
 
     await server.stop();
@@ -831,7 +826,7 @@ describe("multi compiler hot config HMR plugin", () => {
     expect(JSON.stringify(response.status())).toMatchSnapshot();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text()))
+      JSON.stringify(consoleMessages.map((message) => message.text())),
     ).toMatchSnapshot();
 
     expect(JSON.stringify(pageErrors)).toMatchSnapshot();
@@ -891,7 +886,7 @@ describe("hot disabled HMR plugin", () => {
     expect(JSON.stringify(response.status())).toMatchSnapshot();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text()))
+      JSON.stringify(consoleMessages.map((message) => message.text())),
     ).toMatchSnapshot();
 
     expect(JSON.stringify(pageErrors)).toMatchSnapshot();
