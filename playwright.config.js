@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  testDir: "./test/e2e-playwright",
+  testDir: "./test/e2e",
   fullyParallel: false,
   forbidOnly: process.env.CI !== "true",
   retries: process.env.CI ? 2 : 0,
