@@ -65,7 +65,8 @@
     "swiftshader",
     "hoge",
     "subsubcomain",
-    "commitlint"
+    "commitlint",
+    "noselect"
   ],
   "ignorePaths": [
     "CHANGELOG.md",

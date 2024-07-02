@@ -55,15 +55,15 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
 exports[`options validate should throw an error on the "app" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.app should be an instance of function.
-   -> Allows to use custom applications (i.e. 'connect', 'fastify' and etc).
-   -> Read more at  https://webpack.js.org/configuration/dev-server/#devserverapp"
+   -> Allows to use custom applications, such as 'connect', 'fastify', etc.
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverapp"
 `;
 
 exports[`options validate should throw an error on the "app" option with 'test' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.app should be an instance of function.
-   -> Allows to use custom applications (i.e. 'connect', 'fastify' and etc).
-   -> Read more at  https://webpack.js.org/configuration/dev-server/#devserverapp"
+   -> Allows to use custom applications, such as 'connect', 'fastify', etc.
+   -> Read more at https://webpack.js.org/configuration/dev-server/#devserverapp"
 `;
 
 exports[`options validate should throw an error on the "bonjour" option with '' value 1`] = `
@@ -153,8 +153,9 @@ exports[`options validate should throw an error on the "client" option with '{"o
 
 exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
- - options.client.progress should be a boolean.
-   -> Prints compilation progress in percentage in the browser.
+ - options.client.progress should be one of these:
+   true | false | "linear" | "circular"
+   -> Displays compilation progress in the browser. Options include 'linear' and 'circular' for visual indicators.
    -> Read more at https://webpack.js.org/configuration/dev-server/#progress"
 `;
 
