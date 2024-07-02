@@ -64,7 +64,8 @@
     "omnibox",
     "swiftshader",
     "hoge",
-    "subsubcomain"
+    "subsubcomain",
+    "commitlint"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
