@@ -85,7 +85,6 @@ describe("handle options-request correctly", () => {
 
       await page.evaluate(
         (url) =>
-           
           window.fetch(url, {
             headers: {
               "another-header": "1",

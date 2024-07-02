@@ -101,12 +101,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -151,12 +149,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -209,12 +205,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -265,12 +259,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -320,12 +312,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -368,7 +358,6 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
-       
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -393,12 +382,11 @@ describe("overlay", () => {
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-       
+
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -425,7 +413,6 @@ describe("overlay", () => {
         hidden: true,
       });
 
-       
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -461,7 +448,6 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
-       
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -486,12 +472,11 @@ describe("overlay", () => {
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-       
+
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       let overlayFrame = await overlayHandle.contentFrame();
       let overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -520,11 +505,11 @@ describe("overlay", () => {
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-       
+
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       overlayFrame = await overlayHandle.contentFrame();
-       
+
       overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
 
       expect(
@@ -550,7 +535,6 @@ describe("overlay", () => {
         hidden: true,
       });
 
-       
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -586,7 +570,6 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
-       
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -611,12 +594,11 @@ describe("overlay", () => {
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-       
+
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -649,7 +631,6 @@ describe("overlay", () => {
         hidden: true,
       });
 
-       
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -745,7 +726,6 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -792,7 +772,6 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -880,12 +859,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -937,12 +914,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -996,12 +971,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1055,12 +1028,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1112,7 +1083,6 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -1159,7 +1129,6 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -1248,12 +1217,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1305,12 +1272,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1370,12 +1335,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1446,12 +1409,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1514,7 +1475,6 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       expect(overlayHandle).toBe(null);
@@ -1560,12 +1520,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1619,12 +1577,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1677,12 +1633,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1716,7 +1670,6 @@ describe("overlay", () => {
       });
 
       const pageHtmlAfterClose = await page.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1767,12 +1720,10 @@ describe("overlay", () => {
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1833,12 +1784,10 @@ describe("overlay", () => {
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1894,7 +1843,6 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -1985,7 +1933,6 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 
@@ -2081,12 +2028,10 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-       
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
       const overlayHtml = await overlayFrame.evaluate(
-         
         () => document.body.outerHTML,
       );
 

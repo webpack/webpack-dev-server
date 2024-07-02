@@ -34,7 +34,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -73,7 +72,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -114,7 +112,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -153,7 +150,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -194,7 +190,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -236,7 +231,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -280,7 +274,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -322,7 +315,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -366,7 +358,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -428,7 +419,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -469,7 +459,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -511,7 +500,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -553,7 +541,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
@@ -597,7 +584,6 @@ describe("server and client transport", () => {
       });
 
       const isCorrectTransport = await page.evaluate(
-         
         () => window.injectedClient === window.expectedClient,
       );
 
