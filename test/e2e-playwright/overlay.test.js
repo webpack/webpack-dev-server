@@ -6,7 +6,7 @@ const webpack = require("webpack");
 const { test } = require("@playwright/test");
 const { describe } = require("@playwright/test");
 const { expect } = require("@playwright/test");
-const { beforeAll, afterAll } = require("@playwright/test");
+const { beforeAll } = require("@playwright/test");
 const waitForExpect = require("wait-for-expect");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/overlay-config/webpack.config");
@@ -117,10 +117,12 @@ describe("overlay", () => {
         }),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -159,16 +161,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -177,7 +183,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should show a warning and error for initial compilation", async ({ page }) => {
+  test("should show a warning and error for initial compilation", async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -211,16 +219,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -229,7 +241,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should show an ansi formatted error for initial compilation", async ({ page }) => {
+  test("should show an ansi formatted error for initial compilation", async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new ErrorPlugin(
@@ -261,16 +275,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -279,7 +297,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should show a warning and error for initial compilation and protects against xss", async ({ page }) => {
+  test("should show a warning and error for initial compilation and protects against xss", async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin("<strong>strong</strong>").apply(compiler);
@@ -310,16 +330,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -328,7 +352,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should not show initially, then show on an error, then hide on fix", async ({ page }) => {
+  test("should not show initially, then show on an error, then hide on fix", async ({
+    page,
+  }) => {
     const compiler = webpack(config);
     const devServerOptions = {
       port,
@@ -348,10 +374,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html initial");
 
       const pathToFile = path.resolve(
@@ -375,16 +403,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html with error");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
 
       fs.writeFileSync(pathToFile, originalCode);
@@ -399,10 +431,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html after fix error");
     } catch (error) {
       throw error;
@@ -411,7 +445,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should not show initially, then show on an error, then show other error, then hide on fix", async ({ page }) => {
+  test("should not show initially, then show on an error, then show other error, then hide on fix", async ({
+    page,
+  }) => {
     const compiler = webpack(config);
     const devServerOptions = {
       port,
@@ -431,10 +467,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html initial");
 
       const pathToFile = path.resolve(
@@ -458,16 +496,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html with error");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
 
       fs.writeFileSync(pathToFile, "`;a");
@@ -486,16 +528,20 @@ describe("overlay", () => {
       overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html with other error");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
 
       fs.writeFileSync(pathToFile, originalCode);
@@ -510,10 +556,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html after fix error");
     } catch (error) {
       throw error;
@@ -522,7 +570,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should not show initially, then show on an error and allow to close", async ({ page }) => {
+  test("should not show initially, then show on an error and allow to close", async ({
+    page,
+  }) => {
     const compiler = webpack(config);
     const devServerOptions = {
       port,
@@ -542,10 +592,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html initial");
 
       const pathToFile = path.resolve(
@@ -569,16 +621,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html with error");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
 
       const frame = await page
@@ -599,10 +655,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html after close");
 
       fs.writeFileSync(pathToFile, originalCode);
@@ -613,7 +671,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should open editor when error with file info is clicked", async ({ page }) => {
+  test("should open editor when error with file info is clicked", async ({
+    page,
+  }) => {
     const mockLaunchEditorCb = jest.fn();
     jest.mock("launch-editor", () => mockLaunchEditorCb);
 
@@ -660,7 +720,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should not show a warning when "client.overlay" is "false"', async ({ page }) => {
+  test('should not show a warning when "client.overlay" is "false"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -689,10 +751,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
@@ -701,7 +765,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should not show a warning when "client.overlay.warnings" is "false"', async ({ page }) => {
+  test('should not show a warning when "client.overlay.warnings" is "false"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -732,10 +798,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
@@ -822,16 +890,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -840,7 +912,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should show a warning when "client.overlay" is "true"', async ({ page }) => {
+  test('should show a warning when "client.overlay" is "true"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -873,16 +947,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -891,7 +969,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should show a warning when "client.overlay.warnings" is "true"', async ({ page }) => {
+  test('should show a warning when "client.overlay.warnings" is "true"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -926,16 +1006,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -944,7 +1028,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should show a warning when "client.overlay.errors" is "true"', async ({ page }) => {
+  test('should show a warning when "client.overlay.errors" is "true"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -979,16 +1065,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -997,7 +1087,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should not show an error when "client.overlay" is "false"', async ({ page }) => {
+  test('should not show an error when "client.overlay" is "false"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -1026,10 +1118,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
@@ -1038,7 +1132,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should not show an error when "client.overlay.errors" is "false"', async ({ page }) => {
+  test('should not show an error when "client.overlay.errors" is "false"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -1069,10 +1165,12 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
@@ -1160,16 +1258,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1178,7 +1280,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should show an error when "client.overlay" is "true"', async ({ page }) => {
+  test('should show an error when "client.overlay" is "true"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -1211,16 +1315,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1229,7 +1337,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should show overlay when Trusted Types are enabled", async ({ page }) => {
+  test("should show overlay when Trusted Types are enabled", async ({
+    page,
+  }) => {
     const compiler = webpack(trustedTypesConfig);
 
     new ErrorPlugin().apply(compiler);
@@ -1275,16 +1385,20 @@ describe("overlay", () => {
         ),
       ).toHaveLength(0);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1293,7 +1407,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should show overlay when Trusted Types are enabled and the \"require-trusted-types-for 'script'\" header was used", async ({ page }) => {
+  test("should show overlay when Trusted Types are enabled and the \"require-trusted-types-for 'script'\" header was used", async ({
+    page,
+  }) => {
     const compiler = webpack(trustedTypesConfig);
 
     new ErrorPlugin().apply(compiler);
@@ -1349,16 +1465,20 @@ describe("overlay", () => {
         ),
       ).toHaveLength(0);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1367,7 +1487,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should not show overlay when Trusted Types are enabled, but policy is not allowed", async ({ page }) => {
+  test("should not show overlay when Trusted Types are enabled, but policy is not allowed", async ({
+    page,
+  }) => {
     const compiler = webpack(trustedTypesConfig);
 
     new ErrorPlugin().apply(compiler);
@@ -1397,10 +1519,12 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       expect(overlayHandle).toBe(null);
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
@@ -1409,7 +1533,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should show an error when "client.overlay.errors" is "true"', async ({ page }) => {
+  test('should show an error when "client.overlay.errors" is "true"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new ErrorPlugin().apply(compiler);
@@ -1444,16 +1570,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1462,7 +1592,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should show an error when "client.overlay.warnings" is "true"', async ({ page }) => {
+  test('should show an error when "client.overlay.warnings" is "true"', async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -1497,16 +1629,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1515,7 +1651,9 @@ describe("overlay", () => {
     }
   });
 
-  test("should show a warning and hide them after closing connection", async ({ page }) => {
+  test("should show a warning and hide them after closing connection", async ({
+    page,
+  }) => {
     const compiler = webpack(config);
 
     new WarningPlugin().apply(compiler);
@@ -1549,16 +1687,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
 
       await server.stop();
@@ -1579,10 +1721,12 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtmlAfterClose, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtmlAfterClose, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
     } catch (error) {
       throw error;
@@ -1633,16 +1777,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1695,16 +1843,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1747,10 +1899,12 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1836,10 +1990,12 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
@@ -1891,7 +2047,9 @@ describe("overlay", () => {
     }
   });
 
-  test('should show overlay when "Content-Security-Policy" is "default-src \'self\'" was used', async ({ page }) => {
+  test('should show overlay when "Content-Security-Policy" is "default-src \'self\'" was used', async ({
+    page,
+  }) => {
     const compiler = webpack({ ...config, devtool: false });
 
     new ErrorPlugin().apply(compiler);
@@ -1933,16 +2091,20 @@ describe("overlay", () => {
       );
 
       expect(
-        JSON.stringify(await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(pageHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("page html");
       expect(
-        JSON.stringify(await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        })),
+        JSON.stringify(
+          await prettier.format(overlayHtml, {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          }),
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
