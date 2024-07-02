@@ -3,10 +3,12 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").logging;
 
 describe("logging", () => {
@@ -23,8 +25,7 @@ describe("logging", () => {
       },
     },
     {
-      title:
-        "should work and log messages about hot and live reloading is enabled",
+      title: "should work and log messages about hot",
       devServerOptions: {
         hot: true,
       },
@@ -33,13 +34,6 @@ describe("logging", () => {
       title: "should work and log messages about hot is enabled",
       devServerOptions: {
         liveReload: false,
-      },
-    },
-    {
-      title:
-        "should work and log messages about hot and live reloading is enabled",
-      devServerOptions: {
-        liveReload: true,
       },
     },
     {
@@ -190,9 +184,9 @@ describe("logging", () => {
 
   webSocketServers.forEach((webSocketServer) => {
     cases.forEach((testCase) => {
-      it(`${testCase.title} (${
+      test(`${testCase.title} (${
         webSocketServer.webSocketServer || "default"
-      })`, async () => {
+      })`, async ({ page }) => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
         const devServerOptions = {
           port,
@@ -201,8 +195,6 @@ describe("logging", () => {
         const server = new Server(devServerOptions, compiler);
 
         await server.start();
-
-        const { page, browser } = await runBrowser();
 
         try {
           const consoleMessages = [];
@@ -227,20 +219,21 @@ describe("logging", () => {
           }
 
           expect(
-            consoleMessages.map((message) =>
-              message
-                .text()
-                .replace(/\\/g, "/")
-                .replace(
-                  new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
-                  "<cwd>",
-                ),
+            JSON.stringify(
+              consoleMessages.map((message) =>
+                message
+                  .text()
+                  .replace(/\\/g, "/")
+                  .replace(
+                    new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+                    "<cwd>",
+                  ),
+              ),
             ),
           ).toMatchSnapshot();
         } catch (error) {
           throw error;
         } finally {
-          await browser.close();
           await server.stop();
         }
       });

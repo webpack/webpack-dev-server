@@ -1,16 +1,17 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { beforeEach, afterEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["on-listening-option"];
 
 describe("onListening option", () => {
   let compiler;
   let server;
-  let page;
-  let browser;
   let pageErrors;
   let consoleMessages;
   let onListeningIsRunning = false;
@@ -47,18 +48,17 @@ describe("onListening option", () => {
 
     await server.start();
 
-    ({ page, browser } = await runBrowser());
-
     pageErrors = [];
     consoleMessages = [];
   });
 
   afterEach(async () => {
-    await browser.close();
     await server.stop();
   });
 
-  it("should handle GET request to /listening/some/path route", async () => {
+  test("should handle GET request to /listening/some/path route", async ({
+    page,
+  }) => {
     page
       .on("console", (message) => {
         consoleMessages.push(message);
@@ -76,22 +76,24 @@ describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
+    expect(
+      JSON.stringify(response.headers()["content-type"]),
+    ).toMatchSnapshot();
 
-    expect(response.status()).toMatchSnapshot("response status");
+    expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-    expect(await response.text()).toMatchSnapshot("response text");
+    expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    expect(
+      JSON.stringify(consoleMessages.map((message) => message.text())),
+    ).toMatchSnapshot();
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
   });
 
-  it("should handle POST request to /listening/some/path route", async () => {
+  test("should handle POST request to /listening/some/path route", async ({
+    page,
+  }) => {
     await page.setRequestInterception(true);
 
     page
@@ -116,18 +118,18 @@ describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
+    expect(
+      JSON.stringify(response.headers()["content-type"]),
+    ).toMatchSnapshot();
 
-    expect(response.status()).toMatchSnapshot("response status");
+    expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-    expect(await response.text()).toMatchSnapshot("response text");
+    expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    expect(
+      JSON.stringify(consoleMessages.map((message) => message.text())),
+    ).toMatchSnapshot();
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
   });
 });

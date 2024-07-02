@@ -2,19 +2,23 @@
 
 const webpack = require("webpack");
 const WebSocket = require("ws");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const WebsocketServer = require("../../lib/servers/WebsocketServer");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["web-socket-communication"];
 
-jest.setTimeout(60000);
+// jest.setTimeout(60000);
 
 describe("web socket communication", () => {
   const webSocketServers = ["ws", "sockjs"];
 
   webSocketServers.forEach((websocketServer) => {
-    it(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async () => {
+    test(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async ({
+      page,
+    }) => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
@@ -25,8 +29,6 @@ describe("web socket communication", () => {
       const server = new Server(devServerOptions, compiler);
 
       await server.start();
-
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -57,16 +59,17 @@ describe("web socket communication", () => {
           }, 100);
         });
 
-        expect(consoleMessages).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
-      } finally {
-        await browser.close();
       }
     });
 
-    it(`should work and terminate client that is not alive ("${websocketServer}")`, async () => {
+    test(`should work and terminate client that is not alive ("${websocketServer}")`, async ({
+      page,
+    }) => {
+      test.setTimeout(60000);
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
@@ -77,8 +80,6 @@ describe("web socket communication", () => {
       const server = new Server(devServerOptions, compiler);
 
       await server.start();
-
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -95,7 +96,6 @@ describe("web socket communication", () => {
         await page.goto(`http://127.0.0.1:${port}/`, {
           waitUntil: "networkidle0",
         });
-        await browser.close();
 
         // Wait heartbeat
         await new Promise((resolve) => {
@@ -106,9 +106,9 @@ describe("web socket communication", () => {
 
         expect(server.webSocketServer.clients.length).toBe(0);
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
@@ -116,7 +116,9 @@ describe("web socket communication", () => {
       }
     });
 
-    it(`should work and reconnect when the connection is lost ("${websocketServer}")`, async () => {
+    test(`should work and reconnect when the connection is lost ("${websocketServer}")`, async ({
+      page,
+    }) => {
       WebsocketServer.heartbeatInterval = 100;
 
       const compiler = webpack(config);
@@ -127,8 +129,6 @@ describe("web socket communication", () => {
       const server = new Server(devServerOptions, compiler);
 
       await server.start();
-
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -154,19 +154,18 @@ describe("web socket communication", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });
   });
 
-  it(`should work and do heartbeat using ("ws" web socket server)`, async () => {
+  test(`should work and do heartbeat using ("ws" web socket server)`, async () => {
     WebsocketServer.heartbeatInterval = 100;
 
     const compiler = webpack(config);

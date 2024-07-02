@@ -1,17 +1,18 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { beforeEach, afterEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/mime-types-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["mime-types-option"];
 
 describe("mimeTypes option", () => {
   describe("as an object with a remapped type", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -32,18 +33,17 @@ describe("mimeTypes option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should request file with different js mime type", async () => {
+    test("should request file with different js mime type", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -56,25 +56,23 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as an object with a custom type", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -95,18 +93,17 @@ describe("mimeTypes option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should request file with different js mime type", async () => {
+    test("should request file with different js mime type", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -119,17 +116,17 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });

@@ -2,9 +2,14 @@
 
 const os = require("os");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { beforeEach, afterEach } = require("@playwright/test");
+// const { jest } = require("@jest/globals");
+const jestMock = require("jest-mock");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").bonjour;
 
 describe("bonjour option", () => {
@@ -13,25 +18,23 @@ describe("bonjour option", () => {
   let mockDestroy;
 
   beforeEach(() => {
-    mockPublish = jest.fn();
-    mockUnpublishAll = jest.fn((callback) => {
+    mockPublish = jestMock.fn();
+    mockUnpublishAll = jestMock.fn((callback) => {
       callback();
     });
-    mockDestroy = jest.fn();
+    mockDestroy = jestMock.fn();
   });
 
   describe("as true", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
     beforeEach(async () => {
       jest.mock("bonjour-service", () => {
         return {
-          Bonjour: jest.fn().mockImplementation(() => {
+          Bonjour: jestMock.fn().mockImplementation(() => {
             return {
               publish: mockPublish,
               unpublishAll: mockUnpublishAll,
@@ -47,14 +50,11 @@ describe("bonjour option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
 
       mockPublish.mockReset();
@@ -62,7 +62,7 @@ describe("bonjour option", () => {
       mockDestroy.mockReset();
     });
 
-    it("should call bonjour with correct params", async () => {
+    test("should call bonjour with correct params", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -87,28 +87,26 @@ describe("bonjour option", () => {
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
       expect(mockDestroy).toHaveBeenCalledTimes(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("with 'server' option", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
+      jestMock.mock("bonjour-service", () => {
         return {
-          Bonjour: jest.fn().mockImplementation(() => {
+          Bonjour: jestMock.fn().mockImplementation(() => {
             return {
               publish: mockPublish,
               unpublishAll: mockUnpublishAll,
@@ -124,18 +122,15 @@ describe("bonjour option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should call bonjour with 'https' type", async () => {
+    test("should call bonjour with 'https' type", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -160,28 +155,26 @@ describe("bonjour option", () => {
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
       expect(mockDestroy).toHaveBeenCalledTimes(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as object", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
     beforeEach(async () => {
       jest.mock("bonjour-service", () => {
         return {
-          Bonjour: jest.fn().mockImplementation(() => {
+          Bonjour: jestMock.fn().mockImplementation(() => {
             return {
               publish: mockPublish,
               unpublishAll: mockUnpublishAll,
@@ -206,18 +199,15 @@ describe("bonjour option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should apply bonjour options", async () => {
+    test("should apply bonjour options", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -243,28 +233,26 @@ describe("bonjour option", () => {
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
       expect(mockDestroy).toHaveBeenCalledTimes(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("bonjour object and 'server' option", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
     beforeEach(async () => {
       jest.mock("bonjour-service", () => {
         return {
-          Bonjour: jest.fn().mockImplementation(() => {
+          Bonjour: jestMock.fn().mockImplementation(() => {
             return {
               publish: mockPublish,
               unpublishAll: mockUnpublishAll,
@@ -292,18 +280,15 @@ describe("bonjour option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should apply bonjour options", async () => {
+    test("should apply bonjour options", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -329,13 +314,13 @@ describe("bonjour option", () => {
       expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
       expect(mockDestroy).toHaveBeenCalledTimes(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });

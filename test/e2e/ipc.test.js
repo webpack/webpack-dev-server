@@ -5,10 +5,12 @@ const net = require("net");
 const path = require("path");
 const http = require("http");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
 const httpProxy = require("http-proxy");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port1 = require("../ports-map").ipc;
 
@@ -18,7 +20,9 @@ describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
     const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
 
-    it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
+    test(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const proxyHost = devServerHost;
       const proxyPort = port1;
@@ -56,8 +60,6 @@ describe("web socket server URL", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -73,10 +75,10 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+          const session = await page.context().newCDPSession(page);
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
+          session.on("Network.webSocketCreated", (payload) => {
+            webSocketRequests.push(payload);
           });
 
           await session.send("Target.setAutoAttach", {
@@ -104,20 +106,21 @@ describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
+    test(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const isWindows = process.platform === "win32";
       const pipePrefix = isWindows ? "\\\\.\\pipe\\" : os.tmpdir();
       const pipeName = `webpack-dev-server.${process.pid}-1.sock`;
@@ -160,8 +163,6 @@ describe("web socket server URL", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -177,10 +178,10 @@ describe("web socket server URL", () => {
         const webSocketRequests = [];
 
         if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+          const session = await page.context().newCDPSession(page);
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
+          session.on("Network.webSocketCreated", (payload) => {
+            webSocketRequests.push(payload);
           });
 
           await session.send("Target.setAutoAttach", {
@@ -208,21 +209,22 @@ describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
     // TODO un skip after implement new API
-    it.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async () => {
+    test.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const isWindows = process.platform === "win32";
       const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
       const pipePrefix = isWindows ? "\\\\.\\pipe\\" : localRelative;
@@ -279,8 +281,6 @@ describe("web socket server URL", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -298,8 +298,8 @@ describe("web socket server URL", () => {
         if (webSocketServer === "ws") {
           const session = await page.target().createCDPSession();
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
+          session.on("Network.webSocketCreated", (payload) => {
+            webSocketRequests.push(payload);
           });
 
           await session.send("Target.setAutoAttach", {
@@ -327,9 +327,9 @@ describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
@@ -346,7 +346,6 @@ describe("web socket server URL", () => {
             resolve();
           });
         });
-        await browser.close();
         await server.stop();
       }
     });

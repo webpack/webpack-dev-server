@@ -1,18 +1,20 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { afterEach } = require("@playwright/test");
+const { beforeEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const multiConfig = require("../fixtures/multi-public-path-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").routes;
 
 describe("Built in routes", () => {
   describe("with simple config", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -22,18 +24,15 @@ describe("Built in routes", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handles GET request to sockjs bundle", async () => {
+    test("should handles GET request to sockjs bundle", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -49,20 +48,20 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handles HEAD request to sockjs bundle", async () => {
+    test("should handles HEAD request to sockjs bundle", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -83,20 +82,22 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle GET request to invalidate endpoint", async () => {
+    test("should handle GET request to invalidate endpoint", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -112,18 +113,22 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).not.toEqual("text/html");
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      expect(JSON.stringify(response.headers()["content-type"])).not.toEqual(
+        "text/html",
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
+
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
+
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle GET request to directory index and list all middleware directories", async () => {
+    test("should handle GET request to directory index and list all middleware directories", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -139,22 +144,22 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle HEAD request to directory index", async () => {
+    test("should handle HEAD request to directory index", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -175,22 +180,22 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle GET request to magic async chunk", async () => {
+    test("should handle GET request to magic async chunk", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -203,18 +208,20 @@ describe("Built in routes", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
     });
 
-    it("should handle HEAD request to magic async chunk", async () => {
+    test("should handle HEAD request to magic async chunk", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -232,23 +239,21 @@ describe("Built in routes", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
     });
   });
 
   describe("with multi config", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -258,18 +263,17 @@ describe("Built in routes", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request to directory index and list all middleware directories", async () => {
+    test("should handle GET request to directory index and list all middleware directories", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -285,19 +289,19 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });

@@ -1,14 +1,16 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map")["web-socket-server-test"];
 
 describe("web socket server", () => {
-  it("should work allow to disable", async () => {
+  test("should work allow to disable", async ({ page }) => {
     const devServerPort = port;
 
     const compiler = webpack(config);
@@ -19,8 +21,6 @@ describe("web socket server", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -35,10 +35,10 @@ describe("web socket server", () => {
         });
 
       const webSocketRequests = [];
-      const session = await page.target().createCDPSession();
+      const session = await page.context().newCDPSession(page);
 
-      session.on("Network.webSocketCreated", (test) => {
-        webSocketRequests.push(test);
+      session.on("Network.webSocketCreated", (payload) => {
+        webSocketRequests.push(payload);
       });
 
       await session.send("Target.setAutoAttach", {
@@ -54,14 +54,13 @@ describe("web socket server", () => {
       });
 
       expect(webSocketRequests).toHaveLength(0);
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });

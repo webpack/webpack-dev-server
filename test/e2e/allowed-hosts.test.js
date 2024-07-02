@@ -2,17 +2,22 @@
 
 const express = require("express");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { beforeEach, afterEach } = require("@playwright/test");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const [port1, port2] = require("../ports-map")["allowed-hosts"];
 
 const webSocketServers = ["ws", "sockjs"];
 
 describe("allowed hosts", () => {
   for (const webSocketServer of webSocketServers) {
-    it(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("${webSocketServer}")`, async () => {
+    test(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -60,8 +65,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -79,20 +82,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "server: 'https'" is enabled ("${webSocketServer}")`, async () => {
+    test(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header when "server: 'https'" is enabled ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -143,8 +147,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -162,20 +164,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "origin" header ("${webSocketServer}")`, async () => {
+    test(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "origin" header ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -223,8 +226,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -242,20 +243,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using localhost to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using localhost to web socket server with the "auto" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "localhost";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -299,7 +301,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -317,20 +318,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using "127.0.0.1" host to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using "127.0.0.1" host to web socket server with the "auto" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -374,8 +376,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -393,20 +393,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using "[::1] host to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using "[::1] host to web socket server with the "auto" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "::1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -450,8 +451,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -469,20 +468,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using "file:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using "file:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -529,8 +529,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -548,20 +546,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -608,8 +607,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -627,20 +624,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the "all" value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using custom hostname to web socket server with the "all" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -688,8 +686,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -707,20 +703,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the "all" value in array ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using custom hostname to web socket server with the "all" value in array ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -768,8 +765,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -787,20 +782,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using custom hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -848,8 +844,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -867,20 +861,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -928,8 +923,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -947,20 +940,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -1011,8 +1005,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -1030,20 +1022,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("${webSocketServer}")`, async () => {
+    test(`should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -1091,8 +1084,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -1110,20 +1101,21 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should disconnect web client using localhost to web socket server with the "auto" value ("${webSocketServer}")`, async () => {
+    test(`should disconnect web client using localhost to web socket server with the "auto" value ("${webSocketServer}")`, async ({
+      page,
+    }) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -1172,8 +1164,6 @@ describe("allowed hosts", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -1192,17 +1182,16 @@ describe("allowed hosts", () => {
 
         const html = await page.content();
 
-        expect(html).toMatchSnapshot("html");
+        expect(JSON.stringify(html)).toMatchSnapshot();
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
+        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
         proxy.close();
 
-        await browser.close();
         await server.stop();
       }
     });
@@ -1211,8 +1200,6 @@ describe("allowed hosts", () => {
   describe("check host headers", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -1223,11 +1210,12 @@ describe("allowed hosts", () => {
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should always allow `localhost` if options.allowedHosts is auto", async () => {
+    test("should always allow `localhost` if options.allowedHosts is auto", async ({
+      page,
+    }) => {
       const options = {
         allowedHosts: "auto",
         port: port1,
@@ -1241,8 +1229,6 @@ describe("allowed hosts", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1259,16 +1245,18 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should always allow `localhost` subdomain if options.allowedHosts is auto", async () => {
+    test("should always allow `localhost` subdomain if options.allowedHosts is auto", async ({
+      page,
+    }) => {
       const options = {
         allowedHosts: "auto",
         port: port1,
@@ -1282,8 +1270,6 @@ describe("allowed hosts", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1300,16 +1286,18 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should always allow value from the `host` options if options.allowedHosts is auto", async () => {
+    test("should always allow value from the `host` options if options.allowedHosts is auto", async ({
+      page,
+    }) => {
       const networkIP = Server.internalIPSync("v4");
       const options = {
         host: networkIP,
@@ -1324,8 +1312,6 @@ describe("allowed hosts", () => {
       server = new Server(options, compiler);
 
       await server.start();
-
-      ({ page, browser } = await runBrowser());
 
       page
         .on("console", (message) => {
@@ -1343,16 +1329,18 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", async () => {
+    test("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", async ({
+      page,
+    }) => {
       const options = {
         allowedHosts: "auto",
         port: port1,
@@ -1369,8 +1357,6 @@ describe("allowed hosts", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1387,16 +1373,18 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should always allow any host if options.allowedHosts is all", async () => {
+    test("should always allow any host if options.allowedHosts is all", async ({
+      page,
+    }) => {
       const options = {
         allowedHosts: "all",
         port: port1,
@@ -1409,8 +1397,6 @@ describe("allowed hosts", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1427,16 +1413,16 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should allow hosts in allowedHosts", async () => {
+    test("should allow hosts in allowedHosts", async ({ page }) => {
       const tests = ["test.host", "test2.host", "test3.host"];
       const options = {
         allowedHosts: tests,
@@ -1446,8 +1432,6 @@ describe("allowed hosts", () => {
       server = new Server(options, compiler);
 
       await server.start();
-
-      ({ page, browser } = await runBrowser());
 
       page
         .on("console", (message) => {
@@ -1461,24 +1445,26 @@ describe("allowed hosts", () => {
         waitUntil: "networkidle0",
       });
 
-      tests.forEach((test) => {
-        const headers = { host: test };
+      tests.forEach((host) => {
+        const headers = { host };
 
         if (!server.checkHeader(headers, "host")) {
           throw new Error("Validation didn't fail");
         }
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should allow hosts that pass a wildcard in allowedHosts", async () => {
+    test("should allow hosts that pass a wildcard in allowedHosts", async ({
+      page,
+    }) => {
       const options = {
         allowedHosts: [".example.com"],
         port: port1,
@@ -1487,8 +1473,6 @@ describe("allowed hosts", () => {
       server = new Server(options, compiler);
 
       await server.start();
-
-      ({ page, browser } = await runBrowser());
 
       page
         .on("console", (message) => {
@@ -1511,21 +1495,21 @@ describe("allowed hosts", () => {
         "subdomain.example.com:80",
       ];
 
-      tests.forEach((test) => {
-        const headers = { host: test };
+      tests.forEach((host) => {
+        const headers = { host };
 
         if (!server.checkHeader(headers, "host")) {
           throw new Error("Validation didn't fail");
         }
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });

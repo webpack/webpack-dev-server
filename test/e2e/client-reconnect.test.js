@@ -1,17 +1,18 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { beforeEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["client-reconnect-option"];
 
 describe("client.reconnect option", () => {
   describe("specified as true", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -22,17 +23,11 @@ describe("client.reconnect option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
-    });
-
-    it("should try to reconnect unlimited times", async () => {
+    test("should try to reconnect unlimited times", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -46,7 +41,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshot("response status");
+        expect(JSON.stringify(response.status())).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
@@ -69,15 +64,13 @@ describe("client.reconnect option", () => {
         }, 1000);
       });
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("specified as false", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -88,17 +81,11 @@ describe("client.reconnect option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
-    });
-
-    it("should not try to reconnect", async () => {
+    test("should not try to reconnect", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -112,7 +99,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshot("response status");
+        expect(JSON.stringify(response.status())).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
@@ -130,19 +117,17 @@ describe("client.reconnect option", () => {
         ),
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("specified as number", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -153,17 +138,11 @@ describe("client.reconnect option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
-    });
-
-    it("should try to reconnect 2 times", async () => {
+    test("should try to reconnect 2 times", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -177,7 +156,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshot("response status");
+        expect(JSON.stringify(response.status())).toMatchSnapshot();
       } catch (error) {
         throw error;
       } finally {
@@ -195,11 +174,11 @@ describe("client.reconnect option", () => {
         ),
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });

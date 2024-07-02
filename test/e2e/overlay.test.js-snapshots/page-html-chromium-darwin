@@ -1,0 +1,17 @@
+<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+
+  <iframe
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    "
+  ></iframe>
+</body>

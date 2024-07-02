@@ -2,9 +2,13 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { afterEach } = require("@playwright/test");
+const { beforeEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").app;
 
 const staticDirectory = path.resolve(
@@ -25,8 +29,6 @@ describe("app option", () => {
     for (const server of servers) {
       let compiler;
       let devServer;
-      let page;
-      let browser;
       let pageErrors;
       let consoleMessages;
 
@@ -49,18 +51,22 @@ describe("app option", () => {
 
           await devServer.start();
 
-          ({ page, browser } = await runBrowser());
-
           pageErrors = [];
           consoleMessages = [];
         });
 
         afterEach(async () => {
-          await browser.close();
           await devServer.stop();
         });
 
-        it("should handle GET request to index route (/)", async () => {
+        test("should handle GET request to index route (/)", async ({
+          browser,
+        }) => {
+          const context = await browser.newContext({
+            ignoreHTTPSErrors: true,
+          });
+          const page = await context.newPage();
+
           page
             .on("console", (message) => {
               consoleMessages.push(message);
@@ -90,12 +96,12 @@ describe("app option", () => {
             expect(HTTPVersion).toEqual("http/1.1");
           }
 
-          expect(response.status()).toMatchSnapshot("response status");
-          expect(await response.text()).toMatchSnapshot("response text");
+          expect(JSON.stringify(response.status())).toMatchSnapshot();
+          expect(JSON.stringify(await response.text())).toMatchSnapshot();
           expect(
-            consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
-          expect(pageErrors).toMatchSnapshot("page errors");
+            JSON.stringify(consoleMessages.map((message) => message.text())),
+          ).toMatchSnapshot();
+          expect(JSON.stringify(pageErrors)).toMatchSnapshot();
         });
       });
     }

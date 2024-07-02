@@ -4,9 +4,13 @@ const path = require("path");
 const chokidar = require("chokidar");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { beforeEach, afterEach } = require("@playwright/test");
+const jestMock = require("jest-mock");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/watch-files-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["watch-files-option"];
 
 const watchDir = path.resolve(
@@ -19,8 +23,6 @@ describe("watchFiles option", () => {
     const file = path.join(watchDir, "assets/example.txt");
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -37,19 +39,16 @@ describe("watchFiles option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
       fs.truncateSync(file);
     });
 
-    it("should reload when file content is changed", async () => {
+    test("should reload when file content is changed", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -62,13 +61,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -90,8 +89,6 @@ describe("watchFiles option", () => {
     const file = path.join(watchDir, "assets/example.txt");
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -108,19 +105,16 @@ describe("watchFiles option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
       fs.truncateSync(file);
     });
 
-    it("should reload when file content is changed", async () => {
+    test("should reload when file content is changed", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -133,13 +127,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -161,8 +155,6 @@ describe("watchFiles option", () => {
     const file = path.join(watchDir, "assets/example.txt");
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -179,19 +171,16 @@ describe("watchFiles option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
       fs.truncateSync(file);
     });
 
-    it("should reload when file content is changed", async () => {
+    test("should reload when file content is changed", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -204,13 +193,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -232,8 +221,6 @@ describe("watchFiles option", () => {
     const nonExistFile = path.join(watchDir, "assets/non-exist.txt");
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -256,18 +243,15 @@ describe("watchFiles option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should reload when file content is changed", async () => {
+    test("should reload when file content is changed", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -280,13 +264,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       await new Promise((resolve) => {
         server.staticWatchers[0].on("change", async (changedPath) => {
@@ -313,8 +297,6 @@ describe("watchFiles option", () => {
     const file = path.join(watchDir, "assets/example.txt");
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -331,19 +313,16 @@ describe("watchFiles option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
       fs.truncateSync(file);
     });
 
-    it("should reload when file content is changed", async () => {
+    test("should reload when file content is changed", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -356,13 +335,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -385,8 +364,6 @@ describe("watchFiles option", () => {
     const other = path.join(watchDir, "assets/other.txt");
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -403,20 +380,17 @@ describe("watchFiles option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
       fs.truncateSync(file);
       fs.truncateSync(other);
     });
 
-    it("should reload when file content is changed", async () => {
+    test("should reload when file content is changed", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -429,13 +403,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
@@ -466,8 +440,6 @@ describe("watchFiles option", () => {
     const other = path.join(watchDir, "assets/other.txt");
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -484,20 +456,17 @@ describe("watchFiles option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
       fs.truncateSync(file);
       fs.truncateSync(other);
     });
 
-    it("should reload when file content is changed", async () => {
+    test("should reload when file content is changed", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -510,13 +479,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
@@ -556,7 +525,7 @@ describe("watchFiles option", () => {
   describe("should work with options", () => {
     const file = path.join(watchDir, "assets/example.txt");
 
-    const chokidarMock = jest.spyOn(chokidar, "watch");
+    const chokidarMock = jestMock.spyOn(chokidar, "watch");
 
     const optionCases = [
       {
@@ -603,8 +572,6 @@ describe("watchFiles option", () => {
       describe(JSON.stringify(optionCase), () => {
         let compiler;
         let server;
-        let page;
-        let browser;
         let pageErrors;
         let consoleMessages;
 
@@ -626,19 +593,16 @@ describe("watchFiles option", () => {
 
           await server.start();
 
-          ({ page, browser } = await runBrowser());
-
           pageErrors = [];
           consoleMessages = [];
         });
 
         afterEach(async () => {
           await server.stop();
-          await browser.close();
           fs.truncateSync(file);
         });
 
-        it("should reload when file content is changed", async () => {
+        test("should reload when file content is changed", async ({ page }) => {
           page
             .on("console", (message) => {
               consoleMessages.push(message);
@@ -652,15 +616,17 @@ describe("watchFiles option", () => {
           });
 
           // should pass correct options to chokidar config
-          expect(chokidarMock.mock.calls[0][1]).toMatchSnapshot();
+          expect(
+            JSON.stringify(chokidarMock.mock.calls[0][1]),
+          ).toMatchSnapshot();
 
-          expect(response.status()).toMatchSnapshot("response status");
+          expect(JSON.stringify(response.status())).toMatchSnapshot();
 
           expect(
-            consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
+            JSON.stringify(consoleMessages.map((message) => message.text())),
+          ).toMatchSnapshot();
 
-          expect(pageErrors).toMatchSnapshot("page errors");
+          expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
           // change file content
           fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");

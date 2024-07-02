@@ -2,10 +2,14 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { beforeEach, afterEach } = require("@playwright/test");
+const jestMock = require("jest-mock");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["static-public-path-option"];
-const runBrowser = require("../helpers/run-browser");
 
 const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");
@@ -17,8 +21,6 @@ describe("static.publicPath option", () => {
   describe("to directory", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -39,18 +41,15 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle request to index", async () => {
+    test("should handle request to index", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -66,18 +65,18 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle request to other file", async () => {
+    test("should handle request to other file", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -93,23 +92,21 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("test listing files in folders without index.html using the option static.serveIndex: false", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -131,18 +128,17 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("shouldn't list the files inside the assets folder (404)", async () => {
+    test("shouldn't list the files inside the assets folder (404)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -158,18 +154,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    test("should show Heyo. because bar has index.html inside it (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -185,23 +183,21 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("test listing files in folders without index.html using the option static.serveIndex: true", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -223,18 +219,17 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    test("should list the files inside the assets folder (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -250,18 +245,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
       expect(await response.text()).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    test("should show Heyo. because bar has index.html inside it (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -277,23 +274,21 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("test listing files in folders without index.html using the option static.serveIndex default (true)", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -315,18 +310,17 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    test("should list the files inside the assets folder (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -342,18 +336,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
       expect(await response.text()).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    test("should show Heyo. because bar has index.html inside it (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -369,23 +365,21 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("to multiple directories", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -411,18 +405,15 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle request to first directory", async () => {
+    test("should handle request to first directory", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -438,18 +429,18 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle request to second directory", async () => {
+    test("should handle request to second directory", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -465,15 +456,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
@@ -481,13 +472,11 @@ describe("static.publicPath option", () => {
     let cwdSpy;
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
     beforeEach(async () => {
-      cwdSpy = jest
+      cwdSpy = jestMock
         .spyOn(process, "cwd")
         .mockImplementation(() => staticDirectory);
 
@@ -505,8 +494,6 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
@@ -514,11 +501,10 @@ describe("static.publicPath option", () => {
     afterEach(async () => {
       cwdSpy.mockRestore();
 
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle request to page", async () => {
+    test("should handle request to page", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -534,23 +520,21 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("Content type", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -570,18 +554,15 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle request to example.txt", async () => {
+    test("should handle request to example.txt", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -597,25 +578,23 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response header content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("should ignore methods other than GET and HEAD", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -635,18 +614,15 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request", async () => {
+    test("should handle GET request", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -662,16 +638,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle HEAD request", async () => {
+    test("should handle HEAD request", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -692,16 +668,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should not handle POST request", async () => {
+    test("should not handle POST request", async ({ page }) => {
       await page.setRequestInterception(true);
 
       page
@@ -722,16 +698,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should not handle PUT request", async () => {
+    test("should not handle PUT request", async ({ page }) => {
       await page.setRequestInterception(true);
 
       page
@@ -752,16 +728,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should not handle DELETE request", async () => {
+    test("should not handle DELETE request", async ({ page }) => {
       await page.setRequestInterception(true);
 
       page
@@ -782,16 +758,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should not handle PATCH request", async () => {
+    test("should not handle PATCH request", async ({ page }) => {
       await page.setRequestInterception(true);
 
       page
@@ -812,21 +788,19 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("multiple static.publicPath entries", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -854,18 +828,17 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle request to the index of first path", async () => {
+    test("should handle request to the index of first path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -881,18 +854,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle request to the other file of first path", async () => {
+    test("should handle request to the other file of first path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -908,18 +883,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle request to the /foo route of second path", async () => {
+    test("should handle request to the /foo route of second path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -935,23 +912,21 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("multiple static.publicPath entries with publicPath array", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -979,18 +954,17 @@ describe("static.publicPath option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle request to the index of first path", async () => {
+    test("should handle request to the index of first path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1006,18 +980,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle request to the other file of first path", async () => {
+    test("should handle request to the other file of first path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1033,18 +1009,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle request to the /foo route of first path", async () => {
+    test("should handle request to the /foo route of first path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1060,18 +1038,20 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should handle request to the /foo route of second path", async () => {
+    test("should handle request to the /foo route of second path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1087,15 +1067,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });

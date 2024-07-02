@@ -1,6 +1,9 @@
 "use strict";
 
 const path = require("path");
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -14,7 +17,7 @@ const cssFilePath = path.resolve(
 );
 
 describe("progress", () => {
-  it("should work and log progress in a browser console", async () => {
+  test("should work and log progress in a browser console", async () => {
     fs.writeFileSync(cssFilePath, "body { background-color: rgb(0, 0, 255); }");
 
     const compiler = webpack(reloadConfig);

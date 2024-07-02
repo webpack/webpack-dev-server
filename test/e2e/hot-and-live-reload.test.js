@@ -8,6 +8,12 @@ const path = require("path");
 const WebSocket = require("ws");
 const SockJS = require("sockjs-client");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { afterEach } = require("@playwright/test");
+const { beforeEach } = require("@playwright/test");
+const jestMock = require("jest-mock");
 const fs = require("graceful-fs");
 const Server = require("../../lib/Server");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
@@ -332,7 +338,7 @@ describe("hot and live reload", () => {
         ? mode.options.webSocketServer
         : "default";
 
-    it(`${mode.title} (${webSocketServerTitle})`, async () => {
+    test(`${mode.title} (${webSocketServerTitle})`, async () => {
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
@@ -566,8 +572,8 @@ describe("hot and live reload", () => {
         expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
       }
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });
@@ -578,26 +584,23 @@ describe("hot and live reload", () => {
 describe("simple hot config HMR plugin", () => {
   let compiler;
   let server;
-  let page;
-  let browser;
   let pageErrors;
   let consoleMessages;
 
   beforeEach(async () => {
     compiler = webpack(config);
 
-    ({ page, browser } = await runBrowser());
-
     pageErrors = [];
     consoleMessages = [];
   });
 
   afterEach(async () => {
-    await browser.close();
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  test("should register the HMR plugin before compilation is complete", async ({
+    page,
+  }) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -628,21 +631,19 @@ describe("simple hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    expect(
+      JSON.stringify(consoleMessages.map((message) => message.text())),
+    ).toMatchSnapshot();
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
   });
 });
 
 describe("simple hot config HMR plugin with already added HMR plugin", () => {
   let compiler;
   let server;
-  let page;
-  let browser;
   let pageErrors;
   let consoleMessages;
 
@@ -652,18 +653,17 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
       plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
     });
 
-    ({ page, browser } = await runBrowser());
-
     pageErrors = [];
     consoleMessages = [];
   });
 
   afterEach(async () => {
-    await browser.close();
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  test("should register the HMR plugin before compilation is complete", async ({
+    page,
+  }) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -695,13 +695,13 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    expect(
+      JSON.stringify(consoleMessages.map((message) => message.text())),
+    ).toMatchSnapshot();
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
   });
 });
 
@@ -718,9 +718,9 @@ describe("simple config with already added HMR plugin", () => {
       plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
     });
 
-    loggerWarnSpy = jest.fn();
+    loggerWarnSpy = jestMock.fn();
 
-    getInfrastructureLoggerSpy = jest
+    getInfrastructureLoggerSpy = jestMock
       .spyOn(compiler, "getInfrastructureLogger")
       .mockImplementation(() => {
         return {
@@ -736,7 +736,7 @@ describe("simple config with already added HMR plugin", () => {
     loggerWarnSpy.mockRestore();
   });
 
-  it("should show warning with hot normalized as true", async () => {
+  test("should show warning with hot normalized as true", async () => {
     server = new Server({ port }, compiler);
 
     await server.start();
@@ -748,7 +748,7 @@ describe("simple config with already added HMR plugin", () => {
     await server.stop();
   });
 
-  it(`should show warning with "hot: true"`, async () => {
+  test(`should show warning with "hot: true"`, async () => {
     server = new Server({ port, hot: true }, compiler);
 
     await server.start();
@@ -760,7 +760,7 @@ describe("simple config with already added HMR plugin", () => {
     await server.stop();
   });
 
-  it(`should not show warning with "hot: false"`, async () => {
+  test(`should not show warning with "hot: false"`, async () => {
     server = new Server({ port, hot: false }, compiler);
 
     await server.start();
@@ -776,26 +776,23 @@ describe("simple config with already added HMR plugin", () => {
 describe("multi compiler hot config HMR plugin", () => {
   let compiler;
   let server;
-  let page;
-  let browser;
   let pageErrors;
   let consoleMessages;
 
   beforeEach(async () => {
     compiler = webpack(multiCompilerConfig);
 
-    ({ page, browser } = await runBrowser());
-
     pageErrors = [];
     consoleMessages = [];
   });
 
   afterEach(async () => {
-    await browser.close();
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  test("should register the HMR plugin before compilation is complete", async ({
+    page,
+  }) => {
     let pluginFound = false;
 
     compiler.compilers[0].hooks.compilation.intercept({
@@ -826,39 +823,36 @@ describe("multi compiler hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    expect(
+      JSON.stringify(consoleMessages.map((message) => message.text())),
+    ).toMatchSnapshot();
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
   });
 });
 
 describe("hot disabled HMR plugin", () => {
   let compiler;
   let server;
-  let page;
-  let browser;
   let pageErrors;
   let consoleMessages;
 
   beforeEach(async () => {
     compiler = webpack(config);
 
-    ({ page, browser } = await runBrowser());
-
     pageErrors = [];
     consoleMessages = [];
   });
 
   afterEach(async () => {
-    await browser.close();
     await server.stop();
   });
 
-  it("should NOT register the HMR plugin before compilation is complete", async () => {
+  test("should NOT register the HMR plugin before compilation is complete", async ({
+    page,
+  }) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -889,12 +883,12 @@ describe("hot disabled HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    expect(
+      JSON.stringify(consoleMessages.map((message) => message.text())),
+    ).toMatchSnapshot();
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
   });
 });

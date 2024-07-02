@@ -1,9 +1,11 @@
 "use strict";
 
+const { test } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").target;
 
 describe("target", () => {
@@ -24,7 +26,7 @@ describe("target", () => {
   ];
 
   for (const target of targets) {
-    it(`should work using "${target}" target`, async () => {
+    test(`should work using "${target}" target`, async ({ page }) => {
       const compiler = webpack({
         ...config,
         target,
@@ -40,8 +42,6 @@ describe("target", () => {
       const server = new Server(devServerOptions, compiler);
 
       await server.start();
-
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -60,8 +60,8 @@ describe("target", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+          JSON.stringify(consoleMessages.map((message) => message.text())),
+        ).toMatchSnapshot();
 
         if (
           target === "node" ||
@@ -79,12 +79,11 @@ describe("target", () => {
 
           expect(hasRequireOrGlobalError).toBe(true);
         } else {
-          expect(pageErrors).toMatchSnapshot("page errors");
+          expect(JSON.stringify(pageErrors)).toMatchSnapshot();
         }
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });

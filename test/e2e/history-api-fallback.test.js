@@ -2,19 +2,22 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { afterEach } = require("@playwright/test");
+const { beforeEach } = require("@playwright/test");
+const jestMock = require("jest-mock");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/historyapifallback-config/webpack.config");
 const config2 = require("../fixtures/historyapifallback-2-config/webpack.config");
 const config3 = require("../fixtures/historyapifallback-3-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["history-api-fallback-option"];
 
 describe("historyApiFallback option", () => {
   describe("as boolean", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -31,18 +34,15 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request to directory", async () => {
+    test("should handle GET request to directory", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -55,27 +55,25 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as object", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -94,18 +92,15 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request to directory", async () => {
+    test("should handle GET request to directory", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -118,27 +113,25 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as object with static", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -161,18 +154,15 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request to directory", async () => {
+    test("should handle GET request to directory", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -185,22 +175,24 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should prefer static file over historyApiFallback", async () => {
+    test("should prefer static file over historyApiFallback", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -212,31 +204,30 @@ describe("historyApiFallback option", () => {
       const response = await page.goto(
         `http://127.0.0.1:${port}/random-file.txt`,
         {
-          waitUntil: "networkidle2",
+          // in Playwright, it has changed from networkidle2 to networkidle
+          waitUntil: "networkidle",
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as object with static set to false", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -256,18 +247,17 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("historyApiFallback should work and ignore static content", async () => {
+    test("historyApiFallback should work and ignore static content", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -280,27 +270,25 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as object with static and rewrites", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -332,18 +320,15 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("historyApiFallback respect rewrites for index", async () => {
+    test("historyApiFallback respect rewrites for index", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -356,22 +341,24 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("historyApiFallback respect rewrites and shows index for unknown urls", async () => {
+    test("historyApiFallback respect rewrites and shows index for unknown urls", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -384,22 +371,24 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("historyApiFallback respect any other specified rewrites", async () => {
+    test("historyApiFallback respect any other specified rewrites", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -412,33 +401,31 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe('as object with the "verbose" option', () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
     let consoleSpy;
 
     beforeEach(async () => {
-      consoleSpy = jest.spyOn(global.console, "log");
+      consoleSpy = jestMock.spyOn(global.console, "log");
 
       compiler = webpack(config);
 
@@ -455,19 +442,16 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
       consoleSpy.mockRestore();
-      await browser.close();
       await server.stop();
     });
 
-    it("request to directory and log", async () => {
+    test("request to directory and log", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -480,13 +464,13 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
       expect(consoleSpy).toHaveBeenCalledWith(
         "Rewriting",
@@ -496,25 +480,23 @@ describe("historyApiFallback option", () => {
         "/bar.html",
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe('as object with the "logger" option', () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
     let consoleSpy;
 
     beforeEach(async () => {
-      consoleSpy = jest.spyOn(global.console, "log");
+      consoleSpy = jestMock.spyOn(global.console, "log");
 
       compiler = webpack(config);
 
@@ -531,19 +513,16 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
       consoleSpy.mockRestore();
-      await browser.close();
       await server.stop();
     });
 
-    it("request to directory and log", async () => {
+    test("request to directory and log", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -556,13 +535,13 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
       expect(consoleSpy).toHaveBeenCalledWith(
         "Rewriting",
@@ -572,19 +551,17 @@ describe("historyApiFallback option", () => {
         "/bar.html",
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("in-memory files", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -605,18 +582,15 @@ describe("historyApiFallback option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should take precedence over static files", async () => {
+    test("should take precedence over static files", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -629,22 +603,22 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-type"]),
+      ).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      expect(JSON.stringify(await response.text())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
 
-    it("should perform HEAD request in same way as GET", async () => {
+    test("should perform HEAD request in same way as GET", async ({ page }) => {
       await page.goto(`http://127.0.0.1:${port}/foo`, {
         waitUntil: "networkidle0",
       });
@@ -659,13 +633,11 @@ describe("historyApiFallback option", () => {
         };
       });
 
-      expect(responseGet.contentType).toMatchSnapshot(
-        "response headers content-type",
-      );
+      expect(JSON.stringify(responseGet.contentType)).toMatchSnapshot();
 
-      expect(responseGet.statusText).toMatchSnapshot("response status");
+      expect(JSON.stringify(responseGet.statusText)).toMatchSnapshot();
 
-      expect(responseGet.text).toMatchSnapshot("response text");
+      expect(JSON.stringify(responseGet.text)).toMatchSnapshot();
 
       const responseHead = await page.evaluate(async () => {
         const response = await fetch("/foo", { method: "HEAD" });

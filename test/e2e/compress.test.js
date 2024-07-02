@@ -1,17 +1,19 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { afterEach } = require("@playwright/test");
+const { beforeEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config-other/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["compress-option"];
 
 describe("compress option", () => {
   describe("enabled by default when not specified", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -22,18 +24,15 @@ describe("compress option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request to bundle file", async () => {
+    test("should handle GET request to bundle file", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -46,25 +45,23 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-encoding"]),
+      ).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as true", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -81,18 +78,15 @@ describe("compress option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request to bundle file", async () => {
+    test("should handle GET request to bundle file", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -105,25 +99,23 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-encoding"]),
+      ).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as false", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -140,18 +132,15 @@ describe("compress option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request to bundle file", async () => {
+    test("should handle GET request to bundle file", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -164,17 +153,17 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding",
-      );
+      expect(
+        JSON.stringify(response.headers()["content-encoding"]),
+      ).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 });

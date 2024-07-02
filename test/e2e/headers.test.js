@@ -2,17 +2,19 @@
 
 const webpack = require("webpack");
 const request = require("supertest");
+const { test } = require("@playwright/test");
+const { expect } = require("@playwright/test");
+const { describe } = require("@playwright/test");
+const { afterEach } = require("@playwright/test");
+const { beforeEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["headers-option"];
 
 describe("headers option", () => {
   describe("as a string", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -29,18 +31,15 @@ describe("headers option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    test("should handle GET request with headers", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -53,25 +52,21 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as an array of objects", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -97,18 +92,15 @@ describe("headers option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    test("should handle GET request with headers", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -121,29 +113,23 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as an array", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -160,18 +146,17 @@ describe("headers option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request with headers as an array", async () => {
+    test("should handle GET request with headers as an array", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -184,25 +169,21 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as a function", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -221,18 +202,17 @@ describe("headers option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request with headers as a function", async () => {
+    test("should handle GET request with headers as a function", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -245,25 +225,21 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as a function returning an array", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -289,18 +265,15 @@ describe("headers option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    test("should handle GET request with headers", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -313,29 +286,23 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("dev middleware headers take precedence for dev middleware output files", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
@@ -355,18 +322,17 @@ describe("headers option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle GET request with headers as a function", async () => {
+    test("should handle GET request with headers as a function", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -379,25 +345,21 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
     });
   });
 
   describe("as a string and support HEAD request", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
     let req;
@@ -417,18 +379,15 @@ describe("headers option", () => {
 
       req = request(server.app);
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
     afterEach(async () => {
-      await browser.close();
       await server.stop();
     });
 
-    it("should handle HEAD request with headers", async () => {
+    test("should handle HEAD request with headers", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -441,14 +400,12 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
-      expect(response.status()).toMatchSnapshot("response status");
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
+      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(
+        JSON.stringify(consoleMessages.map((message) => message.text())),
+      ).toMatchSnapshot();
+      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
 
       const responseForHead = await req.get(`/`);
 
