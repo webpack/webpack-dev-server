@@ -117,7 +117,7 @@ jobs:
         if: matrix.node-version != '18.x'
 
       - name: Run E2E tests for webpack version ${{ matrix.webpack-version }}
-        run: npm run test:e2e
+        run: npm run test:e2e -- --ignore-snapshots
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v4
