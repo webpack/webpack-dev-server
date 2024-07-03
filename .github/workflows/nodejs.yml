@@ -12,6 +12,18 @@ on:
       - next
       - v4
 
+  workflow_call:
+    inputs:
+      update-snapshots:
+        description: "Update snapshots?"
+        type: boolean
+
+  workflow_dispatch:
+    inputs:
+      update-snapshots:
+        description: "Update snapshots?"
+        type: boolean
+
 permissions:
   contents: read
 
@@ -97,9 +109,6 @@ jobs:
           node ./scripts/prepare-test-for-old-node.js
         if: matrix.node-version == '18.x'
 
-      - name: Install Playwright browsers and dependencies
-        run: npx playwright install --with-deps
-
       - name: Link webpack-dev-server
         run: |
           cp -R client tmp-client
@@ -115,6 +124,21 @@ jobs:
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci --shard=${{ matrix.shard }}
         if: matrix.node-version != '18.x'
+
+      - name: Install Playwright browsers and dependencies
+        run: npx playwright install --with-deps
+
+      - name: Set up cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          key: cache/${{github.repository}}/${{github.ref}}
+          restore-keys: cache/${{github.repository}}/refs/heads/master
+          path: .test/**
+
+      - name: Initialize snapshots
+        if: ${{steps.cache.outputs.cache-hit != 'true' || inputs.update-snapshots == 'true'}}
+        run: npx playwright test --update-snapshots
 
       - name: Run E2E tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:e2e -- --ignore-snapshots

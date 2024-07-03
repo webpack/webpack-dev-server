@@ -3,6 +3,9 @@
 module.exports = {
   testIgnore: "**/*.ignore.*",
   testDir: "./test/e2e",
+  outputDir: ".test/spec/output",
+  snapshotPathTemplate:
+    ".test/spec/snaps/{projectName}/{testFilePath}/{arg}{ext}",
   fullyParallel: false,
   forbidOnly: process.env.CI !== "true",
   retries: process.env.CI ? 2 : 0,
