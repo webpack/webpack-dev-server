@@ -141,7 +141,7 @@ jobs:
         run: npx playwright test --update-snapshots
 
       - name: Run E2E tests for webpack version ${{ matrix.webpack-version }}
-        run: npm run test:e2e -- --ignore-snapshots
+        run: npm run test:e2e
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v4
