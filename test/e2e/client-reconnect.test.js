@@ -1,15 +1,13 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
+const { describe, test, beforeEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["client-reconnect-option"];
 
-describe("client.reconnect option", () => {
+describe("client.reconnect option", { tag: "@slow" } , () => {
   describe("specified as true", () => {
     let compiler;
     let server;
@@ -41,7 +39,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -64,7 +62,7 @@ describe("client.reconnect option", () => {
         }, 1000);
       });
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -99,7 +97,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -118,10 +116,10 @@ describe("client.reconnect option", () => {
       );
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -156,7 +154,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -175,10 +173,10 @@ describe("client.reconnect option", () => {
       );
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });

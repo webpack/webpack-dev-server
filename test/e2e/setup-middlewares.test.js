@@ -1,12 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map")["setup-middlewares-option"];
 
@@ -100,30 +97,30 @@ describe("setupMiddlewares option", () => {
     );
 
     expect(
-      JSON.stringify(response.headers()["content-type"]),
-    ).toMatchSnapshot();
-    expect(JSON.stringify(response.status())).toMatchSnapshot();
-    expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      response.headers()["content-type"]
+    ).toMatchSnapshotWithArray();
+    expect(response.status()).toMatchSnapshotWithArray();
+    expect(await response.text()).toMatchSnapshotWithArray();
 
     const response1 = await page.goto(`http://127.0.0.1:${port}/foo/bar`, {
       waitUntil: "networkidle0",
     });
 
     expect(
-      JSON.stringify(response1.headers()["content-type"]),
-    ).toMatchSnapshot();
-    expect(JSON.stringify(response1.status())).toMatchSnapshot();
-    expect(JSON.stringify(response1.text())).toMatchSnapshot();
+      response1.headers()["content-type"]
+    ).toMatchSnapshotWithArray();
+    expect(response1.status()).toMatchSnapshotWithArray();
+    expect(response1.text()).toMatchSnapshotWithArray();
 
     const response2 = await page.goto(`http://127.0.0.1:${port}/foo/bar/baz`, {
       waitUntil: "networkidle0",
     });
 
     expect(
-      JSON.stringify(response2.headers()["content-type"]),
-    ).toMatchSnapshot();
-    expect(JSON.stringify(response2.status())).toMatchSnapshot();
-    expect(JSON.stringify(await response2.text())).toMatchSnapshot();
+      response2.headers()["content-type"]
+    ).toMatchSnapshotWithArray();
+    expect(response2.status()).toMatchSnapshotWithArray();
+    expect(await response2.text()).toMatchSnapshotWithArray();
 
     const response3 = await page.goto(
       `http://127.0.0.1:${port}/setup-middleware/unknown`,
@@ -133,22 +130,20 @@ describe("setupMiddlewares option", () => {
     );
 
     expect(
-      JSON.stringify(response3.headers()["content-type"]),
-    ).toMatchSnapshot();
-    expect(JSON.stringify(response3.status())).toMatchSnapshot();
-    expect(JSON.stringify(await response3.text())).toMatchSnapshot();
+      response3.headers()["content-type"]
+    ).toMatchSnapshotWithArray();
+    expect(response3.status()).toMatchSnapshotWithArray();
+    expect(await response3.text()).toMatchSnapshotWithArray();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text())),
-    ).toMatchSnapshot();
-    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      consoleMessages.map((message) => message.text())
+    ).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray();
   });
 
   test("should handle POST request to /setup-middleware/some/path route", async ({
     page,
   }) => {
-    await page.setRequestInterception(true);
-
     page
       .on("console", (message) => {
         consoleMessages.push(message);
@@ -156,11 +151,10 @@ describe("setupMiddlewares option", () => {
       .on("pageerror", (error) => {
         pageErrors.push(error);
       })
-      .on("request", (interceptedRequest) => {
-        if (interceptedRequest.isInterceptResolutionHandled()) return;
 
-        interceptedRequest.continue({ method: "POST" });
-      });
+    await page.route("**/*", (route) => {
+      route.continue({ method: "POST" })
+    })
 
     const response = await page.goto(
       `http://127.0.0.1:${port}/setup-middleware/some/path`,
@@ -170,13 +164,13 @@ describe("setupMiddlewares option", () => {
     );
 
     expect(
-      JSON.stringify(response.headers()["content-type"]),
-    ).toMatchSnapshot();
-    expect(JSON.stringify(response.status())).toMatchSnapshot();
-    expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      response.headers()["content-type"]
+    ).toMatchSnapshotWithArray();
+    expect(response.status()).toMatchSnapshotWithArray();
+    expect(await response.text()).toMatchSnapshotWithArray();
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text())),
-    ).toMatchSnapshot();
-    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      consoleMessages.map((message) => message.text())
+    ).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray();
   });
 });

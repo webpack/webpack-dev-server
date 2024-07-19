@@ -1,11 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
+const { describe, test, afterEach, beforeEach } = require("@playwright/test");
 const requireFromString = require("require-from-string");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const simpleConfig = require("../fixtures/module-federation-config/webpack.config");
 const objectEntryConfig = require("../fixtures/module-federation-config/webpack.object-entry.config");
@@ -60,10 +58,10 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry2");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -113,10 +111,10 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry2");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should support the named entry export", async ({ page }) => {
@@ -145,10 +143,10 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry1");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -198,10 +196,10 @@ describe("Module federation", () => {
       expect(exports).toEqual("entry2");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -246,10 +244,10 @@ describe("Module federation", () => {
       expect(remoteEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should contain hot script in main.js", async ({ page }) => {
@@ -270,10 +268,10 @@ describe("Module federation", () => {
       expect(mainEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });

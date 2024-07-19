@@ -1,9 +1,8 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const lazyCompilationSingleEntryConfig = require("../fixtures/lazy-compilation-single-entry/webpack.config");
 const lazyCompilationMultipleEntriesConfig = require("../fixtures/lazy-compilation-multiple-entries/webpack.config");
@@ -42,8 +41,8 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -97,8 +96,8 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {

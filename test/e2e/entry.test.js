@@ -2,9 +2,8 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").entry;
@@ -60,9 +59,9 @@ describe("entry", () => {
       });
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -96,9 +95,9 @@ describe("entry", () => {
       });
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -137,9 +136,9 @@ describe("entry", () => {
       });
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -173,9 +172,9 @@ describe("entry", () => {
       });
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -212,9 +211,9 @@ describe("entry", () => {
       });
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -261,8 +260,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -309,8 +308,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -355,8 +354,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -398,9 +397,9 @@ describe("entry", () => {
       });
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {

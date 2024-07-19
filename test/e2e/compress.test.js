@@ -1,16 +1,13 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/simple-config-other/webpack.config");
 const port = require("../ports-map")["compress-option"];
 
-describe("compress option", () => {
+describe("compress option", { tag: "@flaky" }, () => {
   describe("enabled by default when not specified", () => {
     let compiler;
     let server;
@@ -45,17 +42,17 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(response.headers()["content-encoding"]),
-      ).toMatchSnapshot();
+        response.headers()["content-encoding"])
+      .toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -99,17 +96,17 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(response.headers()["content-encoding"]),
-      ).toMatchSnapshot();
+        response.headers()["content-encoding"])
+      .toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -140,7 +137,12 @@ describe("compress option", () => {
       await server.stop();
     });
 
-    test("should handle GET request to bundle file", async ({ page }) => {
+    test("should handle GET request to bundle file", {
+      annotation: {
+        type: "fails",
+        description: "https://github.com/webpack/webpack-dev-server/issues/4630#issuecomment-1588211112"
+      }
+    }, async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -153,17 +155,17 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(response.headers()["content-encoding"]),
-      ).toMatchSnapshot();
+        response.headers()["content-encoding"])
+      .toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });

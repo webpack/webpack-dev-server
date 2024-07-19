@@ -2,11 +2,9 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
-const jestMock = require("jest-mock");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const sinon = require("sinon");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["static-public-path-option"];
@@ -65,15 +63,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to other file", async ({ page }) => {
@@ -92,15 +90,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -154,15 +152,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -183,15 +181,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -245,15 +243,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(await response.text()).toContain("other.txt");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -274,15 +272,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -336,15 +334,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(await response.text()).toContain("other.txt");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -365,15 +363,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -429,15 +427,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to second directory", async ({ page }) => {
@@ -456,15 +454,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -476,9 +474,7 @@ describe("static.publicPath option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      cwdSpy = jestMock
-        .spyOn(process, "cwd")
-        .mockImplementation(() => staticDirectory);
+      cwdSpy = sinon.stub(process, "cwd").returns(staticDirectory)
 
       compiler = webpack(config);
 
@@ -499,7 +495,7 @@ describe("static.publicPath option", () => {
     });
 
     afterEach(async () => {
-      cwdSpy.mockRestore();
+      cwdSpy.restore();
 
       await server.stop();
     });
@@ -520,15 +516,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -578,17 +574,17 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -638,13 +634,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle HEAD request", async ({ page }) => {
@@ -655,11 +651,10 @@ describe("static.publicPath option", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
 
-          interceptedRequest.continue({ method: "HEAD" });
-        });
+      await page.route("**/*", async (route) => {
+        route.continue({ method: "HEAD" })
+      })
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -668,18 +663,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should not handle POST request", async ({ page }) => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -687,9 +680,10 @@ describe("static.publicPath option", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          interceptedRequest.continue({ method: "POST" });
-        });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "POST" });
+      })
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -698,18 +692,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should not handle PUT request", async ({ page }) => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -717,9 +709,10 @@ describe("static.publicPath option", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          interceptedRequest.continue({ method: "PUT" });
-        });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "PUT" })
+      });
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -728,18 +721,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should not handle DELETE request", async ({ page }) => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -747,9 +738,10 @@ describe("static.publicPath option", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          interceptedRequest.continue({ method: "DELETE" });
-        });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "DELETE" })
+      })
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -758,18 +750,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should not handle PATCH request", async ({ page }) => {
-      await page.setRequestInterception(true);
-
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -777,9 +767,10 @@ describe("static.publicPath option", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          interceptedRequest.continue({ method: "PATCH" });
-        });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "PATCH" });
+      })
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -788,13 +779,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -854,15 +845,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to the other file of first path", async ({
@@ -883,15 +874,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to the /foo route of second path", async ({
@@ -912,15 +903,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -980,15 +971,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to the other file of first path", async ({
@@ -1009,15 +1000,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to the /foo route of first path", async ({
@@ -1038,15 +1029,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to the /foo route of second path", async ({
@@ -1067,15 +1058,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });

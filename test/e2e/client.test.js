@@ -1,12 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/simple-config-other/webpack.config");
 const port = require("../ports-map")["client-option"];
 
@@ -57,13 +54,13 @@ describe("client option", () => {
       // overlay should be true by default
       expect(server.options.client.overlay).toBe(true);
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -122,13 +119,13 @@ describe("client option", () => {
         },
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -172,15 +169,15 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 

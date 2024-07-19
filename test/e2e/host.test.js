@@ -1,10 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").host;
 
@@ -32,7 +31,7 @@ function getAddress(host, hostname) {
   return { address };
 }
 
-describe("host", () => {
+describe("host", { tag: "@flaky" }, () => {
   const hosts = [
     "<not-specified>",
     // eslint-disable-next-line no-undefined
@@ -48,7 +47,7 @@ describe("host", () => {
   ];
 
   for (let host of hosts) {
-    test(`should work using "${host}" host and port as number`, async ({
+    test(`should work using "${host}" host and port as number`, { tag: "@fails" }, async ({
       page,
     }) => {
       const compiler = webpack(config);
@@ -109,10 +108,10 @@ describe("host", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()))
+        .toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -181,10 +180,10 @@ describe("host", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()))
+        .toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -257,10 +256,10 @@ describe("host", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()))
+        .toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {

@@ -1,10 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const WebsocketServer = require("../../lib/servers/WebsocketServer");
 const defaultConfig = require("../fixtures/provide-plugin-default/webpack.config");
 const sockjsConfig = require("../fixtures/provide-plugin-sockjs-config/webpack.config");
@@ -39,8 +38,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -77,8 +76,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -117,8 +116,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -155,8 +154,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -195,8 +194,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -236,8 +235,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -279,8 +278,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -320,8 +319,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -363,8 +362,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -387,7 +386,7 @@ describe("server and client transport", () => {
     try {
       await server.start();
     } catch (error) {
-      expect(JSON.stringify(error.message)).toMatchSnapshot();
+      expect(error.message).toMatchSnapshotWithArray();
     } finally {
       await server.stop();
     }
@@ -424,8 +423,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -464,8 +463,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -505,8 +504,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -546,8 +545,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -589,8 +588,8 @@ describe("server and client transport", () => {
 
       expect(isCorrectTransport).toBe(true);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {

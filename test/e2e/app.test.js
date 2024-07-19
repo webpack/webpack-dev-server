@@ -1,12 +1,9 @@
 "use strict";
 
 const path = require("path");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").app;
@@ -96,12 +93,12 @@ describe("app option", () => {
             expect(HTTPVersion).toEqual("http/1.1");
           }
 
-          expect(JSON.stringify(response.status())).toMatchSnapshot();
-          expect(JSON.stringify(await response.text())).toMatchSnapshot();
+          expect(response.status()).toMatchSnapshotWithArray();
+          expect(await response.text()).toMatchSnapshotWithArray();
           expect(
-            JSON.stringify(consoleMessages.map((message) => message.text())),
-          ).toMatchSnapshot();
-          expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+            consoleMessages.map((message) => message.text()))
+          .toMatchSnapshotWithArray();
+          expect(pageErrors).toMatchSnapshotWithArray();
         });
       });
     }

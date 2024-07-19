@@ -3,11 +3,9 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
-const jestMock = require("jest-mock");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const sinon = require("sinon");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const testServer = require("../helpers/test-server");
 const config = require("../fixtures/static-config/webpack.config");
@@ -17,7 +15,7 @@ const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");
 const otherPublicDirectory = path.resolve(staticDirectory, "other");
 
-describe.skip("static.directory option", () => {
+describe("static.directory option", () => {
   describe("to directory", () => {
     const nestedFile = path.resolve(publicDirectory, "assets/example.txt");
 
@@ -64,15 +62,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to other file", async ({ page }) => {
@@ -88,23 +86,22 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.text())).toMatchSnapshot();
+      expect(response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
-    test("Watches folder recursively", (done) => {
+    test("Watches folder recursively", () => {
       // chokidar emitted a change,
       // meaning it watched the file correctly
       server.staticWatchers[0].on("change", (event) => {
         console.log(event);
-        done();
       });
 
       // change a file manually
@@ -179,15 +176,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -205,15 +202,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -265,16 +262,16 @@ describe.skip("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -292,15 +289,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -351,16 +348,16 @@ describe.skip("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -378,15 +375,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -430,15 +427,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle request to second directory", async ({ page }) => {
@@ -454,15 +451,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -561,9 +558,7 @@ describe.skip("static.directory option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jestMock
-        .spyOn(process, "cwd")
-        .mockImplementation(() => path.resolve(staticDirectory));
+      sinon.stub(process, 'cwd').callsFake(() => path.resolve(staticDirectory));
       compiler = webpack(config);
 
       server = new Server(
@@ -598,15 +593,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -619,7 +614,7 @@ describe.skip("static.directory option", () => {
     beforeEach(async () => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
-      jestMock.spyOn(process, "cwd").mockImplementation(() => publicDirectory);
+      sinon.stub(process, 'cwd').callsFake(() => publicDirectory);
 
       compiler = webpack(config);
 
@@ -654,15 +649,15 @@ describe.skip("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });

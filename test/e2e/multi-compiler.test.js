@@ -1,11 +1,10 @@
 "use strict";
 
 const path = require("path");
+const { describe, test } = require("@playwright/test");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const oneWebTargetConfiguration = require("../fixtures/multi-compiler-one-configuration/webpack.config");
 const twoWebTargetConfiguration = require("../fixtures/multi-compiler-two-configurations/webpack.config");
@@ -40,8 +39,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -77,8 +76,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       pageErrors = [];
       consoleMessages = [];
@@ -87,8 +86,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -148,8 +147,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       pageErrors = [];
       consoleMessages = [];
@@ -162,8 +161,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -226,8 +225,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       pageErrors = [];
       consoleMessages = [];
@@ -240,8 +239,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -296,8 +295,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       pageErrors = [];
       consoleMessages = [];
@@ -310,8 +309,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -366,8 +365,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       pageErrors = [];
       consoleMessages = [];
@@ -380,8 +379,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -435,8 +434,8 @@ describe("multi compiler", () => {
       await server.stop();
     }
 
-    expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+    expect(consoleMessages).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray();
   });
 
   test(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async ({
@@ -506,8 +505,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -580,8 +579,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -650,8 +649,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       pageErrors = [];
       consoleMessages = [];
@@ -667,8 +666,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {
@@ -738,8 +737,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       pageErrors = [];
       consoleMessages = [];
@@ -755,8 +754,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {

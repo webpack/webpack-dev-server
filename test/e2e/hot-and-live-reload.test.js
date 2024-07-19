@@ -1,24 +1,16 @@
-/**
- * @jest-environment node
- */
-
 "use strict";
 
 const path = require("path");
 const WebSocket = require("ws");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const SockJS = require("sockjs-client");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
-const jestMock = require("jest-mock");
 const fs = require("graceful-fs");
+const sinon = require("sinon");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const reloadConfig = require("../fixtures/reload-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["hot-and-live-reload"];
 const config = require("../fixtures/client-config/webpack.config");
 const multiCompilerConfig = require("../fixtures/multi-compiler-one-configuration/webpack.config");
@@ -30,7 +22,7 @@ const cssFilePath = path.resolve(
 
 const INVALID_MESSAGE = "[webpack-dev-server] App updated. Recompiling...";
 
-describe("hot and live reload", () => {
+describe("hot and live reload", { tag: "@flaky" }, () => {
   // "sockjs" client cannot add additional headers
   const modes = [
     {
@@ -313,7 +305,6 @@ describe("hot and live reload", () => {
     },
   ];
 
-  let browser;
   let server;
 
   beforeEach(() => {
@@ -321,10 +312,6 @@ describe("hot and live reload", () => {
   });
 
   afterEach(async () => {
-    if (browser) {
-      await browser.close();
-    }
-
     if (server) {
       await server.stop();
     }
@@ -338,7 +325,10 @@ describe("hot and live reload", () => {
         ? mode.options.webSocketServer
         : "default";
 
-    test(`${mode.title} (${webSocketServerTitle})`, async () => {
+    test(`${mode.title} (${webSocketServerTitle})`, { tag: "@flaky" }, async ({ page }) => {
+      // keep it, it will increase the timeout.
+      test.slow();
+
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
@@ -440,12 +430,6 @@ describe("hot and live reload", () => {
           };
         }
       });
-
-      const launched = await runBrowser();
-
-      ({ browser } = launched);
-
-      const page = launched.page;
 
       const consoleMessages = [];
       const pageErrors = [];
@@ -572,8 +556,8 @@ describe("hot and live reload", () => {
         expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
       }
 
-      expect(JSON.stringify(consoleMessages)).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(consoleMessages).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });
@@ -631,13 +615,13 @@ describe("simple hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(JSON.stringify(response.status())).toMatchSnapshot();
+    expect(response.status()).toMatchSnapshotWithArray();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text())),
-    ).toMatchSnapshot();
+      consoleMessages.map((message) => message.text()),
+    ).toMatchSnapshotWithArray();
 
-    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+    expect(pageErrors).toMatchSnapshotWithArray();
   });
 });
 
@@ -695,19 +679,19 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(JSON.stringify(response.status())).toMatchSnapshot();
+    expect(response.status()).toMatchSnapshotWithArray();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text())),
-    ).toMatchSnapshot();
+      consoleMessages.map((message) => message.text()),
+    ).toMatchSnapshotWithArray();
 
-    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+    expect(pageErrors).toMatchSnapshotWithArray();
   });
 });
 
 describe("simple config with already added HMR plugin", () => {
   let loggerWarnSpy;
-  let getInfrastructureLoggerSpy;
+  let getInfrastructureLoggerStub;
   let compiler;
   let server;
 
@@ -718,22 +702,20 @@ describe("simple config with already added HMR plugin", () => {
       plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
     });
 
-    loggerWarnSpy = jestMock.fn();
+    getInfrastructureLoggerStub = sinon.stub(compiler, "getInfrastructureLogger");
 
-    getInfrastructureLoggerSpy = jestMock
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => {
-        return {
-          warn: loggerWarnSpy,
-          info: () => {},
-          log: () => {},
-        };
-      });
+    loggerWarnSpy = sinon.spy();
+
+    getInfrastructureLoggerStub.returns({
+      warn: loggerWarnSpy,
+      info: sinon.stub(),
+      log: sinon.stub(),
+    });
   });
 
   afterEach(() => {
-    getInfrastructureLoggerSpy.mockRestore();
-    loggerWarnSpy.mockRestore();
+    getInfrastructureLoggerStub.restore();
+    loggerWarnSpy.resetHistory();
   });
 
   test("should show warning with hot normalized as true", async () => {
@@ -741,9 +723,9 @@ describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
-    );
+    expect(loggerWarnSpy
+      .calledWith(`"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`)
+    ).toBeTruthy();
 
     await server.stop();
   });
@@ -753,9 +735,9 @@ describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
-    );
+    expect(loggerWarnSpy
+      .calledWith(`"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`)
+    ).toBeTruthy();
 
     await server.stop();
   });
@@ -765,9 +747,9 @@ describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy).not.toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
-    );
+    expect(loggerWarnSpy
+      .calledWith(`"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`)
+    ).toBeFalsy();
 
     await server.stop();
   });
@@ -823,13 +805,13 @@ describe("multi compiler hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(JSON.stringify(response.status())).toMatchSnapshot();
+    expect(response.status()).toMatchSnapshotWithArray();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text())),
-    ).toMatchSnapshot();
+      consoleMessages.map((message) => message.text()),
+    ).toMatchSnapshotWithArray();
 
-    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+    expect(pageErrors).toMatchSnapshotWithArray();
   });
 });
 
@@ -883,12 +865,12 @@ describe("hot disabled HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(JSON.stringify(response.status())).toMatchSnapshot();
+    expect(response.status()).toMatchSnapshotWithArray();
 
     expect(
-      JSON.stringify(consoleMessages.map((message) => message.text())),
-    ).toMatchSnapshot();
+      consoleMessages.map((message) => message.text()),
+    ).toMatchSnapshotWithArray();
 
-    expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+    expect(pageErrors).toMatchSnapshotWithArray();
   });
 });

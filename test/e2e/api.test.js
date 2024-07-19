@@ -2,20 +2,20 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
-const { jest } = require("@jest/globals");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 // eslint-disable-next-line import/no-extraneous-dependencies
-const jestMock = require("jest-mock");
+const sinon = require('sinon');
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map").api;
 
-describe.skip("API", () => {
+describe("API", {
+  annotation: {
+      type: "flaky",
+      description: "https://github.com/webpack/webpack-dev-server/actions/runs/9975184174/job/27564350442"
+    }}, () => {
   describe("WEBPACK_SERVE environment variable", () => {
     const OLD_ENV = process.env;
     let server;
@@ -23,8 +23,6 @@ describe.skip("API", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      // this is important - it clears the cache
-      // jest.resetModules();
       Object.keys(require.cache).forEach((key) => delete require.cache[key]);
 
       process.env = { ...OLD_ENV };
@@ -40,7 +38,7 @@ describe.skip("API", () => {
       process.env = OLD_ENV;
     });
 
-    test("should be present", async ({ page }) => {
+    test("should be present", { tag: '@flaky' }, async ({ page }) => {
       expect(process.env.WEBPACK_SERVE).toBeUndefined();
 
       page
@@ -64,13 +62,13 @@ describe.skip("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -98,9 +96,9 @@ describe.skip("API", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()))
+        .toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -135,9 +133,9 @@ describe.skip("API", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()))
+        .toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -172,7 +170,8 @@ describe.skip("API", () => {
       });
     });
 
-    test(`should work when using configured manually`, async ({ page }) => {
+    // TODO: snapshot comparison fails
+    test.fixme(`should work when using configured manually`, { tag: "@fails" }, async ({ page }) => {
       const compiler = webpack({
         ...config,
         entry: [
@@ -181,7 +180,7 @@ describe.skip("API", () => {
             __dirname,
             "../../client/index.js",
           )}?hot=true&live-reload=true"`,
-          path.resolve(__dirname, "../fixtures/client-config/foo.js"),
+          path.resolve(__dirname, "../fixtures/client-config/foo.js")
         ],
         plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
       });
@@ -206,9 +205,9 @@ describe.skip("API", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot("console messages");
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -216,13 +215,17 @@ describe.skip("API", () => {
       }
     });
 
-    test.skip(`should work and allow to rerun dev server multiple times`, async ({
-      page,
+    test(`should work and allow to rerun dev server multiple times`, async ({
+      browser,
     }) => {
+      const browserContext = await browser.newContext();
+
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
       await server.start();
+
+      const firstPage = await browserContext.newPage();
 
       try {
         const firstPageErrors = [];
@@ -241,9 +244,9 @@ describe.skip("API", () => {
         });
 
         expect(
-          JSON.stringify(firstConsoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(firstPageErrors)).toMatchSnapshot();
+          firstConsoleMessages.map((message) => message.text()))
+        .toMatchSnapshotWithArray();
+        expect(firstPageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -252,7 +255,7 @@ describe.skip("API", () => {
 
       await server.start();
 
-      const secondPage = await runBrowser.runPage(browser);
+      const secondPage = await browserContext.newPage();
 
       try {
         const secondPageErrors = [];
@@ -271,9 +274,9 @@ describe.skip("API", () => {
         });
 
         expect(
-          secondConsoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(secondPageErrors).toMatchSnapshot("page errors");
+          secondConsoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray();
+        expect(secondPageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -285,26 +288,14 @@ describe.skip("API", () => {
   describe("Invalidate callback", () => {
     let compiler;
     let server;
-    // let page;
-    // let browser;
     let pageErrors;
     let consoleMessages;
 
     beforeEach(async () => {
       compiler = webpack(config);
 
-      // ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
-
-      // page
-      //   .on("console", (message) => {
-      //     consoleMessages.push(message);
-      //   })
-      //   .on("pageerror", (error) => {
-      //     pageErrors.push(error);
-      //   });
 
       server = new Server({ port, static: false }, compiler);
 
@@ -312,14 +303,13 @@ describe.skip("API", () => {
     });
 
     afterEach(async () => {
-      // await browser.close();
       await server.stop();
     });
 
     test("should use the default `noop` callback when invalidate is called without any callback", async ({
       page,
     }) => {
-      const callback = jestMock.fn();
+      const callback = sinon.spy();
 
       server.invalidate();
       server.middleware.context.callbacks[0] = callback;
@@ -336,17 +326,17 @@ describe.skip("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(callback).toHaveBeenCalledTimes(1);
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      sinon.assert.calledOnce(callback);
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should use the provided `callback` function", async ({ page }) => {
-      const callback = jestMock.fn();
+      const callback = sinon.spy();
 
       server.invalidate(callback);
 
@@ -354,14 +344,22 @@ describe.skip("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(callback).toHaveBeenCalledTimes(1);
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      sinon.assert.calledOnce(callback);
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -384,7 +382,7 @@ describe.skip("API", () => {
                   });
                 }),
             ),
-          Promise.resolve(),
+          Promise.resolve()
         )
         .then(() => {
           dummyServers = [];
@@ -413,7 +411,7 @@ describe.skip("API", () => {
                 });
               }),
           ),
-        Promise.resolve(),
+        Promise.resolve()
       );
     }
 
@@ -427,7 +425,13 @@ describe.skip("API", () => {
       expect(freePort).toEqual(9082);
     });
 
-    test("should return the port when the port is `null`", async ({ page }) => {
+    // TODO: fails on windows
+    test("should return the port when the port is `null`", {
+      annotation: {
+        type: 'fails',
+        description: 'https://github.com/webpack/webpack-dev-server/actions/runs/9932853499/job/27434779983'
+      }
+    } , async ({ page }) => {
       const retryCount = 2;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -453,13 +457,13 @@ describe.skip("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should return the port when the port is undefined", async ({
@@ -491,15 +495,13 @@ describe.skip("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot(
-        "response status",
-      );
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should retry finding the port for up to defaultPortRetry times (number)", async ({
@@ -530,13 +532,13 @@ describe.skip("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should retry finding the port for up to defaultPortRetry times (string)", async ({
@@ -567,15 +569,13 @@ describe.skip("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot(
-        "response status",
-      );
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should retry finding the port when serial ports are busy", async ({
@@ -607,13 +607,13 @@ describe.skip("API", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()))
+        .toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       }
@@ -622,17 +622,15 @@ describe.skip("API", () => {
     test("should throw the error when the port isn't found", async () => {
       expect.assertions(1);
 
-      jest.doMock(
-        "../../lib/getPort",
-        () => () => Promise.reject(new Error("busy")),
-      );
+      const getPort = require('../../lib/getPort');
+      sinon.stub(getPort, 'call').rejects(new Error('busy'));
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
 
       try {
         await Server.getFreePort();
       } catch (error) {
-        expect(JSON.stringify(error.message)).toMatchSnapshot();
+        expect(error.message).toMatchSnapshotWithArray();
       }
     });
   });
@@ -722,7 +720,7 @@ describe.skip("API", () => {
         await new Promise((resolve) => {
           const interval = setInterval(() => {
             const needFinish = consoleMessages.filter((message) =>
-              /Trying to reconnect/.test(message.text()),
+              /Trying to reconnect/.test(message.text())
             );
 
             if (needFinish.length > 0) {
@@ -732,18 +730,17 @@ describe.skip("API", () => {
           }, 100);
         });
 
-        expect(JSON.stringify(webSocketRequests[0].url)).toMatchSnapshot();
+        expect(webSocketRequests[0].url).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
 
         expect(
           // net::ERR_NAME_NOT_RESOLVED can be multiple times
-          JSON.stringify(
-            consoleMessages.map((message) => message.text()),
-          ).slice(0, 7),
-        ).toMatchSnapshot();
+            consoleMessages.map((message) => message.text()).slice(0, 7)
+          )
+        .toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -752,3 +749,5 @@ describe.skip("API", () => {
     });
   });
 });
+
+

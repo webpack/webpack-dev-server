@@ -2,12 +2,9 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
-const jestMock = require("jest-mock");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const sinon = require("sinon");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/historyapifallback-config/webpack.config");
 const config2 = require("../fixtures/historyapifallback-2-config/webpack.config");
@@ -56,18 +53,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"],
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -114,18 +111,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -176,18 +173,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should prefer static file over historyApiFallback", async ({
@@ -210,18 +207,18 @@ describe("historyApiFallback option", () => {
       );
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -271,18 +268,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -342,18 +339,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("historyApiFallback respect rewrites and shows index for unknown urls", async ({
@@ -372,18 +369,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("historyApiFallback respect any other specified rewrites", async ({
@@ -402,18 +399,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -425,7 +422,7 @@ describe("historyApiFallback option", () => {
     let consoleSpy;
 
     beforeEach(async () => {
-      consoleSpy = jestMock.spyOn(global.console, "log");
+      consoleSpy = sinon.spy(global.console, "log");
 
       compiler = webpack(config);
 
@@ -447,7 +444,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterEach(async () => {
-      consoleSpy.mockRestore();
+      sinon.restore();
       await server.stop();
     });
 
@@ -465,14 +462,14 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
-      expect(consoleSpy).toHaveBeenCalledWith(
+      sinon.assert.calledWith(consoleSpy,
         "Rewriting",
         "GET",
         "/foo",
@@ -481,10 +478,10 @@ describe("historyApiFallback option", () => {
       );
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -496,7 +493,7 @@ describe("historyApiFallback option", () => {
     let consoleSpy;
 
     beforeEach(async () => {
-      consoleSpy = jestMock.spyOn(global.console, "log");
+      consoleSpy = sinon.spy(global.console, "log");
 
       compiler = webpack(config);
 
@@ -518,7 +515,7 @@ describe("historyApiFallback option", () => {
     });
 
     afterEach(async () => {
-      consoleSpy.mockRestore();
+      sinon.restore();
       await server.stop();
     });
 
@@ -536,14 +533,14 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
-      expect(consoleSpy).toHaveBeenCalledWith(
+      sinon.assert.calledWith(consoleSpy,
         "Rewriting",
         "GET",
         "/foo",
@@ -552,10 +549,10 @@ describe("historyApiFallback option", () => {
       );
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -604,18 +601,18 @@ describe("historyApiFallback option", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"])
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should perform HEAD request in same way as GET", async ({ page }) => {
@@ -633,11 +630,11 @@ describe("historyApiFallback option", () => {
         };
       });
 
-      expect(JSON.stringify(responseGet.contentType)).toMatchSnapshot();
+      expect(responseGet.contentType).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(responseGet.statusText)).toMatchSnapshot();
+      expect(responseGet.statusText).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(responseGet.text)).toMatchSnapshot();
+      expect(responseGet.text).toMatchSnapshotWithArray();
 
       const responseHead = await page.evaluate(async () => {
         const response = await fetch("/foo", { method: "HEAD" });

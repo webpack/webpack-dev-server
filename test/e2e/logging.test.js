@@ -2,10 +2,9 @@
 
 const path = require("path");
 const fs = require("graceful-fs");
+const { describe, test } = require("@playwright/test");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const config = require("../fixtures/client-config/webpack.config");
@@ -219,7 +218,6 @@ describe("logging", () => {
           }
 
           expect(
-            JSON.stringify(
               consoleMessages.map((message) =>
                 message
                   .text()
@@ -229,8 +227,7 @@ describe("logging", () => {
                     "<cwd>",
                   ),
               ),
-            ),
-          ).toMatchSnapshot();
+          ).toMatchSnapshotWithArray();
         } catch (error) {
           throw error;
         } finally {

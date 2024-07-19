@@ -1,11 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
-const jestMock = require("jest-mock");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const sinon = require("sinon");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["setup-exit-signals-option"];
@@ -41,24 +39,24 @@ describe("setupExitSignals option", () => {
       consoleMessages = [];
       doExit = false;
 
-      exitSpy = jestMock.spyOn(process, "exit").mockImplementation(() => {
+      exitSpy = sinon.stub(process, "exit").callsFake(() => {
         doExit = true;
-      });
+      })
 
-      stdinResumeSpy = jestMock
-        .spyOn(process.stdin, "resume")
-        .mockImplementation(() => {});
+      stdinResumeSpy = sinon
+        .stub(process.stdin, "resume")
+        .callsFake(() => {});
 
-      stopCallbackSpy = jestMock.spyOn(server, "stopCallback");
+      stopCallbackSpy = sinon.spy(server, "stopCallback");
 
       if (server.compiler.close) {
-        closeCallbackSpy = jestMock.spyOn(server.compiler, "close");
+        closeCallbackSpy = sinon.spy(server.compiler, "close");
       }
     });
 
     afterEach(async () => {
-      exitSpy.mockReset();
-      stdinResumeSpy.mockReset();
+      exitSpy.restore();
+      stdinResumeSpy.restore();
       signals.forEach((signal) => {
         process.removeAllListeners(signal);
       });
@@ -80,17 +78,17 @@ describe("setupExitSignals option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
 
         process.emit(signal);
 
         await new Promise((resolve) => {
           const interval = setInterval(() => {
             if (doExit) {
-              expect(stopCallbackSpy.mock.calls.length).toEqual(1);
+              expect(stopCallbackSpy.getCalls().length).toEqual(1);
 
               if (server.compiler.close) {
-                expect(closeCallbackSpy.mock.calls.length).toEqual(1);
+                expect(closeCallbackSpy.getCalls().length).toEqual(1);
               }
 
               clearInterval(interval);
@@ -108,11 +106,9 @@ describe("setupExitSignals option", () => {
             ),
         );
 
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
   });

@@ -1,10 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const port = require("../ports-map").stats;
@@ -130,8 +129,8 @@ describe("stats", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {

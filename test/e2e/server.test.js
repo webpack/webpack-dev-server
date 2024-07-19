@@ -6,11 +6,9 @@ const fs = require("graceful-fs");
 const request = require("supertest");
 const spdy = require("spdy");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
-const jestMock = require("jest-mock");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const sinon = require("sinon");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const { skipTestOnWindows } = require("../helpers/conditional-test");
@@ -80,15 +78,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toEqual("h2");
 
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+        expect(await response.text()).toMatchSnapshotWithArray();
 
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -137,15 +133,14 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toEqual("h2");
 
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+        expect(await response.text()).toMatchSnapshotWithArray();
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -194,15 +189,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toEqual("h2");
 
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+        expect(await response.text()).toMatchSnapshotWithArray();
 
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -251,15 +244,14 @@ describe("server option", () => {
 
         expect(HTTPVersion).toEqual("h2");
 
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
+        expect(response.status()).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+        expect(await response.text()).toMatchSnapshotWithArray();
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
   });
@@ -275,7 +267,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -321,7 +313,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
 
         await server.stop();
       });
@@ -339,15 +331,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -361,7 +349,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -405,7 +393,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
 
         await server.stop();
       });
@@ -423,15 +411,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -445,7 +429,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -498,7 +482,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
 
         await server.stop();
       });
@@ -516,15 +500,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -538,7 +518,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -568,7 +548,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
 
         await server.stop();
       });
@@ -586,15 +566,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -608,7 +584,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -638,7 +614,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
 
         await server.stop();
       });
@@ -656,15 +632,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -682,7 +654,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -715,7 +687,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
 
         await server.stop();
       });
@@ -733,6 +705,7 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
         expect(response.status()).toEqual(200);
         expect(await response.text()).toContain("Heyo");
         expect(consoleMessages.map((message) => message.text())).toEqual([]);
@@ -750,7 +723,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -788,7 +761,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
 
         await server.stop();
       });
@@ -806,15 +779,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -828,7 +797,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -874,7 +843,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
         await server.stop();
       });
 
@@ -891,15 +860,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
-        expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -913,7 +878,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -964,7 +929,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
         await server.stop();
       });
 
@@ -982,14 +947,12 @@ describe("server option", () => {
         });
 
         expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -1003,7 +966,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -1042,7 +1005,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
         await server.stop();
       });
 
@@ -1060,17 +1023,16 @@ describe("server option", () => {
         });
 
         expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
+    // TODO this doesn't exist with Playwright anymore
     // puppeteer having issues accepting SSL here, throwing error net::ERR_BAD_SSL_CLIENT_AUTH_CERT, hence testing with supertest
     describe('should support the "requestCert" option', () => {
       let compiler;
@@ -1081,7 +1043,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(https, "createServer");
+        createServerSpy = sinon.spy(https, "createServer");
 
         server = new Server(
           {
@@ -1116,21 +1078,19 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
         await server.stop();
       });
 
       test("should pass options to the 'https.createServer' method", async () => {
-        expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
       });
 
       test("should handle GET request to index route (/)", async () => {
         const response = await req.get("/");
 
-        expect(JSON.stringify(response.status)).toMatchSnapshot();
-        expect(JSON.stringify(response.text)).toMatchSnapshot();
+        expect(response.status).toMatchSnapshotWithArray();
+        expect(response.text).toMatchSnapshotWithArray();
       });
     });
 
@@ -1144,7 +1104,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(spdy, "createServer");
+        createServerSpy = sinon.spy(spdy, "createServer");
 
         server = new Server(
           {
@@ -1175,7 +1135,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
         await server.stop();
       });
 
@@ -1198,14 +1158,12 @@ describe("server option", () => {
 
         expect(HTTPVersion).toEqual("h2");
         expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
 
@@ -1219,7 +1177,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jestMock.spyOn(customHTTP, "createServer");
+        createServerSpy = sinon.spy(customHTTP, "createServer");
 
         server = new Server(
           {
@@ -1245,7 +1203,7 @@ describe("server option", () => {
       });
 
       afterEach(async () => {
-        createServerSpy.mockRestore();
+        createServerSpy.restore();
         await server.stop();
       });
 
@@ -1268,14 +1226,12 @@ describe("server option", () => {
 
         expect(HTTPVersion).toEqual("http/1.1");
         expect(
-          JSON.stringify(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(response.status())).toMatchSnapshot();
-        expect(JSON.stringify(await response.text())).toMatchSnapshot();
+          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray();
+        expect(await response.text()).toMatchSnapshotWithArray();
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       });
     });
   });

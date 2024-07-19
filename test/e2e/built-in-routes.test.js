@@ -1,11 +1,8 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const multiConfig = require("../fixtures/multi-public-path-config/webpack.config");
@@ -49,16 +46,16 @@ describe("Built in routes", () => {
       );
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"]
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handles HEAD request to sockjs bundle", async ({ page }) => {
@@ -69,11 +66,10 @@ describe("Built in routes", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
 
-          interceptedRequest.continue({ method: "HEAD" }, 10);
-        });
+      await page.route("**/*", (route) => {
+        route.continue({ method: "HEAD"})
+      })
 
       const response = await page.goto(
         `http://127.0.0.1:${port}/__webpack_dev_server__/sockjs.bundle.js`,
@@ -83,16 +79,16 @@ describe("Built in routes", () => {
       );
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"]
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle GET request to invalidate endpoint", async ({
@@ -113,17 +109,17 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(JSON.stringify(response.headers()["content-type"])).not.toEqual(
+      expect(response.headers()["content-type"]).not.toEqual(
         "text/html",
       );
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle GET request to directory index and list all middleware directories", async ({
@@ -145,18 +141,18 @@ describe("Built in routes", () => {
       );
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"]
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle HEAD request to directory index", async ({ page }) => {
@@ -167,11 +163,10 @@ describe("Built in routes", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
 
-          interceptedRequest.continue({ method: "HEAD" });
-        });
+      await page.route("**/*", (route) => {
+        route.continue({ method: "HEAD" })
+      })
 
       const response = await page.goto(
         `http://127.0.0.1:${port}/webpack-dev-server/`,
@@ -181,18 +176,18 @@ describe("Built in routes", () => {
       );
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"]
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should handle GET request to magic async chunk", async ({ page }) => {
@@ -209,16 +204,17 @@ describe("Built in routes", () => {
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"]
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
     });
 
+    // FIXME: improve it
     test("should handle HEAD request to magic async chunk", async ({
       page,
     }) => {
@@ -229,25 +225,24 @@ describe("Built in routes", () => {
         .on("pageerror", (error) => {
           pageErrors.push(error);
         })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
 
-          interceptedRequest.continue({ method: "HEAD" });
-        });
+      await page.route("**/*", (route) => {
+        route.continue({ method: "HEAD" })
+      })
 
       const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"]
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
     });
   });
 
@@ -290,18 +285,18 @@ describe("Built in routes", () => {
       );
 
       expect(
-        JSON.stringify(response.headers()["content-type"]),
-      ).toMatchSnapshot();
+        response.headers()["content-type"]
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(await response.text())).toMatchSnapshot();
+      expect(await response.text()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });

@@ -1,9 +1,7 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
+const { describe, test, expect } = require("@playwright/test");
 const Express = require("express");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -92,6 +90,10 @@ describe("handle options-request correctly", () => {
           }),
         htmlUrl,
       );
+
+      /// DEBUG ///
+      console.log(responseStatus);
+      ///
 
       expect(responseStatus.sort()).toEqual([200, 204]);
     } catch (error) {

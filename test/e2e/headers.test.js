@@ -1,12 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const request = require("supertest");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { afterEach } = require("@playwright/test");
-const { beforeEach } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["headers-option"];
@@ -52,15 +49,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -113,17 +110,17 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -169,15 +166,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -225,15 +222,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -286,17 +283,17 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.headers()["x-bar"])).toMatchSnapshot();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -345,15 +342,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -400,12 +397,12 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.headers()["x-foo"])).toMatchSnapshot();
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray();
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       const responseForHead = await req.get(`/`);
 

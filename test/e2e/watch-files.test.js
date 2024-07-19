@@ -4,11 +4,9 @@ const path = require("path");
 const chokidar = require("chokidar");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
-const jestMock = require("jest-mock");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const sinon = require("sinon");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/watch-files-config/webpack.config");
 const port = require("../ports-map")["watch-files-option"];
@@ -61,13 +59,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -127,13 +125,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -193,13 +191,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -264,13 +262,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       await new Promise((resolve) => {
         server.staticWatchers[0].on("change", async (changedPath) => {
@@ -335,13 +333,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -403,13 +401,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
@@ -479,13 +477,13 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
 
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
@@ -525,7 +523,7 @@ describe("watchFiles option", () => {
   describe("should work with options", () => {
     const file = path.join(watchDir, "assets/example.txt");
 
-    const chokidarMock = jestMock.spyOn(chokidar, "watch");
+    const chokidarMock = sinon.spy(chokidar, "watch");
 
     const optionCases = [
       {
@@ -576,7 +574,7 @@ describe("watchFiles option", () => {
         let consoleMessages;
 
         beforeEach(async () => {
-          chokidarMock.mockClear();
+          chokidarMock.resetHistory();
 
           compiler = webpack(config);
 
@@ -617,16 +615,16 @@ describe("watchFiles option", () => {
 
           // should pass correct options to chokidar config
           expect(
-            JSON.stringify(chokidarMock.mock.calls[0][1]),
-          ).toMatchSnapshot();
+            chokidarMock.getCall(0).args[1])
+          .toMatchSnapshotWithArray();
 
-          expect(JSON.stringify(response.status())).toMatchSnapshot();
+          expect(response.status()).toMatchSnapshotWithArray();
 
           expect(
-            JSON.stringify(consoleMessages.map((message) => message.text())),
-          ).toMatchSnapshot();
+            consoleMessages.map((message) => message.text()))
+          .toMatchSnapshotWithArray();
 
-          expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          expect(pageErrors).toMatchSnapshotWithArray();
 
           // change file content
           fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -641,6 +639,7 @@ describe("watchFiles option", () => {
               resolve();
             });
           });
+
         });
       });
     });

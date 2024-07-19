@@ -1,10 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map")["web-socket-server-test"];
@@ -47,7 +46,7 @@ describe("web socket server", () => {
         waitForDebuggerOnStart: true,
       });
 
-      sessionSubscribe(session);
+      await sessionSubscribe(session);
 
       await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
@@ -55,9 +54,9 @@ describe("web socket server", () => {
 
       expect(webSocketRequests).toHaveLength(0);
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())
+      ).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray();
     } catch (error) {
       throw error;
     } finally {

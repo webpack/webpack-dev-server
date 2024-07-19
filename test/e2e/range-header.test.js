@@ -2,10 +2,7 @@
 
 const request = require("supertest");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeAll, afterAll } = require("@playwright/test");
+const { describe, test, expect, beforeAll, afterAll } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["range-header"];

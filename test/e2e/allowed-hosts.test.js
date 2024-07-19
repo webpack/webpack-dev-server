@@ -2,18 +2,21 @@
 
 const express = require("express");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
+const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const [port1, port2] = require("../ports-map")["allowed-hosts"];
 
 const webSocketServers = ["ws", "sockjs"];
 
-describe("allowed hosts", () => {
+describe("allowed hosts", {
+  annotation: {
+    type: "flaky",
+    description: "https://github.com/webpack/webpack-dev-server/actions/runs/9957190252/job/27508687040"
+  }
+}, () => {
   for (const webSocketServer of webSocketServers) {
     test(`should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("${webSocketServer}")`, async ({
       page,
@@ -82,9 +85,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -164,9 +166,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -243,9 +244,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -318,9 +318,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -393,9 +392,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -468,9 +466,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -546,9 +543,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -624,9 +620,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -703,9 +698,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -782,9 +776,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -861,9 +854,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -940,9 +932,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -1022,9 +1013,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -1101,9 +1091,8 @@ describe("allowed hosts", () => {
         });
 
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -1182,11 +1171,10 @@ describe("allowed hosts", () => {
 
         const html = await page.content();
 
-        expect(JSON.stringify(html)).toMatchSnapshot();
+        expect(html).toMatchSnapshotWithArray();
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -1245,13 +1233,12 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should always allow `localhost` subdomain if options.allowedHosts is auto", async ({
@@ -1286,16 +1273,21 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
-    test("should always allow value from the `host` options if options.allowedHosts is auto", async ({
+    // FIXME
+    test("should always allow value from the `host` options if options.allowedHosts is auto", {
+      annotation: {
+        type: "fails",
+        description: "https://github.com/webpack/webpack-dev-server/issues/4630#issuecomment-1588211112"
+      }
+    }, async ({
       page,
     }) => {
       const networkIP = Server.internalIPSync("v4");
@@ -1329,13 +1321,12 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", async ({
@@ -1373,13 +1364,12 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should always allow any host if options.allowedHosts is all", async ({
@@ -1413,13 +1403,12 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should allow hosts in allowedHosts", async ({ page }) => {
@@ -1453,13 +1442,12 @@ describe("allowed hosts", () => {
         }
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
 
     test("should allow hosts that pass a wildcard in allowedHosts", async ({
@@ -1503,13 +1491,13 @@ describe("allowed hosts", () => {
         }
       });
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });
+

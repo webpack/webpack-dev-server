@@ -5,10 +5,9 @@ const net = require("net");
 const path = require("path");
 const http = require("http");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
 const httpProxy = require("http-proxy");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const sessionSubscribe = require("../helpers/session-subscribe");
@@ -16,7 +15,11 @@ const port1 = require("../ports-map").ipc;
 
 const webSocketServers = ["ws", "sockjs"];
 
-describe("web socket server URL", () => {
+describe("web socket server URL", {
+  annotation: {
+    type: "flaky",
+    description: "https://github.com/webpack/webpack-dev-server/actions/runs/9957190252/job/27508685202"
+  }}, () => {
   for (const webSocketServer of webSocketServers) {
     const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
 
@@ -106,9 +109,9 @@ describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -209,9 +212,9 @@ describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {
@@ -222,7 +225,8 @@ describe("web socket server URL", () => {
     });
 
     // TODO un skip after implement new API
-    test.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async ({
+    // it was like it even before migration to playwright
+    test.fixme(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async ({
       page,
     }) => {
       const isWindows = process.platform === "win32";
@@ -327,9 +331,9 @@ describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
         expect(
-          JSON.stringify(consoleMessages.map((message) => message.text())),
-        ).toMatchSnapshot();
-        expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
         throw error;
       } finally {

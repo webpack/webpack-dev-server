@@ -2,28 +2,38 @@
 
 const os = require("os");
 const webpack = require("webpack");
-const { test } = require("@playwright/test");
-const { expect } = require("@playwright/test");
-const { describe } = require("@playwright/test");
-const { beforeEach, afterEach } = require("@playwright/test");
-// const { jest } = require("@jest/globals");
-const jestMock = require("jest-mock");
+const { describe, test, beforeEach, beforeAll, afterEach } = require("@playwright/test");
+const sinon = require("sinon");
+const bonjourService = require("bonjour-service");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map").bonjour;
 
-describe("bonjour option", () => {
+describe("bonjour option", { tag: "@flaky" }, () => {
   let mockPublish;
   let mockUnpublishAll;
   let mockDestroy;
 
-  beforeEach(() => {
-    mockPublish = jestMock.fn();
-    mockUnpublishAll = jestMock.fn((callback) => {
+  beforeAll(() => {
+    mockPublish = sinon.stub();
+    mockUnpublishAll = sinon.stub().callsFake((callback) => {
       callback();
     });
-    mockDestroy = jestMock.fn();
+    mockDestroy = sinon.stub();
+
+    sinon.stub(bonjourService, 'Bonjour').returns({
+      publish: mockPublish,
+      unpublishAll: mockUnpublishAll,
+      destroy: mockDestroy,
+    })
   });
+
+  afterEach(() => {
+    mockPublish.resetHistory();
+    mockUnpublishAll.resetHistory();
+    mockDestroy.resetHistory();
+  })
 
   describe("as true", () => {
     let compiler;
@@ -32,18 +42,6 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
-        return {
-          Bonjour: jestMock.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
       compiler = webpack(config);
 
       server = new Server({ port, bonjour: true }, compiler);
@@ -56,10 +54,6 @@ describe("bonjour option", () => {
 
     afterEach(async () => {
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
     test("should call bonjour with correct params", async ({ page }) => {
@@ -75,25 +69,27 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
-        name: `Webpack Dev Server ${os.hostname()}:${port}`,
-        port,
-        type: "http",
-        subtypes: ["webpack"],
-      });
+      expect(mockPublish.calledWith(
+        {
+          name: `Webpack Dev Server ${os.hostname()}:${port}`,
+          port,
+          type: "http",
+          subtypes: ["webpack"],
+        }
+      )).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -104,18 +100,6 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jestMock.mock("bonjour-service", () => {
-        return {
-          Bonjour: jestMock.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
       compiler = webpack(config);
 
       server = new Server({ bonjour: true, port, server: "https" }, compiler);
@@ -143,25 +127,25 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(mockPublish.calledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "https",
         subtypes: ["webpack"],
-      });
+      })).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -172,18 +156,6 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
-        return {
-          Bonjour: jestMock.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
       compiler = webpack(config);
 
       server = new Server(
@@ -220,26 +192,26 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(mockPublish.calledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "https",
         protocol: "udp",
         subtypes: ["webpack"],
-      });
+      })).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 
@@ -250,18 +222,6 @@ describe("bonjour option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
-        return {
-          Bonjour: jestMock.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
       compiler = webpack(config);
 
       server = new Server(
@@ -301,26 +261,26 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
+      expect(mockPublish.calledWith({
         name: `Webpack Dev Server ${os.hostname()}:${port}`,
         port,
         type: "http",
         protocol: "udp",
         subtypes: ["webpack"],
-      });
+      })).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(JSON.stringify(response.status())).toMatchSnapshot();
+      expect(response.status()).toMatchSnapshotWithArray();
 
       expect(
-        JSON.stringify(consoleMessages.map((message) => message.text())),
-      ).toMatchSnapshot();
+        consoleMessages.map((message) => message.text()))
+      .toMatchSnapshotWithArray();
 
-      expect(JSON.stringify(pageErrors)).toMatchSnapshot();
+      expect(pageErrors).toMatchSnapshotWithArray();
     });
   });
 });
