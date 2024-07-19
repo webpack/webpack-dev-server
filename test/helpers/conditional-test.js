@@ -1,5 +1,7 @@
 "use strict";
 
+const { test } = require("@playwright/test");
+
 const isWindows = process.platform === "win32";
 
 function skipTestOnWindows(reason) {
