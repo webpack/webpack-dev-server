@@ -1,16 +1,18 @@
 "use strict";
 
+const isCI = process.env.CI === "true";
+
 /** @type { import('@playwright/test').PlaywrightTestConfig} */
 module.exports = {
   globalSetup: require.resolve("./scripts/setupPlaywright.js"),
   testIgnore: "**/*.ignore.*",
   testDir: "./test/e2e",
   fullyParallel: false,
-  forbidOnly: !!process.env.CI,
+  forbidOnly: !isCI,
   // TODO: can help with flakiness, make sure it works on CI
-  retries: process.env.CI ? 2 : 0,
+  retries: isCI ? 2 : 0,
   workers: 1,
-  reporter: process.env.CI ? "github" : "list",
+  reporter: isCI ? "github" : "list",
   use: {
     trace: "on-first-retry",
   },
