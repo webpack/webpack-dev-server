@@ -12,18 +12,6 @@ on:
       - next
       - v4
 
-  workflow_call:
-    inputs:
-      update-snapshots:
-        description: "Update snapshots?"
-        type: boolean
-
-  workflow_dispatch:
-    inputs:
-      update-snapshots:
-        description: "Update snapshots?"
-        type: boolean
-
 permissions:
   contents: read
 
@@ -129,20 +117,8 @@ jobs:
       - name: Install Playwright browsers and dependencies
         run: npx playwright install --with-deps
 
-      - name: Set up cache
-        id: cache
-        uses: actions/cache@v4
-        with:
-          key: cache/${{github.repository}}/${{github.ref}}
-          restore-keys: cache/${{github.repository}}/refs/heads/master
-          path: .test/**
-
-      - name: Initialize snapshots
-        if: ${{steps.cache.outputs.cache-hit != 'true' || inputs.update-snapshots == 'true'}}
-        run: npx playwright test --update-snapshots
-
       - name: Run E2E tests for webpack version ${{ matrix.webpack-version }}
-        run: npm run test:e2e
+        run: npm run test:e2e -- --shard=${{ matrix.shard }}
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v4
