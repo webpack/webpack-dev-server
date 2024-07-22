@@ -1,5 +1,6 @@
 "use strict";
 
+const MAX_RETRIES = 3;
 const isCI = process.env.CI === "true";
 
 /** @type { import('@playwright/test').PlaywrightTestConfig} */
@@ -9,8 +10,7 @@ module.exports = {
   testDir: "./test/e2e",
   fullyParallel: false,
   forbidOnly: !isCI,
-  // TODO: can help with flakiness, make sure it works on CI
-  retries: isCI ? 2 : 0,
+  retries: isCI ? MAX_RETRIES : 0,
   workers: 1,
   reporter: isCI ? "github" : "list",
   use: {
