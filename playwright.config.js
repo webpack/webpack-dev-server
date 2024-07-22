@@ -8,6 +8,7 @@ module.exports = {
   globalSetup: require.resolve("./scripts/setupPlaywright.js"),
   testIgnore: "**/*.ignore.*",
   testDir: "./test/e2e",
+  snapshotPathTemplate: "./test/e2e/snaps/{testFilePath}/{arg}{ext}",
   fullyParallel: false,
   forbidOnly: !isCI,
   retries: isCI ? MAX_RETRIES : 0,
