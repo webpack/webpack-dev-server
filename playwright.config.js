@@ -1,5 +1,6 @@
 "use strict";
 
+/** @type { import('@playwright/test').PlaywrightTestConfig} */
 module.exports = {
   globalSetup: require.resolve("./scripts/setupPlaywright.js"),
   testIgnore: "**/*.ignore.*",
