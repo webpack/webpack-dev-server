@@ -74,7 +74,7 @@
     "sockjs": "^0.3.24",
     "spdy": "^4.0.2",
     "webpack-dev-middleware": "^7.1.0",
-    "ws": "^8.16.0"
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.5",
