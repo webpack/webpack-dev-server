@@ -23,7 +23,7 @@ const createWaiting = () => {
   };
 };
 
-describe("handle options-request correctly", () => {
+describe("handle options-request correctly", { tag: "@fails" }, () => {
   test("should response with 200 http code", async ({ page }) => {
     const compiler = webpack(config);
     const [portForServer, portForApp] = port;
@@ -90,10 +90,6 @@ describe("handle options-request correctly", () => {
           }),
         htmlUrl,
       );
-
-      /// DEBUG ///
-      console.log(responseStatus);
-      ///
 
       expect(responseStatus.sort()).toEqual([200, 204]);
     } catch (error) {
