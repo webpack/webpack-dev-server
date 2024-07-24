@@ -2,18 +2,16 @@
 
 const webpack = require("webpack");
 const WebSocket = require("ws");
-const { describe, test, beforeAll } = require("@playwright/test");
+const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const { expect } = require("../helpers/playwright-custom-expects");
 const WebsocketServer = require("../../lib/servers/WebsocketServer");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map")["web-socket-communication"];
 
-describe("web socket communication", () => {
-  beforeAll(async () => {
-    test.setTimeout(60_000);
-  })
+test.setTimeout(60_000);
 
+describe("web socket communication", () => {
   const webSocketServers = ["ws", "sockjs"];
   webSocketServers.forEach((websocketServer) => {
     test(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async ({
@@ -67,54 +65,55 @@ describe("web socket communication", () => {
     });
 
     // TODO: test fails, is there sth wrong with the timeout?
-    test.fixme(`should work and terminate client that is not alive ("${websocketServer}")`, async ({
-      page,
-    }) => {
-      WebsocketServer.heartbeatInterval = 100;
+    test.fixme(
+      `should work and terminate client that is not alive ("${websocketServer}")`,
+      async ({ page }) => {
+        WebsocketServer.heartbeatInterval = 100;
 
-      const compiler = webpack(config);
-      const devServerOptions = {
-        port,
-        webSocketServer: websocketServer,
-      };
-      const server = new Server(devServerOptions, compiler);
+        const compiler = webpack(config);
+        const devServerOptions = {
+          port,
+          webSocketServer: websocketServer,
+        };
+        const server = new Server(devServerOptions, compiler);
 
-      await server.start();
+        await server.start();
 
-      try {
-        const pageErrors = [];
-        const consoleMessages = [];
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
+
+          await page.goto(`http://127.0.0.1:${port}/`, {
+            waitUntil: "networkidle0",
           });
 
-        await page.goto(`http://127.0.0.1:${port}/`, {
-          waitUntil: "networkidle0",
-        });
+          // Wait heartbeat
+          await new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, 200);
+          });
 
-        // Wait heartbeat
-        await new Promise((resolve) => {
-          setTimeout(() => {
-            resolve();
-          }, 200);
-        });
-
-        expect(server.webSocketServer.clients.length).toBe(0);
-        expect(
-          consoleMessages.map((message) => message.text())
-        ).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
-      } catch (error) {
-        throw error;
-      } finally {
-        await server.stop();
-      }
-    });
+          expect(server.webSocketServer.clients.length).toBe(0);
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray();
+          expect(pageErrors).toMatchSnapshotWithArray();
+        } catch (error) {
+          throw error;
+        } finally {
+          await server.stop();
+        }
+      },
+    );
 
     test(`should work and reconnect when the connection is lost ("${websocketServer}")`, async ({
       page,
@@ -154,7 +153,7 @@ describe("web socket communication", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray();
         expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
