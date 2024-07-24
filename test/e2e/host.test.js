@@ -31,7 +31,7 @@ function getAddress(host, hostname) {
   return { address };
 }
 
-describe("host", { tag: "@flaky" }, () => {
+describe("host", { tag: ["@flaky", "@fails"] }, () => {
   const hosts = [
     "<not-specified>",
     // eslint-disable-next-line no-undefined
@@ -47,77 +47,81 @@ describe("host", { tag: "@flaky" }, () => {
   ];
 
   for (let host of hosts) {
-    test(`should work using "${host}" host and port as number`, { tag: "@fails" }, async ({
-      page,
-    }) => {
-      const compiler = webpack(config);
+    test(
+      `should work using "${host}" host and port as number`,
+      { tag: "@fails" },
+      async ({ page }) => {
+        const compiler = webpack(config);
 
-      if (!ipv6 || isMacOS) {
-        if (host === "::") {
-          host = "127.0.0.1";
-        } else if (host === "::1") {
-          host = "127.0.0.1";
-        } else if (host === "local-ipv6") {
-          host = "127.0.0.1";
+        if (!ipv6 || isMacOS) {
+          if (host === "::") {
+            host = "127.0.0.1";
+          } else if (host === "::1") {
+            host = "127.0.0.1";
+          } else if (host === "local-ipv6") {
+            host = "127.0.0.1";
+          }
         }
-      }
 
-      const devServerOptions = { port };
+        const devServerOptions = { port };
 
-      if (host !== "<not-specified>") {
-        devServerOptions.host = host;
-      }
+        if (host !== "<not-specified>") {
+          devServerOptions.host = host;
+        }
 
-      const server = new Server(devServerOptions, compiler);
+        const server = new Server(devServerOptions, compiler);
 
-      let hostname = host;
+        let hostname = host;
 
-      if (hostname === "0.0.0.0") {
-        hostname = "127.0.0.1";
-      } else if (
-        hostname === "<not-specified>" ||
-        typeof hostname === "undefined" ||
-        hostname === "::" ||
-        hostname === "::1"
-      ) {
-        hostname = "[::1]";
-      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = ipv4;
-      } else if (hostname === "local-ipv6") {
-        hostname = `[${ipv6}]`;
-      }
+        if (hostname === "0.0.0.0") {
+          hostname = "127.0.0.1";
+        } else if (
+          hostname === "<not-specified>" ||
+          typeof hostname === "undefined" ||
+          hostname === "::" ||
+          hostname === "::1"
+        ) {
+          hostname = "[::1]";
+        } else if (hostname === "local-ip" || hostname === "local-ipv4") {
+          hostname = ipv4;
+        } else if (hostname === "local-ipv6") {
+          hostname = `[${ipv6}]`;
+        }
 
-      await server.start();
+        await server.start();
 
-      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
+        expect(server.server.address()).toMatchObject(
+          getAddress(host, hostname),
+        );
 
-      try {
-        const pageErrors = [];
-        const consoleMessages = [];
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
+
+          await page.goto(`http://${hostname}:${port}/`, {
+            waitUntil: "networkidle0",
           });
 
-        await page.goto(`http://${hostname}:${port}/`, {
-          waitUntil: "networkidle0",
-        });
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray();
 
-        expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-
-        expect(pageErrors).toMatchSnapshotWithArray();
-      } catch (error) {
-        throw error;
-      } finally {
-        await server.stop();
-      }
-    });
+          expect(pageErrors).toMatchSnapshotWithArray();
+        } catch (error) {
+          throw error;
+        } finally {
+          await server.stop();
+        }
+      },
+    );
 
     test(`should work using "${host}" host and port as string`, async ({
       page,
@@ -180,8 +184,8 @@ describe("host", { tag: "@flaky" }, () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray();
 
         expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
@@ -256,8 +260,8 @@ describe("host", { tag: "@flaky" }, () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray();
 
         expect(pageErrors).toMatchSnapshotWithArray();
       } catch (error) {
