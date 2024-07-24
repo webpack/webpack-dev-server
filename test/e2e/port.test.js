@@ -7,7 +7,7 @@ const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").port;
 
-// FIXME: duplicate port, should check on pupetter and with the team
+// FIXME: duplicate port, should check on puppeteer and with the team
 describe("port", () => {
   const ports = [
     "<not-specified>",
