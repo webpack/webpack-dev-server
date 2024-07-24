@@ -16,6 +16,9 @@ module.exports = {
   reporter: isCI ? "github" : "list",
   use: {
     trace: "on-first-retry",
+    // fixes: net::ERR_HTTP2_PROTOCOL_ERROR
+    // https://github.com/webpack/webpack-dev-server/actions/runs/10043417455/job/27756147116#step:10:297
+    ignoreHTTPSErrors: true,
   },
   projects: [
     {
