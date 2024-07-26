@@ -680,8 +680,8 @@ describe(
         const compiler = webpack(config);
         const server = new Server(options, compiler);
 
-        tests.forEach((test) => {
-          const headers = { host: test };
+        tests.forEach((host) => {
+          const headers = { host };
 
           if (!server.checkHeader(headers, "host")) {
             throw new Error("Validation didn't pass");
@@ -726,8 +726,8 @@ describe(
           const webSocketRequests = [];
           const session = await page.context().newCDPSession(page);
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
+          session.on("Network.webSocketCreated", (payload) => {
+            webSocketRequests.push(payload);
           });
 
           await session.send("Target.setAutoAttach", {
