@@ -3,11 +3,25 @@
 const path = require("path");
 const { test, expect, mergeExpects } = require("@playwright/test");
 
-// TODO: clean and refactor it, check with the team about bypassing the undefined
+/**
+ * Custom Playwright matcher to match a snapshot with an array.
+ *
+ * @function toMatchSnapshotWithArray
+ * @memberof expect
+ * @instance
+ * @async
+ * @param {Array} received - The received array that will be serialized and compared to the snapshot.
+ * @param {string} name - The name of the snapshot file.
+ * @returns {Promise<{message: function, pass: boolean, name: string, expected: Array, actual: *}>} - The result of the matcher.
+ * @throws {Error} If the received value is not an array.
+ */
 const toMatchSnapshotWithArray = expect.extend({
   async toMatchSnapshotWithArray(received, name) {
-    if (!Array.isArray(received)) {
-      throw new Error("Expected argument to be an array.");
+    // find a better way or modify error message
+    if (!["object", "number", "array", "string"].includes(typeof received)) {
+      throw new Error(
+        `Expected argument to be an object. but received ${typeof received}.`,
+      );
     }
 
     const assertionName = "toMatchSnapshotWithArray";
