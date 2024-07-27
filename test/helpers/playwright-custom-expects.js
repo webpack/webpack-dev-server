@@ -6,6 +6,10 @@ const { test, expect, mergeExpects } = require("@playwright/test");
 // TODO: clean and refactor it, check with the team about bypassing the undefined
 const toMatchSnapshotWithArray = expect.extend({
   async toMatchSnapshotWithArray(received, name) {
+    if (!Array.isArray(received)) {
+      throw new Error("Expected argument to be an array.");
+    }
+
     const assertionName = "toMatchSnapshotWithArray";
     let pass;
     let matcherResult;
