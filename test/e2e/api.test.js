@@ -2,15 +2,15 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map").api;
 
-describe(
+test.describe(
   "API",
   {
     annotation: {
@@ -20,13 +20,14 @@ describe(
     },
   },
   () => {
-    describe("WEBPACK_SERVE environment variable", () => {
+    test.describe("WEBPACK_SERVE environment variable", () => {
       const OLD_ENV = process.env;
       let server;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
+        // clean up modules cache
         Object.keys(require.cache).forEach((key) => delete require.cache[key]);
 
         process.env = { ...OLD_ENV };
@@ -37,7 +38,7 @@ describe(
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await server.stop();
         process.env = OLD_ENV;
       });
@@ -69,18 +70,18 @@ describe(
             waitUntil: "networkidle0",
           });
 
-          expect(response.status()).toMatchSnapshotWithArray();
+          expect(response.status()).toMatchSnapshotWithArray("response status");
 
           expect(
             consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
 
-          expect(pageErrors).toMatchSnapshotWithArray();
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         },
       );
     });
 
-    describe("latest async API", () => {
+    test.describe("latest async API", () => {
       test(`should work with async API`, async ({ page }) => {
         const compiler = webpack(config);
         const server = new Server({ port }, compiler);
@@ -105,8 +106,9 @@ describe(
 
           expect(
             consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
-          expect(pageErrors).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         } catch (error) {
           throw error;
         } finally {
@@ -142,8 +144,8 @@ describe(
 
           expect(
             consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
-          expect(pageErrors).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         } catch (error) {
           throw error;
         } finally {
@@ -178,10 +180,9 @@ describe(
         });
       });
 
-      // TODO: snapshot comparison fails
-      test.fixme(
+      test(
         `should work when using configured manually`,
-        { tag: "@fails" },
+        { tag: "@flaky" },
         async ({ page }) => {
           const compiler = webpack({
             ...config,
@@ -223,8 +224,8 @@ describe(
 
             expect(
               consoleMessages.map((message) => message.text()),
-            ).toMatchSnapshotWithArray();
-            expect(pageErrors).toMatchSnapshotWithArray();
+            ).toMatchSnapshotWithArray("console messages");
+            expect(pageErrors).toMatchSnapshotWithArray("page errors");
           } catch (error) {
             throw error;
           } finally {
@@ -263,8 +264,8 @@ describe(
 
           expect(
             firstConsoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
-          expect(firstPageErrors).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("first console messages");
+          expect(firstPageErrors).toMatchSnapshotWithArray("first page errors");
         } catch (error) {
           throw error;
         } finally {
@@ -293,8 +294,10 @@ describe(
 
           expect(
             secondConsoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
-          expect(secondPageErrors).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("second console messages");
+          expect(secondPageErrors).toMatchSnapshotWithArray(
+            "second page errors",
+          );
         } catch (error) {
           throw error;
         } finally {
@@ -303,13 +306,13 @@ describe(
       });
     });
 
-    describe("Invalidate callback", () => {
+    test.describe("Invalidate callback", () => {
       let compiler;
       let server;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         pageErrors = [];
@@ -320,7 +323,7 @@ describe(
         await server.start();
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await server.stop();
       });
 
@@ -345,12 +348,12 @@ describe(
         });
 
         sinon.assert.calledOnce(callback);
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
 
       test("should use the provided `callback` function", async ({ page }) => {
@@ -371,21 +374,21 @@ describe(
           });
 
         sinon.assert.calledOnce(callback);
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("Server.getFreePort", () => {
+    test.describe("Server.getFreePort", () => {
       let dummyServers = [];
       let devServerPort;
 
-      afterEach(() => {
+      test.afterEach(() => {
         delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
         delete process.env.WEBPACK_DEV_SERVER_PORT_RETRY;
 
@@ -482,13 +485,13 @@ describe(
             },
           );
 
-          expect(response.status()).toMatchSnapshotWithArray();
+          expect(response.status()).toMatchSnapshotWithArray("response status");
 
           expect(
             consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
 
-          expect(pageErrors).toMatchSnapshotWithArray();
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         },
       );
 
@@ -521,13 +524,13 @@ describe(
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
 
       test("should retry finding the port for up to defaultPortRetry times (number)", async ({
@@ -558,13 +561,13 @@ describe(
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
 
       test("should retry finding the port for up to defaultPortRetry times (string)", async ({
@@ -595,13 +598,13 @@ describe(
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
 
       test("should retry finding the port when serial ports are busy", async ({
@@ -636,13 +639,13 @@ describe(
             },
           );
 
-          expect(response.status()).toMatchSnapshotWithArray();
+          expect(response.status()).toMatchSnapshotWithArray("response status");
 
           expect(
             consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
 
-          expect(pageErrors).toMatchSnapshotWithArray();
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         } catch (error) {
           throw error;
         }
@@ -659,12 +662,12 @@ describe(
         try {
           await Server.getFreePort();
         } catch (error) {
-          expect(error.message).toMatchSnapshotWithArray();
+          expect(error.message).toMatchSnapshotWithArray("error messages");
         }
       });
     });
 
-    describe("Server.checkHostHeader", () => {
+    test.describe("Server.checkHostHeader", () => {
       test("should allow access for every requests using an IP", () => {
         const options = {};
 
@@ -759,16 +762,16 @@ describe(
             }, 100);
           });
 
-          expect(webSocketRequests[0].url).toMatchSnapshotWithArray();
+          expect(webSocketRequests[0].url).toMatchSnapshotWithArray("url");
 
-          expect(response.status()).toMatchSnapshotWithArray();
+          expect(response.status()).toMatchSnapshotWithArray("response status");
 
           expect(
             // net::ERR_NAME_NOT_RESOLVED can be multiple times
             consoleMessages.map((message) => message.text()).slice(0, 7),
-          ).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
 
-          expect(pageErrors).toMatchSnapshotWithArray();
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         } catch (error) {
           throw error;
         } finally {
