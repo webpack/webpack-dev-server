@@ -67,7 +67,8 @@
     "subsubcomain",
     "commitlint",
     "noselect",
-    "rgba"
+    "rgba",
+    "longpaths"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
