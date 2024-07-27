@@ -1,20 +1,20 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
 const { expect } = require("../helpers/playwright-custom-expects");
+const { test } = require("../helpers/playwright-test");
 const config = require("../fixtures/simple-config-other/webpack.config");
 const port = require("../ports-map")["compress-option"];
 
-describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
-  describe("enabled by default when not specified", () => {
+test.describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
+  test.describe("enabled by default when not specified", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server({ port }, compiler);
@@ -25,7 +25,7 @@ describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -42,25 +42,27 @@ describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
-      expect(response.headers()["content-encoding"]).toMatchSnapshotWithArray();
+      expect(response.headers()["content-encoding"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as true", () => {
+  test.describe("as true", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -77,7 +79,7 @@ describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -94,25 +96,27 @@ describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
-      expect(response.headers()["content-encoding"]).toMatchSnapshotWithArray();
+      expect(response.headers()["content-encoding"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as false", () => {
+  test.describe("as false", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -129,7 +133,7 @@ describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -156,20 +160,20 @@ describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
 
         // the response sometimes is []
         // and sometimes {"accept-ranges": "bytes", "connection": "keep-alive", "content-length": "276518", "content-type": "application/javascript; charset=utf-8", "date": "Wed, 24 Jul 2024 12:49:54 GMT", "keep-alive": "timeout=5", "x-powered-by": "Express"}
         // the thing is that the content-encoding does not exist in the response headers object
-        expect(
-          response.headers()["content-encoding"],
-        ).toMatchSnapshotWithArray();
+        // expect(
+        //   response.headers()["content-encoding"],
+        // ).toMatchSnapshotWithArray();
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       },
     );
   });
