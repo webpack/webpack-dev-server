@@ -83,6 +83,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Support long paths
+        run: git config --system core.longpaths true
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
