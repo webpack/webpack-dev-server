@@ -69,6 +69,8 @@
     "noselect",
     "rgba",
     "longpaths"
+    "noselect",
+    "commitlint"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
