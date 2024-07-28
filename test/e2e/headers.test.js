@@ -1,21 +1,21 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const request = require("supertest");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["headers-option"];
 
-describe("headers option", () => {
-  describe("as a string", () => {
+test.describe("headers option", () => {
+  test.describe("as a string", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -32,7 +32,7 @@ describe("headers option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -49,25 +49,27 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as an array of objects", () => {
+  test.describe("as an array of objects", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -93,7 +95,7 @@ describe("headers option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -110,27 +112,31 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray(
+        "response headers x-foo",
+      );
 
-      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray(
+        "response headers x-bar",
+      );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as an array", () => {
+  test.describe("as an array", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -147,7 +153,7 @@ describe("headers option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -166,25 +172,27 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as a function", () => {
+  test.describe("as a function", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -203,7 +211,7 @@ describe("headers option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -222,25 +230,27 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as a function returning an array", () => {
+  test.describe("as a function returning an array", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -266,7 +276,7 @@ describe("headers option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -283,27 +293,31 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray(
+        "response headers x-foo",
+      );
 
-      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-bar"]).toMatchSnapshotWithArray(
+        "response headers x-bar",
+      );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("dev middleware headers take precedence for dev middleware output files", () => {
+  test.describe("dev middleware headers take precedence for dev middleware output files", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -323,7 +337,7 @@ describe("headers option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -342,26 +356,28 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as a string and support HEAD request", () => {
+  test.describe("as a string and support HEAD request", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
     let req;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -380,7 +396,7 @@ describe("headers option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -397,12 +413,14 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray();
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.headers()["x-foo"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
+      expect(response.status()).toMatchSnapshotWithArray("response status");
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
       const responseForHead = await req.get(`/`);
 
