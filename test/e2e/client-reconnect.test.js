@@ -1,20 +1,20 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, beforeEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["client-reconnect-option"];
 
-describe("client.reconnect option", { tag: "@slow" } , () => {
-  describe("specified as true", () => {
+test.describe("client.reconnect option", { tag: "@slow" }, () => {
+  test.describe("specified as true", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server({ port, client: { reconnect: true } }, compiler);
@@ -39,7 +39,7 @@ describe("client.reconnect option", { tag: "@slow" } , () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
       } catch (error) {
         throw error;
       } finally {
@@ -62,17 +62,17 @@ describe("client.reconnect option", { tag: "@slow" } , () => {
         }, 1000);
       });
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("specified as false", () => {
+  test.describe("specified as false", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server({ port, client: { reconnect: false } }, compiler);
@@ -97,7 +97,7 @@ describe("client.reconnect option", { tag: "@slow" } , () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
       } catch (error) {
         throw error;
       } finally {
@@ -116,20 +116,20 @@ describe("client.reconnect option", { tag: "@slow" } , () => {
       );
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("specified as number", () => {
+  test.describe("specified as number", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server({ port, client: { reconnect: 2 } }, compiler);
@@ -154,7 +154,7 @@ describe("client.reconnect option", { tag: "@slow" } , () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toMatchSnapshotWithArray("response status");
       } catch (error) {
         throw error;
       } finally {
@@ -173,10 +173,10 @@ describe("client.reconnect option", { tag: "@slow" } , () => {
       );
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });
