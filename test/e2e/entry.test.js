@@ -2,7 +2,7 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { describe, test } = require("@playwright/test");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -23,7 +23,7 @@ const waitForConsoleLogFinished = async (consoleLogs) => {
   });
 };
 
-describe("entry", () => {
+test.describe("entry", () => {
   const entryFirst = path.resolve(
     __dirname,
     "../fixtures/client-config/foo.js",
@@ -60,8 +60,8 @@ describe("entry", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -96,8 +96,8 @@ describe("entry", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -137,8 +137,8 @@ describe("entry", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -173,8 +173,8 @@ describe("entry", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -212,8 +212,8 @@ describe("entry", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -260,8 +260,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -308,8 +308,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -354,8 +354,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -398,8 +398,8 @@ describe("entry", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
