@@ -1,8 +1,8 @@
 "use strict";
 
 const path = require("path");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -21,7 +21,7 @@ const apps = [
 
 const servers = ["http", "https", "spdy"];
 
-describe("app option", () => {
+test.describe("app option", () => {
   for (const [appName, app] of apps) {
     for (const server of servers) {
       let compiler;
@@ -29,8 +29,8 @@ describe("app option", () => {
       let pageErrors;
       let consoleMessages;
 
-      describe(`should work using "${appName}" application and "${server}" server`, () => {
-        beforeEach(async () => {
+      test.describe(`should work using "${appName}" application and "${server}" server`, () => {
+        test.beforeEach(async () => {
           compiler = webpack(config);
 
           devServer = new Server(
@@ -52,7 +52,7 @@ describe("app option", () => {
           consoleMessages = [];
         });
 
-        afterEach(async () => {
+        test.afterEach(async () => {
           await devServer.stop();
         });
 
@@ -93,12 +93,14 @@ describe("app option", () => {
             expect(HTTPVersion).toEqual("http/1.1");
           }
 
-          expect(response.status()).toMatchSnapshotWithArray();
-          expect(await response.text()).toMatchSnapshotWithArray();
+          expect(response.status()).toMatchSnapshotWithArray("response status");
+          expect(await response.text()).toMatchSnapshotWithArray(
+            "response text",
+          );
           expect(
-            consoleMessages.map((message) => message.text()))
-          .toMatchSnapshotWithArray();
-          expect(pageErrors).toMatchSnapshotWithArray();
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         });
       });
     }
