@@ -1,20 +1,20 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/simple-config-other/webpack.config");
 const port = require("../ports-map")["client-option"];
 
-describe("client option", () => {
-  describe("default behaviour", () => {
+test.describe("client option", () => {
+  test.describe("default behaviour", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -34,7 +34,7 @@ describe("client option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -54,23 +54,23 @@ describe("client option", () => {
       // overlay should be true by default
       expect(server.options.client.overlay).toBe(true);
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should respect path option", () => {
+  test.describe("should respect path option", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -97,7 +97,7 @@ describe("client option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -119,23 +119,23 @@ describe("client option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("configure client entry", () => {
+  test.describe("configure client entry", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -152,7 +152,7 @@ describe("client option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -169,19 +169,19 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toMatchSnapshotWithArray("response status");
 
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("webSocketTransport", () => {
+  test.describe("webSocketTransport", () => {
     const clientModes = [
       {
         title: 'as a string ("sockjs")',
@@ -237,7 +237,7 @@ describe("client option", () => {
       },
     ];
 
-    describe("passed to server", () => {
+    test.describe("passed to server", () => {
       clientModes.forEach((data) => {
         test(`${data.title} ${
           data.shouldThrow ? "should throw" : "should not throw"
