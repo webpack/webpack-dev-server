@@ -8,3 +8,7 @@ updates:
       timezone: Europe/Berlin
     open-pull-requests-limit: 10
     versioning-strategy: lockfile-only
+    groups:
+      dependencies:
+        patterns:
+          - "*"
