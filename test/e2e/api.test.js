@@ -70,7 +70,7 @@ test.describe(
             waitUntil: "networkidle0",
           });
 
-          expect(response.status()).toMatchSnapshotWithArray("response status");
+          expect(response.status()).toEqual(200);
 
           expect(
             consoleMessages.map((message) => message.text()),
@@ -107,7 +107,7 @@ test.describe(
           expect(
             consoleMessages.map((message) => message.text()),
           ).toMatchSnapshotWithArray("console messages");
-          expect(pageErrors).toMatchSnapshotWithArray("page errors");
+
           expect(pageErrors).toMatchSnapshotWithArray("page errors");
         } catch (error) {
           throw error;

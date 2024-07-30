@@ -2,8 +2,8 @@
 
 const express = require("express");
 const webpack = require("webpack");
-const { describe, test } = require("@playwright/test");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -12,7 +12,7 @@ const [port1, port2] = require("../ports-map")["web-socket-server-url"];
 
 const webSocketServers = ["ws", "sockjs"];
 
-describe("web socket server URL", () => {
+test.describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
     const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
 
@@ -102,8 +102,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -199,8 +199,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messges");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -300,8 +300,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -402,8 +402,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -481,8 +481,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -556,8 +556,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -631,8 +631,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -706,8 +706,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -780,8 +780,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -855,8 +855,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -930,8 +930,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1014,8 +1014,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1088,8 +1088,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1163,8 +1163,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1233,8 +1233,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1307,8 +1307,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1388,8 +1388,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1464,8 +1464,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1539,8 +1539,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1617,8 +1617,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1697,8 +1697,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1777,8 +1777,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1857,8 +1857,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -1940,8 +1940,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2022,8 +2022,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2091,8 +2091,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2161,8 +2161,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2230,8 +2230,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2307,8 +2307,8 @@ describe("web socket server URL", () => {
 
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2384,8 +2384,8 @@ describe("web socket server URL", () => {
 
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2457,8 +2457,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2537,8 +2537,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2610,8 +2610,8 @@ describe("web socket server URL", () => {
         );
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2654,11 +2654,10 @@ describe("web socket server URL", () => {
 
         expect(
           consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("console messages");
         expect(
-            pageErrors.map((pageError) => pageError.message.split("\n")[0]),
-          )
-        .toMatchSnapshotWithArray();
+            pageErrors.map((pageError) => pageError.message.split("\n")[0]),)
+          .toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2718,11 +2717,11 @@ describe("web socket server URL", () => {
           }, 100);
         });
 
-        expect(consoleMessages).toMatchSnapshotWithArray();
+        expect(consoleMessages).toMatchSnapshotWithArray("console messages");
         expect(
             pageErrors.map((pageError) => pageError.message.split("\n")[0])
           )
-        .toMatchSnapshotWithArray();
+        .toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {

@@ -1,8 +1,9 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, expect } = require("@playwright/test");
 const Express = require("express");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map")["options-request-response"];
@@ -23,7 +24,7 @@ const createWaiting = () => {
   };
 };
 
-describe("handle options-request correctly", { tag: "@fails" }, () => {
+test.describe("handle options-request correctly", { tag: "@fails" }, () => {
   test("should response with 200 http code", async ({ page }) => {
     const compiler = webpack(config);
     const [portForServer, portForApp] = port;

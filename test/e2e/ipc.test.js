@@ -5,8 +5,8 @@ const net = require("net");
 const path = require("path");
 const http = require("http");
 const webpack = require("webpack");
-const { describe, test } = require("@playwright/test");
 const httpProxy = require("http-proxy");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -15,7 +15,7 @@ const port1 = require("../ports-map").ipc;
 
 const webSocketServers = ["ws", "sockjs"];
 
-describe("web socket server URL", {
+test.describe("web socket server URL", {
   annotation: {
     type: "flaky",
     description: "https://github.com/webpack/webpack-dev-server/actions/runs/9957190252/job/27508685202"
@@ -110,8 +110,8 @@ describe("web socket server URL", {
         );
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -213,8 +213,8 @@ describe("web socket server URL", {
         );
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -332,8 +332,8 @@ describe("web socket server URL", {
         );
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {

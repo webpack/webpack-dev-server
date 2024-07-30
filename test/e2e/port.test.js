@@ -1,14 +1,14 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").port;
 
 // FIXME: duplicate port, should check on puppeteer and with the team
-describe("port", () => {
+test.describe("port", () => {
   const ports = [
     "<not-specified>",
     // eslint-disable-next-line no-undefined
@@ -77,8 +77,6 @@ describe("port", () => {
         expect(address.port).toBe(Number(usedPort));
       }
 
-      // const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -97,8 +95,8 @@ describe("port", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {

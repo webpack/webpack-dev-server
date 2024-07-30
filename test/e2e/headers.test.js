@@ -53,7 +53,7 @@ test.describe("headers option", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -120,7 +120,7 @@ test.describe("headers option", () => {
         "response headers x-bar",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -176,7 +176,7 @@ test.describe("headers option", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -234,7 +234,7 @@ test.describe("headers option", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -301,7 +301,7 @@ test.describe("headers option", () => {
         "response headers x-bar",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -360,7 +360,7 @@ test.describe("headers option", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -416,7 +416,7 @@ test.describe("headers option", () => {
       expect(response.headers()["x-foo"]).toMatchSnapshotWithArray(
         "response headers",
       );
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
       expect(
         consoleMessages.map((message) => message.text()),
       ).toMatchSnapshotWithArray("console messages");

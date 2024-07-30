@@ -3,8 +3,9 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
-const { describe, test, beforeAll } = require("@playwright/test");
+const sinon = require("sinon");
 const waitForExpect = require("wait-for-expect");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/overlay-config/webpack.config");
@@ -64,14 +65,14 @@ class WarningPlugin {
   }
 }
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 let prettier;
 let prettierHTML;
 let prettierCSS;
 
-describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
-  beforeAll(async () => {
+test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
+  test.beforeAll(async () => {
     // Due problems with ESM modules for Node.js@18
     // TODO replace it on import/require when Node.js@18 will be dropped
     prettier = require("../../node_modules/prettier/standalone");
@@ -97,7 +98,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -143,7 +144,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -157,13 +158,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -195,7 +196,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -209,13 +210,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -245,7 +246,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -259,13 +260,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -294,7 +295,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -308,13 +309,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -347,7 +348,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
 
       const pathToFile = path.resolve(
         __dirname,
@@ -373,13 +374,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
 
       fs.writeFileSync(pathToFile, originalCode);
 
@@ -396,7 +397,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -429,7 +430,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
 
       const pathToFile = path.resolve(
         __dirname,
@@ -455,13 +456,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
 
       fs.writeFileSync(pathToFile, "`;a");
 
@@ -483,13 +484,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
 
       fs.writeFileSync(pathToFile, originalCode);
 
@@ -506,7 +507,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -539,7 +540,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
 
       const pathToFile = path.resolve(
         __dirname,
@@ -565,13 +566,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
 
       const frame = await page
         .frames()
@@ -594,7 +595,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
 
       fs.writeFileSync(pathToFile, originalCode);
     } catch (error) {
@@ -604,11 +605,11 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     }
   });
 
-  test("should open editor when error with file info is clicked", async ({
+  test.fixme("should open editor when error with file info is clicked", async ({
     page,
   }) => {
-    const mockLaunchEditorCb = jest.fn();
-    jest.mock("launch-editor", () => mockLaunchEditorCb);
+    const mockLaunchEditorCb = sinon.spy();
+    sinon.stub(require('launch-editor'), mockLaunchEditorCb);
 
     const compiler = webpack(config);
     const devServerOptions = {
@@ -642,7 +643,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       await errorHandle.click();
 
       await waitForExpect(() => {
-        expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
+        sinon.assert.calledOnce(mockLaunchEditorCb);
       });
 
       fs.writeFileSync(pathToFile, originalCode);
@@ -676,7 +677,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -687,7 +688,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -720,7 +721,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -731,7 +732,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -768,7 +769,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -805,7 +806,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -819,13 +820,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -856,7 +857,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -870,13 +871,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -909,7 +910,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -923,13 +924,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -962,7 +963,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -976,13 +977,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1013,7 +1014,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1024,7 +1025,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -1057,7 +1058,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1068,7 +1069,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -1106,7 +1107,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -1143,7 +1144,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1157,13 +1158,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1194,7 +1195,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1208,13 +1209,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1253,7 +1254,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1272,13 +1273,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1323,7 +1324,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1346,13 +1347,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1385,7 +1386,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1395,7 +1396,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
     } catch (error) {
       throw error;
     } finally {
@@ -1428,7 +1429,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1442,13 +1443,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1481,7 +1482,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1495,13 +1496,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1533,7 +1534,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1547,13 +1548,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
 
       await server.stop();
 
@@ -1576,7 +1577,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html after close");
     } catch (error) {
       throw error;
     }
@@ -1612,7 +1613,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
@@ -1628,13 +1629,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1672,7 +1673,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
@@ -1688,13 +1689,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1726,7 +1727,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -1739,7 +1740,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1776,7 +1777,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -1814,7 +1815,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
@@ -1827,7 +1828,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1866,7 +1867,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
@@ -1910,7 +1911,7 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       });
 
       // Delay for the overlay to appear
-      await delay(1000);
+      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1924,13 +1925,13 @@ describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {

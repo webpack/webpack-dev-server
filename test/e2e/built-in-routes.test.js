@@ -49,7 +49,7 @@ test.describe("Built in routes", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -82,7 +82,7 @@ test.describe("Built in routes", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -111,7 +111,7 @@ test.describe("Built in routes", () => {
 
       expect(response.headers()["content-type"]).not.toEqual("text/html");
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -142,9 +142,9 @@ test.describe("Built in routes", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -177,9 +177,9 @@ test.describe("Built in routes", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -205,11 +205,13 @@ test.describe("Built in routes", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
       ).toMatchSnapshotWithArray("console messages");
+
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     // FIXME: improve it
@@ -236,11 +238,13 @@ test.describe("Built in routes", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
       ).toMatchSnapshotWithArray("console messages");
+
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
@@ -286,9 +290,9 @@ test.describe("Built in routes", () => {
         "response headers",
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),

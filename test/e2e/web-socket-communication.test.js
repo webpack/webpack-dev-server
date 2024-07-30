@@ -2,16 +2,17 @@
 
 const webpack = require("webpack");
 const WebSocket = require("ws");
-const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const WebsocketServer = require("../../lib/servers/WebsocketServer");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map")["web-socket-communication"];
 
-test.setTimeout(60_000);
+test.slow();
+test.setTimeout(60 * 1000);
 
-describe("web socket communication", () => {
+test.describe("web socket communication", () => {
   const webSocketServers = ["ws", "sockjs"];
   webSocketServers.forEach((websocketServer) => {
     test(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async ({
@@ -57,16 +58,19 @@ describe("web socket communication", () => {
           }, 100);
         });
 
-        expect(consoleMessages).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       }
     });
 
     // TODO: test fails, is there sth wrong with the timeout?
-    test.fixme(
+    test(
       `should work and terminate client that is not alive ("${websocketServer}")`,
+      {
+        tag: "@fails"
+      },
       async ({ page }) => {
         WebsocketServer.heartbeatInterval = 100;
 
@@ -102,11 +106,12 @@ describe("web socket communication", () => {
             }, 200);
           });
 
+          // this fails
           expect(server.webSocketServer.clients.length).toBe(0);
           expect(
             consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshotWithArray();
-          expect(pageErrors).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         } catch (error) {
           throw error;
         } finally {
@@ -154,8 +159,8 @@ describe("web socket communication", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {

@@ -2,8 +2,8 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
@@ -15,14 +15,14 @@ const otherPublicDirectory = path.resolve(staticDirectory, "other");
 const staticPublicPath = "/serve-content-at-this-url";
 const otherStaticPublicPath = "/serve-other-content-at-this-url";
 
-describe("static.publicPath option", () => {
-  describe("to directory", () => {
+test.describe("static.publicPath option", () => {
+  test.describe("to directory", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -43,7 +43,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -63,15 +63,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle request to other file", async ({ page }) => {
@@ -90,25 +90,25 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("test listing files in folders without index.html using the option static.serveIndex: false", () => {
+  test.describe("test listing files in folders without index.html using the option static.serveIndex: false", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -130,7 +130,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -152,15 +152,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(404);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -181,25 +181,25 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("test listing files in folders without index.html using the option static.serveIndex: true", () => {
+  test.describe("test listing files in folders without index.html using the option static.serveIndex: true", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -221,7 +221,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -243,15 +243,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
+      // not sure if it should be refactored to check page screenshot
       expect(await response.text()).toContain("other.txt");
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -272,25 +273,25 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("test listing files in folders without index.html using the option static.serveIndex default (true)", () => {
+  test.describe("test listing files in folders without index.html using the option static.serveIndex default (true)", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -312,7 +313,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -334,15 +335,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
+      // not sure if it should be refactored to check screenshot of page
       expect(await response.text()).toContain("other.txt");
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should show Heyo. because bar has index.html inside it (200)", async ({
@@ -363,25 +365,25 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("to multiple directories", () => {
+  test.describe("to multiple directories", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -407,7 +409,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -427,15 +429,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle request to second directory", async ({ page }) => {
@@ -454,26 +456,26 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("defaults to CWD", () => {
+  test.describe("defaults to CWD", () => {
     let cwdSpy;
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       cwdSpy = sinon.stub(process, "cwd").returns(staticDirectory)
 
       compiler = webpack(config);
@@ -494,7 +496,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       cwdSpy.restore();
 
       await server.stop();
@@ -516,25 +518,25 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("Content type", () => {
+  test.describe("Content type", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -554,7 +556,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -574,27 +576,27 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should ignore methods other than GET and HEAD", () => {
+  test.describe("should ignore methods other than GET and HEAD", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -614,7 +616,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -634,13 +636,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle HEAD request", async ({ page }) => {
@@ -663,13 +665,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should not handle POST request", async ({ page }) => {
@@ -692,13 +694,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(404);
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should not handle PUT request", async ({ page }) => {
@@ -721,13 +723,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(404);
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should not handle DELETE request", async ({ page }) => {
@@ -750,13 +752,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(404);
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should not handle PATCH request", async ({ page }) => {
@@ -779,23 +781,23 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(404);
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("multiple static.publicPath entries", () => {
+  test.describe("multiple static.publicPath entries", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -823,7 +825,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -845,15 +847,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle request to the other file of first path", async ({
@@ -874,15 +876,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle request to the /foo route of second path", async ({
@@ -903,25 +905,25 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("multiple static.publicPath entries with publicPath array", () => {
+  test.describe("multiple static.publicPath entries with publicPath array", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -949,7 +951,7 @@ describe("static.publicPath option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -971,15 +973,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle request to the other file of first path", async ({
@@ -1000,15 +1002,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle request to the /foo route of first path", async ({
@@ -1029,15 +1031,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should handle request to the /foo route of second path", async ({
@@ -1058,15 +1060,15 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });

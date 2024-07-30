@@ -1,20 +1,20 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, beforeEach, afterEach, test } = require("@playwright/test");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/mime-types-config/webpack.config");
 const port = require("../ports-map")["mime-types-option"];
 
-describe("mimeTypes option", () => {
-  describe("as an object with a remapped type", () => {
+test.describe("mimeTypes option", () => {
+  test.describe("as an object with a remapped type", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -35,7 +35,7 @@ describe("mimeTypes option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -54,25 +54,25 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
       expect(
         response.headers()["content-type"],
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("content type");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as an object with a custom type", () => {
+  test.describe("as an object with a custom type", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -93,7 +93,7 @@ describe("mimeTypes option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -112,17 +112,17 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
       expect(
         response.headers()["content-type"],
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("content type");
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });

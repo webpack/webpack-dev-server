@@ -1,1 +1,0 @@
-["[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.","[HMR] Waiting for update signal from WDS...","Bar."]

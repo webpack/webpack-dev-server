@@ -1,8 +1,8 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const WebsocketServer = require("../../lib/servers/WebsocketServer");
 const defaultConfig = require("../fixtures/provide-plugin-default/webpack.config");
@@ -11,7 +11,7 @@ const wsConfig = require("../fixtures/provide-plugin-ws-config/webpack.config");
 const customConfig = require("../fixtures/provide-plugin-custom/webpack.config");
 const port = require("../ports-map")["server-and-client-transport"];
 
-describe("server and client transport", () => {
+test.describe("server and client transport", () => {
   test('should use default web socket server ("ws")', async ({ page }) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
@@ -39,7 +39,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -77,7 +77,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -117,7 +117,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -155,7 +155,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -195,7 +195,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -236,7 +236,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -279,7 +279,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -320,7 +320,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -363,7 +363,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -386,7 +386,7 @@ describe("server and client transport", () => {
     try {
       await server.start();
     } catch (error) {
-      expect(error.message).toMatchSnapshotWithArray();
+      expect(error.message).toMatchSnapshotWithArray("error");
     } finally {
       await server.stop();
     }
@@ -424,7 +424,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -464,7 +464,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -505,7 +505,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -546,7 +546,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {
@@ -589,7 +589,7 @@ describe("server and client transport", () => {
       expect(isCorrectTransport).toBe(true);
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
     } catch (error) {
       throw error;
     } finally {

@@ -1,20 +1,20 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map")["on-listening-option"];
 
-describe("onListening option", () => {
+test.describe("onListening option", () => {
   let compiler;
   let server;
   let pageErrors;
   let consoleMessages;
   let onListeningIsRunning = false;
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     compiler = webpack(config);
     server = new Server(
       {
@@ -50,7 +50,7 @@ describe("onListening option", () => {
     consoleMessages = [];
   });
 
-  afterEach(async () => {
+  test.afterEach(async () => {
     await server.stop();
   });
 
@@ -76,17 +76,17 @@ describe("onListening option", () => {
 
     expect(
       response.headers()["content-type"],
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("content type");
 
-    expect(response.status()).toMatchSnapshotWithArray();
+    expect(response.status()).toEqual(200);
 
-    expect(await response.text()).toMatchSnapshotWithArray();
+    await expect(page).toHaveScreenshot();
 
     expect(
       consoleMessages.map((message) => message.text()),
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("console messages");
 
-    expect(pageErrors).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 
   test("should handle POST request to /listening/some/path route", async ({
@@ -115,16 +115,16 @@ describe("onListening option", () => {
 
     expect(
       response.headers()["content-type"],
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("content type");
 
-    expect(response.status()).toMatchSnapshotWithArray();
+    expect(response.status()).toEqual(200);
 
-    expect(await response.text()).toMatchSnapshotWithArray();
+    await expect(page).toHaveScreenshot();
 
     expect(
       consoleMessages.map((message) => message.text()),
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("console messages");
 
-    expect(pageErrors).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 });

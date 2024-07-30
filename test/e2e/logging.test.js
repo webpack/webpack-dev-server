@@ -2,15 +2,15 @@
 
 const path = require("path");
 const fs = require("graceful-fs");
-const { describe, test } = require("@playwright/test");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").logging;
 
-describe("logging", () => {
+test.describe("logging", () => {
   const webSocketServers = [
     { webSocketServer: "ws" },
     { webSocketServer: "sockjs" },
@@ -227,7 +227,7 @@ describe("logging", () => {
                     "<cwd>",
                   ),
               ),
-          ).toMatchSnapshotWithArray();
+          ).toMatchSnapshotWithArray("console messages");
         } catch (error) {
           throw error;
         } finally {

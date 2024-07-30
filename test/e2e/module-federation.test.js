@@ -1,8 +1,8 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, afterEach, beforeEach } = require("@playwright/test");
 const requireFromString = require("require-from-string");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const simpleConfig = require("../fixtures/module-federation-config/webpack.config");
@@ -11,14 +11,14 @@ const multiConfig = require("../fixtures/module-federation-config/webpack.multi.
 const port = require("../ports-map")["module-federation"];
 const pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
 
-describe("Module federation", () => {
-  describe("should work with simple multi-entry config", () => {
+test.describe("Module federation", () => {
+  test.describe("should work with simple multi-entry config", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(simpleConfig);
       server = new Server({ port }, compiler);
 
@@ -28,7 +28,7 @@ describe("Module federation", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -59,19 +59,19 @@ describe("Module federation", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should work with object multi-entry config", () => {
+  test.describe("should work with object multi-entry config", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(objectEntryConfig);
       server = new Server({ port }, compiler);
 
@@ -81,7 +81,7 @@ describe("Module federation", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -112,9 +112,9 @@ describe("Module federation", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should support the named entry export", async ({ page }) => {
@@ -144,19 +144,19 @@ describe("Module federation", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should work with multi compiler config", () => {
+  test.describe("should work with multi compiler config", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(multiConfig);
       server = new Server({ port }, compiler);
 
@@ -166,7 +166,7 @@ describe("Module federation", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -197,19 +197,19 @@ describe("Module federation", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should use plugin", () => {
+  test.describe("should use plugin", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(pluginConfig);
       server = new Server({ port }, compiler);
 
@@ -219,7 +219,7 @@ describe("Module federation", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -245,9 +245,9 @@ describe("Module federation", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should contain hot script in main.js", async ({ page }) => {
@@ -269,9 +269,9 @@ describe("Module federation", () => {
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });

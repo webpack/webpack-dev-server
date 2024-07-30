@@ -2,7 +2,7 @@
 
 const path = require("path");
 const WebSocket = require("ws");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
+const { test } = require("../helpers/playwright-test");
 const SockJS = require("sockjs-client");
 const webpack = require("webpack");
 const fs = require("graceful-fs");
@@ -22,7 +22,7 @@ const cssFilePath = path.resolve(
 
 const INVALID_MESSAGE = "[webpack-dev-server] App updated. Recompiling...";
 
-describe("hot and live reload", { tag: "@flaky" }, () => {
+test.describe("hot and live reload", { tag: "@flaky" }, () => {
   // "sockjs" client cannot add additional headers
   const modes = [
     {
@@ -307,11 +307,11 @@ describe("hot and live reload", { tag: "@flaky" }, () => {
 
   let server;
 
-  beforeEach(() => {
+  test.beforeEach(() => {
     fs.writeFileSync(cssFilePath, "body { background-color: rgb(0, 0, 255); }");
   });
 
-  afterEach(async () => {
+  test.afterEach(async () => {
     if (server) {
       await server.stop();
     }
@@ -556,8 +556,8 @@ describe("hot and live reload", { tag: "@flaky" }, () => {
         expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
       }
 
-      expect(consoleMessages).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });
@@ -565,20 +565,20 @@ describe("hot and live reload", { tag: "@flaky" }, () => {
 // the following cases check to make sure that the HMR
 // plugin is actually added
 
-describe("simple hot config HMR plugin", () => {
+test.describe("simple hot config HMR plugin", () => {
   let compiler;
   let server;
   let pageErrors;
   let consoleMessages;
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     compiler = webpack(config);
 
     pageErrors = [];
     consoleMessages = [];
   });
 
-  afterEach(async () => {
+  test.afterEach(async () => {
     await server.stop();
   });
 
@@ -615,23 +615,23 @@ describe("simple hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshotWithArray();
+    expect(response.status()).toEqual(200);
 
     expect(
       consoleMessages.map((message) => message.text()),
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("console messages");
 
-    expect(pageErrors).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 });
 
-describe("simple hot config HMR plugin with already added HMR plugin", () => {
+test.describe("simple hot config HMR plugin with already added HMR plugin", () => {
   let compiler;
   let server;
   let pageErrors;
   let consoleMessages;
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     compiler = webpack({
       ...config,
       plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
@@ -641,7 +641,7 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
     consoleMessages = [];
   });
 
-  afterEach(async () => {
+  test.afterEach(async () => {
     await server.stop();
   });
 
@@ -679,23 +679,23 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshotWithArray();
+    expect(response.status()).toEqual(200);
 
     expect(
       consoleMessages.map((message) => message.text()),
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("console messages");
 
-    expect(pageErrors).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 });
 
-describe("simple config with already added HMR plugin", () => {
+test.describe("simple config with already added HMR plugin", () => {
   let loggerWarnSpy;
   let getInfrastructureLoggerStub;
   let compiler;
   let server;
 
-  beforeEach(() => {
+  test.beforeEach(() => {
     compiler = webpack({
       ...config,
       devServer: { hot: false },
@@ -713,7 +713,7 @@ describe("simple config with already added HMR plugin", () => {
     });
   });
 
-  afterEach(() => {
+  test.afterEach(() => {
     getInfrastructureLoggerStub.restore();
     loggerWarnSpy.resetHistory();
   });
@@ -755,20 +755,20 @@ describe("simple config with already added HMR plugin", () => {
   });
 });
 
-describe("multi compiler hot config HMR plugin", () => {
+test.describe("multi compiler hot config HMR plugin", () => {
   let compiler;
   let server;
   let pageErrors;
   let consoleMessages;
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     compiler = webpack(multiCompilerConfig);
 
     pageErrors = [];
     consoleMessages = [];
   });
 
-  afterEach(async () => {
+  test.afterEach(async () => {
     await server.stop();
   });
 
@@ -805,30 +805,30 @@ describe("multi compiler hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshotWithArray();
+    expect(response.status()).toEqual(200);
 
     expect(
       consoleMessages.map((message) => message.text()),
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("console messages");
 
-    expect(pageErrors).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 });
 
-describe("hot disabled HMR plugin", () => {
+test.describe("hot disabled HMR plugin", () => {
   let compiler;
   let server;
   let pageErrors;
   let consoleMessages;
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     compiler = webpack(config);
 
     pageErrors = [];
     consoleMessages = [];
   });
 
-  afterEach(async () => {
+  test.afterEach(async () => {
     await server.stop();
   });
 
@@ -865,12 +865,12 @@ describe("hot disabled HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshotWithArray();
+    expect(response.status()).toEqual(200);
 
     expect(
       consoleMessages.map((message) => message.text()),
-    ).toMatchSnapshotWithArray();
+    ).toMatchSnapshotWithArray("console messages");
 
-    expect(pageErrors).toMatchSnapshotWithArray();
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 });

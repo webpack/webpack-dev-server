@@ -2,8 +2,8 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/historyapifallback-config/webpack.config");
@@ -11,14 +11,14 @@ const config2 = require("../fixtures/historyapifallback-2-config/webpack.config"
 const config3 = require("../fixtures/historyapifallback-3-config/webpack.config");
 const port = require("../ports-map")["history-api-fallback-option"];
 
-describe("historyApiFallback option", () => {
-  describe("as boolean", () => {
+test.describe("historyApiFallback option", () => {
+  test.describe("as boolean", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -35,7 +35,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -54,27 +54,27 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"],
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("response headers");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshotWithArray();
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as object", () => {
+  test.describe("as object", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -93,7 +93,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -114,25 +114,25 @@ describe("historyApiFallback option", () => {
         response.headers()["content-type"])
       .toMatchSnapshotWithArray();
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as object with static", () => {
+  test.describe("as object with static", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config2);
 
       server = new Server(
@@ -155,7 +155,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -174,17 +174,17 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should prefer static file over historyApiFallback", async ({
@@ -208,27 +208,27 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as object with static set to false", () => {
+  test.describe("as object with static set to false", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config3);
 
       server = new Server(
@@ -248,7 +248,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -269,27 +269,27 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as object with static and rewrites", () => {
+  test.describe("as object with static and rewrites", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config2);
 
       server = new Server(
@@ -321,7 +321,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -340,17 +340,17 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("historyApiFallback respect rewrites and shows index for unknown urls", async ({
@@ -370,17 +370,17 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("historyApiFallback respect any other specified rewrites", async ({
@@ -400,28 +400,28 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe('as object with the "verbose" option', () => {
+  test.describe('as object with the "verbose" option', () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
     let consoleSpy;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       consoleSpy = sinon.spy(global.console, "log");
 
       compiler = webpack(config);
@@ -443,7 +443,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       sinon.restore();
       await server.stop();
     });
@@ -463,11 +463,11 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       sinon.assert.calledWith(consoleSpy,
         "Rewriting",
@@ -479,20 +479,20 @@ describe("historyApiFallback option", () => {
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe('as object with the "logger" option', () => {
+  test.describe('as object with the "logger" option', () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
     let consoleSpy;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       consoleSpy = sinon.spy(global.console, "log");
 
       compiler = webpack(config);
@@ -514,7 +514,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       sinon.restore();
       await server.stop();
     });
@@ -534,11 +534,11 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       sinon.assert.calledWith(consoleSpy,
         "Rewriting",
@@ -550,19 +550,19 @@ describe("historyApiFallback option", () => {
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("in-memory files", () => {
+  test.describe("in-memory files", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config3);
 
       server = new Server(
@@ -583,7 +583,7 @@ describe("historyApiFallback option", () => {
       consoleMessages = [];
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       await server.stop();
     });
 
@@ -602,17 +602,17 @@ describe("historyApiFallback option", () => {
 
       expect(
         response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("content type");
 
-      expect(response.status()).toMatchSnapshotWithArray();
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray();
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray();
+      .toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
     test("should perform HEAD request in same way as GET", async ({ page }) => {
@@ -630,11 +630,11 @@ describe("historyApiFallback option", () => {
         };
       });
 
-      expect(responseGet.contentType).toMatchSnapshotWithArray();
+      expect(responseGet.contentType).toMatchSnapshotWithArray("content type");
 
-      expect(responseGet.statusText).toMatchSnapshotWithArray();
+      expect(responseGet.statusText).toMatchSnapshotWithArray("status text");
 
-      expect(responseGet.text).toMatchSnapshotWithArray();
+      expect(responseGet.text).toMatchSnapshotWithArray("text");
 
       const responseHead = await page.evaluate(async () => {
         const response = await fetch("/foo", { method: "HEAD" });

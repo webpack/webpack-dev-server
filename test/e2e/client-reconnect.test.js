@@ -39,7 +39,7 @@ test.describe("client.reconnect option", { tag: "@slow" }, () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toEqual(200);
       } catch (error) {
         throw error;
       } finally {
@@ -97,7 +97,7 @@ test.describe("client.reconnect option", { tag: "@slow" }, () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toEqual(200);
       } catch (error) {
         throw error;
       } finally {
@@ -154,7 +154,7 @@ test.describe("client.reconnect option", { tag: "@slow" }, () => {
       });
 
       try {
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toEqual(200);
       } catch (error) {
         throw error;
       } finally {

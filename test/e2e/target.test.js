@@ -1,13 +1,13 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").target;
 
-describe("target", () => {
+test.describe("target", () => {
   const targets = [
     false,
     "browserslist:defaults",
@@ -60,7 +60,7 @@ describe("target", () => {
 
         expect(
           consoleMessages.map((message) => message.text())
-        ).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
 
         if (
           target === "node" ||
@@ -78,7 +78,7 @@ describe("target", () => {
 
           expect(hasRequireOrGlobalError).toBe(true);
         } else {
-          expect(pageErrors).toMatchSnapshotWithArray();
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         }
       } catch (error) {
         throw error;

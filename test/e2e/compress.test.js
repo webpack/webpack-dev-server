@@ -42,7 +42,7 @@ test.describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(response.headers()["content-encoding"]).toMatchSnapshotWithArray(
         "response headers",
@@ -96,7 +96,7 @@ test.describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(response.headers()["content-encoding"]).toMatchSnapshotWithArray(
         "response headers",
@@ -160,7 +160,7 @@ test.describe("compress option", { tag: ["@flaky", "@fails"] }, () => {
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toEqual(200);
 
         // the response sometimes is []
         // and sometimes {"accept-ranges": "bytes", "connection": "keep-alive", "content-length": "276518", "content-type": "application/javascript; charset=utf-8", "date": "Wed, 24 Jul 2024 12:49:54 GMT", "keep-alive": "timeout=5", "x-powered-by": "Express"}

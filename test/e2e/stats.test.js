@@ -1,14 +1,14 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test } = require("@playwright/test");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const port = require("../ports-map").stats;
 
-describe("stats", () => {
+test.describe("stats", () => {
   const cases = [
     {
       title: 'should work when "stats" is not specified',
@@ -130,7 +130,7 @@ describe("stats", () => {
 
         expect(
           consoleMessages.map((message) => message.text())
-        ).toMatchSnapshotWithArray();
+        ).toMatchSnapshotWithArray("console messages");
       } catch (error) {
         throw error;
       } finally {

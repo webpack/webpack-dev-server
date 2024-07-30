@@ -6,8 +6,8 @@ const fs = require("graceful-fs");
 const request = require("supertest");
 const spdy = require("spdy");
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
@@ -26,15 +26,15 @@ const staticDirectory = path.resolve(
   "../fixtures/static-config/public",
 );
 
-describe("server option", () => {
-  describe("as string", () => {
+test.describe("server option", () => {
+  test.describe("as string", () => {
     let compiler;
     let server;
     let pageErrors;
     let consoleMessages;
 
-    describe("http", () => {
-      beforeEach(async () => {
+    test.describe("http", () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         server = new Server(
@@ -55,7 +55,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await server.stop();
       });
 
@@ -78,18 +78,18 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toEqual("h2");
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
 
-        expect(await response.text()).toMatchSnapshotWithArray();
+        await expect(page).toHaveScreenshot();
 
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("custom-http", () => {
-      beforeEach(async () => {
+    test.describe("custom-http", () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         server = new Server(
@@ -110,7 +110,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await server.stop();
       });
 
@@ -133,19 +133,20 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toEqual("h2");
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
 
-        expect(await response.text()).toMatchSnapshotWithArray();
+        await expect(page).toHaveScreenshot();
 
         expect(
-          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("https", () => {
-      beforeEach(async () => {
+    test.describe("https", () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         server = new Server(
@@ -166,7 +167,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await server.stop();
       });
 
@@ -189,18 +190,18 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toEqual("h2");
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
 
-        expect(await response.text()).toMatchSnapshotWithArray();
+        await expect(page).toHaveScreenshot();
 
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("spdy", () => {
-      beforeEach(async () => {
+    test.describe("spdy", () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         server = new Server(
@@ -221,7 +222,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await server.stop();
       });
 
@@ -244,27 +245,28 @@ describe("server option", () => {
 
         expect(HTTPVersion).toEqual("h2");
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
 
-        expect(await response.text()).toMatchSnapshotWithArray();
+        await expect(page).toHaveScreenshot();
 
         expect(
-          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
   });
 
-  describe("as object", () => {
-    describe("ca, pfx, key and cert are array of buffers", () => {
+  test.describe("as object", () => {
+    test.describe("ca, pfx, key and cert are array of buffers", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -312,7 +314,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
 
         await server.stop();
@@ -332,21 +334,21 @@ describe("server option", () => {
         });
 
         expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("ca, pfx, key and cert are strings", () => {
+    test.describe("ca, pfx, key and cert are strings", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -392,7 +394,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
 
         await server.stop();
@@ -412,21 +414,21 @@ describe("server option", () => {
         });
 
         expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("ca, pfx, key and cert are array of strings", () => {
+    test.describe("ca, pfx, key and cert are array of strings", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -481,7 +483,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
 
         await server.stop();
@@ -501,21 +503,21 @@ describe("server option", () => {
         });
 
         expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("ca, pfx, key and cert are paths to files", () => {
+    test.describe("ca, pfx, key and cert are paths to files", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -547,7 +549,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
 
         await server.stop();
@@ -567,21 +569,21 @@ describe("server option", () => {
         });
 
         expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("ca, pfx, key and cert are array of paths to files", () => {
+    test.describe("ca, pfx, key and cert are array of paths to files", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -613,7 +615,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
 
         await server.stop();
@@ -633,14 +635,14 @@ describe("server option", () => {
         });
 
         expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("ca, pfx, key and cert are symlinks", () => {
+    test.describe("ca, pfx, key and cert are symlinks", () => {
       if (skipTestOnWindows("Symlinks are not supported on Windows")) {
         return;
       }
@@ -651,7 +653,7 @@ describe("server option", () => {
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -686,7 +688,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
 
         await server.stop();
@@ -705,7 +707,7 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toEqual(200);
         expect(await response.text()).toContain("Heyo");
         expect(consoleMessages.map((message) => message.text())).toEqual([]);
@@ -713,14 +715,14 @@ describe("server option", () => {
       });
     });
 
-    describe("ca, pfx, key and cert are buffer", () => {
+    test.describe("ca, pfx, key and cert are buffer", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -760,7 +762,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
 
         await server.stop();
@@ -779,22 +781,22 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("ca, pfx, key and cert are buffer, key and pfx are objects", () => {
+    test.describe("ca, pfx, key and cert are buffer, key and pfx are objects", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -842,7 +844,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
         await server.stop();
       });
@@ -860,22 +862,22 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("ca, pfx, key and cert are strings, key and pfx are objects", () => {
+    test.describe("ca, pfx, key and cert are strings, key and pfx are objects", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -928,7 +930,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
         await server.stop();
       });
@@ -947,23 +949,24 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
+          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("allow to pass more options", () => {
+    test.describe("allow to pass more options", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -1004,7 +1007,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
         await server.stop();
       });
@@ -1023,24 +1026,26 @@ describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
+          normalizeOptions(createServerSpy.getCall(0).args[0])
+        ).toMatchSnapshotWithArray("normalize options");
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
     // TODO this doesn't exist with Playwright anymore
     // puppeteer having issues accepting SSL here, throwing error net::ERR_BAD_SSL_CLIENT_AUTH_CERT, hence testing with supertest
-    describe('should support the "requestCert" option', () => {
+    test.describe('should support the "requestCert" option', () => {
       let compiler;
       let server;
       let createServerSpy;
       let req;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(https, "createServer");
@@ -1077,31 +1082,31 @@ describe("server option", () => {
         req = request(server.app);
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
         await server.stop();
       });
 
       test("should pass options to the 'https.createServer' method", async () => {
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
       });
 
       test("should handle GET request to index route (/)", async () => {
         const response = await req.get("/");
 
-        expect(response.status).toMatchSnapshotWithArray();
-        expect(response.text).toMatchSnapshotWithArray();
+        expect(response.status).toMatchSnapshotWithArray("status");
+        expect(response.text).toMatchSnapshotWithArray("text");
       });
     });
 
-    describe("spdy server with options", () => {
+    test.describe("spdy server with options", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(spdy, "createServer");
@@ -1134,7 +1139,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
         await server.stop();
       });
@@ -1158,23 +1163,24 @@ describe("server option", () => {
 
         expect(HTTPVersion).toEqual("h2");
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
+          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
-    describe("custom server with options", () => {
+    test.describe("custom server with options", () => {
       let compiler;
       let server;
       let createServerSpy;
       let pageErrors;
       let consoleMessages;
 
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         compiler = webpack(config);
 
         createServerSpy = sinon.spy(customHTTP, "createServer");
@@ -1202,7 +1208,7 @@ describe("server option", () => {
         consoleMessages = [];
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         createServerSpy.restore();
         await server.stop();
       });
@@ -1226,12 +1232,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).toEqual("http/1.1");
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
-        expect(response.status()).toMatchSnapshotWithArray();
-        expect(await response.text()).toMatchSnapshotWithArray();
+          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(response.status()).toBe(200);
+        await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
-        expect(pageErrors).toMatchSnapshotWithArray();
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
   });

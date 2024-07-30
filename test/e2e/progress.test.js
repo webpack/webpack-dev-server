@@ -2,8 +2,9 @@
 
 const path = require("path");
 const fs = require("graceful-fs");
-const { describe, test, expect } = require("@playwright/test");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const reloadConfig = require("../fixtures/reload-config-2/webpack.config");
 const port = require("../ports-map").progress;
@@ -13,7 +14,7 @@ const cssFilePath = path.resolve(
   "../fixtures/reload-config-2/main.css",
 );
 
-describe("progress", () => {
+test.describe("progress", () => {
   test("should work and log progress in a browser console", async ({ page }) => {
     fs.writeFileSync(cssFilePath, "body { background-color: rgb(0, 0, 255); }");
 

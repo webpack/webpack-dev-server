@@ -62,9 +62,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -86,9 +86,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -185,9 +185,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(404);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -211,9 +211,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -271,7 +271,7 @@ test.describe("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
@@ -298,9 +298,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -357,7 +357,7 @@ test.describe("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
@@ -384,9 +384,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -436,9 +436,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -460,9 +460,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -608,9 +608,9 @@ test.describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshotWithArray("response text");
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -726,9 +726,9 @@ test.describe("static.directory option", () => {
           },
         );
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
 
-        expect(await response.text()).toMatchSnapshotWithArray("response text");
+        await expect(page).toHaveScreenshot();
 
         expect(
           consoleMessages.map((message) => message.text()),

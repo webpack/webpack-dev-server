@@ -1,15 +1,15 @@
 "use strict";
 
 const webpack = require("webpack");
-const { describe, test, beforeEach, afterEach } = require("@playwright/test");
 const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["setup-exit-signals-option"];
 
-describe("setupExitSignals option", () => {
-  describe("should handle 'SIGINT' and 'SIGTERM' signals", () => {
+test.describe("setupExitSignals option", () => {
+  test.describe("should handle 'SIGINT' and 'SIGTERM' signals", () => {
     let compiler;
     let server;
     let pageErrors;
@@ -22,7 +22,7 @@ describe("setupExitSignals option", () => {
 
     const signals = ["SIGINT", "SIGTERM"];
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -54,7 +54,7 @@ describe("setupExitSignals option", () => {
       }
     });
 
-    afterEach(async () => {
+    test.afterEach(async () => {
       exitSpy.restore();
       stdinResumeSpy.restore();
       signals.forEach((signal) => {
@@ -78,7 +78,7 @@ describe("setupExitSignals option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray();
+        expect(response.status()).toBe(200);
 
         process.emit(signal);
 
@@ -106,9 +106,9 @@ describe("setupExitSignals option", () => {
             ),
         );
 
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray();
+        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray();
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
   });

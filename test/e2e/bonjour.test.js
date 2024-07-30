@@ -83,7 +83,7 @@ test.describe("bonjour option", { tag: "@flaky" }, () => {
       expect(mockUnpublishAll.callCount).toBe(0);
       expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -141,7 +141,7 @@ test.describe("bonjour option", { tag: "@flaky" }, () => {
       expect(mockUnpublishAll.callCount).toBe(0);
       expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -209,7 +209,7 @@ test.describe("bonjour option", { tag: "@flaky" }, () => {
       expect(mockUnpublishAll.callCount).toBe(0);
       expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -280,7 +280,7 @@ test.describe("bonjour option", { tag: "@flaky" }, () => {
       expect(mockUnpublishAll.callCount).toBe(0);
       expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),

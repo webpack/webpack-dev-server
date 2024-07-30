@@ -54,7 +54,7 @@ test.describe("client option", () => {
       // overlay should be true by default
       expect(server.options.client.overlay).toBe(true);
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -119,7 +119,7 @@ test.describe("client option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(
         consoleMessages.map((message) => message.text()),
@@ -169,7 +169,7 @@ test.describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshotWithArray("response status");
+      expect(response.status()).toEqual(200);
 
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 

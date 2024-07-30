@@ -93,10 +93,8 @@ test.describe("app option", () => {
             expect(HTTPVersion).toEqual("http/1.1");
           }
 
-          expect(response.status()).toMatchSnapshotWithArray("response status");
-          expect(await response.text()).toMatchSnapshotWithArray(
-            "response text",
-          );
+          expect(response.status()).toEqual(200);
+          await expect(page).toHaveScreenshot();
           expect(
             consoleMessages.map((message) => message.text()),
           ).toMatchSnapshotWithArray("console messages");

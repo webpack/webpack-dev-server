@@ -2,16 +2,17 @@
 
 const request = require("supertest");
 const webpack = require("webpack");
-const { describe, test, expect, beforeAll, afterAll } = require("@playwright/test");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["range-header"];
 
-describe("'Range' header", () => {
+test.describe("'Range' header", () => {
   let compiler;
   let server;
 
-  beforeAll(async () => {
+  test.beforeAll(async () => {
     compiler = webpack(config);
 
     server = new Server({ port }, compiler);
@@ -19,7 +20,7 @@ describe("'Range' header", () => {
     await server.start();
   });
 
-  afterAll(async () => {
+  test.afterAll(async () => {
     await server.stop();
   });
 
