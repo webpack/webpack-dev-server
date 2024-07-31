@@ -68,7 +68,7 @@
     "commitlint",
     "noselect",
     "rgba",
-    "longpaths"
+    "longpaths",
     "noselect",
     "commitlint"
   ],
