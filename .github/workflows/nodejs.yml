@@ -81,10 +81,11 @@ jobs:
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v4
-
       - name: Support long paths
+        if: matrix.os == 'windows-latest'
         run: sudo git config --system core.longpaths true
+
+      - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
