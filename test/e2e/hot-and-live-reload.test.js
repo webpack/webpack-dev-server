@@ -2,11 +2,11 @@
 
 const path = require("path");
 const WebSocket = require("ws");
-const { test } = require("../helpers/playwright-test");
 const SockJS = require("sockjs-client");
 const webpack = require("webpack");
 const fs = require("graceful-fs");
 const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
@@ -325,240 +325,246 @@ test.describe("hot and live reload", { tag: "@flaky" }, () => {
         ? mode.options.webSocketServer
         : "default";
 
-    test(`${mode.title} (${webSocketServerTitle})`, { tag: "@flaky" }, async ({ page }) => {
-      // keep it, it will increase the timeout.
-      test.slow();
+    test(
+      `${mode.title} (${webSocketServerTitle})`,
+      { tag: "@flaky" },
+      async ({ page }) => {
+        // keep it, it will increase the timeout.
+        test.slow();
 
-      const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
-      const compiler = webpack(webpackOptions);
-      const testDevServerOptions = mode.options || {};
-      const devServerOptions = { port, ...testDevServerOptions };
+        const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
+        const compiler = webpack(webpackOptions);
+        const testDevServerOptions = mode.options || {};
+        const devServerOptions = { port, ...testDevServerOptions };
 
-      server = new Server(devServerOptions, compiler);
+        server = new Server(devServerOptions, compiler);
 
-      await server.start();
+        await server.start();
 
-      const webSocketServerLaunched =
-        testDevServerOptions.webSocketServer !== false;
+        const webSocketServerLaunched =
+          testDevServerOptions.webSocketServer !== false;
 
-      await new Promise((resolve) => {
-        const webSocketTransport =
-          typeof testDevServerOptions.webSocketServer !== "undefined" &&
-          testDevServerOptions.webSocketServer !== false
-            ? testDevServerOptions.webSocketServer
-            : "ws";
+        await new Promise((resolve) => {
+          const webSocketTransport =
+            typeof testDevServerOptions.webSocketServer !== "undefined" &&
+            testDevServerOptions.webSocketServer !== false
+              ? testDevServerOptions.webSocketServer
+              : "ws";
 
-        if (webSocketTransport === "ws") {
-          const ws = new WebSocket(
-            `ws://127.0.0.1:${devServerOptions.port}/ws`,
-            {
-              headers: {
-                host: `127.0.0.1:${devServerOptions.port}`,
-                origin: `http://127.0.0.1:${devServerOptions.port}`,
+          if (webSocketTransport === "ws") {
+            const ws = new WebSocket(
+              `ws://127.0.0.1:${devServerOptions.port}/ws`,
+              {
+                headers: {
+                  host: `127.0.0.1:${devServerOptions.port}`,
+                  origin: `http://127.0.0.1:${devServerOptions.port}`,
+                },
               },
-            },
-          );
+            );
 
-          let opened = false;
-          let received = false;
-          let errored = false;
+            let opened = false;
+            let received = false;
+            let errored = false;
 
-          ws.on("error", (error) => {
-            if (!webSocketServerLaunched && /404/.test(error)) {
-              errored = true;
-            } else {
-              errored = true;
-            }
-
-            ws.close();
-          });
-
-          ws.on("open", () => {
-            opened = true;
-          });
-
-          ws.on("message", (data) => {
-            const message = JSON.parse(data);
-
-            if (message.type === "ok") {
-              received = true;
+            ws.on("error", (error) => {
+              if (!webSocketServerLaunched && /404/.test(error)) {
+                errored = true;
+              } else {
+                errored = true;
+              }
 
               ws.close();
-            }
-          });
+            });
 
-          ws.on("close", () => {
-            if (opened && received && !errored) {
-              resolve();
-            } else if (!webSocketServerLaunched && errored) {
-              resolve();
-            }
-          });
-        } else {
-          const sockjs = new SockJS(
-            `http://127.0.0.1:${devServerOptions.port}/ws`,
-          );
+            ws.on("open", () => {
+              opened = true;
+            });
 
-          let opened = false;
-          let received = false;
-          let errored = false;
+            ws.on("message", (data) => {
+              const message = JSON.parse(data);
 
-          sockjs.onerror = () => {
-            errored = true;
-          };
+              if (message.type === "ok") {
+                received = true;
 
-          sockjs.onopen = () => {
-            opened = true;
-          };
+                ws.close();
+              }
+            });
 
-          sockjs.onmessage = ({ data }) => {
-            const message = JSON.parse(data);
+            ws.on("close", () => {
+              if (opened && received && !errored) {
+                resolve();
+              } else if (!webSocketServerLaunched && errored) {
+                resolve();
+              }
+            });
+          } else {
+            const sockjs = new SockJS(
+              `http://127.0.0.1:${devServerOptions.port}/ws`,
+            );
 
-            if (message.type === "ok") {
-              received = true;
+            let opened = false;
+            let received = false;
+            let errored = false;
 
-              sockjs.close();
-            }
-          };
+            sockjs.onerror = () => {
+              errored = true;
+            };
 
-          sockjs.onclose = (event) => {
-            if (opened && received && !errored) {
-              resolve();
-            } else if (event && event.reason === "Cannot connect to server") {
-              resolve();
-            }
-          };
-        }
-      });
+            sockjs.onopen = () => {
+              opened = true;
+            };
 
-      const consoleMessages = [];
-      const pageErrors = [];
+            sockjs.onmessage = ({ data }) => {
+              const message = JSON.parse(data);
 
-      let doneHotUpdate = false;
-      let hasDisconnectedMessage = false;
+              if (message.type === "ok") {
+                received = true;
 
-      page
-        .on("console", (message) => {
-          if (!hasDisconnectedMessage) {
-            const text = message.text();
+                sockjs.close();
+              }
+            };
 
-            hasDisconnectedMessage = /Disconnected!/.test(text);
-            consoleMessages.push(text);
-          }
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        })
-        .on("request", (requestObj) => {
-          if (/\.hot-update\.json$/.test(requestObj.url())) {
-            doneHotUpdate = true;
+            sockjs.onclose = (event) => {
+              if (opened && received && !errored) {
+                resolve();
+              } else if (event && event.reason === "Cannot connect to server") {
+                resolve();
+              }
+            };
           }
         });
 
-      await page.goto(`http://localhost:${port}/${mode.query || ""}`, {
-        waitUntil: "networkidle0",
-      });
+        const consoleMessages = [];
+        const pageErrors = [];
 
-      const backgroundColorBefore = await page.evaluate(() => {
-        const body = document.body;
+        let doneHotUpdate = false;
+        let hasDisconnectedMessage = false;
 
-        return getComputedStyle(body)["background-color"];
-      });
+        page
+          .on("console", (message) => {
+            if (!hasDisconnectedMessage) {
+              const text = message.text();
 
-      expect(backgroundColorBefore).toEqual("rgb(0, 0, 255)");
+              hasDisconnectedMessage = /Disconnected!/.test(text);
+              consoleMessages.push(text);
+            }
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          })
+          .on("request", (requestObj) => {
+            if (/\.hot-update\.json$/.test(requestObj.url())) {
+              doneHotUpdate = true;
+            }
+          });
 
-      fs.writeFileSync(
-        cssFilePath,
-        "body { background-color: rgb(255, 0, 0); }",
-      );
-
-      let waitHot =
-        typeof testDevServerOptions.hot !== "undefined"
-          ? testDevServerOptions.hot
-          : true;
-      let waitLiveReload =
-        typeof testDevServerOptions.liveReload !== "undefined"
-          ? testDevServerOptions.liveReload
-          : true;
-
-      if (webSocketServerLaunched === false) {
-        waitHot = false;
-        waitLiveReload = false;
-      }
-
-      if (Array.isArray(webpackOptions.entry)) {
-        if (webpackOptions.entry.some((item) => item.includes("hot=true"))) {
-          waitHot = true;
-        } else if (
-          webpackOptions.entry.some((item) => item.includes("hot=false"))
-        ) {
-          waitHot = false;
-        }
-      }
-
-      if (Array.isArray(webpackOptions.entry)) {
-        if (
-          webpackOptions.entry.some((item) => item.includes("live-reload=true"))
-        ) {
-          waitLiveReload = true;
-        } else if (
-          webpackOptions.entry.some((item) =>
-            item.includes("live-reload=false"),
-          )
-        ) {
-          waitLiveReload = false;
-        }
-      }
-
-      const query = mode.query || "";
-
-      if (query.includes("webpack-dev-server-hot=false")) {
-        waitHot = false;
-      }
-
-      if (query.includes("webpack-dev-server-live-reload=false")) {
-        waitLiveReload = false;
-      }
-
-      if (waitHot) {
-        await page.waitForFunction(
-          () =>
-            getComputedStyle(document.body)["background-color"] ===
-            "rgb(255, 0, 0)",
-        );
-
-        expect(doneHotUpdate).toBe(true);
-      } else if (waitLiveReload) {
-        await page.waitForNavigation({
+        await page.goto(`http://localhost:${port}/${mode.query || ""}`, {
           waitUntil: "networkidle0",
         });
-      } else if (webSocketServerLaunched) {
-        await new Promise((resolve) => {
-          const interval = setInterval(() => {
-            if (consoleMessages.includes(INVALID_MESSAGE)) {
-              clearInterval(interval);
 
-              resolve();
-            }
-          }, 100);
+        const backgroundColorBefore = await page.evaluate(() => {
+          const body = document.body;
+
+          return getComputedStyle(body)["background-color"];
         });
-      }
 
-      const backgroundColorAfter = await page.evaluate(() => {
-        const body = document.body;
+        expect(backgroundColorBefore).toEqual("rgb(0, 0, 255)");
 
-        return getComputedStyle(body)["background-color"];
-      });
+        fs.writeFileSync(
+          cssFilePath,
+          "body { background-color: rgb(255, 0, 0); }",
+        );
 
-      if (!waitHot && !waitLiveReload) {
-        expect(backgroundColorAfter).toEqual("rgb(0, 0, 255)");
-      } else {
-        expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
-      }
+        let waitHot =
+          typeof testDevServerOptions.hot !== "undefined"
+            ? testDevServerOptions.hot
+            : true;
+        let waitLiveReload =
+          typeof testDevServerOptions.liveReload !== "undefined"
+            ? testDevServerOptions.liveReload
+            : true;
 
-      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
-      expect(pageErrors).toMatchSnapshotWithArray("page errors");
-    });
+        if (webSocketServerLaunched === false) {
+          waitHot = false;
+          waitLiveReload = false;
+        }
+
+        if (Array.isArray(webpackOptions.entry)) {
+          if (webpackOptions.entry.some((item) => item.includes("hot=true"))) {
+            waitHot = true;
+          } else if (
+            webpackOptions.entry.some((item) => item.includes("hot=false"))
+          ) {
+            waitHot = false;
+          }
+        }
+
+        if (Array.isArray(webpackOptions.entry)) {
+          if (
+            webpackOptions.entry.some((item) =>
+              item.includes("live-reload=true"),
+            )
+          ) {
+            waitLiveReload = true;
+          } else if (
+            webpackOptions.entry.some((item) =>
+              item.includes("live-reload=false"),
+            )
+          ) {
+            waitLiveReload = false;
+          }
+        }
+
+        const query = mode.query || "";
+
+        if (query.includes("webpack-dev-server-hot=false")) {
+          waitHot = false;
+        }
+
+        if (query.includes("webpack-dev-server-live-reload=false")) {
+          waitLiveReload = false;
+        }
+
+        if (waitHot) {
+          await page.waitForFunction(
+            () =>
+              getComputedStyle(document.body)["background-color"] ===
+              "rgb(255, 0, 0)",
+          );
+
+          expect(doneHotUpdate).toBe(true);
+        } else if (waitLiveReload) {
+          await page.waitForNavigation({
+            waitUntil: "networkidle0",
+          });
+        } else if (webSocketServerLaunched) {
+          await new Promise((resolve) => {
+            const interval = setInterval(() => {
+              if (consoleMessages.includes(INVALID_MESSAGE)) {
+                clearInterval(interval);
+
+                resolve();
+              }
+            }, 100);
+          });
+        }
+
+        const backgroundColorAfter = await page.evaluate(() => {
+          const body = document.body;
+
+          return getComputedStyle(body)["background-color"];
+        });
+
+        if (!waitHot && !waitLiveReload) {
+          expect(backgroundColorAfter).toEqual("rgb(0, 0, 255)");
+        } else {
+          expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
+        }
+
+        expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
+      },
+    );
   });
 });
 
@@ -702,7 +708,10 @@ test.describe("simple config with already added HMR plugin", () => {
       plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
     });
 
-    getInfrastructureLoggerStub = sinon.stub(compiler, "getInfrastructureLogger");
+    getInfrastructureLoggerStub = sinon.stub(
+      compiler,
+      "getInfrastructureLogger",
+    );
 
     loggerWarnSpy = sinon.spy();
 
@@ -723,8 +732,10 @@ test.describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy
-      .calledWith(`"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`)
+    expect(
+      loggerWarnSpy.calledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
+      ),
     ).toBeTruthy();
 
     await server.stop();
@@ -735,8 +746,10 @@ test.describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy
-      .calledWith(`"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`)
+    expect(
+      loggerWarnSpy.calledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
+      ),
     ).toBeTruthy();
 
     await server.stop();
@@ -747,8 +760,10 @@ test.describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy
-      .calledWith(`"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`)
+    expect(
+      loggerWarnSpy.calledWith(
+        `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
+      ),
     ).toBeFalsy();
 
     await server.stop();

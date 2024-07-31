@@ -101,8 +101,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -198,8 +198,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messges");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -299,8 +299,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -401,8 +401,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://${resolvedHost}:${resolvedPort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -480,8 +480,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -555,8 +555,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -630,8 +630,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -705,8 +705,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -779,8 +779,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -854,8 +854,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -929,8 +929,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1013,8 +1013,8 @@ test.describe("web socket server URL", () => {
             : `${websocketURLProtocol}://127.0.0.1:${port2}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1087,8 +1087,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1162,8 +1162,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1232,8 +1232,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1306,8 +1306,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://zenitsu@127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1387,8 +1387,8 @@ test.describe("web socket server URL", () => {
             : `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1463,8 +1463,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1538,8 +1538,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1616,8 +1616,8 @@ test.describe("web socket server URL", () => {
             : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1696,8 +1696,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1776,8 +1776,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1856,8 +1856,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -1939,8 +1939,8 @@ test.describe("web socket server URL", () => {
             : `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2021,8 +2021,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2090,8 +2090,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2160,8 +2160,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2229,8 +2229,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2306,8 +2306,8 @@ test.describe("web socket server URL", () => {
         }
 
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2383,8 +2383,8 @@ test.describe("web socket server URL", () => {
         }
 
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2456,8 +2456,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${resolvedFreePort}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2536,8 +2536,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2609,8 +2609,8 @@ test.describe("web socket server URL", () => {
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
@@ -2653,11 +2653,11 @@ test.describe("web socket server URL", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text()))
-        .toMatchSnapshotWithArray("console messages");
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(
-            pageErrors.map((pageError) => pageError.message.split("\n")[0]),)
-          .toMatchSnapshotWithArray("page errors");
+          pageErrors.map((pageError) => pageError.message.split("\n")[0]),
+        ).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -2719,9 +2719,8 @@ test.describe("web socket server URL", () => {
 
         expect(consoleMessages).toMatchSnapshotWithArray("console messages");
         expect(
-            pageErrors.map((pageError) => pageError.message.split("\n")[0])
-          )
-        .toMatchSnapshotWithArray("page errors");
+          pageErrors.map((pageError) => pageError.message.split("\n")[0]),
+        ).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
