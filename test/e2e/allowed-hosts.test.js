@@ -1252,7 +1252,7 @@ test.describe(
           throw new Error("Validation didn't fail");
         }
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
@@ -1291,7 +1291,7 @@ test.describe(
           throw new Error("Validation didn't fail");
         }
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
@@ -1344,7 +1344,7 @@ test.describe(
             throw new Error("Validation didn't fail");
           }
 
-          expect(response.status()).toMatchSnapshotWithArray("response status");
+          expect(response.status()).toBe(200);
           expect(
             consoleMessages.map((message) => message.text()),
           ).toMatchSnapshotWithArray("console messages");
@@ -1387,7 +1387,7 @@ test.describe(
           throw new Error("Validation didn't fail");
         }
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
@@ -1425,7 +1425,7 @@ test.describe(
           throw new Error("Validation didn't fail");
         }
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
@@ -1463,7 +1463,7 @@ test.describe(
           }
         });
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
@@ -1511,7 +1511,7 @@ test.describe(
           }
         });
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
