@@ -3,7 +3,6 @@
 const { test, mergeTests } = require("@playwright/test");
 
 const customTest = test.extend({
-   
   done: [
     // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
