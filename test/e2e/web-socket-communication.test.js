@@ -69,7 +69,7 @@ test.describe("web socket communication", () => {
     test(
       `should work and terminate client that is not alive ("${websocketServer}")`,
       {
-        tag: "@fails"
+        tag: "@fails",
       },
       async ({ page }) => {
         WebsocketServer.heartbeatInterval = 100;

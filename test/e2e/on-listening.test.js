@@ -74,9 +74,9 @@ test.describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    expect(
-      response.headers()["content-type"],
-    ).toMatchSnapshotWithArray("content type");
+    expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
+    );
 
     expect(response.status()).toEqual(200);
 
@@ -98,11 +98,11 @@ test.describe("onListening option", () => {
       })
       .on("pageerror", (error) => {
         pageErrors.push(error);
-      })
+      });
 
     await page.route("**/*", (route) => {
-      route.continue({ method: "POST" })
-    })
+      route.continue({ method: "POST" });
+    });
 
     const response = await page.goto(
       `http://127.0.0.1:${port}/listening/some/path`,
@@ -113,9 +113,9 @@ test.describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    expect(
-      response.headers()["content-type"],
-    ).toMatchSnapshotWithArray("content type");
+    expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
+    );
 
     expect(response.status()).toEqual(200);
 

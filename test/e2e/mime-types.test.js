@@ -56,11 +56,13 @@ test.describe("mimeTypes option", () => {
 
       expect(response.status()).toEqual(200);
 
-      expect(
-        response.headers()["content-type"],
-      ).toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -114,9 +116,9 @@ test.describe("mimeTypes option", () => {
 
       expect(response.status()).toEqual(200);
 
-      expect(
-        response.headers()["content-type"],
-      ).toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(
         consoleMessages.map((message) => message.text()),

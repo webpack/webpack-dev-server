@@ -68,8 +68,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -95,8 +95,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -157,8 +157,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -186,8 +186,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -249,8 +249,8 @@ test.describe("static.publicPath option", () => {
       expect(await response.text()).toContain("other.txt");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -278,8 +278,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -341,8 +341,8 @@ test.describe("static.publicPath option", () => {
       expect(await response.text()).toContain("other.txt");
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -370,8 +370,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -434,8 +434,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -461,8 +461,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -476,7 +476,7 @@ test.describe("static.publicPath option", () => {
     let consoleMessages;
 
     test.beforeEach(async () => {
-      cwdSpy = sinon.stub(process, "cwd").returns(staticDirectory)
+      cwdSpy = sinon.stub(process, "cwd").returns(staticDirectory);
 
       compiler = webpack(config);
 
@@ -523,8 +523,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -578,13 +578,13 @@ test.describe("static.publicPath option", () => {
 
       expect(response.status()).toBe(200);
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -639,8 +639,8 @@ test.describe("static.publicPath option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -652,11 +652,11 @@ test.describe("static.publicPath option", () => {
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
-        })
+        });
 
       await page.route("**/*", async (route) => {
-        route.continue({ method: "HEAD" })
-      })
+        route.continue({ method: "HEAD" });
+      });
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -668,8 +668,8 @@ test.describe("static.publicPath option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -681,39 +681,10 @@ test.describe("static.publicPath option", () => {
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
-        })
+        });
 
       await page.route("**/*", (route) => {
         route.continue({ method: "POST" });
-      })
-
-      const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
-        {
-          waitUntil: "networkidle0",
-        },
-      );
-
-      expect(response.status()).toBe(404);
-
-      expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
-
-      expect(pageErrors).toMatchSnapshotWithArray("page errors");
-    });
-
-    test("should not handle PUT request", async ({ page }) => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        })
-
-      await page.route("**/*", (route) => {
-        route.continue({ method: "PUT" })
       });
 
       const response = await page.goto(
@@ -726,8 +697,37 @@ test.describe("static.publicPath option", () => {
       expect(response.status()).toBe(404);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
+    });
+
+    test("should not handle PUT request", async ({ page }) => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "PUT" });
+      });
+
+      const response = await page.goto(
+        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        {
+          waitUntil: "networkidle0",
+        },
+      );
+
+      expect(response.status()).toBe(404);
+
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -739,11 +739,11 @@ test.describe("static.publicPath option", () => {
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
-        })
+        });
 
       await page.route("**/*", (route) => {
-        route.continue({ method: "DELETE" })
-      })
+        route.continue({ method: "DELETE" });
+      });
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -755,8 +755,8 @@ test.describe("static.publicPath option", () => {
       expect(response.status()).toBe(404);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -768,11 +768,11 @@ test.describe("static.publicPath option", () => {
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
-        })
+        });
 
       await page.route("**/*", (route) => {
         route.continue({ method: "PATCH" });
-      })
+      });
 
       const response = await page.goto(
         `http://127.0.0.1:${port}${staticPublicPath}/`,
@@ -784,8 +784,8 @@ test.describe("static.publicPath option", () => {
       expect(response.status()).toBe(404);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -852,8 +852,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -881,8 +881,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -910,8 +910,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -978,8 +978,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -1007,8 +1007,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -1036,8 +1036,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -1065,8 +1065,8 @@ test.describe("static.publicPath option", () => {
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });

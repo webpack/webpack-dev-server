@@ -15,7 +15,9 @@ const cssFilePath = path.resolve(
 );
 
 test.describe("progress", () => {
-  test("should work and log progress in a browser console", async ({ page }) => {
+  test("should work and log progress in a browser console", async ({
+    page,
+  }) => {
     fs.writeFileSync(cssFilePath, "body { background-color: rgb(0, 0, 255); }");
 
     const compiler = webpack(reloadConfig);

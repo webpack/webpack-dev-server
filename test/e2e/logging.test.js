@@ -218,15 +218,15 @@ test.describe("logging", () => {
           }
 
           expect(
-              consoleMessages.map((message) =>
-                message
-                  .text()
-                  .replace(/\\/g, "/")
-                  .replace(
-                    new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
-                    "<cwd>",
-                  ),
-              ),
+            consoleMessages.map((message) =>
+              message
+                .text()
+                .replace(/\\/g, "/")
+                .replace(
+                  new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+                  "<cwd>",
+                ),
+            ),
           ).toMatchSnapshotWithArray("console messages");
         } catch (error) {
           throw error;

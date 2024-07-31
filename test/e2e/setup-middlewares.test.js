@@ -81,7 +81,6 @@ test.describe("setupMiddlewares option", () => {
   test("should handle GET request to /setup-middleware/some/path route", async ({
     browser,
   }) => {
-
     const context = await browser.newContext();
 
     const page1 = await context.newPage();
@@ -100,9 +99,9 @@ test.describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(
-      response1.headers()["content-type"]
-    ).toMatchSnapshotWithArray("content type");
+    expect(response1.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
+    );
 
     expect(response1.status()).toBe(200);
 
@@ -113,9 +112,9 @@ test.describe("setupMiddlewares option", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(
-      response2.headers()["content-type"]
-    ).toMatchSnapshotWithArray("content type");
+    expect(response2.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
+    );
 
     expect(response2.status()).toBe(200);
 
@@ -126,9 +125,9 @@ test.describe("setupMiddlewares option", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(
-      response3.headers()["content-type"]
-    ).toMatchSnapshotWithArray("content type");
+    expect(response3.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
+    );
 
     expect(response3.status()).toBe(200);
 
@@ -142,15 +141,15 @@ test.describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(
-      response4.headers()["content-type"]
-    ).toMatchSnapshotWithArray("content type");
+    expect(response4.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
+    );
 
     expect(response4.status()).toBe(200);
     await expect(page4).toHaveScreenshot();
 
     expect(
-      consoleMessages.map((message) => message.text())
+      consoleMessages.map((message) => message.text()),
     ).toMatchSnapshotWithArray("console messages");
 
     expect(pageErrors).toMatchSnapshotWithArray("page errors");
@@ -165,11 +164,11 @@ test.describe("setupMiddlewares option", () => {
       })
       .on("pageerror", (error) => {
         pageErrors.push(error);
-      })
+      });
 
     await page.route("**/*", (route) => {
-      route.continue({ method: "POST" })
-    })
+      route.continue({ method: "POST" });
+    });
 
     const response = await page.goto(
       `http://127.0.0.1:${port}/setup-middleware/some/path`,
@@ -178,16 +177,16 @@ test.describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(
-      response.headers()["content-type"]
-    ).toMatchSnapshotWithArray("content type");
+    expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
+    );
 
     expect(response.status()).toBe(200);
 
     await expect(page).toHaveScreenshot();
 
     expect(
-      consoleMessages.map((message) => message.text())
+      consoleMessages.map((message) => message.text()),
     ).toMatchSnapshotWithArray("console messages");
 
     expect(pageErrors).toMatchSnapshotWithArray("page errors");

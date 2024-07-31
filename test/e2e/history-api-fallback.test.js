@@ -52,9 +52,9 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"],
-      ).toMatchSnapshotWithArray("response headers");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
+      );
 
       expect(response.status()).toEqual(200);
 
@@ -110,17 +110,15 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray();
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray();
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -172,17 +170,17 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -206,17 +204,17 @@ test.describe("historyApiFallback option", () => {
         },
       );
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -267,17 +265,17 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -338,17 +336,17 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -368,17 +366,17 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -398,17 +396,17 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -461,15 +459,16 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
-      sinon.assert.calledWith(consoleSpy,
+      sinon.assert.calledWith(
+        consoleSpy,
         "Rewriting",
         "GET",
         "/foo",
@@ -478,8 +477,8 @@ test.describe("historyApiFallback option", () => {
       );
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -532,15 +531,16 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
-      sinon.assert.calledWith(consoleSpy,
+      sinon.assert.calledWith(
+        consoleSpy,
         "Rewriting",
         "GET",
         "/foo",
@@ -549,8 +549,8 @@ test.describe("historyApiFallback option", () => {
       );
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
@@ -600,17 +600,17 @@ test.describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        response.headers()["content-type"])
-      .toMatchSnapshotWithArray("content type");
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
+      );
 
       expect(response.status()).toEqual(200);
 
       await expect(page).toHaveScreenshot();
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });

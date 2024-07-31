@@ -41,11 +41,9 @@ test.describe("setupExitSignals option", () => {
 
       exitSpy = sinon.stub(process, "exit").callsFake(() => {
         doExit = true;
-      })
+      });
 
-      stdinResumeSpy = sinon
-        .stub(process.stdin, "resume")
-        .callsFake(() => {});
+      stdinResumeSpy = sinon.stub(process.stdin, "resume").callsFake(() => {});
 
       stopCallbackSpy = sinon.spy(server, "stopCallback");
 
@@ -106,7 +104,9 @@ test.describe("setupExitSignals option", () => {
             ),
         );
 
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
 
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });

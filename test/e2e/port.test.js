@@ -21,7 +21,9 @@ test.describe("port", () => {
   ];
 
   for (const testedPort of ports) {
-    test(`should work using "${testedPort}" with type of (${typeof testedPort}) port `, async ({ page }) => {
+    test(`should work using "${testedPort}" with type of (${typeof testedPort}) port `, async ({
+      page,
+    }) => {
       const compiler = webpack(config);
       const devServerOptions = {};
 

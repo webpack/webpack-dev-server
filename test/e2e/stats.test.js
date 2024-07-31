@@ -129,7 +129,7 @@ test.describe("stats", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
       } catch (error) {
         throw error;

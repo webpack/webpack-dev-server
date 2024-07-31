@@ -54,7 +54,7 @@ test.describe("web socket server", () => {
 
       expect(webSocketRequests).toHaveLength(0);
       expect(
-        consoleMessages.map((message) => message.text())
+        consoleMessages.map((message) => message.text()),
       ).toMatchSnapshotWithArray("console messages");
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {

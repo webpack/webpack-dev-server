@@ -605,54 +605,55 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     }
   });
 
-  test.fixme("should open editor when error with file info is clicked", async ({
-    page,
-  }) => {
-    const mockLaunchEditorCb = sinon.spy();
-    sinon.stub(require('launch-editor'), mockLaunchEditorCb);
+  test.fixme(
+    "should open editor when error with file info is clicked",
+    async ({ page }) => {
+      const mockLaunchEditorCb = sinon.spy();
+      sinon.stub(require("launch-editor"), mockLaunchEditorCb);
 
-    const compiler = webpack(config);
-    const devServerOptions = {
-      port,
-    };
-    const server = new Server(devServerOptions, compiler);
+      const compiler = webpack(config);
+      const devServerOptions = {
+        port,
+      };
+      const server = new Server(devServerOptions, compiler);
 
-    await server.start();
+      await server.start();
 
-    try {
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+      try {
+        await page.goto(`http://localhost:${port}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      const pathToFile = path.resolve(
-        __dirname,
-        "../fixtures/overlay-config/foo.js",
-      );
-      const originalCode = fs.readFileSync(pathToFile);
+        const pathToFile = path.resolve(
+          __dirname,
+          "../fixtures/overlay-config/foo.js",
+        );
+        const originalCode = fs.readFileSync(pathToFile);
 
-      fs.writeFileSync(pathToFile, "`;");
+        fs.writeFileSync(pathToFile, "`;");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+        await page.waitForSelector("#webpack-dev-server-client-overlay");
 
-      const frame = page
-        .frames()
-        .find((item) => item.name() === "webpack-dev-server-client-overlay");
+        const frame = page
+          .frames()
+          .find((item) => item.name() === "webpack-dev-server-client-overlay");
 
-      const errorHandle = await frame.$("[data-can-open]");
+        const errorHandle = await frame.$("[data-can-open]");
 
-      await errorHandle.click();
+        await errorHandle.click();
 
-      await waitForExpect(() => {
-        sinon.assert.calledOnce(mockLaunchEditorCb);
-      });
+        await waitForExpect(() => {
+          sinon.assert.calledOnce(mockLaunchEditorCb);
+        });
 
-      fs.writeFileSync(pathToFile, originalCode);
-    } catch (error) {
-      throw error;
-    } finally {
-      await server.stop();
-    }
-  });
+        fs.writeFileSync(pathToFile, originalCode);
+      } catch (error) {
+        throw error;
+      } finally {
+        await server.stop();
+      }
+    },
+  );
 
   test('should not show a warning when "client.overlay" is "false"', async ({
     page,

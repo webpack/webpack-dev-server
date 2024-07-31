@@ -15,7 +15,7 @@ module.exports = {
   expect: {
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.1,
-    }
+    },
   },
   workers: 1,
   reporter: isCI ? "github" : "list",

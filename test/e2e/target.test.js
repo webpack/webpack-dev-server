@@ -59,7 +59,7 @@ test.describe("target", () => {
         });
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
 
         if (

@@ -62,8 +62,8 @@ test.describe("watchFiles option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -128,8 +128,8 @@ test.describe("watchFiles option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -194,8 +194,8 @@ test.describe("watchFiles option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -265,8 +265,8 @@ test.describe("watchFiles option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -336,8 +336,8 @@ test.describe("watchFiles option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -404,8 +404,8 @@ test.describe("watchFiles option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -480,8 +480,8 @@ test.describe("watchFiles option", () => {
       expect(response.status()).toBe(200);
 
       expect(
-        consoleMessages.map((message) => message.text()))
-      .toMatchSnapshotWithArray("console messages");
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -614,15 +614,15 @@ test.describe("watchFiles option", () => {
           });
 
           // should pass correct options to chokidar config
-          expect(
-            chokidarMock.getCall(0).args[1])
-          .toMatchSnapshotWithArray("chokidar mock");
+          expect(chokidarMock.getCall(0).args[1]).toMatchSnapshotWithArray(
+            "chokidar mock",
+          );
 
           expect(response.status()).toBe(200);
 
           expect(
-            consoleMessages.map((message) => message.text()))
-          .toMatchSnapshotWithArray("console messages");
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray("console messages");
 
           expect(pageErrors).toMatchSnapshotWithArray("page errors");
 
@@ -639,7 +639,6 @@ test.describe("watchFiles option", () => {
               resolve();
             });
           });
-
         });
       });
     });
