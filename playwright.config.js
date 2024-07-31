@@ -12,6 +12,11 @@ module.exports = {
   fullyParallel: false,
   forbidOnly: !isCI,
   retries: isCI ? MAX_RETRIES : 0,
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.1,
+    }
+  },
   workers: 1,
   reporter: isCI ? "github" : "list",
   use: {
