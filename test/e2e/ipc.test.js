@@ -15,11 +15,7 @@ const port1 = require("../ports-map").ipc;
 
 const webSocketServers = ["ws", "sockjs"];
 
-test.describe("web socket server URL", {
-  annotation: {
-    type: "flaky",
-    description: "https://github.com/webpack/webpack-dev-server/actions/runs/9957190252/job/27508685202"
-  }}, () => {
+test.describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
     const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
 

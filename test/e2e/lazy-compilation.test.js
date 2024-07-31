@@ -9,8 +9,7 @@ const lazyCompilationMultipleEntriesConfig = require("../fixtures/lazy-compilati
 const port = require("../ports-map")["lazy-compilation"];
 
 describe("lazy compilation", () => {
-  // TODO jest freeze due webpack do not close `eventsource`, we should uncomment this after fix it on webpack side
-  test.skip(`should work with single entry`, async ({ page }) => {
+  test(`should work with single entry`, async ({ page }) => {
     const compiler = webpack(lazyCompilationSingleEntryConfig);
     const server = new Server({ port }, compiler);
 
@@ -41,8 +40,8 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
@@ -50,7 +49,7 @@ describe("lazy compilation", () => {
     }
   });
 
-  test.skip(`should work with multiple entries`, async ({ page }) => {
+  test(`should work with multiple entries`, async ({ page }) => {
     const compiler = webpack(lazyCompilationMultipleEntriesConfig);
     const server = new Server({ port }, compiler);
 
@@ -73,7 +72,6 @@ describe("lazy compilation", () => {
       });
       await new Promise((resolve) => {
         const interval = setInterval(() => {
-          console.log(consoleMessages);
           if (consoleMessages.includes("One.")) {
             clearInterval(interval);
 
@@ -87,7 +85,6 @@ describe("lazy compilation", () => {
       });
       await new Promise((resolve) => {
         const interval = setInterval(() => {
-          console.log(consoleMessages);
           if (consoleMessages.includes("Two.")) {
             clearInterval(interval);
 
@@ -96,8 +93,8 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshotWithArray();
-      expect(pageErrors).toMatchSnapshotWithArray();
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
