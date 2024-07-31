@@ -83,7 +83,7 @@ jobs:
     steps:
       - name: Support long paths
         if: matrix.os == 'windows-latest'
-        run: sudo git config --system core.longpaths true
+        run: git config --system core.longpaths true
 
       - uses: actions/checkout@v4
 
