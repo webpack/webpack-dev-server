@@ -348,7 +348,7 @@ test.describe(
         });
 
         sinon.assert.calledOnce(callback);
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -374,7 +374,7 @@ test.describe(
           });
 
         sinon.assert.calledOnce(callback);
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -485,7 +485,7 @@ test.describe(
             },
           );
 
-          expect(response.status()).toMatchSnapshotWithArray("response status");
+          expect(response.status()).toBe(200);
 
           expect(
             consoleMessages.map((message) => message.text()),
@@ -524,7 +524,7 @@ test.describe(
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -561,7 +561,7 @@ test.describe(
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -598,7 +598,7 @@ test.describe(
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshotWithArray("response status");
+        expect(response.status()).toBe(200);
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -639,7 +639,7 @@ test.describe(
             },
           );
 
-          expect(response.status()).toMatchSnapshotWithArray("response status");
+          expect(response.status()).toBe(200);
 
           expect(
             consoleMessages.map((message) => message.text()),
@@ -764,7 +764,7 @@ test.describe(
 
           expect(webSocketRequests[0].url).toMatchSnapshotWithArray("url");
 
-          expect(response.status()).toMatchSnapshotWithArray("response status");
+          expect(response.status()).toBe(200);
 
           expect(
             // net::ERR_NAME_NOT_RESOLVED can be multiple times
