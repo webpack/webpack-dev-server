@@ -11,7 +11,6 @@ const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
-const { skipTestOnWindows } = require("../helpers/conditional-test");
 const customHTTP = require("../helpers/custom-http");
 const normalizeOptions = require("../helpers/normalize-options");
 const port = require("../ports-map")["server-option"];
@@ -82,7 +81,9 @@ test.describe("server option", () => {
 
         await expect(page).toHaveScreenshot();
 
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
 
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
@@ -138,7 +139,7 @@ test.describe("server option", () => {
         await expect(page).toHaveScreenshot();
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
 
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
@@ -194,7 +195,9 @@ test.describe("server option", () => {
 
         await expect(page).toHaveScreenshot();
 
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
 
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
@@ -250,7 +253,7 @@ test.describe("server option", () => {
         await expect(page).toHaveScreenshot();
 
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
 
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
@@ -333,10 +336,14 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray();
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
@@ -413,10 +420,14 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray();
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
@@ -502,10 +513,14 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray();
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
@@ -568,10 +583,14 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray();
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
@@ -634,16 +653,21 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray();
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray();
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
 
     test.describe("ca, pfx, key and cert are symlinks", () => {
-      if (skipTestOnWindows("Symlinks are not supported on Windows")) {
+      // Skip test on Windows because symlinks are not supported
+      if (process.platform === "win32") {
         return;
       }
 
@@ -707,7 +731,9 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toEqual(200);
         expect(await response.text()).toContain("Heyo");
         expect(consoleMessages.map((message) => message.text())).toEqual([]);
@@ -781,10 +807,14 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
@@ -862,10 +892,14 @@ test.describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
-        expect(consoleMessages.map((message) => message.text())).toMatchSnapshotWithArray("console messages");
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
     });
@@ -949,11 +983,12 @@ test.describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
@@ -1026,12 +1061,12 @@ test.describe("server option", () => {
         });
 
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
         ).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
@@ -1088,7 +1123,9 @@ test.describe("server option", () => {
       });
 
       test("should pass options to the 'https.createServer' method", async () => {
-        expect(normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+        expect(
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray("normalize options");
       });
 
       test("should handle GET request to index route (/)", async () => {
@@ -1163,11 +1200,12 @@ test.describe("server option", () => {
 
         expect(HTTPVersion).toEqual("h2");
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
@@ -1232,11 +1270,12 @@ test.describe("server option", () => {
 
         expect(HTTPVersion).toEqual("http/1.1");
         expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0])).toMatchSnapshotWithArray("normalize options");
+          normalizeOptions(createServerSpy.getCall(0).args[0]),
+        ).toMatchSnapshotWithArray("normalize options");
         expect(response.status()).toBe(200);
         await expect(page).toHaveScreenshot();
         expect(
-          consoleMessages.map((message) => message.text())
+          consoleMessages.map((message) => message.text()),
         ).toMatchSnapshotWithArray("console messages");
         expect(pageErrors).toMatchSnapshotWithArray("page errors");
       });
