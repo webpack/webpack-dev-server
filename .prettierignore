@@ -4,3 +4,4 @@ coverage
 node_modules
 CHANGELOG.md
 examples/client/trusted-types-overlay/app.js
+test/fixtures/overlay-config/foo.js
