@@ -190,7 +190,7 @@ CLI documentation: https://webpack.js.org/api/cli/.
 Made with ♥ by the webpack team.
 ```
 
-> **Note**
+> [!NOTE]
 >
 > _Detailed documentation for above options is available on this [link](https://webpack.js.org/configuration/dev-server/)._
 
