@@ -959,6 +959,10 @@ declare class Server<
         description: string;
         link: string;
       };
+      /**
+       * @private
+       * @param {Compiler} compiler
+       */
       Server: {
         anyOf: {
           $ref: string;
@@ -966,6 +970,7 @@ declare class Server<
         link: string;
         description: string;
       };
+      /** @type {WebSocketURL} */
       ServerType: {
         enum: string[];
       };
@@ -1140,7 +1145,7 @@ declare class Server<
                   items?: undefined;
                 }
             )[];
-            description: string;
+            description: string /** @type {string} */;
           };
           pfx: {
             anyOf: (
@@ -1265,7 +1270,7 @@ declare class Server<
                   cli: {
                     negatedDescription: string;
                   };
-                  /** @type {MultiCompiler} */ additionalProperties?: undefined;
+                  additionalProperties?: undefined;
                 }
               | {
                   type: string;
@@ -1301,7 +1306,10 @@ declare class Server<
       StaticString: {
         type: string;
         minLength: number;
-      };
+      } /**
+       * @private
+       * @returns {Promise<void>}
+       */;
       WatchFiles: {
         anyOf: (
           | {
@@ -1493,9 +1501,14 @@ declare class Server<
   static isAbsoluteURL(URL: string): boolean;
   /**
    * @param {"v4" | "v6"} family
-   * @returns {Promise<string | undefined>}
+   * @returns {string | undefined}
    */
-  static internalIP(family: "v4" | "v6"): Promise<string | undefined>;
+  static findIp(family: "v4" | "v6"): string | undefined;
+  /**
+   * @param {"v4" | "v6"} family
+   * @returns {string | undefined}
+   */
+  static internalIP(family: "v4" | "v6"): string | undefined;
   /**
    * @param {Host} hostname
    * @returns {Promise<string>}
