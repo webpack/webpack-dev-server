@@ -10,7 +10,7 @@ module.exports = {
   testDir: "./test/e2e",
   snapshotPathTemplate: "./test/e2e/__snapshots__/{testFilePath}/{arg}{ext}",
   fullyParallel: false,
-  forbidOnly: !isCI,
+  forbidOnly: isCI,
   retries: isCI ? MAX_RETRIES : 0,
   expect: {
     toHaveScreenshot: {

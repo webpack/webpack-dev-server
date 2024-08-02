@@ -93,32 +93,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -139,32 +120,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -191,32 +153,12 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
-
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      expect(response.status()).toEqual(200);
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -241,32 +183,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -290,32 +213,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -342,7 +246,6 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -365,6 +268,7 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       const overlayFrame = await overlayHandle.contentFrame();
+
       const overlayHtml = await overlayFrame.evaluate(
         () => document.body.outerHTML,
       );
@@ -391,7 +295,6 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -424,7 +327,6 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -501,7 +403,6 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -534,13 +435,12 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray("page html");
+      ).toMatchSnapshotWithArray("initial page html");
 
       const pathToFile = path.resolve(
         __dirname,
@@ -566,7 +466,7 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray("page html");
+      ).toMatchSnapshotWithArray("page html with error");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
@@ -582,20 +482,15 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
 
       await buttonHandle.click();
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
-        hidden: true,
-      });
-
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
-      ).toMatchSnapshotWithArray("page html");
+      ).toMatchSnapshotWithArray("page html with overlay closed");
 
       fs.writeFileSync(pathToFile, originalCode);
     } catch (error) {
@@ -673,23 +568,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -717,23 +602,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -765,16 +640,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -802,32 +674,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -853,32 +706,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -906,32 +740,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -959,32 +774,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1010,23 +806,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1054,23 +840,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1103,16 +879,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1140,32 +913,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1191,32 +945,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1250,37 +985,19 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
         consoleMessages.push(message.text());
       });
 
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.filter((item) =>
           /requires 'TrustedHTML' assignment/.test(item),
         ),
       ).toHaveLength(0);
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1320,41 +1037,19 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
         consoleMessages.push(message.text());
       });
 
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+      await expect(page).toHaveScreenshot();
 
       expect(
         consoleMessages.filter((item) =>
           /requires 'TrustedHTML' assignment/.test(item),
         ),
       ).toHaveLength(0);
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
     } catch (error) {
       throw error;
     } finally {
@@ -1382,22 +1077,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      expect(overlayHandle).toBe(null);
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1425,32 +1111,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1478,32 +1145,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1533,9 +1181,6 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
-
-      // Delay for the overlay to appear
-      // await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
@@ -1613,30 +1258,8 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
         });
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
-
       await page.waitForSelector("#webpack-dev-server-client-overlay");
-
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1673,30 +1296,8 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
         });
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
-
       await page.waitForSelector("#webpack-dev-server-client-overlay");
-
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1727,21 +1328,7 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       })();`,
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
-
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1777,12 +1364,7 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       })();`,
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
-
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1815,21 +1397,7 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       })();`,
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
-
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1867,12 +1435,7 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
       })();`,
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
-
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-      expect(overlayHandle).toBe(null);
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
@@ -1901,38 +1464,13 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     await server.start();
 
     try {
-      const consoleMessages = [];
-
-      page.on("console", (message) => {
-        consoleMessages.push(message.text());
-      });
-
-      await page.goto(`http://localhost:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      // Delay for the overlay to appear
-      // await delay(1000);
+      expect(response.status()).toEqual(200);
 
-      const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
-
-      expect(
-        await prettier.format(pageHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("page html");
-      expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
-      ).toMatchSnapshotWithArray("overlay html");
+      await expect(page).toHaveScreenshot();
     } catch (error) {
       throw error;
     } finally {
