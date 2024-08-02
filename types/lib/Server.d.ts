@@ -832,10 +832,6 @@ declare class Server<
               items?: undefined;
             }
         )[];
-        /**
-         * @param {Host} hostname
-         * @returns {Promise<string>}
-         */
         description: string;
         link: string;
       };
@@ -1011,7 +1007,6 @@ declare class Server<
           requestCert: {
             type: string;
             description: string;
-            /** @type {ServerConfiguration} */
             cli: {
               negatedDescription: string;
             };
@@ -1165,7 +1160,7 @@ declare class Server<
                         }
                       | {
                           type: string;
-                          /** @type {string} */ additionalProperties: boolean;
+                          additionalProperties: boolean;
                           instanceof?: undefined;
                         }
                     )[];
@@ -1262,10 +1257,7 @@ declare class Server<
             )[];
             description: string;
             link: string;
-          } /**
-           * @private
-           * @returns {Compiler["options"]}
-           */;
+          };
           serveIndex: {
             anyOf: (
               | {
@@ -1273,7 +1265,7 @@ declare class Server<
                   cli: {
                     negatedDescription: string;
                   };
-                  additionalProperties?: undefined;
+                  /** @type {MultiCompiler} */ additionalProperties?: undefined;
                 }
               | {
                   type: string;
@@ -1500,20 +1492,10 @@ declare class Server<
    */
   static isAbsoluteURL(URL: string): boolean;
   /**
-   * @param {string} gateway
-   * @returns {string | undefined}
-   */
-  static findIp(gateway: string): string | undefined;
-  /**
    * @param {"v4" | "v6"} family
    * @returns {Promise<string | undefined>}
    */
   static internalIP(family: "v4" | "v6"): Promise<string | undefined>;
-  /**
-   * @param {"v4" | "v6"} family
-   * @returns {string | undefined}
-   */
-  static internalIPSync(family: "v4" | "v6"): string | undefined;
   /**
    * @param {Host} hostname
    * @returns {Promise<string>}
