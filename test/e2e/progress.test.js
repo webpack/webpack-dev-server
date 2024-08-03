@@ -67,8 +67,6 @@ test.describe("progress", () => {
         });
       } catch (error) {
         throw error;
-      } finally {
-        // no need to close the browser with playwright
       }
 
       const progressConsoleMessage = consoleMessages.filter((message) =>
