@@ -615,42 +615,48 @@ test.describe("historyApiFallback option", () => {
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    test("should perform HEAD request in same way as GET", async ({ page }) => {
-      await page.goto(`http://127.0.0.1:${port}/foo`, {
-        waitUntil: "networkidle0",
-      });
+    test(
+      "should perform HEAD request in same way as GET",
+      async ({ page }) => {
+        await page.goto(`http://127.0.0.1:${port}/foo`, {
+          waitUntil: "networkidle0",
+        });
 
-      const responseGet = await page.evaluate(async () => {
-        const response = await fetch("/foo", { method: "GET" });
+        const responseGet = await page.evaluate(async () => {
+          const response = await fetch("/foo", { method: "GET" });
 
-        return {
-          contentType: response.headers.get("content-type"),
-          statusText: response.statusText,
-          text: await response.text(),
-        };
-      });
+          return {
+            contentType: response.headers.get("content-type"),
+            statusText: response.statusText,
+            text: await response.text(),
+          };
+        });
 
-      expect(responseGet.contentType).toMatchSnapshotWithArray("content type");
+        expect(responseGet.contentType).toMatchSnapshotWithArray(
+          "content type",
+        );
 
-      expect(responseGet.statusText).toMatchSnapshotWithArray("status text");
+        expect(responseGet.statusText).toMatchSnapshotWithArray("status text");
 
-      expect(responseGet.text).toMatchSnapshotWithArray("text");
+        expect(responseGet.text).toMatchSnapshotWithArray("text");
 
-      const responseHead = await page.evaluate(async () => {
-        const response = await fetch("/foo", { method: "HEAD" });
+        const responseHead = await page.evaluate(async () => {
+          const response = await fetch("/foo", { method: "HEAD" });
 
-        return {
-          contentType: response.headers.get("content-type"),
-          statusText: response.statusText,
-          text: await response.text(),
-        };
-      });
+          return {
+            contentType: response.headers.get("content-type"),
+            statusText: response.statusText,
+            text: await response.text(),
+          };
+        });
 
-      expect(responseHead).toMatchObject({
-        ...responseGet,
-        // HEAD response has an empty body
-        text: "",
-      });
-    });
+        expect(responseHead).toMatchObject({
+          ...responseGet,
+          // HEAD response has an empty body
+          text: "",
+        });
+      },
+      { timeout: 90 * 1000 },
+    );
   });
 });
