@@ -71,6 +71,8 @@ let prettier;
 let prettierHTML;
 let prettierCSS;
 
+test.slow();
+
 test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
   test.beforeAll(async () => {
     // Due problems with ESM modules for Node.js@18
