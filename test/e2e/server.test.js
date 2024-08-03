@@ -348,182 +348,196 @@ test.describe("server option", () => {
       });
     });
 
-    test.describe("ca, pfx, key and cert are strings", () => {
-      let compiler;
-      let server;
-      let createServerSpy;
-      let pageErrors;
-      let consoleMessages;
+    test.describe(
+      "ca, pfx, key and cert are strings",
+      { annotation: { type: "@fails", description: "windows, node 22" } },
+      () => {
+        let compiler;
+        let server;
+        let createServerSpy;
+        let pageErrors;
+        let consoleMessages;
 
-      test.beforeEach(async () => {
-        compiler = webpack(config);
+        test.beforeEach(async () => {
+          compiler = webpack(config);
 
-        createServerSpy = sinon.spy(https, "createServer");
+          createServerSpy = sinon.spy(https, "createServer");
 
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: {
-              type: "https",
-              options: {
-                ca: fs
-                  .readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))
-                  .toString(),
-                // TODO
-                // pfx can't be string because it is binary format
-                pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx"),
-                ),
-                key: fs
-                  .readFileSync(
-                    path.join(httpsCertificateDirectory, "server.key"),
-                  )
-                  .toString(),
-                cert: fs
-                  .readFileSync(
-                    path.join(httpsCertificateDirectory, "server.crt"),
-                  )
-                  .toString(),
-                passphrase: "webpack-dev-server",
+          server = new Server(
+            {
+              static: {
+                directory: staticDirectory,
+                watch: false,
               },
-            },
-            port,
-          },
-          compiler,
-        );
-
-        await server.start();
-
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      test.afterEach(async () => {
-        createServerSpy.restore();
-
-        await server.stop();
-      });
-
-      test("should handle GET request to index route (/)", async ({ page }) => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
-          waitUntil: "networkidle0",
-        });
-
-        expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0]),
-        ).toMatchSnapshotWithArray();
-        expect(response.status()).toBe(200);
-        await expect(page).toHaveScreenshot();
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray("console messages");
-        expect(pageErrors).toMatchSnapshotWithArray("page errors");
-      });
-    });
-
-    test.describe("ca, pfx, key and cert are array of strings", () => {
-      let compiler;
-      let server;
-      let createServerSpy;
-      let pageErrors;
-      let consoleMessages;
-
-      test.beforeEach(async () => {
-        compiler = webpack(config);
-
-        createServerSpy = sinon.spy(https, "createServer");
-
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: {
-              type: "https",
-              options: {
-                ca: [
-                  fs
+              server: {
+                type: "https",
+                options: {
+                  ca: fs
                     .readFileSync(
                       path.join(httpsCertificateDirectory, "ca.pem"),
                     )
                     .toString(),
-                ],
-                // pfx can't be string because it is binary format
-                pfx: [
-                  fs.readFileSync(
+                  // TODO
+                  // pfx can't be string because it is binary format
+                  pfx: fs.readFileSync(
                     path.join(httpsCertificateDirectory, "server.pfx"),
                   ),
-                ],
-                key: [
-                  fs
+                  key: fs
                     .readFileSync(
                       path.join(httpsCertificateDirectory, "server.key"),
                     )
                     .toString(),
-                ],
-                cert: [
-                  fs
+                  cert: fs
                     .readFileSync(
                       path.join(httpsCertificateDirectory, "server.crt"),
                     )
                     .toString(),
-                ],
-                passphrase: "webpack-dev-server",
+                  passphrase: "webpack-dev-server",
+                },
               },
+              port,
             },
-            port,
-          },
-          compiler,
-        );
+            compiler,
+          );
 
-        await server.start();
+          await server.start();
 
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      test.afterEach(async () => {
-        createServerSpy.restore();
-
-        await server.stop();
-      });
-
-      test("should handle GET request to index route (/)", async ({ page }) => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
-          waitUntil: "networkidle0",
+          pageErrors = [];
+          consoleMessages = [];
         });
 
-        expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0]),
-        ).toMatchSnapshotWithArray();
-        expect(response.status()).toBe(200);
-        await expect(page).toHaveScreenshot();
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray("console messages");
-        expect(pageErrors).toMatchSnapshotWithArray("page errors");
-      });
-    });
+        test.afterEach(async () => {
+          createServerSpy.restore();
+
+          await server.stop();
+        });
+
+        test("should handle GET request to index route (/)", async ({
+          page,
+        }) => {
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
+
+          const response = await page.goto(`https://127.0.0.1:${port}/`, {
+            waitUntil: "networkidle0",
+          });
+
+          expect(
+            normalizeOptions(createServerSpy.getCall(0).args[0]),
+          ).toMatchSnapshotWithArray();
+          expect(response.status()).toBe(200);
+          await expect(page).toHaveScreenshot();
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
+        });
+      },
+    );
+
+    test.describe(
+      "ca, pfx, key and cert are array of strings",
+      { annotation: { type: "@fails", description: "windows, node 22" } },
+      () => {
+        let compiler;
+        let server;
+        let createServerSpy;
+        let pageErrors;
+        let consoleMessages;
+
+        test.beforeEach(async () => {
+          compiler = webpack(config);
+
+          createServerSpy = sinon.spy(https, "createServer");
+
+          server = new Server(
+            {
+              static: {
+                directory: staticDirectory,
+                watch: false,
+              },
+              server: {
+                type: "https",
+                options: {
+                  ca: [
+                    fs
+                      .readFileSync(
+                        path.join(httpsCertificateDirectory, "ca.pem"),
+                      )
+                      .toString(),
+                  ],
+                  // pfx can't be string because it is binary format
+                  pfx: [
+                    fs.readFileSync(
+                      path.join(httpsCertificateDirectory, "server.pfx"),
+                    ),
+                  ],
+                  key: [
+                    fs
+                      .readFileSync(
+                        path.join(httpsCertificateDirectory, "server.key"),
+                      )
+                      .toString(),
+                  ],
+                  cert: [
+                    fs
+                      .readFileSync(
+                        path.join(httpsCertificateDirectory, "server.crt"),
+                      )
+                      .toString(),
+                  ],
+                  passphrase: "webpack-dev-server",
+                },
+              },
+              port,
+            },
+            compiler,
+          );
+
+          await server.start();
+
+          pageErrors = [];
+          consoleMessages = [];
+        });
+
+        test.afterEach(async () => {
+          createServerSpy.restore();
+
+          await server.stop();
+        });
+
+        test("should handle GET request to index route (/)", async ({
+          page,
+        }) => {
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
+
+          const response = await page.goto(`https://127.0.0.1:${port}/`, {
+            waitUntil: "networkidle0",
+          });
+
+          expect(
+            normalizeOptions(createServerSpy.getCall(0).args[0]),
+          ).toMatchSnapshotWithArray();
+          expect(response.status()).toBe(200);
+          await expect(page).toHaveScreenshot();
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
+        });
+      },
+    );
 
     test.describe("ca, pfx, key and cert are paths to files", () => {
       let compiler;
@@ -904,95 +918,103 @@ test.describe("server option", () => {
       });
     });
 
-    test.describe("ca, pfx, key and cert are strings, key and pfx are objects", () => {
-      let compiler;
-      let server;
-      let createServerSpy;
-      let pageErrors;
-      let consoleMessages;
+    test.describe(
+      "ca, pfx, key and cert are strings, key and pfx are objects",
+      { annotation: { type: "@fails", description: "windows, node 22" } },
+      () => {
+        let compiler;
+        let server;
+        let createServerSpy;
+        let pageErrors;
+        let consoleMessages;
 
-      test.beforeEach(async () => {
-        compiler = webpack(config);
+        test.beforeEach(async () => {
+          compiler = webpack(config);
 
-        createServerSpy = sinon.spy(https, "createServer");
+          createServerSpy = sinon.spy(https, "createServer");
 
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: {
-              type: "https",
-              options: {
-                ca: fs
-                  .readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))
-                  .toString(),
-                pfx: [
-                  {
-                    // pfx can't be string because it is binary format
-                    buf: fs.readFileSync(
-                      path.join(httpsCertificateDirectory, "server.pfx"),
-                    ),
-                  },
-                ],
-                key: [
-                  {
-                    pem: fs
-                      .readFileSync(
-                        path.join(httpsCertificateDirectory, "server.key"),
-                      )
-                      .toString(),
-                  },
-                ],
-                cert: fs
-                  .readFileSync(
-                    path.join(httpsCertificateDirectory, "server.crt"),
-                  )
-                  .toString(),
-                passphrase: "webpack-dev-server",
+          server = new Server(
+            {
+              static: {
+                directory: staticDirectory,
+                watch: false,
               },
+              server: {
+                type: "https",
+                options: {
+                  ca: fs
+                    .readFileSync(
+                      path.join(httpsCertificateDirectory, "ca.pem"),
+                    )
+                    .toString(),
+                  pfx: [
+                    {
+                      // pfx can't be string because it is binary format
+                      buf: fs.readFileSync(
+                        path.join(httpsCertificateDirectory, "server.pfx"),
+                      ),
+                    },
+                  ],
+                  key: [
+                    {
+                      pem: fs
+                        .readFileSync(
+                          path.join(httpsCertificateDirectory, "server.key"),
+                        )
+                        .toString(),
+                    },
+                  ],
+                  cert: fs
+                    .readFileSync(
+                      path.join(httpsCertificateDirectory, "server.crt"),
+                    )
+                    .toString(),
+                  passphrase: "webpack-dev-server",
+                },
+              },
+              port,
             },
-            port,
-          },
-          compiler,
-        );
+            compiler,
+          );
 
-        await server.start();
+          await server.start();
 
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      test.afterEach(async () => {
-        createServerSpy.restore();
-        await server.stop();
-      });
-
-      test("should handle GET request to index route (/)", async ({ page }) => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
-          waitUntil: "networkidle0",
+          pageErrors = [];
+          consoleMessages = [];
         });
 
-        expect(
-          normalizeOptions(createServerSpy.getCall(0).args[0]),
-        ).toMatchSnapshotWithArray("normalize options");
-        expect(response.status()).toBe(200);
-        await expect(page).toHaveScreenshot();
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray("console messages");
-        expect(pageErrors).toMatchSnapshotWithArray("page errors");
-      });
-    });
+        test.afterEach(async () => {
+          createServerSpy.restore();
+          await server.stop();
+        });
+
+        test("should handle GET request to index route (/)", async ({
+          page,
+        }) => {
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
+
+          const response = await page.goto(`https://127.0.0.1:${port}/`, {
+            waitUntil: "networkidle0",
+          });
+
+          expect(
+            normalizeOptions(createServerSpy.getCall(0).args[0]),
+          ).toMatchSnapshotWithArray("normalize options");
+          expect(response.status()).toBe(200);
+          await expect(page).toHaveScreenshot();
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
+        });
+      },
+    );
 
     test.describe("allow to pass more options", () => {
       let compiler;
