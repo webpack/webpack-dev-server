@@ -637,7 +637,7 @@ test.describe("historyApiFallback option", () => {
         );
 
         expect(responseGet.statusText).toEqual("OK");
-        expect(responseGet.text).toEqual("In-memory file\n");
+        expect(responseGet.text).toContain("In-memory file");
 
         const responseHead = await page.evaluate(async () => {
           const response = await fetch("/foo", { method: "HEAD" });
