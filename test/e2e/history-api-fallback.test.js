@@ -636,9 +636,8 @@ test.describe("historyApiFallback option", () => {
           "content type",
         );
 
-        expect(responseGet.statusText).toMatchSnapshotWithArray("status text");
-
-        expect(responseGet.text).toMatchSnapshotWithArray("text");
+        expect(responseGet.statusText).toEqual("OK");
+        expect(responseGet.text).toEqual("In-memory file\n");
 
         const responseHead = await page.evaluate(async () => {
           const response = await fetch("/foo", { method: "HEAD" });
