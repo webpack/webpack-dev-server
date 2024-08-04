@@ -1,6 +1,6 @@
 "use strict";
 
-const { test, mergeTests } = require("@playwright/test");
+const { test } = require("@playwright/test");
 
 const customTest = test.extend({
   done: [
@@ -19,4 +19,4 @@ const customTest = test.extend({
   ],
 });
 
-module.exports = { test: mergeTests(customTest) };
+module.exports = { test: customTest };

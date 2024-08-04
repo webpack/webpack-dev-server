@@ -30,9 +30,6 @@ module.exports = {
       name: "chromium",
       use: {
         browserName: "chromium",
-        launchOptions: {
-          args: ["--ignore-certificate-errors"],
-        },
       },
     },
   ],
