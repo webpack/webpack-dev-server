@@ -41,7 +41,7 @@
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
     "test": "npm run test:coverage",
-    "test:e2e": "playwright test",
+    "test:e2e": "npx nyc playwright test",
     "pretest": "npm run lint",
     "prepare": "husky && npm run build",
     "release": "standard-version"
