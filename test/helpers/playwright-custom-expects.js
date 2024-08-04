@@ -1,7 +1,20 @@
 "use strict";
 
 const path = require("path");
+const os = require("os");
 const { test, expect, mergeExpects } = require("@playwright/test");
+
+/**
+ * Returns a new string with all the EOL markers from the string passed in
+ * replaced with the Operating System specific EOL marker.
+ * Useful for guaranteeing two transform outputs have the same EOL marker format.
+ * @param {string} input the string which will have its EOL markers replaced
+ * @returns {string} a new string with all EOL markers replaced
+ * @private
+ */
+const normalizeLineEndings = (input) => {
+  return input.replace(/(\r\n|\n|\r)/gmu, os.EOL);
+};
 
 /**
  * Custom Playwright matcher to match a snapshot with an array.
@@ -37,7 +50,7 @@ const toMatchSnapshotWithArray = expect.extend({
     );
 
     try {
-      const serialized = JSON.stringify(received);
+      const serialized = normalizeLineEndings(JSON.stringify(received));
       await expect(serialized).toMatchSnapshot({
         name: snapshotFilePath,
       });
