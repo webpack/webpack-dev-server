@@ -229,95 +229,88 @@ test.describe("overlay", { tag: ["@flaky", "@fails"] }, () => {
     }
   });
 
-  test.skip(
-    "should not show initially, then show on an error, then hide on fix",
-    {
-      annotation: {
-        type: "@fails",
-        description: "on ubuntu and windows",
-      },
-    },
-    async ({ page }) => {
-      const compiler = webpack(config);
-      const devServerOptions = {
-        port,
-      };
-      const server = new Server(devServerOptions, compiler);
+  test.skip("should not show initially, then show on an error, then hide on fix", async ({
+    page,
+  }) => {
+    const compiler = webpack(config);
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
 
-      await server.start();
+    await server.start();
 
-      const pathToFile = path.resolve(
-        __dirname,
-        "../fixtures/overlay-config/foo.js",
+    const pathToFile = path.resolve(
+      __dirname,
+      "../fixtures/overlay-config/foo.js",
+    );
+    const originalCode = fs.readFileSync(pathToFile);
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      let pageHtml = await page.evaluate(() => document.body.outerHTML);
+      let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+      expect(
+        await prettier.format(pageHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshotWithArray("page html initial");
+
+      fs.writeFileSync(pathToFile, "`;");
+
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
+
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
+
+      const overlayFrame = await overlayHandle.contentFrame();
+
+      const overlayHtml = await overlayFrame.evaluate(
+        () => document.body.outerHTML,
       );
-      const originalCode = fs.readFileSync(pathToFile);
 
-      try {
-        await page.goto(`http://localhost:${port}/`, {
-          waitUntil: "networkidle0",
-        });
+      expect(
+        await prettier.format(pageHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshotWithArray("page html with error");
+      expect(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshotWithArray("overlay html");
 
-        let pageHtml = await page.evaluate(() => document.body.outerHTML);
-        let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      fs.writeFileSync(pathToFile, originalCode);
 
-        expect(
-          await prettier.format(pageHtml, {
-            parser: "html",
-            plugins: [prettierHTML, prettierCSS],
-          }),
-        ).toMatchSnapshotWithArray("page html initial");
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
 
-        fs.writeFileSync(pathToFile, "`;");
+      pageHtml = await page.evaluate(() => document.body.outerHTML);
+      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-        await page.waitForSelector("#webpack-dev-server-client-overlay");
-
-        overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-        pageHtml = await page.evaluate(() => document.body.outerHTML);
-
-        const overlayFrame = await overlayHandle.contentFrame();
-
-        const overlayHtml = await overlayFrame.evaluate(
-          () => document.body.outerHTML,
-        );
-
-        expect(
-          await prettier.format(pageHtml, {
-            parser: "html",
-            plugins: [prettierHTML, prettierCSS],
-          }),
-        ).toMatchSnapshotWithArray("page html with error");
-        expect(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-            plugins: [prettierHTML, prettierCSS],
-          }),
-        ).toMatchSnapshotWithArray("overlay html");
-
-        fs.writeFileSync(pathToFile, originalCode);
-
-        await page.waitForSelector("#webpack-dev-server-client-overlay", {
-          hidden: true,
-        });
-
-        pageHtml = await page.evaluate(() => document.body.outerHTML);
-        overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-
-        expect(
-          await prettier.format(pageHtml, {
-            parser: "html",
-            plugins: [prettierHTML, prettierCSS],
-          }),
-        ).toMatchSnapshotWithArray("page html after fix");
-      } catch (error) {
-        fs.writeFileSync(pathToFile, originalCode);
-        throw error;
-      } finally {
-        await server.stop();
-        fs.writeFileSync(pathToFile, originalCode);
-      }
-    },
-  );
+      expect(
+        await prettier.format(pageHtml, {
+          parser: "html",
+          plugins: [prettierHTML, prettierCSS],
+        }),
+      ).toMatchSnapshotWithArray("page html after fix");
+    } catch (error) {
+      fs.writeFileSync(pathToFile, originalCode);
+      throw error;
+    } finally {
+      await server.stop();
+      fs.writeFileSync(pathToFile, originalCode);
+    }
+  });
 
   // TODO: Fix this test, it fails on re-run
   test.skip("should not show initially, then show on an error, then show other error, then hide on fix", async ({

@@ -617,12 +617,6 @@ test.describe("historyApiFallback option", () => {
 
     test(
       "should perform HEAD request in same way as GET",
-      {
-        annotation: {
-          type: "@fails",
-          description: "windows, node 18, 20, 22",
-        },
-      },
       async ({ page }) => {
         await page.goto(`http://127.0.0.1:${port}/foo`, {
           waitUntil: "networkidle0",
