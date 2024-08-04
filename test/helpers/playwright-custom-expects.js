@@ -12,9 +12,8 @@ const { test, expect, mergeExpects } = require("@playwright/test");
  * @returns {string} a new string with all EOL markers replaced
  * @private
  */
-const normalizeLineEndings = (input) => {
-  return input.replace(/(\r\n|\n|\r)/gmu, os.EOL);
-};
+const normalizeLineEndings = (input) =>
+  input.replace(/(\r\n|\n|\r)/gmu, os.EOL);
 
 /**
  * Custom Playwright matcher to match a snapshot with an array.
