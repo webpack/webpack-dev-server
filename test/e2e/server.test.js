@@ -263,7 +263,7 @@ test.describe("server option", () => {
 
   test.describe("as object", () => {
     // TODO: This test is skipped because it fails on Windows, should be fixed in the future
-    if (process.platform !== "win32") {
+    if (process.platform === "win32") {
       return;
     }
     test.describe("ca, pfx, key and cert are array of buffers", () => {
