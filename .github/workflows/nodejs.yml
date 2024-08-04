@@ -124,6 +124,9 @@ jobs:
       - name: Run E2E tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:e2e -- --shard=${{ matrix.shard }}
 
+      - name: generate coverage
+        run: npx nyc report --reporter=lcov
+
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v4
         with:
