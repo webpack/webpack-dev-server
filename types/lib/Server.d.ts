@@ -971,7 +971,6 @@ declare class Server<
       };
       ServerEnum: {
         enum: string[];
-        /** @type {ClientConfiguration} */
         cli: {
           exclude: boolean;
         };
@@ -980,7 +979,6 @@ declare class Server<
         type: string;
         minLength: number;
         cli: {
-          /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
           exclude: boolean;
         };
       };
@@ -989,7 +987,9 @@ declare class Server<
         properties: {
           type: {
             anyOf: {
-              $ref: string;
+              $ref: string /**
+               * @type {string[]}
+               */;
             }[];
           };
           options: {
@@ -1000,13 +1000,14 @@ declare class Server<
       };
       ServerOptions: {
         type: string;
-        /** @type {ServerConfiguration} */ additionalProperties: boolean;
+        additionalProperties: boolean;
         properties: {
           passphrase: {
             type: string;
             description: string;
           };
           requestCert: {
+            /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
             type: string;
             description: string;
             cli: {
@@ -1129,7 +1130,7 @@ declare class Server<
                         }
                     )[];
                   };
-                  instanceof?: undefined;
+                  /** @type {number | string} */ instanceof?: undefined;
                 }
               | {
                   type: string;
@@ -1181,12 +1182,12 @@ declare class Server<
                 }
             )[];
             description: string;
-          } /** @type {ClientConfiguration} */;
+          };
         };
       };
       SetupExitSignals: {
         type: string;
-        description: string;
+        /** @type {string} */ description: string;
         link: string;
         cli: {
           exclude: boolean;
@@ -1311,10 +1312,7 @@ declare class Server<
               items: {
                 anyOf: {
                   $ref: string;
-                }[] /**
-                 * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
-                 * @returns {WatchOptions}
-                 */;
+                }[];
               };
               $ref?: undefined;
             }
@@ -1406,6 +1404,7 @@ declare class Server<
           options: {
             type: string;
             additionalProperties: boolean;
+            /** @type {NormalizedStatic} */
             cli: {
               exclude: boolean;
             };
@@ -1497,11 +1496,14 @@ declare class Server<
    */
   static isAbsoluteURL(URL: string): boolean;
   /**
-   * @param {"v4" | "v6"} family
-   * @param {boolean} isInternal
+   * @param {string} gatewayOrFamily or family
+   * @param {boolean} [isInternal=true] ip should be internal
    * @returns {string | undefined}
    */
-  static findIp(family: "v4" | "v6", isInternal?: boolean): string | undefined;
+  static findIp(
+    gatewayOrFamily: string,
+    isInternal?: boolean | undefined,
+  ): string | undefined;
   /**
    * @param {"v4" | "v6"} family
    * @returns {Promise<string | undefined>}
