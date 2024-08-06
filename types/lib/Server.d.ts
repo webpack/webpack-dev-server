@@ -987,9 +987,7 @@ declare class Server<
         properties: {
           type: {
             anyOf: {
-              $ref: string /**
-               * @type {string[]}
-               */;
+              $ref: string;
             }[];
           };
           options: {
@@ -1007,11 +1005,10 @@ declare class Server<
             description: string;
           };
           requestCert: {
-            /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
             type: string;
             description: string;
             cli: {
-              negatedDescription: string;
+              negatedDescription: string /** @type {ClientConfiguration} */;
             };
           };
           ca: {
@@ -1130,7 +1127,7 @@ declare class Server<
                         }
                     )[];
                   };
-                  /** @type {number | string} */ instanceof?: undefined;
+                  instanceof?: undefined;
                 }
               | {
                   type: string;
@@ -1149,6 +1146,7 @@ declare class Server<
             anyOf: (
               | {
                   type: string;
+                  /** @type {number | string} */
                   items: {
                     anyOf: (
                       | {
@@ -1187,7 +1185,7 @@ declare class Server<
       };
       SetupExitSignals: {
         type: string;
-        /** @type {string} */ description: string;
+        description: string;
         link: string;
         cli: {
           exclude: boolean;
@@ -1297,7 +1295,7 @@ declare class Server<
                 }
             )[];
             description: string;
-            link: string;
+            /** @type {MultiCompiler} */ link: string;
           };
         };
       };
@@ -1330,6 +1328,7 @@ declare class Server<
           exclude: boolean;
         };
         type: string;
+        /** @type {string} */
         properties: {
           paths: {
             anyOf: (
@@ -1404,7 +1403,6 @@ declare class Server<
           options: {
             type: string;
             additionalProperties: boolean;
-            /** @type {NormalizedStatic} */
             cli: {
               exclude: boolean;
             };
