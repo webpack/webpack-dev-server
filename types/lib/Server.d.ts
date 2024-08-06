@@ -959,10 +959,6 @@ declare class Server<
         description: string;
         link: string;
       };
-      /**
-       * @private
-       * @param {Compiler} compiler
-       */
       Server: {
         anyOf: {
           $ref: string;
@@ -970,12 +966,12 @@ declare class Server<
         link: string;
         description: string;
       };
-      /** @type {WebSocketURL} */
       ServerType: {
         enum: string[];
       };
       ServerEnum: {
         enum: string[];
+        /** @type {ClientConfiguration} */
         cli: {
           exclude: boolean;
         };
@@ -984,6 +980,7 @@ declare class Server<
         type: string;
         minLength: number;
         cli: {
+          /** @type {{ type: WebSocketServerConfiguration["type"], options: NonNullable<WebSocketServerConfiguration["options"]> }} */
           exclude: boolean;
         };
       };
@@ -1003,7 +1000,7 @@ declare class Server<
       };
       ServerOptions: {
         type: string;
-        additionalProperties: boolean;
+        /** @type {ServerConfiguration} */ additionalProperties: boolean;
         properties: {
           passphrase: {
             type: string;
@@ -1145,7 +1142,7 @@ declare class Server<
                   items?: undefined;
                 }
             )[];
-            description: string /** @type {string} */;
+            description: string;
           };
           pfx: {
             anyOf: (
@@ -1184,7 +1181,7 @@ declare class Server<
                 }
             )[];
             description: string;
-          };
+          } /** @type {ClientConfiguration} */;
         };
       };
       SetupExitSignals: {
@@ -1306,10 +1303,7 @@ declare class Server<
       StaticString: {
         type: string;
         minLength: number;
-      } /**
-       * @private
-       * @returns {Promise<void>}
-       */;
+      };
       WatchFiles: {
         anyOf: (
           | {
@@ -1317,7 +1311,10 @@ declare class Server<
               items: {
                 anyOf: {
                   $ref: string;
-                }[];
+                }[] /**
+                 * @param {WatchOptions & { aggregateTimeout?: number, ignored?: WatchOptions["ignored"], poll?: number | boolean }} watchOptions
+                 * @returns {WatchOptions}
+                 */;
               };
               $ref?: undefined;
             }
@@ -1501,14 +1498,20 @@ declare class Server<
   static isAbsoluteURL(URL: string): boolean;
   /**
    * @param {"v4" | "v6"} family
+   * @param {boolean} isInternal
    * @returns {string | undefined}
    */
-  static findIp(family: "v4" | "v6"): string | undefined;
+  static findIp(family: "v4" | "v6", isInternal?: boolean): string | undefined;
+  /**
+   * @param {"v4" | "v6"} family
+   * @returns {Promise<string | undefined>}
+   */
+  static internalIP(family: "v4" | "v6"): Promise<string | undefined>;
   /**
    * @param {"v4" | "v6"} family
    * @returns {string | undefined}
    */
-  static internalIP(family: "v4" | "v6"): string | undefined;
+  static internalIPSync(family: "v4" | "v6"): string | undefined;
   /**
    * @param {Host} hostname
    * @returns {Promise<string>}
