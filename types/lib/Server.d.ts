@@ -1043,6 +1043,7 @@ declare class Server<
             description: string;
           };
           cert: {
+            /** @type {ServerConfiguration} */
             anyOf: (
               | {
                   type: string;
@@ -1295,7 +1296,7 @@ declare class Server<
                 }
             )[];
             description: string;
-            /** @type {MultiCompiler} */ link: string;
+            link: string;
           };
         };
       };
@@ -1328,7 +1329,6 @@ declare class Server<
           exclude: boolean;
         };
         type: string;
-        /** @type {string} */
         properties: {
           paths: {
             anyOf: (
@@ -2130,6 +2130,7 @@ type Configuration<T extends BasicApplication = import("express").Application> =
 type BasicApplication = {
   use: typeof useFn;
 };
+import path = require("path");
 /**
  * @overload
  * @param {NextHandleFunction} fn
