@@ -6,8 +6,8 @@ const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").host;
 
-const ipv4 = Server.findIp("v4", false);
-const ipv6 = Server.findIp("v6", false);
+const ipv4 = Server.findIp("v4");
+const ipv6 = Server.findIp("v6");
 // macos requires root for using ip v6
 const isMacOS = process.platform === "darwin";
 

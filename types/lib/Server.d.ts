@@ -1121,7 +1121,7 @@ declare class Server<
   static isAbsoluteURL(URL: string): boolean;
   /**
    * @param {string} gatewayOrFamily or family
-   * @param {boolean} [isInternal=true] ip should be internal
+   * @param {boolean} [isInternal=false] ip should be internal
    * @returns {string | undefined}
    */
   static findIp(
