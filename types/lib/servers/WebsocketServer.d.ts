@@ -1,4 +1,3 @@
-/// <reference types="node" />
 export = WebsocketServer;
 declare class WebsocketServer extends BaseServer {
   static heartbeatInterval: number;
