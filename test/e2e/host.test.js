@@ -7,8 +7,8 @@ const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const port = require("../ports-map").host;
 
-const ipv4 = Server.internalIPSync("v4");
-const ipv6 = Server.internalIPSync("v6");
+const ipv4 = Server.findIp("v4");
+const ipv6 = Server.findIp("v6");
 // macos requires root for using ip v6
 const isMacOS = process.platform === "darwin";
 

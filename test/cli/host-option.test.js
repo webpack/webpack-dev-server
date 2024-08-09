@@ -4,8 +4,8 @@ const { testBin, normalizeStderr } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-host"];
 const Server = require("../../lib/Server");
 
-const localIPv4 = Server.internalIPSync("v4");
-const localIPv6 = Server.internalIPSync("v6");
+const localIPv4 = Server.findIp("v4");
+const localIPv6 = Server.findIp("v6");
 
 describe('"host" CLI option', () => {
   it('should work using "--host 0.0.0.0" (IPv4)', async () => {
