@@ -28,7 +28,7 @@ module.exports = {
     {
       name: "chromium",
       use: {
-        headless: !isCI,
+        headless: !!isCI,
         browserName: "chromium",
       },
     },
