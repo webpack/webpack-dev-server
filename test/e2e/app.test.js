@@ -2,9 +2,10 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").app;
 
 const staticDirectory = path.resolve(
@@ -20,18 +21,16 @@ const apps = [
 
 const servers = ["http", "https", "spdy"];
 
-describe("app option", () => {
+test.describe("app option", () => {
   for (const [appName, app] of apps) {
     for (const server of servers) {
       let compiler;
       let devServer;
-      let page;
-      let browser;
       let pageErrors;
       let consoleMessages;
 
-      describe(`should work using "${appName}" application and "${server}" server`, () => {
-        beforeEach(async () => {
+      test.describe(`should work using "${appName}" application and "${server}" server`, () => {
+        test.beforeEach(async () => {
           compiler = webpack(config);
 
           devServer = new Server(
@@ -49,18 +48,22 @@ describe("app option", () => {
 
           await devServer.start();
 
-          ({ page, browser } = await runBrowser());
-
           pageErrors = [];
           consoleMessages = [];
         });
 
-        afterEach(async () => {
-          await browser.close();
+        test.afterEach(async () => {
           await devServer.stop();
         });
 
-        it("should handle GET request to index route (/)", async () => {
+        test("should handle GET request to index route (/)", async ({
+          browser,
+        }) => {
+          const context = await browser.newContext({
+            ignoreHTTPSErrors: true,
+          });
+          const page = await context.newPage();
+
           page
             .on("console", (message) => {
               consoleMessages.push(message);
@@ -90,12 +93,12 @@ describe("app option", () => {
             expect(HTTPVersion).toEqual("http/1.1");
           }
 
-          expect(response.status()).toMatchSnapshot("response status");
-          expect(await response.text()).toMatchSnapshot("response text");
+          expect(response.status()).toEqual(200);
+          await expect(page).toHaveScreenshot();
           expect(
             consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
-          expect(pageErrors).toMatchSnapshot("page errors");
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         });
       });
     }

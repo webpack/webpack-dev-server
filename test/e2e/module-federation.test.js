@@ -2,41 +2,37 @@
 
 const webpack = require("webpack");
 const requireFromString = require("require-from-string");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const simpleConfig = require("../fixtures/module-federation-config/webpack.config");
 const objectEntryConfig = require("../fixtures/module-federation-config/webpack.object-entry.config");
 const multiConfig = require("../fixtures/module-federation-config/webpack.multi.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["module-federation"];
 const pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
 
-describe("Module federation", () => {
-  describe("should work with simple multi-entry config", () => {
+test.describe("Module federation", () => {
+  test.describe("should work with simple multi-entry config", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(simpleConfig);
       server = new Server({ port }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should use the last entry export", async () => {
+    test("should use the last entry export", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -61,40 +57,35 @@ describe("Module federation", () => {
 
       expect(exports).toEqual("entry2");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should work with object multi-entry config", () => {
+  test.describe("should work with object multi-entry config", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(objectEntryConfig);
       server = new Server({ port }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should use the last entry export", async () => {
+    test("should use the last entry export", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -119,14 +110,14 @@ describe("Module federation", () => {
 
       expect(exports).toEqual("entry2");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should support the named entry export", async () => {
+    test("should support the named entry export", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -151,40 +142,35 @@ describe("Module federation", () => {
 
       expect(exports).toEqual("entry1");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should work with multi compiler config", () => {
+  test.describe("should work with multi compiler config", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(multiConfig);
       server = new Server({ port }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should use the last entry export", async () => {
+    test("should use the last entry export", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -209,40 +195,35 @@ describe("Module federation", () => {
 
       expect(exports).toEqual("entry2");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should use plugin", () => {
+  test.describe("should use plugin", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(pluginConfig);
       server = new Server({ port }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should contain hot script in remoteEntry.js", async () => {
+    test("should contain hot script in remoteEntry.js", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -262,14 +243,14 @@ describe("Module federation", () => {
 
       expect(remoteEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should contain hot script in main.js", async () => {
+    test("should contain hot script in main.js", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -286,11 +267,11 @@ describe("Module federation", () => {
 
       expect(mainEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });

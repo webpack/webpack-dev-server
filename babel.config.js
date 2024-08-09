@@ -16,7 +16,7 @@ module.exports = (api) => {
         },
       ],
     ],
-    plugins: ["@babel/plugin-transform-object-assign"],
+    plugins: ["@babel/plugin-transform-object-assign", "istanbul"],
     env: {
       test: {
         presets: [

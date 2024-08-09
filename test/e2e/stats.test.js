@@ -2,14 +2,13 @@
 
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").stats;
 
-global.console.log = jest.fn();
-
-describe("stats", () => {
+test.describe("stats", () => {
   const cases = [
     {
       title: 'should work when "stats" is not specified',
@@ -51,7 +50,7 @@ describe("stats", () => {
     },
     {
       title:
-        'should work using "{ assets: false }" value for the "stats" option',
+        'should work using "{ colors: { green: "\u001b[32m" }}" value for the "stats" option',
       webpackOptions: {
         stats: {
           colors: {
@@ -109,7 +108,7 @@ describe("stats", () => {
   }
 
   cases.forEach((testCase) => {
-    it(testCase.title, async () => {
+    test(testCase.title, async ({ page }) => {
       const compiler = webpack({ ...config, ...testCase.webpackOptions });
       const devServerOptions = {
         port,
@@ -117,8 +116,6 @@ describe("stats", () => {
       const server = new Server(devServerOptions, compiler);
 
       await server.start();
-
-      const { page, browser } = await runBrowser();
 
       try {
         const consoleMessages = [];
@@ -133,11 +130,10 @@ describe("stats", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot();
+        ).toMatchSnapshotWithArray("console messages");
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });

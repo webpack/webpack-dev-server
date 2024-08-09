@@ -2,20 +2,19 @@
 
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/simple-config-other/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["client-option"];
 
-describe("client option", () => {
-  describe("default behaviour", () => {
+test.describe("client option", () => {
+  test.describe("default behaviour", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -31,18 +30,15 @@ describe("client option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("responds with a 200 status code for /ws path", async () => {
+    test("responds with a 200 status code for /ws path", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -58,25 +54,23 @@ describe("client option", () => {
       // overlay should be true by default
       expect(server.options.client.overlay).toBe(true);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("should respect path option", () => {
+  test.describe("should respect path option", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -99,18 +93,17 @@ describe("client option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("responds with a 200 status code for /foo/test/bar path", async () => {
+    test("responds with a 200 status code for /foo/test/bar path", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -126,25 +119,23 @@ describe("client option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("configure client entry", () => {
+  test.describe("configure client entry", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -157,18 +148,15 @@ describe("client option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should disable client entry", async () => {
+    test("should disable client entry", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -181,19 +169,19 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("webSocketTransport", () => {
+  test.describe("webSocketTransport", () => {
     const clientModes = [
       {
         title: 'as a string ("sockjs")',
@@ -249,9 +237,9 @@ describe("client option", () => {
       },
     ];
 
-    describe("passed to server", () => {
+    test.describe("passed to server", () => {
       clientModes.forEach((data) => {
-        it(`${data.title} ${
+        test(`${data.title} ${
           data.shouldThrow ? "should throw" : "should not throw"
         }`, async () => {
           const compiler = webpack(config);

@@ -3,28 +3,28 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
+const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const testServer = require("../helpers/test-server");
 const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["static-directory-option"];
-const runBrowser = require("../helpers/run-browser");
 
 const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");
 const otherPublicDirectory = path.resolve(staticDirectory, "other");
 
-describe("static.directory option", () => {
-  describe("to directory", () => {
+test.describe("static.directory option", () => {
+  test.describe("to directory", () => {
     const nestedFile = path.resolve(publicDirectory, "assets/example.txt");
 
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -40,19 +40,16 @@ describe("static.directory option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
       fs.truncateSync(nestedFile);
     });
 
-    it("should handle request to index route", async () => {
+    test("should handle request to index route", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -65,18 +62,18 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handle request to other file", async () => {
+    test("should handle request to other file", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -89,18 +86,18 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("Watches folder recursively", (done) => {
+    test("Watches folder recursively", ({ done }) => {
       // chokidar emitted a change,
       // meaning it watched the file correctly
       server.staticWatchers[0].on("change", () => {
@@ -113,35 +110,41 @@ describe("static.directory option", () => {
       }, 1000);
     });
 
-    it("Watches node_modules", (done) => {
-      const filePath = path.join(publicDirectory, "node_modules", "index.html");
+    test(
+      "Watches node_modules",
+      ({ done }) => {
+        const filePath = path.join(
+          publicDirectory,
+          "node_modules",
+          "index.html",
+        );
 
-      fs.writeFileSync(filePath, "foo", "utf8");
+        fs.writeFileSync(filePath, "foo", "utf8");
 
-      // chokidar emitted a change,
-      // meaning it watched the file correctly
-      server.staticWatchers[0].on("change", () => {
-        fs.unlinkSync(filePath);
+        // chokidar emitted a change,
+        // meaning it watched the file correctly
+        server.staticWatchers[0].on("change", () => {
+          fs.unlinkSync(filePath);
 
-        done();
-      });
+          done();
+        });
 
-      // change a file manually
-      setTimeout(() => {
-        fs.writeFileSync(filePath, "bar", "utf8");
-      }, 1000);
-    });
+        // change a file manually
+        setTimeout(() => {
+          fs.writeFileSync(filePath, "bar", "utf8");
+        }, 1000);
+      },
+      { timeout: 60000 },
+    );
   });
 
-  describe("test listing files in folders without index.html using the option static.serveIndex: false", () => {
+  test.describe("test listing files in folders without index.html using the option static.serveIndex: false", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -158,18 +161,17 @@ describe("static.directory option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should not list the files inside the assets folder (404)", async () => {
+    test("should not list the files inside the assets folder (404)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -182,18 +184,20 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(404);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    test("should show Heyo. because bar has index.html inside it (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -206,27 +210,25 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("test listing files in folders without index.html using the option static.serveIndex: true", () => {
+  test.describe("test listing files in folders without index.html using the option static.serveIndex: true", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -243,18 +245,17 @@ describe("static.directory option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    test("should list the files inside the assets folder (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -269,19 +270,21 @@ describe("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    test("should show Heyo. because bar has index.html inside it (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -294,27 +297,25 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("test listing files in folders without index.html using the default static.serveIndex option (true)", () => {
+  test.describe("test listing files in folders without index.html using the default static.serveIndex option (true)", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -330,18 +331,17 @@ describe("static.directory option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    test("should list the files inside the assets folder (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -356,19 +356,21 @@ describe("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    test("should show Heyo. because bar has index.html inside it (200)", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -381,27 +383,25 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("to multiple directories", () => {
+  test.describe("to multiple directories", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -414,18 +414,15 @@ describe("static.directory option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should handle request first directory", async () => {
+    test("should handle request first directory", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -438,18 +435,18 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handle request to second directory", async () => {
+    test("should handle request to second directory", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -462,28 +459,28 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("testing single & multiple external paths", () => {
+  test.describe("testing single & multiple external paths", () => {
     let server;
 
-    afterEach((done) => {
+    test.afterEach(({ done }) => {
       testServer.close(() => {
         done();
       });
     });
 
-    it("Should throw exception (external url)", (done) => {
+    test("Should throw exception (external url)", ({ done }) => {
       expect.assertions(1);
 
       server = testServer.start(
@@ -501,7 +498,9 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should not throw exception (local path with lower case first character)", (done) => {
+    test("Should not throw exception (local path with lower case first character)", ({
+      done,
+    }) => {
       testServer.start(
         config,
         {
@@ -517,7 +516,9 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should not throw exception (local path with lower case first character & has '-')", (done) => {
+    test("Should not throw exception (local path with lower case first character & has '-')", ({
+      done,
+    }) => {
       testServer.start(
         config,
         {
@@ -531,7 +532,9 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should not throw exception (local path with upper case first character & has '-')", (done) => {
+    test("Should not throw exception (local path with upper case first character & has '-')", ({
+      done,
+    }) => {
       testServer.start(
         config,
         {
@@ -545,7 +548,7 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should throw exception (array with absolute url)", (done) => {
+    test("Should throw exception (array with absolute url)", ({ done }) => {
       server = testServer.start(
         config,
         {
@@ -562,18 +565,14 @@ describe("static.directory option", () => {
     });
   });
 
-  describe("defaults to PWD", () => {
+  test.describe("defaults to PWD", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
-      jest
-        .spyOn(process, "cwd")
-        .mockImplementation(() => path.resolve(staticDirectory));
+    test.beforeEach(async () => {
+      sinon.stub(process, "cwd").callsFake(() => path.resolve(staticDirectory));
       compiler = webpack(config);
 
       server = new Server(
@@ -587,18 +586,16 @@ describe("static.directory option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
+      process.cwd.restore();
     });
 
-    it("should handle request to /index.html", async () => {
+    test("should handle request to /index.html", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -611,31 +608,28 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("disabled", () => {
+  test.describe("disabled", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
-      jest.spyOn(process, "cwd").mockImplementation(() => publicDirectory);
-
+      sinon.stub(process, "cwd").callsFake(() => path.resolve(publicDirectory));
       compiler = webpack(config);
 
       server = new Server(
@@ -648,18 +642,16 @@ describe("static.directory option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
+      process.cwd.restore();
     });
 
-    it("should not handle request to /other.html (404)", async () => {
+    test("should not handle request to /other.html (404)", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -672,15 +664,15 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(404);
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });

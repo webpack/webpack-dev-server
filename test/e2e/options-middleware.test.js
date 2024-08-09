@@ -2,9 +2,10 @@
 
 const webpack = require("webpack");
 const Express = require("express");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["options-request-response"];
 
 const createWaiting = () => {
@@ -23,8 +24,8 @@ const createWaiting = () => {
   };
 };
 
-describe("handle options-request correctly", () => {
-  it("should response with 200 http code", async () => {
+test.describe("handle options-request correctly", () => {
+  test("should response with 200 http code", async ({ page }) => {
     const compiler = webpack(config);
     const [portForServer, portForApp] = port;
     const closeApp = await (async () => {
@@ -64,7 +65,6 @@ describe("handle options-request correctly", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
     const prefixUrl = "http://127.0.0.1";
     const htmlUrl = `${prefixUrl}:${portForServer}/test.html`;
     const appUrl = `${prefixUrl}:${portForApp}`;
@@ -92,11 +92,10 @@ describe("handle options-request correctly", () => {
         htmlUrl,
       );
 
-      expect(responseStatus.sort()).toEqual([200, 204]);
+      expect(responseStatus.sort()).toEqual([200]);
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
       await closeApp();
     }

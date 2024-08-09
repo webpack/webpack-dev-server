@@ -65,6 +65,10 @@
     "swiftshader",
     "hoge",
     "subsubcomain",
+    "commitlint",
+    "noselect",
+    "rgba",
+    "longpaths",
     "noselect",
     "commitlint"
   ],
@@ -78,6 +82,7 @@
     "package-lock.json",
     "node_modules",
     "coverage",
-    "*.log"
+    "*.log",
+    "*-snapshots"
   ]
 }

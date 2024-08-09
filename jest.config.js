@@ -10,7 +10,10 @@ module.exports = {
     "<rootDir>/test/",
     "<rootDir>/client/",
   ],
-  testPathIgnorePatterns: ["<rootDir>/bin/this/process-arguments.js"],
+  testPathIgnorePatterns: [
+    "<rootDir>/bin/this/process-arguments.js",
+    "<rootDir>/test/e2e",
+  ],
   snapshotResolver: "<rootDir>/test/helpers/snapshotResolver.js",
   setupFilesAfterEnv: ["<rootDir>/scripts/setupTest.js"],
   globalSetup: "<rootDir>/scripts/globalSetupTest.js",

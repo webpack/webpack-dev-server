@@ -2,9 +2,10 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").entry;
 
 const HOT_ENABLED_MESSAGE =
@@ -22,7 +23,7 @@ const waitForConsoleLogFinished = async (consoleLogs) => {
   });
 };
 
-describe("entry", () => {
+test.describe("entry", () => {
   const entryFirst = path.resolve(
     __dirname,
     "../fixtures/client-config/foo.js",
@@ -32,7 +33,7 @@ describe("entry", () => {
     "../fixtures/client-config/bar.js",
   );
 
-  it("should work with single entry", async () => {
+  test("should work with single entry", async ({ page }) => {
     const compiler = webpack({ ...config, entry: entryFirst });
     const devServerOptions = {
       port,
@@ -41,8 +42,6 @@ describe("entry", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       const pageErrors = [];
       const consoleMessages = [];
@@ -59,19 +58,18 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with single array entry", async () => {
+  test("should work with single array entry", async ({ page }) => {
     const compiler = webpack({ ...config, entry: [entryFirst, entrySecond] });
     const devServerOptions = {
       port,
@@ -80,8 +78,6 @@ describe("entry", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       const pageErrors = [];
       const consoleMessages = [];
@@ -98,19 +94,18 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with object entry", async () => {
+  test("should work with object entry", async ({ page }) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -124,8 +119,6 @@ describe("entry", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       const pageErrors = [];
       const consoleMessages = [];
@@ -142,19 +135,18 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with dynamic entry", async () => {
+  test("should work with dynamic entry", async ({ page }) => {
     const compiler = webpack({ ...config, entry: () => entryFirst });
     const devServerOptions = {
       port,
@@ -163,8 +155,6 @@ describe("entry", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       const pageErrors = [];
       const consoleMessages = [];
@@ -181,19 +171,18 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with dynamic async entry", async () => {
+  test("should work with dynamic async entry", async ({ page }) => {
     const compiler = webpack({
       ...config,
       entry: () => new Promise((resolve) => resolve([entryFirst])),
@@ -205,8 +194,6 @@ describe("entry", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       const pageErrors = [];
       const consoleMessages = [];
@@ -223,19 +210,18 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with multiple entries", async () => {
+  test("should work with multiple entries", async ({ page }) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -254,8 +240,6 @@ describe("entry", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -276,17 +260,16 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with multiple entries #2", async () => {
+  test("should work with multiple entries #2", async ({ page }) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -305,8 +288,6 @@ describe("entry", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -327,17 +308,16 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it('should work with multiple entries and "dependOn"', async () => {
+  test('should work with multiple entries and "dependOn"', async ({ page }) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -355,8 +335,6 @@ describe("entry", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       const pageErrors = [];
       const consoleMessages = [];
@@ -376,17 +354,16 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with empty", async () => {
+  test("should work with empty", async ({ page }) => {
     const compiler = webpack({
       ...config,
       entry: {},
@@ -402,8 +379,6 @@ describe("entry", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -421,14 +396,13 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });

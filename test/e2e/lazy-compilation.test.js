@@ -1,21 +1,19 @@
 "use strict";
 
 const webpack = require("webpack");
+const { describe, test } = require("@playwright/test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const lazyCompilationSingleEntryConfig = require("../fixtures/lazy-compilation-single-entry/webpack.config");
 const lazyCompilationMultipleEntriesConfig = require("../fixtures/lazy-compilation-multiple-entries/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["lazy-compilation"];
 
 describe("lazy compilation", () => {
-  // TODO jest freeze due webpack do not close `eventsource`, we should uncomment this after fix it on webpack side
-  it.skip(`should work with single entry`, async () => {
+  test(`should work with single entry`, async ({ page }) => {
     const compiler = webpack(lazyCompilationSingleEntryConfig);
     const server = new Server({ port }, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -42,23 +40,20 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it.skip(`should work with multiple entries`, async () => {
+  test(`should work with multiple entries`, async ({ page }) => {
     const compiler = webpack(lazyCompilationMultipleEntriesConfig);
     const server = new Server({ port }, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -77,7 +72,6 @@ describe("lazy compilation", () => {
       });
       await new Promise((resolve) => {
         const interval = setInterval(() => {
-          console.log(consoleMessages);
           if (consoleMessages.includes("One.")) {
             clearInterval(interval);
 
@@ -91,7 +85,6 @@ describe("lazy compilation", () => {
       });
       await new Promise((resolve) => {
         const interval = setInterval(() => {
-          console.log(consoleMessages);
           if (consoleMessages.includes("Two.")) {
             clearInterval(interval);
 
@@ -100,12 +93,11 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });

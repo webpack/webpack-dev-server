@@ -2,19 +2,18 @@
 
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["setup-middlewares-option"];
 
-describe("setupMiddlewares option", () => {
+test.describe("setupMiddlewares option", () => {
   let compiler;
   let server;
-  let page;
-  let browser;
   let pageErrors;
   let consoleMessages;
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     compiler = webpack(config);
     server = new Server(
       {
@@ -71,19 +70,21 @@ describe("setupMiddlewares option", () => {
 
     await server.start();
 
-    ({ page, browser } = await runBrowser());
-
     pageErrors = [];
     consoleMessages = [];
   });
 
-  afterEach(async () => {
-    await browser.close();
+  test.afterEach(async () => {
     await server.stop();
   });
 
-  it("should handle GET request to /setup-middleware/some/path route", async () => {
-    page
+  test("should handle GET request to /setup-middleware/some/path route", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext();
+
+    const page1 = await context.newPage();
+    page1
       .on("console", (message) => {
         consoleMessages.push(message);
       })
@@ -91,73 +92,83 @@ describe("setupMiddlewares option", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(
+    const response1 = await page1.goto(
       `http://127.0.0.1:${port}/setup-middleware/some/path`,
       {
         waitUntil: "networkidle0",
       },
     );
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    expect(response1.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
     );
-    expect(response.status()).toMatchSnapshot("response status");
-    expect(await response.text()).toMatchSnapshot("response text");
 
-    const response1 = await page.goto(`http://127.0.0.1:${port}/foo/bar`, {
+    expect(response1.status()).toBe(200);
+
+    await expect(page1).toHaveScreenshot();
+
+    const page2 = await context.newPage();
+    const response2 = await page2.goto(`http://127.0.0.1:${port}/foo/bar`, {
       waitUntil: "networkidle0",
     });
 
-    expect(response1.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    expect(response2.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
     );
-    expect(response1.status()).toMatchSnapshot("response status");
-    expect(await response1.text()).toMatchSnapshot("response text");
 
-    const response2 = await page.goto(`http://127.0.0.1:${port}/foo/bar/baz`, {
+    expect(response2.status()).toBe(200);
+
+    await expect(page2).toHaveScreenshot();
+
+    const page3 = await context.newPage();
+    const response3 = await page3.goto(`http://127.0.0.1:${port}/foo/bar/baz`, {
       waitUntil: "networkidle0",
     });
 
-    expect(response2.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    expect(response3.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
     );
-    expect(response2.status()).toMatchSnapshot("response status");
-    expect(await response2.text()).toMatchSnapshot("response text");
 
-    const response3 = await page.goto(
+    expect(response3.status()).toBe(200);
+
+    await expect(page3).toHaveScreenshot();
+
+    const page4 = await context.newPage();
+    const response4 = await page4.goto(
       `http://127.0.0.1:${port}/setup-middleware/unknown`,
       {
         waitUntil: "networkidle0",
       },
     );
 
-    expect(response3.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    expect(response4.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
     );
-    expect(response3.status()).toMatchSnapshot("response status");
-    expect(await response3.text()).toMatchSnapshot("response text");
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(response4.status()).toBe(200);
+    await expect(page4).toHaveScreenshot();
+
+    expect(
+      consoleMessages.map((message) => message.text()),
+    ).toMatchSnapshotWithArray("console messages");
+
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 
-  it("should handle POST request to /setup-middleware/some/path route", async () => {
-    await page.setRequestInterception(true);
-
+  test("should handle POST request to /setup-middleware/some/path route", async ({
+    page,
+  }) => {
     page
       .on("console", (message) => {
         consoleMessages.push(message);
       })
       .on("pageerror", (error) => {
         pageErrors.push(error);
-      })
-      .on("request", (interceptedRequest) => {
-        if (interceptedRequest.isInterceptResolutionHandled()) return;
-
-        interceptedRequest.continue({ method: "POST" });
       });
+
+    await page.route("**/*", (route) => {
+      route.continue({ method: "POST" });
+    });
 
     const response = await page.goto(
       `http://127.0.0.1:${port}/setup-middleware/some/path`,
@@ -166,14 +177,18 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+      "content type",
     );
-    expect(response.status()).toMatchSnapshot("response status");
-    expect(await response.text()).toMatchSnapshot("response text");
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
-    expect(pageErrors).toMatchSnapshot("page errors");
+
+    expect(response.status()).toBe(200);
+
+    await expect(page).toHaveScreenshot();
+
+    expect(
+      consoleMessages.map((message) => message.text()),
+    ).toMatchSnapshotWithArray("console messages");
+
+    expect(pageErrors).toMatchSnapshotWithArray("page errors");
   });
 });
