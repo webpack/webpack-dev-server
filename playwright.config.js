@@ -1,6 +1,5 @@
 "use strict";
 
-const MAX_RETRIES = 3;
 const isCI = process.env.CI === "true";
 
 /** @type { import('@playwright/test').PlaywrightTestConfig} */
@@ -11,7 +10,7 @@ module.exports = {
   snapshotPathTemplate: "./test/e2e/__snapshots__/{testFilePath}/{arg}{ext}",
   fullyParallel: false,
   forbidOnly: isCI,
-  retries: isCI ? MAX_RETRIES : 0,
+  retries: 0,
   expect: {
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.1,
@@ -29,6 +28,7 @@ module.exports = {
     {
       name: "chromium",
       use: {
+        headless: false,
         browserName: "chromium",
       },
     },
