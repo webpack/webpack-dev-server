@@ -593,6 +593,7 @@ test.describe("static.directory option", () => {
 
     test.afterEach(async () => {
       await server.stop();
+      process.cwd.restore();
     });
 
     test("should handle request to /index.html", async ({ page }) => {
@@ -620,63 +621,7 @@ test.describe("static.directory option", () => {
     });
   });
 
-  // FIXME: check the below error
-  // TypeError: Attempted to wrap cwd which is already wrapped
-  // TypeError: Cannot read properties of undefined (reading 'stop')
-  //
-  // at checkWrappedMethod (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/util/core/wrap-method.js:67:21)
-  // at wrapMethod (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/util/core/wrap-method.js:132:13)
-  // at Function.stub (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/stub.js:130:44)
-  // at Sandbox.stub (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/sandbox.js:454:39)
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/test/e2e/static-directory.test.js:617:13
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/fixtureRunner.js:254:13
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:17
-  // at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:53:34)
-  // at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:34)
-  // at FixtureRunner.resolveParametersAndRunFunction (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/fixtureRunner.js:250:20)
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:588:11
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:11
-  // at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:41:27)
-  // at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:7)
-  // at WorkerMain._runEachHooksForSuites (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:576:9)
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:317:9
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:11
-  // at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:41:27)
-  // at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:7)
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:306:7
-  // at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:11
-  // at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:41:27)
-  // at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:7)
-  // at WorkerMain._runTest (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:278:5)
-  // at WorkerMain.runTestGroup (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:202:11)
-  // at process.<anonymous> (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/common/process.js:94:22)
-  //   at extendObjectWithWrappedMethods (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/util/core/wrap-method.js:173:34)
-  //   at wrapMethod (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/util/core/wrap-method.js:161:5)
-  //   at Function.stub (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/stub.js:130:44)
-  //   at Sandbox.stub (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/sinon/lib/sinon/sandbox.js:454:39)
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/test/e2e/static-directory.test.js:561:13
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/fixtureRunner.js:254:13
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:17
-  //   at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:53:34)
-  //   at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:34)
-  //   at FixtureRunner.resolveParametersAndRunFunction (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/fixtureRunner.js:250:20)
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:588:11
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:11
-  //   at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:41:27)
-  //   at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:7)
-  //   at WorkerMain._runEachHooksForSuites (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:576:9)
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:317:9
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:11
-  //   at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:41:27)
-  //   at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:7)
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:306:7
-  //   at /Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:297:11
-  //   at TimeoutManager.withRunnable (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/timeoutManager.js:41:27)
-  //   at TestInfoImpl._runAsStage (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/testInfo.js:295:7)
-  //   at WorkerMain._runTest (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:278:5)
-  //   at WorkerMain.runTestGroup (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/worker/workerMain.js:202:11)
-  //   at process.<anonymous> (/Users/mahdi/tmp/webpack-dev-server/test/fixtures/static-config/node_modules/playwright/lib/common/process.js:94:22)
-  test.describe.fixme("disabled", () => {
+  test.describe("disabled", () => {
     let compiler;
     let server;
     let pageErrors;
@@ -685,8 +630,7 @@ test.describe("static.directory option", () => {
     test.beforeEach(async () => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
-      sinon.stub(process, "cwd").callsFake(() => publicDirectory);
-
+      sinon.stub(process, "cwd").callsFake(() => path.resolve(publicDirectory));
       compiler = webpack(config);
 
       server = new Server(
@@ -705,37 +649,31 @@ test.describe("static.directory option", () => {
 
     test.afterEach(async () => {
       await server.stop();
+      process.cwd.restore();
     });
 
-    test(
-      "should not handle request to /other.html (404)",
-      { tags: "@flaky" },
-      async ({ page }) => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
+    test("should not handle request to /other.html (404)", async ({ page }) => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
 
-        const response = await page.goto(
-          `http://127.0.0.1:${port}/index.html`,
-          {
-            waitUntil: "networkidle0",
-          },
-        );
+      const response = await page.goto(`http://127.0.0.1:${port}/index.html`, {
+        waitUntil: "networkidle0",
+      });
 
-        expect(response.status()).toBe(200);
+      expect(response.status()).toBe(404);
 
-        await expect(page).toHaveScreenshot();
+      await expect(page).toHaveScreenshot();
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshotWithArray("console messages");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshotWithArray("page errors");
-      },
-    );
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
+    });
   });
 });
