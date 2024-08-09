@@ -97,11 +97,11 @@ test.describe("static.directory option", () => {
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    test("Watches folder recursively", () => {
+    test("Watches folder recursively", ({ done }) => {
       // chokidar emitted a change,
       // meaning it watched the file correctly
-      server.staticWatchers[0].on("change", (event) => {
-        console.log(event);
+      server.staticWatchers[0].on("change", () => {
+        done();
       });
 
       // change a file manually
@@ -110,9 +110,8 @@ test.describe("static.directory option", () => {
       }, 1000);
     });
 
-    test.fixme(
+    test(
       "Watches node_modules",
-      { tag: "@fails" },
       ({ done }) => {
         const filePath = path.join(
           publicDirectory,
