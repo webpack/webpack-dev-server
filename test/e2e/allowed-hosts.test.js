@@ -1289,7 +1289,6 @@ test.describe("allowed hosts", () => {
       expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    // FIXME
     test("should always allow value from the `host` options if options.allowedHosts is auto", async ({
       page,
     }) => {
