@@ -112,7 +112,6 @@ test.describe("web socket server URL", () => {
       }
     });
 
-    // TODO: Fix this test
     test(`should work behind proxy, when hostnames are different and ports are same ("${webSocketServer}")`, async ({
       page,
     }) => {
