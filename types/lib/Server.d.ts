@@ -1302,8 +1302,12 @@ declare class Server<
    * @returns {void}
    */
   private createServer;
-  /** @type {import("http").Server | undefined | null} */
-  server: import("http").Server | undefined | null;
+  /** @type {import("http").Server | import("http2").Http2SecureServer | undefined | null} */
+  server:
+    | import("http").Server
+    | import("http2").Http2SecureServer
+    | undefined
+    | null;
   /**
    * @private
    * @returns {void}
@@ -1449,6 +1453,7 @@ declare namespace Server {
     WatchFiles,
     Static,
     NormalizedStatic,
+    ServerType,
     ServerConfiguration,
     WebSocketServerConfiguration,
     ClientConnection,
@@ -1579,6 +1584,7 @@ type NormalizedStatic = {
   staticOptions: ServeStaticOptions;
   watch: false | WatchOptions;
 };
+type ServerType = "http" | "https" | "spdy" | "http2" | string;
 type ServerConfiguration = {
   type?: string | undefined;
   options?: ServerOptions | undefined;
@@ -1716,7 +1722,6 @@ type Configuration<T extends BasicApplication = import("express").Application> =
       | (string | WatchFiles)[]
       | undefined;
     static?: string | boolean | Static | (string | Static)[] | undefined;
-    https?: boolean | ServerOptions | undefined;
     server?: string | ServerConfiguration | undefined;
     app?: (() => Promise<T>) | undefined;
     webSocketServer?:
