@@ -2,6 +2,7 @@
 
 exports[`web socket server URL should work with the "ipc" option using "string" value ("sockjs"): console messages 1`] = `
 [
+  "Permissions policy violation: unload is not allowed in this document.",
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
@@ -22,6 +23,7 @@ exports[`web socket server URL should work with the "ipc" option using "string" 
 
 exports[`web socket server URL should work with the "ipc" option using "true" value ("sockjs"): console messages 1`] = `
 [
+  "Permissions policy violation: unload is not allowed in this document.",
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
