@@ -45,7 +45,7 @@ exports[`web socket server URL should work and throw an error on invalid web soc
 
 exports[`web socket server URL should work and throw an error on invalid web socket URL ("ws"): page errors 1`] = `
 [
-  "Failed to construct 'WebSocket': The URL's scheme must be either 'ws' or 'wss'. 'unknown' is not allowed.",
+  "Failed to construct 'WebSocket': The URL's scheme must be either 'http', 'https', 'ws', or 'wss'. 'unknown' is not allowed.",
 ]
 `;
 
