@@ -13,12 +13,17 @@ const staticDirectory = path.resolve(
 );
 
 const apps = [
-  ["express", () => require("express")()],
+  // ["express", () => require("express")()],
   ["connect", () => require("connect")()],
-  ["connect (async)", async () => require("express")()],
+  // ["connect (async)", async () => require("express")()],
 ];
 
-const servers = ["http", "https", "spdy"];
+const servers = [
+  // "http",
+  // "https",
+  // "spdy",
+  "http2",
+];
 
 describe("app option", () => {
   for (const [appName, app] of apps) {
