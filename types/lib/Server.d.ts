@@ -4,11 +4,11 @@ export = Server;
  * @property {typeof useFn} use
  */
 /**
- * @template {BasicApplication} [T=ExpressApplication]
+ * @template {BasicApplication} [A=ExpressApplication]
  * @template {import("http").Server} [S=import("http").Server]
  */
 declare class Server<
-  T extends BasicApplication = import("express").Application,
+  A extends BasicApplication = import("express").Application,
   S extends import("http").Server = import("http").Server<
     typeof import("http").IncomingMessage,
     typeof import("http").ServerResponse
@@ -1165,11 +1165,11 @@ declare class Server<
    */
   private static isWebTarget;
   /**
-   * @param {Configuration<T>} options
+   * @param {Configuration<A>} options
    * @param {Compiler | MultiCompiler} compiler
    */
   constructor(
-    options: Configuration<T> | undefined,
+    options: Configuration<A> | undefined,
     compiler: Compiler | MultiCompiler,
   );
   compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
@@ -1177,7 +1177,7 @@ declare class Server<
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
    * */
   logger: ReturnType<Compiler["getInfrastructureLogger"]>;
-  options: Configuration<T>;
+  options: Configuration<A>;
   /**
    * @type {FSWatcher[]}
    */
@@ -1241,8 +1241,8 @@ declare class Server<
    * @returns {Promise<void>}
    */
   private setupApp;
-  /** @type {T | undefined}*/
-  app: T | undefined;
+  /** @type {A | undefined}*/
+  app: A | undefined;
   /**
    * @private
    * @param {Stats | MultiStats} statsObj
@@ -1686,7 +1686,7 @@ type Middleware =
       middleware: MiddlewareHandler;
     }
   | MiddlewareHandler;
-type Configuration<T extends BasicApplication = import("express").Application> =
+type Configuration<A extends BasicApplication = import("express").Application> =
   {
     ipc?: string | boolean | undefined;
     host?: string | undefined;
@@ -1724,7 +1724,7 @@ type Configuration<T extends BasicApplication = import("express").Application> =
       | undefined;
     static?: string | boolean | Static | (string | Static)[] | undefined;
     server?: string | ServerConfiguration | undefined;
-    app?: (() => Promise<T>) | undefined;
+    app?: (() => Promise<A>) | undefined;
     webSocketServer?:
       | string
       | boolean
@@ -1742,9 +1742,9 @@ type Configuration<T extends BasicApplication = import("express").Application> =
           context: DevMiddlewareContext<Request, Response>,
         ) => Headers)
       | undefined;
-    onListening?: ((devServer: Server<T>) => void) | undefined;
+    onListening?: ((devServer: Server<A>) => void) | undefined;
     setupMiddlewares?:
-      | ((middlewares: Middleware[], devServer: Server<T>) => Middleware[])
+      | ((middlewares: Middleware[], devServer: Server<A>) => Middleware[])
       | undefined;
   };
 type BasicApplication = {
