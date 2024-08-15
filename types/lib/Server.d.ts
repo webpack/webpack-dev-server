@@ -5,9 +5,14 @@ export = Server;
  */
 /**
  * @template {BasicApplication} [T=ExpressApplication]
+ * @template {import("http").Server} [S=import("http").Server]
  */
 declare class Server<
   T extends BasicApplication = import("express").Application,
+  S extends import("http").Server = import("http").Server<
+    typeof import("http").IncomingMessage,
+    typeof import("http").ServerResponse
+  >,
 > {
   static get schema(): {
     title: string;
@@ -1302,12 +1307,8 @@ declare class Server<
    * @returns {void}
    */
   private createServer;
-  /** @type {import("http").Server | import("http2").Http2SecureServer | undefined | null} */
-  server:
-    | import("http").Server
-    | import("http2").Http2SecureServer
-    | undefined
-    | null;
+  /** @type {S | null | undefined}*/
+  server: S | null | undefined;
   /**
    * @private
    * @returns {void}
