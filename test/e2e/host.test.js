@@ -8,6 +8,8 @@ const port = require("../ports-map").host;
 
 const ipv4 = Server.findIp("v4", false);
 const ipv6 = Server.findIp("v6", false);
+// macos requires root for using ip v6
+const isMacOS = process.platform === "darwin";
 
 function getAddress(host, hostname) {
   let address;
@@ -22,7 +24,7 @@ function getAddress(host, hostname) {
   } else if (host === "::1") {
     address = "::1";
   } else if (host === "localhost") {
-    address = "127.0.0.1";
+    address = isMacOS ? "::1" : "127.0.0.1";
   } else if (host === "local-ipv6") {
     address = "::";
   } else {
