@@ -71,3 +71,16 @@ exports[`target should work using "webworker" target: console messages 1`] = `
 `;
 
 exports[`target should work using "webworker" target: page errors 1`] = `[]`;
+
+exports[`target should work using multi compiler mode with \`web\` and \`webworker\` targets: console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Worker said: I'm working before postMessage",
+  "Worker said: Message sent: message",
+]
+`;
+
+exports[`target should work using multi compiler mode with \`web\` and \`webworker\` targets: page errors 1`] = `[]`;

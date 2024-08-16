@@ -1,31 +1,40 @@
-class WebpackDevServerProgress extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.maxDashOffset = -219.99078369140625;
-    this.animationTimer = null;
+export function isProgressSupported() {
+  return "customElements" in self && !!HTMLElement.prototype.attachShadow;
+}
+
+export function defineProgressElement() {
+  if (customElements.get("wds-progress")) {
+    return;
   }
 
-  #reset() {
-    clearTimeout(this.animationTimer);
-    this.animationTimer = null;
+  class WebpackDevServerProgress extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+      this.maxDashOffset = -219.99078369140625;
+      this.animationTimer = null;
+    }
 
-    const typeAttr = this.getAttribute("type")?.toLowerCase();
-    this.type = typeAttr === "circular" ? "circular" : "linear";
+    #reset() {
+      clearTimeout(this.animationTimer);
+      this.animationTimer = null;
 
-    const innerHTML =
-      this.type === "circular"
-        ? WebpackDevServerProgress.#circularTemplate()
-        : WebpackDevServerProgress.#linearTemplate();
-    this.shadowRoot.innerHTML = innerHTML;
+      const typeAttr = this.getAttribute("type")?.toLowerCase();
+      this.type = typeAttr === "circular" ? "circular" : "linear";
 
-    this.initialProgress = Number(this.getAttribute("progress")) ?? 0;
+      const innerHTML =
+        this.type === "circular"
+          ? WebpackDevServerProgress.#circularTemplate()
+          : WebpackDevServerProgress.#linearTemplate();
+      this.shadowRoot.innerHTML = innerHTML;
 
-    this.#update(this.initialProgress);
-  }
+      this.initialProgress = Number(this.getAttribute("progress")) ?? 0;
 
-  static #circularTemplate() {
-    return `
+      this.#update(this.initialProgress);
+    }
+
+    static #circularTemplate() {
+      return `
         <style>
         :host {
             width: 200px;
@@ -88,10 +97,10 @@ class WebpackDevServerProgress extends HTMLElement {
         </text>
         </svg>
       `;
-  }
+    }
 
-  static #linearTemplate() {
-    return `
+    static #linearTemplate() {
+      return `
         <style>
         :host {
             position: fixed;
@@ -125,80 +134,71 @@ class WebpackDevServerProgress extends HTMLElement {
         </style>
         <div id="progress"></div>
         `;
-  }
+    }
 
-  connectedCallback() {
-    this.#reset();
-  }
-
-  static get observedAttributes() {
-    return ["progress", "type"];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "progress") {
-      this.#update(Number(newValue));
-    } else if (name === "type") {
+    connectedCallback() {
       this.#reset();
     }
-  }
 
-  #update(percent) {
-    const element = this.shadowRoot.querySelector("#progress");
-    if (this.type === "circular") {
-      const path = this.shadowRoot.querySelector("path");
-      const value = this.shadowRoot.querySelector("#percent-value");
-      const offset = ((100 - percent) / 100) * this.maxDashOffset;
-
-      path.style.strokeDashoffset = offset;
-      value.textContent = percent;
-    } else {
-      element.style.width = `${percent}%`;
+    static get observedAttributes() {
+      return ["progress", "type"];
     }
 
-    if (percent >= 100) {
-      this.#hide();
-    } else if (percent > 0) {
-      this.#show();
+    attributeChangedCallback(name, oldValue, newValue) {
+      if (name === "progress") {
+        this.#update(Number(newValue));
+      } else if (name === "type") {
+        this.#reset();
+      }
     }
-  }
 
-  #show() {
-    const element = this.shadowRoot.querySelector("#progress");
-    element.classList.remove("hidden");
-  }
+    #update(percent) {
+      const element = this.shadowRoot.querySelector("#progress");
+      if (this.type === "circular") {
+        const path = this.shadowRoot.querySelector("path");
+        const value = this.shadowRoot.querySelector("#percent-value");
+        const offset = ((100 - percent) / 100) * this.maxDashOffset;
 
-  #hide() {
-    const element = this.shadowRoot.querySelector("#progress");
-    if (this.type === "circular") {
-      element.classList.add("disappear");
-      element.addEventListener(
-        "animationend",
-        () => {
+        path.style.strokeDashoffset = offset;
+        value.textContent = percent;
+      } else {
+        element.style.width = `${percent}%`;
+      }
+
+      if (percent >= 100) {
+        this.#hide();
+      } else if (percent > 0) {
+        this.#show();
+      }
+    }
+
+    #show() {
+      const element = this.shadowRoot.querySelector("#progress");
+      element.classList.remove("hidden");
+    }
+
+    #hide() {
+      const element = this.shadowRoot.querySelector("#progress");
+      if (this.type === "circular") {
+        element.classList.add("disappear");
+        element.addEventListener(
+          "animationend",
+          () => {
+            element.classList.add("hidden");
+            this.#update(0);
+          },
+          { once: true },
+        );
+      } else if (this.type === "linear") {
+        element.classList.add("disappear");
+        this.animationTimer = setTimeout(() => {
+          element.classList.remove("disappear");
           element.classList.add("hidden");
-          this.#update(0);
-        },
-        { once: true },
-      );
-    } else if (this.type === "linear") {
-      element.classList.add("disappear");
-      this.animationTimer = setTimeout(() => {
-        element.classList.remove("disappear");
-        element.classList.add("hidden");
-        element.style.width = "0%";
-        this.animationTimer = null;
-      }, 800);
+          element.style.width = "0%";
+          this.animationTimer = null;
+        }, 800);
+      }
     }
-  }
-}
-
-export function isProgressSupported() {
-  return "customElements" in window && !!HTMLElement.prototype.attachShadow;
-}
-
-export function defineProgressElement() {
-  if (customElements.get("wds-progress")) {
-    return;
   }
 
   customElements.define("wds-progress", WebpackDevServerProgress);

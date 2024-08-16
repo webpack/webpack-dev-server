@@ -3,6 +3,7 @@
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
+const workerConfig = require("../fixtures/worker-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").target;
 
@@ -89,4 +90,44 @@ describe("target", () => {
       }
     });
   }
+
+  it("should work using multi compiler mode with `web` and `webworker` targets", async () => {
+    const compiler = webpack(workerConfig);
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages",
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
 });
