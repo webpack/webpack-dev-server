@@ -5,11 +5,11 @@ export = Server;
  */
 /**
  * @template {BasicApplication} [A=ExpressApplication]
- * @template {import("http").Server} [S=import("http").Server]
+ * @template {BasicServer} [S=HTTPServer]
  */
 declare class Server<
   A extends BasicApplication = import("express").Application,
-  S extends import("http").Server = import("http").Server<
+  S extends BasicServer = import("http").Server<
     typeof import("http").IncomingMessage,
     typeof import("http").ServerResponse
   >,
@@ -1165,11 +1165,11 @@ declare class Server<
    */
   private static isWebTarget;
   /**
-   * @param {Configuration<A>} options
+   * @param {Configuration<A, S>} options
    * @param {Compiler | MultiCompiler} compiler
    */
   constructor(
-    options: Configuration<A> | undefined,
+    options: Configuration<A, S> | undefined,
     compiler: Compiler | MultiCompiler,
   );
   compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
@@ -1177,7 +1177,7 @@ declare class Server<
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
    * */
   logger: ReturnType<Compiler["getInfrastructureLogger"]>;
-  options: Configuration<A>;
+  options: Configuration<A, S>;
   /**
    * @type {FSWatcher[]}
    */
@@ -1222,8 +1222,9 @@ declare class Server<
    */
   private getClientTransport;
   /**
+   * @template T
    * @private
-   * @returns {string}
+   * @returns {T}
    */
   private getServerTransport;
   /**
@@ -1431,6 +1432,7 @@ declare namespace Server {
     IPv4,
     IPv6,
     Socket,
+    HTTPServer,
     IncomingMessage,
     ServerResponse,
     OpenOptions,
@@ -1472,6 +1474,7 @@ declare namespace Server {
     Headers,
     MiddlewareHandler,
     Middleware,
+    BasicServer,
     Configuration,
     BasicApplication,
   };
@@ -1502,6 +1505,7 @@ type ServeStaticOptions = import("serve-static").ServeStaticOptions;
 type IPv4 = import("ipaddr.js").IPv4;
 type IPv6 = import("ipaddr.js").IPv6;
 type Socket = import("net").Socket;
+type HTTPServer = import("http").Server;
 type IncomingMessage = import("http").IncomingMessage;
 type ServerResponse = import("http").ServerResponse;
 type OpenOptions = import("open").Options;
@@ -1686,67 +1690,69 @@ type Middleware =
       middleware: MiddlewareHandler;
     }
   | MiddlewareHandler;
-type Configuration<A extends BasicApplication = import("express").Application> =
-  {
-    ipc?: string | boolean | undefined;
-    host?: string | undefined;
-    port?: Port | undefined;
-    hot?: boolean | "only" | undefined;
-    liveReload?: boolean | undefined;
-    devMiddleware?:
-      | DevMiddlewareOptions<
-          import("express").Request<
-            import("express-serve-static-core").ParamsDictionary,
-            any,
-            any,
-            qs.ParsedQs,
-            Record<string, any>
-          >,
-          import("express").Response<any, Record<string, any>>
-        >
-      | undefined;
-    compress?: boolean | undefined;
-    allowedHosts?: string | string[] | undefined;
-    historyApiFallback?:
-      | boolean
-      | import("connect-history-api-fallback").Options
-      | undefined;
-    bonjour?:
-      | boolean
-      | Record<string, never>
-      | import("bonjour-service").Service
-      | undefined;
-    watchFiles?:
-      | string
-      | string[]
-      | WatchFiles
-      | (string | WatchFiles)[]
-      | undefined;
-    static?: string | boolean | Static | (string | Static)[] | undefined;
-    server?: string | ServerConfiguration | undefined;
-    app?: (() => Promise<A>) | undefined;
-    webSocketServer?:
-      | string
-      | boolean
-      | WebSocketServerConfiguration
-      | undefined;
-    proxy?: ProxyConfigArray | undefined;
-    open?: string | boolean | Open | (string | Open)[] | undefined;
-    setupExitSignals?: boolean | undefined;
-    client?: boolean | ClientConfiguration | undefined;
-    headers?:
-      | Headers
-      | ((
-          req: Request,
-          res: Response,
-          context: DevMiddlewareContext<Request, Response>,
-        ) => Headers)
-      | undefined;
-    onListening?: ((devServer: Server<A>) => void) | undefined;
-    setupMiddlewares?:
-      | ((middlewares: Middleware[], devServer: Server<A>) => Middleware[])
-      | undefined;
-  };
+type BasicServer = import("net").Server;
+type Configuration<
+  A extends BasicApplication = import("express").Application,
+  S extends BasicServer = import("http").Server<
+    typeof import("http").IncomingMessage,
+    typeof import("http").ServerResponse
+  >,
+> = {
+  ipc?: string | boolean | undefined;
+  host?: string | undefined;
+  port?: Port | undefined;
+  hot?: boolean | "only" | undefined;
+  liveReload?: boolean | undefined;
+  devMiddleware?:
+    | DevMiddlewareOptions<
+        import("express").Request<
+          import("express-serve-static-core").ParamsDictionary,
+          any,
+          any,
+          qs.ParsedQs,
+          Record<string, any>
+        >,
+        import("express").Response<any, Record<string, any>>
+      >
+    | undefined;
+  compress?: boolean | undefined;
+  allowedHosts?: string | string[] | undefined;
+  historyApiFallback?:
+    | boolean
+    | import("connect-history-api-fallback").Options
+    | undefined;
+  bonjour?:
+    | boolean
+    | Record<string, never>
+    | import("bonjour-service").Service
+    | undefined;
+  watchFiles?:
+    | string
+    | string[]
+    | WatchFiles
+    | (string | WatchFiles)[]
+    | undefined;
+  static?: string | boolean | Static | (string | Static)[] | undefined;
+  server?: string | ServerConfiguration | undefined;
+  app?: (() => Promise<A>) | undefined;
+  webSocketServer?: string | boolean | WebSocketServerConfiguration | undefined;
+  proxy?: ProxyConfigArray | undefined;
+  open?: string | boolean | Open | (string | Open)[] | undefined;
+  setupExitSignals?: boolean | undefined;
+  client?: boolean | ClientConfiguration | undefined;
+  headers?:
+    | Headers
+    | ((
+        req: Request,
+        res: Response,
+        context: DevMiddlewareContext<Request, Response>,
+      ) => Headers)
+    | undefined;
+  onListening?: ((devServer: Server<A, S>) => void) | undefined;
+  setupMiddlewares?:
+    | ((middlewares: Middleware[], devServer: Server<A, S>) => Middleware[])
+    | undefined;
+};
 type BasicApplication = {
   use: typeof useFn;
 };
