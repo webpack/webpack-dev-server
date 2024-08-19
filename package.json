@@ -42,6 +42,8 @@
     "test:watch": "npm run test:coverage --watch",
     "test": "npm run test:coverage",
     "test:e2e": "nyc playwright test",
+    "test:e2e:debug": "DEBUG=pw:api nyc playwright test --debug --config=playwright.local.config.js",
+    "test:e2e:trace": "DEBUG=pw:api nyc playwright test --trace on",
     "pretest": "npm run lint",
     "prepare": "husky && npm run build",
     "release": "standard-version"
