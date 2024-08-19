@@ -25,3 +25,5 @@ test/fixtures/reload-config-2/main.css
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+.nyc_output/

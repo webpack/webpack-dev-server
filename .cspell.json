@@ -70,7 +70,8 @@
     "rgba",
     "longpaths",
     "noselect",
-    "commitlint"
+    "commitlint",
+    "eslintcache"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
