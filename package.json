@@ -72,7 +72,7 @@
     "serve-index": "^1.9.1",
     "sockjs": "^0.3.24",
     "spdy": "^4.0.2",
-    "webpack-dev-middleware": "^7.1.0",
+    "webpack-dev-middleware": "^7.4.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {
