@@ -16,14 +16,19 @@ const staticDirectory = path.resolve(
 const apps = [
   ["express", () => require("express")()],
   ["connect", () => require("connect")()],
-  ["connect (async)", async () => require("express")()],
+  ["connect (async)", () => require("connect")()],
 ];
 
-const servers = ["http", "https", "spdy"];
+const servers = ["http", "https", "spdy", "http2"];
 
 test.describe("app option", () => {
   for (const [appName, app] of apps) {
     for (const server of servers) {
+      if (appName === "express" && server === "http2") {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
       let compiler;
       let devServer;
       let pageErrors;
@@ -85,9 +90,7 @@ test.describe("app option", () => {
             () => performance.getEntries()[0].nextHopProtocol,
           );
 
-          const isSpdy = server === "spdy";
-
-          if (isSpdy) {
+          if (server === "spdy" || server === "http2") {
             expect(HTTPVersion).toEqual("h2");
           } else {
             expect(HTTPVersion).toEqual("http/1.1");

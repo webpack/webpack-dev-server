@@ -5,6 +5,7 @@ const Server = require("../../lib/Server");
 const { test } = require("../helpers/playwright-test");
 const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
+const workerConfig = require("../fixtures/worker-config/webpack.config");
 const port = require("../ports-map").target;
 
 test.describe("target", () => {
@@ -87,4 +88,43 @@ test.describe("target", () => {
       }
     });
   }
+
+  test("should work using multi compiler mode with `web` and `webworker` targets", async ({
+    page,
+  }) => {
+    const compiler = webpack(workerConfig);
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    try {
+      const pageErrors = [];
+      const consoleMessages = [];
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      await page.goto(`http://127.0.0.1:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
+    } catch (error) {
+      throw error;
+    } finally {
+      await server.stop();
+    }
+  });
 });
