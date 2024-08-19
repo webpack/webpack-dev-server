@@ -10,6 +10,7 @@ const ipv4 = Server.findIp("v4", false);
 const ipv6 = Server.findIp("v6", false);
 // macos requires root for using ip v6
 const isMacOS = process.platform === "darwin";
+const isWindows = process.platform === "win32";
 
 function getAddress(host, hostname) {
   let address;
@@ -24,7 +25,10 @@ function getAddress(host, hostname) {
   } else if (host === "::1") {
     address = "::1";
   } else if (host === "localhost") {
-    address = isMacOS ? "::1" : "127.0.0.1";
+    address =
+      isMacOS || (parseFloat(process.versions.node) >= 20 && isWindows)
+        ? "::1"
+        : "127.0.0.1";
   } else if (host === "local-ipv6") {
     address = "::";
   } else {
@@ -81,11 +85,7 @@ describe("host", () => {
 
       await server.start();
 
-      if (!isMacOS) {
-        expect(server.server.address()).toMatchObject(
-          getAddress(host, hostname),
-        );
-      }
+      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
 
       const { page, browser } = await runBrowser();
 
