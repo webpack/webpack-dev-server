@@ -1,5 +1,6 @@
 "use strict";
 
+const http = require("http");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -8,11 +9,8 @@ const port = require("../ports-map").host;
 
 const ipv4 = Server.findIp("v4", false);
 const ipv6 = Server.findIp("v6", false);
-// macos requires root for using ip v6
-const isMacOS = process.platform === "darwin";
-const isWindows = process.platform === "win32";
 
-function getAddress(host, hostname) {
+async function getAddress(host, hostname) {
   let address;
 
   if (
@@ -25,7 +23,29 @@ function getAddress(host, hostname) {
   } else if (host === "::1") {
     address = "::1";
   } else if (host === "localhost") {
-    address = isMacOS || isWindows ? "::1" : "127.0.0.1";
+    // It can be `127.0.0.1` or `::1` on different OS
+    const server = http.createServer((req, res) => {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "text/plain");
+      res.end("Hello World\n");
+    });
+
+    await new Promise((resolve) => {
+      server.listen({ host: "localhost", port: 23100 }, resolve);
+    });
+
+    address = server.address().address;
+
+    await new Promise((resolve, reject) => {
+      server.close((err) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve();
+      });
+    });
   } else if (host === "local-ipv6") {
     address = "::";
   } else {
@@ -82,7 +102,9 @@ describe("host", () => {
 
       await server.start();
 
-      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
+      expect(server.server.address()).toMatchObject(
+        await getAddress(host, hostname),
+      );
 
       const { page, browser } = await runBrowser();
 
@@ -146,7 +168,9 @@ describe("host", () => {
 
       await server.start();
 
-      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
+      expect(server.server.address()).toMatchObject(
+        await getAddress(host, hostname),
+      );
 
       const { page, browser } = await runBrowser();
 
@@ -213,7 +237,9 @@ describe("host", () => {
 
       await server.start();
 
-      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
+      expect(server.server.address()).toMatchObject(
+        await getAddress(host, hostname),
+      );
 
       const address = server.server.address();
       const { page, browser } = await runBrowser();
