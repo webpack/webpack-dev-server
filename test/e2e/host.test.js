@@ -25,10 +25,7 @@ function getAddress(host, hostname) {
   } else if (host === "::1") {
     address = "::1";
   } else if (host === "localhost") {
-    address =
-      isMacOS || (parseFloat(process.versions.node) >= 18 && isWindows)
-        ? "::1"
-        : "127.0.0.1";
+    address = isMacOS || isWindows ? "::1" : "127.0.0.1";
   } else if (host === "local-ipv6") {
     address = "::";
   } else {
