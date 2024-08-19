@@ -9,6 +9,9 @@ const workerConfigDevServerFalse = require("../fixtures/worker-config-dev-server
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").target;
 
+const sortByTerm = (data, term) =>
+  data.sort((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
+
 describe("target", () => {
   const targets = [
     false,
@@ -114,9 +117,12 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        sortByTerm(
+          consoleMessages.map((message) => message.text()),
+          "Worker said:",
+        ),
+      ).toMatchSnapshot("console messages");
 
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {
@@ -162,9 +168,12 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        sortByTerm(
+          consoleMessages.map((message) => message.text()),
+          "Worker said:",
+        ),
+      ).toMatchSnapshot("console messages");
 
       expect(pageErrors).toMatchSnapshot("page errors");
     } catch (error) {
