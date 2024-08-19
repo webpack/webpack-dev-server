@@ -20,4 +20,5 @@ test/fixtures/static-config/public/assets/non-exist.txt
 test/fixtures/watch-files-config/public/assets/non-exist.txt
 test/fixtures/reload-config/main.css
 test/fixtures/reload-config-2/main.css
+test/fixtures/worker-config-dev-server-false/public
 !/test/fixtures/static-config/public/node_modules
