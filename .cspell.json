@@ -65,8 +65,13 @@
     "swiftshader",
     "hoge",
     "subsubcomain",
+    "commitlint",
     "noselect",
-    "commitlint"
+    "rgba",
+    "longpaths",
+    "noselect",
+    "commitlint",
+    "eslintcache"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
@@ -78,6 +83,7 @@
     "package-lock.json",
     "node_modules",
     "coverage",
-    "*.log"
+    "*.log",
+    "*-snapshots"
   ]
 }

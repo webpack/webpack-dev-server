@@ -1,21 +1,20 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/mime-types-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["mime-types-option"];
 
-describe("mimeTypes option", () => {
-  describe("as an object with a remapped type", () => {
+test.describe("mimeTypes option", () => {
+  test.describe("as an object with a remapped type", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -32,18 +31,17 @@ describe("mimeTypes option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should request file with different js mime type", async () => {
+    test("should request file with different js mime type", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -56,29 +54,27 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as an object with a custom type", () => {
+  test.describe("as an object with a custom type", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -95,18 +91,17 @@ describe("mimeTypes option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should request file with different js mime type", async () => {
+    test("should request file with different js mime type", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -119,17 +114,17 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "content type",
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });

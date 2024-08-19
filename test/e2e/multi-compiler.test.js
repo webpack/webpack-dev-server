@@ -3,15 +3,18 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const oneWebTargetConfiguration = require("../fixtures/multi-compiler-one-configuration/webpack.config");
 const twoWebTargetConfiguration = require("../fixtures/multi-compiler-two-configurations/webpack.config");
 const universalConfiguration = require("../fixtures/universal-compiler-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["multi-compiler"];
 
-describe("multi compiler", () => {
-  it(`should work with one web target configuration and do nothing`, async () => {
+test.describe("multi compiler", () => {
+  test(`should work with one web target configuration and do nothing`, async ({
+    page,
+  }) => {
     const compiler = webpack(oneWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -19,8 +22,6 @@ describe("multi compiler", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -38,17 +39,18 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it(`should work with web target configurations and do nothing`, async () => {
+  test(`should work with web target configurations and do nothing`, async ({
+    page,
+  }) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -57,8 +59,6 @@ describe("multi compiler", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       let pageErrors = [];
@@ -76,8 +76,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
 
       pageErrors = [];
       consoleMessages = [];
@@ -86,17 +86,18 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 2");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 2");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });
 
-  it(`should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries`, async () => {
+  test(`should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries`, async ({
+    page,
+  }) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -117,8 +118,6 @@ describe("multi compiler", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       let pageErrors = [];
@@ -148,8 +147,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
 
       pageErrors = [];
       consoleMessages = [];
@@ -162,12 +161,11 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 2");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 2");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
@@ -175,7 +173,9 @@ describe("multi compiler", () => {
     }
   });
 
-  it(`should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries`, async () => {
+  test(`should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries`, async ({
+    page,
+  }) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -197,8 +197,6 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       let pageErrors = [];
       let consoleMessages = [];
@@ -227,8 +225,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
 
       pageErrors = [];
       consoleMessages = [];
@@ -241,12 +239,11 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 2");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 2");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
@@ -254,7 +251,9 @@ describe("multi compiler", () => {
     }
   });
 
-  it(`should work with web target configurations when only live reload is enabled, and do live reload when changing own entries`, async () => {
+  test(`should work with web target configurations when only live reload is enabled, and do live reload when changing own entries`, async ({
+    page,
+  }) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -276,8 +275,6 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       let pageErrors = [];
       let consoleMessages = [];
@@ -298,8 +295,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
 
       pageErrors = [];
       consoleMessages = [];
@@ -312,12 +309,11 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 2");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 2");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
@@ -325,7 +321,9 @@ describe("multi compiler", () => {
     }
   });
 
-  it(`should work with web target configurations when only live reload is enabled and do live reload when changing other entries`, async () => {
+  test(`should work with web target configurations when only live reload is enabled and do live reload when changing other entries`, async ({
+    page,
+  }) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -347,8 +345,6 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       let pageErrors = [];
       let consoleMessages = [];
@@ -369,8 +365,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
 
       pageErrors = [];
       consoleMessages = [];
@@ -383,12 +379,11 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 2");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 2");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToOneEntry, originalOneEntryContent);
@@ -396,7 +391,9 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with universal configuration and do nothing", async () => {
+  test("should work with universal configuration and do nothing", async ({
+    page,
+  }) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -404,8 +401,6 @@ describe("multi compiler", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     const pageErrors = [];
     const consoleMessages = [];
@@ -436,15 +431,16 @@ describe("multi compiler", () => {
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+    expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+    expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
   });
 
-  it(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async () => {
+  test(`should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed`, async ({
+    page,
+  }) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -465,8 +461,6 @@ describe("multi compiler", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const serverResponse = await page.goto(
@@ -511,12 +505,11 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
@@ -524,7 +517,9 @@ describe("multi compiler", () => {
     }
   });
 
-  it(`should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed`, async () => {
+  test(`should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed`, async ({
+    page,
+  }) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -541,8 +536,6 @@ describe("multi compiler", () => {
 
     await server.start();
 
-    const { page, browser } = await runBrowser();
-
     try {
       const serverResponse = await page.goto(
         `http://127.0.0.1:${port}/server.js`,
@@ -586,19 +579,20 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
     }
   });
 
-  it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries`, async () => {
+  test(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries`, async ({
+    page,
+  }) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -619,8 +613,6 @@ describe("multi compiler", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const serverResponse = await page.goto(
@@ -657,8 +649,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
 
       pageErrors = [];
       consoleMessages = [];
@@ -674,12 +666,11 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 2");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 2");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);
@@ -687,7 +678,9 @@ describe("multi compiler", () => {
     }
   });
 
-  it(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries`, async () => {
+  test(`should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries`, async ({
+    page,
+  }) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -708,8 +701,6 @@ describe("multi compiler", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const serverResponse = await page.goto(
@@ -746,8 +737,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 1");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 1");
 
       pageErrors = [];
       consoleMessages = [];
@@ -763,12 +754,11 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(consoleMessages).toMatchSnapshotWithArray("console messages 2");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors 2");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
 
       fs.writeFileSync(pathToBrowserEntry, originalBrowserEntryContent);

@@ -2,83 +2,82 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const sinon = require("sinon");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map").api;
 
-describe("API", () => {
-  describe("WEBPACK_SERVE environment variable", () => {
+test.describe("API", () => {
+  test.describe("WEBPACK_SERVE environment variable", () => {
     const OLD_ENV = process.env;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
-      // this is important - it clears the cache
-      jest.resetModules();
+    test.beforeEach(async () => {
+      // clean up modules cache
+      Object.keys(require.cache).forEach((key) => delete require.cache[key]);
 
       process.env = { ...OLD_ENV };
 
       delete process.env.WEBPACK_SERVE;
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
       process.env = OLD_ENV;
     });
 
-    it("should be present", async () => {
-      expect(process.env.WEBPACK_SERVE).toBeUndefined();
+    test(
+      "should be present",
+      { tag: ["@flaky", "@fails"] },
+      async ({ page }) => {
+        expect(process.env.WEBPACK_SERVE).toBeUndefined();
 
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const WebpackDevServer = require("../../lib/Server");
+
+        const compiler = webpack(config);
+        server = new WebpackDevServer({ port }, compiler);
+
+        await server.start();
+
+        expect(process.env.WEBPACK_SERVE).toBe("true");
+
+        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const WebpackDevServer = require("../../lib/Server");
+        expect(response.status()).toEqual(200);
 
-      const compiler = webpack(config);
-      server = new WebpackDevServer({ port }, compiler);
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshotWithArray("console messages");
 
-      await server.start();
-
-      expect(process.env.WEBPACK_SERVE).toBe("true");
-
-      const response = await page.goto(`http://127.0.0.1:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-    });
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
+      },
+    );
   });
 
-  describe("latest async API", () => {
-    it(`should work with async API`, async () => {
+  test.describe("latest async API", () => {
+    test(`should work with async API`, async ({ page }) => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
       await server.start();
-
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -98,17 +97,17 @@ describe("API", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        ).toMatchSnapshotWithArray("console messages");
+
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with callback API`, async () => {
+    test(`should work with callback API`, async ({ page }) => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
@@ -118,8 +117,6 @@ describe("API", () => {
         });
       });
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -138,12 +135,11 @@ describe("API", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        ).toMatchSnapshotWithArray("console messages");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await new Promise((resolve) => {
           server.stopCallback(() => {
             resolve();
@@ -152,7 +148,7 @@ describe("API", () => {
       }
     });
 
-    it(`should catch errors within startCallback`, async () => {
+    test(`should catch errors within startCallback`, async () => {
       const compiler = webpack(config);
       const server = new Server(
         { port, static: "https://absolute-url.com/somewhere" },
@@ -175,59 +171,71 @@ describe("API", () => {
       });
     });
 
-    it(`should work when using configured manually`, async () => {
-      const compiler = webpack({
-        ...config,
-        entry: [
-          "webpack/hot/dev-server.js",
-          `${path.resolve(
-            __dirname,
-            "../../client/index.js",
-          )}?hot=true&live-reload=true"`,
-          path.resolve(__dirname, "../fixtures/client-config/foo.js"),
-        ],
-        plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
-      });
-      const server = new Server({ port, hot: false, client: false }, compiler);
+    test(
+      `should work when using configured manually`,
+      { tag: "@flaky" },
+      async ({ page }) => {
+        const compiler = webpack({
+          ...config,
+          entry: [
+            "webpack/hot/dev-server.js",
+            `${path.resolve(
+              __dirname,
+              "../../client/index.js",
+            )}?hot=true&live-reload=true"`,
+            path.resolve(__dirname, "../fixtures/client-config/foo.js"),
+          ],
+          plugins: [
+            ...config.plugins,
+            new webpack.HotModuleReplacementPlugin(),
+          ],
+        });
+        const server = new Server(
+          { port, hot: false, client: false },
+          compiler,
+        );
 
-      await server.start();
+        await server.start();
 
-      const { page, browser } = await runBrowser();
-      try {
-        const pageErrors = [];
-        const consoleMessages = [];
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
+
+          await page.goto(`http://127.0.0.1:${port}/`, {
+            waitUntil: "networkidle0",
           });
 
-        await page.goto(`http://127.0.0.1:${port}/`, {
-          waitUntil: "networkidle0",
-        });
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
+        } catch (error) {
+          throw error;
+        } finally {
+          await server.stop();
+        }
+      },
+    );
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
-      } finally {
-        await browser.close();
-        await server.stop();
-      }
-    });
+    test(`should work and allow to rerun dev server multiple times`, async ({
+      browser,
+    }) => {
+      const browserContext = await browser.newContext();
 
-    it(`should work and allow to rerun dev server multiple times`, async () => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
       await server.start();
 
-      const { page: firstPage, browser } = await runBrowser();
+      const firstPage = await browserContext.newPage();
 
       try {
         const firstPageErrors = [];
@@ -247,8 +255,8 @@ describe("API", () => {
 
         expect(
           firstConsoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(firstPageErrors).toMatchSnapshot("page errors");
+        ).toMatchSnapshotWithArray("first console messages");
+        expect(firstPageErrors).toMatchSnapshotWithArray("first page errors");
       } catch (error) {
         throw error;
       } finally {
@@ -257,7 +265,7 @@ describe("API", () => {
 
       await server.start();
 
-      const secondPage = await runBrowser.runPage(browser);
+      const secondPage = await browserContext.newPage();
 
       try {
         const secondPageErrors = [];
@@ -277,32 +285,44 @@ describe("API", () => {
 
         expect(
           secondConsoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(secondPageErrors).toMatchSnapshot("page errors");
+        ).toMatchSnapshotWithArray("second console messages");
+        expect(secondPageErrors).toMatchSnapshotWithArray("second page errors");
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });
   });
 
-  describe("Invalidate callback", () => {
+  test.describe("Invalidate callback", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
-
-      ({ page, browser } = await runBrowser());
 
       pageErrors = [];
       consoleMessages = [];
+
+      server = new Server({ port, static: false }, compiler);
+
+      await server.start();
+    });
+
+    test.afterEach(async () => {
+      await server.stop();
+    });
+
+    test("should use the default `noop` callback when invalidate is called without any callback", async ({
+      page,
+    }) => {
+      const callback = sinon.spy();
+
+      server.invalidate();
+      server.middleware.context.callbacks[0] = callback;
 
       page
         .on("console", (message) => {
@@ -312,37 +332,21 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      server = new Server({ port, static: false }, compiler);
-
-      await server.start();
-    });
-
-    afterEach(async () => {
-      await browser.close();
-      await server.stop();
-    });
-
-    it("should use the default `noop` callback when invalidate is called without any callback", async () => {
-      const callback = jest.fn();
-
-      server.invalidate();
-      server.middleware.context.callbacks[0] = callback;
-
       const response = await page.goto(`http://127.0.0.1:${port}/`, {
         waitUntil: "networkidle0",
       });
 
-      expect(callback).toHaveBeenCalledTimes(1);
-      expect(response.status()).toMatchSnapshot("response status");
+      sinon.assert.calledOnce(callback);
+      expect(response.status()).toBe(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should use the provided `callback` function", async () => {
-      const callback = jest.fn();
+    test("should use the provided `callback` function", async ({ page }) => {
+      const callback = sinon.spy();
 
       server.invalidate(callback);
 
@@ -350,22 +354,30 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(callback).toHaveBeenCalledTimes(1);
-      expect(response.status()).toMatchSnapshot("response status");
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      sinon.assert.calledOnce(callback);
+      expect(response.status()).toBe(200);
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("Server.getFreePort", () => {
+  test.describe("Server.getFreePort", () => {
     let dummyServers = [];
     let devServerPort;
 
-    afterEach(() => {
+    test.afterEach(() => {
       delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
       delete process.env.WEBPACK_DEV_SERVER_PORT_RETRY;
 
@@ -413,7 +425,7 @@ describe("API", () => {
       );
     }
 
-    it("should return the port when the port is specified", async () => {
+    test("should return the port when the port is specified", async () => {
       const retryCount = 1;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -423,7 +435,8 @@ describe("API", () => {
       expect(freePort).toEqual(9082);
     });
 
-    it("should return the port when the port is `null`", async () => {
+    // TODO: fails on windows
+    test("should return the port when the port is `null`", async ({ page }) => {
       const retryCount = 2;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -433,8 +446,6 @@ describe("API", () => {
       const freePort = await Server.getFreePort(null);
 
       expect(freePort).toEqual(60000 + retryCount);
-
-      const { page, browser } = await runBrowser();
 
       const pageErrors = [];
       const consoleMessages = [];
@@ -451,18 +462,18 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should return the port when the port is undefined", async () => {
+    test("should return the port when the port is undefined", async ({
+      page,
+    }) => {
       const retryCount = 3;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -474,8 +485,6 @@ describe("API", () => {
 
       expect(freePort).toEqual(60000 + retryCount);
 
-      const { page, browser } = await runBrowser();
-
       const pageErrors = [];
       const consoleMessages = [];
 
@@ -491,18 +500,18 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should retry finding the port for up to defaultPortRetry times (number)", async () => {
+    test("should retry finding the port for up to defaultPortRetry times (number)", async ({
+      page,
+    }) => {
       const retryCount = 4;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -513,8 +522,6 @@ describe("API", () => {
 
       expect(freePort).toEqual(60000 + retryCount);
 
-      const { page, browser } = await runBrowser();
-
       const pageErrors = [];
       const consoleMessages = [];
 
@@ -530,18 +537,18 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should retry finding the port for up to defaultPortRetry times (string)", async () => {
+    test("should retry finding the port for up to defaultPortRetry times (string)", async ({
+      page,
+    }) => {
       const retryCount = 5;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -552,8 +559,6 @@ describe("API", () => {
 
       expect(freePort).toEqual(60000 + retryCount);
 
-      const { page, browser } = await runBrowser();
-
       const pageErrors = [];
       const consoleMessages = [];
 
@@ -569,18 +574,18 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toBe(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
-
-      await browser.close();
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should retry finding the port when serial ports are busy", async () => {
+    test("should retry finding the port when serial ports are busy", async ({
+      page,
+    }) => {
       const busyPorts = [60000, 60001, 60002, 60003, 60004, 60005];
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1000;
@@ -590,8 +595,6 @@ describe("API", () => {
       const freePort = await Server.getFreePort();
 
       expect(freePort).toBeGreaterThan(60005);
-
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -609,40 +612,36 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toMatchSnapshot("response status");
+        expect(response.status()).toBe(200);
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
-      } finally {
-        await browser.close();
       }
     });
 
-    it("should throw the error when the port isn't found", async () => {
+    test("should throw the error when the port isn't found", async () => {
       expect.assertions(1);
 
-      jest.mock(
-        "../../lib/getPort",
-        () => () => Promise.reject(new Error("busy")),
-      );
+      const getPort = require("../../lib/getPort");
+      sinon.stub(getPort, "call").rejects(new Error("busy"));
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
 
       try {
         await Server.getFreePort();
       } catch (error) {
-        expect(error.message).toMatchSnapshot();
+        expect(error.message).toMatchSnapshotWithArray("error messages");
       }
     });
   });
 
-  describe("Server.checkHostHeader", () => {
-    it("should allow access for every requests using an IP", () => {
+  test.describe("Server.checkHostHeader", () => {
+    test("should allow access for every requests using an IP", () => {
       const options = {};
 
       const tests = [
@@ -657,8 +656,8 @@ describe("API", () => {
       const compiler = webpack(config);
       const server = new Server(options, compiler);
 
-      tests.forEach((test) => {
-        const headers = { host: test };
+      tests.forEach((host) => {
+        const headers = { host };
 
         if (!server.checkHeader(headers, "host")) {
           throw new Error("Validation didn't pass");
@@ -666,7 +665,9 @@ describe("API", () => {
       });
     });
 
-    it('should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object', async () => {
+    test('should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object', async ({
+      page,
+    }) => {
       const options = {
         port,
         client: {
@@ -686,8 +687,6 @@ describe("API", () => {
 
       await server.start();
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -701,10 +700,10 @@ describe("API", () => {
           });
 
         const webSocketRequests = [];
-        const session = await page.target().createCDPSession();
+        const session = await page.context().newCDPSession(page);
 
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
+        session.on("Network.webSocketCreated", (payload) => {
+          webSocketRequests.push(payload);
         });
 
         await session.send("Target.setAutoAttach", {
@@ -736,20 +735,19 @@ describe("API", () => {
           }, 100);
         });
 
-        expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
+        expect(webSocketRequests[0].url).toMatchSnapshotWithArray("url");
 
-        expect(response.status()).toMatchSnapshot("response status");
+        expect(response.status()).toBe(200);
 
         expect(
           // net::ERR_NAME_NOT_RESOLVED can be multiple times
           consoleMessages.map((message) => message.text()).slice(0, 7),
-        ).toMatchSnapshot("console messages");
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });

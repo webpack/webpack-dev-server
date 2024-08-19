@@ -3,9 +3,10 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const reloadConfig = require("../fixtures/reload-config-2/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").progress;
 
 const cssFilePath = path.resolve(
@@ -13,8 +14,10 @@ const cssFilePath = path.resolve(
   "../fixtures/reload-config-2/main.css",
 );
 
-describe("progress", () => {
-  it("should work and log progress in a browser console", async () => {
+test.describe("progress", () => {
+  test("should work and log progress in a browser console", async ({
+    page,
+  }) => {
     fs.writeFileSync(cssFilePath, "body { background-color: rgb(0, 0, 255); }");
 
     const compiler = webpack(reloadConfig);
@@ -29,8 +32,6 @@ describe("progress", () => {
     await server.start();
 
     try {
-      const { page, browser } = await runBrowser();
-
       const consoleMessages = [];
 
       try {
@@ -41,8 +42,6 @@ describe("progress", () => {
             consoleMessages.push(message);
           })
           .on("request", (interceptedRequest) => {
-            if (interceptedRequest.isInterceptResolutionHandled()) return;
-
             if (/\.hot-update\.(json|js)$/.test(interceptedRequest.url())) {
               doHotUpdate = true;
             }
@@ -68,8 +67,6 @@ describe("progress", () => {
         });
       } catch (error) {
         throw error;
-      } finally {
-        await browser.close();
       }
 
       const progressConsoleMessage = consoleMessages.filter((message) =>

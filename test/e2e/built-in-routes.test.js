@@ -1,39 +1,35 @@
 "use strict";
 
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const multiConfig = require("../fixtures/multi-public-path-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").routes;
 
-describe("Built in routes", () => {
-  describe("with simple config", () => {
+test.describe("Built in routes", () => {
+  test.describe("with simple config", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(config);
       server = new Server({ port }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should handles GET request to sockjs bundle", async () => {
+    test("should handles GET request to sockjs bundle", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -49,32 +45,31 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handles HEAD request to sockjs bundle", async () => {
+    test("should handles HEAD request to sockjs bundle", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
-        })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
-
-          interceptedRequest.continue({ method: "HEAD" }, 10);
         });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "HEAD" });
+      });
 
       const response = await page.goto(
         `http://127.0.0.1:${port}/__webpack_dev_server__/sockjs.bundle.js`,
@@ -83,20 +78,22 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handle GET request to invalidate endpoint", async () => {
+    test("should handle GET request to invalidate endpoint", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -114,16 +111,18 @@ describe("Built in routes", () => {
 
       expect(response.headers()["content-type"]).not.toEqual("text/html");
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handle GET request to directory index and list all middleware directories", async () => {
+    test("should handle GET request to directory index and list all middleware directories", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -139,34 +138,33 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handle HEAD request to directory index", async () => {
+    test("should handle HEAD request to directory index", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
-        })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
-
-          interceptedRequest.continue({ method: "HEAD" });
         });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "HEAD" });
+      });
 
       const response = await page.goto(
         `http://127.0.0.1:${port}/webpack-dev-server/`,
@@ -175,22 +173,22 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handle GET request to magic async chunk", async () => {
+    test("should handle GET request to magic async chunk", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -203,73 +201,76 @@ describe("Built in routes", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
 
-    it("should handle HEAD request to magic async chunk", async () => {
+    // FIXME: improve it
+    test("should handle HEAD request to magic async chunk", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
-        })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
-
-          interceptedRequest.continue({ method: "HEAD" });
         });
+
+      await page.route("**/*", (route) => {
+        route.continue({ method: "HEAD" });
+      });
 
       const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
+
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("with multi config", () => {
+  test.describe("with multi config", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
+    test.beforeEach(async () => {
       compiler = webpack(multiConfig);
       server = new Server({ port }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should handle GET request to directory index and list all middleware directories", async () => {
+    test("should handle GET request to directory index and list all middleware directories", async ({
+      page,
+    }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -285,19 +286,19 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
+      expect(response.headers()["content-type"]).toMatchSnapshotWithArray(
+        "response headers",
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      await expect(page).toHaveScreenshot();
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });

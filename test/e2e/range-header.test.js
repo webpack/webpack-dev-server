@@ -2,15 +2,17 @@
 
 const request = require("supertest");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
 const port = require("../ports-map")["range-header"];
 
-describe("'Range' header", () => {
+test.describe("'Range' header", () => {
   let compiler;
   let server;
 
-  beforeAll(async () => {
+  test.beforeAll(async () => {
     compiler = webpack(config);
 
     server = new Server({ port }, compiler);
@@ -18,11 +20,11 @@ describe("'Range' header", () => {
     await server.start();
   });
 
-  afterAll(async () => {
+  test.afterAll(async () => {
     await server.stop();
   });
 
-  it('should work with "Range" header using "GET" method', async () => {
+  test('should work with "Range" header using "GET" method', async () => {
     const response = await request(server.app).get("/main.js");
 
     expect(response.status).toBe(200);
@@ -46,7 +48,7 @@ describe("'Range' header", () => {
     expect(responseRange.text.length).toBe(500);
   });
 
-  it('should work with "Range" header using "HEAD" method', async () => {
+  test('should work with "Range" header using "HEAD" method', async () => {
     const response = await request(server.app).head("/main.js");
 
     expect(response.status).toBe(200);
@@ -67,7 +69,7 @@ describe("'Range' header", () => {
     expect(responseRange.headers["content-range"]).toMatch(/^bytes 0-499\//);
   });
 
-  it('should work with unsatisfiable "Range" header using "GET" method', async () => {
+  test('should work with unsatisfiable "Range" header using "GET" method', async () => {
     const response = await request(server.app).get("/main.js");
 
     expect(response.status).toBe(200);
@@ -87,7 +89,7 @@ describe("'Range' header", () => {
     expect(responseRange.headers["content-range"]).toMatch(/^bytes \*\//);
   });
 
-  it('should work with malformed "Range" header using "GET" method', async () => {
+  test('should work with malformed "Range" header using "GET" method', async () => {
     const response = await request(server.app).get("/main.js");
 
     expect(response.status).toBe(200);

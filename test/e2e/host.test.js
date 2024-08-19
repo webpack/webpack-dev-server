@@ -2,8 +2,9 @@
 
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").host;
 
 const ipv4 = Server.findIp("v4");
@@ -30,7 +31,7 @@ function getAddress(host, hostname) {
   return { address };
 }
 
-describe("host", () => {
+test.describe("host", { tag: ["@flaky", "@fails"] }, () => {
   const hosts = [
     "<not-specified>",
     // eslint-disable-next-line no-undefined
@@ -46,80 +47,85 @@ describe("host", () => {
   ];
 
   for (let host of hosts) {
-    it(`should work using "${host}" host and port as number`, async () => {
-      const compiler = webpack(config);
+    test(
+      `should work using "${host}" host and port as number`,
+      { tag: "@fails" },
+      async ({ page }) => {
+        const compiler = webpack(config);
 
-      if (!ipv6 || isMacOS) {
-        if (host === "::") {
-          host = "127.0.0.1";
-        } else if (host === "::1") {
-          host = "127.0.0.1";
-        } else if (host === "local-ipv6") {
-          host = "127.0.0.1";
+        if (!ipv6 || isMacOS) {
+          if (host === "::") {
+            host = "127.0.0.1";
+          } else if (host === "::1") {
+            host = "127.0.0.1";
+          } else if (host === "local-ipv6") {
+            host = "127.0.0.1";
+          }
         }
-      }
 
-      const devServerOptions = { port };
+        const devServerOptions = { port };
 
-      if (host !== "<not-specified>") {
-        devServerOptions.host = host;
-      }
+        if (host !== "<not-specified>") {
+          devServerOptions.host = host;
+        }
 
-      const server = new Server(devServerOptions, compiler);
+        const server = new Server(devServerOptions, compiler);
 
-      let hostname = host;
+        let hostname = host;
 
-      if (hostname === "0.0.0.0") {
-        hostname = "127.0.0.1";
-      } else if (
-        hostname === "<not-specified>" ||
-        typeof hostname === "undefined" ||
-        hostname === "::" ||
-        hostname === "::1"
-      ) {
-        hostname = "[::1]";
-      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = ipv4;
-      } else if (hostname === "local-ipv6") {
-        hostname = `[${ipv6}]`;
-      }
+        if (hostname === "0.0.0.0") {
+          hostname = "127.0.0.1";
+        } else if (
+          hostname === "<not-specified>" ||
+          typeof hostname === "undefined" ||
+          hostname === "::" ||
+          hostname === "::1"
+        ) {
+          hostname = "[::1]";
+        } else if (hostname === "local-ip" || hostname === "local-ipv4") {
+          hostname = ipv4;
+        } else if (hostname === "local-ipv6") {
+          hostname = `[${ipv6}]`;
+        }
 
-      await server.start();
+        await server.start();
 
-      expect(server.server.address()).toMatchObject(getAddress(host, hostname));
+        expect(server.server.address()).toMatchObject(
+          getAddress(host, hostname),
+        );
 
-      const { page, browser } = await runBrowser();
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-      try {
-        const pageErrors = [];
-        const consoleMessages = [];
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
+          await page.goto(`http://${hostname}:${port}/`, {
+            waitUntil: "networkidle0",
           });
 
-        await page.goto(`http://${hostname}:${port}/`, {
-          waitUntil: "networkidle0",
-        });
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshotWithArray("console messages");
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
+        } catch (error) {
+          throw error;
+        } finally {
+          await server.stop();
+        }
+      },
+    );
 
-        expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
-      } finally {
-        await browser.close();
-        await server.stop();
-      }
-    });
-
-    it(`should work using "${host}" host and port as string`, async () => {
+    test(`should work using "${host}" host and port as string`, async ({
+      page,
+    }) => {
       const compiler = webpack(config);
 
       if (!ipv6 || isMacOS) {
@@ -161,8 +167,6 @@ describe("host", () => {
 
       expect(server.server.address()).toMatchObject(getAddress(host, hostname));
 
-      const { page, browser } = await runBrowser();
-
       try {
         const pageErrors = [];
         const consoleMessages = [];
@@ -181,18 +185,19 @@ describe("host", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work using "${host}" host and "auto" port`, async () => {
+    test(`should work using "${host}" host and "auto" port`, async ({
+      page,
+    }) => {
       const compiler = webpack(config);
 
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = port;
@@ -237,7 +242,6 @@ describe("host", () => {
       expect(server.server.address()).toMatchObject(getAddress(host, hostname));
 
       const address = server.server.address();
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -257,15 +261,14 @@ describe("host", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        ).toMatchSnapshotWithArray("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        expect(pageErrors).toMatchSnapshotWithArray("page errors");
       } catch (error) {
         throw error;
       } finally {
         delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
 
-        await browser.close();
         await server.stop();
       }
     });

@@ -2,12 +2,13 @@
 
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const config = require("../fixtures/client-config/webpack.config");
 const workerConfig = require("../fixtures/worker-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").target;
 
-describe("target", () => {
+test.describe("target", () => {
   const targets = [
     false,
     "browserslist:defaults",
@@ -25,7 +26,7 @@ describe("target", () => {
   ];
 
   for (const target of targets) {
-    it(`should work using "${target}" target`, async () => {
+    test(`should work using "${target}" target`, async ({ page }) => {
       const compiler = webpack({
         ...config,
         target,
@@ -41,8 +42,6 @@ describe("target", () => {
       const server = new Server(devServerOptions, compiler);
 
       await server.start();
-
-      const { page, browser } = await runBrowser();
 
       try {
         const pageErrors = [];
@@ -62,7 +61,7 @@ describe("target", () => {
 
         expect(
           consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        ).toMatchSnapshotWithArray("console messages");
 
         if (
           target === "node" ||
@@ -80,18 +79,19 @@ describe("target", () => {
 
           expect(hasRequireOrGlobalError).toBe(true);
         } else {
-          expect(pageErrors).toMatchSnapshot("page errors");
+          expect(pageErrors).toMatchSnapshotWithArray("page errors");
         }
       } catch (error) {
         throw error;
       } finally {
-        await browser.close();
         await server.stop();
       }
     });
   }
 
-  it("should work using multi compiler mode with `web` and `webworker` targets", async () => {
+  test("should work using multi compiler mode with `web` and `webworker` targets", async ({
+    page,
+  }) => {
     const compiler = webpack(workerConfig);
     const devServerOptions = {
       port,
@@ -99,8 +99,6 @@ describe("target", () => {
     const server = new Server(devServerOptions, compiler);
 
     await server.start();
-
-    const { page, browser } = await runBrowser();
 
     try {
       const pageErrors = [];
@@ -118,15 +116,14 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     } catch (error) {
       throw error;
     } finally {
-      await browser.close();
       await server.stop();
     }
   });

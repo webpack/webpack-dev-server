@@ -3,13 +3,14 @@
 const path = require("path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").logging;
 
-describe("logging", () => {
+test.describe("logging", () => {
   const webSocketServers = [
     { webSocketServer: "ws" },
     { webSocketServer: "sockjs" },
@@ -23,8 +24,7 @@ describe("logging", () => {
       },
     },
     {
-      title:
-        "should work and log messages about hot and live reloading is enabled",
+      title: "should work and log messages about hot",
       devServerOptions: {
         hot: true,
       },
@@ -33,13 +33,6 @@ describe("logging", () => {
       title: "should work and log messages about hot is enabled",
       devServerOptions: {
         liveReload: false,
-      },
-    },
-    {
-      title:
-        "should work and log messages about hot and live reloading is enabled",
-      devServerOptions: {
-        liveReload: true,
       },
     },
     {
@@ -190,9 +183,9 @@ describe("logging", () => {
 
   webSocketServers.forEach((webSocketServer) => {
     cases.forEach((testCase) => {
-      it(`${testCase.title} (${
+      test(`${testCase.title} (${
         webSocketServer.webSocketServer || "default"
-      })`, async () => {
+      })`, async ({ page }) => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
         const devServerOptions = {
           port,
@@ -201,8 +194,6 @@ describe("logging", () => {
         const server = new Server(devServerOptions, compiler);
 
         await server.start();
-
-        const { page, browser } = await runBrowser();
 
         try {
           const consoleMessages = [];
@@ -236,11 +227,10 @@ describe("logging", () => {
                   "<cwd>",
                 ),
             ),
-          ).toMatchSnapshot();
+          ).toMatchSnapshotWithArray("console messages");
         } catch (error) {
           throw error;
         } finally {
-          await browser.close();
           await server.stop();
         }
       });

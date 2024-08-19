@@ -1,0 +1,1 @@
+"webSocketServer (webSocketServer.type) must be a string denoting a default implementation (e.g. 'ws', 'sockjs'), a full path to a JS file which exports a class extending BaseServer (webpack-dev-server/lib/servers/BaseServer.js) via require.resolve(...), or the class itself which extends BaseServer"

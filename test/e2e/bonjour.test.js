@@ -2,67 +2,61 @@
 
 const os = require("os");
 const webpack = require("webpack");
+const sinon = require("sinon");
+const bonjourService = require("bonjour-service");
+const { test } = require("../helpers/playwright-test");
+const { expect } = require("../helpers/playwright-custom-expects");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").bonjour;
 
-describe("bonjour option", () => {
+test.describe("bonjour option", { tag: "@flaky" }, () => {
   let mockPublish;
   let mockUnpublishAll;
   let mockDestroy;
 
-  beforeEach(() => {
-    mockPublish = jest.fn();
-    mockUnpublishAll = jest.fn((callback) => {
+  test.beforeAll(() => {
+    mockPublish = sinon.stub();
+    mockUnpublishAll = sinon.stub().callsFake((callback) => {
       callback();
     });
-    mockDestroy = jest.fn();
+    mockDestroy = sinon.stub();
+
+    sinon.stub(bonjourService, "Bonjour").returns({
+      publish: mockPublish,
+      unpublishAll: mockUnpublishAll,
+      destroy: mockDestroy,
+    });
   });
 
-  describe("as true", () => {
+  test.afterEach(() => {
+    mockPublish.resetHistory();
+    mockUnpublishAll.resetHistory();
+    mockDestroy.resetHistory();
+  });
+
+  test.describe("as true", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
-        return {
-          Bonjour: jest.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server({ port, bonjour: true }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
-
-      mockPublish.mockReset();
-      mockUnpublishAll.mockReset();
-      mockDestroy.mockReset();
     });
 
-    it("should call bonjour with correct params", async () => {
+    test("should call bonjour with correct params", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -75,67 +69,52 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
-        name: `Webpack Dev Server ${os.hostname()}:${port}`,
-        port,
-        type: "http",
-        subtypes: ["webpack"],
-      });
+      expect(
+        mockPublish.calledWith({
+          name: `Webpack Dev Server ${os.hostname()}:${port}`,
+          port,
+          type: "http",
+          subtypes: ["webpack"],
+        }),
+      ).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("with 'server' option", () => {
+  test.describe("with 'server' option", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
-        return {
-          Bonjour: jest.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server({ bonjour: true, port, server: "https" }, compiler);
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should call bonjour with 'https' type", async () => {
+    test("should call bonjour with 'https' type", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -148,49 +127,37 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
-        name: `Webpack Dev Server ${os.hostname()}:${port}`,
-        port,
-        type: "https",
-        subtypes: ["webpack"],
-      });
+      expect(
+        mockPublish.calledWith({
+          name: `Webpack Dev Server ${os.hostname()}:${port}`,
+          port,
+          type: "https",
+          subtypes: ["webpack"],
+        }),
+      ).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("as object", () => {
+  test.describe("as object", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
-        return {
-          Bonjour: jest.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -206,18 +173,15 @@ describe("bonjour option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should apply bonjour options", async () => {
+    test("should apply bonjour options", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -230,50 +194,38 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
-        name: `Webpack Dev Server ${os.hostname()}:${port}`,
-        port,
-        type: "https",
-        protocol: "udp",
-        subtypes: ["webpack"],
-      });
+      expect(
+        mockPublish.calledWith({
+          name: `Webpack Dev Server ${os.hostname()}:${port}`,
+          port,
+          type: "https",
+          protocol: "udp",
+          subtypes: ["webpack"],
+        }),
+      ).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 
-  describe("bonjour object and 'server' option", () => {
+  test.describe("bonjour object and 'server' option", () => {
     let compiler;
     let server;
-    let page;
-    let browser;
     let pageErrors;
     let consoleMessages;
 
-    beforeEach(async () => {
-      jest.mock("bonjour-service", () => {
-        return {
-          Bonjour: jest.fn().mockImplementation(() => {
-            return {
-              publish: mockPublish,
-              unpublishAll: mockUnpublishAll,
-              destroy: mockDestroy,
-            };
-          }),
-        };
-      });
-
+    test.beforeEach(async () => {
       compiler = webpack(config);
 
       server = new Server(
@@ -292,18 +244,15 @@ describe("bonjour option", () => {
 
       await server.start();
 
-      ({ page, browser } = await runBrowser());
-
       pageErrors = [];
       consoleMessages = [];
     });
 
-    afterEach(async () => {
-      await browser.close();
+    test.afterEach(async () => {
       await server.stop();
     });
 
-    it("should apply bonjour options", async () => {
+    test("should apply bonjour options", async ({ page }) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -316,26 +265,28 @@ describe("bonjour option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(mockPublish).toHaveBeenCalledTimes(1);
+      expect(mockPublish.callCount).toBe(1);
 
-      expect(mockPublish).toHaveBeenCalledWith({
-        name: `Webpack Dev Server ${os.hostname()}:${port}`,
-        port,
-        type: "http",
-        protocol: "udp",
-        subtypes: ["webpack"],
-      });
+      expect(
+        mockPublish.calledWith({
+          name: `Webpack Dev Server ${os.hostname()}:${port}`,
+          port,
+          type: "http",
+          protocol: "udp",
+          subtypes: ["webpack"],
+        }),
+      ).toBeTruthy();
 
-      expect(mockUnpublishAll).toHaveBeenCalledTimes(0);
-      expect(mockDestroy).toHaveBeenCalledTimes(0);
+      expect(mockUnpublishAll.callCount).toBe(0);
+      expect(mockDestroy.callCount).toBe(0);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      expect(response.status()).toEqual(200);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      expect(
+        consoleMessages.map((message) => message.text()),
+      ).toMatchSnapshotWithArray("console messages");
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      expect(pageErrors).toMatchSnapshotWithArray("page errors");
     });
   });
 });
