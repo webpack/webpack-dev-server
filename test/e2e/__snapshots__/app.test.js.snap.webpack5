@@ -307,3 +307,15 @@ exports[`app option should work using "express" application and "spdy" server sh
 </html>
 "
 `;
+
+exports[`app option should work using "hono" application and "(options, app) => require("@hono/node-server").serve(app)" server should handle GET request to index route (/): console messages 1`] = `
+[
+  "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+]
+`;
+
+exports[`app option should work using "hono" application and "(options, app) => require("@hono/node-server").serve(app)" server should handle GET request to index route (/): page errors 1`] = `[]`;
+
+exports[`app option should work using "hono" application and "(options, app) => require("@hono/node-server").serve(app)" server should handle GET request to index route (/): response status 1`] = `500`;
+
+exports[`app option should work using "hono" application and "(options, app) => require("@hono/node-server").serve(app)" server should handle GET request to index route (/): response text 1`] = `"Internal Server Error"`;

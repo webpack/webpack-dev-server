@@ -16,6 +16,7 @@ const apps = [
   ["express", () => require("express")()],
   ["connect", () => require("connect")()],
   ["connect (async)", () => require("connect")()],
+  // ["hono", () => new (require("hono").Hono)()],
 ];
 
 const servers = ["http", "https", "spdy", "http2"];
@@ -48,6 +49,7 @@ describe("app option", () => {
               app,
               server,
               port,
+              setupMiddlewares: () => [],
             },
             compiler,
           );

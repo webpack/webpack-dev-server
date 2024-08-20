@@ -46,6 +46,7 @@
     "release": "standard-version"
   },
   "dependencies": {
+    "@hono/node-server": "^1.12.1",
     "@types/bonjour": "^3.5.13",
     "@types/connect-history-api-fallback": "^1.5.4",
     "@types/express": "^4.17.21",
@@ -61,6 +62,7 @@
     "connect-history-api-fallback": "^2.0.0",
     "express": "^4.19.2",
     "graceful-fs": "^4.2.6",
+    "hono": "^4.5.6",
     "html-entities": "^2.4.0",
     "http-proxy-middleware": "^2.0.3",
     "ipaddr.js": "^2.1.0",

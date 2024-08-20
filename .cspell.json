@@ -67,7 +67,8 @@
     "subsubcomain",
     "noselect",
     "commitlint",
-    "eslintcache"
+    "eslintcache",
+    "hono"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
