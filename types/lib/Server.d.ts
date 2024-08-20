@@ -602,6 +602,9 @@ declare class Server<
       ServerType: {
         enum: string[];
       };
+      ServerFn: {
+        instanceof: string;
+      };
       ServerEnum: {
         enum: string[];
         cli: {
@@ -1264,34 +1267,6 @@ declare class Server<
    * @private
    * @returns {void}
    */
-  private setupHostHeaderCheck;
-  /**
-   * @private
-   * @returns {void}
-   */
-  private setupDevMiddleware;
-  middleware:
-    | import("webpack-dev-middleware").API<
-        import("express").Request<
-          import("express-serve-static-core").ParamsDictionary,
-          any,
-          any,
-          qs.ParsedQs,
-          Record<string, any>
-        >,
-        import("express").Response<any, Record<string, any>>
-      >
-    | null
-    | undefined;
-  /**
-   * @private
-   * @returns {void}
-   */
-  private setupBuiltInRoutes;
-  /**
-   * @private
-   * @returns {void}
-   */
   private setupWatchStaticFiles;
   /**
    * @private
@@ -1303,13 +1278,18 @@ declare class Server<
    * @returns {void}
    */
   private setupMiddlewares;
+  /** @type {import("webpack-dev-middleware").API<Request, Response> | undefined} */
+  middleware:
+    | import("webpack-dev-middleware").API<Request, Response>
+    | undefined;
   /**
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private createServer;
-  /** @type {S | null | undefined}*/
-  server: S | null | undefined;
+  /** @type {S | undefined}*/
+  server: S | undefined;
+  isTlsServer: boolean | undefined;
   /**
    * @private
    * @returns {void}
@@ -1589,9 +1569,27 @@ type NormalizedStatic = {
   staticOptions: ServeStaticOptions;
   watch: false | WatchOptions;
 };
-type ServerType = "http" | "https" | "spdy" | "http2" | string;
-type ServerConfiguration = {
-  type?: string | undefined;
+type ServerType<
+  A extends BasicApplication = import("express").Application,
+  S extends BasicServer = import("http").Server<
+    typeof import("http").IncomingMessage,
+    typeof import("http").ServerResponse
+  >,
+> =
+  | "http"
+  | "https"
+  | "spdy"
+  | "http2"
+  | string
+  | ((arg0: ServerOptions, arg1: A) => S);
+type ServerConfiguration<
+  A extends BasicApplication = import("express").Application,
+  S extends BasicServer = import("http").Server<
+    typeof import("http").IncomingMessage,
+    typeof import("http").ServerResponse
+  >,
+> = {
+  type?: ServerType<A, S> | undefined;
   options?: ServerOptions | undefined;
 };
 type WebSocketServerConfiguration = {
@@ -1690,7 +1688,7 @@ type Middleware =
       middleware: MiddlewareHandler;
     }
   | MiddlewareHandler;
-type BasicServer = import("net").Server;
+type BasicServer = import("net").Server | import("tls").Server;
 type Configuration<
   A extends BasicApplication = import("express").Application,
   S extends BasicServer = import("http").Server<
@@ -1733,7 +1731,7 @@ type Configuration<
     | (string | WatchFiles)[]
     | undefined;
   static?: string | boolean | Static | (string | Static)[] | undefined;
-  server?: string | ServerConfiguration | undefined;
+  server?: ServerType<A, S> | ServerConfiguration<A, S> | undefined;
   app?: (() => Promise<A>) | undefined;
   webSocketServer?: string | boolean | WebSocketServerConfiguration | undefined;
   proxy?: ProxyConfigArray | undefined;
@@ -1745,7 +1743,7 @@ type Configuration<
     | ((
         req: Request,
         res: Response,
-        context: DevMiddlewareContext<Request, Response>,
+        context: DevMiddlewareContext<Request, Response> | undefined,
       ) => Headers)
     | undefined;
   onListening?: ((devServer: Server<A, S>) => void) | undefined;
