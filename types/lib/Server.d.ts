@@ -1278,9 +1278,18 @@ declare class Server<
    * @returns {void}
    */
   private setupMiddlewares;
-  /** @type {import("webpack-dev-middleware").API<Request, Response> | undefined} */
+  /** @type {import("webpack-dev-middleware").API<Request, Response>} */
   middleware:
-    | import("webpack-dev-middleware").API<Request, Response>
+    | import("webpack-dev-middleware").API<
+        import("express").Request<
+          import("express-serve-static-core").ParamsDictionary,
+          any,
+          any,
+          qs.ParsedQs,
+          Record<string, any>
+        >,
+        import("express").Response<any, Record<string, any>>
+      >
     | undefined;
   /**
    * @private
@@ -1453,6 +1462,7 @@ declare namespace Server {
     ClientConfiguration,
     Headers,
     MiddlewareHandler,
+    MiddlewareObject,
     Middleware,
     BasicServer,
     Configuration,
@@ -1681,13 +1691,12 @@ type MiddlewareHandler<
 > = T extends ExpressApplication
   ? ExpressRequestHandler | ExpressErrorRequestHandler
   : HandleFunction;
-type Middleware =
-  | {
-      name?: string;
-      path?: string;
-      middleware: MiddlewareHandler;
-    }
-  | MiddlewareHandler;
+type MiddlewareObject = {
+  name?: string;
+  path?: string;
+  middleware: MiddlewareHandler;
+};
+type Middleware = MiddlewareObject | MiddlewareHandler;
 type BasicServer = import("net").Server | import("tls").Server;
 type Configuration<
   A extends BasicApplication = import("express").Application,
