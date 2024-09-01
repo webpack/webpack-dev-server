@@ -1,6 +1,27 @@
 <div align="center">
   <a href="https://github.com/webpack/webpack">
     <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+        <function`slideShow(n){
+        let i;
+        let slides = document.getElementsByClassName("slide");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display="none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+
+        dots[slideIndex-1].className +=" active";
+    }
   </a>
 </div>
 
@@ -40,7 +61,8 @@ fast in-memory access to the webpack assets.
 First things first, install the module:
 
 ```console
-npm install webpack-dev-server --save-dev
+npm install webpack-dev-[fonkdiyon(2).md](https://github.com/user-attachments/files/16827427/fonkdiyon.2.md)
+-server --save-dev
 ```
 
 or
@@ -54,6 +76,29 @@ or
 ```console
 pnpm add -D webpack-dev-server
 ```
+```console
+    function slideShow(n) {
+        let i;
+        let slides = document.getElementsByClassName("slide");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display="none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+
+        dots[slideIndex-1].className +=" active";
+    }
+  ```
 
 _Note: While you can install and run webpack-dev-server globally, we recommend
 installing it locally. webpack-dev-server will always use a local installation
