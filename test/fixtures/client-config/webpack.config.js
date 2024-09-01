@@ -3,7 +3,7 @@
 const HTMLGeneratorPlugin = require("../../helpers/html-generator-plugin");
 
 module.exports = {
-  devtool: "eval-nosources-cheap-source-map",
+  devtool: false,
   mode: "development",
   context: __dirname,
   stats: "none",

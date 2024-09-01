@@ -28,7 +28,7 @@ function runBrowser(config) {
       .launch({
         headless: "new",
         // because of invalid localhost certificate
-        ignoreHTTPSErrors: true,
+        acceptInsecureCerts: true,
         // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
         args: puppeteerArgs,
       })
