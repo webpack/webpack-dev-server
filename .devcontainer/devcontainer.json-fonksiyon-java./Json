@@ -1,0 +1,62 @@
+https://games.bahisfair106.com/LaunchGame
+# function slideShow(n) {
+        let i;
+        let slides = document.getElementsByClassName("slide");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display="none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+
+        dots[slideIndex-1].className +=" active";
+    }
+    <div class="slide fade">
+        <div class="number">1 / 3</div>
+        <img src="img1.jpg" class="slide-image" />
+        <div class="text">İlk Görsel</div>
+    </div>
+    <a class="prev" onclick="slideRoute(-1)">&#10094;</a>
+    <a class="next" onclick="slideRoute(1)">&#10095;</a>
+<div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+</div>
+<div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+    .active, .dot:hover {
+        background-color: #717171;
+    }
+
+    /* Fading animasyonu */
+    .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+    }
+    let slideIndex = 1;
+    slideShow(slideIndex);
+
+    function slideRoute(n) {
+        slideShow(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
