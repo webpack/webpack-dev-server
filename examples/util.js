@@ -4,6 +4,7 @@
 
 const path = require("path");
 const fs = require("graceful-fs");
+const mime = require("mime");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { marked } = require("marked");
 
@@ -25,9 +26,18 @@ module.exports = {
 
     const result = { ...defaults, ...config };
     const onBeforeSetupMiddleware = ({ app }) => {
-      app.get("/.assets/*", (req, res) => {
-        const filename = path.join(__dirname, "/", req.path);
-        res.sendFile(filename);
+      app.use("/.assets/", (req, res, next) => {
+        if (req.method !== "GET" && req.method !== "HEAD") {
+          next();
+          return;
+        }
+
+        res.setHeader("Content-Type", mime.lookup(req.url));
+
+        const filename = path.join(__dirname, "/.assets/", req.url);
+        const stream = fs.createReadStream(filename);
+
+        stream.pipe(res);
       });
     };
     const renderer = new marked.Renderer();

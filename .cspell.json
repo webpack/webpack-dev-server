@@ -68,7 +68,8 @@
     "noselect",
     "commitlint",
     "eslintcache",
-    "hono"
+    "hono",
+    "privkey"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
