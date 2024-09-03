@@ -128,6 +128,11 @@ describe("app option", () => {
       afterEach(async () => {
         await browser.close();
         await devServer.stop();
+        await new Promise((resolve) => {
+          compiler.close(() => {
+            resolve();
+          });
+        });
       });
 
       it("should handle GET request to index route (/)", async () => {
