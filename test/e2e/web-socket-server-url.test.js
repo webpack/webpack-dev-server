@@ -2688,7 +2688,9 @@ describe("web socket server URL", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(
-          pageErrors.map((pageError) => pageError.message.split("\n")[0]),
+          pageErrors.map((pageError) =>
+            pageError.message.split("\n")[0].replace("SyntaxError: ", ""),
+          ),
         ).toMatchSnapshot("page errors");
       } catch (error) {
         throw error;
