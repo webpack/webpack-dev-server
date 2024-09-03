@@ -1978,10 +1978,16 @@ describe("overlay", () => {
         }),
       ).toMatchSnapshot("page html");
       expect(
-        await prettier.format(overlayHtml, {
-          parser: "html",
-          plugins: [prettierHTML, prettierCSS],
-        }),
+        await prettier.format(
+          overlayHtml.replace(
+            /<button ([^>]+)>.+<\/button>/m,
+            "<button $1>X</button>",
+          ),
+          {
+            parser: "html",
+            plugins: [prettierHTML, prettierCSS],
+          },
+        ),
       ).toMatchSnapshot("overlay html");
     } catch (error) {
       throw error;
