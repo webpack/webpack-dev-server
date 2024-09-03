@@ -516,6 +516,9 @@
           "$ref": "#/definitions/ServerEnum"
         },
         {
+          "$ref": "#/definitions/ServerFn"
+        },
+        {
           "$ref": "#/definitions/ServerString"
         },
         {
@@ -527,6 +530,9 @@
     },
     "ServerType": {
       "enum": ["http", "https", "spdy", "http2"]
+    },
+    "ServerFn": {
+      "instanceof": "Function"
     },
     "ServerEnum": {
       "enum": ["http", "https", "spdy", "http2"],
@@ -551,6 +557,9 @@
             },
             {
               "$ref": "#/definitions/ServerString"
+            },
+            {
+              "$ref": "#/definitions/ServerFn"
             }
           ]
         },

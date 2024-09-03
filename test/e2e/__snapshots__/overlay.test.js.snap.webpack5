@@ -2474,7 +2474,7 @@ exports[`overlay should show overlay when "Content-Security-Policy" is "default-
         border: none;
       "
     >
-      ×
+      X
     </button>
     <div>
       <div
