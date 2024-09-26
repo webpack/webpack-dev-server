@@ -1232,6 +1232,16 @@ declare class Server<
   private getServerTransport;
   /**
    * @private
+   * @returns {string}
+   */
+  private getClientEntry;
+  /**
+   * @private
+   * @returns {string | void}
+   */
+  private getClientHotEntry;
+  /**
+   * @private
    * @returns {void}
    */
   private setupProgressPlugin;

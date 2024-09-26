@@ -193,6 +193,60 @@ describe("client option", () => {
     });
   });
 
+  describe("override client entry", () => {
+    let compiler;
+    let server;
+    let page;
+    let browser;
+
+    class OverrideServer extends Server {
+      // eslint-disable-next-line class-methods-use-this
+      getClientEntry() {
+        return require.resolve(
+          "../fixtures/custom-client/CustomClientEntry.js",
+        );
+      }
+      // eslint-disable-next-line class-methods-use-this
+      getClientHotEntry() {
+        return require.resolve(
+          "../fixtures/custom-client/CustomClientHotEntry.js",
+        );
+      }
+    }
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new OverrideServer(
+        {
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+    });
+
+    it("should disable client entry", async () => {
+      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      const content = await response.text();
+      expect(content).toContain("CustomClientEntry.js");
+      expect(content).toContain("CustomClientHotEntry.js");
+    });
+  });
+
   describe("webSocketTransport", () => {
     const clientModes = [
       {
