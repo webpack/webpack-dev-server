@@ -1231,6 +1231,14 @@ declare class Server<
    */
   private getServerTransport;
   /**
+   * @returns {string}
+   */
+  getClientEntry(): string;
+  /**
+   * @returns {string | void}
+   */
+  getClientHotEntry(): string | void;
+  /**
    * @private
    * @returns {void}
    */
