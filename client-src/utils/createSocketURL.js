@@ -74,6 +74,7 @@ function format(objURL) {
  */
 function createSocketURL(parsedURL) {
   let { hostname } = parsedURL;
+  let socketURLPort = parsedURL.port;
 
   // Node.js module parses it as `::`
   // `new URL(urlString, [baseURLString])` parses it as '[::]'
@@ -89,6 +90,9 @@ function createSocketURL(parsedURL) {
     self.location.protocol.indexOf("http") === 0
   ) {
     hostname = self.location.hostname;
+    // If we are using the location.hostname for the hostname, we should use the port from
+    // the location as well
+    socketURLPort = self.location.port;
   }
 
   let socketURLProtocol = parsedURL.protocol || self.location.protocol;
@@ -134,8 +138,6 @@ function createSocketURL(parsedURL) {
     self.location.hostname ||
     "localhost"
   ).replace(/^\[(.*)\]$/, "$1");
-
-  let socketURLPort = parsedURL.port;
 
   if (!socketURLPort || socketURLPort === "0") {
     socketURLPort = self.location.port;
