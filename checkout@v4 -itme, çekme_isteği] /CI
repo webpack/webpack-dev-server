@@ -1,0 +1,28 @@
+isim : CI
+
+: [itme, çekme_isteği] üzerinde
+
+işler :
+  inşa etmek :
+    çalışır-üzerinde : ubuntu-latest
+    çevre :
+      PAKET_KUTUSU : bin
+
+    adımlar :
+      - kullanımlar : actions/checkout@v4
+
+      - isim : Ruby'yi kurun
+        kullanımlar : ruby/setup-ruby@v1
+        ile :
+          ruby-sürümü : " 2.6 "
+          paketleyici-önbelleği : true
+
+      - adı : Git'i ayarla
+        kullanımlar : actions/setup-go@v4
+        ile :
+          sürüme geç : " 1.18 "
+
+      - adı : Testleri çalıştır
+        çalıştır : make test-all
+        çevre :
+          CI : doğru
