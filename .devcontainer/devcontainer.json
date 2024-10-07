@@ -1,0 +1,72 @@
+# JavaScript - Döngüler/Break/Continue/Sonsuz döngü
+
+Break:Döngüyü kırıp çıkılır.
+Continue:Döngü başa döner, alt kodları çalıştırmaz.
+Sonsuz Döngü: döngü koşulunun sağlanmaması
+Kaynak Kodu (index.html)
+<script>
+var i=100;
+while(i<100){
+if(i==10){
+document.write(" pass geçildi<br>");
+//Döngü pass geçildi
+//sonsuz döngüden çıkmak için inin değeri artırıldı
+i++;
+continue;
+}
+if(i==500){
+document.write("500 de döngüden çıkıldı");
+break;
+}
+document.write(i+". Java Script <br>");
+i++;
+}
+</scr
+
+# Teklifleri temsil eden opsiyonlar ...,
+listelenenlerin dışında bir değeri kabul edecektir.
+
+versiyon
+Yüklemek için bir Java sürümü seçin veya girin
+//"ghcr.io/devcontainers/features/java:1": {}
+
+"latest" (default)
+"none"
+"17"
+"11"
+"8"
+...
+ekSürümler
+Ek Java sürümlerini virgülle ayırarak girin.
+
+jdkDağıtım
+Bir JDK dağıtımı seçin veya girin
+
+
+"ms" (default)
+"open"
+"oracle"
+"tem"
+"amzn"
+...
+Gradle'ı kurun
+Çok dilli yazılım geliştirme için bir yapı otomasyon aracı olan Gradle'ı yükleyin
+
+
+true
+false (default)
+gradleSürümü
+Bir Gradle sürümü seçin veya girin
+
+
+"latest" (default)
+"7.5.1"
+"6.9.3"
+"5.6.4"
+...
+Maven'ı kurun
+Java için bir yönetim aracı olan Maven'ı yükleyin
+
+
+true
+false (default)
