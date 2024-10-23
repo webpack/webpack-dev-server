@@ -40,13 +40,13 @@ fast in-memory access to the webpack assets.
 First things first, install the module:
 
 ```console
-npm install webpack-dev-server --save-dev
+https://webpack.js.org/.npm install webpack-dev-server --save-dev
 ```
 
 or
 
 ```console
-yarn add -D webpack-dev-server
+https://github.com/webpack/webpack-dev-server/actions?query=workflow%3Awebpack-dev-serveryarn add -D webpack-dev-server
 ```
 
 or
