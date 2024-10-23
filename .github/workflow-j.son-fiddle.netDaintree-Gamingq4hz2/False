@@ -1,0 +1,453 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div id="root"></div>
+
+body {
+  background: #20262E;
+  padding: 16px;
+  font-family: Helvetica;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  position: absolute;
+  background: #374353FF;
+  border-radius: 5px;
+}
+
+.inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  line-height: 14px;
+  color: white;
+}
+
+.input {
+  width: 100%;
+  padding: 4px;
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: gray;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  position: absolute;
+  background: #374353FF;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th {
+  padding: 8px;
+  border: 1px solid gray;
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+table td {
+  padding: 8px;
+  border: 1px solid gray;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+}
+
+table thead td {
+  font-weight: 600;
+}
+
+.text {
+  color: white;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.subtitle {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.math {
+  padding: 4px;
+  color: white;
+  font-size: 12px;
+}
+const PLINKO_PATH_SLOT = {
+    L: "L",
+    R: "R",
+}
+
+class ShaUtils {
+  static hmacSha512 = CryptoJS.HmacSHA512;
+  static sha256 = CryptoJS.SHA256;
+}
+
+const CHARS_FOR_INT = 2;
+const DECIMALS_USED = 4;
+const K_POW = 256;
+
+class PathCalculator {
+  static SHA512_HASH_LENGTH = 128;
+
+  static CHARS_FOR_INT = CHARS_FOR_INT;
+  static DECIMALS_USED = DECIMALS_USED;
+  static CHARS_PER_ROW = CHARS_FOR_INT * DECIMALS_USED;
+
+  static DIRECTION_THRESHOLD = 0.5;
+
+  static K_POW_1 = K_POW;
+  static K_POW_2 = Math.pow(K_POW, 2);
+  static K_POW_3 = Math.pow(K_POW, 3);
+  static K_POW_4 = Math.pow(K_POW, 4);
+
+  static getData(serverSeed, nonce, clientSeed) {
+    const sha512Hmac = ShaUtils.hmacSha512(`${clientSeed}:${nonce}`, serverSeed).toString();
+
+    const byteArray = this._hashToByteArray(sha512Hmac);
+
+    const flatDecimalArray = this._byteArrayToDecimalArray(byteArray).flat();
+
+    return {
+      sha256: ShaUtils.sha256(serverSeed).toString(),
+      sha512Hmac,
+      bytesTable: byteArray
+        .map(
+          (it, index) => ({ hex: it, decimal: flatDecimalArray[index] })
+        ),
+      pathTable: this._getPathFromHash(sha512Hmac),
+    };
+  }
+
+  static _hashToByteArray(hash) {
+    return hash
+      .match(/.{1,2}/g);
+  }
+
+  static _byteArrayToDecimalArray(byteArray) {
+    return byteArray
+      .map(byte => parseInt(byte, 16))
+      .reduce(
+      (result, current, index) => {
+        if (index % this.DECIMALS_USED === 0) {
+          result.push([])
+        }
+
+        result[result.length - 1].push(current);
+
+        return result;
+      }, 
+      [],
+    )
+  }
+  
+  static _decimalArrayToValueNumbersArrau(decimalArray) {
+    return decimalArray
+      .map(
+      	(group) => {
+        	return group.reduce(
+            (acc, decimal, index) => {
+              const k = [this.K_POW_1, this.K_POW_2, this.K_POW_3, this.K_POW_4][index];
+              
+              return acc + decimal / k;
+            },
+            0,
+          );
+        }
+    )
+  }
+
+  static _getPathFromHash(hash) {
+    if (hash.length !== this.SHA512_HASH_LENGTH) {
+      return [];
+    }
+
+    const byteArray = this._hashToByteArray(hash);
+    const decimalArray = this._byteArrayToDecimalArray(byteArray);
+    const valueNumbersArray = this._decimalArrayToValueNumbersArrau(decimalArray);
+
+    return valueNumbersArray
+      .map(
+        (sum) => {
+					return {
+          	value: sum,
+            direction: sum < PathCalculator.DIRECTION_THRESHOLD ? PLINKO_PATH_SLOT.L : PLINKO_PATH_SLOT.R,
+          }
+        }
+      );
+  }
+}
+
+const MathExample = ({ group }) => {
+  const firstResult = group[0] / 256;
+  const secondResult = group[1] / Math.pow(256, 2);
+  const thirdResult = group[2] / Math.pow(256, 3);
+  const fourthResult = group[3] / Math.pow(256, 4);
+  
+  const sum = firstResult + secondResult + thirdResult + fourthResult;
+
+	return (
+    <div className={"math"}>
+      {
+        `
+        (${group[0]}/256^1) + (${group[1]}/256^2) + (${group[2]}/256^3) + (${group[3]}/256^4)
+= ${firstResult} + ${secondResult} + ${thirdResult} + ${fourthResult} = ${sum}
+        `
+      }
+    </div>
+  );
+};
+
+const App = () => {
+  const [serverSeed, setServerSeed] = React.useState("");
+  const [nonce, setNonce] = React.useState("");
+  const [clientSeed, setClientSeed] = React.useState("");
+  
+  const [sha256, setSha256] = React.useState("");
+  const [sha512, setSha512] = React.useState("");
+  
+  const [bytesTableData, setBytesTableData] = React.useState([]);
+  const [pathTableData, setPathTableData] = React.useState([]);
+  
+  React.useEffect(
+  	() => {
+    	const data = PathCalculator.getData(serverSeed, nonce, clientSeed);
+
+      setSha256(data.sha256);
+      setSha512(data.sha512Hmac);
+      setBytesTableData(data.bytesTable);
+      setPathTableData(data.pathTable);
+    },
+    [serverSeed, nonce, clientSeed],
+  );
+  
+  const firstGroup = bytesTableData
+    .slice(0, 4)
+    .map((it) => it.decimal);
+  
+  return (
+    <React.Fragment>
+      <div className={"inputs-wrapper"}>
+        <div className={"field-group"}>
+          <div className={"field"}>
+            <div className={"label"}>Server seed</div>
+
+            <input
+               type={"text"}
+               placeholder={"Enter server seed"}
+               className={"input"}
+               value={serverSeed}
+               onChange={(event) => setServerSeed(event.target.value)}
+            />
+          </div>
+
+          <div className={"field"}>
+            <div className={"label"}>Nonce</div>
+
+            <input
+               type={"text"}
+               placeholder={"Enter nonce"}
+               className={"input"}
+               value={nonce}
+               onChange={(event) => setNonce(event.target.value)}
+            />
+          </div>
+
+          <div className={"field"}>
+            <div className={"label"}>Client seed</div>
+
+            <input
+               type={"text"}
+               placeholder={"Enter client seed"}
+               className={"input"}
+               value={clientSeed}
+               onChange={(event) => setClientSeed(event.target.value)}
+            />
+          </div>
+        </div>
+        
+        <div className={"divider"} />
+
+        <div className={"field-group"}>
+          <div className={"field"}>
+            <div className={"label"}>sha256(serverSeed)</div>
+
+            <input
+               type={"text"}
+               className={"input"}
+               value={sha256}
+               onChange={(event) => setSha256(event.target.value)}
+               disabled
+            />
+          </div>
+
+          <div className={"field"}>
+            <div className={"label"}>sha512(clientSeed:nonce, serverSeed)</div>
+
+            <input
+               type={"text"}
+               className={"input"}
+               value={sha512}
+               onChange={(event) => setSha512(event.target.value)}
+               disabled
+            />
+          </div>
+        </div>
+        
+        <div className={"divider"} />
+        
+        <div className={"section"}>
+          <div className={"subtitle"}>
+            Transform each group of four bytes into a numeric value.
+          </div>
+          
+          <div className={"table-wrapper"}>
+            <table>
+              <thead>
+                <tr>
+                  <th>№</th>
+
+                  {
+                    bytesTableData.map(
+                      (it, index) => {
+                        return <td key={index}>{index}</td>
+                      }
+                    )
+                  }
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th>Hex</th>
+
+                  {
+                    bytesTableData.map(
+                      (it, index) => {
+                        return <td key={index}>{it.hex}</td>
+                      }
+                    )
+                  }
+                </tr>
+
+                <tr>
+                  <th>Base 10</th>
+
+                  {
+                    bytesTableData.map(
+                      (it, index) => {
+                        return <td key={index}>{it.decimal}</td>
+                      }
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div className={"text"}>
+          Every group of 4 bytes is converted into a number within the range (0, 1). For simplicity, only the initial calculation is shown (group is
+          
+          {" "}
+          
+          <span style={{fontWeight: 600}}>
+            {firstGroup.join(", ")}
+          </span>
+          
+          )
+          </div>
+
+          <MathExample group={firstGroup} />
+        </div>
+        
+        <div className={"divider"} />
+        
+        <div className={"table-wrapper"}>
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                
+                <th>Direction</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {
+              	pathTableData.map(
+                	(it, index) => {
+                  	return (
+                    	<tr key={index}>
+                    	  <td style={{ textAlign: "initial" }}>{it.value}</td>
+                        
+                        <td>{it.direction}</td>
+                    	</tr>
+                    )
+                  }
+                )
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </React.Fragment>
+  )
+}
+
+
+ReactDOM.createRoot(document.querySelector("#root")).render(<App />)
