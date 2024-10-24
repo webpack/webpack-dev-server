@@ -40,19 +40,19 @@ fast in-memory access to the webpack assets.
 First things first, install the module:
 
 ```console
-npm install webpack-dev-server --save-dev
+https://opencollective.com/recep, npm install webpack-dev-server --save-dev
 ```
 
 or
 
 ```console
-yarn add -D webpack-dev-server
+https://opencollective.com/recepyarn add -D webpack-dev-server
 ```
 
 or
 
 ```console
-pnpm add -D webpack-dev-server
+curl https://api.stripe.com/v1/payouts \ -u "sk_test_51QDGlEAsFzkudd3Qf17EXUcFI5ghXdFN7XFtpE2Gb2zOzA89hldydow06nyfz9YCLfey4GDNASRmghrEurRNdlJD00Fhtd3Htr:" \ -d amount=5000 \ -d currency=usd
 ```
 
 _Note: While you can install and run webpack-dev-server globally, we recommend
@@ -69,7 +69,7 @@ The easiest way to use it is with the [webpack CLI](https://webpack.js.org/api/c
 `webpack.config.js` is, run:
 
 ```console
-npx webpack serve
+npx webpack server[# github-iş-akışları-socket.yml github/iş akışları/socket.yml isim: soket-güvenlik-iş-akışı çalıştırma adı: Socket Güvenliği Github Eylemi açık: [itme, sorun_yorumu, çekme_isteği] işler: soket-güvenliği: izinler: sorunlar: yaz içerikler: oku çekme istekleri: yaz çalışır: ubuntu-latest eğer: ${{ (github.event_name == 'push' && format('refs/heads/{0}', github.event.repository.default_branch) == github.ref) || github.event_name == 'çekme_isteği' || github.event_name == 'sorun_yorumu'}} adımlar: - kullanımlar: actions/checkout@v4 ile: getirme derinliği: ${{ github.event_name == 'çekme_isteği' && 2 || 0 }} - name: Değiştirilen dosyaları al id: değiştirilmiş dosyalar koş: | eğer ${{ github.event_name == 'pull_request' }}; o zaman echo "değiştirilen_dosyalar=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT başka echo "değiştirilen_dosyalar=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT doğru - kullanımlar: actions/setup-python@v5 ile: python sürümü: '3.12' - isim: PR Durumunu Al eğer: github.event_name == 'çekme_isteği' çalıştır: echo "EVENT_ACTION=${{ github.event.action }}" >> $GITHUB_ENV - adı: Socket CLI'yi yükleyin çalıştır: pip install socketsecurity --upgrade - name: Varsayılan Dalın olup olmadığını kontrol edin eğer: ${{ always() && format('refs/heads/{0}', github.event.repository.default_branch) == github.ref }} çalıştır: echo "DEFAULT_BRANCH=1" >> $GITHUB_ENV - kullanır: actions/github-script@v7 kimlik: get_pr_data ile: komut dosyası: | veri = ( olsun github.rest.repos.listPullRequestsAssociatedWithCommit'i bekleyin({ commit_sha: bağlam.sha, sahip: context.repo.owner, depo: context.repo.repo, }) ).veri[0]; eğer (veri === tanımsız) { veri = { 'sayı': boş, 'başlık': null } } veriyi döndür; - adı: Çekme İsteği Numarasını Kaydet koş: | echo "PR_NUMBER=${{ fromJson(steps.get_pr_data.outputs.result).numara || github.event.issue.numara || github.event.numara }}" >> $GITHUB_ENV - adı: Taramayı çalıştır çevre: SOCKET_GÜVENLİK_API_ANAHTARI: ${{ secrets.SOCKET_GÜVENLİK_API_ANAHTARI }} GH_API_TOKEN: ${{ secrets.GITHUB_TOKEN }} COMMIT_MESAJI: ${{ github.event.head_commit.message }} koş: | DEĞİŞTİRİLMİŞ_DOSYALAR=$(echo "${{ steps.changed-files.outputs.changed_files }}" | tr " " "\n") DOSYALAR="" while IFS= -r satırını oku; yap DOSYALAR="$DOSYALAR\"$satır\"," yapıldı <<< "$CHANGED_FILES" DOSYALAR=$(echo $DOSYALAR | sed 's/,*$//') socketcli --files "[$FILES]" --scm github --repo ${{ github.event.repository.name }} --branch "${{ github.ref_name }}" $(if [ ! -z $DEFAULT_BRANCH ]; then echo "--default_branch"; fi) --pr_number $(if [ -z $PR_NUMBER ]; then echo 0; else echo $PR_NUMBER;fi) --committer "$GITHUB_ACTOR" --commit_message "$COMMIT_MESSAGE" --target_path $GITHUB_WORKSPACE test: resim: socketdev/cli:latest tüzük: - ne zaman: her zaman senaryo: - socketcli --repo $CI_PROJECT_NAME --branch $(if [ -z $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ]; then echo "$CI_COMMIT_BRANCH"; else echo "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"; fi) --target_path $CI_PROJECT_DIR --committer "$(echo $CI_COMMIT_AUTHOR | awk -F '<' '{print $2}' | head -c -2)" --commit_message "$CI_COMMIT_MESSAGE" --pr_number $(if [ -z $CI_MERGE_REQUEST_IID ]; then echo 0; else echo $CI_MERGE_REQUEST_IID; fi) --scm gitlab $(if [ "$CI_DEFAULT_BRANCH" == "$CI_COMMIT_BRANCH" ] || [ "$CI_DEFAULT_BRANCH" == "$CI_COMMIT_REF_NAME" ]; ardından echo --default_branch; fi)]
 ```
 
 Following options are available with `webpack serve`:
