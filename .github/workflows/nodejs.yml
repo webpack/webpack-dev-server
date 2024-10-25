@@ -69,7 +69,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [18.x, 20.x, 22.x, 23.x]
         shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
 
