@@ -26,7 +26,10 @@ const apps = [
   [
     "hono",
     () => new (require("hono").Hono)(),
-    (_, app) => require("@hono/node-server").serve({ fetch: app.fetch }),
+    (options, app) =>
+      require("@hono/node-server").createAdaptorServer({
+        fetch: app.fetch,
+      }),
     (_, devServer) => [
       {
         name: "webpack-dev-middleware",
@@ -38,7 +41,7 @@ const apps = [
     "hono",
     () => new (require("hono").Hono)(),
     (_, app) =>
-      require("@hono/node-server").serve({
+      require("@hono/node-server").createAdaptorServer({
         fetch: app.fetch,
         createServer: require("node:https").createServer,
         serverOptions: {
@@ -62,7 +65,7 @@ const apps = [
     () => new (require("hono").Hono)(),
     {
       type: (options, app) =>
-        require("@hono/node-server").serve({
+        require("@hono/node-server").createAdaptorServer({
           fetch: app.fetch,
           createServer: require("node:http2").createSecureServer,
           serverOptions: options,

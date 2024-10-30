@@ -2,7 +2,7 @@
 
 const wdm = require("webpack-dev-middleware");
 const { Hono } = require("hono");
-const { serve } = require("@hono/node-server");
+const { createAdaptorServer } = require("@hono/node-server");
 // eslint-disable-next-line import/extensions, import/no-unresolved
 const { serveStatic } = require("@hono/node-server/serve-static");
 const { setup } = require("../../util");
@@ -33,7 +33,7 @@ module.exports = setup({
     ],
     app: () => new Hono(),
     server: (_, app) =>
-      serve({
+      createAdaptorServer({
         fetch: app.fetch,
         //
         // Uncomment for `https`
