@@ -44,7 +44,6 @@ module.exports = [
   merge(baseForModules, {
     entry: path.join(__dirname, "modules/logger/index.js"),
     output: {
-      // @ts-ignore
       filename: "logger/index.js",
     },
     module: {
@@ -54,7 +53,6 @@ module.exports = [
           use: [
             {
               loader: "babel-loader",
-              // @ts-ignore
               options: {
                 plugins: ["@babel/plugin-transform-object-assign"],
               },
@@ -78,7 +76,6 @@ module.exports = [
     entry: path.join(__dirname, "modules/sockjs-client/index.js"),
     output: {
       filename: "sockjs-client/index.js",
-      // @ts-ignore
       library: "SockJS",
       libraryTarget: "umd",
       globalObject: "(typeof self !== 'undefined' ? self : this)",

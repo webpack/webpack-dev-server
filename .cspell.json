@@ -2,6 +2,7 @@
   "version": "0.2",
   "language": "en,en-gb",
   "words": [
+    "apos",
     "camelcase",
     "tapable",
     "sockjs",
