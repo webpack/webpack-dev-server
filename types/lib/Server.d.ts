@@ -1134,7 +1134,7 @@ declare class Server<
    */
   static findIp(
     gatewayOrFamily: string,
-    isInternal?: boolean | undefined,
+    isInternal?: boolean,
   ): string | undefined;
   /**
    * @param {"v4" | "v6"} family
@@ -1377,16 +1377,11 @@ declare class Server<
    * @param {string | string[]} watchPath
    * @param {WatchOptions} [watchOptions]
    */
-  watchFiles(
-    watchPath: string | string[],
-    watchOptions?: import("chokidar").WatchOptions | undefined,
-  ): void;
+  watchFiles(watchPath: string | string[], watchOptions?: WatchOptions): void;
   /**
    * @param {import("webpack-dev-middleware").Callback} [callback]
    */
-  invalidate(
-    callback?: import("webpack-dev-middleware").Callback | undefined,
-  ): void;
+  invalidate(callback?: import("webpack-dev-middleware").Callback): void;
   /**
    * @returns {Promise<void>}
    */
@@ -1394,7 +1389,7 @@ declare class Server<
   /**
    * @param {(err?: Error) => void} [callback]
    */
-  startCallback(callback?: ((err?: Error) => void) | undefined): void;
+  startCallback(callback?: (err?: Error) => void): void;
   /**
    * @returns {Promise<void>}
    */
@@ -1402,7 +1397,7 @@ declare class Server<
   /**
    * @param {(err?: Error) => void} [callback]
    */
-  stopCallback(callback?: ((err?: Error) => void) | undefined): void;
+  stopCallback(callback?: (err?: Error) => void): void;
 }
 declare namespace Server {
   export {

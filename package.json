@@ -128,7 +128,7 @@
     "style-loader": "^4.0.0",
     "supertest": "^7.0.0",
     "tcp-port-used": "^1.0.2",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "wait-for-expect": "^3.0.2",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.0.1",
