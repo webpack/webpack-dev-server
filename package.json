@@ -24,6 +24,7 @@
     "node": ">= 18.12.0"
   },
   "scripts": {
+    "start":"webpack serve --config webpack.config.js",
     "fmt:check": "prettier \"{**/*,*}.{js,json,md,yml,css,ts}\" --list-different",
     "lint:prettier": "prettier --cache --list-different .",
     "lint:js": "eslint --cache .",
