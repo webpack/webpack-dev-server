@@ -1,7 +1,6 @@
 /* global __resourceQuery, __webpack_hash__ */
 /// <reference types="webpack/module" />
 import webpackHotLog from "webpack/hot/log.js";
-import stripAnsi from "./utils/stripAnsi.js";
 import parseURL from "./utils/parseURL.js";
 import socket from "./socket.js";
 import { formatProblem, createOverlay } from "./overlay.js";
@@ -164,6 +163,31 @@ const overlay =
             },
       )
     : { send: () => {} };
+
+const ansiRegex = new RegExp(
+  [
+    "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
+    "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))",
+  ].join("|"),
+  "g",
+);
+
+/**
+ *
+ * Strip [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code) from a string.
+ * Adapted from code originally released by Sindre Sorhus
+ * Licensed the MIT License
+ *
+ * @param {string} string
+ * @return {string}
+ */
+const stripAnsi = (string) => {
+  if (typeof string !== "string") {
+    throw new TypeError(`Expected a \`string\`, got \`${typeof string}\``);
+  }
+
+  return string.replace(ansiRegex, "");
+};
 
 const onSocketMessage = {
   hot() {
