@@ -4,10 +4,17 @@
 
 "use strict";
 
-const getCurrentScriptSource =
-  require("../../../client-src/utils/getCurrentScriptSource").default;
-
 describe("'getCurrentScriptSource' function", () => {
+  let getCurrentScriptSource;
+
+  beforeEach(() => {
+    global.__webpack_hash__ = "mock-hash";
+    global.__resourceQuery = "?protocol=ws&hostname=0.0.0.0";
+
+    getCurrentScriptSource =
+      require("../../../client-src/index").getCurrentScriptSource;
+  });
+
   afterEach(() => {
     Object.defineProperty(document, "currentScript", {
       // eslint-disable-next-line no-undefined

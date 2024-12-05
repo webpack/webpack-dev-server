@@ -8,14 +8,13 @@ describe("index", () => {
   let log;
   let socket;
   let overlay;
-  let reloadApp;
   let sendMessage;
   let onSocketMessage;
   const locationValue = self.location;
   const resourceQueryValue = global.__resourceQuery;
 
   beforeEach(() => {
-    global.__resourceQuery = "foo";
+    global.__resourceQuery = "?mock-url";
     global.__webpack_hash__ = "mock-hash";
 
     // log
@@ -51,24 +50,9 @@ describe("index", () => {
     const { createOverlay } = require("../../client-src/overlay");
     overlay = createOverlay();
 
-    // reloadApp
-    jest.setMock("../../client-src/utils/reloadApp.js", jest.fn());
-    reloadApp = require("../../client-src/utils/reloadApp");
-
     // sendMessage
     jest.setMock("../../client-src/utils/sendMessage.js", jest.fn());
     sendMessage = require("../../client-src/utils/sendMessage");
-
-    // getUrlOptions
-    jest.setMock("../../client-src/utils/parseURL.js", () => {
-      return {
-        logging: "info",
-        reconnect: 10,
-      };
-    });
-
-    // createSocketUrl
-    jest.setMock("../../client-src/utils/createSocketURL.js", () => "mock-url");
 
     // issue: https://github.com/jsdom/jsdom/issues/2112
     delete window.location;
@@ -93,7 +77,7 @@ describe("index", () => {
   test("should run onSocketMessage['still-ok']", () => {
     onSocketMessage["still-ok"]();
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
     expect(overlay.send).not.toBeCalledWith({ type: "DISMISS" });
 
@@ -111,7 +95,6 @@ describe("index", () => {
       percent: "12",
     });
 
-    expect(log.log.info).not.toBeCalled();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
 
     onSocketMessage.progress(true);
@@ -120,7 +103,7 @@ describe("index", () => {
       percent: "12",
     });
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
   });
 
   test("should run onSocketMessage.progress and onSocketMessage['progress-update'] and log plugin name", () => {
@@ -131,7 +114,6 @@ describe("index", () => {
       pluginName: "mock-plugin",
     });
 
-    expect(log.log.info).not.toBeCalled();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
 
     onSocketMessage.progress(true);
@@ -141,7 +123,7 @@ describe("index", () => {
       pluginName: "mock-plugin",
     });
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
   });
 
   test("should run onSocketMessage.ok", () => {
@@ -154,8 +136,6 @@ describe("index", () => {
 
     const res = onSocketMessage.ok();
 
-    expect(reloadApp).toBeCalled();
-    expect(reloadApp.mock.calls[0][0]).toMatchSnapshot();
     // eslint-disable-next-line no-undefined
     expect(res).toEqual(undefined);
   });
@@ -163,14 +143,14 @@ describe("index", () => {
   test("should run onSocketMessage['static-changed']", () => {
     onSocketMessage["static-changed"]();
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
     expect(self.location.reload).toBeCalled();
   });
 
   test("should run onSocketMessage['static-changed'](file)", () => {
     onSocketMessage["static-changed"]("/static/assets/index.html");
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
     expect(self.location.reload).toBeCalled();
   });
 
@@ -201,7 +181,6 @@ describe("index", () => {
       )}`;
       overlay.send.mockReset();
       socket.mockReset();
-      jest.unmock("../../client-src/utils/parseURL.js");
       require("../../client-src");
       onSocketMessage = socket.mock.calls[0][1];
 
@@ -224,7 +203,6 @@ describe("index", () => {
       )}`;
       overlay.send.mockReset();
       socket.mockReset();
-      jest.unmock("../../client-src/utils/parseURL.js");
       require("../../client-src");
       onSocketMessage = socket.mock.calls[0][1];
 
@@ -243,7 +221,6 @@ describe("index", () => {
     jest.isolateModules(() => {
       // Use simple boolean
       global.__resourceQuery = "?overlay=true";
-      jest.unmock("../../client-src/utils/parseURL.js");
       socket.mockReset();
       overlay.send.mockReset();
       require("../../client-src");
@@ -276,7 +253,7 @@ describe("index", () => {
   test("should run onSocketMessage.close", () => {
     onSocketMessage.close();
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 
@@ -285,7 +262,7 @@ describe("index", () => {
     onSocketMessage.hot();
     onSocketMessage.close();
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
   });
 
@@ -294,11 +271,7 @@ describe("index", () => {
     onSocketMessage.liveReload();
     onSocketMessage.close();
 
-    expect(log.log.info.mock.calls[0][0]).toMatchSnapshot();
+    expect(log.log.info.mock.calls[1][0]).toMatchSnapshot();
     expect(sendMessage.mock.calls[0][0]).toMatchSnapshot();
-  });
-
-  test("should update log level if options is passed", () => {
-    expect(log.setLogLevel.mock.calls[0][0]).toMatchSnapshot();
   });
 });
