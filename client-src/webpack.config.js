@@ -22,9 +22,6 @@ const baseForModules = {
     path: path.resolve(__dirname, "../client/modules"),
     ...library,
   },
-  optimization: {
-    minimize: false,
-  },
   target: ["web", "es5"],
   module: {
     rules: [
