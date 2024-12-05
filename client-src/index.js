@@ -721,3 +721,5 @@ const createSocketURL = (parsedURL) => {
 const socketURL = createSocketURL(parsedResourceQuery);
 
 socket(socketURL, onSocketMessage, options.reconnect);
+
+export { getCurrentScriptSource, parseURL, createSocketURL };
