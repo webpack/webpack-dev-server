@@ -1,10 +1,9 @@
 /* global __resourceQuery, __webpack_hash__ */
 /// <reference types="webpack/module" />
 import webpackHotLog from "webpack/hot/log.js";
-import parseURL from "./utils/parseURL.js";
 import socket from "./socket.js";
 import { formatProblem, createOverlay } from "./overlay.js";
-import { log, logEnabledFeatures, setLogLevel } from "./utils/log.js";
+import { log, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
 import reloadApp from "./utils/reloadApp.js";
 import { isProgressSupported, defineProgressElement } from "./progress.js";
@@ -46,13 +45,11 @@ const decodeOverlayOptions = (overlayOptions) => {
         );
 
         // eslint-disable-next-line no-new-func
-        const overlayFilterFunction = new Function(
+        overlayOptions[property] = new Function(
           "message",
           `var callback = ${overlayFilterFunctionString}
         return callback(message)`,
         );
-
-        overlayOptions[property] = overlayFilterFunction;
       }
     });
   }
@@ -67,13 +64,75 @@ const status = {
   currentHash: __webpack_hash__,
 };
 
-/** @type {Options} */
-const options = {
-  hot: false,
-  liveReload: false,
-  progress: false,
-  overlay: false,
+/**
+ * @returns {string}
+ */
+const getCurrentScriptSource = () => {
+  // `document.currentScript` is the most accurate way to find the current script,
+  // but is not supported in all browsers.
+  if (document.currentScript) {
+    return document.currentScript.getAttribute("src");
+  }
+
+  // Fallback to getting all scripts running in the document.
+  const scriptElements = document.scripts || [];
+  const scriptElementsWithSrc = Array.prototype.filter.call(
+    scriptElements,
+    (element) => element.getAttribute("src"),
+  );
+
+  if (scriptElementsWithSrc.length > 0) {
+    const currentScript =
+      scriptElementsWithSrc[scriptElementsWithSrc.length - 1];
+
+    return currentScript.getAttribute("src");
+  }
+
+  // Fail as there was no script to use.
+  throw new Error("[webpack-dev-server] Failed to get current script source.");
 };
+
+/**
+ * @param {string} resourceQuery
+ * @returns {{ [key: string]: string | boolean }}
+ */
+const parseURL = (resourceQuery) => {
+  /** @type {{ [key: string]: string }} */
+  let result = {};
+
+  if (typeof resourceQuery === "string" && resourceQuery !== "") {
+    const searchParams = resourceQuery.slice(1).split("&");
+
+    for (let i = 0; i < searchParams.length; i++) {
+      const pair = searchParams[i].split("=");
+
+      result[pair[0]] = decodeURIComponent(pair[1]);
+    }
+  } else {
+    // Else, get the url from the <script> this file was called with.
+    const scriptSource = getCurrentScriptSource();
+
+    let scriptSourceURL;
+
+    try {
+      // The placeholder `baseURL` with `window.location.href`,
+      // is to allow parsing of path-relative or protocol-relative URLs,
+      // and will have no effect if `scriptSource` is a fully valid URL.
+      scriptSourceURL = new URL(scriptSource, self.location.href);
+    } catch (error) {
+      // URL parsing failed, do nothing.
+      // We will still proceed to see if we can recover using `resourceQuery`
+    }
+
+    if (scriptSourceURL) {
+      result = scriptSourceURL;
+      result.fromCurrentScript = true;
+    }
+  }
+
+  return result;
+};
+
 const parsedResourceQuery = parseURL(__resourceQuery);
 
 const enabledFeatures = {
@@ -81,6 +140,14 @@ const enabledFeatures = {
   "Live Reloading": false,
   Progress: false,
   Overlay: false,
+};
+
+/** @type {Options} */
+const options = {
+  hot: false,
+  liveReload: false,
+  progress: false,
+  overlay: false,
 };
 
 if (parsedResourceQuery.hot === "true") {
@@ -130,17 +197,36 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
 /**
  * @param {string} level
  */
-function setAllLogLevel(level) {
+const setAllLogLevel = (level) => {
   // This is needed because the HMR logger operate separately from dev server logger
   webpackHotLog.setLogLevel(
     level === "verbose" || level === "log" ? "info" : level,
   );
   setLogLevel(level);
-}
+};
 
 if (options.logging) {
   setAllLogLevel(options.logging);
 }
+
+const logEnabledFeatures = (features) => {
+  const listEnabledFeatures = Object.keys(features);
+  if (!features || listEnabledFeatures.length === 0) {
+    return;
+  }
+
+  let logString = "Server started:";
+
+  // Server started: Hot Module Replacement enabled, Live Reloading enabled, Overlay disabled.
+  for (let i = 0; i < listEnabledFeatures.length; i++) {
+    const key = listEnabledFeatures[i];
+    logString += ` ${key} ${features[key] ? "enabled" : "disabled"},`;
+  }
+  // replace last comma with a period
+  logString = logString.slice(0, -1).concat(".");
+
+  log.info(logString);
+};
 
 logEnabledFeatures(enabledFeatures);
 
