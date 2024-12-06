@@ -100,6 +100,16 @@ describe("'createSocketURL' function ", () => {
     [null, "file:///home/user/project/index.html", "ws://localhost/ws"],
     [null, "chrome-extension://localhost/", "ws://localhost/ws"],
     [null, "file://localhost/", "ws://localhost/ws"],
+    [
+      "?protocol=ws:&hostname=0.0.0.0&port=3000&pathname=/ws&logging=none&reconnect=10",
+      "https://app.test.com",
+      "wss://app.test.com/ws",
+    ],
+    [
+      "?protocol=ws:&hostname=0.0.0.0&port=3000&pathname=/ws&logging=none&reconnect=10",
+      "https://app.test.com:7777",
+      "wss://app.test.com:7777/ws",
+    ],
   ];
 
   samples.forEach(([__resourceQuery, location, expected]) => {
