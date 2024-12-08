@@ -20,6 +20,16 @@ exports[`watchFiles option should work with array config should reload when file
 
 exports[`watchFiles option should work with array config should reload when file content is changed: response status 1`] = `200`;
 
+exports[`watchFiles option should work with glob when creating nested directory should reload when file content is changed: console messages 1`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option should work with glob when creating nested directory should reload when file content is changed: page errors 1`] = `[]`;
+
+exports[`watchFiles option should work with glob when creating nested directory should reload when file content is changed: response status 1`] = `200`;
+
 exports[`watchFiles option should work with object with multiple paths should reload when file content is changed: console messages 1`] = `
 [
   "Hey.",
