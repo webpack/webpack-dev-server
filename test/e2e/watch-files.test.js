@@ -309,6 +309,89 @@ describe("watchFiles option", () => {
     });
   });
 
+  describe("should work with glob when creating nested directory", () => {
+    const nonExistFile = path.join(watchDir, "non-existant/non-exist.txt");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      try {
+        fs.unlinkSync(nonExistFile);
+        fs.rmdirSync(path.join(watchDir, "non-existant"));
+      } catch (error) {
+        // ignore
+      }
+
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          watchFiles: `${watchDir}/**/*`,
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+    });
+
+    it("should reload when file content is changed", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://127.0.0.1:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages",
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(nonExistFile);
+          resolve();
+        });
+
+        // create file content
+        setTimeout(() => {
+          fs.mkdirSync(path.join(watchDir, "non-existant"));
+          fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
+          // change file content
+          setTimeout(() => {
+            fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
+          }, 1000);
+        }, 1000);
+      });
+    });
+  });
+
   describe("should work with object with single path", () => {
     const file = path.join(watchDir, "assets/example.txt");
     let compiler;
