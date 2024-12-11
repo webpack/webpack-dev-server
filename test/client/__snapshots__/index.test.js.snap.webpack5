@@ -16,17 +16,6 @@ exports[`index should run onSocketMessage.error 1`] = `"error!!"`;
 
 exports[`index should run onSocketMessage.ok 1`] = `"Ok"`;
 
-exports[`index should run onSocketMessage.ok 2`] = `
-{
-  "hot": false,
-  "liveReload": false,
-  "logging": "info",
-  "overlay": false,
-  "progress": false,
-  "reconnect": 10,
-}
-`;
-
 exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] 1`] = `"Progress"`;
 
 exports[`index should run onSocketMessage.progress and onSocketMessage['progress-update'] 2`] = `"12% - mock-msg."`;
@@ -66,7 +55,7 @@ exports[`index should run onSocketMessage['still-ok'] 2`] = `"StillOk"`;
 
 exports[`index should set arguments into socket function 1`] = `
 [
-  "mock-url",
+  "ws://localhost/ws",
   {
     "close": [Function],
     "error": [Function],
@@ -85,8 +74,6 @@ exports[`index should set arguments into socket function 1`] = `
     "still-ok": [Function],
     "warnings": [Function],
   },
-  10,
+  undefined,
 ]
 `;
-
-exports[`index should update log level if options is passed 1`] = `"info"`;

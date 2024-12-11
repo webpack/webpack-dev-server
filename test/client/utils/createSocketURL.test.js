@@ -5,8 +5,10 @@
 "use strict";
 
 describe("'createSocketURL' function ", () => {
+  global.__webpack_hash__ = "hash";
+
   const samples = [
-    // __resourceQuery, location and socket URL
+    // // __resourceQuery, location and socket URL
     [
       "?hostname=example.com&pathname=/ws",
       "http://example.com",
@@ -103,16 +105,20 @@ describe("'createSocketURL' function ", () => {
   ];
 
   samples.forEach(([__resourceQuery, location, expected]) => {
-    jest.doMock(
-      "../../../client-src/utils/getCurrentScriptSource",
-      () => () => new URL("./entry.js", location).toString(),
-    );
-
-    const createSocketURL =
-      require("../../../client-src/utils/createSocketURL").default;
-    const parseURL = require("../../../client-src/utils/parseURL").default;
-
     test(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
+      global.__resourceQuery = __resourceQuery;
+
+      if (__resourceQuery === null) {
+        Object.defineProperty(document, "currentScript", {
+          value: document.createElement("script"),
+          configurable: true,
+        });
+      }
+
+      const client = require("../../../client-src/index");
+      const createSocketURL = client.createSocketURL;
+      const parseURL = client.parseURL;
+
       const selfLocation = new URL(location);
 
       delete window.location;
@@ -120,6 +126,13 @@ describe("'createSocketURL' function ", () => {
       window.location = selfLocation;
 
       const parsedURL = parseURL(__resourceQuery);
+
+      if (__resourceQuery === null) {
+        Object.defineProperty(document, "currentScript", {
+          value: null,
+          configurable: true,
+        });
+      }
 
       expect(createSocketURL(parsedURL)).toBe(expected);
     });
