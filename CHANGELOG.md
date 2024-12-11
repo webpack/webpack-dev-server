@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/webpack/webpack-dev-server/compare/v5.1.0...v5.2.0) (2024-12-11)
+
+
+### Features
+
+* added `getClientEntry` and `getClientHotEntry` methods to get clients entries ([dc642a8](https://github.com/webpack/webpack-dev-server/commit/dc642a832d45c23c5c7a08fbf29995e0db7e0d95))
+
+
+### Bug Fixes
+
+* speed up initial client bundling ([145b5d0](https://github.com/webpack/webpack-dev-server/commit/145b5d01610a16468fc32719a20366682b0e8572))
+
 ## [5.1.0](https://github.com/webpack/webpack-dev-server/compare/v5.0.4...v5.1.0) (2024-09-03)
 
 
