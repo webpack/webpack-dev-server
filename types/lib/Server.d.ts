@@ -1484,7 +1484,9 @@ type StatsCompilation = import("webpack").StatsCompilation;
 type Stats = import("webpack").Stats;
 type MultiStats = import("webpack").MultiStats;
 type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
-type WatchOptions = import("chokidar").ChokidarOptions;
+type WatchOptions = import("chokidar").ChokidarOptions & {
+  disableGlobbing?: boolean;
+};
 type FSWatcher = import("chokidar").FSWatcher;
 type ConnectHistoryApiFallbackOptions =
   import("connect-history-api-fallback").Options;
@@ -1573,6 +1575,8 @@ type WatchFiles = {
               }>;
         }
       > & {
+        disableGlobbing?: boolean;
+      } & {
         aggregateTimeout?: number;
         ignored?: WatchOptions["ignored"];
         poll?: number | boolean;
@@ -1613,6 +1617,8 @@ type Static = {
               }>;
         }
       > & {
+        disableGlobbing?: boolean;
+      } & {
         aggregateTimeout?: number;
         ignored?: WatchOptions["ignored"];
         poll?: number | boolean;
