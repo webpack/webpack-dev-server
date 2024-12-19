@@ -1484,7 +1484,9 @@ type StatsCompilation = import("webpack").StatsCompilation;
 type Stats = import("webpack").Stats;
 type MultiStats = import("webpack").MultiStats;
 type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
-type WatchOptions = import("chokidar").WatchOptions;
+type WatchOptions = import("chokidar").ChokidarOptions & {
+  disableGlobbing?: boolean;
+};
 type FSWatcher = import("chokidar").FSWatcher;
 type ConnectHistoryApiFallbackOptions =
   import("connect-history-api-fallback").Options;
@@ -1550,7 +1552,31 @@ type Port = number | string | "auto";
 type WatchFiles = {
   paths: string | string[];
   options?:
-    | (import("chokidar").WatchOptions & {
+    | (Partial<
+        {
+          persistent: boolean;
+          ignoreInitial: boolean;
+          followSymlinks: boolean;
+          cwd?: string;
+          usePolling: boolean;
+          interval: number;
+          binaryInterval: number;
+          alwaysStat?: boolean;
+          depth?: number;
+          ignorePermissionErrors: boolean;
+          atomic: boolean | number;
+        } & {
+          ignored: import("chokidar").Matcher | import("chokidar").Matcher[];
+          awaitWriteFinish:
+            | boolean
+            | Partial<{
+                stabilityThreshold: number;
+                pollInterval: number;
+              }>;
+        }
+      > & {
+        disableGlobbing?: boolean;
+      } & {
         aggregateTimeout?: number;
         ignored?: WatchOptions["ignored"];
         poll?: number | boolean;
@@ -1568,7 +1594,31 @@ type Static = {
     | undefined;
   watch?:
     | boolean
-    | (import("chokidar").WatchOptions & {
+    | (Partial<
+        {
+          persistent: boolean;
+          ignoreInitial: boolean;
+          followSymlinks: boolean;
+          cwd?: string;
+          usePolling: boolean;
+          interval: number;
+          binaryInterval: number;
+          alwaysStat?: boolean;
+          depth?: number;
+          ignorePermissionErrors: boolean;
+          atomic: boolean | number;
+        } & {
+          ignored: import("chokidar").Matcher | import("chokidar").Matcher[];
+          awaitWriteFinish:
+            | boolean
+            | Partial<{
+                stabilityThreshold: number;
+                pollInterval: number;
+              }>;
+        }
+      > & {
+        disableGlobbing?: boolean;
+      } & {
         aggregateTimeout?: number;
         ignored?: WatchOptions["ignored"];
         poll?: number | boolean;
