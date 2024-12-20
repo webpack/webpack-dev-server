@@ -55,7 +55,7 @@
     "@types/ws": "^8.5.10",
     "ansi-html-community": "^0.0.8",
     "bonjour-service": "^1.2.1",
-    "chokidar": "^4.0.1",
+    "chokidar": "^4.0.3",
     "colorette": "^2.0.10",
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^2.0.0",
