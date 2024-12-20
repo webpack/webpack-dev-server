@@ -1,9 +1,5 @@
 export = Server;
 /**
- * @typedef {Object} BasicApplication
- * @property {typeof useFn} use
- */
-/**
  * @template {BasicApplication} [A=ExpressApplication]
  * @template {BasicServer} [S=HTTPServer]
  */
@@ -1402,6 +1398,7 @@ declare class Server<
 declare namespace Server {
   export {
     DEFAULT_STATS,
+    BasicApplication,
     Schema,
     Compiler,
     MultiCompiler,
@@ -1469,12 +1466,14 @@ declare namespace Server {
     Middleware,
     BasicServer,
     Configuration,
-    BasicApplication,
   };
 }
 declare class DEFAULT_STATS {
   private constructor();
 }
+type BasicApplication = {
+  use: typeof useFn;
+};
 type Schema = import("schema-utils/declarations/validate").Schema;
 type Compiler = import("webpack").Compiler;
 type MultiCompiler = import("webpack").MultiCompiler;
@@ -1812,9 +1811,6 @@ type Configuration<
   setupMiddlewares?:
     | ((middlewares: Middleware[], devServer: Server<A, S>) => Middleware[])
     | undefined;
-};
-type BasicApplication = {
-  use: typeof useFn;
 };
 /**
  * @overload

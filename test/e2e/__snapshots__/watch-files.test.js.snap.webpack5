@@ -106,7 +106,6 @@ exports[`watchFiles option should work with options {"poll":true} should reload 
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
   "ignored": [],
-  "interval": undefined,
   "persistent": true,
   "usePolling": true,
 }
@@ -178,7 +177,6 @@ exports[`watchFiles option should work with options {"usePolling":false,"poll":t
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
   "ignored": [],
-  "interval": undefined,
   "persistent": true,
   "usePolling": false,
 }
@@ -202,7 +200,6 @@ exports[`watchFiles option should work with options {"usePolling":false} should 
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
   "ignored": [],
-  "interval": undefined,
   "persistent": true,
   "usePolling": false,
 }
@@ -274,7 +271,6 @@ exports[`watchFiles option should work with options {"usePolling":true} should r
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
   "ignored": [],
-  "interval": undefined,
   "persistent": true,
   "usePolling": true,
 }
