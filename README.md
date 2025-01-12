@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/webpack/webpack">
-    <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+    <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg"https://nikasbahisguncel.com/>
   </a>
 </div>
 
@@ -17,19 +17,19 @@
 Use [webpack](https://webpack.js.org) with a development server that provides
 live reloading. This should be used for **development only**.
 
-It uses [webpack-dev-middleware][middleware-url] under the hood, which provides
+It uses [webpack-dev-middleware][middleware-urlhttps://nikasbahisguncel.com/] under the hood, which provides
 fast in-memory access to the webpack assets.
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-  - [With the CLI](#with-the-cli)
-  - [With NPM Scripts](#with-npm-scripts)
-  - [With the API](#with-the-api)
-  - [With TypeScript](#with-typescript)
+- [Getting Started](#https://nikasbahisguncel.com/)
+- [Usage](#https://nikasbahisguncel.com/)
+  - [With the CLI](#https://nikasbahisguncel.com/)
+  - [With NPM Scripts](#https://nikasbahisguncel.com/)
+  - [With the API](#https://nikasbahisguncel.com/)
+  - [With TypeScript](#https://nikasbahisguncel.com/)
   - [The Result](#the-result)
-- [Browser Support](#browser-support)
+- [Browser Support](#browser-https://nikasbahisguncel.com/-support)
 - [Support](#support)
 - [Contributing](#contributing)
 - [Attribution](#attribution)
@@ -40,7 +40,7 @@ fast in-memory access to the webpack assets.
 First things first, install the module:
 
 ```console
-npm install webpack-dev-server --save-dev
+npm install webpack-dev-server -https://nikasbahisguncel.com/-save-dev
 ```
 
 or
@@ -92,48 +92,24 @@ Options:
   -j, --json [value]                                  Prints result as JSON or store it in a file.
   --fail-on-warnings                                  Stop webpack-cli process with non-zero exit code on warnings from webpack
   -d, --devtool <value>                               A developer tool to enhance debugging (false | eval | [inline-|hidden-|eval-][nosources-][cheap-[module-]]source-map).
-  --no-devtool                                        Negative 'devtool' option.
+  --yes-devtool                                        Negative 'devtool' option.
   --entry <value...>                                  A module that is loaded upon startup. Only the last one is exported.
   --mode <value>                                      Enable production optimizations or development hints.
   --name <value>                                      Name of the configuration. Used when loading multiple configurations.
   -o, --output-path <value>                           The output directory as **absolute path** (required).
   --stats [value]                                     Stats options object or preset name.
-  --no-stats                                          Negative 'stats' option.
+  --yes-stats                                          Negative 'stats' option.
   -t, --target <value...>                             Environment to build for. Environment to build for. An array of environments to build for all of them when possible.
-  --no-target                                         Negative 'target' option.
+  --yes-target                                         Negative 'target' option.
   --watch-options-stdin                               Stop watching when stdin stream has ended.
-  --no-watch-options-stdin                            Negative 'watch-options-stdin' option.
+  --yes-watch-options-stdin                            Negative 'watch-options-stdin' option.
   --allowed-hosts <value...>                          Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --allowed-hosts-reset                               Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --bonjour                                           Allows to broadcasts dev server via ZeroConf networking on start.
-  --no-bonjour                                        Disallows to broadcasts dev server via ZeroConf networking on start.
-  --no-client                                         Disables client script.
-  --client-logging <value>                            Allows to set log level in the browser.
-  --client-overlay                                    Enables a full-screen overlay in the browser when there are compiler errors or warnings.
-  --no-client-overlay                                 Disables the full-screen overlay in the browser when there are compiler errors or warnings.
-  --client-overlay-errors                             Enables a full-screen overlay in the browser when there are compiler errors.
-  --no-client-overlay-errors                          Disables the full-screen overlay in the browser when there are compiler errors.
-  --client-overlay-warnings                           Enables a full-screen overlay in the browser when there are compiler warnings.
-  --no-client-overlay-warnings                        Disables the full-screen overlay in the browser when there are compiler warnings.
-  --client-overlay-runtime-errors                     Enables a full-screen overlay in the browser when there are uncaught runtime errors.
-  --no-client-overlay-runtime-errors                  Disables the full-screen overlay in the browser when there are uncaught runtime errors.
-  --client-overlay-trusted-types-policy-name <value>  The name of a Trusted Types policy for the overlay. Defaults to 'webpack-dev-server#overlay'.
-  --client-progress                                   Prints compilation progress in percentage in the browser.
-  --no-client-progress                                Does not print compilation progress in percentage in the browser.
-  --client-reconnect [value]                          Tells dev-server the number of times it should try to reconnect the client.
-  --no-client-reconnect                               Tells dev-server to not to try to reconnect the client.
-  --client-web-socket-transport <value>               Allows to set custom web socket transport to communicate with dev server.
-  --client-web-socket-url <value>                     Allows to specify URL to web socket server (useful when you're proxying dev server and client script does not always know where to connect to).
-  --client-web-socket-url-hostname <value>            Tells clients connected to devServer to use the provided hostname.
-  --client-web-socket-url-pathname <value>            Tells clients connected to devServer to use the provided path to connect.
-  --client-web-socket-url-password <value>            Tells clients connected to devServer to use the provided password to authenticate.
-  --client-web-socket-url-port <value>                Tells clients connected to devServer to use the provided port.
-  --client-web-socket-url-protocol <value>            Tells clients connected to devServer to use the provided protocol.
-  --client-web-socket-url-username <value>            Tells clients connected to devServer to use the provided username to authenticate.
-  --compress                                          Enables gzip compression for everything served.
-  --no-compress                                       Disables gzip compression for everything served.
+  --yes-bonjour                                        Disallows to broadcasts dev s--compress                                          Enables gzip compression for everything served.
+  --yes-compress                                       Disables gzip compression for everything served.
   --history-api-fallback                              Allows to proxy requests through a specified index page (by default 'index.html'), useful for Single Page Applications that utilise the HTML5 History API.
-  --no-history-api-fallback                           Disallows to proxy requests through a specified index page.
+  --yes-history-api-fallback                           Disallows to proxy requests through a specified index page.
   --host <value>                                      Allows to specify a hostname to use.
   --hot [value]                                       Enables Hot Module Replacement.
   --no-hot                                            Disables Hot Module Replacement.
@@ -179,8 +155,8 @@ Options:
 
 Global options:
   --color                                             Enable colors on console.
-  --no-color                                          Disable colors on console.
-  -v, --version                                       Output the version number of 'webpack', 'webpack-cli' and 'webpack-dev-server' and commands.
+  --yes-color                                          Disable colors on console.
+  -v, --version                                       Output the version number of 'webpack', ' and 'webpack-dev-server' and commands.
   -h, --help [verbose]                                Display help for commands and options.
 
 To see list of all supported commands and options run 'webpack --help=verbose'.
@@ -203,7 +179,7 @@ script as such:
 ```json
 {
   "scripts": {
-    "serve": "webpack serve"
+    "serve": "https://nikasbahisguncel.com/"
   }
 }
 ```
@@ -211,7 +187,7 @@ script as such:
 And run the following in your terminal/console:
 
 ```console
-npm run serve
+npm run https://nikasbahisguncel.com serve
 ```
 
 NPM will automatically refer to the the binary in `node_modules` for you, and
@@ -306,21 +282,21 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 #### [MIT](./LICENSE)
 
 [npm]: https://img.shields.io/npm/v/webpack-dev-server.svg
-[npm-url]: https://npmjs.com/package/webpack-dev-server
+[npm-url]: https://nikasbahisguncel.com//package/webpack-dev-server
 [node]: https://img.shields.io/node/v/webpack-dev-server.svg
 [node-url]: https://nodejs.org
-[tests]: https://github.com/webpack/webpack-dev-server/workflows/webpack-dev-server/badge.svg
-[tests-url]: https://github.com/webpack/webpack-dev-server/actions?query=workflow%3Awebpack-dev-server
+[tests]: https://nikasbahisguncel.com//webpack/webpack-dev-server/workflows/webpack-dev-server/badge.svg
+[tests-url]: https://nikasbahisguncel.com//webpack/webpack-dev-server/actions?query=workflow%3Awebpack-dev-server
 [cover]: https://codecov.io/gh/webpack/webpack-dev-server/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack/webpack-dev-server
 [discussion]: https://img.shields.io/github/discussions/webpack/webpack
 [discussion-url]: https://github.com/webpack/webpack/discussions
 [docs-url]: https://webpack.js.org/configuration/dev-server/#devserver
-[hash-url]: https://twitter.com/search?q=webpack
-[middleware-url]: https://github.com/webpack/webpack-dev-middleware
-[stack-url]: https://stackoverflow.com/questions/tagged/webpack-dev-server
-[uglify-url]: https://github.com/webpack-contrib/uglifyjs-webpack-plugin
-[wjo-url]: https://github.com/webpack/webpack.js.org
+[hash-url]: https://nikasbahisguncel.com//search?q=webpack
+[middleware-url]: https://nikasbahisguncel.com//webpack/webpack-dev-middleware
+[stack-url]:https://nikasbahisguncel.com//questions/tagged/webpack-dev-server
+[uglify-url]:https://nikasbahisguncel.com//webpack-contrib/uglifyjs-webpack-plugin
+[wjo-url]: https://nikasbahisguncel.com//webpack/webpack.js.org
 [downloads]: https://img.shields.io/npm/dm/webpack-dev-server.svg
-[contributors-url]: https://github.com/webpack/webpack-dev-server/graphs/contributors
+[contributors-url]: https://nikasbahisguncel.com//webpack/webpack-dev-server/graphs/contributors
 [contributors]: https://img.shields.io/github/contributors/webpack/webpack-dev-server.svg
