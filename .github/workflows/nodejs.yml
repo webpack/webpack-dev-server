@@ -120,6 +120,6 @@ jobs:
         if: matrix.node-version != '18.x'
 
       - name: Submit coverage data to codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
