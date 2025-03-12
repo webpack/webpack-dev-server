@@ -12,15 +12,19 @@ describe("createOverlay", () => {
 
   beforeEach(() => {
     global.document = {
-      createElement: jest.fn(() => {return {
-        style: {},
-        appendChild: jest.fn(),
-        addEventListener: jest.fn(),
-        contentDocument: {
-          createElement: jest.fn(() => {return { style: {}, appendChild: jest.fn() }}),
-          body: { appendChild: jest.fn() },
-        },
-      }}),
+      createElement: jest.fn(() => {
+        return {
+          style: {},
+          appendChild: jest.fn(),
+          addEventListener: jest.fn(),
+          contentDocument: {
+            createElement: jest.fn(() => {
+              return { style: {}, appendChild: jest.fn() };
+            }),
+            body: { appendChild: jest.fn() },
+          },
+        };
+      }),
       body: { appendChild: jest.fn(), removeChild: jest.fn() },
     };
     global.window = {
