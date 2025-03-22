@@ -137,6 +137,7 @@ function createMachine({ states, context, initial }, { actions }) {
         }
       }
     },
+    getContext: () => currentContext,
   };
 }
 
@@ -149,15 +150,16 @@ function createMachine({ states, context, initial }, { actions }) {
 
 /**
  * @typedef {Object} CreateOverlayMachineOptions
- * @property {(data: ShowOverlayData) => void} showOverlay
+ * @property {(data: ShowOverlayData, currentIndex: number) => void} showOverlay
  * @property {() => void} hideOverlay
+ * @property {(direction: 'prev' | 'next') => void} navigateErrors
  */
 
 /**
  * @param {CreateOverlayMachineOptions} options
  */
 const createOverlayMachine = (options) => {
-  const { hideOverlay, showOverlay } = options;
+  const { hideOverlay, showOverlay, navigateErrors } = options;
 
   return createMachine(
     {
@@ -166,6 +168,7 @@ const createOverlayMachine = (options) => {
         level: "error",
         messages: [],
         messageSource: "build",
+        currentErrorIndex: 0,
       },
       states: {
         hidden: {
@@ -190,6 +193,10 @@ const createOverlayMachine = (options) => {
               target: "displayBuildError",
               actions: ["appendMessages", "showOverlay"],
             },
+            NAVIGATE: {
+              target: "displayBuildError",
+              actions: ["navigateErrors"],
+            },
           },
         },
         displayRuntimeError: {
@@ -206,6 +213,10 @@ const createOverlayMachine = (options) => {
               target: "displayBuildError",
               actions: ["setMessages", "showOverlay"],
             },
+            NAVIGATE: {
+              target: "displayRuntimeError",
+              actions: ["navigateErrors"],
+            },
           },
         },
       },
@@ -217,6 +228,7 @@ const createOverlayMachine = (options) => {
             messages: [],
             level: "error",
             messageSource: "build",
+            currentErrorIndex: 0,
           };
         },
         appendMessages: (context, event) => {
@@ -224,6 +236,7 @@ const createOverlayMachine = (options) => {
             messages: context.messages.concat(event.messages),
             level: event.level || context.level,
             messageSource: event.type === "RUNTIME_ERROR" ? "runtime" : "build",
+            currentErrorIndex: context.currentErrorIndex,
           };
         },
         setMessages: (context, event) => {
@@ -231,10 +244,30 @@ const createOverlayMachine = (options) => {
             messages: event.messages,
             level: event.level || context.level,
             messageSource: event.type === "RUNTIME_ERROR" ? "runtime" : "build",
+            currentErrorIndex: 0,
+          };
+        },
+        navigateErrors: (context, event) => {
+          const totalErrors = context.messages.length;
+          let newIndex = context.currentErrorIndex;
+
+          if (event.direction === "next") {
+            newIndex = (newIndex + 1) % totalErrors;
+          } else if (event.direction === "prev") {
+            newIndex = (newIndex - 1 + totalErrors) % totalErrors;
+          }
+
+          navigateErrors(event.direction);
+
+          return {
+            currentErrorIndex: newIndex,
           };
         },
         hideOverlay,
-        showOverlay,
+        showOverlay: (context) => {
+          showOverlay(context, context.currentErrorIndex);
+          return context;
+        },
       },
     },
   );
@@ -289,18 +322,7 @@ const listenToUnhandledRejection = (callback) => {
   };
 };
 
-// Styles are inspired by `react-error-overlay`
-
-const msgStyles = {
-  error: {
-    backgroundColor: "rgba(206, 17, 38, 0.1)",
-    color: "#fccfcf",
-  },
-  warning: {
-    backgroundColor: "rgba(251, 245, 180, 0.1)",
-    color: "#fbf5b4",
-  },
-};
+// Updated styles to match the new design
 const iframeStyle = {
   position: "fixed",
   top: 0,
@@ -312,6 +334,7 @@ const iframeStyle = {
   border: "none",
   "z-index": 9999999999,
 };
+
 const containerStyle = {
   position: "fixed",
   boxSizing: "border-box",
@@ -321,50 +344,112 @@ const containerStyle = {
   bottom: 0,
   width: "100vw",
   height: "100vh",
-  fontSize: "large",
-  padding: "2rem 2rem 4rem 2rem",
-  lineHeight: "1.2",
-  whiteSpace: "pre-wrap",
   overflow: "auto",
-  backgroundColor: "rgba(0, 0, 0, 0.9)",
+  backgroundColor: "#1a1117",
   color: "white",
-};
-const headerStyle = {
-  color: "#e83b46",
-  fontSize: "2em",
-  whiteSpace: "pre-wrap",
   fontFamily: "sans-serif",
-  margin: "0 2rem 2rem 0",
-  flex: "0 0 auto",
-  maxHeight: "50%",
-  overflow: "auto",
+  display: "flex",
+  flexDirection: "column",
 };
+
+const headerStyle = {
+  backgroundColor: "#8b1538",
+  color: "white",
+  padding: "10px 20px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
+};
+
+const logoContainerStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "15px",
+};
+
+const titleStyle = {
+  fontSize: "24px",
+  fontWeight: "normal",
+  margin: 0,
+};
+
+const navigationStyle = {
+  display: "flex",
+  alignItems: "center",
+  padding: "10px 20px",
+  justifyContent: "flex-end",
+  gap: "10px",
+  backgroundColor: "transparent",
+};
+
+const navButtonStyle = {
+  backgroundColor: "#3a3340",
+  color: "white",
+  border: "none",
+  padding: "6px 12px",
+  cursor: "pointer",
+  borderRadius: "2px",
+  fontFamily: "sans-serif",
+  fontSize: "14px",
+  display: "flex",
+  alignItems: "center",
+  gap: "5px",
+};
+
 const dismissButtonStyle = {
   color: "#ffffff",
-  lineHeight: "1rem",
-  fontSize: "1.5rem",
-  padding: "1rem",
+  padding: "6px 12px",
   cursor: "pointer",
-  position: "absolute",
-  right: 0,
-  top: 0,
   backgroundColor: "transparent",
   border: "none",
+  fontSize: "14px",
+  display: "flex",
+  alignItems: "center",
 };
-const msgTypeStyle = {
+
+const keyboardShortcutStyle = {
+  backgroundColor: "#555",
+  color: "white",
+  padding: "2px 5px",
+  borderRadius: "2px",
+  marginLeft: "5px",
+  fontSize: "12px",
+};
+
+const errorContentStyle = {
+  padding: "20px",
+  flex: 1,
+};
+
+const errorTypeStyle = {
   color: "#e83b46",
   fontSize: "1.2em",
-  marginBottom: "1rem",
+  marginBottom: "20px",
   fontFamily: "sans-serif",
 };
-const msgTextStyle = {
+
+const errorMessageStyle = {
   lineHeight: "1.5",
   fontSize: "1rem",
   fontFamily: "Menlo, Consolas, monospace",
+  whiteSpace: "pre-wrap",
+};
+
+const footerStyle = {
+  padding: "15px 20px",
+  color: "#aaa",
+  fontSize: "12px",
+  borderTop: "1px solid #333",
+};
+
+const logoStyle = {
+  width: "40px",
+  height: "40px",
+  marginRight: "10px",
 };
 
 // ANSI HTML
-
 const colors = {
   reset: ["transparent", "transparent"],
   black: "181818",
@@ -438,14 +523,23 @@ const createOverlay = (options) => {
   /** @type {HTMLDivElement | null | undefined} */
   let containerElement;
   /** @type {HTMLDivElement | null | undefined} */
-  let headerElement;
+  let errorContentElement;
+  /** @type {HTMLDivElement | null | undefined} */
+  let navigationElement;
+  /** @type {HTMLDivElement | null | undefined} */
+  let currentErrorCountElement;
+  /** @type {HTMLHeadingElement | null | undefined} */
+  let titleElement;
   /** @type {Array<(element: HTMLDivElement) => void>} */
   let onLoadQueue = [];
   /** @type {TrustedTypePolicy | undefined} */
   let overlayTrustedTypesPolicy;
+  /** @type {Array<{ message: any, type: string }>} */
+  let currentMessages = [];
+  /** @type {number} */
+  let currentErrorIndex = 0;
 
   /**
-   *
    * @param {HTMLElement} element
    * @param {CSSStyleDeclaration} style
    */
@@ -454,6 +548,34 @@ const createOverlay = (options) => {
       element.style[prop] = style[prop];
     });
   }
+
+  /**
+   * Creates and returns an SVG element for the logo
+   * @returns {HTMLElement}
+   */
+  function createLogo() {
+    const logoSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+      <path fill="#fff" d="M300 0l265 150v300L300 600 35 450V150z"/>
+      <path fill="#8ed6fb" d="M517.7 439.5L308.8 557.8v-92L439 394.1l78.7 45.4zm14.3-12.9V179.4l-76.4 44.1v159l76.4 44.1zM81.5 439.5l208.9 118.2v-92l-130.2-71.6-78.7 45.4zm-14.3-12.9V179.4l76.4 44.1v159l-76.4 44.1zm8.9-263.2L290.4 42.2v89l-137.3 75.5-1.1.6-75.9-43.9zm446.9 0L308.8 42.2v89L446 206.8l1.1.6 75.9-44z"/>
+      <path fill="#1c78c0" d="M290.4 444.8L162 374.1V234.2l128.4 74.1v136.5zm18.4 0l128.4-70.6v-140l-128.4 74.1v136.5zM299.6 303zm-129-85l129-70.9L428.5 218l-128.9 74.4-129-74.4z"/>
+    </svg>`;
+
+    const logoContainer = document.createElement("div");
+    logoContainer.innerHTML = overlayTrustedTypesPolicy
+      ? overlayTrustedTypesPolicy.createHTML(logoSvg)
+      : logoSvg;
+    applyStyle(logoContainer, logoStyle);
+    return logoContainer;
+  }
+
+  const overlayService = createOverlayMachine({
+    showOverlay: (context, errorIndex) => {
+      show(context, errorIndex, options.trustedTypesPolicyName);
+    },
+    hideOverlay: hide,
+    navigateErrors,
+  });
 
   /**
    * @param {string | null} trustedTypesPolicyName
@@ -475,50 +597,108 @@ const createOverlay = (options) => {
     applyStyle(iframeContainerElement, iframeStyle);
 
     iframeContainerElement.onload = () => {
-      const contentElement =
-        /** @type {Document} */
-        (
-          /** @type {HTMLIFrameElement} */
-          (iframeContainerElement).contentDocument
-        ).createElement("div");
-      containerElement =
-        /** @type {Document} */
-        (
-          /** @type {HTMLIFrameElement} */
-          (iframeContainerElement).contentDocument
-        ).createElement("div");
+      const doc = /** @type {Document} */ (
+        /** @type {HTMLIFrameElement} */ (iframeContainerElement)
+          .contentDocument
+      );
 
-      contentElement.id = "webpack-dev-server-client-overlay-div";
-      applyStyle(contentElement, containerStyle);
+      containerElement = doc.createElement("div");
+      applyStyle(containerElement, containerStyle);
 
-      headerElement = document.createElement("div");
-
-      headerElement.innerText = "Compiled with problems:";
+      // Create header
+      const headerElement = doc.createElement("div");
       applyStyle(headerElement, headerStyle);
 
-      const closeButtonElement = document.createElement("button");
+      // Logo and title
+      const logoContainer = doc.createElement("div");
+      applyStyle(logoContainer, logoContainerStyle);
 
-      applyStyle(closeButtonElement, dismissButtonStyle);
+      const logo = createLogo();
+      logoContainer.appendChild(logo);
 
-      closeButtonElement.innerText = "×";
-      closeButtonElement.ariaLabel = "Dismiss";
-      closeButtonElement.addEventListener("click", () => {
-        // eslint-disable-next-line no-use-before-define
+      titleElement = doc.createElement("h1");
+      titleElement.textContent = "Compiled with problems:";
+      applyStyle(titleElement, titleStyle);
+      logoContainer.appendChild(titleElement);
+
+      headerElement.appendChild(logoContainer);
+
+      // Dismiss button
+      const dismissContainer = doc.createElement("div");
+      const dismissButton = doc.createElement("button");
+      dismissButton.textContent = "DISMISS";
+      applyStyle(dismissButton, dismissButtonStyle);
+      dismissButton.addEventListener("click", () => {
         overlayService.send({ type: "DISMISS" });
       });
 
-      contentElement.appendChild(headerElement);
-      contentElement.appendChild(closeButtonElement);
-      contentElement.appendChild(containerElement);
+      const escKeyElement = doc.createElement("span");
+      escKeyElement.textContent = "ESC";
+      applyStyle(escKeyElement, keyboardShortcutStyle);
+      dismissButton.appendChild(escKeyElement);
 
-      /** @type {Document} */
-      (
-        /** @type {HTMLIFrameElement} */
-        (iframeContainerElement).contentDocument
-      ).body.appendChild(contentElement);
+      dismissContainer.appendChild(dismissButton);
+      headerElement.appendChild(dismissContainer);
+
+      containerElement.appendChild(headerElement);
+
+      // Navigation bar
+      navigationElement = doc.createElement("div");
+      applyStyle(navigationElement, navigationStyle);
+
+      currentErrorCountElement = doc.createElement("div");
+      currentErrorCountElement.textContent = "ERROR 0/0";
+      navigationElement.appendChild(currentErrorCountElement);
+
+      const navButtonGroup = doc.createElement("div");
+      applyStyle(navButtonGroup, navigationStyle);
+      const prevButton = doc.createElement("button");
+      prevButton.innerHTML = `<span>⌘ + ←</span> PREV`;
+      applyStyle(prevButton, navButtonStyle);
+      prevButton.addEventListener("click", () => {
+        overlayService.send({ type: "NAVIGATE", direction: "prev" });
+      });
+
+      const nextButton = doc.createElement("button");
+      nextButton.innerHTML = `NEXT <span>⌘ + →</span>`;
+      applyStyle(nextButton, navButtonStyle);
+      nextButton.addEventListener("click", () => {
+        overlayService.send({ type: "NAVIGATE", direction: "next" });
+      });
+
+      navButtonGroup.appendChild(prevButton);
+      navButtonGroup.appendChild(nextButton);
+      navigationElement.appendChild(navButtonGroup);
+
+      containerElement.appendChild(navigationElement);
+
+      // Error content area
+      errorContentElement = doc.createElement("div");
+      applyStyle(errorContentElement, errorContentStyle);
+      containerElement.appendChild(errorContentElement);
+
+      // Footer
+      const footerElement = doc.createElement("div");
+      footerElement.textContent =
+        "This screen is only visible in development only. It will not appear in production. Open your browser console to further inspect this error.";
+      applyStyle(footerElement, footerStyle);
+      containerElement.appendChild(footerElement);
+
+      doc.body.appendChild(containerElement);
+
+      // Add keyboard listeners
+      doc.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          overlayService.send({ type: "DISMISS" });
+        } else if (e.key === "ArrowLeft" && (e.metaKey || e.ctrlKey)) {
+          overlayService.send({ type: "NAVIGATE", direction: "prev" });
+        } else if (e.key === "ArrowRight" && (e.metaKey || e.ctrlKey)) {
+          overlayService.send({ type: "NAVIGATE", direction: "next" });
+        }
+      });
 
       onLoadQueue.forEach((onLoad) => {
-        onLoad(/** @type {HTMLDivElement} */ (contentElement));
+        onLoad(containerElement);
       });
       onLoadQueue = [];
 
@@ -535,12 +715,8 @@ const createOverlay = (options) => {
    */
   function ensureOverlayExists(callback, trustedTypesPolicyName) {
     if (containerElement) {
-      containerElement.innerHTML = overlayTrustedTypesPolicy
-        ? overlayTrustedTypesPolicy.createHTML("")
-        : "";
       // Everything is ready, call the callback right away.
       callback(containerElement);
-
       return;
     }
 
@@ -553,82 +729,130 @@ const createOverlay = (options) => {
     createContainer(trustedTypesPolicyName);
   }
 
-  // Successful compilation.
+  /**
+   * Navigates between errors
+   * @param {string} direction 'prev' or 'next'
+   */
+  function navigateErrors(direction) {
+    if (!currentMessages.length) return;
+
+    if (direction === "next") {
+      currentErrorIndex = (currentErrorIndex + 1) % currentMessages.length;
+    } else {
+      currentErrorIndex =
+        (currentErrorIndex - 1 + currentMessages.length) %
+        currentMessages.length;
+    }
+
+    displayCurrentError();
+  }
+
+  /**
+   * Displays the current error based on the currentErrorIndex
+   */
+  function displayCurrentError() {
+    if (!errorContentElement || !currentMessages.length) return;
+
+    const message = currentMessages[currentErrorIndex];
+    const { header, body } = formatProblem(message.type, message.message);
+
+    // Update the error counter
+    if (currentErrorCountElement) {
+      currentErrorCountElement.textContent = `ERROR ${currentErrorIndex + 1}/${currentMessages.length}`;
+    }
+
+    // Clear previous content
+    errorContentElement.innerHTML = overlayTrustedTypesPolicy
+      ? overlayTrustedTypesPolicy.createHTML("")
+      : "";
+
+    // Create type element
+    const typeElement = document.createElement("div");
+    typeElement.innerText = header;
+    applyStyle(typeElement, errorTypeStyle);
+
+    if (
+      typeof message.message === "object" &&
+      message.message.moduleIdentifier
+    ) {
+      applyStyle(typeElement, { cursor: "pointer" });
+      typeElement.setAttribute("data-can-open", true);
+      typeElement.addEventListener("click", () => {
+        fetch(
+          `/webpack-dev-server/open-editor?fileName=${message.message.moduleIdentifier}`,
+        );
+      });
+    }
+
+    // Create message element
+    const messageTextNode = document.createElement("div");
+    const text = ansiHTML(encode(body));
+    messageTextNode.innerHTML = overlayTrustedTypesPolicy
+      ? overlayTrustedTypesPolicy.createHTML(text)
+      : text;
+    applyStyle(messageTextNode, errorMessageStyle);
+
+    errorContentElement.appendChild(typeElement);
+    errorContentElement.appendChild(messageTextNode);
+  }
+
+  // Hide overlay
   function hide() {
     if (!iframeContainerElement) {
       return;
     }
 
-    // Clean up and reset internal state.
     document.body.removeChild(iframeContainerElement);
 
     iframeContainerElement = null;
     containerElement = null;
+    errorContentElement = null;
+    navigationElement = null;
+    currentErrorCountElement = null;
+    titleElement = null;
+    currentMessages = [];
+    currentErrorIndex = 0;
   }
 
-  // Compilation with errors (e.g. syntax error or missing modules).
   /**
-   * @param {string} type
-   * @param {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages
+   * Show overlay with errors
+   * @param {ShowOverlayData} data
+   * @param {number} errorIndex
    * @param {string | null} trustedTypesPolicyName
-   * @param {'build' | 'runtime'} messageSource
    */
-  function show(type, messages, trustedTypesPolicyName, messageSource) {
+  function show(data, errorIndex, trustedTypesPolicyName) {
+    const { level = "error", messages, messageSource } = data;
+
     ensureOverlayExists(() => {
-      headerElement.innerText =
-        messageSource === "runtime"
-          ? "Uncaught runtime errors:"
-          : "Compiled with problems:";
+      // Update the title based on message source
+      if (titleElement) {
+        titleElement.textContent =
+          messageSource === "runtime"
+            ? "Runtime Error"
+            : "Compiled with problems:";
 
-      messages.forEach((message) => {
-        const entryElement = document.createElement("div");
-        const msgStyle =
-          type === "warning" ? msgStyles.warning : msgStyles.error;
-        applyStyle(entryElement, {
-          ...msgStyle,
-          padding: "1rem 1rem 1.5rem 1rem",
-        });
-
-        const typeElement = document.createElement("div");
-        const { header, body } = formatProblem(type, message);
-
-        typeElement.innerText = header;
-        applyStyle(typeElement, msgTypeStyle);
-
-        if (message.moduleIdentifier) {
-          applyStyle(typeElement, { cursor: "pointer" });
-          // element.dataset not supported in IE
-          typeElement.setAttribute("data-can-open", true);
-          typeElement.addEventListener("click", () => {
-            fetch(
-              `/webpack-dev-server/open-editor?fileName=${message.moduleIdentifier}`,
-            );
-          });
+        if (containerElement && containerElement.firstChild) {
+          containerElement.style.backgroundColor =
+            messageSource === "runtime" ? "#1a1117" : "#18181B";
+          containerElement.firstChild.style.backgroundColor =
+            messageSource === "runtime" ? "#8b1538" : "#18181B";
         }
+      }
 
-        // Make it look similar to our terminal.
-        const text = ansiHTML(encode(body));
-        const messageTextNode = document.createElement("div");
-        applyStyle(messageTextNode, msgTextStyle);
-
-        messageTextNode.innerHTML = overlayTrustedTypesPolicy
-          ? overlayTrustedTypesPolicy.createHTML(text)
-          : text;
-
-        entryElement.appendChild(typeElement);
-        entryElement.appendChild(messageTextNode);
-
-        /** @type {HTMLDivElement} */
-        (containerElement).appendChild(entryElement);
+      // Store messages for navigation
+      currentMessages = messages.map((message) => {
+        return {
+          type: level,
+          message,
+        };
       });
+
+      currentErrorIndex = Math.min(errorIndex, currentMessages.length - 1);
+
+      // Display the current error
+      displayCurrentError();
     }, trustedTypesPolicyName);
   }
-
-  const overlayService = createOverlayMachine({
-    showOverlay: ({ level = "error", messages, messageSource }) =>
-      show(level, messages, options.trustedTypesPolicyName, messageSource),
-    hideOverlay: hide,
-  });
 
   if (options.catchRuntimeError) {
     /**
@@ -665,9 +889,14 @@ const createOverlay = (options) => {
         return;
       }
       // if error stack indicates a React error boundary caught the error, do not show overlay.
-      if (error.stack && error.stack.includes("invokeGuardedCallbackDev")) {
+      if (
+        error &&
+        error.stack &&
+        error.stack.includes("invokeGuardedCallbackDev")
+      ) {
         return;
       }
+
       handleError(error, message);
     });
 
