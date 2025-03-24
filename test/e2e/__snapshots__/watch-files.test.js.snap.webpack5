@@ -20,6 +20,16 @@ exports[`watchFiles option should work with array config should reload when file
 
 exports[`watchFiles option should work with array config should reload when file content is changed: response status 1`] = `200`;
 
+exports[`watchFiles option should work with glob when creating nested directory should reload when file content is changed: console messages 1`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option should work with glob when creating nested directory should reload when file content is changed: page errors 1`] = `[]`;
+
+exports[`watchFiles option should work with glob when creating nested directory should reload when file content is changed: response status 1`] = `200`;
+
 exports[`watchFiles option should work with object with multiple paths should reload when file content is changed: console messages 1`] = `
 [
   "Hey.",
@@ -47,7 +57,7 @@ exports[`watchFiles option should work with options {"interval":400,"poll":200} 
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
+  "ignored": [],
   "interval": 400,
   "persistent": true,
   "usePolling": true,
@@ -71,7 +81,7 @@ exports[`watchFiles option should work with options {"poll":200} should reload w
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
+  "ignored": [],
   "interval": 200,
   "persistent": true,
   "usePolling": true,
@@ -95,8 +105,7 @@ exports[`watchFiles option should work with options {"poll":true} should reload 
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
-  "interval": undefined,
+  "ignored": [],
   "persistent": true,
   "usePolling": true,
 }
@@ -119,7 +128,7 @@ exports[`watchFiles option should work with options {"usePolling":false,"interva
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
+  "ignored": [],
   "interval": 200,
   "persistent": true,
   "usePolling": false,
@@ -143,7 +152,7 @@ exports[`watchFiles option should work with options {"usePolling":false,"poll":2
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
+  "ignored": [],
   "interval": 200,
   "persistent": true,
   "usePolling": false,
@@ -167,8 +176,7 @@ exports[`watchFiles option should work with options {"usePolling":false,"poll":t
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
-  "interval": undefined,
+  "ignored": [],
   "persistent": true,
   "usePolling": false,
 }
@@ -191,8 +199,7 @@ exports[`watchFiles option should work with options {"usePolling":false} should 
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
-  "interval": undefined,
+  "ignored": [],
   "persistent": true,
   "usePolling": false,
 }
@@ -215,7 +222,7 @@ exports[`watchFiles option should work with options {"usePolling":true,"interval
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
+  "ignored": [],
   "interval": 200,
   "persistent": true,
   "usePolling": true,
@@ -239,7 +246,7 @@ exports[`watchFiles option should work with options {"usePolling":true,"poll":20
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
+  "ignored": [],
   "interval": 200,
   "persistent": true,
   "usePolling": true,
@@ -263,8 +270,7 @@ exports[`watchFiles option should work with options {"usePolling":true} should r
   "followSymlinks": false,
   "ignoreInitial": true,
   "ignorePermissionErrors": true,
-  "ignored": undefined,
-  "interval": undefined,
+  "ignored": [],
   "persistent": true,
   "usePolling": true,
 }

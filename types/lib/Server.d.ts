@@ -1,9 +1,5 @@
 export = Server;
 /**
- * @typedef {Object} BasicApplication
- * @property {typeof useFn} use
- */
-/**
  * @template {BasicApplication} [A=ExpressApplication]
  * @template {BasicServer} [S=HTTPServer]
  */
@@ -1403,6 +1399,7 @@ declare class Server<
 declare namespace Server {
   export {
     DEFAULT_STATS,
+    BasicApplication,
     Schema,
     Compiler,
     MultiCompiler,
@@ -1470,12 +1467,14 @@ declare namespace Server {
     Middleware,
     BasicServer,
     Configuration,
-    BasicApplication,
   };
 }
 declare class DEFAULT_STATS {
   private constructor();
 }
+type BasicApplication = {
+  use: typeof useFn;
+};
 type Schema = import("schema-utils/declarations/validate").Schema;
 type Compiler = import("webpack").Compiler;
 type MultiCompiler = import("webpack").MultiCompiler;
@@ -1485,7 +1484,9 @@ type StatsCompilation = import("webpack").StatsCompilation;
 type Stats = import("webpack").Stats;
 type MultiStats = import("webpack").MultiStats;
 type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
-type WatchOptions = import("chokidar").WatchOptions;
+type WatchOptions = import("chokidar").ChokidarOptions & {
+  disableGlobbing?: boolean;
+};
 type FSWatcher = import("chokidar").FSWatcher;
 type ConnectHistoryApiFallbackOptions =
   import("connect-history-api-fallback").Options;
@@ -1551,7 +1552,31 @@ type Port = number | string | "auto";
 type WatchFiles = {
   paths: string | string[];
   options?:
-    | (import("chokidar").WatchOptions & {
+    | (Partial<
+        {
+          persistent: boolean;
+          ignoreInitial: boolean;
+          followSymlinks: boolean;
+          cwd?: string;
+          usePolling: boolean;
+          interval: number;
+          binaryInterval: number;
+          alwaysStat?: boolean;
+          depth?: number;
+          ignorePermissionErrors: boolean;
+          atomic: boolean | number;
+        } & {
+          ignored: import("chokidar").Matcher | import("chokidar").Matcher[];
+          awaitWriteFinish:
+            | boolean
+            | Partial<{
+                stabilityThreshold: number;
+                pollInterval: number;
+              }>;
+        }
+      > & {
+        disableGlobbing?: boolean;
+      } & {
         aggregateTimeout?: number;
         ignored?: WatchOptions["ignored"];
         poll?: number | boolean;
@@ -1569,7 +1594,31 @@ type Static = {
     | undefined;
   watch?:
     | boolean
-    | (import("chokidar").WatchOptions & {
+    | (Partial<
+        {
+          persistent: boolean;
+          ignoreInitial: boolean;
+          followSymlinks: boolean;
+          cwd?: string;
+          usePolling: boolean;
+          interval: number;
+          binaryInterval: number;
+          alwaysStat?: boolean;
+          depth?: number;
+          ignorePermissionErrors: boolean;
+          atomic: boolean | number;
+        } & {
+          ignored: import("chokidar").Matcher | import("chokidar").Matcher[];
+          awaitWriteFinish:
+            | boolean
+            | Partial<{
+                stabilityThreshold: number;
+                pollInterval: number;
+              }>;
+        }
+      > & {
+        disableGlobbing?: boolean;
+      } & {
         aggregateTimeout?: number;
         ignored?: WatchOptions["ignored"];
         poll?: number | boolean;
@@ -1763,9 +1812,6 @@ type Configuration<
   setupMiddlewares?:
     | ((middlewares: Middleware[], devServer: Server<A, S>) => Middleware[])
     | undefined;
-};
-type BasicApplication = {
-  use: typeof useFn;
 };
 /**
  * @overload
