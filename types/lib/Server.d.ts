@@ -1349,12 +1349,23 @@ declare class Server<
   private setHeaders;
   /**
    * @private
-   * @param {{ [key: string]: string | undefined }} headers
-   * @param {string} headerToCheck
-   * @param {boolean} allowIP
+   * @param {string} value
    * @returns {boolean}
    */
-  private checkHeader;
+  private isHostAllowed;
+  /**
+   * @private
+   * @param {{ [key: string]: string | undefined }} headers
+   * @param {string} headerToCheck
+   * @returns {boolean}
+   */
+  private isValidHost;
+  /**
+   * @private
+   * @param {{ [key: string]: string | undefined }} headers
+   * @returns {boolean}
+   */
+  private isSameOrigin;
   /**
    * @param {ClientConnection[]} clients
    * @param {string} type

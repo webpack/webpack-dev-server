@@ -211,7 +211,7 @@ describe("web socket server URL", () => {
     });
 
     it(`should work behind proxy, when hostnames are different and ports are different ("${webSocketServer}")`, async () => {
-      const devServerHost = "127.0.0.1";
+      const devServerHost = "localhost";
       const devServerPort = port1;
       const proxyHost = Server.internalIPSync("v4");
       const proxyPort = port2;
@@ -2267,7 +2267,7 @@ describe("web socket server URL", () => {
     });
 
     it(`should work with "server: 'https'" option ("${webSocketServer}")`, async () => {
-      const hostname = "127.0.0.1";
+      const hostname = "localhost";
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -2345,7 +2345,7 @@ describe("web socket server URL", () => {
     });
 
     it(`should work with "server: 'spdy'" option ("${webSocketServer}")`, async () => {
-      const hostname = "127.0.0.1";
+      const hostname = "localhost";
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -2430,6 +2430,7 @@ describe("web socket server URL", () => {
         webSocketServer,
         port: "auto",
         host: "0.0.0.0",
+        allowedHosts: "all",
       };
       const server = new Server(devServerOptions, compiler);
 

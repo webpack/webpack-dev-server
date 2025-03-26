@@ -55,7 +55,7 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -94,7 +94,7 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -138,7 +138,7 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -177,7 +177,7 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -219,7 +219,7 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -269,11 +269,11 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/test.html`, {
+      await page.goto(`http://localhost:${port}/test.html`, {
         waitUntil: "networkidle0",
       });
-      await page.addScriptTag({ url: `http://127.0.0.1:${port}/runtime.js` });
-      await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
+      await page.addScriptTag({ url: `http://localhost:${port}/runtime.js` });
+      await page.addScriptTag({ url: `http://localhost:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
       expect(consoleMessages).toMatchSnapshot("console messages");
@@ -320,11 +320,11 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/test.html`, {
+      await page.goto(`http://localhost:${port}/test.html`, {
         waitUntil: "networkidle0",
       });
-      await page.addScriptTag({ url: `http://127.0.0.1:${port}/runtime.js` });
-      await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
+      await page.addScriptTag({ url: `http://localhost:${port}/runtime.js` });
+      await page.addScriptTag({ url: `http://localhost:${port}/bar.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
       expect(consoleMessages).toMatchSnapshot("console messages");
@@ -369,11 +369,11 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/test.html`, {
+      await page.goto(`http://localhost:${port}/test.html`, {
         waitUntil: "networkidle0",
       });
-      await page.addScriptTag({ url: `http://127.0.0.1:${port}/bar.js` });
-      await page.addScriptTag({ url: `http://127.0.0.1:${port}/foo.js` });
+      await page.addScriptTag({ url: `http://localhost:${port}/bar.js` });
+      await page.addScriptTag({ url: `http://localhost:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
       expect(consoleMessages).toMatchSnapshot("console messages");
@@ -417,7 +417,7 @@ describe("entry", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 

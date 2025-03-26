@@ -34,7 +34,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -72,7 +72,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+      await page.goto(`http://localhost:${port}/one-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -82,7 +82,7 @@ describe("multi compiler", () => {
       pageErrors = [];
       consoleMessages = [];
 
-      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+      await page.goto(`http://localhost:${port}/two-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -140,7 +140,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+      await page.goto(`http://localhost:${port}/one-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -154,7 +154,7 @@ describe("multi compiler", () => {
       pageErrors = [];
       consoleMessages = [];
 
-      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+      await page.goto(`http://localhost:${port}/two-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -219,7 +219,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+      await page.goto(`http://localhost:${port}/one-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -233,7 +233,7 @@ describe("multi compiler", () => {
       pageErrors = [];
       consoleMessages = [];
 
-      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+      await page.goto(`http://localhost:${port}/two-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -290,7 +290,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+      await page.goto(`http://localhost:${port}/one-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -304,7 +304,7 @@ describe("multi compiler", () => {
       pageErrors = [];
       consoleMessages = [];
 
-      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+      await page.goto(`http://localhost:${port}/two-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -361,7 +361,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/one-main.html`, {
+      await page.goto(`http://localhost:${port}/one-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -375,7 +375,7 @@ describe("multi compiler", () => {
       pageErrors = [];
       consoleMessages = [];
 
-      await page.goto(`http://127.0.0.1:${port}/two-main.html`, {
+      await page.goto(`http://localhost:${port}/two-main.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -411,7 +411,7 @@ describe("multi compiler", () => {
     const consoleMessages = [];
     try {
       const serverResponse = await page.goto(
-        `http://127.0.0.1:${port}/server.js`,
+        `http://localhost:${port}/server.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -430,7 +430,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+      await page.goto(`http://localhost:${port}/browser.html`, {
         waitUntil: "networkidle0",
       });
     } catch (error) {
@@ -470,7 +470,7 @@ describe("multi compiler", () => {
 
     try {
       const serverResponse = await page.goto(
-        `http://127.0.0.1:${port}/server.js`,
+        `http://localhost:${port}/server.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -500,7 +500,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+      await page.goto(`http://localhost:${port}/browser.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -545,7 +545,7 @@ describe("multi compiler", () => {
 
     try {
       const serverResponse = await page.goto(
-        `http://127.0.0.1:${port}/server.js`,
+        `http://localhost:${port}/server.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -575,7 +575,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+      await page.goto(`http://localhost:${port}/browser.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -624,7 +624,7 @@ describe("multi compiler", () => {
 
     try {
       const serverResponse = await page.goto(
-        `http://127.0.0.1:${port}/server.js`,
+        `http://localhost:${port}/server.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -646,7 +646,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+      await page.goto(`http://localhost:${port}/browser.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -663,7 +663,7 @@ describe("multi compiler", () => {
       pageErrors = [];
       consoleMessages = [];
 
-      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+      await page.goto(`http://localhost:${port}/browser.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -713,7 +713,7 @@ describe("multi compiler", () => {
 
     try {
       const serverResponse = await page.goto(
-        `http://127.0.0.1:${port}/server.js`,
+        `http://localhost:${port}/server.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -735,7 +735,7 @@ describe("multi compiler", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+      await page.goto(`http://localhost:${port}/browser.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -752,7 +752,7 @@ describe("multi compiler", () => {
       pageErrors = [];
       consoleMessages = [];
 
-      await page.goto(`http://127.0.0.1:${port}/browser.html`, {
+      await page.goto(`http://localhost:${port}/browser.html`, {
         waitUntil: "networkidle0",
       });
 

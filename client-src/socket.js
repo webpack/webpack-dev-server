@@ -22,6 +22,8 @@ let maxRetries = 10;
 // eslint-disable-next-line import/no-mutable-exports
 export let client = null;
 
+let timeout;
+
 /**
  * @param {string} url
  * @param {{ [handler: string]: (data?: any, params?: any) => any }} handlers
@@ -32,6 +34,10 @@ const socket = function initSocket(url, handlers, reconnect) {
 
   client.onOpen(() => {
     retries = 0;
+
+    if (timeout) {
+      clearTimeout(timeout);
+    }
 
     if (typeof reconnect !== "undefined") {
       maxRetries = reconnect;
@@ -57,7 +63,7 @@ const socket = function initSocket(url, handlers, reconnect) {
 
       log.info("Trying to reconnect...");
 
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         socket(url, handlers, reconnect);
       }, retryInMs);
     }
