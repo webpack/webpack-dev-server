@@ -282,32 +282,6 @@ exports[`allowed hosts should disconnect web client using localhost to web socke
 
 exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
 
-exports[`allowed hosts should disconnect web client with origin header containing an IP address with the "auto" value ("sockjs"): console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Invalid Host/Origin header",
-  "[webpack-dev-server] Disconnected!",
-  "[webpack-dev-server] Trying to reconnect...",
-]
-`;
-
-exports[`allowed hosts should disconnect web client with origin header containing an IP address with the "auto" value ("sockjs"): page errors 1`] = `[]`;
-
-exports[`allowed hosts should disconnect web client with origin header containing an IP address with the "auto" value ("ws"): console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-  "[webpack-dev-server] Invalid Host/Origin header",
-  "[webpack-dev-server] Disconnected!",
-  "[webpack-dev-server] Trying to reconnect...",
-]
-`;
-
-exports[`allowed hosts should disconnect web client with origin header containing an IP address with the "auto" value ("ws"): page errors 1`] = `[]`;
-
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("sockjs"): console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
