@@ -89,7 +89,7 @@ describe("port", () => {
             pageErrors.push(error);
           });
 
-        await page.goto(`http://127.0.0.1:${address.port}/`, {
+        await page.goto(`http://localhost:${address.port}/`, {
           waitUntil: "networkidle0",
         });
 
