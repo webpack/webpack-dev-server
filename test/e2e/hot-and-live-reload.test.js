@@ -354,11 +354,11 @@ describe("hot and live reload", () => {
 
         if (webSocketTransport === "ws") {
           const ws = new WebSocket(
-            `ws://127.0.0.1:${devServerOptions.port}/ws`,
+            `ws://localhost:${devServerOptions.port}/ws`,
             {
               headers: {
-                host: `127.0.0.1:${devServerOptions.port}`,
-                origin: `http://127.0.0.1:${devServerOptions.port}`,
+                host: `localhost:${devServerOptions.port}`,
+                origin: `http://localhost:${devServerOptions.port}`,
               },
             },
           );
@@ -400,7 +400,7 @@ describe("hot and live reload", () => {
           });
         } else {
           const sockjs = new SockJS(
-            `http://127.0.0.1:${devServerOptions.port}/ws`,
+            `http://localhost:${devServerOptions.port}/ws`,
           );
 
           let opened = false;
@@ -624,7 +624,7 @@ describe("simple hot config HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/`, {
+    const response = await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -691,7 +691,7 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/`, {
+    const response = await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -822,7 +822,7 @@ describe("multi compiler hot config HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/`, {
+    const response = await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 
@@ -885,7 +885,7 @@ describe("hot disabled HMR plugin", () => {
         pageErrors.push(error);
       });
 
-    const response = await page.goto(`http://127.0.0.1:${port}/`, {
+    const response = await page.goto(`http://localhost:${port}/`, {
       waitUntil: "networkidle0",
     });
 

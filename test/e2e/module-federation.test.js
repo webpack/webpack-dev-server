@@ -45,7 +45,7 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -103,7 +103,7 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -135,7 +135,7 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/foo.js`, {
+      const response = await page.goto(`http://localhost:${port}/foo.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -193,7 +193,7 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -252,7 +252,7 @@ describe("Module federation", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/remoteEntry.js`,
+        `http://localhost:${port}/remoteEntry.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -278,7 +278,7 @@ describe("Module federation", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 

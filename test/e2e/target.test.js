@@ -58,7 +58,7 @@ describe("target", () => {
             pageErrors.push(error);
           });
 
-        await page.goto(`http://127.0.0.1:${port}/`, {
+        await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -113,7 +113,7 @@ describe("target", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -164,7 +164,7 @@ describe("target", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 

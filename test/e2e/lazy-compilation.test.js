@@ -29,7 +29,7 @@ describe("lazy compilation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/test.html`, {
+      await page.goto(`http://localhost:${port}/test.html`, {
         waitUntil: "domcontentloaded",
       });
       await new Promise((resolve) => {
@@ -72,7 +72,7 @@ describe("lazy compilation", () => {
           pageErrors.push(error);
         });
 
-      await page.goto(`http://127.0.0.1:${port}/test-one.html`, {
+      await page.goto(`http://localhost:${port}/test-one.html`, {
         waitUntil: "domcontentloaded",
       });
       await new Promise((resolve) => {
@@ -86,7 +86,7 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      await page.goto(`http://127.0.0.1:${port}/test-two.html`, {
+      await page.goto(`http://localhost:${port}/test-two.html`, {
         waitUntil: "domcontentloaded",
       });
       await new Promise((resolve) => {

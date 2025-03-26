@@ -148,8 +148,8 @@ describe("app option", () => {
           });
 
         const pageUrl = devServer.isTlsServer
-          ? `https://127.0.0.1:${port}/`
-          : `http://127.0.0.1:${port}/`;
+          ? `https://localhost:${port}/`
+          : `http://localhost:${port}/`;
 
         const response = await page.goto(pageUrl, {
           waitUntil: "networkidle0",

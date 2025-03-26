@@ -43,7 +43,7 @@ describe("Built in routes", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/__webpack_dev_server__/sockjs.bundle.js`,
+        `http://localhost:${port}/__webpack_dev_server__/sockjs.bundle.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -77,7 +77,7 @@ describe("Built in routes", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/__webpack_dev_server__/sockjs.bundle.js`,
+        `http://localhost:${port}/__webpack_dev_server__/sockjs.bundle.js`,
         {
           waitUntil: "networkidle0",
         },
@@ -106,7 +106,7 @@ describe("Built in routes", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/webpack-dev-server/invalidate`,
+        `http://localhost:${port}/webpack-dev-server/invalidate`,
         {
           waitUntil: "networkidle0",
         },
@@ -133,7 +133,7 @@ describe("Built in routes", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/webpack-dev-server/`,
+        `http://localhost:${port}/webpack-dev-server/`,
         {
           waitUntil: "networkidle0",
         },
@@ -169,7 +169,7 @@ describe("Built in routes", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/webpack-dev-server/`,
+        `http://localhost:${port}/webpack-dev-server/`,
         {
           waitUntil: "networkidle0",
         },
@@ -199,7 +199,7 @@ describe("Built in routes", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -228,7 +228,7 @@ describe("Built in routes", () => {
           interceptedRequest.continue({ method: "HEAD" });
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -279,7 +279,7 @@ describe("Built in routes", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/webpack-dev-server/`,
+        `http://localhost:${port}/webpack-dev-server/`,
         {
           waitUntil: "networkidle0",
         },

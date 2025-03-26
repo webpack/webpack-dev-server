@@ -65,7 +65,7 @@ describe("handle options-request correctly", () => {
     await server.start();
 
     const { page, browser } = await runBrowser();
-    const prefixUrl = "http://127.0.0.1";
+    const prefixUrl = "http://localhost";
     const htmlUrl = `${prefixUrl}:${portForServer}/test.html`;
     const appUrl = `${prefixUrl}:${portForApp}`;
 

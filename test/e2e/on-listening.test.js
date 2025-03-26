@@ -68,7 +68,7 @@ describe("onListening option", () => {
       });
 
     const response = await page.goto(
-      `http://127.0.0.1:${port}/listening/some/path`,
+      `http://localhost:${port}/listening/some/path`,
       {
         waitUntil: "networkidle0",
       },
@@ -108,7 +108,7 @@ describe("onListening option", () => {
       });
 
     const response = await page.goto(
-      `http://127.0.0.1:${port}/listening/some/path`,
+      `http://localhost:${port}/listening/some/path`,
       {
         waitUntil: "networkidle0",
       },

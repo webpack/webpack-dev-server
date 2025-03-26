@@ -51,7 +51,7 @@ describe("client option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/ws`, {
+      const response = await page.goto(`http://localhost:${port}/ws`, {
         waitUntil: "networkidle0",
       });
 
@@ -120,7 +120,7 @@ describe("client option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}/foo/test/bar`,
+        `http://localhost:${port}/foo/test/bar`,
         {
           waitUntil: "networkidle0",
         },
@@ -177,7 +177,7 @@ describe("client option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -235,7 +235,7 @@ describe("client option", () => {
     });
 
     it("should disable client entry", async () => {
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 

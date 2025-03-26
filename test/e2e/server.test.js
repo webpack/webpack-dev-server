@@ -71,7 +71,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+        const response = await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -131,7 +131,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+        const response = await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -191,7 +191,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -251,7 +251,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -342,7 +342,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -433,7 +433,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -522,7 +522,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -620,7 +620,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -695,7 +695,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -770,7 +770,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -852,7 +852,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -930,7 +930,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -1021,7 +1021,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -1117,7 +1117,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -1201,7 +1201,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -1341,7 +1341,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`https://127.0.0.1:${port}/`, {
+        const response = await page.goto(`https://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -1417,7 +1417,7 @@ describe("server option", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`http://127.0.0.1:${port}/`, {
+        const response = await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 

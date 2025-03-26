@@ -61,7 +61,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -85,7 +85,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/other.html`, {
+      const response = await page.goto(`http://localhost:${port}/other.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -178,7 +178,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/assets`, {
+      const response = await page.goto(`http://localhost:${port}/assets`, {
         waitUntil: "networkidle0",
       });
 
@@ -202,7 +202,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/bar`, {
+      const response = await page.goto(`http://localhost:${port}/bar`, {
         waitUntil: "networkidle0",
       });
 
@@ -263,7 +263,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/assets/`, {
+      const response = await page.goto(`http://localhost:${port}/assets/`, {
         waitUntil: "networkidle0",
       });
 
@@ -290,7 +290,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/bar/`, {
+      const response = await page.goto(`http://localhost:${port}/bar/`, {
         waitUntil: "networkidle0",
       });
 
@@ -350,7 +350,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/assets`, {
+      const response = await page.goto(`http://localhost:${port}/assets`, {
         waitUntil: "networkidle0",
       });
 
@@ -377,7 +377,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/bar`, {
+      const response = await page.goto(`http://localhost:${port}/bar`, {
         waitUntil: "networkidle0",
       });
 
@@ -434,7 +434,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/`, {
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
@@ -458,7 +458,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/foo.html`, {
+      const response = await page.goto(`http://localhost:${port}/foo.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -607,7 +607,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/index.html`, {
+      const response = await page.goto(`http://localhost:${port}/index.html`, {
         waitUntil: "networkidle0",
       });
 
@@ -668,7 +668,7 @@ describe("static.directory option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/index.html`, {
+      const response = await page.goto(`http://localhost:${port}/index.html`, {
         waitUntil: "networkidle0",
       });
 
