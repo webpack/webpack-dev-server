@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.1](https://github.com/webpack/webpack-dev-server/compare/v5.2.0...v6.0.0) (2025-03-26)
+
+### Security
+
+* cross-origin requests are not allowed unless allowed by `Access-Control-Allow-Origin` header
+* requests with an IP addresses in the `Origin` header are not allowed to connect to WebSocket server unless configured by `allowedHosts` or it different from the `Host` header
+
+The above changes may make the dev server not work if you relied on such behavior, but unfortunately they carry security risks, so they were considered as fixes.
+
+### Bug Fixes
+
+* prevent overlay for errors caught by React error boundaries ([#5431](https://github.com/webpack/webpack-dev-server/issues/5431)) ([8c1abc9](https://github.com/webpack/webpack-dev-server/commit/8c1abc903ab444d9ce99e567b9a6c603e1ec06be))
+* take the first network found instead of the last one, this restores the same behavior as 5.0.4 ([#5411](https://github.com/webpack/webpack-dev-server/issues/5411)) ([ffd0b86](https://github.com/webpack/webpack-dev-server/commit/ffd0b86b790d372f90e17aea92cfd9def83fee96))
+
 ## [5.2.0](https://github.com/webpack/webpack-dev-server/compare/v5.1.0...v5.2.0) (2024-12-11)
 
 
