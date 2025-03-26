@@ -74,8 +74,8 @@ table {
 code {
   background-color: rgba(70, 94, 105, 0.06);
   border-radius: 3px;
-  font-family: "Source Code Pro", Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
+  font-family:
+    "Source Code Pro", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 1.44rem;
   margin: 0;
   max-width: 100%;

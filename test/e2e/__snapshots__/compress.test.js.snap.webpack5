@@ -12,7 +12,7 @@ exports[`compress option as true should handle GET request to bundle file: conso
 
 exports[`compress option as true should handle GET request to bundle file: page errors 1`] = `[]`;
 
-exports[`compress option as true should handle GET request to bundle file: response headers content-encoding 1`] = `"gzip"`;
+exports[`compress option as true should handle GET request to bundle file: response headers content-encoding 1`] = `"br"`;
 
 exports[`compress option as true should handle GET request to bundle file: response status 1`] = `200`;
 
@@ -20,6 +20,6 @@ exports[`compress option enabled by default when not specified should handle GET
 
 exports[`compress option enabled by default when not specified should handle GET request to bundle file: page errors 1`] = `[]`;
 
-exports[`compress option enabled by default when not specified should handle GET request to bundle file: response headers content-encoding 1`] = `"gzip"`;
+exports[`compress option enabled by default when not specified should handle GET request to bundle file: response headers content-encoding 1`] = `"br"`;
 
 exports[`compress option enabled by default when not specified should handle GET request to bundle file: response status 1`] = `200`;

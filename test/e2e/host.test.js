@@ -79,6 +79,16 @@ describe("host", () => {
         devServerOptions.host = host;
       }
 
+      if (
+        host === "<not-specified>" ||
+        typeof host === "undefined" ||
+        host === "0.0.0.0" ||
+        host === "::" ||
+        host === "local-ipv6"
+      ) {
+        devServerOptions.allowedHosts = "all";
+      }
+
       const server = new Server(devServerOptions, compiler);
 
       let hostname = host;
@@ -143,6 +153,16 @@ describe("host", () => {
 
       if (host !== "<not-specified>") {
         devServerOptions.host = host;
+      }
+
+      if (
+        host === "<not-specified>" ||
+        typeof host === "undefined" ||
+        host === "0.0.0.0" ||
+        host === "::" ||
+        host === "local-ipv6"
+      ) {
+        devServerOptions.allowedHosts = "all";
       }
 
       const server = new Server(devServerOptions, compiler);
@@ -212,6 +232,16 @@ describe("host", () => {
 
       if (host !== "<not-specified>") {
         devServerOptions.host = host;
+      }
+
+      if (
+        host === "<not-specified>" ||
+        typeof host === "undefined" ||
+        host === "0.0.0.0" ||
+        host === "::" ||
+        host === "local-ipv6"
+      ) {
+        devServerOptions.allowedHosts = "all";
       }
 
       const server = new Server(devServerOptions, compiler);

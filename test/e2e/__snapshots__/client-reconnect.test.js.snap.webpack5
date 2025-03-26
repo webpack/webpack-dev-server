@@ -20,10 +20,10 @@ exports[`client.reconnect option specified as number should try to reconnect 2 t
   "Hey.",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
-  "WebSocket connection to 'ws://127.0.0.1:8163/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+  "WebSocket connection to 'ws://localhost:8163/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
   "[webpack-dev-server] JSHandle@object",
   "[webpack-dev-server] Trying to reconnect...",
-  "WebSocket connection to 'ws://127.0.0.1:8163/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+  "WebSocket connection to 'ws://localhost:8163/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
   "[webpack-dev-server] JSHandle@object",
 ]
 `;
