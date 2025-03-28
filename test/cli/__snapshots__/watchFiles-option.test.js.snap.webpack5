@@ -5,7 +5,8 @@ exports[`"watchFiles" CLI option should work using "--watch-files <value> --watc
 <i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
+<i> [webpack-dev-server] You probably have a custom public path, please navigate in your browser to the point that you required"
 `;
 
 exports[`"watchFiles" CLI option should work using "--watch-files <value>": stderr 1`] = `
@@ -13,7 +14,8 @@ exports[`"watchFiles" CLI option should work using "--watch-files <value>": stde
 <i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
+<i> [webpack-dev-server] You probably have a custom public path, please navigate in your browser to the point that you required"
 `;
 
 exports[`"watchFiles" CLI option should work using "--watch-files-reset --watch-files <static>": stderr 1`] = `
@@ -21,5 +23,6 @@ exports[`"watchFiles" CLI option should work using "--watch-files-reset --watch-
 <i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
+<i> [webpack-dev-server] You probably have a custom public path, please navigate in your browser to the point that you required"
 `;

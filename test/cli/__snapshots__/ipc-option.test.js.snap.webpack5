@@ -2,10 +2,12 @@
 
 exports[`"ipc" CLI option should work using "--ipc": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at: "<tmp>/webpack-dev-server.sock"
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
+<i> [webpack-dev-server] You probably have a custom public path, please navigate in your browser to the point that you required"
 `;
 
 exports[`"ipc" CLI option should work using "--ipc=<string>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at: "<tmp>/webpack-dev-server.cli.sock"
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
+<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory
+<i> [webpack-dev-server] You probably have a custom public path, please navigate in your browser to the point that you required"
 `;
