@@ -679,10 +679,21 @@ describe("API", () => {
         expect(pageErrors).toMatchSnapshot("page errors");
       } catch (error) {
         if (error.code === "EACCES") {
-          console.warn(
-            `Skipping test due to permission issues: ${error.message}`,
-          );
-          return;
+          // Retry mechanism for EACCES errors
+          const maxRetries = 3;
+          const retryKey = `retry_${expect.getState().currentTestName}`;
+
+          // Get current retry count or initialize to 0
+          global[retryKey] = global[retryKey] || 0;
+          global[retryKey] += 1;
+
+          if (global[retryKey] < maxRetries) {
+            console.warn(
+              `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+            );
+            // Re-run the current test
+            return it.currentTest.fn();
+          }
         }
         throw error;
       } finally {
