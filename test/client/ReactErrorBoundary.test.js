@@ -4,7 +4,7 @@
 
 "use strict";
 
-const { createOverlay } = require("../../../client-src/overlay");
+const { createOverlay } = require("../../client-src/overlay");
 
 describe("createOverlay", () => {
   const originalDocument = global.document;
@@ -101,6 +101,29 @@ describe("createOverlay", () => {
       messages: [
         {
           message: regularError.message,
+          stack: expect.anything(),
+        },
+      ],
+    });
+    showOverlayMock.mockRestore();
+  });
+
+  it("should show overlay for normal uncaught errors (when null is thrown)", () => {
+    const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
+    const overlay = createOverlay(options);
+    const showOverlayMock = jest.spyOn(overlay, "send");
+
+    const errorEvent = new ErrorEvent("error", {
+      error: null,
+      message: "error",
+    });
+    window.dispatchEvent(errorEvent);
+
+    expect(showOverlayMock).toHaveBeenCalledWith({
+      type: "RUNTIME_ERROR",
+      messages: [
+        {
+          message: "error",
           stack: expect.anything(),
         },
       ],
