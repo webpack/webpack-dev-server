@@ -647,6 +647,7 @@ const createOverlay = (options) => {
       applyStyle(navigationElement, navigationStyle);
 
       currentErrorCountElement = doc.createElement("div");
+      currentErrorCountElement.className = "error-counter";
       currentErrorCountElement.textContent = "ERROR 0/0";
       navigationElement.appendChild(currentErrorCountElement);
 
@@ -794,6 +795,7 @@ const createOverlay = (options) => {
 
     // Create message element
     const messageTextNode = document.createElement("div");
+    messageTextNode.className = "error-message";
     const text = ansiHTML(encode(body));
     messageTextNode.innerHTML = overlayTrustedTypesPolicy
       ? overlayTrustedTypesPolicy.createHTML(text)
