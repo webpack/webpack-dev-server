@@ -52,7 +52,7 @@ describe("mimeTypes option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/main.js`, {
+      const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
@@ -115,7 +115,7 @@ describe("mimeTypes option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://127.0.0.1:${port}/file.custom`, {
+      const response = await page.goto(`http://localhost:${port}/file.custom`, {
         waitUntil: "networkidle0",
       });
 

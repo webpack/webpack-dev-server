@@ -19,7 +19,7 @@ describe("web socket server URL", () => {
     const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
 
     it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
-      const devServerHost = "127.0.0.1";
+      const devServerHost = "localhost";
       const proxyHost = devServerHost;
       const proxyPort = port1;
 
@@ -123,7 +123,7 @@ describe("web socket server URL", () => {
       const pipeName = `webpack-dev-server.${process.pid}-1.sock`;
       const ipc = path.join(pipePrefix, pipeName);
 
-      const devServerHost = "127.0.0.1";
+      const devServerHost = "localhost";
       const proxyHost = devServerHost;
       const proxyPort = port1;
 
@@ -241,7 +241,7 @@ describe("web socket server URL", () => {
         });
       });
 
-      const devServerHost = "127.0.0.1";
+      const devServerHost = "localhost";
       const proxyHost = devServerHost;
       const proxyPort = port1;
 

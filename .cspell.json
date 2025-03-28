@@ -70,7 +70,8 @@
     "commitlint",
     "eslintcache",
     "hono",
-    "privkey"
+    "privkey",
+    "geomanist"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
