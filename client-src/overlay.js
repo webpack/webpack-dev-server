@@ -653,14 +653,20 @@ const createOverlay = (options) => {
       const navButtonGroup = doc.createElement("div");
       applyStyle(navButtonGroup, navigationStyle);
       const prevButton = doc.createElement("button");
-      prevButton.innerHTML = `<span>⌘ + ←</span> PREV`;
+      const prevButtonContent = `<span>⌘ + ←</span> PREV`;
+      prevButton.innerHTML = overlayTrustedTypesPolicy
+        ? overlayTrustedTypesPolicy.createHTML(prevButtonContent)
+        : prevButtonContent;
       applyStyle(prevButton, navButtonStyle);
       prevButton.addEventListener("click", () => {
         overlayService.send({ type: "NAVIGATE", direction: "prev" });
       });
 
       const nextButton = doc.createElement("button");
-      nextButton.innerHTML = `NEXT <span>⌘ + →</span>`;
+      const nextButtonContent = `NEXT <span>⌘ + →</span>`;
+      nextButton.innerHTML = overlayTrustedTypesPolicy
+        ? overlayTrustedTypesPolicy.createHTML(nextButtonContent)
+        : nextButtonContent;
       applyStyle(nextButton, navButtonStyle);
       nextButton.addEventListener("click", () => {
         overlayService.send({ type: "NAVIGATE", direction: "next" });
@@ -758,7 +764,9 @@ const createOverlay = (options) => {
 
     // Update the error counter
     if (currentErrorCountElement) {
-      currentErrorCountElement.textContent = `ERROR ${currentErrorIndex + 1}/${currentMessages.length}`;
+      currentErrorCountElement.textContent = `ERROR ${currentErrorIndex + 1}/${
+        currentMessages.length
+      }`;
     }
 
     // Clear previous content
