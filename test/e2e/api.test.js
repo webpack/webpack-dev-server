@@ -463,11 +463,11 @@ describe("API", () => {
             pageErrors.push(error);
           });
 
-      const response = await page.goto(`http://localhost:${devServerPort}/`, {
-        waitUntil: "networkidle0",
-      });
+        const response = await page.goto(`http://localhost:${devServerPort}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      expect(response.status()).toMatchSnapshot("response status");
+        expect(response.status()).toMatchSnapshot("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -512,11 +512,11 @@ describe("API", () => {
             pageErrors.push(error);
           });
 
-      const response = await page.goto(`http://localhost:${devServerPort}/`, {
-        waitUntil: "networkidle0",
-      });
+        const response = await page.goto(`http://localhost:${devServerPort}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      expect(response.status()).toMatchSnapshot("response status");
+        expect(response.status()).toMatchSnapshot("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -561,11 +561,11 @@ describe("API", () => {
             pageErrors.push(error);
           });
 
-      const response = await page.goto(`http://localhost:${devServerPort}/`, {
-        waitUntil: "networkidle0",
-      });
+        const response = await page.goto(`http://localhost:${devServerPort}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      expect(response.status()).toMatchSnapshot("response status");
+        expect(response.status()).toMatchSnapshot("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
@@ -611,11 +611,11 @@ describe("API", () => {
             pageErrors.push(error);
           });
 
-      const response = await page.goto(`http://localhost:${devServerPort}/`, {
-        waitUntil: "networkidle0",
-      });
+        const response = await page.goto(`http://localhost:${devServerPort}/`, {
+          waitUntil: "networkidle0",
+        });
 
-      expect(response.status()).toMatchSnapshot("response status");
+        expect(response.status()).toMatchSnapshot("response status");
 
         expect(
           consoleMessages.map((message) => message.text()),
