@@ -452,30 +452,54 @@ describe("API", () => {
 
         const { page, browser } = await runBrowser();
 
-        const pageErrors = [];
-        const consoleMessages = [];
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
 
-        const response = await page.goto(`http://localhost:${devServerPort}/`, {
-          waitUntil: "networkidle0",
-        });
+          const response = await page.goto(
+            `http://localhost:${devServerPort}/`,
+            {
+              waitUntil: "networkidle0",
+            },
+          );
 
-        expect(response.status()).toMatchSnapshot("response status");
+          expect(response.status()).toMatchSnapshot("response status");
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshot("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+          expect(pageErrors).toMatchSnapshot("page errors");
+        } catch (error) {
+          if (error.code === "EACCES") {
+            // Retry mechanism for EACCES errors
+            const maxRetries = 3;
+            const retryKey = `retry_${expect.getState().currentTestName}`;
 
-        await browser.close();
+            // Get current retry count or initialize to 0
+            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] += 1;
+
+            if (global[retryKey] < maxRetries) {
+              console.warn(
+                `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+              );
+              // Re-run the current test
+              return it.currentTest.fn();
+            }
+          }
+          throw error;
+        } finally {
+          await browser.close();
+        }
       } catch (err) {
         if (err.code === "EACCES") {
           console.warn(
@@ -501,30 +525,54 @@ describe("API", () => {
 
         const { page, browser } = await runBrowser();
 
-        const pageErrors = [];
-        const consoleMessages = [];
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
 
-        const response = await page.goto(`http://localhost:${devServerPort}/`, {
-          waitUntil: "networkidle0",
-        });
+          const response = await page.goto(
+            `http://localhost:${devServerPort}/`,
+            {
+              waitUntil: "networkidle0",
+            },
+          );
 
-        expect(response.status()).toMatchSnapshot("response status");
+          expect(response.status()).toMatchSnapshot("response status");
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshot("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+          expect(pageErrors).toMatchSnapshot("page errors");
+        } catch (error) {
+          if (error.code === "EACCES") {
+            // Retry mechanism for EACCES errors
+            const maxRetries = 3;
+            const retryKey = `retry_${expect.getState().currentTestName}`;
 
-        await browser.close();
+            // Get current retry count or initialize to 0
+            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] += 1;
+
+            if (global[retryKey] < maxRetries) {
+              console.warn(
+                `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+              );
+              // Re-run the current test
+              return it.currentTest.fn();
+            }
+          }
+          throw error;
+        } finally {
+          await browser.close();
+        }
       } catch (err) {
         if (err.code === "EACCES") {
           console.warn(
@@ -550,30 +598,54 @@ describe("API", () => {
 
         const { page, browser } = await runBrowser();
 
-        const pageErrors = [];
-        const consoleMessages = [];
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
 
-        const response = await page.goto(`http://localhost:${devServerPort}/`, {
-          waitUntil: "networkidle0",
-        });
+          const response = await page.goto(
+            `http://localhost:${devServerPort}/`,
+            {
+              waitUntil: "networkidle0",
+            },
+          );
 
-        expect(response.status()).toMatchSnapshot("response status");
+          expect(response.status()).toMatchSnapshot("response status");
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshot("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+          expect(pageErrors).toMatchSnapshot("page errors");
+        } catch (error) {
+          if (error.code === "EACCES") {
+            // Retry mechanism for EACCES errors
+            const maxRetries = 3;
+            const retryKey = `retry_${expect.getState().currentTestName}`;
 
-        await browser.close();
+            // Get current retry count or initialize to 0
+            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] += 1;
+
+            if (global[retryKey] < maxRetries) {
+              console.warn(
+                `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+              );
+              // Re-run the current test
+              return it.currentTest.fn();
+            }
+          }
+          throw error;
+        } finally {
+          await browser.close();
+        }
       } catch (err) {
         // If it's a permission error on the port, mark the test as skipped rather than failed
         if (err.code === "EACCES") {
@@ -600,30 +672,54 @@ describe("API", () => {
 
         const { page, browser } = await runBrowser();
 
-        const pageErrors = [];
-        const consoleMessages = [];
+        try {
+          const pageErrors = [];
+          const consoleMessages = [];
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
+          page
+            .on("console", (message) => {
+              consoleMessages.push(message);
+            })
+            .on("pageerror", (error) => {
+              pageErrors.push(error);
+            });
 
-        const response = await page.goto(`http://localhost:${devServerPort}/`, {
-          waitUntil: "networkidle0",
-        });
+          const response = await page.goto(
+            `http://localhost:${devServerPort}/`,
+            {
+              waitUntil: "networkidle0",
+            },
+          );
 
-        expect(response.status()).toMatchSnapshot("response status");
+          expect(response.status()).toMatchSnapshot("response status");
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshot("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+          expect(pageErrors).toMatchSnapshot("page errors");
+        } catch (error) {
+          if (error.code === "EACCES") {
+            // Retry mechanism for EACCES errors
+            const maxRetries = 3;
+            const retryKey = `retry_${expect.getState().currentTestName}`;
 
-        await browser.close();
+            // Get current retry count or initialize to 0
+            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] += 1;
+
+            if (global[retryKey] < maxRetries) {
+              console.warn(
+                `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+              );
+              // Re-run the current test
+              return it.currentTest.fn();
+            }
+          }
+          throw error;
+        } finally {
+          await browser.close();
+        }
       } catch (err) {
         // If it's a permission error on the port, mark the test as skipped rather than failed
         if (err.code === "EACCES") {
@@ -666,17 +762,41 @@ describe("API", () => {
             pageErrors.push(error);
           });
 
-        const response = await page.goto(`http://localhost:${devServerPort}/`, {
-          waitUntil: "networkidle0",
-        });
+        try {
+          const response = await page.goto(
+            `http://localhost:${devServerPort}/`,
+            {
+              waitUntil: "networkidle0",
+            },
+          );
 
-        expect(response.status()).toMatchSnapshot("response status");
+          expect(response.status()).toMatchSnapshot("response status");
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+          expect(
+            consoleMessages.map((message) => message.text()),
+          ).toMatchSnapshot("console messages");
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+          expect(pageErrors).toMatchSnapshot("page errors");
+        } catch (error) {
+          if (error.code === "EACCES") {
+            // Retry mechanism for EACCES errors
+            const maxRetries = 3;
+            const retryKey = `retry_${expect.getState().currentTestName}`;
+
+            // Get current retry count or initialize to 0
+            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] += 1;
+
+            if (global[retryKey] < maxRetries) {
+              console.warn(
+                `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+              );
+              // Re-run the current test
+              return it.currentTest.fn();
+            }
+          }
+          throw error;
+        }
       } catch (error) {
         if (error.code === "EACCES") {
           // Retry mechanism for EACCES errors
@@ -795,38 +915,76 @@ describe("API", () => {
 
         sessionSubscribe(session);
 
-        const response = await page.goto(`http://localhost:${port}/`, {
-          waitUntil: "networkidle0",
-        });
+        try {
+          const response = await page.goto(`http://localhost:${port}/`, {
+            waitUntil: "networkidle0",
+          });
 
-        if (!server.isValidHost(headers, "origin")) {
-          throw new Error("Validation didn't fail");
-        }
+          if (!server.isValidHost(headers, "origin")) {
+            throw new Error("Validation didn't fail");
+          }
 
-        await new Promise((resolve) => {
-          const interval = setInterval(() => {
-            const needFinish = consoleMessages.filter((message) =>
-              /Trying to reconnect/.test(message.text()),
-            );
+          await new Promise((resolve) => {
+            const interval = setInterval(() => {
+              const needFinish = consoleMessages.filter((message) =>
+                /Trying to reconnect/.test(message.text()),
+              );
 
-            if (needFinish.length > 0) {
-              clearInterval(interval);
-              resolve();
+              if (needFinish.length > 0) {
+                clearInterval(interval);
+                resolve();
+              }
+            }, 100);
+          });
+
+          expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
+
+          expect(response.status()).toMatchSnapshot("response status");
+
+          expect(
+            // net::ERR_NAME_NOT_RESOLVED can be multiple times
+            consoleMessages.map((message) => message.text()).slice(0, 7),
+          ).toMatchSnapshot("console messages");
+
+          expect(pageErrors).toMatchSnapshot("page errors");
+        } catch (error) {
+          if (error.code === "EACCES") {
+            // Retry mechanism for EACCES errors
+            const maxRetries = 3;
+            const retryKey = `retry_${expect.getState().currentTestName}`;
+
+            // Get current retry count or initialize to 0
+            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] += 1;
+
+            if (global[retryKey] < maxRetries) {
+              console.warn(
+                `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+              );
+              // Re-run the current test
+              return it.currentTest.fn();
             }
-          }, 100);
-        });
-
-        expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(
-          // net::ERR_NAME_NOT_RESOLVED can be multiple times
-          consoleMessages.map((message) => message.text()).slice(0, 7),
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
+          }
+          throw error;
+        }
       } catch (error) {
+        if (error.code === "EACCES") {
+          // Retry mechanism for EACCES errors
+          const maxRetries = 3;
+          const retryKey = `retry_${expect.getState().currentTestName}`;
+
+          // Get current retry count or initialize to 0
+          global[retryKey] = global[retryKey] || 0;
+          global[retryKey] += 1;
+
+          if (global[retryKey] < maxRetries) {
+            console.warn(
+              `EACCES error encountered (attempt ${global[retryKey]}/${maxRetries}): ${error.message}. Retrying...`,
+            );
+            // Re-run the current test
+            return it.currentTest.fn();
+          }
+        }
         throw error;
       } finally {
         await browser.close();
