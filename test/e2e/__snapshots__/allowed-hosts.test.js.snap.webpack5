@@ -62,6 +62,46 @@ exports[`allowed hosts should connect web socket client using "[::1] host to web
 
 exports[`allowed hosts should connect web socket client using "[::1] host to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
 
+exports[`allowed hosts should connect web socket client using "0.0.0.0" host to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "0.0.0.0" host to web socket server with the "auto" value ("sockjs"): page errors 1`] = `[]`;
+
+exports[`allowed hosts should connect web socket client using "0.0.0.0" host to web socket server with the "auto" value ("ws"): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "0.0.0.0" host to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
+
+exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server by default ("sockjs"): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server by default ("sockjs"): page errors 1`] = `[]`;
+
+exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server by default ("ws"): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server by default ("ws"): page errors 1`] = `[]`;
+
 exports[`allowed hosts should connect web socket client using "127.0.0.1" host to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
@@ -121,6 +161,26 @@ exports[`allowed hosts should connect web socket client using "file:" protocol t
 `;
 
 exports[`allowed hosts should connect web socket client using "file:" protocol to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
+
+exports[`allowed hosts should connect web socket client using "localhost" host to web socket server by default ("sockjs"): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "localhost" host to web socket server by default ("sockjs"): page errors 1`] = `[]`;
+
+exports[`allowed hosts should connect web socket client using "localhost" host to web socket server by default ("ws"): console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using "localhost" host to web socket server by default ("ws"): page errors 1`] = `[]`;
 
 exports[`allowed hosts should connect web socket client using custom hostname to web socket server with the "all" value ("sockjs"): console messages 1`] = `
 [
@@ -262,6 +322,26 @@ exports[`allowed hosts should connect web socket client using localhost to web s
 
 exports[`allowed hosts should connect web socket client using localhost to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
 
+exports[`allowed hosts should connect web socket client using origin header containing an IP address with the custom hostname value ("sockjs"): (work) console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using origin header containing an IP address with the custom hostname value ("sockjs"): (work) page errors 1`] = `[]`;
+
+exports[`allowed hosts should connect web socket client using origin header containing an IP address with the custom hostname value ("ws"): (work) console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`allowed hosts should connect web socket client using origin header containing an IP address with the custom hostname value ("ws"): (work) page errors 1`] = `[]`;
+
 exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("sockjs"): console messages 1`] = `
 [
   "Failed to load resource: the server responded with a status of 403 (Forbidden)",
@@ -281,6 +361,32 @@ exports[`allowed hosts should disconnect web client using localhost to web socke
 exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): html 1`] = `"<html><head><meta name="color-scheme" content="light dark"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Invalid Host header</pre></body></html>"`;
 
 exports[`allowed hosts should disconnect web client using localhost to web socket server with the "auto" value ("ws"): page errors 1`] = `[]`;
+
+exports[`allowed hosts should disconnect web client using origin header containing an IP address with the "auto" value ("sockjs"): (work) console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
+]
+`;
+
+exports[`allowed hosts should disconnect web client using origin header containing an IP address with the "auto" value ("sockjs"): (work) page errors 1`] = `[]`;
+
+exports[`allowed hosts should disconnect web client using origin header containing an IP address with the "auto" value ("ws"): (work) console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
+]
+`;
+
+exports[`allowed hosts should disconnect web client using origin header containing an IP address with the "auto" value ("ws"): (work) page errors 1`] = `[]`;
 
 exports[`allowed hosts should disconnect web socket client using custom hostname from web socket server with the "auto" value based on the "host" header ("sockjs"): console messages 1`] = `
 [

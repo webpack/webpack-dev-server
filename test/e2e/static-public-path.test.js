@@ -60,7 +60,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -87,7 +87,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/other.html`,
+        `http://localhost:${port}${staticPublicPath}/other.html`,
         {
           waitUntil: "networkidle0",
         },
@@ -152,7 +152,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/assets`,
+        `http://localhost:${port}${staticPublicPath}/assets`,
         {
           waitUntil: "networkidle0",
         },
@@ -179,7 +179,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/bar`,
+        `http://localhost:${port}${staticPublicPath}/bar`,
         {
           waitUntil: "networkidle0",
         },
@@ -244,7 +244,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/assets`,
+        `http://localhost:${port}${staticPublicPath}/assets`,
         {
           waitUntil: "networkidle0",
         },
@@ -271,7 +271,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/bar`,
+        `http://localhost:${port}${staticPublicPath}/bar`,
         {
           waitUntil: "networkidle0",
         },
@@ -336,7 +336,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/assets`,
+        `http://localhost:${port}${staticPublicPath}/assets`,
         {
           waitUntil: "networkidle0",
         },
@@ -363,7 +363,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/bar`,
+        `http://localhost:${port}${staticPublicPath}/bar`,
         {
           waitUntil: "networkidle0",
         },
@@ -432,7 +432,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -459,7 +459,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/foo.html`,
+        `http://localhost:${port}${staticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
         },
@@ -528,7 +528,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/index.html`,
+        `http://localhost:${port}${staticPublicPath}/index.html`,
         {
           waitUntil: "networkidle0",
         },
@@ -591,7 +591,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/assets/example.txt`,
+        `http://localhost:${port}${staticPublicPath}/assets/example.txt`,
         {
           waitUntil: "networkidle0",
         },
@@ -656,7 +656,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -686,7 +686,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -716,7 +716,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -746,7 +746,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -776,7 +776,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -806,7 +806,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -875,7 +875,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -902,7 +902,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/other.html`,
+        `http://localhost:${port}${staticPublicPath}/other.html`,
         {
           waitUntil: "networkidle0",
         },
@@ -929,7 +929,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${otherStaticPublicPath}/foo.html`,
+        `http://localhost:${port}${otherStaticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
         },
@@ -1000,7 +1000,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/`,
+        `http://localhost:${port}${staticPublicPath}/`,
         {
           waitUntil: "networkidle0",
         },
@@ -1027,7 +1027,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/other.html`,
+        `http://localhost:${port}${staticPublicPath}/other.html`,
         {
           waitUntil: "networkidle0",
         },
@@ -1054,7 +1054,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${staticPublicPath}/foo.html`,
+        `http://localhost:${port}${staticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
         },
@@ -1081,7 +1081,7 @@ describe("static.publicPath option", () => {
         });
 
       const response = await page.goto(
-        `http://127.0.0.1:${port}${otherStaticPublicPath}/foo.html`,
+        `http://localhost:${port}${otherStaticPublicPath}/foo.html`,
         {
           waitUntil: "networkidle0",
         },

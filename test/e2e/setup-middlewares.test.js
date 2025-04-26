@@ -92,7 +92,7 @@ describe("setupMiddlewares option", () => {
       });
 
     const response = await page.goto(
-      `http://127.0.0.1:${port}/setup-middleware/some/path`,
+      `http://localhost:${port}/setup-middleware/some/path`,
       {
         waitUntil: "networkidle0",
       },
@@ -104,7 +104,7 @@ describe("setupMiddlewares option", () => {
     expect(response.status()).toMatchSnapshot("response status");
     expect(await response.text()).toMatchSnapshot("response text");
 
-    const response1 = await page.goto(`http://127.0.0.1:${port}/foo/bar`, {
+    const response1 = await page.goto(`http://localhost:${port}/foo/bar`, {
       waitUntil: "networkidle0",
     });
 
@@ -114,7 +114,7 @@ describe("setupMiddlewares option", () => {
     expect(response1.status()).toMatchSnapshot("response status");
     expect(await response1.text()).toMatchSnapshot("response text");
 
-    const response2 = await page.goto(`http://127.0.0.1:${port}/foo/bar/baz`, {
+    const response2 = await page.goto(`http://localhost:${port}/foo/bar/baz`, {
       waitUntil: "networkidle0",
     });
 
@@ -125,7 +125,7 @@ describe("setupMiddlewares option", () => {
     expect(await response2.text()).toMatchSnapshot("response text");
 
     const response3 = await page.goto(
-      `http://127.0.0.1:${port}/setup-middleware/unknown`,
+      `http://localhost:${port}/setup-middleware/unknown`,
       {
         waitUntil: "networkidle0",
       },
@@ -160,7 +160,7 @@ describe("setupMiddlewares option", () => {
       });
 
     const response = await page.goto(
-      `http://127.0.0.1:${port}/setup-middleware/some/path`,
+      `http://localhost:${port}/setup-middleware/some/path`,
       {
         waitUntil: "networkidle0",
       },

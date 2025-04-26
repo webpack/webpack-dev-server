@@ -49,7 +49,7 @@ describe("web socket server", () => {
 
       sessionSubscribe(session);
 
-      await page.goto(`http://127.0.0.1:${port}/`, {
+      await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 

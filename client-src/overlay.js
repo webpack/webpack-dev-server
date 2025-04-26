@@ -898,6 +898,7 @@ const createOverlay = (options) => {
       if (!error && !message) {
         return;
       }
+
       // if error stack indicates a React error boundary caught the error, do not show overlay.
       if (
         error &&

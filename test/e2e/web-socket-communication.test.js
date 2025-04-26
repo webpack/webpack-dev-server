@@ -40,7 +40,7 @@ describe("web socket communication", () => {
             pageErrors.push(error);
           });
 
-        await page.goto(`http://127.0.0.1:${port}/`, {
+        await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -92,7 +92,7 @@ describe("web socket communication", () => {
             pageErrors.push(error);
           });
 
-        await page.goto(`http://127.0.0.1:${port}/`, {
+        await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
         await browser.close();
@@ -142,7 +142,7 @@ describe("web socket communication", () => {
             pageErrors.push(error);
           });
 
-        await page.goto(`http://127.0.0.1:${port}/`, {
+        await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
 
@@ -181,10 +181,10 @@ describe("web socket communication", () => {
     server.webSocketServer.heartbeatInterval = 100;
 
     await new Promise((resolve, reject) => {
-      const ws = new WebSocket(`ws://127.0.0.1:${devServerOptions.port}/ws`, {
+      const ws = new WebSocket(`ws://localhost:${devServerOptions.port}/ws`, {
         headers: {
-          host: `127.0.0.1:${devServerOptions.port}`,
-          origin: `http://127.0.0.1:${devServerOptions.port}`,
+          host: `localhost:${devServerOptions.port}`,
+          origin: `http://localhost:${devServerOptions.port}`,
         },
       });
 

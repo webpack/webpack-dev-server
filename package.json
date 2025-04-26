@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "bin": "bin/webpack-dev-server.js",
   "main": "lib/Server.js",
@@ -49,6 +49,7 @@
     "@types/bonjour": "^3.5.13",
     "@types/connect-history-api-fallback": "^1.5.4",
     "@types/express": "^4.17.21",
+    "@types/express-serve-static-core": "^4.17.21",
     "@types/serve-index": "^1.9.4",
     "@types/serve-static": "^1.15.5",
     "@types/sockjs": "^0.3.36",
