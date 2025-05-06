@@ -1,4 +1,5 @@
 ## Code of Conduct
+##Am just trying the Fork thing am new here , am really sorry if I did anything bad thank you have an amazing day :D
 
 At webpack and webpack/webpack-dev-server repository we follow the [JSFoundation Code of Conduct][1].
 Please adhere to the guidelines there and feel free to report any violation of them to the **@webpack/core-team**,
