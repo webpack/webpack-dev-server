@@ -495,6 +495,11 @@
       "description": "Allows to specify a port to use.",
       "link": "https://webpack.js.org/configuration/dev-server/#devserverport"
     },
+    "PrintUrlOnKeypress": {
+      "type": "boolean",
+      "default": false,
+      "description": "Only print the Dev Server URL when the user presses 'u' in the terminal."
+    },
     "Proxy": {
       "type": "array",
       "items": {
@@ -975,6 +980,9 @@
     },
     "compress": {
       "$ref": "#/definitions/Compress"
+    },
+    "printUrlOnKeypress": {
+      "$ref": "#/definitions/PrintUrlOnKeypress"
     },
     "devMiddleware": {
       "$ref": "#/definitions/DevMiddleware"
