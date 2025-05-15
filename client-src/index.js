@@ -103,8 +103,8 @@ const parseURL = (resourceQuery) => {
   if (typeof resourceQuery === "string" && resourceQuery !== "") {
     const searchParams = resourceQuery.slice(1).split("&");
 
-    for (let i = 0; i < searchParams.length; i++) {
-      const pair = searchParams[i].split("=");
+    for (const searchParam of searchParams) {
+      const pair = searchParam.split("=");
 
       result[pair[0]] = decodeURIComponent(pair[1]);
     }
@@ -218,8 +218,7 @@ const logEnabledFeatures = (features) => {
   let logString = "Server started:";
 
   // Server started: Hot Module Replacement enabled, Live Reloading enabled, Overlay disabled.
-  for (let i = 0; i < listEnabledFeatures.length; i++) {
-    const key = listEnabledFeatures[i];
+  for (const key of listEnabledFeatures) {
     logString += ` ${key} ${features[key] ? "enabled" : "disabled"},`;
   }
   // replace last comma with a period
@@ -471,8 +470,8 @@ const onSocketMessage = {
 
     sendMessage("Warnings", printableWarnings);
 
-    for (let i = 0; i < printableWarnings.length; i++) {
-      log.warn(printableWarnings[i]);
+    for (const printableWarning of printableWarnings) {
+      log.warn(printableWarning);
     }
 
     const overlayWarningsSetting =
@@ -515,8 +514,8 @@ const onSocketMessage = {
 
     sendMessage("Errors", printableErrors);
 
-    for (let i = 0; i < printableErrors.length; i++) {
-      log.error(printableErrors[i]);
+    for (const printableError of printableErrors) {
+      log.error(printableError);
     }
 
     const overlayErrorsSettings =
