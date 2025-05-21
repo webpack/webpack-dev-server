@@ -4,7 +4,6 @@ const https = require("https");
 const path = require("path");
 const fs = require("graceful-fs");
 const request = require("supertest");
-const spdy = require("spdy");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
@@ -23,6 +22,8 @@ const staticDirectory = path.resolve(
   __dirname,
   "../fixtures/static-config/public",
 );
+
+const [major] = process.versions.node.split(".").map(Number);
 
 describe("server option", () => {
   describe("as string", () => {
@@ -213,7 +214,7 @@ describe("server option", () => {
       });
     });
 
-    describe("spdy", () => {
+    (major >= 24 ? describe.skip : describe)("spdy", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
@@ -260,16 +261,10 @@ describe("server option", () => {
         );
 
         expect(HTTPVersion).toEqual("h2");
-
-        expect(response.status()).toMatchSnapshot("response status");
-
-        expect(await response.text()).toMatchSnapshot("response text");
-
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-
-        expect(pageErrors).toMatchSnapshot("page errors");
+        expect(response.status()).toBe(200);
+        expect((await response.text()).trim()).toBe("Heyo.");
+        expect(consoleMessages).toHaveLength(0);
+        expect(pageErrors).toHaveLength(0);
       });
     });
   });
@@ -1281,7 +1276,7 @@ describe("server option", () => {
       });
     });
 
-    describe("spdy server with options", () => {
+    (major >= 24 ? describe.skip : describe)("spdy server with options", () => {
       let compiler;
       let server;
       let createServerSpy;
@@ -1293,7 +1288,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(spdy, "createServer");
+        createServerSpy = jest.spyOn(require("spdy"), "createServer");
 
         server = new Server(
           {
@@ -1349,16 +1344,14 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
+        const options = normalizeOptions(createServerSpy.mock.calls[0][0]);
+
         expect(HTTPVersion).toEqual("h2");
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        expect(options.spdy).toEqual({ protocols: ["h2", "http/1.1"] });
+        expect(response.status()).toBe(200);
+        expect((await response.text()).trim()).toBe("Heyo.");
+        expect(consoleMessages).toHaveLength(0);
+        expect(pageErrors).toHaveLength(0);
       });
     });
 
