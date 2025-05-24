@@ -183,7 +183,7 @@ if (parsedResourceQuery.overlay) {
 
     decodeOverlayOptions(options.overlay);
   }
-  enabledFeatures.Overlay = true;
+  enabledFeatures.Overlay = options.overlay !== false;
 }
 
 if (parsedResourceQuery.logging) {

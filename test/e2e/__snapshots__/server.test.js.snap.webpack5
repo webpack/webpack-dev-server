@@ -523,42 +523,6 @@ exports[`server option as object should support the "requestCert" option should 
 }
 `;
 
-exports[`server option as object spdy server with options should handle GET request to index route (/): console messages 1`] = `[]`;
-
-exports[`server option as object spdy server with options should handle GET request to index route (/): https options 1`] = `
-{
-  "ca": [
-    "<Buffer>",
-  ],
-  "cert": [
-    "<Buffer>",
-  ],
-  "key": [
-    "<Buffer>",
-  ],
-  "passphrase": "webpack-dev-server",
-  "pfx": [
-    "<Buffer>",
-  ],
-  "requestCert": false,
-  "spdy": {
-    "protocols": [
-      "h2",
-      "http/1.1",
-    ],
-  },
-}
-`;
-
-exports[`server option as object spdy server with options should handle GET request to index route (/): page errors 1`] = `[]`;
-
-exports[`server option as object spdy server with options should handle GET request to index route (/): response status 1`] = `200`;
-
-exports[`server option as object spdy server with options should handle GET request to index route (/): response text 1`] = `
-"Heyo.
-"
-`;
-
 exports[`server option as string custom-http should handle GET request to index route (/): console messages 1`] = `[]`;
 
 exports[`server option as string custom-http should handle GET request to index route (/): page errors 1`] = `[]`;
@@ -588,17 +552,6 @@ exports[`server option as string https should handle GET request to index route 
 exports[`server option as string https should handle GET request to index route (/): response status 1`] = `200`;
 
 exports[`server option as string https should handle GET request to index route (/): response text 1`] = `
-"Heyo.
-"
-`;
-
-exports[`server option as string spdy should handle GET request to index route (/): console messages 1`] = `[]`;
-
-exports[`server option as string spdy should handle GET request to index route (/): page errors 1`] = `[]`;
-
-exports[`server option as string spdy should handle GET request to index route (/): response status 1`] = `200`;
-
-exports[`server option as string spdy should handle GET request to index route (/): response text 1`] = `
 "Heyo.
 "
 `;

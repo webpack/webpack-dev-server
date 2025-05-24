@@ -17,10 +17,8 @@ const staticDirectory = path.resolve(
 const apps = [
   ["express", () => require("express")(), "http"],
   ["express", () => require("express")(), "https"],
-  ["express", () => require("express")(), "spdy"],
   ["connect", () => require("connect")(), "http"],
   ["connect", () => require("connect")(), "https"],
-  ["connect", () => require("connect")(), "spdy"],
   ["connect", () => require("connect")(), "http2"],
   ["connect (async)", () => require("connect")(), "http"],
   [
@@ -88,6 +86,15 @@ const apps = [
     ],
   ],
 ];
+
+const [major] = process.versions.node.split(".").map(Number);
+
+if (major < 24) {
+  apps.push(
+    ["express", () => require("express")(), "spdy"],
+    ["connect", () => require("connect")(), "spdy"],
+  );
+}
 
 describe("app option", () => {
   for (const [appName, app, server, setupMiddlewares] of apps) {
@@ -169,12 +176,21 @@ describe("app option", () => {
           expect(HTTPVersion).toEqual("http/1.1");
         }
 
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
+        expect(response.status()).toBe(200);
+
+        const text = await response.text();
+
         expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+          text.includes(
+            '<script type="text/javascript" charset="utf-8" src="/main.js"></script>',
+          ),
+        ).toBe(true);
+        expect(consoleMessages.map((message) => message.text())).toEqual([
+          "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+          "[HMR] Waiting for update signal from WDS...",
+          "Hey.",
+        ]);
+        expect(pageErrors).toHaveLength(0);
       });
     });
   }

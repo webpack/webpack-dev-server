@@ -46,19 +46,24 @@ describe('"server" CLI options', () => {
     ).toMatchSnapshot();
   });
 
-  it('should work using "--server-type spdy"', async () => {
-    const { exitCode, stderr } = await testBin([
-      "--port",
-      port,
-      "--server-type",
-      "spdy",
-    ]);
+  const [major] = process.versions.node.split(".").map(Number);
 
-    expect(exitCode).toEqual(0);
-    expect(
-      normalizeStderr(stderr, { ipv6: true, https: true }),
-    ).toMatchSnapshot();
-  });
+  (major >= 24 ? it.skip : it)(
+    'should work using "--server-type spdy"',
+    async () => {
+      const { exitCode, stderr } = await testBin([
+        "--port",
+        port,
+        "--server-type",
+        "spdy",
+      ]);
+
+      expect(exitCode).toEqual(0);
+      expect(
+        normalizeStderr(stderr, { ipv6: true, https: true }),
+      ).toMatchSnapshot();
+    },
+  );
 
   it('should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path>"', async () => {
     const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
