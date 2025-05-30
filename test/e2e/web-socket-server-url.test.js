@@ -570,7 +570,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("${webSocketServer}")`, async () => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
