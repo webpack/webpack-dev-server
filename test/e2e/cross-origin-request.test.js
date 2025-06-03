@@ -37,6 +37,7 @@ describe("cross-origin requests", () => {
     htmlServer.listen(htmlServerPort, htmlServerHost);
 
     const { page, browser } = await runBrowser();
+
     try {
       const pageErrors = [];
 
@@ -91,6 +92,111 @@ describe("cross-origin requests", () => {
     htmlServer.listen(htmlServerPort, htmlServerHost);
 
     const { page, browser } = await runBrowser();
+
+    try {
+      const pageErrors = [];
+
+      page.on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+      const scriptTagRequest = page.waitForResponse(
+        `http://localhost:${devServerPort}/main.js`
+      );
+
+      await page.goto(`http://${htmlServerHost}:${htmlServerPort}`);
+
+      const response = await scriptTagRequest;
+
+      expect(response.status()).toBe(200);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+      htmlServer.close();
+    }
+  });
+
+  it("should return 200 for cross-origin no-cors non-module script tag requests with the 'allowedHost' option and 'all' value", async () => {
+    const compiler = webpack(config);
+    const devServerOptions = {
+      port: devServerPort,
+      allowedHosts: "all",
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    // Start a separate server for serving the HTML file
+    const http = require("http");
+    const htmlServer = http.createServer((req, res) => {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(`
+        <html>
+          <head>
+            <script src="http://localhost:${devServerPort}/main.js"></script>
+          </head>
+          <body></body>
+        </html>
+      `);
+    });
+    htmlServer.listen(htmlServerPort, htmlServerHost);
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      const pageErrors = [];
+
+      page.on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+      const scriptTagRequest = page.waitForResponse(
+        `http://localhost:${devServerPort}/main.js`
+      );
+
+      await page.goto(`http://${htmlServerHost}:${htmlServerPort}`);
+
+      const response = await scriptTagRequest;
+
+      expect(response.status()).toBe(200);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+      htmlServer.close();
+    }
+  });
+
+  it("should return 200 for cross-origin no-cors non-module script tag requests with the `allowedHost` option and the `localhost` value", async () => {
+    const compiler = webpack(config);
+    const devServerOptions = {
+      port: devServerPort,
+      allowedHosts: ["localhost"],
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    // Start a separate server for serving the HTML file
+    const http = require("http");
+    const htmlServer = http.createServer((req, res) => {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(`
+        <html>
+          <head>
+            <script src="http://localhost:${devServerPort}/main.js"></script>
+          </head>
+          <body></body>
+        </html>
+      `);
+    });
+    htmlServer.listen(htmlServerPort, htmlServerHost);
+
+    const { page, browser } = await runBrowser();
+
     try {
       const pageErrors = [];
 

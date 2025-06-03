@@ -837,7 +837,7 @@ describe("API", () => {
       tests.forEach((test) => {
         const headers = { host: test };
 
-        if (!server.checkHeader(headers, "host")) {
+        if (!server.isValidHost(headers, "host")) {
           throw new Error("Validation didn't pass");
         }
       });
@@ -886,7 +886,7 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      if (!server.checkHeader(headers, "origin")) {
+      if (!server.isValidHost(headers, "origin")) {
         throw new Error("Validation didn't fail");
       }
 
