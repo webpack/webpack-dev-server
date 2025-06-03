@@ -1357,6 +1357,7 @@ declare class Server<
    * @private
    * @param {{ [key: string]: string | undefined }} headers
    * @param {string} headerToCheck
+   * @param {boolean} validateHost
    * @returns {boolean}
    */
   private isValidHost;
