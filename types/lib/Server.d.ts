@@ -575,6 +575,11 @@ declare class Server<
         description: string;
         link: string;
       };
+      PrintUrlOnKeypress: {
+        type: string;
+        default: boolean;
+        description: string;
+      };
       Proxy: {
         type: string;
         items: {
@@ -1064,6 +1069,9 @@ declare class Server<
         $ref: string;
       };
       compress: {
+        $ref: string;
+      };
+      printUrlOnKeypress: {
         $ref: string;
       };
       devMiddleware: {
