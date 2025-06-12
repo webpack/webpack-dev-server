@@ -80,6 +80,7 @@ const listOfTests = {
   "normalize-option": 1,
   "setup-middlewares-option": 1,
   "options-request-response": 2,
+  "cross-origin-request": 2,
 };
 
 let startPort = 8089;
