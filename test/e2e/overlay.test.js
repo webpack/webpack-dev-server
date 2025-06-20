@@ -1930,6 +1930,53 @@ describe("overlay", () => {
     }
   });
 
+  it("should not show filtered promise rejection with specific error cause", async () => {
+    const compiler = webpack(config);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            runtimeErrors: (error) =>
+              !/Injected/.test(error.cause.error.message),
+          },
+        },
+      },
+      compiler,
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      await page.addScriptTag({
+        content: `(function throwError() {
+        setTimeout(function () {
+          Promise.reject({ error: new Error('Injected async error') });
+        }, 0);
+      })();`,
+      });
+
+      // Delay for the overlay to appear
+      await delay(1000);
+
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+      expect(overlayHandle).toBe(null);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
+
   it('should show overlay when "Content-Security-Policy" is "default-src \'self\'" was used', async () => {
     const compiler = webpack({ ...config, devtool: false });
 
