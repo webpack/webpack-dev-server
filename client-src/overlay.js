@@ -350,6 +350,7 @@ const containerStyle = {
   fontFamily: "sans-serif",
   display: "flex",
   flexDirection: "column",
+  minHeight: "100vh",
 };
 
 const headerStyle = {
@@ -360,41 +361,54 @@ const headerStyle = {
   justifyContent: "space-between",
   alignItems: "center",
   boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
+  flexShrink: 0,
+  flexWrap: "wrap",
+  gap: "10px",
+  minHeight: "60px",
 };
 
 const logoContainerStyle = {
   display: "flex",
   alignItems: "center",
   gap: "15px",
+  flex: "1 1 auto",
+  minWidth: "200px",
+  overflow: "visible",
 };
 
 const titleStyle = {
-  fontSize: "24px",
+  fontSize: "clamp(18px, 4vw, 24px)",
   fontWeight: "normal",
   margin: 0,
+  lineHeight: "1.2",
 };
 
 const navigationStyle = {
   display: "flex",
   alignItems: "center",
   padding: "10px 20px",
-  justifyContent: "flex-end",
+  justifyContent: "space-between",
   gap: "10px",
   backgroundColor: "transparent",
+  flexWrap: "wrap",
+  flexShrink: 0,
+  minHeight: "50px",
 };
 
 const navButtonStyle = {
-  backgroundColor: "#3a3340",
+  backgroundColor: "#27272A",
   color: "white",
   border: "none",
-  padding: "6px 12px",
+  padding: "8px 12px",
   cursor: "pointer",
   borderRadius: "2px",
   fontFamily: "sans-serif",
-  fontSize: "14px",
+  fontSize: "clamp(12px, 3vw, 14px)",
   display: "flex",
   alignItems: "center",
   gap: "5px",
+  minHeight: "36px",
+  whiteSpace: "nowrap",
 };
 
 const dismissButtonStyle = {
@@ -403,50 +417,78 @@ const dismissButtonStyle = {
   cursor: "pointer",
   backgroundColor: "transparent",
   border: "none",
-  fontSize: "14px",
+  fontSize: "clamp(12px, 3vw, 14px)",
+  fontWeight: "bold",
   display: "flex",
   alignItems: "center",
+  flexShrink: 0,
+  whiteSpace: "nowrap",
 };
 
 const keyboardShortcutStyle = {
-  backgroundColor: "#555",
-  color: "white",
+  backgroundColor: "#B19DA3",
+  color: "#8b1538",
   padding: "2px 5px",
   borderRadius: "2px",
   marginLeft: "5px",
-  fontSize: "12px",
+  fontSize: "clamp(10px, 2.5vw, 12px)",
+  fontWeight: "bold",
+};
+
+const navKeyboardShortcutStyle = {
+  backgroundColor: "#3F3F46",
+  color: "white",
+  padding: "2px 6px",
+  borderRadius: "2px",
+  fontSize: "clamp(10px, 2.5vw, 12px)",
+  fontWeight: "normal",
 };
 
 const errorContentStyle = {
-  padding: "20px",
-  flex: 1,
+  padding: "15px 20px",
+  flex: "1 1 auto",
+  overflow: "auto",
+  minHeight: 0,
 };
 
 const errorTypeStyle = {
   color: "#e83b46",
-  fontSize: "1.2em",
-  marginBottom: "20px",
+  fontSize: "clamp(16px, 4vw, 20px)",
+  marginBottom: "15px",
   fontFamily: "sans-serif",
+  lineHeight: "1.3",
+  wordBreak: "break-word",
 };
 
 const errorMessageStyle = {
   lineHeight: "1.5",
-  fontSize: "1rem",
+  fontSize: "clamp(14px, 3.5vw, 16px)",
   fontFamily: "Menlo, Consolas, monospace",
   whiteSpace: "pre-wrap",
+  wordBreak: "break-word",
+  overflowWrap: "break-word",
 };
 
 const footerStyle = {
   padding: "15px 20px",
   color: "#aaa",
-  fontSize: "12px",
+  fontSize: "clamp(10px, 2.5vw, 12px)",
   borderTop: "1px solid #333",
+  flexShrink: 0,
+  lineHeight: "1.4",
 };
 
 const logoStyle = {
-  width: "40px",
-  height: "40px",
-  marginRight: "10px",
+  width: "60px",
+  height: "60px",
+  marginRight: "15px",
+  flexShrink: 0,
+};
+
+const navButtonGroupStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
 };
 
 // ANSI HTML
@@ -555,7 +597,7 @@ const createOverlay = (options) => {
    */
   function createLogo() {
     const logoSvg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" style="width: 100%; height: 100%; display: block;">
       <path fill="#fff" d="M300 0l265 150v300L300 600 35 450V150z"/>
       <path fill="#8ed6fb" d="M517.7 439.5L308.8 557.8v-92L439 394.1l78.7 45.4zm14.3-12.9V179.4l-76.4 44.1v159l76.4 44.1zM81.5 439.5l208.9 118.2v-92l-130.2-71.6-78.7 45.4zm-14.3-12.9V179.4l76.4 44.1v159l-76.4 44.1zm8.9-263.2L290.4 42.2v89l-137.3 75.5-1.1.6-75.9-43.9zm446.9 0L308.8 42.2v89L446 206.8l1.1.6 75.9-44z"/>
       <path fill="#1c78c0" d="M290.4 444.8L162 374.1V234.2l128.4 74.1v136.5zm18.4 0l128.4-70.6v-140l-128.4 74.1v136.5zM299.6 303zm-129-85l129-70.9L428.5 218l-128.9 74.4-129-74.4z"/>
@@ -652,23 +694,35 @@ const createOverlay = (options) => {
       navigationElement.appendChild(currentErrorCountElement);
 
       const navButtonGroup = doc.createElement("div");
-      applyStyle(navButtonGroup, navigationStyle);
+      applyStyle(navButtonGroup, navButtonGroupStyle);
+
+      // Previous button
       const prevButton = doc.createElement("button");
-      const prevButtonContent = `<span>⌘ + ←</span> PREV`;
-      prevButton.innerHTML = overlayTrustedTypesPolicy
-        ? overlayTrustedTypesPolicy.createHTML(prevButtonContent)
-        : prevButtonContent;
       applyStyle(prevButton, navButtonStyle);
+
+      const prevShortcut = doc.createElement("span");
+      prevShortcut.textContent = "⌘ + ←";
+      applyStyle(prevShortcut, navKeyboardShortcutStyle);
+
+      prevButton.appendChild(prevShortcut);
+      prevButton.appendChild(doc.createTextNode(" PREV"));
+
       prevButton.addEventListener("click", () => {
         overlayService.send({ type: "NAVIGATE", direction: "prev" });
       });
 
+      // Next button
       const nextButton = doc.createElement("button");
-      const nextButtonContent = `NEXT <span>⌘ + →</span>`;
-      nextButton.innerHTML = overlayTrustedTypesPolicy
-        ? overlayTrustedTypesPolicy.createHTML(nextButtonContent)
-        : nextButtonContent;
       applyStyle(nextButton, navButtonStyle);
+
+      nextButton.appendChild(doc.createTextNode("NEXT "));
+
+      const nextShortcut = doc.createElement("span");
+      nextShortcut.textContent = "⌘ + →";
+      applyStyle(nextShortcut, navKeyboardShortcutStyle);
+
+      nextButton.appendChild(nextShortcut);
+
       nextButton.addEventListener("click", () => {
         overlayService.send({ type: "NAVIGATE", direction: "next" });
       });
@@ -846,6 +900,13 @@ const createOverlay = (options) => {
             messageSource === "runtime" ? "#1a1117" : "#18181B";
           containerElement.firstChild.style.backgroundColor =
             messageSource === "runtime" ? "#8b1538" : "#18181B";
+
+          // Update ESC button color to match header background
+          const escElement = containerElement.querySelector("span");
+          if (escElement && escElement.textContent === "ESC") {
+            escElement.style.color =
+              messageSource === "runtime" ? "#8b1538" : "#18181B";
+          }
         }
       }
 
