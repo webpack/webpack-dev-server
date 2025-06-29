@@ -1996,4 +1996,261 @@ describe("overlay", () => {
       await server.stop();
     }
   });
+
+  it("should navigate between multiple errors using buttons and keyboard shortcuts", async () => {
+    const compiler = webpack(config);
+
+    // Create multiple distinct errors for navigation testing
+    new ErrorPlugin("First error message").apply(compiler);
+    new ErrorPlugin("Second error message").apply(compiler);
+    new ErrorPlugin("Third error message").apply(compiler);
+
+    const devServerOptions = {
+      port,
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      // Delay for the overlay to appear
+      await delay(1000);
+
+      // Get the overlay iframe and its content frame
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+
+      // Check initial error counter display
+      let errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 1/3");
+
+      // Check initial error content
+      let errorContent = await overlayFrame.$eval(
+        ".error-message",
+        (el) => el.textContent,
+      );
+      expect(errorContent).toContain("First error message");
+
+      // Test navigation button - next
+      const nextButton = await overlayFrame.$("button:nth-of-type(2)");
+      await nextButton.click();
+      await delay(100);
+
+      // Verify we moved to second error
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 2/3");
+      errorContent = await overlayFrame.$eval(
+        ".error-message",
+        (el) => el.textContent,
+      );
+      expect(errorContent).toContain("Second error message");
+
+      // Test navigation button - next (to third error)
+      await nextButton.click();
+      await delay(100);
+
+      // Verify we moved to third error
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 3/3");
+      errorContent = await overlayFrame.$eval(
+        ".error-message",
+        (el) => el.textContent,
+      );
+      expect(errorContent).toContain("Third error message");
+
+      // Test navigation button - next (should cycle back to first error)
+      await nextButton.click();
+      await delay(100);
+
+      // Verify we cycled back to first error
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 1/3");
+
+      // Test keyboard navigation - ⌘/Ctrl + →
+      await page.keyboard.down(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await page.keyboard.press("ArrowRight");
+      await page.keyboard.up(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await delay(100);
+
+      // Verify keyboard navigation worked
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 2/3");
+
+      // Test keyboard navigation - ⌘/Ctrl + ←
+      await page.keyboard.down(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await page.keyboard.press("ArrowLeft");
+      await page.keyboard.up(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await delay(100);
+
+      // Verify keyboard navigation worked
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 1/3");
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
+
+  it("should navigate between multiple errors when Trusted Types are enabled", async () => {
+    const compiler = webpack(trustedTypesConfig);
+
+    // Create multiple distinct errors for navigation testing
+    new ErrorPlugin("First error message").apply(compiler);
+    new ErrorPlugin("Second error message").apply(compiler);
+    new ErrorPlugin("Third error message").apply(compiler);
+
+    const devServerOptions = {
+      port,
+      client: {
+        overlay: {
+          trustedTypesPolicyName: "webpack#dev-overlay",
+        },
+      },
+    };
+    const server = new Server(devServerOptions, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      const consoleMessages = [];
+
+      page.on("console", (message) => {
+        consoleMessages.push(message.text());
+      });
+
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      // Delay for the overlay to appear
+      await delay(1000);
+
+      // Get the overlay iframe and its content frame
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+
+      // Check initial error counter display
+      let errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 1/3");
+
+      // Check initial error content
+      let errorContent = await overlayFrame.$eval(
+        ".error-message",
+        (el) => el.textContent,
+      );
+      expect(errorContent).toContain("First error message");
+
+      // Test navigation button - next
+      const nextButton = await overlayFrame.$("button:nth-of-type(2)");
+      await nextButton.click();
+      await delay(100);
+
+      // Verify we moved to second error
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 2/3");
+      errorContent = await overlayFrame.$eval(
+        ".error-message",
+        (el) => el.textContent,
+      );
+      expect(errorContent).toContain("Second error message");
+
+      // Test keyboard navigation - ⌘/Ctrl + →
+      await page.keyboard.down(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await page.keyboard.press("ArrowRight");
+      await page.keyboard.up(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await delay(100);
+
+      // Verify we moved to third error
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 3/3");
+      errorContent = await overlayFrame.$eval(
+        ".error-message",
+        (el) => el.textContent,
+      );
+      expect(errorContent).toContain("Third error message");
+
+      // Test keyboard navigation - ⌘/Ctrl + ← (going back to previous error)
+      await page.keyboard.down(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await page.keyboard.press("ArrowLeft");
+      await page.keyboard.up(
+        process.platform === "darwin" ? "Meta" : "Control",
+      );
+      await delay(100);
+
+      // Verify we moved back to second error
+      errorCounter = await overlayFrame.$eval(
+        ".error-counter",
+        (el) => el.textContent,
+      );
+      expect(errorCounter).toBe("ERROR 2/3");
+      errorContent = await overlayFrame.$eval(
+        ".error-message",
+        (el) => el.textContent,
+      );
+      expect(errorContent).toContain("Second error message");
+
+      // Ensure no Trusted Types violations were reported
+      expect(
+        consoleMessages.filter((item) =>
+          /requires 'TrustedHTML' assignment/.test(item),
+        ),
+      ).toHaveLength(0);
+    } catch (error) {
+      throw error;
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
 });
