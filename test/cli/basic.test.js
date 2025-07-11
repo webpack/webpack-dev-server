@@ -1,9 +1,9 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-basic"];
 
 const isMacOS = process.platform === "darwin";
@@ -13,7 +13,7 @@ describe("basic", () => {
     (isMacOS ? it.skip : it)("should generate correct cli flags", async () => {
       const { exitCode, stdout } = await testBin(["--help"]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stripAnsi(stdout)).toMatchSnapshot();
     });
   });
@@ -26,7 +26,7 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
@@ -38,7 +38,7 @@ describe("basic", () => {
         "localhost",
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
     });
 
@@ -53,7 +53,7 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
@@ -68,7 +68,7 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
@@ -207,7 +207,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
     });
 
@@ -226,7 +226,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
@@ -244,7 +244,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
     });
 
@@ -263,7 +263,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("foo.js");
     });
 
@@ -275,7 +275,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
@@ -288,7 +288,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).not.toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
@@ -301,7 +301,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("webpack/hot/dev-server");
     });
 
@@ -318,7 +318,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js");
     });
 

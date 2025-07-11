@@ -125,8 +125,8 @@ describe("client.reconnect option", () => {
           () => {
             resolve();
           },
-          // eslint-disable-next-line no-restricted-properties
-          1000 * Math.pow(2, 3),
+
+          1000 * 2 ** 3,
         ),
       );
 
@@ -190,8 +190,8 @@ describe("client.reconnect option", () => {
           () => {
             resolve();
           },
-          // eslint-disable-next-line no-restricted-properties
-          1000 * Math.pow(2, 3),
+
+          1000 * 2 ** 3,
         ),
       );
 

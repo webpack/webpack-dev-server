@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require("fs");
+const fs = require("node:fs");
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
 const { setup } = require("../../util");
@@ -17,6 +17,7 @@ fs.watch("./proxy-config.js", () => {
   delete require.cache[require.resolve("./proxy-config")];
   try {
     const newProxyConfig = require("./proxy-config");
+
     if (proxyOptions.target !== newProxyConfig.target) {
       console.log("Proxy target changed:", newProxyConfig.target);
       proxyOptions = {
@@ -26,7 +27,7 @@ fs.watch("./proxy-config.js", () => {
         changeOrigin: true,
       };
     }
-  } catch (e) {
+  } catch {
     // ignore
   }
 });

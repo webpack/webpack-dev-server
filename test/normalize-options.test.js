@@ -1,7 +1,7 @@
 "use strict";
 
-const webpack = require("webpack");
 const { klona } = require("klona/full");
+const webpack = require("webpack");
 const Server = require("../lib/Server");
 const port = require("./ports-map")["normalize-option"];
 
@@ -579,7 +579,7 @@ describe("normalize options", () => {
     },
   ];
 
-  cases.forEach((item) => {
+  for (const item of cases) {
     it(item.title, async () => {
       let webpackConfig;
 
@@ -587,9 +587,10 @@ describe("normalize options", () => {
         webpackConfig = require("./fixtures/multi-compiler-one-configuration/webpack.config");
 
         if (Array.isArray(item.webpackConfig)) {
-          webpackConfig = item.webpackConfig.map((config, index) => {
-            return { ...webpackConfig[index], ...config };
-          });
+          webpackConfig = item.webpackConfig.map((config, index) => ({
+            ...webpackConfig[index],
+            ...config,
+          }));
         }
       } else {
         webpackConfig = require("./fixtures/simple-config/webpack.config");
@@ -622,23 +623,21 @@ describe("normalize options", () => {
           optionsForSnapshot.port = "<auto>";
 
           if (optionsForSnapshot.static.length > 0) {
-            optionsForSnapshot.static.forEach((i) => {
+            for (const i of optionsForSnapshot.static) {
               i.directory = i.directory
-                .replace(/\\/g, "/")
-                .replace(
-                  new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+                .replaceAll("\\", "/")
+                .replaceAll(
+                  new RegExp(process.cwd().replaceAll("\\", "/"), "g"),
                   "<cwd>",
                 );
-            });
+            }
           }
 
           expect(optionsForSnapshot).toMatchSnapshot();
         }
-      } catch (error) {
-        throw error;
       } finally {
         await server.stop();
       }
     });
-  });
+  }
 });

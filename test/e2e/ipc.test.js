@@ -1,11 +1,11 @@
 "use strict";
 
-const os = require("os");
-const net = require("net");
-const path = require("path");
-const http = require("http");
-const webpack = require("webpack");
+const http = require("node:http");
+const net = require("node:net");
+const os = require("node:os");
+const path = require("node:path");
 const httpProxy = require("http-proxy");
+const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
@@ -107,8 +107,6 @@ describe("web socket server URL", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -211,8 +209,6 @@ describe("web socket server URL", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -222,6 +218,7 @@ describe("web socket server URL", () => {
     });
 
     // TODO un skip after implement new API
+    // eslint-disable-next-line jest/no-disabled-tests
     it.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async () => {
       const isWindows = process.platform === "win32";
       const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
@@ -236,6 +233,7 @@ describe("web socket server URL", () => {
           reject(error);
         });
 
+        // eslint-disable-next-line no-promise-executor-return
         return server.listen(ipc, () => {
           resolve();
         });
@@ -330,8 +328,6 @@ describe("web socket server URL", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 

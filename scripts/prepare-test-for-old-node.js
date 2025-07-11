@@ -1,13 +1,16 @@
 "use strict";
 
-const path = require("path");
-const fs = require("fs");
+const fs = require("node:fs");
+const path = require("node:path");
 
+/**
+ *
+ */
 async function setup() {
   const serverCodePath = path.resolve(__dirname, "../lib/Server.js");
-  let serverCode = await fs.promises.readFile(serverCodePath, "utf-8");
+  let serverCode = await fs.promises.readFile(serverCodePath, "utf8");
 
-  serverCode = serverCode.replace(
+  serverCode = serverCode.replaceAll(
     /\(await import\((".+")\)\)\.default/g,
     "require($1)",
   );

@@ -1,7 +1,7 @@
 "use strict";
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 const webpack = require("webpack");
 const wdm = require("webpack-dev-middleware");
 const Server = require("../../lib/Server");
@@ -121,8 +121,7 @@ describe("app option", () => {
             setupMiddlewares:
               typeof setupMiddlewares !== "undefined"
                 ? setupMiddlewares
-                : // eslint-disable-next-line no-undefined
-                  undefined,
+                : undefined,
           },
           compiler,
         );
@@ -171,20 +170,18 @@ describe("app option", () => {
           server === "http2" ||
           (server.options && server.options.allowHTTP1)
         ) {
-          expect(HTTPVersion).toEqual("h2");
+          expect(HTTPVersion).toBe("h2");
         } else {
-          expect(HTTPVersion).toEqual("http/1.1");
+          expect(HTTPVersion).toBe("http/1.1");
         }
 
         expect(response.status()).toBe(200);
 
         const text = await response.text();
 
-        expect(
-          text.includes(
-            '<script type="text/javascript" charset="utf-8" src="/main.js"></script>',
-          ),
-        ).toBe(true);
+        expect(text).toContain(
+          '<script type="text/javascript" charset="utf-8" src="/main.js"></script>',
+        );
         expect(consoleMessages.map((message) => message.text())).toEqual([
           "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
           "[HMR] Waiting for update signal from WDS...",

@@ -7,6 +7,7 @@ let server;
 
 // start server, returning the full setup of the server
 // (both the server and the compiler)
+
 function startFullSetup(config, options, done) {
   // disable watching by default for tests
   if (typeof options.static === "undefined") {
@@ -36,6 +37,11 @@ function startFullSetup(config, options, done) {
   };
 }
 
+/**
+ * @param config
+ * @param options
+ * @param done
+ */
 function startAwaitingCompilationFullSetup(config, options, done) {
   let readyCount = 0;
 
@@ -64,10 +70,20 @@ function startAwaitingCompilationFullSetup(config, options, done) {
   return fullSetup;
 }
 
+/**
+ * @param config
+ * @param options
+ * @param done
+ */
 function startAwaitingCompilation(config, options, done) {
   return startAwaitingCompilationFullSetup(config, options, done).server;
 }
 
+/**
+ * @param config
+ * @param options
+ * @param done
+ */
 function start(config, options, done) {
   // I suspect that almost all tests need to wait for compilation to
   // finish, because not doing so leaves open handles for jest,
@@ -78,6 +94,9 @@ function start(config, options, done) {
   return startAwaitingCompilation(config, options, done);
 }
 
+/**
+ * @param done
+ */
 function close(done) {
   if (server) {
     server.stopCallback(() => {
@@ -90,6 +109,6 @@ function close(done) {
 }
 
 module.exports = {
-  start,
   close,
+  start,
 };

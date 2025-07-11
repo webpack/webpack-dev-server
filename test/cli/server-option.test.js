@@ -1,9 +1,9 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const { rimraf } = require("rimraf");
 const Server = require("../../lib/Server");
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-server"];
 
 const httpsCertificateDirectory = path.resolve(
@@ -26,7 +26,7 @@ describe('"server" CLI options', () => {
       "http",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: false }),
     ).toMatchSnapshot();
@@ -40,7 +40,7 @@ describe('"server" CLI options', () => {
       "https",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -58,7 +58,7 @@ describe('"server" CLI options', () => {
         "spdy",
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(
         normalizeStderr(stderr, { ipv6: true, https: true }),
       ).toMatchSnapshot();
@@ -86,7 +86,7 @@ describe('"server" CLI options', () => {
       cert,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -116,7 +116,7 @@ describe('"server" CLI options', () => {
       ca,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -150,7 +150,7 @@ describe('"server" CLI options', () => {
       ca,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -178,7 +178,7 @@ describe('"server" CLI options', () => {
       cert,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -193,7 +193,7 @@ describe('"server" CLI options', () => {
       "--server-options-request-cert",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -208,7 +208,7 @@ describe('"server" CLI options', () => {
       "--no-server-options-request-cert",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();

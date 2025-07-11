@@ -31,7 +31,7 @@ This document serves as a migration guide for `webpack-dev-server@5.0.0`.
 
   ```js
   module.exports = {
-    //...
+    // ...
     devServer: {
       server: {
         type: "spdy", // or use 'https'
@@ -54,7 +54,7 @@ This document serves as a migration guide for `webpack-dev-server@5.0.0`.
 
   ```js
   module.exports = {
-    //...
+    // ...
     devServer: {
       server: {
         type: "https", // or use 'https'
@@ -70,7 +70,7 @@ This document serves as a migration guide for `webpack-dev-server@5.0.0`.
 
   ```js
   module.exports = {
-    //...
+    // ...
     devServer: {
       server: {
         type: "https",
@@ -88,23 +88,23 @@ This document serves as a migration guide for `webpack-dev-server@5.0.0`.
 
   ```js
   module.exports = {
-    //...
+    // ...
     devServer: {
-      onAfterSetupMiddleware: function (devServer) {
+      onAfterSetupMiddleware (devServer) {
         if (!devServer) {
           throw new Error("webpack-dev-server is not defined");
         }
-
-        devServer.app.get("/some/after-path", function (req, res) {
+  
+        devServer.app.get("/some/after-path", (req, res) => {
           res.json({ custom: "response" });
         });
       },
-      onBeforeSetupMiddleware: function (devServer) {
+      onBeforeSetupMiddleware (devServer) {
         if (!devServer) {
           throw new Error("webpack-dev-server is not defined");
         }
-
-        devServer.app.get("/some/before-path", function (req, res) {
+  
+        devServer.app.get("/some/before-path", (req, res) => {
           res.json({ custom: "response" });
         });
       },
@@ -165,7 +165,7 @@ v4:
 
 ```js
 module.exports = {
-  //...
+  // ...
   devServer: {
     proxy: {
       "/api": {
@@ -181,7 +181,7 @@ v5:
 
 ```js
 module.exports = {
-  //...
+  // ...
   devServer: {
     proxy: [
       {

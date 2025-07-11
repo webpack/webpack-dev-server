@@ -44,8 +44,8 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    before: function (app, server, compiler) {
-      app.get("/some/path", function (req, res) {
+    before (app, server, compiler) {
+      app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -58,8 +58,8 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    onBeforeSetupMiddleware: function (devServer) {
-      devServer.app.get("/some/path", function (req, res) {
+    onBeforeSetupMiddleware (devServer) {
+      devServer.app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -74,8 +74,8 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    after: function (app, server, compiler) {
-      app.get("/some/path", function (req, res) {
+    after (app, server, compiler) {
+      app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -88,8 +88,8 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    onAfterSetupMiddleware: function (devServer) {
-      devServer.app.get("/some/path", function (req, res) {
+    onAfterSetupMiddleware (devServer) {
+      devServer.app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -328,7 +328,7 @@ Provide an array of objects in case you have multiple static folders:
 
 ```js
 module.exports = {
-  //...
+  // ...
   devServer: {
     static: [
       {
@@ -418,7 +418,7 @@ module.exports = {
 module.exports = {
   devServer: {
     open: {
-      target: ["first.html", `http://localhost:8080/second.html`],
+      target: ["first.html", "http://localhost:8080/second.html"],
       app: {
         name: "google-chrome",
         arguments: ["--incognito", "--new-window"],

@@ -4,8 +4,8 @@
 
 "use strict";
 
-describe("'createSocketURL' function ", () => {
-  global.__webpack_hash__ = "hash";
+describe("'createSocketURL' function", () => {
+  globalThis.__webpack_hash__ = "hash";
 
   const samples = [
     // // __resourceQuery, location and socket URL
@@ -104,9 +104,9 @@ describe("'createSocketURL' function ", () => {
     [null, "file://localhost/", "ws://localhost/ws"],
   ];
 
-  samples.forEach(([__resourceQuery, location, expected]) => {
-    test(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
-      global.__resourceQuery = __resourceQuery;
+  for (const [__resourceQuery, location, expected] of samples) {
+    it(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
+      globalThis.__resourceQuery = __resourceQuery;
 
       if (__resourceQuery === null) {
         Object.defineProperty(document, "currentScript", {
@@ -116,14 +116,15 @@ describe("'createSocketURL' function ", () => {
       }
 
       const client = require("../../../client-src/index");
-      const createSocketURL = client.createSocketURL;
-      const parseURL = client.parseURL;
+
+      const { createSocketURL } = client;
+      const { parseURL } = client;
 
       const selfLocation = new URL(location);
 
-      delete window.location;
+      delete globalThis.location;
 
-      window.location = selfLocation;
+      globalThis.location = selfLocation;
 
       const parsedURL = parseURL(__resourceQuery);
 
@@ -138,5 +139,5 @@ describe("'createSocketURL' function ", () => {
     });
 
     jest.resetModules();
-  });
+  }
 });

@@ -1,11 +1,11 @@
 "use strict";
 
-const webpack = require("webpack");
 const requireFromString = require("require-from-string");
+const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const simpleConfig = require("../fixtures/module-federation-config/webpack.config");
-const objectEntryConfig = require("../fixtures/module-federation-config/webpack.object-entry.config");
 const multiConfig = require("../fixtures/module-federation-config/webpack.multi.config");
+const objectEntryConfig = require("../fixtures/module-federation-config/webpack.object-entry.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["module-federation"];
 const pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
@@ -59,7 +59,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toEqual("entry2");
+      expect(exports).toBe("entry2");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",
@@ -117,7 +117,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toEqual("entry2");
+      expect(exports).toBe("entry2");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",
@@ -149,7 +149,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toEqual("entry1");
+      expect(exports).toBe("entry1");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",
@@ -207,7 +207,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toEqual("entry2");
+      expect(exports).toBe("entry2");
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",

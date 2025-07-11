@@ -39,8 +39,8 @@ npx webpack serve --open --server-type https --server-options-key ./ssl/server.k
 You can also directly pass the contents of respective files:
 
 ```js
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 module.exports = {
   // ...

@@ -1,16 +1,16 @@
 "use strict";
 
-const https = require("https");
-const path = require("path");
+const https = require("node:https");
+const path = require("node:path");
 const fs = require("graceful-fs");
 const request = require("supertest");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const { skipTestOnWindows } = require("../helpers/conditional-test");
 const customHTTP = require("../helpers/custom-http");
 const normalizeOptions = require("../helpers/normalize-options");
+const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["server-option"];
 
 const httpsCertificateDirectory = path.resolve(
@@ -80,7 +80,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).not.toEqual("h2");
+        expect(HTTPVersion).not.toBe("h2");
 
         expect(response.status()).toMatchSnapshot("response status");
 
@@ -140,7 +140,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).not.toEqual("h2");
+        expect(HTTPVersion).not.toBe("h2");
 
         expect(response.status()).toMatchSnapshot("response status");
 
@@ -200,7 +200,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).not.toEqual("h2");
+        expect(HTTPVersion).not.toBe("h2");
 
         expect(response.status()).toMatchSnapshot("response status");
 
@@ -260,7 +260,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).toEqual("h2");
+        expect(HTTPVersion).toBe("h2");
         expect(response.status()).toBe(200);
         expect((await response.text()).trim()).toBe("Heyo.");
         expect(consoleMessages).toHaveLength(0);
@@ -851,7 +851,7 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toEqual(200);
+        expect(response.status()).toBe(200);
         expect(await response.text()).toContain("Heyo");
         expect(consoleMessages.map((message) => message.text())).toEqual([]);
         expect(pageErrors).toEqual([]);
@@ -1346,7 +1346,7 @@ describe("server option", () => {
 
         const options = normalizeOptions(createServerSpy.mock.calls[0][0]);
 
-        expect(HTTPVersion).toEqual("h2");
+        expect(HTTPVersion).toBe("h2");
         expect(options.spdy).toEqual({ protocols: ["h2", "http/1.1"] });
         expect(response.status()).toBe(200);
         expect((await response.text()).trim()).toBe("Heyo.");
@@ -1418,7 +1418,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).toEqual("http/1.1");
+        expect(HTTPVersion).toBe("http/1.1");
         expect(
           normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("http options");

@@ -1,9 +1,11 @@
 "use strict";
 
+/**
+ * @param options
+ */
 function normalizeOptions(options) {
   const normalizedOptions = {};
 
-  // eslint-disable-next-line guard-for-in
   for (const propertyName in options) {
     let value = options[propertyName];
 

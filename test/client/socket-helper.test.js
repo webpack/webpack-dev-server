@@ -47,7 +47,7 @@ describe("socket", () => {
 
     const socket = require("../../client/socket").default;
 
-    global.__webpack_dev_server_client__ =
+    globalThis.__webpack_dev_server_client__ =
       require("../../client/clients/WebSocketClient").default;
 
     const mockHandler = jest.fn();
@@ -57,7 +57,7 @@ describe("socket", () => {
     });
 
     const mockClientInstance =
-      global.__webpack_dev_server_client__.mock.instances[0];
+      globalThis.__webpack_dev_server_client__.mock.instances[0];
 
     // this simulates receiving a message from the server and passing it
     // along to the callback of onMessage
@@ -70,7 +70,7 @@ describe("socket", () => {
     );
 
     expect(
-      global.__webpack_dev_server_client__.mock.calls[0],
+      globalThis.__webpack_dev_server_client__.mock.calls[0],
     ).toMatchSnapshot();
     expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
     expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
@@ -82,12 +82,14 @@ describe("socket", () => {
     const socket = require("../../client/socket").default;
 
     const nonInitializedInstance = require("../../client/socket").client;
-    expect(nonInitializedInstance).toBe(null);
+
+    expect(nonInitializedInstance).toBeNull();
 
     socket("my.url", {});
 
     const initializedInstance = require("../../client/socket").client;
-    expect(initializedInstance).not.toBe(null);
+
+    expect(initializedInstance).not.toBeNull();
     expect(typeof initializedInstance.onClose).toBe("function");
     expect(typeof initializedInstance.onMessage).toBe("function");
     expect(typeof initializedInstance.onOpen).toBe("function");

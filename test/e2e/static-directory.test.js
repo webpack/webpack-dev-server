@@ -1,13 +1,13 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const testServer = require("../helpers/test-server");
 const config = require("../fixtures/static-config/webpack.config");
-const port = require("../ports-map")["static-directory-option"];
 const runBrowser = require("../helpers/run-browser");
+const testServer = require("../helpers/test-server");
+const port = require("../ports-map")["static-directory-option"];
 
 const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");
@@ -100,7 +100,7 @@ describe("static.directory option", () => {
       expect(pageErrors).toMatchSnapshot("page errors");
     });
 
-    it("Watches folder recursively", (done) => {
+    it("watches folder recursively", (done) => {
       // chokidar emitted a change,
       // meaning it watched the file correctly
       server.staticWatchers[0].on("change", () => {
@@ -113,7 +113,7 @@ describe("static.directory option", () => {
       }, 1000);
     });
 
-    it("Watches node_modules", (done) => {
+    it("watches node_modules", (done) => {
       const filePath = path.join(publicDirectory, "node_modules", "index.html");
 
       fs.writeFileSync(filePath, "foo", "utf8");
@@ -483,7 +483,7 @@ describe("static.directory option", () => {
       });
     });
 
-    it("Should throw exception (external url)", (done) => {
+    it("should throw exception (external url)", (done) => {
       expect.assertions(1);
 
       server = testServer.start(
@@ -501,14 +501,14 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should not throw exception (local path with lower case first character)", (done) => {
+    it("should not throw exception (local path with lower case first character)", (done) => {
       testServer.start(
         config,
         {
           static: {
             directory:
               publicDirectory.charAt(0).toLowerCase() +
-              publicDirectory.substring(1),
+              publicDirectory.slice(1),
             watch: true,
           },
           port,
@@ -517,7 +517,7 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should not throw exception (local path with lower case first character & has '-')", (done) => {
+    it("should not throw exception (local path with lower case first character & has '-')", (done) => {
       testServer.start(
         config,
         {
@@ -531,7 +531,7 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should not throw exception (local path with upper case first character & has '-')", (done) => {
+    it("should not throw exception (local path with upper case first character & has '-')", (done) => {
       testServer.start(
         config,
         {
@@ -545,7 +545,7 @@ describe("static.directory option", () => {
       );
     });
 
-    it("Should throw exception (array with absolute url)", (done) => {
+    it("should throw exception (array with absolute url)", (done) => {
       server = testServer.start(
         config,
         {
@@ -578,7 +578,6 @@ describe("static.directory option", () => {
 
       server = new Server(
         {
-          // eslint-disable-next-line no-undefined
           static: undefined,
           port,
         },

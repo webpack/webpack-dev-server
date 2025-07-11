@@ -1,6 +1,6 @@
 "use strict";
 
-const http = require("http");
+const http = require("node:http");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -58,7 +58,7 @@ async function getAddress(host, hostname) {
 describe("host", () => {
   const hosts = [
     "<not-specified>",
-    // eslint-disable-next-line no-undefined
+
     undefined,
     "0.0.0.0",
     "::",

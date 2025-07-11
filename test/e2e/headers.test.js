@@ -1,7 +1,7 @@
 "use strict";
 
-const webpack = require("webpack");
 const request = require("supertest");
+const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
@@ -211,9 +211,7 @@ describe("headers option", () => {
 
       server = new Server(
         {
-          headers: () => {
-            return { "X-Bar": ["key1=value1", "key2=value2"] };
-          },
+          headers: () => ({ "X-Bar": ["key1=value1", "key2=value2"] }),
           port,
         },
         compiler,
@@ -450,7 +448,7 @@ describe("headers option", () => {
       );
       expect(pageErrors).toMatchSnapshot("page errors");
 
-      const responseForHead = await req.get(`/`);
+      const responseForHead = await req.get("/");
 
       expect(responseForHead.headers["x-foo"]).toBe("dev-server headers");
     });

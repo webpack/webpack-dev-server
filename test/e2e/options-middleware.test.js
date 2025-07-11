@@ -1,7 +1,7 @@
 "use strict";
 
-const webpack = require("webpack");
 const Express = require("express");
+const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
@@ -84,7 +84,7 @@ describe("handle options-request correctly", () => {
 
       await page.evaluate(
         (url) =>
-          window.fetch(url, {
+          globalThis.fetch(url, {
             headers: {
               "another-header": "1",
             },

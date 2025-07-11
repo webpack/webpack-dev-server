@@ -1,13 +1,13 @@
 "use strict";
 
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-static"];
 
 describe('"static" CLI option', () => {
   it('should work using "--static"', async () => {
     const { exitCode, stderr } = await testBin(["--port", port, "--static"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -19,7 +19,7 @@ describe('"static" CLI option', () => {
       "new-static",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -33,7 +33,7 @@ describe('"static" CLI option', () => {
       "other-static",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -46,7 +46,7 @@ describe('"static" CLI option', () => {
       "new-static-after-reset",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -59,7 +59,7 @@ describe('"static" CLI option', () => {
       "new-static-directory",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -71,7 +71,7 @@ describe('"static" CLI option', () => {
       "static-dir",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -83,7 +83,7 @@ describe('"static" CLI option', () => {
       "/public",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -96,7 +96,7 @@ describe('"static" CLI option', () => {
       "/new-public",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -107,7 +107,7 @@ describe('"static" CLI option', () => {
       "--static-serve-index",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -118,7 +118,7 @@ describe('"static" CLI option', () => {
       "--no-static-serve-index",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -129,7 +129,7 @@ describe('"static" CLI option', () => {
       "--static-watch",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -140,7 +140,7 @@ describe('"static" CLI option', () => {
       "--no-static-watch",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 });

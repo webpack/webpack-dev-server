@@ -1,6 +1,6 @@
 export = Server;
 /**
- * @typedef {Object} BasicApplication
+ * @typedef {object} BasicApplication
  * @property {typeof useFn} use
  */
 /**
@@ -1178,7 +1178,7 @@ declare class Server<
   compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
   /**
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
-   * */
+   */
   logger: ReturnType<Compiler["getInfrastructureLogger"]>;
   options: Configuration<A, S>;
   /**
@@ -1253,7 +1253,7 @@ declare class Server<
    * @returns {Promise<void>}
    */
   private setupApp;
-  /** @type {A | undefined}*/
+  /** @type {A | undefined} */
   app: A | undefined;
   /**
    * @private
@@ -1304,7 +1304,7 @@ declare class Server<
    * @returns {Promise<void>}
    */
   private createServer;
-  /** @type {S | undefined}*/
+  /** @type {S | undefined} */
   server: S | undefined;
   isTlsServer: boolean | undefined;
   /**
@@ -1331,6 +1331,7 @@ declare class Server<
    */
   private bonjour;
   /**
+   * @param callback
    * @private
    * @returns {void}
    */

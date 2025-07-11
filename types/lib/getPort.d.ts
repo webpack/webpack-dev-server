@@ -2,7 +2,7 @@ export = getPorts;
 /**
  * @param {number} basePort
  * @param {string=} host
- * @return {Promise<number>}
+ * @returns {Promise<number>}
  */
 declare function getPorts(
   basePort: number,

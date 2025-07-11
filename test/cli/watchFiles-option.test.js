@@ -1,7 +1,7 @@
 "use strict";
 
-const path = require("path");
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const path = require("node:path");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-watch-files"];
 
 describe('"watchFiles" CLI option', () => {
@@ -15,7 +15,7 @@ describe('"watchFiles" CLI option', () => {
       watchDirectory,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -35,7 +35,7 @@ describe('"watchFiles" CLI option', () => {
       watchOtherDirectory,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 
@@ -50,7 +50,7 @@ describe('"watchFiles" CLI option', () => {
       watchDirectory,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
   });
 });

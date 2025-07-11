@@ -13,7 +13,7 @@ jest.setTimeout(60000);
 describe("web socket communication", () => {
   const webSocketServers = ["ws", "sockjs"];
 
-  webSocketServers.forEach((websocketServer) => {
+  for (const websocketServer of webSocketServers) {
     it(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async () => {
       WebsocketServer.heartbeatInterval = 100;
 
@@ -59,8 +59,6 @@ describe("web socket communication", () => {
 
         expect(consoleMessages).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
       }
@@ -104,13 +102,11 @@ describe("web socket communication", () => {
           }, 200);
         });
 
-        expect(server.webSocketServer.clients.length).toBe(0);
+        expect(server.webSocketServer.clients).toHaveLength(0);
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await server.stop();
       }
@@ -157,16 +153,14 @@ describe("web socket communication", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
       }
     });
-  });
+  }
 
-  it(`should work and do heartbeat using ("ws" web socket server)`, async () => {
+  it('should work and do heartbeat using ("ws" web socket server)', async () => {
     WebsocketServer.heartbeatInterval = 100;
 
     const compiler = webpack(config);

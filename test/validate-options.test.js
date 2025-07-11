@@ -1,10 +1,10 @@
 "use strict";
 
-const os = require("os");
-const path = require("path");
+const os = require("node:os");
+const path = require("node:path");
 const { readFileSync } = require("graceful-fs");
+const { Volume, createFsFromVolume } = require("memfs");
 const webpack = require("webpack");
-const { createFsFromVolume, Volume } = require("memfs");
 const Server = require("../lib/Server");
 const config = require("./fixtures/simple-config/webpack.config");
 
@@ -555,9 +555,9 @@ const tests = {
   },
 };
 
-describe("options", () => {
-  jest.setTimeout(20000);
+jest.setTimeout(20000);
 
+describe("options", () => {
   let consoleMock;
 
   beforeAll(() => {
@@ -585,9 +585,9 @@ describe("options", () => {
 
           if (typeof replacedValue === "string") {
             replacedValue = replacedValue
-              .replace(/\\/g, "/")
-              .replace(
-                new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+              .replaceAll("\\", "/")
+              .replaceAll(
+                new RegExp(process.cwd().replaceAll("\\", "/"), "g"),
                 "<cwd>",
               );
           }
@@ -618,7 +618,7 @@ describe("options", () => {
         if (type === "success") {
           expect(thrownError).toBeUndefined();
         } else {
-          expect(thrownError).not.toBeUndefined();
+          expect(thrownError).toBeDefined();
           expect(thrownError.toString()).toMatchSnapshot();
         }
       });
