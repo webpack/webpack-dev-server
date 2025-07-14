@@ -63,8 +63,6 @@ describe("entry", () => {
         "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -102,8 +100,6 @@ describe("entry", () => {
         "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -146,8 +142,6 @@ describe("entry", () => {
         "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -185,8 +179,6 @@ describe("entry", () => {
         "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -196,7 +188,10 @@ describe("entry", () => {
   it("should work with dynamic async entry", async () => {
     const compiler = webpack({
       ...config,
-      entry: () => new Promise((resolve) => resolve([entryFirst])),
+      entry: () =>
+        new Promise((resolve) => {
+          resolve([entryFirst]);
+        }),
     });
     const devServerOptions = {
       port,
@@ -227,8 +222,6 @@ describe("entry", () => {
         "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -278,8 +271,6 @@ describe("entry", () => {
 
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -329,8 +320,6 @@ describe("entry", () => {
 
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -378,8 +367,6 @@ describe("entry", () => {
 
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -425,8 +412,6 @@ describe("entry", () => {
         "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();

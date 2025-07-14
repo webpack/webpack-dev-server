@@ -100,8 +100,6 @@ describe("API", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
@@ -140,8 +138,6 @@ describe("API", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await new Promise((resolve) => {
@@ -213,8 +209,6 @@ describe("API", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
@@ -249,8 +243,6 @@ describe("API", () => {
           firstConsoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(firstPageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await server.stop();
       }
@@ -279,8 +271,6 @@ describe("API", () => {
           secondConsoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(secondPageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
@@ -391,7 +381,7 @@ describe("API", () => {
       const basePort = process.env.WEBPACK_DEV_SERVER_TEST_BASE_PORT || 30000;
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = basePort;
 
-      return (Array.isArray(n) ? n : [...new Array(n)]).reduce(
+      return (Array.isArray(n) ? n : Array.from({ length: n })).reduce(
         (p, _, i) =>
           p.then(
             () =>
@@ -488,7 +478,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -564,7 +554,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -640,7 +630,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -717,7 +707,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -796,7 +786,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -816,7 +806,7 @@ describe("API", () => {
           const retryKey = `retry_${expect.getState().currentTestName}`;
 
           // Get current retry count or initialize to 0
-          global[retryKey] = global[retryKey] || 0;
+          global[retryKey] ||= 0;
           global[retryKey] += 1;
 
           if (global[retryKey] < maxRetries) {
@@ -869,13 +859,17 @@ describe("API", () => {
       const compiler = webpack(config);
       const server = new Server(options, compiler);
 
+      let isValidHost = true;
+
       for (const test of tests) {
         const headers = { host: test };
 
         if (!server.isValidHost(headers, "host")) {
-          throw new Error("Validation didn't pass");
+          isValidHost = false;
         }
       }
+
+      expect(isValidHost).toBe(true);
     });
 
     it('should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object', async () => {
@@ -966,7 +960,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -986,7 +980,7 @@ describe("API", () => {
           const retryKey = `retry_${expect.getState().currentTestName}`;
 
           // Get current retry count or initialize to 0
-          global[retryKey] = global[retryKey] || 0;
+          global[retryKey] ||= 0;
           global[retryKey] += 1;
 
           if (global[retryKey] < maxRetries) {

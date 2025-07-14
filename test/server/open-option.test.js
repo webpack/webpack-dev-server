@@ -41,6 +41,7 @@ describe('"open" option', () => {
     open.mockClear();
   });
 
+  // eslint-disable-next-line jest/no-focused-tests
   it.only("should work with unspecified host", async () => {
     const server = new Server(
       {
@@ -881,7 +882,7 @@ describe('"open" option', () => {
     loggerWarnSpy.mockRestore();
   });
 
-  it("should log warning when can't open with object with the 'app' option with arguments", async () => {
+  it("should log warning when can't open with object with the 'app' option with arguments #2", async () => {
     open.mockRejectedValue(undefined);
 
     const loggerWarnSpy = jest.fn();

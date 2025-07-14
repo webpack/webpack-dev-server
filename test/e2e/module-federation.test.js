@@ -6,9 +6,9 @@ const Server = require("../../lib/Server");
 const simpleConfig = require("../fixtures/module-federation-config/webpack.config");
 const multiConfig = require("../fixtures/module-federation-config/webpack.multi.config");
 const objectEntryConfig = require("../fixtures/module-federation-config/webpack.object-entry.config");
+const pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["module-federation"];
-const pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
 
 describe("Module federation", () => {
   describe("should work with simple multi-entry config", () => {

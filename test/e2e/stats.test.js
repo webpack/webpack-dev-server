@@ -138,5 +138,5 @@ describe("stats", () => {
         await server.stop();
       }
     });
-  } 
+  }
 });

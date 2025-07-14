@@ -59,7 +59,7 @@ const isInstalled = (packageName) => {
   } while (dir !== (dir = path.dirname(dir)));
 
   // https://github.com/nodejs/node/blob/v18.9.1/lib/internal/modules/cjs/loader.js#L1274
-  // @ts-ignore
+  // @ts-expect-error
   for (const internalPath of require("node:module").globalPaths) {
     try {
       if (fs.statSync(path.join(internalPath, packageName)).isDirectory()) {
@@ -107,7 +107,7 @@ const runCli = (cli) => {
  * @property {string} binName name of the executable file
  * @property {boolean} installed currently installed?
  * @property {string} url homepage
- * @property {Function} preprocess preprocessor
+ * @property {() => void} preprocess preprocessor
  */
 
 /** @type {CliOption} */
@@ -186,7 +186,7 @@ if (!cli.installed) {
       }')...`,
     );
 
-    runCommand(packageManager, installOptions.concat(cli.package))
+    runCommand(packageManager, [...installOptions, cli.package])
       .then(() => {
         runCli(cli);
       })

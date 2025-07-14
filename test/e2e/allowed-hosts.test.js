@@ -77,8 +77,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -152,8 +150,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -227,8 +223,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -303,8 +297,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -379,8 +371,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -456,8 +446,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -535,8 +523,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -614,8 +600,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -694,8 +678,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -774,8 +756,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -854,8 +834,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -934,8 +912,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1017,8 +993,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1097,8 +1071,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1177,8 +1149,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("(work) console messages");
         expect(pageErrors).toMatchSnapshot("(work) page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1257,8 +1227,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1340,8 +1308,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1420,8 +1386,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1504,8 +1468,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 
@@ -1584,8 +1546,6 @@ describe("allowed hosts", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("(work) console messages");
         expect(pageErrors).toMatchSnapshot("(work) page errors");
-      } catch (error) {
-        throw error;
       } finally {
         proxy.close();
 

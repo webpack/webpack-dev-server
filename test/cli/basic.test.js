@@ -13,7 +13,9 @@ describe("basic", () => {
     (isMacOS ? it.skip : it)("should generate correct cli flags", async () => {
       const { exitCode, stdout } = await testBin(["--help"]);
 
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(exitCode).toBe(0);
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(stripAnsi(stdout)).toMatchSnapshot();
     });
   });
@@ -87,7 +89,7 @@ describe("basic", () => {
         const bits = data.toString();
 
         if (/main.js/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.kill("SIGINT");
         }
@@ -110,7 +112,7 @@ describe("basic", () => {
 
       cp.stdout.on("data", () => {
         if (!killed) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.kill("SIGINT");
         }
@@ -144,7 +146,7 @@ describe("basic", () => {
         const bits = data.toString();
 
         if (/main.js/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.stdin.write("hello");
           cp.stdin.end("world");
@@ -180,7 +182,7 @@ describe("basic", () => {
 
       cp.stdout.on("data", () => {
         if (!killed) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.stdin.write("hello");
           cp.stdin.end("world");
@@ -322,6 +324,7 @@ describe("basic", () => {
       expect(stdout).toContain("client/index.js");
     });
 
+    // eslint-disable-next-line jest/no-disabled-tests
     it.skip("should use different random port when multiple instances are started on different processes", async () => {
       const cliPath = path.resolve(
         __dirname,
@@ -353,7 +356,7 @@ describe("basic", () => {
         }
 
         if (/Compiled successfully/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
           cp.kill("SIGINT");
         }
       });
@@ -368,7 +371,7 @@ describe("basic", () => {
         }
 
         if (/Compiled successfully/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
           cp2.kill("SIGINT");
         }
       });
@@ -376,7 +379,7 @@ describe("basic", () => {
       cp.on("exit", () => {
         runtime.cp.done = true;
         if (runtime.cp2.done) {
-          expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+          expect(runtime.cp.port).not.toBe(runtime.cp2.port);
         }
       });
 
@@ -384,7 +387,7 @@ describe("basic", () => {
         runtime.cp2.done = true;
 
         if (runtime.cp.done) {
-          expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+          expect(runtime.cp.port).not.toBe(runtime.cp2.port);
         }
       });
     });

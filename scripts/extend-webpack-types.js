@@ -4,7 +4,7 @@ const path = require("node:path");
 const fs = require("graceful-fs");
 
 /**
- *
+ * @returns {Promise<void>}
  */
 async function extendTypes() {
   const typesPath = path.resolve(__dirname, "../types/lib/Server.d.ts");
@@ -26,4 +26,10 @@ declare module "webpack" {
   await fs.promises.writeFile(typesPath, newContent);
 }
 
-extendTypes();
+// eslint-disable-next-line unicorn/prefer-top-level-await
+Promise.resolve().then(
+  () => extendTypes(),
+  (error) => {
+    throw error;
+  },
+);

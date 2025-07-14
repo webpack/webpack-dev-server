@@ -8,8 +8,6 @@ const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["web-socket-communication"];
 
-jest.setTimeout(60000);
-
 describe("web socket communication", () => {
   const webSocketServers = ["ws", "sockjs"];
 
@@ -174,6 +172,9 @@ describe("web socket communication", () => {
 
     server.webSocketServer.heartbeatInterval = 100;
 
+    let opened = false;
+    let received = false;
+
     await new Promise((resolve, reject) => {
       const ws = new WebSocket(`ws://localhost:${devServerOptions.port}/ws`, {
         headers: {
@@ -181,9 +182,6 @@ describe("web socket communication", () => {
           origin: `http://localhost:${devServerOptions.port}`,
         },
       });
-
-      let opened = false;
-      let received = false;
 
       ws.on("open", () => {
         opened = true;
@@ -211,6 +209,9 @@ describe("web socket communication", () => {
         resolve();
       });
     });
+
+    expect(opened).toBe(true);
+    expect(received).toBe(true);
 
     await server.stop();
   });

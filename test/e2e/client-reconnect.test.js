@@ -47,8 +47,6 @@ describe("client.reconnect option", () => {
 
       try {
         expect(response.status()).toMatchSnapshot("response status");
-      } catch (error) {
-        throw error;
       } finally {
         await server.stop();
       }
@@ -113,22 +111,19 @@ describe("client.reconnect option", () => {
 
       try {
         expect(response.status()).toMatchSnapshot("response status");
-      } catch (error) {
-        throw error;
       } finally {
         await server.stop();
       }
 
       // Can't wait to check for unlimited times so wait only for couple retries
-      await new Promise((resolve) =>
+      await new Promise((resolve) => {
         setTimeout(
           () => {
             resolve();
           },
-
           1000 * 2 ** 3,
-        ),
-      );
+        );
+      });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",
@@ -178,22 +173,19 @@ describe("client.reconnect option", () => {
 
       try {
         expect(response.status()).toMatchSnapshot("response status");
-      } catch (error) {
-        throw error;
       } finally {
         await server.stop();
       }
 
       // Can't wait to check for unlimited times so wait only for couple retries
-      await new Promise((resolve) =>
+      await new Promise((resolve) => {
         setTimeout(
           () => {
             resolve();
           },
-
           1000 * 2 ** 3,
-        ),
-      );
+        );
+      });
 
       expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
         "console messages",

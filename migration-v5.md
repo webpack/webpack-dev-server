@@ -90,20 +90,20 @@ This document serves as a migration guide for `webpack-dev-server@5.0.0`.
   module.exports = {
     // ...
     devServer: {
-      onAfterSetupMiddleware (devServer) {
+      onAfterSetupMiddleware(devServer) {
         if (!devServer) {
           throw new Error("webpack-dev-server is not defined");
         }
-  
+
         devServer.app.get("/some/after-path", (req, res) => {
           res.json({ custom: "response" });
         });
       },
-      onBeforeSetupMiddleware (devServer) {
+      onBeforeSetupMiddleware(devServer) {
         if (!devServer) {
           throw new Error("webpack-dev-server is not defined");
         }
-  
+
         devServer.app.get("/some/before-path", (req, res) => {
           res.json({ custom: "response" });
         });
@@ -234,11 +234,9 @@ module.exports = {
   const devServerOptions = { host: "127.0.0.1", port: 8080 };
   const devServer = new Server(devServerOptions, compiler);
 
-  (async () => {
-    await devServer.start();
+  await devServer.start();
 
-    console.log("Running");
-  })();
+  console.log("Running");
   ```
 
   ```js
@@ -273,15 +271,13 @@ module.exports = {
   const devServerOptions = { host: "127.0.0.1", port: 8080 };
   const devServer = new Server(devServerOptions, compiler);
 
-  (async () => {
-    await devServer.start();
+  await devServer.start();
 
-    console.log("Running");
+  console.log("Running");
 
-    await devServer.stop();
+  await devServer.stop();
 
-    console.log("Closed");
-  })();
+  console.log("Closed");
   ```
 
   ```js

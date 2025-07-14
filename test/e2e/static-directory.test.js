@@ -103,7 +103,8 @@ describe("static.directory option", () => {
     it("watches folder recursively", (done) => {
       // chokidar emitted a change,
       // meaning it watched the file correctly
-      server.staticWatchers[0].on("change", () => {
+      server.staticWatchers[0].on("change", (filepath) => {
+        expect(typeof filepath).toBe("string");
         done();
       });
 
@@ -120,7 +121,9 @@ describe("static.directory option", () => {
 
       // chokidar emitted a change,
       // meaning it watched the file correctly
-      server.staticWatchers[0].on("change", () => {
+      server.staticWatchers[0].on("change", (filepath) => {
+        expect(typeof filepath).toBe("string");
+
         fs.unlinkSync(filePath);
 
         done();
@@ -513,7 +516,10 @@ describe("static.directory option", () => {
           },
           port,
         },
-        done,
+        (error) => {
+          expect(error).toBeUndefined();
+          done(error);
+        },
       );
     });
 
@@ -527,7 +533,10 @@ describe("static.directory option", () => {
           },
           port,
         },
-        done,
+        (error) => {
+          expect(error).toBeUndefined();
+          done(error);
+        },
       );
     });
 
@@ -541,7 +550,10 @@ describe("static.directory option", () => {
           },
           port,
         },
-        done,
+        (error) => {
+          expect(error).toBeUndefined();
+          done(error);
+        },
       );
     });
 

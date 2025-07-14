@@ -3,17 +3,24 @@
 const puppeteer = require("puppeteer");
 const { puppeteerArgs } = require("./puppeteer-constants");
 
+/** @typedef {import('puppeteer').Browser} Browser */
+/** @typedef {import('puppeteer').Page} Page */
+/** @typedef {import('puppeteer').Device} Device */
+
 /**
  * @typedef {object} RunBrowserResult
- * @property {import('puppeteer').Page} page
- * @property {import('puppeteer').Browser} browser
+ * @property {Page} page page
+ * @property {Browser} browser browser
  */
 
-
-
-function runPage(browser, config) {
+/**
+ * @param {Browser} browser browser
+ * @param {Device} device config
+ * @returns {Promise<Page>} page
+ */
+function runPage(browser, device) {
   /**
-   * @type {import('puppeteer').Page}
+   * @type {Page}
    */
   let page;
 
@@ -23,7 +30,7 @@ function runPage(browser, config) {
       height: 500,
     },
     userAgent: "",
-    ...config,
+    ...device,
   };
 
   return Promise.resolve()
@@ -56,10 +63,10 @@ function runPage(browser, config) {
 }
 
 /**
- * @param {Parameters<import('puppeteer').Page['emulate']>[0]} config
+ * @param {Device} device device
  * @returns {Promise<RunBrowserResult>}
  */
-function runBrowser(config) {
+function runBrowser(device) {
   return new Promise((resolve, reject) => {
     /**
      * @type {import('puppeteer').Page}
@@ -81,7 +88,7 @@ function runBrowser(config) {
       .then((launchedBrowser) => {
         browser = launchedBrowser;
 
-        return runPage(launchedBrowser, config);
+        return runPage(launchedBrowser, device);
       })
       .then((newPage) => {
         page = newPage;

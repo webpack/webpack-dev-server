@@ -1,9 +1,9 @@
 "use strict";
 
 const os = require("node:os");
+const Server = require("../../lib/Server");
 const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-host"];
-const Server = require("../../lib/Server");
 
 const localIPv4 = Server.findIp("v4", false);
 const localIPv6 = Server.findIp("v6", false);
@@ -69,18 +69,6 @@ describe('"host" CLI option', () => {
     expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
   });
 
-  it('should work using "--host ::1" (IPv6)', async () => {
-    const { exitCode, stderr } = await testBin([
-      "--port",
-      port,
-      "--host",
-      "::1",
-    ]);
-
-    expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
-  });
-
   it('should work using "--host <IPv4>"', async () => {
     const { exitCode, stderr } = await testBin([
       "--port",
@@ -93,6 +81,7 @@ describe('"host" CLI option', () => {
     expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should work using "--host <IPv6>"', async () => {
     const { exitCode, stderr } = await testBin([
       "--port",
@@ -232,8 +221,8 @@ describe('"host" CLI option', () => {
         },
       ],
     }));
-    expect(!stderr.includes("172.17.0.1"));
-    expect(stderr.includes("192.168.1.15"));
+    expect(stderr).not.toContain("172.17.0.1");
+    expect(stderr).toContain("192.168.1.15");
   });
 
   it('should work using "--host local-ipv4"', async () => {

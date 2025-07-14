@@ -40,8 +40,11 @@ describe("SockJSClient", () => {
     });
   });
 
-  afterAll(() => {
+  afterAll((done) => {
     consoleMock.mockRestore();
+    server.close(() => {
+      done();
+    });
   });
 
   describe("client", () => {
@@ -79,12 +82,6 @@ describe("SockJSClient", () => {
 
         done();
       }, 3000);
-    });
-  });
-
-  afterAll((done) => {
-    server.close(() => {
-      done();
     });
   });
 });

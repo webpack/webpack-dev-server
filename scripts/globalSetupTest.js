@@ -8,7 +8,7 @@ const ports = require("../test/ports-map");
 console.log(`\n Running tests for webpack @${version} \n`);
 
 /**
- *
+ * @returns {Promise<void>}
  */
 async function validatePorts() {
   const samples = [];
@@ -33,6 +33,7 @@ async function validatePorts() {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
+    // eslint-disable-next-line n/no-process-exit
     process.exit(1);
   }
 }

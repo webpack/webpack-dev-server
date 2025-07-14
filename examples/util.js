@@ -1,7 +1,5 @@
 "use strict";
 
-/* eslint-disable import/no-extraneous-dependencies */
-
 const path = require("node:path");
 const fs = require("graceful-fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");

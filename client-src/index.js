@@ -44,7 +44,6 @@ const decodeOverlayOptions = (overlayOptions) => {
           overlayOptions[property],
         );
 
-        // eslint-disable-next-line no-new-func
         overlayOptions[property] = new Function(
           "message",
           `var callback = ${overlayFilterFunctionString}
@@ -60,7 +59,6 @@ const decodeOverlayOptions = (overlayOptions) => {
  */
 const status = {
   isUnloading: false,
-  // eslint-disable-next-line camelcase
   currentHash: __webpack_hash__,
 };
 

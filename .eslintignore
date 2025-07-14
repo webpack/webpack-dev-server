@@ -1,8 +1,0 @@
-/client
-/dist
-!/test/client
-coverage
-node_modules
-examples/**/main.js
-examples/client/trusted-types-overlay/app.js
-test/fixtures/reload-config/foo.js

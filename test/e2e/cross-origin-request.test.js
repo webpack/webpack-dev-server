@@ -55,8 +55,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(403);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -111,8 +109,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(200);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -164,8 +160,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(200);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -217,8 +211,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(200);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();

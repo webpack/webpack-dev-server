@@ -555,8 +555,6 @@ const tests = {
   },
 };
 
-jest.setTimeout(20000);
-
 describe("options", () => {
   let consoleMock;
 

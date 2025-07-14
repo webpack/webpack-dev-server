@@ -4,7 +4,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 /**
- *
+ * @returns {Promise<void>}
  */
 async function setup() {
   const serverCodePath = path.resolve(__dirname, "../lib/Server.js");
@@ -20,6 +20,7 @@ async function setup() {
 
 Promise.resolve()
   .then(() => setup())
+  // eslint-disable-next-line unicorn/prefer-top-level-await
   .then(
     () => {
       // eslint-disable-next-line no-console

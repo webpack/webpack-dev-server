@@ -332,6 +332,7 @@ describe("hot and live reload", () => {
         ? mode.options.webSocketServer
         : "default";
 
+    // eslint-disable-next-line no-loop-func
     it(`${mode.title} (${webSocketServerTitle})`, async () => {
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
@@ -367,9 +368,8 @@ describe("hot and live reload", () => {
           let received = false;
           let errored = false;
 
-          ws.on("error", (error) => {
-            errored =
-              !webSocketServerLaunched && /404/.test(error) ? true : true;
+          ws.on("error", (_error) => {
+            errored = true;
 
             ws.close();
           });

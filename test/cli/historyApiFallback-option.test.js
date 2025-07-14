@@ -4,7 +4,7 @@ const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-history-api-fallback"];
 
 describe('"historyApiFallback" CLI option', () => {
-  it.only('should work using "--history-api-fallback"', async () => {
+  it('should work using "--history-api-fallback"', async () => {
     const { exitCode, stderr } = await testBin(
       ["--port", port, "--history-api-fallback"],
       {

@@ -227,6 +227,7 @@ describe("web socket server URL", () => {
       const ipc = path.join(pipePrefix, pipeName);
 
       const ipcServer = await new Promise((resolve, reject) => {
+        // eslint-disable-next-line new-cap
         const server = net.Server();
 
         server.on("error", (error) => {

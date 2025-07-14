@@ -37,7 +37,6 @@ const replaceUsingRegExp = (macroText, macroRegExp, macroReplacer) => {
       const replaceInput = replaceMatch[0];
       replaceResult += macroReplacer(replaceInput);
       replaceLastIndex = replaceMatch.index + replaceInput.length;
-      // eslint-disable-next-line no-cond-assign
     } while ((replaceMatch = macroRegExp.exec(macroText)));
 
     if (replaceLastIndex !== macroText.length) {
@@ -393,7 +392,6 @@ const formatProblem = (type, item) => {
     body += item;
   } else {
     const file = item.file || "";
-    // eslint-disable-next-line no-nested-ternary
     const moduleName = item.moduleName
       ? item.moduleName.indexOf("!") !== -1
         ? `${item.moduleName.replace(/^(\s|\S)*!/, "")} (${item.moduleName})`
@@ -503,7 +501,6 @@ const createOverlay = (options) => {
       closeButtonElement.innerText = "×";
       closeButtonElement.ariaLabel = "Dismiss";
       closeButtonElement.addEventListener("click", () => {
-        // eslint-disable-next-line no-use-before-define
         overlayService.send({ type: "DISMISS" });
       });
 
