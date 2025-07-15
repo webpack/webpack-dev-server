@@ -23,7 +23,7 @@ describe("socket", () => {
       example: mockHandler,
     });
 
-    const mockClientInstance = WebsocketClient.mock.instances[0];
+    const [mockClientInstance] = WebsocketClient.mock.instances;
 
     // this simulates receiving a message from the server and passing it
     // along to the callback of onMessage
@@ -56,8 +56,8 @@ describe("socket", () => {
       example: mockHandler,
     });
 
-    const mockClientInstance =
-      globalThis.__webpack_dev_server_client__.mock.instances[0];
+    const [mockClientInstance] =
+      globalThis.__webpack_dev_server_client__.mock.instances;
 
     // this simulates receiving a message from the server and passing it
     // along to the callback of onMessage

@@ -61,7 +61,7 @@ describe("index", () => {
     globalThis.location = { ...locationValue, reload: jest.fn() };
 
     require("../../client-src");
-    onSocketMessage = socket.mock.calls[0][1];
+    [[, onSocketMessage]] = socket.mock.calls;
   });
 
   afterEach(() => {
@@ -182,7 +182,7 @@ describe("index", () => {
       overlay.send.mockReset();
       socket.mockReset();
       require("../../client-src");
-      onSocketMessage = socket.mock.calls[0][1];
+      [[, onSocketMessage]] = socket.mock.calls;
 
       onSocketMessage.warnings(["warn1"]);
       expect(overlay.send).not.toHaveBeenCalled();
@@ -204,7 +204,7 @@ describe("index", () => {
       overlay.send.mockReset();
       socket.mockReset();
       require("../../client-src");
-      onSocketMessage = socket.mock.calls[0][1];
+      [[, onSocketMessage]] = socket.mock.calls;
 
       onSocketMessage.errors(["error1"]);
       expect(overlay.send).not.toHaveBeenCalled();
@@ -224,7 +224,7 @@ describe("index", () => {
       socket.mockReset();
       overlay.send.mockReset();
       require("../../client-src");
-      onSocketMessage = socket.mock.calls[0][1];
+      [[, onSocketMessage]] = socket.mock.calls;
 
       onSocketMessage.warnings(["warn2"]);
       expect(overlay.send).toHaveBeenCalledTimes(1);

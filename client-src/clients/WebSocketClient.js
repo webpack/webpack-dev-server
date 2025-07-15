@@ -1,8 +1,10 @@
 import { log } from "../utils/log.js";
 
+/** @typedef {import("../index").EXPECTED_ANY} EXPECTED_ANY */
+
 export default class WebSocketClient {
   /**
-   * @param {string} url
+   * @param {string} url url to connect
    */
   constructor(url) {
     this.client = new WebSocket(url);
@@ -12,26 +14,26 @@ export default class WebSocketClient {
   }
 
   /**
-   * @param {(...args: any[]) => void} f
+   * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
-  onOpen(f) {
-    this.client.onopen = f;
+  onOpen(fn) {
+    this.client.onopen = fn;
   }
 
   /**
-   * @param {(...args: any[]) => void} f
+   * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
-  onClose(f) {
-    this.client.onclose = f;
+  onClose(fn) {
+    this.client.onclose = fn;
   }
 
   // call f with the message string as the first argument
   /**
-   * @param {(...args: any[]) => void} f
+   * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
-  onMessage(f) {
-    this.client.onmessage = (e) => {
-      f(e.data);
+  onMessage(fn) {
+    this.client.onmessage = (err) => {
+      fn(err.data);
     };
   }
 }

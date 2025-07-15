@@ -1,3 +1,7 @@
+/**
+ * @returns {SyncBailHook} mocked sync bail hook
+ * @constructor
+ */
 function SyncBailHook() {
   return {
     call() {},

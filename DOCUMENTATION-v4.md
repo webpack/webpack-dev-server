@@ -1087,7 +1087,7 @@ internally within the server.
 module.exports = {
   // ...
   devServer: {
-    onAfterSetupMiddleware (devServer) {
+    onAfterSetupMiddleware(devServer) {
       if (!devServer) {
         throw new Error("webpack-dev-server is not defined");
       }
@@ -1118,7 +1118,7 @@ example:
 module.exports = {
   // ...
   devServer: {
-    onBeforeSetupMiddleware (devServer) {
+    onBeforeSetupMiddleware(devServer) {
       if (!devServer) {
         throw new Error("webpack-dev-server is not defined");
       }
@@ -1147,12 +1147,12 @@ Provides the ability to execute a custom function when webpack-dev-server starts
 module.exports = {
   // ...
   devServer: {
-    onListening (devServer) {
+    onListening(devServer) {
       if (!devServer) {
         throw new Error("webpack-dev-server is not defined");
       }
 
-      const {port} = devServer.server.address();
+      const { port } = devServer.server.address();
       console.log("Listening on port:", port);
     },
   },
@@ -1394,7 +1394,7 @@ module.exports = {
     proxy: {
       "/api": {
         target: "http://localhost:3000",
-        bypass (req, res, proxyOptions) {
+        bypass(req, res, proxyOptions) {
           if (req.headers.accept.includes("html")) {
             console.log("Skipping proxy for browser request.");
             return "/index.html";

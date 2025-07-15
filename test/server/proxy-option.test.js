@@ -79,9 +79,9 @@ let maxServerListeners = 0;
 const proxyOptionOfArray = [
   { context: "/proxy1", target: `http://localhost:${port1}` },
   function proxy(req, res, next) {
-    if (req !== null) {
-      const socket = req.socket !== null ? req.socket : req.connection;
-      const server = socket !== null ? socket.server : null;
+    if (req) {
+      const socket = req.socket || req.connection;
+      const server = socket ? socket.server : null;
       if (server) {
         maxServerListeners = Math.max(
           maxServerListeners,

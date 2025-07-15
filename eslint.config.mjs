@@ -3,35 +3,23 @@ import config from "eslint-config-webpack";
 import configs from "eslint-config-webpack/configs.js";
 
 export default defineConfig([
-  globalIgnores([
-    "client/**/*",
-    "client-src/**/*",
-    "examples/**/*",
-    "examples/client/trusted-types-overlay/app.js",
-  ]),
+  globalIgnores(["client/**/*", "examples/**/*"]),
   {
     extends: [config],
+    ignores: ["client-src/**/*", "!client-src/webpack.config.js"],
     rules: {
       // TODO fix me
       "prefer-destructuring": "off",
-
       "jsdoc/require-property-description": "off",
     },
   },
   {
+    files: ["client-src/**/*"],
+    ignores: ["client-src/webpack.config.js"],
+    extends: [configs["browser-outdated-recommended"]],
+  },
+  {
     files: ["test/**/*"],
-    extends: [configs["browser/recommended"]],
-    rules: {
-      // TODO improve me in the default eslint configuration
-      "import/extensions": "off",
-      "jsdoc/check-tag-names": "off",
-
-      "jsdoc/require-jsdoc": "off",
-      "jsdoc/require-returns": "off",
-      "jsdoc/require-param-description": "off",
-      "jsdoc/require-param-type": "off",
-      "jsdoc/require-property-description": "off",
-      "jsdoc/require-returns-description": "off",
-    },
+    extends: [configs["universal-recommended"]],
   },
 ]);

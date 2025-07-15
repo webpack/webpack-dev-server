@@ -229,7 +229,7 @@ If you use TypeScript in the webpack config, you'll need to properly type `devSe
 
 ```ts
 /// <reference path="node_modules/webpack-dev-server/types/lib/Server.d.ts"/>
-import  { type Configuration } from "webpack";
+import { type Configuration } from "webpack";
 
 // Your logic
 ```
@@ -237,8 +237,8 @@ import  { type Configuration } from "webpack";
 Or you can import the type from `webpack-dev-server`, i.e.
 
 ```ts
-import  { type Configuration } from "webpack";
-import  { type Configuration as DevServerConfiguration } from "webpack-dev-server";
+import { type Configuration } from "webpack";
+import { type Configuration as DevServerConfiguration } from "webpack-dev-server";
 
 const devServer: DevServerConfiguration = {};
 const config: Configuration = { devServer };

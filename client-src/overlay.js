@@ -3,6 +3,8 @@
 
 import ansiHTML from "ansi-html-community";
 
+/** @typedef {import("./index").EXPECTED_ANY} EXPECTED_ANY */
+
 /**
  * @type {(input: string, position: number) => string}
  */
@@ -15,10 +17,10 @@ const getCodePoint = String.prototype.codePointAt
       0x10000;
 
 /**
- * @param {string} macroText
- * @param {RegExp} macroRegExp
- * @param {(input: string) => string} macroReplacer
- * @returns {string}
+ * @param {string} macroText macro text
+ * @param {RegExp} macroRegExp macro reg exp
+ * @param {(input: string) => string} macroReplacer macro replacer
+ * @returns {string} result
  */
 const replaceUsingRegExp = (macroText, macroRegExp, macroReplacer) => {
   macroRegExp.lastIndex = 0;
@@ -29,10 +31,7 @@ const replaceUsingRegExp = (macroText, macroRegExp, macroReplacer) => {
     let replaceLastIndex = 0;
     do {
       if (replaceLastIndex !== replaceMatch.index) {
-        replaceResult += macroText.substring(
-          replaceLastIndex,
-          replaceMatch.index,
-        );
+        replaceResult += macroText.slice(replaceLastIndex, replaceMatch.index);
       }
       const replaceInput = replaceMatch[0];
       replaceResult += macroReplacer(replaceInput);
@@ -40,7 +39,7 @@ const replaceUsingRegExp = (macroText, macroRegExp, macroReplacer) => {
     } while ((replaceMatch = macroRegExp.exec(macroText)));
 
     if (replaceLastIndex !== macroText.length) {
-      replaceResult += macroText.substring(replaceLastIndex);
+      replaceResult += macroText.slice(replaceLastIndex);
     }
   } else {
     replaceResult = macroText;
@@ -58,7 +57,7 @@ const references = {
 
 /**
  * @param {string} text text
- * @returns {string}
+ * @returns {string} encoded text
  */
 function encode(text) {
   if (!text) {
@@ -77,36 +76,43 @@ function encode(text) {
 }
 
 /**
- * @typedef {Object} StateDefinitions
- * @property {{[event: string]: { target: string; actions?: Array<string> }}} [on]
+ * @typedef {object} StateDefinitions
+ * @property {{ [event: string]: { target: string; actions?: Array<string> } }=} on event
+ */
+
+/** @typedef {Record<string, EXPECTED_ANY>} Context */
+
+/** @typedef {{ type: string } & Record<string, EXPECTED_ANY>} Event */
+
+/**
+ * @typedef {object} Options
+ * @property {{ [state: string]: StateDefinitions }} states states
+ * @property {Context} context context
+ * @property {string} initial initial
  */
 
 /**
- * @typedef {Object} Options
- * @property {{[state: string]: StateDefinitions}} states
- * @property {object} context;
- * @property {string} initial
+ * @typedef {object} Implementation
+ * @property {{ [actionName: string]: (ctx: Context, event: Event) => EXPECTED_ANY }} actions actions
  */
 
 /**
- * @typedef {Object} Implementation
- * @property {{[actionName: string]: (ctx: object, event: any) => object}} actions
+ * @typedef {{ send: (event: Event) => void }} StateMachine
  */
 
 /**
  * A simplified `createMachine` from `@xstate/fsm` with the following differences:
- *
- *  - the returned machine is technically a "service". No `interpret(machine).start()` is needed.
- *  - the state definition only support `on` and target must be declared with { target: 'nextState', actions: [] } explicitly.
- *  - event passed to `send` must be an object with `type` property.
- *  - actions implementation will be [assign action](https://xstate.js.org/docs/guides/context.html#assign-action) if you return any value.
- *  Do not return anything if you just want to invoke side effect.
+ * - the returned machine is technically a "service". No `interpret(machine).start()` is needed.
+ * - the state definition only support `on` and target must be declared with { target: 'nextState', actions: [] } explicitly.
+ * - event passed to `send` must be an object with `type` property.
+ * - actions implementation will be [assign action](https://xstate.js.org/docs/guides/context.html#assign-action) if you return any value.
+ * Do not return anything if you just want to invoke side effect.
  *
  * The goal of this custom function is to avoid installing the entire `'xstate/fsm'` package, while enabling modeling using
  * state machine. You can copy the first parameter into the editor at https://stately.ai/viz to visualize the state machine.
- *
- * @param {Options} options
- * @param {Implementation} implementation
+ * @param {Options} options options
+ * @param {Implementation} implementation implementation
+ * @returns {StateMachine} state machine
  */
 function createMachine({ states, context, initial }, { actions }) {
   let currentState = initial;
@@ -140,20 +146,21 @@ function createMachine({ states, context, initial }, { actions }) {
 }
 
 /**
- * @typedef {Object} ShowOverlayData
- * @property {'warning' | 'error'} level
- * @property {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages
- * @property {'build' | 'runtime'} messageSource
+ * @typedef {object} ShowOverlayData
+ * @property {'warning' | 'error'} level level
+ * @property {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages messages
+ * @property {'build' | 'runtime'} messageSource message source
  */
 
 /**
- * @typedef {Object} CreateOverlayMachineOptions
- * @property {(data: ShowOverlayData) => void} showOverlay
- * @property {() => void} hideOverlay
+ * @typedef {object} CreateOverlayMachineOptions
+ * @property {(data: ShowOverlayData) => void} showOverlay show overlay
+ * @property {() => void} hideOverlay hide overlay
  */
 
 /**
- * @param {CreateOverlayMachineOptions} options
+ * @param {CreateOverlayMachineOptions} options options
+ * @returns {StateMachine} state machine
  */
 const createOverlayMachine = (options) => {
   const { hideOverlay, showOverlay } = options;
@@ -240,12 +247,12 @@ const createOverlayMachine = (options) => {
 };
 
 /**
- *
- * @param {Error} error
+ * @param {Error} error error
+ * @returns {string[]} stack
  */
 const parseErrorToStacks = (error) => {
   if (!error || !(error instanceof Error)) {
-    throw new Error(`parseErrorToStacks expects Error object`);
+    throw new Error("parseErrorToStacks expects Error object");
   }
   if (typeof error.stack === "string") {
     return error.stack
@@ -261,7 +268,8 @@ const parseErrorToStacks = (error) => {
  */
 
 /**
- * @param {ErrorCallback} callback
+ * @param {ErrorCallback} callback callback
+ * @returns {() => void} cleanup
  */
 const listenToRuntimeError = (callback) => {
   window.addEventListener("error", callback);
@@ -278,7 +286,8 @@ const listenToRuntimeError = (callback) => {
  */
 
 /**
- * @param {UnhandledRejectionCallback} callback
+ * @param {UnhandledRejectionCallback} callback callback
+ * @returns {() => void} cleanup
  */
 const listenToUnhandledRejection = (callback) => {
   window.addEventListener("unhandledrejection", callback);
@@ -380,9 +389,9 @@ const colors = {
 ansiHTML.setColors(colors);
 
 /**
- * @param {string} type
- * @param {string  | { file?: string, moduleName?: string, loc?: string, message?: string; stack?: string[] }} item
- * @returns {{ header: string, body: string }}
+ * @param {string} type type
+ * @param {string  | { file?: string, moduleName?: string, loc?: string, message?: string; stack?: string[] }} item item
+ * @returns {{ header: string, body: string }} formatted problem
  */
 const formatProblem = (type, item) => {
   let header = type === "warning" ? "WARNING" : "ERROR";
@@ -421,14 +430,14 @@ const formatProblem = (type, item) => {
 };
 
 /**
- * @typedef {Object} CreateOverlayOptions
- * @property {string | null} trustedTypesPolicyName
- * @property {boolean | (error: Error) => void} [catchRuntimeError]
+ * @typedef {object} CreateOverlayOptions
+ * @property {string | null} trustedTypesPolicyName trusted types policy name
+ * @property {(boolean | (error: Error) => void)=} catchRuntimeError runtime error catcher
  */
 
 /**
- *
- * @param {CreateOverlayOptions} options
+ * @param {CreateOverlayOptions} options options
+ * @returns {StateMachine} overlay
  */
 const createOverlay = (options) => {
   /** @type {HTMLIFrameElement | null | undefined} */
@@ -443,9 +452,8 @@ const createOverlay = (options) => {
   let overlayTrustedTypesPolicy;
 
   /**
-   *
-   * @param {HTMLElement} element
-   * @param {CSSStyleDeclaration} style
+   * @param {HTMLElement} element element
+   * @param {CSSStyleDeclaration} style style
    */
   function applyStyle(element, style) {
     Object.keys(style).forEach((prop) => {
@@ -454,7 +462,7 @@ const createOverlay = (options) => {
   }
 
   /**
-   * @param {string | null} trustedTypesPolicyName
+   * @param {string | null} trustedTypesPolicyName trusted types police name
    */
   function createContainer(trustedTypesPolicyName) {
     // Enable Trusted Types if they are available in the current browser.
@@ -501,6 +509,7 @@ const createOverlay = (options) => {
       closeButtonElement.innerText = "×";
       closeButtonElement.ariaLabel = "Dismiss";
       closeButtonElement.addEventListener("click", () => {
+        // eslint-disable-next-line no-use-before-define
         overlayService.send({ type: "DISMISS" });
       });
 
@@ -527,8 +536,8 @@ const createOverlay = (options) => {
   }
 
   /**
-   * @param {(element: HTMLDivElement) => void} callback
-   * @param {string | null} trustedTypesPolicyName
+   * @param {(element: HTMLDivElement) => void} callback callback
+   * @param {string | null} trustedTypesPolicyName trusted types policy name
    */
   function ensureOverlayExists(callback, trustedTypesPolicyName) {
     if (containerElement) {
@@ -551,6 +560,9 @@ const createOverlay = (options) => {
   }
 
   // Successful compilation.
+  /**
+   * @returns {void}
+   */
   function hide() {
     if (!iframeContainerElement) {
       return;
@@ -565,10 +577,10 @@ const createOverlay = (options) => {
 
   // Compilation with errors (e.g. syntax error or missing modules).
   /**
-   * @param {string} type
-   * @param {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages
-   * @param {string | null} trustedTypesPolicyName
-   * @param {'build' | 'runtime'} messageSource
+   * @param {string} type type
+   * @param {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages messages
+   * @param {string | null} trustedTypesPolicyName trusted types policy name
+   * @param {'build' | 'runtime'} messageSource message source
    */
   function show(type, messages, trustedTypesPolicyName, messageSource) {
     ensureOverlayExists(() => {
@@ -629,8 +641,8 @@ const createOverlay = (options) => {
 
   if (options.catchRuntimeError) {
     /**
-     * @param {Error | undefined} error
-     * @param {string} fallbackMessage
+     * @param {Error | undefined} error error
+     * @param {string} fallbackMessage fallback message
      */
     const handleError = (error, fallbackMessage) => {
       const errorObject =
@@ -684,4 +696,4 @@ const createOverlay = (options) => {
   return overlayService;
 };
 
-export { formatProblem, createOverlay };
+export { createOverlay, formatProblem };

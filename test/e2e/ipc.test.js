@@ -98,7 +98,7 @@ describe("web socket server URL", () => {
           waitUntil: "networkidle0",
         });
 
-        const webSocketRequest = webSocketRequests[0];
+        const [webSocketRequest] = webSocketRequests;
 
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
@@ -200,7 +200,7 @@ describe("web socket server URL", () => {
           waitUntil: "networkidle0",
         });
 
-        const webSocketRequest = webSocketRequests[0];
+        const [webSocketRequest] = webSocketRequests;
 
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
@@ -320,7 +320,7 @@ describe("web socket server URL", () => {
           waitUntil: "networkidle0",
         });
 
-        const webSocketRequest = webSocketRequests[0];
+        const [webSocketRequest] = webSocketRequests;
 
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,

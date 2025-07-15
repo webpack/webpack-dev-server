@@ -352,7 +352,7 @@ describe("basic", () => {
           /Project is running at http:\/\/localhost:(\d*)\//.exec(bits);
 
         if (portMatch) {
-          runtime.cp.port = portMatch[1];
+          [, runtime.cp.port] = portMatch;
         }
 
         if (/Compiled successfully/.test(bits)) {
@@ -367,7 +367,7 @@ describe("basic", () => {
           /Project is running at http:\/\/localhost:(\d*)\//.exec(bits);
 
         if (portMatch) {
-          runtime.cp2.port = portMatch[1];
+          [, runtime.cp2.port] = portMatch;
         }
 
         if (/Compiled successfully/.test(bits)) {

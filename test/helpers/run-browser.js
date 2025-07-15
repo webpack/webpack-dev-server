@@ -64,7 +64,7 @@ function runPage(browser, device) {
 
 /**
  * @param {Device} device device
- * @returns {Promise<RunBrowserResult>}
+ * @returns {Promise<RunBrowserResult>} browser result
  */
 function runBrowser(device) {
   return new Promise((resolve, reject) => {

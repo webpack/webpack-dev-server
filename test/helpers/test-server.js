@@ -3,23 +3,34 @@
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 
+/** @typedef {import("webpack").Configuration} Configuration */
+/** @typedef {import("../../lib/Server").Configuration} DevServerConfiguration */
+/** @typedef {import("webpack").Compiler} Compiler */
+/** @typedef {import("webpack").MultiCompiler} MultiCompiler */
+
 let server;
 
 // start server, returning the full setup of the server
 // (both the server and the compiler)
 
-function startFullSetup(config, options, done) {
+/**
+ * @param {Configuration} config configuration
+ * @param {DevServerConfiguration} devServerConfig dev server configuration
+ * @param {(err?: Error) => void=} done done callback
+ * @returns {{ server: Server, compiler: Compiler | MultiCompiler }} server and compiler
+ */
+function startFullSetup(config, devServerConfig, done) {
   // disable watching by default for tests
-  if (typeof options.static === "undefined") {
-    options.static = false;
-  } else if (options.static === null) {
+  if (typeof devServerConfig.static === "undefined") {
+    devServerConfig.static = false;
+  } else if (devServerConfig.static === null) {
     // this provides a way of using the default static value
-    delete options.static;
+    delete devServerConfig.static;
   }
 
   const compiler = webpack(config);
 
-  server = new Server(options, compiler);
+  server = new Server(devServerConfig, compiler);
 
   server.startCallback((error) => {
     if (error && done) {
@@ -38,11 +49,12 @@ function startFullSetup(config, options, done) {
 }
 
 /**
- * @param config
- * @param options
- * @param done
+ * @param {Configuration} config configuration
+ * @param {DevServerConfiguration} devServerConfig dev server configuration
+ * @param {(err?: Error) => void=} done done callback
+ * @returns {{ server: Server, compiler: Compiler | MultiCompiler }} server and compiler
  */
-function startAwaitingCompilationFullSetup(config, options, done) {
+function start(config, devServerConfig, done) {
   let readyCount = 0;
 
   const ready = (error) => {
@@ -59,7 +71,7 @@ function startAwaitingCompilationFullSetup(config, options, done) {
     }
   };
 
-  const fullSetup = startFullSetup(config, options, ready);
+  const fullSetup = startFullSetup(config, devServerConfig, ready);
 
   // wait for compilation, since dev server can start before this
   // https://github.com/webpack/webpack-dev-server/issues/847
@@ -71,31 +83,7 @@ function startAwaitingCompilationFullSetup(config, options, done) {
 }
 
 /**
- * @param config
- * @param options
- * @param done
- */
-function startAwaitingCompilation(config, options, done) {
-  return startAwaitingCompilationFullSetup(config, options, done).server;
-}
-
-/**
- * @param config
- * @param options
- * @param done
- */
-function start(config, options, done) {
-  // I suspect that almost all tests need to wait for compilation to
-  // finish, because not doing so leaves open handles for jest,
-  // in the case where a compilation didn't finish before destroying
-  // the server and moving on. Thus, the default "start" should wait
-  // for compilation, and only special cases where you don't expect
-  // a compilation happen should use startBeforeCompilation
-  return startAwaitingCompilation(config, options, done);
-}
-
-/**
- * @param done
+ * @param {() => void} done done callback
  */
 function close(done) {
   if (server) {

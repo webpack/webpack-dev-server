@@ -1,7 +1,8 @@
 "use strict";
 
 /**
- * @param options
+ * @param {import("https").ServerOptions} options server options
+ * @returns {Record<string, string | string[] | boolean>} normalized server options
  */
 function normalizeOptions(options) {
   const normalizedOptions = {};
