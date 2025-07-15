@@ -52,7 +52,7 @@ function startFullSetup(config, devServerConfig, done) {
  * @param {Configuration} config configuration
  * @param {DevServerConfiguration} devServerConfig dev server configuration
  * @param {(err?: Error) => void=} done done callback
- * @returns {{ server: Server, compiler: Compiler | MultiCompiler }} server and compiler
+ * @returns {Server} server
  */
 function start(config, devServerConfig, done) {
   let readyCount = 0;
@@ -71,15 +71,15 @@ function start(config, devServerConfig, done) {
     }
   };
 
-  const fullSetup = startFullSetup(config, devServerConfig, ready);
+  const result = startFullSetup(config, devServerConfig, ready);
 
   // wait for compilation, since dev server can start before this
   // https://github.com/webpack/webpack-dev-server/issues/847
-  fullSetup.compiler.hooks.done.tap("done", () => {
+  result.compiler.hooks.done.tap("done", () => {
     ready();
   });
 
-  return fullSetup;
+  return result.server;
 }
 
 /**
