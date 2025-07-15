@@ -1,6 +1,6 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const webpack = require("webpack");
 
 const [webpackVersion] = webpack.version;

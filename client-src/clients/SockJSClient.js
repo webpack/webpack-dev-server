@@ -1,9 +1,11 @@
 import SockJS from "../modules/sockjs-client/index.js";
 import { log } from "../utils/log.js";
 
+/** @typedef {import("../index").EXPECTED_ANY} EXPECTED_ANY */
+
 export default class SockJSClient {
   /**
-   * @param {string} url
+   * @param {string} url url
    */
   constructor(url) {
     // SockJS requires `http` and `https` protocols
@@ -12,7 +14,7 @@ export default class SockJSClient {
     );
     this.sock.onerror =
       /**
-       * @param {Error} error
+       * @param {Error} error error
        */
       (error) => {
         log.error(error);
@@ -20,30 +22,30 @@ export default class SockJSClient {
   }
 
   /**
-   * @param {(...args: any[]) => void} f
+   * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
-  onOpen(f) {
-    this.sock.onopen = f;
+  onOpen(fn) {
+    this.sock.onopen = fn;
   }
 
   /**
-   * @param {(...args: any[]) => void} f
+   * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
-  onClose(f) {
-    this.sock.onclose = f;
+  onClose(fn) {
+    this.sock.onclose = fn;
   }
 
   // call f with the message string as the first argument
   /**
-   * @param {(...args: any[]) => void} f
+   * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
-  onMessage(f) {
+  onMessage(fn) {
     this.sock.onmessage =
       /**
-       * @param {Error & { data: string }} e
+       * @param {Error & { data: string }} err error
        */
-      (e) => {
-        f(e.data);
+      (err) => {
+        fn(err.data);
       };
   }
 }

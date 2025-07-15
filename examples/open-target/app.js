@@ -2,7 +2,7 @@
 
 const target = document.querySelector("#target");
 
-if (window.location.href.endsWith("example.html#page1")) {
+if (globalThis.location.href.endsWith("example.html#page1")) {
   target.classList.add("pass");
   target.innerHTML = "Success!";
 } else {

@@ -8,8 +8,8 @@ describe("'getCurrentScriptSource' function", () => {
   let getCurrentScriptSource;
 
   beforeEach(() => {
-    global.__webpack_hash__ = "mock-hash";
-    global.__resourceQuery = "?protocol=ws&hostname=0.0.0.0";
+    globalThis.__webpack_hash__ = "mock-hash";
+    globalThis.__resourceQuery = "?protocol=ws&hostname=0.0.0.0";
 
     getCurrentScriptSource =
       require("../../../client-src/index").getCurrentScriptSource;
@@ -17,7 +17,6 @@ describe("'getCurrentScriptSource' function", () => {
 
   afterEach(() => {
     Object.defineProperty(document, "currentScript", {
-      // eslint-disable-next-line no-undefined
       value: undefined,
       writable: true,
     });
@@ -27,7 +26,7 @@ describe("'getCurrentScriptSource' function", () => {
     });
   });
 
-  test("should fail when 'document.currentScript' doesn't exist and no 'script' tags", () => {
+  it("should fail when 'document.currentScript' doesn't exist and no 'script' tags", () => {
     try {
       getCurrentScriptSource();
     } catch (error) {
@@ -35,7 +34,7 @@ describe("'getCurrentScriptSource' function", () => {
     }
   });
 
-  test("should return src when 'document.currentScript' exists", () => {
+  it("should return src when 'document.currentScript' exists", () => {
     const elm = document.createElement("script");
 
     elm.setAttribute("src", "foo");
@@ -44,12 +43,11 @@ describe("'getCurrentScriptSource' function", () => {
       value: elm,
     });
 
-    expect(getCurrentScriptSource()).toEqual("foo");
+    expect(getCurrentScriptSource()).toBe("foo");
   });
 
-  test("should fail when 'document.scripts' doesn't exist and no scripts", () => {
+  it("should fail when 'document.scripts' doesn't exist and no scripts", () => {
     Object.defineProperty(document, "scripts", {
-      // eslint-disable-next-line no-undefined
       value: undefined,
       writable: true,
     });
@@ -61,7 +59,7 @@ describe("'getCurrentScriptSource' function", () => {
     }
   });
 
-  test("should return the 'src' attribute of the last 'script' tag", () => {
+  it("should return the 'src' attribute of the last 'script' tag", () => {
     const elements = ["foo", "bar"].map((src) => {
       const element = document.createElement("script");
 
@@ -74,10 +72,10 @@ describe("'getCurrentScriptSource' function", () => {
       value: elements,
     });
 
-    expect(getCurrentScriptSource()).toEqual("bar");
+    expect(getCurrentScriptSource()).toBe("bar");
   });
 
-  test("should fail when no scripts with the 'scr' attribute", () => {
+  it("should fail when no scripts with the 'scr' attribute", () => {
     const elements = ["foo", "bar"].map(() => document.createElement("script"));
 
     Object.defineProperty(document, "scripts", {

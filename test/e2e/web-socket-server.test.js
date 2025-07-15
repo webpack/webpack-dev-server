@@ -58,8 +58,6 @@ describe("web socket server", () => {
         "console messages",
       );
       expect(pageErrors).toMatchSnapshot("page errors");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();

@@ -36,7 +36,6 @@ const HTMLContentForTest = `
 `;
 
 module.exports = class HTMLGeneratorPlugin {
-  // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     const pluginName = "html-generator-plugin";
 

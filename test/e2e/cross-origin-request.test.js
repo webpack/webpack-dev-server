@@ -22,7 +22,8 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("http");
+    const http = require("node:http");
+
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(`
@@ -54,8 +55,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(403);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -77,7 +76,8 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("http");
+    const http = require("node:http");
+
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(`
@@ -109,8 +109,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(200);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -129,7 +127,8 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("http");
+    const http = require("node:http");
+
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(`
@@ -161,8 +160,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(200);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -181,7 +178,8 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("http");
+    const http = require("node:http");
+
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(`
@@ -213,8 +211,6 @@ describe("cross-origin requests", () => {
       const response = await scriptTagRequest;
 
       expect(response.status()).toBe(200);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();

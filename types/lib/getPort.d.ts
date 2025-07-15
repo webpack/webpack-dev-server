@@ -1,8 +1,8 @@
 export = getPorts;
 /**
- * @param {number} basePort
- * @param {string=} host
- * @return {Promise<number>}
+ * @param {number} basePort base port
+ * @param {string=} host host
+ * @returns {Promise<number>} resolved port
  */
 declare function getPorts(
   basePort: number,

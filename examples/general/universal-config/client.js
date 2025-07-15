@@ -2,7 +2,7 @@
 
 const target = document.querySelector("#target");
 
-if (!window.fetch) {
+if (!globalThis.fetch) {
   target.classList.add("fail");
   target.innerHTML = "fetch is not supported";
 } else {
@@ -18,8 +18,8 @@ if (!window.fetch) {
         target.innerHTML = "[client.js, server.js]: Success!";
       }
     })
-    .catch((e) => {
+    .catch((err) => {
       target.classList.add("fail");
-      target.innerHTML = e.message;
+      target.innerHTML = err.message;
     });
 }

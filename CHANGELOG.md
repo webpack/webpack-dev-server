@@ -575,9 +575,9 @@ module.exports = {
   module.exports = {
     entry: {
       entry: [
-        'whatwg-fetch', 
-        'core-js/features/promise', 
-        './entry.js'
+        "whatwg-fetch", 
+        "core-js/features/promise", 
+        "./entry.js"
       ],
     },
   };
@@ -589,13 +589,13 @@ module.exports = {
   module.exports = {
     entry: {
       entry: [
-        'whatwg-fetch', 
-        'core-js/features/promise', 
-        './entry.js'
+        "whatwg-fetch", 
+        "core-js/features/promise", 
+        "./entry.js"
       ],
     },
     devServer: {
-      transportMode: 'sockjs',
+      transportMode: "sockjs",
     },
   };
   ```
@@ -693,15 +693,15 @@ module.exports = {
     // static: false
     static: [
       // Simple example
-      path.resolve(__dirname, 'static'),
+      path.resolve(__dirname, "static"),
       // Complex example
       {
-        directory: path.resolve(__dirname, 'static'),
+        directory: path.resolve(__dirname, "static"),
         staticOptions: {},
         // Don't be confused with `dev.publicPath`, it is `publicPath` for static directory
         // Can be:
         // publicPath: ['/static-public-path-one/', '/static-public-path-two/'],
-        publicPath: '/static-public-path/',
+        publicPath: "/static-public-path/",
         // Can be:
         // serveIndex: {} (options for the `serveIndex` option you can find https://github.com/expressjs/serve-index)
         serveIndex: true,
@@ -721,7 +721,7 @@ module.exports = {
   // ...
   devServer: {
     dev: {
-      publicPath: '/publicPathForDevServe',
+      publicPath: "/publicPathForDevServe",
     },
   },
 };
@@ -751,7 +751,7 @@ module.exports = {
     // Only warnings and errors
     // level: 'none' disable logging
     // Please read https://webpack.js.org/configuration/other-options/#infrastructurelogginglevel
-    level: 'warn',
+    level: "warn",
   },
 };
 ```

@@ -14,12 +14,6 @@ exports[`"host" CLI option should work using "--host ::1" (IPv6): stderr 1`] = `
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"host" CLI option should work using "--host ::1" (IPv6): stderr 2`] = `
-"<i> [webpack-dev-server] Project is running at:
-<i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
-<i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
-`;
-
 exports[`"host" CLI option should work using "--host <IPv4>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/

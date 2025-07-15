@@ -42,7 +42,6 @@ const HTMLContentForTest = `
 `;
 
 module.exports = class HTMLGeneratorPlugin {
-  // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     const pluginName = "html-generator-plugin";
 
@@ -67,6 +66,7 @@ module.exports = class HTMLGeneratorPlugin {
 
             if (assetName !== "main.js") {
               const assetSource = new RawSource(
+                // eslint-disable-next-line new-cap
                 HTMLContentForAssets(assetName),
               );
               compilation.emitAsset(

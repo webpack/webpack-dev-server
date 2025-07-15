@@ -1,6 +1,6 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const chokidar = require("chokidar");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
@@ -240,7 +240,7 @@ describe("watchFiles option", () => {
     beforeEach(async () => {
       try {
         fs.unlinkSync(nonExistFile);
-      } catch (error) {
+      } catch {
         // ignore
       }
 
@@ -599,7 +599,7 @@ describe("watchFiles option", () => {
       },
     ];
 
-    optionCases.forEach((optionCase) => {
+    for (const optionCase of optionCases) {
       describe(JSON.stringify(optionCase), () => {
         let compiler;
         let server;
@@ -677,6 +677,6 @@ describe("watchFiles option", () => {
           });
         });
       });
-    });
+    }
   });
 });

@@ -1,11 +1,11 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const config = require("../fixtures/client-config/webpack.config");
+const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").logging;
 
@@ -188,8 +188,8 @@ describe("logging", () => {
     },
   ];
 
-  webSocketServers.forEach((webSocketServer) => {
-    cases.forEach((testCase) => {
+  for (const webSocketServer of webSocketServers) {
+    for (const testCase of cases) {
       it(`${testCase.title} (${
         webSocketServer.webSocketServer || "default"
       })`, async () => {
@@ -230,20 +230,18 @@ describe("logging", () => {
             consoleMessages.map((message) =>
               message
                 .text()
-                .replace(/\\/g, "/")
-                .replace(
-                  new RegExp(process.cwd().replace(/\\/g, "/"), "g"),
+                .replaceAll("\\", "/")
+                .replaceAll(
+                  new RegExp(process.cwd().replaceAll("\\", "/"), "g"),
                   "<cwd>",
                 ),
             ),
           ).toMatchSnapshot();
-        } catch (error) {
-          throw error;
         } finally {
           await browser.close();
           await server.stop();
         }
       });
-    });
-  });
+    }
+  }
 });

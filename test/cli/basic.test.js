@@ -1,9 +1,9 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const execa = require("execa");
 const stripAnsi = require("strip-ansi-v6");
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-basic"];
 
 const isMacOS = process.platform === "darwin";
@@ -13,7 +13,9 @@ describe("basic", () => {
     (isMacOS ? it.skip : it)("should generate correct cli flags", async () => {
       const { exitCode, stdout } = await testBin(["--help"]);
 
-      expect(exitCode).toEqual(0);
+      // eslint-disable-next-line jest/no-standalone-expect
+      expect(exitCode).toBe(0);
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(stripAnsi(stdout)).toMatchSnapshot();
     });
   });
@@ -26,7 +28,7 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
@@ -38,7 +40,7 @@ describe("basic", () => {
         "localhost",
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
     });
 
@@ -53,7 +55,7 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
@@ -68,7 +70,7 @@ describe("basic", () => {
         port,
       ]);
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
     });
 
@@ -87,7 +89,7 @@ describe("basic", () => {
         const bits = data.toString();
 
         if (/main.js/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.kill("SIGINT");
         }
@@ -110,7 +112,7 @@ describe("basic", () => {
 
       cp.stdout.on("data", () => {
         if (!killed) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.kill("SIGINT");
         }
@@ -144,7 +146,7 @@ describe("basic", () => {
         const bits = data.toString();
 
         if (/main.js/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.stdin.write("hello");
           cp.stdin.end("world");
@@ -180,7 +182,7 @@ describe("basic", () => {
 
       cp.stdout.on("data", () => {
         if (!killed) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
 
           cp.stdin.write("hello");
           cp.stdin.end("world");
@@ -207,7 +209,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
     });
 
@@ -226,7 +228,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
@@ -244,7 +246,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
     });
 
@@ -263,7 +265,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("foo.js");
     });
 
@@ -275,7 +277,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
@@ -288,7 +290,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).not.toContain("client/index.js?");
       expect(stdout).toContain("foo.js");
     });
@@ -301,7 +303,7 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("webpack/hot/dev-server");
     });
 
@@ -318,10 +320,11 @@ describe("basic", () => {
         },
       );
 
-      expect(exitCode).toEqual(0);
+      expect(exitCode).toBe(0);
       expect(stdout).toContain("client/index.js");
     });
 
+    // eslint-disable-next-line jest/no-disabled-tests
     it.skip("should use different random port when multiple instances are started on different processes", async () => {
       const cliPath = path.resolve(
         __dirname,
@@ -349,11 +352,11 @@ describe("basic", () => {
           /Project is running at http:\/\/localhost:(\d*)\//.exec(bits);
 
         if (portMatch) {
-          runtime.cp.port = portMatch[1];
+          [, runtime.cp.port] = portMatch;
         }
 
         if (/Compiled successfully/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
           cp.kill("SIGINT");
         }
       });
@@ -364,11 +367,11 @@ describe("basic", () => {
           /Project is running at http:\/\/localhost:(\d*)\//.exec(bits);
 
         if (portMatch) {
-          runtime.cp2.port = portMatch[1];
+          [, runtime.cp2.port] = portMatch;
         }
 
         if (/Compiled successfully/.test(bits)) {
-          expect(cp.pid !== 0).toBe(true);
+          expect(cp.pid).not.toBe(0);
           cp2.kill("SIGINT");
         }
       });
@@ -376,7 +379,7 @@ describe("basic", () => {
       cp.on("exit", () => {
         runtime.cp.done = true;
         if (runtime.cp2.done) {
-          expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+          expect(runtime.cp.port).not.toBe(runtime.cp2.port);
         }
       });
 
@@ -384,7 +387,7 @@ describe("basic", () => {
         runtime.cp2.done = true;
 
         if (runtime.cp.done) {
-          expect(runtime.cp.port !== runtime.cp2.port).toBe(true);
+          expect(runtime.cp.port).not.toBe(runtime.cp2.port);
         }
       });
     });

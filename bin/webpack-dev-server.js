@@ -10,7 +10,8 @@
  * @returns {Promise<void>} promise
  */
 const runCommand = (command, args) => {
-  const cp = require("child_process");
+  const cp = require("node:child_process");
+
   return new Promise((resolve, reject) => {
     const executedCommand = cp.spawn(command, args, {
       stdio: "inherit",
@@ -40,7 +41,7 @@ const isInstalled = (packageName) => {
     return true;
   }
 
-  const path = require("path");
+  const path = require("node:path");
   const fs = require("graceful-fs");
 
   let dir = __dirname;
@@ -52,20 +53,19 @@ const isInstalled = (packageName) => {
       ) {
         return true;
       }
-    } catch (_error) {
+    } catch {
       // Nothing
     }
-    // eslint-disable-next-line no-cond-assign
   } while (dir !== (dir = path.dirname(dir)));
 
   // https://github.com/nodejs/node/blob/v18.9.1/lib/internal/modules/cjs/loader.js#L1274
-  // @ts-ignore
-  for (const internalPath of require("module").globalPaths) {
+  // @ts-expect-error
+  for (const internalPath of require("node:module").globalPaths) {
     try {
       if (fs.statSync(path.join(internalPath, packageName)).isDirectory()) {
         return true;
       }
-    } catch (_error) {
+    } catch {
       // Nothing
     }
   }
@@ -81,9 +81,11 @@ const runCli = (cli) => {
   if (cli.preprocess) {
     cli.preprocess();
   }
-  const path = require("path");
+
+  const path = require("node:path");
+
   const pkgPath = require.resolve(`${cli.package}/package.json`);
-  // eslint-disable-next-line import/no-dynamic-require
+
   const pkg = require(pkgPath);
 
   if (pkg.type === "module" || /\.mjs/i.test(pkg.bin[cli.binName])) {
@@ -94,19 +96,18 @@ const runCli = (cli) => {
       },
     );
   } else {
-    // eslint-disable-next-line import/no-dynamic-require
     require(path.resolve(path.dirname(pkgPath), pkg.bin[cli.binName]));
   }
 };
 
 /**
- * @typedef {Object} CliOption
+ * @typedef {object} CliOption
  * @property {string} name display name
  * @property {string} package npm package name
  * @property {string} binName name of the executable file
  * @property {boolean} installed currently installed?
  * @property {string} url homepage
- * @property {function} preprocess preprocessor
+ * @property {() => void} preprocess preprocessor
  */
 
 /** @type {CliOption} */
@@ -122,9 +123,9 @@ const cli = {
 };
 
 if (!cli.installed) {
-  const path = require("path");
+  const path = require("node:path");
   const fs = require("graceful-fs");
-  const readLine = require("readline");
+  const readLine = require("node:readline");
 
   const notify = `CLI for webpack must be installed.\n  ${cli.name} (${cli.url})\n`;
 
@@ -151,7 +152,7 @@ if (!cli.installed) {
     )} ${cli.package}".`,
   );
 
-  const question = `Do you want to install 'webpack-cli' (yes/no): `;
+  const question = "Do you want to install 'webpack-cli' (yes/no): ";
 
   const questionInterface = readLine.createInterface({
     input: process.stdin,
@@ -185,7 +186,7 @@ if (!cli.installed) {
       }')...`,
     );
 
-    runCommand(packageManager, installOptions.concat(cli.package))
+    runCommand(packageManager, [...installOptions, cli.package])
       .then(() => {
         runCli(cli);
       })
