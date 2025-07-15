@@ -1,8 +1,8 @@
 "use strict";
 
 const path = require("node:path");
+const util = require("node:util");
 const execa = require("execa");
-const stripAnsi = require("strip-ansi-v6");
 const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-basic"];
 
@@ -16,7 +16,7 @@ describe("basic", () => {
       // eslint-disable-next-line jest/no-standalone-expect
       expect(exitCode).toBe(0);
       // eslint-disable-next-line jest/no-standalone-expect
-      expect(stripAnsi(stdout)).toMatchSnapshot();
+      expect(util.stripVTControlCharacters(stdout)).toMatchSnapshot();
     });
   });
 
