@@ -474,8 +474,7 @@ module.exports = {
 - Many CLI options were renamed in favor of the above change, please use `webpack serve --help` to get a list of them.
 - The `stdin` option was removed in favor of `--watch-options-stdin`.
 - `injectClient` and `injectHot` were removed in favor of manual setup entries.
-
-  - `injectClient: false` was replaced with `client: false`:
+- `injectClient: false` was replaced with `client: false`:
 
   v3:
 
@@ -684,7 +683,6 @@ There are a lot of other bug fixes.
 ### Notes
 
 - Compatibility with `IE11`/`IE10`/`IE9`:
-
   - For `IE11`/`IE10` you need polyfill `fetch()` and `Promise`, example:
 
   ```js
@@ -711,7 +709,6 @@ There are a lot of other bug fixes.
   IE8 is not supported, sorry
 
 - Change in **Node.js API**:
-
   - If you're using dev-server through the Node.js API, the options in devServer will be ignored. Pass the options as a first parameter instead:
 
   v3:
