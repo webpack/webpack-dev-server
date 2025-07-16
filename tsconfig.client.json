@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "lib": ["ES5", "DOM"],
+    "target": "es5",
+    "lib": ["es5", "dom", "webworker", "es2022.error"],
     "allowJs": true,
     "checkJs": true,
     "noEmit": true,
     "strict": true,
+    "skipDefaultLibCheck": true,
     "esModuleInterop": true
   },
-  "include": ["./client-src/globals.d.ts", "./client-src/**/*"],
+  "include": ["./client-src/**/*"],
   "exclude": ["./client-src/webpack.config.js"]
 }
